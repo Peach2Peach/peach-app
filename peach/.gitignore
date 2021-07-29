@@ -59,3 +59,6 @@ buck-out/
 /ios/Pods/
 
 .DS_Store
+
+
+/public/assets/
