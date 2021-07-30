@@ -13,6 +13,10 @@ if (typeof document !== 'undefined') {
   AppRegistry.runApplication(appName, {
     rootTag: document.getElementById('root')
   })
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+  }
 }
 
 export default () => {}

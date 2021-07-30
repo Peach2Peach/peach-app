@@ -5,6 +5,10 @@ module.exports = {
     'ecmaVersion': 12,
     'sourceType': 'module'
   },
+  'globals': {
+    'self': true,
+    'caches': true,
+  },
   'rules': {
     'accessor-pairs': 'error',
     'array-bracket-newline': 'error',
