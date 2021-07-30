@@ -1,0 +1,11 @@
+{
+  "font-sans": {
+    "fontFamily": "HelveticaNeue"
+  },
+  "font-sans-bold": {
+    "fontFamily": "HelveticaNeue Bold"
+  },
+  "font-sans-light": {
+    "fontFamily": "HelveticaNeue Light"
+  }
+}
