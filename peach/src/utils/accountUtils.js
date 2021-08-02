@@ -2,33 +2,49 @@ import { error, info } from './logUtils'
 import { isMobile, isWeb } from './systemUtils'
 import * as db from './dbUtils'
 import { download } from './webUtils'
+import CryptoJS, { AES } from 'react-native-crypto-js'
 
 const { RNFS, DocumentPicker, Share } = global
 
 /**
  * @description Method to create a new or existing account
  * @param {object} account account object
+ * @param {string} password secret
  */
-export const createAccount = async account => {
+export const createAccount = async (account, password) => {
+
   info('Create account')
   if (!account) {
-    account = JSON.stringify({ id: 'Peach of Cake' })
+    account = { id: 'Peach of Cake' }
     // TODO send message to server about account creation
   }
+
+  account = JSON.stringify(account)
+
+  console.log(password)
+  // Encrypt
+  const ciphertext = AES.encrypt(account, password).toString()
+
+  // Decrypt
+  const bytes = AES.decrypt(ciphertext, password)
+  const originalText = bytes.toString(CryptoJS.enc.Utf8)
+
+  console.log(account, ciphertext, originalText)
   if (isMobile()) {
     info('Writing file')
-    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', account, 'utf8')
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
     info('Success')
   } else if (isWeb()) {
-    await db.set('account', account)
+    await db.set('account', ciphertext)
   }
 }
 
 /**
  * @description Method to get account
+ * @param {string} password secret
  * @return {object} account
  */
-export const getAccount = async () => {
+export const getAccount = async password => {
   let account = null
 
   info('Get account')
@@ -42,7 +58,15 @@ export const getAccount = async () => {
   } else if (isWeb()) {
     account = await db.get('account')
   }
-  return JSON.parse(account)
+  const bytes = AES.decrypt(account, password)
+  account = bytes.toString(CryptoJS.enc.Utf8)
+
+  try {
+    return JSON.parse(account)
+  } catch (e) {
+    error('Incorrect password', e.message)
+    return null
+  }
 }
 
 
@@ -72,8 +96,11 @@ export const backupAccount = async () => {
 /**
  * @description Method to recover account
  * Prompts file select dialogue and imports account from file
+ * @param {string} password secret
  */
-export const recoverAccount = async () => {
+export const recoverAccount = async password => {
+  let account = null
+
   info('Recovering account')
 
   if (isMobile()) {
@@ -82,29 +109,33 @@ export const recoverAccount = async () => {
         // type: 'application/json' // TODO fixme
       })
       try {
-        const account = await RNFS.readFile(result.uri, 'utf8')
-        createAccount(account)
+        account = await RNFS.readFile(result.uri, 'utf8')
+        createAccount(JSON.parse(account), password)
       } catch (e) {
         error('File could not be read', e.message)
       }
     } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
+      if (!DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on
-      } else {
         throw err
       }
     }
   } else if (isWeb()) {
     const input = document.createElement('input')
     input.type = 'file'
-    input.onchange = e => {
+    input.onchange = event => {
       const reader = new window.FileReader()
-      const [file] = e.target.files
+      const [file] = event.target.files
       reader.readAsText(file, 'UTF-8')
 
       reader.onload = readerEvent => {
-        const content = readerEvent.target.result
-        info(content)
+        account = readerEvent.target.result
+
+        try {
+          createAccount(JSON.parse(account), password)
+        } catch (e) {
+          error('Incorrect password', e.message)
+        }
       }
     }
     input.click()
