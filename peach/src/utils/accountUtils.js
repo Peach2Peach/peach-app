@@ -12,6 +12,7 @@ const { RNFS, DocumentPicker, Share } = global
  * @param {string} password secret
  */
 export const createAccount = async (account, password) => {
+  let ciphertext = null
 
   info('Create account')
   if (!account) {
@@ -20,16 +21,8 @@ export const createAccount = async (account, password) => {
   }
 
   account = JSON.stringify(account)
+  ciphertext = AES.encrypt(account, password).toString()
 
-  console.log(password)
-  // Encrypt
-  const ciphertext = AES.encrypt(account, password).toString()
-
-  // Decrypt
-  const bytes = AES.decrypt(ciphertext, password)
-  const originalText = bytes.toString(CryptoJS.enc.Utf8)
-
-  console.log(account, ciphertext, originalText)
   if (isMobile()) {
     info('Writing file')
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
@@ -46,7 +39,7 @@ export const createAccount = async (account, password) => {
  */
 export const getAccount = async password => {
   let account = null
-
+  let bytes = null
   info('Get account')
 
   if (isMobile()) {
@@ -58,7 +51,8 @@ export const getAccount = async password => {
   } else if (isWeb()) {
     account = await db.get('account')
   }
-  const bytes = AES.decrypt(account, password)
+
+  bytes = AES.decrypt(account, password)
   account = bytes.toString(CryptoJS.enc.Utf8)
 
   try {
