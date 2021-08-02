@@ -1,11 +1,13 @@
 import React from 'react'
 import {
+  Button,
   SafeAreaView,
   Text,
   View
 } from 'react-native'
 import FadeInView from './components/animation/FadeInView'
 import tw from './styles/tailwind'
+import { backupAccount, createAccount, getAccount, recoverAccount } from './utils/accountUtils'
 
 const App = () => <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
   <View style={tw`flex-col justify-center h-full`}>
@@ -24,6 +26,18 @@ const App = () => <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
         meet <Text style={tw`text-orange`}>satoshi's</Text> world
       </Text>
     </FadeInView>
+    <View style={tw`mt-4`}>
+      <Button onPress={() => createAccount('')} title="Create account"/>
+    </View>
+    <View style={tw`mt-4`}>
+      <Button onPress={getAccount} title="Get account"/>
+    </View>
+    <View style={tw`mt-4`}>
+      <Button onPress={backupAccount} title="Backup account"/>
+    </View>
+    <View style={tw`mt-4`}>
+      <Button onPress={recoverAccount} title="Recover account"/>
+    </View>
   </View>
 </SafeAreaView>
 

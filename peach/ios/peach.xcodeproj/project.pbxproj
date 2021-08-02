@@ -12,11 +12,11 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		40009D2A5A35DC3C72532C6E /* libPods-peach.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD954848B14C5B14201D5990 /* libPods-peach.a */; };
-		72F6E312831A88954A4182A6 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		41B2B0B67EB5418F839FB22F /* HelveticaNeue Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9471CD08A68443CD8B8A9B92 /* HelveticaNeue Bold.ttf */; };
-		7F9F39B066724AF49994E060 /* HelveticaNeue Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6C66021F434124AF0E90B9 /* HelveticaNeue Light.ttf */; };
 		673A6012B5B7437197D04B23 /* HelveticaNeue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B2B49EC664A9DBB4D6C80 /* HelveticaNeue.ttf */; };
+		72F6E312831A88954A4182A6 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */; };
+		7F9F39B066724AF49994E060 /* HelveticaNeue Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6C66021F434124AF0E90B9 /* HelveticaNeue Light.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,17 +39,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = peach/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = peach/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = peach/main.m; sourceTree = "<group>"; };
+		4B1B2B49EC664A9DBB4D6C80 /* HelveticaNeue.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeue.ttf; path = ../assets/fonts/HelveticaNeue.ttf; sourceTree = "<group>"; };
 		5AAA790E5C044C2AD05ED413 /* Pods-peach.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.debug.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.debug.xcconfig"; sourceTree = "<group>"; };
+		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = peach/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.debug.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.debug.xcconfig"; sourceTree = "<group>"; };
 		92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peachTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9471CD08A68443CD8B8A9B92 /* HelveticaNeue Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue Bold.ttf"; path = "../assets/fonts/HelveticaNeue Bold.ttf"; sourceTree = "<group>"; };
+		95A7125260244CB9A6E45C88 /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFileSystem.xcodeproj; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; };
 		BD954848B14C5B14201D5990 /* libPods-peach.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71CF1A69DCFF4545075AB4D /* Pods-peach.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.release.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.release.xcconfig"; sourceTree = "<group>"; };
+		CD6C66021F434124AF0E90B9 /* HelveticaNeue Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeue Light.ttf"; path = "../assets/fonts/HelveticaNeue Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.release.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.release.xcconfig"; sourceTree = "<group>"; };
-		9471CD08A68443CD8B8A9B92 /* HelveticaNeue Bold.ttf */ = {isa = PBXFileReference; name = "HelveticaNeue Bold.ttf"; path = "../assets/fonts/HelveticaNeue Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CD6C66021F434124AF0E90B9 /* HelveticaNeue Light.ttf */ = {isa = PBXFileReference; name = "HelveticaNeue Light.ttf"; path = "../assets/fonts/HelveticaNeue Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4B1B2B49EC664A9DBB4D6C80 /* HelveticaNeue.ttf */ = {isa = PBXFileReference; name = "HelveticaNeue.ttf"; path = "../assets/fonts/HelveticaNeue.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		13B07FAE1A68108700A75B9A /* peach */ = {
 			isa = PBXGroup;
 			children = (
+				67094FCB26B447E200F2F356 /* peach.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -112,9 +115,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6099E5A24FA44EE9A47A52D0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9471CD08A68443CD8B8A9B92 /* HelveticaNeue Bold.ttf */,
+				CD6C66021F434124AF0E90B9 /* HelveticaNeue Light.ttf */,
+				4B1B2B49EC664A9DBB4D6C80 /* HelveticaNeue.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				95A7125260244CB9A6E45C88 /* RNFileSystem.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -152,20 +166,8 @@
 				8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */,
 				F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		6099E5A24FA44EE9A47A52D0 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				9471CD08A68443CD8B8A9B92 /* HelveticaNeue Bold.ttf */,
-				CD6C66021F434124AF0E90B9 /* HelveticaNeue Light.ttf */,
-				4B1B2B49EC664A9DBB4D6C80 /* HelveticaNeue.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -457,12 +459,20 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
+				);
 				INFOPLIST_FILE = peachTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -481,12 +491,20 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
+				);
 				INFOPLIST_FILE = peachTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -505,8 +523,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
+				);
 				INFOPLIST_FILE = peach/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -517,7 +540,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.peach2peach.ios;
 				PRODUCT_NAME = peach;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -531,7 +554,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
+				);
 				INFOPLIST_FILE = peach/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -542,7 +570,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.peach2peach.ios;
 				PRODUCT_NAME = peach;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

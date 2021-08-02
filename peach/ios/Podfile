@@ -12,6 +12,10 @@ target 'peach' do
     :hermes_enabled => false
   )
 
+  # pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+
+  # pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'peachTests' do
     inherit! :complete
     # Pods for testing

@@ -150,7 +150,7 @@ module.exports = {
     'no-new-wrappers': 'error',
     'no-nonoctal-decimal-escape': 'error',
     'no-octal-escape': 'error',
-    'no-param-reassign': 'error',
+    'no-param-reassign': 'off',
     'no-plusplus': 'error',
     'no-promise-executor-return': 'off',
     'no-proto': 'error',
