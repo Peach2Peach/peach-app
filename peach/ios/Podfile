@@ -16,6 +16,8 @@ target 'peach' do
 
   # pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
   target 'peachTests' do
     inherit! :complete
     # Pods for testing

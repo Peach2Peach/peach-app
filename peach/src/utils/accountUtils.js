@@ -11,10 +11,10 @@ const { RNFS, DocumentPicker, Share } = global
  * @param {object} account account object
  * @param {string} password secret
  */
-export const createAccount = async (account, password) => {
+export const createAccount = async (account, password = '') => {
   let ciphertext = null
 
-  info('Create account')
+  info('Create account', password)
   if (!account) {
     account = { id: 'Peach of Cake' }
     // TODO send message to server about account creation
@@ -37,9 +37,10 @@ export const createAccount = async (account, password) => {
  * @param {string} password secret
  * @return {object} account
  */
-export const getAccount = async password => {
+export const getAccount = async (password = '') => {
   let account = null
   let bytes = null
+
   info('Get account')
 
   if (isMobile()) {
@@ -92,7 +93,7 @@ export const backupAccount = async () => {
  * Prompts file select dialogue and imports account from file
  * @param {string} password secret
  */
-export const recoverAccount = async password => {
+export const recoverAccount = async (password = '') => {
   let account = null
 
   info('Recovering account')

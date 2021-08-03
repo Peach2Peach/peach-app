@@ -1,6 +1,8 @@
 import { info } from './logUtils'
 
-const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+const indexedDB = typeof window !== 'undefined'
+  ? window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+  : null
 
 let db = null
 let debug = false

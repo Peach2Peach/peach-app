@@ -8,6 +8,7 @@ module.exports = {
   'globals': {
     'self': true,
     'caches': true,
+    'jest': true
   },
   'rules': {
     'accessor-pairs': 'error',

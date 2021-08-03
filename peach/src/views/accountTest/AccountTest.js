@@ -8,7 +8,7 @@ import tw from '../../styles/tailwind'
 import { backupAccount, createAccount, getAccount, recoverAccount } from '../../utils/accountUtils'
 
 export default ({ navigation }) => {
-  let [password] = useState(true)
+  let [password] = useState()
   return <View style={tw`flex-col justify-center h-full`}>
     <View style={tw`mt-4`}>
       <TextInput
