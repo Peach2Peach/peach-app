@@ -12,7 +12,7 @@
     "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "style:update": "create-tailwind-rn && mv ./styles.json ./src/styles/styles.json",
     "build:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint ."
   },
   "dependencies": {
