@@ -10,11 +10,12 @@ const { RNFS, DocumentPicker, Share } = global
  * @description Method to create a new or existing account
  * @param {object} account account object
  * @param {string} password secret
+ * @param {string} encrypted account
  */
 export const createAccount = async (account, password = '') => {
   let ciphertext = null
 
-  info('Create account', password)
+  info('Create account')
   if (!account) {
     account = { id: 'Peach of Cake' }
     // TODO send message to server about account creation
@@ -30,6 +31,8 @@ export const createAccount = async (account, password = '') => {
   } else if (isWeb()) {
     await db.set('account', ciphertext)
   }
+
+  return ciphertext
 }
 
 /**
