@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import {
   Button,
   TextInput,
@@ -6,9 +6,21 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { backupAccount, createAccount, getAccount, recoverAccount } from '../../utils/accountUtils'
+import { StackNavigationProp } from '@react-navigation/stack'
 
-export default ({ navigation }) => {
-  let [password] = useState()
+type RootStackParamList = {
+  Home: undefined,
+  AccountTest: undefined
+}
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+}
+
+export default ({ navigation }: Props): ReactElement => {
+  let [password] = useState('')
+
   return <View style={tw`flex-col justify-center h-full`}>
     <View style={tw`mt-4`}>
       <TextInput
@@ -18,7 +30,7 @@ export default ({ navigation }) => {
       />
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={() => createAccount('', password)} title="Create account"/>
+      <Button onPress={() => createAccount(null, password)} title="Create account"/>
     </View>
     <View style={tw`mt-4`}>
       <Button onPress={() => getAccount(password)} title="Get account"/>

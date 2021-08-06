@@ -1,9 +1,13 @@
+interface download {
+  (filename: string, text:string): void
+}
+
 /**
  * @description Method to trigger download on web
  * @param {string} filename name of file
  * @param {string} text file content
  */
-export const download = (filename, text) => {
+export const download: download = (filename, text) => {
   const element = document.createElement('a')
   element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(text))
   element.setAttribute('download', filename)

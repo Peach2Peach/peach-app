@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-navigation/native": "^6.0.0",
-    "@react-navigation/stack": "^6.0.0",
+    "@react-navigation/native": "^5.9.6",
+    "@react-navigation/stack": "^5.9.6",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
@@ -29,16 +29,22 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "^3.2.0",
-    "react-native-screens": "^3.4.0",
+    "react-native-screens": "^3.5.0",
     "react-native-share": "^7.0.0",
+    "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "0.17.0",
     "react-scripts": "3.4.1",
-    "tailwind-react-native-classnames": "^1.4.1"
+    "tailwind-react-native-classnames": "^1.4.1",
+    "typescript": "^3.9.10"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/runtime": "^7.14.8",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@types/jest": "^26.0.24",
+    "@types/react": "^17.0.15",
+    "@types/react-native": "^0.64.12",
+    "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^27.0.6",
     "eslint": "7.14.0",
     "identity-obj-proxy": "^3.0.0",
@@ -46,10 +52,20 @@
     "metro-react-native-babel-preset": "^0.64.0",
     "react-test-renderer": "17.0.1",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.7"
+    "tailwindcss": "^2.2.7",
+    "ts-jest": "^27.0.4"
   },
   "jest": {
     "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
     "setupFiles": [
       "./tests/prepare.js",
       "./node_modules/react-native-gesture-handler/jestSetup.js"

@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  SafeAreaView
-} from 'react-native'
+import { SafeAreaView } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
@@ -12,10 +10,14 @@ import { enableScreens } from 'react-native-screens'
 
 enableScreens()
 
-const Stack = createStackNavigator()
+type RootStackParamList = {
+  Home: undefined,
+  AccountTest: undefined
+}
+const Stack = createStackNavigator<RootStackParamList>()
 
-const App = () => <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
-  <NavigationContainer style={tw`bg-red-50`}>
+const App: React.FC = () => <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
+  <NavigationContainer>
     <Stack.Navigator screenOptions={{
       headerShown: false,
       cardStyle: tw`bg-red-50`

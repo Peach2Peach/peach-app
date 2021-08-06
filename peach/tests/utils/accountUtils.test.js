@@ -36,6 +36,11 @@ describe('createAccount', () => {
 
     deepStrictEqual(recoveredAccount, JSON.parse(account))
   })
+
+  it('should handle faulty parameters', async () => {
+    const result = await createAccount('')
+    console.log(result)
+  })
 })
 
 describe('getAccount', () => {

@@ -4,7 +4,7 @@
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
-export const info = (...args) => {
+export const info = (...args: any[]) => {
   if (process.env.NODE_ENV !== 'production') {
     console.info(new Date(), args)
   }
@@ -14,7 +14,7 @@ export const info = (...args) => {
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
-export const log = (...args) => {
+export const log = (...args: any[]) => {
   if (process.env.NODE_ENV !== 'production') {
     console.log(new Date(), args)
   }
@@ -24,7 +24,7 @@ export const log = (...args) => {
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
-export const trace = (...args) => {
+export const trace = (...args: any[]) => {
   if (process.env.NODE_ENV !== 'production') {
     console.trace(new Date(), args)
   }
@@ -34,7 +34,7 @@ export const trace = (...args) => {
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
-export const warn = (...args) => {
+export const warn = (...args: any[]) => {
   if (process.env.NODE_ENV !== 'production') {
     console.warn(new Date(), args)
   }
@@ -44,7 +44,7 @@ export const warn = (...args) => {
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
-export const error = (...args) => {
+export const error = (...args: any[]) => {
   if (process.env.NODE_ENV !== 'production') {
     console.error(new Date(), args)
   }
