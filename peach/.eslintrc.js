@@ -8,6 +8,7 @@ module.exports = {
   'globals': {
     'self': true,
     'caches': true,
+    'jest': true
   },
   'rules': {
     'accessor-pairs': 'error',
@@ -77,7 +78,7 @@ module.exports = {
       'error',
       2
     ],
-    'init-declarations': 'error',
+    'init-declarations': 'off',
     'jsx-quotes': 'error',
     'key-spacing': 'error',
     'keyword-spacing': 'error',
@@ -150,7 +151,7 @@ module.exports = {
     'no-new-wrappers': 'error',
     'no-nonoctal-decimal-escape': 'error',
     'no-octal-escape': 'error',
-    'no-param-reassign': 'error',
+    'no-param-reassign': 'off',
     'no-plusplus': 'error',
     'no-promise-executor-return': 'off',
     'no-proto': 'error',
@@ -159,8 +160,8 @@ module.exports = {
     'no-restricted-imports': 'error',
     'no-restricted-properties': 'error',
     'no-restricted-syntax': 'error',
-    'no-return-assign': 'error',
-    'no-return-await': 'error',
+    'no-return-assign': 'off',
+    'no-return-await': 'off',
     'no-script-url': 'error',
     'no-self-compare': 'error',
     'no-sequences': 'error',
@@ -209,7 +210,7 @@ module.exports = {
     'padding-line-between-statements': 'error',
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
-    'prefer-destructuring': 'error',
+    'prefer-destructuring': 'off',
     'prefer-exponentiation-operator': 'error',
     'prefer-named-capture-group': 'error',
     'prefer-numeric-literals': 'error',

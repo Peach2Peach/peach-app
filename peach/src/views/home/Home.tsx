@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import {
-  SafeAreaView,
+  Button,
   Text,
   View
 } from 'react-native'
-import FadeInView from './components/animation/FadeInView'
-import tw from './styles/tailwind'
+import FadeInView from '../../components/animation/FadeInView'
+import tw from '../../styles/tailwind'
+import { StackNavigationProp } from '@react-navigation/stack'
 
-const App = () => <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
+type RootStackParamList = {
+  Home: undefined,
+  AccountTest: undefined
+}
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+}
+
+export default ({ navigation }: Props): ReactElement =>
   <View style={tw`flex-col justify-center h-full`}>
     <FadeInView duration={400} delay={500}>
       <Text style={tw`font-sans text-center text-8xl`}>
@@ -24,7 +36,7 @@ const App = () => <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
         meet <Text style={tw`text-orange`}>satoshi's</Text> world
       </Text>
     </FadeInView>
+    <View style={tw`mt-4`}>
+      <Button onPress={() => navigation.navigate('AccountTest')} title="Account Tests"/>
+    </View>
   </View>
-</SafeAreaView>
-
-export default App
