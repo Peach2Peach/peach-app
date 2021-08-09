@@ -17,7 +17,7 @@ export const createAccount = async (account: object | null, password = ''): Prom
   if (typeof account === 'object') {}
   info('Create account')
   if (!account) {
-    account = { id: 'Peach of Cake' }
+    account = { id: 'Peach of Cake' } // TODO replace with actual data
     // TODO send message to server about account creation
   }
 
