@@ -23,7 +23,7 @@ export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactEle
   {items
     .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
     .map(item =>
-      <option value={item.value} selected={item.value === selectedValue}>
+      <option value={item.value} selected={item.value === selectedValue} key={item.value}>
         {item.text}
       </option>
     )

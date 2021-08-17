@@ -67,6 +67,9 @@
       "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker)/)"
+    ],
     "setupFiles": [
       "./tests/prepare.js",
       "./node_modules/react-native-gesture-handler/jestSetup.js"

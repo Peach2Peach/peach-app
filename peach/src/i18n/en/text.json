@@ -1,6 +1,8 @@
 {
   "i18n.explainer": "i18n stands for internationalization (the number 18 refers to the 18 letters that are omitted).",
+  "i18n.test": "Variable test: $0 $1 $2",
   "language": "Language",
   "language.en": "English",
-  "language.de": "German"
+  "language.de": "German",
+  "currency.sats": "$0 sats"
 }

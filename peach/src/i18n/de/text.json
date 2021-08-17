@@ -1,6 +1,8 @@
 {
   "i18n.explainer": "i18n steht für internationalization (die 18 sind da um alle 18 Buchstaben im Wort abzukürzen).",
+  "i18n.test": "Variablen test: $0 $1 $2",
   "language": "Sprache",
   "language.en": "Englisch",
-  "language.de": "Deutsch"
+  "language.de": "Deutsch",
+  "currency.sats": "$0 sats"
 }

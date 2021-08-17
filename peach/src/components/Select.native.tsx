@@ -31,7 +31,7 @@ export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactEle
     {items
       .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
       .map(item =>
-        <Picker.Item value={item.value} label={item.text}/>
+        <Picker.Item value={item.value} label={item.text} key={item.value}/>
       )
     }
   </Picker>
