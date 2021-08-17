@@ -20,10 +20,13 @@ export let locale: string = 'en'
  * @description Method to get localized string based on current locale
  * @param {string} id the id of the localized text
  * @param {string[]} ...args multiple arguments to replace placeholders
- * @returns {string} localized text
+ * @returns {string} localized text or id if no text could be found
  */
 export const i18n = (id: string, ...args: string[]): string => {
   let text = properties[locale][id]
+
+  if (!text) return id
+
   args.forEach((arg, index) => {
     const regex = new RegExp(`$${index}`, 'ug')
     text = text.replace(regex, arg)

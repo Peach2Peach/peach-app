@@ -13,6 +13,11 @@ describe('i18n', () => {
     i18n.setLocale(null, { locale: 'de' })
     ok('Sprache', i18n('language'))
   })
+
+  it('returns id only if text could not be mapped', async () => {
+    ok('id.not.existing', i18n('id.not.existing'))
+  })
+
   it('returns the localized text for the right locale with arguments', async () => {
     i18n.setLocale(null, { locale: 'en' })
     ok('Variable test: Hello John $2', i18n('currency.sats', 'Hello', 'John'))
