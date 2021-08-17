@@ -144,7 +144,7 @@ module.exports = {
     'no-multi-str': 'error',
     'no-multiple-empty-lines': 'error',
     'no-negated-condition': 'off',
-    'no-nested-ternary': 'error',
+    'no-nested-ternary': 'off',
     'no-new': 'error',
     'no-new-func': 'error',
     'no-new-object': 'error',
