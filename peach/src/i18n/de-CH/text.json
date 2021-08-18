@@ -1,8 +1,7 @@
 {
   "i18n.explainer": "i18n steht für internationalization (die 18 sind da um alle 18 Buchstaben im Wort abzukürzen).",
   "i18n.test": "Variablen test: $0 $1 $2",
-  "i18n.test.fallback.1": "Fallback Test 1 de",
-  "i18n.test.fallback.2": "Fallback Test 2 de",
+  "i18n.test.fallback.1": "Fallback Test 1 de-CH",
   "language": "Sprache",
   "language.en": "Englisch",
   "language.de": "Deutsch",

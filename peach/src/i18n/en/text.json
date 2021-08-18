@@ -1,6 +1,9 @@
 {
   "i18n.explainer": "i18n stands for internationalization (the number 18 refers to the 18 letters that are omitted).",
   "i18n.test": "Variable test: $0 $1 $2",
+  "i18n.test.fallback.1": "Fallback Test 1 en",
+  "i18n.test.fallback.2": "Fallback Test 2 en",
+  "i18n.test.fallback.3": "Fallback Test 3 en",
   "language": "Language",
   "language.en": "English",
   "language.de": "German",
