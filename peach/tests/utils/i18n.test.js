@@ -14,6 +14,14 @@ describe('setLocale & getLocale', () => {
   })
 })
 
+describe('getLocales', () => {
+  it('returns all registered locales', async () => {
+    ok('en', i18n.getLocales()[0])
+    ok(i18n.getLocales().length > 2)
+    ok(i18n.getLocales().every(locale => typeof locale === 'string'))
+  })
+})
+
 describe('i18n', () => {
   it('returns the localized text for the right locale', async () => {
     i18n.setLocale(null, { locale: 'en' })

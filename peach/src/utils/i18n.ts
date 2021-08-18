@@ -1,5 +1,6 @@
 import en from '../i18n/en/text.json'
 import de from '../i18n/de/text.json'
+import de_CH from '../i18n/de-CH/text.json'
 import { ReducerState } from 'react'
 
 interface Properties {
@@ -11,9 +12,15 @@ interface PropertiesMap {
 
 const properties: PropertiesMap = {
   en,
-  de
+  de,
+  'de-CH': de_CH
 }
 
+export const locales = [
+  'en',
+  'de',
+  'de-CH'
+]
 export let locale: string = 'en'
 
 /**
@@ -55,6 +62,13 @@ interface i18nState {
  * @returns {string} current locale
  */
 i18n.getLocale = (): string => locale
+
+
+/**
+ * @description Method to get all registered locales
+ * @returns {string[]} registered locales
+ */
+i18n.getLocales = (): string[] => locales
 
 /**
  * @description Method to set current locale

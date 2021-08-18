@@ -34,16 +34,11 @@ interface LanguageSelectProps {
  * @returns {ReactElement}
  */
 export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
-  const languages = [
-    {
-      value: 'en',
-      text: i18n('language.en')
-    },
-    {
-      value: 'de',
-      text: i18n('language.de')
-    }
-  ]
+  const languages = i18n.getLocales().map(lcl => ({
+    value: lcl,
+    text: i18n(`languageName.${lcl}`)
+  }))
+
   return <View>
     <View style={tw`mt-4 w-40`}>
       <Text>{i18n('language')}</Text>
