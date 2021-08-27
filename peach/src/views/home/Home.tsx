@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import {
   Button,
   Text,
@@ -7,6 +7,9 @@ import {
 import FadeInView from '../../components/animation/FadeInView'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
+
+import i18n from '../../utils/i18n'
+import LanguageContext from '../../components/LanguageSelect'
 
 type RootStackParamList = {
   Home: undefined,
@@ -19,8 +22,9 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-export default ({ navigation }: Props): ReactElement =>
-  <View style={tw`flex-col justify-center h-full`}>
+export default ({ navigation }: Props): ReactElement => {
+  useContext(LanguageContext)
+  return <View style={tw`flex-col justify-center h-full`}>
     <FadeInView duration={400} delay={500}>
       <Text style={tw`font-sans text-center text-8xl`}>
         🍑
@@ -39,4 +43,8 @@ export default ({ navigation }: Props): ReactElement =>
     <View style={tw`mt-4`}>
       <Button onPress={() => navigation.navigate('AccountTest')} title="Account Tests"/>
     </View>
+    <Text style={tw`mt-4`}>
+      {i18n('i18n.explainer')}
+    </Text>
   </View>
+}

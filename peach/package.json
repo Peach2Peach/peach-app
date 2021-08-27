@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-picker/picker": "^1.16.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.6",
     "react": "17.0.1",
@@ -66,6 +67,9 @@
       "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker)/)"
+    ],
     "setupFiles": [
       "./tests/prepare.js",
       "./node_modules/react-native-gesture-handler/jestSetup.js"

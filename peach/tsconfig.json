@@ -13,7 +13,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "es2015", "es2016", "esnext"
     ],
     "allowJs": true,
     "moduleResolution": "node",
@@ -22,5 +22,8 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
