@@ -4,7 +4,7 @@
 
 import 'react-native'
 import React from 'react'
-import Select from '../../src/components/Select'
+import Select from '../../src/components/inputs/Select'
 import { ok, strictEqual } from 'assert'
 
 // Note: test renderer must be required after react-native.
