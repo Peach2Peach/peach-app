@@ -11,6 +11,7 @@ interface InputProps {
   value?: string,
   label?: string,
   placeholder?: string,
+  autoCorrect?: boolean
   isValid: boolean,
   errorMessage?: string[]
   onChange: Function
@@ -27,7 +28,7 @@ interface InputProps {
  * @param props.onChange onchange handler from outside
  * @returns {ReactElement}
  */
-export default ({ value, label, placeholder, isValid, errorMessage = [], onChange }: InputProps): ReactElement => <View>
+export default ({ value, label, placeholder, autoCorrect = false, isValid, errorMessage = [], onChange }: InputProps): ReactElement => <View>
   {label
     ? <Text style={[
       isValid && value ? tw`text-green-600` : null,
@@ -43,6 +44,7 @@ export default ({ value, label, placeholder, isValid, errorMessage = [], onChang
     ]}
     placeholder={placeholder}
     value={value}
+    autoCorrect={autoCorrect}
     onChangeText={(val: string) => onChange(val.trim())}
   />
   {errorMessage.length > 0

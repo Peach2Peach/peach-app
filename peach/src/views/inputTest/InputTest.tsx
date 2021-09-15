@@ -45,9 +45,6 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
 
-  // in case of context change retrigger validation
-  // if (!prestine) onSubmit()
-
   return <View style={tw`flex-col justify-center h-full px-4`}>
     <View style={tw`mt-4`}>
       <Input
@@ -55,6 +52,7 @@ export default ({ navigation }: Props): ReactElement => {
         value={address}
         label={i18n('form.btcAddress')}
         isValid={!isFieldInError('address')}
+        autoCorrect={false}
         errorMessage={getErrorsInField('address')}
       />
     </View>
