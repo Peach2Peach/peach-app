@@ -3,8 +3,8 @@ import IBAN from 'iban'
 import i18n from './i18n'
 
 export const rules = {
-  required (required: boolean, value: string) {
-    return required ? value.length > 0 : true
+  required (required: boolean, value: string | number) {
+    return required && value
   },
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
@@ -28,6 +28,6 @@ export const getMessages = () => ({
   default: {
     required: i18n('form.required.error'),
     bitcoinAddress: i18n('form.btcAddress.error'),
-    iban: i18n('form.invalid.error')
+    iban: i18n('form.invalid.error'),
   }
 })
