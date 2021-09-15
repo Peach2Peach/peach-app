@@ -23,14 +23,16 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [prestine, setPristine] = useState(true)
   const [address, setAddress] = useState('')
+  const [iban, setIBAN] = useState('')
 
   const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
-    state: { address },
+    state: { address, iban },
     rules,
     messages: getMessages()
   })
@@ -41,6 +43,9 @@ export default ({ navigation }: Props): ReactElement => {
       address: {
         required: true,
         bitcoinAddress: true
+      },
+      iban: {
+        iban: true
       }
     })
   }
@@ -54,6 +59,16 @@ export default ({ navigation }: Props): ReactElement => {
         isValid={!isFieldInError('address')}
         autoCorrect={false}
         errorMessage={getErrorsInField('address')}
+      />
+    </View>
+    <View style={tw`mt-4`}>
+      <Input
+        onChange={setIBAN}
+        value={iban}
+        label={i18n('form.iban')}
+        isValid={!isFieldInError('iban')}
+        autoCorrect={false}
+        errorMessage={getErrorsInField('iban')}
       />
     </View>
     <View style={tw`mt-4`}>

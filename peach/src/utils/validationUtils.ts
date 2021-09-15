@@ -1,4 +1,5 @@
 import * as bitcoin from 'bitcoinjs-lib'
+import IBAN from 'iban'
 import i18n from './i18n'
 
 export const rules = {
@@ -17,12 +18,16 @@ export const rules = {
     } catch (e) { }
 
     return valid
+  },
+  iban (_: boolean, value: string) {
+    return IBAN.isValid(value)
   }
 }
 
 export const getMessages = () => ({
   default: {
     required: i18n('form.required.error'),
-    bitcoinAddress: i18n('form.btcAddress.error')
+    bitcoinAddress: i18n('form.btcAddress.error'),
+    iban: i18n('form.invalid.error')
   }
 })

@@ -5,7 +5,9 @@
   "i18n.test.fallback.2": "Fallback Test 2 de",
   "language": "Sprache",
   "currency.sats": "$0 sats",
+  "form.required.error": "Dieses Feld ist ein Pflichtfeld.",
+  "form.invalid.error": "Bitte gib einen gültigen Wert ein",
   "form.btcAddress": "Bitcoin Adresse",
   "form.btcAddress.error": "Adresse ist nicht valide",
-  "form.required.error": "Dieses Feld ist ein Pflichtfeld."
+  "form.iban": "IBAN"
 }
