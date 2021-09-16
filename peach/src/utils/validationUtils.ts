@@ -6,6 +6,9 @@ export const rules = {
   required (required: boolean, value: string | number) {
     return required && value
   },
+  number: /^\d+$/u,
+  // eslint-disable-next-line prefer-named-capture-group, max-len
+  email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
     try {
