@@ -25,3 +25,14 @@ Install dependencies
 **Web**
 
 `npm run web`
+
+
+
+## Test
+
+`npm run test`
+
+**Run specific tests**
+`npm run test ./tests/utils/validationUtils.test.js`
+
+`npm run test ./tests/utils/*.test.js`
