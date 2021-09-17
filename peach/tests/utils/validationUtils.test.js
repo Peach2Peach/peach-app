@@ -24,6 +24,21 @@ describe('rules', () => {
     ok(!rules.number.test(null))
   })
 
+  it('validates phone correctly', () => {
+    ok(rules.phone.test('+34 123 13 124'))
+    ok(rules.phone.test('+3412313124'))
+    ok(rules.phone.test('12313124'))
+    ok(rules.phone.test('03884243828'))
+    ok(rules.phone.test('+44 113 496 0000'))
+    ok(rules.phone.test('+441134960000'))
+    ok(rules.phone.test('113 496 0000'))
+    ok(rules.phone.test('(123) 456-7890'))
+
+    ok(!rules.phone.test('123-12-BITCOIN'))
+    ok(!rules.phone.test('EAT MY SHORTS'))
+    ok(!rules.phone.test(null))
+  })
+
   it('validates email correctly', () => {
     ok(rules.email.test('satoshi@peachtopeach.com'))
     ok(rules.email.test('hal.finney@peachtopeach.com'))
