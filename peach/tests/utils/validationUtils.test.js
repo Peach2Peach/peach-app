@@ -1,5 +1,6 @@
 import { ok } from 'assert'
 import { getMessages, rules } from '../../src/utils/validationUtils'
+import paymentData from '../data/paymentData.json'
 
 // eslint-disable-next-line max-lines-per-function
 describe('rules', () => {
@@ -64,7 +65,8 @@ describe('rules', () => {
     ok(!rules.bitcoinAddress(true, 'invalid'))
   })
   it('validates btc IBAN correctly', () => {
-    ok(rules.iban(true, 'BE68539007547034'))
+    paymentData.iban.valid.forEach(iban => ok(rules.iban(true, iban), `Could not validate ${iban}`))
+    paymentData.iban.invalid.forEach(iban => ok(!rules.iban(true, iban), `Could not invalidate ${iban}`))
 
     ok(!rules.iban(true, 'invalid'))
   })
