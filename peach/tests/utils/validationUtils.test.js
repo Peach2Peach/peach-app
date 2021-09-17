@@ -26,40 +26,32 @@ describe('rules', () => {
   })
 
   it('validates phone correctly', () => {
-    ok(rules.phone.test('+34 123 13 124'))
-    ok(rules.phone.test('+3412313124'))
-    ok(rules.phone.test('12313124'))
-    ok(rules.phone.test('03884243828'))
-    ok(rules.phone.test('+44 113 496 0000'))
-    ok(rules.phone.test('+441134960000'))
-    ok(rules.phone.test('113 496 0000'))
-    ok(rules.phone.test('(123) 456-7890'))
-
-    ok(!rules.phone.test('123-12-BITCOIN'))
-    ok(!rules.phone.test('EAT MY SHORTS'))
-    ok(!rules.phone.test(null))
+    paymentData.phone.valid.forEach(phone => ok(rules.phone.test(phone), `Could not validate ${phone}`))
+    paymentData.phone.invalid.forEach(phone => ok(!rules.phone.test(phone), `Could not invalidate ${phone}`))
   })
 
   it('validates email correctly', () => {
-    ok(rules.email.test('satoshi@peachtopeach.com'))
-    ok(rules.email.test('hal.finney@peachtopeach.com'))
-    ok(rules.email.test('hal.finney+category@peachtopeach.com'))
-
-    ok(!rules.email.test('rogerver'))
-    ok(!rules.email.test('rogerver@bitcoin'))
-    ok(!rules.email.test('rogerver@bitcoin.'))
-    ok(!rules.email.test(''))
-    ok(!rules.email.test(null))
+    paymentData.email.valid.forEach(email => ok(rules.email.test(email), `Could not validate ${email}`))
+    paymentData.email.invalid.forEach(email => ok(!rules.email.test(email), `Could not invalidate ${email}`))
   })
 
   it('validates btc addresses correctly', () => {
-    // base58Check
-    ok(rules.bitcoinAddress(true, '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B'))
-    ok(!rules.bitcoinAddress(true, '12dRugNcdxK39288NjcDV4GX7rMsKCGn6C'))
-
-    // bech32
-    ok(rules.bitcoinAddress(true, 'bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z'))
-    ok(!rules.bitcoinAddress(true, 'bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7e'))
+    paymentData.bitcoin.base58Check.valid.forEach(address => ok(
+      rules.bitcoinAddress(true, address),
+      `Could not validate ${address}`
+    ))
+    paymentData.bitcoin.base58Check.invalid.forEach(address => ok(
+      !rules.bitcoinAddress(true, address),
+      `Could not invalidate ${address}`
+    ))
+    paymentData.bitcoin.bech32.valid.forEach(address => ok(
+      rules.bitcoinAddress(true, address),
+      `Could not validate ${address}`
+    ))
+    paymentData.bitcoin.bech32.invalid.forEach(address => ok(
+      !rules.bitcoinAddress(true, address),
+      `Could not invalidate ${address}`
+    ))
 
     // general invalid input
     ok(!rules.bitcoinAddress(true, 'invalid'))
@@ -67,8 +59,6 @@ describe('rules', () => {
   it('validates btc IBAN correctly', () => {
     paymentData.iban.valid.forEach(iban => ok(rules.iban(true, iban), `Could not validate ${iban}`))
     paymentData.iban.invalid.forEach(iban => ok(!rules.iban(true, iban), `Could not invalidate ${iban}`))
-
-    ok(!rules.iban(true, 'invalid'))
   })
 })
 

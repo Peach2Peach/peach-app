@@ -1,4 +1,54 @@
 {
+  "email": {
+    "valid": [
+      "satoshi@peachtopeach.com",
+      "hal.finney@peachtopeach.com",
+      "hal.finney+postbox@peachtopeach.com"
+    ],
+    "invalid": [
+      "rogerver",
+      "rogerver@bitcoin",
+      "rogerver@bitcoin.",
+      "",
+      null
+    ]
+  },
+  "phone": {
+    "valid": [
+      "+34 123 13 124",
+      "+3412313124",
+      "12313124",
+      "03884243828",
+      "+44 113 496 0000",
+      "+441134960000",
+      "113 496 0000",
+      "(123) 456-7890"
+    ],
+    "invalid": [
+      "123-12-BITCOIN",
+      "EAT MY SHORTS",
+      "",
+      null
+    ]
+  },
+  "bitcoin": {
+    "base58Check": {
+      "valid": [
+        "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"
+      ],
+      "invalid": [
+        "12dRugNcdxK39288NjcDV4GX7rMsKCGn6C"
+      ]
+    },
+    "bech32": {
+      "valid": [
+        "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z"
+      ],
+      "invalid": [
+        "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7e"
+      ]
+    }
+  },
   "iban": {
     "valid": [
       "IE29 AIBK 9311 5212 3456 78",
@@ -51,7 +101,9 @@
       "HU42 1177 3016 1111 1018 000 0000",
       "HU4211773016111110180000000",
       "IS14 0159 260 7654 5510 7303 39",
-      "invalid"
+      "invalid",
+      "",
+      null
     ]
   }
 }
