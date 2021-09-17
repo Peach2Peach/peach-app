@@ -10,7 +10,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 type RootStackParamList = {
   Home: undefined,
-  AccountTest: undefined
+  AccountTest: undefined,
+  InputTest: undefined
 }
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>

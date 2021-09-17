@@ -1,13 +1,13 @@
 import React, { createContext, ReactElement } from 'react'
 import { Text, View } from 'react-native'
-import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import Select from './Select'
 
 /**
  * @description Context for localization
  * @example
- * import LanguageContext from './components/LanguageSelect'
+ * import LanguageContext from './components/inputs/LanguageSelect'
  *
  * export default (): ReactElement =>
  *   const { locale } = useContext(LanguageContext)

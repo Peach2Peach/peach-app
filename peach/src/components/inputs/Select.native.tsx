@@ -27,7 +27,7 @@ interface SelectProps {
  * @returns {ReactElement}
  */
 export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
-  <Picker selectedValue={selectedValue} onValueChange={value => onChange({ currentTarget: { value } })}>
+  <Picker selectedValue={selectedValue} onValueChange={(value: ItemValue) => onChange({ currentTarget: { value } })}>
     {items
       .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
       .map(item =>

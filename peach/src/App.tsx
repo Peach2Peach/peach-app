@@ -6,15 +6,17 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './views/home/Home'
 import AccountTest from './views/accountTest/AccountTest'
+import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
-import LanguageContext, { LanguageSelect } from './components/LanguageSelect'
+import LanguageContext, { LanguageSelect } from './components/inputs/LanguageSelect'
 import i18n from './utils/i18n'
 
 enableScreens()
 
 type RootStackParamList = {
   Home: undefined,
-  AccountTest: undefined
+  AccountTest: undefined,
+  InputTest: undefined
 }
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -32,6 +34,7 @@ const App: React.FC = () => {
         }}>
           <Stack.Screen name="Home" component={Home}/>
           <Stack.Screen name="AccountTest" component={AccountTest}/>
+          <Stack.Screen name="InputTest" component={InputTest}/>
         </Stack.Navigator>
       </NavigationContainer>
       <LanguageSelect locale={locale} setLocale={setLocale}/>

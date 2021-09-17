@@ -8,5 +8,8 @@
   "languageName.en": "English",
   "languageName.de": "Deutsch",
   "languageName.de-CH": "Deutsch (Schweiz)",
-  "currency.sats": "$0 sats"
+  "currency.sats": "$0 sats",
+  "form.btcAddress": "Bitcoin address",
+  "form.btcAddress.error": "Address is invalid",
+  "form.required.error": "This field is required."
 }

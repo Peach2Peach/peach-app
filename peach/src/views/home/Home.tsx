@@ -9,11 +9,12 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../../utils/i18n'
-import LanguageContext from '../../components/LanguageSelect'
+import LanguageContext from '../../components/inputs/LanguageSelect'
 
 type RootStackParamList = {
   Home: undefined,
-  AccountTest: undefined
+  AccountTest: undefined,
+  InputTest: undefined
 }
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
@@ -42,6 +43,9 @@ export default ({ navigation }: Props): ReactElement => {
     </FadeInView>
     <View style={tw`mt-4`}>
       <Button onPress={() => navigation.navigate('AccountTest')} title="Account Tests"/>
+    </View>
+    <View style={tw`mt-4`}>
+      <Button onPress={() => navigation.navigate('InputTest')} title="Input Tests"/>
     </View>
     <Text style={tw`mt-4`}>
       {i18n('i18n.explainer')}
