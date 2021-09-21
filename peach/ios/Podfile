@@ -18,6 +18,8 @@ target 'peach' do
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
+  pod 'react-native-fast-openpgp', :path => '../node_modules/react-native-fast-openpgp'
+
   target 'peachTests' do
     inherit! :complete
     # Pods for testing

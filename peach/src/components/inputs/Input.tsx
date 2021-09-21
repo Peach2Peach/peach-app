@@ -63,7 +63,9 @@ export default ({
     placeholder={placeholder}
     value={value}
     autoCorrect={autoCorrect}
-    onChangeText={(val: string) => onChange(val.trim())}
+    onChangeText={(val: string) => onChange(val)}
+    onBlur={event => onChange(event.nativeEvent.text.trim())}
+
   />
   {errorMessage.length > 0
     ? <Text style={tw`text-red-600`}>{errorMessage[0]}</Text>
