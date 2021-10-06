@@ -1,0 +1,11 @@
+{
+  "font-baloo": {
+    "fontFamily": "Baloo-Regular"
+  },
+  "font-lato": {
+    "fontFamily": "Lato-Regular"
+  },
+  "font-lato-bold": {
+    "fontFamily": "Lato-Bold"
+  }
+}

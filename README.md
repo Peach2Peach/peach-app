@@ -4,7 +4,7 @@ Follow [react native setup guide](https://reactnative.dev/docs/environment-setup
 
 Run
 
-`cd peach && npm install`
+`npm install`
 
 **iOS**
 
