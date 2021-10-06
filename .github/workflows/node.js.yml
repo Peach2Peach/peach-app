@@ -26,7 +26,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - run: cd peach
     - run: npm install
     - run: npm run lint
     - run: npm run test
