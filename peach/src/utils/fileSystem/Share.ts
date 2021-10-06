@@ -3,7 +3,7 @@ import { download } from '../webUtils'
 
 /**
  * @description Web method to emulate fs file sharing by using indexedDB & download
- * @param {string} path document path
+ * @param path document path
  */
 interface open {
   (

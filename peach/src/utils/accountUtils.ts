@@ -7,9 +7,9 @@ import Share from './fileSystem/Share'
 
 /**
  * @description Method to create a new or existing account
- * @param {object|null} [account] account object
- * @param {string} [password] secret
- * @returns {promise} promise resolving to encrypted account
+ * @param [account] account object
+ * @param [password] secret
+ * @returns promise resolving to encrypted account
  */
 export const createAccount = async (account: object | null, password = ''): Promise<string> => {
   let ciphertext = null
@@ -30,8 +30,8 @@ export const createAccount = async (account: object | null, password = ''): Prom
 
 /**
  * @description Method to get account
- * @param {string} [password] secret
- * @return {object} account
+ * @param [password] secret
+ * @return account
  */
 export const getAccount = async (password = '') => {
   let account = null
@@ -76,7 +76,7 @@ export const backupAccount = async () => {
 /**
  * @description Method to recover account
  * Prompts file select dialogue and imports account from file
- * @param {string} [password] secret
+ * @param [password] secret
  */
 export const recoverAccount = async (password = '') => {
   info('Recovering account')

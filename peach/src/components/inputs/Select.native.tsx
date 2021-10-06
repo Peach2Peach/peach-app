@@ -20,11 +20,10 @@ interface SelectProps {
 
 /**
  * @description Component to display the language select
- * @param {Object} props Component properties
- * @param {Item[]} props.items the items in the dropdown
- * @param {Function} props.onChange method to set locale on value change
- * @param {boolean} props.sort if true, sort alphabetically and numerically
- * @returns {ReactElement}
+ * @param props Component properties
+ * @param props.items the items in the dropdown
+ * @param props.onChange method to set locale on value change
+ * @param props.sort if true, sort alphabetically and numerically
  */
 export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
   <Picker selectedValue={selectedValue} onValueChange={(value: ItemValue) => onChange({ currentTarget: { value } })}>

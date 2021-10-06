@@ -4,8 +4,8 @@ interface download {
 
 /**
  * @description Method to trigger download on web
- * @param {string} filename name of file
- * @param {string} text file content
+ * @param filename name of file
+ * @param text file content
  */
 export const download: download = (filename, text) => {
   const element = document.createElement('a')

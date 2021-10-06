@@ -10,11 +10,11 @@ type FadeInViewProps = {
 
 /**
  * @description Animated view to fade in content
- * @param {object[]} children child element
- * @param {object} [style] css style object
- * @param {number} [duration] animation duration in ms
- * @param {number} [delay] animation delay in ms
- * @return {function} view
+ * @param children child element
+ * @param [style] css style object
+ * @param [duration] animation duration in ms
+ * @param [delay] animation delay in ms
+ * @return view
  * @example <FadeInView duration={400} delay={500}>
     <Text>🍑</Text>
   </FadeInView>

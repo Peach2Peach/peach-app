@@ -27,7 +27,6 @@ interface InputProps {
  * @param props.isValid if true show valid state
  * @param props.errorMessage error message for invalid field
  * @param props.onChange onchange handler from outside
- * @returns {ReactElement}
  * @example
  * <Input
  *   onChange={setAddress}

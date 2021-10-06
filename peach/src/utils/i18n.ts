@@ -31,9 +31,9 @@ export let locale: string = 'en'
  * en    – default locale
  *
  * if no text can be found, it will return the id of the resource
- * @param {string} id the id of the localized text
- * @param {string[]} ...args multiple arguments to replace placeholders
- * @returns {string} localized text or id if no text could be found
+ * @param id the id of the localized text
+ * @param ...args multiple arguments to replace placeholders
+ * @returns localized text or id if no text could be found
  */
 export const i18n = (id: string, ...args: string[]): string => {
   let text = properties[locale][id]
@@ -59,23 +59,23 @@ interface i18nState {
 
 /**
  * @description Method to get current locale
- * @returns {string} current locale
+ * @returns current locale
  */
 i18n.getLocale = (): string => locale
 
 
 /**
  * @description Method to get all registered locales
- * @returns {string[]} registered locales
+ * @returns registered locales
  */
 i18n.getLocales = (): string[] => locales
 
 /**
  * @description Method to set current locale
  * If locale is not configured, will fallback to `en`
- * @param {ReducerState} state the state object (can be ignored)
- * @param {i18nState} newState the new state object
- * @returns {i18nState} i18n state
+ * @param state the state object (can be ignored)
+ * @param newState the new state object
+ * @returns i18n state
  */
 i18n.setLocale = (state: ReducerState<any>, newState: i18nState): i18nState => {
   locale = newState.locale

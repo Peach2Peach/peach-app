@@ -28,10 +28,9 @@ interface LanguageSelectProps {
 
 /**
  * @description Component to display the language select
- * @param {Object} props Component properties
- * @param {string} props.locale the current locale
- * @param {Function} props.setLocale method to set locale on value change
- * @returns {ReactElement}
+ * @param props Component properties
+ * @param props.locale the current locale
+ * @param props.setLocale method to set locale on value change
  */
 export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
   const languages = i18n.getLocales().map(lcl => ({
