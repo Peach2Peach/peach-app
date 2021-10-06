@@ -10,6 +10,10 @@ module.exports = {
     'caches': true,
     'jest': true
   },
+  'ignorePatterns': [
+    'build/**/*.js',
+    'coverage/**/*.js'
+  ],
   'rules': {
     'accessor-pairs': 'error',
     'array-bracket-newline': 'error',
