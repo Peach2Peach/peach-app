@@ -1,12 +1,12 @@
 import React, { ReactElement, useState } from 'react'
 import {
-  Button,
   TextInput,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { backupAccount, createAccount, getAccount, recoverAccount } from '../../utils/accountUtils'
 import { StackNavigationProp } from '@react-navigation/stack'
+import Button from '../../components/Button'
 
 type RootStackParamList = {
   Home: undefined,
@@ -31,19 +31,35 @@ export default ({ navigation }: Props): ReactElement => {
       />
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={() => createAccount(null, password)} title="Create account"/>
+      <Button
+        onPress={() => createAccount(null, password)}
+        title="Create account"
+      />
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={() => getAccount(password)} title="Get account"/>
+      <Button
+        onPress={() => getAccount(password)}
+        title="Get account"
+      />
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={backupAccount} title="Backup account"/>
+      <Button
+        onPress={backupAccount}
+        title="Backup account"
+      />
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={() => recoverAccount(password)} title="Recover account"/>
+      <Button
+        onPress={() => recoverAccount(password)}
+        title="Recover account"
+      />
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={() => navigation.goBack()} title="Back"/>
+      <Button
+        onPress={() => navigation.goBack()}
+        secondary={true}
+        title="Back"
+      />
     </View>
   </View>
 }

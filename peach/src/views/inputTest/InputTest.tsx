@@ -1,6 +1,5 @@
 import React, { ReactElement, useState, useContext } from 'react'
 import {
-  Button,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -9,6 +8,8 @@ import Input from '../../components/inputs/Input'
 import { getMessages, rules } from '../../utils/validationUtils'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
+import Button from '../../components/Button'
+
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
 
@@ -75,7 +76,11 @@ export default ({ navigation }: Props): ReactElement => {
       <Button onPress={onSubmit} title="Validate"/>
     </View>
     <View style={tw`mt-4`}>
-      <Button onPress={() => navigation.goBack()} title="Back"/>
+      <Button
+        secondary={true}
+        onPress={() => navigation.goBack()}
+        title="Back"
+      />
     </View>
   </View>
 }

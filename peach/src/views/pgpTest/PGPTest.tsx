@@ -1,6 +1,5 @@
 import React, { ReactElement, useState, useContext } from 'react'
 import {
-  Button,
   ScrollView,
   Text,
   View
@@ -8,6 +7,7 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import Input from '../../components/inputs/Input'
+import Button from '../../components/Button'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import OpenPGP from 'react-native-fast-openpgp'
 
@@ -103,7 +103,11 @@ export default ({ navigation }: Props): ReactElement => {
         : null
       }
       <View style={tw`mt-4`}>
-        <Button onPress={() => navigation.goBack()} title="Back"/>
+        <Button
+          secondary={true}
+          onPress={() => navigation.goBack()}
+          title="Back"
+        />
       </View>
     </View>
   </ScrollView>

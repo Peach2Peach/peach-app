@@ -27,12 +27,12 @@ const App: React.FC = () => {
   useContext(LanguageContext)
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
 
-  return <SafeAreaView style={[tw`p-4 h-full bg-red-50`, tw.md`p-6`]}>
+  return <SafeAreaView style={[tw`p-4 h-full bg-white-1`, tw.md`p-6`]}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{
           headerShown: false,
-          cardStyle: tw`bg-red-50`
+          cardStyle: tw`bg-white-1`
         }}>
           <Stack.Screen name="Home" component={Home}/>
           <Stack.Screen name="AccountTest" component={AccountTest}/>

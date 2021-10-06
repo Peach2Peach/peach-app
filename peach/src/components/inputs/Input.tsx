@@ -48,16 +48,16 @@ export default ({
 }: InputProps): ReactElement => <View>
   {label
     ? <Text style={[
-      isValid && value ? tw`text-green-600` : null,
-      errorMessage.length > 0 ? tw`text-red-600` : null
+      isValid && value ? tw`text-green` : null,
+      errorMessage.length > 0 ? tw`text-red` : null
     ]}>{label}</Text>
     : null
   }
   <TextInput
     style={[
       tw`border p-2`,
-      isValid && value ? tw`border-green-600` : null,
-      errorMessage.length > 0 ? tw`border-red-600` : null
+      isValid && value ? tw`border-green` : null,
+      errorMessage.length > 0 ? tw`border-red` : null
     ]}
     placeholder={placeholder}
     value={value}
@@ -67,7 +67,7 @@ export default ({
 
   />
   {errorMessage.length > 0
-    ? <Text style={tw`text-red-600`}>{errorMessage[0]}</Text>
+    ? <Text style={tw`text-red`}>{errorMessage[0]}</Text>
     : null
   }
 </View>
