@@ -1,11 +1,11 @@
 {
-  "font-sans": {
-    "fontFamily": "HelveticaNeue"
+  "font-baloo": {
+    "fontFamily": "Baloo-Regular"
   },
-  "font-sans-bold": {
-    "fontFamily": "HelveticaNeue Bold"
+  "font-lato": {
+    "fontFamily": "Lato-Regular"
   },
-  "font-sans-light": {
-    "fontFamily": "HelveticaNeue Light"
+  "font-lato-bold": {
+    "fontFamily": "Lato-Bold"
   }
 }

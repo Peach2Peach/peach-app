@@ -8,9 +8,28 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
-        black: '#000',
-        white: '#fff',
-        orange: '#f68e52',
+        black: {
+          1: '#000',
+          2: '#16161D'
+        },
+        grey: {
+          1: '#5B5B5B',
+          2: '#888888',
+          3: '#B8B8B8',
+          4: '#EBEBEB'
+        },
+        white: {
+          1: '#FCFCFD',
+          2: '#FFF'
+        },
+        peach: {
+          1: '#F57940',
+          2: '#db6c39'
+        },
+        green: '#0AE557',
+        red: '#E43B5F',
+        yellow: '#F5D440',
+        blue: '#40BCF5'
       },
       fontSize: {
         'xl': '1.25rem',
@@ -25,9 +44,12 @@ module.exports = {
       }
     },
     fontFamily: {
-      sans: [
-        '"Helvetica Neue"',
-        'Helvetica',
+      baloo: [
+        '"Baloo"',
+        'sans-serif'
+      ],
+      lato: [
+        '"Lato"',
         'sans-serif'
       ],
     },
