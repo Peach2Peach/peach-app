@@ -254,6 +254,8 @@ PODS:
   - React-jsinspector (0.64.2)
   - react-native-document-picker (5.2.0):
     - React-Core
+  - react-native-fast-openpgp (2.0.0-rc1):
+    - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - React-perflogger (0.64.2)
@@ -404,6 +406,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
+  - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -474,6 +477,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
+  react-native-fast-openpgp:
+    :path: "../node_modules/react-native-fast-openpgp"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -545,6 +550,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 80c46bd381fd06e418e0d4f53672dc1d1945c4c3
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
+  react-native-fast-openpgp: 07a5b9600f24a0aa9659fe39749f5def90ee0753
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
@@ -568,6 +574,6 @@ SPEC CHECKSUMS:
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: cd79e8c7641f13eb3cbbe0f22ad350a388cf6ed2
+PODFILE CHECKSUM: dd782a6274b3986137f6e458b450572063587840
 
 COCOAPODS: 1.10.1

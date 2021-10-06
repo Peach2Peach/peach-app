@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativefastopenpgp.FastOpenpgpPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.rnfs.RNFSPackage;
 import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;

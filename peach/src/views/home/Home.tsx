@@ -14,7 +14,8 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 type RootStackParamList = {
   Home: undefined,
   AccountTest: undefined,
-  InputTest: undefined
+  InputTest: undefined,
+  PGPTest: undefined
 }
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
@@ -46,6 +47,9 @@ export default ({ navigation }: Props): ReactElement => {
     </View>
     <View style={tw`mt-4`}>
       <Button onPress={() => navigation.navigate('InputTest')} title="Input Tests"/>
+    </View>
+    <View style={tw`mt-4`}>
+      <Button onPress={() => navigation.navigate('PGPTest')} title="PGP Tests"/>
     </View>
     <Text style={tw`mt-4`}>
       {i18n('i18n.explainer')}
