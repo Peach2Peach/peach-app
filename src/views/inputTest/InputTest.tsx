@@ -52,6 +52,12 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`flex-col justify-center h-full px-4`}>
+    <View style={tw`w-6/12 mt-4`}>
+      <Input
+        onChange={setAddress}
+        value={'smol input'}
+      />
+    </View>
     <View style={tw`mt-4`}>
       <Input
         onChange={setAddress}

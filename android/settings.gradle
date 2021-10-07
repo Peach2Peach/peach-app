@@ -1,4 +1,6 @@
 rootProject.name = 'peach'
+include ':@react-native-community_art'
+project(':@react-native-community_art').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/art/android')
 include ':react-native-fast-openpgp'
 project(':react-native-fast-openpgp').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-openpgp/android')
 include ':react-native-screens'

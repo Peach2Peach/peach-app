@@ -18,6 +18,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/art": "^1.2.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^1.16.5",
     "@react-navigation/native": "^6.0.2",
@@ -39,10 +40,12 @@
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-level-fs": "^3.0.1",
+    "react-native-neomorph-shadows": "^1.1.2",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-share": "^7.0.0",
+    "react-native-svg": "^12.1.1",
     "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "0.17.0",
     "react-scripts": "3.4.1",
@@ -95,7 +98,6 @@
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator)/)"
-
     ],
     "setupFiles": [
       "./tests/prepare.js",
