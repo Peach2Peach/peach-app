@@ -1,12 +1,12 @@
 
 import React, { ReactElement, useState } from 'react'
 import {
-  Text,
   Pressable,
   View,
   ViewStyle
 } from 'react-native'
 import tw from '../styles/tailwind'
+import Text from './Text'
 
 interface ButtonProps {
   title: string,

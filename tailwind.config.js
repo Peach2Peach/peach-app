@@ -41,6 +41,17 @@ module.exports = {
         '7xl': '4.5rem',
         '8xl': '6rem',
         '9xl': '8rem'
+      },
+      lineHeight: {
+        'xl': '1.5rem',
+        '2xl': '2rem',
+        '3xl': '2.25rem',
+        '4xl': '2.5rem',
+        '5xl': '3.25rem',
+        '6xl': '4rem',
+        '7xl': '5rem',
+        '8xl': '7rem',
+        '9xl': '9rem'
       }
     },
     fontFamily: {

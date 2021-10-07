@@ -1,7 +1,8 @@
 import React, { createContext, ReactElement } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import Text from '../Text'
 import Select from './Select'
 
 /**

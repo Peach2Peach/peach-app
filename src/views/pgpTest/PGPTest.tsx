@@ -1,7 +1,6 @@
 import React, { ReactElement, useState, useContext } from 'react'
 import {
   ScrollView,
-  Text,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -10,6 +9,7 @@ import Input from '../../components/inputs/Input'
 import Button from '../../components/Button'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import OpenPGP from 'react-native-fast-openpgp'
+import Text from '../../components/Text'
 
 type RootStackParamList = {
   Home: undefined,
