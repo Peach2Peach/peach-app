@@ -97,7 +97,7 @@
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator)/)"
+      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator|react-native-neomorph-shadows|@react-native-community)/)"
     ],
     "setupFiles": [
       "./tests/prepare.js",
