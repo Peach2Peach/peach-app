@@ -5,11 +5,9 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
-import Input from '../../components/inputs/Input'
-import Button from '../../components/Button'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import OpenPGP from 'react-native-fast-openpgp'
-import Text from '../../components/Text'
+import { Button, Text, Input } from '../../components'
 
 type RootStackParamList = {
   Home: undefined,

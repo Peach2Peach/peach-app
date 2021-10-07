@@ -21,7 +21,8 @@ interface InputProps {
   autoCorrect?: boolean
   isValid?: boolean,
   errorMessage?: string[]
-  onChange?: Function
+  onChange?: Function,
+  secureTextEntry?: boolean
 }
 
 /**
@@ -34,6 +35,7 @@ interface InputProps {
  * @param [props.isValid] if true show valid state
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
+ * @param [props.secureTextEntry] if true hide input
  * @example
  * <Input
  *   onChange={setAddress}
@@ -44,14 +46,15 @@ interface InputProps {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
-export default ({
+export const Input = ({
   value,
   label,
   placeholder,
   autoCorrect = false,
   isValid,
   errorMessage = [],
-  onChange
+  onChange,
+  secureTextEntry
 }: InputProps): ReactElement => <View>
   {label
     ? <Text style={[
@@ -77,6 +80,7 @@ export default ({
         autoCorrect={autoCorrect}
         onChangeText={(val: string) => onChange ? onChange(val) : null}
         onBlur={() => onChange ? onChange(value?.trim()) : null}
+        secureTextEntry={secureTextEntry}
       />
     </ShadowFlex>
   </View>
@@ -86,3 +90,5 @@ export default ({
     : null
   }
 </View>
+
+export default Input

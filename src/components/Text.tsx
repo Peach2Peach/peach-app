@@ -21,10 +21,12 @@ interface TextProps {
  *   {i18n('form.save')}
  * </Text>
  */
-export default ({ style, children }: TextProps): ReactElement =>
+export const PeachText = ({ style, children }: TextProps): ReactElement =>
   <Text style={[
     tw`font-lato text-lg text-black-1`,
     style
   ]}>
     {children}
   </Text>
+
+export default PeachText

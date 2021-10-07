@@ -1,12 +1,11 @@
 import React, { ReactElement, useState } from 'react'
 import {
-  TextInput,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { backupAccount, createAccount, getAccount, recoverAccount } from '../../utils/accountUtils'
 import { StackNavigationProp } from '@react-navigation/stack'
-import Button from '../../components/Button'
+import { Button, Input } from '../../components'
 
 type RootStackParamList = {
   Home: undefined,
@@ -24,9 +23,9 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <View style={tw`flex-col justify-center h-full`}>
     <View style={tw`mt-4`}>
-      <TextInput
+      <Input
         placeholder="Password"
-        onChangeText={value => password = value}
+        onChange={(value: string) => password = value}
         secureTextEntry={true}
       />
     </View>

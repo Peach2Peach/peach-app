@@ -17,7 +17,7 @@ import Select from './Select'
  *   </Text>
  * }
  */
-const LanguageContext = createContext({ locale: 'en' })
+export const LanguageContext = createContext({ locale: 'en' })
 
 
 export default LanguageContext

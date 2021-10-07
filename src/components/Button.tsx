@@ -31,7 +31,7 @@ interface ButtonProps {
  *   onPress={save}
  * />
  */
-export default ({ title, secondary, wide = true, style, onPress }: ButtonProps): ReactElement => {
+export const Button = ({ title, secondary, wide = true, style, onPress }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
   return <View>
@@ -57,3 +57,5 @@ export default ({ title, secondary, wide = true, style, onPress }: ButtonProps):
     </Pressable>
   </View>
 }
+
+export default Button

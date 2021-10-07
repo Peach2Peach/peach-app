@@ -2,14 +2,12 @@ import React, { ReactElement, useContext } from 'react'
 import {
   View
 } from 'react-native'
-import Button from '../../components/Button'
-import FadeInView from '../../components/animation/FadeInView'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import Text from '../../components/Text'
+import { Button, Text, FadeInView } from '../../components'
 
 type RootStackParamList = {
   Home: undefined,
