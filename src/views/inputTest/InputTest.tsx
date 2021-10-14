@@ -27,6 +27,7 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [prestine, setPristine] = useState(true)
+  const [randomValue, setRandomValue] = useState('')
   const [address, setAddress] = useState('')
   const [iban, setIBAN] = useState('')
 
@@ -53,8 +54,16 @@ export default ({ navigation }: Props): ReactElement => {
   return <View style={tw`flex-col justify-center h-full px-4`}>
     <View style={tw`w-6/12 mt-4`}>
       <Input
-        onChange={setAddress}
-        value={'smol input'}
+        label={'smol input'}
+      />
+    </View>
+    <View style={tw`mt-4`}>
+      <Input
+        label={'Input w/ Icon'}
+        icon={'send'}
+        onChange={setRandomValue}
+        value={randomValue}
+        onSubmit={(val: string) => alert(val)}
       />
     </View>
     <View style={tw`mt-4`}>
