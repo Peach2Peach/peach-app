@@ -9,14 +9,14 @@ import Share from './fileSystem/Share'
 interface CreateAccountProps {
   account?: object|null,
   password: string,
-  onSuccess: Function,
-  onError: Function
+  onSuccess?: Function,
+  onError?: Function
 }
 interface RecoverAccountProps {
   encryptedAccount: string,
   password: string,
-  onSuccess: Function,
-  onError: Function
+  onSuccess?: Function,
+  onError?: Function
 }
 
 /**
@@ -45,11 +45,11 @@ export const createAccount = async ({
     ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
   } catch (e) {
-    onError(e)
+    if (onError) onError(e)
     return null
   }
 
-  onSuccess()
+  if (onSuccess) onSuccess()
   return ciphertext
 }
 
@@ -137,6 +137,6 @@ export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onE
       onError
     })
   } catch (e) {
-    onError(e)
+    if (onError) onError(e)
   }
 }
