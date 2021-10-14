@@ -10,28 +10,28 @@ const password = 'supersecret'
 
 describe('createAccount', () => {
   it('creates a new account and stores it encrypted', async () => {
-    const result = await createAccount()
+    const result = await createAccount({})
     const account = AES.decrypt(result, '').toString(CryptoJS.enc.Utf8)
 
     ok(JSON.parse(account).id)
   })
 
   it('creates a new account and stores it encrypted with password', async () => {
-    const result = await createAccount(null, password)
+    const result = await createAccount({ account: null, password })
     const account = AES.decrypt(result, password).toString(CryptoJS.enc.Utf8)
 
     ok(JSON.parse(account).id)
   })
 
   it('recovers account and stores it encrypted', async () => {
-    const result = await createAccount(recoveredAccount)
+    const result = await createAccount({ account: recoveredAccount })
     const account = AES.decrypt(result, '').toString(CryptoJS.enc.Utf8)
 
     deepStrictEqual(recoveredAccount, JSON.parse(account))
   })
 
   it('recovers account and stores it encrypted with password', async () => {
-    const result = await createAccount(recoveredAccount, password)
+    const result = await createAccount({ account: recoveredAccount, password })
     const account = AES.decrypt(result, password).toString(CryptoJS.enc.Utf8)
 
     deepStrictEqual(recoveredAccount, JSON.parse(account))
@@ -45,7 +45,7 @@ describe('createAccount', () => {
 
 describe('getAccount', () => {
   it('decrypts account from storage', async () => {
-    await createAccount()
+    await createAccount({})
     const account = await getAccount()
     ok(account.id)
   })

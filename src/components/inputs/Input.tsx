@@ -77,8 +77,8 @@ export const Input = ({
           value={value}
           autoCorrect={autoCorrect}
           onChangeText={(val: string) => onChange ? onChange(val) : null}
-          onSubmitEditing={() => onSubmit ? onSubmit(value) : null}
-          onBlur={() => onChange ? onChange(value?.trim()) : null}
+          onSubmitEditing={(e) => onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null}
+          onEndEditing={(e) => onChange ? onChange(e.nativeEvent.text?.trim()) : null}
           secureTextEntry={secureTextEntry}
         />
         {icon

@@ -41,14 +41,14 @@ export const Button = ({ title, secondary, wide = true, style, onPress }: Button
         secondary ? tw`bg-white-1 border border-peach-1 ` : tw`bg-peach-1`,
         wide ? tw`w-full` : tw`w-40`,
         active ? tw`bg-peach-2` : {},
-        style
+        style || {}
       ]}
       onPress={e => onPress ? onPress(e) : null}
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
     >
       <Text style={[
-        tw`font-baloo text-sm`,
+        tw`font-baloo text-sm uppercase`,
         secondary ? tw`text-peach-1 ` : tw`text-white-1`,
         active ? tw`text-white-1` : {}
       ]}>

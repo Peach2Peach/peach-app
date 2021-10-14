@@ -5,26 +5,51 @@ import RNFS from './fileSystem/RNFS'
 import DocumentPicker from './fileSystem/DocumentPicker'
 import Share from './fileSystem/Share'
 
+
+interface CreateAccountProps {
+  account?: object|null,
+  password: string,
+  onSuccess: Function,
+  onError: Function
+}
+interface RecoverAccountProps {
+  encryptedAccount: string,
+  password: string,
+  onSuccess: Function,
+  onError: Function
+}
+
 /**
  * @description Method to create a new or existing account
  * @param [account] account object
  * @param [password] secret
+ * @param [onSuccess] callback on success
+ * @param [onError] callback on error
  * @returns promise resolving to encrypted account
  */
-export const createAccount = async (account: object | null, password = ''): Promise<string> => {
+export const createAccount = async ({
+  account,
+  password = '',
+  onSuccess,
+  onError
+}: CreateAccountProps): Promise<string|null> => {
   let ciphertext = null
 
-  if (typeof account === 'object') {}
-  info('Create account')
-  if (!account) {
+  info('Create account', account, password)
+  if (!account || typeof account !== 'object') {
     account = { id: 'Peach of Cake' } // TODO replace with actual data
     // TODO send message to server about account creation
   }
 
-  ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
+  try {
+    ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
+  } catch (e) {
+    onError(e)
+    return null
+  }
 
-  await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
-
+  onSuccess()
   return ciphertext
 }
 
@@ -63,9 +88,9 @@ export const backupAccount = async () => {
   info('Backing up account')
   try {
     const result = await Share.open({
-      title: 'Peach Account',
+      title: 'peach-account.json',
       url: isMobile() ? 'file://' + RNFS.DocumentDirectoryPath + '/account.json' : '/account.json',
-      subject: 'Peach Account',
+      subject: 'peach-account.json',
     })
     info(result)
   } catch (e) {
@@ -75,31 +100,43 @@ export const backupAccount = async () => {
 
 /**
  * @description Method to recover account
- * Prompts file select dialogue and imports account from file
+ * @param encryptedAccount the account but password encrypted
  * @param [password] secret
+ * @param [onSuccess] callback on success
+ * @param [onError] callback on error
  */
-export const recoverAccount = async (password = '') => {
-  info('Recovering account')
+export const decryptAccount = (encryptedAccount: string, password = '') => {
+  info('Decrypting account', encryptedAccount, password)
 
   try {
-    const result = await DocumentPicker.pick()
-    try {
-      let account = ''
-      if (result.content) {
-        account = result.content
-      } else if (result.uri) {
-        account = await RNFS.readFile(result.uri, 'utf8') as string
-      }
-      account = CryptoJS.AES.decrypt(account, password).toString(CryptoJS.enc.Utf8)
+    const account = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
+    console.log(account)
+    return JSON.parse(account)
+  } catch (e) {
+    info('Account cannot be decrypted', e)
+  }
+  return encryptedAccount
+}
 
-      createAccount(JSON.parse(account), password)
-    } catch (e) {
-      error('File could not be read', e.message)
-    }
-  } catch (err) {
-    if (!DocumentPicker.isCancel(err)) {
-      // User cancelled the picker, exit any dialogs or menus and move on
-      throw err
-    }
+/**
+ * @description Method to recover account
+ * @param props.encryptedAccount the account but password encrypted
+ * @param [props.password] secret
+ * @param [props.onSuccess] callback on success
+ * @param [props.onError] callback on error
+ */
+export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onError }: RecoverAccountProps) => {
+  info('Recovering account', encryptedAccount, password)
+
+  try {
+    const account = decryptAccount(encryptedAccount, password)
+    createAccount({
+      account,
+      password,
+      onSuccess,
+      onError
+    })
+  } catch (e) {
+    onError(e)
   }
 }
