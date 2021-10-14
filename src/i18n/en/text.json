@@ -10,6 +10,8 @@
   "languageName.de-CH": "Deutsch (Schweiz)",
   "currency.sats": "$0 sats",
   "restoreBackup": "Restore backup",
+  "scanQR": "Scan QR",
+  "paste": "Paste",
   "form.file": "Select file...",
   "form.required.error": "This field is required",
   "form.invalid.error": "Please enter a valid value",

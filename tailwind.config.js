@@ -32,6 +32,7 @@ module.exports = {
         blue: '#40BCF5'
       },
       fontSize: {
+        '2xs': '10px',
         'xl': '1.25rem',
         '2xl': '1.5rem',
         '3xl': '1.875rem',

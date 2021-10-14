@@ -1,3 +1,4 @@
+export { IconButton } from './IconButton'
 export { Button } from './Button'
 export { PeachText as Text } from './Text'
 export { Input, FileInput, LanguageSelect, Select } from './inputs'

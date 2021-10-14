@@ -6800,6 +6800,9 @@
 	"text-9xl": {
 		"fontSize": 128
 	},
+	"text-2xs": {
+		"fontSize": 10
+	},
 	"font-thin": {
 		"fontWeight": "100"
 	},

@@ -7,7 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { getMessages, rules } from '../../utils/validationUtils'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Input } from '../../components'
+import { Button, IconButton, Input } from '../../components'
 
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
@@ -66,14 +66,25 @@ export default ({ navigation }: Props): ReactElement => {
         onSubmit={(val: string) => alert(val)}
       />
     </View>
-    <View style={tw`mt-4`}>
-      <Input
-        onChange={setAddress}
-        value={address}
-        label={i18n('form.btcAddress')}
-        isValid={!isFieldInError('address')}
-        autoCorrect={false}
-        errorMessage={getErrorsInField('address')}
+    <View style={tw`mt-4 flex-row`}>
+      <View style={tw`w-full flex-shrink mr-2`}>
+        <Input
+          onChange={setAddress}
+          value={address}
+          label={i18n('form.btcAddress')}
+          isValid={!isFieldInError('address')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('address')}
+        />
+      </View>
+      <IconButton
+        icon="camera"
+        title={i18n('scanQR')}
+        style={tw`mr-2`}
+      />
+      <IconButton
+        icon="copy"
+        title={i18n('paste')}
       />
     </View>
     <View style={tw`mt-4`}>
