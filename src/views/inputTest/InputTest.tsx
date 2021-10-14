@@ -8,6 +8,7 @@ import { getMessages, rules } from '../../utils/validationUtils'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, IconButton, Input } from '../../components'
+import Clipboard from '@react-native-clipboard/clipboard';
 
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
@@ -38,6 +39,9 @@ export default ({ navigation }: Props): ReactElement => {
     messages: getMessages()
   })
 
+  const pasteAddress = async () => {
+    setAddress(await Clipboard.getString())
+  }
   const onSubmit = () => {
     if (prestine) setPristine(false)
     validate({
@@ -85,6 +89,7 @@ export default ({ navigation }: Props): ReactElement => {
       <IconButton
         icon="copy"
         title={i18n('paste')}
+        onPress={pasteAddress}
       />
     </View>
     <View style={tw`mt-4`}>
