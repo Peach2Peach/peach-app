@@ -95,21 +95,22 @@
     "moduleFileExtensions": [
       "ts",
       "tsx",
-      "js"
+      "js",
+      "jsx"
     ],
     "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator|react-native-neomorph-shadows|@react-native-community)/)"
+      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator|react-native-neomorph-shadows|@react-native-community|react-native-qrcode-scanner|react-native-permissions)/)"
     ],
     "setupFiles": [
       "./tests/prepare.js",
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "moduleNameMapper": {
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+      ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy"
     }
   },
   "browserslist": {
