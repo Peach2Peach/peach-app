@@ -7,8 +7,9 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { getMessages, rules } from '../../utils/validationUtils'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, IconButton, Input } from '../../components'
-import Clipboard from '@react-native-clipboard/clipboard';
+import { Button, IconButton, Input, ScanQR } from '../../components'
+import Clipboard from '@react-native-clipboard/clipboard'
+import { BarCodeReadEvent } from 'react-native-camera'
 
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
@@ -30,6 +31,7 @@ export default ({ navigation }: Props): ReactElement => {
   const [prestine, setPristine] = useState(true)
   const [randomValue, setRandomValue] = useState('')
   const [address, setAddress] = useState('')
+  const [scanQR, setScanQR] = useState(false)
   const [iban, setIBAN] = useState('')
 
   const { validate, isFieldInError, getErrorsInField } = useValidation({
@@ -85,6 +87,7 @@ export default ({ navigation }: Props): ReactElement => {
         icon="camera"
         title={i18n('scanQR')}
         style={tw`mr-2`}
+        onPress={() => setScanQR(!scanQR)}
       />
       <IconButton
         icon="copy"
@@ -92,6 +95,11 @@ export default ({ navigation }: Props): ReactElement => {
         onPress={pasteAddress}
       />
     </View>
+    {scanQR
+      ? <View style={tw`mt-20`}>
+        <ScanQR onSuccess={e => setAddress(e.data)}/>
+      </View>
+      : null}
     <View style={tw`mt-4`}>
       <Input
         onChange={setIBAN}

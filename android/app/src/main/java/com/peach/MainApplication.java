@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.zoontek.rnpermissions.RNPermissionsPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.art.ARTPackage;
 import com.reactnativefastopenpgp.FastOpenpgpPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
