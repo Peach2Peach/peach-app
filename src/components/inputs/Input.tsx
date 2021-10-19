@@ -1,32 +1,45 @@
 import React, { ReactElement } from 'react'
 import {
-  Text,
+  Pressable,
   View
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
+import { ShadowFlex } from 'react-native-neomorph-shadows'
+import Text from '../Text'
+import Icon from '../Icon'
 
-
+const shadowStyle = {
+  shadowOffset: { width: 1, height: 1 },
+  shadowOpacity: 0.25,
+  shadowColor: '#000000',
+  shadowRadius: 4,
+  backgroundColor: 'transparent'
+}
 interface InputProps {
   value?: string,
   label?: string,
-  placeholder?: string,
+  icon?: string,
   autoCorrect?: boolean
-  isValid: boolean,
+  isValid?: boolean,
   errorMessage?: string[]
-  onChange: Function
+  onChange?: Function,
+  onSubmit?: Function,
+  secureTextEntry?: boolean
 }
 
 /**
- * @description Component to display the language select
+ * @description Component to display an input field
  * @param props Component properties
- * @param props.value current value
- * @param props.label input label
- * @param props.placeholder placeholder text for no value
- * @param props.autoCorrect if true, enable autocorrect on input field
- * @param props.isValid if true show valid state
- * @param props.errorMessage error message for invalid field
- * @param props.onChange onchange handler from outside
+ * @param [props.value] current value
+ * @param [props.label] input label
+ * @param [props.icon] icon id
+ * @param [props.autoCorrect] if true, enable autocorrect on input field
+ * @param [props.isValid] if true show valid state
+ * @param [props.errorMessage] error message for invalid field
+ * @param [props.onChange] onchange handler from outside
+ * @param [props.onSubmit] onsubmit handler from outside
+ * @param [props.secureTextEntry] if true hide input
  * @example
  * <Input
  *   onChange={setAddress}
@@ -37,37 +50,51 @@ interface InputProps {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
-export default ({
+export const Input = ({
   value,
   label,
-  placeholder,
+  icon,
   autoCorrect = false,
   isValid,
   errorMessage = [],
-  onChange
+  onChange,
+  onSubmit,
+  secureTextEntry
 }: InputProps): ReactElement => <View>
-  {label
-    ? <Text style={[
-      isValid && value ? tw`text-green` : null,
-      errorMessage.length > 0 ? tw`text-red` : null
-    ]}>{label}</Text>
-    : null
-  }
-  <TextInput
-    style={[
-      tw`border p-2`,
-      isValid && value ? tw`border-green` : null,
-      errorMessage.length > 0 ? tw`border-red` : null
-    ]}
-    placeholder={placeholder}
-    value={value}
-    autoCorrect={autoCorrect}
-    onChangeText={(val: string) => onChange(val)}
-    onBlur={event => onChange(event.nativeEvent.text.trim())}
+  <View style={[
+    tw`flex h-10 border border-grey-2 rounded`,
+    isValid && value ? tw`border-green` : {},
+    errorMessage.length > 0 ? tw`border-red` : {}
+  ]}>
+    <ShadowFlex
+      inner
+      style={Object.assign(shadowStyle, tw`h-10 rounded`)}
+    >
+      <View style={tw`flex flex-row items-center justify-between pl-7 pr-3`}>
+        <TextInput
+          style={[tw`h-10 p-0 text-grey-1 text-lg`]}
+          placeholder={label}
+          value={value}
+          autoCorrect={autoCorrect}
+          onChangeText={(val: string) => onChange ? onChange(val) : null}
+          onSubmitEditing={(e) => onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null}
+          onEndEditing={(e) => onChange ? onChange(e.nativeEvent.text?.trim()) : null}
+          secureTextEntry={secureTextEntry}
+        />
+        {icon
+          ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
+            <Icon id="send" style={tw`w-5 h-5`} />
+          </Pressable>
+          : null
+        }
+      </View>
+    </ShadowFlex>
+  </View>
 
-  />
   {errorMessage.length > 0
-    ? <Text style={tw`text-red`}>{errorMessage[0]}</Text>
+    ? <Text style={tw`font-baloo text-xs text-red text-center mt-2`}>{errorMessage[0]}</Text>
     : null
   }
 </View>
+
+export default Input

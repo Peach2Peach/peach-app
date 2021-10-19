@@ -6,12 +6,12 @@ import {
   ViewStyle
 } from 'react-native'
 import tw from '../styles/tailwind'
+import Icon from './Icon'
 import Text from './Text'
 
-interface ButtonProps {
+interface IconButtonProps {
+  icon: string,
   title: string,
-  secondary?: boolean,
-  wide?: boolean,
   style?: ViewStyle|ViewStyle[],
   onPress?: Function
 }
@@ -19,9 +19,8 @@ interface ButtonProps {
 /**
  * @description Component to display the Button
  * @param props Component properties
+ * @param props.icon icon id
  * @param props.title button text
- * @param [props.secondary] if true, button is of secondary nature
- * @param [props.wide] if true, button is taking on 100% width
  * @param [props.style] css style object
  * @param [props.onPress] onPress handler from outside
  * @example
@@ -31,15 +30,13 @@ interface ButtonProps {
  *   onPress={save}
  * />
  */
-export const Button = ({ title, secondary, wide = true, style, onPress }: ButtonProps): ReactElement => {
+export const IconButton = ({ icon, title, style, onPress }: IconButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
   return <View>
     <Pressable
       style={[
-        tw`flex items-center justify-center p-3 rounded`,
-        secondary ? tw`bg-white-1 border border-peach-1 ` : tw`bg-peach-1`,
-        wide ? tw`w-full` : tw`w-40`,
+        tw`w-14 h-10 flex-col items-center justify-between p-0 rounded bg-peach-1`,
         active ? tw`bg-peach-2` : {},
         style || {}
       ]}
@@ -47,15 +44,12 @@ export const Button = ({ title, secondary, wide = true, style, onPress }: Button
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
     >
-      <Text style={[
-        tw`font-baloo text-sm uppercase`,
-        secondary ? tw`text-peach-1 ` : tw`text-white-1`,
-        active ? tw`text-white-1` : {}
-      ]}>
+      <Icon id={icon} style={tw`w-5 h-5`} />
+      <Text style={tw`font-baloo text-xs uppercase text-white-1`}>
         {title}
       </Text>
     </Pressable>
   </View>
 }
 
-export default Button
+export default IconButton

@@ -1,13 +1,14 @@
 type pickReturn = {
   uri?: string
-  content?: string
+  content?: string,
+  name?: string
 }
 interface pick {
   (): Promise<pickReturn>
 }
 const pick: pick = async () => new Promise(resolve => {
   const input = document.createElement('input')
-  let account: string = ''
+  let content: string = ''
 
   input.type = 'file'
   input.onchange = (event?: Event) => {
@@ -18,10 +19,10 @@ const pick: pick = async () => new Promise(resolve => {
     reader.readAsText(file, 'UTF-8')
 
     reader.onload = readerEvent => {
-      account = readerEvent?.target?.result as string
+      content = readerEvent?.target?.result as string
 
       resolve({
-        content: account
+        content
       })
     }
   }

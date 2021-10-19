@@ -20,6 +20,14 @@ target 'peach' do
 
   pod 'react-native-fast-openpgp', :path => '../node_modules/react-native-fast-openpgp'
 
+  pod 'ReactNativeART', :path => '../node_modules/@react-native-community/art'
+
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
+  pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera"
+
   target 'peachTests' do
     inherit! :complete
     # Pods for testing

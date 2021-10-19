@@ -6800,6 +6800,9 @@
 	"text-9xl": {
 		"fontSize": 128
 	},
+	"text-2xs": {
+		"fontSize": 10
+	},
 	"font-thin": {
 		"fontWeight": "100"
 	},
@@ -6895,6 +6898,33 @@
 	},
 	"leading-10": {
 		"lineHeight": 40
+	},
+	"leading-xl": {
+		"lineHeight": 24
+	},
+	"leading-2xl": {
+		"lineHeight": 32
+	},
+	"leading-3xl": {
+		"lineHeight": 36
+	},
+	"leading-4xl": {
+		"lineHeight": 40
+	},
+	"leading-5xl": {
+		"lineHeight": 52
+	},
+	"leading-6xl": {
+		"lineHeight": 64
+	},
+	"leading-7xl": {
+		"lineHeight": 80
+	},
+	"leading-8xl": {
+		"lineHeight": 112
+	},
+	"leading-9xl": {
+		"lineHeight": 144
 	},
 	"tracking-tighter": {
 		"letterSpacing": "-0.05em"

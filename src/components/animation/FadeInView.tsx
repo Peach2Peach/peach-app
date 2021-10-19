@@ -19,7 +19,7 @@ type FadeInViewProps = {
     <Text>🍑</Text>
   </FadeInView>
  */
-export default ({ children, style, duration = 400, delay = 0 }: FadeInViewProps): ReactElement => {
+export const FadeInView = ({ children, style, duration = 400, delay = 0 }: FadeInViewProps): ReactElement => {
   const fadeAnim = useRef(new Animated.Value(0)).current
 
   React.useEffect(() => {
@@ -40,3 +40,5 @@ export default ({ children, style, duration = 400, delay = 0 }: FadeInViewProps)
     {children}
   </Animated.View>
 }
+
+export default FadeInView

@@ -18,6 +18,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-clipboard/clipboard": "^1.9.0",
+    "@react-native-community/art": "^1.2.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^1.16.5",
     "@react-navigation/native": "^6.0.2",
@@ -30,6 +32,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-camera": "^4.2.1",
     "react-native-crypto": "^2.2.0",
     "react-native-crypto-js": "^1.0.0",
     "react-native-document-picker": "^5.2.0",
@@ -39,10 +42,14 @@
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-level-fs": "^3.0.1",
+    "react-native-neomorph-shadows": "^1.1.2",
+    "react-native-permissions": "^3.1.0",
+    "react-native-qrcode-scanner": "^1.5.4",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-share": "^7.0.0",
+    "react-native-svg": "^12.1.1",
     "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "0.17.0",
     "react-scripts": "3.4.1",
@@ -77,6 +84,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "metro-react-native-babel-preset": "^0.64.0",
+    "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "17.0.1",
     "tailwind-rn": "^3.0.1",
     "tailwindcss": "^2.2.7",
@@ -87,22 +95,22 @@
     "moduleFileExtensions": [
       "ts",
       "tsx",
-      "js"
+      "js",
+      "jsx"
     ],
     "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator)/)"
-
+      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator|react-native-neomorph-shadows|@react-native-community|react-native-qrcode-scanner|react-native-permissions)/)"
     ],
     "setupFiles": [
       "./tests/prepare.js",
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "moduleNameMapper": {
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+      ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy"
     }
   },
   "browserslist": {

@@ -18,13 +18,16 @@ interface SelectProps {
  * @param props.onChange method to set locale on value change
  * @param props.sort if true, sort alphabetically and numerically
  */
-export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement => <select onChange={onChange}>
-  {items
-    .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
-    .map(item =>
-      <option value={item.value} selected={item.value === selectedValue} key={item.value}>
-        {item.text}
-      </option>
-    )
-  }
-</select>
+export const Select = ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
+  <select onChange={onChange}>
+    {items
+      .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
+      .map(item =>
+        <option value={item.value} selected={item.value === selectedValue} key={item.value}>
+          {item.text}
+        </option>
+      )
+    }
+  </select>
+
+export default Select

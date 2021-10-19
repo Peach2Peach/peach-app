@@ -4,11 +4,11 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
-import Input from '../../components/inputs/Input'
 import { getMessages, rules } from '../../utils/validationUtils'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import Button from '../../components/Button'
+import { Button, IconButton, Input, ScanQR } from '../../components'
+import Clipboard from '@react-native-clipboard/clipboard'
 
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
@@ -28,7 +28,9 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [prestine, setPristine] = useState(true)
+  const [randomValue, setRandomValue] = useState('')
   const [address, setAddress] = useState('')
+  const [scanQR, setScanQR] = useState(false)
   const [iban, setIBAN] = useState('')
 
   const { validate, isFieldInError, getErrorsInField } = useValidation({
@@ -38,6 +40,9 @@ export default ({ navigation }: Props): ReactElement => {
     messages: getMessages()
   })
 
+  const pasteAddress = async () => {
+    setAddress(await Clipboard.getString())
+  }
   const onSubmit = () => {
     if (prestine) setPristine(false)
     validate({
@@ -52,16 +57,49 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`flex-col justify-center h-full px-4`}>
-    <View style={tw`mt-4`}>
+    <View style={tw`w-6/12 mt-4`}>
       <Input
-        onChange={setAddress}
-        value={address}
-        label={i18n('form.btcAddress')}
-        isValid={!isFieldInError('address')}
-        autoCorrect={false}
-        errorMessage={getErrorsInField('address')}
+        label={'smol input'}
       />
     </View>
+    <View style={tw`mt-4`}>
+      <Input
+        label={'Input w/ Icon'}
+        icon={'send'}
+        onChange={setRandomValue}
+        value={randomValue}
+        // eslint-disable-next-line no-alert
+        onSubmit={(val: string) => alert(val)}
+      />
+    </View>
+    <View style={tw`mt-4 flex-row`}>
+      <View style={tw`w-full flex-shrink mr-2`}>
+        <Input
+          onChange={setAddress}
+          value={address}
+          label={i18n('form.btcAddress')}
+          isValid={!isFieldInError('address')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('address')}
+        />
+      </View>
+      <IconButton
+        icon="camera"
+        title={i18n('scanQR')}
+        style={tw`mr-2`}
+        onPress={() => setScanQR(!scanQR)}
+      />
+      <IconButton
+        icon="copy"
+        title={i18n('paste')}
+        onPress={pasteAddress}
+      />
+    </View>
+    {scanQR
+      ? <View style={tw`mt-20`}>
+        <ScanQR onSuccess={e => setAddress(e.data)}/>
+      </View>
+      : null}
     <View style={tw`mt-4`}>
       <Input
         onChange={setIBAN}
