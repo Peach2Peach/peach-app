@@ -2,7 +2,6 @@ import { error, info } from './logUtils'
 import { isMobile } from './systemUtils'
 import CryptoJS from 'react-native-crypto-js'
 import RNFS from './fileSystem/RNFS'
-import DocumentPicker from './fileSystem/DocumentPicker'
 import Share from './fileSystem/Share'
 
 
@@ -110,7 +109,6 @@ export const decryptAccount = (encryptedAccount: string, password = '') => {
 
   try {
     const account = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
-    console.log(account)
     return JSON.parse(account)
   } catch (e) {
     info('Account cannot be decrypted', e)

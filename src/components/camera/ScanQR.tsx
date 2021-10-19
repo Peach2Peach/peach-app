@@ -1,9 +1,5 @@
 import React, { ReactElement } from 'react'
 
-import {
-  Text,
-  TouchableOpacity
-} from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 
 import QRCodeScanner from 'react-native-qrcode-scanner'

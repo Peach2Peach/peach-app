@@ -5,7 +5,6 @@ import {
   ViewStyle
 } from 'react-native'
 import { error } from '../../utils/logUtils'
-import RNFS from '../../utils/fileSystem/RNFS'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
 import { ShadowFlex } from 'react-native-neomorph-shadows'
@@ -18,7 +17,6 @@ export type FileData = {
 }
 
 const selectFile = async () => {
-  console.log('wronk')
   try {
     const result = await DocumentPicker.pick()
     try {

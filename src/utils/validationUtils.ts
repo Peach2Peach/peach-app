@@ -8,7 +8,6 @@ export const rules = {
   },
   number: /^\d+$/u,
   account (_: boolean, value: object) {
-    console.log('validating', value, typeof value === 'object')
     return value && typeof value === 'object'
   },
   phone: /^[0-9-.()+ ]+$/u,

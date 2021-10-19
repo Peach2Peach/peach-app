@@ -31,6 +31,7 @@ export default ({ navigation }: Props): ReactElement => {
     name: '',
     content: ''
   })
+  // eslint-disable-next-line prefer-const
   let [account, setAccount] = useState(null)
 
 
@@ -42,14 +43,11 @@ export default ({ navigation }: Props): ReactElement => {
   })
 
   const onPasswordChange = (value: string) => {
-    console.log('onPasswordChange', value)
-
     setPassword(value)
     if (!file.content) return
 
     account = decryptAccount(file.content, value)
     setAccount(account)
-    console.log('validate', account, password)
     validate({
       account: {
         account: true,
@@ -57,7 +55,6 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
   const onFileChange = (result: FileData) => {
-    console.log('onFileChange', result)
     setFile(result)
     account = decryptAccount(result.content, password)
     setAccount(account)
@@ -68,9 +65,12 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
   const onSuccess = () => {
+    // eslint-disable-next-line no-console
     console.log('success')
   }
+
   const onError = () => {
+    // eslint-disable-next-line no-console
     console.log('error')
   }
   return <ScrollView>

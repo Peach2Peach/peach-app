@@ -9,7 +9,6 @@ import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, IconButton, Input, ScanQR } from '../../components'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { BarCodeReadEvent } from 'react-native-camera'
 
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
@@ -69,6 +68,7 @@ export default ({ navigation }: Props): ReactElement => {
         icon={'send'}
         onChange={setRandomValue}
         value={randomValue}
+        // eslint-disable-next-line no-alert
         onSubmit={(val: string) => alert(val)}
       />
     </View>
