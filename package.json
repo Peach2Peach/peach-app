@@ -45,6 +45,7 @@
     "react-native-neomorph-shadows": "^1.1.2",
     "react-native-permissions": "^3.1.0",
     "react-native-qrcode-scanner": "^1.5.4",
+    "react-native-qrcode-svg": "^6.1.1",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
