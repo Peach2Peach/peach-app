@@ -11,6 +11,7 @@ import { Button, Text, FadeInView } from '../../components'
 
 type RootStackParamList = {
   Home: undefined,
+  ComponentsTest: undefined,
   AccountTest: undefined,
   InputTest: undefined,
   PGPTest: undefined
@@ -22,6 +23,7 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   return <View style={tw`flex-col justify-center h-full`}>
@@ -40,6 +42,13 @@ export default ({ navigation }: Props): ReactElement => {
         meet <Text style={tw`text-4xl leading-4xl text-peach-1`}>satoshi's</Text> world
       </Text>
     </FadeInView>
+    <View style={tw`mt-4 flex items-center`}>
+      <Button
+        title="Components"
+        wide={false}
+        onPress={() => navigation.navigate('ComponentsTest')}
+      />
+    </View>
     <View style={tw`mt-4 flex items-center`}>
       <Button
         title="Account Tests"

@@ -1,0 +1,1 @@
+export { BitcoinAddress } from './BitcoinAddress'

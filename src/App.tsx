@@ -5,6 +5,7 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './views/home/Home'
+import ComponentsTest from './views/componentsTest/ComponentsTest'
 import AccountTest from './views/accountTest/AccountTest'
 import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
@@ -18,7 +19,8 @@ type RootStackParamList = {
   Home: undefined,
   AccountTest: undefined,
   InputTest: undefined,
-  PGPTest: undefined
+  PGPTest: undefined,
+  ComponentsTest: undefined
 }
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -35,6 +37,7 @@ const App: React.FC = () => {
           cardStyle: tw`bg-white-1`
         }}>
           <Stack.Screen name="Home" component={Home}/>
+          <Stack.Screen name="ComponentsTest" component={ComponentsTest}/>
           <Stack.Screen name="AccountTest" component={AccountTest}/>
           <Stack.Screen name="InputTest" component={InputTest}/>
           <Stack.Screen name="PGPTest" component={PGPTest}/>
