@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import {
   ViewStyle
 } from 'react-native'
+import { Text } from '.'
 import Icons from './icons'
 
 interface IconProps {
@@ -23,7 +24,9 @@ interface IconProps {
  */
 export const Icon = ({ id, style }: IconProps): ReactElement => {
   const SVG = Icons[id]
-  return <SVG style={style} />
+  return SVG
+    ? <SVG style={style} />
+    : <Text>❌</Text>
 }
 
 export default Icon

@@ -17,6 +17,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9E6B63E211E2467ABF899036 /* Baloo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 283FA502D4B548E3A37F2322 /* Baloo-Regular.ttf */; };
 		B02F42E418924127A63A8F2B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D096A2397AF84744BFD3CF79 /* Lato-Regular.ttf */; };
+		A5BB0ABE23764D43B1DFEF11 /* B612Mono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6255CD38065420A896ECA2A /* B612Mono-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		D096A2397AF84744BFD3CF79 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.release.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.release.xcconfig"; sourceTree = "<group>"; };
+		E6255CD38065420A896ECA2A /* B612Mono-Regular.ttf */ = {isa = PBXFileReference; name = "B612Mono-Regular.ttf"; path = "../assets/fonts/B612Mono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				283FA502D4B548E3A37F2322 /* Baloo-Regular.ttf */,
 				50700533AD794C94A3556B07 /* Lato-Bold.ttf */,
 				D096A2397AF84744BFD3CF79 /* Lato-Regular.ttf */,
+				E6255CD38065420A896ECA2A /* B612Mono-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				9E6B63E211E2467ABF899036 /* Baloo-Regular.ttf in Resources */,
 				131F73DFA5574AFBA1430323 /* Lato-Bold.ttf in Resources */,
 				B02F42E418924127A63A8F2B /* Lato-Regular.ttf in Resources */,
+				A5BB0ABE23764D43B1DFEF11 /* B612Mono-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

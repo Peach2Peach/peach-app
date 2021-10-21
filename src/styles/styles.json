@@ -4306,6 +4306,9 @@
 	"min-h-0": {
 		"minHeight": 0
 	},
+	"min-h-10": {
+		"minHeight": 40
+	},
 	"min-h-full": {
 		"minHeight": "100%"
 	},
