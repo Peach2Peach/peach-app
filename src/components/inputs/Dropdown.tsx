@@ -65,7 +65,7 @@ const shadowStyle = {
 export const Dropdown = ({ items, selectedValue, width = 273, onChange }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
   const height = tw`h-10`.height as number * (isOpen ? items.length : 1)
-
+  const selectedItem = items.find(item => item.value === selectedValue)
   const select = (item: Item) => {
     if (onChange) onChange(item.value)
     setOpen(!isOpen)
@@ -89,8 +89,9 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
       ]}>
         {isOpen
           ? [
-            <Pressable style={tw`h-10 flex justify-center opacity-30`} onPress={() => setOpen(!isOpen)}>
-              {items.find(item => item.value === selectedValue)?.display(false)}
+            <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
+              onPress={() => setOpen(!isOpen)}>
+              {selectedItem?.display(false)}
             </Pressable>,
             items
               .filter(item => item.value !== selectedValue)
