@@ -156,7 +156,7 @@ module.exports = {
     'no-nonoctal-decimal-escape': 'error',
     'no-octal-escape': 'error',
     'no-param-reassign': 'off',
-    'no-plusplus': 'error',
+    'no-plusplus': 'off',
     'no-promise-executor-return': 'off',
     'no-proto': 'error',
     'no-restricted-exports': 'error',

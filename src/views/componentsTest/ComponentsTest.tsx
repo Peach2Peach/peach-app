@@ -6,7 +6,8 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, BitcoinAddress, Text, Dropdown } from '../../components'
+import { Button, BitcoinAddress, Text, Dropdown, SatsFormat } from '../../components'
+import { getBitcoinContext } from '../../components/bitcoin'
 
 type RootStackParamList = {
   Home: undefined,
@@ -20,10 +21,18 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-// eslint-disable-next-line max-lines-per-function
+const buckets = [
+  250000,
+  500000,
+  1000000,
+  2000000,
+  5000000,
+]
+
 export default ({ navigation }: Props): ReactElement => {
-  const [selectedValue, setSelectedValue] = useState(500000)
+  const [selectedValue, setSelectedValue] = useState(buckets[0])
   useContext(LanguageContext)
+  const { satsPerUnit } = getBitcoinContext()
 
   return <ScrollView>
     <View style={tw`flex-col justify-center h-full px-4`}>
@@ -43,46 +52,20 @@ export default ({ navigation }: Props): ReactElement => {
           selectedValue={selectedValue}
           onChange={(value) => setSelectedValue(value as number)}
           width={tw`w-72`.width as number}
-          items={[
-            {
-              value: 500000,
-              display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
-                <View style={tw`flex-row justify-start items-center`}>
-                  <Text style={tw`font-mono text-grey-2`}>0.00</Text><Text style={tw`font-mono`}> 500 000 Sat</Text>
-                </View>
-                {isOpen
-                  ? <Text style={tw`font-mono text-peach-1`}>€50</Text>
-                  : null
-                }
-              </View>
-            },
-            {
-              value: 1000000,
-              display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
-                <View style={tw`flex-row justify-start items-center`}>
-                  <Text style={tw`font-mono text-grey-2`}>0.01</Text><Text style={tw`font-mono`}> 000 000 Sat</Text>
-                </View>
-                {isOpen
-                  ? <Text style={tw`font-mono text-peach-1`}>€100</Text>
-                  : null
-                }
-              </View>
-            },
-            {
-              value: 2000000,
-              display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
-                <View style={tw`flex-row justify-start items-center`}>
-                  <Text style={tw`font-mono text-grey-2`}>0.02</Text><Text style={tw`font-mono`}> 000 000 Sat</Text>
-                </View>
-                {isOpen
-                  ? <Text style={tw`font-mono text-peach-1`}>€200</Text>
-                  : null
-                }
-              </View>
-            }
-          ]}
+          items={buckets.map(value => ({
+            value,
+            display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
+              <SatsFormat sats={value}/>
+              {isOpen
+                ? <Text style={tw`font-mono text-peach-1`}>€{Math.round(value / satsPerUnit)}</Text>
+                : null
+              }
+            </View>
+          })
+          )}
         />
       </View>
+      <Text style={tw`mt-2 font-mono text-peach-1 text-center`}>€{Math.round(selectedValue / satsPerUnit)}</Text>
       <View style={tw`mt-4`}>
         <Button
           secondary={true}

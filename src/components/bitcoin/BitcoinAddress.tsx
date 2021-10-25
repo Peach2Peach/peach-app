@@ -2,9 +2,9 @@
 import React, { ReactElement } from 'react'
 import { View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import Text from '../Text'
 import QRCode from 'react-native-qrcode-svg'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
+import { Text } from '..'
 
 interface BitcoinAddressProps {
   address: string,

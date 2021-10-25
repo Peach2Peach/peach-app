@@ -9,9 +9,9 @@ import RNFS from '../../utils/fileSystem/RNFS'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
 import { ShadowFlex } from 'react-native-neomorph-shadows'
-import Text from '../Text'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
+import { Text } from '..'
 
 export type FileData = {
   name: string,

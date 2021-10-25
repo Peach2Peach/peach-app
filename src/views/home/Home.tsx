@@ -26,6 +26,7 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+
   return <View style={tw`flex-col justify-center h-full`}>
     <FadeInView duration={400} delay={500}>
       <Text style={tw`text-center text-8xl leading-8xl`}>

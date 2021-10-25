@@ -6,8 +6,8 @@ import {
 import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import { ShadowFlex } from 'react-native-neomorph-shadows'
-import Text from '../Text'
 import Icon from '../Icon'
+import { Text } from '..'
 
 const shadowStyle = {
   shadowOffset: { width: 1, height: 1 },
