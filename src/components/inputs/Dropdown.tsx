@@ -73,6 +73,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
 
   return <View style={[
     tw`flex items-center border border-grey-4 rounded z-10`,
+    !isOpen ? tw`overflow-hidden` : {},
     { width, height }
   ]}>
     <Shadow
