@@ -84,7 +84,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
       }}
     >
       <View style={[
-        tw`py-0 pl-4 pr-3`,
+        tw`py-0 pl-4 pr-3 rounded`,
         isOpen ? tw`bg-white-1` : {}
       ]}>
         {isOpen
