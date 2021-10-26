@@ -94,7 +94,6 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
               {selectedItem?.display(false)}
             </Pressable>,
             items
-              .filter(item => item.value !== selectedValue)
               .map(item => <Pressable
                 key={item.value}
                 style={tw`h-10 flex justify-center`}
