@@ -8,7 +8,8 @@ module.exports = {
   'globals': {
     'self': true,
     'caches': true,
-    'jest': true
+    'jest': true,
+    'Buffer': true
   },
   'ignorePatterns': [
     'build/**/*.js',

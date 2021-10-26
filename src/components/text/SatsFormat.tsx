@@ -21,7 +21,8 @@ interface SatsFormat {
 export const SatsFormat = ({ sats }: SatsFormat): ReactElement => {
   const satsString = String(sats / 100000000)
 
-  let [btc, sat] = satsString.split('.')
+  const [btc] = satsString.split('.')
+  let [, sat] = satsString.split('.')
 
   sat = padString({
     string: sat,

@@ -19,6 +19,3 @@ jest.mock('@env', () => ({
   HTTP_AUTH_USER: 'value',
   HTTP_AUTH_PASS: 'value2'
 }))
-
-
-
