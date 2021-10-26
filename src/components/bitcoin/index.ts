@@ -3,7 +3,7 @@ import { HTTP_AUTH_USER, HTTP_AUTH_PASS } from '@env'
 
 type currency = 'EUR' | 'CHF' | 'GBP'
 
-type BitcoinContext = {
+type BitcoinContextType = {
   currency: currency,
   price: number,
   satsPerUnit: number
@@ -16,13 +16,13 @@ export type PeachPairInfo = {
   price: number,
 }
 
-export let bitcoinContext: BitcoinContext = {
+export let bitcoinContext: BitcoinContextType = {
   currency: 'EUR',
   price: NaN,
   satsPerUnit: NaN
 }
 
-export const getBitcoinContext = (): BitcoinContext => bitcoinContext
+export const getBitcoinContext = (): BitcoinContextType => bitcoinContext
 
 /**
  * @description Context for bitcoin
@@ -39,7 +39,7 @@ export const getBitcoinContext = (): BitcoinContext => bitcoinContext
 export const BitcoinContext = createContext(bitcoinContext)
 
 
-export const updateBitcoinContext = async (currency: currency): Promise<BitcoinContext> => {
+export const updateBitcoinContext = async (currency: currency): Promise<BitcoinContextType> => {
   let price = bitcoinContext.price
   let satsPerUnit = bitcoinContext.satsPerUnit
   const response = await fetch(`http://192.168.1.62:8080/market/price/BTC${currency}`, {
@@ -64,6 +64,6 @@ export const updateBitcoinContext = async (currency: currency): Promise<BitcoinC
   return bitcoinContext
 }
 
-export default BitcoinContext
-
 export { BitcoinAddress } from './BitcoinAddress'
+
+export default BitcoinContext

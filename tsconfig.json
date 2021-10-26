@@ -3,7 +3,10 @@
     "target": "es5",
     "module": "esnext",
     "jsx": "react",
-    "typeRoots": ["src/@types", "node_modules/@types"],
+    "typeRoots": [
+      "src/@types",
+      "node_modules/@types"
+    ],
     "resolveJsonModule": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,

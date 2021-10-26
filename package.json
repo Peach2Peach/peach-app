@@ -113,7 +113,8 @@
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "moduleNameMapper": {
-      "\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy"
+      "\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy",
+      "^@env(.*)$": "<rootDir>/.env$1"
     }
   },
   "browserslist": {

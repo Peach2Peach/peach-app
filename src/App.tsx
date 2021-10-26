@@ -31,7 +31,7 @@ const App: React.FC = () => {
   useContext(LanguageContext)
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const bitcoinContext = getBitcoinContext()
-  const [{ currency }, setBitcoinContext] = useState(getBitcoinContext())
+  const [, setBitcoinContext] = useState(getBitcoinContext())
 
   React.useEffect(() => {
     (async () => {
@@ -43,7 +43,7 @@ const App: React.FC = () => {
 
       return () => clearInterval(interval)
     })()
-  }, [currency])
+  }, [bitcoinContext.currency])
 
 
   return <SafeAreaView style={[tw`p-4 h-full bg-white-1`, tw.md`p-6`]}>
