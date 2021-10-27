@@ -19,21 +19,32 @@ interface SatsFormat {
  * <SatsFormat sats={5000}/>
  */
 export const SatsFormat = ({ sats }: SatsFormat): ReactElement => {
-  const satsString = String(sats / 100000000)
+  const satsString = String(sats)
+  let btc = '0'
+  let sat = satsString.slice(-8, satsString.length)
 
-  const [btc] = satsString.split('.')
-  let [, sat] = satsString.split('.')
+  if (sats >= 100000000) {
+    btc = satsString.slice(0, -8)
+  }
 
   sat = padString({
     string: sat,
     length: 8,
     char: '0',
-    side: 'right'
+    side: 'left'
   })
 
+  const finalString = `${btc}.${sat.slice(-8, -6)} ${sat.slice(-6, -3)} ${sat.slice(-3, sat.length)}`
+  const cutIndex = satsString.length < 3
+    ? finalString.length - satsString.length
+    : satsString.length < 6
+      ? finalString.length - satsString.length - 1
+      : satsString.length < 9
+        ? finalString.length - satsString.length - 2
+        : 0
   return <View style={tw`flex-row justify-start items-center`}>
-    <Text style={tw`font-mono text-grey-2`}>{btc}.{sat.slice(0, 2)}</Text>
-    <Text style={tw`font-mono`}> {sat.slice(2, -3)} {sat.slice(-3, sat.length)} Sat</Text>
+    <Text style={tw`font-mono text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
+    <Text style={tw`font-mono`}>{finalString.slice(cutIndex, finalString.length)} Sat</Text>
   </View>
 }
 
