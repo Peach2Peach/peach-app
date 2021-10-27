@@ -4,7 +4,7 @@ import {
   Text,
   ViewStyle
 } from 'react-native'
-import tw from '../styles/tailwind'
+import tw from '../../styles/tailwind'
 
 interface TextProps {
   style?: ViewStyle|ViewStyle[],

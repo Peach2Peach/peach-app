@@ -69,3 +69,5 @@ buck-out/
 
 
 /public/assets/
+
+.env

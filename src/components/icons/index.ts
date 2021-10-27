@@ -3,6 +3,8 @@ import camera from './camera.svg'
 import copy from './copy.svg'
 import file from './file.svg'
 import send from './send.svg'
+import dropdownClosed from './dropdownClosed.svg'
+import dropdownOpen from './dropdownOpen.svg'
 
 type Icons = {
   [key: string]: React.FC<SvgProps>
@@ -12,6 +14,8 @@ const Icons: Icons = {
   copy,
   file,
   send,
+  dropdownClosed,
+  dropdownOpen,
 }
 
 export default Icons

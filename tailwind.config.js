@@ -53,6 +53,9 @@ module.exports = {
         '7xl': '5rem',
         '8xl': '7rem',
         '9xl': '9rem'
+      },
+      minHeight: {
+        '10': '40px'
       }
     },
     fontFamily: {
@@ -64,6 +67,7 @@ module.exports = {
         '"Lato"',
         'sans-serif'
       ],
+      mono: ['Monospace']
     },
     screens: {
       'sm': '640px',

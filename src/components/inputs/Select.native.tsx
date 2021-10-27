@@ -25,7 +25,7 @@ interface SelectProps {
  * @param props.onChange method to set locale on value change
  * @param props.sort if true, sort alphabetically and numerically
  */
-export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
+export const Select = ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
   <Picker selectedValue={selectedValue} onValueChange={(value: ItemValue) => onChange({ currentTarget: { value } })}>
     {items
       .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
@@ -34,3 +34,5 @@ export default ({ items, selectedValue, onChange, sort }: SelectProps): ReactEle
       )
     }
   </Picker>
+
+export default Select

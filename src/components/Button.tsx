@@ -5,8 +5,8 @@ import {
   View,
   ViewStyle
 } from 'react-native'
+import { Text } from '.'
 import tw from '../styles/tailwind'
-import Text from './Text'
 
 interface ButtonProps {
   title: string,

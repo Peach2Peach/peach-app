@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import tw from '../styles/tailwind'
 import Icon from './Icon'
-import Text from './Text'
+import { Text } from '.'
 
 interface IconButtonProps {
   icon: string,

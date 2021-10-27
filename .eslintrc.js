@@ -1,6 +1,12 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: [
+    '@react-native-community',
+    'plugin:jest/recommended'
+  ],
+  env: {
+    'jest/globals': true
+  },
   'parserOptions': {
     'ecmaVersion': 12,
     'sourceType': 'module'
@@ -8,7 +14,8 @@ module.exports = {
   'globals': {
     'self': true,
     'caches': true,
-    'jest': true
+    'jest': true,
+    'Buffer': true
   },
   'ignorePatterns': [
     'build/**/*.js',
@@ -156,7 +163,7 @@ module.exports = {
     'no-nonoctal-decimal-escape': 'error',
     'no-octal-escape': 'error',
     'no-param-reassign': 'off',
-    'no-plusplus': 'error',
+    'no-plusplus': 'off',
     'no-promise-executor-return': 'off',
     'no-proto': 'error',
     'no-restricted-exports': 'error',
@@ -271,6 +278,8 @@ module.exports = {
     'wrap-iife': 'error',
     'wrap-regex': 'error',
     'yield-star-spacing': 'error',
-    'yoda': 'error'
+    'yoda': 'error',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'jest/expect-expect': 'off'
   }
 }

@@ -8,10 +8,19 @@ import { error } from '../../utils/logUtils'
 import RNFS from '../../utils/fileSystem/RNFS'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
-import { ShadowFlex } from 'react-native-neomorph-shadows'
-import Text from '../Text'
+import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
+import { Text } from '..'
+
+const shadowProps = {
+  distance: 8,
+  paintInside: true,
+  startColor: '#00000000',
+  finalColor: '#0000000D',
+  offset: [0, 6] as [x: string | number, y: string | number],
+  radius: 0
+}
 
 export type FileData = {
   name: string,
@@ -64,13 +73,6 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
   }
 })
 
-const shadowStyle = {
-  shadowOffset: { width: 1, height: 1 },
-  shadowOpacity: 0.25,
-  shadowColor: '#000000',
-  shadowRadius: 4,
-  backgroundColor: 'transparent'
-}
 interface FileInputProps {
   fileName?: string,
   autoCorrect?: boolean
@@ -106,28 +108,24 @@ export const FileInput = ({
 }: FileInputProps): ReactElement => <View>
   <Pressable
     style={[
-      tw`flex h-10 border border-peach-1 rounded`,
+      tw`flex h-10 border border-peach-1 rounded overflow-hidden`,
       isValid && fileName ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {},
       style || {}
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <ShadowFlex
-      inner
-      style={Object.assign(shadowStyle, tw`h-10 rounded`)}
-    >
-      <View style={[tw`flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2`]}>
-        <Text
-          style={[tw`flex-grow-0 flex-shrink font-baloo text-grey-2 text-lg uppercase`]}
-          numberOfLines={1}
-          ellipsizeMode={'middle'}
-        >
-          {fileName || i18n('form.file')}
-        </Text>
-        <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} />
-      </View>
-    </ShadowFlex>
+    <Shadow viewStyle={tw`w-full flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2 rounded`}
+      {...shadowProps}>
+      <Text
+        style={[tw`flex-grow-0 flex-shrink font-baloo text-grey-2 text-lg uppercase`]}
+        numberOfLines={1}
+        ellipsizeMode={'middle'}
+      >
+        {fileName || i18n('form.file')}
+      </Text>
+      <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} />
+    </Shadow>
   </Pressable>
 
   {errorMessage.length > 0

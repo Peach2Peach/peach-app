@@ -39,9 +39,10 @@
 	<string/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Lato-Bold.ttf</string>
-		<string>Lato-Regular.ttf</string>
-		<string>Baloo-Regular.ttf</string>
+		<string>B612 Mono Regular.ttf</string>
+		<string>Baloo.ttf</string>
+		<string>Lato Bold.ttf</string>
+		<string>Lato Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
