@@ -1,8 +1,18 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { Shadow } from 'react-native-neomorph-shadows'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
+import { Shadow } from 'react-native-shadow-2'
+
+const getShadowProps = (isOpen: boolean) => ({
+  paintInside: !isOpen,
+  distance: !isOpen ? 8 : 16,
+  startColor: isOpen ? '#0000000D' : '#0000',
+  finalColor: isOpen ? '#0000' : '#0000000D',
+  offset: isOpen ? [0, 0] : [0, 6],
+  radius: 0
+})
+
 
 interface Item {
   value: string|number,
@@ -14,14 +24,6 @@ interface DropdownProps {
   width?: number,
   selectedValue?: string|number,
   onChange?: (value: string|number) => void
-}
-
-const shadowStyle = {
-  shadowOffset: { width: 1, height: 1 },
-  shadowOpacity: 0.25,
-  shadowColor: '#000000',
-  shadowRadius: 4,
-  backgroundColor: 'transparent'
 }
 
 /**
@@ -64,7 +66,7 @@ const shadowStyle = {
  */
 export const Dropdown = ({ items, selectedValue, width = 273, onChange }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
-  const height = tw`h-10`.height as number * (isOpen ? items.length : 1)
+  const height = tw`h-10`.height as number * (isOpen ? items.length + 1 : 1)
   const selectedItem = items.find(item => item.value === selectedValue)
   const select = (item: Item) => {
     if (onChange) onChange(item.value)
@@ -72,42 +74,34 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
   }
 
   return <View style={[
-    tw`flex items-center border border-grey-4 rounded z-10`,
-    !isOpen ? tw`overflow-hidden` : {},
-    { width, height }
+    tw`z-10`,
+    !isOpen ? tw`overflow-hidden` : {}
   ]}>
-    <Shadow
-      inner={!isOpen}
-      style={{
-        ...shadowStyle,
-        ...tw`w-full rounded`,
-        width, height
-      }}
-    >
-      <View style={[
-        tw`py-0 pl-4 pr-3 rounded`,
+    <Shadow {...getShadowProps(isOpen)}
+      viewStyle={[
+        { width, height },
+        tw`py-0 pl-4 pr-3 border border-grey-4 rounded`,
         isOpen ? tw`bg-white-1` : {}
       ]}>
-        {isOpen
-          ? [
-            <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
-              onPress={() => setOpen(!isOpen)}>
-              {selectedItem?.display(false)}
-            </Pressable>,
-            items
-              .map(item => <Pressable
-                key={item.value}
-                style={tw`h-10 flex justify-center`}
-                onPress={() => select(item)}>
-                {item.display(isOpen)}
-              </Pressable>
-              )
-          ]
-          : <Pressable style={tw`h-10 flex justify-center`} onPress={() => setOpen(!isOpen)}>
-            {items.find(item => item.value === selectedValue)?.display(isOpen)}
-          </Pressable>
-        }
-      </View>
+      {isOpen
+        ? [
+          <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
+            onPress={() => setOpen(!isOpen)}>
+            {selectedItem?.display(false)}
+          </Pressable>,
+          items
+            .map(item => <Pressable
+              key={item.value}
+              style={tw`h-10 flex justify-center`}
+              onPress={() => select(item)}>
+              {item.display(isOpen)}
+            </Pressable>
+            )
+        ]
+        : <Pressable style={tw`h-10 flex justify-center`} onPress={() => setOpen(!isOpen)}>
+          {items.find(item => item.value === selectedValue)?.display(isOpen)}
+        </Pressable>
+      }
     </Shadow>
     <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'} style={tw`w-6 h-10 absolute right-2`} />
   </View>

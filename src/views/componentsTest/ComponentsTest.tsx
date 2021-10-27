@@ -65,7 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
           )}
         />
       </View>
-      <Text style={tw`mt-2 font-mono text-peach-1 text-center`}>€{Math.round(selectedValue / satsPerUnit)}</Text>
+      <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>€{Math.round(selectedValue / satsPerUnit)}</Text>
       <View style={tw`mt-4`}>
         <Button
           secondary={true}

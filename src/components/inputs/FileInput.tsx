@@ -7,9 +7,19 @@ import {
 import { error } from '../../utils/logUtils'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
-import { ShadowFlex } from 'react-native-neomorph-shadows'
+import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import { Text } from '..'
+
+
+const shadowProps = {
+  distance: 8,
+  paintInside: true,
+  startColor: '#00000000',
+  finalColor: '#0000000D',
+  offset: [0, 6],
+  radius: 0
+}
 
 export type FileData = {
   name: string,
@@ -39,13 +49,6 @@ const selectFile = async () => {
     name: '',
     content: null
   }
-}
-const shadowStyle = {
-  shadowOffset: { width: 1, height: 1 },
-  shadowOpacity: 0.25,
-  shadowColor: '#000000',
-  shadowRadius: 4,
-  backgroundColor: 'transparent'
 }
 interface InputProps {
   fileName?: string|null,
@@ -89,14 +92,11 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <ShadowFlex
-      inner
-      style={Object.assign(shadowStyle, tw`h-10 rounded`)}
-    >
+    <Shadow viewStyle={tw`w-full`} {...shadowProps}>
       <Text style={[tw`h-10 p-2 text-grey-1 text-lg`]}>
         {fileName || i18n('form.file')}
       </Text>
-    </ShadowFlex>
+    </Shadow>
   </Pressable>
 
   {errorMessage.length > 0

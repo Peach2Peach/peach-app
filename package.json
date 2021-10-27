@@ -19,8 +19,6 @@
   },
   "dependencies": {
     "@react-native-clipboard/clipboard": "^1.9.0",
-    "@react-native-community/art": "^1.2.0",
-    "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^1.16.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.6",
@@ -43,13 +41,13 @@
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-level-fs": "^3.0.1",
-    "react-native-neomorph-shadows": "^1.1.2",
     "react-native-permissions": "^3.1.0",
     "react-native-qrcode-scanner": "^1.5.4",
     "react-native-qrcode-svg": "^6.1.1",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-shadow-2": "^5.1.0",
     "react-native-share": "^7.0.0",
     "react-native-svg": "^12.1.1",
     "react-native-typescript-transformer": "^1.2.13",
@@ -75,7 +73,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/runtime": "^7.14.8",
-    "@react-native-community/eslint-config": "^2.0.0",
     "@types/iban": "^0.0.32",
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.15",
@@ -106,7 +103,7 @@
       "\\.(ts|tsx)$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator|react-native-neomorph-shadows|@react-native-community|react-native-qrcode-scanner|react-native-permissions|react-native-qrcode-svg)/)"
+      "node_modules/(?!(@react-native|react-native|@react-native-picker/picker|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-qrcode-svg)/)"
     ],
     "setupFiles": [
       "./tests/prepare.js",

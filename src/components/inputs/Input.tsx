@@ -5,17 +5,19 @@ import {
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
-import { ShadowFlex } from 'react-native-neomorph-shadows'
 import Icon from '../Icon'
 import { Text } from '..'
+import { Shadow } from 'react-native-shadow-2'
 
-const shadowStyle = {
-  shadowOffset: { width: 1, height: 1 },
-  shadowOpacity: 0.25,
-  shadowColor: '#000000',
-  shadowRadius: 4,
-  backgroundColor: 'transparent'
+const shadowProps = {
+  distance: 8,
+  paintInside: true,
+  startColor: '#00000000',
+  finalColor: '#0000000D',
+  offset: [0, 6],
+  radius: 0
 }
+
 interface InputProps {
   value?: string,
   label?: string,
@@ -61,34 +63,29 @@ export const Input = ({
   onSubmit,
   secureTextEntry
 }: InputProps): ReactElement => <View>
-  <View style={[
-    tw`flex h-10 border border-grey-2 rounded`,
-    isValid && value ? tw`border-green` : {},
-    errorMessage.length > 0 ? tw`border-red` : {}
-  ]}>
-    <ShadowFlex
-      inner
-      style={Object.assign(shadowStyle, tw`h-10 rounded`)}
-    >
-      <View style={tw`flex flex-row items-center justify-between pl-7 pr-3`}>
-        <TextInput
-          style={[tw`h-10 p-0 text-grey-1 text-lg`]}
-          placeholder={label}
-          value={value}
-          autoCorrect={autoCorrect}
-          onChangeText={(val: string) => onChange ? onChange(val) : null}
-          onSubmitEditing={(e) => onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null}
-          onEndEditing={(e) => onChange ? onChange(e.nativeEvent.text?.trim()) : null}
-          secureTextEntry={secureTextEntry}
-        />
-        {icon
-          ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
-            <Icon id="send" style={tw`w-5 h-5`} />
-          </Pressable>
-          : null
-        }
-      </View>
-    </ShadowFlex>
+  <View style={tw`overflow-hidden`}>
+    <Shadow {...shadowProps} viewStyle={[
+      tw`w-full flex flex-row items-center h-10 border border-grey-2 rounded pl-7 pr-3`,
+      isValid && value ? tw`border-green` : {},
+      errorMessage.length > 0 ? tw`border-red` : {}
+    ]}>
+      <TextInput
+        style={[tw`w-full flex-shrink  h-10 p-0 text-grey-1 text-lg leading-5`]}
+        placeholder={label}
+        value={value}
+        autoCorrect={autoCorrect}
+        onChangeText={(val: string) => onChange ? onChange(val) : null}
+        onSubmitEditing={(e) => onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null}
+        onEndEditing={(e) => onChange ? onChange(e.nativeEvent.text?.trim()) : null}
+        secureTextEntry={secureTextEntry}
+      />
+      {icon
+        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
+          <Icon id="send" style={tw`w-5 h-5`} />
+        </Pressable>
+        : null
+      }
+    </Shadow>
   </View>
 
   {errorMessage.length > 0
