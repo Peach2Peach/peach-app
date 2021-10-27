@@ -115,17 +115,15 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow viewStyle={tw`w-full`} {...shadowProps}>
-      <View style={[tw`flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2`]}>
-        <Text
-          style={[tw`flex-grow-0 flex-shrink font-baloo text-grey-2 text-lg uppercase`]}
-          numberOfLines={1}
-          ellipsizeMode={'middle'}
-        >
-          {fileName || i18n('form.file')}
-        </Text>
-        <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} />
-      </View>
+    <Shadow viewStyle={tw`w-full flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2 rounded`} {...shadowProps}>
+      <Text
+        style={[tw`flex-grow-0 flex-shrink font-baloo text-grey-2 text-lg uppercase`]}
+        numberOfLines={1}
+        ellipsizeMode={'middle'}
+      >
+        {fileName || i18n('form.file')}
+      </Text>
+      <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} />
     </Shadow>
   </Pressable>
 

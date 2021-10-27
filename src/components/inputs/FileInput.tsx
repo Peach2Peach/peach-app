@@ -85,14 +85,14 @@ export const FileInput = ({
 }: InputProps): ReactElement => <View>
   <Pressable
     style={[
-      tw`flex h-10 border border-peach-1 rounded`,
+      tw`flex h-10 border border-peach-1 rounded overflow-hidden`,
       isValid && fileName ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {},
       style || {}
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow viewStyle={tw`w-full`} {...shadowProps}>
+    <Shadow viewStyle={tw`w-full rounded`} {...shadowProps}>
       <Text style={[tw`h-10 p-2 text-grey-1 text-lg`]}>
         {fileName || i18n('form.file')}
       </Text>

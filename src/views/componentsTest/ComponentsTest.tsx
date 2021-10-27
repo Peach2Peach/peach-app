@@ -26,7 +26,7 @@ const buckets = [
   500000,
   1000000,
   2000000,
-  5000000,
+  5000000
 ]
 
 export default ({ navigation }: Props): ReactElement => {
@@ -44,6 +44,10 @@ export default ({ navigation }: Props): ReactElement => {
         address="1BitcoinEaterAddressDontSendf59kuE"
         showQR={true}
       />
+      <Text style={tw`font-baloo text-xl text-center mt-8`}>
+        Sats Format
+      </Text>
+      {buckets.map(value =><SatsFormat sats={value}/>)}
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Amount Select
       </Text>

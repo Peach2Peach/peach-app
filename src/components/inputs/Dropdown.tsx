@@ -74,7 +74,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
   }
 
   return <View style={[
-    tw`z-10`,
+    tw`z-10 rounded`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
     <Shadow {...getShadowProps(isOpen)}

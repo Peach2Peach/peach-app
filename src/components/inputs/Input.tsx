@@ -63,7 +63,7 @@ export const Input = ({
   onSubmit,
   secureTextEntry
 }: InputProps): ReactElement => <View>
-  <View style={tw`overflow-hidden`}>
+  <View style={tw`overflow-hidden rounded`}>
     <Shadow {...shadowProps} viewStyle={[
       tw`w-full flex flex-row items-center h-10 border border-grey-2 rounded pl-7 pr-3`,
       isValid && value ? tw`border-green` : {},
