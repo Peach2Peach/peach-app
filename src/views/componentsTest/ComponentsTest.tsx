@@ -29,6 +29,7 @@ const buckets = [
   5000000
 ]
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   const [selectedValue, setSelectedValue] = useState(buckets[0])
   useContext(LanguageContext)
@@ -47,7 +48,7 @@ export default ({ navigation }: Props): ReactElement => {
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Sats Format
       </Text>
-      {buckets.map(value =><SatsFormat sats={value}/>)}
+      {buckets.map(value => <SatsFormat sats={value}/>)}
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Amount Select
       </Text>
