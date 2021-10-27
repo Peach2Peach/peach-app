@@ -9,7 +9,7 @@ const getShadowProps = (isOpen: boolean) => ({
   distance: !isOpen ? 8 : 16,
   startColor: isOpen ? '#0000000D' : '#0000',
   finalColor: isOpen ? '#0000' : '#0000000D',
-  offset: isOpen ? [0, 0] : [0, 6],
+  offset: (isOpen ? [0, 0] : [0, 6]) as [x: string | number, y: string | number],
   radius: 0
 })
 

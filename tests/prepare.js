@@ -12,7 +12,6 @@ jest.mock('react-native-screens', () => ({
 }))
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
-jest.mock('react-native-neomorph-shadows')
 jest.mock('react-native-qrcode-scanner', () => jest.fn())
 jest.mock('@react-native-clipboard/clipboard', () => jest.fn())
 jest.mock('@env', () => ({

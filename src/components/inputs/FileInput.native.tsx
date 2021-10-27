@@ -18,7 +18,7 @@ const shadowProps = {
   paintInside: true,
   startColor: '#00000000',
   finalColor: '#0000000D',
-  offset: [0, 6],
+  offset: [0, 6] as [x: string | number, y: string | number],
   radius: 0
 }
 
