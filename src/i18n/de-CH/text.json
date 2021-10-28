@@ -3,5 +3,5 @@
   "i18n.test": "Variablen test: $0 $1 $2",
   "i18n.test.fallback.1": "Fallback Test 1 de-CH",
   "language": "Sprache",
-  "currency.sats": "$0 sats"
+  "currency.format.sats": "$0 sats"
 }
