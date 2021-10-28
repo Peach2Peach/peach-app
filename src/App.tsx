@@ -1,5 +1,5 @@
 import React, { useContext, useReducer, useState } from 'react'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
@@ -13,7 +13,7 @@ import LanguageContext, { LanguageSelect } from './components/inputs/LanguageSel
 import BitcoinContext, { getBitcoinContext, updateBitcoinContext } from './components/bitcoin'
 import i18n from './utils/i18n'
 import PGPTest from './views/pgpTest/PGPTest'
-import { Text } from './components'
+import { Header, Text } from './components'
 
 enableScreens()
 
@@ -46,15 +46,14 @@ const App: React.FC = () => {
   }, [bitcoinContext.currency])
 
 
-  return <SafeAreaView style={[tw`p-4 h-full bg-white-1`, tw.md`p-6`]}>
+  return <SafeAreaView style={tw`h-full bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
-        <Text>bitcoinContext.Price: {Math.round(bitcoinContext.price)}</Text>
-        <Text>bitcoinContext.satsPerUnit: {bitcoinContext.satsPerUnit}</Text>
+        <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
         <NavigationContainer>
           <Stack.Navigator screenOptions={{
             headerShown: false,
-            cardStyle: tw`bg-white-1`
+            cardStyle: [tw`bg-white-1 p-4`, tw.md`p-6`]
           }}>
             <Stack.Screen name="Home" component={Home}/>
             <Stack.Screen name="ComponentsTest" component={ComponentsTest}/>

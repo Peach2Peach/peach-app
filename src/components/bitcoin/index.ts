@@ -3,7 +3,7 @@ import { HTTP_AUTH_USER, HTTP_AUTH_PASS } from '@env'
 
 type currency = 'EUR' | 'CHF' | 'GBP'
 
-type BitcoinContextType = {
+export type BitcoinContextType = {
   currency: currency,
   price: number,
   satsPerUnit: number
