@@ -7,7 +7,8 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, BitcoinAddress, Text, Dropdown, SatsFormat } from '../../components'
-import { getBitcoinContext } from '../../components/bitcoin'
+import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
+import i18n from '../../utils/i18n'
 
 type RootStackParamList = {
   Home: undefined,
@@ -33,7 +34,8 @@ const buckets = [
 export default ({ navigation }: Props): ReactElement => {
   const [selectedValue, setSelectedValue] = useState(buckets[0])
   useContext(LanguageContext)
-  const { satsPerUnit } = getBitcoinContext()
+  useContext(BitcoinContext)
+  const { currency, satsPerUnit } = getBitcoinContext()
 
   return <ScrollView>
     <View style={tw`flex-col justify-center h-full px-4`}>
@@ -56,13 +58,15 @@ export default ({ navigation }: Props): ReactElement => {
         <Dropdown
           selectedValue={selectedValue}
           onChange={(value) => setSelectedValue(value as number)}
-          width={tw`w-72`.width as number}
+          width={tw`w-80`.width as number}
           items={buckets.map(value => ({
             value,
             display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
               <SatsFormat sats={value}/>
               {isOpen
-                ? <Text style={tw`font-mono text-peach-1`}>€{Math.round(value / satsPerUnit)}</Text>
+                ? <Text style={tw`font-mono text-peach-1`}>
+                  {i18n(`currency.format.${currency}`, String(Math.round(value / satsPerUnit)))}
+                </Text>
                 : null
               }
             </View>
@@ -70,7 +74,9 @@ export default ({ navigation }: Props): ReactElement => {
           )}
         />
       </View>
-      <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>€{Math.round(selectedValue / satsPerUnit)}</Text>
+      <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
+        {i18n(`currency.format.${currency}`, String(Math.round(selectedValue / satsPerUnit)))}
+      </Text>
       <View style={tw`mt-4`}>
         <Button
           secondary={true}

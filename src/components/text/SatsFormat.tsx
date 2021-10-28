@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import { Text } from '.'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { padString } from '../../utils/stringUtils'
 
 interface SatsFormat {
@@ -44,7 +45,7 @@ export const SatsFormat = ({ sats }: SatsFormat): ReactElement => {
         : 0
   return <View style={tw`flex-row justify-start items-center`}>
     <Text style={tw`font-mono text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
-    <Text style={tw`font-mono`}>{finalString.slice(cutIndex, finalString.length)} Sat</Text>
+    <Text style={tw`font-mono`}>{finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}</Text>
   </View>
 }
 
