@@ -47,7 +47,7 @@ export const i18n = (id: string, ...args: string[]): string => {
   if (!text) return id
 
   args.forEach((arg, index) => {
-    const regex = new RegExp(`$${index}`, 'ug')
+    const regex = new RegExp(`\\$${index}`, 'ug')
     text = text.replace(regex, arg)
   })
   return text
