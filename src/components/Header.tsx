@@ -10,18 +10,11 @@ import { Shadow } from 'react-native-shadow-2'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { thousands } from '../utils/stringUtils'
+import { mildShadow } from '../utils/layoutUtils'
 
 interface HeaderProps {
   bitcoinContext: BitcoinContextType,
   style?: ViewStyle|ViewStyle[]
-}
-
-const shadowProps = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#00000000',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
 }
 
 /**
@@ -36,7 +29,7 @@ const shadowProps = {
  */
 export const Header = ({ bitcoinContext, style }: HeaderProps): ReactElement =>
   <View style={style}>
-    <Shadow {...shadowProps}>
+    <Shadow {...mildShadow}>
       <View style={tw`w-full flex-row items-center justify-between px-3 py-2 bg-white-1`}>
         <View>
           <Text style={tw`font-lato text-lg leading-5 text-grey-1 text-right`}>

@@ -3,15 +3,8 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
+import { mildShadow } from '../../utils/layoutUtils'
 import { Text } from '..'
-
-const shadowProps = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#0000',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
-}
 
 interface Item {
   value: string|number|boolean,
@@ -34,7 +27,7 @@ interface RadioButtonsProps {
  */
 export const RadioButtons = ({ items, selectedValue, onChange }: RadioButtonsProps): ReactElement => <View>
   {items.map((item, i) =>
-    <Shadow {...shadowProps} viewStyle={[
+    <Shadow {...mildShadow} viewStyle={[
       tw`w-full`,
       item.value !== selectedValue ? tw`opacity-50` : {},
       i > 0 ? tw`mt-2` : {}
@@ -48,9 +41,9 @@ export const RadioButtons = ({ items, selectedValue, onChange }: RadioButtonsPro
             : null
           }
         </View>
-        <View style={tw`ml-4`}>
+        <Text style={tw`ml-4`}>
           {item.display}
-        </View>
+        </Text>
       </Pressable>
     </Shadow>
   )}

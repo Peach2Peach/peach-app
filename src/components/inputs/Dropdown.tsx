@@ -3,16 +3,7 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
-
-const getShadowProps = (isOpen: boolean) => ({
-  paintInside: !isOpen,
-  distance: !isOpen ? 8 : 16,
-  startColor: isOpen ? '#0000000D' : '#0000',
-  finalColor: isOpen ? '#0000' : '#0000000D',
-  offset: (isOpen ? [0, 0] : [0, 6]) as [x: string | number, y: string | number],
-  radius: 0
-})
-
+import { innerShadow, mildShadow } from '../../utils/layoutUtils'
 
 interface Item {
   value: string|number,
@@ -77,7 +68,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
     tw`z-10 rounded`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
-    <Shadow {...getShadowProps(isOpen)}
+    <Shadow {...(isOpen ? mildShadow : innerShadow)}
       viewStyle={[
         { width, height },
         tw`py-0 pl-4 pr-3 border border-grey-4 rounded`,

@@ -4,14 +4,7 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
 import { Text } from '..'
-
-const shadowProps = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#0000',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
-}
+import { mildShadow } from '../../utils/layoutUtils'
 
 interface Item {
   value: string|number,
@@ -47,7 +40,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
 
   return <View>
     {items.map((item, i) =>
-      <Shadow {...shadowProps} viewStyle={[
+      <Shadow {...mildShadow} viewStyle={[
         tw`w-full`,
         !isSelected(item) ? tw`opacity-50` : {},
         i > 0 ? tw`mt-2` : {}
