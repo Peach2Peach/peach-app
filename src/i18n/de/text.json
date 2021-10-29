@@ -7,9 +7,12 @@
   "currency.format.EUR": "$0 €",
   "currency.CHF": "Schweizer Franken",
   "currency.GBP": "Pfund Sterling",
+  "currency.SEK": "Schwedische Krone",
   "form.required.error": "Dieses Feld ist ein Pflichtfeld.",
   "form.invalid.error": "Bitte gib einen gültigen Wert ein",
   "form.btcAddress": "Bitcoin Adresse",
   "form.btcAddress.error": "Adresse ist nicht valide",
-  "form.iban": "IBAN"
+  "form.iban": "IBAN",
+  "yes": "Ja",
+  "no": "Nein"
 }

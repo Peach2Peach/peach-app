@@ -18,6 +18,7 @@
   "currency.CHF": "Swiss Frank",
   "currency.USD": "Dollar",
   "currency.GBP": "Pound sterling",
+  "currency.SEK": "Swedish Krona",
   "restoreBackup": "Restore backup",
   "scanQR": "Scan QR",
   "paste": "Paste",
@@ -27,5 +28,7 @@
   "form.btcAddress": "Bitcoin address",
   "form.btcAddress.error": "Address is invalid",
   "form.iban": "IBAN",
-  "form.account.error": "Account cannot be decrypted"
+  "form.account.error": "Account cannot be decrypted",
+  "yes": "Yes",
+  "no": "No"
 }

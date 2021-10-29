@@ -10,16 +10,8 @@ import tw from '../../styles/tailwind'
 import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import { Text } from '..'
+import { innerShadow } from '../../utils/layoutUtils'
 
-
-const shadowProps = {
-  distance: 8,
-  paintInside: true,
-  startColor: '#00000000',
-  finalColor: '#0000000D',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
-}
 
 export type FileData = {
   name: string,
@@ -92,7 +84,7 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow viewStyle={tw`w-full rounded`} {...shadowProps}>
+    <Shadow viewStyle={tw`w-full rounded`} {...innerShadow}>
       <Text style={[tw`h-10 p-2 text-grey-1 text-lg`]}>
         {fileName || i18n('form.file')}
       </Text>

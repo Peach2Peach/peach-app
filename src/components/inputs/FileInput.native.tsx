@@ -12,15 +12,7 @@ import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { Text } from '..'
-
-const shadowProps = {
-  distance: 8,
-  paintInside: true,
-  startColor: '#00000000',
-  finalColor: '#0000000D',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
-}
+import { innerShadow } from '../../utils/layoutUtils'
 
 export type FileData = {
   name: string,
@@ -116,7 +108,7 @@ export const FileInput = ({
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
     <Shadow viewStyle={tw`w-full flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2 rounded`}
-      {...shadowProps}>
+      {...innerShadow}>
       <Text
         style={[tw`flex-grow-0 flex-shrink font-baloo text-grey-2 text-lg uppercase`]}
         numberOfLines={1}

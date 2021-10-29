@@ -8,15 +8,7 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
-
-const shadowProps = {
-  distance: 8,
-  paintInside: true,
-  startColor: '#00000000',
-  finalColor: '#0000000D',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
-}
+import { innerShadow } from '../../utils/layoutUtils'
 
 interface InputProps {
   value?: string,
@@ -64,7 +56,7 @@ export const Input = ({
   secureTextEntry
 }: InputProps): ReactElement => <View>
   <View style={tw`overflow-hidden rounded`}>
-    <Shadow {...shadowProps} viewStyle={[
+    <Shadow {...innerShadow} viewStyle={[
       tw`w-full flex flex-row items-center h-10 border border-grey-2 rounded pl-7 pr-3`,
       isValid && value ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {}
