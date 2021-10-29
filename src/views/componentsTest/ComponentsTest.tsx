@@ -6,7 +6,7 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, BitcoinAddress, Text, Dropdown, SatsFormat, Checkboxes } from '../../components'
+import { Button, BitcoinAddress, Text, Dropdown, SatsFormat, Checkboxes, RadioButtons } from '../../components'
 import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import i18n from '../../utils/i18n'
 
@@ -38,8 +38,9 @@ const buckets = [
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
-  const [selectedValue, setSelectedValue] = useState(buckets[0])
   const [selectedCurrencies, setSelectedCurrencies] = useState([] as (string|number)[])
+  const [kyc, setKYC] = useState(false)
+  const [selectedValue, setSelectedValue] = useState(buckets[0])
 
   useContext(LanguageContext)
   useContext(BitcoinContext)
@@ -60,7 +61,23 @@ export default ({ navigation }: Props): ReactElement => {
         }))}
         selectedValues={selectedCurrencies}
         onChange={(values) => setSelectedCurrencies(values)}/>
-      <Text style={tw`font-baloo text-xl text-center`}>
+      <Text style={tw`font-baloo text-xl text-center mt-8`}>
+        Radiobutton
+      </Text>
+      <RadioButtons
+        items={[
+          {
+            value: true,
+            display: <Text>{i18n('yes')}</Text>
+          },
+          {
+            value: false,
+            display: <Text>{i18n('no')}</Text>
+          }
+        ]}
+        selectedValue={kyc}
+        onChange={(value) => setKYC(value as boolean)}/>
+      <Text style={tw`font-baloo text-xl text-center mt-8`}>
         QR Code
       </Text>
       <BitcoinAddress

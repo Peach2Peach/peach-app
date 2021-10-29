@@ -9,6 +9,7 @@ export {
   FileInput,
   Input,
   LanguageSelect,
+  RadioButtons,
   Select
 } from './inputs'
 export { ScanQR } from './camera/ScanQR'

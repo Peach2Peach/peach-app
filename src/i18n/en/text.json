@@ -28,5 +28,7 @@
   "form.btcAddress": "Bitcoin address",
   "form.btcAddress.error": "Address is invalid",
   "form.iban": "IBAN",
-  "form.account.error": "Account cannot be decrypted"
+  "form.account.error": "Account cannot be decrypted",
+  "yes": "Yes",
+  "no": "No"
 }

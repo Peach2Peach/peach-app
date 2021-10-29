@@ -25,11 +25,11 @@ interface CheckboxesProps {
 }
 
 /**
- * @description Component to display the language select
+ * @description Component to display checkboxes
  * @param props Component properties
  * @param props.items the items in the dropdown
- * @param [props.selectedValues] selected value
- * @param props.onChange method to set locale on value change
+ * @param [props.selectedValues] selected values
+ * @param [props.onChange] on change handler
  * @example
  */
 export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesProps): ReactElement => {
@@ -57,7 +57,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
           {isSelected(item)
             ? <Icon id="check" style={tw`w-5 h-5`}/>
             : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-              <View style={tw`w-4 h-4 rounded border border-grey-3`} />
+              <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
             </View>
           }
           <Text style={tw`ml-4`}>
