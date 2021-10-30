@@ -29,6 +29,10 @@
   "form.btcAddress.error": "Address is invalid",
   "form.iban": "IBAN",
   "form.account.error": "Account cannot be decrypted",
+  "form.premium.yousell": "you’ll sell",
+  "form.premium.for": "for",
+  "form.premium.youget": "you get",
+  "form.premium.more": "more",
   "yes": "Yes",
   "no": "No"
 }

@@ -6,7 +6,16 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, BitcoinAddress, Text, Dropdown, SatsFormat, Checkboxes, RadioButtons } from '../../components'
+import {
+  BitcoinAddress,
+  Button,
+  Checkboxes,
+  Dropdown,
+  PremiumSlider,
+  RadioButtons,
+  SatsFormat,
+  Text,
+} from '../../components'
 import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import i18n from '../../utils/i18n'
 
@@ -40,6 +49,7 @@ const buckets = [
 export default ({ navigation }: Props): ReactElement => {
   const [selectedCurrencies, setSelectedCurrencies] = useState([] as (string|number)[])
   const [kyc, setKYC] = useState(false)
+  const [premium, setPremium] = useState(1.5)
   const [selectedValue, setSelectedValue] = useState(buckets[0])
 
   useContext(LanguageContext)
@@ -48,7 +58,22 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <ScrollView>
     <View style={tw`flex-col justify-center h-full px-4`}>
-      <Text style={tw`font-baloo text-xl text-center`}>
+      <Text style={tw`font-baloo text-xl text-center mt-8`}>
+        Premium Slider
+      </Text>
+      <PremiumSlider min={-10} max={10} value={premium} onChange={value => setPremium(value)}/>
+      <View style={tw`text-center mt-4`}>
+        <Text style={tw`text-center`}>
+          {i18n('form.premium.yousell')} <SatsFormat sats={1000000} format="inline" /> {i18n('form.premium.for')}
+        </Text>
+      </View>
+      <View>
+        <Text style={tw`text-center`}>
+          <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n('form.premium.more')}) { // eslint-disable-line max-len
+          }
+        </Text>
+      </View>
+      <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Checkbox
       </Text>
       <Checkboxes
@@ -60,7 +85,7 @@ export default ({ navigation }: Props): ReactElement => {
           ]
         }))}
         selectedValues={selectedCurrencies}
-        onChange={(values) => setSelectedCurrencies(values)}/>
+        onChange={values => setSelectedCurrencies(values)}/>
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Radiobutton
       </Text>
@@ -76,7 +101,7 @@ export default ({ navigation }: Props): ReactElement => {
           }
         ]}
         selectedValue={kyc}
-        onChange={(value) => setKYC(value as boolean)}/>
+        onChange={value => setKYC(value as boolean)}/>
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         QR Code
       </Text>
@@ -88,7 +113,7 @@ export default ({ navigation }: Props): ReactElement => {
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Sats Format
       </Text>
-      {buckets.map(value => <SatsFormat sats={value}/>)}
+      {buckets.map(value => <SatsFormat sats={value} format="big" />)}
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Amount Select
       </Text>

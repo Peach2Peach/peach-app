@@ -50,13 +50,14 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
 
   return <View>
     {items.map((item, i) =>
-      <Shadow {...mildShadow} viewStyle={[
-        tw`w-full`,
-        !isSelected(item) ? tw`opacity-50` : {},
-        i > 0 ? tw`mt-2` : {}
-      ]}>
-        <Pressable key={item.value}
-          style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
+      <Shadow {...mildShadow}
+        key={String(item.value)}
+        viewStyle={[
+          tw`w-full`,
+          !isSelected(item) ? tw`opacity-50` : {},
+          i > 0 ? tw`mt-2` : {}
+        ]}>
+        <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
           onPress={() => select(item.value)}>
           {isSelected(item)
             ? <Icon id="check" style={tw`w-5 h-5`}/>

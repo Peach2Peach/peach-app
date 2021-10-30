@@ -9,7 +9,8 @@ import i18n from '../../utils/i18n'
 import { padString } from '../../utils/stringUtils'
 
 interface SatsFormat {
-  sats: number
+  sats: number,
+  format?: 'inline' | 'big'
 }
 
 /**
@@ -19,7 +20,7 @@ interface SatsFormat {
  * @example
  * <SatsFormat sats={5000}/>
  */
-export const SatsFormat = ({ sats }: SatsFormat): ReactElement => {
+export const SatsFormat = ({ sats, format = 'inline' }: SatsFormat): ReactElement => {
   const satsString = String(sats)
   let btc = '0'
   let sat = satsString.slice(-8, satsString.length)
@@ -43,10 +44,15 @@ export const SatsFormat = ({ sats }: SatsFormat): ReactElement => {
       : satsString.length < 9
         ? finalString.length - satsString.length - 2
         : 0
-  return <View style={tw`flex-row justify-start items-center`}>
-    <Text style={tw`font-mono text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
-    <Text style={tw`font-mono`}>{finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}</Text>
-  </View>
+  return format === 'inline'
+    ? <Text>
+      <Text style={tw`text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={tw`text-peach-1`}>{finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}</Text>
+    </Text>
+    : <View style={tw`flex-row justify-start items-center`}>
+      <Text style={tw`font-mono text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={tw`font-mono`}>{finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}</Text>
+    </View>
 }
 
 export default SatsFormat

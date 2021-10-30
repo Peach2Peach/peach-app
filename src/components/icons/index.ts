@@ -6,6 +6,7 @@ import copy from './copy.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
+import triangleUp from './triangleUp.svg'
 import send from './send.svg'
 
 type Icons = {
@@ -19,6 +20,7 @@ const Icons: Icons = {
   dropdownClosed,
   dropdownOpen,
   file,
+  triangleUp,
   send,
 }
 
