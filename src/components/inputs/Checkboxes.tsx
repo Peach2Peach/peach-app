@@ -56,7 +56,8 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
         i > 0 ? tw`mt-2` : {}
       ]}>
         <Pressable key={item.value}
-          style={tw`flex-row items-center p-3 bg-white-1 rounded`} onPress={() => select(item.value)}>
+          style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
+          onPress={() => select(item.value)}>
           {isSelected(item)
             ? <Icon id="check" style={tw`w-5 h-5`}/>
             : <View style={tw`w-5 h-5 flex justify-center items-center`}>
