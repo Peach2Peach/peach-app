@@ -24,6 +24,19 @@ interface RadioButtonsProps {
  * @param [props.selectedValue] selected value
  * @param [props.onChange] on change handler
  * @example
+ * <RadioButtons
+    items={[
+      {
+        value: true,
+        display: <Text>{i18n('yes')}</Text>
+      },
+      {
+        value: false,
+        display: <Text>{i18n('no')}</Text>
+      }
+    ]}
+    selectedValue={kyc}
+    onChange={(value) => setKYC(value as boolean)}/>
  */
 export const RadioButtons = ({ items, selectedValue, onChange }: RadioButtonsProps): ReactElement => <View>
   {items.map((item, i) =>

@@ -24,6 +24,16 @@ interface CheckboxesProps {
  * @param [props.selectedValues] selected values
  * @param [props.onChange] on change handler
  * @example
+ * <Checkboxes
+    items={currencies.map(value => ({
+      value,
+      display: [
+        <Text>{i18n(`currency.${value}`)} </Text>,
+        <Text style={tw`text-grey-1`}>({value})</Text>
+      ]
+    }))}
+    selectedValues={selectedCurrencies}
+    onChange={(values) => setSelectedCurrencies(values)}/>
  */
 export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
