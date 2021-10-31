@@ -69,7 +69,7 @@ export default ({ navigation }: Props): ReactElement => {
       </View>
       <View>
         <Text style={tw`text-center`}>
-          <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n('form.premium.more')}) { // eslint-disable-line max-len
+          <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n(premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
           }
         </Text>
       </View>
