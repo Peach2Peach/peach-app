@@ -125,7 +125,7 @@ export default ({ navigation }: Props): ReactElement => {
           items={buckets.map(value => ({
             value,
             display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
-              <SatsFormat sats={value}/>
+              <SatsFormat sats={value} format="big"/>
               {isOpen
                 ? <Text style={tw`font-mono text-peach-1`}>
                   {i18n(`currency.format.${currency}`, String(Math.round(value / satsPerUnit)))}
