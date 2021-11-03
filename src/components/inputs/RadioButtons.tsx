@@ -41,7 +41,7 @@ interface RadioButtonsProps {
 export const RadioButtons = ({ items, selectedValue, onChange }: RadioButtonsProps): ReactElement => <View>
   {items.map((item, i) =>
     <Shadow {...mildShadow}
-      key={String(item.value)}
+      key={i}
       viewStyle={[
         tw`w-full`,
         item.value !== selectedValue ? tw`opacity-50` : {},

@@ -79,10 +79,9 @@ export default ({ navigation }: Props): ReactElement => {
       <Checkboxes
         items={currencies.map(value => ({
           value,
-          display: [
-            <Text>{i18n(`currency.${value}`)} </Text>,
-            <Text style={tw`text-grey-1`}>({value})</Text>
-          ]
+          display: <Text>
+            {i18n(`currency.${value}`)} <Text style={tw`text-grey-1`}>({value})</Text>
+          </Text>
         }))}
         selectedValues={selectedCurrencies}
         onChange={values => setSelectedCurrencies(values)}/>

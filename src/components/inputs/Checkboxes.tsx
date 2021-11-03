@@ -51,7 +51,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
   return <View>
     {items.map((item, i) =>
       <Shadow {...mildShadow}
-        key={String(item.value)}
+        key={i}
         viewStyle={[
           tw`w-full`,
           !isSelected(item) ? tw`opacity-50` : {},

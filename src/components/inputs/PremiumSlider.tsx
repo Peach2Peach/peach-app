@@ -37,8 +37,10 @@ export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps)
         pan.setOffset(pan._value)
       },
       onPanResponderMove: (e, gestureState) => {
-        const boundedX = pan.__getValue() < 0 ? 0 : Math.min(pan.__getValue(), trackWidth)
-        if (onChange) onChange(Math.round((boundedX / trackWidth * delta + min) * 10) / 10)
+        if (onChange) {
+          const boundedX = pan.__getValue() < 0 ? 0 : Math.min(pan.__getValue(), trackWidth)
+          onChange(Math.round((boundedX / trackWidth * delta + min) * 10) / 10)
+        }
 
         Animated.event(
           [null, { dx: pan }],
