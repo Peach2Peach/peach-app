@@ -13,13 +13,6 @@ import { getMessages, rules } from '../../utils/validationUtils'
 
 const { useValidation } = require('react-native-form-validator')
 
-
-type RootStackParamList = {
-  Home: undefined,
-  AccountTest: undefined,
-  InputTest: undefined
-}
-
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>
 type Props = {
   navigation: ProfileScreenNavigationProp;

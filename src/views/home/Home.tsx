@@ -12,15 +12,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text, FadeInView } from '../../components'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
 
-type RootStackParamList = {
-  Home: undefined,
-  ComponentsTest: undefined,
-  AccountTest: undefined,
-  InputTest: undefined,
-  PGPTest: undefined
-}
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'home'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;

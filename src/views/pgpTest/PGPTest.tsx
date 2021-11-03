@@ -9,13 +9,6 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import OpenPGP from 'react-native-fast-openpgp'
 import { Button, Text, Input } from '../../components'
 
-type RootStackParamList = {
-  Home: undefined,
-  AccountTest: undefined,
-  InputTest: undefined,
-  PGPTets: undefined
-}
-
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>
 type Props = {
   navigation: ProfileScreenNavigationProp;
