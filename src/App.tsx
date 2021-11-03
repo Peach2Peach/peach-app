@@ -13,7 +13,7 @@ import LanguageContext, { LanguageSelect } from './components/inputs/LanguageSel
 import BitcoinContext, { getBitcoinContext, updateBitcoinContext } from './components/bitcoin'
 import i18n from './utils/i18n'
 import PGPTest from './views/pgpTest/PGPTest'
-import { Header, Text } from './components'
+import { Header } from './components'
 
 enableScreens()
 

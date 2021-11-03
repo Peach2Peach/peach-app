@@ -9,6 +9,7 @@ export {
   FileInput,
   Input,
   LanguageSelect,
+  PremiumSlider,
   RadioButtons,
   Select
 } from './inputs'

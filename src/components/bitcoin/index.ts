@@ -42,6 +42,7 @@ export const BitcoinContext = createContext(bitcoinContext)
 export const updateBitcoinContext = async (currency: currency): Promise<BitcoinContextType> => {
   let price = bitcoinContext.price
   let satsPerUnit = bitcoinContext.satsPerUnit
+
   const response = await fetch(`http://192.168.1.62:8080/market/price/BTC${currency}`, {
     headers: {
       'Authorization': 'Basic ' + Buffer.from(`${HTTP_AUTH_USER}:${HTTP_AUTH_PASS}`).toString('base64')

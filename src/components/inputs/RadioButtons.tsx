@@ -40,13 +40,14 @@ interface RadioButtonsProps {
  */
 export const RadioButtons = ({ items, selectedValue, onChange }: RadioButtonsProps): ReactElement => <View>
   {items.map((item, i) =>
-    <Shadow {...mildShadow} viewStyle={[
-      tw`w-full`,
-      item.value !== selectedValue ? tw`opacity-50` : {},
-      i > 0 ? tw`mt-2` : {}
-    ]}>
-      <Pressable key={String(item.value)}
-        style={tw`flex-row items-center p-3 bg-white-1 rounded`}
+    <Shadow {...mildShadow}
+      key={i}
+      viewStyle={[
+        tw`w-full`,
+        item.value !== selectedValue ? tw`opacity-50` : {},
+        i > 0 ? tw`mt-2` : {}
+      ]}>
+      <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
         onPress={() => onChange ? onChange(item.value) : null}>
         <View style={tw`w-5 h-5 rounded-full border-2 border-grey-3 flex justify-center items-center`}>
           {item.value === selectedValue

@@ -149,7 +149,7 @@ module.exports = {
     'no-loop-func': 'error',
     'no-loss-of-precision': 'error',
     'no-magic-numbers': 'off',
-    'no-mixed-operators': 'error',
+    'no-mixed-operators': 'off',
     'no-multi-assign': 'error',
     'no-multi-spaces': 'error',
     'no-multi-str': 'error',
@@ -280,6 +280,7 @@ module.exports = {
     'yield-star-spacing': 'error',
     'yoda': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
-    'jest/expect-expect': 'off'
+    'jest/expect-expect': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   }
 }
