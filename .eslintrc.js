@@ -280,6 +280,7 @@ module.exports = {
     'yield-star-spacing': 'error',
     'yoda': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
-    'jest/expect-expect': 'off'
+    'jest/expect-expect': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   }
 }
