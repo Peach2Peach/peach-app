@@ -1,5 +1,5 @@
-import React, { ReactElement, ReactNode, useCallback, useRef, useState } from 'react'
-import { Animated, PanResponder, Pressable, View } from 'react-native'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import { Animated, PanResponder, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
@@ -25,31 +25,37 @@ interface PremiumSliderProps {
  */
 // eslint-disable-next-line max-lines-per-function
 export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps): ReactElement => {
-  const delta = max - min
-  const markerX = (value - min) / delta
-  const [trackWidth, setTrackWidth] = useState(260)
+  const [delta] = useState(max - min)
+  const [markerX] = useState((value - min) / delta)
+  let trackWidth = useRef(260).current
   const pan = useRef(new Animated.Value(markerX * trackWidth)).current
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        pan.setOffset(pan._value)
-      },
       onPanResponderMove: (e, gestureState) => {
-        if (onChange) {
-          const boundedX = pan.__getValue() < 0 ? 0 : Math.min(pan.__getValue(), trackWidth)
-          onChange(Math.round((boundedX / trackWidth * delta + min) * 10) / 10)
-        }
-
         Animated.event(
           [null, { dx: pan }],
           { useNativeDriver: false }
         )(e, gestureState)
       },
-      onPanResponderRelease: () => pan.flattenOffset()
+      onPanResponderRelease: () => pan.extractOffset(),
+      onShouldBlockNativeResponder: () => false
     })
   ).current
+
+  useEffect(() => {
+    pan.addListener((props) => {
+      if (onChange) {
+        const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
+        const val = Math.round((boundedX / trackWidth * delta + min) * 10) / 10
+        onChange(val)
+      }
+    })
+
+    return () => pan.removeAllListeners()
+  }, [delta, min, onChange, pan, trackWidth])
+
 
   return <View {...panResponder.panHandlers}>
     <Shadow {...mildShadow} viewStyle={tw`w-full`}>
@@ -62,7 +68,7 @@ export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps)
           <Text style={tw`font-baloo text-xs text-green`}>+{max}%</Text>
         </View>
         <View style={tw`h-0 mx-3 flex-row items-center mt-2 border-2 border-grey-4 rounded`}
-          onLayout={event => setTrackWidth(event.nativeEvent.layout.width)}>
+          onLayout={event => trackWidth = event.nativeEvent.layout.width}>
           <Animated.View style={[
             tw`z-10`,
             {
