@@ -113,7 +113,7 @@ export default ({ navigation }: Props): ReactElement => {
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Sats Format
       </Text>
-      {buckets.map(value => <SatsFormat sats={value} format="big" />)}
+      {buckets.map(value => <SatsFormat key={value} sats={value} format="big" />)}
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Amount Select
       </Text>
