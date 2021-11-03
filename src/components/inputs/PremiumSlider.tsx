@@ -44,13 +44,11 @@ export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps)
   ).current
 
   useEffect(() => {
-    console.log('fugger')
     pan.extractOffset()
     pan.addListener((props) => {
       if (onChange) {
         const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
         const val = Math.round((boundedX / trackWidth * delta + min) * 10) / 10
-        console.log(props.value, val)
         onChange(val)
       }
     })
