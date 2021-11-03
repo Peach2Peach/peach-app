@@ -5,7 +5,6 @@ import {
 } from 'react-native'
 import { Text } from '.'
 import Icons from './icons'
-
 interface IconProps {
   id: string,
   style?: ViewStyle|ViewStyle[]

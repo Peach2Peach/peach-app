@@ -73,7 +73,7 @@ export default ({ navigation }: Props): ReactElement => {
     // eslint-disable-next-line no-console
     console.log('error')
   }
-  return <ScrollView>
+  return <ScrollView style={tw`mb-20`}>
     <View style={tw`flex-col justify-center h-full`}>
       <View style={tw`mt-4`}>
         <Input

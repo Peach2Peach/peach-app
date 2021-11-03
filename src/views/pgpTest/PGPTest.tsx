@@ -51,7 +51,7 @@ export default ({ navigation }: Props): ReactElement => {
     setDecryptedMessage(decrypted)
   }
 
-  return <ScrollView>
+  return <ScrollView style={tw`mb-20`}>
     <View style={tw`flex-col justify-center h-full px-4`}>
       <View style={tw`mt-4`}>
         <Button onPress={getKeys} title={isLoading ? 'Generating...' : '1. Get Keys'}/>
