@@ -1,8 +1,12 @@
-import React, { useContext, useReducer, useState } from 'react'
+import React, { ReactElement, useContext, useReducer, useState } from 'react'
 import { SafeAreaView, View } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
-import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native'
+import {
+  NavigationContainer,
+  NavigationContainerRefWithCurrent,
+  useNavigationContainerRef
+} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './views/home/Home'
 import ComponentsTest from './views/componentsTest/ComponentsTest'
@@ -22,8 +26,21 @@ import Settings from './views/settings/Settings'
 enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
-
-
+type ViewType = {
+  name: keyof RootStackParamList,
+  component: (props: any) => ReactElement
+}
+const views: ViewType[] = [
+  { name: 'home', component: Home },
+  { name: 'buy', component: Buy },
+  { name: 'sell', component: Sell },
+  { name: 'offers', component: Offers },
+  { name: 'settings', component: Settings },
+  { name: 'ComponentsTest', component: ComponentsTest },
+  { name: 'AccountTest', component: AccountTest },
+  { name: 'InputTest', component: InputTest },
+  { name: 'PGPTest', component: PGPTest },
+]
 const App: React.FC = () => {
   useContext(LanguageContext)
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
@@ -36,40 +53,33 @@ const App: React.FC = () => {
       const interval = setInterval(async () => {
         setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
       }, 60 * 1000)
-
       setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-
       return () => clearInterval(interval)
     })()
   }, [bitcoinContext.currency])
-  const navigationRef = useNavigationContainerRef() // You can also use a regular ref with `React.useRef()`
+  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
-
-  return <SafeAreaView style={tw`h-full bg-white-1 flex`}>
+  return <SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
-        <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
-        <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-          if (!state) return
-          setCurrentPage(state.routes[state.routes.length - 1].name)
-        }}>
-          <Stack.Navigator screenOptions={{
-            headerShown: false,
-            cardStyle: [tw`bg-white-1 p-4`, tw.md`p-6`]
-          }}>
-            <Stack.Screen name="home" component={Home}/>
-            <Stack.Screen name="buy" component={Buy}/>
-            <Stack.Screen name="sell" component={Sell}/>
-            <Stack.Screen name="offers" component={Offers}/>
-            <Stack.Screen name="settings" component={Settings}/>
-            <Stack.Screen name="ComponentsTest" component={ComponentsTest}/>
-            <Stack.Screen name="AccountTest" component={AccountTest}/>
-            <Stack.Screen name="InputTest" component={InputTest}/>
-            <Stack.Screen name="PGPTest" component={PGPTest}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-        <Footer style={tw`z-10 -mt-14`} active={currentPage} navigation={navigationRef} />
-        {/* <LanguageSelect locale={locale} setLocale={setLocale}/> */}
+        <View style={tw`h-full flex-col`}>
+          <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
+          <View style={tw`h-full flex-shrink`}>
+            <NavigationContainer ref={navigationRef} onStateChange={(state) => {
+              if (!state) return
+              setCurrentPage(state.routes[state.routes.length - 1].name)
+            }}>
+              <Stack.Navigator screenOptions={{
+                headerShown: false,
+                cardStyle: [tw`bg-white-1 p-4`, tw.md`p-6`]
+              }}>
+                {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
+              </Stack.Navigator>
+            </NavigationContainer>
+          </View>
+          <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+          {/* <LanguageSelect locale={locale} setLocale={setLocale}/> */}
+        </View>
       </BitcoinContext.Provider>
     </LanguageContext.Provider>
   </SafeAreaView>

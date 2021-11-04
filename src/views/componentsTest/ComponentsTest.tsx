@@ -49,7 +49,7 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const { currency, satsPerUnit } = getBitcoinContext()
 
-  return <ScrollView style={tw`mb-20`}>
+  return <ScrollView>
     <View style={tw`flex-col justify-center h-full px-4`}>
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Premium Slider

@@ -18,7 +18,7 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  return <ScrollView style={tw`mb-20`}>
+  return <ScrollView>
     <View style={tw`flex-col justify-center h-full`}>
       <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
         Settings
