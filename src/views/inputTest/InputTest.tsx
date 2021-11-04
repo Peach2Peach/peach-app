@@ -91,7 +91,12 @@ export default ({ navigation }: Props): ReactElement => {
     </View>
     {scanQR
       ? <View style={tw`mt-20`}>
-        <ScanQR onSuccess={e => setAddress(e.data)}/>
+        <ScanQR onSuccess={e => {
+          setAddress(e.data)
+          setScanQR(false)
+        }}
+        onCancel={() => setScanQR(false)}
+        />
       </View>
       : null}
     <View style={tw`mt-4`}>

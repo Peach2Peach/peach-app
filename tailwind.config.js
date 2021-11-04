@@ -24,7 +24,8 @@ module.exports = {
         },
         peach: {
           1: '#F57940',
-          2: '#db6c39'
+          2: '#db6c39',
+          translucent: '#F57940BB'
         },
         green: '#0AE557',
         red: '#E43B5F',

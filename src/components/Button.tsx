@@ -11,6 +11,7 @@ import tw from '../styles/tailwind'
 interface ButtonProps {
   title: string,
   secondary?: boolean,
+  tertiary?: boolean,
   wide?: boolean,
   style?: ViewStyle|ViewStyle[],
   onPress?: Function
@@ -21,6 +22,7 @@ interface ButtonProps {
  * @param props Component properties
  * @param props.title button text
  * @param [props.secondary] if true, button is of secondary nature
+ * @param [props.tertiary] if true, button is of tertiary nature
  * @param [props.wide] if true, button is taking on 100% width
  * @param [props.style] css style object
  * @param [props.onPress] onPress handler from outside
@@ -31,14 +33,16 @@ interface ButtonProps {
  *   onPress={save}
  * />
  */
-export const Button = ({ title, secondary, wide = true, style, onPress }: ButtonProps): ReactElement => {
+export const Button = ({ title, secondary, tertiary, wide = true, style, onPress }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
   return <View>
     <Pressable
       style={[
         tw`flex items-center justify-center p-3 rounded`,
-        secondary ? tw`bg-white-1 border border-peach-1 ` : tw`bg-peach-1`,
+        secondary ? tw`bg-white-2 border border-peach-1 `
+          : tertiary ? tw`border border-white-2 `
+            : tw`bg-peach-1`,
         wide ? tw`w-full` : tw`w-40`,
         active ? tw`bg-peach-2` : {},
         style || {}
@@ -49,8 +53,8 @@ export const Button = ({ title, secondary, wide = true, style, onPress }: Button
     >
       <Text style={[
         tw`font-baloo text-sm uppercase`,
-        secondary ? tw`text-peach-1 ` : tw`text-white-1`,
-        active ? tw`text-white-1` : {}
+        secondary ? tw`text-peach-1 ` : tw`text-white-2`,
+        active ? tw`text-white-2` : {}
       ]}>
         {title}
       </Text>
