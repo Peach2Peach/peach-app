@@ -14,5 +14,9 @@
   "form.btcAddress.error": "Adresse ist nicht valide",
   "form.iban": "IBAN",
   "yes": "Ja",
-  "no": "Nein"
+  "no": "Nein",
+  "buy": "Kaufen",
+  "sell": "Verkaufen",
+  "offers": "Angebote",
+  "settings": "Einstellungen"
 }

@@ -6,6 +6,24 @@ export const mildShadow = {
   radius: 0
 }
 
+export const footerShadow = {
+  distance: 16,
+  startColor: '#0000000D',
+  finalColor: '#00000000',
+  offset: [0, -2] as [x: string | number, y: string | number],
+  radius: 0
+}
+
+export const nativeShadow = {
+  shadowColor: '#0000000D',
+  shadowOffset: {
+    width: 0,
+    height: -2,
+  },
+  shadowOpacity: 0.5,
+  shadowRadius: 8
+}
+
 export const innerShadow = {
   paintInside: true,
   distance: 8,

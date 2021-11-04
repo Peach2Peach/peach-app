@@ -35,5 +35,9 @@
   "form.premium.more": "more",
   "form.premium.less": "less",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "buy": "Buy",
+  "sell": "Sell",
+  "offers": "Offers",
+  "settings": "Settings"
 }

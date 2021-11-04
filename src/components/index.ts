@@ -1,6 +1,7 @@
 export { BitcoinAddress } from './bitcoin'
 export { Button } from './Button'
 export { FadeInView } from './animation'
+export { Footer } from './footer'
 export { Header } from './Header'
 export { IconButton } from './IconButton'
 export {

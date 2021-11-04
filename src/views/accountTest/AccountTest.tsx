@@ -13,13 +13,6 @@ import { getMessages, rules } from '../../utils/validationUtils'
 
 const { useValidation } = require('react-native-form-validator')
 
-
-type RootStackParamList = {
-  Home: undefined,
-  AccountTest: undefined,
-  InputTest: undefined
-}
-
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>
 type Props = {
   navigation: ProfileScreenNavigationProp;
@@ -74,7 +67,7 @@ export default ({ navigation }: Props): ReactElement => {
     console.log('error')
   }
   return <ScrollView>
-    <View style={tw`flex-col justify-center h-full`}>
+    <View style={tw`pb-32 flex-col justify-center h-full`}>
       <View style={tw`mt-4`}>
         <Input
           label="Password"

@@ -90,8 +90,8 @@
     "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
+    "jest-transform-stub": "^2.0.0",
     "metro-react-native-babel-preset": "^0.64.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "17.0.1",
@@ -100,6 +100,7 @@
     "ts-jest": "^27.0.4"
   },
   "jest": {
+    "rootDir": "./",
     "preset": "react-native",
     "moduleFileExtensions": [
       "ts",
@@ -119,7 +120,8 @@
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "moduleNameMapper": {
-      "\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy",
+      "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
+      "\\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "^@env(.*)$": "<rootDir>/.env.dist$1"
     }
   },
