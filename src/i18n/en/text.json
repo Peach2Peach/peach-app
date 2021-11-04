@@ -21,6 +21,7 @@
   "currency.SEK": "Swedish Krona",
   "restoreBackup": "Restore backup",
   "scanQR": "Scan QR",
+  "scanBTCAddress": "Scan your Bitcoin address QR",
   "paste": "Paste",
   "form.file": "Select file...",
   "form.required.error": "This field is required",
