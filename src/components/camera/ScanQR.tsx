@@ -8,14 +8,23 @@ import { Button, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import GetWindowDimensions from '../../hooks/GetWindowDimensions'
-
+import FocusView from './focusView.svg'
 interface ScanQRProps {
   onSuccess(e: BarCodeReadEvent): void;
   onCancel(): void;
 }
 
 export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
-  const viewSize = (GetWindowDimensions().width || 320) * 0.75
+  const windowDimensions = GetWindowDimensions()
+  const viewSize = windowDimensions.width * 0.75
+  const overlayY = [
+    tw`bg-peach-translucent w-full`,
+    { height: Math.round((windowDimensions.height - viewSize) / 2) }
+  ]
+  const overlayX = [
+    tw`bg-peach-translucent h-full`,
+    { width: Math.round((windowDimensions.width - viewSize) / 2) }
+  ]
 
   return <Modal
     animationType="fade"
@@ -29,18 +38,20 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         onRead={onSuccess}
         vibrate={true}
       />
-      <View style={tw`absolute top-0 left-0 w-full h-full flex z-10`}>
-        <View style={tw`bg-peach-translucent w-full h-full flex-shrink flex justify-end items-center`}>
+      <View style={tw`absolute top-0 left-0 w-full h-full z-10`}>
+        <View style={[overlayY, tw`flex justify-end items-center`]}>
           <Text style={tw`text-white-2 font-baloo text-xl mb-4 uppercase`}>
             {i18n('scanBTCAddress')}
           </Text>
         </View>
-        <View style={tw`flex-shrink-0 flex-row`}>
-          <View style={tw`bg-peach-translucent w-full h-full flex-shrink`} />
-          <View style={{ width: viewSize, height: viewSize }} />
-          <View style={tw`bg-peach-translucent w-full h-full flex-shrink`} />
+        <View style={tw`flex-row`}>
+          <View style={overlayX} />
+          <View style={[tw`overflow-hidden`, { width: viewSize, height: viewSize }]}>
+            <FocusView style={tw`w-full h-full`} />
+          </View>
+          <View style={overlayX} />
         </View>
-        <View style={tw`bg-peach-translucent w-full h-full flex-shrink flex justify-center items-center`}>
+        <View style={[overlayY, tw`flex justify-center items-center`]}>
           <Button title="Cancel" tertiary={true} onPress={onCancel} wide={false} />
         </View>
       </View>

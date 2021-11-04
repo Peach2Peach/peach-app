@@ -3,8 +3,8 @@ import { Dimensions, ScaledSize } from 'react-native'
 
 export default (): ScaledSize => {
   const [windowSize, setWindowSize] = useState({
-    width: NaN,
-    height: NaN,
+    width: 320,
+    height: 640,
     scale: NaN,
     fontScale: NaN
   })
