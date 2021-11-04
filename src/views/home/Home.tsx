@@ -10,7 +10,6 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text, FadeInView } from '../../components'
-import peachLogo from '../../../assets/favico/peach-icon-192.png'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'home'>
 
@@ -25,7 +24,7 @@ export default ({ navigation }: Props): ReactElement => {
   return <ScrollView>
     <View style={tw`pb-32 flex-col justify-center h-full`}>
       <FadeInView duration={400} delay={500} style={tw`flex items-center`} >
-        <Image source={peachLogo}/>
+        <Image source={require('../../../assets/favico/peach-icon-192.png')} />
       </FadeInView>
       <FadeInView duration={400} delay={600}>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>

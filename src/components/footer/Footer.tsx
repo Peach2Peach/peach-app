@@ -13,7 +13,6 @@ import i18n from '../../utils/i18n'
 import { footerShadow, nativeShadow } from '../../utils/layoutUtils'
 import Icon from '../Icon'
 import BG from './bg.svg'
-import peachLogo from '../../../assets/favico/peach-logo.png'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
 interface FooterProps {
@@ -75,7 +74,7 @@ export const Footer = ({ active, style, navigation }: FooterProps): ReactElement
     <Pressable style={[tw`h-full flex-shrink-0 flex items-center z-10`, circleStyle]}
       onPress={() => navigation.navigate('home')}>
       <BG style={[circleStyle, nativeShadow]} />
-      <Image source={peachLogo} style={[
+      <Image source={require('../../../assets/favico/peach-logo.png')} style={[
         tw`w-10 h-10 absolute -top-5`,
         active !== 'home' ? tw`opacity-30` : {}
       ]}/>
