@@ -5,13 +5,12 @@ import {
   Pressable,
   View, ViewStyle
 } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { footerShadow } from '../../utils/layoutUtils'
+import { footerShadow, nativeShadow } from '../../utils/layoutUtils'
 import Icon from '../Icon'
 import BG from './bg.svg'
 import peachLogo from '../../../assets/favico/peach-logo.png'
@@ -75,7 +74,7 @@ export const Footer = ({ active, style, navigation }: FooterProps): ReactElement
     </View>
     <Pressable style={[tw`h-full flex-shrink-0 flex items-center z-10`, circleStyle]}
       onPress={() => navigation.navigate('home')}>
-      <BG style={circleStyle} />
+      <BG style={[circleStyle, nativeShadow]} />
       <Image source={peachLogo} style={[
         tw`w-10 h-10 absolute -top-5`,
         active !== 'home' ? tw`opacity-30` : {}

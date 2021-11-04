@@ -14,6 +14,16 @@ export const footerShadow = {
   radius: 0
 }
 
+export const nativeShadow = {
+  shadowColor: '#0000000D',
+  shadowOffset: {
+    width: 0,
+    height: -2,
+  },
+  shadowOpacity: 0.5,
+  shadowRadius: 8
+}
+
 export const innerShadow = {
   paintInside: true,
   distance: 8,
