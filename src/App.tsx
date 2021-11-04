@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useReducer, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { SafeAreaView, View } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
@@ -48,7 +48,7 @@ const App: React.FC = () => {
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       const interval = setInterval(async () => {
         setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))

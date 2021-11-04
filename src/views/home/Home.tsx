@@ -23,7 +23,7 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
   return <ScrollView>
-    <View style={tw`flex-col justify-center h-full`}>
+    <View style={tw`pb-32 flex-col justify-center h-full`}>
       <FadeInView duration={400} delay={500} style={tw`flex items-center`} >
         <Image source={peachLogo}/>
       </FadeInView>

@@ -45,7 +45,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <ScrollView>
-    <View style={tw`flex-col justify-center h-full px-4`}>
+    <View style={tw`pb-32 flex-col justify-center h-full px-4`}>
       <View style={tw`mt-4`}>
         <Button onPress={getKeys} title={isLoading ? 'Generating...' : '1. Get Keys'}/>
       </View>

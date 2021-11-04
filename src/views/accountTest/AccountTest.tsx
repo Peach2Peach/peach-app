@@ -67,7 +67,7 @@ export default ({ navigation }: Props): ReactElement => {
     console.log('error')
   }
   return <ScrollView>
-    <View style={tw`flex-col justify-center h-full`}>
+    <View style={tw`pb-32 flex-col justify-center h-full`}>
       <View style={tw`mt-4`}>
         <Input
           label="Password"
