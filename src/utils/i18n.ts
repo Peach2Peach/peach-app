@@ -50,7 +50,8 @@ export const i18n = (id: string, ...args: string[]): string => {
     const regex = new RegExp(`\\$${index}`, 'ug')
     text = text.replace(regex, arg)
   })
-  return text
+
+  return text.replace(/ (?=[^ ]*$)/u, ' ')
 }
 
 interface i18nState {
