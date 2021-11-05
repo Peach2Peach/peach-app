@@ -2,13 +2,14 @@ import React, { ReactElement } from 'react'
 
 interface Item {
   value: string,
-  text: string
+  display: string
 }
 interface SelectProps {
   items: Item[],
-  selectedValue: string,
+  selectedValue: string | number | null,
+  placeholder?: string,
   sort?: boolean,
-  onChange: (e: React.FormEvent<HTMLSelectElement>) => void
+  onChange?: (value: string|number) => void
 }
 
 /**

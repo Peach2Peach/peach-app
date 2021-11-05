@@ -1,38 +1,55 @@
-import React, { ReactElement } from 'react'
-import { Picker } from '@react-native-picker/picker'
-import { ItemValue } from '@react-native-picker/picker/typings/Picker'
+import React, { ReactElement, useState } from 'react'
+import tw from '../../styles/tailwind'
+import { Pressable, View } from 'react-native'
+import Icon from '../Icon'
+import { Text } from '..'
 
 interface Item {
-  value: string,
-  text: string
-}
-interface CustomEvent {
-  currentTarget: {
-    value: ItemValue
-  }
-}
-interface SelectProps {
-  items: Item[],
-  selectedValue: ItemValue,
-  sort?: boolean,
-  onChange: (e: CustomEvent) => void
+  value: string|number,
+  display: string
 }
 
-/**
- * @description Component to display the language select
- * @param props Component properties
- * @param props.items the items in the dropdown
- * @param props.onChange method to set locale on value change
- * @param props.sort if true, sort alphabetically and numerically
- */
-export const Select = ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
-  <Picker selectedValue={selectedValue} onValueChange={(value: ItemValue) => onChange({ currentTarget: { value } })}>
-    {items
-      .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
-      .map(item =>
-        <Picker.Item value={item.value} label={item.text} key={item.value}/>
-      )
-    }
-  </Picker>
+interface SelectProps {
+  items: Item[],
+  selectedValue: string | number | null,
+  placeholder?: string,
+  onChange?: (value: string|number) => void
+}
+
+export const Select = ({ items, selectedValue, placeholder, onChange }: SelectProps): ReactElement => {
+  const [isOpen, setOpen] = useState(false)
+  const select = (item: Item) => {
+    if (onChange) onChange(item.value)
+    setOpen(!isOpen)
+  }
+
+  return <View style={tw`flex-row justify-end items-start`}>
+    <View>
+      {isOpen
+        ? items.map(item => <Pressable
+          key={item.value}
+          style={tw`flex justify-center`}
+          onPress={() => select(item)}>
+          <Text style={[
+            tw`text-xs text-right leading-5 uppercase`,
+            item.value === selectedValue ? tw`font-bold` : {}
+          ]}>{item.display}</Text>
+        </Pressable>
+        )
+        : <Pressable style={tw`flex justify-center`} onPress={() => setOpen(!isOpen)}>
+          <Text style={tw`text-xs text-right leading-5 uppercase`}>
+            {selectedValue
+              ? items.find(item => item.value === selectedValue)?.display
+              : placeholder || items[0].display
+            }
+          </Text>
+        </Pressable>
+      }
+    </View>
+    <Pressable  onPress={() => setOpen(!isOpen)}>
+      <Icon id={isOpen ? 'selectOpen' : 'selectClosed'} style={tw`flex-shrink-0 ml-2 mt-1 w-2 h-3`} />
+    </Pressable>
+  </View>
+}
 
 export default Select
