@@ -40,28 +40,28 @@ export default ({ navigation }: Props): ReactElement => {
         <Button
           title="Components"
           wide={false}
-          onPress={() => navigation.navigate('ComponentsTest')}
+          onPress={() => navigation.navigate('componentsTest')}
         />
       </View>
       <View style={tw`mt-4 flex items-center`}>
         <Button
           title="Account Tests"
           wide={false}
-          onPress={() => navigation.navigate('AccountTest')}
+          onPress={() => navigation.navigate('accountTest')}
         />
       </View>
       <View style={tw`mt-4 flex items-center`}>
         <Button
           title="Input Tests"
           wide={false}
-          onPress={() => navigation.navigate('InputTest')}
+          onPress={() => navigation.navigate('inputTest')}
         />
       </View>
       <View style={tw`mt-4 flex items-center`}>
         <Button
           title="PGP Tests"
           wide={false}
-          onPress={() => navigation.navigate('PGPTest')}
+          onPress={() => navigation.navigate('pgpTest')}
         />
       </View>
       <Text style={tw`mt-4`}>

@@ -13,7 +13,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 // import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
 const { useValidation } = require('react-native-form-validator')
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'inputTest'>
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }

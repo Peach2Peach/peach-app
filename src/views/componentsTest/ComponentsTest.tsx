@@ -19,7 +19,7 @@ import {
 import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import i18n from '../../utils/i18n'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountTest'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'componentsTest'>
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }

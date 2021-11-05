@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -17,7 +17,7 @@ export default (): ReactElement => {
     <Text style={tw`mt-6 text-center`}>
       {i18n('welcome.welcomeToPeach.description.1')}
     </Text>
-    <Text style={tw`mt-4 text-center`}>
+    <Text style={tw`mt-3 text-center`}>
       {i18n('welcome.welcomeToPeach.description.2')}
     </Text>
   </View>

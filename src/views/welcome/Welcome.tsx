@@ -5,20 +5,32 @@ import {
   ScrollView,
   View
 } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
 const { LinearGradient } = require('react-native-gradients')
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, LanguageSelect, Text } from '../../components'
+import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
+import LetsGetStarted from './LetsGetStarted'
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+}
+
+type Screen = (props: Props) => ReactElement
+
 
 const screens = [
   WelcomeToPeach,
   YouOwnYourData,
   PeachOfMind,
+  LetsGetStarted,
 ]
 
 const gradient = [
@@ -27,10 +39,11 @@ const gradient = [
 ]
 
 // eslint-disable-next-line max-lines-per-function
-export default (): ReactElement => {
-  const { locale } = useContext(LanguageContext)
+export default ({ navigation }: Props): ReactElement => {
+  useContext(LanguageContext)
+
   const [page, setPage] = useState(0)
-  const CurrentScreen = screens[page]
+  const CurrentScreen: Screen = screens[page]
   const scroll = useRef<ScrollView>(null)
 
   const next = () => {
@@ -45,31 +58,46 @@ export default (): ReactElement => {
 
   return <View style={tw`h-full flex`}>
     <View style={tw`h-full flex-shrink px-8`}>
-      <View style={tw`absolute top-10 right-4 z-10`}>
-        <LanguageSelect locale={locale}/>
-      </View>
-      <View style={tw`w-full h-10 mt-32 -mb-10 z-10`}>
+      <View style={tw`w-full h-14 mt-32 -mb-14 z-10`}>
         <LinearGradient colorList={gradient} angle={-90} />
       </View>
-      <ScrollView style={tw``} ref={scroll}>
-        <View style={tw`pb-10`}>
+      <ScrollView ref={scroll}>
+        <View style={tw`pb-14`}>
           <View style={tw`flex items-center`}>
             <Image source={require('../../../assets/favico/peach-icon-192.png')} />
           </View>
-          <CurrentScreen />
+          <CurrentScreen navigation={navigation} />
         </View>
       </ScrollView>
-      <View style={tw`w-full h-10 -mt-10`}>
+      <View style={tw`w-full h-14 -mt-14`}>
         <LinearGradient colorList={gradient} angle={90} />
       </View>
     </View>
     <View style={tw`mb-8 w-full`}>
       <View style={tw`mt-4 flex items-center`}>
-        <Button
-          title={i18n('next')}
-          wide={false}
-          onPress={next}
-        />
+        {page !== screens.length - 1
+          ? <Button
+            title={i18n('next')}
+            wide={false}
+            onPress={next}
+          />
+          : <View>
+            <View style={tw`mt-1 flex items-center`}>
+              <Button
+                onPress={() => navigation.navigate('accountTest')}
+                wide={false}
+                title={i18n('newUser')}
+              />
+            </View>
+            <View style={tw`mt-4`}>
+              <Button
+                onPress={() => navigation.navigate('accountTest')}
+                secondary={true}
+                title={i18n('restoreBackup')}
+              />
+            </View>
+          </View>
+        }
       </View>
       <View style={tw`w-full flex-row justify-center mt-16`}>
         {screens.map((screen, i) =>
