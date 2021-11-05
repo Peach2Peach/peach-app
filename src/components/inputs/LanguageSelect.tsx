@@ -22,6 +22,10 @@ export const LanguageContext = createContext({ locale: 'en' })
 
 export default LanguageContext
 
+interface LanguageSelectProps {
+  locale: string,
+  setLocale: Function
+}
 
 /**
  * @description Component to display the language select
@@ -29,13 +33,12 @@ export default LanguageContext
  * @param props.locale the current locale
  * @param props.setLocale method to set locale on value change
  */
-export const LanguageSelect = (): ReactElement => {
+export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
   const languages = i18n.getLocales().map(lcl => ({
     value: lcl,
     display: i18n(`languageName.${lcl}`)
   }))
   useContext(LanguageContext)
-  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [pristine, setPristine] = useState(true)
 
   return <View style={tw`w-40`}>

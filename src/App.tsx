@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useReducer, useState } from 'react'
 import { SafeAreaView, View } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
@@ -13,11 +13,11 @@ import ComponentsTest from './views/componentsTest/ComponentsTest'
 import AccountTest from './views/accountTest/AccountTest'
 import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
-import LanguageContext, { LanguageSelect } from './components/inputs/LanguageSelect'
+import LanguageContext from './components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext, updateBitcoinContext } from './components/bitcoin'
 import i18n from './utils/i18n'
 import PGPTest from './views/pgpTest/PGPTest'
-import { Footer, Header } from './components'
+import { Footer, Header, LanguageSelect, Text } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
@@ -32,18 +32,20 @@ type ViewType = {
   component: (props: any) => ReactElement
 }
 const views: ViewType[] = [
+  { name: 'welcome', component: Welcome },
   { name: 'home', component: Home },
   { name: 'buy', component: Buy },
   { name: 'sell', component: Sell },
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },
-  { name: 'ComponentsTest', component: ComponentsTest },
-  { name: 'AccountTest', component: AccountTest },
-  { name: 'InputTest', component: InputTest },
-  { name: 'PGPTest', component: PGPTest },
+  { name: 'componentsTest', component: ComponentsTest },
+  { name: 'accountTest', component: AccountTest },
+  { name: 'inputTest', component: InputTest },
+  { name: 'pgpTest', component: PGPTest },
 ]
 const App: React.FC = () => {
-  useContext(LanguageContext)
+  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
+
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
@@ -63,26 +65,30 @@ const App: React.FC = () => {
   return <SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
-        {skipTutorial
-          ? <View style={tw`h-full flex-col`}>
-            <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
-            <View style={tw`h-full flex-shrink`}>
-              <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                if (!state) return
-                setCurrentPage(state.routes[state.routes.length - 1].name)
-              }}>
-                <Stack.Navigator screenOptions={{
-                  headerShown: false,
-                  cardStyle: [tw`bg-white-1 p-4`, tw.md`p-6`]
-                }}>
-                  {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
-                </Stack.Navigator>
-              </NavigationContainer>
+        <View style={tw`h-full flex-col`}>
+          {skipTutorial
+            ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
+            : <View style={tw`absolute top-10 right-4 z-20`}>
+              <LanguageSelect locale={locale} setLocale={setLocale} />
             </View>
-            <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+          }
+          <View style={tw`h-full flex-shrink`}>
+            <NavigationContainer ref={navigationRef} onStateChange={(state) => {
+              if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
+            }}>
+              <Stack.Navigator screenOptions={{
+                headerShown: false,
+                cardStyle: [tw`bg-white-1 p-4`, tw.md`p-6`]
+              }}>
+                {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
+              </Stack.Navigator>
+            </NavigationContainer>
           </View>
-          : <Welcome />
-        }
+          {skipTutorial
+            ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+            : null
+          }
+        </View>
       </BitcoinContext.Provider>
     </LanguageContext.Provider>
   </SafeAreaView>
