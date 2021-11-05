@@ -8,6 +8,8 @@ import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
 import offers from './offers.svg'
+import selectClosed from './selectClosed.svg'
+import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
@@ -26,6 +28,8 @@ const Icons: Icons = {
   dropdownOpen,
   file,
   offers,
+  selectClosed,
+  selectOpen,
   sell,
   send,
   settings,
