@@ -1,6 +1,8 @@
 declare type RootStackParamList = {
-  home: undefined,
   welcome: undefined,
+  newUser: undefined,
+  tutorial: undefined,
+  home: undefined,
   buy: undefined,
   sell: undefined,
   offers: undefined,

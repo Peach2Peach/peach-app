@@ -32,3 +32,9 @@ export const innerShadow = {
   offset: [0, 6] as [x: string | number, y: string | number],
   radius: 0
 }
+
+
+export const whiteGradient = [
+  { offset: '0%', color: '#FFF', opacity: '1' },
+  { offset: '100%', color: '#FFF', opacity: '0' }
+]

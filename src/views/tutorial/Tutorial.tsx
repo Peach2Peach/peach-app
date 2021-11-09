@@ -1,7 +1,6 @@
-import React, { ReactElement, useContext, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import {
   Image,
-  Modal,
   Pressable,
   ScrollView,
   View
@@ -13,12 +12,8 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
-import WelcomeToPeach from './WelcomeToPeach'
-import YouOwnYourData from './YouOwnYourData'
-import PeachOfMind from './PeachOfMind'
-import LetsGetStarted from './LetsGetStarted'
+import LetsExplainPeach from './LetsExplainPeach'
 import { whiteGradient } from '../../utils/layoutUtils'
-import { getMessage, MessageContext, setMessage } from '../../utils/messageUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
@@ -30,16 +25,11 @@ type Screen = (props: Props) => ReactElement
 
 
 const screens = [
-  WelcomeToPeach,
-  YouOwnYourData,
-  PeachOfMind,
-  LetsGetStarted,
+  LetsExplainPeach
 ]
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
-  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
-
   useContext(LanguageContext)
 
   const [page, setPage] = useState(0)
@@ -84,16 +74,9 @@ export default ({ navigation }: Props): ReactElement => {
           : <View>
             <View style={tw`mt-1 flex items-center`}>
               <Button
-                onPress={() => navigation.navigate('newUser')}
+                onPress={() => navigation.navigate('home')}
                 wide={false}
-                title={i18n('newUser')}
-              />
-            </View>
-            <View style={tw`mt-4`}>
-              <Button
-                onPress={() => navigation.navigate('accountTest')}
-                secondary={true}
-                title={i18n('restoreBackup')}
+                title={i18n('done')}
               />
             </View>
           </View>

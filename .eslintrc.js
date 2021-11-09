@@ -281,6 +281,7 @@ module.exports = {
     'yoda': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
     'jest/expect-expect': 'off',
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'off',
+    'react-native/no-inline-styles': 'off'
   }
 }
