@@ -264,7 +264,11 @@ PODS:
     - React-Core
   - react-native-document-picker (5.2.0):
     - React-Core
+  - react-native-encrypted-storage (4.0.2):
+    - React-Core
   - react-native-fast-openpgp (2.0.0-rc1):
+    - React-Core
+  - react-native-randombytes (3.6.1):
     - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
@@ -420,7 +424,9 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
+  - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
+  - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -496,8 +502,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
+  react-native-encrypted-storage:
+    :path: "../node_modules/react-native-encrypted-storage"
   react-native-fast-openpgp:
     :path: "../node_modules/react-native-fast-openpgp"
+  react-native-randombytes:
+    :path: "../node_modules/react-native-randombytes"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -573,7 +583,9 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
+  react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
   react-native-fast-openpgp: b9f064e2cdf0f7c970aca836ca1ef6a594258160
+  react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5

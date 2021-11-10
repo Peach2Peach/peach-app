@@ -28,6 +28,7 @@ import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
+import { initSession } from './utils/accountUtils'
 
 enableScreens()
 
@@ -56,10 +57,13 @@ const App: React.FC = () => {
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const { width } = GetWindowDimensions()
   const slideInAnim = useRef(new Animated.Value(-width)).current
+  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
+
+  const skipTutorial = false // TODO store value somewhere
 
   useEffect(() => {
     let slideOutTimeout: NodeJS.Timer
@@ -75,7 +79,7 @@ const App: React.FC = () => {
         toValue: -width,
         duration: 300,
         useNativeDriver: false
-      }).start(), 1000 * 2)
+      }).start(), 1000 * 10)
     }
 
     return () => clearTimeout(slideOutTimeout)
@@ -84,8 +88,10 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       const interval = setInterval(async () => {
+        // TODO add error handling in case data is not available
         setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
       }, 60 * 1000)
+      // TODO add error handling in case data is not available
       setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
 
       return () => {
@@ -94,8 +100,13 @@ const App: React.FC = () => {
     })()
 
   }, [bitcoinContext.currency])
-  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-  const skipTutorial = false // TODO store value somewhere
+
+  useEffect(() => {
+    (async () => {
+      await initSession()
+    })()
+  }, [])
+
 
   return <SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>

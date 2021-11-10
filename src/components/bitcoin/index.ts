@@ -1,20 +1,12 @@
 import { createContext } from 'react'
-import { HTTP_AUTH_USER, HTTP_AUTH_PASS } from '@env'
-
-type currency = 'EUR' | 'CHF' | 'GBP'
+import { marketPrice } from '../../utils/peachAPI'
 
 export type BitcoinContextType = {
-  currency: currency,
+  currency: Currency,
   price: number,
   satsPerUnit: number
 }
 
-type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
-
-export type PeachPairInfo = {
-  pair: TradingPair,
-  price: number,
-}
 
 export let bitcoinContext: BitcoinContextType = {
   currency: 'EUR',
@@ -39,22 +31,18 @@ export const getBitcoinContext = (): BitcoinContextType => bitcoinContext
 export const BitcoinContext = createContext(bitcoinContext)
 
 
-export const updateBitcoinContext = async (currency: currency): Promise<BitcoinContextType> => {
+export const updateBitcoinContext = async (currency: Currency): Promise<BitcoinContextType> => {
   let price = bitcoinContext.price
   let satsPerUnit = bitcoinContext.satsPerUnit
 
-  const response = await fetch(`http://192.168.1.62:8080/market/price/BTC${currency}`, {
-    headers: {
-      'Authorization': 'Basic ' + Buffer.from(`${HTTP_AUTH_USER}:${HTTP_AUTH_PASS}`).toString('base64')
-    }
-  })
+  const result = await marketPrice(currency)
 
-  try {
-    const result = await response.json() as PeachPairInfo
-    price = Number(result.price)
-    satsPerUnit = Math.round(100000000 / price)
-  } catch {}
+  if ((<APIError>result).error) {
+    return bitcoinContext
+  }
 
+  price = Number((<PeachPairInfo>result).price)
+  satsPerUnit = Math.round(100000000 / price)
   // eslint-disable-next-line require-atomic-updates
   bitcoinContext = {
     currency,

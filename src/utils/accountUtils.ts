@@ -3,13 +3,21 @@ import { isMobile } from './systemUtils'
 import CryptoJS from 'react-native-crypto-js'
 import RNFS from './fileSystem/RNFS'
 import Share from './fileSystem/Share'
+import EncryptedStorage from 'react-native-encrypted-storage'
+import { createWallet } from './bitcoinUtils'
+import * as peachAPI from './peachAPI'
 
+export type Session = {
+  password?: string
+}
+
+let session: Session|null = null
 
 interface CreateAccountProps {
   account?: object|null,
   password: string,
-  onSuccess?: Function,
-  onError?: Function
+  onSuccess: Function,
+  onError: Function
 }
 interface RecoverAccountProps {
   encryptedAccount: string,
@@ -17,6 +25,27 @@ interface RecoverAccountProps {
   onSuccess?: Function,
   onError?: Function
 }
+
+const setSession = (sess: Session) => session = sess
+
+/**
+ * @description Method to initialise local user session from encrypted storage
+ */
+export const initSession = async (): Promise<null|unknown> => {
+  try {
+    const result = await EncryptedStorage.getItem('session') as string
+
+    if (result) {
+      setSession(JSON.parse(result))
+    }
+  } catch (e) {
+    return e
+  }
+
+  return null
+}
+
+export const getSession = () => session
 
 /**
  * @description Method to create a new or existing account
@@ -31,18 +60,35 @@ export const createAccount = async ({
   password = '',
   onSuccess,
   onError
-}: CreateAccountProps): Promise<string|null> => {
+}: CreateAccountProps): Promise<string|null|void> => {
   let ciphertext = null
 
   info('Create account', account, password)
   if (!account || typeof account !== 'object') {
-    account = { id: 'Peach of Cake' } // TODO replace with actual data
-    // TODO send message to server about account creation
+    const wallet = await createWallet() // TODO add error handling
+    const firstAddress = wallet.derivePath('m/45/0/0/0')
+
+    account = {
+      id: firstAddress.publicKey.toString('hex'),
+      privKey: wallet.privateKey?.toString('hex')
+    }
+    const result = await peachAPI.userAuth(firstAddress)
+
+    if ((<APIError>result).error) {
+      return onError((<APIError>result).error)
+    }
   }
 
   try {
     ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
+    await EncryptedStorage.setItem(
+      'session',
+      JSON.stringify({
+        ...getSession(),
+        password
+      })
+    )
   } catch (e) {
     if (onError) onError(e)
     return null

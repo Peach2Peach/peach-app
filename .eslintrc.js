@@ -249,7 +249,7 @@ module.exports = {
     'semi-spacing': 'error',
     'semi-style': [
       'error',
-      'last'
+      'first'
     ],
     'sort-keys': 'off',
     'sort-vars': 'error',
