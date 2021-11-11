@@ -38,13 +38,13 @@ interface CreateAccountProps {
 interface RecoverAccountProps {
   encryptedAccount: string,
   password: string,
-  onSuccess?: Function,
-  onError?: Function
+  onSuccess: Function,
+  onError: Function
 }
 
 const setSession = (sess: Session) => session = {
-  initialized: true,
-  ...sess
+  ...sess,
+  initialized: true
 }
 export const getSession = () => session
 
@@ -225,8 +225,9 @@ export const decryptAccount = (encryptedAccount: string, password = '') => {
   info('Decrypting account', encryptedAccount, password)
 
   try {
-    const account = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
-    return JSON.parse(account)
+    const acc = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
+    setAccount(JSON.parse(acc))
+    return account
   } catch (e) {
     info('Account cannot be decrypted', e)
   }
@@ -244,7 +245,7 @@ export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onE
   info('Recovering account', encryptedAccount, password)
 
   try {
-    const account = decryptAccount(encryptedAccount, password)
+    const acc = decryptAccount(encryptedAccount, password)
     createAccount({
       account,
       password,

@@ -25,9 +25,7 @@ type Props = {
 type Screen = (props: Props) => ReactElement
 
 
-const screens = [
-  LetsExplainPeach
-]
+const screens = [LetsExplainPeach]
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {

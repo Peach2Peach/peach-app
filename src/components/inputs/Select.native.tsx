@@ -46,7 +46,7 @@ export const Select = ({ items, selectedValue, placeholder, onChange }: SelectPr
         </Pressable>
       }
     </View>
-    <Pressable  onPress={() => setOpen(!isOpen)}>
+    <Pressable onPress={() => setOpen(!isOpen)}>
       <Icon id={isOpen ? 'selectOpen' : 'selectClosed'} style={tw`flex-shrink-0 ml-2 mt-1 w-2 h-3`} />
     </Pressable>
   </View>

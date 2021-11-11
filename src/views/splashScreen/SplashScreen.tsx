@@ -1,8 +1,5 @@
 import React, { ReactElement } from 'react'
-import {
-  Image,
-  View
-} from 'react-native'
+import { Image } from 'react-native'
 import { FadeInView } from '../../components'
 import tw from '../../styles/tailwind'
 
