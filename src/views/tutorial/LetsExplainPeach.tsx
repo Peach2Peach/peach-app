@@ -15,7 +15,7 @@ export default (): ReactElement => {
       {i18n('tutorial.title')}
     </Text>
     <Text style={tw`mt-4 text-center`}>
-      {i18n('tutorial.title.description')}
+      {i18n('tutorial.description')}
     </Text>
   </View>
 }

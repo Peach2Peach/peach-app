@@ -1,4 +1,5 @@
 declare type RootStackParamList = {
+  splashScreen: undefined,
   welcome: undefined,
   newUser: undefined,
   tutorial: undefined,

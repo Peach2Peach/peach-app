@@ -14,6 +14,7 @@ import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import LetsExplainPeach from './LetsExplainPeach'
 import { whiteGradient } from '../../utils/layoutUtils'
+import { updateSettings } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
@@ -45,6 +46,12 @@ export default ({ navigation }: Props): ReactElement => {
     setPage(p)
     scroll.current?.scrollTo({ x: 0 })
   }
+  const finishTutorial = () => {
+    updateSettings({
+      skipTutorial: true
+    })
+    navigation.navigate('home')
+  }
 
   return <View style={tw`h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
@@ -74,7 +81,7 @@ export default ({ navigation }: Props): ReactElement => {
           : <View>
             <View style={tw`mt-1 flex items-center`}>
               <Button
-                onPress={() => navigation.navigate('home')}
+                onPress={finishTutorial}
                 wide={false}
                 title={i18n('done')}
               />

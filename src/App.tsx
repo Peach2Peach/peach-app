@@ -22,13 +22,14 @@ import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
 import Settings from './views/settings/Settings'
+import SplashScreen from './views/splashScreen/SplashScreen'
 import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
-import { initSession } from './utils/accountUtils'
+import { account, getAccount, initSession, session } from './utils/accountUtils'
 
 enableScreens()
 
@@ -38,6 +39,7 @@ type ViewType = {
   component: (props: any) => ReactElement
 }
 const views: ViewType[] = [
+  { name: 'splashScreen', component: SplashScreen },
   { name: 'welcome', component: Welcome },
   { name: 'newUser', component: NewUser },
   { name: 'tutorial', component: Tutorial },
@@ -62,8 +64,6 @@ const App: React.FC = () => {
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
-
-  const skipTutorial = false // TODO store value somewhere
 
   useEffect(() => {
     let slideOutTimeout: NodeJS.Timer
@@ -102,20 +102,28 @@ const App: React.FC = () => {
   }, [bitcoinContext.currency])
 
   useEffect(() => {
-    (async () => {
-      await initSession()
-    })()
+    setTimeout(async () => {
+      const { password } = await initSession()
+      if (password) await getAccount(password)
+      if (account?.settings?.skipTutorial) {
+        navigationRef.navigate('home')
+      } else {
+        navigationRef.navigate('welcome')
+      }
+    }, 3000)
   }, [])
-
 
   return <SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
         <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
           <View style={tw`h-full flex-col`}>
-            {skipTutorial
+            {account?.settings?.skipTutorial
               ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
-              : <View style={tw`absolute top-10 right-4 z-20`}>
+              : <View style={[
+                tw`absolute top-10 right-4 z-20`,
+                !session.initialized ? tw`hidden` : {}
+              ]}>
                 <LanguageSelect locale={locale} setLocale={setLocale} />
               </View>
             }
@@ -137,12 +145,12 @@ const App: React.FC = () => {
                 </Stack.Navigator>
               </NavigationContainer>
             </View>
-            {skipTutorial
+            {account?.settings?.skipTutorial
               ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
               : null
             }
           </View>
-      </MessageContext.Provider>
+        </MessageContext.Provider>
       </BitcoinContext.Provider>
     </LanguageContext.Provider>
   </SafeAreaView>

@@ -8,13 +8,29 @@ import { createWallet } from './bitcoinUtils'
 import * as peachAPI from './peachAPI'
 
 export type Session = {
+  initialized: boolean
   password?: string
 }
 
-let session: Session|null = null
+type Settings = {
+  skipTutorial?: boolean
+}
+
+export type Account = {
+  publicKey?: string,
+  privKey?: string,
+  settings: Settings
+}
+
+export let session: Session = {
+  initialized: false
+}
+export let account: Account = {
+  settings: {}
+}
 
 interface CreateAccountProps {
-  account?: object|null,
+  acc?: Account|null,
   password: string,
   onSuccess: Function,
   onError: Function
@@ -26,26 +42,79 @@ interface RecoverAccountProps {
   onError?: Function
 }
 
-const setSession = (sess: Session) => session = sess
+const setSession = (sess: Session) => session = {
+  initialized: true,
+  ...sess
+}
+export const getSession = () => session
 
 /**
  * @description Method to initialise local user session from encrypted storage
  */
-export const initSession = async (): Promise<null|unknown> => {
+export const initSession = async (): Promise<Session> => {
   try {
     const result = await EncryptedStorage.getItem('session') as string
 
     if (result) {
       setSession(JSON.parse(result))
+      return session
     }
   } catch (e) {
-    return e
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+    error('Session could not be retrieved', err)
   }
 
-  return null
+  return session
 }
 
-export const getSession = () => session
+
+const setAccount = (acc: Account) => account = acc
+
+/**
+ * @description Method to get account
+ * @param password secret
+ * @return account
+ */
+export const getAccount = async (password: string): Promise<Account> => {
+  info('Get account')
+
+  if (account.publicKey) return account
+
+  let acc = ''
+
+  try {
+    acc = await RNFS.readFile(RNFS.DocumentDirectoryPath + '/account.json', 'utf8') as string
+    acc = CryptoJS.AES.decrypt(acc, password).toString(CryptoJS.enc.Utf8)
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+    error('File could not be read', err)
+  }
+
+  try {
+    if (acc) setAccount(JSON.parse(acc))
+    return account
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+    error('Incorrect password', err)
+    return account
+  }
+}
+
 
 /**
  * @description Method to create a new or existing account
@@ -56,27 +125,30 @@ export const getSession = () => session
  * @returns promise resolving to encrypted account
  */
 export const createAccount = async ({
-  account,
+  acc,
   password = '',
   onSuccess,
   onError
 }: CreateAccountProps): Promise<string|null|void> => {
   let ciphertext = null
 
-  info('Create account', account, password)
-  if (!account || typeof account !== 'object') {
+  info('Create account', acc, password)
+  if (!acc || typeof acc !== 'object') {
     const wallet = await createWallet() // TODO add error handling
     const firstAddress = wallet.derivePath('m/45/0/0/0')
 
     account = {
-      id: firstAddress.publicKey.toString('hex'),
-      privKey: wallet.privateKey?.toString('hex')
+      publicKey: firstAddress.publicKey.toString('hex'),
+      privKey: (wallet.privateKey as Buffer).toString('hex'),
+      settings: {}
     }
     const result = await peachAPI.userAuth(firstAddress)
 
     if ((<APIError>result).error) {
       return onError((<APIError>result).error)
     }
+  } else {
+    account = acc
   }
 
   try {
@@ -99,30 +171,29 @@ export const createAccount = async ({
 }
 
 /**
- * @description Method to get account
- * @param [password] secret
- * @return account
+ * @description Method to save account
+ * @param password secret
+ * @returns promise resolving to encrypted account
  */
-export const getAccount = async (password = '') => {
-  let account = null
-
-  info('Get account')
-
+export const saveAccount = async (password: string): Promise<void> => {
   try {
-    account = await RNFS.readFile(RNFS.DocumentDirectoryPath + '/account.json', 'utf8')
+    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
   } catch (e) {
-    error('File could not be read', e.message)
+    // TODO add error handling
   }
+}
 
-  account = CryptoJS.AES.decrypt(account, password).toString(CryptoJS.enc.Utf8)
-
-  try {
-
-    return JSON.parse(account)
-  } catch (e) {
-    error('Incorrect password', e.message)
-    return null
+/**
+ * @description Method to update app settings
+ * @param options settings to update
+ */
+export const updateSettings = (options: Settings): void => {
+  account.settings = {
+    ...account.settings,
+    ...options
   }
+  if (session.password) saveAccount(session.password)
 }
 
 /**
