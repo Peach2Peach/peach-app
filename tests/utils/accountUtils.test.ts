@@ -22,7 +22,6 @@ describe('createAccount', () => {
       onSuccess,
       onError
     })
-    console.log(result)
     const account = CryptoJS.AES.decrypt(result, password).toString(CryptoJS.enc.Utf8)
 
     ok(JSON.parse(account).publicKey)
