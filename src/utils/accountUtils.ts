@@ -144,7 +144,11 @@ export const createAccount = async ({
     }
     const result = await peachAPI.userAuth(firstAddress)
 
+    info('Create account RESULT', result)
+
     if ((<APIError>result).error) {
+      info('Create account APIERROR', acc, password, (<APIError>result).error)
+
       return onError((<APIError>result).error)
     }
   } else {
@@ -221,7 +225,7 @@ export const backupAccount = async () => {
  * @param [onSuccess] callback on success
  * @param [onError] callback on error
  */
-export const decryptAccount = (encryptedAccount: string, password = '') => {
+export const decryptAccount = (encryptedAccount: string, password = ''): Account|string => {
   info('Decrypting account', encryptedAccount, password)
 
   try {
@@ -245,9 +249,9 @@ export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onE
   info('Recovering account', encryptedAccount, password)
 
   try {
-    const acc = decryptAccount(encryptedAccount, password)
+    const acc = decryptAccount(encryptedAccount, password) as Account
     createAccount({
-      account,
+      acc,
       password,
       onSuccess,
       onError

@@ -63,7 +63,7 @@ export default ({ navigation }: Props): ReactElement => {
         required: true
       }
     })
-    if (isValid) createAccount({ account: null, password, onSuccess, onError })
+    if (isValid) createAccount({ password, onSuccess, onError })
   }
 
   return <View style={tw`h-full flex`}>

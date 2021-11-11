@@ -1,34 +1,52 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
+import tw from '../../styles/tailwind'
+import { Pressable, View } from 'react-native'
+import Icon from '../Icon'
+import { Text } from '..'
 
 interface Item {
-  value: string,
+  value: string|number,
   display: string
 }
+
 interface SelectProps {
   items: Item[],
   selectedValue: string | number | null,
-  placeholder?: string,
-  sort?: boolean,
+  label?: string,
   onChange?: (value: string|number) => void
 }
 
-/**
- * @description Component to display the language select
- * @param props Component properties
- * @param props.items the items in the dropdown
- * @param props.onChange method to set locale on value change
- * @param props.sort if true, sort alphabetically and numerically
- */
-export const Select = ({ items, selectedValue, onChange, sort }: SelectProps): ReactElement =>
-  <select onChange={onChange}>
-    {items
-      .sort((a, b) => sort ? a.text > b.text ? 1 : -1 : 0)
-      .map(item =>
-        <option value={item.value} selected={item.value === selectedValue} key={item.value}>
-          {item.text}
-        </option>
+export const Select = ({ items, selectedValue, label, onChange }: SelectProps): ReactElement => {
+  const [isOpen, setOpen] = useState(false)
+  const select = (item: Item) => {
+    if (onChange) onChange(item.value)
+    setOpen(!isOpen)
+  }
+
+  return <View>
+    <Pressable style={tw`flex-row justify-end items-center mb-4`} onPress={() => setOpen(!isOpen)}>
+      <Text style={tw`text-xs text-right leading-5 uppercase`}>
+        {selectedValue && !isOpen
+          ? items.find(item => item.value === selectedValue)?.display
+          : label || items[0].display
+        }
+      </Text>
+      <Icon id={isOpen ? 'selectClosed' : 'selectOpen'} style={tw`flex-shrink-0 ml-2 w-2 h-2`} />
+    </Pressable>
+    {isOpen
+      ? items.map(item => <Pressable
+        key={item.value}
+        style={tw`flex justify-center mb-3`}
+        onPress={() => select(item)}>
+        <Text style={[
+          tw`text-xs text-right leading-5 uppercase`,
+          item.value === selectedValue ? tw`text-peach-1` : {}
+        ]}>{item.display}</Text>
+      </Pressable>
       )
+      : null
     }
-  </select>
+  </View>
+}
 
 export default Select

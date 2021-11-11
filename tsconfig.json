@@ -4,8 +4,8 @@
     "module": "esnext",
     "jsx": "react",
     "typeRoots": [
-      "src/@types",
-      "node_modules/@types"
+      "./src/@types",
+      "./node_modules/@types"
     ],
     "resolveJsonModule": true,
     "strict": true,
@@ -24,7 +24,8 @@
     "noEmit": true
   },
   "include": [
-    "src"
+    "src",
+    "@types"
   ],
   "exclude": [
     "node_modules"

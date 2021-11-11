@@ -15,6 +15,7 @@ jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native-qrcode-scanner', () => jest.fn())
 jest.mock('@react-native-clipboard/clipboard', () => jest.fn())
 jest.mock('@env', () => ({
+  API_URL: 'https://localhost:8080/',
   HTTP_AUTH_USER: 'value',
   HTTP_AUTH_PASS: 'value2'
 }))

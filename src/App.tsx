@@ -118,7 +118,7 @@ const App: React.FC = () => {
       <BitcoinContext.Provider value={bitcoinContext}>
         <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
           <View style={tw`h-full flex-col`}>
-            {account?.settings?.skipTutorial
+            {account?.settings?.skipTutorial && false
               ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
               : <View style={[
                 tw`absolute top-10 right-4 z-20`,

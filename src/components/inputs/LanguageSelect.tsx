@@ -43,7 +43,7 @@ export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): Reac
   return <View style={tw`w-40`}>
     <Select
       items={languages}
-      placeholder={i18n('language')}
+      label={i18n('language')}
       selectedValue={pristine ? null : locale}
       onChange={value => {
         setLocale({ locale: value as string })

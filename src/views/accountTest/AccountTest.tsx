@@ -5,7 +5,14 @@ import {
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
-import { backupAccount, createAccount, decryptAccount, getAccount, recoverAccount } from '../../utils/accountUtils'
+import {
+  Account,
+  backupAccount,
+  createAccount,
+  decryptAccount,
+  getAccount,
+  recoverAccount
+} from '../../utils/accountUtils'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, FileData, FileInput, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'
@@ -25,7 +32,7 @@ export default ({ navigation }: Props): ReactElement => {
     content: ''
   })
   // eslint-disable-next-line prefer-const
-  let [account, setAccount] = useState(null)
+  let [account, setAccount] = useState({})
 
 
   const { validate, isFieldInError, getErrorsInField } = useValidation({
@@ -39,7 +46,7 @@ export default ({ navigation }: Props): ReactElement => {
     setPassword(value)
     if (!file.content) return
 
-    account = decryptAccount(file.content, value)
+    account = decryptAccount(file.content, value) as Account
     setAccount(account)
     validate({
       account: {
@@ -49,7 +56,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
   const onFileChange = (result: FileData) => {
     setFile(result)
-    account = decryptAccount(result.content, password)
+    account = decryptAccount(result.content, password) as Account
     setAccount(account)
     validate({
       account: {
@@ -79,7 +86,7 @@ export default ({ navigation }: Props): ReactElement => {
       <View style={tw`mt-4`}>
         <Text>{password}</Text>
         <Button
-          onPress={() => createAccount({ account: null, password, onSuccess, onError })}
+          onPress={() => createAccount({ acc: null, password, onSuccess, onError })}
           title="Create account"
         />
       </View>

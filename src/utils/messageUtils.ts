@@ -3,7 +3,7 @@ import { createContext, Dispatch, ReducerState } from 'react'
 export type Level = 'OK' | 'ERROR' | 'WARNING' | 'INFO' | 'DEBUG'
 
 let msg: string = ''
-let level: Level = 'INFO'
+let level: Level = 'OK'
 let time: number = 0
 
 const dispatch: Dispatch<MessageState> = () => {}
@@ -15,7 +15,7 @@ interface MessageState {
 }
 
 export const MessageContext = createContext([
-  { msg, level, time },
+  { msg, level: level as Level },
   dispatch
 ] as const)
 
