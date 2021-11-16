@@ -1,7 +1,7 @@
 import * as db from '../dbUtils'
 
 interface writeFile {
-  (path: string, content: number, _encoding?: string): Promise<void>;
+  (path: string, content: number, _encoding?: string): Promise<void>
 }
 
 /**
@@ -15,7 +15,7 @@ const writeFile: writeFile = async (path, content, _encoding) => {
 }
 
 interface readFile {
-  (path: string, _encoding?: string): Promise<string | object | null>;
+  (path: string, _encoding?: string): Promise<string | object | null>
 }
 
 /**
@@ -25,8 +25,20 @@ interface readFile {
  */
 const readFile: readFile = async (path, _encoding) => await db.get(path)
 
+
+interface unlink {
+  (path: string): Promise<void>
+}
+
+/**
+ * @description Web method to emulate fs readFile by using indexedDB
+ * @param path document path
+ */
+const unlink: unlink = async (path) => await db.remove(path)
+
 export default {
   writeFile,
   readFile,
+  unlink,
   DocumentDirectoryPath: ''
 }

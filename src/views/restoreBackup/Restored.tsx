@@ -12,8 +12,10 @@ export default (): ReactElement => {
 
   return <View>
     <Text style={[tw`font-baloo text-center text-3xl leading-3xl text-peach-1`, tw.md`text-5xl`]}>
-      {i18n('welcome.letsGetStarted.title')}
+      {i18n('backupRestored')}
     </Text>
-
+    <Text style={tw`mt-4 text-center`}>
+      {i18n('restoreBackup.restored.description.1')}
+    </Text>
   </View>
 }

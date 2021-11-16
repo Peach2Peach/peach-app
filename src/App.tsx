@@ -10,7 +10,6 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './views/home/Home'
 import ComponentsTest from './views/componentsTest/ComponentsTest'
-import AccountTest from './views/accountTest/AccountTest'
 import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
@@ -29,7 +28,8 @@ import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
-import { account, getAccount, initSession, session } from './utils/accountUtils'
+import { account, createAccount, deleteAccount, getAccount, initSession, session } from './utils/accountUtils'
+import RestoreBackup from './views/restoreBackup/RestoreBackup'
 
 enableScreens()
 
@@ -42,6 +42,7 @@ const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen },
   { name: 'welcome', component: Welcome },
   { name: 'newUser', component: NewUser },
+  { name: 'restoreBackup', component: RestoreBackup },
   { name: 'tutorial', component: Tutorial },
   { name: 'home', component: Home },
   { name: 'buy', component: Buy },
@@ -49,10 +50,41 @@ const views: ViewType[] = [
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },
   { name: 'componentsTest', component: ComponentsTest },
-  { name: 'accountTest', component: AccountTest },
   { name: 'inputTest', component: InputTest },
   { name: 'pgpTest', component: PGPTest },
 ]
+
+/**
+ * @description Method to initialize app by retrieving app session and user account
+ * @param navigationRef reference to navigation
+ */
+const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
+  try {
+    await createAccount({
+      acc: { settings: {} },
+      password: 'password',
+      onSuccess: () => {},
+      onError: () => {}
+    }) // TODO remove again
+    await deleteAccount({
+      onSuccess: () => {},
+      onError: () => {}
+    }) // TODO remove again
+  } catch {}
+
+  const { password } = await initSession()
+  if (password) await getAccount(password)
+  setTimeout(() => {
+    navigationRef.navigate('welcome')
+
+    if (account?.settings?.skipTutorial) {
+      navigationRef.navigate('home')
+    } else {
+      navigationRef.navigate('welcome')
+    }
+  }, 3000)
+}
+
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
@@ -102,15 +134,7 @@ const App: React.FC = () => {
   }, [bitcoinContext.currency])
 
   useEffect(() => {
-    setTimeout(async () => {
-      const { password } = await initSession()
-      if (password) await getAccount(password)
-      if (account?.settings?.skipTutorial) {
-        navigationRef.navigate('home')
-      } else {
-        navigationRef.navigate('welcome')
-      }
-    }, 3000)
+    initApp(navigationRef)
   }, [])
 
   return <SafeAreaView style={tw`bg-white-1`}>
@@ -118,7 +142,7 @@ const App: React.FC = () => {
       <BitcoinContext.Provider value={bitcoinContext}>
         <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
           <View style={tw`h-full flex-col`}>
-            {account?.settings?.skipTutorial && false
+            {account?.settings?.skipTutorial
               ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
               : <View style={[
                 tw`absolute top-10 right-4 z-20`,

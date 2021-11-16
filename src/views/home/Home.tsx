@@ -17,7 +17,6 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
@@ -41,13 +40,6 @@ export default ({ navigation }: Props): ReactElement => {
           title="Components"
           wide={false}
           onPress={() => navigation.navigate('componentsTest')}
-        />
-      </View>
-      <View style={tw`mt-4 flex items-center`}>
-        <Button
-          title="Account Tests"
-          wide={false}
-          onPress={() => navigation.navigate('accountTest')}
         />
       </View>
       <View style={tw`mt-4 flex items-center`}>

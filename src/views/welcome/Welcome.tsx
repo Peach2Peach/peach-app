@@ -91,7 +91,7 @@ export default ({ navigation }: Props): ReactElement => {
             </View>
             <View style={tw`mt-4`}>
               <Button
-                onPress={() => navigation.navigate('accountTest')}
+                onPress={() => navigation.navigate('restoreBackup')}
                 secondary={true}
                 title={i18n('restoreBackup')}
               />

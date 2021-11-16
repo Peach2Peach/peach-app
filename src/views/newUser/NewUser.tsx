@@ -8,7 +8,7 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { createAccount, decryptAccount } from '../../utils/accountUtils'
+import { createAccount } from '../../utils/accountUtils'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'
@@ -19,7 +19,7 @@ import { MessageContext } from '../../utils/messageUtils'
 
 const { useValidation } = require('react-native-form-validator')
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'accountTest'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'newUser'>
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }

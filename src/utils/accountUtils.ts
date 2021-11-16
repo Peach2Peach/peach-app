@@ -35,12 +35,6 @@ interface CreateAccountProps {
   onSuccess: Function,
   onError: Function
 }
-interface RecoverAccountProps {
-  encryptedAccount: string,
-  password: string,
-  onSuccess: Function,
-  onError: Function
-}
 
 const setSession = (sess: Session) => session = {
   ...sess,
@@ -120,8 +114,8 @@ export const getAccount = async (password: string): Promise<Account> => {
  * @description Method to create a new or existing account
  * @param [account] account object
  * @param [password] secret
- * @param [onSuccess] callback on success
- * @param [onError] callback on error
+ * @param onSuccess callback on success
+ * @param onError callback on error
  * @returns promise resolving to encrypted account
  */
 export const createAccount = async ({
@@ -166,11 +160,11 @@ export const createAccount = async ({
       })
     )
   } catch (e) {
-    if (onError) onError(e)
+    onError(e)
     return null
   }
 
-  if (onSuccess) onSuccess()
+  onSuccess()
   return ciphertext
 }
 
@@ -218,38 +212,25 @@ export const backupAccount = async () => {
   }
 }
 
-/**
- * @description Method to recover account
- * @param encryptedAccount the account but password encrypted
- * @param [password] secret
- * @param [onSuccess] callback on success
- * @param [onError] callback on error
- */
-export const decryptAccount = (encryptedAccount: string, password = ''): Account|string => {
-  info('Decrypting account', encryptedAccount, password)
-
-  try {
-    const acc = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
-    setAccount(JSON.parse(acc))
-    return account
-  } catch (e) {
-    info('Account cannot be decrypted', e)
-  }
-  return encryptedAccount
+interface RecoverAccountProps {
+  encryptedAccount: string,
+  password: string,
+  onSuccess: Function,
+  onError: Function
 }
 
 /**
  * @description Method to recover account
  * @param props.encryptedAccount the account but password encrypted
  * @param [props.password] secret
- * @param [props.onSuccess] callback on success
- * @param [props.onError] callback on error
+ * @param props.onSuccess callback on success
+ * @param props.onError callback on error
  */
 export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onError }: RecoverAccountProps) => {
   info('Recovering account', encryptedAccount, password)
 
   try {
-    const acc = decryptAccount(encryptedAccount, password) as Account
+    const acc = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
     createAccount({
       acc,
       password,
@@ -257,6 +238,28 @@ export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onE
       onError
     })
   } catch (e) {
-    if (onError) onError(e)
+    onError(e)
+  }
+}
+
+
+interface DeleteAccountProps {
+  onSuccess: Function,
+  onError: Function
+}
+
+/**
+ * @description Method to delete account
+ * @param props.onSuccess callback on success
+ * @param props.onError callback on error
+ */
+export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) => {
+  info('Deleting account')
+
+  try {
+    await RNFS.unlink(RNFS.DocumentDirectoryPath + '/account.json')
+    onSuccess()
+  } catch (e) {
+    onError(e)
   }
 }
