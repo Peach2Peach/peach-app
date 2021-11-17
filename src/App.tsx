@@ -59,18 +59,18 @@ const views: ViewType[] = [
  * @param navigationRef reference to navigation
  */
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
-  try {
-    await createAccount({
-      acc: { settings: {} },
-      password: 'password',
-      onSuccess: () => {},
-      onError: () => {}
-    }) // TODO remove again
-    await deleteAccount({
-      onSuccess: () => {},
-      onError: () => {}
-    }) // TODO remove again
-  } catch {}
+  // try {
+  //   await createAccount({
+  //     acc: { settings: {} },
+  //     password: 'password',
+  //     onSuccess: () => {},
+  //     onError: () => {}
+  //   }) // TODO remove again
+  //   await deleteAccount({
+  //     onSuccess: () => {},
+  //     onError: () => {}
+  //   }) // TODO remove again
+  // } catch {}
 
   const { password } = await initSession()
   if (password) await getAccount(password)

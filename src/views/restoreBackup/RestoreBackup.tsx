@@ -35,7 +35,7 @@ export default ({ navigation }: Props): ReactElement => {
     name: '',
     content: ''
   })
-  const [autoScanComplete, setAutoScanComplete] = useState(false)
+  const [autoScanComplete, setAutoScanComplete] = useState(true)
   const [gotFile, setGotFile] = useState(false)
 
   useContext(LanguageContext)
