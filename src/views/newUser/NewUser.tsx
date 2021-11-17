@@ -2,6 +2,7 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import {
   Image,
+  Pressable,
   ScrollView,
   View
 } from 'react-native'
@@ -16,6 +17,7 @@ import { getMessages, rules } from '../../utils/validationUtils'
 import { whiteGradient } from '../../utils/layoutUtils'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { MessageContext } from '../../utils/messageUtils'
+import Icon from '../../components/Icon'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -72,7 +74,7 @@ export default ({ navigation }: Props): ReactElement => {
         <LinearGradient colorList={whiteGradient} angle={-90} />
       </View>
       <ScrollView>
-        <View style={tw`pb-8 px-8`}>
+        <View style={tw`pb-8`}>
           <View style={tw`flex items-center`}>
             <Image source={require('../../../assets/favico/peach-icon-192.png')} />
           </View>
@@ -82,7 +84,7 @@ export default ({ navigation }: Props): ReactElement => {
           <Text style={tw`mt-4 text-center`}>
             {i18n('newUser.description.1')}
           </Text>
-          <Text style={tw`mt-3 text-center`}>
+          <Text style={tw`mt-7 text-center`}>
             {i18n('newUser.description.2')}
           </Text>
           <View style={tw`mt-2`}>
@@ -96,6 +98,9 @@ export default ({ navigation }: Props): ReactElement => {
             />
           </View>
           <View style={tw`mt-4 flex items-center`}>
+            <Pressable style={tw`absolute left-0`} onPress={() => navigation.goBack()}>
+              <Icon id="arrowLeft" style={tw`w-10 h-10`} />
+            </Pressable>
             <Button
               onPress={submit}
               wide={false}
