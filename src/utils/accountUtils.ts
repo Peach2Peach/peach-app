@@ -82,7 +82,7 @@ export const getAccount = async (password: string): Promise<Account> => {
   let acc = ''
 
   try {
-    acc = await RNFS.readFile(RNFS.DocumentDirectoryPath + '/account.json', 'utf8') as string
+    acc = await RNFS.readFile(RNFS.DocumentDirectoryPath + '/peach-account.json', 'utf8') as string
     acc = CryptoJS.AES.decrypt(acc, password).toString(CryptoJS.enc.Utf8)
   } catch (e) {
     let err = 'UNKOWN_ERROR'
@@ -151,7 +151,7 @@ export const createAccount = async ({
 
   try {
     ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
-    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/peach-account.json', ciphertext, 'utf8')
     await EncryptedStorage.setItem(
       'session',
       JSON.stringify({
@@ -176,7 +176,7 @@ export const createAccount = async ({
 export const saveAccount = async (password: string): Promise<void> => {
   try {
     const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
-    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/account.json', ciphertext, 'utf8')
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/peach-account.json', ciphertext, 'utf8')
   } catch (e) {
     // TODO add error handling
   }
@@ -203,7 +203,7 @@ export const backupAccount = async () => {
   try {
     const result = await Share.open({
       title: 'peach-account.json',
-      url: isMobile() ? 'file://' + RNFS.DocumentDirectoryPath + '/account.json' : '/account.json',
+      url: isMobile() ? 'file://' + RNFS.DocumentDirectoryPath + '/peach-account.json' : '/peach-account.json',
       subject: 'peach-account.json',
     })
     info(result)
@@ -257,7 +257,7 @@ export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) 
   info('Deleting account')
 
   try {
-    await RNFS.unlink(RNFS.DocumentDirectoryPath + '/account.json')
+    await RNFS.unlink(RNFS.DocumentDirectoryPath + '/peach-account.json')
     onSuccess()
   } catch (e) {
     onError(e)
