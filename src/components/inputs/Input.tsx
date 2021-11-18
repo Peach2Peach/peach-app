@@ -57,7 +57,7 @@ export const Input = ({
 }: InputProps): ReactElement => <View>
   <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
-      tw`w-full flex flex-row items-center h-10 border border-grey-2 rounded pl-7 pr-3`,
+      tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-7 pr-3`,
       isValid && value ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {}
     ]}>

@@ -24,18 +24,16 @@ export default ({ file, setFile, submit }: ManualProps): ReactElement => {
     <Text style={tw`mt-3 text-center`}>
       {i18n('restoreBackup.manual.description.2')}
     </Text>
-    <View style={tw`mt-4 flex flex-col items-center`}>
+    <View style={tw`mt-4`}>
       <FileInput
         fileName={file.name}
-        style={tw`w-48`}
+        style={tw`w-full`}
         onChange={setFile}
-        isValid={!!file}
       />
     </View>
     <View style={tw`mt-4 flex items-center`}>
       <Button
         onPress={submit}
-        secondary={true}
         wide={false}
         title={i18n('restoreBackup')}
       />

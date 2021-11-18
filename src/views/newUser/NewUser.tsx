@@ -99,7 +99,7 @@ export default ({ navigation }: Props): ReactElement => {
           </View>
           <View style={tw`mt-4 flex items-center`}>
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.goBack()}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} />
+              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
             </Pressable>
             <Button
               onPress={submit}

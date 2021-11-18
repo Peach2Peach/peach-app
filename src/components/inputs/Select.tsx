@@ -31,7 +31,10 @@ export const Select = ({ items, selectedValue, label, onChange }: SelectProps): 
           : label || items[0].display
         }
       </Text>
-      <Icon id={isOpen ? 'selectClosed' : 'selectOpen'} style={tw`flex-shrink-0 ml-2 w-2 h-2`} />
+      <Icon id={isOpen ? 'selectClosed' : 'selectOpen'}
+        style={tw`flex-shrink-0 ml-2 w-2 h-2`}
+        color={tw`text-black-2`.color as string}
+      />
     </Pressable>
     {isOpen
       ? items.map(item => <Pressable

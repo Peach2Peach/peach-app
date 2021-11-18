@@ -66,9 +66,8 @@ export default ({ encryptedAccount, onSuccess, onError }: DecryptProps): ReactEl
     <View style={tw`mt-4 flex items-center`}>
       <Button
         onPress={submit}
-        secondary={true}
         wide={false}
-        title={i18n('restoreBackup')}
+        title={i18n('decrypt')}
       />
     </View>
   </View>

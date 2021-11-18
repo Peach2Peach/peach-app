@@ -8,7 +8,7 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/accountUtils'
 import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layoutUtils'
@@ -50,8 +50,11 @@ export default ({ navigation }: Props): ReactElement => {
 
 
   const onSuccess = () => {
-    navigation.navigate('home')
+    updateSettings({
+      skipTutorial: true
+    })
   }
+
 
   const onError = () => {
     updateMessage({
@@ -66,7 +69,7 @@ export default ({ navigation }: Props): ReactElement => {
         <LinearGradient colorList={whiteGradient} angle={-90} />
       </View>
       <ScrollView>
-        <View style={tw`pb-8 px-8`}>
+        <View style={tw`pb-8`}>
           <View style={tw`flex items-center`}>
             <Image source={require('../../../assets/favico/peach-icon-192.png')} />
           </View>
@@ -84,7 +87,7 @@ export default ({ navigation }: Props): ReactElement => {
                   onSuccess={onSuccess}
                   onError={onError}
                 />
-                : <Restored />
+                : <Restored navigation={navigation}/>
           }
         </View>
       </ScrollView>
