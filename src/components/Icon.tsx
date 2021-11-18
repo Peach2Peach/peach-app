@@ -7,7 +7,8 @@ import { Text } from '.'
 import Icons from './icons'
 interface IconProps {
   id: string,
-  style?: ViewStyle|ViewStyle[]
+  style?: ViewStyle|ViewStyle[],
+  color?: string,
 }
 
 /**
@@ -21,10 +22,11 @@ interface IconProps {
  *   style={tw`mt-4`}
  * />
  */
-export const Icon = ({ id, style }: IconProps): ReactElement => {
+export const Icon = ({ id, style, color }: IconProps): ReactElement => {
   const SVG = Icons[id]
+
   return SVG
-    ? <SVG style={style} />
+    ? <SVG style={style} fill={color || '#888' }/>
     : <Text>❌</Text>
 }
 

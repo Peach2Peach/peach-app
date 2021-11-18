@@ -1,4 +1,5 @@
 import { SvgProps } from 'react-native-svg'
+import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
 import check from './check.svg'
@@ -8,6 +9,8 @@ import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
 import offers from './offers.svg'
+import selectClosed from './selectClosed.svg'
+import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
@@ -17,6 +20,7 @@ type Icons = {
   [key: string]: React.FC<SvgProps>
 }
 const Icons: Icons = {
+  arrowLeft,
   buy,
   camera,
   check,
@@ -26,6 +30,8 @@ const Icons: Icons = {
   dropdownOpen,
   file,
   offers,
+  selectClosed,
+  selectOpen,
   sell,
   send,
   settings,

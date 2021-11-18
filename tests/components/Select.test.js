@@ -2,13 +2,13 @@
  * @format
  */
 
-import 'react-native'
+import { Pressable } from 'react-native'
 import React from 'react'
 import Select from '../../src/components/inputs/Select'
-import { ok, strictEqual } from 'assert'
+import { strictEqual } from 'assert'
 
 // Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer'
+import renderer, { act } from 'react-test-renderer'
 
 jest.useFakeTimers()
 
@@ -18,26 +18,26 @@ describe('Select', () => {
     { value: 'banana', text: 'Banana' },
     { value: 'apple', text: 'Apple' }
   ]
-  it('renders a select with 3 items and first selected', () => {
-    const tree = renderer.create(<Select
+  it('renders a select with 3 items and which are selectable', () => {
+    let selectedValue = 'peach'
+    const select = renderer.create(<Select
       items={items}
-      selectedValue={'peach'}
-    />).toJSON()
+      selectedValue={selectedValue}
+      onChange={(val) => selectedValue = val}
+    />)
 
-    strictEqual(tree.children[0].props.items[0].value, items[0].value)
-    strictEqual(tree.children[0].props.items[1].value, items[1].value)
-    strictEqual(tree.children[0].props.items[2].value, items[2].value)
-    strictEqual(tree.children[0].props.items[0].label, items[0].text)
-    strictEqual(tree.children[0].props.items[1].label, items[1].text)
-    strictEqual(tree.children[0].props.items[2].label, items[2].text)
-    ok(tree.children[0].props.selectedIndex === 0)
-  })
-  it('renders a select with 3 items and second selected', () => {
-    const tree = renderer.create(<Select
-      items={items}
-      selectedValue={'banana'}
-    />).toJSON()
+    act(() => {
+      select.root.findByType(Pressable).props.onPress()
+    })
 
-    ok(tree.children[0].props.selectedIndex === 1)
+    const itemNodes = select.root.findAllByType(Pressable)
+    strictEqual(itemNodes[1]._fiber.key, items[0].value)
+    strictEqual(itemNodes[2]._fiber.key, items[1].value)
+    strictEqual(itemNodes[3]._fiber.key, items[2].value)
+
+    act(() => {
+      select.root.findAllByType(Pressable)[2].props.onPress()
+    })
+    strictEqual(selectedValue, 'banana')
   })
 })

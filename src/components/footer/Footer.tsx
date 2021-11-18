@@ -48,7 +48,7 @@ const FooterItem = ({ id, active, onPress }: FooterItemProps): ReactElement =>
       !active ? tw`opacity-30` : {}
     ]}
     onPress={onPress}>
-    <Icon id={id} style={tw`w-7 h-7`} />
+    <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
     <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1`}>
       {i18n(id)}
     </Text>

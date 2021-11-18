@@ -100,7 +100,7 @@ export const FileInput = ({
 }: FileInputProps): ReactElement => <View>
   <Pressable
     style={[
-      tw`flex h-10 border border-peach-1 rounded overflow-hidden`,
+      tw`flex h-10 border border-grey-4 rounded overflow-hidden`,
       isValid && fileName ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {},
       style || {}
@@ -110,13 +110,19 @@ export const FileInput = ({
     <Shadow viewStyle={tw`w-full flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2 rounded`}
       {...innerShadow}>
       <Text
-        style={[tw`flex-grow-0 flex-shrink font-baloo text-grey-2 text-lg uppercase`]}
+        style={[
+          tw`flex-grow-0 flex-shrink font-baloo text-xs uppercase`,
+          fileName ? tw`text-grey-1` : tw`text-peach-1`
+        ]}
         numberOfLines={1}
         ellipsizeMode={'middle'}
       >
         {fileName || i18n('form.file')}
       </Text>
-      <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} />
+      <Icon id="file"
+        style={tw`flex-shrink-0 w-5 h-5`}
+        color={(fileName ? tw`text-grey-1` : tw`text-peach-1`).color as string}
+      />
     </Shadow>
   </Pressable>
 

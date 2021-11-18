@@ -8,6 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
+import { backupAccount } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -24,6 +25,12 @@ export default ({ navigation }: Props): ReactElement => {
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
           Settings
         </Text>
+      </View>
+      <View style={tw`mt-4`}>
+        <Button
+          onPress={backupAccount}
+          title="Backup account"
+        />
       </View>
       <View style={tw`mt-4`}>
         <Button

@@ -94,7 +94,10 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
         </Pressable>
       }
     </Shadow>
-    <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'} style={tw`w-6 h-10 absolute right-2`} />
+    <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
+      style={tw`w-6 h-10 absolute right-2`}
+      color={tw`text-peach-1`.color as string}
+    />
   </View>
 }
 

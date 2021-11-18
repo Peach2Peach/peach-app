@@ -44,7 +44,7 @@ export const IconButton = ({ icon, title, style, onPress }: IconButtonProps): Re
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
     >
-      <Icon id={icon} style={tw`w-5 h-5`} />
+      <Icon id={icon} style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
       <Text style={tw`font-baloo text-xs uppercase text-white-1`}>
         {title}
       </Text>

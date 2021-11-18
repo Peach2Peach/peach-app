@@ -34,6 +34,7 @@ export const rules = {
 export const getMessages = () => ({
   default: {
     required: i18n('form.required.error'),
+    password: i18n('form.password.error'),
     bitcoinAddress: i18n('form.btcAddress.error'),
     iban: i18n('form.invalid.error'),
     account: i18n('form.account.error'),

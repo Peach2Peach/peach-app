@@ -136,7 +136,7 @@ module.exports = {
     'no-extra-label': 'error',
     'no-extra-parens': 'off',
     'no-floating-decimal': 'error',
-    'no-implicit-coercion': 'error',
+    'no-implicit-coercion': 'off',
     'no-implicit-globals': 'error',
     'no-implied-eval': 'error',
     'no-inline-comments': 'off',
@@ -249,7 +249,7 @@ module.exports = {
     'semi-spacing': 'error',
     'semi-style': [
       'error',
-      'last'
+      'first'
     ],
     'sort-keys': 'off',
     'sort-vars': 'error',
@@ -281,6 +281,7 @@ module.exports = {
     'yoda': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
     'jest/expect-expect': 'off',
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'off',
+    'react-native/no-inline-styles': 'off'
   }
 }
