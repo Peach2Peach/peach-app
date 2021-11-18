@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
