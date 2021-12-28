@@ -35,13 +35,13 @@ export const updateBitcoinContext = async (currency: Currency): Promise<BitcoinC
   let price = bitcoinContext.price
   let satsPerUnit = bitcoinContext.satsPerUnit
 
-  const result = await marketPrice(currency)
+  const [pairInfo, error] = await marketPrice(currency)
 
-  if ((<APIError>result).error) {
+  if (error?.error) {
     return bitcoinContext
   }
 
-  price = Number((<PeachPairInfo>result).price)
+  price = Number(pairInfo.price)
   satsPerUnit = Math.round(100000000 / price)
   // eslint-disable-next-line require-atomic-updates
   bitcoinContext = {

@@ -136,14 +136,14 @@ export const createAccount = async ({
       privKey: (wallet.privateKey as Buffer).toString('hex'),
       settings: {}
     }
-    const result = await peachAPI.userAuth(firstAddress)
+    const [result, apiError] = await peachAPI.userAuth(firstAddress)
 
     info('Create account RESULT', result)
 
-    if ((<APIError>result).error) {
-      info('Create account APIERROR', acc, password, (<APIError>result).error)
+    if (apiError?.error) {
+      info('Create account APIERROR', acc, password, apiError.error)
 
-      return onError((<APIError>result).error)
+      return onError(apiError.error)
     }
   } else {
     account = acc

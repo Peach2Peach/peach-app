@@ -1,21 +1,22 @@
 import { API_URL, HTTP_AUTH_PASS, HTTP_AUTH_USER } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
+import { accessToken, account, Authorization, setAccessToken, setAccount } from '..'
+import { info } from '../../logUtils'
 
-let accessToken: AccessToken|null
 
 /**
  * @description Method to authenticate with Peach API
  * @param keyPair key pair needed for authentication
  * @returns AccessToken or APIError
  */
-export const userAuth = async (keyPair: BIP32Interface): Promise<AccessToken|APIError> => {
+export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
-        'Authorization': 'Basic ' + Buffer.from(`${HTTP_AUTH_USER}:${HTTP_AUTH_PASS}`).toString('base64'),
+        Authorization,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -26,9 +27,11 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<AccessToken|API
         signature: keyPair.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
       })
     })
-    accessToken = await response.json() as AccessToken
+    const token = await response.json() as AccessToken
+    setAccessToken(token)
+    setAccount(keyPair)
 
-    return accessToken
+    return [token, null]
   } catch (e) {
     let error = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -37,27 +40,25 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<AccessToken|API
       error = e.message
     }
 
-    return { error } as APIError
+    return [null, { error }]
   }
 }
 
-export const marketPrice = async (currency: Currency): Promise<PeachPairInfo|APIError> => {
-  const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {
-    headers: {
-      'Authorization': 'Basic ' + Buffer.from(`${HTTP_AUTH_USER}:${HTTP_AUTH_PASS}`).toString('base64')
-    }
-  })
-
-  try {
-    return await response.json() as PeachPairInfo
-  } catch (e) {
-    let error = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      error = e.toUpperCase()
-    } else if (e instanceof Error) {
-      error = e.message
-    }
-
-    return { error } as APIError
+/**
+ * @description Method to get and return access token
+ * @returns Access Token
+ */
+export const getAccessToken = async (): Promise<string> => {
+  if (accessToken && accessToken.expiry > (new Date()).getTime()) {
+    return accessToken.accessToken
   }
+
+  const result = await userAuth(account as BIP32Interface)
+
+  if ((<APIError>result).error) {
+    info('Authentication error', (<APIError>result).error)
+
+    return ''
+  }
+  return (<AccessToken>accessToken).accessToken
 }
