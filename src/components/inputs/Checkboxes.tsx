@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
@@ -14,7 +14,8 @@ interface Item {
 interface CheckboxesProps {
   items: Item[],
   selectedValues?: (string|number)[],
-  onChange?: (values: (string|number)[]) => void
+  onChange?: (values: (string|number)[]) => void,
+  style?: ViewStyle|ViewStyle[],
 }
 
 /**
@@ -23,6 +24,7 @@ interface CheckboxesProps {
  * @param props.items the items in the dropdown
  * @param [props.selectedValues] selected values
  * @param [props.onChange] on change handler
+ * @param [props.style] css style object
  * @example
  * <Checkboxes
     items={currencies.map(value => ({
@@ -35,7 +37,7 @@ interface CheckboxesProps {
     selectedValues={selectedCurrencies}
     onChange={(values) => setSelectedCurrencies(values)}/>
  */
-export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesProps): ReactElement => {
+export const Checkboxes = ({ items, selectedValues = [], onChange, style }: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
     let newValues = selectedValues.map(v => v)
     if (newValues.indexOf(value) !== -1) {
@@ -48,7 +50,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
 
   const isSelected = (item: Item) => selectedValues.indexOf(item.value) !== -1
 
-  return <View>
+  return <View style={style}>
     {items.map((item, i) =>
       <Shadow {...mildShadow}
         key={i}
