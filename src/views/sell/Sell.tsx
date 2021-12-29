@@ -43,7 +43,7 @@ export const Head = ({ showSubtitle }: HeadProps): ReactElement => <View style={
     {i18n('sell.title')}
   </Text>
   {showSubtitle
-    ? <Text style={tw`text-center text-lg leading-6 text-grey-2 -m-4`}>
+    ? <Text style={tw`text-center leading-6 text-grey-2 -m-4`}>
       {i18n('sell.subtitle')}
     </Text>
     : null

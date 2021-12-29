@@ -3,6 +3,7 @@ export const CURRENCIES: Currency[] = [
   'CHF',
   'GBP'
 ]
+export const PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export const BUCKETS = [
   250000,
   500000,

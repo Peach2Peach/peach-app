@@ -23,7 +23,6 @@ interface PremiumSliderProps {
  * @param [props.onChange] on change handler
  * @example
  */
-// eslint-disable-next-line max-lines-per-function
 export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps): ReactElement => {
   const [delta] = useState(max - min)
   const [markerX] = useState((value - min) / delta)

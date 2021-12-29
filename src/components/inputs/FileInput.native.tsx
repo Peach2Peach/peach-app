@@ -115,7 +115,7 @@ export const FileInput = ({
           fileName ? tw`text-grey-1` : tw`text-peach-1`
         ]}
         numberOfLines={1}
-        ellipsizeMode={'middle'}
+        ellipsizeMode="middle"
       >
         {fileName || i18n('form.file')}
       </Text>

@@ -2,7 +2,6 @@ import { ok } from 'assert'
 import { getMessages, rules } from '../../src/utils/validationUtils'
 import paymentData from '../data/paymentData.json'
 
-// eslint-disable-next-line max-lines-per-function
 describe('rules', () => {
   it('validates required fields correctly', () => {
     ok(rules.required(true, 'hello'))

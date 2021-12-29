@@ -80,7 +80,7 @@ module.exports = {
     'function-paren-newline': 'off',
     'generator-star-spacing': 'error',
     'grouped-accessor-pairs': 'error',
-    'guard-for-in': 'error',
+    'guard-for-in': 'off',
     'id-denylist': 'error',
     'id-length': 'off',
     'id-match': 'error',
@@ -107,7 +107,7 @@ module.exports = {
       120
     ],
     'max-lines': 'error',
-    'max-lines-per-function': 'error',
+    'max-lines-per-function': ['error', 70],
     'max-nested-callbacks': 'error',
     'max-params': 'error',
     'max-statements': ['error', 20],

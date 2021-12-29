@@ -3,24 +3,27 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Checkboxes, Dropdown, PremiumSlider, RadioButtons, SatsFormat, Text } from '../../components'
+import { Checkboxes, PremiumSlider, RadioButtons, SatsFormat, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import { CURRENCIES } from '../../constants'
+import { PaymentMethods } from '../../components/inputs'
+import { account } from '../../utils/accountUtils'
 
 // eslint-disable-next-line max-lines-per-function
 export default (): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
 
-  const [selectedCurrencies, setSelectedCurrencies] = useState([] as (string|number)[])
+  const [selectedCurrencies, setSelectedCurrencies] = useState<(string|number)[]>([])
+  const paymentData: PaymentData[] = account.paymentData || []
   const [kyc, setKYC] = useState(false)
   const [kycType, setKYCType] = useState('iban')
-  const { currency, satsPerUnit } = getBitcoinContext()
+  const { currency } = getBitcoinContext()
   const [premium, setPremium] = useState(1.5)
 
   return <View style={tw`mb-16`}>
-    <Text style={tw`font-baloo uppercase text-center text-lg text-peach-1 mt-9`}>
+    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-9`}>
       {i18n('sell.currencies')}
     </Text>
     <Checkboxes
@@ -35,15 +38,12 @@ export default (): ReactElement => {
       onChange={values => setSelectedCurrencies(values)}/>
 
 
-    <Text style={tw`font-baloo uppercase text-center text-lg text-peach-1 mt-16`}>
+    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16`}>
       {i18n('sell.paymentMethods')}
     </Text>
-    <Text style={tw`text-center mt-16`}>
-      {i18n('sell.paymentMethods.empty')}
-    </Text>
+    <PaymentMethods paymentData={paymentData} />
 
-
-    <Text style={tw`font-baloo uppercase text-center text-lg text-peach-1 mt-16 mb-2`}>
+    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16 mb-2`}>
       {i18n('sell.price')}
     </Text>
     <PremiumSlider min={-10} max={10} value={premium} onChange={value => setPremium(value)}/>
@@ -60,7 +60,7 @@ export default (): ReactElement => {
     </View>
 
 
-    <Text style={tw`font-baloo uppercase text-center text-lg text-peach-1 mt-16`}>
+    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16`}>
       {i18n('sell.kyc')}
     </Text>
     <RadioButtons

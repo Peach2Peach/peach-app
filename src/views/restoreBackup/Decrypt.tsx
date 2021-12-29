@@ -15,7 +15,6 @@ type DecryptProps = {
   onSuccess: () => void,
   onError: () => void
 }
-// eslint-disable-next-line max-lines-per-function
 export default ({ encryptedAccount, onSuccess, onError }: DecryptProps): ReactElement => {
   useContext(LanguageContext)
   const [password, setPassword] = useState('')

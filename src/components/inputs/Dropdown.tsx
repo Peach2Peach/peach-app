@@ -64,7 +64,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
 
   const toggle = () => {
     setOpen(!isOpen)
-    if (onToggle) onToggle(isOpen)
+    if (onToggle) onToggle(!isOpen)
   }
   const select = (item: Item) => {
     if (onChange) onChange(item.value)
@@ -77,8 +77,8 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
   ]}>
     <Shadow {...(isOpen ? mildShadow : innerShadow)}
       viewStyle={[
+        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
         { width, height },
-        tw`py-0 pl-4 pr-3 border border-grey-4 rounded`,
         isOpen ? tw`bg-white-1` : {}
       ]}>
       {isOpen

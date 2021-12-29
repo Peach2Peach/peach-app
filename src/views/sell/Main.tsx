@@ -37,7 +37,7 @@ export default (): ReactElement => {
         )}
       />
     </View>
-    {dropdownOpen
+    {!dropdownOpen
       ? <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
         ≈ {i18n(`currency.format.${currency}`, String(Math.round(selectedValue / satsPerUnit)))}
       </Text>

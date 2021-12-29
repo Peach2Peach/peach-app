@@ -19,14 +19,16 @@ type Settings = {
 export type Account = {
   publicKey?: string,
   privKey?: string,
-  settings: Settings
+  settings: Settings,
+  paymentData: PaymentData[]
 }
 
 export let session: Session = {
   initialized: false
 }
 export let account: Account = {
-  settings: {}
+  settings: {},
+  paymentData: []
 }
 
 interface CreateAccountProps {
@@ -134,7 +136,8 @@ export const createAccount = async ({
     account = {
       publicKey: firstAddress.publicKey.toString('hex'),
       privKey: (wallet.privateKey as Buffer).toString('hex'),
-      settings: {}
+      settings: {},
+      paymentData: []
     }
     const [result, apiError] = await peachAPI.userAuth(firstAddress)
 
@@ -191,6 +194,15 @@ export const updateSettings = (options: Settings): void => {
     ...account.settings,
     ...options
   }
+  if (session.password) saveAccount(session.password)
+}
+
+/**
+ * @description Method to update account payment data
+ * @param paymentData settings to update
+ */
+export const updatePaymentData = (paymentData: PaymentData[]): void => {
+  account.paymentData = paymentData
   if (session.password) saveAccount(session.password)
 }
 

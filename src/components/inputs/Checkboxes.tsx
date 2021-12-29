@@ -67,9 +67,9 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
               <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
             </View>
           }
-          <Text style={tw`ml-4`}>
+          <View style={tw`mx-4`}>
             {item.display}
-          </Text>
+          </View>
         </Pressable>
       </Shadow>
     )}
