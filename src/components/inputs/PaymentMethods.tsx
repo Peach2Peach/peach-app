@@ -10,6 +10,7 @@ import { PAYMENTMETHODS } from '../../constants'
 
 import { getMessages, rules } from '../../utils/validationUtils'
 import { account, updatePaymentData } from '../../utils/accountUtils'
+import { MenuItem } from '../navigation'
 const { useValidation } = require('react-native-form-validator')
 
 interface PaymentFormProps {
@@ -106,8 +107,8 @@ interface PaymentMethodsProps {
 export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): ReactElement => {
   const [selectedPaymentMethods, setSelectedPaymentMethods] = useState<PaymentMethod[]>([])
   const [showAddNew, setShowAddNew] = useState(false)
-  const [newPaymentMethod, setNewPaymentMethod] = useState<PaymentMethod>('sepa')
-  const PaymentMethodForm = PaymentMethodForms[newPaymentMethod]
+  const [newPaymentMethod, setNewPaymentMethod] = useState<PaymentMethod|null>(null)
+  const PaymentMethodForm = newPaymentMethod ? PaymentMethodForms[newPaymentMethod] : null
 
   const addPaymentMethod = (data: PaymentData) => {
     account.paymentData.push(data)
@@ -149,25 +150,22 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
     }
     <View style={tw`flex items-center mt-2`}>
       {showAddNew
-        ? <View>
-          <Dropdown
-            selectedValue={newPaymentMethod}
-            onChange={(value) => setNewPaymentMethod(value as PaymentMethod)}
-            width={tw`w-80`.width as number}
-            items={PAYMENTMETHODS.map(value => ({
-              value,
-              display: () => <Text>
-                {i18n(`paymentMethod.${value}`)}
-              </Text>
-            })
-            )}
-          />
-          <PaymentMethodForm style={tw`mt-4`} onSubmit={addPaymentMethod} />
+        ? <View style={tw`w-full`}>
+          {!newPaymentMethod && PAYMENTMETHODS.map(PAYMENTMETHOD =>
+            <MenuItem text={i18n(`paymentMethod.${PAYMENTMETHOD}`)} onPress={() => setNewPaymentMethod(PAYMENTMETHOD)}/>
+          )}
+          {PaymentMethodForm
+            ? <PaymentMethodForm style={tw`mt-4`} onSubmit={addPaymentMethod} />
+            : null
+          }
           <View style={tw`flex items-center mt-2`}>
             <Button
               secondary={true}
               wide={false}
-              onPress={() => setShowAddNew(false)}
+              onPress={() => {
+                setNewPaymentMethod(null)
+                setShowAddNew(false)
+              }}
               title={i18n('cancel')}
             />
           </View>

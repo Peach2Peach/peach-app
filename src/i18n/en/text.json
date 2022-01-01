@@ -72,7 +72,7 @@
   "form.btcAddress": "Bitcoin address",
   "form.btcAddress.error": "Address is invalid",
   "form.iban": "IBAN",
-  "form.beneficiary": "Beneficiary",
+  "form.beneficiary": "Account holder name",
   "form.account.error": "Account cannot be decrypted",
   "form.premium.yousell": "you’ll sell",
   "form.premium.for": "for",

@@ -14,6 +14,7 @@ import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
+import triangleRight from './triangleRight.svg'
 import triangleUp from './triangleUp.svg'
 
 type Icons = {
@@ -35,6 +36,7 @@ const Icons: Icons = {
   sell,
   send,
   settings,
+  triangleRight,
   triangleUp,
 }
 
