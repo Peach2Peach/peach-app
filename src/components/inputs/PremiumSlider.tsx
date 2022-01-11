@@ -10,6 +10,7 @@ interface PremiumSliderProps {
   value: number,
   min: number,
   max: number,
+  update: string,
   onChange?: (value: number) => void
 }
 
@@ -20,10 +21,11 @@ interface PremiumSliderProps {
  * @param props.min minimum value
  * @param props.max maximum value
  * @param props.value current value
+ * @param [props.update] spicy workaround to update onChange callback
  * @param [props.onChange] on change handler
  * @example
  */
-export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps): ReactElement => {
+export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSliderProps): ReactElement => {
   const [delta] = useState(max - min)
   const [markerX] = useState((value - min) / delta)
   let trackWidth = useRef(260).current
@@ -53,7 +55,7 @@ export const PremiumSlider = ({ value, min, max, onChange }: PremiumSliderProps)
     })
 
     return () => pan.removeAllListeners()
-  }, [])
+  }, [update])
 
 
   return <View {...panResponder.panHandlers}>

@@ -92,8 +92,8 @@ const PaymentMethodForms = {
 
 
 interface PaymentMethodsProps {
-  paymentData: PaymentData[],
-  onChange?: (value: number) => void
+  paymentMethods: PaymentMethod[],
+  onChange?: (paymentMethods: PaymentMethod[]) => void
 }
 
 /**
@@ -104,7 +104,8 @@ interface PaymentMethodsProps {
  * @example
  */
 // eslint-disable-next-line max-lines-per-function
-export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): ReactElement => {
+export const PaymentMethods = ({ onChange }: PaymentMethodsProps): ReactElement => {
+  const paymentData: PaymentData[] = account.paymentData || []
   const [selectedPaymentMethods, setSelectedPaymentMethods] = useState<PaymentMethod[]>([])
   const [showAddNew, setShowAddNew] = useState(false)
   const [newPaymentMethod, setNewPaymentMethod] = useState<PaymentMethod|null>(null)
@@ -134,13 +135,18 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
               </View>
             }))}
             selectedValues={selectedPaymentMethods}
-            onChange={values => setSelectedPaymentMethods(values as PaymentMethod[])}/>
+            onChange={values => {
+              setSelectedPaymentMethods(values as PaymentMethod[])
+              if (onChange) onChange(values.map(id => paymentData.find(data => data.id === id).type) as PaymentMethod[])
+            }}/>
         </View>
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>
           {paymentData.map(data =>
             <Button
+              key={data.id}
               style={tw`mb-4`}
-              onPress={() => setShowAddNew(false)}
+              onPress={() => alert(JSON.stringify(data))}
+              // TODO implement real view
               title={i18n('view')}
             />
           )}

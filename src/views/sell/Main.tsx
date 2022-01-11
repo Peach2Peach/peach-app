@@ -7,19 +7,24 @@ import { Dropdown, SatsFormat, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../components/bitcoin'
+import { SellViewProps } from './Sell'
 
-export default (): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
 
-  const [selectedValue, setSelectedValue] = useState(BUCKETS[0])
   const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  setStepValid(true)
 
   return <View style={tw`z-20 my-32`}>
     <View style={tw`flex items-center`}>
       <Dropdown
-        selectedValue={selectedValue}
-        onChange={(value) => setSelectedValue(value as number)}
+        selectedValue={offer.amount}
+        onChange={(value) => updateOffer({
+          ...offer,
+          amount: value as number
+        })}
         onToggle={(isOpen) => setDropdownOpen(isOpen)}
         width={tw`w-80`.width as number}
         items={BUCKETS.map(value => ({
@@ -39,7 +44,7 @@ export default (): ReactElement => {
     </View>
     {!dropdownOpen
       ? <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
-        ≈ {i18n(`currency.format.${currency}`, String(Math.round(selectedValue / satsPerUnit)))}
+        ≈ {i18n(`currency.format.${currency}`, String(Math.round(offer.amount / satsPerUnit)))}
       </Text>
       : null
     }

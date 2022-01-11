@@ -13,6 +13,8 @@ export const marketPrice = async (currency: Currency): Promise<[PeachPairInfo|nu
     }
   })
 
+  console.log('Im trying')
+
   try {
     return [await response.json(), null]
   } catch (e) {

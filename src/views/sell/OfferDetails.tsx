@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -8,19 +8,22 @@ import i18n from '../../utils/i18n'
 import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import { CURRENCIES } from '../../constants'
 import { PaymentMethods } from '../../components/inputs'
-import { account } from '../../utils/accountUtils'
+import { SellViewProps } from './Sell'
+
+
+const validate = (offer: SellOffer) =>
+  !!offer.amount
+  && offer.currencies.length > 0
+  && offer.paymentMethods.length > 0
 
 // eslint-disable-next-line max-lines-per-function
-export default (): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
 
-  const [selectedCurrencies, setSelectedCurrencies] = useState<(string|number)[]>([])
-  const paymentData: PaymentData[] = account.paymentData || []
-  const [kyc, setKYC] = useState(false)
-  const [kycType, setKYCType] = useState('iban')
   const { currency } = getBitcoinContext()
-  const [premium, setPremium] = useState(1.5)
+
+  setStepValid(validate(offer))
 
   return <View style={tw`mb-16`}>
     <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-9`}>
@@ -34,27 +37,40 @@ export default (): ReactElement => {
           {i18n(`currency.${value}`)} <Text style={tw`text-grey-1`}>({value})</Text>
         </Text>
       }))}
-      selectedValues={selectedCurrencies}
-      onChange={values => setSelectedCurrencies(values)}/>
+      selectedValues={offer.currencies}
+      onChange={values => updateOffer({
+        ...offer,
+        currencies: values as Currency[]
+      })}/>
 
 
     <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16`}>
       {i18n('sell.paymentMethods')}
     </Text>
-    <PaymentMethods paymentData={paymentData} />
+    <PaymentMethods paymentMethods={offer.paymentMethods}
+      onChange={(paymentMethods) => updateOffer({
+        ...offer,
+        paymentMethods
+      })}/>
 
     <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16 mb-2`}>
-      {i18n('sell.price')}
+      {i18n('sell.price')} {offer.paymentMethods.join()}
     </Text>
-    <PremiumSlider min={-10} max={10} value={premium} onChange={value => setPremium(value)}/>
+    <PremiumSlider min={-10} max={10} value={offer.premium}
+      update={`${offer.currencies.join()}${offer.paymentMethods.join()}${offer.kyc}`}
+      onChange={value => updateOffer({
+        ...offer,
+        premium: value as number
+      })}
+    />
     <View style={tw`text-center mt-4`}>
       <Text style={tw`text-center`}>
-        {i18n('form.premium.yousell')} <SatsFormat sats={1000000} format="inline" /> {i18n('form.premium.for')}
+        {i18n('form.premium.yousell')} <SatsFormat sats={offer.amount} format="inline" /> {i18n('form.premium.for')}
       </Text>
     </View>
     <View>
       <Text style={tw`text-center`}>
-        <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n(premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
+        <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + offer.premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{offer.premium}%</Text> {i18n(offer.premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
         }
       </Text>
     </View>
@@ -75,9 +91,12 @@ export default (): ReactElement => {
           display: <Text>{i18n('no')}</Text>
         }
       ]}
-      selectedValue={kyc}
-      onChange={value => setKYC(value as boolean)}/>
-    {kyc
+      selectedValue={offer.kyc}
+      onChange={value => updateOffer({
+        ...offer,
+        kyc: value as boolean
+      })}/>
+    {offer.kyc
       ? <RadioButtons
         style={tw`px-7 mt-6`}
         items={[
@@ -90,8 +109,11 @@ export default (): ReactElement => {
             display: <Text>{i18n('sell.kyc.id')}</Text>
           }
         ]}
-        selectedValue={kycType}
-        onChange={value => setKYCType(value as string)}/>
+        selectedValue={offer.kycType || 'iban'}
+        onChange={value => updateOffer({
+          ...offer,
+          kycType: value as KYCType
+        })}/>
       : null
     }
   </View>

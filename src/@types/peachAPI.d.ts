@@ -18,6 +18,7 @@ declare type Pricebook = {
   [key in Currency]: number
 }
 declare type PaymentMethod = 'sepa'
+declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED'
   confirmations?: number
@@ -37,6 +38,7 @@ declare type Offer = {
   prices?: Pricebook,
   paymentMethods: string|string[],
   kyc: boolean,
+  kycType: KYCType,
   returnAddress: string,
   escrow?: string,
   funding?: FundingStatus
