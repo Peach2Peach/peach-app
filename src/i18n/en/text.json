@@ -45,7 +45,7 @@
   "sell.paymentMethods.empty": "No payment methods yet",
   "sell.price": "What’s your price?",
   "sell.kyc": "Do you require KYC?",
-  "sell.kyc.iban": "Name/IBAN (default)",
+  "sell.kyc.iban": "Name/IBAN",
   "sell.kyc.id": "Government ID scan",
   "buy.title": "Sell bitcoin",
   "buy.subtitle": "How much do you want to buy?",
@@ -91,5 +91,11 @@
   "buy": "Buy",
   "sell": "Sell",
   "offers": "Offers",
-  "settings": "Settings"
+  "settings": "Settings",
+  "default": "default",
+  "amount": "Amount",
+  "price": "Price",
+  "currencies": "Currencies",
+  "payment": "Payment",
+  "kyc": "KYC"
 }

@@ -15,6 +15,7 @@ import BitcoinContext from '../../components/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
+import Summary from './Summary'
 import { BUCKETS } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
@@ -23,7 +24,7 @@ type Props = {
   navigation: ProfileScreenNavigationProp
 }
 type HeadProps = {
-  showSubtitle: boolean
+  subtitle?: string|null
 }
 type NavigationProps = {
   back: () => void,
@@ -40,18 +41,31 @@ export type SellViewProps = {
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 
 const screens = [
-  Main,
-  OfferDetails,
+  {
+    view: Main,
+    subtitle: 'sell.subtitle',
+    scrollable: false
+  },
+  {
+    view: OfferDetails,
+    subtitle: null,
+    scrollable: true
+  },
+  {
+    view: Summary,
+    subtitle: 'sell.summary. subtitle',
+    scrollable: false
+  },
 ]
 
-export const Head = ({ showSubtitle }: HeadProps): ReactElement => <View style={tw`flex items-center`}>
+export const Head = ({ subtitle }: HeadProps): ReactElement => <View style={tw`flex items-center`}>
   <Image source={require('../../../assets/favico/peach-logo.png')} style={tw`w-12 h-12`}/>
   <Text style={tw`font-baloo text-center text-4xl leading-5xl text-peach-1 mt-3`}>
     {i18n('sell.title')}
   </Text>
-  {showSubtitle
-    ? <Text style={tw`text-center leading-6 text-grey-2 -m-4`}>
-      {i18n('sell.subtitle')}
+  {subtitle
+    ? <Text style={tw`text-center leading-6 text-grey-2 -mt-4`}>
+      {i18n(subtitle)}
     </Text>
     : null
   }
@@ -85,16 +99,15 @@ export default ({ navigation }: Props): ReactElement => {
   const [stepValid, setStepValid] = useState(false)
 
   const [page, setPage] = useState(0)
-  const CurrentScreen: Screen = screens[page]
+  const CurrentScreen: Screen = screens[page].view
+  const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
   const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
-    if (page + 1 === 2) {
-      console.log(offer)
-    }
+    console.log(offer)
     scroll.current?.scrollTo({ x: 0 })
   }
   const back = () => {
@@ -107,16 +120,16 @@ export default ({ navigation }: Props): ReactElement => {
     <View style={tw`h-full flex-shrink`}>
       <ScrollView ref={scroll} style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
-          <Head showSubtitle={page === 0}/>
+          <Head subtitle={subtitle}/>
           <CurrentScreen offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
         </View>
-        {page !== 0
+        {scrollable
           ? <Navigation back={back} next={next} stepValid={stepValid} />
           : null
         }
       </ScrollView>
     </View>
-    {page === 0
+    {!scrollable
       ? <Navigation back={back} next={next} stepValid={stepValid} />
       : null
     }

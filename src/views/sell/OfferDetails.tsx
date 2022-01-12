@@ -94,7 +94,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       selectedValue={offer.kyc}
       onChange={value => updateOffer({
         ...offer,
-        kyc: value as boolean
+        kyc: value as boolean,
+        kycType: offer.kycType || 'iban'
       })}/>
     {offer.kyc
       ? <RadioButtons
@@ -102,7 +103,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         items={[
           {
             value: 'iban',
-            display: <Text>{i18n('sell.kyc.iban')}</Text>
+            display: <Text>{i18n('sell.kyc.iban')} ({i18n('default')})</Text>
           },
           {
             value: 'id',

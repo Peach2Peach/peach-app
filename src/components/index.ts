@@ -1,5 +1,6 @@
 export { BitcoinAddress } from './bitcoin'
 export { Button } from './Button'
+export { Card } from './Card'
 export { FadeInView } from './animation'
 export { Footer } from './footer'
 export { Header } from './Header'
