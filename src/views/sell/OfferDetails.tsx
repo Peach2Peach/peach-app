@@ -26,7 +26,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const currencies = account.settings.currencies || offer.currencies
   const paymentData: PaymentData[] = account.paymentData || []
   let paymentMethods = paymentData.filter(p => p.selected).map(p => p.type) as PaymentMethod[]
-  if (paymentMethods.length === 0) paymentMethods = offer.paymentMethods
+  if (paymentMethods.length === 0) paymentMethods = offer.paymentMethods.map(p => p.type)
   const kyc = account.settings.kyc || offer.kyc
   const kycType = account.settings.kycType || offer.kycType
 
@@ -34,7 +34,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     updateOffer({
       ...offer,
       currencies,
-      paymentMethods,
+      paymentMethods: paymentData,
       kyc,
       kycType,
     })
