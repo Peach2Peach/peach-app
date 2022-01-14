@@ -8,6 +8,7 @@ import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { SellViewProps } from './Sell'
 import { getBitcoinContext } from '../../components/bitcoin'
+import { unique } from '../../utils/arrayUtils'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -48,7 +49,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
           {i18n('currencies')}:
         </Text>
         <View style={tw`w-5/8`}>
-          {offer.currencies.map(c => <View><Text>{c}</Text></View>)}
+          {offer.currencies.map(c => <View key={c}><Text>{c}</Text></View>)}
         </View>
       </View>
       <View style={tw`flex-row mt-3`}>
@@ -56,7 +57,14 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
           {i18n('payment')}:
         </Text>
         <View style={tw`w-5/8`}>
-          {offer.paymentMethods.map(p => <View><Text>{i18n(`paymentMethod.${p}`)}</Text></View>)}
+          {offer.paymentMethods
+            .filter(unique('type'))
+            .map(p =>
+              <View key={p.type}>
+                <Text>{i18n(`paymentMethod.${p.type}`)}</Text>
+              </View>
+            )
+          }
         </View>
       </View>
       <View style={tw`flex-row mt-3`}>

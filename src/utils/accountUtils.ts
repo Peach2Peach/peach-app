@@ -13,7 +13,11 @@ export type Session = {
 }
 
 type Settings = {
-  skipTutorial?: boolean
+  skipTutorial?: boolean,
+  currencies?: Currency[],
+  premium?: number,
+  kyc?: boolean,
+  kycType?: KYCType
 }
 
 export type Account = {
@@ -97,7 +101,7 @@ export const getAccount = async (password: string): Promise<Account> => {
   }
 
   try {
-    if (acc) setAccount(JSON.parse(acc))
+    if (acc) setAccount({} || JSON.parse(acc))
     return account
   } catch (e) {
     let err = 'UNKOWN_ERROR'

@@ -5,7 +5,7 @@ import { Shadow } from 'react-native-shadow-2'
 import { mildShadow } from '../../utils/layoutUtils'
 import { Button, Text } from '..'
 import i18n from '../../utils/i18n'
-import { Checkboxes, Dropdown, Input } from '.'
+import { Checkboxes, Input } from '.'
 import { PAYMENTMETHODS } from '../../constants'
 
 import { getMessages, rules } from '../../utils/validationUtils'
@@ -92,8 +92,8 @@ const PaymentMethodForms = {
 
 
 interface PaymentMethodsProps {
-  paymentMethods: PaymentMethod[],
-  onChange?: (paymentMethods: PaymentMethod[]) => void
+  paymentData: PaymentData[],
+  onChange?: (PaymentData: PaymentData[]) => void
 }
 
 /**
@@ -104,9 +104,8 @@ interface PaymentMethodsProps {
  * @example
  */
 // eslint-disable-next-line max-lines-per-function
-export const PaymentMethods = ({ onChange }: PaymentMethodsProps): ReactElement => {
-  const paymentData: PaymentData[] = account.paymentData || []
-  const [selectedPaymentMethods, setSelectedPaymentMethods] = useState<PaymentMethod[]>([])
+export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): ReactElement => {
+
   const [showAddNew, setShowAddNew] = useState(false)
   const [newPaymentMethod, setNewPaymentMethod] = useState<PaymentMethod|null>(null)
   const PaymentMethodForm = newPaymentMethod ? PaymentMethodForms[newPaymentMethod] : null
@@ -134,10 +133,19 @@ export const PaymentMethods = ({ onChange }: PaymentMethodsProps): ReactElement 
                 </View>
               </View>
             }))}
-            selectedValues={selectedPaymentMethods}
+            selectedValues={paymentData.filter(data => data.selected).map(data => data.id)}
             onChange={values => {
-              setSelectedPaymentMethods(values as PaymentMethod[])
-              if (onChange) onChange(values.map(id => paymentData.find(data => data.id === id).type) as PaymentMethod[])
+              paymentData.forEach(data => data.selected = false)
+              values.forEach(id => {
+                const data = paymentData.find((d: PaymentData) => d.id === id)
+                if (data) data.selected = true
+              })
+              if (onChange) {
+                const updatedPaymentMethods = values.map(id =>
+                  paymentData.find((d: PaymentData) => d.id === id) as PaymentData
+                )
+                onChange(updatedPaymentMethods)
+              }
             }}/>
         </View>
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>

@@ -39,12 +39,13 @@ interface CheckboxesProps {
  */
 export const Checkboxes = ({ items, selectedValues = [], onChange, style }: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
-    let newValues = selectedValues.map(v => v)
+    let newValues = Array.from(selectedValues)
     if (newValues.indexOf(value) !== -1) {
       newValues = newValues.filter(v => v !== value)
     } else {
       newValues.push(value)
     }
+
     if (onChange) onChange(newValues)
   }
 

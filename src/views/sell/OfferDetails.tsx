@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -9,6 +9,7 @@ import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import { CURRENCIES } from '../../constants'
 import { PaymentMethods } from '../../components/inputs'
 import { SellViewProps } from './Sell'
+import { account, updateSettings } from '../../utils/accountUtils'
 
 
 const validate = (offer: SellOffer) =>
@@ -22,6 +23,23 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useContext(BitcoinContext)
 
   const { currency } = getBitcoinContext()
+  const currencies = account.settings.currencies || offer.currencies
+  const paymentData: PaymentData[] = account.paymentData || []
+  let paymentMethods = paymentData.filter(p => p.selected).map(p => p.type) as PaymentMethod[]
+  if (paymentMethods.length === 0) paymentMethods = offer.paymentMethods
+  const kyc = account.settings.kyc || offer.kyc
+  const kycType = account.settings.kycType || offer.kycType
+
+  useEffect(() => {
+    updateOffer({
+      ...offer,
+      currencies,
+      paymentMethods,
+      kyc,
+      kycType,
+    })
+    setStepValid(validate(offer))
+  }, [])
 
   setStepValid(validate(offer))
 
@@ -37,32 +55,37 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           {i18n(`currency.${value}`)} <Text style={tw`text-grey-1`}>({value})</Text>
         </Text>
       }))}
-      selectedValues={offer.currencies}
-      onChange={values => updateOffer({
-        ...offer,
-        currencies: values as Currency[]
-      })}/>
+      selectedValues={currencies}
+      onChange={values => {
+        updateSettings({ currencies: values as Currency[] })
+        updateOffer({
+          ...offer,
+          currencies: values as Currency[]
+        })
+      }}/>
 
 
     <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16`}>
       {i18n('sell.paymentMethods')}
     </Text>
-    <PaymentMethods paymentMethods={offer.paymentMethods}
-      onChange={(paymentMethods) => updateOffer({
+    <PaymentMethods paymentData={paymentData}
+      onChange={updatedPaymentData => updateOffer({
         ...offer,
-        paymentMethods
+        paymentMethods: updatedPaymentData
       })}/>
 
     <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16 mb-2`}>
-      {i18n('sell.price')} {offer.paymentMethods.join()}
+      {i18n('sell.price')}
     </Text>
     <PremiumSlider min={-10} max={10} value={offer.premium}
       update={`${offer.currencies.join()}${offer.paymentMethods.join()}${offer.kyc}`}
-      onChange={value => updateOffer({
-        ...offer,
-        premium: value as number
-      })}
-    />
+      onChange={value => {
+        updateSettings({ premium: value })
+        updateOffer({
+          ...offer,
+          premium: value as number
+        })
+      }}/>
     <View style={tw`text-center mt-4`}>
       <Text style={tw`text-center`}>
         {i18n('form.premium.yousell')} <SatsFormat sats={offer.amount} format="inline" /> {i18n('form.premium.for')}
@@ -92,11 +115,13 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         }
       ]}
       selectedValue={offer.kyc}
-      onChange={value => updateOffer({
-        ...offer,
-        kyc: value as boolean,
-        kycType: offer.kycType || 'iban'
-      })}/>
+      onChange={value => {
+        updateSettings({ kyc: value as boolean })
+        updateOffer({
+          ...offer,
+          kyc: value as boolean,
+        })
+      }}/>
     {offer.kyc
       ? <RadioButtons
         style={tw`px-7 mt-6`}
@@ -111,10 +136,13 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           }
         ]}
         selectedValue={offer.kycType || 'iban'}
-        onChange={value => updateOffer({
-          ...offer,
-          kycType: value as KYCType
-        })}/>
+        onChange={value => {
+          updateSettings({ kycType: value as KYCType })
+          updateOffer({
+            ...offer,
+            kycType: value as KYCType
+          })
+        }}/>
       : null
     }
   </View>

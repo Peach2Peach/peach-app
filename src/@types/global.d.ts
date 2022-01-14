@@ -1,5 +1,7 @@
 declare type PaymentData = {
   id: string,
+  type: PaymentMethod,
+  selected?: boolean,
   [key: string]: string
 }
 
@@ -9,7 +11,7 @@ declare type SellOffer = {
   amount: number,
   premium: number,
   currencies: Currency[],
-  paymentMethods: PaymentMethod[],
+  paymentMethods: PaymentData[],
   kyc: boolean;
   kycType?: KYCType;
   returnAddress?: string;
