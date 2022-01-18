@@ -1,7 +1,7 @@
 import { API_URL, HTTP_AUTH_PASS, HTTP_AUTH_USER } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
-import { accessToken, account, Authorization, setAccessToken, setAccount } from '..'
+import { accessToken, peachAccount, Authorization, setAccessToken, setPeachAccount } from '..'
 import { info } from '../../logUtils'
 
 
@@ -13,6 +13,7 @@ import { info } from '../../logUtils'
 export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
+  console.log('keyPair.publicKey', keyPair.publicKey.toString('hex'))
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
@@ -29,7 +30,7 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
     })
     const token = await response.json() as AccessToken
     setAccessToken(token)
-    setAccount(keyPair)
+    setPeachAccount(keyPair)
 
     return [token, null]
   } catch (e) {
@@ -50,15 +51,15 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
  */
 export const getAccessToken = async (): Promise<string> => {
   if (accessToken && accessToken.expiry > (new Date()).getTime()) {
-    return accessToken.accessToken
+    return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
-  const result = await userAuth(account as BIP32Interface)
+  const [result, error] = await userAuth(peachAccount as BIP32Interface)
 
-  if ((<APIError>result).error) {
-    info('Authentication error', (<APIError>result).error)
+  if (!result || error) {
+    info('Authentication error', error)
 
     return ''
   }
-  return (<AccessToken>accessToken).accessToken
+  return 'Basic ' + Buffer.from(result.accessToken)
 }

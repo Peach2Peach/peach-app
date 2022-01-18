@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import { Authorization } from '..'
+import { getAccessToken } from '..'
 
 /**
  * @description Method to get market price for given currency
@@ -7,13 +7,7 @@ import { Authorization } from '..'
  * @returns PeachPairInfo
  */
 export const marketPrice = async (currency: Currency): Promise<[PeachPairInfo|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {
-    headers: {
-      Authorization
-    }
-  })
-
-  console.log('Im trying')
+  const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {})
 
   try {
     return [await response.json(), null]

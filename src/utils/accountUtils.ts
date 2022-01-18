@@ -6,6 +6,8 @@ import Share from './fileSystem/Share'
 import EncryptedStorage from 'react-native-encrypted-storage'
 import { createWallet } from './bitcoinUtils'
 import * as peachAPI from './peachAPI'
+import * as bitcoin from 'bitcoinjs-lib'
+import { DEV } from '@env'
 
 export type Session = {
   initialized: boolean
@@ -23,6 +25,7 @@ type Settings = {
 export type Account = {
   publicKey?: string,
   privKey?: string,
+  mnemonic?: string,
   settings: Settings,
   paymentData: PaymentData[]
 }
@@ -73,7 +76,18 @@ export const initSession = async (): Promise<Session> => {
 }
 
 
-const setAccount = (acc: Account) => account = acc
+const setAccount = async (acc: Account) => {
+  account = acc
+
+  const { wallet } = await createWallet(account.mnemonic) // TODO add error handling
+  const firstAddress = wallet.derivePath('m/45/0/0/0')
+
+  const [result, apiError] = await peachAPI.userAuth(firstAddress)
+
+  if (apiError?.error) {
+    info('Create account APIERROR', acc, apiError.error)
+  }
+}
 
 /**
  * @description Method to get account
@@ -101,7 +115,7 @@ export const getAccount = async (password: string): Promise<Account> => {
   }
 
   try {
-    if (acc) setAccount({} || JSON.parse(acc))
+    if (acc) setAccount(JSON.parse(acc))
     return account
   } catch (e) {
     let err = 'UNKOWN_ERROR'
@@ -134,12 +148,13 @@ export const createAccount = async ({
 
   info('Create account', acc, password)
   if (!acc || typeof acc !== 'object') {
-    const wallet = await createWallet() // TODO add error handling
+    const { wallet, mnemonic } = await createWallet() // TODO add error handling
     const firstAddress = wallet.derivePath('m/45/0/0/0')
 
     account = {
       publicKey: firstAddress.publicKey.toString('hex'),
       privKey: (wallet.privateKey as Buffer).toString('hex'),
+      mnemonic,
       settings: {},
       paymentData: []
     }

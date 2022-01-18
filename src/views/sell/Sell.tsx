@@ -16,7 +16,8 @@ import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
-import { BUCKETS } from '../../constants'
+import { BUCKETMAP, BUCKETS } from '../../constants'
+import { postOffer } from '../../utils/peachAPI'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -103,11 +104,18 @@ export default ({ navigation }: Props): ReactElement => {
   const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const next = () => {
+  const next = async () => {
+    if (page === 2) {
+      const [result, error] = await postOffer({
+        ...offer,
+        amount: BUCKETMAP[String(offer.amount)],
+        paymentMethods: offer.paymentMethods.map(p => p.type),
+      })
+      console.log(result)
+    }
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
-    console.log(offer)
     scroll.current?.scrollTo({ x: 0 })
   }
   const back = () => {
@@ -121,7 +129,10 @@ export default ({ navigation }: Props): ReactElement => {
       <ScrollView ref={scroll} style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           <Head subtitle={subtitle}/>
-          <CurrentScreen offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
+          {CurrentScreen
+            ? <CurrentScreen offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
+            : null
+          }
         </View>
         {scrollable
           ? <Navigation back={back} next={next} stepValid={stepValid} />

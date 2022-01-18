@@ -1,5 +1,4 @@
 import { API_URL } from '@env'
-import { Authorization } from '..'
 import { getAccessToken } from './auth'
 
 /**
@@ -9,8 +8,7 @@ import { getAccessToken } from './auth'
 export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: {
-      Authorization,
-      accestoken: await getAccessToken(),
+      Authorization: await getAccessToken(),
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
@@ -38,7 +36,7 @@ type PostOfferProps = {
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
   kyc: boolean,
-  returnAddress: string,
+  returnAddress?: string,
 }
 
 /**
@@ -63,8 +61,7 @@ export const postOffer = async ({
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: {
-      Authorization,
-      accestoken: await getAccessToken(),
+      Authorization: await getAccessToken(),
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
@@ -111,7 +108,7 @@ export const createEscrow = async ({
 }: CreateEscrowProps): Promise<[FundingStatus|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
-      Authorization,
+      Authorization: await getAccessToken(),
       accestoken: await getAccessToken(),
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -151,7 +148,7 @@ export const getFundingStatus = async ({
 }: GetFundingStatusProps): Promise<[FundingStatus|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
-      Authorization,
+      Authorization: await getAccessToken(),
       accestoken: await getAccessToken(),
       'Accept': 'application/json',
       'Content-Type': 'application/json'

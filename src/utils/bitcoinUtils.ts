@@ -15,14 +15,18 @@ const getRandom = (count: number): Promise<Buffer> => new Promise((resolve, reje
   }))
 
 /**
- * @description Method to randomly create a new wallet
+ * @description Method to randomly create a new wallet or from seed phrase
+ * @param mnemonic bitcoin seed phrase
  * @returns bip32 HD wallet
 */
-export const createWallet = async () => {
-  const mnemonic = bip39.entropyToMnemonic(await getRandom(16))
-  const seed = bip39.mnemonicToSeedSync(mnemonic)
-  return bitcoin.bip32.fromSeed(
-    seed,
-    DEV ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
-  )
+export const createWallet = async (mnemonic? :string) => {
+  const seed = bip39.mnemonicToSeedSync(mnemonic || bip39.entropyToMnemonic(await getRandom(16)))
+
+  return {
+    wallet: bitcoin.bip32.fromSeed(
+      seed,
+      DEV ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
+    ),
+    mnemonic
+  }
 }
