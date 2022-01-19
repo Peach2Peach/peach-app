@@ -48,3 +48,9 @@ declare type PostOfferResponse = {
   offerId: number
 }
 declare type OfferType = 'ask' | 'bid'
+
+declare type CreateEscrowResponse = {
+  offerId: number,
+  escrow: string,
+  funding: FundingStatus
+}

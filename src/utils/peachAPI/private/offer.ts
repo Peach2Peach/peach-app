@@ -105,11 +105,10 @@ type CreateEscrowProps = {
 export const createEscrow = async ({
   offerId,
   publicKey
-}: CreateEscrowProps): Promise<[FundingStatus|null, APIError|null]> => {
+}: CreateEscrowProps): Promise<[CreateEscrowResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
       Authorization: await getAccessToken(),
-      accestoken: await getAccessToken(),
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
@@ -149,7 +148,6 @@ export const getFundingStatus = async ({
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
       Authorization: await getAccessToken(),
-      accestoken: await getAccessToken(),
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },

@@ -6,11 +6,7 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import {
-  BitcoinAddress,
-  Button,
-  Checkboxes,
-  RadioButtons,
+import {  Button,
   SatsFormat,
   Text,
 } from '../../components'
@@ -29,14 +25,6 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <ScrollView>
     <View style={tw`pb-32 flex-col justify-center h-full px-4`}>
-      <Text style={tw`font-baloo text-xl text-center mt-8`}>
-        QR Code
-      </Text>
-      <BitcoinAddress
-        style={tw`mt-4`}
-        address="1BitcoinEaterAddressDontSendf59kuE"
-        showQR={true}
-      />
       <Text style={tw`font-baloo text-xl text-center mt-8`}>
         Sats Format
       </Text>

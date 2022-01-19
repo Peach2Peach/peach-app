@@ -1,5 +1,4 @@
 import { API_URL } from '@env'
-import { getAccessToken } from '..'
 
 /**
  * @description Method to get market price for given currency

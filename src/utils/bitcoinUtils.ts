@@ -3,6 +3,8 @@ import * as bitcoin from 'bitcoinjs-lib'
 import * as bip39 from 'bip39'
 const { randomBytes } = require('react-native-randombytes')
 
+export let wallet: bitcoin.bip32.BIP32Interface
+
 /**
  * @description Method to generate random bytes
  * @param count length of random bytes
@@ -19,8 +21,9 @@ const getRandom = (count: number): Promise<Buffer> => new Promise((resolve, reje
  * @param mnemonic bitcoin seed phrase
  * @returns bip32 HD wallet
 */
-export const createWallet = async (mnemonic? :string) => {
-  const seed = bip39.mnemonicToSeedSync(mnemonic || bip39.entropyToMnemonic(await getRandom(16)))
+export const createWallet = async (mnemonic? :string): Promise<PeachWallet> => {
+  mnemonic = mnemonic || bip39.entropyToMnemonic(await getRandom(16))
+  const seed = bip39.mnemonicToSeedSync(mnemonic)
 
   return {
     wallet: bitcoin.bip32.fromSeed(
@@ -30,3 +33,6 @@ export const createWallet = async (mnemonic? :string) => {
     mnemonic
   }
 }
+
+
+export const setWallet = (wllt: bitcoin.bip32.BIP32Interface) => wallet = wllt

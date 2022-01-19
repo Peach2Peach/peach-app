@@ -4,7 +4,7 @@ import { View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import QRCode from 'react-native-qrcode-svg'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
-import { Text } from '..'
+import { Card, Text } from '..'
 
 interface BitcoinAddressProps {
   address: string,
@@ -24,11 +24,13 @@ interface BitcoinAddressProps {
 export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps): ReactElement =>
   <View style={[tw`flex-col items-center`, style]}>
     {showQR
-      ? <QRCode
-        size={241}
-        value={address}
-        logo={peachLogo}
-      />
+      ? <Card style={tw`p-4`}>
+        <QRCode
+          size={241}
+          value={address}
+          logo={peachLogo}
+        />
+      </Card>
       : null
     }
     <Text style={showQR ? tw`mt-4` : {}}>

@@ -16,6 +16,7 @@ import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
+import Escrow from './Escrow'
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 
@@ -39,6 +40,14 @@ export type SellViewProps = {
   setStepValid: (isValid: boolean) => void,
 }
 
+const defaultOffer: SellOffer = {
+  type: 'ask',
+  premium: 1.5,
+  currencies: [],
+  paymentMethods: [],
+  amount: BUCKETS[0],
+  kyc: false
+}
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 
 const screens = [
@@ -54,7 +63,12 @@ const screens = [
   },
   {
     view: Summary,
-    subtitle: 'sell.summary. subtitle',
+    subtitle: 'sell.summary.subtitle',
+    scrollable: false
+  },
+  {
+    view: Escrow,
+    subtitle: 'sell.escrow.subtitle',
     scrollable: false
   },
 ]
@@ -89,14 +103,7 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
 
-  const [offer, setOffer] = useState<SellOffer>({
-    type: 'ask',
-    premium: 1.5,
-    currencies: [],
-    paymentMethods: [],
-    amount: BUCKETS[0],
-    kyc: false
-  })
+  const [offer, setOffer] = useState<SellOffer>(defaultOffer)
   const [stepValid, setStepValid] = useState(false)
 
   const [page, setPage] = useState(0)
@@ -111,7 +118,17 @@ export default ({ navigation }: Props): ReactElement => {
         amount: BUCKETMAP[String(offer.amount)],
         paymentMethods: offer.paymentMethods.map(p => p.type),
       })
-      console.log(result)
+
+      if (result) {
+        console.log(result)
+        setOffer({
+          ...offer,
+          offerId: result.offerId
+        })
+      } else {
+        // TODO add error handling
+        return
+      }
     }
     if (page >= screens.length - 1) return
     setPage(page + 1)
