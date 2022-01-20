@@ -23,7 +23,7 @@ interface BitcoinAddressProps {
  */
 export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps): ReactElement =>
   <View style={[tw`flex-col items-center`, style]}>
-    {showQR
+    {showQR && address
       ? <Card style={tw`p-4`}>
         <QRCode
           size={241}

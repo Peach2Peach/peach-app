@@ -105,7 +105,6 @@ interface PaymentMethodsProps {
  */
 // eslint-disable-next-line max-lines-per-function
 export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): ReactElement => {
-
   const [showAddNew, setShowAddNew] = useState(false)
   const [newPaymentMethod, setNewPaymentMethod] = useState<PaymentMethod|null>(null)
   const PaymentMethodForm = newPaymentMethod ? PaymentMethodForms[newPaymentMethod] : null

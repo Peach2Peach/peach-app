@@ -19,6 +19,7 @@ import Summary from './Summary'
 import Escrow from './Escrow'
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
+import { addOffer } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -52,21 +53,25 @@ type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 
 const screens = [
   {
+    id: 'main',
     view: Main,
     subtitle: 'sell.subtitle',
     scrollable: false
   },
   {
+    id: 'offerDetails',
     view: OfferDetails,
     subtitle: null,
     scrollable: true
   },
   {
+    id: 'summary',
     view: Summary,
     subtitle: 'sell.summary.subtitle',
     scrollable: false
   },
   {
+    id: 'escrow',
     view: Escrow,
     subtitle: 'sell.escrow.subtitle',
     scrollable: false
@@ -112,7 +117,7 @@ export default ({ navigation }: Props): ReactElement => {
   const scroll = useRef<ScrollView>(null)
 
   const next = async () => {
-    if (page === 2) {
+    if (screens[page + 1].id === 'escrow') {
       const [result, error] = await postOffer({
         ...offer,
         amount: BUCKETMAP[String(offer.amount)],
@@ -121,6 +126,10 @@ export default ({ navigation }: Props): ReactElement => {
 
       if (result) {
         console.log(result)
+        addOffer({
+          ...offer,
+          offerId: result.offerId
+        })
         setOffer({
           ...offer,
           offerId: result.offerId

@@ -6,8 +6,6 @@ import Share from './fileSystem/Share'
 import EncryptedStorage from 'react-native-encrypted-storage'
 import { createWallet, setWallet } from './bitcoinUtils'
 import * as peachAPI from './peachAPI'
-import * as bitcoin from 'bitcoinjs-lib'
-import { DEV } from '@env'
 
 export type Session = {
   initialized: boolean
@@ -20,7 +18,7 @@ type Settings = {
   currencies?: Currency[],
   premium?: number,
   kyc?: boolean,
-  kycType?: KYCType
+  kycType?: KYCType,
 }
 
 export type Account = {
@@ -28,16 +26,20 @@ export type Account = {
   privKey?: string,
   mnemonic?: string,
   settings: Settings,
-  paymentData: PaymentData[]
+  paymentData: PaymentData[],
+  offers: SellOffer[],
+}
+
+const defaultAccount: Account = {
+  settings: {},
+  paymentData: [],
+  offers: [],
 }
 
 export let session: Session = {
-  initialized: false
+  initialized: false,
 }
-export let account: Account = {
-  settings: {},
-  paymentData: []
-}
+export let account = defaultAccount
 
 interface CreateAccountProps {
   acc?: Account|null,
@@ -76,9 +78,15 @@ export const initSession = async (): Promise<Session> => {
   return session
 }
 
-
+/**
+ * @description Method to set account for app session
+ * @param acc account
+ */
 const setAccount = async (acc: Account) => {
-  account = acc
+  account = {
+    ...defaultAccount,
+    ...acc
+  }
 
   const { wallet } = await createWallet(account.mnemonic) // TODO add error handling
   setWallet(wallet)
@@ -157,11 +165,10 @@ export const createAccount = async ({
     const firstAddress = wallet.derivePath('m/45/0/0/0')
 
     account = {
+      ...defaultAccount,
       publicKey: firstAddress.publicKey.toString('hex'),
       privKey: (wallet.privateKey as Buffer).toString('hex'),
       mnemonic,
-      settings: {},
-      paymentData: []
     }
     const [result, apiError] = await peachAPI.userAuth(firstAddress)
 
@@ -218,6 +225,15 @@ export const updateSettings = (options: Settings): void => {
     ...account.settings,
     ...options
   }
+  if (session.password) saveAccount(session.password)
+}
+
+/**
+ * @description Method to add offer to offer list
+ * @param options settings to update
+ */
+export const addOffer = (offer: SellOffer): void => {
+  account.offers.push(offer)
   if (session.password) saveAccount(session.password)
 }
 
