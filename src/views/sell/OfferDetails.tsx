@@ -23,17 +23,18 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useContext(BitcoinContext)
 
   const { currency } = getBitcoinContext()
-  const [currencies, setCurrencies] = useState(account.settings.currencies || offer.currencies)
-  const [premium, setPremium] = useState(account.settings.premium || offer.premium)
+  const [currencies, setCurrencies] = useState(account.settings.currencies || [])
+  const [premium, setPremium] = useState(account.settings.premium || 1.5)
   const [paymentData, setPaymentData] = useState(account.paymentData || [])
-  const [kyc, setKYC] = useState(account.settings.kyc || offer.kyc)
-  const [kycType, setKYCType] = useState(account.settings.kycType || offer.kycType)
+  const [kyc, setKYC] = useState(account.settings.kyc || false)
+  const [kycType, setKYCType] = useState(account.settings.kycType || 'iban')
 
   useEffect(() => {
     updateOffer({
       ...offer,
       currencies,
       paymentData: paymentData.filter(data => data.selected),
+      premium,
       kyc,
       kycType,
     })
@@ -43,9 +44,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       kyc,
       kycType,
     })
-
-    setStepValid(validate(offer))
   }, [currencies, paymentData, premium, kyc, kycType])
+
+  useEffect(() => setStepValid(validate(offer)), [offer])
 
   return <View style={tw`mb-16`}>
     <Headline style={tw`mt-9`}>

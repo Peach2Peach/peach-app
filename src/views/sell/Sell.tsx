@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
   Image,
   Pressable,
@@ -44,7 +44,7 @@ const defaultOffer: SellOffer = {
   type: 'ask',
   premium: 1.5,
   currencies: [],
-  paymentMethods: [],
+  paymentData: [],
   amount: BUCKETS[0],
   kyc: false
 }

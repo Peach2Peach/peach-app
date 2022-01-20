@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -14,7 +14,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, price } = getBitcoinContext()
 
-  setStepValid(true)
+  useEffect(() => setStepValid(true))
 
   return <View style={tw`mt-16`}>
     <Card style={tw`p-4`}>
@@ -57,7 +57,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
           {i18n('payment')}:
         </Text>
         <View style={tw`w-5/8`}>
-          {offer.paymentMethods
+          {offer.paymentData
             .filter(unique('type'))
             .map(p =>
               <View key={p.type}>

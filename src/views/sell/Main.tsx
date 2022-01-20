@@ -13,23 +13,25 @@ import { account, updateSettings } from '../../utils/accountUtils'
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
-  const amount = account.settings.amount || offer.amount
+  const [amount, setAmount] = useState(account.settings.amount || offer.amount)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  useEffect(() => setStepValid(true), [])
+  useEffect(() => {
+    updateOffer({
+      ...offer,
+      amount
+    })
+    updateSettings({ amount })
+
+    setStepValid(true)
+  }, [amount])
 
   return <View style={tw`z-20 my-32`}>
     <View style={tw`flex items-center`}>
       <Dropdown
         selectedValue={amount}
-        onChange={value => {
-          updateSettings({ amount: value as number })
-          updateOffer({
-            ...offer,
-            amount: value as number
-          })
-        }}
+        onChange={value => setAmount(value as number)}
         onToggle={(isOpen) => setDropdownOpen(isOpen)}
         width={tw`w-80`.width as number}
         items={BUCKETS.map(value => ({

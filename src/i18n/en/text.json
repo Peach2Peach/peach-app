@@ -40,6 +40,7 @@
   "skipTutorial": "Skip tutorial",
   "sell.title": "Sell bitcoin",
   "sell.subtitle": "How much do you want to sell?",
+  "sell.summary.subtitle": "Summary",
   "sell.currencies": "Which currencies do you want to accept?",
   "sell.paymentMethods": "How would you like to be paid?",
   "sell.paymentMethods.empty": "No payment methods yet",
