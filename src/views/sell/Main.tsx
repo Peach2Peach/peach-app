@@ -8,10 +8,12 @@ import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../components/bitcoin'
 import { SellViewProps } from './Sell'
+import { account, updateSettings } from '../../utils/accountUtils'
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
+  const amount = account.settings.amount || offer.amount
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -20,11 +22,14 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   return <View style={tw`z-20 my-32`}>
     <View style={tw`flex items-center`}>
       <Dropdown
-        selectedValue={offer.amount}
-        onChange={(value) => updateOffer({
-          ...offer,
-          amount: value as number
-        })}
+        selectedValue={amount}
+        onChange={value => {
+          updateSettings({ amount: value as number })
+          updateOffer({
+            ...offer,
+            amount: value as number
+          })
+        }}
         onToggle={(isOpen) => setDropdownOpen(isOpen)}
         width={tw`w-80`.width as number}
         items={BUCKETS.map(value => ({

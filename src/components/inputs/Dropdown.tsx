@@ -60,7 +60,7 @@ interface DropdownProps {
 export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
   const height = tw`h-10`.height as number * (isOpen ? items.length + 1 : 1)
-  const selectedItem = items.find(item => item.value === selectedValue)
+  const selectedItem = items.find(item => item.value === selectedValue) || items[0]
 
   const toggle = () => {
     setOpen(!isOpen)
@@ -97,7 +97,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
             )
         ]
         : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
-          {items.find(item => item.value === selectedValue)?.display(isOpen)}
+          {selectedItem.display(isOpen)}
         </Pressable>
       }
     </Shadow>

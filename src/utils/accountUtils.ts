@@ -16,6 +16,7 @@ export type Session = {
 
 type Settings = {
   skipTutorial?: boolean,
+  amount?: number,
   currencies?: Currency[],
   premium?: number,
   kyc?: boolean,
