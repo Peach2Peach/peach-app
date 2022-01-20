@@ -141,9 +141,9 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
                 if (data) data.selected = true
               })
               if (onChange) {
-                const updatedPaymentMethods = values.map(id =>
-                  paymentData.find((d: PaymentData) => d.id === id) as PaymentData
-                )
+                const updatedPaymentMethods = values
+                  .map(id => paymentData.find((d: PaymentData) => d.id === id) as PaymentData)
+
                 onChange(updatedPaymentMethods)
               }
             }}/>
@@ -166,7 +166,11 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
       {showAddNew
         ? <View style={tw`w-full`}>
           {!newPaymentMethod && PAYMENTMETHODS.map(PAYMENTMETHOD =>
-            <MenuItem text={i18n(`paymentMethod.${PAYMENTMETHOD}`)} onPress={() => setNewPaymentMethod(PAYMENTMETHOD)}/>
+            <MenuItem
+              key={PAYMENTMETHOD}
+              text={i18n(`paymentMethod.${PAYMENTMETHOD}`)}
+              onPress={() => setNewPaymentMethod(PAYMENTMETHOD)}
+            />
           )}
           {PaymentMethodForm
             ? <PaymentMethodForm style={tw`mt-4`} onSubmit={addPaymentMethod} />

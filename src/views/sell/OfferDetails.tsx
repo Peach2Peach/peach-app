@@ -1,9 +1,9 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Checkboxes, PremiumSlider, RadioButtons, SatsFormat, Text } from '../../components'
+import { Checkboxes, Headline, PremiumSlider, RadioButtons, SatsFormat, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import { CURRENCIES } from '../../constants'
@@ -15,7 +15,7 @@ import { account, updateSettings } from '../../utils/accountUtils'
 const validate = (offer: SellOffer) =>
   !!offer.amount
   && offer.currencies.length > 0
-  && offer.paymentMethods.length > 0
+  && offer.paymentData.length > 0
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
@@ -23,30 +23,34 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useContext(BitcoinContext)
 
   const { currency } = getBitcoinContext()
-  const currencies = account.settings.currencies || offer.currencies
-  const paymentData: PaymentData[] = account.paymentData || []
-  let paymentMethods = paymentData.filter(p => p.selected).map(p => p.type) as PaymentMethod[]
-  if (paymentMethods.length === 0) paymentMethods = offer.paymentMethods.map(p => p.type)
-  const kyc = account.settings.kyc || offer.kyc
-  const kycType = account.settings.kycType || offer.kycType
+  const [currencies, setCurrencies] = useState(account.settings.currencies || offer.currencies)
+  const [premium, setPremium] = useState(account.settings.premium || offer.premium)
+  const [paymentData, setPaymentData] = useState(account.paymentData || [])
+  const [kyc, setKYC] = useState(account.settings.kyc || offer.kyc)
+  const [kycType, setKYCType] = useState(account.settings.kycType || offer.kycType)
 
   useEffect(() => {
     updateOffer({
       ...offer,
       currencies,
-      paymentMethods: paymentData,
+      paymentData: paymentData.filter(data => data.selected),
       kyc,
       kycType,
     })
-    setStepValid(validate(offer))
-  }, [])
+    updateSettings({
+      currencies,
+      premium,
+      kyc,
+      kycType,
+    })
 
-  setStepValid(validate(offer))
+    setStepValid(validate(offer))
+  }, [currencies, paymentData, premium, kyc, kycType])
 
   return <View style={tw`mb-16`}>
-    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-9`}>
+    <Headline style={tw`mt-9`}>
       {i18n('sell.currencies')}
-    </Text>
+    </Headline>
     <Checkboxes
       style={tw`px-7 mt-2`}
       items={CURRENCIES.map(value => ({
@@ -56,36 +60,19 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         </Text>
       }))}
       selectedValues={currencies}
-      onChange={values => {
-        updateSettings({ currencies: values as Currency[] })
-        updateOffer({
-          ...offer,
-          currencies: values as Currency[]
-        })
-      }}/>
-
-
-    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16`}>
+      onChange={values => setCurrencies(values as Currency[])}/>
+    <Headline style={tw`mt-16`}>
       {i18n('sell.paymentMethods')}
-    </Text>
-    <PaymentMethods paymentData={paymentData}
-      onChange={updatedPaymentData => updateOffer({
-        ...offer,
-        paymentMethods: updatedPaymentData
-      })}/>
+    </Headline>
+    <PaymentMethods paymentData={account.paymentData}
+      onChange={updatedPaymentData => setPaymentData(updatedPaymentData)}/>
 
-    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16 mb-2`}>
+    <Headline style={tw`mt-16 mb-2`}>
       {i18n('sell.price')}
-    </Text>
-    <PremiumSlider min={-10} max={10} value={offer.premium}
-      update={`${offer.currencies.join()}${offer.paymentMethods.join()}${offer.kyc}`}
-      onChange={value => {
-        updateSettings({ premium: value })
-        updateOffer({
-          ...offer,
-          premium: value as number
-        })
-      }}/>
+    </Headline>
+    <PremiumSlider min={-10} max={10} value={premium}
+      update={`${currencies.join()}${paymentData.join()}${kyc}`}
+      onChange={value => setPremium(value)}/>
     <View style={tw`text-center mt-4`}>
       <Text style={tw`text-center`}>
         {i18n('form.premium.yousell')} <SatsFormat sats={offer.amount} format="inline" /> {i18n('form.premium.for')}
@@ -93,56 +80,31 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     </View>
     <View>
       <Text style={tw`text-center`}>
-        <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + offer.premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{offer.premium}%</Text> {i18n(offer.premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
+        <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n(premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
         }
       </Text>
     </View>
 
-
-    <Text style={tw`font-baloo uppercase text-center text-peach-1 mt-16`}>
+    <Headline style={tw`mt-16`}>
       {i18n('sell.kyc')}
-    </Text>
+    </Headline>
     <RadioButtons
       style={tw`px-7 mt-2`}
       items={[
-        {
-          value: true,
-          display: <Text>{i18n('yes')}</Text>
-        },
-        {
-          value: false,
-          display: <Text>{i18n('no')}</Text>
-        }
+        { value: true, display: <Text>{i18n('yes')}</Text> },
+        { value: false, display: <Text>{i18n('no')}</Text> }
       ]}
-      selectedValue={offer.kyc}
-      onChange={value => {
-        updateSettings({ kyc: value as boolean })
-        updateOffer({
-          ...offer,
-          kyc: value as boolean,
-        })
-      }}/>
-    {offer.kyc
+      selectedValue={kyc}
+      onChange={value => setKYC(value as boolean)}/>
+    {kyc
       ? <RadioButtons
         style={tw`px-7 mt-6`}
         items={[
-          {
-            value: 'iban',
-            display: <Text>{i18n('sell.kyc.iban')} ({i18n('default')})</Text>
-          },
-          {
-            value: 'id',
-            display: <Text>{i18n('sell.kyc.id')}</Text>
-          }
+          { value: 'iban', display: <Text>{i18n('sell.kyc.iban')} ({i18n('default')})</Text> },
+          { value: 'id', display: <Text>{i18n('sell.kyc.id')}</Text> }
         ]}
-        selectedValue={offer.kycType || 'iban'}
-        onChange={value => {
-          updateSettings({ kycType: value as KYCType })
-          updateOffer({
-            ...offer,
-            kycType: value as KYCType
-          })
-        }}/>
+        selectedValue={kycType || 'iban'}
+        onChange={value => setKYCType(value as KYCType)}/>
       : null
     }
   </View>

@@ -16,6 +16,6 @@ export {
   Select
 } from './inputs'
 export { ScanQR } from './camera/ScanQR'
-export { Text, SatsFormat } from './text'
+export { Text, Headline, SatsFormat } from './text'
 
 export type { FileData } from './types'

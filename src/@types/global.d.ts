@@ -12,7 +12,7 @@ declare type SellOffer = {
   amount: number,
   premium: number,
   currencies: Currency[],
-  paymentMethods: PaymentData[],
+  paymentData: PaymentData[],
   kyc: boolean;
   kycType?: KYCType;
   returnAddress?: string;

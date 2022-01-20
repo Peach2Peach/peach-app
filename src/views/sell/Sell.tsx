@@ -116,7 +116,7 @@ export default ({ navigation }: Props): ReactElement => {
       const [result, error] = await postOffer({
         ...offer,
         amount: BUCKETMAP[String(offer.amount)],
-        paymentMethods: offer.paymentMethods.map(p => p.type),
+        paymentMethods: offer.paymentData.map(p => p.type),
       })
 
       if (result) {

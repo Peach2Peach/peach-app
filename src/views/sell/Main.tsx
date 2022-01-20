@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -17,7 +17,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  setStepValid(true)
+  useEffect(() => setStepValid(true), [])
 
   return <View style={tw`z-20 my-32`}>
     <View style={tw`flex items-center`}>
