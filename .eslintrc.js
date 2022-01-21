@@ -276,7 +276,7 @@ module.exports = {
     ],
     'vars-on-top': 'error',
     'wrap-iife': 'error',
-    'wrap-regex': 'error',
+    'wrap-regex': 'off',
     'yield-star-spacing': 'error',
     'yoda': 'error',
     '@typescript-eslint/no-unused-vars': 'off',

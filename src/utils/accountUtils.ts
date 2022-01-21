@@ -193,11 +193,25 @@ export const updateSettings = (options: Settings): void => {
 }
 
 /**
- * @description Method to add offer to offer list
- * @param options settings to update
+ * @description Method to check whether offer exists in account
+ * @param offer the offer
+ * @returns true if offer exists
  */
-export const addOffer = (offer: SellOffer): void => {
-  account.offers.push(offer)
+const offerExists = (id: number): boolean => account.offers.some(o => o.offerId === id)
+
+/**
+ * @description Method to add offer to offer list
+ * @param offer the offer
+ */
+export const saveOffer = (offer: SellOffer): void => {
+  if (!offer.offerId) throw new Error('offerId is required')
+
+  if (offerExists(offer.offerId)) {
+    const index = account.offers.findIndex(o => o.offerId === offer.offerId)
+    account.offers[index] = offer
+  } else {
+    account.offers.push(offer)
+  }
   if (session.password) saveAccount(session.password)
 }
 

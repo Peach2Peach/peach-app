@@ -19,17 +19,20 @@ import Summary from './Summary'
 import Escrow from './Escrow'
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
-import { addOffer } from '../../utils/accountUtils'
+import { saveOffer } from '../../utils/accountUtils'
+import { RouteProp } from '@react-navigation/native'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
 type Props = {
-  navigation: ProfileScreenNavigationProp
+  route: RouteProp<{ params: { offer: SellOffer } }>,
+  navigation: ProfileScreenNavigationProp,
 }
 type HeadProps = {
   subtitle?: string|null
 }
 type NavigationProps = {
+  screen: string,
   back: () => void,
   next: () => void,
   stepValid: boolean
@@ -91,11 +94,14 @@ export const Head = ({ subtitle }: HeadProps): ReactElement => <View style={tw`f
   }
 </View>
 
-const Navigation = ({ back, next, stepValid }: NavigationProps): ReactElement =>
+const Navigation = ({ screen, back, next, stepValid }: NavigationProps): ReactElement =>
   <View style={tw`mb-8 w-full flex items-center`}>
-    <Pressable style={tw`absolute left-0 z-10`} onPress={back}>
-      <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
-    </Pressable>
+    {!/main|escrow/u.test(screen)
+      ? <Pressable style={tw`absolute left-0 z-10`} onPress={back}>
+        <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+      </Pressable>
+      : null
+    }
     <Button
       style={!stepValid ? tw`opacity-50` : {}}
       wide={false}
@@ -104,18 +110,20 @@ const Navigation = ({ back, next, stepValid }: NavigationProps): ReactElement =>
     />
   </View>
 
-export default ({ navigation }: Props): ReactElement => {
+export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
 
-  const [offer, setOffer] = useState<SellOffer>(defaultOffer)
+  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultOffer)
   const [stepValid, setStepValid] = useState(false)
 
-  const [page, setPage] = useState(0)
-  const CurrentScreen: Screen = screens[page].view
+  const [page, setPage] = useState(offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
+  const currentScreen = screens[page]
+  const CurrentView: Screen = currentScreen.view
   const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  console.log('the offer', offer)
   const next = async () => {
     if (screens[page + 1].id === 'escrow') {
       const [result, error] = await postOffer({
@@ -126,7 +134,7 @@ export default ({ navigation }: Props): ReactElement => {
 
       if (result) {
         console.log(result)
-        addOffer({
+        saveOffer({
           ...offer,
           offerId: result.offerId
         })
@@ -155,19 +163,19 @@ export default ({ navigation }: Props): ReactElement => {
       <ScrollView ref={scroll} style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           <Head subtitle={subtitle}/>
-          {CurrentScreen
-            ? <CurrentScreen offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
+          {CurrentView
+            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
             : null
           }
         </View>
         {scrollable
-          ? <Navigation back={back} next={next} stepValid={stepValid} />
+          ? <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
           : null
         }
       </ScrollView>
     </View>
     {!scrollable
-      ? <Navigation back={back} next={next} stepValid={stepValid} />
+      ? <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
       : null
     }
   </View>

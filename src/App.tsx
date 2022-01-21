@@ -162,7 +162,7 @@ const App: React.FC = () => {
               <NavigationContainer ref={navigationRef} onStateChange={(state) => {
                 if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
               }}>
-                <Stack.Navigator screenOptions={{
+                <Stack.Navigator detachInactiveScreens={true} screenOptions={{
                   headerShown: false,
                   cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
                 }}>

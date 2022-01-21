@@ -16,6 +16,8 @@ declare type SellOffer = {
   kyc: boolean;
   kycType?: KYCType;
   returnAddress?: string;
+  escrow?: string,
+  funding?: FundingStatus
 }
 
 declare type PeachWallet = {

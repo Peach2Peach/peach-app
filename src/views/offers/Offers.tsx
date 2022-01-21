@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import {
+  Pressable,
   ScrollView,
   View
 } from 'react-native'
@@ -27,9 +28,11 @@ export default ({ navigation }: Props): ReactElement => {
         </Text>
       </View>
       {account.offers.map(offer => <View key={offer.offerId}>
-        <Text>
-          {offer.offerId} - {offer.type} -  {offer.amount}
-        </Text>
+        <Pressable onPress={() => navigation.navigate('sell', { offer })}>
+          <Text>
+            {offer.offerId} - {offer.type} -  {offer.amount}
+          </Text>
+        </Pressable>
       </View>)}
     </View>
   </ScrollView>
