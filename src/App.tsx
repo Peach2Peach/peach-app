@@ -28,7 +28,8 @@ import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
-import { account, createAccount, deleteAccount, getAccount, initSession, session } from './utils/accountUtils'
+import { account, createAccount, deleteAccount, getAccount } from './utils/accountUtils'
+import { initSession, session } from './utils/sessionUtils'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 
 enableScreens()

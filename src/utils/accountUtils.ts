@@ -6,11 +6,7 @@ import Share from './fileSystem/Share'
 import EncryptedStorage from 'react-native-encrypted-storage'
 import { createWallet, setWallet } from './bitcoinUtils'
 import * as peachAPI from './peachAPI'
-
-export type Session = {
-  initialized: boolean
-  password?: string
-}
+import { getSession, session } from './sessionUtils'
 
 type Settings = {
   skipTutorial?: boolean,
@@ -36,9 +32,6 @@ const defaultAccount: Account = {
   offers: [],
 }
 
-export let session: Session = {
-  initialized: false,
-}
 export let account = defaultAccount
 
 interface CreateAccountProps {
@@ -46,36 +39,6 @@ interface CreateAccountProps {
   password: string,
   onSuccess: Function,
   onError: Function
-}
-
-const setSession = (sess: Session) => session = {
-  ...sess,
-  initialized: true
-}
-export const getSession = () => session
-
-/**
- * @description Method to initialise local user session from encrypted storage
- */
-export const initSession = async (): Promise<Session> => {
-  try {
-    const result = await EncryptedStorage.getItem('session') as string
-
-    if (result) {
-      setSession(JSON.parse(result))
-      return session
-    }
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('Session could not be retrieved', err)
-  }
-
-  return session
 }
 
 /**
@@ -170,6 +133,7 @@ export const createAccount = async ({
       privKey: (wallet.privateKey as Buffer).toString('hex'),
       mnemonic,
     }
+
     const [result, apiError] = await peachAPI.userAuth(firstAddress)
 
     info('Create account RESULT', result)
