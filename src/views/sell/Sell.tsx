@@ -21,6 +21,8 @@ import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/accountUtils'
 import { RouteProp } from '@react-navigation/native'
+import { MessageContext } from '../../utils/messageUtils'
+import { error } from '../../utils/logUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -113,6 +115,7 @@ const Navigation = ({ screen, back, next, stepValid }: NavigationProps): ReactEl
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
+  const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultOffer)
   const [stepValid, setStepValid] = useState(false)
@@ -123,27 +126,23 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  console.log('the offer', offer)
-  const next = async () => {
+  const next = async (): Promise<void> => {
     if (screens[page + 1].id === 'escrow') {
-      const [result, error] = await postOffer({
+      const [result, err] = await postOffer({
         ...offer,
         amount: BUCKETMAP[String(offer.amount)],
         paymentMethods: offer.paymentData.map(p => p.type),
       })
 
       if (result) {
-        console.log(result)
-        saveOffer({
-          ...offer,
-          offerId: result.offerId
-        })
-        setOffer({
-          ...offer,
-          offerId: result.offerId
-        })
+        saveOffer({ ...offer, offerId: result.offerId })
+        setOffer({ ...offer, offerId: result.offerId })
       } else {
-        // TODO add error handling
+        error('Error', err)
+        updateMessage({
+          msg: i18n('error.postOffer'),
+          level: 'ERROR',
+        })
         return
       }
     }

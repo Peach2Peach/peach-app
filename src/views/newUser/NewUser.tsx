@@ -56,7 +56,7 @@ export default ({ navigation }: Props): ReactElement => {
   const onError = (e: string) => {
     error('Error', e)
     updateMessage({
-      msg: i18n('createAccount.error'),
+      msg: i18n('error.createAccount'),
       level: 'ERROR',
     })
   }
