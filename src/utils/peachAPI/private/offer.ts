@@ -147,7 +147,7 @@ type GetFundingStatusProps = {
  */
 export const getFundingStatus = async ({
   offerId
-}: GetFundingStatusProps): Promise<[FundingStatus|null, APIError|null]> => {
+}: GetFundingStatusProps): Promise<[FundingStatusResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
       Authorization: await getAccessToken(),

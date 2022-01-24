@@ -66,8 +66,8 @@ export const Footer = ({ active, style, navigation }: FooterProps): ReactElement
     <View style={tw`h-full flex-grow relative`}>
       <Shadow {...footerShadow} viewStyle={tw`w-full`}>
         <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
-          <FooterItem id="buy" active={active === 'buy'} onPress={() => navigation.navigate('buy')} />
-          <FooterItem id="sell" active={active === 'sell'} onPress={() => navigation.navigate('sell')} />
+          <FooterItem id="buy" active={active === 'buy'} onPress={() => navigation.navigate('buy', {})} />
+          <FooterItem id="sell" active={active === 'sell'} onPress={() => navigation.navigate('sell', {})} />
         </View>
       </Shadow>
     </View>

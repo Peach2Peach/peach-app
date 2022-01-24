@@ -53,6 +53,7 @@ const defaultOffer: SellOffer = {
   premium: 1.5,
   currencies: [],
   paymentData: [],
+  hashedPaymentData: '',
   amount: BUCKETS[0],
   kyc: false
 }

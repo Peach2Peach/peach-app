@@ -4,7 +4,7 @@ import CryptoJS from 'react-native-crypto-js'
 import RNFS from './fileSystem/RNFS'
 import Share from './fileSystem/Share'
 import EncryptedStorage from 'react-native-encrypted-storage'
-import { createWallet, setWallet } from './bitcoinUtils'
+import { createWallet, setWallet } from './walletUtils'
 import * as peachAPI from './peachAPI'
 import { getSession, session } from './sessionUtils'
 
@@ -54,7 +54,7 @@ const setAccount = async (acc: Account) => {
   const { wallet } = await createWallet(account.mnemonic) // TODO add error handling
   setWallet(wallet)
 
-  const firstAddress = wallet.derivePath('m/45/0/0/0')
+  const firstAddress = wallet.derivePath("m/48'/0'/0'/0'") // eslint-disable-line quotes
 
   const [result, apiError] = await peachAPI.userAuth(firstAddress)
 
@@ -125,7 +125,7 @@ export const createAccount = async ({
   if (!acc || typeof acc !== 'object') {
     const { wallet, mnemonic } = await createWallet() // TODO add error handling
     setWallet(wallet)
-    const firstAddress = wallet.derivePath('m/45/0/0/0')
+    const firstAddress = wallet.derivePath("m/48'/0'/0'/0'") // eslint-disable-line quotes
 
     account = {
       ...defaultAccount,

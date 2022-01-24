@@ -54,3 +54,8 @@ declare type CreateEscrowResponse = {
   escrow: string,
   funding: FundingStatus
 }
+declare type FundingStatusResponse = {
+  offerId: number,
+  escrow: string,
+  funding: FundingStatus
+}

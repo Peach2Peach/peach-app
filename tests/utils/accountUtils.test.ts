@@ -6,7 +6,9 @@ jest.mock('../../src/utils/peachAPI.ts')
 
 const recoveredAccount: Account = {
   publicKey: 'Recovered Account',
-  settings: {}
+  paymentData: [],
+  offers: [],
+  settings: {},
 }
 
 const password = 'supersecret'

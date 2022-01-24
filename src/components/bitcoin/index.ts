@@ -37,7 +37,7 @@ export const updateBitcoinContext = async (currency: Currency): Promise<BitcoinC
 
   const [pairInfo, error] = await marketPrice(currency)
 
-  if (error?.error) {
+  if (!pairInfo || error?.error) {
     return bitcoinContext
   }
 

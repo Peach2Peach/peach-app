@@ -1,7 +1,7 @@
 import { API_URL, HTTP_AUTH_PASS, HTTP_AUTH_USER } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
-import { accessToken, peachAccount, Authorization, setAccessToken, setPeachAccount } from '..'
+import { accessToken, peachAccount, setAccessToken, setPeachAccount } from '..'
 import { info } from '../../logUtils'
 
 
@@ -17,7 +17,6 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
-        Authorization,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },

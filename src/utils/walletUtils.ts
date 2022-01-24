@@ -25,3 +25,11 @@ export const createWallet = async (mnemonic? :string): Promise<PeachWallet> => {
 
 
 export const setWallet = (wllt: bitcoin.bip32.BIP32Interface) => wallet = wllt
+
+/**
+ * @description Method to get the public key for the peach escrow
+ * @param offerId offer id
+ * @returns public key for escrow address
+ */
+export const getPublicKeyForEscrow = (offerId: number) =>
+  wallet.derivePath(`m/48'/${DEV ? '1' : '0'}'/0'/${offerId}'`).publicKey.toString('hex')
