@@ -5,7 +5,6 @@ declare type PaymentData = {
   [key: string]: string
 }
 
-// TODO consider hashing payment methods to have proof that payment method did not change at later point
 declare type SellOffer = {
   offerId?: number,
   type: 'ask',
@@ -13,6 +12,7 @@ declare type SellOffer = {
   premium: number,
   currencies: Currency[],
   paymentData: PaymentData[],
+  hashedPaymentData: string,
   kyc: boolean;
   kycType?: KYCType;
   returnAddress?: string;

@@ -35,6 +35,7 @@ type PostOfferProps = {
   premium: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
+  hashedPaymentData: string,
   kyc: boolean,
   returnAddress?: string,
 }
@@ -56,6 +57,7 @@ export const postOffer = async ({
   premium = 0,
   currencies,
   paymentMethods,
+  hashedPaymentData,
   kyc,
   returnAddress
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
@@ -72,6 +74,7 @@ export const postOffer = async ({
       premium,
       currencies,
       paymentMethods,
+      hashedPaymentData,
       kyc,
       returnAddress
     })

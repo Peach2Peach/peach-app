@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
+import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
@@ -23,6 +24,7 @@ import { saveOffer } from '../../utils/accountUtils'
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
+import { sha256 } from '../../utils/cryptoUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -128,15 +130,17 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const next = async (): Promise<void> => {
     if (screens[page + 1].id === 'escrow') {
+      const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
       const [result, err] = await postOffer({
         ...offer,
         amount: BUCKETMAP[String(offer.amount)],
         paymentMethods: offer.paymentData.map(p => p.type),
+        hashedPaymentData,
       })
 
       if (result) {
-        saveOffer({ ...offer, offerId: result.offerId })
-        setOffer({ ...offer, offerId: result.offerId })
+        saveOffer({ ...offer, offerId: result.offerId })
+        setOffer({ ...offer, offerId: result.offerId })
       } else {
         error('Error', err)
         updateMessage({
