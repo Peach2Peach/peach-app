@@ -1,3 +1,8 @@
+declare type Session = {
+  initialized: boolean
+  password?: string
+}
+
 declare type PaymentData = {
   id: string,
   type: PaymentMethod,

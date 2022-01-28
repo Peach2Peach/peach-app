@@ -2,7 +2,7 @@ import { strictEqual } from 'assert'
 import { padString, thousands } from '../../src/utils/stringUtils'
 
 describe('padString', () => {
-  it('pads string to a specific length', async () => {
+  it('pads string to a specific length', () => {
     strictEqual(padString({ string: '1', length: 4 }), '0001')
     strictEqual(padString({ string: '1', length: 4, char: 'x' }), 'xxx1')
     strictEqual(padString({ string: '1', length: 4, char: 'x', side: 'left' }), 'xxx1')
@@ -11,7 +11,7 @@ describe('padString', () => {
 })
 
 describe('thousands', () => {
-  it('groups a number into thousands', async () => {
+  it('groups a number into thousands', () => {
     strictEqual(thousands(1), '1')
     strictEqual(thousands(12), '12')
     strictEqual(thousands(123), '123')

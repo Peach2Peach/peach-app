@@ -2,7 +2,7 @@ import { deepStrictEqual } from 'assert'
 import { unique } from '../../src/utils/arrayUtils'
 
 describe('unique', () => {
-  it('filters duplicated items in an array', async () => {
+  it('filters duplicated items in an array', () => {
     const arrayA = [
       { 'id': 'a' },
       { 'id': 'b' },

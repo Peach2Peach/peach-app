@@ -1,20 +1,6 @@
 import { error } from './logUtils'
 import EncryptedStorage from 'react-native-encrypted-storage'
 
-export type Session = {
-  initialized: boolean
-  password?: string
-}
-
-type Settings = {
-  skipTutorial?: boolean,
-  amount?: number,
-  currencies?: Currency[],
-  premium?: number,
-  kyc?: boolean,
-  kycType?: KYCType,
-}
-
 export let session: Session = {
   initialized: false,
 }
