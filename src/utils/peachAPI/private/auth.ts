@@ -13,7 +13,6 @@ import { info } from '../../logUtils'
 export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
-  console.log('keyPair.publicKey', keyPair.publicKey.toString('hex'))
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {

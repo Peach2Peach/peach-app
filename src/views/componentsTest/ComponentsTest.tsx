@@ -6,12 +6,12 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import {  Button,
+import {
+  Button,
   SatsFormat,
-  Text,
+  Text
 } from '../../components'
 import BitcoinContext from '../../components/bitcoin'
-import i18n from '../../utils/i18n'
 import { BUCKETS, CURRENCIES } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'componentsTest'>
