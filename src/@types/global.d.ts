@@ -1,3 +1,9 @@
+declare type BitcoinContextType = {
+  currency: Currency,
+  price: number,
+  satsPerUnit: number
+}
+
 declare type Session = {
   initialized: boolean
   password?: string
@@ -10,12 +16,15 @@ declare type PaymentData = {
   [key: string]: string
 }
 
-declare type SellOffer = {
+declare type Offer = {
   offerId?: number,
-  type: 'ask',
   amount: number,
-  premium: number,
   currencies: Currency[],
+}
+
+declare type SellOffer = Offer & {
+  type: 'ask',
+  premium: number,
   paymentData: PaymentData[],
   hashedPaymentData: string,
   kyc: boolean;
@@ -23,6 +32,10 @@ declare type SellOffer = {
   returnAddress?: string;
   escrow?: string,
   funding?: FundingStatus
+}
+
+declare type BuyOffer = Offer & {
+  type: 'bid'
 }
 
 declare type PeachWallet = {

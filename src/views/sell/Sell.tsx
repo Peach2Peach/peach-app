@@ -7,7 +7,6 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
-import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
@@ -21,7 +20,7 @@ import Escrow from './Escrow'
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/accountUtils'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
 import { sha256 } from '../../utils/cryptoUtils'
@@ -29,7 +28,10 @@ import { sha256 } from '../../utils/cryptoUtils'
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
 type Props = {
-  route: RouteProp<{ params: { offer: SellOffer } }>,
+  route: RouteProp<{ params: {
+    offer?: SellOffer,
+    page?: number,
+  } }>,
   navigation: ProfileScreenNavigationProp,
 }
 type HeadProps = {
@@ -39,7 +41,8 @@ type NavigationProps = {
   screen: string,
   back: () => void,
   next: () => void,
-  stepValid: boolean
+  stepValid: boolean,
+  loading: boolean,
 }
 
 export type SellViewProps = {
@@ -48,7 +51,7 @@ export type SellViewProps = {
   setStepValid: (isValid: boolean) => void,
 }
 
-const defaultOffer: SellOffer = {
+export const defaultSellOffer: SellOffer = {
   type: 'ask',
   premium: 1.5,
   currencies: [],
@@ -99,7 +102,7 @@ export const Head = ({ subtitle }: HeadProps): ReactElement => <View style={tw`f
   }
 </View>
 
-const Navigation = ({ screen, back, next, stepValid }: NavigationProps): ReactElement =>
+const Navigation = ({ screen, back, next, stepValid, loading }: NavigationProps): ReactElement =>
   <View style={tw`mb-8 w-full flex items-center`}>
     {!/main|escrow/u.test(screen)
       ? <Pressable style={tw`absolute left-0 z-10`} onPress={back}>
@@ -108,30 +111,43 @@ const Navigation = ({ screen, back, next, stepValid }: NavigationProps): ReactEl
       : null
     }
     <Button
-      style={!stepValid ? tw`opacity-50` : {}}
+      style={!stepValid || loading ? tw`opacity-50` : {}}
       wide={false}
-      onPress={stepValid ? next : () => {}}
+      onPress={stepValid || loading ? next : () => {}}
       title={i18n('next')}
     />
   </View>
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultOffer)
+  const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const [page, setPage] = useState(offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
+  const [page, setPage] = useState(0)
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
   const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  useFocusEffect(() => {
+    setOffer(route.params?.offer || defaultSellOffer)
+    setPage(route.params?.page
+      || offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
+    return () => {
+      setOffer(defaultSellOffer)
+      setPage(0)
+    }
+  })
   const next = async (): Promise<void> => {
     if (screens[page + 1].id === 'escrow') {
       const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
+
+      setLoading(true)
       const [result, err] = await postOffer({
         ...offer,
         amount: BUCKETMAP[String(offer.amount)],
@@ -145,9 +161,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       } else {
         error('Error', err)
         updateMessage({
-          msg: i18n('error.postOffer'),
+          msg: i18n(err?.error || 'error.postOffer'),
           level: 'ERROR',
         })
+        setLoading(false)
         return
       }
     }
@@ -173,13 +190,19 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
         </View>
         {scrollable
-          ? <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+          ? <Navigation
+            screen={currentScreen.id}
+            back={back} next={next}
+            loading={loading} stepValid={stepValid} />
           : null
         }
       </ScrollView>
     </View>
     {!scrollable
-      ? <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+      ? <Navigation
+        screen={currentScreen.id}
+        back={back} next={next}
+        loading={loading} stepValid={stepValid} />
       : null
     }
   </View>

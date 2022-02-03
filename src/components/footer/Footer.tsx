@@ -14,6 +14,8 @@ import { footerShadow, nativeShadow } from '../../utils/layoutUtils'
 import Icon from '../Icon'
 import BG from './bg.svg'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
+import { defaultSellOffer } from '../../views/sell/Sell'
+import { defaultBuyOffer } from '../../views/buy/Buy'
 
 interface FooterProps {
   active: string,
@@ -66,8 +68,11 @@ export const Footer = ({ active, style, navigation }: FooterProps): ReactElement
     <View style={tw`h-full flex-grow relative`}>
       <Shadow {...footerShadow} viewStyle={tw`w-full`}>
         <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
-          <FooterItem id="buy" active={active === 'buy'} onPress={() => navigation.navigate('buy', {})} />
-          <FooterItem id="sell" active={active === 'sell'} onPress={() => navigation.navigate('sell', {})} />
+          <FooterItem id="buy" active={active === 'buy'}
+            onPress={() => navigation.navigate('buy', { offer: defaultBuyOffer, page: 0 })} />
+          <FooterItem id="sell" active={active === 'sell'}
+            onPress={() => navigation.navigate('sell', { offer: defaultSellOffer, page: 0 })}
+          />
         </View>
       </Shadow>
     </View>
