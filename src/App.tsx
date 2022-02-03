@@ -86,7 +86,46 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
-// eslint-disable-next-line max-lines-per-function
+const showMessage = (msg: string, width: number, slideInAnim: Animated.Value) => () => {
+  let slideOutTimeout: NodeJS.Timer
+
+  if (msg) {
+    Animated.timing(slideInAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false
+    }).start()
+
+    slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
+      toValue: -width,
+      duration: 300,
+      useNativeDriver: false
+    }).start(), 1000 * 10)
+  }
+
+  return () => clearTimeout(slideOutTimeout)
+}
+
+const bitcoinContextEffect = (
+  bitcoinContext: BitcoinContextType,
+  setBitcoinContext: React.Dispatch<React.SetStateAction<BitcoinContextType>>
+) => () => {
+  let interval: NodeJS.Timer
+
+  (async () => {
+    interval = setInterval(async () => {
+      // TODO add error handling in case data is not available
+      setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
+    }, 60 * 1000)
+    // TODO add error handling in case data is not available
+    setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
+
+  })()
+  return () => {
+    clearInterval(interval)
+  }
+}
+
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
@@ -98,41 +137,10 @@ const App: React.FC = () => {
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
 
-  useEffect(() => {
-    let slideOutTimeout: NodeJS.Timer
 
-    if (msg) {
-      Animated.timing(slideInAnim, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: false
-      }).start()
+  useEffect(showMessage(msg, width, slideInAnim), [msg, time])
 
-      slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
-        toValue: -width,
-        duration: 300,
-        useNativeDriver: false
-      }).start(), 1000 * 10)
-    }
-
-    return () => clearTimeout(slideOutTimeout)
-  }, [msg, time])
-
-  useEffect(() => {
-    (async () => {
-      const interval = setInterval(async () => {
-        // TODO add error handling in case data is not available
-        setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-      }, 60 * 1000)
-      // TODO add error handling in case data is not available
-      setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-
-      return () => {
-        clearInterval(interval)
-      }
-    })()
-
-  }, [bitcoinContext.currency])
+  useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])
 
   useEffect(() => {
     initApp(navigationRef)
@@ -160,9 +168,10 @@ const App: React.FC = () => {
             }
             <View style={tw`h-full flex-shrink`}>
               <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
+                if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
               }}>
                 <Stack.Navigator detachInactiveScreens={true} screenOptions={{
+                  detachPreviousScreen: true,
                   headerShown: false,
                   cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
                 }}>

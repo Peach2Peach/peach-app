@@ -1,4 +1,5 @@
 import { API_URL } from '@env'
+import { error, info } from '../../logUtils'
 import { getAccessToken } from './auth'
 
 /**
@@ -18,14 +19,17 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
   try {
     return [await response.json(), null]
   } catch (e) {
-    let error = 'UNKOWN_ERROR'
+    let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
-      error = e.toUpperCase()
+      err = e.toUpperCase()
     } else if (e instanceof Error) {
-      error = e.message
+      err = e.message
     }
 
-    return [null, { error }]
+    error('peachAPI - getOffers', e)
+
+
+    return [null, { error: err }]
   }
 }
 
@@ -61,36 +65,42 @@ export const postOffer = async ({
   kyc,
   returnAddress
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/offer`, {
-    headers: {
-      Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      type,
-      amount,
-      premium,
-      currencies,
-      paymentMethods,
-      hashedPaymentData,
-      kyc,
-      returnAddress
-    })
-  })
 
   try {
+    const accessToken = await getAccessToken()
+    if (!accessToken) return [null, { error: 'AUTHENTICATION_FAILED' }]
+
+    const response = await fetch(`${API_URL}/v1/offer`, {
+      headers: {
+        Authorization: accessToken,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        type,
+        amount,
+        premium,
+        currencies,
+        paymentMethods,
+        hashedPaymentData,
+        kyc,
+        returnAddress
+      })
+    })
+
     return [await response.json(), null]
   } catch (e) {
-    let error = 'UNKOWN_ERROR'
+    let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
-      error = e.toUpperCase()
+      err = e.toUpperCase()
     } else if (e instanceof Error) {
-      error = e.message
+      err = e.message
     }
 
-    return [null, { error }]
+    error('peachAPI - postOffer', e)
+
+    return [null, { error: err }]
   }
 }
 
@@ -124,14 +134,17 @@ export const createEscrow = async ({
   try {
     return [await response.json(), null]
   } catch (e) {
-    let error = 'UNKOWN_ERROR'
+    let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
-      error = e.toUpperCase()
+      err = e.toUpperCase()
     } else if (e instanceof Error) {
-      error = e.message
+      err = e.message
     }
 
-    return [null, { error }]
+    error('peachAPI - createEscrow', e)
+
+
+    return [null, { error: err }]
   }
 }
 
@@ -158,15 +171,22 @@ export const getFundingStatus = async ({
   })
 
   try {
-    return [await response.json(), null]
+    const result = await response.json()
+
+    info('peachAPI - getFundingStatus', result)
+
+    return [await result, null]
   } catch (e) {
-    let error = 'UNKOWN_ERROR'
+    let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
-      error = e.toUpperCase()
+      err = e.toUpperCase()
     } else if (e instanceof Error) {
-      error = e.message
+      err = e.message
     }
 
-    return [null, { error }]
+    error('peachAPI - getFundingStatus', e)
+
+
+    return [null, { error: err }]
   }
 }

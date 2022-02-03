@@ -45,18 +45,19 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }
 
   useEffect(() => {
-    if (/MEMPOOL|FUNDED/u.test(fundingStatus.status)) setStepValid(true)
+    if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) setStepValid(true)
   }, [fundingStatus])
 
   useEffect(() => {
+    let interval: NodeJS.Timer
     (async () => {
-      const interval = setInterval(checkFundingStatus, 60 * 1000)
+      interval = setInterval(checkFundingStatus, 60 * 1000)
 
       checkFundingStatus()
-      return () => {
-        clearInterval(interval)
-      }
     })()
+    return () => {
+      clearInterval(interval)
+    }
   }, [])
 
   useEffect(() => {
@@ -88,12 +89,18 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }, [])
 
   return <View style={tw`mt-16`}>
-    <BitcoinAddress
-      style={tw`my-4`}
-      address={escrow}
-      showQR={true}
-    />
-    <Text>Confirmations: {fundingStatus.confirmations}</Text>
-    <Text>Status: {fundingStatus.status}</Text>
+    {fundingStatus
+      ? <View>
+        <BitcoinAddress
+          style={tw`my-4`}
+          address={escrow}
+          showQR={true}
+        />
+        <Text>Confirmations: {fundingStatus.confirmations}</Text>
+        <Text>Status: {fundingStatus.status}</Text>
+      </View>
+      // TODO: create escrow not found error message here
+      : <Text>404 Escrow not found</Text>
+    }
   </View>
 }

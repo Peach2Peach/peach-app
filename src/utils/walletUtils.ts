@@ -1,4 +1,4 @@
-import { DEV } from '@env'
+import { DEV, NETWORK } from '@env'
 import * as bitcoin from 'bitcoinjs-lib'
 import * as bip39 from 'bip39'
 import { getRandom } from './cryptoUtils'
@@ -17,14 +17,25 @@ export const createWallet = async (mnemonic? :string): Promise<PeachWallet> => {
   return {
     wallet: bitcoin.bip32.fromSeed(
       seed,
-      DEV ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
+      NETWORK === 'testnet'
+        ? bitcoin.networks.testnet
+        : NETWORK === 'regtest'
+          ? bitcoin.networks.regtest
+          : bitcoin.networks.bitcoin
     ),
     mnemonic
   }
 }
 
-
 export const setWallet = (wllt: bitcoin.bip32.BIP32Interface) => wallet = wllt
+
+/**
+ * @description Method to get the first address of account
+ * @param wllt the HD wllt
+ * @returns main address
+ */
+export const getMainAddress = (wllt: bitcoin.bip32.BIP32Interface) =>
+  wllt.derivePath(`m/48'/${NETWORK === 'bitcoin' ? '0' : '1'}'/0'/0'`)
 
 /**
  * @description Method to get the public key for the peach escrow
@@ -32,4 +43,4 @@ export const setWallet = (wllt: bitcoin.bip32.BIP32Interface) => wallet = wllt
  * @returns public key for escrow address
  */
 export const getPublicKeyForEscrow = (offerId: number) =>
-  wallet.derivePath(`m/48'/${DEV ? '1' : '0'}'/0'/${offerId}'`).publicKey.toString('hex')
+  wallet.derivePath(`m/48'/${NETWORK === 'bitcoin' ? '0' : '1'}'/0'/${offerId}'`).publicKey.toString('hex')

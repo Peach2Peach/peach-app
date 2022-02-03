@@ -1,4 +1,5 @@
 import { API_URL } from '@env'
+import { error } from '../../logUtils'
 
 /**
  * @description Method to get market price for given currency
@@ -11,13 +12,16 @@ export const marketPrice = async (currency: Currency): Promise<[PeachPairInfo|nu
   try {
     return [await response.json(), null]
   } catch (e) {
-    let error = 'UNKOWN_ERROR'
+    let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
-      error = e.toUpperCase()
+      err = e.toUpperCase()
     } else if (e instanceof Error) {
-      error = e.message
+      err = e.message
     }
 
-    return [null, { error }]
+    error('peachAPI - marketPrice', e)
+
+
+    return [null, { error: err }]
   }
 }

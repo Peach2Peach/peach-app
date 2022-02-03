@@ -1,13 +1,6 @@
 import { createContext } from 'react'
 import { marketPrice } from '../../utils/peachAPI'
 
-export type BitcoinContextType = {
-  currency: Currency,
-  price: number,
-  satsPerUnit: number
-}
-
-
 export let bitcoinContext: BitcoinContextType = {
   currency: 'EUR',
   price: NaN,

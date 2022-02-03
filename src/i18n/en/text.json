@@ -83,6 +83,7 @@
   "error.createAccount": "Something went wrong creating the account. Please try again later or contact the peach support-team.",
   "error.postOffer": "Something went wrong posting your offer. Please try again later or contact the peach support-team.",
   "error.createEscrow": "Something went wrong while creating your escrow address. Please try again later or contact the peach support-team.",
+  "AUTHENTICATION_FAILED": "",
   "addNew": "Add new",
   "next": "next",
   "continue": "Continue",

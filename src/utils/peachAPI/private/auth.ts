@@ -2,7 +2,7 @@ import { API_URL, HTTP_AUTH_PASS, HTTP_AUTH_USER } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
 import { accessToken, peachAccount, setAccessToken, setPeachAccount } from '..'
-import { info } from '../../logUtils'
+import { error, info } from '../../logUtils'
 
 
 /**
@@ -12,6 +12,8 @@ import { info } from '../../logUtils'
  */
 export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
+
+  setPeachAccount(keyPair)
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
@@ -26,20 +28,24 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
         signature: keyPair.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
       })
     })
+
     const token = await response.json() as AccessToken
     setAccessToken(token)
-    setPeachAccount(keyPair)
+
+    info('peachAPI - userAuth - SUCCESS', keyPair.publicKey.toString('hex'), token)
 
     return [token, null]
   } catch (e) {
-    let error = 'UNKOWN_ERROR'
+    let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
-      error = e.toUpperCase()
+      err = e.toUpperCase()
     } else if (e instanceof Error) {
-      error = e.message
+      err = e.message
     }
 
-    return [null, { error }]
+    error('peachAPI - userAuth', e)
+
+    return [null, { error: err }]
   }
 }
 
@@ -52,12 +58,13 @@ export const getAccessToken = async (): Promise<string> => {
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
-  const [result, error] = await userAuth(peachAccount as BIP32Interface)
+  const [result, err] = await userAuth(peachAccount as BIP32Interface)
 
-  if (!result || error) {
-    info('Authentication error', error)
+  if (!result || err) {
+    error('peachAPI - getAccessToken', err)
 
     return ''
   }
+
   return 'Basic ' + Buffer.from(result.accessToken)
 }
