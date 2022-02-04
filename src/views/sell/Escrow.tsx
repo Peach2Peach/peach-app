@@ -36,7 +36,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       offerId: offer.offerId,
     })
     if (result) {
-      setFundingStatus(result.funding)
+      setFundingStatus(() => result.funding)
       saveAndUpdate({
         ...offer,
         funding: result.funding,
@@ -47,6 +47,15 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useEffect(() => {
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) setStepValid(true)
   }, [fundingStatus])
+
+  useEffect(() => {
+    // workaround to update escrow status if offer changes
+    setEscrow(() => offer.escrow || '')
+    setFundingStatus(() => offer.funding || {
+      confirmations: 0,
+      status: 'NULL'
+    })
+  }, [offer.offerId])
 
   useEffect(() => {
     let interval: NodeJS.Timer
@@ -71,8 +80,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       })
 
       if (result) {
-        setEscrow(result.escrow)
-        setFundingStatus(result.funding)
+        setEscrow(() => result.escrow)
+        setFundingStatus(() => result.funding)
         saveAndUpdate({
           ...offer,
           escrow: result.escrow,

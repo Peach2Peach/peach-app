@@ -168,7 +168,6 @@ const App: React.FC = () => {
             }
             <View style={tw`h-full flex-shrink`}>
               <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                console.log(state ? state.routes.map(r => r.name) : 'nthn')
                 if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
               }}>
                 <Stack.Navigator detachInactiveScreens={true} screenOptions={{

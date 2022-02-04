@@ -20,7 +20,7 @@ import Escrow from './Escrow'
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/accountUtils'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
 import { sha256 } from '../../utils/cryptoUtils'
@@ -123,24 +123,29 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
+  const isFocused = useIsFocused()
 
-  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultSellOffer)
+  const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(0)
 
-  const [page, setPage] = useState(route.params?.page
-    || offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
   const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  useFocusEffect(() => {
-    // TODO performance, figure out why this fires 3-4 times
+  useEffect(() => {
+    if (!isFocused) return
+
     setOffer(() => route.params?.offer || defaultSellOffer)
-    setPage(() => route.params?.page
-    || offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
-  })
+    setPage(() => {
+      const offr = route.params?.offer || defaultSellOffer
+      const p = route.params?.page
+        || offr.offerId ? screens.findIndex(s => s.id === 'escrow') : 0
+      return p
+    })
+  }, [isFocused])
 
   const next = async (): Promise<void> => {
     if (screens[page + 1].id === 'escrow') {
@@ -156,7 +161,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (result) {
         saveOffer({ ...offer, offerId: result.offerId })
-        setOffer({ ...offer, offerId: result.offerId })
+        setOffer(() => ({ ...offer, offerId: result.offerId }))
       } else {
         error('Error', err)
         updateMessage({
