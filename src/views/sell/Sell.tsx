@@ -124,25 +124,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
+  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(route.params?.page
+    || offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
   const { subtitle, scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
   useFocusEffect(() => {
-    setOffer(route.params?.offer || defaultSellOffer)
-    setPage(route.params?.page
-      || offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
-    return () => {
-      setOffer(defaultSellOffer)
-      setPage(0)
-    }
+    // TODO performance, figure out why this fires 3-4 times
+    setOffer(() => route.params?.offer || defaultSellOffer)
+    setPage(() => route.params?.page
+    || offer.offerId ? screens.findIndex(s => s.id === 'escrow') : 0)
   })
+
   const next = async (): Promise<void> => {
     if (screens[page + 1].id === 'escrow') {
       const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
