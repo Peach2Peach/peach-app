@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { BitcoinAddress, Text } from '../../components'
+import { BitcoinAddress, Button, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { createEscrow, getFundingStatus } from '../../utils/peachAPI'
@@ -12,16 +12,20 @@ import { saveOffer } from '../../utils/accountUtils'
 import { error, info } from '../../utils/logUtils'
 import { MessageContext } from '../../utils/messageUtils'
 
+const defaultFunding: FundingStatus = {
+  confirmations: 0,
+  status: 'NULL',
+  amount: 0
+}
+
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [escrow, setEscrow] = useState(offer.escrow || '')
-  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || {
-    confirmations: 0,
-    status: 'NULL'
-  })
+  const [fundingError, setFundingError] = useState('')
+  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
 
   const saveAndUpdate = (offerData: SellOffer) => {
     updateOffer(offerData)
@@ -41,6 +45,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         ...offer,
         funding: result.funding,
       })
+
+      if (result.error) setFundingError(result.error)
     }
   }
 
@@ -51,16 +57,13 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useEffect(() => {
     // workaround to update escrow status if offer changes
     setEscrow(() => offer.escrow || '')
-    setFundingStatus(() => offer.funding || {
-      confirmations: 0,
-      status: 'NULL'
-    })
+    setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.offerId])
 
   useEffect(() => {
     let interval: NodeJS.Timer
     (async () => {
-      interval = setInterval(checkFundingStatus, 60 * 1000)
+      interval = setInterval(checkFundingStatus, 20 * 1000)
 
       checkFundingStatus()
     })()
@@ -98,8 +101,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }, [])
 
   return <View style={tw`mt-16`}>
-    {fundingStatus
+    {fundingStatus && !fundingError
       ? <View>
+        <Text>Send: {Math.round(offer.amount * (1 + offer.premium / 100))} sats to</Text>
         <BitcoinAddress
           style={tw`my-4`}
           address={escrow}
@@ -108,8 +112,20 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         <Text>Confirmations: {fundingStatus.confirmations}</Text>
         <Text>Status: {fundingStatus.status}</Text>
       </View>
-      // TODO: create escrow not found error message here
-      : <Text>404 Escrow not found</Text>
+      : fundingError && fundingError === 'WRONG_FUNDING_AMOUNT'
+        ? <View style={tw`flex justify-center items-center`}>
+          <Text>
+            {i18n('error.WRONG_FUNDING_AMOUNT')}
+          </Text>
+          <Button
+            style={tw`mt-6`}
+            wide={false}
+            onPress={() => {}} // TODO add refunding logic
+            title={i18n('refund')}
+          />
+        </View>
+        // TODO: create escrow not found error message here
+        : <Text>404 Escrow not found</Text>
     }
   </View>
 }

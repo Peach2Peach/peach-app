@@ -21,7 +21,8 @@ declare type PaymentMethod = 'sepa'
 declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED'
-  confirmations?: number
+  confirmations?: number,
+  amount
 }
 declare type PeachPairInfo = {
   pair: TradingPair,
@@ -57,5 +58,6 @@ declare type CreateEscrowResponse = {
 declare type FundingStatusResponse = {
   offerId: number,
   escrow: string,
-  funding: FundingStatus
+  funding: FundingStatus,
+  error?: 'WRONG_FUNDING_AMOUNT',
 }
