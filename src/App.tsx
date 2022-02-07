@@ -28,9 +28,11 @@ import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
-import { account, createAccount, deleteAccount, getAccount } from './utils/accountUtils'
+import { account, getAccount } from './utils/accountUtils'
 import { initSession, session } from './utils/sessionUtils'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
+import Overlay from './components/Overlay'
+import { getOverlay, OverlayContext, setOverlay } from './utils/overlayUtils'
 
 enableScreens()
 
@@ -60,25 +62,12 @@ const views: ViewType[] = [
  * @param navigationRef reference to navigation
  */
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
-  // try {
-  //   await createAccount({
-  //     acc: { settings: {} },
-  //     password: 'password',
-  //     onSuccess: () => {},
-  //     onError: () => {}
-  //   }) // TODO remove again
-  //   await deleteAccount({
-  //     onSuccess: () => {},
-  //     onError: () => {}
-  //   }) // TODO remove again
-  // } catch {}
-
   const { password } = await initSession()
   if (password) await getAccount(password)
   setTimeout(() => {
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
       if (account?.settings?.skipTutorial) {
-        navigationRef.navigate('home')
+        navigationRef.navigate('home', {})
       } else {
         navigationRef.navigate('welcome')
       }
@@ -129,6 +118,7 @@ const bitcoinContextEffect = (
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [{ overlayContent }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = GetWindowDimensions()
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -150,40 +140,46 @@ const App: React.FC = () => {
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
         <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
-          <View style={tw`h-full flex-col`}>
-            {account?.settings?.skipTutorial
-              ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
-              : <View style={[
-                tw`absolute top-10 right-4 z-20`,
-                !session.initialized ? tw`hidden` : {}
-              ]}>
-                <LanguageSelect locale={locale} setLocale={setLocale} />
-              </View>
-            }
-            {msg
-              ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                <Message msg={msg} level={level} style={{ minHeight: 60 }} />
-              </Animated.View>
-              : null
-            }
-            <View style={tw`h-full flex-shrink`}>
-              <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
-              }}>
-                <Stack.Navigator detachInactiveScreens={true} screenOptions={{
-                  detachPreviousScreen: true,
-                  headerShown: false,
-                  cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
+          <OverlayContext.Provider value={[{ overlayContent }, updateOverlay]}>
+            <View style={tw`h-full flex-col`}>
+              {account?.settings?.skipTutorial
+                ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
+                : <View style={[
+                  tw`absolute top-10 right-4 z-20`,
+                  !session.initialized ? tw`hidden` : {}
+                ]}>
+                  <LanguageSelect locale={locale} setLocale={setLocale} />
+                </View>
+              }
+              {msg
+                ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
+                  <Message msg={msg} level={level} style={{ minHeight: 60 }} />
+                </Animated.View>
+                : null
+              }
+              {overlayContent
+                ? <Overlay content={overlayContent} />
+                : null
+              }
+              <View style={tw`h-full flex-shrink`}>
+                <NavigationContainer ref={navigationRef} onStateChange={(state) => {
+                  if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
                 }}>
-                  {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
-                </Stack.Navigator>
-              </NavigationContainer>
+                  <Stack.Navigator detachInactiveScreens={true} screenOptions={{
+                    detachPreviousScreen: true,
+                    headerShown: false,
+                    cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
+                  }}>
+                    {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
+                  </Stack.Navigator>
+                </NavigationContainer>
+              </View>
+              {account?.settings?.skipTutorial
+                ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+                : null
+              }
             </View>
-            {account?.settings?.skipTutorial
-              ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
-              : null
-            }
-          </View>
+          </OverlayContext.Provider>
         </MessageContext.Provider>
       </BitcoinContext.Provider>
     </LanguageContext.Provider>

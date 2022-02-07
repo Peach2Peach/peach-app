@@ -14,8 +14,8 @@ export const MessageContext = createContext([
 ] as const)
 
 /**
- * @description Method to get error message
- * @returns error message
+ * @description Method to get message
+ * @returns message
  */
 export const getMessage = (): MessageState => ({
   msg,
@@ -24,10 +24,10 @@ export const getMessage = (): MessageState => ({
 })
 
 /**
- * @description Method to set error
+ * @description Method to set message
  * @param state the state object (can be ignored)
  * @param newState the new state object
- * @returns i18n state
+ * @returns message state
  */
 export const setMessage = (state: ReducerState<any>, newState: MessageState): MessageState => {
   msg = newState.msg

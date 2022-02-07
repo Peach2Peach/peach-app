@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
-  Image,
   Pressable,
   ScrollView,
   View
@@ -9,8 +8,6 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Text } from '../../components'
-import Icon from '../../components/Icon'
 import BitcoinContext from '../../components/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
@@ -24,6 +21,7 @@ import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
 import { sha256 } from '../../utils/cryptoUtils'
+import Navigation from './components/Navigation'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -33,16 +31,6 @@ type Props = {
     page?: number,
   } }>,
   navigation: ProfileScreenNavigationProp,
-}
-type HeadProps = {
-  subtitle?: string|null
-}
-type NavigationProps = {
-  screen: string,
-  back: () => void,
-  next: () => void,
-  stepValid: boolean,
-  loading: boolean,
 }
 
 export type SellViewProps = {
@@ -66,57 +54,25 @@ const screens = [
   {
     id: 'main',
     view: Main,
-    subtitle: 'sell.subtitle',
     scrollable: false
   },
   {
     id: 'offerDetails',
     view: OfferDetails,
-    subtitle: null,
     scrollable: true
   },
   {
     id: 'summary',
     view: Summary,
-    subtitle: 'sell.summary.subtitle',
     scrollable: false
   },
   {
     id: 'escrow',
     view: Escrow,
-    subtitle: 'sell.escrow.subtitle',
     scrollable: false
   },
 ]
 
-export const Head = ({ subtitle }: HeadProps): ReactElement => <View style={tw`flex items-center`}>
-  <Image source={require('../../../assets/favico/peach-logo.png')} style={tw`w-12 h-12`}/>
-  <Text style={tw`font-baloo text-center text-4xl leading-5xl text-peach-1 mt-3`}>
-    {i18n('sell.title')}
-  </Text>
-  {subtitle
-    ? <Text style={tw`text-center leading-6 text-grey-2 -mt-4`}>
-      {i18n(subtitle)}
-    </Text>
-    : null
-  }
-</View>
-
-const Navigation = ({ screen, back, next, stepValid, loading }: NavigationProps): ReactElement =>
-  <View style={tw`mb-8 w-full flex items-center`}>
-    {!/main|escrow/u.test(screen)
-      ? <Pressable style={tw`absolute left-0 z-10`} onPress={back}>
-        <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
-      </Pressable>
-      : null
-    }
-    <Button
-      style={!stepValid || loading ? tw`opacity-50` : {}}
-      wide={false}
-      onPress={stepValid || loading ? next : () => {}}
-      title={i18n('next')}
-    />
-  </View>
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
@@ -132,7 +88,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
-  const { subtitle, scrollable } = screens[page]
+  const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
   useEffect(() => {
@@ -187,7 +143,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     <View style={tw`h-full flex-shrink`}>
       <ScrollView ref={scroll} style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
-          <Head subtitle={subtitle}/>
           {CurrentView
             ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
             : null

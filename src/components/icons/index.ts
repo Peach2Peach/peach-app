@@ -8,6 +8,7 @@ import copy from './copy.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
+import help from './help.svg'
 import offers from './offers.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
@@ -30,6 +31,7 @@ const Icons: Icons = {
   dropdownClosed,
   dropdownOpen,
   file,
+  help,
   offers,
   selectClosed,
   selectOpen,

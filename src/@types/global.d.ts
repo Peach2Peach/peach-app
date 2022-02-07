@@ -1,7 +1,10 @@
-declare type MessageState {
+declare type MessageState = {
   msg: string,
   level: Level,
-  time?: number
+  time?: number,
+}
+declare type OverlayState = {
+  overlayContent: ReactNode,
 }
 declare type BitcoinContextType = {
   currency: Currency,
