@@ -3,50 +3,22 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { BitcoinAddress, Button, Text } from '../../components'
+import { Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { saveOffer } from '../../utils/accountUtils'
 import { MessageContext } from '../../utils/messageUtils'
-import { PEACHFEE } from '../../constants'
 import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
+import Refund from './components/Refund'
+import FundingView from './components/FundingView'
+import NoEscrowFound from './components/NoEscrowFound'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
   status: 'NULL',
   amount: 0
 }
-
-type FundingViewProps = {
-  offer: SellOffer,
-  escrow: string,
-  fundingStatus: FundingStatus,
-}
-const FundingView = ({ offer, escrow, fundingStatus }: FundingViewProps): ReactElement => <View>
-  <Text>Send: {Math.round(offer.amount * (1 + PEACHFEE / 100))} sats to</Text>
-  <BitcoinAddress
-    style={tw`my-4`}
-    address={escrow}
-    showQR={true}
-  />
-  <Text>Confirmations: {fundingStatus.confirmations}</Text>
-  <Text>Status: {fundingStatus.status}</Text>
-</View>
-const Refund = () => <View style={tw`flex justify-center items-center`}>
-  <Text>
-    {i18n('error.WRONG_FUNDING_AMOUNT')}
-  </Text>
-  <Button
-    style={tw`mt-6`}
-    wide={false}
-    onPress={() => {}} // TODO add refunding logic
-    title={i18n('refund')}
-  />
-</View>
-
-// TODO: create escrow not found error message here
-const NoEscrowFound = () => <Text>404 Escrow not found</Text>
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
