@@ -1,3 +1,4 @@
+export const PEACHFEE = 1.5 // TODO fetch fee from API
 export const CURRENCIES: Currency[] = [
   'EUR',
   'CHF',

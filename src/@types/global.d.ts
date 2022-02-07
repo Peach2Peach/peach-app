@@ -1,3 +1,8 @@
+declare type MessageState {
+  msg: string,
+  level: Level,
+  time?: number
+}
 declare type BitcoinContextType = {
   currency: Currency,
   price: number,

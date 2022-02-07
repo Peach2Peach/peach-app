@@ -8,12 +8,6 @@ let time: number = 0
 
 const dispatch: Dispatch<MessageState> = () => {}
 
-interface MessageState {
-  msg: string,
-  level: Level,
-  time?: number
-}
-
 export const MessageContext = createContext([
   { msg, level: level as Level },
   dispatch

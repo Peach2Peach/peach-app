@@ -55,9 +55,10 @@ declare type CreateEscrowResponse = {
   escrow: string,
   funding: FundingStatus
 }
+declare type FundingError = '' | 'WRONG_FUNDING_AMOUNT'
 declare type FundingStatusResponse = {
   offerId: number,
   escrow: string,
   funding: FundingStatus,
-  error?: 'WRONG_FUNDING_AMOUNT',
+  error?: FundingError,
 }
