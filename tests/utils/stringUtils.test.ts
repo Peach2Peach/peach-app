@@ -1,5 +1,5 @@
-import { strictEqual } from 'assert'
-import { padString, thousands } from '../../src/utils/stringUtils'
+import { deepStrictEqual, strictEqual } from 'assert'
+import { padString, splitAt, thousands } from '../../src/utils/stringUtils'
 
 describe('padString', () => {
   it('pads string to a specific length', () => {
@@ -7,6 +7,21 @@ describe('padString', () => {
     strictEqual(padString({ string: '1', length: 4, char: 'x' }), 'xxx1')
     strictEqual(padString({ string: '1', length: 4, char: 'x', side: 'left' }), 'xxx1')
     strictEqual(padString({ string: '1', length: 4, char: 'x', side: 'right' }), '1xxx')
+  })
+})
+
+describe('splitAt', () => {
+  it('splits a string into two at a given index', () => {
+    deepStrictEqual(splitAt('abcdef', 0), ['', 'abcdef'])
+    deepStrictEqual(splitAt('abcdef', 1), ['a', 'bcdef'])
+    deepStrictEqual(splitAt('abcdef', 2), ['ab', 'cdef'])
+    deepStrictEqual(splitAt('abcdef', 5), ['abcde', 'f'])
+    deepStrictEqual(splitAt('abcdef', 6), ['abcdef', ''])
+    deepStrictEqual(splitAt('abcdef', 7), ['abcdef', ''])
+    deepStrictEqual(splitAt('abcdef', -1), ['abcde', 'f'])
+    deepStrictEqual(splitAt('abcdef', -2), ['abcd', 'ef'])
+    deepStrictEqual(splitAt('abcdef', -6), ['', 'abcdef'])
+    deepStrictEqual(splitAt('abcdef', -7), ['', 'abcdef'])
   })
 })
 

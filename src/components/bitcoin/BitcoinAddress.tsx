@@ -1,10 +1,13 @@
 
 import React, { ReactElement } from 'react'
-import { View, ViewStyle } from 'react-native'
+import Clipboard from '@react-native-clipboard/clipboard'
+import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import QRCode from 'react-native-qrcode-svg'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
 import { Card, Text } from '..'
+import Icon from '../Icon'
+import { splitAt } from '../../utils/stringUtils'
 
 interface BitcoinAddressProps {
   address: string,
@@ -21,8 +24,15 @@ interface BitcoinAddressProps {
  * @example
  * <BitcoinAddress address={'1BitcoinEaterAddressDontSendf59kuE'} />
  */
-export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps): ReactElement =>
-  <View style={[tw`flex-col items-center`, style]}>
+export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps): ReactElement => {
+  const addressParts = {
+    one: address.slice(0, 8),
+    two: address.slice(8, -5),
+    three: address.slice(-5),
+  }
+  addressParts.two = splitAt(addressParts.two, Math.floor(addressParts.two.length / 2) - 2).join('\n')
+
+  return <View style={[tw`flex-col items-center`, style]}>
     {showQR && address
       ? <Card style={tw`p-4`}>
         <QRCode
@@ -33,13 +43,22 @@ export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps):
       </Card>
       : null
     }
-    <Text style={showQR ? tw`mt-4` : {}}>
-      {address.slice(0, 8)}
-      <Text style={tw`text-grey-2`}>
-        {address.slice(8, -5)}
+    <View style={[
+      tw`flex-row items-center`,
+      showQR ? tw`mt-4` : {}
+    ]}>
+      <Text>
+        {addressParts.one}
+        <Text style={tw`text-grey-2 leading-6`}>
+          {addressParts.two}
+        </Text>
+        {addressParts.three}
       </Text>
-      {address.slice(-5)}
-    </Text>
+      <Pressable onPress={() => Clipboard.setString(address)}>
+        <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
+      </Pressable>
+    </View>
   </View>
+}
 
 export default BitcoinAddress

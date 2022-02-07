@@ -3,8 +3,8 @@ type Side = 'left' | 'right'
 type PadStringProps = {
   string: string,
   length: number,
-  char: string,
-  side: Side
+  char?: string,
+  side?: Side
 }
 
 /**
