@@ -38,6 +38,7 @@ declare type SellOffer = Offer & {
   kyc: boolean;
   kycType?: KYCType;
   returnAddress?: string;
+  depositAddress?: string;
   escrow?: string,
   funding?: FundingStatus
 }

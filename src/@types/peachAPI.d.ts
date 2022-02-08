@@ -22,6 +22,7 @@ declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED'
   confirmations?: number,
+  txId?: string,
   amount
 }
 declare type PeachPairInfo = {
@@ -61,4 +62,5 @@ declare type FundingStatusResponse = {
   escrow: string,
   funding: FundingStatus,
   error?: FundingError,
+  returnAddress?: string
 }

@@ -22,6 +22,7 @@ import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
 import { sha256 } from '../../utils/cryptoUtils'
 import Navigation from './components/Navigation'
+import ReturnAddress from './ReturnAddress'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -37,6 +38,8 @@ export type SellViewProps = {
   offer: SellOffer,
   updateOffer: (data: SellOffer) => void,
   setStepValid: (isValid: boolean) => void,
+  back: () => void,
+  next: () => void,
 }
 
 export const defaultSellOffer: SellOffer = {
@@ -69,6 +72,11 @@ const screens = [
   {
     id: 'escrow',
     view: Escrow,
+    scrollable: false
+  },
+  {
+    id: 'returnAddress',
+    view: ReturnAddress,
     scrollable: false
   },
 ]
@@ -144,15 +152,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       <ScrollView ref={scroll} style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {CurrentView
-            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} />
+            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />
             : null
           }
         </View>
         {scrollable
-          ? <Navigation
-            screen={currentScreen.id}
-            back={back} next={next}
-            loading={loading} stepValid={stepValid} />
+          ? <View style={tw`mb-8`}>
+            <Navigation
+              screen={currentScreen.id}
+              back={back} next={next}
+              loading={loading} stepValid={stepValid} />
+          </View>
           : null
         }
       </ScrollView>

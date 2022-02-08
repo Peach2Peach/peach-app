@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Headline, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { saveOffer } from '../../utils/accountUtils'
@@ -16,6 +15,7 @@ import NoEscrowFound from './components/NoEscrowFound'
 import Title from './components/Title'
 import { PEACHFEE } from '../../constants'
 import { thousands } from '../../utils/stringUtils'
+import EscrowHelp from './components/EscrowHelp'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -23,31 +23,9 @@ const defaultFunding: FundingStatus = {
   amount: 0
 }
 
-type EscrowHelpProps = {
-  fees: number
-}
-const EscrowHelp = ({ fees }: EscrowHelpProps): ReactElement => <View>
-  <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-    {i18n('escrow.help.title')}
-  </Headline>
-  <Text style={tw`text-center text-white-1 mt-3`}>
-    {i18n('escrow.help.description.intro')}
-  </Text>
-  <Text style={tw`text-center text-white-1`}>
-    {i18n('escrow.help.description.1')}
-  </Text>
-  <Text style={tw`text-center text-white-1`}>
-    {i18n('escrow.help.description.2', String(PEACHFEE), thousands(fees))}
-  </Text>
-  <Text style={tw`text-center text-white-1`}>
-    {i18n('escrow.help.description.3')}
-  </Text>
-</View>
-
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-
   const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
@@ -70,12 +48,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         funding: result.funding,
       })
     },
-    onError: () => {
-      updateMessage({
-        msg: i18n('error.createEscrow'),
-        level: 'ERROR',
-      })
-    }
+    onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
   }), [])
 
   useEffect(checkFundingStatusEffect({
@@ -85,6 +58,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       saveAndUpdate({
         ...offer,
         funding: result.funding,
+        returnAddress: result.returnAddress,
+        depositAddress: offer.depositAddress || result.returnAddress,
       })
       setFundingError(() => result.error || '')
     },
@@ -94,20 +69,22 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }), [offer.offerId])
 
   useEffect(() => {
-    if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) setStepValid(true)
+    if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
+      setStepValid(true)
+      next()
+    }
   }, [fundingStatus])
 
-  useEffect(() => {
-    // workaround to update escrow status if offer changes
+  useEffect(() => { // workaround to update escrow status if offer changes
+    setStepValid(false)
     setEscrow(() => offer.escrow || '')
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.offerId])
 
   return <View style={tw`mt-16`}>
     <Title subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))} help={<EscrowHelp fees={fees}/>} />
-
     {fundingStatus && !fundingError
-      ? <FundingView escrow={escrow} fundingStatus={fundingStatus} />
+      ? <FundingView escrow={escrow} />
       : fundingError && fundingError === 'WRONG_FUNDING_AMOUNT'
         ? <Refund />
         : <NoEscrowFound />

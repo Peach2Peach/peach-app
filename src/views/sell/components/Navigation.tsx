@@ -13,8 +13,12 @@ type NavigationProps = {
   loading: boolean,
 }
 
-export default ({ screen, back, next, stepValid, loading }: NavigationProps): ReactElement =>
-  <View style={tw`mb-8 w-full flex items-center`}>
+export default ({ screen, back, next, stepValid, loading }: NavigationProps): ReactElement => {
+  const buttonText = screen === 'escrow' && !stepValid
+    ? i18n('sell.escrow.fundToContinue')
+    : i18n('next')
+
+  return <View style={tw`w-full flex items-center`}>
     {!/main|escrow/u.test(screen)
       ? <Pressable style={tw`absolute left-0 z-10`} onPress={back}>
         <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
@@ -25,6 +29,7 @@ export default ({ screen, back, next, stepValid, loading }: NavigationProps): Re
       style={!stepValid || loading ? tw`opacity-50` : {}}
       wide={false}
       onPress={stepValid || loading ? next : () => {}}
-      title={i18n('next')}
+      title={buttonText}
     />
   </View>
+}
