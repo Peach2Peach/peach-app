@@ -26,6 +26,7 @@ declare type PaymentData = {
 
 declare type Offer = {
   offerId?: number,
+  published: boolean,
   amount: number,
   currencies: Currency[],
 }

@@ -23,6 +23,7 @@ import { error } from '../../utils/logUtils'
 import { sha256 } from '../../utils/cryptoUtils'
 import Navigation from './components/Navigation'
 import ReturnAddress from './ReturnAddress'
+import Search from './Search'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -44,6 +45,7 @@ export type SellViewProps = {
 
 export const defaultSellOffer: SellOffer = {
   type: 'ask',
+  published: false,
   premium: 1.5,
   currencies: [],
   paymentData: [],
@@ -79,8 +81,20 @@ const screens = [
     view: ReturnAddress,
     scrollable: false
   },
+  {
+    id: 'search',
+    view: Search,
+    scrollable: false
+  },
 ]
 
+
+const getInitialPageForOffer = (offer: SellOffer) =>
+  offer.published
+    ? screens.findIndex(s => s.id === 'search')
+    : offer.offerId
+      ? screens.findIndex(s => s.id === 'escrow')
+      : 0
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
@@ -103,12 +117,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!isFocused) return
 
     setOffer(() => route.params?.offer || defaultSellOffer)
-    setPage(() => {
-      const offr = route.params?.offer || defaultSellOffer
-      const p = route.params?.page
-        || offr.offerId ? screens.findIndex(s => s.id === 'escrow') : 0
-      return p
-    })
+    setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultSellOffer))
   }, [isFocused])
 
   const next = async (): Promise<void> => {
@@ -136,6 +145,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
     }
+    if (screens[page + 1].id === 'search' && !offer.published) {
+      saveOffer({ ...offer, published: true })
+      setOffer(() => ({ ...offer, published: true }))
+    }
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
@@ -149,7 +162,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <ScrollView ref={scroll} style={tw`pt-6 overflow-visible`}>
+      <ScrollView ref={scroll} contentContainerStyle={tw`h-full pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {CurrentView
             ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />
@@ -160,7 +173,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
-              back={back} next={next}
+              back={back} next={next} navigation={navigation}
               loading={loading} stepValid={stepValid} />
           </View>
           : null
@@ -170,7 +183,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     {!scrollable
       ? <Navigation
         screen={currentScreen.id}
-        back={back} next={next}
+        back={back} next={next} navigation={navigation}
         loading={loading} stepValid={stepValid} />
       : null
     }

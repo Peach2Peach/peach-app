@@ -190,3 +190,36 @@ export const getFundingStatus = async ({
     return [null, { error: err }]
   }
 }
+
+
+/**
+ * @description Method to get offer of user
+ * @returns GetOffersResponse
+ */
+export const getMatches = async ({
+  offerId
+}: GetFundingStatusProps): Promise<[GetMatchesResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  try {
+    return [await response.json(), null]
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+
+    error('peachAPI - getMatches', e)
+
+    return [null, { error: err }]
+  }
+}

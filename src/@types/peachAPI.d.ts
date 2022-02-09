@@ -8,6 +8,11 @@ declare type APIError = {
   error: string
 }
 
+declare type User = {
+  id: string,
+  rating: number
+}
+
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
 declare type Buckets = {
@@ -31,7 +36,7 @@ declare type PeachPairInfo = {
 }
 declare type Offer = {
   offerId: number,
-  userId: number,
+  userId: number, // TODO review why we have a userId of type number again?
   publicKey: string,
   type: 'bid' | 'ask',
   amount: number,
@@ -63,4 +68,14 @@ declare type FundingStatusResponse = {
   funding: FundingStatus,
   error?: FundingError,
   returnAddress?: string
+}
+
+declare type Match = {
+  user: User,
+  price: number,
+  currency: Currency,
+}
+declare type GetMatchesResponse = {
+  offerId: number,
+  matches: Match[]
 }
