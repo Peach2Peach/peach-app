@@ -112,7 +112,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [isFocused])
 
   const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'escrow') {
+    if (screens[page + 1].id === 'escrow' && !offer.offerId) {
       const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
 
       setLoading(true)

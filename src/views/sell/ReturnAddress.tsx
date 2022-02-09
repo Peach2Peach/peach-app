@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -27,7 +27,7 @@ const cutOffAddress = (address: string) => {
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
 
   let $address: any
@@ -50,7 +50,6 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
   }
 
   useEffect(() => {
-    console.log('address', address)
     setShortAddress(cutOffAddress(address || offer.depositAddress || ''))
     validate({
       address: {
@@ -58,7 +57,12 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
         bitcoinAddress: true
       }
     })
-    if (!isFormValid()) return
+    if (!isFormValid()) {
+      setStepValid(false)
+      return
+    }
+
+    setStepValid(true)
 
     updateOffer({
       ...offer,

@@ -50,6 +50,7 @@
   "sell.kyc.id": "Government ID scan",
   "sell.escrow.subtitle": "Send $0 sats to the\nescrow to publish your offer",
   "sell.escrow.fundToContinue": "Fund to continue",
+  "lookForAMatch": "Look for a match!",
   "sell.returnAddress.useDepositAddress": "Use deposit address for returns",
   "escrow.help.title": "Peach escrow",
   "escrow.help.description.intro": "The amount you send here consists of:",

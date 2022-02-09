@@ -16,7 +16,9 @@ type NavigationProps = {
 export default ({ screen, back, next, stepValid, loading }: NavigationProps): ReactElement => {
   const buttonText = screen === 'escrow' && !stepValid
     ? i18n('sell.escrow.fundToContinue')
-    : i18n('next')
+    : screen === 'returnAddress'
+      ? i18n('lookForAMatch')
+      : i18n('next')
 
   return <View style={tw`w-full flex items-center`}>
     {!/main|escrow/u.test(screen)
