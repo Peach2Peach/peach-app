@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import {
+  Pressable,
   ScrollView,
   View
 } from 'react-native'
@@ -8,6 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
+import { account } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
@@ -20,18 +22,18 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <ScrollView>
     <View style={tw`pb-32`}>
-      <View style={tw`flex-col justify-center h-full`}>
+      <View>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
           Offers
         </Text>
       </View>
-      <View style={tw`mt-4`}>
-        <Button
-          secondary={true}
-          onPress={() => navigation.goBack()}
-          title="Back"
-        />
-      </View>
+      {account.offers.map(offer => <View key={offer.offerId}>
+        <Pressable onPress={() => navigation.navigate('sell', { offer })}>
+          <Text>
+            {offer.offerId} - {offer.type} -  {offer.amount}
+          </Text>
+        </Pressable>
+      </View>)}
     </View>
   </ScrollView>
 }

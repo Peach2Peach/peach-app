@@ -4,30 +4,35 @@ import CryptoJS from 'react-native-crypto-js'
 import RNFS from './fileSystem/RNFS'
 import Share from './fileSystem/Share'
 import EncryptedStorage from 'react-native-encrypted-storage'
-import { createWallet } from './bitcoinUtils'
+import { createWallet, getMainAddress, setWallet } from './walletUtils'
 import * as peachAPI from './peachAPI'
-
-export type Session = {
-  initialized: boolean
-  password?: string
-}
+import { getSession, session } from './sessionUtils'
 
 type Settings = {
-  skipTutorial?: boolean
+  skipTutorial?: boolean,
+  amount?: number,
+  currencies?: Currency[],
+  premium?: number,
+  kyc?: boolean,
+  kycType?: KYCType,
 }
 
 export type Account = {
   publicKey?: string,
   privKey?: string,
-  settings: Settings
+  mnemonic?: string,
+  settings: Settings,
+  paymentData: PaymentData[],
+  offers: SellOffer[],
 }
 
-export let session: Session = {
-  initialized: false
+const defaultAccount: Account = {
+  settings: {},
+  paymentData: [],
+  offers: [],
 }
-export let account: Account = {
-  settings: {}
-}
+
+export let account = defaultAccount
 
 interface CreateAccountProps {
   acc?: Account|null,
@@ -36,38 +41,27 @@ interface CreateAccountProps {
   onError: Function
 }
 
-const setSession = (sess: Session) => session = {
-  ...sess,
-  initialized: true
-}
-export const getSession = () => session
-
 /**
- * @description Method to initialise local user session from encrypted storage
+ * @description Method to set account for app session
+ * @param acc account
  */
-export const initSession = async (): Promise<Session> => {
-  try {
-    const result = await EncryptedStorage.getItem('session') as string
-
-    if (result) {
-      setSession(JSON.parse(result))
-      return session
-    }
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('Session could not be retrieved', err)
+const setAccount = async (acc: Account) => {
+  account = {
+    ...defaultAccount,
+    ...acc
   }
 
-  return session
+  const { wallet } = await createWallet(account.mnemonic) // TODO add error handling
+  setWallet(wallet)
+
+  const firstAddress = getMainAddress(wallet)
+
+  const [result, apiError] = await peachAPI.userAuth(firstAddress)
+
+  if (apiError?.error) {
+    info('Create account APIERROR', apiError.error)
+  }
 }
-
-
-const setAccount = (acc: Account) => account = acc
 
 /**
  * @description Method to get account
@@ -118,6 +112,7 @@ export const getAccount = async (password: string): Promise<Account> => {
  * @param onError callback on error
  * @returns promise resolving to encrypted account
  */
+// eslint-disable-next-line max-statements
 export const createAccount = async ({
   acc,
   password = '',
@@ -128,22 +123,25 @@ export const createAccount = async ({
 
   info('Create account', acc, password)
   if (!acc || typeof acc !== 'object') {
-    const wallet = await createWallet() // TODO add error handling
-    const firstAddress = wallet.derivePath('m/45/0/0/0')
+    const { wallet, mnemonic } = await createWallet() // TODO add error handling
+    setWallet(wallet)
+    const firstAddress = wallet.derivePath("m/48'/0'/0'/0'") // eslint-disable-line quotes
 
     account = {
+      ...defaultAccount,
       publicKey: firstAddress.publicKey.toString('hex'),
       privKey: (wallet.privateKey as Buffer).toString('hex'),
-      settings: {}
+      mnemonic,
     }
-    const result = await peachAPI.userAuth(firstAddress)
+
+    const [result, apiError] = await peachAPI.userAuth(firstAddress)
 
     info('Create account RESULT', result)
 
-    if ((<APIError>result).error) {
-      info('Create account APIERROR', acc, password, (<APIError>result).error)
+    if (apiError?.error) {
+      info('Create account APIERROR', apiError.error)
 
-      return onError((<APIError>result).error)
+      return onError(apiError.error)
     }
   } else {
     account = acc
@@ -191,6 +189,38 @@ export const updateSettings = (options: Settings): void => {
     ...account.settings,
     ...options
   }
+  if (session.password) saveAccount(session.password)
+}
+
+/**
+ * @description Method to check whether offer exists in account
+ * @param offer the offer
+ * @returns true if offer exists
+ */
+const offerExists = (id: number): boolean => account.offers.some(o => o.offerId === id)
+
+/**
+ * @description Method to add offer to offer list
+ * @param offer the offer
+ */
+export const saveOffer = (offer: SellOffer): void => {
+  if (!offer.offerId) throw new Error('offerId is required')
+
+  if (offerExists(offer.offerId)) {
+    const index = account.offers.findIndex(o => o.offerId === offer.offerId)
+    account.offers[index] = offer
+  } else {
+    account.offers.push(offer)
+  }
+  if (session.password) saveAccount(session.password)
+}
+
+/**
+ * @description Method to update account payment data
+ * @param paymentData settings to update
+ */
+export const updatePaymentData = (paymentData: PaymentData[]): void => {
+  account.paymentData = paymentData
   if (session.password) saveAccount(session.password)
 }
 

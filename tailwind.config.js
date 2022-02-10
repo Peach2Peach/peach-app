@@ -24,8 +24,9 @@ module.exports = {
         },
         peach: {
           1: '#F57940',
-          2: '#db6c39',
-          translucent: '#F57940BB'
+          2: '#DB6C39',
+          translucent: '#F57940BB',
+          'translucent-2': '#F57940FA'
         },
         green: '#0AE557',
         red: '#E43B5F',
@@ -57,6 +58,16 @@ module.exports = {
       },
       minHeight: {
         '10': '40px'
+      },
+      width: {
+        '1/8': '12.5%',
+        '2/8': '25%',
+        '3/8': '37.5%',
+        '4/8': '50%',
+        '5/8': '62.5%',
+        '6/8': '75%',
+        '7/8': '87.5%',
+        '8/8': '100%',
       }
     },
     fontFamily: {

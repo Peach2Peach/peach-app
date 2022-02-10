@@ -2,11 +2,20 @@ import { deepStrictEqual, ok } from 'assert'
 import { Account, createAccount, getAccount } from '../../src/utils/accountUtils'
 import CryptoJS from 'react-native-crypto-js'
 
-jest.mock('../../src/utils/peachAPI.ts')
+jest.mock('../../src/utils/peachAPI', () => {
+  const mockedModule = jest.requireActual(
+    '../../src/utils/__mocks__/peachAPI'
+  )
+  return {
+    ...mockedModule,
+  }
+})
 
 const recoveredAccount: Account = {
   publicKey: 'Recovered Account',
-  settings: {}
+  paymentData: [],
+  offers: [],
+  settings: {},
 }
 
 const password = 'supersecret'

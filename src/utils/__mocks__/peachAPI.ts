@@ -10,4 +10,5 @@ const accessToken: AccessToken = {
  * @param keyPair key pair needed for authentication
  * @returns AccessToken or APIError
  */
-export const userAuth = async (keyPair: BIP32Interface): Promise<AccessToken|APIError> => accessToken
+export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> =>
+  [accessToken, null]

@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react'
+import React, { ComponentType, ReactElement, Ref } from 'react'
 import {
   Pressable,
-  View
+  View,
+  ViewStyle
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
@@ -15,11 +16,16 @@ interface InputProps {
   label?: string,
   icon?: string,
   autoCorrect?: boolean
+  disabled?: boolean
   isValid?: boolean,
   errorMessage?: string[]
   onChange?: Function,
   onSubmit?: Function,
-  secureTextEntry?: boolean
+  onFocus?: Function,
+  onBlur?: Function,
+  secureTextEntry?: boolean,
+  style?: ViewStyle|ViewStyle[]
+  reference?: Ref<ComponentType<any>>,
 }
 
 /**
@@ -29,11 +35,15 @@ interface InputProps {
  * @param [props.label] input label
  * @param [props.icon] icon id
  * @param [props.autoCorrect] if true, enable autocorrect on input field
+ * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
+ * @param [props.onFocus] onFocus handler from outside
+ * @param [props.onBlur] onBlur handler from outside
  * @param [props.secureTextEntry] if true hide input
+ * @param [props.style] css style object
  * @example
  * <Input
  *   onChange={setAddress}
@@ -49,26 +59,35 @@ export const Input = ({
   label,
   icon,
   autoCorrect = false,
+  disabled = false,
   isValid,
   errorMessage = [],
   onChange,
   onSubmit,
-  secureTextEntry
+  onFocus,
+  onBlur,
+  secureTextEntry,
+  style,
+  reference
 }: InputProps): ReactElement => <View>
   <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
       tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-7 pr-3`,
+      style ? style : {},
       isValid && value ? tw`border-green` : {},
-      errorMessage.length > 0 ? tw`border-red` : {}
+      errorMessage.length > 0 ? tw`border-red` : {},
     ]}>
-      <TextInput
+      <TextInput ref={reference ? reference : null}
         style={[tw`w-full flex-shrink  h-10 p-0 text-grey-1 text-lg leading-5`]}
         placeholder={label}
         value={value}
+        editable={!disabled}
         autoCorrect={autoCorrect}
         onChangeText={(val: string) => onChange ? onChange(val) : null}
         onSubmitEditing={(e) => onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null}
         onEndEditing={(e) => onChange ? onChange(e.nativeEvent.text?.trim()) : null}
+        onFocus={() => onFocus ? onFocus() : null}
+        onBlur={() => onBlur ? onBlur() : null}
         secureTextEntry={secureTextEntry}
       />
       {icon

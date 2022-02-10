@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useReducer, useRef, useState } from 'react'
 import {
   Image,
-  Modal,
   Pressable,
   ScrollView,
   View
@@ -18,7 +17,6 @@ import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
 import { whiteGradient } from '../../utils/layoutUtils'
-import { getMessage, MessageContext, setMessage } from '../../utils/messageUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 

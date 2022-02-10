@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
@@ -14,7 +14,8 @@ interface Item {
 interface CheckboxesProps {
   items: Item[],
   selectedValues?: (string|number)[],
-  onChange?: (values: (string|number)[]) => void
+  onChange?: (values: (string|number)[]) => void,
+  style?: ViewStyle|ViewStyle[],
 }
 
 /**
@@ -23,6 +24,7 @@ interface CheckboxesProps {
  * @param props.items the items in the dropdown
  * @param [props.selectedValues] selected values
  * @param [props.onChange] on change handler
+ * @param [props.style] css style object
  * @example
  * <Checkboxes
     items={currencies.map(value => ({
@@ -35,20 +37,21 @@ interface CheckboxesProps {
     selectedValues={selectedCurrencies}
     onChange={(values) => setSelectedCurrencies(values)}/>
  */
-export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesProps): ReactElement => {
+export const Checkboxes = ({ items, selectedValues = [], onChange, style }: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
-    let newValues = selectedValues.map(v => v)
+    let newValues = Array.from(selectedValues)
     if (newValues.indexOf(value) !== -1) {
       newValues = newValues.filter(v => v !== value)
     } else {
       newValues.push(value)
     }
+
     if (onChange) onChange(newValues)
   }
 
   const isSelected = (item: Item) => selectedValues.indexOf(item.value) !== -1
 
-  return <View>
+  return <View style={style}>
     {items.map((item, i) =>
       <Shadow {...mildShadow}
         key={i}
@@ -65,9 +68,9 @@ export const Checkboxes = ({ items, selectedValues = [], onChange }: CheckboxesP
               <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
             </View>
           }
-          <Text style={tw`ml-4`}>
+          <View style={tw`mx-4`}>
             {item.display}
-          </Text>
+          </View>
         </Pressable>
       </Shadow>
     )}

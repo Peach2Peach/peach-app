@@ -8,11 +8,76 @@ declare type APIError = {
   error: string
 }
 
-declare type Currency = 'EUR' | 'GBP' | 'CHF' | 'SEK'
+declare type User = {
+  id: string,
+  rating: number
+}
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
+declare type Buckets = {
+  [key: string]: number
+}
+declare type Currency = 'EUR' | 'CHF' | 'GBP'
+declare type Pricebook = {
+  [key in Currency]: number
+}
+declare type PaymentMethod = 'sepa'
+declare type KYCType = 'iban' | 'id'
+declare type FundingStatus = {
+  status: 'NULL' | 'MEMPOOL' | 'FUNDED'
+  confirmations?: number,
+  txId?: string,
+  amount
+}
 declare type PeachPairInfo = {
   pair: TradingPair,
   price: number,
+}
+declare type Offer = {
+  offerId: number,
+  online: boolean,
+  userId: number, // TODO review why we have a userId of type number again?
+  publicKey: string,
+  type: 'bid' | 'ask',
+  amount: number,
+  premium: number,
+  currencies: string|string[],
+  prices?: Pricebook,
+  paymentMethods: string|string[],
+  kyc: boolean,
+  kycType: KYCType,
+  returnAddress: string,
+  escrow?: string,
+  funding?: FundingStatus
+}
+
+declare type PostOfferResponse = {
+  offerId: number
+}
+declare type OfferType = 'ask' | 'bid'
+
+declare type CreateEscrowResponse = {
+  offerId: number,
+  escrow: string,
+  funding: FundingStatus
+}
+declare type FundingError = '' | 'WRONG_FUNDING_AMOUNT'
+declare type FundingStatusResponse = {
+  offerId: number,
+  escrow: string,
+  funding: FundingStatus,
+  error?: FundingError,
+  returnAddress?: string
+}
+
+declare type Match = {
+  user: User,
+  offerId: string,
+  price: number,
+  currency: Currency,
+}
+declare type GetMatchesResponse = {
+  offerId: number,
+  matches: Match[]
 }

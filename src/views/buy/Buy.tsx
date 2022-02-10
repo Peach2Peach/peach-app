@@ -8,11 +8,17 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
+import { RouteProp } from '@react-navigation/native'
+import { BUCKETS } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  route: RouteProp<{ params: {
+    offer?: BuyOffer,
+    page?: number,
+  } }>,
+  navigation: ProfileScreenNavigationProp,
 }
 
 export default ({ navigation }: Props): ReactElement => {

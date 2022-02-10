@@ -8,12 +8,14 @@ import copy from './copy.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
+import help from './help.svg'
 import offers from './offers.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
+import triangleRight from './triangleRight.svg'
 import triangleUp from './triangleUp.svg'
 
 type Icons = {
@@ -29,12 +31,14 @@ const Icons: Icons = {
   dropdownClosed,
   dropdownOpen,
   file,
+  help,
   offers,
   selectClosed,
   selectOpen,
   sell,
   send,
   settings,
+  triangleRight,
   triangleUp,
 }
 

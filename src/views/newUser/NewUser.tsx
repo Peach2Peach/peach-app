@@ -18,6 +18,7 @@ import { whiteGradient } from '../../utils/layoutUtils'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { MessageContext } from '../../utils/messageUtils'
 import Icon from '../../components/Icon'
+import { error } from '../../utils/logUtils'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -52,9 +53,10 @@ export default ({ navigation }: Props): ReactElement => {
     navigation.navigate('tutorial')
   }
 
-  const onError = () => {
+  const onError = (e: string) => {
+    error('Error', e)
     updateMessage({
-      msg: i18n('createAccount.error'),
+      msg: i18n('error.createAccount'),
       level: 'ERROR',
     })
   }

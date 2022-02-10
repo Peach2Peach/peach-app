@@ -52,7 +52,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
           <View style={overlayX} />
         </View>
         <View style={[overlayY, tw`flex justify-center items-center`]}>
-          <Button title="Cancel" tertiary={true} onPress={onCancel} wide={false} />
+          <Button title={i18n('cancel')} tertiary={true} onPress={onCancel} wide={false} />
         </View>
       </View>
     </View>

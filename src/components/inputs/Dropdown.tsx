@@ -15,6 +15,7 @@ interface DropdownProps {
   width?: number,
   selectedValue?: string|number,
   onChange?: (value: string|number) => void
+  onToggle?: (isOpen: boolean) => void
 }
 
 /**
@@ -24,6 +25,7 @@ interface DropdownProps {
  * @param [props.selectedValue] selected value
  * @param [props.width] dropdown width
  * @param props.onChange method to set locale on value change
+ * @param [props.onToggle] callback function when dropdown opens or closes
  * @example
  * <Dropdown
  *   selectedValue={selectedValue}
@@ -55,13 +57,18 @@ interface DropdownProps {
  *   ]}
  * />
  */
-export const Dropdown = ({ items, selectedValue, width = 273, onChange }: DropdownProps): ReactElement => {
+export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
   const height = tw`h-10`.height as number * (isOpen ? items.length + 1 : 1)
-  const selectedItem = items.find(item => item.value === selectedValue)
+  const selectedItem = items.find(item => item.value === selectedValue) || items[0]
+
+  const toggle = () => {
+    setOpen(!isOpen)
+    if (onToggle) onToggle(!isOpen)
+  }
   const select = (item: Item) => {
     if (onChange) onChange(item.value)
-    setOpen(!isOpen)
+    toggle()
   }
 
   return <View style={[
@@ -70,14 +77,14 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
   ]}>
     <Shadow {...(isOpen ? mildShadow : innerShadow)}
       viewStyle={[
+        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
         { width, height },
-        tw`py-0 pl-4 pr-3 border border-grey-4 rounded`,
         isOpen ? tw`bg-white-1` : {}
       ]}>
       {isOpen
         ? [
           <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
-            onPress={() => setOpen(!isOpen)}>
+            onPress={toggle}>
             {selectedItem?.display(false)}
           </Pressable>,
           items
@@ -89,8 +96,8 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange }: Dropdo
             </Pressable>
             )
         ]
-        : <Pressable style={tw`h-10 flex justify-center`} onPress={() => setOpen(!isOpen)}>
-          {items.find(item => item.value === selectedValue)?.display(isOpen)}
+        : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
+          {selectedItem.display(isOpen)}
         </Pressable>
       }
     </Shadow>

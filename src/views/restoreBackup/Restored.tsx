@@ -26,7 +26,7 @@ export default ({ navigation }: Props): ReactElement => {
     </Text>
     <View style={tw`mt-8 flex items-center`}>
       <Button
-        onPress={() => navigation.navigate('home')}
+        onPress={() => navigation.navigate('home', {})}
         wide={false}
         title={i18n('continue')}
       />

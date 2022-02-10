@@ -10,7 +10,7 @@ interface TextProps {
   style?: ViewStyle|ViewStyle[],
   children?: ReactNode,
   numberOfLines?: number
-  ellipsizeMode?: 'head'|'middle'
+  ellipsizeMode?: 'head'|'tail'|'middle'
 }
 
 /**
@@ -19,7 +19,7 @@ interface TextProps {
  * @param [props.style] if true, button is of secondary nature
  * @param [props.children] child nodes
  * @param [props.numberOfLines] number of allowed lines
- * @param [props.ellipsizeMode] number of allowed lines
+ * @param [props.ellipsizeMode] where to cut off the text with ...
  * @example
  * <Text style={tw`mt-4`}>
  *   {i18n('form.save')}

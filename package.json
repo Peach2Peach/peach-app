@@ -9,6 +9,7 @@
     "android": "react-native run-android --port=8081",
     "ios": "react-native run-ios --port=8081",
     "start": "react-native start --port=8081",
+    "cache:clear": "react-native start --reset-cache",
     "postinstall": "rn-nodeify --install buffer,events,process,stream,util,inherits,fs,path,assert,crypto --hack",
     "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "style:update": "create-tailwind-rn && mv ./styles.json ./src/styles/styles.json",
