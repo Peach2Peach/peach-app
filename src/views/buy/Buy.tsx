@@ -21,12 +21,6 @@ type Props = {
   navigation: ProfileScreenNavigationProp,
 }
 
-export const defaultBuyOffer: BuyOffer = {
-  type: 'bid',
-  currencies: [],
-  amount: BUCKETS[0],
-}
-
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 

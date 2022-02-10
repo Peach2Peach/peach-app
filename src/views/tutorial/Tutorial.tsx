@@ -48,7 +48,7 @@ export default ({ navigation }: Props): ReactElement => {
     updateSettings({
       skipTutorial: true
     })
-    navigation.navigate('home')
+    navigation.navigate('home', {})
   }
 
   return <View style={tw`h-full flex`}>

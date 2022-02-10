@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react'
 import {
   View, ViewStyle
 } from 'react-native'
-import { BitcoinContextType } from './bitcoin'
 
 import { Text } from '.'
 import { Shadow } from 'react-native-shadow-2'
