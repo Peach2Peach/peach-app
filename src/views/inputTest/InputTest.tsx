@@ -4,20 +4,15 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getMessages, rules } from '../../utils/validationUtils'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Input } from '../../components'
-import Clipboard from '@react-native-clipboard/clipboard'
 
-// import { fromBase58Check, fromBech32 } from 'bitcoinjs-lib/types/address'
-const { useValidation } = require('react-native-form-validator')
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'inputTest'>
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [randomValue, setRandomValue] = useState('')

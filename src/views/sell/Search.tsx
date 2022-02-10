@@ -15,7 +15,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useEffect(searchForPeersEffect({
     offer,
     onSuccess: result => {
-      console.log('searchForPeers', result)
+      // console.log('searchForPeers', result)
     },
     onError: () => {
       // TODO treat API Error case (404, 500, etc)

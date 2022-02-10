@@ -152,6 +152,7 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
             <Button
               key={data.id}
               style={tw`mb-4`}
+              // eslint-disable-next-line no-alert
               onPress={() => alert(JSON.stringify(data))}
               // TODO implement real view
               title={i18n('view')}
