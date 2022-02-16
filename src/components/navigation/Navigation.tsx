@@ -1,12 +1,12 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import { Button } from '../../../components'
-import Icon from '../../../components/Icon'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
+import { Button } from '..'
+import Icon from '../Icon'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'|'buy'>
 
 type NavigationProps = {
   screen: string,
@@ -17,10 +17,10 @@ type NavigationProps = {
   loading: boolean,
 }
 
-export default ({ screen, back, next, navigation, stepValid, loading }: NavigationProps): ReactElement => {
+export const Navigation = ({ screen, back, next, navigation, stepValid, loading }: NavigationProps): ReactElement => {
   const buttonText = screen === 'escrow' && !stepValid
     ? i18n('sell.escrow.fundToContinue')
-    : screen === 'returnAddress'
+    : /returnAddress|releaseAddress/u.test(screen)
       ? i18n('lookForAMatch')
       : screen === 'search'
         ? i18n('goBackHome')
@@ -30,7 +30,7 @@ export default ({ screen, back, next, navigation, stepValid, loading }: Navigati
     : next
 
   return <View style={tw`w-full flex items-center`}>
-    {!/main|escrow/u.test(screen)
+    {!/main|escrow|search/u.test(screen)
       ? <Pressable style={tw`absolute left-0 z-10`} onPress={back}>
         <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
       </Pressable>
@@ -44,3 +44,5 @@ export default ({ screen, back, next, navigation, stepValid, loading }: Navigati
     />
   </View>
 }
+
+export default Navigation

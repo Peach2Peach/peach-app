@@ -21,7 +21,7 @@ declare type PaymentData = {
   id: string,
   type: PaymentMethod,
   selected?: boolean,
-  [key: string]: string
+  [key: string]: string,
 }
 
 declare type Offer = {
@@ -29,6 +29,7 @@ declare type Offer = {
   published: boolean,
   amount: number,
   currencies: Currency[],
+  kyc: boolean,
 }
 
 declare type SellOffer = Offer & {
@@ -36,16 +37,17 @@ declare type SellOffer = Offer & {
   premium: number,
   paymentData: PaymentData[],
   hashedPaymentData: string,
-  kyc: boolean;
-  kycType?: KYCType;
-  returnAddress?: string;
-  depositAddress?: string;
+  kycType?: KYCType,
+  returnAddress?: string,
+  depositAddress?: string,
   escrow?: string,
-  funding?: FundingStatus
+  funding?: FundingStatus,
 }
 
 declare type BuyOffer = Offer & {
   type: 'bid'
+  paymentData: PaymentData[],
+  releaseAddress?: string,
 }
 
 declare type PeachWallet = {

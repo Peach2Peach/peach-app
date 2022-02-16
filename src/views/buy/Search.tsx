@@ -5,10 +5,10 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { BigTitle, Text } from '../../components'
 import i18n from '../../utils/i18n'
-import { SellViewProps } from './Sell'
+import { BuyViewProps } from './Buy'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 
-export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
 
   useEffect(searchForPeersEffect({
@@ -25,13 +25,5 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
 
   return <View style={tw`h-full flex justify-center`}>
     <BigTitle title={i18n('searchingForAPeer')} />
-    <View style={tw`mt-6`}>
-      <Text style={tw`text-center`}>
-        {i18n('sell.search.description.1')}
-      </Text>
-      <Text style={tw`mt-2 text-center`}>
-        {i18n('sell.search.description.2')}
-      </Text>
-    </View>
   </View>
 }

@@ -1,18 +1,19 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Checkboxes, Headline, Text } from '../../../components'
-import { CURRENCIES } from '../../../constants'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
+import { Checkboxes, Headline, Text } from '..'
+import { CURRENCIES } from '../../constants'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
 type CurrenciesProps = {
+  title: string,
   currencies: Currency[],
   setCurrencies: (currencies: Currency[]) => void
 }
 
-export default ({ currencies, setCurrencies }: CurrenciesProps): ReactElement => <View>
+export default ({ title, currencies, setCurrencies }: CurrenciesProps): ReactElement => <View>
   <Headline style={tw`mt-9`}>
-    {i18n('sell.currencies')}
+    {title}
   </Headline>
   <Checkboxes
     style={tw`px-7 mt-2`}

@@ -36,12 +36,13 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
 type PostOfferProps = {
   type: OfferType,
   amount: string,
-  premium: number,
+  premium?: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
-  hashedPaymentData: string,
+  hashedPaymentData?: string,
   kyc: boolean,
   returnAddress?: string,
+  releaseAddress?: string
 }
 
 /**
@@ -63,7 +64,8 @@ export const postOffer = async ({
   paymentMethods,
   hashedPaymentData,
   kyc,
-  returnAddress
+  returnAddress,
+  releaseAddress
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
 
   try {
@@ -85,7 +87,8 @@ export const postOffer = async ({
         paymentMethods,
         hashedPaymentData,
         kyc,
-        returnAddress
+        returnAddress,
+        releaseAddress
       })
     })
 

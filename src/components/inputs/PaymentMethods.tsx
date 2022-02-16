@@ -3,14 +3,13 @@ import { View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Shadow } from 'react-native-shadow-2'
 import { mildShadow } from '../../utils/layoutUtils'
-import { Button, Text } from '..'
+import { Button, MenuItem, Text } from '..'
 import i18n from '../../utils/i18n'
 import { Checkboxes, Input } from '.'
 import { PAYMENTMETHODS } from '../../constants'
 
 import { getMessages, rules } from '../../utils/validationUtils'
 import { account, updatePaymentData } from '../../utils/accountUtils'
-import { MenuItem } from '../navigation'
 const { useValidation } = require('react-native-form-validator')
 
 interface PaymentFormProps {
