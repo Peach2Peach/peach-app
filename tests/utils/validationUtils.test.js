@@ -55,6 +55,15 @@ describe('rules', () => {
     // general invalid input
     ok(!rules.bitcoinAddress(true, 'invalid'))
   })
+
+  it('validates password correctly', () => {
+    ok(rules.password(true, 'strongPassword1!'), 'Could not validate strongPassword1!')
+    ok(rules.password(true, '12345678'), 'Could not validate weak')
+    ok(!rules.password(true, '1234567'), 'Could not validate weak')
+    ok(!rules.password(true, 'weak'), 'Could not validate weak')
+    ok(!rules.password(true, ''), 'Could not validate weak')
+  })
+
   it('validates btc IBAN correctly', () => {
     paymentData.iban.valid.forEach(iban => ok(rules.iban(true, iban), `Could not validate ${iban}`))
     paymentData.iban.invalid.forEach(iban => ok(!rules.iban(true, iban), `Could not invalidate ${iban}`))

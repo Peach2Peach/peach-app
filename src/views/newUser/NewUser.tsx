@@ -29,10 +29,12 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
+  const [isPristine, setIsPristine] = useState(true)
+
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
+  const { validate, isFieldInError } = useValidation({
     deviceLocale: 'default',
     state: { password },
     rules,
@@ -42,11 +44,14 @@ export default ({ navigation }: Props): ReactElement => {
   const onPasswordChange = (value: string) => {
     setPassword(value)
 
-    validate({
-      password: {
-        required: true,
-      }
-    })
+    if (!isPristine) {
+      validate({
+        password: {
+          required: true,
+          password: true,
+        }
+      })
+    }
   }
 
   const onSuccess = () => {
@@ -64,9 +69,11 @@ export default ({ navigation }: Props): ReactElement => {
   const submit = () => {
     const isValid = validate({
       password: {
-        required: true
+        required: true,
+        password: true,
       }
     })
+    setIsPristine(false)
     if (isValid) createAccount({ password, onSuccess, onError })
   }
 
@@ -91,11 +98,11 @@ export default ({ navigation }: Props): ReactElement => {
           </Text>
           <View style={tw`mt-2`}>
             <Input
-              onChange={setPassword}
+              onChange={onPasswordChange}
               onSubmit={onPasswordChange}
               secureTextEntry={true}
               value={password}
-              isValid={!isFieldInError('password')}
+              isValid={!isPristine && !isFieldInError('password')}
               errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}
             />
           </View>
