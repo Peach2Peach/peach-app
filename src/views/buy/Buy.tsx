@@ -111,11 +111,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         amount: BUCKETMAP[String(offer.amount)],
         paymentMethods: offer.paymentData.map(p => p.type),
       })
-      console.log({
-        ...offer,
-        amount: BUCKETMAP[String(offer.amount)],
-        paymentMethods: offer.paymentData.map(p => p.type),
-      })
 
       setLoading(false)
 
