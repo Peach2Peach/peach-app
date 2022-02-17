@@ -1,28 +1,27 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import i18n from '../../utils/i18n'
-import { SellViewProps } from './Sell'
-import { saveOffer } from '../../utils/accountUtils'
-import { IconButton, Input, ScanQR, Text, Title } from '../../components'
+import { BuyViewProps } from './Buy'
+import { Headline, IconButton, Input, ScanQR, Text, TextLink, Title } from '../../components'
 import { getMessages, rules } from '../../utils/validationUtils'
 import Clipboard from '@react-native-clipboard/clipboard'
-import Icon from '../../components/Icon'
 import { cutOffAddress } from '../../utils/stringUtils'
+import { OverlayContext } from '../../utils/overlayUtils'
+import IDontHaveAWallet from './components/IDontHaveAWallet'
 
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   useContext(LanguageContext)
 
-  let $address: any
-  const [address, setAddress] = useState(offer.returnAddress)
-  const [shortAddress, setShortAddress] = useState(offer.returnAddress ? cutOffAddress(offer.returnAddress) : '')
+  const [address, setAddress] = useState(offer.releaseAddress)
+  const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
   const [focused, setFocused] = useState(false)
-  const [useDepositAddress, setUseDepositAddress] = useState(offer.returnAddress === offer.depositAddress)
   const [scanQR, setScanQR] = useState(false)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -38,9 +37,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }
 
   useEffect(() => {
-    if (!address && !offer.depositAddress) return
+    if (!address && !offer.releaseAddress) return
 
-    setShortAddress(cutOffAddress(address || offer.depositAddress || ''))
+    setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
 
     validate({
       address: {
@@ -57,34 +56,18 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
     updateOffer({
       ...offer,
-      returnAddress: address,
-    })
-    saveOffer({
-      ...offer,
-      returnAddress: address,
+      releaseAddress: address,
     })
   }, [address])
 
-  useEffect(() => {
-    if (useDepositAddress) {
-      setAddress(() => {
-        $address.blur()
-        setFocused(!useDepositAddress)
-        return offer.depositAddress
-      })
-    }
-  }, [useDepositAddress])
-
   return <View style={tw`mt-16`}>
-    <Title title={i18n('sell.title')} subtitle={i18n('sell.returnAddress.subtitle')} help={<Text>TODO</Text>} />
-    <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
-      style={[
-        tw`mt-24 flex-row`,
-        useDepositAddress ? tw`opacity-50 pointer-events-none` : {}
-      ]}>
+    <Title title={i18n('buy.title')} />
+    <Headline style={tw`mt-24`}>
+      {i18n('buy.releaseAddress')}
+    </Headline>
+    <View style={tw`flex-row`}>
       <View style={tw`w-full flex-shrink mr-2`}>
-        <Input reference={(el: any) => $address = el}
-          value={focused ? address : shortAddress}
+        <Input value={focused ? address : shortAddress}
           style={tw`pl-4 pr-8`}
           onChange={(value: string) => focused ? setAddress(() => value) : null}
           onSubmit={() => setFocused(() => false)}
@@ -117,17 +100,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       </View>
       : null}
 
-    <Pressable style={tw`flex-row items-center px-5 mt-4`}
-      onPress={() => setUseDepositAddress(!useDepositAddress)}>
-      {useDepositAddress
-        ? <Icon id="check" style={tw`w-5 h-5`} />
-        : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-          <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
-        </View>
-      }
-      <Text style={tw`mx-4`}>
-        {i18n('sell.returnAddress.useDepositAddress')}
-      </Text>
-    </Pressable>
+    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({ overlayContent: <IDontHaveAWallet /> })}>
+      {i18n('iDontHaveAWallet')}
+    </TextLink>
   </View>
 }

@@ -3,12 +3,11 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Card, SatsFormat, Text } from '../../components'
+import { Card, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { getBitcoinContext } from '../../components/bitcoin'
 import { unique } from '../../utils/arrayUtils'
-import Title from './components/Title'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -17,7 +16,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useEffect(() => setStepValid(true))
 
   return <View>
-    <Title subtitle={i18n('sell.summary.subtitle')} />
+    <Title title={i18n('sell.title')} subtitle={i18n('sell.summary.subtitle')} />
     <View style={tw`mt-16`}>
       <Card style={tw`p-4`}>
         <View style={tw`flex-row`}>

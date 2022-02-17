@@ -23,7 +23,7 @@ interface HeadlineProps {
  */
 export const Headline = ({ style, children }: HeadlineProps): ReactElement =>
   <Text style={[
-    tw`font-baloo uppercase text-center text-peach-1`,
+    tw`font-baloo text-xl uppercase text-center text-peach-1`,
     style as ViewStyle
   ]}>
     {children}

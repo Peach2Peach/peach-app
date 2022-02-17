@@ -24,6 +24,7 @@ export const rules = {
       valid = true
     } catch (e) { }
 
+    console.log(value, valid)
     return valid
   },
   iban (_: boolean, value: string) {
