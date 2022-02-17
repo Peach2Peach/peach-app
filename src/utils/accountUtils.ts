@@ -12,6 +12,7 @@ type Settings = {
   skipTutorial?: boolean,
   amount?: number,
   currencies?: Currency[],
+  paymentMethods?: PaymentMethod[],
   premium?: number,
   kyc?: boolean,
   kycType?: KYCType,
@@ -23,7 +24,7 @@ export type Account = {
   mnemonic?: string,
   settings: Settings,
   paymentData: PaymentData[],
-  offers: SellOffer[],
+  offers: (SellOffer|BuyOffer)[],
 }
 
 const defaultAccount: Account = {
@@ -203,7 +204,7 @@ const offerExists = (id: number): boolean => account.offers.some(o => o.offerId 
  * @description Method to add offer to offer list
  * @param offer the offer
  */
-export const saveOffer = (offer: SellOffer): void => {
+export const saveOffer = (offer: SellOffer|BuyOffer): void => {
   if (!offer.offerId) throw new Error('offerId is required')
 
   if (offerExists(offer.offerId)) {

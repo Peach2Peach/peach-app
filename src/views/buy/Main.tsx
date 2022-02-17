@@ -7,10 +7,10 @@ import { Dropdown, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../components/bitcoin'
-import { SellViewProps } from './Sell'
+import { BuyViewProps } from './Buy'
 import { account, updateSettings } from '../../utils/accountUtils'
 
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
   const [amount, setAmount] = useState(account.settings.amount || offer.amount)
@@ -27,8 +27,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     updateOffer({ ...offer, amount })
   }, [])
 
+
   return <View>
-    <Title title={i18n('sell.title')} subtitle={i18n('sell.subtitle')} />
+    <Title title={i18n('buy.title')} subtitle={i18n('buy.subtitle')} />
     <View style={tw`z-20 my-32`}>
       <View style={tw`flex items-center`}>
         <Dropdown

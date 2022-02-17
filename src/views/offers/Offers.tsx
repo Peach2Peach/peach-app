@@ -28,7 +28,10 @@ export default ({ navigation }: Props): ReactElement => {
         </Text>
       </View>
       {account.offers.map(offer => <View key={offer.offerId}>
-        <Pressable onPress={() => navigation.navigate('sell', { offer })}>
+        <Pressable onPress={() => offer.type === 'ask'
+          ? navigation.navigate('sell', { offer })
+          : navigation.navigate('buy', { offer })
+        }>
           <Text>
             {offer.offerId} - {offer.type} -  {offer.amount}
           </Text>

@@ -7,9 +7,11 @@ import BitcoinContext, { getBitcoinContext } from '../../components/bitcoin'
 import { SellViewProps } from './Sell'
 import { account, updateSettings } from '../../utils/accountUtils'
 import Premium from './components/Premium'
-import Currencies from './components/Currencies'
+import Currencies from '../../components/inputs/Currencies'
 import KYC from './components/KYC'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
+import i18n from '../../utils/i18n'
+import { Title } from '../../components'
 
 const validate = (offer: SellOffer) =>
   !!offer.amount
@@ -47,7 +49,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return <View style={tw`mb-16`}>
-    <Currencies currencies={currencies} setCurrencies={setCurrencies} />
+    <Title title={i18n('sell.title')} />
+    <Currencies title={i18n('sell.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
     <PaymentMethodSelection setPaymentData={setPaymentData} />
     <Premium
       premium={premium}

@@ -1,3 +1,6 @@
+export { BigTitle } from './BigTitle'
 export { Headline } from './Headline'
 export { PeachText as Text } from './Text'
 export { SatsFormat } from './SatsFormat'
+export { TextLink } from './TextLink'
+export { Title } from './Title'

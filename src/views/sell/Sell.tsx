@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
-  Pressable,
   ScrollView,
   View
 } from 'react-native'
@@ -14,6 +13,9 @@ import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
+import ReturnAddress from './ReturnAddress'
+import Search from './Search'
+
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/accountUtils'
@@ -21,9 +23,7 @@ import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
 import { sha256 } from '../../utils/cryptoUtils'
-import Navigation from './components/Navigation'
-import ReturnAddress from './ReturnAddress'
-import Search from './Search'
+import { Navigation } from '../../components'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -132,6 +132,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         hashedPaymentData,
       })
 
+      setLoading(false)
+
       if (result) {
         saveOffer({ ...offer, offerId: result.offerId })
         setOffer(() => ({ ...offer, offerId: result.offerId }))
@@ -141,7 +143,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           msg: i18n(err?.error || 'error.postOffer'),
           level: 'ERROR',
         })
-        setLoading(false)
         return
       }
     }
@@ -162,7 +163,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <ScrollView ref={scroll} contentContainerStyle={tw`h-full pt-6 overflow-visible`}>
+      <ScrollView ref={scroll}
+        contentContainerStyle={!scrollable ? tw`h-full` : {}}
+        style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {CurrentView
             ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />

@@ -12,10 +12,10 @@ import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
 import Refund from './components/Refund'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
-import Title from './components/Title'
 import { PEACHFEE } from '../../constants'
 import { thousands } from '../../utils/stringUtils'
 import EscrowHelp from './components/EscrowHelp'
+import { Title } from '../../components'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -82,7 +82,9 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
   }, [offer.offerId])
 
   return <View style={tw`mt-16`}>
-    <Title subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))} help={<EscrowHelp fees={fees}/>} />
+    <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
+      help={<EscrowHelp fees={fees}/>}
+    />
     {fundingStatus && !fundingError
       ? <FundingView escrow={escrow} />
       : fundingError && fundingError === 'WRONG_FUNDING_AMOUNT'
