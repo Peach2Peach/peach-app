@@ -26,6 +26,9 @@ export const rules = {
 
     return valid
   },
+  password (_: boolean, value: string) {
+    return value && value.length > 7
+  },
   iban (_: boolean, value: string) {
     return IBAN.isValid(value)
   }

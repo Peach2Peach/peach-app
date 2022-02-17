@@ -86,7 +86,7 @@
   "paste": "Paste",
   "form.file": "Select file...",
   "form.required.error": "This field is required",
-  "form.password.error": "A password is required for a secure backup",
+  "form.password.error": "Please use 8 characters or more for a secure backup",
   "form.password.invalid": "The password you entered is invalid. Account cannot be decrypted.",
   "form.invalid.error": "Please enter a valid value",
   "form.btcAddress": "Bitcoin address",
