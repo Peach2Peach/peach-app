@@ -104,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [isFocused])
 
   const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'search' && !offer.offerId) {
+    if (screens[page + 1].id === 'search' && !offer.id) {
       setLoading(true)
       const [result, err] = await postOffer({
         ...offer,
@@ -115,8 +115,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       setLoading(false)
 
       if (result) {
-        saveOffer({ ...offer, offerId: result.offerId, published: true })
-        setOffer(() => ({ ...offer, offerId: result.offerId, published: true }))
+        saveOffer({ ...offer, id: result.offerId, published: true })
+        setOffer(() => ({ ...offer, id: result.offerId, published: true }))
       } else {
         error('Error', err)
         updateMessage({

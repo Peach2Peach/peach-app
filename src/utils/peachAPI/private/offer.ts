@@ -108,7 +108,7 @@ export const postOffer = async ({
 }
 
 type CreateEscrowProps = {
-  offerId: number,
+  offerId: string,
   publicKey: string
 }
 
@@ -153,7 +153,7 @@ export const createEscrow = async ({
 
 
 type GetFundingStatusProps = {
-  offerId: number,
+  offerId: string,
 }
 
 /**

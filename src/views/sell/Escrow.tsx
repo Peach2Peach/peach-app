@@ -66,7 +66,7 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
     onError: () => {
       // TODO treat API Error case (404, 500, etc)
     },
-  }), [offer.offerId])
+  }), [offer.id])
 
   useEffect(() => {
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
@@ -79,13 +79,13 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
     setStepValid(false)
     setEscrow(() => offer.escrow || '')
     setFundingStatus(() => offer.funding || defaultFunding)
-  }, [offer.offerId])
+  }, [offer.id])
 
-  return <View style={tw`mt-16`}>
+  return <View>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
       help={<EscrowHelp fees={fees}/>}
     />
-    {fundingStatus && !fundingError
+    {escrow && fundingStatus && !fundingError
       ? <FundingView escrow={escrow} />
       : fundingError && fundingError === 'WRONG_FUNDING_AMOUNT'
         ? <Refund />

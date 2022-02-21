@@ -42,5 +42,5 @@ export const getMainAddress = (wllt: bitcoin.bip32.BIP32Interface) =>
  * @param offerId offer id
  * @returns public key for escrow address
  */
-export const getPublicKeyForEscrow = (offerId: number) =>
+export const getPublicKeyForEscrow = (offerId: string) =>
   wallet.derivePath(`m/48'/${NETWORK === 'bitcoin' ? '0' : '1'}'/0'/${offerId}'`).publicKey.toString('hex')

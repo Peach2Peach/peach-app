@@ -19,7 +19,7 @@ export default ({ offer, setStepValid }: BuyViewProps): ReactElement => {
     onError: () => {
       // TODO treat API Error case (404, 500, etc)
     },
-  }), [offer.offerId])
+  }), [offer.id])
 
   useEffect(() => setStepValid(true))
 

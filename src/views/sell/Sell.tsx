@@ -92,7 +92,7 @@ const screens = [
 const getInitialPageForOffer = (offer: SellOffer) =>
   offer.published
     ? screens.findIndex(s => s.id === 'search')
-    : offer.offerId
+    : offer.id
       ? screens.findIndex(s => s.id === 'escrow')
       : 0
 
@@ -121,7 +121,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [isFocused])
 
   const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'escrow' && !offer.offerId) {
+    if (screens[page + 1].id === 'escrow' && !offer.id) {
       const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
 
       setLoading(true)
@@ -135,8 +135,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       setLoading(false)
 
       if (result) {
-        saveOffer({ ...offer, offerId: result.offerId })
-        setOffer(() => ({ ...offer, offerId: result.offerId }))
+        saveOffer({ ...offer, id: result.offerId })
+        setOffer(() => ({ ...offer, id: result.offerId }))
       } else {
         error('Error', err)
         updateMessage({

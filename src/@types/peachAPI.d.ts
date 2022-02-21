@@ -35,7 +35,7 @@ declare type PeachPairInfo = {
   price: number,
 }
 declare type Offer = {
-  offerId: number,
+  id: string,
   online: boolean,
   userId: number, // TODO review why we have a userId of type number again?
   publicKey: string,
@@ -53,18 +53,18 @@ declare type Offer = {
 }
 
 declare type PostOfferResponse = {
-  offerId: number
+  offerId: string
 }
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
-  offerId: number,
+  offerId: string,
   escrow: string,
   funding: FundingStatus
 }
 declare type FundingError = '' | 'WRONG_FUNDING_AMOUNT'
 declare type FundingStatusResponse = {
-  offerId: number,
+  offerId: string,
   escrow: string,
   funding: FundingStatus,
   error?: FundingError,
@@ -78,6 +78,6 @@ declare type Match = {
   currency: Currency,
 }
 declare type GetMatchesResponse = {
-  offerId: number,
+  offerId: string,
   matches: Match[]
 }

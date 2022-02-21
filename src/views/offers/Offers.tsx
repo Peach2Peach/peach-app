@@ -27,13 +27,13 @@ export default ({ navigation }: Props): ReactElement => {
           Offers
         </Text>
       </View>
-      {account.offers.map(offer => <View key={offer.offerId}>
+      {account.offers.map(offer => <View key={offer.id}>
         <Pressable onPress={() => offer.type === 'ask'
           ? navigation.navigate('sell', { offer })
           : navigation.navigate('buy', { offer })
         }>
           <Text>
-            {offer.offerId} - {offer.type} -  {offer.amount}
+            {offer.id} - {offer.type} -  {offer.amount}
           </Text>
         </Pressable>
       </View>)}

@@ -13,12 +13,12 @@ export default ({
   onError
 }: SearchForPeersEffectProps): EffectCallback => () => {
   const checkingFunction = async () => {
-    if (!offer.offerId
+    if (!offer.id
       || (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED'))) return
 
-    info('Checking matches for', offer.offerId)
+    info('Checking matches for', offer.id)
     const [result, err] = await getMatches({
-      offerId: offer.offerId,
+      offerId: offer.id,
     })
     if (result) {
       onSuccess(result)
