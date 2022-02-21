@@ -91,6 +91,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           label={i18n('form.btcAddress')}
           isValid={!isFieldInError('address')}
           onFocus={() => setFocused(() => true)}
+          onBlur={() => setFocused(() => false)}
           errorMessage={getErrorsInField('address')}
         />
       </View>
