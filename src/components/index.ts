@@ -16,6 +16,9 @@ export {
   RadioButtons,
   Select
 } from './inputs'
+
+export { Match, Matches } from './matches'
+
 export { ScanQR } from './camera/ScanQR'
 export {
   BigTitle,

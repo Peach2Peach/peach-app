@@ -4,7 +4,7 @@ import { getMatches } from '../utils/peachAPI'
 
 type SearchForPeersEffectProps = {
   offer: SellOffer|BuyOffer,
-  onSuccess: (result: GetMatchesResponse) => void,
+  onSuccess: (result: Match[]) => void,
   onError: (error: APIError) => void,
 }
 export default ({
@@ -21,7 +21,7 @@ export default ({
       offerId: offer.id,
     })
     if (result) {
-      onSuccess(result)
+      onSuccess(result.matches)
     } else if (err) {
       error('Error', err)
       onError(err)

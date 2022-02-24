@@ -10,7 +10,8 @@ declare type APIError = {
 
 declare type User = {
   id: string,
-  rating: number
+  rating: number|null,
+  ratingCount: number,
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
@@ -74,10 +75,12 @@ declare type FundingStatusResponse = {
 declare type Match = {
   user: User,
   offerId: string,
-  price: number,
-  currency: Currency,
+  prices: Pricebook,
+  paymentMethods: PaymentMethod[],
+  kyc: boolean,
+  kycType?: KYCType,
 }
 declare type GetMatchesResponse = {
   offerId: string,
-  matches: Match[]
+  matches: Match[],
 }

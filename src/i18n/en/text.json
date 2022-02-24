@@ -122,5 +122,6 @@
   "price": "Price",
   "currencies": "Currencies",
   "payment": "Payment",
-  "kyc": "KYC"
+  "kyc": "KYC",
+  "kycFree": "KYC - Free"
 }
