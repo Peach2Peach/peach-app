@@ -9,9 +9,10 @@ type PremiumProps = {
   setPremium: (premium: number) => void
   identifier: string,
   offer: SellOffer,
-  currency: Currency
+  currency: Currency,
+  price: number,
 }
-export default ({ premium, setPremium, identifier, offer, currency }: PremiumProps): ReactElement => <View>
+export default ({ premium, setPremium, identifier, offer, currency, price }: PremiumProps): ReactElement => <View>
   <Headline style={tw`mt-16 mb-2`}>
     {i18n('sell.price')}
   </Headline>
@@ -25,7 +26,11 @@ export default ({ premium, setPremium, identifier, offer, currency }: PremiumPro
   </View>
   <View>
     <Text style={tw`text-center`}>
-      <Text style={tw`text-peach-1`}> {i18n(`currency.format.${currency}`, String(Math.round(193 * (1 + premium / 100) * 10) / 10))} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n(premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
+      <Text style={tw`text-peach-1`}>
+        {i18n(
+          `currency.format.${currency}`,
+          String(Math.round((price / 100000000 * offer.amount) * (1 + premium / 100) * 10) / 10)
+        )} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n(premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
       }
     </Text>
   </View>

@@ -22,7 +22,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useContext(LanguageContext)
   useContext(BitcoinContext)
 
-  const { currency } = getBitcoinContext()
+  const { currency, price } = getBitcoinContext()
   const [currencies, setCurrencies] = useState(account.settings.currencies || [])
   const [premium, setPremium] = useState(account.settings.premium || 1.5)
   const [paymentData, setPaymentData] = useState(account.paymentData || [])
@@ -58,6 +58,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       identifier={`${currencies.join()}${paymentData.join()}${kyc}`}
       offer={offer}
       currency={currency}
+      price={price}
     />
     <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} />
   </View>
