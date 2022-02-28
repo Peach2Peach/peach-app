@@ -30,7 +30,7 @@ export default ({
   }
   let interval: NodeJS.Timer
   (async () => {
-    interval = setInterval(checkingFunction, 60 * 1000)
+    interval = setInterval(checkingFunction, 60 * 1000) // TODO this might fuck with the UI
     checkingFunction()
   })()
 

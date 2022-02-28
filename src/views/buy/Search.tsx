@@ -12,7 +12,7 @@ import { MessageContext } from '../../utils/messageUtils'
 export default ({ offer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-
+  const [activeMatch, setActiveMatch] = useState(0)
 
   const [matches, setMatches] = useState<Match[]>([])
   useEffect(searchForPeersEffect({
@@ -23,10 +23,15 @@ export default ({ offer, setStepValid }: BuyViewProps): ReactElement => {
     onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
   }), [offer.id])
 
-  useEffect(() => setStepValid(true))
+  useEffect(() => {
+    console.log(activeMatch)
+  }, [activeMatch])
 
   return <View style={tw`h-full flex justify-center`}>
     <BigTitle title={i18n('searchingForAPeer')} />
-    <Matches matches={matches} />
+    <Matches matches={matches} onChange={(index) => {
+      console.log(index)
+      setActiveMatch(index)
+    }}/>
   </View>
 }
