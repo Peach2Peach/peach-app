@@ -126,7 +126,7 @@ export const createAccount = async ({
   if (!acc || typeof acc !== 'object') {
     const { wallet, mnemonic } = await createWallet() // TODO add error handling
     setWallet(wallet)
-    const firstAddress = wallet.derivePath("m/48'/0'/0'/0'") // eslint-disable-line quotes
+    const firstAddress = getMainAddress(wallet)
 
     account = {
       ...defaultAccount,
