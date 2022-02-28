@@ -21,6 +21,7 @@ export default ({
       offerId: offer.id,
     })
     if (result) {
+      info('matches: ', result.matches)
       onSuccess(result.matches)
     } else if (err) {
       error('Error', err)

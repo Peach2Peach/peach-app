@@ -10,7 +10,16 @@ export const marketPrice = async (currency: Currency): Promise<[PeachPairInfo|nu
   const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {})
 
   try {
-    return [await response.json(), null]
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - marketPrice', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {

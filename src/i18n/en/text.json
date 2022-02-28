@@ -105,6 +105,7 @@
   "error.WRONG_FUNDING_AMOUNT": "Unfortunately, you have send the wrong amount to escrow. Please click on the button below to initiate the refunding process.",
   "refund": "Refund",
   "AUTHENTICATION_FAILED": "",
+  "UNAUTHORIZED": "You don't have permission to view this content.",
   "addNew": "Add new",
   "next": "next",
   "continue": "Continue",

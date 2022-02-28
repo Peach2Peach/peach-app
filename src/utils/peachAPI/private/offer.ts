@@ -17,7 +17,16 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
   })
 
   try {
-    return [await response.json(), null]
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - getOffers', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -92,7 +101,16 @@ export const postOffer = async ({
       })
     })
 
-    return [await response.json(), null]
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - postOffer', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -135,7 +153,16 @@ export const createEscrow = async ({
   })
 
   try {
-    return [await response.json(), null]
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - createEscrow', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -212,7 +239,16 @@ export const getMatches = async ({
   })
 
   try {
-    return [await response.json(), null]
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - getMatches', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {

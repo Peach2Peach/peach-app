@@ -40,7 +40,7 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
   useEffect(createEscrowEffect({
     offer,
     onSuccess: result => {
-      setEscrow(() => result.escrow)
+      setEscrow(() => result.escrow) // TODO check why this is not having an effect
       setFundingStatus(() => result.funding)
       saveAndUpdate({
         ...offer,

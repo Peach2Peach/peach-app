@@ -7,9 +7,12 @@ import { BigTitle, Matches } from '../../components'
 import i18n from '../../utils/i18n'
 import { BuyViewProps } from './Buy'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
+import { MessageContext } from '../../utils/messageUtils'
 
 export default ({ offer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
+  const [, updateMessage] = useContext(MessageContext)
+
 
   const [matches, setMatches] = useState<Match[]>([])
   useEffect(searchForPeersEffect({
@@ -17,9 +20,7 @@ export default ({ offer, setStepValid }: BuyViewProps): ReactElement => {
     onSuccess: result => {
       setMatches(() => result)
     },
-    onError: () => {
-      // TODO treat API Error case (404, 500, etc)
-    },
+    onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
   }), [offer.id])
 
   useEffect(() => setStepValid(true))
