@@ -12,7 +12,6 @@ import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
-import Search from './Search'
 
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
@@ -65,19 +64,8 @@ const screens = [
     id: 'releaseAddress',
     view: ReleaseAddress,
     scrollable: false
-  },
-  {
-    id: 'search',
-    view: Search,
-    scrollable: false
-  },
+  }
 ]
-
-
-const getInitialPageForOffer = (offer: BuyOffer) =>
-  offer.published
-    ? screens.findIndex(s => s.id === 'search')
-    : 0
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
@@ -100,7 +88,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!isFocused) return
 
     setOffer(() => route.params?.offer || defaultBuyOffer)
-    setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultBuyOffer))
+    setPage(() => route.params?.page || 0)
   }, [isFocused])
 
   const next = async (): Promise<void> => {

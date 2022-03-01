@@ -14,7 +14,6 @@ import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
 import ReturnAddress from './ReturnAddress'
-import Search from './Search'
 
 import { BUCKETMAP, BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
@@ -80,21 +79,14 @@ const screens = [
     id: 'returnAddress',
     view: ReturnAddress,
     scrollable: false
-  },
-  {
-    id: 'search',
-    view: Search,
-    scrollable: false
-  },
+  }
 ]
 
 
 const getInitialPageForOffer = (offer: SellOffer) =>
   offer.published
-    ? screens.findIndex(s => s.id === 'search')
-    : offer.id
-      ? screens.findIndex(s => s.id === 'escrow')
-      : 0
+    ? screens.findIndex(s => s.id === 'escrow')
+    : 0
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {

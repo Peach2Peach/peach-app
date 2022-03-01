@@ -28,9 +28,11 @@ export default ({ navigation }: Props): ReactElement => {
         </Text>
       </View>
       {account.offers.map(offer => <View key={offer.id}>
-        <Pressable onPress={() => offer.type === 'ask'
-          ? navigation.navigate('sell', { offer })
-          : navigation.navigate('buy', { offer })
+        <Pressable onPress={() => offer.published
+          ? navigation.navigate('search', { offer })
+          : offer.type === 'ask'
+            ? navigation.navigate('sell', { offer })
+            : navigation.navigate('buy', { offer })
         }>
           <Text>
             {offer.id} - {offer.type} -  {offer.amount}

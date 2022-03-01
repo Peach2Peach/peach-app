@@ -33,6 +33,7 @@ import { initSession, session } from './utils/sessionUtils'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './utils/overlayUtils'
+import Search from './views/search/Search'
 
 enableScreens()
 
@@ -50,6 +51,7 @@ const views: ViewType[] = [
   { name: 'home', component: Home },
   { name: 'buy', component: Buy },
   { name: 'sell', component: Sell },
+  { name: 'search', component: Search },
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },
   { name: 'componentsTest', component: ComponentsTest },

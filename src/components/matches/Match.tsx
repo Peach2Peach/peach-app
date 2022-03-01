@@ -30,7 +30,7 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
       <View style={tw`flex-row border-t border-grey-4`}>
         <View style={tw`w-1/2`}>
           <Headline style={tw`text-lg text-left`}>{i18n('price')}</Headline>
-          <Text>{i18n(`currency.format.${selectedCurrency}`, thousands(match.prices[selectedCurrency]))}</Text>
+          <Text>{i18n(`currency.format.${selectedCurrency}`, String(match.prices[selectedCurrency]))}</Text>
           {!match.kyc
             ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
             : null

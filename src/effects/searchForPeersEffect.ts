@@ -12,6 +12,8 @@ export default ({
   onSuccess,
   onError
 }: SearchForPeersEffectProps): EffectCallback => () => {
+  let interval: NodeJS.Timer
+
   const checkingFunction = async () => {
     if (!offer.id
       || (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED'))) return
@@ -21,16 +23,16 @@ export default ({
       offerId: offer.id,
     })
     if (result) {
-      info('matches: ', result.matches)
+      info('matches: ', JSON.stringify(result.matches))
+      if (result.matches.length > 0) clearInterval(interval)
       onSuccess(result.matches)
     } else if (err) {
       error('Error', err)
       onError(err)
     }
   }
-  let interval: NodeJS.Timer
   (async () => {
-    interval = setInterval(checkingFunction, 60 * 1000) // TODO this might fuck with the UI
+    interval = setInterval(checkingFunction, 60 * 1000)
     checkingFunction()
   })()
 
