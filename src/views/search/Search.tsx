@@ -51,7 +51,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         currency: Object.keys(match.prices)[0] as Currency,
         paymentMethod: match.paymentMethods[0],
       })
-    } else {
+    } else if (offer.type === 'bid') {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
     }
 
