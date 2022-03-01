@@ -117,6 +117,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultSellOffer))
   }, [isFocused])
 
+  useEffect(() => {
+    if (!offer.published) return
+
+    navigation.navigate('search', { offer })
+  }, [offer.published])
+
   const next = async (): Promise<void> => {
     if (screens[page + 1].id === 'escrow' && !offer.id) {
       const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
@@ -144,10 +150,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     }
 
-    if (screens[page + 1].id === 'search' && !offer.published) {
+    if (screens[page + 1].id === 'search') {
       saveOffer({ ...offer, published: true })
-      setOffer(() => ({ ...offer, published: true }))
-      navigation.navigate('search', { offer })
+      setOffer(({ ...offer, published: true }))
       return
     }
 

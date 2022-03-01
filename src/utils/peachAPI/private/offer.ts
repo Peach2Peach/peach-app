@@ -271,6 +271,8 @@ export const getMatches = async ({
 type MatchProps = {
   offerId: string,
   matchingOfferId: string,
+  currency: Currency,
+  paymentMethod: PaymentMethod,
 }
 
 /**
@@ -279,6 +281,8 @@ type MatchProps = {
  */
 export const matchOffer = async ({
   offerId,
+  currency,
+  paymentMethod,
   matchingOfferId
 }: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
@@ -288,7 +292,9 @@ export const matchOffer = async ({
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      matchingOfferId
+      matchingOfferId,
+      currency,
+      paymentMethod,
     }),
     method: 'POST'
   })
@@ -318,6 +324,10 @@ export const matchOffer = async ({
   }
 }
 
+type UnmatchProps = {
+  offerId: string,
+  matchingOfferId: string,
+}
 
 /**
  * @description Method to match an offer
@@ -326,7 +336,7 @@ export const matchOffer = async ({
 export const unmatchOffer = async ({
   offerId,
   matchingOfferId
-}: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+}: UnmatchProps): Promise<[MatchResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: {
       Authorization: await getAccessToken(),

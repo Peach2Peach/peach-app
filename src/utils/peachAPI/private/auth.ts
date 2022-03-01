@@ -1,9 +1,8 @@
-import { API_URL, HTTP_AUTH_PASS, HTTP_AUTH_USER } from '@env'
+import { API_URL } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
 import { accessToken, peachAccount, setAccessToken, setPeachAccount } from '..'
 import { error, info } from '../../logUtils'
-
 
 /**
  * @description Method to authenticate with Peach API

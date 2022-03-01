@@ -45,7 +45,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!offer.id) return
 
     if (!match.matched) {
-      [result, err] = await matchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
+      [result, err] = await matchOffer({
+        offerId: offer.id,
+        matchingOfferId: match.offerId,
+        currency: Object.keys(match.prices)[0] as Currency,
+        paymentMethod: match.paymentMethods[0],
+      })
     } else {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
     }
@@ -83,16 +88,16 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <ScrollView style={tw`pt-6 overflow-visible`}>
-        <View style={tw`pb-8`}>
-          <View style={tw`h-full flex justify-center`}>
-            <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />
-            {offer.type === 'bid' && matches.length
-              ? <Text style={tw`text-grey-3 text-center -mt-2`}>
-                {i18n('search.forBuying', thousands(offer.amount))}
-              </Text>
-              : null
-            }
+      <View style={tw`h-full flex justify-center pb-8`}>
+        <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />
+        {offer.type === 'bid' && matches.length
+          ? <Text style={tw`text-grey-3 text-center -mt-2`}>
+            {i18n('search.forBuying', thousands(offer.amount))}
+          </Text>
+          : null
+        }
+        {matches.length
+          ? <View>
             <Matches style={tw`mt-9`} matches={matches} onChange={setCurrentMatch}/>
             <View style={tw`flex items-center mt-6`}>
               <Button
@@ -102,8 +107,9 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
             </View>
           </View>
-        </View>
-      </ScrollView>
+          : null
+        }
+      </View>
     </View>
   </View>
 }

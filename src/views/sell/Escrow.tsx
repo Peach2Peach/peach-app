@@ -54,13 +54,13 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
   useEffect(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
-      setFundingStatus(() => result.funding)
       saveAndUpdate({
         ...offer,
         funding: result.funding,
         returnAddress: result.returnAddress,
         depositAddress: offer.depositAddress || result.returnAddress,
       })
+      setFundingStatus(() => result.funding)
       setFundingError(() => result.error || '')
     },
     onError: () => {
