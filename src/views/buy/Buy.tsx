@@ -65,6 +65,10 @@ const screens = [
     id: 'releaseAddress',
     view: ReleaseAddress,
     scrollable: false
+  },
+  {
+    id: 'search',
+    view: Main
   }
 ]
 
@@ -106,14 +110,15 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (result) {
         saveOffer({ ...offer, id: result.offerId, published: true })
         setOffer(() => ({ ...offer, id: result.offerId, published: true }))
-      } else {
-        error('Error', err)
-        updateMessage({
-          msg: i18n(err?.error || 'error.postOffer'),
-          level: 'ERROR',
-        })
+        navigation.navigate('search', { offer })
         return
       }
+
+      error('Error', err)
+      updateMessage({
+        msg: i18n(err?.error || 'error.postOffer'),
+        level: 'ERROR',
+      })
     }
     if (page >= screens.length - 1) return
     setPage(page + 1)

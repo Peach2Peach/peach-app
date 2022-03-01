@@ -80,12 +80,16 @@ const screens = [
     id: 'returnAddress',
     view: ReturnAddress,
     scrollable: false
+  },
+  {
+    id: 'search',
+    view: Main
   }
 ]
 
 
 const getInitialPageForOffer = (offer: SellOffer) =>
-  offer.published
+  offer.id
     ? screens.findIndex(s => s.id === 'escrow')
     : 0
 
@@ -139,10 +143,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
     }
+
     if (screens[page + 1].id === 'search' && !offer.published) {
       saveOffer({ ...offer, published: true })
       setOffer(() => ({ ...offer, published: true }))
+      navigation.navigate('search', { offer })
+      return
     }
+
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
