@@ -17,6 +17,7 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+// TODO check offer status (escrow, searching, matched, online/offline, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 

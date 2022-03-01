@@ -60,6 +60,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...m,
         matched: m.offerId === match.offerId ? !m.matched : m.matched
       })))
+
+      if (offer.type === 'ask') {
+        saveOffer({ ...offer, doubleMatched: true })
+        setOffer(() => ({ ...offer, doubleMatched: true }))
+      }
     } else {
       error('Error', err)
       updateMessage({

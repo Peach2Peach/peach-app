@@ -52,6 +52,7 @@ export const defaultSellOffer: SellOffer = {
   amount: BUCKETS[0],
   kyc: false,
   matches: [],
+  doubleMatched: false,
 }
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 

@@ -31,6 +31,7 @@ declare type Offer = {
   currencies: Currency[],
   kyc: boolean,
   matches: string[],
+  doubleMatched: boolean,
 }
 
 declare type SellOffer = Offer & {
