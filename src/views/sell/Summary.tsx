@@ -30,7 +30,10 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
           <View style={tw`w-5/8`}>
             <View>
               <Text>
-                {i18n(`currency.format.${currency}`, (price * offer.amount / 100000000).toFixed(2))}
+                {i18n(
+                  `currency.format.${currency}`,
+                  (price * offer.amount * ((100 + offer.premium) / 100) / 100000000).toFixed(2)
+                )}
               </Text>
             </View>
             <View>
