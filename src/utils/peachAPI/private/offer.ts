@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { API_URL } from '@env'
 import { error, info } from '../../logUtils'
 import { getAccessToken } from './auth'
@@ -221,14 +222,17 @@ export const getFundingStatus = async ({
   }
 }
 
+type GetMatchesProps = {
+  offerId: string,
+}
 
 /**
- * @description Method to get offer of user
+ * @description Method to get matches of an offer
  * @returns GetOffersResponse
  */
 export const getMatches = async ({
   offerId
-}: GetFundingStatusProps): Promise<[GetMatchesResponse|null, APIError|null]> => {
+}: GetMatchesProps): Promise<[GetMatchesResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -258,6 +262,103 @@ export const getMatches = async ({
     }
 
     error('peachAPI - getMatches', e)
+
+    return [null, { error: err }]
+  }
+}
+
+
+type MatchProps = {
+  offerId: string,
+  matchingOfferId: string,
+}
+
+/**
+ * @description Method to match an offer
+ * @returns MatchResponse
+ */
+export const matchOffer = async ({
+  offerId,
+  matchingOfferId
+}: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchingOfferId
+    }),
+    method: 'POST'
+  })
+
+  try {
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - matchOffer', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+
+    error('peachAPI - matchOffer', e)
+
+    return [null, { error: err }]
+  }
+}
+
+
+/**
+ * @description Method to match an offer
+ * @returns MatchResponse
+ */
+export const unmatchOffer = async ({
+  offerId,
+  matchingOfferId
+}: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchingOfferId
+    }),
+    method: 'DELETE'
+  })
+
+  try {
+    const data = await response.json()
+    if (response.status !== 200) {
+      error('peachAPI - unmatchOffer', {
+        status: response.status,
+        data
+      })
+
+      return [null, data]
+    }
+    return [data, null]
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+
+    error('peachAPI - unmatchOffer', e)
 
     return [null, { error: err }]
   }

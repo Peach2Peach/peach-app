@@ -46,6 +46,7 @@ export const defaultBuyOffer: BuyOffer = {
   paymentData: [],
   kyc: false,
   amount: BUCKETS[0],
+  matches: [],
 }
 type Screen = ({ offer, updateOffer }: BuyViewProps) => ReactElement
 

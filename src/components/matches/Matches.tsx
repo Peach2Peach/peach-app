@@ -39,7 +39,7 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
   const [{ width }] = useState(GetWindowDimensions())
   const $carousel = useRef<Carousel<any>>(null)
 
-  return <View style={[tw`flex-row items-center`, { height: 156 }, style]}>
+  return <View style={[tw`flex-row items-center`, style]}>
     <PrevButton onPress={() => $carousel.current?.snapToNext()} />
     <Carousel loop={true}
       ref={$carousel}
@@ -47,8 +47,8 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
       sliderWidth={width - 40}
       itemWidth={width - 40}
       onSnapToItem={onChange}
-      renderItem={({ item }) => <View key={item.offerId} style={tw`flex px-2`} >
-        <Match match={item}/>
+      renderItem={({ item }) => <View style={tw`px-2`} >
+        <Match match={item} />
       </View>}
     />
     <NextButton onPress={() => $carousel.current?.snapToNext()} />

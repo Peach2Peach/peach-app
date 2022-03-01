@@ -15,6 +15,9 @@ import { MessageContext } from '../../utils/messageUtils'
 import { BigTitle, Button, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/stringUtils'
+import { saveOffer } from '../../utils/accountUtils'
+import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
+import { error } from '../../utils/logUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -24,32 +27,59 @@ type Props = {
   } }>,
   navigation: ProfileScreenNavigationProp,
 }
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
 
-  useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
-  const [offer] = useState(route.params?.offer)
+  const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params?.offer)
 
   const [matches, setMatches] = useState<Match[]>([])
 
-  const matchOffer = (match: Match) => {
-    console.log(match)
+  const toggleMatch = async (match: Match) => {
+    let result
+    let err
+
+    if (!offer.id) return
+
+    if (!match.matched) {
+      [result, err] = await matchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
+    } else {
+      [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
+    }
+
+    if (result) {
+      setMatches(() => matches.map(m => ({
+        ...m,
+        matched: m.offerId === match.offerId ? !m.matched : m.matched
+      })))
+    } else {
+      error('Error', err)
+      updateMessage({
+        msg: i18n(err?.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
   }
+
+  useEffect(() => {
+    const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
+    saveOffer({ ...offer, matches: matchedOffers })
+    setOffer(() => ({ ...offer, matches: matchedOffers }))
+  }, [matches])
 
   useEffect(searchForPeersEffect({
     offer,
     onSuccess: result => {
-      setMatches(() => result)
+      setMatches(() => result.map(m => ({
+        ...m,
+        matched: offer.matches && offer.matches.indexOf(m.offerId) !== -1
+      })))
     },
     onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
   }), [offer.id])
-
-  useEffect(() => {
-    console.log('currentMatch', currentMatch)
-  }, [currentMatch])
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
@@ -68,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               <Button
                 title={i18n('search.matchOffer')}
                 wide={false}
-                onPress={() => matchOffer(matches[currentMatch])}
+                onPress={() => toggleMatch(matches[currentMatch])}
               />
             </View>
           </View>

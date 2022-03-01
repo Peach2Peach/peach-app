@@ -50,7 +50,8 @@ export const defaultSellOffer: SellOffer = {
   paymentData: [],
   hashedPaymentData: '',
   amount: BUCKETS[0],
-  kyc: false
+  kyc: false,
+  matches: [],
 }
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 

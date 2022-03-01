@@ -79,8 +79,12 @@ declare type Match = {
   paymentMethods: PaymentMethod[],
   kyc: boolean,
   kycType?: KYCType,
+  matched?: boolean
 }
 declare type GetMatchesResponse = {
   offerId: string,
   matches: Match[],
+}
+declare type MatchResponse = {
+  success: true,
 }
