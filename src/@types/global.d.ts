@@ -32,6 +32,7 @@ declare type Offer = {
   kyc: boolean,
   matches: string[],
   doubleMatched: boolean,
+  contractId?: string,
 }
 
 declare type SellOffer = Offer & {
@@ -40,8 +41,9 @@ declare type SellOffer = Offer & {
   paymentData: PaymentData[],
   hashedPaymentData: string,
   kycType?: KYCType,
-  returnAddress?: string,
   depositAddress?: string,
+  returnAddress?: string,
+  confirmedReturnAddress?: boolean,
   escrow?: string,
   funding?: FundingStatus,
 }
@@ -50,6 +52,23 @@ declare type BuyOffer = Offer & {
   type: 'bid'
   paymentData: PaymentData[],
   releaseAddress?: string,
+}
+
+declare type Contract = {
+  creationDate: Date,
+  id: string,
+  sellerId: string,
+  buyerId: string,
+  kycRequired: boolean,
+  kycType: KYCType,
+  releaseAddress: string,
+
+  kycConfirmed: boolean,
+  kycResponseDate: Date,
+  paymentMade: boolean,
+  paymentConfirmed: Date,
+
+  disputeActive: boolean
 }
 
 declare type PeachWallet = {

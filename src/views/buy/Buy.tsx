@@ -37,6 +37,7 @@ export type BuyViewProps = {
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
+  navigation: ProfileScreenNavigationProp,
 }
 
 export const defaultBuyOffer: BuyOffer = {
@@ -97,30 +98,35 @@ export default ({ route, navigation }: Props): ReactElement => {
     setPage(() => route.params?.page || 0)
   }, [isFocused])
 
-  const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'search' && !offer.id) {
-      setLoading(true)
-      const [result, err] = await postOffer({
-        ...offer,
-        amount: BUCKETMAP[String(offer.amount)],
-        paymentMethods: offer.paymentData.map(p => p.type),
-      })
+  useEffect(() => {
+    (async () => {
+      if (screens[page].id === 'search' && !offer.id) {
+        setLoading(true)
+        const [result, err] = await postOffer({
+          ...offer,
+          amount: BUCKETMAP[String(offer.amount)],
+          paymentMethods: offer.paymentData.map(p => p.type),
+        })
 
-      setLoading(false)
+        setLoading(false)
 
-      if (result) {
-        saveOffer({ ...offer, id: result.offerId, published: true })
-        setOffer(() => ({ ...offer, id: result.offerId, published: true }))
-        navigation.navigate('search', { offer })
-        return
+        if (result) {
+          setOffer(() => ({ ...offer, id: result.offerId, published: true }))
+          saveOffer({ ...offer, id: result.offerId, published: true })
+          navigation.navigate('search', { offer: { ...offer, id: result.offerId, published: true } })
+          return
+        }
+
+        error('Error', err)
+        updateMessage({
+          msg: i18n(err?.error || 'error.postOffer'),
+          level: 'ERROR',
+        })
       }
+    })()
+  }, [page])
 
-      error('Error', err)
-      updateMessage({
-        msg: i18n(err?.error || 'error.postOffer'),
-        level: 'ERROR',
-      })
-    }
+  const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
@@ -139,7 +145,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {CurrentView
-            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />
+            ? <CurrentView offer={offer}
+              updateOffer={setOffer}
+              setStepValid={setStepValid}
+              back={back} next={next}
+              navigation={navigation}/>
             : null
           }
         </View>

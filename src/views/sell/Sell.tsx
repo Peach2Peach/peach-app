@@ -40,6 +40,7 @@ export type SellViewProps = {
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
+  navigation: ProfileScreenNavigationProp,
 }
 
 export const defaultSellOffer: SellOffer = {
@@ -119,49 +120,54 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [isFocused])
 
   useEffect(() => {
+    (async () => {
+      if (screens[page].id === 'escrow' && !offer.id) {
+        const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
+
+        setLoading(true)
+        const [result, err] = await postOffer({
+          ...offer,
+          amount: BUCKETMAP[String(offer.amount)],
+          paymentMethods: offer.paymentData.map(p => p.type),
+          hashedPaymentData,
+        })
+
+        setLoading(false)
+
+        if (result) {
+          saveOffer({ ...offer, id: result.offerId })
+          setOffer(() => ({ ...offer, id: result.offerId }))
+        } else {
+          error('Error', err)
+          updateMessage({
+            msg: i18n(err?.error || 'error.postOffer'),
+            level: 'ERROR',
+          })
+          return
+        }
+      }
+
+      if (screens[page].id === 'search') {
+        saveOffer({ ...offer, published: true, confirmedReturnAddress: true })
+        setOffer(({ ...offer, published: true, confirmedReturnAddress: true }))
+        navigation.navigate('search', { offer })
+      }
+    })()
+  }, [page])
+
+  useEffect(() => {
     if (!offer.published) return
 
     navigation.navigate('search', { offer })
   }, [offer.published])
 
-  const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'escrow' && !offer.id) {
-      const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
-
-      setLoading(true)
-      const [result, err] = await postOffer({
-        ...offer,
-        amount: BUCKETMAP[String(offer.amount)],
-        paymentMethods: offer.paymentData.map(p => p.type),
-        hashedPaymentData,
-      })
-
-      setLoading(false)
-
-      if (result) {
-        saveOffer({ ...offer, id: result.offerId })
-        setOffer(() => ({ ...offer, id: result.offerId }))
-      } else {
-        error('Error', err)
-        updateMessage({
-          msg: i18n(err?.error || 'error.postOffer'),
-          level: 'ERROR',
-        })
-        return
-      }
-    }
-
-    if (screens[page + 1].id === 'search') {
-      saveOffer({ ...offer, published: true })
-      setOffer(({ ...offer, published: true }))
-      return
-    }
-
+  const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
     scroll.current?.scrollTo({ x: 0 })
   }
+
   const back = () => {
     if (page === 0) return
     setPage(page - 1)
@@ -175,7 +181,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {CurrentView
-            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />
+            ? <CurrentView
+              offer={offer}
+              updateOffer={setOffer}
+              setStepValid={setStepValid}
+              back={back} next={next}
+              navigation={navigation} />
             : null
           }
         </View>

@@ -29,11 +29,14 @@ export default ({ navigation }: Props): ReactElement => {
         </Text>
       </View>
       {account.offers.map(offer => <View key={offer.id}>
-        <Pressable onPress={() => offer.published
-          ? navigation.navigate('search', { offer })
-          : offer.type === 'ask'
-            ? navigation.navigate('sell', { offer })
-            : navigation.navigate('buy', { offer })
+        <Pressable onPress={() => offer.contractId
+          ? navigation.navigate('contract', { contractId: offer.contractId })
+          : offer.published
+            && (offer.type === 'bid' || (offer.funding?.status === 'FUNDED' && offer.confirmedReturnAddress))
+            ? navigation.navigate('search', { offer })
+            : offer.type === 'ask'
+              ? navigation.navigate('sell', { offer })
+              : navigation.navigate('buy', { offer })
         }>
           <Text>
             {offer.id} - {offer.type} -  {offer.amount}

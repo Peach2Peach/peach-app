@@ -62,8 +62,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       })))
 
       if (offer.type === 'ask') {
-        saveOffer({ ...offer, doubleMatched: true })
-        setOffer(() => ({ ...offer, doubleMatched: true }))
+        saveOffer({ ...offer, doubleMatched: true, contractId: result.contractId })
+        setOffer(() => ({ ...offer, doubleMatched: true, contractId: result.contractId }))
+
+        if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
       }
     } else {
       error('Error', err)

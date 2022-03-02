@@ -87,4 +87,5 @@ declare type GetMatchesResponse = {
 }
 declare type MatchResponse = {
   success: true,
+  contractId?: string,
 }

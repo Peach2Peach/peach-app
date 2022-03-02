@@ -34,6 +34,7 @@ import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './utils/overlayUtils'
 import Search from './views/search/Search'
+import Contract from './views/contract/Contract'
 
 enableScreens()
 
@@ -52,6 +53,7 @@ const views: ViewType[] = [
   { name: 'buy', component: Buy },
   { name: 'sell', component: Sell },
   { name: 'search', component: Search },
+  { name: 'contract', component: Contract },
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },
   { name: 'componentsTest', component: ComponentsTest },
