@@ -89,3 +89,4 @@ declare type MatchResponse = {
   success: true,
   contractId?: string,
 }
+declare type GetContractResponse = Contract
