@@ -40,7 +40,10 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
   const $carousel = useRef<Carousel<any>>(null)
 
   return <View style={[tw`flex-row items-center`, style]}>
-    <PrevButton onPress={() => $carousel.current?.snapToNext()} />
+    {matches.length > 1
+      ? <PrevButton onPress={() => $carousel.current?.snapToPrev()} />
+      : null
+    }
     <Carousel loop={true}
       ref={$carousel}
       data={matches}
@@ -51,7 +54,10 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
         <Match match={item} />
       </View>}
     />
-    <NextButton onPress={() => $carousel.current?.snapToNext()} />
+    {matches.length > 1
+      ? <NextButton onPress={() => $carousel.current?.snapToNext()} />
+      : null
+    }
   </View>
 }
 
