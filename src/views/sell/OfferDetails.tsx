@@ -30,6 +30,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [kycType, setKYCType] = useState(account.settings.kycType || 'iban')
 
   useEffect(() => {
+    // TODO debounce this because premium slider fires often
     updateOffer({
       ...offer,
       currencies,
