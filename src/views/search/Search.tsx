@@ -17,7 +17,8 @@ import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/stringUtils'
 import { saveOffer } from '../../utils/accountUtils'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
-import { error } from '../../utils/logUtils'
+import { error, info } from '../../utils/logUtils'
+import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -34,12 +35,17 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
-  const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params?.offer)
+  const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
 
   const [matches, setMatches] = useState<Match[]>([])
 
+  const saveAndUpdate = (offerData: SellOffer) => {
+    setOffer(offerData)
+    saveOffer(offerData)
+  }
+
   const toggleMatch = async (match: Match) => {
-    let result
+    let result: any
     let err
 
     if (!offer.id) return
@@ -92,6 +98,26 @@ export default ({ route, navigation }: Props): ReactElement => {
     },
     onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
   }), [offer.id])
+
+
+  useEffect(() => 'escrow' in offer
+    ? checkFundingStatusEffect({
+      offer,
+      onSuccess: result => {
+        info('Checked funding status', result)
+
+        saveAndUpdate({
+          ...offer,
+          funding: result.funding,
+          returnAddress: result.returnAddress,
+          depositAddress: offer.depositAddress || result.returnAddress,
+        })
+      },
+      onError: () => {
+        // TODO treat API Error case (404, 500, etc)
+      },
+    })()
+    : () => {}, [offer.id])
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>

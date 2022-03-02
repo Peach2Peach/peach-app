@@ -58,10 +58,12 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     updateOffer({
       ...offer,
       returnAddress: address,
+      confirmedReturnAddress: true,
     })
     saveOffer({
       ...offer,
       returnAddress: address,
+      confirmedReturnAddress: true,
     })
   }, [address])
 

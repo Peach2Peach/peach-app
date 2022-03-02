@@ -15,8 +15,8 @@ export default ({
   let interval: NodeJS.Timer
 
   const checkingFunction = async () => {
-    if (!offer.id
-      || (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED'))) return
+    if (!offer.id) return
+    if (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED')) return
 
     info('Checking matches for', offer.id)
     const [result, err] = await getMatches({

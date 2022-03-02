@@ -24,7 +24,8 @@ const defaultFunding: FundingStatus = {
   amount: 0
 }
 
-export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [escrow, setEscrow] = useState(offer.escrow || '')
@@ -51,7 +52,7 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
       })
     },
     onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
-  }), [])
+  }), [offer.id])
 
   useEffect(checkFundingStatusEffect({
     offer,
@@ -75,7 +76,11 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
   useEffect(() => {
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
-      next()
+      if (!offer.confirmedReturnAddress) {
+        next()
+      } else {
+        navigation.navigate('search', { offer })
+      }
     }
   }, [fundingStatus])
 
@@ -85,6 +90,7 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.id])
 
+  info('Rendering escrow', offer)
   return <View>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
       help={<EscrowHelp fees={fees}/>}
