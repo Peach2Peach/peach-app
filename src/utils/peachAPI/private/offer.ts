@@ -79,12 +79,9 @@ export const postOffer = async ({
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
 
   try {
-    const accessToken = await getAccessToken()
-    if (!accessToken) return [null, { error: 'AUTHENTICATION_FAILED' }]
-
     const response = await fetch(`${API_URL}/v1/offer`, {
       headers: {
-        Authorization: accessToken,
+        Authorization: await getAccessToken(),
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -111,6 +108,7 @@ export const postOffer = async ({
 
       return [null, data]
     }
+
     return [data, null]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
