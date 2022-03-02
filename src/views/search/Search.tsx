@@ -40,8 +40,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [matches, setMatches] = useState<Match[]>([])
 
-  const saveAndUpdate = (offerData: SellOffer) => {
-    setOffer(offerData)
+  const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
+    setOffer(() => offerData)
     saveOffer(offerData)
   }
 
@@ -69,8 +69,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       })))
 
       if (offer.type === 'ask') {
-        saveOffer({ ...offer, doubleMatched: true, contractId: result.contractId })
-        setOffer(() => ({ ...offer, doubleMatched: true, contractId: result.contractId }))
+        saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
 
         if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
       }
@@ -92,8 +91,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
-    saveOffer({ ...offer, matches: matchedOffers })
-    setOffer(() => ({ ...offer, matches: matchedOffers }))
+
+    saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
 
   useEffect(searchForPeersEffect({
@@ -108,7 +107,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [offer.id])
 
 
-  useEffect(() => 'escrow' in offer
+  useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
     ? checkFundingStatusEffect({
       offer,
       onSuccess: result => {
