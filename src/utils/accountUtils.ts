@@ -173,6 +173,7 @@ export const createAccount = async ({
  * @returns promise resolving to encrypted account
  */
 export const saveAccount = async (password: string): Promise<void> => {
+  if (!account.publicKey) throw new Error('Error saving account')
   try {
     const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/peach-account.json', ciphertext, 'utf8')
@@ -205,6 +206,7 @@ const offerExists = (id: string): boolean => account.offers.some(o => o.id === i
  * @param offer the offer
  */
 export const saveOffer = (offer: SellOffer|BuyOffer): void => {
+  info('saveOffer', offer)
   if (!offer.id) throw new Error('offerId is required')
 
   if (offerExists(offer.id)) {
