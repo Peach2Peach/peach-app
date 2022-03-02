@@ -16,6 +16,7 @@ import { PEACHFEE } from '../../constants'
 import { thousands } from '../../utils/stringUtils'
 import EscrowHelp from './components/EscrowHelp'
 import { Title } from '../../components'
+import { info } from '../../utils/logUtils'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -40,7 +41,8 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
   useEffect(createEscrowEffect({
     offer,
     onSuccess: result => {
-      setEscrow(() => result.escrow) // TODO check why this is not having an effect
+      info('Created escrow', result)
+      setEscrow(() => result.escrow)
       setFundingStatus(() => result.funding)
       saveAndUpdate({
         ...offer,
@@ -54,6 +56,8 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
   useEffect(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
+      info('Checked funding status', result)
+
       saveAndUpdate({
         ...offer,
         funding: result.funding,

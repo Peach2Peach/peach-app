@@ -1,5 +1,5 @@
 import { EffectCallback } from 'react'
-import { error } from '../../../utils/logUtils'
+import { error, info } from '../../../utils/logUtils'
 import { createEscrow } from '../../../utils/peachAPI'
 import { getPublicKeyForEscrow } from '../../../utils/walletUtils'
 
@@ -14,6 +14,8 @@ export default ({
   onError
 }: CreateEscrowIfNewProps): EffectCallback => () => {
   (async () => {
+    info('Creating escrow for', offer.id)
+
     if (!offer.id || offer.escrow) return
 
     const publicKey = getPublicKeyForEscrow(offer.id)

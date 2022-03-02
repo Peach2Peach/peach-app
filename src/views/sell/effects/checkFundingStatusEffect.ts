@@ -13,10 +13,9 @@ export default ({
   onError
 }: CheckFundingStatusEffectProps): EffectCallback => () => {
   const checkingFunction = async () => {
-    console.log('checkingFunction', offer)
+    info('Checking funding status of', offer.id, offer.escrow)
     if (!offer.id || !offer.escrow) return
 
-    info('Checking funding status of', offer.id, offer.escrow)
     const [result, err] = await getFundingStatus({
       offerId: offer.id,
     })
