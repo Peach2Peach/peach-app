@@ -10,7 +10,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import BitcoinContext from '../../components/bitcoin'
 import i18n from '../../utils/i18n'
 
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { BigTitle, Button, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
@@ -36,6 +36,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
+  const isFocused = useIsFocused()
 
   const [matches, setMatches] = useState<Match[]>([])
 
@@ -81,6 +82,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       })
     }
   }
+
+
+  useEffect(() => {
+    if (!isFocused) return
+
+    setOffer(() => route.params.offer)
+  }, [isFocused])
 
   useEffect(() => {
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
