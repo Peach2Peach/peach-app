@@ -10,3 +10,4 @@ export const setPeachAccount = (acc: BIP32Interface) => peachAccount = acc
 export { marketPrice } from './public/market'
 export { userAuth, getAccessToken } from './private/auth'
 export { postOffer, createEscrow, getFundingStatus, getMatches } from './private/offer'
+export { getContract } from './private/contract'
