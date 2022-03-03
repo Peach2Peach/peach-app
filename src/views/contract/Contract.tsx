@@ -60,6 +60,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Text style={tw`text-grey-2 mt-4`}>buyerId: {contract.buyerId}</Text>
           <Text style={tw`text-grey-2 mt-4`}>price: {contract.price}</Text>
           <Text style={tw`text-grey-2 mt-4`}>currency: {contract.currency}</Text>
+          <Text style={tw`text-grey-2 mt-4`}>paymentMethod: {contract.paymentMethod}</Text>
           <Text style={tw`text-grey-2 mt-4`}>releaseAddress: {contract.releaseAddress}</Text>
           <Text style={tw`text-grey-2 mt-4`}>kycRequired: {contract.kycRequired}</Text>
           <Text style={tw`text-grey-2 mt-4`}>kycResponseDate: {contract.kycResponseDate}</Text>
