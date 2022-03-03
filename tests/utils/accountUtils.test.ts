@@ -1,6 +1,8 @@
 import { deepStrictEqual, ok } from 'assert'
-import { Account, createAccount, getAccount } from '../../src/utils/accountUtils'
+import { account, createAccount, defaultAccount, loadAccount, setAccount } from '../../src/utils/accountUtils'
+import * as accountData from '../data/accountData'
 import CryptoJS from 'react-native-crypto-js'
+import { userAuth } from '../../src/utils/peachAPI'
 
 jest.mock('../../src/utils/peachAPI', () => {
   const mockedModule = jest.requireActual(
@@ -11,52 +13,44 @@ jest.mock('../../src/utils/peachAPI', () => {
   }
 })
 
-const recoveredAccount: Account = {
-  publicKey: 'Recovered Account',
-  paymentData: [],
-  offers: [],
-  settings: {},
-}
-
 const password = 'supersecret'
 
 describe('createAccount', () => {
   const onSuccess = jest.fn()
   const onError = jest.fn()
 
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+  })
+
   it('creates a new account and stores it encrypted', async () => {
-    const result = await createAccount({
-      acc: null,
+    await createAccount({
       password,
       onSuccess,
       onError
     })
-    const account = CryptoJS.AES.decrypt(result, password).toString(CryptoJS.enc.Utf8)
 
-    ok(JSON.parse(account).publicKey)
-    expect(onSuccess).toHaveBeenCalled()
-  })
-
-  it('recovers account and stores it encrypted', async () => {
-    const result = await createAccount({ acc: recoveredAccount, password, onSuccess, onError })
-    const account = CryptoJS.AES.decrypt(result, password).toString(CryptoJS.enc.Utf8)
-
-    deepStrictEqual(recoveredAccount, JSON.parse(account))
+    ok(account.publicKey)
     expect(onSuccess).toHaveBeenCalled()
   })
 })
 
-describe('getAccount', () => {
+describe('setAccount', () => {
+  it('sets an account', async () => {
+    await setAccount(accountData.account1)
+    expect(userAuth).toBeCalled()
+  })
+})
+
+describe('loadAccount', () => {
   const onSuccess = jest.fn()
   const onError = jest.fn()
 
   it('decrypts account from storage', async () => {
-    await createAccount({ acc: null, password, onSuccess, onError })
-    const account = await getAccount(password)
-    ok(account.publicKey)
+    await createAccount({ password, onSuccess, onError })
+    const acc = await loadAccount(password)
+    ok(acc.publicKey)
     expect(onSuccess).toHaveBeenCalled()
     expect(onError).toHaveBeenCalledTimes(0)
   })
 })
-
-

@@ -1,9 +1,6 @@
 import { strictEqual, deepStrictEqual } from 'assert'
+import * as logUtils from '../../src/utils/logUtils'
 import { getSession, setSession, initSession } from '../../src/utils/sessionUtils'
-
-jest.mock('react-native-encrypted-storage', () => ({
-  getItem: async (): Promise<string> => '{"initialized": true, "password": "sessionPassword"}',
-}))
 
 describe('getSession', () => {
   it('returns an uninitialized session in the beginning', () => {
@@ -24,7 +21,12 @@ describe('setSession', () => {
 })
 
 describe('initSession', () => {
+  afterEach(() => jest.clearAllMocks())
+
   it('initializes session from encrypted storage', async () => {
+    jest.mock('react-native-encrypted-storage', () => ({
+      getItem: async (): Promise<string> => '{"initialized": true, "password": "sessionPassword"}',
+    }))
     deepStrictEqual((await initSession()), {
       initialized: true,
       password: 'sessionPassword'
@@ -33,5 +35,15 @@ describe('initSession', () => {
       initialized: true,
       password: 'sessionPassword'
     })
+  })
+
+  it('logs error for corrupted sessions', async () => {
+    jest.mock('react-native-encrypted-storage', () => ({
+      getItem: async (): Promise<string> => '{"corrupt}',
+    }))
+    const errorSpy = jest.spyOn(logUtils, 'error')
+    await initSession()
+
+    expect(errorSpy).toBeCalled()
   })
 })
