@@ -64,7 +64,7 @@ export const createAccount = async ({
   const firstAddress = getMainAddress(wallet)
 
   await setSession({ password })
-  setAccount({
+  await setAccount({
     ...defaultAccount,
     publicKey: firstAddress.publicKey.toString('hex'),
     privKey: (wallet.privateKey as Buffer).toString('hex'),
@@ -109,7 +109,7 @@ export const loadAccount = async (password: string): Promise<Account> => {
  * @returns promise resolving to encrypted account
  */
 export const saveAccount = async (acc: Account, password: string): Promise<void> => {
-  if (!account.publicKey) throw new Error('Error saving account: Account has no public key!')
+  if (!acc.publicKey) throw new Error('Error saving account: Account has no public key!')
   const result = writeFile('/peach-account.json', JSON.stringify(account), password)
   if (!result) {
     // TODO add error handling
@@ -193,11 +193,11 @@ interface RecoverAccountProps {
  * @param props.onSuccess callback on success
  * @param props.onError callback on error
  */
-export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onError }: RecoverAccountProps) => {
+export const recoverAccount = async ({ encryptedAccount, password = '', onSuccess, onError }: RecoverAccountProps) => {
   info('Recovering account', encryptedAccount)
 
   try {
-    setAccount(decrypt(encryptedAccount, password))
+    await setAccount(decrypt(encryptedAccount, password))
     onSuccess()
   } catch (e) {
     onError(e)
@@ -218,6 +218,7 @@ export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) 
   info('Deleting account')
 
   if (await deleteFile('/peach-account.json')) {
+    setAccount(defaultAccount)
     onSuccess()
   } else {
     onError()

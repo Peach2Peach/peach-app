@@ -122,7 +122,7 @@
       "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-qrcode-svg)/)"
     ],
     "setupFiles": [
-      "./tests/prepare.js",
+      "./tests/prepare.ts",
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "moduleNameMapper": {

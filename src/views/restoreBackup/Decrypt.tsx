@@ -36,8 +36,8 @@ export default ({ encryptedAccount, onSuccess, onError }: DecryptProps): ReactEl
     })
   }
 
-  const submit = () => {
-    recoverAccount({
+  const submit = async () => {
+    await recoverAccount({
       encryptedAccount,
       password,
       onSuccess,

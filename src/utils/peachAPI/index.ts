@@ -5,6 +5,7 @@ export let accessToken: AccessToken|null
 export let peachAccount: BIP32Interface|null
 
 export const setAccessToken = (token: AccessToken) => accessToken = token
+export const getPeachAccount = () => peachAccount
 export const setPeachAccount = (acc: BIP32Interface) => peachAccount = acc
 
 export { marketPrice } from './public/market'

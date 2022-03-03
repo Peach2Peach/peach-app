@@ -6,9 +6,11 @@ const accessToken: AccessToken = {
 }
 
 /**
- * @description Method to authenticate with Peach API
+ * @description Mock to authenticate with Peach API
  * @param keyPair key pair needed for authentication
  * @returns AccessToken or APIError
  */
-export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> =>
-  [accessToken, null]
+export const userAuth = jest.fn(
+  async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> =>
+    [accessToken, null]
+)
