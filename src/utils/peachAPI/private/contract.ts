@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import { error } from '../../logUtils'
+import { parseResponse } from '..'
 import { getAccessToken } from './auth'
 
 type GetContractProps = {
@@ -23,28 +23,5 @@ export const getContract = async ({
     method: 'GET'
   })
 
-  try {
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - getContract', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - getContract', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<Contract>(response, 'getContract')
 }

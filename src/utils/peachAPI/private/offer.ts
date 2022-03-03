@@ -1,6 +1,6 @@
-/* eslint-disable max-lines */
 import { API_URL } from '@env'
-import { error, info } from '../../logUtils'
+import { parseResponse } from '..'
+import { error } from '../../logUtils'
 import { getAccessToken } from './auth'
 
 /**
@@ -77,51 +77,27 @@ export const postOffer = async ({
   returnAddress,
   releaseAddress
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
-
-  try {
-    const response = await fetch(`${API_URL}/v1/offer`, {
-      headers: {
-        Authorization: await getAccessToken(),
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        type,
-        amount,
-        premium,
-        currencies,
-        paymentMethods,
-        hashedPaymentData,
-        kyc,
-        returnAddress,
-        releaseAddress
-      })
+  const response = await fetch(`${API_URL}/v1/offer`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      type,
+      amount,
+      premium,
+      currencies,
+      paymentMethods,
+      hashedPaymentData,
+      kyc,
+      returnAddress,
+      releaseAddress
     })
+  })
 
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - postOffer', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - postOffer', e)
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<PostOfferResponse>(response, 'postOffer')
 }
 
 type CreateEscrowProps = {
@@ -151,30 +127,7 @@ export const createEscrow = async ({
     })
   })
 
-  try {
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - createEscrow', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - createEscrow', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<CreateEscrowResponse>(response, 'createEscrow')
 }
 
 
@@ -199,25 +152,7 @@ export const getFundingStatus = async ({
     method: 'GET',
   })
 
-  try {
-    const result = await response.json()
-
-    info('peachAPI - getFundingStatus', result)
-
-    return [await result, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - getFundingStatus', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<FundingStatusResponse>(response, 'getFundingStatus')
 }
 
 type GetMatchesProps = {
@@ -240,29 +175,7 @@ export const getMatches = async ({
     method: 'GET'
   })
 
-  try {
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - getMatches', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - getMatches', e)
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<GetMatchesResponse>(response, 'getMatches')
 }
 
 
@@ -297,29 +210,7 @@ export const matchOffer = async ({
     method: 'POST'
   })
 
-  try {
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - matchOffer', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - matchOffer', e)
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<MatchResponse>(response, 'matchOffer')
 }
 
 type UnmatchProps = {
@@ -347,27 +238,5 @@ export const unmatchOffer = async ({
     method: 'DELETE'
   })
 
-  try {
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - unmatchOffer', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - unmatchOffer', e)
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<MatchResponse>(response, 'unmatchOffer')
 }
