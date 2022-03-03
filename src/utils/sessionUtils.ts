@@ -33,21 +33,11 @@ export const getSession = () => session
  * @description Method to initialise local user session from encrypted storage
  */
 export const initSession = async (): Promise<Session> => {
-  try {
-    const result = await EncryptedStorage.getItem('session') as string
+  const result = await EncryptedStorage.getItem('session') as string
 
-    if (result) {
-      await setSession(JSON.parse(result))
-      return session
-    }
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('Session could not be retrieved', err)
+  if (result) {
+    await setSession(JSON.parse(result))
+    return session
   }
 
   return session
