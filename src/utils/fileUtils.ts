@@ -1,0 +1,73 @@
+import { error, info } from './logUtils'
+import RNFS from './fileSystem/RNFS'
+import { decrypt, encrypt } from './cryptoUtils'
+
+/**
+ * @description Method to read file
+ * @param path path to file
+ * @param password secret
+ * @return Promise resolving to file fontent
+ */
+export const readFile = async (path: string, password?: string): Promise<string> => {
+  info(password ? 'Reading encrypted file' : 'Reading file')
+  let content = ''
+
+  try {
+    content = await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8') as string
+    if (password) content = decrypt(content, password)
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+    error('File could not be read', err)
+  }
+  return content
+}
+
+/**
+ * @description Method to write file
+ * @param path path to file
+ * @param content content to write
+ * @param password secret
+ * @returns Promise resolving to true if operation was successful
+ */
+export const writeFile = async (path: string, content: string, password: string): Promise<boolean> => {
+  try {
+    if (password) content = encrypt(content, password)
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + path, content, 'utf8')
+    return true
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+    error('File could not be written', err)
+    return false
+  }
+}
+
+/**
+ * @description Method to delete file
+ * @param path path to file
+ * @returns Promise resolving to true if operation was successful
+ */
+export const deleteFile = async (path: string): Promise<boolean> => {
+  try {
+    await RNFS.unlink(RNFS.DocumentDirectoryPath + '/peach-account.json')
+    return true
+  } catch (e) {
+    let err = 'UNKOWN_ERROR'
+    if (typeof e === 'string') {
+      err = e.toUpperCase()
+    } else if (e instanceof Error) {
+      err = e.message
+    }
+    error('File could not be deleted', err)
+    return false
+  }
+}

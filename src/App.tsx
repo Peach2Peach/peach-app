@@ -28,7 +28,7 @@ import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
-import { account, getAccount } from './utils/accountUtils'
+import { account, loadAccount } from './utils/accountUtils'
 import { initSession, session } from './utils/sessionUtils'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
@@ -67,7 +67,7 @@ const views: ViewType[] = [
  */
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   const { password } = await initSession()
-  if (password) await getAccount(password)
+  if (password) await loadAccount(password)
   setTimeout(() => {
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
       if (account?.settings?.skipTutorial) {

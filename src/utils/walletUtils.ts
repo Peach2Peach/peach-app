@@ -1,4 +1,4 @@
-import { DEV, NETWORK } from '@env'
+import { NETWORK } from '@env'
 import * as bitcoin from 'bitcoinjs-lib'
 import * as bip39 from 'bip39'
 import { getRandom } from './cryptoUtils'
@@ -27,6 +27,7 @@ export const createWallet = async (mnemonic? :string): Promise<PeachWallet> => {
   }
 }
 
+export const getWallet = () => wallet
 export const setWallet = (wllt: bitcoin.bip32.BIP32Interface) => wallet = wllt
 
 /**

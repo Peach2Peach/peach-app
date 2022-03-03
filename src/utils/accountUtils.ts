@@ -1,12 +1,12 @@
 import { error, info } from './logUtils'
 import { isMobile } from './systemUtils'
-import CryptoJS from 'react-native-crypto-js'
 import RNFS from './fileSystem/RNFS'
 import Share from './fileSystem/Share'
-import EncryptedStorage from 'react-native-encrypted-storage'
-import { createWallet, getMainAddress, setWallet } from './walletUtils'
+import { createWallet, getMainAddress, setWallet, getWallet } from './walletUtils'
+import { session, setSession } from './sessionUtils'
 import * as peachAPI from './peachAPI'
-import { getSession, session } from './sessionUtils'
+import { deleteFile, readFile, writeFile } from './fileUtils'
+import { decrypt } from './cryptoUtils'
 
 type Settings = {
   skipTutorial?: boolean,
@@ -18,16 +18,7 @@ type Settings = {
   kycType?: KYCType,
 }
 
-export type Account = {
-  publicKey?: string,
-  privKey?: string,
-  mnemonic?: string,
-  settings: Settings,
-  paymentData: PaymentData[],
-  offers: (SellOffer|BuyOffer)[],
-}
-
-const defaultAccount: Account = {
+export const defaultAccount: Account = {
   settings: {},
   paymentData: [],
   offers: [],
@@ -36,32 +27,51 @@ const defaultAccount: Account = {
 export let account = defaultAccount
 
 interface CreateAccountProps {
-  acc?: Account|null,
   password: string,
   onSuccess: Function,
   onError: Function
 }
 
+
 /**
  * @description Method to set account for app session
  * @param acc account
  */
-const setAccount = async (acc: Account) => {
+export const setAccount = async (acc: Account) => {
   account = {
     ...defaultAccount,
     ...acc
   }
 
-  const { wallet } = await createWallet(account.mnemonic) // TODO add error handling
-  setWallet(wallet)
+  setWallet((await createWallet(account.mnemonic)).wallet) // TODO add error handling
+  peachAPI.setPeachAccount(getWallet())
+}
 
+/**
+ * @description Method to create a new or existing account
+ * @param [password] secret
+ * @param onSuccess callback on success
+ * @param onError callback on error
+ * @returns promise resolving to encrypted account
+ */
+export const createAccount = async ({
+  password = '',
+  onSuccess,
+  onError
+}: CreateAccountProps): Promise<void> => {
+  info('Create account')
+  const { wallet, mnemonic } = await createWallet() // TODO add error handling
   const firstAddress = getMainAddress(wallet)
 
-  const [result, apiError] = await peachAPI.userAuth(firstAddress)
+  await setSession({ password })
+  setAccount({
+    ...defaultAccount,
+    publicKey: firstAddress.publicKey.toString('hex'),
+    privKey: (wallet.privateKey as Buffer).toString('hex'),
+    mnemonic,
+  })
 
-  if (apiError?.error) {
-    info('Create account APIERROR', apiError.error)
-  }
+  onSuccess()
 }
 
 /**
@@ -69,29 +79,15 @@ const setAccount = async (acc: Account) => {
  * @param password secret
  * @return account
  */
-export const getAccount = async (password: string): Promise<Account> => {
-  info('Get account')
-
+export const loadAccount = async (password: string): Promise<Account> => {
   if (account.publicKey) return account
 
-  let acc = ''
+  info('Loading account from file')
+
+  let acc
 
   try {
-    acc = await RNFS.readFile(RNFS.DocumentDirectoryPath + '/peach-account.json', 'utf8') as string
-    acc = CryptoJS.AES.decrypt(acc, password).toString(CryptoJS.enc.Utf8)
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('File could not be read', err)
-  }
-
-  try {
-    if (acc) setAccount(JSON.parse(acc))
-    return account
+    acc = JSON.parse(await readFile('/peach-account.json', password)) as Account
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -102,69 +98,9 @@ export const getAccount = async (password: string): Promise<Account> => {
     error('Incorrect password', err)
     return account
   }
-}
 
-
-/**
- * @description Method to create a new or existing account
- * @param [account] account object
- * @param [password] secret
- * @param onSuccess callback on success
- * @param onError callback on error
- * @returns promise resolving to encrypted account
- */
-// eslint-disable-next-line max-statements
-export const createAccount = async ({
-  acc,
-  password = '',
-  onSuccess,
-  onError
-}: CreateAccountProps): Promise<string|null|void> => {
-  let ciphertext = null
-
-  info('Create account', acc, password)
-  if (!acc || typeof acc !== 'object') {
-    const { wallet, mnemonic } = await createWallet() // TODO add error handling
-    setWallet(wallet)
-    const firstAddress = getMainAddress(wallet)
-
-    account = {
-      ...defaultAccount,
-      publicKey: firstAddress.publicKey.toString('hex'),
-      privKey: (wallet.privateKey as Buffer).toString('hex'),
-      mnemonic,
-    }
-
-    const [result, apiError] = await peachAPI.userAuth(firstAddress)
-
-    info('Create account RESULT', result)
-
-    if (apiError?.error) {
-      info('Create account APIERROR', apiError.error)
-
-      return onError(apiError.error)
-    }
-  } else {
-    account = acc
-  }
-
-  try {
-    ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
-    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/peach-account.json', ciphertext, 'utf8')
-    await EncryptedStorage.setItem(
-      'session',
-      JSON.stringify({
-        ...getSession(),
-        password
-      })
-    )
-  } catch (e) {
-    onError(e)
-    return null
-  }
-
-  onSuccess()
-  return ciphertext
+  await setAccount(acc)
+  return account
 }
 
 /**
@@ -172,12 +108,10 @@ export const createAccount = async ({
  * @param password secret
  * @returns promise resolving to encrypted account
  */
-export const saveAccount = async (password: string): Promise<void> => {
-  if (!account.publicKey) throw new Error('Error saving account')
-  try {
-    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(account), password).toString()
-    await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/peach-account.json', ciphertext, 'utf8')
-  } catch (e) {
+export const saveAccount = async (acc: Account, password: string): Promise<void> => {
+  if (!account.publicKey) throw new Error('Error saving account: Account has no public key!')
+  const result = writeFile('/peach-account.json', JSON.stringify(account), password)
+  if (!result) {
     // TODO add error handling
   }
 }
@@ -191,7 +125,7 @@ export const updateSettings = (options: Settings): void => {
     ...account.settings,
     ...options
   }
-  if (session.password) saveAccount(session.password)
+  if (session.password) saveAccount(account, session.password)
 }
 
 /**
@@ -215,7 +149,7 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
   } else {
     account.offers.push(offer)
   }
-  if (session.password) saveAccount(session.password)
+  if (session.password) saveAccount(account, session.password)
 }
 
 /**
@@ -224,7 +158,7 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
  */
 export const updatePaymentData = (paymentData: PaymentData[]): void => {
   account.paymentData = paymentData
-  if (session.password) saveAccount(session.password)
+  if (session.password) saveAccount(account, session.password)
 }
 
 /**
@@ -260,21 +194,15 @@ interface RecoverAccountProps {
  * @param props.onError callback on error
  */
 export const recoverAccount = ({ encryptedAccount, password = '', onSuccess, onError }: RecoverAccountProps) => {
-  info('Recovering account', encryptedAccount, password)
+  info('Recovering account', encryptedAccount)
 
   try {
-    const acc = CryptoJS.AES.decrypt(encryptedAccount, password).toString(CryptoJS.enc.Utf8)
-    createAccount({
-      acc,
-      password,
-      onSuccess,
-      onError
-    })
+    setAccount(decrypt(encryptedAccount, password))
+    onSuccess()
   } catch (e) {
     onError(e)
   }
 }
-
 
 interface DeleteAccountProps {
   onSuccess: Function,
@@ -289,10 +217,9 @@ interface DeleteAccountProps {
 export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) => {
   info('Deleting account')
 
-  try {
-    await RNFS.unlink(RNFS.DocumentDirectoryPath + '/peach-account.json')
+  if (await deleteFile('/peach-account.json')) {
     onSuccess()
-  } catch (e) {
-    onError(e)
+  } else {
+    onError()
   }
 }

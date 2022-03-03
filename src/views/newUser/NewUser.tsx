@@ -9,7 +9,7 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { createAccount } from '../../utils/accountUtils'
+import { account, createAccount, saveAccount } from '../../utils/accountUtils'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'
@@ -74,7 +74,10 @@ export default ({ navigation }: Props): ReactElement => {
       }
     })
     setIsPristine(false)
-    if (isValid) createAccount({ password, onSuccess, onError })
+    if (isValid) {
+      createAccount({ password, onSuccess, onError })
+      saveAccount(account, password)
+    }
   }
 
   return <View style={tw`h-full flex`}>

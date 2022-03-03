@@ -1,3 +1,12 @@
+declare type Account = {
+  publicKey?: string,
+  privKey?: string,
+  mnemonic?: string,
+  settings: Settings,
+  paymentData: PaymentData[],
+  offers: (SellOffer|BuyOffer)[],
+}
+
 declare type MessageState = {
   msg: string,
   level: Level,
@@ -18,10 +27,10 @@ declare type Session = {
 }
 
 declare type PaymentData = {
+  [key: string]: any,
   id: string,
   type: PaymentMethod,
   selected?: boolean,
-  [key: string]: string,
 }
 
 declare type Offer = {

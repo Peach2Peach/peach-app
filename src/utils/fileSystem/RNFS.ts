@@ -1,7 +1,7 @@
 import * as db from '../dbUtils'
 
 interface writeFile {
-  (path: string, content: number, _encoding?: string): Promise<void>
+  (path: string, content: string, _encoding?: string): Promise<void>
 }
 
 /**

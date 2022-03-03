@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'
-import { recoverAccount } from '../../utils/accountUtils'
+import { account, recoverAccount, saveAccount } from '../../utils/accountUtils'
 import { getMessages, rules } from '../../utils/validationUtils'
 
 const { useValidation } = require('react-native-form-validator')
@@ -43,6 +43,7 @@ export default ({ encryptedAccount, onSuccess, onError }: DecryptProps): ReactEl
       onSuccess,
       onError
     })
+    saveAccount(account, password)
   }
 
   return <View>

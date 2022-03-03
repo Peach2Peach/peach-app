@@ -10,10 +10,17 @@ export let session: Session = {
  * @param sess updated session
  * @returns new sessions
  */
-export const setSession = (sess: Session) => session = {
-  ...session,
-  ...sess,
-  initialized: true
+export const setSession = async (sess: object): Promise<Session> => {
+  session = {
+    ...session,
+    ...sess,
+    initialized: true
+  }
+  await EncryptedStorage.setItem(
+    'session',
+    JSON.stringify(session)
+  )
+  return session
 }
 
 /**
@@ -30,7 +37,7 @@ export const initSession = async (): Promise<Session> => {
     const result = await EncryptedStorage.getItem('session') as string
 
     if (result) {
-      setSession(JSON.parse(result))
+      await setSession(JSON.parse(result))
       return session
     }
   } catch (e) {
