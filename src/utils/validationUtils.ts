@@ -3,7 +3,7 @@ import IBAN from 'iban'
 import i18n from './i18n'
 
 export const rules = {
-  required (required: boolean, value: string | number) {
+  required (required: boolean, value: string | number | null) {
     return !required || value
   },
   number: /^\d+$/u,
@@ -29,7 +29,8 @@ export const rules = {
   password (_: boolean, value: string) {
     return value && value.length > 7
   },
-  iban (_: boolean, value: string) {
+  iban (_: boolean, value: string | null) {
+    if (!value) return false
     return IBAN.isValid(value)
   }
 }

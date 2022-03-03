@@ -59,6 +59,11 @@ declare type Contract = {
   id: string,
   sellerId: string,
   buyerId: string,
+
+  currency: Currency,
+  price: number,
+  paymentMethod: PaymentMethod,
+
   kycRequired: boolean,
   kycType: KYCType,
   releaseAddress: string,

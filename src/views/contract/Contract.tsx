@@ -30,7 +30,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const isFocused = useIsFocused()
 
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contracull>(null)
+  const [contract, setContract] = useState<Contract>()
 
   useEffect(() => {
     if (!isFocused) return

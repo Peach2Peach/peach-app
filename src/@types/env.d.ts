@@ -1,5 +1,5 @@
 declare module '@env' {
-  export const DEV: boolean
+  export const DEV: string
   export const NETWORK: string
   export const API_URL: string
   export const HTTP_AUTH_USER: string

@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
+import { DEV } from '@env'
+
+export const isProduction = () => DEV !== 'true'
 
 /**
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
 export const info = (...args: any[]) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProduction()) {
     console.info(new Date(), args)
   }
 }
@@ -15,7 +18,7 @@ export const info = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const log = (...args: any[]) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProduction()) {
     console.log(new Date(), args)
   }
 }
@@ -25,7 +28,7 @@ export const log = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const trace = (...args: any[]) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProduction()) {
     console.trace(new Date(), args)
   }
 }
@@ -35,7 +38,7 @@ export const trace = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const warn = (...args: any[]) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProduction()) {
     console.warn(new Date(), args)
   }
 }
@@ -45,9 +48,7 @@ export const warn = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const error = (...args: any[]) => {
-  if (process.env.NODE_ENV !== 'production') {
-    console.error(new Date(), args)
-  }
+  console.error(new Date(), args)
 }
 
 export default {
