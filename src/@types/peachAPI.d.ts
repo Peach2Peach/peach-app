@@ -38,7 +38,7 @@ declare type PeachPairInfo = {
 declare type Offer = {
   id: string,
   online: boolean,
-  userId: number, // TODO review why we have a userId of type number again?
+  userId: string,
   publicKey: string,
   type: 'bid' | 'ask',
   amount: number,
