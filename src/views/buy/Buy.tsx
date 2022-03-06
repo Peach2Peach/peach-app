@@ -13,7 +13,7 @@ import Main from './Main'
 import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
 
-import { BUCKETMAP, BUCKETS } from '../../constants'
+import { BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/accountUtils'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
@@ -104,7 +104,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         setLoading(true)
         const [result, err] = await postOffer({
           ...offer,
-          amount: BUCKETMAP[String(offer.amount)],
           paymentMethods: offer.paymentData.map(p => p.type),
         })
 

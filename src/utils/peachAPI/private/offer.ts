@@ -45,7 +45,7 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
 
 type PostOfferProps = {
   type: OfferType,
-  amount: string,
+  amount: number,
   premium?: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],

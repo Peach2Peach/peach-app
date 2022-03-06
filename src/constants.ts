@@ -12,14 +12,3 @@ export const BUCKETS = [
   2000000,
   5000000
 ]
-
-type BucketMap = {
-  [key: string]: string
-}
-export const BUCKETMAP: BucketMap = {
-  '250000': '250k',
-  '500000': '500k',
-  '1000000': '1M',
-  '2000000': '2M',
-  '5000000': '5M',
-}
