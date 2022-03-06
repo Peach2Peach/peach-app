@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -12,6 +12,7 @@ import KYC from './components/KYC'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
+import { debounce } from '../../utils/performanceUtils'
 
 const validate = (offer: SellOffer) =>
   !!offer.amount
@@ -29,8 +30,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [kyc, setKYC] = useState(account.settings.kyc || false)
   const [kycType, setKYCType] = useState(account.settings.kycType || 'iban')
 
-  useEffect(() => {
-    // TODO debounce this because premium slider fires often
+  useEffect(useCallback(debounce(() => {
     updateOffer({
       ...offer,
       currencies,
@@ -45,7 +45,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       kyc,
       kycType,
     })
-  }, [currencies, paymentData, premium, kyc, kycType])
+  }, 300), []), [currencies, paymentData, premium, kyc, kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
