@@ -120,8 +120,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           depositAddress: offer.depositAddress || result.returnAddress,
         })
       },
-      onError: () => {
-        // TODO treat API Error case (404, 500, etc)
+      onError: (err) => {
+        updateMessage({
+          msg: i18n(err.error || 'error.general'),
+          level: 'ERROR',
+        })
       },
     })()
     : () => {}, [offer.id])

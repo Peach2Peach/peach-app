@@ -68,8 +68,11 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       setFundingStatus(() => result.funding)
       setFundingError(() => result.error || '')
     },
-    onError: () => {
-      // TODO treat API Error case (404, 500, etc)
+    onError: (err) => {
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
     },
   }), [offer.id])
 
