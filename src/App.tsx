@@ -13,7 +13,7 @@ import ComponentsTest from './views/componentsTest/ComponentsTest'
 import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
-import BitcoinContext, { getBitcoinContext, updateBitcoinContext } from './components/bitcoin'
+import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoinUtils'
 import i18n from './utils/i18n'
 import PGPTest from './views/pgpTest/PGPTest'
 import { Footer, Header, LanguageSelect } from './components'
@@ -26,7 +26,7 @@ import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
-import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
+import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/messageUtils'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
 import { account, loadAccount } from './utils/accountUtils'
 import { initSession, session } from './utils/sessionUtils'
@@ -79,46 +79,6 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
-const showMessage = (msg: string, width: number, slideInAnim: Animated.Value) => () => {
-  let slideOutTimeout: NodeJS.Timer
-
-  if (msg) {
-    Animated.timing(slideInAnim, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: false
-    }).start()
-
-    slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
-      toValue: -width,
-      duration: 300,
-      useNativeDriver: false
-    }).start(), 1000 * 10)
-  }
-
-  return () => clearTimeout(slideOutTimeout)
-}
-
-const bitcoinContextEffect = (
-  bitcoinContext: BitcoinContextType,
-  setBitcoinContext: React.Dispatch<React.SetStateAction<BitcoinContextType>>
-) => () => {
-  let interval: NodeJS.Timer
-
-  (async () => {
-    interval = setInterval(async () => {
-      // TODO add error handling in case data is not available
-      setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-    }, 60 * 1000)
-    // TODO add error handling in case data is not available
-    setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-
-  })()
-  return () => {
-    clearInterval(interval)
-  }
-}
-
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
@@ -131,9 +91,7 @@ const App: React.FC = () => {
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
 
-
-  useEffect(showMessage(msg, width, slideInAnim), [msg, time])
-
+  useEffect(showMessageEffect(msg, width, slideInAnim), [msg, time])
   useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])
 
   useEffect(() => {

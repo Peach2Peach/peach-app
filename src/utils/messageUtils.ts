@@ -1,4 +1,5 @@
 import { createContext, Dispatch, ReducerState } from 'react'
+import { Animated } from 'react-native'
 
 export type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 
@@ -39,4 +40,25 @@ export const setMessage = (state: ReducerState<any>, newState: MessageState): Me
     level,
     time
   }
+}
+
+
+export const showMessageEffect = (message: string, width: number, slideInAnim: Animated.Value) => () => {
+  let slideOutTimeout: NodeJS.Timer
+
+  if (message) {
+    Animated.timing(slideInAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false
+    }).start()
+
+    slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
+      toValue: -width,
+      duration: 300,
+      useNativeDriver: false
+    }).start(), 1000 * 10)
+  }
+
+  return () => clearTimeout(slideOutTimeout)
 }

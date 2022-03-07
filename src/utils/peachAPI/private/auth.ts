@@ -54,6 +54,7 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
  */
 export const getAccessToken = async (): Promise<string> => {
   if (accessToken && accessToken.expiry > (new Date()).getTime()) {
+    console.log(accessToken.expiry, (new Date()).getTime(), accessToken.expiry > (new Date()).getTime())
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 

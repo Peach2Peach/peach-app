@@ -6,7 +6,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Dropdown, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
-import { getBitcoinContext } from '../../components/bitcoin'
+import { getBitcoinContext } from '../../utils/bitcoinUtils'
 import { SellViewProps } from './Sell'
 import { account, updateSettings } from '../../utils/accountUtils'
 

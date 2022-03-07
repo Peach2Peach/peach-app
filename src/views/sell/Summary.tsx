@@ -6,7 +6,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Card, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { getBitcoinContext } from '../../components/bitcoin'
+import { getBitcoinContext } from '../../utils/bitcoinUtils'
 import { unique } from '../../utils/arrayUtils'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {

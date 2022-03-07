@@ -11,8 +11,8 @@ import {
   SatsFormat,
   Text
 } from '../../components'
-import BitcoinContext from '../../components/bitcoin'
-import { BUCKETS, CURRENCIES } from '../../constants'
+import BitcoinContext from '../../utils/bitcoinUtils'
+import { BUCKETS } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'componentsTest'>
 type Props = {
