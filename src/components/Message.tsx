@@ -27,8 +27,8 @@ export const Message = ({ msg, level, style }: MessageProps): ReactElement =>
       ? tw`bg-green`
       : level === 'ERROR'
         ? tw`bg-red`
-        : level === 'WARNING'
-          ? tw`bg-yellow`
+        : level === 'WARN'
+          ? tw`bg-yellow-2`
           : tw`bg-blue`,
     style
   ]}>
