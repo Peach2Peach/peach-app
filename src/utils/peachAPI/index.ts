@@ -42,6 +42,7 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
   }
 }
 
+export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { userAuth, getAccessToken } from './private/auth'
 export { postOffer, createEscrow, getFundingStatus, getMatches } from './private/offer'
