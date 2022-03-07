@@ -14,6 +14,7 @@ interface ButtonProps {
   tertiary?: boolean,
   wide?: boolean,
   style?: ViewStyle|ViewStyle[],
+  disabled?: boolean,
   onPress?: Function
 }
 
@@ -25,6 +26,7 @@ interface ButtonProps {
  * @param [props.tertiary] if true, button is of tertiary nature
  * @param [props.wide] if true, button is taking on 100% width
  * @param [props.style] css style object
+ * @param [props.disabled] if true disable interactions
  * @param [props.onPress] onPress handler from outside
  * @example
  * <Button
@@ -33,7 +35,15 @@ interface ButtonProps {
  *   onPress={save}
  * />
  */
-export const Button = ({ title, secondary, tertiary, wide = true, style, onPress }: ButtonProps): ReactElement => {
+export const Button = ({
+  title,
+  secondary,
+  tertiary,
+  wide = true,
+  style,
+  disabled,
+  onPress
+}: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
   return <View>
@@ -45,9 +55,10 @@ export const Button = ({ title, secondary, tertiary, wide = true, style, onPress
             : tw`bg-peach-1`,
         wide ? tw`w-full` : tw`w-40`,
         active ? tw`bg-peach-2` : {},
+        disabled ? tw`opacity-50` : {},
         style || {}
       ]}
-      onPress={e => onPress ? onPress(e) : null}
+      onPress={e => onPress && !disabled ? onPress(e) : null}
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
     >

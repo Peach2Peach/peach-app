@@ -37,7 +37,7 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, loading 
       : null
     }
     <Button
-      style={!stepValid || loading ? tw`opacity-50` : {}}
+      disabled={!stepValid || loading}
       wide={false}
       onPress={stepValid && !loading ? buttonClick : () => {}}
       title={buttonText}
