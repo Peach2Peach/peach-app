@@ -1,6 +1,6 @@
 import { createContext, Dispatch, ReducerState } from 'react'
 
-export type Level = 'OK' | 'ERROR' | 'WARNING' | 'INFO' | 'DEBUG'
+export type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 
 let msg: string = ''
 let level: Level = 'OK'
