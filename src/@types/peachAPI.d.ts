@@ -26,11 +26,17 @@ declare type Pricebook = {
 declare type PaymentMethod = 'sepa'
 declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
-  status: 'NULL' | 'MEMPOOL' | 'FUNDED'
+  status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
   confirmations?: number,
   txId?: string,
   amount
 }
+
+declare type GetTxResponse = Transaction
+declare type PostTxResponse = {
+  txId: string,
+}
+
 declare type PeachPairInfo = {
   pair: TradingPair,
   price: number,
@@ -63,13 +69,21 @@ declare type CreateEscrowResponse = {
   escrow: string,
   funding: FundingStatus
 }
-declare type FundingError = '' | 'WRONG_FUNDING_AMOUNT'
+declare type FundingError = '' | 'NOT_FOUND'| 'UNAUTHORIZED'
 declare type FundingStatusResponse = {
   offerId: string,
   escrow: string,
   funding: FundingStatus,
   error?: FundingError,
-  returnAddress?: string
+  returnAddress: string
+}
+declare type CancelOfferResponse = {
+  psbt: string,
+  returnAddress: string,
+  amount: number,
+  fees: number,
+  returnAddress: string,
+  inputIndex: number,
 }
 
 declare type Match = {

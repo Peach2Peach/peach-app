@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { API_URL } from '@env'
 import { parseResponse } from '..'
 import { error } from '../../logUtils'
@@ -130,7 +131,6 @@ export const createEscrow = async ({
   return await parseResponse<CreateEscrowResponse>(response, 'createEscrow')
 }
 
-
 type GetFundingStatusProps = {
   offerId: string,
 }
@@ -153,6 +153,36 @@ export const getFundingStatus = async ({
   })
 
   return await parseResponse<FundingStatusResponse>(response, 'getFundingStatus')
+}
+
+type CancelOfferProps = {
+  offerId: string,
+  satsPerByte: number|string,
+}
+
+/**
+ * @description Method to get cancel offer and get refunding information
+ * @param offerId offer id
+ * @param satsPerByte transaction fees per byte
+ * @returns FundingStatus
+ */
+export const cancelOffer = async ({
+  offerId,
+  satsPerByte
+}: CancelOfferProps): Promise<[CancelOfferResponse|null, APIError|null]> => {
+  const response = await fetch(
+    `${API_URL}/v1/offer/${offerId}/cancel?satsPerByte=${encodeURIComponent(satsPerByte)}`,
+    {
+      headers: {
+        Authorization: await getAccessToken(),
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'GET',
+    }
+  )
+
+  return await parseResponse<CancelOfferResponse>(response, 'refundEscrow')
 }
 
 type GetMatchesProps = {

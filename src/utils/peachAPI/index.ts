@@ -15,7 +15,10 @@ export const setPeachAccount = (acc: BIP32Interface) => peachAccount = acc
  * @param caller calling function name
  * @returns parsed Peach API Response
  */
-export const parseResponse = async <T>(response: Response, caller: string): Promise<[T|null, APIError|null]> => {
+export const parseResponse = async <T>(
+  response: Response,
+  caller: string,
+): Promise<[T|null, APIError|null]> => {
   try {
     const data = await response.json()
     if (response.status !== 200) {
@@ -45,5 +48,11 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { userAuth, getAccessToken } from './private/auth'
-export { postOffer, createEscrow, getFundingStatus, getMatches } from './private/offer'
+export {
+  postOffer,
+  createEscrow,
+  getFundingStatus,
+  cancelOffer,
+  getMatches
+} from './private/offer'
 export { getContract } from './private/contract'
