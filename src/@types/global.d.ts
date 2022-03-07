@@ -55,6 +55,10 @@ declare type SellOffer = Offer & {
   confirmedReturnAddress?: boolean,
   escrow?: string,
   funding?: FundingStatus,
+  tx?: string,
+  txId?: string,
+  refunded: boolean,
+  released: boolean,
 }
 
 declare type BuyOffer = Offer & {

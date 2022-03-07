@@ -99,10 +99,12 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       help={<EscrowHelp fees={fees}/>}
     />
     {escrow && fundingStatus && !fundingError
-      ? <FundingView escrow={escrow} />
-      : fundingError && fundingError === 'WRONG_FUNDING_AMOUNT'
-        ? <Refund />
-        : <NoEscrowFound />
+      ? /WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)
+        ? <View style={tw`mt-4`}>
+          <Refund offer={offer} />
+        </View>
+        : <FundingView escrow={escrow} />
+      : <NoEscrowFound />
     }
   </View>
 }

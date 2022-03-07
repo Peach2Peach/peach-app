@@ -27,11 +27,8 @@ export default ({
       onError(err)
     }
   }
-  let interval: NodeJS.Timer
-  (async () => {
-    interval = setInterval(checkingFunction, 20 * 1000)
-    checkingFunction()
-  })()
+  const interval = setInterval(checkingFunction, 20 * 1000)
+  checkingFunction()
 
   return () => {
     clearInterval(interval)
