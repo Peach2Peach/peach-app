@@ -14,9 +14,9 @@ export default ({
   onError
 }: CreateEscrowIfNewProps): EffectCallback => () => {
   (async () => {
-    info('Creating escrow for', offer.id)
-
     if (!offer.id || offer.escrow) return
+
+    info('Creating escrow for', offer.id)
 
     const publicKey = getPublicKeyForEscrow(offer.id)
     const [result, err] = await createEscrow({

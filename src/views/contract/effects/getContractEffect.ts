@@ -15,9 +15,9 @@ export default ({
   onError
 }: GetContractEffectProps): EffectCallback => () => {
   (async () => {
-    info('Get contract info', contractId)
-
     if (!contractId) return
+
+    info('Get contract info', contractId)
 
     const [result, err] = await getContract({
       contractId,
