@@ -1,8 +1,24 @@
-/* eslint-disable max-lines */
 import { API_URL } from '@env'
 import { parseResponse } from '..'
-import { error } from '../../logUtils'
 import { getAccessToken } from './auth'
+
+/**
+ * @description Method to get offer
+ * @param offerId offer id
+ * @returns GetOffersResponse
+ */
+export const getOfferDetails = async (offerId: string): Promise<[BuyOffer|SellOffer|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/details`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  return await parseResponse<BuyOffer|SellOffer>(response, 'getOffer')
+}
 
 /**
  * @description Method to get offer of user
@@ -18,30 +34,7 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
     method: 'GET'
   })
 
-  try {
-    const data = await response.json()
-    if (response.status !== 200) {
-      error('peachAPI - getOffers', {
-        status: response.status,
-        data
-      })
-
-      return [null, data]
-    }
-    return [data, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - getOffers', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<Offer[]>(response, 'getOffers')
 }
 
 type PostOfferProps = {

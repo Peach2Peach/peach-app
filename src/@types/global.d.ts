@@ -35,9 +35,13 @@ declare type PaymentData = {
 
 declare type Offer = {
   id?: string,
+  creationDate: string,
+  online?: boolean,
+  user?: User,
   published: boolean,
   amount: number,
   currencies: Currency[],
+  paymentMethods: PaymentMethod[],
   kyc: boolean,
   matches: string[],
   doubleMatched: boolean,
@@ -63,7 +67,6 @@ declare type SellOffer = Offer & {
 
 declare type BuyOffer = Offer & {
   type: 'bid'
-  paymentData: PaymentData[],
   releaseAddress?: string,
 }
 

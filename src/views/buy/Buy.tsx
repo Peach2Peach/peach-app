@@ -20,6 +20,7 @@ import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
 import { Navigation } from '../../components'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
 
@@ -90,6 +91,17 @@ export default ({ route, navigation }: Props): ReactElement => {
   const CurrentView: Screen = currentScreen.view
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
+
+  useEffect(offer.id ? getOfferDetailsEffect({
+    offerId: offer.id,
+    onSuccess: (result) => {
+      saveOffer(result)
+      setOffer(() => result as BuyOffer)
+    },
+    onError: () => {
+      error('Could not fetch offer information for offer', offer.id)
+    }
+  }) : () => {}, [offer.id])
 
   useEffect(() => {
     if (!isFocused) return
