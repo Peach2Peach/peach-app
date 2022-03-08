@@ -13,10 +13,10 @@ import {
   updatePaymentData,
   updateSettings
 } from '../../src/utils/account'
-import * as fileUtils from '../../src/utils/fileUtils'
+import * as fileUtils from '../../src/utils/file'
 import { getPeachAccount } from '../../src/utils/peachAPI'
-import { getSession } from '../../src/utils/sessionUtils'
-import { getWallet } from '../../src/utils/walletUtils'
+import { getSession } from '../../src/utils/session'
+import { getWallet } from '../../src/utils/wallet'
 import * as accountData from '../data/accountData'
 
 const password = 'supersecret'
