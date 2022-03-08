@@ -1,7 +1,7 @@
 import { EffectCallback } from 'react'
 import { error, info } from '../../../utils/log'
 import { createEscrow } from '../../../utils/peachAPI'
-import { getPublicKeyForEscrow } from '../../../utils/walletUtils'
+import { getPublicKeyForEscrow } from '../../../utils/wallet'
 
 type CreateEscrowIfNewProps = {
   offer: SellOffer,
