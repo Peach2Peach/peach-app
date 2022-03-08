@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import BitcoinContext, { getBitcoinContext } from '../../utils/bitcoinUtils'
+import BitcoinContext, { getBitcoinContext } from '../../utils/bitcoin'
 import { SellViewProps } from './Sell'
 import { account, updateSettings } from '../../utils/account'
 import Premium from './components/Premium'
