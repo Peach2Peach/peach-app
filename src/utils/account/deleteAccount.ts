@@ -1,5 +1,5 @@
 import { setAccount, defaultAccount } from '.'
-import { deleteFile } from '../fileUtils'
+import { deleteFile } from '../file'
 import { info } from '../logUtils'
 
 interface DeleteAccountProps {

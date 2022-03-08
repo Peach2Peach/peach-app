@@ -1,5 +1,5 @@
 import { account } from '.'
-import { writeFile } from '../fileUtils'
+import { writeFile } from '../file'
 
 
 /**

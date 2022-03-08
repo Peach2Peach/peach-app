@@ -1,5 +1,5 @@
 import { account, setAccount } from '.'
-import { readFile } from '../fileUtils'
+import { readFile } from '../file'
 import { error, info } from '../logUtils'
 
 /**
