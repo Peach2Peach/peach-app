@@ -21,7 +21,6 @@ import { saveOffer } from '../../utils/accountUtils'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
-import { sha256 } from '../../utils/cryptoUtils'
 import { Navigation } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 
@@ -46,10 +45,12 @@ export type SellViewProps = {
 
 export const defaultSellOffer: SellOffer = {
   type: 'ask',
+  creationDate: new Date().toISOString(),
   published: false,
   premium: 1.5,
   currencies: [],
   paymentData: [],
+  paymentMethods: [],
   hashedPaymentData: '',
   amount: BUCKETS[0],
   kyc: false,
@@ -136,14 +137,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     (async () => {
       if (screens[page].id === 'escrow' && !offer.id) {
-        const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
-
         setLoading(true)
-        const [result, err] = await postOffer({
-          ...offer,
-          paymentMethods: offer.paymentData.map(p => p.type),
-          hashedPaymentData,
-        })
+        const [result, err] = await postOffer(offer)
 
         setLoading(false)
 

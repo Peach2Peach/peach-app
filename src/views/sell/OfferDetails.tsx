@@ -13,6 +13,7 @@ import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
 import { debounce } from '../../utils/performanceUtils'
+import { sha256 } from '../../utils/cryptoUtils'
 
 const validate = (offer: SellOffer) =>
   !!offer.amount
@@ -31,10 +32,14 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [kycType, setKYCType] = useState(account.settings.kycType || 'iban')
 
   useEffect(useCallback(debounce(() => {
+    const selectedPaymentData = paymentData.filter(data => data.selected)
+
     updateOffer({
       ...offer,
       currencies,
-      paymentData: paymentData.filter(data => data.selected),
+      paymentData: selectedPaymentData,
+      paymentMethods: selectedPaymentData.map(p => p.type),
+      hashedPaymentData: sha256(JSON.stringify(selectedPaymentData)),
       premium,
       kyc,
       kycType,

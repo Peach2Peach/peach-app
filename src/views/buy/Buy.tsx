@@ -43,9 +43,10 @@ export type BuyViewProps = {
 
 export const defaultBuyOffer: BuyOffer = {
   type: 'bid',
+  creationDate: new Date().toISOString(),
   published: false,
   currencies: [],
-  paymentData: [],
+  paymentMethods: [],
   kyc: false,
   amount: BUCKETS[0],
   matches: [],
@@ -116,7 +117,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         setLoading(true)
         const [result, err] = await postOffer({
           ...offer,
-          paymentMethods: offer.paymentData.map(p => p.type),
         })
 
         setLoading(false)
