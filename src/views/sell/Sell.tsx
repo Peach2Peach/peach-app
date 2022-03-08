@@ -118,7 +118,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(offer.id ? getOfferDetailsEffect({
     offerId: offer.id,
-    onSuccess: (result) => {
+    onSuccess: result => {
       saveOffer(result)
       setOffer(() => result as SellOffer)
     },

@@ -18,6 +18,7 @@ import { saveOffer } from '../../utils/accountUtils'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/logUtils'
 import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -93,6 +94,17 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
+
+  useEffect(offer.id ? getOfferDetailsEffect({
+    offerId: offer.id,
+    onSuccess: result => {
+      saveOffer(result)
+      setOffer(() => result)
+    },
+    onError: () => {
+      error('Could not fetch offer information for offer', offer.id)
+    }
+  }) : () => {}, [offer.id])
 
   useEffect(searchForPeersEffect({
     offer,
