@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { getMessage, setMessage } from '../../src/utils/messageUtils'
+import { getMessage, setMessage } from '../../src/utils/message'
 
 describe('getMessage & setMessage', () => {
   const newMessage = {

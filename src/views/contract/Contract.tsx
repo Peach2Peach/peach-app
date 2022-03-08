@@ -11,7 +11,7 @@ import { Text } from '../../components'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
 import { info } from '../../utils/log'
-import { MessageContext } from '../../utils/messageUtils'
+import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
 import { saveContract } from '../../utils/contract'
 

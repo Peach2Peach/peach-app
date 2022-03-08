@@ -4,7 +4,7 @@ import { View, ViewStyle } from 'react-native'
 
 import { Text } from '.'
 import tw from '../styles/tailwind'
-import { Level } from '../utils/messageUtils'
+import { Level } from '../utils/message'
 
 interface MessageProps {
   msg: string,

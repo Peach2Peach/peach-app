@@ -16,7 +16,7 @@ import i18n from '../../utils/i18n'
 import { getMessages, rules } from '../../utils/validationUtils'
 import { whiteGradient } from '../../utils/layout'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { MessageContext } from '../../utils/messageUtils'
+import { MessageContext } from '../../utils/message'
 import Icon from '../../components/Icon'
 import { error } from '../../utils/log'
 
