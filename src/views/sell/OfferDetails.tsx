@@ -12,7 +12,7 @@ import KYC from './components/KYC'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
-import { debounce } from '../../utils/performanceUtils'
+import { debounce } from '../../utils/performance'
 import { sha256 } from '../../utils/cryptoUtils'
 
 const validate = (offer: SellOffer) =>
