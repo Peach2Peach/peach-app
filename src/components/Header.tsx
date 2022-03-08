@@ -8,7 +8,7 @@ import { Text } from '.'
 import { Shadow } from 'react-native-shadow-2'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { thousands } from '../utils/stringUtils'
+import { thousands } from '../utils/string'
 import { mildShadow } from '../utils/layoutUtils'
 
 interface HeaderProps {

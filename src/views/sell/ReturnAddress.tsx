@@ -10,7 +10,7 @@ import { IconButton, Input, ScanQR, Text, Title } from '../../components'
 import { getMessages, rules } from '../../utils/validationUtils'
 import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../components/Icon'
-import { cutOffAddress } from '../../utils/stringUtils'
+import { cutOffAddress } from '../../utils/string'
 
 const { useValidation } = require('react-native-form-validator')
 

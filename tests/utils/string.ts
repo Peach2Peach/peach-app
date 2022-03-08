@@ -1,5 +1,5 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { padString, splitAt, thousands } from '../../src/utils/stringUtils'
+import { padString, splitAt, thousands } from '../../src/utils/string'
 
 describe('padString', () => {
   it('pads string to a specific length', () => {
