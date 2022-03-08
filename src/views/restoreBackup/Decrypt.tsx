@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -6,7 +6,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { account, recoverAccount, saveAccount } from '../../utils/account'
-import { getMessages, rules } from '../../utils/validationUtils'
+import { getMessages, rules } from '../../utils/validation'
 
 const { useValidation } = require('react-native-form-validator')
 

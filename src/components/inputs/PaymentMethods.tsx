@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { Checkboxes, Input } from '.'
 import { PAYMENTMETHODS } from '../../constants'
 
-import { getMessages, rules } from '../../utils/validationUtils'
+import { getMessages, rules } from '../../utils/validation'
 import { account, updatePaymentData } from '../../utils/account'
 const { useValidation } = require('react-native-form-validator')
 
