@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { BitcoinAddress, Text } from '../../../components'
+import { BitcoinAddress } from '../../../components'
 import tw from '../../../styles/tailwind'
 
 type FundingViewProps = {
