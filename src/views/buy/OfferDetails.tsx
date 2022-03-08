@@ -14,7 +14,7 @@ import { Title } from '../../components'
 const validate = (offer: BuyOffer) =>
   !!offer.amount
   && offer.currencies.length > 0
-  && offer.paymentData.length > 0
+  && offer.paymentMethods.length > 0
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -27,11 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     updateOffer({
       ...offer,
       currencies,
-      paymentData: paymentMethods.map((method: PaymentMethod) => ({
-        id: method,
-        type: method,
-        selected: true,
-      }) as PaymentData),
+      paymentMethods,
       kyc,
     })
     updateSettings({
