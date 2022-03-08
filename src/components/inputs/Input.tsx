@@ -9,7 +9,7 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
-import { innerShadow } from '../../utils/layoutUtils'
+import { innerShadow } from '../../utils/layout'
 
 interface InputProps {
   value?: string,

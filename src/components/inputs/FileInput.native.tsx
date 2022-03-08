@@ -12,7 +12,7 @@ import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { Text } from '..'
-import { innerShadow } from '../../utils/layoutUtils'
+import { innerShadow } from '../../utils/layout'
 
 export type FileData = {
   name: string,

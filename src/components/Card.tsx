@@ -4,7 +4,7 @@ import { View, ViewStyle } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 
 import tw from '../styles/tailwind'
-import { mildShadow } from '../utils/layoutUtils'
+import { mildShadow } from '../utils/layout'
 
 interface CardProps {
   children?: ReactNode,

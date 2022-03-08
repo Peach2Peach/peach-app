@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
 import { Text } from '..'
-import { mildShadow } from '../../utils/layoutUtils'
+import { mildShadow } from '../../utils/layout'
 
 interface Item {
   value: string|number,

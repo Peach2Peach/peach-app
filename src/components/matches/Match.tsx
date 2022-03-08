@@ -6,7 +6,7 @@ import { Button, Headline, Text } from '..'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { mildShadow } from '../../utils/layoutUtils'
+import { mildShadow } from '../../utils/layout'
 import LanguageContext from '../inputs/LanguageSelect'
 
 interface MatchProps {

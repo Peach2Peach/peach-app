@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
-import { mildShadow } from '../../utils/layoutUtils'
+import { mildShadow } from '../../utils/layout'
 
 interface MenuItemProps {
   text: string,

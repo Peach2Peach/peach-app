@@ -10,7 +10,7 @@ import tw from '../../styles/tailwind'
 import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import { Text } from '..'
-import { innerShadow } from '../../utils/layoutUtils'
+import { innerShadow } from '../../utils/layout'
 
 
 export type FileData = {

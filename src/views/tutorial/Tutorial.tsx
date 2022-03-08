@@ -13,7 +13,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import LetsExplainPeach from './LetsExplainPeach'
-import { whiteGradient } from '../../utils/layoutUtils'
+import { whiteGradient } from '../../utils/layout'
 import { updateSettings } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
