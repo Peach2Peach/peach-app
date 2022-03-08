@@ -39,7 +39,7 @@ export default ({ navigation }: Props): ReactElement => {
               ? navigation.navigate('sell', { offer })
               : navigation.navigate('buy', { offer })
         }>
-          <Text>
+          <Text style={!offer.online ? tw`opacity-50` : {}}>
             {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
           </Text>
         </Pressable>

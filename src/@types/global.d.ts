@@ -24,7 +24,8 @@ declare type MessageState = {
   time?: number,
 }
 declare type OverlayState = {
-  overlayContent: ReactNode,
+  content: ReactNode,
+  showCloseButton: boolean,
 }
 declare type BitcoinContextType = {
   currency: Currency,

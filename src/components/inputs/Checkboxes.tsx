@@ -63,7 +63,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
         <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
           onPress={() => select(item.value)}>
           {isSelected(item)
-            ? <Icon id="check" style={tw`w-5 h-5`} />
+            ? <Icon id="checkbox" style={tw`w-5 h-5`} />
             : <View style={tw`w-5 h-5 flex justify-center items-center`}>
               <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
             </View>

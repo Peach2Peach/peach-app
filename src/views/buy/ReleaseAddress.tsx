@@ -101,7 +101,9 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       </View>
       : null}
 
-    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({ overlayContent: <IDontHaveAWallet /> })}>
+    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({
+      content: <IDontHaveAWallet />, showCloseButton: true
+      })}>
       {i18n('iDontHaveAWallet')}
     </TextLink>
   </View>

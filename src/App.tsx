@@ -82,7 +82,7 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
-  const [{ overlayContent }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = GetWindowDimensions()
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -102,7 +102,7 @@ const App: React.FC = () => {
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
         <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
-          <OverlayContext.Provider value={[{ overlayContent }, updateOverlay]}>
+          <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
             <View style={tw`h-full flex-col`}>
               {account?.settings?.skipTutorial
                 ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
@@ -119,8 +119,8 @@ const App: React.FC = () => {
                 </Animated.View>
                 : null
               }
-              {overlayContent
-                ? <Overlay content={overlayContent} />
+              {content
+                ? <Overlay content={content} showCloseButton={showCloseButton} />
                 : null
               }
               <View style={tw`h-full flex-shrink`}>

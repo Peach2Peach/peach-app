@@ -3,6 +3,7 @@ import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
 import check from './check.svg'
+import checkbox from './checkbox.svg'
 import circle from './circle.svg'
 import copy from './copy.svg'
 import dropdownClosed from './dropdownClosed.svg'
@@ -28,6 +29,7 @@ const Icons: Icons = {
   buy,
   camera,
   check,
+  checkbox,
   circle,
   copy,
   dropdownClosed,

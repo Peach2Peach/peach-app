@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
+  Pressable,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -19,6 +20,9 @@ import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/log'
 import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { OverlayContext } from '../../utils/overlay'
+import { cancelOffer } from '../../utils/peachAPI'
+import ConfirmCancelTrade from './components/ConfirmCancelTrade'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -32,6 +36,7 @@ type Props = {
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
+  const [, updateOverlay] = useContext(OverlayContext)
 
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
@@ -83,6 +88,26 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
+  const confirmCancelTrade = async () => {
+    if (!offer.id) return
+
+    const [result, err] = await cancelOffer({
+      offerId: offer.id,
+      satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
+    })
+    if (result) {
+      info('Cancel offer: ', JSON.stringify(result))
+      saveAndUpdate({ ...offer, online: false })
+    } else if (err) {
+      error('Error', err)
+    }
+  }
+
+  const cancelTrade = () => updateOverlay({
+    content: <ConfirmCancelTrade confirm={confirmCancelTrade} navigation={navigation} />,
+    showCloseButton: false
+  })
+
   useEffect(() => {
     if (!isFocused) return
 
@@ -120,7 +145,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     },
     onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
   }) : () => {}, [offer.id, updatePending])
-
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
     ? checkFundingStatusEffect({
@@ -166,6 +190,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           </View>
           : null
         }
+        <Pressable style={tw`mt-4`} onPress={cancelTrade}>
+          <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
+            {i18n('cancelTrade')}
+          </Text>
+        </Pressable>
       </View>
     </View>
   </View>

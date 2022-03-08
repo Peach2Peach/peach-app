@@ -123,7 +123,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Pressable style={tw`flex-row items-center px-5 mt-4`}
       onPress={() => setUseDepositAddress(!useDepositAddress)}>
       {useDepositAddress
-        ? <Icon id="check" style={tw`w-5 h-5`} />
+        ? <Icon id="checkbox" style={tw`w-5 h-5`} />
         : <View style={tw`w-5 h-5 flex justify-center items-center`}>
           <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
         </View>
