@@ -52,14 +52,13 @@ export const bitcoinContextEffect = (
 ) => () => {
   let interval: NodeJS.Timer
 
-  (async () => {
-    interval = setInterval(async () => {
-      // TODO add error handling in case data is not available
-      setBitcoinContext(await updateBitcoinContext(context.currency))
-    }, 60 * 1000)
+  const checkingFunction = async () => {
     // TODO add error handling in case data is not available
     setBitcoinContext(await updateBitcoinContext(context.currency))
-
+  }
+  (async () => {
+    interval = setInterval(checkingFunction, 60 * 1000)
+    checkingFunction()
   })()
   return () => {
     clearInterval(interval)
