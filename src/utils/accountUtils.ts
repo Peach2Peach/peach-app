@@ -145,7 +145,10 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
 
   if (offerExists(offer.id)) {
     const index = account.offers.findIndex(o => o.id === offer.id)
-    account.offers[index] = offer
+    account.offers[index] = {
+      ...account.offers[index],
+      ...offer
+    }
   } else {
     account.offers.push(offer)
   }

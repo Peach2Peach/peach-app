@@ -74,7 +74,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
         level: 'ERROR',
       })
     },
-  }), [offer.id])
+  }), [escrow])
 
   useEffect(() => {
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {

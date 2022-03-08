@@ -18,7 +18,7 @@ import { sha256 } from '../../utils/cryptoUtils'
 const validate = (offer: SellOffer) =>
   !!offer.amount
   && offer.currencies.length > 0
-  && offer.paymentData.length > 0
+  && offer.paymentData?.length > 0
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
