@@ -16,7 +16,7 @@ import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
-import { error, info } from '../../utils/logUtils'
+import { error, info } from '../../utils/log'
 import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 

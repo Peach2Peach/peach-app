@@ -16,7 +16,7 @@ import { PEACHFEE } from '../../constants'
 import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
 import { Title } from '../../components'
-import { info } from '../../utils/logUtils'
+import { info } from '../../utils/log'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,

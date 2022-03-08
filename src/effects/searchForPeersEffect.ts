@@ -1,5 +1,5 @@
 import { EffectCallback } from 'react'
-import { error, info } from '../utils/logUtils'
+import { error, info } from '../utils/log'
 import { getMatches } from '../utils/peachAPI'
 
 type SearchForPeersEffectProps = {

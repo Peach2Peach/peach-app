@@ -1,5 +1,5 @@
 import { EffectCallback } from 'react'
-import { error, info } from '../../../utils/logUtils'
+import { error, info } from '../../../utils/log'
 import { getContract } from '../../../utils/peachAPI'
 
 type GetContractEffectProps = {

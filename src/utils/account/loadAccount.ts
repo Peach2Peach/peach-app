@@ -1,6 +1,6 @@
 import { account, setAccount } from '.'
 import { readFile } from '../file'
-import { error, info } from '../logUtils'
+import { error, info } from '../log'
 
 /**
  * @description Method to get account

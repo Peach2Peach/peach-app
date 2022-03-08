@@ -1,4 +1,4 @@
-import { info, log, trace, warn, error } from '../../src/utils/logUtils'
+import { info, log, trace, warn, error } from '../../src/utils/log'
 
 describe('info', () => {
   const infoSpy = jest.spyOn(console, 'info')

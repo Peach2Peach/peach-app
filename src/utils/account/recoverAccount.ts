@@ -1,6 +1,6 @@
 import { setAccount } from '.'
 import { decrypt } from '../crypto'
-import { info } from '../logUtils'
+import { info } from '../log'
 
 interface RecoverAccountProps {
   encryptedAccount: string,

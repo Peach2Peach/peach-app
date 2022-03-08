@@ -1,4 +1,4 @@
-import { info } from './logUtils'
+import { info } from './log'
 
 let db: any = null
 let debug = false

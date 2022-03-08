@@ -18,7 +18,7 @@ import { whiteGradient } from '../../utils/layout'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { MessageContext } from '../../utils/messageUtils'
 import Icon from '../../components/Icon'
-import { error } from '../../utils/logUtils'
+import { error } from '../../utils/log'
 
 const { useValidation } = require('react-native-form-validator')
 

@@ -4,7 +4,7 @@ import {
   View,
   ViewStyle
 } from 'react-native'
-import { error } from '../../utils/logUtils'
+import { error } from '../../utils/log'
 import RNFS from '../../utils/fileSystem/RNFS'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'

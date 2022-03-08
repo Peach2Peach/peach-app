@@ -1,6 +1,6 @@
 import { setAccount, defaultAccount } from '.'
 import { deleteFile } from '../file'
-import { info } from '../logUtils'
+import { info } from '../log'
 
 interface DeleteAccountProps {
   onSuccess: Function,

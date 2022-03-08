@@ -1,4 +1,3 @@
-import { error } from './logUtils'
 import EncryptedStorage from 'react-native-encrypted-storage'
 
 export let session: Session = {

@@ -1,5 +1,5 @@
 import { defaultAccount, setAccount } from '.'
-import { info } from '../logUtils'
+import { info } from '../log'
 import { setSession } from '../session'
 import { createWallet, getMainAddress } from '../walletUtils'
 

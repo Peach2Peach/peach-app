@@ -1,6 +1,6 @@
 import { contractExists } from '.'
 import { account, saveAccount } from '../account'
-import { info } from '../logUtils'
+import { info } from '../log'
 import { session } from '../session'
 
 /**

@@ -1,4 +1,4 @@
-import { error, info } from './logUtils'
+import { error, info } from './log'
 import RNFS from './fileSystem/RNFS'
 import { decrypt, encrypt } from './crypto'
 

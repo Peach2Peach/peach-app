@@ -18,7 +18,7 @@ import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
-import { error } from '../../utils/logUtils'
+import { error } from '../../utils/log'
 import { Navigation } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 
