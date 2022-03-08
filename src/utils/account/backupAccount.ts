@@ -1,7 +1,7 @@
 import RNFS from '../fileSystem/RNFS'
 import Share from '../fileSystem/Share'
 import { error, info } from '../log'
-import { isMobile } from '../systemUtils'
+import { isMobile } from '../system'
 
 /**
  * @description Method to backup account
