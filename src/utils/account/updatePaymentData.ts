@@ -1,5 +1,5 @@
 import { account, saveAccount } from '.'
-import { session } from '../sessionUtils'
+import { session } from '../session'
 
 /**
  * @description Method to update account payment data

@@ -1,6 +1,6 @@
 import { defaultAccount, setAccount } from '.'
 import { info } from '../logUtils'
-import { setSession } from '../sessionUtils'
+import { setSession } from '../session'
 import { createWallet, getMainAddress } from '../walletUtils'
 
 interface CreateAccountProps {

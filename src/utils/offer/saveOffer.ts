@@ -1,6 +1,6 @@
 import { account, saveAccount } from '../account'
 import { info } from '../logUtils'
-import { session } from '../sessionUtils'
+import { session } from '../session'
 import { offerExists } from './offerExists'
 
 /**

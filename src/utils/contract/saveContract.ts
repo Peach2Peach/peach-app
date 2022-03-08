@@ -1,7 +1,7 @@
 import { contractExists } from '.'
 import { account, saveAccount } from '../account'
 import { info } from '../logUtils'
-import { session } from '../sessionUtils'
+import { session } from '../session'
 
 /**
  * @description Method to add contract to contract list
