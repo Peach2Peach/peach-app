@@ -7,7 +7,7 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { account, updateSettings } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layoutUtils'

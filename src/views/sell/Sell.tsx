@@ -17,7 +17,7 @@ import ReturnAddress from './ReturnAddress'
 
 import { BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
-import { saveOffer } from '../../utils/accountUtils'
+import { saveOffer } from '../../utils/offer'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
@@ -45,7 +45,7 @@ export type SellViewProps = {
 
 export const defaultSellOffer: SellOffer = {
   type: 'ask',
-  creationDate: new Date().toISOString(),
+  creationDate: new Date(),
   published: false,
   premium: 1.5,
   currencies: [],

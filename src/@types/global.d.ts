@@ -1,3 +1,13 @@
+type Settings = {
+  skipTutorial?: boolean,
+  amount?: number,
+  currencies?: Currency[],
+  paymentMethods?: PaymentMethod[],
+  premium?: number,
+  kyc?: boolean,
+  kycType?: KYCType,
+}
+
 declare type Account = {
   publicKey?: string,
   privKey?: string,
@@ -36,7 +46,7 @@ declare type PaymentData = {
 
 declare type Offer = {
   id?: string,
-  creationDate: string,
+  creationDate: Date,
   online?: boolean,
   user?: User,
   published: boolean,
@@ -77,18 +87,20 @@ declare type Contract = {
   sellerId: string,
   buyerId: string,
 
+  amount: number,
   currency: Currency,
   price: number,
   paymentMethod: PaymentMethod,
 
   kycRequired: boolean,
-  kycType: KYCType,
-  releaseAddress: string,
+  kycType?: KYCType,
 
-  kycConfirmed: boolean,
-  kycResponseDate: Date,
-  paymentMade: boolean,
-  paymentConfirmed: Date,
+  kycConfirmed?: boolean,
+  kycResponseDate?: Date|null,
+  paymentMade: Date|null,
+  paymentConfirmed: Date|null,
+
+  releaseAddress: string,
 
   disputeActive: boolean
 }

@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
-import { backupAccount } from '../../utils/accountUtils'
+import { backupAccount } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 

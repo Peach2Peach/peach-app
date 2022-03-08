@@ -9,7 +9,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Text } from '../../components'
-import { account, getContract } from '../../utils/accountUtils'
+import { account } from '../../utils/account'
+import { getContract } from '../../utils/contract'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 

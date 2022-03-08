@@ -9,7 +9,7 @@ import { Checkboxes, Input } from '.'
 import { PAYMENTMETHODS } from '../../constants'
 
 import { getMessages, rules } from '../../utils/validationUtils'
-import { account, updatePaymentData } from '../../utils/accountUtils'
+import { account, updatePaymentData } from '../../utils/account'
 const { useValidation } = require('react-native-form-validator')
 
 interface PaymentFormProps {

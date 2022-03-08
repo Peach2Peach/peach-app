@@ -13,7 +13,7 @@ import getContractEffect from './effects/getContractEffect'
 import { info } from '../../utils/logUtils'
 import { MessageContext } from '../../utils/messageUtils'
 import i18n from '../../utils/i18n'
-import { saveContract } from '../../utils/accountUtils'
+import { saveContract } from '../../utils/contract'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 

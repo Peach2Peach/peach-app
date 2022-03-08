@@ -9,11 +9,10 @@ import {
   loadAccount,
   recoverAccount,
   saveAccount,
-  saveOffer,
   setAccount,
   updatePaymentData,
   updateSettings
-} from '../../src/utils/accountUtils'
+} from '../../src/utils/account'
 import * as fileUtils from '../../src/utils/fileUtils'
 import { getPeachAccount } from '../../src/utils/peachAPI'
 import { getSession } from '../../src/utils/sessionUtils'
@@ -127,30 +126,6 @@ describe('updateSettings', () => {
       skipTutorial: true,
       currencies: ['EUR'],
     })
-  })
-})
-
-describe('saveOffer', () => {
-  beforeAll(async () => {
-    await setAccount(defaultAccount)
-  })
-
-  it('does not save offers without an ID', () => {
-    expect(() => saveOffer(accountData.buyOfferUnpublished)).toThrowError()
-  })
-  it('add a new offer to account', () => {
-    saveOffer(accountData.buyOffer)
-    saveOffer(accountData.sellOffer)
-    deepStrictEqual(account.offers[0], accountData.buyOffer)
-    deepStrictEqual(account.offers[1], accountData.sellOffer)
-  })
-  it('update an existing offer on account', () => {
-    saveOffer({
-      ...accountData.buyOffer,
-      matches: ['38']
-    })
-    strictEqual(account.offers.length, 2)
-    deepStrictEqual(account.offers[0].matches, ['38'])
   })
 })
 

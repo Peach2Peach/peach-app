@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { BuyViewProps } from './Buy'
-import { account, updateSettings } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import Currencies from '../../components/inputs/Currencies'

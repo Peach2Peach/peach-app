@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../utils/bitcoinUtils'
 import { BuyViewProps } from './Buy'
-import { account, updateSettings } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/account'
 import { useIsFocused } from '@react-navigation/native'
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {

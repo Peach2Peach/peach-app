@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Headline } from '../../../components'
 import { PaymentMethods } from '../../../components/inputs'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/accountUtils'
+import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 
 type PaymentMethodSelectionProps = {

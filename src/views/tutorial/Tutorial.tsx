@@ -14,7 +14,7 @@ import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import LetsExplainPeach from './LetsExplainPeach'
 import { whiteGradient } from '../../utils/layoutUtils'
-import { updateSettings } from '../../utils/accountUtils'
+import { updateSettings } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 

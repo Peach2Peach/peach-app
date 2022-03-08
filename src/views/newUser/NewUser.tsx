@@ -9,7 +9,7 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { account, createAccount, saveAccount } from '../../utils/accountUtils'
+import { account, createAccount, saveAccount } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'

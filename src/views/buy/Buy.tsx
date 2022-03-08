@@ -15,7 +15,7 @@ import ReleaseAddress from './ReleaseAddress'
 
 import { BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
-import { saveOffer } from '../../utils/accountUtils'
+import { saveOffer } from '../../utils/offer'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
 import { MessageContext } from '../../utils/messageUtils'
 import { error } from '../../utils/logUtils'
@@ -43,7 +43,7 @@ export type BuyViewProps = {
 
 export const defaultBuyOffer: BuyOffer = {
   type: 'bid',
-  creationDate: new Date().toISOString(),
+  creationDate: new Date(),
   published: false,
   currencies: [],
   paymentMethods: [],
