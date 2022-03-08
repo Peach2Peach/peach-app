@@ -8,7 +8,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Text } from '../../components'
+import { Text } from '../../components'
 import { account } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
@@ -21,6 +21,7 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
+  console.log(account.offers.map(o => o.matches))
   return <ScrollView>
     <View style={tw`pb-32`}>
       <View>
@@ -39,7 +40,7 @@ export default ({ navigation }: Props): ReactElement => {
               : navigation.navigate('buy', { offer })
         }>
           <Text>
-            {offer.id} - {offer.type} -  {offer.amount}
+            {offer.id} - {offer.type} -  {offer.amount} {offer.matches.join(',')}
           </Text>
         </Pressable>
       </View>)}

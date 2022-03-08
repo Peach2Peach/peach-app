@@ -36,12 +36,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
+  const [updatePending, setUpdatePending] = useState(true)
   const isFocused = useIsFocused()
 
   const [matches, setMatches] = useState<Match[]>([])
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
-    setOffer(() => offerData)
+    setOffer(offerData)
     saveOffer(offerData)
   }
 
@@ -82,16 +83,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-
   useEffect(() => {
     if (!isFocused) return
 
-    setOffer(() => route.params.offer)
+    setOffer(route.params.offer)
+    setUpdatePending(() => true)
   }, [isFocused])
 
   useEffect(() => {
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
-
     saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
 
@@ -99,14 +99,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     offerId: offer.id,
     onSuccess: result => {
       saveOffer(result)
-      setOffer(() => result)
+      setOffer(() => ({
+        ...offer,
+        ...result,
+      }))
+      setUpdatePending(() => false)
     },
     onError: () => {
       error('Could not fetch offer information for offer', offer.id)
     }
   }) : () => {}, [offer.id])
 
-  useEffect(searchForPeersEffect({
+  useEffect(!updatePending ? searchForPeersEffect({
     offer,
     onSuccess: result => {
       setMatches(() => result.map(m => ({
@@ -115,7 +119,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       })))
     },
     onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
-  }), [offer.id])
+  }) : () => {}, [offer.id, updatePending])
 
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
@@ -137,8 +141,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           level: 'ERROR',
         })
       },
-    })()
-    : () => {}, [offer.id])
+    })() : () => {}, [offer.id])
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>

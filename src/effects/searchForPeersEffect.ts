@@ -16,6 +16,7 @@ export default ({
 
   const checkingFunction = async () => {
     if (!offer.id) return
+    if (offer.doubleMatched) return
     if (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED')) return
 
     info('Checking matches for', offer.id)

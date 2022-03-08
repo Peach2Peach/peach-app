@@ -93,11 +93,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  const saveAndUpdate = (offerData: BuyOffer) => {
+    setOffer(() => offerData)
+    saveOffer(offerData)
+  }
+
   useEffect(offer.id ? getOfferDetailsEffect({
     offerId: offer.id,
     onSuccess: result => {
-      saveOffer(result)
-      setOffer(() => result as BuyOffer)
+      saveAndUpdate({
+        ...offer,
+        ...result,
+      } as BuyOffer)
     },
     onError: () => {
       error('Could not fetch offer information for offer', offer.id)
@@ -122,8 +129,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         setLoading(false)
 
         if (result) {
-          setOffer(() => ({ ...offer, id: result.offerId, published: true }))
-          saveOffer({ ...offer, id: result.offerId, published: true })
+          saveAndUpdate({ ...offer, id: result.offerId, published: true })
           navigation.navigate('search', { offer: { ...offer, id: result.offerId, published: true } })
           return
         }

@@ -33,6 +33,8 @@ interface CreateAccountProps {
 }
 
 
+export const getAccount = () => account
+
 /**
  * @description Method to set account for app session
  * @param acc account
