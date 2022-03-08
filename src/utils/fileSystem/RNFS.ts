@@ -1,4 +1,4 @@
-import * as db from '../dbUtils'
+import * as db from '../db'
 
 interface writeFile {
   (path: string, content: string, _encoding?: string): Promise<void>

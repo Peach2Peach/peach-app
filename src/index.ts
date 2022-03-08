@@ -6,7 +6,7 @@ import { AppRegistry } from 'react-native'
 import App from './App'
 import { name as appName } from './app.json'
 import { isWeb } from './utils/systemUtils'
-import * as db from './utils/dbUtils'
+import * as db from './utils/db'
 
 AppRegistry.registerComponent(appName, () => App)
 

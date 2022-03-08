@@ -1,4 +1,4 @@
-import * as db from '../dbUtils'
+import * as db from '../db'
 import { download } from '../webUtils'
 
 /**
