@@ -2,7 +2,7 @@ import { NETWORK } from '@env'
 import * as bitcoin from 'bitcoinjs-lib'
 import * as bip39 from 'bip39'
 import { PsbtInput } from 'bip174/src/lib/interfaces'
-import { getRandom } from './cryptoUtils'
+import { getRandom } from './crypto'
 const varuint = require('varuint-bitcoin')
 
 export let wallet: bitcoin.bip32.BIP32Interface

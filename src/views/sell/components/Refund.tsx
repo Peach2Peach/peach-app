@@ -11,7 +11,7 @@ import { MessageContext } from '../../../utils/messageUtils'
 import { thousands } from '../../../utils/string'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../../utils/walletUtils'
 import { saveOffer } from '../../../utils/offer'
-import { reverseBuffer } from '../../../utils/cryptoUtils'
+import { reverseBuffer } from '../../../utils/crypto'
 import { postTx } from '../../../utils/peachAPI'
 import getTransactionEffect from '../../../effects/getTxEffect'
 

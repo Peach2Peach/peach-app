@@ -1,6 +1,6 @@
 import { error, info } from './logUtils'
 import RNFS from './fileSystem/RNFS'
-import { decrypt, encrypt } from './cryptoUtils'
+import { decrypt, encrypt } from './crypto'
 
 /**
  * @description Method to read file

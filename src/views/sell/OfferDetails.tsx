@@ -13,7 +13,7 @@ import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
 import { debounce } from '../../utils/performance'
-import { sha256 } from '../../utils/cryptoUtils'
+import { sha256 } from '../../utils/crypto'
 
 const validate = (offer: SellOffer) =>
   !!offer.amount

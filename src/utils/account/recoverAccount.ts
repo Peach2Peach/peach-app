@@ -1,5 +1,5 @@
 import { setAccount } from '.'
-import { decrypt } from '../cryptoUtils'
+import { decrypt } from '../crypto'
 import { info } from '../logUtils'
 
 interface RecoverAccountProps {
