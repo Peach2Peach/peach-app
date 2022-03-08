@@ -9,7 +9,7 @@ import { Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../comp
 import { getMessages, rules } from '../../utils/validationUtils'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { cutOffAddress } from '../../utils/string'
-import { OverlayContext } from '../../utils/overlayUtils'
+import { OverlayContext } from '../../utils/overlay'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 
 const { useValidation } = require('react-native-form-validator')

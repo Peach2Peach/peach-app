@@ -5,7 +5,7 @@ import { Button } from '.'
 
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { OverlayContext } from '../utils/overlayUtils'
+import { OverlayContext } from '../utils/overlay'
 
 interface OverlayProps {
   content: ReactNode,

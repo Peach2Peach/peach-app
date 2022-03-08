@@ -32,7 +32,7 @@ import { account, loadAccount } from './utils/account'
 import { initSession, session } from './utils/session'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
-import { getOverlay, OverlayContext, setOverlay } from './utils/overlayUtils'
+import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 
