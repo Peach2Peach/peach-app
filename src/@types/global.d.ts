@@ -5,6 +5,7 @@ declare type Account = {
   settings: Settings,
   paymentData: PaymentData[],
   offers: (SellOffer|BuyOffer)[],
+  contracts: Contract[],
 }
 
 declare type MessageState = {

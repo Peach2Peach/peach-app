@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Text } from '../../components'
-import { account } from '../../utils/accountUtils'
+import { account, getContract } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
@@ -17,11 +17,10 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-// TODO check offer status (escrow, searching, matched, online/offline, what else?)
+// TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  console.log(account.offers.map(o => o.matches))
   return <ScrollView>
     <View style={tw`pb-32`}>
       <View>
@@ -40,7 +39,7 @@ export default ({ navigation }: Props): ReactElement => {
               : navigation.navigate('buy', { offer })
         }>
           <Text>
-            {offer.id} - {offer.type} -  {offer.amount} {offer.matches.join(',')}
+            {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
           </Text>
         </Pressable>
       </View>)}

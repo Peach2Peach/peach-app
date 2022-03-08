@@ -22,6 +22,7 @@ export const defaultAccount: Account = {
   settings: {},
   paymentData: [],
   offers: [],
+  contracts: [],
 }
 
 export let account = defaultAccount
@@ -137,6 +138,14 @@ export const updateSettings = (options: Settings): void => {
  */
 const offerExists = (id: string): boolean => account.offers.some(o => o.id === id)
 
+
+/**
+ * @description Method to get saved offer
+ * @param id offer id
+ * @returns offer
+ */
+export const getOffer = (id: string): SellOffer|BuyOffer|undefined => account.offers.find(c => c.id === id)
+
 /**
  * @description Method to add offer to offer list
  * @param offer the offer
@@ -153,6 +162,40 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
     }
   } else {
     account.offers.push(offer)
+  }
+  if (session.password) saveAccount(account, session.password)
+}
+
+
+/**
+ * @description Method to check whether contract exists in account
+ * @param contract the contract
+ * @returns true if contract exists
+ */
+const contractExists = (id: string): boolean => account.contracts.some(c => c.id === id)
+
+/**
+ * @description Method to get saved contract
+ * @param id contract id
+ * @returns contract
+ */
+export const getContract = (id: string): Contract|undefined => account.contracts.find(c => c.id === id)
+
+/**
+ * @description Method to add contract to contract list
+ * @param contract the contract
+ */
+export const saveContract = (contract: Contract): void => {
+  info('saveContract', contract)
+
+  if (contractExists(contract.id)) {
+    const index = account.contracts.findIndex(c => c.id === contract.id)
+    account.contracts[index] = {
+      ...account.contracts[index],
+      ...contract
+    }
+  } else {
+    account.contracts.push(contract)
   }
   if (session.password) saveAccount(account, session.password)
 }

@@ -13,6 +13,7 @@ import getContractEffect from './effects/getContractEffect'
 import { info } from '../../utils/logUtils'
 import { MessageContext } from '../../utils/messageUtils'
 import i18n from '../../utils/i18n'
+import { saveContract } from '../../utils/accountUtils'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -32,6 +33,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract>()
 
+  const saveAndUpdate = (contractData: Contract) => {
+    setContract(() => contractData)
+    saveContract(contractData)
+  }
   useEffect(() => {
     if (!isFocused) return
 
@@ -42,7 +47,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: result => {
       info('Got contract', result)
-      setContract(() => result)
+      saveAndUpdate(result)
     },
     onError: () => updateMessage({ msg: i18n('error.general'), level: 'ERROR' })
   }), [contractId])
