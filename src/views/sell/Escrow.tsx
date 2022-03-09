@@ -9,7 +9,6 @@ import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
-import { PEACHFEE } from '../../constants'
 import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
 import { Title } from '../../components'
@@ -28,8 +27,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
   const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
-  const fundingAmount = Math.round(offer.amount * (1 + PEACHFEE / 100))
-  const fees = Math.round(offer.amount * PEACHFEE / 100)
+  const fundingAmount = Math.round(offer.amount)
 
   const saveAndUpdate = (offerData: SellOffer) => {
     updateOffer(() => offerData)
@@ -52,7 +50,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
   }), [offer.id])
 
-  useEffect(escrow ? checkFundingStatusEffect({
+  useEffect(offer.escrow ? checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -72,7 +70,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
         level: 'ERROR',
       })
     },
-  }) : () => {}, [escrow])
+  }) : () => {}, [offer.escrow])
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
@@ -99,7 +97,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
   info('Rendering escrow', offer)
   return <View>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
-      help={<EscrowHelp fees={fees}/>}
+      help={<EscrowHelp />}
     />
     {escrow && fundingStatus && !fundingError
       ? <FundingView escrow={escrow} />
