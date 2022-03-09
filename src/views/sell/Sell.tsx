@@ -23,6 +23,7 @@ import { MessageContext } from '../../utils/message'
 import { error } from '../../utils/log'
 import { Navigation } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { account } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -52,7 +53,7 @@ export const defaultSellOffer: SellOffer = {
   paymentData: [],
   paymentMethods: [],
   hashedPaymentData: '',
-  amount: BUCKETS[0],
+  amount: account.settings.amount || BUCKETS[0],
   kyc: false,
   matches: [],
   doubleMatched: false,

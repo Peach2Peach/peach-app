@@ -21,6 +21,7 @@ import { MessageContext } from '../../utils/message'
 import { error } from '../../utils/log'
 import { Navigation } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { account } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
 
@@ -48,7 +49,7 @@ export const defaultBuyOffer: BuyOffer = {
   currencies: [],
   paymentMethods: [],
   kyc: false,
-  amount: BUCKETS[0],
+  amount: account.settings.amount || BUCKETS[0],
   matches: [],
   doubleMatched: false,
 }
