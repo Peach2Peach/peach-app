@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Text } from '../../components'
-import { RouteProp, useIsFocused } from '@react-navigation/native'
+import { RouteProp } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
 import { info } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
@@ -28,7 +28,6 @@ type Props = {
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-  const isFocused = useIsFocused()
 
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract>()
@@ -38,10 +37,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveContract(contractData)
   }
   useEffect(() => {
-    if (!isFocused) return
-
     setContractId(() => route.params.contractId)
-  }, [isFocused])
+  }, [route])
 
   useEffect(getContractEffect({
     contractId,

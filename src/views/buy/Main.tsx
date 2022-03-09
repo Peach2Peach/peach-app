@@ -9,13 +9,11 @@ import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../utils/bitcoin'
 import { BuyViewProps } from './Buy'
 import { account, updateSettings } from '../../utils/account'
-import { useIsFocused } from '@react-navigation/native'
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
   const [amount, setAmount] = useState(account.settings.amount || offer.amount)
-  const isFocused = useIsFocused()
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -24,11 +22,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     updateSettings({ amount })
     setStepValid(true)
   }, [amount])
-
-  useEffect(() => {
-    if (!isFocused) return
-    updateOffer({ ...offer, amount })
-  }, [isFocused])
 
   return <View>
     <Title title={i18n('buy.title')} subtitle={i18n('buy.subtitle')} />

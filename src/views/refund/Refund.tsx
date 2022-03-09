@@ -47,10 +47,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const fundingStatus = offer.funding?.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
 
   useEffect(() => {
-    if (!isFocused) return
-
     setOffer(() => route.params?.offer)
-  }, [isFocused])
+  }, [route])
 
   useEffect(isFocused ? cancelOfferEffect({
     offer,

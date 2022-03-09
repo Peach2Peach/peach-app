@@ -18,7 +18,7 @@ import ReturnAddress from './ReturnAddress'
 import { BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/offer'
-import { RouteProp, useIsFocused } from '@react-navigation/native'
+import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../utils/message'
 import { error } from '../../utils/log'
 import { Navigation } from '../../components'
@@ -105,7 +105,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
-  const isFocused = useIsFocused()
 
   const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
@@ -136,11 +135,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   }) : () => {}, [offer.id])
 
   useEffect(() => {
-    if (!isFocused) return
-
     setOffer(() => route.params?.offer || defaultSellOffer)
     setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultSellOffer))
-  }, [isFocused])
+  }, [route])
 
   useEffect(() => {
     (async () => {
