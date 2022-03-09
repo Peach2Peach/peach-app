@@ -97,14 +97,24 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
     if (result) {
       info('Cancel offer: ', JSON.stringify(result))
-      saveAndUpdate({ ...offer, online: false })
+      if (offer.type === 'ask' && offer.funding) {
+        saveAndUpdate({
+          ...offer, online: false,
+          funding: {
+            ...offer.funding,
+            status: 'CANCELED',
+          }
+        })
+      } else {
+        saveAndUpdate({ ...offer, online: false })
+      }
     } else if (err) {
       error('Error', err)
     }
   }
 
   const cancelTrade = () => updateOverlay({
-    content: <ConfirmCancelTrade confirm={confirmCancelTrade} navigation={navigation} />,
+    content: <ConfirmCancelTrade offer={offer} confirm={confirmCancelTrade} navigation={navigation} />,
     showCloseButton: false
   })
 

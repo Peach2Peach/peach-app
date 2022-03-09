@@ -18,6 +18,32 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNavigationProp): void => {
+  if (offer.type === 'ask' && offer.funding && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
+    return navigation.navigate('refund', { offer })
+  }
+
+  if (offer.contractId) {
+    return navigation.navigate('contract', { contractId: offer.contractId })
+  }
+
+  if (offer.type === 'ask') {
+    if (offer.published && offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
+      return navigation.navigate('search', { offer })
+    }
+    return navigation.navigate('sell', { offer })
+  }
+
+  if (offer.type === 'bid') {
+    if (offer.published) {
+      return navigation.navigate('search', { offer })
+    }
+    return navigation.navigate('buy', { offer })
+  }
+
+  return navigation.navigate('offers', {})
+}
+
 // TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
@@ -30,15 +56,7 @@ export default ({ navigation }: Props): ReactElement => {
         </Text>
       </View>
       {account.offers.map(offer => <View key={offer.id}>
-        <Pressable onPress={() => offer.contractId
-          ? navigation.navigate('contract', { contractId: offer.contractId })
-          : offer.published
-            && (offer.type === 'bid' || (offer.funding?.status === 'FUNDED' && offer.confirmedReturnAddress))
-            ? navigation.navigate('search', { offer })
-            : offer.type === 'ask'
-              ? navigation.navigate('sell', { offer })
-              : navigation.navigate('buy', { offer })
-        }>
+        <Pressable onPress={() => navigateToOffer(offer, navigation)}>
           <Text style={!offer.online ? tw`opacity-50` : {}}>
             {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
           </Text>

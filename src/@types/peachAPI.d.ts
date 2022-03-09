@@ -29,7 +29,7 @@ declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
   confirmations?: number,
   txId?: string,
-  amount
+  amount: number
 }
 
 declare type GetTxResponse = Transaction

@@ -1,7 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import tw from '../../styles/tailwind'
-
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
@@ -9,7 +7,6 @@ import { saveOffer } from '../../utils/offer'
 import { MessageContext } from '../../utils/message'
 import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
-import Refund from './components/Refund'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import { PEACHFEE } from '../../constants'
@@ -35,7 +32,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
   const fees = Math.round(offer.amount * PEACHFEE / 100)
 
   const saveAndUpdate = (offerData: SellOffer) => {
-    updateOffer(offerData)
+    updateOffer(() => offerData)
     saveOffer(offerData)
   }
 
@@ -45,6 +42,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       info('Created escrow', result)
       setEscrow(() => result.escrow)
       setFundingStatus(() => result.funding)
+
       saveAndUpdate({
         ...offer,
         escrow: result.escrow,
@@ -54,7 +52,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
   }), [offer.id])
 
-  useEffect(checkFundingStatusEffect({
+  useEffect(escrow ? checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -74,9 +72,14 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
         level: 'ERROR',
       })
     },
-  }), [escrow])
+  }) : () => {}, [escrow])
 
   useEffect(() => {
+    if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
+      navigation.navigate('refund', { offer })
+      return
+    }
+
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
       if (!offer.confirmedReturnAddress) {
@@ -99,11 +102,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       help={<EscrowHelp fees={fees}/>}
     />
     {escrow && fundingStatus && !fundingError
-      ? /WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)
-        ? <View style={tw`mt-4`}>
-          <Refund offer={offer} />
-        </View>
-        : <FundingView escrow={escrow} />
+      ? <FundingView escrow={escrow} />
       : <NoEscrowFound />
     }
   </View>

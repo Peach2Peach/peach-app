@@ -15,6 +15,9 @@ declare type RootStackParamList = {
   contract: {
     contractId: string,
   },
+  refund: {
+    offer: SellOffer,
+  },
   offers: {},
   settings: {},
 }

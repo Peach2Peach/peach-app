@@ -18,13 +18,14 @@ const TradeCanceled = () => <View style={tw`flex items-center`}>
 </View>
 
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'home'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'|'contract'>
 type ConfirmCancelTradeProps = {
+  offer: BuyOffer|SellOffer,
   confirm: () => Promise<void>,
   navigation: ProfileScreenNavigationProp,
 }
 
-export default ({ confirm, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export default ({ offer, confirm, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
@@ -33,7 +34,13 @@ export default ({ confirm, navigation }: ConfirmCancelTradeProps): ReactElement 
     updateOverlay({ content: <TradeCanceled />, showCloseButton: false })
     setTimeout(() => {
       closeOverlay()
-      navigation.navigate('home', {})
+
+      if (offer.type === 'bid') {
+        navigation.navigate('home', {})
+        return
+      }
+      navigation.navigate('refund', { offer })
+
     }, 3000)
   }
   return <View style={tw`flex items-center`}>

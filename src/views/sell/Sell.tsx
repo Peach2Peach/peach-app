@@ -36,7 +36,7 @@ type Props = {
 
 export type SellViewProps = {
   offer: SellOffer,
-  updateOffer: (data: SellOffer) => void,
+  updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
