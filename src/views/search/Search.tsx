@@ -178,9 +178,20 @@ export default ({ route, navigation }: Props): ReactElement => {
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8`}>
         <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />
+        {offer.type === 'ask' && !matches.length
+          ? <View>
+            <Text style={tw`text-center`}>
+              {i18n('search.sellOffer.1')}
+            </Text>
+            <Text style={tw`text-center mt-2`}>
+              {i18n('search.sellOffer.2')}
+            </Text>
+          </View>
+          : null
+        }
         {offer.type === 'bid' && matches.length
           ? <Text style={tw`text-grey-3 text-center -mt-2`}>
-            {i18n('search.forBuying', thousands(offer.amount))}
+            {i18n('search.buyOffer', thousands(offer.amount))}
           </Text>
           : null
         }

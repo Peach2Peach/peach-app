@@ -13,6 +13,7 @@ import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
 import { Title } from '../../components'
 import { info } from '../../utils/log'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -95,7 +96,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
   }, [offer.id])
 
   info('Rendering escrow', offer)
-  return <View>
+  return <ScrollView>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
       help={<EscrowHelp />}
     />
@@ -103,5 +104,5 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       ? <FundingView escrow={escrow} />
       : <NoEscrowFound />
     }
-  </View>
+  </ScrollView>
 }
