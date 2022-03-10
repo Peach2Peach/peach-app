@@ -19,7 +19,7 @@ import { saveOffer } from '../../utils/offer'
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../utils/message'
 import { error } from '../../utils/log'
-import { Navigation } from '../../components'
+import { Loading, Navigation } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 
@@ -73,7 +73,7 @@ const screens = [
   },
   {
     id: 'search',
-    view: Main
+    view: Loading
   }
 ]
 
@@ -83,9 +83,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<BuyOffer>(defaultBuyOffer)
+  const [offer, setOffer] = useState<BuyOffer>(route.params?.offer || defaultBuyOffer)
   const [stepValid, setStepValid] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -98,6 +98,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
+  useEffect(() => {
+    const offr = route.params?.offer || defaultBuyOffer
+    setUpdatePending(!!offr.id)
+    setOffer(() => offr)
+    setPage(() => route.params?.page || 0)
+  }, [route])
+
   useEffect(offer.id ? getOfferDetailsEffect({
     offerId: offer.id,
     onSuccess: result => {
@@ -105,33 +112,29 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...offer,
         ...result,
       } as BuyOffer)
+      setUpdatePending(false)
     },
     onError: () => {
       error('Could not fetch offer information for offer', offer.id)
     }
-  }) : () => {}, [offer.id])
+  }) : () => {}, [route, offer.id])
 
-  useEffect(() => {
-
-    setOffer(() => route.params?.offer || defaultBuyOffer)
-    setPage(() => route.params?.page || 0)
-  }, [route])
 
   useEffect(() => {
     (async () => {
       if (screens[page].id === 'search' && !offer.id) {
-        setLoading(true)
+        setUpdatePending(true)
         const [result, err] = await postOffer({
           ...offer,
         })
-
-        setLoading(false)
 
         if (result) {
           saveAndUpdate({ ...offer, id: result.offerId, published: true })
           navigation.navigate('search', { offer: { ...offer, id: result.offerId, published: true } })
           return
         }
+
+        setUpdatePending(false)
 
         error('Error', err)
         updateMessage({
@@ -160,7 +163,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
-          {CurrentView
+          {updatePending
+            ? <Loading />
+            : null
+          }
+          {!updatePending && CurrentView
             ? <CurrentView offer={offer}
               updateOffer={setOffer}
               setStepValid={setStepValid}
@@ -169,22 +176,22 @@ export default ({ route, navigation }: Props): ReactElement => {
             : null
           }
         </View>
-        {scrollable
+        {scrollable && !updatePending
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
               back={back} next={next} navigation={navigation}
-              loading={loading} stepValid={stepValid} />
+              stepValid={stepValid} />
           </View>
           : null
         }
       </ScrollView>
     </View>
-    {!scrollable
+    {!scrollable && !updatePending
       ? <Navigation
         screen={currentScreen.id}
         back={back} next={next} navigation={navigation}
-        loading={loading} stepValid={stepValid} />
+        stepValid={stepValid} />
       : null
     }
   </View>

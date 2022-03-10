@@ -36,6 +36,9 @@ import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import Refund from './views/refund/Refund'
+import { sleep } from './utils/performance'
+
+// LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
 enableScreens()
 
@@ -70,6 +73,10 @@ const views: ViewType[] = [
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   const { password } = await initSession()
   if (password) await loadAccount(password)
+  while (!navigationRef.isReady()) {
+    // eslint-disable-next-line no-await-in-loop
+    await sleep(100)
+  }
   setTimeout(() => {
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
       if (account?.settings?.skipTutorial) {

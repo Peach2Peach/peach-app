@@ -16,12 +16,10 @@ import Escrow from './Escrow'
 import ReturnAddress from './ReturnAddress'
 
 import { BUCKETS } from '../../constants'
-import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp } from '@react-navigation/native'
-import { MessageContext } from '../../utils/message'
 import { error } from '../../utils/log'
-import { Navigation } from '../../components'
+import { Loading, Navigation, Text } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 
@@ -90,7 +88,7 @@ const screens = [
   },
   {
     id: 'search',
-    view: Main
+    view: Loading
   }
 ]
 
@@ -104,11 +102,10 @@ const getInitialPageForOffer = (offer: SellOffer) =>
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
-  const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
+  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -121,6 +118,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
+  useEffect(() => {
+    const offr = route.params?.offer || defaultSellOffer
+
+    if (offr.confirmedReturnAddress) {
+      navigation.navigate('search', { offer })
+      return
+    }
+
+    setUpdatePending(!!offr.id)
+    setOffer(() => offr)
+  }, [route])
+
   useEffect(offer.id ? getOfferDetailsEffect({
     offerId: offer.id,
     onSuccess: result => {
@@ -128,49 +137,28 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...offer,
         ...result,
       } as SellOffer)
+
+      if (offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
+        navigation.navigate('search', { offer })
+        return
+      }
+
+      setPage(() => getInitialPageForOffer(offer))
+      setUpdatePending(false)
     },
     onError: () => {
+      setPage(() => getInitialPageForOffer(offer))
+      setUpdatePending(false)
       error('Could not fetch offer information for offer', offer.id)
     }
-  }) : () => {}, [offer.id])
+  }) : () => {}, [route, offer.id])
 
   useEffect(() => {
-    setOffer(() => route.params?.offer || defaultSellOffer)
-    setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultSellOffer))
-  }, [route])
-
-  useEffect(() => {
-    (async () => {
-      if (screens[page].id === 'escrow' && !offer.id) {
-        setLoading(true)
-        const [result, err] = await postOffer(offer)
-
-        setLoading(false)
-
-        if (result) {
-          saveAndUpdate({ ...offer, id: result.offerId })
-        } else {
-          error('Error', err)
-          updateMessage({
-            msg: i18n(err?.error || 'error.postOffer'),
-            level: 'ERROR',
-          })
-          return
-        }
-      }
-
-      if (screens[page].id === 'search') {
-        saveAndUpdate({ ...offer, published: true, confirmedReturnAddress: true })
-        navigation.navigate('search', { offer })
-      }
-    })()
+    if (screens[page].id === 'search') {
+      saveAndUpdate({ ...offer, confirmedReturnAddress: true })
+      navigation.navigate('search', { offer })
+    }
   }, [page])
-
-  useEffect(() => {
-    if (!offer.published) return
-
-    navigation.navigate('search', { offer })
-  }, [offer.published])
 
   const next = () => {
     if (page >= screens.length - 1) return
@@ -191,7 +179,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
-          {CurrentView
+          {updatePending
+            ? <Loading />
+            : null
+          }
+          {!updatePending && CurrentView
             ? <CurrentView
               offer={offer}
               updateOffer={setOffer}
@@ -201,22 +193,22 @@ export default ({ route, navigation }: Props): ReactElement => {
             : null
           }
         </View>
-        {scrollable
+        {scrollable && !updatePending
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
               back={back} next={next} navigation={navigation}
-              loading={loading} stepValid={stepValid} />
+              stepValid={stepValid} />
           </View>
           : null
         }
       </ScrollView>
     </View>
-    {!scrollable
+    {!scrollable && !updatePending
       ? <Navigation
         screen={currentScreen.id}
         back={back} next={next} navigation={navigation}
-        loading={loading} stepValid={stepValid} />
+        stepValid={stepValid} />
       : null
     }
   </View>

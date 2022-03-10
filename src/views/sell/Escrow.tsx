@@ -14,6 +14,7 @@ import EscrowHelp from './components/EscrowHelp'
 import { Title } from '../../components'
 import { info } from '../../utils/log'
 import { ScrollView } from 'react-native-gesture-handler'
+import postOfferEffect from '../../effects/postOfferEffect'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -35,7 +36,17 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     saveOffer(offerData)
   }
 
-  useEffect(createEscrowEffect({
+  useEffect(!offer.id ? postOfferEffect({
+    offer,
+    onSuccess: result => {
+      info('Posted offer', result)
+
+      saveAndUpdate({ ...offer, id: result.offerId })
+    },
+    onError: err => updateMessage({ msg: i18n(err?.error || 'error.postOffer'), level: 'ERROR' })
+  }) : () => {}, [])
+
+  useEffect(offer.id && !offer.escrow ? createEscrowEffect({
     offer,
     onSuccess: result => {
       info('Created escrow', result)
@@ -49,9 +60,9 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       })
     },
     onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
-  }), [offer.id])
+  }) : () => {}, [offer.id])
 
-  useEffect(offer.escrow ? checkFundingStatusEffect({
+  useEffect(offer.escrow && offer.funding?.status !== 'FUNDED' ? checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -81,6 +92,9 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
+
+      if (!offer.published) saveAndUpdate({ ...offer, published: true })
+
       if (!offer.confirmedReturnAddress) {
         next()
       } else {
@@ -95,7 +109,6 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.id])
 
-  info('Rendering escrow', offer)
   return <ScrollView>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
       help={<EscrowHelp />}

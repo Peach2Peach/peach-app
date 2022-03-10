@@ -14,10 +14,9 @@ type NavigationProps = {
   next: () => void,
   navigation: ProfileScreenNavigationProp,
   stepValid: boolean,
-  loading: boolean,
 }
 
-export const Navigation = ({ screen, back, next, navigation, stepValid, loading }: NavigationProps): ReactElement => {
+export const Navigation = ({ screen, back, next, navigation, stepValid }: NavigationProps): ReactElement => {
   const buttonText = screen === 'escrow' && !stepValid
     ? i18n('sell.escrow.fundToContinue')
     : /returnAddress|releaseAddress/u.test(screen)
@@ -37,9 +36,9 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, loading 
       : null
     }
     <Button
-      disabled={!stepValid || loading}
+      disabled={!stepValid}
       wide={false}
-      onPress={stepValid && !loading ? buttonClick : () => {}}
+      onPress={stepValid ? buttonClick : () => {}}
       title={buttonText}
     />
   </View>

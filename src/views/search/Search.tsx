@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../utils/message'
-import { BigTitle, Button, Matches, Text } from '../../components'
+import { BigTitle, Button, Loading, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
@@ -123,18 +123,20 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [route])
 
   useEffect(() => {
+    if (!offer.id) return
+
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
+
     saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
 
   useEffect(offer.id ? getOfferDetailsEffect({
     offerId: offer.id,
     onSuccess: result => {
-      saveOffer(result)
-      setOffer(() => ({
+      saveAndUpdate({
         ...offer,
         ...result,
-      }))
+      })
       setUpdatePending(() => false)
     },
     onError: () => {
@@ -151,7 +153,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       })))
     },
     onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
-  }) : () => {}, [offer.id, updatePending])
+  }) : () => {}, [updatePending])
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
     ? checkFundingStatusEffect({
