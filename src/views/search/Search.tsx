@@ -139,8 +139,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       })
       setUpdatePending(() => false)
     },
-    onError: () => {
+    onError: err => {
       error('Could not fetch offer information for offer', offer.id)
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
     }
   }) : () => {}, [offer.id])
 
@@ -152,7 +156,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         matched: offer.matches && offer.matches.indexOf(m.offerId) !== -1
       })))
     },
-    onError: result => updateMessage({ msg: i18n(result.error), level: 'ERROR' }),
+    onError: err => updateMessage({ msg: i18n(err.error), level: 'ERROR' }),
   }) : () => {}, [updatePending])
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
@@ -168,7 +172,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           depositAddress: offer.depositAddress || result.returnAddress,
         })
       },
-      onError: (err) => {
+      onError: err => {
         updateMessage({
           msg: i18n(err.error || 'error.general'),
           level: 'ERROR',

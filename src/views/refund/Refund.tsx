@@ -60,7 +60,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setInputIndex(() => result.inputIndex)
       setReturnAddress(() => result.returnAddress)
     },
-    onError: (err) => {
+    onError: err => {
       updateMessage({
         msg: i18n(err.error || 'error.general'),
         level: 'ERROR',
@@ -74,7 +74,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       info('Get transaction', result)
       setTransaction(() => result)
     },
-    onError: (err) => {
+    onError: err => {
       updateMessage({
         msg: i18n(err.error || 'error.general'),
         level: 'ERROR',

@@ -22,6 +22,7 @@ import { error } from '../../utils/log'
 import { Loading, Navigation, Text } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
+import { MessageContext } from '../../utils/message'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -102,6 +103,7 @@ const getInitialPageForOffer = (offer: SellOffer) =>
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
+  const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
@@ -146,10 +148,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       setPage(() => getInitialPageForOffer(offer))
       setUpdatePending(false)
     },
-    onError: () => {
+    onError: err => {
       setPage(() => getInitialPageForOffer(offer))
       setUpdatePending(false)
       error('Could not fetch offer information for offer', offer.id)
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
     }
   }) : () => {}, [route, offer.id])
 

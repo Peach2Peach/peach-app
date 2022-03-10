@@ -46,7 +46,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       info('Got contract', result)
       saveAndUpdate(result)
     },
-    onError: () => updateMessage({ msg: i18n('error.general'), level: 'ERROR' })
+    onError: err => updateMessage({
+      msg: i18n(err.error || 'error.general'),
+      level: 'ERROR',
+    })
   }), [contractId])
 
   return <ScrollView>
