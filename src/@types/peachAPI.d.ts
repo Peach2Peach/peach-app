@@ -4,6 +4,10 @@ declare type AccessToken = {
   accessToken: string
 }
 
+declare type APISuccess = {
+  success: true
+}
+
 declare type APIError = {
   error: string
 }

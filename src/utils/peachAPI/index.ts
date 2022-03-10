@@ -51,7 +51,7 @@ export const parseResponse = async <T>(
 
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
-export { userAuth, getAccessToken } from './private/auth'
+export { auth, getAccessToken, setPGP } from './private/user'
 export {
   getOfferDetails,
   postOffer,

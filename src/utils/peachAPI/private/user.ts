@@ -1,7 +1,8 @@
 import { API_URL } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
-import { accessToken, peachAccount, setAccessToken, setPeachAccount } from '..'
+import OpenPGP from 'react-native-fast-openpgp'
+import { accessToken, parseResponse, peachAccount, setAccessToken, setPeachAccount } from '..'
 import fetch from '../../fetch'
 import { error, info, log } from '../../log'
 
@@ -10,7 +11,7 @@ import { error, info, log } from '../../log'
  * @param keyPair key pair needed for authentication
  * @returns AccessToken or APIError
  */
-export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
+export const auth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
   setPeachAccount(keyPair)
@@ -32,7 +33,7 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
     const token = await response.json() as AccessToken
     setAccessToken(token)
 
-    info('peachAPI - userAuth - SUCCESS', keyPair.publicKey.toString('hex'), token)
+    info('peachAPI - auth - SUCCESS', keyPair.publicKey.toString('hex'), token)
 
     return [token, null]
   } catch (e) {
@@ -43,7 +44,7 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
       err = e.message
     }
 
-    error('peachAPI - userAuth', e)
+    error('peachAPI - auth', e)
 
     return [null, { error: err }]
   }
@@ -59,7 +60,7 @@ export const getAccessToken = async (): Promise<string> => {
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
-  const [result, err] = await userAuth(peachAccount as BIP32Interface)
+  const [result, err] = await auth(peachAccount as BIP32Interface)
 
   if (!result || err) {
     error('peachAPI - getAccessToken', err)
@@ -68,4 +69,40 @@ export const getAccessToken = async (): Promise<string> => {
   }
 
   return 'Basic ' + Buffer.from(result.accessToken)
+}
+
+/**
+ * @description Method to get offer of user
+ * @param pgp PGP public key
+ * @returns GetOffersResponse
+ */
+export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIError|null]> => {
+  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
+
+  const message = 'Peach new PGP key ' + (new Date()).getTime()
+  const pgpSignature = await OpenPGP.sign(message, pgp.publicKey, pgp.privateKey, '')
+  console.log('PGPPGPPGPPGPPGPPGP', JSON.stringify({
+    publicKey: peachAccount.publicKey.toString('hex'),
+    pgp: pgp.publicKey,
+    signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(pgp.publicKey))).toString('hex'),
+    message,
+    pgpSignature,
+  }))
+  const response = await fetch(`${API_URL}/v1/user/pgp`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      publicKey: peachAccount.publicKey.toString('hex'),
+      pgp: pgp.publicKey,
+      signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(pgp.publicKey))).toString('hex'),
+      message,
+      pgpSignature,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'pgp')
 }

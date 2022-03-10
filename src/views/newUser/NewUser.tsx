@@ -19,6 +19,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { MessageContext } from '../../utils/message'
 import Icon from '../../components/Icon'
 import { error } from '../../utils/log'
+import { setPGP } from '../../utils/peachAPI'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -54,7 +55,10 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
-  const onSuccess = () => {
+  const onSuccess = async () => {
+    console.log('Account created', account, password)
+    saveAccount(account, password)
+    await setPGP(account.pgp)
     navigation.navigate('tutorial')
   }
 
@@ -76,7 +80,6 @@ export default ({ navigation }: Props): ReactElement => {
     setIsPristine(false)
     if (isValid) {
       createAccount({ password, onSuccess, onError })
-      saveAccount(account, password)
     }
   }
 

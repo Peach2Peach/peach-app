@@ -10,7 +10,7 @@ const accessToken: AccessToken = {
  * @param keyPair key pair needed for authentication
  * @returns AccessToken or APIError
  */
-export const userAuth = jest.fn(
+export const auth = jest.fn(
   async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> =>
     [accessToken, null]
 )

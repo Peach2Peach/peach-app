@@ -8,14 +8,27 @@ type Settings = {
   kycType?: KYCType,
 }
 
+declare type PGPKeychain = {
+  privateKey: string,
+  publicKey: string,
+}
+
 declare type Account = {
   publicKey?: string,
   privKey?: string,
   mnemonic?: string,
+  pgp: PGPKeychain,
   settings: Settings,
   paymentData: PaymentData[],
   offers: (SellOffer|BuyOffer)[],
   contracts: Contract[],
+}
+
+declare type User = {
+  id: string,
+  creationDate: Date,
+  rating: number|null,
+  ratingCount: number
 }
 
 declare type MessageState = {

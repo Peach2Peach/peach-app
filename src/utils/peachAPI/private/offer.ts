@@ -1,7 +1,7 @@
 import { API_URL } from '@env'
 import { parseResponse } from '..'
 import fetch from '../../fetch'
-import { getAccessToken } from './auth'
+import { getAccessToken } from './user'
 
 /**
  * @description Method to get offer
