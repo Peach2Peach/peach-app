@@ -16,7 +16,7 @@ import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
-import { whiteGradient } from '../../utils/layoutUtils'
+import { whiteGradient } from '../../utils/layout'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 

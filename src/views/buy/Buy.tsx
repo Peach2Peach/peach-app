@@ -7,20 +7,21 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import BitcoinContext from '../../components/bitcoin'
+import BitcoinContext from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
-import Search from './Search'
 
-import { BUCKETMAP, BUCKETS } from '../../constants'
+import { BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
-import { saveOffer } from '../../utils/accountUtils'
-import { RouteProp, useIsFocused } from '@react-navigation/native'
-import { MessageContext } from '../../utils/messageUtils'
-import { error } from '../../utils/logUtils'
-import { Navigation } from '../../components'
+import { saveOffer } from '../../utils/offer'
+import { RouteProp } from '@react-navigation/native'
+import { MessageContext } from '../../utils/message'
+import { error } from '../../utils/log'
+import { Loading, Navigation } from '../../components'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { account } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
 
@@ -38,15 +39,19 @@ export type BuyViewProps = {
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
+  navigation: ProfileScreenNavigationProp,
 }
 
 export const defaultBuyOffer: BuyOffer = {
   type: 'bid',
+  creationDate: new Date(),
   published: false,
   currencies: [],
-  paymentData: [],
+  paymentMethods: [],
   kyc: false,
-  amount: BUCKETS[0],
+  amount: account.settings.amount || BUCKETS[0],
+  matches: [],
+  doubleMatched: false,
 }
 type Screen = ({ offer, updateOffer }: BuyViewProps) => ReactElement
 
@@ -68,27 +73,19 @@ const screens = [
   },
   {
     id: 'search',
-    view: Search,
-    scrollable: false
-  },
+    view: Loading
+  }
 ]
-
-
-const getInitialPageForOffer = (offer: BuyOffer) =>
-  offer.published
-    ? screens.findIndex(s => s.id === 'search')
-    : 0
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
-  const isFocused = useIsFocused()
 
-  const [offer, setOffer] = useState<BuyOffer>(defaultBuyOffer)
+  const [offer, setOffer] = useState<BuyOffer>(route.params?.offer || defaultBuyOffer)
   const [stepValid, setStepValid] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -96,36 +93,59 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  const saveAndUpdate = (offerData: BuyOffer) => {
+    setOffer(() => offerData)
+    saveOffer(offerData)
+  }
+
   useEffect(() => {
-    if (!isFocused) return
+    const offr = route.params?.offer || defaultBuyOffer
+    setUpdatePending(!!offr.id)
+    setOffer(() => offr)
+    setPage(() => route.params?.page || 0)
+  }, [route])
 
-    setOffer(() => route.params?.offer || defaultBuyOffer)
-    setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultBuyOffer))
-  }, [isFocused])
-
-  const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'search' && !offer.offerId) {
-      setLoading(true)
-      const [result, err] = await postOffer({
+  useEffect(offer.id ? getOfferDetailsEffect({
+    offerId: offer.id,
+    onSuccess: result => {
+      saveAndUpdate({
         ...offer,
-        amount: BUCKETMAP[String(offer.amount)],
-        paymentMethods: offer.paymentData.map(p => p.type),
-      })
+        ...result,
+      } as BuyOffer)
+      setUpdatePending(false)
+    },
+    onError: () => {
+      error('Could not fetch offer information for offer', offer.id)
+    }
+  }) : () => {}, [route, offer.id])
 
-      setLoading(false)
 
-      if (result) {
-        saveOffer({ ...offer, offerId: result.offerId, published: true })
-        setOffer(() => ({ ...offer, offerId: result.offerId, published: true }))
-      } else {
+  useEffect(() => {
+    (async () => {
+      if (screens[page].id === 'search' && !offer.id) {
+        setUpdatePending(true)
+        const [result, err] = await postOffer({
+          ...offer,
+        })
+
+        if (result) {
+          saveAndUpdate({ ...offer, id: result.offerId, published: true })
+          navigation.navigate('search', { offer: { ...offer, id: result.offerId, published: true } })
+          return
+        }
+
+        setUpdatePending(false)
+
         error('Error', err)
         updateMessage({
           msg: i18n(err?.error || 'error.postOffer'),
           level: 'ERROR',
         })
-        return
       }
-    }
+    })()
+  }, [page])
+
+  const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
@@ -143,27 +163,35 @@ export default ({ route, navigation }: Props): ReactElement => {
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
-          {CurrentView
-            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />
+          {updatePending
+            ? <Loading />
+            : null
+          }
+          {!updatePending && CurrentView
+            ? <CurrentView offer={offer}
+              updateOffer={setOffer}
+              setStepValid={setStepValid}
+              back={back} next={next}
+              navigation={navigation}/>
             : null
           }
         </View>
-        {scrollable
+        {scrollable && !updatePending
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
               back={back} next={next} navigation={navigation}
-              loading={loading} stepValid={stepValid} />
+              stepValid={stepValid} />
           </View>
           : null
         }
       </ScrollView>
     </View>
-    {!scrollable
+    {!scrollable && !updatePending
       ? <Navigation
         screen={currentScreen.id}
         back={back} next={next} navigation={navigation}
-        loading={loading} stepValid={stepValid} />
+        stepValid={stepValid} />
       : null
     }
   </View>

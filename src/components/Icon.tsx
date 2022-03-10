@@ -16,10 +16,12 @@ interface IconProps {
  * @param props Component properties
  * @param props.id icon id
  * @param [props.style] css style object
+ * @param [props.color] icon color
  * @example
  * <Icon
  *   id={'save'}
  *   style={tw`mt-4`}
+ *   color={tw`text-white-1`.color as string}
  * />
  */
 export const Icon = ({ id, style, color }: IconProps): ReactElement => {

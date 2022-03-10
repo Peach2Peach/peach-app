@@ -9,16 +9,16 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { createAccount } from '../../utils/accountUtils'
+import { account, createAccount, saveAccount } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Text } from '../../components'
 import i18n from '../../utils/i18n'
-import { getMessages, rules } from '../../utils/validationUtils'
-import { whiteGradient } from '../../utils/layoutUtils'
+import { getMessages, rules } from '../../utils/validation'
+import { whiteGradient } from '../../utils/layout'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { MessageContext } from '../../utils/messageUtils'
+import { MessageContext } from '../../utils/message'
 import Icon from '../../components/Icon'
-import { error } from '../../utils/logUtils'
+import { error } from '../../utils/log'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -74,7 +74,10 @@ export default ({ navigation }: Props): ReactElement => {
       }
     })
     setIsPristine(false)
-    if (isValid) createAccount({ password, onSuccess, onError })
+    if (isValid) {
+      createAccount({ password, onSuccess, onError })
+      saveAccount(account, password)
+    }
   }
 
   return <View style={tw`h-full flex`}>

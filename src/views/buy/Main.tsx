@@ -6,9 +6,9 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Dropdown, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
-import { getBitcoinContext } from '../../components/bitcoin'
+import { getBitcoinContext } from '../../utils/bitcoin'
 import { BuyViewProps } from './Buy'
-import { account, updateSettings } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/account'
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -22,11 +22,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     updateSettings({ amount })
     setStepValid(true)
   }, [amount])
-
-  useEffect(() => {
-    updateOffer({ ...offer, amount })
-  }, [])
-
 
   return <View>
     <Title title={i18n('buy.title')} subtitle={i18n('buy.subtitle')} />

@@ -7,12 +7,12 @@ import {
 const { LinearGradient } = require('react-native-gradients')
 
 import tw from '../../styles/tailwind'
-import { account, updateSettings } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../../utils/i18n'
-import { whiteGradient } from '../../utils/layoutUtils'
+import { whiteGradient } from '../../utils/layout'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { MessageContext } from '../../utils/messageUtils'
+import { MessageContext } from '../../utils/message'
 import AutoScan from './AutoScan'
 import Manual from './Manual'
 import Restored from './Restored'

@@ -13,7 +13,7 @@ import ComponentsTest from './views/componentsTest/ComponentsTest'
 import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
-import BitcoinContext, { getBitcoinContext, updateBitcoinContext } from './components/bitcoin'
+import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoin'
 import i18n from './utils/i18n'
 import PGPTest from './views/pgpTest/PGPTest'
 import { Footer, Header, LanguageSelect } from './components'
@@ -26,13 +26,19 @@ import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
-import { getMessage, MessageContext, setMessage } from './utils/messageUtils'
+import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
-import { account, getAccount } from './utils/accountUtils'
-import { initSession, session } from './utils/sessionUtils'
+import { account, loadAccount } from './utils/account'
+import { initSession, session } from './utils/session'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
-import { getOverlay, OverlayContext, setOverlay } from './utils/overlayUtils'
+import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
+import Search from './views/search/Search'
+import Contract from './views/contract/Contract'
+import Refund from './views/refund/Refund'
+import { sleep } from './utils/performance'
+
+// LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
 enableScreens()
 
@@ -50,6 +56,9 @@ const views: ViewType[] = [
   { name: 'home', component: Home },
   { name: 'buy', component: Buy },
   { name: 'sell', component: Sell },
+  { name: 'search', component: Search },
+  { name: 'contract', component: Contract },
+  { name: 'refund', component: Refund },
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },
   { name: 'componentsTest', component: ComponentsTest },
@@ -63,7 +72,11 @@ const views: ViewType[] = [
  */
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   const { password } = await initSession()
-  if (password) await getAccount(password)
+  if (password) await loadAccount(password)
+  while (!navigationRef.isReady()) {
+    // eslint-disable-next-line no-await-in-loop
+    await sleep(100)
+  }
   setTimeout(() => {
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
       if (account?.settings?.skipTutorial) {
@@ -75,50 +88,10 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
-const showMessage = (msg: string, width: number, slideInAnim: Animated.Value) => () => {
-  let slideOutTimeout: NodeJS.Timer
-
-  if (msg) {
-    Animated.timing(slideInAnim, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: false
-    }).start()
-
-    slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
-      toValue: -width,
-      duration: 300,
-      useNativeDriver: false
-    }).start(), 1000 * 10)
-  }
-
-  return () => clearTimeout(slideOutTimeout)
-}
-
-const bitcoinContextEffect = (
-  bitcoinContext: BitcoinContextType,
-  setBitcoinContext: React.Dispatch<React.SetStateAction<BitcoinContextType>>
-) => () => {
-  let interval: NodeJS.Timer
-
-  (async () => {
-    interval = setInterval(async () => {
-      // TODO add error handling in case data is not available
-      setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-    }, 60 * 1000)
-    // TODO add error handling in case data is not available
-    setBitcoinContext(await updateBitcoinContext(bitcoinContext.currency))
-
-  })()
-  return () => {
-    clearInterval(interval)
-  }
-}
-
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
-  const [{ overlayContent }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = GetWindowDimensions()
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -127,9 +100,7 @@ const App: React.FC = () => {
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
 
-
-  useEffect(showMessage(msg, width, slideInAnim), [msg, time])
-
+  useEffect(showMessageEffect(msg, width, slideInAnim), [msg, time])
   useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])
 
   useEffect(() => {
@@ -140,7 +111,7 @@ const App: React.FC = () => {
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <BitcoinContext.Provider value={bitcoinContext}>
         <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
-          <OverlayContext.Provider value={[{ overlayContent }, updateOverlay]}>
+          <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
             <View style={tw`h-full flex-col`}>
               {account?.settings?.skipTutorial
                 ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
@@ -157,8 +128,8 @@ const App: React.FC = () => {
                 </Animated.View>
                 : null
               }
-              {overlayContent
-                ? <Overlay content={overlayContent} />
+              {content
+                ? <Overlay content={content} showCloseButton={showCloseButton} />
                 : null
               }
               <View style={tw`h-full flex-shrink`}>

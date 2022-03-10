@@ -10,7 +10,8 @@ declare type APIError = {
 
 declare type User = {
   id: string,
-  rating: number
+  rating: number|null,
+  ratingCount: number,
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
@@ -25,19 +26,25 @@ declare type Pricebook = {
 declare type PaymentMethod = 'sepa'
 declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
-  status: 'NULL' | 'MEMPOOL' | 'FUNDED'
+  status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
   confirmations?: number,
   txId?: string,
-  amount
+  amount: number
 }
+
+declare type GetTxResponse = Transaction
+declare type PostTxResponse = {
+  txId: string,
+}
+
 declare type PeachPairInfo = {
   pair: TradingPair,
   price: number,
 }
 declare type Offer = {
-  offerId: number,
+  id: string,
   online: boolean,
-  userId: number, // TODO review why we have a userId of type number again?
+  userId: string,
   publicKey: string,
   type: 'bid' | 'ask',
   amount: number,
@@ -53,31 +60,47 @@ declare type Offer = {
 }
 
 declare type PostOfferResponse = {
-  offerId: number
+  offerId: string
 }
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
-  offerId: number,
+  offerId: string,
   escrow: string,
   funding: FundingStatus
 }
-declare type FundingError = '' | 'WRONG_FUNDING_AMOUNT'
+declare type FundingError = '' | 'NOT_FOUND'| 'UNAUTHORIZED'
 declare type FundingStatusResponse = {
-  offerId: number,
+  offerId: string,
   escrow: string,
   funding: FundingStatus,
   error?: FundingError,
-  returnAddress?: string
+  returnAddress: string
+}
+declare type CancelOfferResponse = {
+  psbt: string,
+  returnAddress: string,
+  amount: number,
+  fees: number,
+  returnAddress: string,
+  inputIndex: number,
 }
 
 declare type Match = {
   user: User,
   offerId: string,
-  price: number,
-  currency: Currency,
+  prices: Pricebook,
+  paymentMethods: PaymentMethod[],
+  kyc: boolean,
+  kycType?: KYCType,
+  matched?: boolean
 }
 declare type GetMatchesResponse = {
-  offerId: number,
-  matches: Match[]
+  offerId: string,
+  matches: Match[],
 }
+declare type MatchResponse = {
+  success: true,
+  contractId?: string,
+}
+declare type GetContractResponse = Contract

@@ -8,15 +8,43 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Text } from '../../components'
-import { account } from '../../utils/accountUtils'
+import { Text } from '../../components'
+import { account } from '../../utils/account'
+import { getContract } from '../../utils/contract'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNavigationProp): void => {
+  if (offer.type === 'ask' && offer.funding && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
+    return navigation.navigate('refund', { offer })
+  }
+
+  if (offer.contractId) {
+    return navigation.navigate('contract', { contractId: offer.contractId })
+  }
+
+  if (offer.type === 'ask') {
+    if (offer.published && offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
+      return navigation.navigate('search', { offer })
+    }
+    return navigation.navigate('sell', { offer })
+  }
+
+  if (offer.type === 'bid') {
+    if (offer.published) {
+      return navigation.navigate('search', { offer })
+    }
+    return navigation.navigate('buy', { offer })
+  }
+
+  return navigation.navigate('offers', {})
+}
+
+// TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
@@ -27,13 +55,10 @@ export default ({ navigation }: Props): ReactElement => {
           Offers
         </Text>
       </View>
-      {account.offers.map(offer => <View key={offer.offerId}>
-        <Pressable onPress={() => offer.type === 'ask'
-          ? navigation.navigate('sell', { offer })
-          : navigation.navigate('buy', { offer })
-        }>
-          <Text>
-            {offer.offerId} - {offer.type} -  {offer.amount}
+      {account.offers.map(offer => <View key={offer.id}>
+        <Pressable onPress={() => navigateToOffer(offer, navigation)}>
+          <Text style={!offer.online ? tw`opacity-50` : {}}>
+            {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
           </Text>
         </Pressable>
       </View>)}

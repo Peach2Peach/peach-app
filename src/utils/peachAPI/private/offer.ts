@@ -1,6 +1,24 @@
 import { API_URL } from '@env'
-import { error, info } from '../../logUtils'
+import { parseResponse } from '..'
 import { getAccessToken } from './auth'
+
+/**
+ * @description Method to get offer
+ * @param offerId offer id
+ * @returns GetOffersResponse
+ */
+export const getOfferDetails = async (offerId: string): Promise<[BuyOffer|SellOffer|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/details`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  return await parseResponse<BuyOffer|SellOffer>(response, 'getOffer')
+}
 
 /**
  * @description Method to get offer of user
@@ -16,26 +34,12 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
     method: 'GET'
   })
 
-  try {
-    return [await response.json(), null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - getOffers', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<Offer[]>(response, 'getOffers')
 }
 
 type PostOfferProps = {
   type: OfferType,
-  amount: string,
+  amount: number,
   premium?: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
@@ -67,48 +71,31 @@ export const postOffer = async ({
   returnAddress,
   releaseAddress
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
-
-  try {
-    const accessToken = await getAccessToken()
-    if (!accessToken) return [null, { error: 'AUTHENTICATION_FAILED' }]
-
-    const response = await fetch(`${API_URL}/v1/offer`, {
-      headers: {
-        Authorization: accessToken,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        type,
-        amount,
-        premium,
-        currencies,
-        paymentMethods,
-        hashedPaymentData,
-        kyc,
-        returnAddress,
-        releaseAddress
-      })
+  const response = await fetch(`${API_URL}/v1/offer`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      type,
+      amount,
+      premium,
+      currencies,
+      paymentMethods,
+      hashedPaymentData,
+      kyc,
+      returnAddress,
+      releaseAddress
     })
+  })
 
-    return [await response.json(), null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - postOffer', e)
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<PostOfferResponse>(response, 'postOffer')
 }
 
 type CreateEscrowProps = {
-  offerId: number,
+  offerId: string,
   publicKey: string
 }
 
@@ -134,26 +121,11 @@ export const createEscrow = async ({
     })
   })
 
-  try {
-    return [await response.json(), null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - createEscrow', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<CreateEscrowResponse>(response, 'createEscrow')
 }
 
-
 type GetFundingStatusProps = {
-  offerId: number,
+  offerId: string,
 }
 
 /**
@@ -173,35 +145,50 @@ export const getFundingStatus = async ({
     method: 'GET',
   })
 
-  try {
-    const result = await response.json()
-
-    info('peachAPI - getFundingStatus', result)
-
-    return [await result, null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - getFundingStatus', e)
-
-
-    return [null, { error: err }]
-  }
+  return await parseResponse<FundingStatusResponse>(response, 'getFundingStatus')
 }
 
+type CancelOfferProps = {
+  offerId: string,
+  satsPerByte: number|string,
+}
 
 /**
- * @description Method to get offer of user
+ * @description Method to get cancel offer and get refunding information
+ * @param offerId offer id
+ * @param satsPerByte transaction fees per byte
+ * @returns FundingStatus
+ */
+export const cancelOffer = async ({
+  offerId,
+  satsPerByte
+}: CancelOfferProps): Promise<[CancelOfferResponse|null, APIError|null]> => {
+  const response = await fetch(
+    `${API_URL}/v1/offer/${offerId}/cancel?satsPerByte=${encodeURIComponent(satsPerByte)}`,
+    {
+      headers: {
+        Authorization: await getAccessToken(),
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'GET',
+    }
+  )
+
+  return await parseResponse<CancelOfferResponse>(response, 'refundEscrow')
+}
+
+type GetMatchesProps = {
+  offerId: string,
+}
+
+/**
+ * @description Method to get matches of an offer
  * @returns GetOffersResponse
  */
 export const getMatches = async ({
   offerId
-}: GetFundingStatusProps): Promise<[GetMatchesResponse|null, APIError|null]> => {
+}: GetMatchesProps): Promise<[GetMatchesResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -211,18 +198,68 @@ export const getMatches = async ({
     method: 'GET'
   })
 
-  try {
-    return [await response.json(), null]
-  } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
+  return await parseResponse<GetMatchesResponse>(response, 'getMatches')
+}
 
-    error('peachAPI - getMatches', e)
 
-    return [null, { error: err }]
-  }
+type MatchProps = {
+  offerId: string,
+  matchingOfferId: string,
+  currency: Currency,
+  paymentMethod: PaymentMethod,
+}
+
+/**
+ * @description Method to match an offer
+ * @returns MatchResponse
+ */
+export const matchOffer = async ({
+  offerId,
+  currency,
+  paymentMethod,
+  matchingOfferId
+}: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchingOfferId,
+      currency,
+      paymentMethod,
+    }),
+    method: 'POST'
+  })
+
+  return await parseResponse<MatchResponse>(response, 'matchOffer')
+}
+
+type UnmatchProps = {
+  offerId: string,
+  matchingOfferId: string,
+}
+
+/**
+ * @description Method to match an offer
+ * @returns MatchResponse
+ */
+export const unmatchOffer = async ({
+  offerId,
+  matchingOfferId
+}: UnmatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchingOfferId
+    }),
+    method: 'DELETE'
+  })
+
+  return await parseResponse<MatchResponse>(response, 'unmatchOffer')
 }

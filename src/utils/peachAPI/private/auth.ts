@@ -1,9 +1,8 @@
-import { API_URL, HTTP_AUTH_PASS, HTTP_AUTH_USER } from '@env'
+import { API_URL } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
 import { accessToken, peachAccount, setAccessToken, setPeachAccount } from '..'
-import { error, info } from '../../logUtils'
-
+import { error, info, log } from '../../log'
 
 /**
  * @description Method to authenticate with Peach API
@@ -55,6 +54,7 @@ export const userAuth = async (keyPair: BIP32Interface): Promise<[AccessToken|nu
  */
 export const getAccessToken = async (): Promise<string> => {
   if (accessToken && accessToken.expiry > (new Date()).getTime()) {
+    log(accessToken.expiry, (new Date()).getTime(), accessToken.expiry > (new Date()).getTime())
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 

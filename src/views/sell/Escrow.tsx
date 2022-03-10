@@ -1,21 +1,20 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import tw from '../../styles/tailwind'
-
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { saveOffer } from '../../utils/accountUtils'
-import { MessageContext } from '../../utils/messageUtils'
+import { saveOffer } from '../../utils/offer'
+import { MessageContext } from '../../utils/message'
 import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
-import Refund from './components/Refund'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
-import { PEACHFEE } from '../../constants'
-import { thousands } from '../../utils/stringUtils'
+import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
 import { Title } from '../../components'
+import { info } from '../../utils/log'
+import { ScrollView } from 'react-native-gesture-handler'
+import postOfferEffect from '../../effects/postOfferEffect'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -23,25 +22,37 @@ const defaultFunding: FundingStatus = {
   amount: 0
 }
 
-export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
-  const fundingAmount = Math.round(offer.amount * (1 + PEACHFEE / 100))
-  const fees = Math.round(offer.amount * PEACHFEE / 100)
+  const fundingAmount = Math.round(offer.amount)
 
   const saveAndUpdate = (offerData: SellOffer) => {
-    updateOffer(offerData)
+    updateOffer(() => offerData)
     saveOffer(offerData)
   }
 
-  useEffect(createEscrowEffect({
+  useEffect(!offer.id ? postOfferEffect({
     offer,
     onSuccess: result => {
+      info('Posted offer', result)
+
+      saveAndUpdate({ ...offer, id: result.offerId })
+    },
+    onError: err => updateMessage({ msg: i18n(err?.error || 'error.postOffer'), level: 'ERROR' })
+  }) : () => {}, [])
+
+  useEffect(offer.id && !offer.escrow ? createEscrowEffect({
+    offer,
+    onSuccess: result => {
+      info('Created escrow', result)
       setEscrow(() => result.escrow)
       setFundingStatus(() => result.funding)
+
       saveAndUpdate({
         ...offer,
         escrow: result.escrow,
@@ -49,29 +60,46 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
       })
     },
     onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
-  }), [])
+  }) : () => {}, [offer.id])
 
-  useEffect(checkFundingStatusEffect({
+  useEffect(offer.escrow && offer.funding?.status !== 'FUNDED' ? checkFundingStatusEffect({
     offer,
     onSuccess: result => {
-      setFundingStatus(() => result.funding)
+      info('Checked funding status', result)
+
       saveAndUpdate({
         ...offer,
         funding: result.funding,
         returnAddress: result.returnAddress,
         depositAddress: offer.depositAddress || result.returnAddress,
       })
+      setFundingStatus(() => result.funding)
       setFundingError(() => result.error || '')
     },
-    onError: () => {
-      // TODO treat API Error case (404, 500, etc)
+    onError: (err) => {
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
     },
-  }), [offer.offerId])
+  }) : () => {}, [offer.escrow])
 
   useEffect(() => {
+    if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
+      navigation.navigate('refund', { offer })
+      return
+    }
+
     if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
-      next()
+
+      if (!offer.published) saveAndUpdate({ ...offer, published: true })
+
+      if (!offer.confirmedReturnAddress) {
+        next()
+      } else {
+        navigation.navigate('search', { offer })
+      }
     }
   }, [fundingStatus])
 
@@ -79,17 +107,15 @@ export default ({ offer, updateOffer, setStepValid, next }: SellViewProps): Reac
     setStepValid(false)
     setEscrow(() => offer.escrow || '')
     setFundingStatus(() => offer.funding || defaultFunding)
-  }, [offer.offerId])
+  }, [offer.id])
 
-  return <View style={tw`mt-16`}>
+  return <ScrollView>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
-      help={<EscrowHelp fees={fees}/>}
+      help={<EscrowHelp />}
     />
-    {fundingStatus && !fundingError
+    {escrow && fundingStatus && !fundingError
       ? <FundingView escrow={escrow} />
-      : fundingError && fundingError === 'WRONG_FUNDING_AMOUNT'
-        ? <Refund />
-        : <NoEscrowFound />
+      : <NoEscrowFound />
     }
-  </View>
+  </ScrollView>
 }

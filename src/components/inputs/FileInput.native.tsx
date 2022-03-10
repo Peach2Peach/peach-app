@@ -4,7 +4,7 @@ import {
   View,
   ViewStyle
 } from 'react-native'
-import { error } from '../../utils/logUtils'
+import { error } from '../../utils/log'
 import RNFS from '../../utils/fileSystem/RNFS'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
@@ -12,7 +12,7 @@ import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { Text } from '..'
-import { innerShadow } from '../../utils/layoutUtils'
+import { innerShadow } from '../../utils/layout'
 
 export type FileData = {
   name: string,

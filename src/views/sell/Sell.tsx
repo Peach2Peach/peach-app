@@ -7,23 +7,21 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import BitcoinContext from '../../components/bitcoin'
+import BitcoinContext from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
 import ReturnAddress from './ReturnAddress'
-import Search from './Search'
 
-import { BUCKETMAP, BUCKETS } from '../../constants'
-import { postOffer } from '../../utils/peachAPI'
-import { saveOffer } from '../../utils/accountUtils'
-import { RouteProp, useIsFocused } from '@react-navigation/native'
-import { MessageContext } from '../../utils/messageUtils'
-import { error } from '../../utils/logUtils'
-import { sha256 } from '../../utils/cryptoUtils'
-import { Navigation } from '../../components'
+import { BUCKETS } from '../../constants'
+import { saveOffer } from '../../utils/offer'
+import { RouteProp } from '@react-navigation/native'
+import { error } from '../../utils/log'
+import { Loading, Navigation, Text } from '../../components'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { account } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -37,21 +35,28 @@ type Props = {
 
 export type SellViewProps = {
   offer: SellOffer,
-  updateOffer: (data: SellOffer) => void,
+  updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
+  navigation: ProfileScreenNavigationProp,
 }
 
 export const defaultSellOffer: SellOffer = {
   type: 'ask',
+  creationDate: new Date(),
   published: false,
   premium: 1.5,
   currencies: [],
   paymentData: [],
+  paymentMethods: [],
   hashedPaymentData: '',
-  amount: BUCKETS[0],
-  kyc: false
+  amount: account.settings.amount || BUCKETS[0],
+  kyc: false,
+  matches: [],
+  doubleMatched: false,
+  refunded: false,
+  released: false,
 }
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 
@@ -83,29 +88,24 @@ const screens = [
   },
   {
     id: 'search',
-    view: Search,
-    scrollable: false
-  },
+    view: Loading
+  }
 ]
 
 
 const getInitialPageForOffer = (offer: SellOffer) =>
-  offer.published
-    ? screens.findIndex(s => s.id === 'search')
-    : offer.offerId
-      ? screens.findIndex(s => s.id === 'escrow')
-      : 0
+  offer.id
+    ? screens.findIndex(s => s.id === 'escrow')
+    : 0
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
-  const [, updateMessage] = useContext(MessageContext)
-  const isFocused = useIsFocused()
 
-  const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
+  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultSellOffer)
   const [stepValid, setStepValid] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -113,48 +113,60 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  const saveAndUpdate = (offerData: SellOffer) => {
+    setOffer(() => offerData)
+    saveOffer(offerData)
+  }
+
   useEffect(() => {
-    if (!isFocused) return
+    const offr = route.params?.offer || defaultSellOffer
 
-    setOffer(() => route.params?.offer || defaultSellOffer)
-    setPage(() => route.params?.page || getInitialPageForOffer(route.params?.offer || defaultSellOffer))
-  }, [isFocused])
+    if (offr.confirmedReturnAddress) {
+      navigation.navigate('search', { offer })
+      return
+    }
 
-  const next = async (): Promise<void> => {
-    if (screens[page + 1].id === 'escrow' && !offer.offerId) {
-      const hashedPaymentData = sha256(JSON.stringify(offer.paymentData))
+    setUpdatePending(!!offr.id)
+    setOffer(() => offr)
+  }, [route])
 
-      setLoading(true)
-      const [result, err] = await postOffer({
+  useEffect(offer.id ? getOfferDetailsEffect({
+    offerId: offer.id,
+    onSuccess: result => {
+      saveAndUpdate({
         ...offer,
-        amount: BUCKETMAP[String(offer.amount)],
-        paymentMethods: offer.paymentData.map(p => p.type),
-        hashedPaymentData,
-      })
+        ...result,
+      } as SellOffer)
 
-      setLoading(false)
-
-      if (result) {
-        saveOffer({ ...offer, offerId: result.offerId })
-        setOffer(() => ({ ...offer, offerId: result.offerId }))
-      } else {
-        error('Error', err)
-        updateMessage({
-          msg: i18n(err?.error || 'error.postOffer'),
-          level: 'ERROR',
-        })
+      if (offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
+        navigation.navigate('search', { offer })
         return
       }
+
+      setPage(() => getInitialPageForOffer(offer))
+      setUpdatePending(false)
+    },
+    onError: () => {
+      setPage(() => getInitialPageForOffer(offer))
+      setUpdatePending(false)
+      error('Could not fetch offer information for offer', offer.id)
     }
-    if (screens[page + 1].id === 'search' && !offer.published) {
-      saveOffer({ ...offer, published: true })
-      setOffer(() => ({ ...offer, published: true }))
+  }) : () => {}, [route, offer.id])
+
+  useEffect(() => {
+    if (screens[page].id === 'search') {
+      saveAndUpdate({ ...offer, confirmedReturnAddress: true })
+      navigation.navigate('search', { offer })
     }
+  }, [page])
+
+  const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
     scroll.current?.scrollTo({ x: 0 })
   }
+
   const back = () => {
     if (page === 0) return
     setPage(page - 1)
@@ -167,27 +179,36 @@ export default ({ route, navigation }: Props): ReactElement => {
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
-          {CurrentView
-            ? <CurrentView offer={offer} updateOffer={setOffer} setStepValid={setStepValid} back={back} next={next} />
+          {updatePending
+            ? <Loading />
+            : null
+          }
+          {!updatePending && CurrentView
+            ? <CurrentView
+              offer={offer}
+              updateOffer={setOffer}
+              setStepValid={setStepValid}
+              back={back} next={next}
+              navigation={navigation} />
             : null
           }
         </View>
-        {scrollable
+        {scrollable && !updatePending
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
               back={back} next={next} navigation={navigation}
-              loading={loading} stepValid={stepValid} />
+              stepValid={stepValid} />
           </View>
           : null
         }
       </ScrollView>
     </View>
-    {!scrollable
+    {!scrollable && !updatePending
       ? <Navigation
         screen={currentScreen.id}
         back={back} next={next} navigation={navigation}
-        loading={loading} stepValid={stepValid} />
+        stepValid={stepValid} />
       : null
     }
   </View>

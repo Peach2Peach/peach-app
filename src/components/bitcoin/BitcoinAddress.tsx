@@ -7,7 +7,7 @@ import QRCode from 'react-native-qrcode-svg'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
 import { Card, Text } from '..'
 import Icon from '../Icon'
-import { splitAt } from '../../utils/stringUtils'
+import { splitAt } from '../../utils/string'
 
 interface BitcoinAddressProps {
   address: string,

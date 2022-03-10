@@ -4,7 +4,7 @@ import { View, ViewStyle } from 'react-native'
 
 import { Text } from '.'
 import tw from '../styles/tailwind'
-import { Level } from '../utils/messageUtils'
+import { Level } from '../utils/message'
 
 interface MessageProps {
   msg: string,
@@ -27,8 +27,8 @@ export const Message = ({ msg, level, style }: MessageProps): ReactElement =>
       ? tw`bg-green`
       : level === 'ERROR'
         ? tw`bg-red`
-        : level === 'WARNING'
-          ? tw`bg-yellow`
+        : level === 'WARN'
+          ? tw`bg-yellow-2`
           : tw`bg-blue`,
     style
   ]}>

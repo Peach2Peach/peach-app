@@ -5,12 +5,12 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { saveOffer } from '../../utils/accountUtils'
+import { saveOffer } from '../../utils/offer'
 import { IconButton, Input, ScanQR, Text, Title } from '../../components'
-import { getMessages, rules } from '../../utils/validationUtils'
+import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../components/Icon'
-import { cutOffAddress } from '../../utils/stringUtils'
+import { cutOffAddress } from '../../utils/string'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -91,6 +91,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           label={i18n('form.btcAddress')}
           isValid={!isFieldInError('address')}
           onFocus={() => setFocused(() => true)}
+          onBlur={() => setFocused(() => false)}
           errorMessage={getErrorsInField('address')}
         />
       </View>
@@ -120,7 +121,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Pressable style={tw`flex-row items-center px-5 mt-4`}
       onPress={() => setUseDepositAddress(!useDepositAddress)}>
       {useDepositAddress
-        ? <Icon id="check" style={tw`w-5 h-5`} />
+        ? <Icon id="checkbox" style={tw`w-5 h-5`} />
         : <View style={tw`w-5 h-5 flex justify-center items-center`}>
           <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
         </View>

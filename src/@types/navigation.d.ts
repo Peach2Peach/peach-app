@@ -9,6 +9,15 @@ declare type RootStackParamList = {
     offer?: BuyOffer,
     page?: number
   },
+  search: {
+    offer: SellOffer|BuyOffer,
+  },
+  contract: {
+    contractId: string,
+  },
+  refund: {
+    offer: SellOffer,
+  },
   offers: {},
   settings: {},
 }

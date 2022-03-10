@@ -5,11 +5,11 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import i18n from '../../utils/i18n'
 import { BuyViewProps } from './Buy'
-import { Headline, IconButton, Input, ScanQR, Text, TextLink, Title } from '../../components'
-import { getMessages, rules } from '../../utils/validationUtils'
+import { Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
+import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { cutOffAddress } from '../../utils/stringUtils'
-import { OverlayContext } from '../../utils/overlayUtils'
+import { cutOffAddress } from '../../utils/string'
+import { OverlayContext } from '../../utils/overlay'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 
 const { useValidation } = require('react-native-form-validator')
@@ -74,6 +74,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
           label={i18n('form.btcAddress')}
           isValid={!isFieldInError('address')}
           onFocus={() => setFocused(() => true)}
+          onBlur={() => setFocused(() => false)}
           errorMessage={getErrorsInField('address')}
         />
       </View>
@@ -100,7 +101,9 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       </View>
       : null}
 
-    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({ overlayContent: <IDontHaveAWallet /> })}>
+    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({
+      content: <IDontHaveAWallet />, showCloseButton: true
+    })}>
       {i18n('iDontHaveAWallet')}
     </TextLink>
   </View>

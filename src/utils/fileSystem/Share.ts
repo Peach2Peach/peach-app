@@ -1,5 +1,5 @@
-import * as db from '../dbUtils'
-import { download } from '../webUtils'
+import * as db from '../db'
+import { download } from '../web'
 
 /**
  * @description Web method to emulate fs file sharing by using indexedDB & download

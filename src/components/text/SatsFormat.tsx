@@ -1,4 +1,3 @@
-
 import React, { ReactElement } from 'react'
 import {
   View, ViewStyle,
@@ -6,7 +5,7 @@ import {
 import { Text } from '.'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { padString } from '../../utils/stringUtils'
+import { padString } from '../../utils/string'
 
 interface SatsFormat {
   sats: number,

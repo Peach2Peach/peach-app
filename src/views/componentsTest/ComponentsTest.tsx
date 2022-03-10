@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import {
   ScrollView,
   View
@@ -11,8 +11,8 @@ import {
   SatsFormat,
   Text
 } from '../../components'
-import BitcoinContext from '../../components/bitcoin'
-import { BUCKETS, CURRENCIES } from '../../constants'
+import BitcoinContext from '../../utils/bitcoin'
+import { BUCKETS } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'componentsTest'>
 type Props = {

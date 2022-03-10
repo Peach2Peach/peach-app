@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { BuyViewProps } from './Buy'
-import { account, updateSettings } from '../../utils/accountUtils'
+import { account, updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import Currencies from '../../components/inputs/Currencies'
@@ -14,7 +14,7 @@ import { Title } from '../../components'
 const validate = (offer: BuyOffer) =>
   !!offer.amount
   && offer.currencies.length > 0
-  && offer.paymentData.length > 0
+  && offer.paymentMethods.length > 0
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -27,11 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     updateOffer({
       ...offer,
       currencies,
-      paymentData: paymentMethods.map((method: PaymentMethod) => ({
-        id: method,
-        type: method,
-        selected: true,
-      }) as PaymentData),
+      paymentMethods,
       kyc,
     })
     updateSettings({

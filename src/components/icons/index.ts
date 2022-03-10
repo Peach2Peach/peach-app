@@ -3,13 +3,16 @@ import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
 import check from './check.svg'
+import checkbox from './checkbox.svg'
 import circle from './circle.svg'
 import copy from './copy.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
 import help from './help.svg'
+import next from './next.svg'
 import offers from './offers.svg'
+import prev from './prev.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
@@ -26,13 +29,16 @@ const Icons: Icons = {
   buy,
   camera,
   check,
+  checkbox,
   circle,
   copy,
   dropdownClosed,
   dropdownOpen,
   file,
   help,
+  next,
   offers,
+  prev,
   selectClosed,
   selectOpen,
   sell,

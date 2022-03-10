@@ -1,10 +1,10 @@
 import { EffectCallback } from 'react'
-import { error, info } from '../utils/logUtils'
+import { error, info } from '../utils/log'
 import { getMatches } from '../utils/peachAPI'
 
 type SearchForPeersEffectProps = {
   offer: SellOffer|BuyOffer,
-  onSuccess: (result: GetMatchesResponse) => void,
+  onSuccess: (result: Match[]) => void,
   onError: (error: APIError) => void,
 }
 export default ({
@@ -12,22 +12,26 @@ export default ({
   onSuccess,
   onError
 }: SearchForPeersEffectProps): EffectCallback => () => {
-  const checkingFunction = async () => {
-    if (!offer.offerId
-      || (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED'))) return
+  let interval: NodeJS.Timer
 
-    info('Checking matches for', offer.offerId)
+  const checkingFunction = async () => {
+    if (!offer.id) return
+    if (offer.doubleMatched) return
+    if (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED')) return
+
+    info('Checking matches for', offer.id)
     const [result, err] = await getMatches({
-      offerId: offer.offerId,
+      offerId: offer.id,
     })
     if (result) {
-      onSuccess(result)
+      info('matches: ', JSON.stringify(result.matches))
+      if (result.matches.length > 0) clearInterval(interval)
+      onSuccess(result.matches)
     } else if (err) {
       error('Error', err)
       onError(err)
     }
   }
-  let interval: NodeJS.Timer
   (async () => {
     interval = setInterval(checkingFunction, 60 * 1000)
     checkingFunction()

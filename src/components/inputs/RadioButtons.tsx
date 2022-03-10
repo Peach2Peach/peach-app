@@ -3,7 +3,7 @@ import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
-import { mildShadow } from '../../utils/layoutUtils'
+import { mildShadow } from '../../utils/layout'
 import { Text } from '..'
 
 interface Item {

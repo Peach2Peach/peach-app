@@ -6,8 +6,8 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Card, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { getBitcoinContext } from '../../components/bitcoin'
-import { unique } from '../../utils/arrayUtils'
+import { getBitcoinContext } from '../../utils/bitcoin'
+import { unique } from '../../utils/array'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -30,7 +30,10 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
           <View style={tw`w-5/8`}>
             <View>
               <Text>
-                {i18n(`currency.format.${currency}`, (price * offer.amount / 100000000).toFixed(2))}
+                {i18n(
+                  `currency.format.${currency}`,
+                  (price * offer.amount * ((100 + offer.premium) / 100) / 100000000).toFixed(2)
+                )}
               </Text>
             </View>
             <View>
