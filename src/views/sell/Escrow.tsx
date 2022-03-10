@@ -43,7 +43,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
       saveAndUpdate({ ...offer, id: result.offerId })
     },
-    onError: err => updateMessage({ msg: i18n(err?.error || 'error.postOffer'), level: 'ERROR' })
+    onError: err => updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
   }) : () => {}, [])
 
   useEffect(offer.id && !offer.escrow ? createEscrowEffect({
@@ -59,7 +59,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
         funding: result.funding,
       })
     },
-    onError: () => updateMessage({ msg: i18n('error.createEscrow'), level: 'ERROR' })
+    onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
   useEffect(offer.escrow && offer.funding?.status !== 'FUNDED' ? checkFundingStatusEffect({
@@ -76,7 +76,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       setFundingStatus(() => result.funding)
       setFundingError(() => result.error || '')
     },
-    onError: (err) => {
+    onError: err => {
       updateMessage({
         msg: i18n(err.error || 'error.general'),
         level: 'ERROR',

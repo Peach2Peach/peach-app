@@ -1,5 +1,6 @@
 import { API_URL } from '@env'
 import { parseResponse } from '..'
+import fetch from '../../fetch'
 
 /**
  * @description Method to get market price for given currency

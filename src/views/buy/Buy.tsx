@@ -114,8 +114,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       } as BuyOffer)
       setUpdatePending(false)
     },
-    onError: () => {
+    onError: err => {
       error('Could not fetch offer information for offer', offer.id)
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
     }
   }) : () => {}, [route, offer.id])
 

@@ -20,6 +20,10 @@ export const parseResponse = async <T>(
   caller: string,
 ): Promise<[T|null, APIError|null]> => {
   try {
+    if (!response.status) {
+      return [null, { error: 'NETWORK_ERROR' }]
+    }
+
     const data = await response.json()
     if (response.status !== 200) {
       error(`peachAPI - ${caller}`, {
