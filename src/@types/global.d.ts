@@ -85,8 +85,8 @@ declare type BuyOffer = Offer & {
 declare type Contract = {
   creationDate: Date,
   id: string,
-  sellerId: string,
-  buyerId: string,
+  seller: User,
+  buyer: User,
 
   amount: number,
   currency: Currency,
