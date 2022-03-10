@@ -73,6 +73,7 @@ const views: ViewType[] = [
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   const { password } = await initSession()
   if (password) await loadAccount(password)
+
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop
     await sleep(100)

@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
-import { backupAccount } from '../../utils/account'
+import { backupAccount, deleteAccount } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -30,6 +30,19 @@ export default ({ navigation }: Props): ReactElement => {
         <Button
           onPress={backupAccount}
           title="Backup account"
+        />
+      </View>
+      <View style={tw`mt-4`}>
+        <Button
+          onPress={async () => {
+            await deleteAccount({
+              onSuccess: () => {
+                navigation.navigate('welcome')
+              },
+              onError: () => {}
+            })
+          }}
+          title="Delete account"
         />
       </View>
       <View style={tw`mt-4`}>
