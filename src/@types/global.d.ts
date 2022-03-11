@@ -1,4 +1,8 @@
-type Settings = {
+declare type AnyObject = {
+  [key: string]: any
+}
+
+declare type Settings = {
   skipTutorial?: boolean,
   amount?: number,
   currencies?: Currency[],
@@ -28,7 +32,9 @@ declare type User = {
   id: string,
   creationDate: Date,
   rating: number|null,
-  ratingCount: number
+  ratingCount: number,
+  pgpPublicKey: string,
+  pgpPublicKeyProof: string,
 }
 
 declare type MessageState = {
@@ -105,6 +111,8 @@ declare type Contract = {
   currency: Currency,
   price: number,
   paymentMethod: PaymentMethod,
+  hashedPaymentData: string,
+  paymentData?: PaymentData,
 
   kycRequired: boolean,
   kycType?: KYCType,

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -15,6 +15,13 @@ import { Title } from '../../components'
 import { debounce } from '../../utils/performance'
 import { sha256 } from '../../utils/crypto'
 
+type UpdateOfferProps = {
+  currencies: Currency[],
+  paymentData: PaymentData[],
+  premium: number,
+  kyc: boolean,
+  kycType: KYCType,
+}
 const validate = (offer: SellOffer) =>
   !!offer.amount
   && offer.currencies.length > 0
@@ -31,26 +38,29 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [kyc, setKYC] = useState(account.settings.kyc || false)
   const [kycType, setKYCType] = useState(account.settings.kycType || 'iban')
 
-  useEffect(useCallback(debounce(() => {
-    const selectedPaymentData = paymentData.filter(data => data.selected)
+  const debounced = useRef(debounce((deps: UpdateOfferProps) => {
+    const selectedPaymentData = deps.paymentData.filter(data => data.selected)
 
     updateOffer({
       ...offer,
-      currencies,
+      currencies: deps.currencies,
       paymentData: selectedPaymentData,
       paymentMethods: selectedPaymentData.map(p => p.type),
       hashedPaymentData: sha256(JSON.stringify(selectedPaymentData)),
-      premium,
-      kyc,
-      kycType,
+      premium: deps.premium,
+      kyc: deps.kyc,
+      kycType: deps.kycType,
     })
     updateSettings({
-      currencies,
-      premium,
-      kyc,
-      kycType,
+      currencies: deps.currencies,
+      premium: deps.premium,
+      kyc: deps.kyc,
+      kycType: deps.kycType,
     })
-  }, 300), []), [currencies, paymentData, premium, kyc, kycType])
+  }, 300))
+
+  const deps: AnyObject = { currencies, paymentData, premium, kyc, kycType }
+  useEffect(() => debounced.current(deps), Object.keys(deps).map(dep => deps[dep]))
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
