@@ -6,6 +6,10 @@ export const defaultAccount: Account = {
   paymentData: [],
   offers: [],
   contracts: [],
+  pgp: {
+    privateKey: '',
+    publicKey: '',
+  }
 }
 
 export let account = defaultAccount
