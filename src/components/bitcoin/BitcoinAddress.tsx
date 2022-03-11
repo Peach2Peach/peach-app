@@ -47,9 +47,9 @@ export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps):
       tw`flex-row items-center`,
       showQR ? tw`mt-4` : {}
     ]}>
-      <Text>
+      <Text style={tw`text-base`}>
         {addressParts.one}
-        <Text style={tw`text-grey-2 leading-6`}>
+        <Text style={tw`text-base text-grey-2 leading-6`}>
           {addressParts.two}
         </Text>
         {addressParts.three}
