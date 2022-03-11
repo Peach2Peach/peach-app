@@ -81,13 +81,7 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
 
   const message = 'Peach new PGP key ' + (new Date()).getTime()
   const pgpSignature = await OpenPGP.sign(message, pgp.publicKey, pgp.privateKey, '')
-  console.log('PGPPGPPGPPGPPGPPGP', JSON.stringify({
-    publicKey: peachAccount.publicKey.toString('hex'),
-    pgp: pgp.publicKey,
-    signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(pgp.publicKey))).toString('hex'),
-    message,
-    pgpSignature,
-  }))
+
   const response = await fetch(`${API_URL}/v1/user/pgp`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -97,7 +91,7 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
     method: 'POST',
     body: JSON.stringify({
       publicKey: peachAccount.publicKey.toString('hex'),
-      pgp: pgp.publicKey,
+      pgpPublicKey: pgp.publicKey,
       signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(pgp.publicKey))).toString('hex'),
       message,
       pgpSignature,
