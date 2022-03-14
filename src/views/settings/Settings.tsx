@@ -20,7 +20,7 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
   return <ScrollView>
-    <View style={tw`pb-32`}>
+    <View style={tw`pb-32 h-full`}>
       <View style={tw`flex-col justify-center h-full`}>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
           Settings
