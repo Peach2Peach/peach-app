@@ -4,15 +4,20 @@ import { getOfferDetails } from '../utils/peachAPI'
 
 type GetOfferEffectProps = {
   offerId: string,
+  interval?: number,
   onSuccess: (result: BuyOffer|SellOffer) => void,
   onError: (error: APIError) => void,
 }
 export default ({
   offerId,
+  interval,
   onSuccess,
   onError
 }: GetOfferEffectProps): EffectCallback => () => {
+  let intrvl: NodeJS.Timer
+
   const checkingFunction = async () => {
+
     if (!offerId) return
 
     info('Get offer details for', offerId)
@@ -25,5 +30,18 @@ export default ({
       onError(err)
     }
   }
+
   checkingFunction()
+
+  if (interval) {
+    (async () => {
+      intrvl = setInterval(checkingFunction, 60 * 1000)
+    })()
+    return () => {
+      clearInterval(intrvl)
+    }
+  }
+
+
+  return () => {}
 }
