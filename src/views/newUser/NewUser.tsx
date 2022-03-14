@@ -28,9 +28,12 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+
+// TODO add loading animation on submit
 export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [isPristine, setIsPristine] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -56,13 +59,14 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const onSuccess = async () => {
-    console.log('Account created', account, password)
     saveAccount(account, password)
     await setPGP(account.pgp)
+    setLoading(false)
     navigation.navigate('tutorial')
   }
 
   const onError = (e: string) => {
+    setLoading(false)
     error('Error', e)
     updateMessage({
       msg: i18n('error.createAccount'),
@@ -78,6 +82,7 @@ export default ({ navigation }: Props): ReactElement => {
       }
     })
     setIsPristine(false)
+    setLoading(true)
     if (isValid) {
       createAccount({ password, onSuccess, onError })
     }
@@ -118,6 +123,7 @@ export default ({ navigation }: Props): ReactElement => {
             </Pressable>
             <Button
               onPress={submit}
+              disabled={loading}
               wide={false}
               title={i18n('createAccount')}
             />
