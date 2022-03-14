@@ -14,7 +14,7 @@ type GetContractProps = {
  */
 export const getContract = async ({
   contractId,
-}: GetContractProps): Promise<[Contract|null, APIError|null]> => {
+}: GetContractProps): Promise<[GetContractResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -24,14 +24,14 @@ export const getContract = async ({
     method: 'GET'
   })
 
-  return await parseResponse<Contract>(response, 'getContract')
+  return await parseResponse<GetContractResponse>(response, 'getContract')
 }
 
 
 type PostPaymentDataProps = {
   contractId: string,
   paymentData: string,
-  pgpSignature: string,
+  signature: string,
 }
 
 /**
@@ -44,7 +44,7 @@ type PostPaymentDataProps = {
 export const postPaymentData = async ({
   contractId,
   paymentData,
-  pgpSignature,
+  signature,
 }: PostPaymentDataProps): Promise<[APISuccess|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment`, {
     headers: {
@@ -55,7 +55,7 @@ export const postPaymentData = async ({
     method: 'POST',
     body: JSON.stringify({
       paymentData,
-      pgpSignature,
+      signature,
     })
   })
 

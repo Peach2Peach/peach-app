@@ -10,7 +10,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Card, SatsFormat, Text } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
-import { info } from '../../utils/log'
+import { error, info } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
 import { saveContract } from '../../utils/contract'
@@ -18,7 +18,8 @@ import { getBitcoinContext } from '../../utils/bitcoin'
 import { account } from '../../utils/account'
 import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
-import { encryptAndSign } from '../../utils/pgp'
+import { decrypt, signAndEncrypt, verify } from '../../utils/pgp'
+import { sha256 } from '../../utils/crypto'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -50,11 +51,45 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(getContractEffect({
     contractId,
-    onSuccess: result => {
-      info('Got contract', result)
-      saveAndUpdate(result)
+    onSuccess: async (result) => {
+      let decryptedPaymentData: PaymentData
 
-      setView(account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      // info('Got contract', result)
+
+      setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+
+      if (typeof contract?.paymentData === 'object') {
+        saveAndUpdate({
+          ...result,
+          paymentData: contract.paymentData
+        })
+        return
+      }
+      if (view === 'buyer' && result.paymentData && result.paymentDataSignature) {
+        try {
+          const decryptedPaymentDataString = await decrypt(result.paymentData)
+          decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
+
+          if (!await verify(result.paymentDataSignature, decryptedPaymentDataString, result.seller.pgpPublicKey)) {
+            // TODO at this point we should probably cancel the order?
+            throw new Error('Signature of payment data could not be verified')
+          }
+        } catch (err) {
+          error(err)
+          updateMessage({
+            msg: i18n('error.invalidPaymentData'),
+            level: 'ERROR',
+          })
+          return
+        }
+        saveAndUpdate({
+          ...result,
+          paymentData: decryptedPaymentData
+        })
+        return
+      }
+
+      saveAndUpdate(result)
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -64,15 +99,27 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     if (!contract || view !== 'seller') return
+    if (contract.paymentDataSignature) return
 
     (async () => {
       const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
-      const encryptionResult = await encryptAndSign(JSON.stringify(sellOffer.paymentData), contract.buyer.pgpPublicKey)
-      postPaymentData({
+      const paymentData = sellOffer.paymentData.find(data => data.type === contract.paymentMethod)
+      const encryptedResult = await signAndEncrypt(
+        JSON.stringify(paymentData),
+        contract.buyer.pgpPublicKey
+      )
+      const [result, err] = await postPaymentData({
         contractId: contract.id,
-        paymentData: encryptionResult.encrypted,
-        pgpSignature: encryptionResult.signature,
+        paymentData: encryptedResult.encrypted,
+        signature: encryptedResult.signature
       })
+
+      if (err) {
+        updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+        return
+      }
+
+      saveAndUpdate({ ...contract, paymentDataSignature: encryptedResult.signature })
     })()
   }, [contract])
 
@@ -137,7 +184,8 @@ export default ({ route, navigation }: Props): ReactElement => {
             <View style={tw`flex-row mt-3`}>
               <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('contract.payment.to')}:</Text>
               <View style={tw`w-5/8`}>
-                <Text>TODO PAYMENTDATA</Text>
+                <Text> {JSON.stringify(contract.paymentData)}
+                TODO PAYMENTDATA</Text>
               </View>
             </View>
           </Card>
@@ -145,7 +193,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             title={i18n('chat')}
             secondary={true}
           />
-          {view === 'buyer' && !contract.paymentMade
+          {view === 'buyer' && !contract.paymentMade && contract.paymentData
             ? <Button
               onPress={postConfirmPayment}
               style={tw`mt-2`}
