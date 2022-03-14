@@ -83,7 +83,6 @@ declare type SellOffer = Offer & {
   type: 'ask',
   premium: number,
   paymentData: PaymentData[],
-  hashedPaymentData: string,
   kycType?: KYCType,
   depositAddress?: string,
   returnAddress?: string,
@@ -111,8 +110,8 @@ declare type Contract = {
   currency: Currency,
   price: number,
   paymentMethod: PaymentMethod,
-  hashedPaymentData: string,
   paymentData?: PaymentData,
+  paymentDataSignature?: string,
 
   kycRequired: boolean,
   kycType?: KYCType,

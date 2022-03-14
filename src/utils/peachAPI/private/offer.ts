@@ -44,7 +44,6 @@ type PostOfferProps = {
   premium?: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
-  hashedPaymentData?: string,
   kyc: boolean,
   returnAddress?: string,
   releaseAddress?: string
@@ -67,7 +66,6 @@ export const postOffer = async ({
   premium = 0,
   currencies,
   paymentMethods,
-  hashedPaymentData,
   kyc,
   returnAddress,
   releaseAddress
@@ -85,7 +83,6 @@ export const postOffer = async ({
       premium,
       currencies,
       paymentMethods,
-      hashedPaymentData,
       kyc,
       returnAddress,
       releaseAddress

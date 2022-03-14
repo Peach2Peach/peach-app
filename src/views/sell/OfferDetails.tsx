@@ -13,7 +13,6 @@ import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
 import { debounce } from '../../utils/performance'
-import { sha256 } from '../../utils/crypto'
 
 type UpdateOfferProps = {
   currencies: Currency[],
@@ -46,7 +45,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       currencies: deps.currencies,
       paymentData: selectedPaymentData,
       paymentMethods: selectedPaymentData.map(p => p.type),
-      hashedPaymentData: sha256(JSON.stringify(selectedPaymentData)),
       premium: deps.premium,
       kyc: deps.kyc,
       kycType: deps.kycType,

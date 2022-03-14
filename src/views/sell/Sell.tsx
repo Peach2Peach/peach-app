@@ -51,7 +51,6 @@ export const defaultSellOffer: SellOffer = {
   currencies: [],
   paymentData: [],
   paymentMethods: [],
-  hashedPaymentData: '',
   amount: account.settings.amount || BUCKETS[0],
   kyc: false,
   matches: [],

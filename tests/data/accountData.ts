@@ -25,7 +25,6 @@ export const sellOffer: SellOffer = {
       selected: true
     }
   ],
-  hashedPaymentData: 'TODO',
   paymentMethods: ['sepa'],
   kyc: false,
   amount: 250000,
