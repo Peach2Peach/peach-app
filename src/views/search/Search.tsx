@@ -212,7 +212,13 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
             </View>
           </View>
-          : null
+          : <View style={tw`flex items-center mt-6`}>
+            <Button
+              title={i18n('goBackHome')}
+              wide={false}
+              onPress={() => navigation.navigate('home', {})}
+            />
+          </View>
         }
         <Pressable style={tw`mt-4`} onPress={cancelTrade}>
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
