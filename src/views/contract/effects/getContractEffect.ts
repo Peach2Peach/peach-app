@@ -14,7 +14,7 @@ export default ({
   onSuccess,
   onError
 }: GetContractEffectProps): EffectCallback => () => {
-  (async () => {
+  const checkingFunction = async () => {
     if (!contractId) return
 
     info('Get contract info', contractId)
@@ -29,5 +29,12 @@ export default ({
       error('Error', err)
       onError(err)
     }
-  })()
+  }
+
+  const interval = setInterval(checkingFunction, 60 * 1000)
+  checkingFunction()
+
+  return () => {
+    clearInterval(interval)
+  }
 }

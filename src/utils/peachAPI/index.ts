@@ -60,4 +60,8 @@ export {
   cancelOffer,
   getMatches
 } from './private/offer'
-export { getContract } from './private/contract'
+export {
+  getContract,
+  postPaymentData,
+  confirmPayment,
+} from './private/contract'

@@ -16,6 +16,9 @@ import i18n from '../../utils/i18n'
 import { saveContract } from '../../utils/contract'
 import { getBitcoinContext } from '../../utils/bitcoin'
 import { account } from '../../utils/account'
+import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
+import { getOffer } from '../../utils/offer'
+import { encryptAndSign } from '../../utils/pgp'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -27,6 +30,7 @@ type Props = {
 }
 
 // TODO check offer status (escrow, searching, matched, online/offline, what else?)
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -58,6 +62,25 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId])
 
+  useEffect(() => {
+    if (!contract || view !== 'seller') return
+
+    (async () => {
+      const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
+      const encryptionResult = await encryptAndSign(JSON.stringify(sellOffer.paymentData), contract.buyer.pgpPublicKey)
+      postPaymentData({
+        contractId: contract.id,
+        paymentData: encryptionResult.encrypted,
+        pgpSignature: encryptionResult.signature,
+      })
+    })()
+  }, [contract])
+
+  const postConfirmPayment = async () => {
+    if (!contract) return
+    await confirmPayment({ contractId: contract.id })
+  }
+
   return <ScrollView>
     <View style={tw`pb-32`}>
       <Text style={tw`font-lato-bold text-center text-5xl leading-5xl`}>
@@ -68,16 +91,17 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Text>{i18n('contract.paymentShouldBeMade')} 11:53:19</Text>
           <Card style={tw`p-4`}>
             <View style={tw`flex-row`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n(view === 'seller' ? 'buyer' : 'seller')}:</Text>
+              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>
+                {i18n(view === 'seller' ? 'buyer' : 'seller')}:
+              </Text>
               {view === 'seller'
                 ? <Text style={tw`w-5/8`}>
                   {contract.buyer.id.substring(0, 8)}
                 </Text>
                 : <Text style={tw`w-5/8`}>
-                {contract.seller.id.substring(0, 8)}
-              </Text>
+                  {contract.seller.id.substring(0, 8)}
+                </Text>
               }
-            
             </View>
             <View style={tw`flex-row`}>
               <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('amount')}:</Text>
@@ -116,8 +140,6 @@ export default ({ route, navigation }: Props): ReactElement => {
                 <Text>TODO PAYMENTDATA</Text>
               </View>
             </View>
-            <View>
-            </View>
           </Card>
           <Button
             title={i18n('chat')}
@@ -125,6 +147,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           />
           {view === 'buyer' && !contract.paymentMade
             ? <Button
+              onPress={postConfirmPayment}
               style={tw`mt-2`}
               title={i18n('contract.payment.made')}
             />
