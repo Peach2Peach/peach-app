@@ -11,6 +11,8 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
   info('saveOffer', offer)
   if (!offer.id) throw new Error('offerId is required')
 
+  delete offer.user
+
   if (offerExists(offer.id)) {
     const index = account.offers.findIndex(o => o.id === offer.id)
     account.offers[index] = {
