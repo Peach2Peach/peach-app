@@ -24,7 +24,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }, [amount])
 
   useEffect(() => {
-    updateOffer({ ...offer, amount })
+    setStepValid(true)
   }, [])
 
   return <View>

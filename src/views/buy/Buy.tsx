@@ -83,7 +83,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<BuyOffer>(route.params?.offer || defaultBuyOffer)
+  const [offer, setOffer] = useState<BuyOffer>(defaultBuyOffer)
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
@@ -101,7 +101,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     const offr = route.params?.offer || defaultBuyOffer
     setUpdatePending(!!offr.id)
-    setOffer(() => offr)
+    if (!route.params?.offer) {
+      setOffer(defaultBuyOffer)
+    } else {
+      setOffer(() => offr)
+    }
     setPage(() => route.params?.page || 0)
   }, [route])
 
@@ -121,7 +125,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [route, offer.id])
+  }) : () => {}, [offer.id])
 
 
   useEffect(() => {
@@ -184,7 +188,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
-              back={back} next={next} navigation={navigation}
+              back={back} next={next}
               stepValid={stepValid} />
           </View>
           : null
@@ -194,7 +198,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     {!scrollable && !updatePending
       ? <Navigation
         screen={currentScreen.id}
-        back={back} next={next} navigation={navigation}
+        back={back} next={next}
         stepValid={stepValid} />
       : null
     }
