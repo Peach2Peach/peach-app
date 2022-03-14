@@ -29,7 +29,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   return <View>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.subtitle')} />
-    <View style={tw`z-20 my-32`}>
+    <View style={tw`z-20 my-24`}>
       <View style={tw`flex items-center`}>
         <Dropdown
           selectedValue={amount}
