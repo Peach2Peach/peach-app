@@ -12,3 +12,10 @@ export const BUCKETS = [
   2000000,
   5000000
 ]
+
+// Time in ms
+export const TIMERS = {
+  kycResponse: 1000 * 60 * 60 * 12,
+  paymentMade: 1000 * 60 * 60 * 12,
+  paymentConfirmed: 1000 * 60 * 60 * 12,
+}

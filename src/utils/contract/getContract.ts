@@ -10,6 +10,7 @@ export const getContract = (id: string): Contract|null => {
 
   if (!contract) return null
 
+  contract.creationDate = new Date(contract.creationDate)
   contract.buyer.creationDate = new Date(contract.buyer.creationDate)
   contract.seller.creationDate = new Date(contract.seller.creationDate)
 

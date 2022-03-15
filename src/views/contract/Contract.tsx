@@ -19,7 +19,8 @@ import { account } from '../../utils/account'
 import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
 import { decrypt, signAndEncrypt, verify } from '../../utils/pgp'
-import { nameNumber } from '../../utils/string'
+import { msToTimer, nameNumber } from '../../utils/string'
+import { TIMERS } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -40,9 +41,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [view, setView] = useState('')
+  const [timer, setTimer] = useState(0)
+  const [timerType, setTimerType] = useState('')
+
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
 
   const saveAndUpdate = (contractData: Contract) => {
+    if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
+
     setContract(() => contractData)
     saveContract(contractData)
   }
@@ -100,7 +106,19 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId])
 
   useEffect(() => {
-    if (!contract || view !== 'seller') return
+    if (!contract) return
+
+    // kycConfirmed, paymentMade, paymentConfirmed
+    if (contract.kycRequired && !contract.kycConfirmed) {
+      setTimerType('kycResponse')
+    } else if (!contract.paymentMade) {
+      const start = contract.kycRequired && contract.kycResponseDate ? contract.kycResponseDate : contract.creationDate
+      setTimerType('paymentMade')
+    } else if (contract.paymentMade && !contract.paymentConfirmed) {
+      setTimerType('paymentConfirmed')
+    }
+
+    if (view !== 'seller') return
     if (contract.paymentDataSignature) return
 
     (async () => {
@@ -125,6 +143,29 @@ export default ({ route, navigation }: Props): ReactElement => {
     })()
   }, [contract])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!contract) return
+      const now = (new Date()).getTime()
+
+      // kycConfirmed, paymentMade, paymentConfirmed
+      if (timerType === 'kycResponse') {
+        setTimer(TIMERS.kycResponse - (now - contract.creationDate.getTime()))
+      } else if (timerType === 'paymentMade') {
+        const start = contract.kycRequired && contract.kycResponseDate
+          ? contract.kycResponseDate
+          : contract.creationDate
+        setTimer(TIMERS.paymentMade - (now - start.getTime()))
+      } else if (timerType === 'paymentConfirmed' && contract.paymentMade) {
+        setTimer(TIMERS.paymentConfirmed - (now - contract.paymentMade.getTime()))
+      }
+    })
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [timerType])
+
   const postConfirmPayment = async () => {
     if (!contract) return
     await confirmPayment({ contractId: contract.id })
@@ -138,7 +179,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       />
       {contract
         ? <View style={tw`mt-16`}>
-          <Text>{i18n('contract.paymentShouldBeMade')} 11:53:19</Text>
+          <Text style={tw`font-baloo text-sm text-center`}>
+            {i18n(`contract.timer.${timerType}`)}
+            <Text style={tw`font-baloo text-sm text-peach-1`}> {msToTimer(timer)}</Text>
+          </Text>
           <Card style={tw`p-4`}>
             <View style={tw`flex-row`}>
               <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>

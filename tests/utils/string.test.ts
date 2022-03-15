@@ -1,5 +1,5 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { padString, splitAt, thousands } from '../../src/utils/string'
+import { padString, splitAt, thousands, msToTimer, nameNumber } from '../../src/utils/string'
 
 describe('padString', () => {
   it('pads string to a specific length', () => {
@@ -37,6 +37,33 @@ describe('thousands', () => {
     strictEqual(thousands(12345678), '12 345 678')
     strictEqual(thousands(21000000), '21 000 000')
     strictEqual(thousands(100000000), '100 000 000')
+  })
+})
+
+describe('msToTimer', () => {
+  it('turns ms to a human readable format', () => {
+    strictEqual(msToTimer(1000), '00:00:01')
+    strictEqual(msToTimer(1000 * 45), '00:00:45')
+    strictEqual(msToTimer(1000 * 60), '00:01:00')
+    strictEqual(msToTimer(1000 * 61), '00:01:01')
+    strictEqual(msToTimer(1000 * 60 * 59), '00:59:00')
+    strictEqual(msToTimer(1000 * 60 * 61), '01:01:00')
+    strictEqual(msToTimer(1000 * 60 * 60 + 1000 * 12), '01:00:12')
+    strictEqual(msToTimer(1000 * 60 * 60 * 10), '10:00:00')
+    strictEqual(msToTimer(1000 * 60 * 60 * 12), '12:00:00')
+    strictEqual(msToTimer(1000 * 60 * 60 * 12 + 1000 * 45), '12:00:45')
+  })
+})
+
+describe('nameNumber', () => {
+  it('turns thousands and millions into text', () => {
+    strictEqual(nameNumber(100), '100')
+    strictEqual(nameNumber(1000), '1 thousand')
+    strictEqual(nameNumber(1400), '1.4 thousand')
+    strictEqual(nameNumber(10000), '10 thousand')
+    strictEqual(nameNumber(100000), '100 thousand')
+    strictEqual(nameNumber(1000000), '1 million')
+    strictEqual(nameNumber(2500000), '2.5 million')
   })
 })
 
