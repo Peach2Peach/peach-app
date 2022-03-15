@@ -150,6 +150,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...offer,
         ...result,
       })
+
+      if (result.contractId) {
+        navigation.navigate('contract', { contractId: result.contractId })
+      }
       setUpdatePending(() => false)
     },
     onError: err => {
