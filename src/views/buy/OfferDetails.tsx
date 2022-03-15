@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { BuyViewProps } from './Buy'
-import { account, updateSettings } from '../../utils/account'
+import { updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import Currencies from '../../components/inputs/Currencies'
@@ -19,9 +19,9 @@ const validate = (offer: BuyOffer) =>
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
 
-  const [currencies, setCurrencies] = useState<Currency[]>(account.settings.currencies || [])
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(account.settings.paymentMethods || [])
-  const [kyc, setKYC] = useState(account.settings.kyc || false)
+  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies)
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(offer.paymentMethods)
+  const [kyc, setKYC] = useState(offer.kyc)
 
   useEffect(() => {
     updateOffer({

@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext } from '../../utils/bitcoin'
 import { SellViewProps } from './Sell'
-import { account, updateSettings } from '../../utils/account'
+import { updateSettings } from '../../utils/account'
 import Premium from './components/Premium'
 import Currencies from '../../components/inputs/Currencies'
 import KYC from './components/KYC'
@@ -31,11 +31,11 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useContext(BitcoinContext)
 
   const { currency, price } = getBitcoinContext()
-  const [currencies, setCurrencies] = useState(account.settings.currencies || [])
-  const [premium, setPremium] = useState(account.settings.premium || 1.5)
-  const [paymentData, setPaymentData] = useState(account.paymentData || [])
-  const [kyc, setKYC] = useState(account.settings.kyc || false)
-  const [kycType, setKYCType] = useState(account.settings.kycType || 'iban')
+  const [currencies, setCurrencies] = useState(offer.currencies)
+  const [premium, setPremium] = useState(offer.premium)
+  const [paymentData, setPaymentData] = useState(offer.paymentData)
+  const [kyc, setKYC] = useState(offer.kyc)
+  const [kycType, setKYCType] = useState(offer.kycType)
 
   const debounced = useRef(debounce((deps: UpdateOfferProps) => {
     const selectedPaymentData = deps.paymentData.filter(data => data.selected)
