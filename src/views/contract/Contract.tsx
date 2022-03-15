@@ -116,7 +116,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (view === 'buyer') {
         saveAndUpdate(await parseContractForBuyer(updatedContract, result))
-      } else {
+      } else if (view === 'seller') {
         saveAndUpdate(parseContractForSeller(updatedContract))
       }
     },
