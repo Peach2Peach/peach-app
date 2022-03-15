@@ -1,5 +1,5 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { padString, splitAt, thousands, msToTimer, nameNumber } from '../../src/utils/string'
+import { padString, splitAt, thousands, msToTimer } from '../../src/utils/string'
 
 describe('padString', () => {
   it('pads string to a specific length', () => {
@@ -54,17 +54,3 @@ describe('msToTimer', () => {
     strictEqual(msToTimer(1000 * 60 * 60 * 12 + 1000 * 45), '12:00:45')
   })
 })
-
-describe('nameNumber', () => {
-  it('turns thousands and millions into text', () => {
-    strictEqual(nameNumber(100), '100')
-    strictEqual(nameNumber(1000), '1 thousand')
-    strictEqual(nameNumber(1400), '1.4 thousand')
-    strictEqual(nameNumber(10000), '10 thousand')
-    strictEqual(nameNumber(100000), '100 thousand')
-    strictEqual(nameNumber(1000000), '1 million')
-    strictEqual(nameNumber(2500000), '2.5 million')
-  })
-})
-
-

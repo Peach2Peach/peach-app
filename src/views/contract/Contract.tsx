@@ -19,7 +19,7 @@ import { account } from '../../utils/account'
 import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
 import { decrypt, signAndEncrypt, verify } from '../../utils/pgp'
-import { msToTimer, nameNumber } from '../../utils/string'
+import { msToTimer, thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
@@ -108,11 +108,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (!contract) return
 
-    // kycConfirmed, paymentMade, paymentConfirmed
     if (contract.kycRequired && !contract.kycConfirmed) {
       setTimerType('kycResponse')
     } else if (!contract.paymentMade) {
-      const start = contract.kycRequired && contract.kycResponseDate ? contract.kycResponseDate : contract.creationDate
       setTimerType('paymentMade')
     } else if (contract.paymentMade && !contract.paymentConfirmed) {
       setTimerType('paymentConfirmed')
@@ -147,18 +145,20 @@ export default ({ route, navigation }: Props): ReactElement => {
     const interval = setInterval(() => {
       if (!contract) return
       const now = (new Date()).getTime()
+      let timeLeft = 0
 
-      // kycConfirmed, paymentMade, paymentConfirmed
       if (timerType === 'kycResponse') {
-        setTimer(TIMERS.kycResponse - (now - contract.creationDate.getTime()))
+        timeLeft = TIMERS.kycResponse - (now - contract.creationDate.getTime())
       } else if (timerType === 'paymentMade') {
         const start = contract.kycRequired && contract.kycResponseDate
           ? contract.kycResponseDate
           : contract.creationDate
-        setTimer(TIMERS.paymentMade - (now - start.getTime()))
+        timeLeft = TIMERS.paymentMade - (now - start.getTime())
       } else if (timerType === 'paymentConfirmed' && contract.paymentMade) {
-        setTimer(TIMERS.paymentConfirmed - (now - contract.paymentMade.getTime()))
+        timeLeft = TIMERS.paymentConfirmed - (now - contract.paymentMade.getTime())
       }
+
+      setTimer(timeLeft > 0 ? timeLeft : 0)
     })
 
     return () => {
@@ -169,20 +169,32 @@ export default ({ route, navigation }: Props): ReactElement => {
   const postConfirmPayment = async () => {
     if (!contract) return
     await confirmPayment({ contractId: contract.id })
+
+    if (view === 'buyer') {
+      saveAndUpdate({
+        ...contract,
+        paymentMade: new Date()
+      })
+    } else {
+      saveAndUpdate({
+        ...contract,
+        paymentConfirmed: new Date()
+      })
+    }
   }
 
   return <ScrollView style={tw`pt-6`}>
     <View style={tw`pb-32`}>
       <Title
         title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-        subtitle={contract?.amount ? i18n('contract.subtitle', nameNumber(contract.amount)) : ''}
+        subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
       />
       {contract
         ? <View style={tw`mt-16`}>
-          <Text style={tw`font-baloo text-sm text-center`}>
-            {i18n(`contract.timer.${timerType}`)}
-            <Text style={tw`font-baloo text-sm text-peach-1`}> {msToTimer(timer)}</Text>
-          </Text>
+          <View style={tw`flex-row justify-center`}>
+            <Text style={tw`font-baloo text-sm`}>{i18n(`contract.timer.${timerType}`)}</Text>
+            <Text style={tw`w-16 pl-1 font-baloo text-sm text-peach-1`}>{msToTimer(timer)}</Text>
+          </View>
           <Card style={tw`p-4`}>
             <View style={tw`flex-row`}>
               <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>
@@ -197,7 +209,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 </Text>
               }
             </View>
-            <View style={tw`flex-row`}>
+            <View style={tw`flex-row mt-3`}>
               <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('amount')}:</Text>
               <Text style={tw`w-5/8`}>
                 <SatsFormat sats={contract.amount} color={tw`text-black-1`} />
