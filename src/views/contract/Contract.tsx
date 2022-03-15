@@ -42,7 +42,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [view, setView] = useState('')
   const [timer, setTimer] = useState(0)
-  const [timerType, setTimerType] = useState('')
+  const [requiredAction, setRequiredAction] = useState('')
 
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
 
@@ -52,6 +52,63 @@ export default ({ route, navigation }: Props): ReactElement => {
     setContract(() => contractData)
     saveContract(contractData)
   }
+
+  const parseContractForBuyer = async (
+    updatedContract: Contract,
+    response: GetContractResponse
+  ): Promise<Contract> => {
+    let decryptedPaymentData: PaymentData
+
+    if (!response.paymentData || !response.paymentDataSignature) return response
+
+    try {
+      const decryptedPaymentDataString = await decrypt(response.paymentData)
+      decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
+
+      if (!await verify(response.paymentDataSignature, decryptedPaymentDataString, response.seller.pgpPublicKey)) {
+        // TODO at this point we should probably cancel the order?
+        throw new Error('Signature of payment data could not be verified')
+      }
+    } catch (err) {
+      error(err)
+      updateMessage({
+        msg: i18n('error.invalidPaymentData'),
+        level: 'ERROR',
+      })
+      return updatedContract
+    }
+    return {
+      ...response,
+      paymentData: decryptedPaymentData
+    }
+  }
+
+  const parseContractForSeller = async (
+    updatedContract: Contract,
+    response: GetContractResponse
+  ): Promise<Contract> => {
+    if (updatedContract.paymentDataSignature) return updatedContract
+    const sellOffer = getOffer(updatedContract.id.split('-')[0]) as SellOffer
+    const paymentData = sellOffer.paymentData.find(data => data.type === updatedContract.paymentMethod)
+    const encryptedResult = await signAndEncrypt(
+      JSON.stringify(paymentData),
+      updatedContract.buyer.pgpPublicKey
+    )
+
+    const [result, err] = await postPaymentData({
+      contractId: updatedContract.id,
+      paymentData: encryptedResult.encrypted,
+      signature: encryptedResult.signature
+    })
+
+    if (err) {
+      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      return updatedContract
+    }
+
+    return { ...updatedContract, paymentData, paymentDataSignature: encryptedResult.signature }
+  }
+
   useEffect(() => {
     setContractId(() => route.params.contractId)
   }, [route])
@@ -59,45 +116,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(getContractEffect({
     contractId,
     onSuccess: async (result) => {
-      let decryptedPaymentData: PaymentData
-
       // info('Got contract', result)
+      let updatedContract: Contract = contract ? contract : result
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
       if (typeof contract?.paymentData === 'object') {
-        saveAndUpdate({
+        updatedContract = {
+          ...contract,
           ...result,
           paymentData: contract.paymentData
-        })
-        return
-      }
-
-      if (view === 'buyer' && result.paymentData && result.paymentDataSignature) {
-        try {
-          const decryptedPaymentDataString = await decrypt(result.paymentData)
-          decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
-
-          if (!await verify(result.paymentDataSignature, decryptedPaymentDataString, result.seller.pgpPublicKey)) {
-            // TODO at this point we should probably cancel the order?
-            throw new Error('Signature of payment data could not be verified')
-          }
-        } catch (err) {
-          error(err)
-          updateMessage({
-            msg: i18n('error.invalidPaymentData'),
-            level: 'ERROR',
-          })
-          return
         }
-        saveAndUpdate({
-          ...result,
-          paymentData: decryptedPaymentData
-        })
-        return
       }
 
-      saveAndUpdate(result)
+      if (view === 'buyer') {
+        saveAndUpdate(await parseContractForBuyer(updatedContract, result))
+      } else {
+        saveAndUpdate(await parseContractForSeller(updatedContract, result))
+      }
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -109,36 +145,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!contract) return
 
     if (contract.kycRequired && !contract.kycConfirmed) {
-      setTimerType('kycResponse')
+      setRequiredAction('kycResponse')
     } else if (!contract.paymentMade) {
-      setTimerType('paymentMade')
+      setRequiredAction('paymentMade')
     } else if (contract.paymentMade && !contract.paymentConfirmed) {
-      setTimerType('paymentConfirmed')
+      setRequiredAction('paymentConfirmed')
     }
-
-    if (view !== 'seller') return
-    if (contract.paymentDataSignature) return
-
-    (async () => {
-      const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
-      const paymentData = sellOffer.paymentData.find(data => data.type === contract.paymentMethod)
-      const encryptedResult = await signAndEncrypt(
-        JSON.stringify(paymentData),
-        contract.buyer.pgpPublicKey
-      )
-      const [result, err] = await postPaymentData({
-        contractId: contract.id,
-        paymentData: encryptedResult.encrypted,
-        signature: encryptedResult.signature
-      })
-
-      if (err) {
-        updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
-        return
-      }
-
-      saveAndUpdate({ ...contract, paymentData, paymentDataSignature: encryptedResult.signature })
-    })()
   }, [contract])
 
   useEffect(() => {
@@ -147,29 +159,33 @@ export default ({ route, navigation }: Props): ReactElement => {
       const now = (new Date()).getTime()
       let timeLeft = 0
 
-      if (timerType === 'kycResponse') {
+      if (requiredAction === 'kycResponse') {
         timeLeft = TIMERS.kycResponse - (now - contract.creationDate.getTime())
-      } else if (timerType === 'paymentMade') {
+      } else if (requiredAction === 'paymentMade') {
         const start = contract.kycRequired && contract.kycResponseDate
           ? contract.kycResponseDate
           : contract.creationDate
         timeLeft = TIMERS.paymentMade - (now - start.getTime())
-      } else if (timerType === 'paymentConfirmed' && contract.paymentMade) {
+      } else if (requiredAction === 'paymentConfirmed' && contract.paymentMade) {
         timeLeft = TIMERS.paymentConfirmed - (now - contract.paymentMade.getTime())
       }
 
       setTimer(timeLeft > 0 ? timeLeft : 0)
-    })
+    }, 1000)
 
     return () => {
       clearInterval(interval)
     }
-  }, [timerType])
+  }, [requiredAction])
 
   const postConfirmPayment = async () => {
     if (!contract) return
-    await confirmPayment({ contractId: contract.id })
+    const [result, err] = await confirmPayment({ contractId: contract.id })
 
+    if (err) {
+      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      return
+    }
     if (view === 'buyer') {
       saveAndUpdate({
         ...contract,
@@ -192,7 +208,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       {contract
         ? <View style={tw`mt-16`}>
           <View style={tw`flex-row justify-center`}>
-            <Text style={tw`font-baloo text-sm`}>{i18n(`contract.timer.${timerType}`)}</Text>
+            <Text style={tw`font-baloo text-sm`}>{i18n(`contract.timer.${requiredAction}`)}</Text>
             <Text style={tw`w-16 pl-1 font-baloo text-sm text-peach-1`}>{msToTimer(timer)}</Text>
           </View>
           <Card style={tw`p-4`}>
@@ -255,7 +271,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             title={i18n('chat')}
             secondary={true}
           />
-          {view === 'buyer' && !contract.paymentMade && contract.paymentData
+          {view === 'buyer' && requiredAction === 'paymentMade'
             ? <Button
               onPress={postConfirmPayment}
               style={tw`mt-2`}
@@ -263,7 +279,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             />
             : null
           }
-          {view === 'seller' && contract.paymentMade
+          {view === 'seller' && requiredAction === 'paymentConfirmed'
             ? <Button
               style={tw`mt-2`}
               title={i18n('contract.payment.received')}

@@ -24,6 +24,14 @@ export default ({
     })
 
     if (result) {
+      result.creationDate = new Date(result.creationDate)
+      result.buyer.creationDate = new Date(result.buyer.creationDate)
+      result.seller.creationDate = new Date(result.seller.creationDate)
+
+      if (result.kycResponseDate) result.kycResponseDate = new Date(result.kycResponseDate)
+      if (result.paymentMade) result.paymentMade = new Date(result.paymentMade)
+      if (result.paymentConfirmed) result.paymentConfirmed = new Date(result.paymentConfirmed)
+
       onSuccess(result)
     } else if (err) {
       error('Error', err)
