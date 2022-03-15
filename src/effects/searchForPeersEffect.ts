@@ -33,7 +33,7 @@ export default ({
     }
   }
   (async () => {
-    interval = setInterval(checkingFunction, 60 * 1000)
+    interval = setInterval(checkingFunction, 30 * 1000)
     checkingFunction()
   })()
 
