@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Card, paymentDetailTemplates, SatsFormat, Text } from '../../components'
+import { Button, Card, paymentDetailTemplates, SatsFormat, Text, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
 import { error, info } from '../../utils/log'
@@ -19,6 +19,7 @@ import { account } from '../../utils/account'
 import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
 import { decrypt, signAndEncrypt, verify } from '../../utils/pgp'
+import { nameNumber } from '../../utils/string'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -129,13 +130,14 @@ export default ({ route, navigation }: Props): ReactElement => {
     await confirmPayment({ contractId: contract.id })
   }
 
-  return <ScrollView>
+  return <ScrollView style={tw`pt-6`}>
     <View style={tw`pb-32`}>
-      <Text style={tw`font-lato-bold text-center text-5xl leading-5xl`}>
-        Contract
-      </Text>
+      <Title
+        title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
+        subtitle={contract?.amount ? i18n('contract.subtitle', nameNumber(contract.amount)) : ''}
+      />
       {contract
-        ? <View>
+        ? <View style={tw`mt-16`}>
           <Text>{i18n('contract.paymentShouldBeMade')} 11:53:19</Text>
           <Card style={tw`p-4`}>
             <View style={tw`flex-row`}>

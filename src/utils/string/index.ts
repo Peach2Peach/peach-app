@@ -1,4 +1,5 @@
 export { cutOffAddress } from './cutOffAddress'
+export { nameNumber } from './nameNumber'
 export { padString } from './padString'
 export { splitAt } from './splitAt'
 export { thousands } from './thousands'

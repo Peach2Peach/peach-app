@@ -122,6 +122,7 @@
   "refund": "Refund",
   "refundPending": "Refund pending",
   "refunded": "Refunded",
+  "contract.subtitle": "accepted offer for $0 sats",
   "contract.paymentShouldBeMade": "Payment should be made within",
   "contract.payment.to": "To",
   "contract.payment.made": "Payment made",
