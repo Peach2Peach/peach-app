@@ -22,6 +22,7 @@ import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../utils/overlay'
 import { cancelOffer } from '../../utils/peachAPI'
+import { signAndEncrypt } from '../../utils/pgp'
 import ConfirmCancelTrade from './components/ConfirmCancelTrade'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
@@ -57,11 +58,22 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!offer.id) return
 
     if (!match.matched) {
+      let encryptedResult
+
+      if (offer.type === 'ask') {
+        const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
+        encryptedResult = await signAndEncrypt(
+          JSON.stringify(paymentData),
+          match.user.pgpPublicKey
+        )
+      }
       [result, err] = await matchOffer({
         offerId: offer.id,
         matchingOfferId: match.offerId,
         currency: Object.keys(match.prices)[0] as Currency,
         paymentMethod: match.paymentMethods[0],
+        paymentData: encryptedResult?.encrypted,
+        paymentDataSignature: encryptedResult?.signature,
       })
     } else if (offer.type === 'bid') {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })

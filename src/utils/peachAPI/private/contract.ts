@@ -27,43 +27,9 @@ export const getContract = async ({
   return await parseResponse<GetContractResponse>(response, 'getContract')
 }
 
-
-type PostPaymentDataProps = {
-  contractId: string,
-  paymentData: string,
-  signature: string,
-}
-
-/**
- * @description Method to post encrypted payment data
- * @param contractId contract id
- * @param paymentData encrypted payment data
- * @param pgpSignature pgp signature of encrypted data
- * @returns Contract
- */
-export const postPaymentData = async ({
-  contractId,
-  paymentData,
-  signature,
-}: PostPaymentDataProps): Promise<[APISuccess|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment`, {
-    headers: {
-      Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      paymentData,
-      signature,
-    })
-  })
-
-  return await parseResponse<APISuccess>(response, 'postPaymentData')
-}
-
 type ConfirmPaymentProps = {
   contractId: string,
+  releaseTransaction?: string
 }
 
 /**
@@ -73,6 +39,7 @@ type ConfirmPaymentProps = {
  */
 export const confirmPayment = async ({
   contractId,
+  releaseTransaction,
 }: ConfirmPaymentProps): Promise<[APISuccess|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment/confirm`, {
     headers: {
@@ -80,7 +47,10 @@ export const confirmPayment = async ({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    method: 'POST'
+    method: 'POST',
+    body: JSON.stringify({
+      releaseTransaction,
+    })
   })
 
   return await parseResponse<APISuccess>(response, 'confirmPayment')

@@ -62,6 +62,5 @@ export {
 } from './private/offer'
 export {
   getContract,
-  postPaymentData,
   confirmPayment,
 } from './private/contract'

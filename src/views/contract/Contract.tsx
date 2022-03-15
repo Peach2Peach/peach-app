@@ -5,6 +5,8 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
+import * as bitcoin from 'bitcoinjs-lib'
+
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Card, paymentDetailTemplates, SatsFormat, Text, Title } from '../../components'
@@ -16,11 +18,13 @@ import i18n from '../../utils/i18n'
 import { getContract, saveContract } from '../../utils/contract'
 import { getBitcoinContext } from '../../utils/bitcoin'
 import { account } from '../../utils/account'
-import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
+import { confirmPayment } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
-import { decrypt, signAndEncrypt, verify } from '../../utils/pgp'
+import { decrypt, verify } from '../../utils/pgp'
 import { msToTimer, thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
+import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
+import { reverseBuffer } from '../../utils/crypto'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -83,30 +87,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  const parseContractForSeller = async (
-    updatedContract: Contract,
-    response: GetContractResponse
-  ): Promise<Contract> => {
-    if (updatedContract.paymentDataSignature) return updatedContract
+  const parseContractForSeller = (updatedContract: Contract): Contract => {
     const sellOffer = getOffer(updatedContract.id.split('-')[0]) as SellOffer
     const paymentData = sellOffer.paymentData.find(data => data.type === updatedContract.paymentMethod)
-    const encryptedResult = await signAndEncrypt(
-      JSON.stringify(paymentData),
-      updatedContract.buyer.pgpPublicKey
-    )
 
-    const [result, err] = await postPaymentData({
-      contractId: updatedContract.id,
-      paymentData: encryptedResult.encrypted,
-      signature: encryptedResult.signature
-    })
-
-    if (err) {
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
-      return updatedContract
-    }
-
-    return { ...updatedContract, paymentData, paymentDataSignature: encryptedResult.signature }
+    return { ...updatedContract, paymentData }
   }
 
   useEffect(() => {
@@ -117,7 +102,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
-      let updatedContract: Contract = contract ? contract : result
+      let updatedContract: Contract = contract ? { ...contract, ...result } : result
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
@@ -132,7 +117,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (view === 'buyer') {
         saveAndUpdate(await parseContractForBuyer(updatedContract, result))
       } else {
-        saveAndUpdate(await parseContractForSeller(updatedContract, result))
+        saveAndUpdate(parseContractForSeller(updatedContract))
       }
     },
     onError: err => updateMessage({
@@ -178,25 +163,62 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }, [requiredAction])
 
-  const postConfirmPayment = async () => {
+  const postConfirmPaymentBuyer = async () => {
     if (!contract) return
+
     const [result, err] = await confirmPayment({ contractId: contract.id })
 
     if (err) {
       updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
       return
     }
-    if (view === 'buyer') {
-      saveAndUpdate({
-        ...contract,
-        paymentMade: new Date()
-      })
-    } else {
-      saveAndUpdate({
-        ...contract,
-        paymentConfirmed: new Date()
-      })
+    saveAndUpdate({
+      ...contract,
+      paymentMade: new Date()
+    })
+  }
+
+  const postConfirmPaymentSeller = async () => {
+    if (!contract) return
+    const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
+    if (!sellOffer.id || !sellOffer?.funding) return
+
+    const errorMsg = []
+
+    const psbt = bitcoin.Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
+
+    // Don't trust the response, verify
+    if (sellOffer.funding.txId !== reverseBuffer(psbt.txInputs[0].hash).toString('hex')) {
+      errorMsg.push(i18n('error.invalidInput'))
     }
+    if (psbt.txOutputs[0].address !== contract.releaseAddress) {
+      errorMsg.push(i18n('error.releaseAddressMismatch'))
+    }
+
+    if (errorMsg.length) {
+      updateMessage({
+        msg: errorMsg.join('\n'),
+        level: 'WARN',
+      })
+      return
+    }
+    // Sign psbt
+    psbt.signInput(0, getEscrowWallet(sellOffer.id))
+
+    const tx = psbt.finalizeInput(0, getFinalScript)
+      .extractTransaction()
+      .toHex()
+
+    const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
+
+    if (err) {
+      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      return
+    }
+    saveAndUpdate({
+      ...contract,
+      paymentConfirmed: new Date()
+    })
   }
 
   return <ScrollView style={tw`pt-6`}>
@@ -273,7 +295,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           />
           {view === 'buyer' && requiredAction === 'paymentMade'
             ? <Button
-              onPress={postConfirmPayment}
+              onPress={postConfirmPaymentBuyer}
               style={tw`mt-2`}
               title={i18n('contract.payment.made')}
             />
@@ -281,6 +303,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
           {view === 'seller' && requiredAction === 'paymentConfirmed'
             ? <Button
+              onPress={postConfirmPaymentSeller}
               style={tw`mt-2`}
               title={i18n('contract.payment.received')}
             />

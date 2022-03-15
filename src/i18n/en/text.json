@@ -116,6 +116,7 @@
   "error.invalidAmount": "Refund amount is not expected value. Please verify the displayed amount or contact the peach support-team.",
   "error.invalidInput": "Transaction input is invalid. Please contact the peach support-team.",
   "error.returnAddressMismatch": "Return address does not match expected value. Please contact the peach support-team.",
+  "error.releaseAddressMismatch": "Release address does not match expected value. Please contact the peach support-team.",
   "refund.title": "Refund escrow",
   "refund.description.WRONG_FUNDING_AMOUNT": "Unfortunately, you have send the wrong amount to escrow. Please click on the button below to initiate the refunding process.",
   "refund.description.CANCELED": "Your offer has been canceled. Please click on the button below to initiate the refunding process.",

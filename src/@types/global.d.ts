@@ -122,6 +122,8 @@ declare type Contract = {
   paymentConfirmed: Date|null,
 
   releaseAddress: string,
+  releaseTransaction: string,
+  releaseTxId: string,
 
   disputeActive: boolean
 }

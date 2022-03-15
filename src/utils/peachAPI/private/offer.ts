@@ -205,6 +205,8 @@ type MatchProps = {
   matchingOfferId: string,
   currency: Currency,
   paymentMethod: PaymentMethod,
+  paymentData?: string,
+  paymentDataSignature?: string,
 }
 
 /**
@@ -216,7 +218,9 @@ export const matchOffer = async ({
   offerId,
   currency,
   paymentMethod,
-  matchingOfferId
+  matchingOfferId,
+  paymentData,
+  paymentDataSignature,
 }: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: {
@@ -228,6 +232,8 @@ export const matchOffer = async ({
       matchingOfferId,
       currency,
       paymentMethod,
+      paymentData,
+      paymentDataSignature,
     }),
     method: 'POST'
   })
