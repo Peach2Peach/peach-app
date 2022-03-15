@@ -144,7 +144,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(offer.id ? getOfferDetailsEffect({
     offerId: offer.id,
-    interval: offer.type === 'bid' ? 60 * 1000 : 0,
+    interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
       saveAndUpdate({
         ...offer,
