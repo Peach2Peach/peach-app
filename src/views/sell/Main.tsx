@@ -8,12 +8,12 @@ import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../utils/bitcoin'
 import { SellViewProps } from './Sell'
-import { account, updateSettings } from '../../utils/account'
+import { updateSettings } from '../../utils/account'
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
-  const [amount, setAmount] = useState(account.settings.amount || offer.amount)
+  const [amount, setAmount] = useState(offer.amount)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 

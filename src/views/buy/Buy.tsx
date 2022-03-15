@@ -42,7 +42,7 @@ export type BuyViewProps = {
   navigation: ProfileScreenNavigationProp,
 }
 
-export const defaultBuyOffer: BuyOffer = {
+const getDefaultBuyOffer = (): BuyOffer => ({
   type: 'bid',
   creationDate: new Date(),
   published: false,
@@ -52,7 +52,8 @@ export const defaultBuyOffer: BuyOffer = {
   amount: account.settings.amount || BUCKETS[0],
   matches: [],
   doubleMatched: false,
-}
+})
+
 type Screen = ({ offer, updateOffer }: BuyViewProps) => ReactElement
 
 const screens = [
@@ -83,7 +84,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<BuyOffer>(defaultBuyOffer)
+  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer())
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
@@ -99,10 +100,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
-    const offr = route.params?.offer || defaultBuyOffer
+    const offr = route.params?.offer || getDefaultBuyOffer()
     setUpdatePending(!!offr.id)
     if (!route.params?.offer) {
-      setOffer(defaultBuyOffer)
+      setOffer(getDefaultBuyOffer())
     } else {
       setOffer(() => offr)
     }

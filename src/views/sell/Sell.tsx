@@ -43,7 +43,7 @@ export type SellViewProps = {
   navigation: ProfileScreenNavigationProp,
 }
 
-export const defaultSellOffer: SellOffer = {
+const getDefaultSellOffer = (): SellOffer => ({
   type: 'ask',
   creationDate: new Date(),
   published: false,
@@ -57,7 +57,8 @@ export const defaultSellOffer: SellOffer = {
   doubleMatched: false,
   refunded: false,
   released: false,
-}
+})
+
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 
 const screens = [
@@ -104,7 +105,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(defaultSellOffer)
+  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
@@ -120,7 +121,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
-    const offr = route.params?.offer || defaultSellOffer
+    const offr = route.params?.offer || getDefaultSellOffer()
 
     if (offr.confirmedReturnAddress) {
       navigation.navigate('search', { offer })
@@ -130,7 +131,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setUpdatePending(!!offr.id)
 
     if (!route.params?.offer && account.settings.amount) {
-      setOffer(defaultSellOffer)
+      setOffer(getDefaultSellOffer())
     } else {
       setOffer(() => offr)
     }
