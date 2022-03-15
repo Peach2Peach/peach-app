@@ -7,19 +7,18 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Card, SatsFormat, Text } from '../../components'
+import { Button, Card, paymentDetailTemplates, SatsFormat, Text } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
 import { error, info } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
-import { saveContract } from '../../utils/contract'
+import { getContract, saveContract } from '../../utils/contract'
 import { getBitcoinContext } from '../../utils/bitcoin'
 import { account } from '../../utils/account'
 import { confirmPayment, postPaymentData } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
 import { decrypt, signAndEncrypt, verify } from '../../utils/pgp'
-import { sha256 } from '../../utils/crypto'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -38,8 +37,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { currency } = getBitcoinContext()
 
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract>()
+  const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [view, setView] = useState('')
+  const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
 
   const saveAndUpdate = (contractData: Contract) => {
     setContract(() => contractData)
@@ -65,6 +65,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
         return
       }
+
       if (view === 'buyer' && result.paymentData && result.paymentDataSignature) {
         try {
           const decryptedPaymentDataString = await decrypt(result.paymentData)
@@ -119,7 +120,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
 
-      saveAndUpdate({ ...contract, paymentDataSignature: encryptedResult.signature })
+      saveAndUpdate({ ...contract, paymentData, paymentDataSignature: encryptedResult.signature })
     })()
   }, [contract])
 
@@ -181,15 +182,18 @@ export default ({ route, navigation }: Props): ReactElement => {
                 <Text>{i18n(`paymentMethod.${contract.paymentMethod}`)}</Text>
               </View>
             </View>
-            <View style={tw`flex-row mt-3`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('contract.payment.to')}:</Text>
-              <View style={tw`w-5/8`}>
-                <Text> {JSON.stringify(contract.paymentData)}
-                TODO PAYMENTDATA</Text>
+            {contract.paymentData && PaymentTo
+              ? <View style={tw`flex-row mt-3`}>
+                <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('contract.payment.to')}:</Text>
+                <View style={tw`w-5/8`}>
+                  <PaymentTo paymentData={contract.paymentData}/>
+                </View>
               </View>
-            </View>
+              : null
+            }
           </Card>
           <Button
+            style={tw`mt-4`}
             title={i18n('chat')}
             secondary={true}
           />

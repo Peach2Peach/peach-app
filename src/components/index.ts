@@ -19,6 +19,7 @@ export {
 
 export { Match, Matches } from './matches'
 
+export { paymentDetailTemplates } from './payment/'
 export { ScanQR } from './camera/ScanQR'
 export {
   BigTitle,
