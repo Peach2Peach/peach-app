@@ -37,6 +37,7 @@ import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
+import TradeComplete from './views/tradeComplete/TradeComplete'
 
 // LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
@@ -58,6 +59,7 @@ const views: ViewType[] = [
   { name: 'sell', component: Sell },
   { name: 'search', component: Search },
   { name: 'contract', component: Contract },
+  { name: 'tradeComplete', component: TradeComplete },
   { name: 'refund', component: Refund },
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },

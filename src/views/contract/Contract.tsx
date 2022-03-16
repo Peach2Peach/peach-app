@@ -25,6 +25,7 @@ import { TIMERS } from '../../constants'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
 import { reverseBuffer } from '../../utils/crypto'
 import ContractDetails from './components/ContractDetails'
+import Rate from './components/Rate'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -32,7 +33,7 @@ type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp;
+  navigation: ProfileScreenNavigationProp,
 }
 
 /**
@@ -123,6 +124,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
       let updatedContract: Contract = contract ? { ...contract, ...result } : result
 
+      console.log('RESULT', result)
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
       if (typeof contract?.paymentData === 'object') {
@@ -210,6 +212,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
       return
     }
+
     saveAndUpdate({
       ...contract,
       paymentConfirmed: new Date(),
@@ -225,7 +228,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
           subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
         />
-        {contract
+        {contract && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <Timer
               text={i18n(`contract.timer.${requiredAction}`)}
@@ -254,6 +257,12 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
               : null
             }
+          </View>
+          : null
+        }
+        {contract && contract.paymentConfirmed
+          ? <View style={tw`mt-16`}>
+            <Rate contract={contract} view={view} navigation={navigation} />
           </View>
           : null
         }
