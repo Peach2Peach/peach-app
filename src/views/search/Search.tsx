@@ -74,7 +74,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         matchingOfferId: match.offerId,
         currency: Object.keys(match.prices)[0] as Currency,
         paymentMethod: match.paymentMethods[0],
-        paymentData: encryptedResult?.encrypted,
+        paymentDataEncrypted: encryptedResult?.encrypted,
         paymentDataSignature: encryptedResult?.signature,
       })
     } else if (offer.type === 'bid') {
@@ -133,6 +133,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     setOffer(route.params.offer)
+    setOfferId(route.params.offer.id)
     setUpdatePending(() => true)
   }, [route])
 

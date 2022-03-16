@@ -107,9 +107,7 @@ declare type MatchResponse = {
   success: true,
   contractId?: string,
 }
-declare type GetContractResponse = Contract & {
-  paymentData: string
-}
+declare type GetContractResponse = Contract
 declare type ConfirmPaymentResponse = {
   success: true,
   txId?: string,

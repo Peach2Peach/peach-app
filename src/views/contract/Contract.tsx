@@ -25,7 +25,7 @@ import ContractDetails from './components/ContractDetails'
 import Rate from './components/Rate'
 import { verifyPSBT } from './helpers/verifyPSBT'
 import { getTimerStart } from './helpers/getTimerStart'
-import { parseContractForBuyer, parseContractForSeller } from './helpers/parseContract'
+import { getPaymentDataBuyer, getPaymentDataSeller } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
@@ -67,34 +67,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
-
-      let updatedContract: Contract = contract ? { ...contract, ...result } : result
-
-      if (typeof contract?.paymentData === 'object') {
-        updatedContract = {
-          ...contract,
-          ...result,
-          paymentData: contract.paymentData
-        }
-      }
-
-      const [parsedResult, err] = view === 'buyer'
-        ? await parseContractForBuyer(updatedContract, result)
-        : view === 'seller'
-          ? await parseContractForSeller(updatedContract)
-          : [updatedContract, null]
-
-      if (err) {
-        error(err, result.paymentData)
-        updateMessage({
-          msg: i18n('error.invalidPaymentData'),
-          level: 'ERROR',
-        })
-        return
-      }
-
-      info('parsedResult.paymentData', parsedResult.paymentData)
-      saveAndUpdate(parsedResult)
+      saveAndUpdate(contract ? { ...contract, ...result } : result)
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -103,6 +76,29 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId])
 
   useEffect(() => {
+    (async () => {
+      if (!contract || contract.paymentData || !view) return
+
+      const [paymentData, err] = view === 'buyer'
+        ? await getPaymentDataBuyer(contract)
+        : await getPaymentDataSeller(contract)
+
+      if (err) {
+        error(err)
+        updateMessage({
+          msg: i18n('error.invalidPaymentData'),
+          level: 'ERROR',
+        })
+        return
+      }
+      if (paymentData) {
+        saveAndUpdate({
+          ...contract,
+          paymentData
+        })
+      }
+    })()
+
     setRequiredAction(getRequiredAction(contract))
 
     setUpdatePending(false)

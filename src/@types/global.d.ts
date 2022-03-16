@@ -112,6 +112,7 @@ declare type Contract = {
   currency: Currency,
   price: number,
   paymentMethod: PaymentMethod,
+  paymentDataEncrypted?: string,
   paymentData?: PaymentData,
   paymentDataSignature?: string,
 
