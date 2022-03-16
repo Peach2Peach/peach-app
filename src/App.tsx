@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
-import { SafeAreaView, View, Animated } from 'react-native'
+import { SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 import {
@@ -39,7 +39,7 @@ import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 
-// LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
+LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
 enableScreens()
 
