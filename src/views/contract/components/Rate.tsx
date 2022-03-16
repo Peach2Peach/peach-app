@@ -45,12 +45,13 @@ export default ({ contract, view, navigation }: RateProps): ReactElement => {
         </Pressable>
       </View>
     </Card>
-    <Button
-      title={i18n('rate')}
-      style={tw`mt-4`}
-      disabled={!vote}
-      wide={false}
-      onPress={rate}
-    />
+    <View style={tw`mt-4 flex items-center`}>
+      <Button
+        title={i18n('rate')}
+        disabled={!vote}
+        wide={false}
+        onPress={rate}
+      />
+    </View>
   </View>
 }
