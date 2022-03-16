@@ -85,6 +85,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer())
+  const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
@@ -96,6 +97,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: BuyOffer) => {
     setOffer(() => offerData)
+    setOfferId(() => offerData.id)
     saveOffer(offerData)
   }
 
@@ -106,12 +108,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOffer(getDefaultBuyOffer())
     } else {
       setOffer(() => offr)
+      setOfferId(() => offr.id)
     }
     setPage(() => route.params?.page || 0)
   }, [route])
 
-  useEffect(offer.id ? getOfferDetailsEffect({
-    offerId: offer.id,
+  useEffect(getOfferDetailsEffect({
+    offerId,
     onSuccess: result => {
       saveAndUpdate({
         ...offer,
@@ -126,7 +129,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [offer.id])
+  }), [offerId])
 
 
   useEffect(() => {

@@ -42,12 +42,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
+  const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
 
   const [matches, setMatches] = useState<Match[]>([])
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
     setOffer(offerData)
+    setOfferId(offerData.id)
     saveOffer(offerData)
   }
 
@@ -142,8 +144,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
 
-  useEffect(offer.id ? getOfferDetailsEffect({
-    offerId: offer.id,
+  useEffect(getOfferDetailsEffect({
+    offerId,
     interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
       saveAndUpdate({
@@ -163,7 +165,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [offer.id])
+  }), [offerId])
 
   useEffect(!updatePending ? searchForPeersEffect({
     offer,

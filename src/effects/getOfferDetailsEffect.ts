@@ -3,7 +3,7 @@ import { error, info } from '../utils/log'
 import { getOfferDetails } from '../utils/peachAPI'
 
 type GetOfferEffectProps = {
-  offerId: string,
+  offerId: string|null|undefined,
   interval?: number,
   onSuccess: (result: BuyOffer|SellOffer) => void,
   onError: (error: APIError) => void,
@@ -17,7 +17,6 @@ export default ({
   let intrvl: NodeJS.Timer
 
   const checkingFunction = async () => {
-
     if (!offerId) return
 
     info('Get offer details for', offerId)

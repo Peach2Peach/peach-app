@@ -107,6 +107,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
+  const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(!!offer.id)
   const [page, setPage] = useState(0)
@@ -118,12 +119,14 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: SellOffer) => {
     setOffer(() => offerData)
+    setOfferId(() => offerData.id)
     saveOffer(offerData)
   }
 
   useEffect(() => {
     const offr = route.params?.offer || getDefaultSellOffer()
 
+    setOfferId(undefined)
     if (offr.confirmedReturnAddress) {
       navigation.navigate('search', { offer })
       return
@@ -135,11 +138,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOffer(getDefaultSellOffer())
     } else {
       setOffer(() => offr)
+      setOfferId(() => offr.id)
     }
   }, [route])
 
-  useEffect(offer.id ? getOfferDetailsEffect({
-    offerId: offer.id,
+  useEffect(getOfferDetailsEffect({
+    offerId,
     onSuccess: result => {
       saveAndUpdate({
         ...offer,
@@ -163,7 +167,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [offer.id])
+  }), [offerId])
 
   useEffect(() => {
     if (screens[page].id === 'search') {

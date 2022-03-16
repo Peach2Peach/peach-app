@@ -53,6 +53,7 @@
   "escrow.help.title": "Peach escrow",
   "escrow.help.description.intro": "The amount you send here consists of:",
   "escrow.help.description.1": "1. The amount of sats you’re selling",
+  "sell.returnAddress.subtitle": "Please provide a return address",
   "sell.returnAddress.useDepositAddress": "Use deposit address for returns",
   "lookForAMatch": "Look for a match!",
   "goBackHome": "Back home",

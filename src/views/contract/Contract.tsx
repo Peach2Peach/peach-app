@@ -92,6 +92,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
         return
       }
+
+      info('parsedResult.paymentData', parsedResult.paymentData)
       saveAndUpdate(parsedResult)
     },
     onError: err => updateMessage({

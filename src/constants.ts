@@ -19,6 +19,7 @@ type Timers = {
 
 // Time in ms
 export const TIMERS: Timers = {
+  none: 0,
   kycResponse: 1000 * 60 * 60 * 12,
   paymentMade: 1000 * 60 * 60 * 12,
   paymentConfirmed: 1000 * 60 * 60 * 12,
