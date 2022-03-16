@@ -109,7 +109,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
   const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
-  const [updatePending, setUpdatePending] = useState(!!offer.id)
+  const [updatePending, setUpdatePending] = useState(true)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -132,13 +132,16 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
 
-    setUpdatePending(!!offr.id)
 
     if (!route.params?.offer && account.settings.amount) {
       setOffer(getDefaultSellOffer())
+      setOfferId(() => undefined)
+      setUpdatePending(false)
+      setPage(0)
     } else {
       setOffer(() => offr)
       setOfferId(() => offr.id)
+      setUpdatePending(true)
     }
   }, [route])
 
