@@ -133,7 +133,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
 
 
-    if (!route.params?.offer && account.settings.amount) {
+    if (!route.params?.offer) {
       setOffer(getDefaultSellOffer())
       setOfferId(() => undefined)
       setUpdatePending(false)
