@@ -9,22 +9,22 @@ import * as bitcoin from 'bitcoinjs-lib'
 
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Card, paymentDetailTemplates, SatsFormat, Text, Title } from '../../components'
+import { Button, Loading, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
 import { error, info } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
 import { getContract, saveContract } from '../../utils/contract'
-import { getBitcoinContext } from '../../utils/bitcoin'
 import { account } from '../../utils/account'
 import { confirmPayment } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
 import { decrypt, verify } from '../../utils/pgp'
-import { msToTimer, thousands } from '../../utils/string'
+import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
 import { reverseBuffer } from '../../utils/crypto'
+import ContractDetails from './components/ContractDetails'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -35,20 +35,39 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+/**
+ * @description Method to determine start time for current timer
+ * @param contract contract
+ * @param requiredAction action required
+ * @returns start time of timer
+ */
+const getTimerStart = (contract: Contract, requiredAction: ContractAction): number => {
+  let start = contract.creationDate
+
+  if (requiredAction === 'kycResponse') {
+    start = contract.creationDate
+  } else if (requiredAction === 'paymentMade') {
+    start = contract.kycRequired && contract.kycResponseDate
+      ? contract.kycResponseDate
+      : contract.creationDate
+  } else if (requiredAction === 'paymentConfirmed' && contract.paymentMade) {
+    start = contract.paymentMade
+  }
+
+  return start.getTime()
+}
+
 // TODO check offer status (escrow, searching, matched, online/offline, what else?)
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-  const { currency } = getBitcoinContext()
 
+  const [updatePending, setUpdatePending] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
-  const [view, setView] = useState('')
-  const [timer, setTimer] = useState(0)
-  const [requiredAction, setRequiredAction] = useState('')
-
-  const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
+  const [view, setView] = useState<'seller'|'buyer'|''>('')
+  const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -74,7 +93,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         throw new Error('Signature of payment data could not be verified')
       }
     } catch (err) {
-      error(err)
+      error(err, response.paymentData)
       updateMessage({
         msg: i18n('error.invalidPaymentData'),
         level: 'ERROR',
@@ -136,32 +155,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else if (contract.paymentMade && !contract.paymentConfirmed) {
       setRequiredAction('paymentConfirmed')
     }
+    setUpdatePending(false)
   }, [contract])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!contract) return
-      const now = (new Date()).getTime()
-      let timeLeft = 0
-
-      if (requiredAction === 'kycResponse') {
-        timeLeft = TIMERS.kycResponse - (now - contract.creationDate.getTime())
-      } else if (requiredAction === 'paymentMade') {
-        const start = contract.kycRequired && contract.kycResponseDate
-          ? contract.kycResponseDate
-          : contract.creationDate
-        timeLeft = TIMERS.paymentMade - (now - start.getTime())
-      } else if (requiredAction === 'paymentConfirmed' && contract.paymentMade) {
-        timeLeft = TIMERS.paymentConfirmed - (now - contract.paymentMade.getTime())
-      }
-
-      setTimer(timeLeft > 0 ? timeLeft : 0)
-    }, 1000)
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [requiredAction])
 
   const postConfirmPaymentBuyer = async () => {
     if (!contract) return
@@ -217,101 +212,51 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
     saveAndUpdate({
       ...contract,
-      paymentConfirmed: new Date()
+      paymentConfirmed: new Date(),
+      releaseTxId: result?.txId || ''
     })
   }
 
-  return <ScrollView style={tw`pt-6`}>
-    <View style={tw`pb-32`}>
-      <Title
-        title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-        subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
-      />
-      {contract
-        ? <View style={tw`mt-16`}>
-          <View style={tw`flex-row justify-center`}>
-            <Text style={tw`font-baloo text-sm`}>{i18n(`contract.timer.${requiredAction}`)}</Text>
-            <Text style={tw`w-16 pl-1 font-baloo text-sm text-peach-1`}>{msToTimer(timer)}</Text>
-          </View>
-          <Card style={tw`p-4`}>
-            <View style={tw`flex-row`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>
-                {i18n(view === 'seller' ? 'buyer' : 'seller')}:
-              </Text>
-              {view === 'seller'
-                ? <Text style={tw`w-5/8`}>
-                  {contract.buyer.id.substring(0, 8)}
-                </Text>
-                : <Text style={tw`w-5/8`}>
-                  {contract.seller.id.substring(0, 8)}
-                </Text>
-              }
-            </View>
-            <View style={tw`flex-row mt-3`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('amount')}:</Text>
-              <Text style={tw`w-5/8`}>
-                <SatsFormat sats={contract.amount} color={tw`text-black-1`} />
-              </Text>
-            </View>
-            <View style={tw`flex-row mt-3`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('price')}:</Text>
-              <View style={tw`w-5/8`}>
-                <View>
-                  <Text>
-                    {i18n(
-                      `currency.format.${currency}`,
-                      contract.price.toFixed(2)
-                    )}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={tw`flex-row mt-3`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('currency')}:</Text>
-              <View style={tw`w-5/8`}>
-                <Text>{contract.currency}</Text>
-              </View>
-            </View>
-            <View style={tw`flex-row mt-3`}>
-              <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('payment')}:</Text>
-              <View style={tw`w-5/8`}>
-                <Text>{i18n(`paymentMethod.${contract.paymentMethod}`)}</Text>
-              </View>
-            </View>
-            {contract.paymentData && PaymentTo
-              ? <View style={tw`flex-row mt-3`}>
-                <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>{i18n('contract.payment.to')}:</Text>
-                <View style={tw`w-5/8`}>
-                  <PaymentTo paymentData={contract.paymentData}/>
-                </View>
-              </View>
+  return updatePending
+    ? <Loading />
+    : <ScrollView style={tw`pt-6`}>
+      <View style={tw`pb-32`}>
+        <Title
+          title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
+          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
+        />
+        {contract
+          ? <View style={tw`mt-16`}>
+            <Timer
+              text={i18n(`contract.timer.${requiredAction}`)}
+              start={getTimerStart(contract, requiredAction)}
+              duration={TIMERS[requiredAction]}
+            />
+            <ContractDetails contract={contract} view={view} />
+            <Button
+              style={tw`mt-4`}
+              title={i18n('chat')}
+              secondary={true}
+            />
+            {view === 'buyer' && requiredAction === 'paymentMade'
+              ? <Button
+                onPress={postConfirmPaymentBuyer}
+                style={tw`mt-2`}
+                title={i18n('contract.payment.made')}
+              />
               : null
             }
-          </Card>
-          <Button
-            style={tw`mt-4`}
-            title={i18n('chat')}
-            secondary={true}
-          />
-          {view === 'buyer' && requiredAction === 'paymentMade'
-            ? <Button
-              onPress={postConfirmPaymentBuyer}
-              style={tw`mt-2`}
-              title={i18n('contract.payment.made')}
-            />
-            : null
-          }
-          {view === 'seller' && requiredAction === 'paymentConfirmed'
-            ? <Button
-              onPress={postConfirmPaymentSeller}
-              style={tw`mt-2`}
-              title={i18n('contract.payment.received')}
-            />
-            : null
-          }
-        </View>
-        : null
-      }
-    </View>
-  </ScrollView>
+            {view === 'seller' && requiredAction === 'paymentConfirmed'
+              ? <Button
+                onPress={postConfirmPaymentSeller}
+                style={tw`mt-2`}
+                title={i18n('contract.payment.received')}
+              />
+              : null
+            }
+          </View>
+          : null
+        }
+      </View>
+    </ScrollView>
 }

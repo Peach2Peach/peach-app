@@ -100,6 +100,8 @@ declare type BuyOffer = Offer & {
   releaseAddress?: string,
 }
 
+declare type ContractAction = 'none' | 'kycResponse' | 'paymentMade' | 'paymentConfirmed'
+
 declare type Contract = {
   creationDate: Date,
   id: string,

@@ -13,8 +13,12 @@ export const BUCKETS = [
   5000000
 ]
 
+type Timers = {
+  [key in ContractAction]: number
+}
+
 // Time in ms
-export const TIMERS = {
+export const TIMERS: Timers = {
   kycResponse: 1000 * 60 * 60 * 12,
   paymentMade: 1000 * 60 * 60 * 12,
   paymentConfirmed: 1000 * 60 * 60 * 12,

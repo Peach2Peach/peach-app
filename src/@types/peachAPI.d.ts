@@ -110,3 +110,7 @@ declare type MatchResponse = {
 declare type GetContractResponse = Contract & {
   paymentData: string
 }
+declare type ConfirmPaymentResponse = {
+  success: true,
+  txId?: string,
+}

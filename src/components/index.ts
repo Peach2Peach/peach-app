@@ -27,6 +27,7 @@ export {
   SatsFormat,
   Text,
   TextLink,
+  Timer,
   Title,
 } from './text'
 

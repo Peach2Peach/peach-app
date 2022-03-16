@@ -40,7 +40,7 @@ type ConfirmPaymentProps = {
 export const confirmPayment = async ({
   contractId,
   releaseTransaction,
-}: ConfirmPaymentProps): Promise<[APISuccess|null, APIError|null]> => {
+}: ConfirmPaymentProps): Promise<[ConfirmPaymentResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment/confirm`, {
     headers: {
       Authorization: await getAccessToken(),
