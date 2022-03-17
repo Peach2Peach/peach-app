@@ -37,7 +37,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   }
 
   useEffect(() => {
-    if (!address && !offer.releaseAddress) return
+    if (!address && !offer.releaseAddress) {
+      setStepValid(false)
+      return
+    }
 
     setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
 

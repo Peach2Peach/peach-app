@@ -57,7 +57,7 @@ export const bitcoinContextEffect = (
     setBitcoinContext(await updateBitcoinContext(context.currency))
   }
   (async () => {
-    interval = setInterval(checkingFunction, 60 * 1000)
+    interval = setInterval(checkingFunction, 30 * 1000)
     checkingFunction()
   })()
   return () => {

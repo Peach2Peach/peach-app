@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
-import { SafeAreaView, View, Animated } from 'react-native'
+import { SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 import {
@@ -37,8 +37,9 @@ import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
+import TradeComplete from './views/tradeComplete/TradeComplete'
 
-// LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
+LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
 enableScreens()
 
@@ -58,6 +59,7 @@ const views: ViewType[] = [
   { name: 'sell', component: Sell },
   { name: 'search', component: Search },
   { name: 'contract', component: Contract },
+  { name: 'tradeComplete', component: TradeComplete },
   { name: 'refund', component: Refund },
   { name: 'offers', component: Offers },
   { name: 'settings', component: Settings },
@@ -73,6 +75,7 @@ const views: ViewType[] = [
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   const { password } = await initSession()
   if (password) await loadAccount(password)
+
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop
     await sleep(100)

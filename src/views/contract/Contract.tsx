@@ -5,15 +5,28 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
+import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Text } from '../../components'
+import { Button, Loading, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from './effects/getContractEffect'
-import { info } from '../../utils/log'
+import { error, info } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
-import { saveContract } from '../../utils/contract'
+import { getContract, saveContract } from '../../utils/contract'
+import { account } from '../../utils/account'
+import { confirmPayment } from '../../utils/peachAPI'
+import { getOffer } from '../../utils/offer'
+import { thousands } from '../../utils/string'
+import { TIMERS } from '../../constants'
+import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
+import ContractDetails from './components/ContractDetails'
+import Rate from './components/Rate'
+import { verifyPSBT } from './helpers/verifyPSBT'
+import { getTimerStart } from './helpers/getTimerStart'
+import { getPaymentDataBuyer, getPaymentDataSeller } from './helpers/parseContract'
+import { getRequiredAction } from './helpers/getRequiredAction'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -21,30 +34,46 @@ type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp;
+  navigation: ProfileScreenNavigationProp,
 }
 
-// TODO check offer status (escrow, searching, matched, online/offline, what else?)
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
+  const [updatePending, setUpdatePending] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract>()
+  const [contract, setContract] = useState<Contract|null>(getContract(contractId))
+  const [view, setView] = useState<'seller'|'buyer'|''>('')
+  const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
 
   const saveAndUpdate = (contractData: Contract) => {
+    if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
+
     setContract(() => contractData)
     saveContract(contractData)
   }
+
   useEffect(() => {
     setContractId(() => route.params.contractId)
   }, [route])
 
   useEffect(getContractEffect({
     contractId,
-    onSuccess: result => {
-      info('Got contract', result)
-      saveAndUpdate(result)
+    onSuccess: async (result) => {
+      // info('Got contract', result)
+
+      setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      saveAndUpdate(contract
+        ? {
+          ...contract,
+          ...result,
+          // canceled: contract.canceled
+        }
+        : result
+      )
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -52,30 +81,152 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId])
 
-  return <ScrollView>
-    <View style={tw`pb-32`}>
-      <Text style={tw`font-lato-bold text-center text-5xl leading-5xl`}>
-        Contract
-      </Text>
-      {contract
-        ? <View>
-          <Text style={tw`text-grey-2 mt-4`}>id: {contract.id}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>creationDate: {contract.creationDate}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>sellerId: {contract.sellerId}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>buyerId: {contract.buyerId}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>price: {contract.price}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>currency: {contract.currency}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>paymentMethod: {contract.paymentMethod}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>releaseAddress: {contract.releaseAddress}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>kycRequired: {contract.kycRequired}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>kycResponseDate: {contract.kycResponseDate}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>kycConfirmed: {contract.kycConfirmed}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>paymentConfirmed: {contract.paymentConfirmed}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>paymentMade: {contract.paymentMade}</Text>
-          <Text style={tw`text-grey-2 mt-4`}>disputeActive: {contract.disputeActive}</Text>
-        </View>
-        : null
+  useEffect(() => {
+    (async () => {
+      if (!contract || !view || contract.canceled) return
+
+      if ((view === 'seller' && contract?.ratingBuyer)
+        || (view === 'buyer' && contract?.ratingSeller)) {
+        navigation.navigate('tradeComplete', { contract, view })
+        return
       }
-    </View>
-  </ScrollView>
+
+      if (contract.paymentData) return
+
+      const [paymentData, err] = view === 'buyer'
+        ? await getPaymentDataBuyer(contract)
+        : await getPaymentDataSeller(contract)
+
+      if (err) error(err)
+      if (paymentData) {
+        // TODO if err is yielded consider open a disput directly
+        saveAndUpdate({
+          ...contract,
+          paymentData,
+          paymentDataError: err?.message || contract.paymentDataError,
+        })
+      }
+    })()
+
+    setRequiredAction(getRequiredAction(contract))
+
+    setUpdatePending(false)
+  }, [contract])
+
+  const postConfirmPaymentBuyer = async () => {
+    if (!contract) return
+
+    const [result, err] = await confirmPayment({ contractId: contract.id })
+
+    if (err) {
+      error(err.error)
+      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      return
+    }
+
+    saveAndUpdate({
+      ...contract,
+      paymentMade: new Date()
+    })
+  }
+
+  const postConfirmPaymentSeller = async () => {
+    if (!contract) return
+    setLoading(true)
+
+    const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
+    if (!sellOffer.id || !sellOffer?.funding) return
+
+    const psbt = bitcoin.Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
+
+    // Don't trust the response, verify
+    const errorMsg = verifyPSBT(psbt, sellOffer, contract)
+
+    if (errorMsg.length) {
+      setLoading(false)
+      updateMessage({
+        msg: errorMsg.join('\n'),
+        level: 'WARN',
+      })
+      return
+    }
+
+    // Sign psbt
+    psbt.signInput(0, getEscrowWallet(sellOffer.id))
+
+    const tx = psbt
+      .finalizeInput(0, getFinalScript)
+      .extractTransaction()
+      .toHex()
+
+    const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
+
+    setLoading(false)
+
+    if (err) {
+      error(err.error)
+      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      return
+    }
+
+    saveAndUpdate({
+      ...contract,
+      paymentConfirmed: new Date(),
+      releaseTxId: result?.txId || ''
+    })
+  }
+
+  return updatePending
+    ? <Loading />
+    : <ScrollView style={tw`pt-6`}>
+      <View style={tw`pb-32`}>
+        <Title
+          title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
+          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
+        />
+        {contract && !contract.paymentConfirmed
+          ? <View style={tw`mt-16`}>
+            {requiredAction !== 'none'
+              ? <Timer
+                text={i18n(`contract.timer.${requiredAction}`)}
+                start={getTimerStart(contract, requiredAction)}
+                duration={TIMERS[requiredAction]}
+              />
+              : null
+            }
+            <ContractDetails contract={contract} view={view} />
+            <Button
+              style={tw`mt-4`}
+              title={i18n('chat')}
+              secondary={true}
+            />
+            {view === 'buyer' && requiredAction === 'paymentMade'
+              ? <Button
+                disabled={loading}
+                onPress={postConfirmPaymentBuyer}
+                style={tw`mt-2`}
+                title={i18n('contract.payment.made')}
+              />
+              : null
+            }
+            {view === 'seller' && requiredAction === 'paymentConfirmed'
+              ? <Button
+                disabled={loading}
+                onPress={postConfirmPaymentSeller}
+                style={tw`mt-2`}
+                title={i18n('contract.payment.received')}
+              />
+              : null
+            }
+          </View>
+          : null
+        }
+        {contract && contract.paymentConfirmed
+          ? <View style={tw`mt-16`}>
+            <Rate contract={contract} view={view} navigation={navigation} saveAndUpdate={saveAndUpdate} />
+          </View>
+          : null
+        }
+      </View>
+    </ScrollView>
 }

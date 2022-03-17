@@ -19,6 +19,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { MessageContext } from '../../utils/message'
 import Icon from '../../components/Icon'
 import { error } from '../../utils/log'
+import { setPGP } from '../../utils/peachAPI'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -27,9 +28,12 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+
+// TODO add loading animation on submit
 export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [isPristine, setIsPristine] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -54,11 +58,15 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
-  const onSuccess = () => {
+  const onSuccess = async () => {
+    saveAccount(account, password)
+    await setPGP(account.pgp)
+    setLoading(false)
     navigation.navigate('tutorial')
   }
 
   const onError = (e: string) => {
+    setLoading(false)
     error('Error', e)
     updateMessage({
       msg: i18n('error.createAccount'),
@@ -74,9 +82,9 @@ export default ({ navigation }: Props): ReactElement => {
       }
     })
     setIsPristine(false)
+    setLoading(true)
     if (isValid) {
       createAccount({ password, onSuccess, onError })
-      saveAccount(account, password)
     }
   }
 
@@ -115,6 +123,7 @@ export default ({ navigation }: Props): ReactElement => {
             </Pressable>
             <Button
               onPress={submit}
+              disabled={loading}
               wide={false}
               title={i18n('createAccount')}
             />

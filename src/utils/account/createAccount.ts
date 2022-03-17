@@ -1,3 +1,4 @@
+import OpenPGP from 'react-native-fast-openpgp'
 import { defaultAccount, setAccount } from '.'
 import { info } from '../log'
 import { setSession } from '../session'
@@ -24,6 +25,7 @@ export const createAccount = async ({
   info('Create account')
   const { wallet, mnemonic } = await createWallet() // TODO add error handling
   const firstAddress = getMainAddress(wallet)
+  const recipient = await OpenPGP.generate({})
 
   await setSession({ password })
   await setAccount({
@@ -31,6 +33,10 @@ export const createAccount = async ({
     publicKey: firstAddress.publicKey.toString('hex'),
     privKey: (wallet.privateKey as Buffer).toString('hex'),
     mnemonic,
+    pgp: {
+      privateKey: recipient.privateKey,
+      publicKey: recipient.publicKey
+    }
   })
 
   onSuccess()

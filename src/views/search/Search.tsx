@@ -22,6 +22,7 @@ import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../utils/overlay'
 import { cancelOffer } from '../../utils/peachAPI'
+import { signAndEncrypt } from '../../utils/pgp'
 import ConfirmCancelTrade from './components/ConfirmCancelTrade'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
@@ -41,15 +42,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
+  const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
 
   const [matches, setMatches] = useState<Match[]>([])
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
     setOffer(offerData)
+    setOfferId(offerData.id)
     saveOffer(offerData)
   }
 
+  // eslint-disable-next-line max-statements
   const toggleMatch = async (match: Match) => {
     let result: any
     let err
@@ -57,11 +61,32 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!offer.id) return
 
     if (!match.matched) {
+      let encryptedResult
+
+      if (offer.type === 'ask') {
+        const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
+        if (!paymentData) {
+          error('Error', err)
+          // TODO show payment Data form again
+          updateMessage({
+            msg: i18n('search.error.paymentDataMissing'),
+            level: 'ERROR',
+          })
+          return
+        }
+        delete paymentData.selected
+        encryptedResult = await signAndEncrypt(
+          JSON.stringify(paymentData),
+          match.user.pgpPublicKey
+        )
+      }
       [result, err] = await matchOffer({
         offerId: offer.id,
         matchingOfferId: match.offerId,
         currency: Object.keys(match.prices)[0] as Currency,
         paymentMethod: match.paymentMethods[0],
+        paymentDataEncrypted: encryptedResult?.encrypted,
+        paymentDataSignature: encryptedResult?.signature,
       })
     } else if (offer.type === 'bid') {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
@@ -119,6 +144,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     setOffer(route.params.offer)
+    setOfferId(route.params.offer.id)
     setUpdatePending(() => true)
   }, [route])
 
@@ -130,13 +156,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
 
-  useEffect(offer.id ? getOfferDetailsEffect({
-    offerId: offer.id,
+  useEffect(getOfferDetailsEffect({
+    offerId,
+    interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
       saveAndUpdate({
         ...offer,
         ...result,
       })
+
+      if (result.contractId) {
+        navigation.navigate('contract', { contractId: result.contractId })
+      }
       setUpdatePending(() => false)
     },
     onError: err => {
@@ -146,7 +177,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [offer.id])
+  }), [offerId])
 
   useEffect(!updatePending ? searchForPeersEffect({
     offer,
@@ -212,7 +243,13 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
             </View>
           </View>
-          : null
+          : <View style={tw`flex items-center mt-6`}>
+            <Button
+              title={i18n('goBackHome')}
+              wide={false}
+              onPress={() => navigation.navigate('home', {})}
+            />
+          </View>
         }
         <Pressable style={tw`mt-4`} onPress={cancelTrade}>
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>

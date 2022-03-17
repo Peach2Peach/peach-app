@@ -8,6 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import OpenPGP from 'react-native-fast-openpgp'
 import { Button, Text, Input } from '../../components'
+import { account } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'pgpTest'>
 type Props = {
@@ -17,25 +18,18 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('The message')
   const [encryptedMessage, setEncryptedMessage] = useState('')
   const [decryptedMessage, setDecryptedMessage] = useState('')
-  const [privateKey, setPrivateKey] = useState('')
-  const [publicKey, setPublicKey] = useState('')
-
-  const getKeys = async () => {
-    setIsLoading(true)
-    const recipient = await OpenPGP.generate({})
-    setPrivateKey(recipient.privateKey)
-    setPublicKey(recipient.publicKey)
-    setIsLoading(false)
-  }
+  const [signedMessage, setSignedMessage] = useState('')
+  const { privateKey, publicKey } = account.pgp
 
   const encryptMessage = async () => {
     const encrypted = await OpenPGP.encrypt(message, publicKey)
+    const signed = await OpenPGP.sign(encrypted, publicKey, privateKey, '')
 
     setEncryptedMessage(encrypted)
+    setSignedMessage(signed)
   }
 
   const decryptMessage = async () => {
@@ -46,10 +40,6 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <ScrollView>
     <View style={tw`pb-32 flex-col justify-center h-full px-4`}>
-      <View style={tw`mt-4`}>
-        <Button onPress={getKeys} title={isLoading ? 'Generating...' : '1. Get Keys'}/>
-      </View>
-
       {privateKey
         ? <Text style={tw`h-32 mt-4 text-xs`}>
           {privateKey}
@@ -78,8 +68,14 @@ export default ({ navigation }: Props): ReactElement => {
       </View>
 
       {encryptedMessage
-        ? <Text style={tw`h-32 mt-4 text-xs`}>
+        ? <Text style={tw`mt-4 text-xs`}>
           {encryptedMessage}
+        </Text>
+        : null
+      }
+      {signedMessage
+        ? <Text style={tw`mt-4 text-xs`}>
+          {signedMessage}
         </Text>
         : null
       }
@@ -88,7 +84,7 @@ export default ({ navigation }: Props): ReactElement => {
         <Button onPress={decryptMessage} title="4. Decrypt Message"/>
       </View>
       {decryptedMessage
-        ? <Text style={tw`h-32 mt-4 text-xs`}>
+        ? <Text style={tw`mt-4 text-xs`}>
           {decryptedMessage}
         </Text>
         : null

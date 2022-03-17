@@ -4,6 +4,10 @@ declare type AccessToken = {
   accessToken: string
 }
 
+declare type APISuccess = {
+  success: true
+}
+
 declare type APIError = {
   error: string
 }
@@ -104,3 +108,7 @@ declare type MatchResponse = {
   contractId?: string,
 }
 declare type GetContractResponse = Contract
+declare type ConfirmPaymentResponse = {
+  success: true,
+  txId?: string,
+}

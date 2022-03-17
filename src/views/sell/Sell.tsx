@@ -43,22 +43,23 @@ export type SellViewProps = {
   navigation: ProfileScreenNavigationProp,
 }
 
-export const defaultSellOffer: SellOffer = {
+const getDefaultSellOffer = (): SellOffer => ({
   type: 'ask',
   creationDate: new Date(),
   published: false,
-  premium: 1.5,
-  currencies: [],
-  paymentData: [],
+  premium: account.settings.premium || 1.5,
+  currencies: account.settings.currencies || [],
+  paymentData: account.paymentData || [],
   paymentMethods: [],
-  hashedPaymentData: '',
   amount: account.settings.amount || BUCKETS[0],
-  kyc: false,
+  kyc: account.settings.kyc || false,
+  kycType: account.settings.kycType || 'iban',
   matches: [],
   doubleMatched: false,
   refunded: false,
   released: false,
-}
+})
+
 type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
 
 const screens = [
@@ -105,9 +106,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(route.params?.offer || defaultSellOffer)
+  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
+  const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
-  const [updatePending, setUpdatePending] = useState(!!offer.id)
+  const [updatePending, setUpdatePending] = useState(true)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -117,23 +119,34 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: SellOffer) => {
     setOffer(() => offerData)
+    setOfferId(() => offerData.id)
     saveOffer(offerData)
   }
 
   useEffect(() => {
-    const offr = route.params?.offer || defaultSellOffer
+    const offr = route.params?.offer || getDefaultSellOffer()
 
+    setOfferId(undefined)
     if (offr.confirmedReturnAddress) {
       navigation.navigate('search', { offer })
       return
     }
 
-    setUpdatePending(!!offr.id)
-    setOffer(() => offr)
+
+    if (!route.params?.offer) {
+      setOffer(getDefaultSellOffer())
+      setOfferId(() => undefined)
+      setUpdatePending(false)
+      setPage(0)
+    } else {
+      setOffer(() => offr)
+      setOfferId(() => offr.id)
+      setUpdatePending(true)
+    }
   }, [route])
 
-  useEffect(offer.id ? getOfferDetailsEffect({
-    offerId: offer.id,
+  useEffect(getOfferDetailsEffect({
+    offerId,
     onSuccess: result => {
       saveAndUpdate({
         ...offer,
@@ -157,7 +170,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [route, offer.id])
+  }), [offerId])
 
   useEffect(() => {
     if (screens[page].id === 'search') {
@@ -203,7 +216,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ? <View style={tw`mb-8`}>
             <Navigation
               screen={currentScreen.id}
-              back={back} next={next} navigation={navigation}
+              back={back} next={next}
               stepValid={stepValid} />
           </View>
           : null
@@ -213,7 +226,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     {!scrollable && !updatePending
       ? <Navigation
         screen={currentScreen.id}
-        back={back} next={next} navigation={navigation}
+        back={back} next={next}
         stepValid={stepValid} />
       : null
     }

@@ -1,4 +1,8 @@
-type Settings = {
+declare type AnyObject = {
+  [key: string]: any
+}
+
+declare type Settings = {
   skipTutorial?: boolean,
   amount?: number,
   currencies?: Currency[],
@@ -8,14 +12,34 @@ type Settings = {
   kycType?: KYCType,
 }
 
+declare type PGPKeychain = {
+  privateKey: string,
+  publicKey: string,
+}
+
 declare type Account = {
   publicKey?: string,
   privKey?: string,
   mnemonic?: string,
+  pgp: PGPKeychain,
   settings: Settings,
   paymentData: PaymentData[],
   offers: (SellOffer|BuyOffer)[],
   contracts: Contract[],
+}
+
+declare type Rating = {
+  rating: -1 | 1,
+  signature: string,
+  ratedBy: User.id,
+}
+declare type User = {
+  id: string,
+  creationDate: Date,
+  rating: number|null,
+  ratingCount: number,
+  pgpPublicKey: string,
+  pgpPublicKeyProof: string,
 }
 
 declare type MessageState = {
@@ -64,7 +88,6 @@ declare type SellOffer = Offer & {
   type: 'ask',
   premium: number,
   paymentData: PaymentData[],
-  hashedPaymentData: string,
   kycType?: KYCType,
   depositAddress?: string,
   returnAddress?: string,
@@ -82,16 +105,22 @@ declare type BuyOffer = Offer & {
   releaseAddress?: string,
 }
 
+declare type ContractAction = 'none' | 'kycResponse' | 'paymentMade' | 'paymentConfirmed'
+
 declare type Contract = {
   creationDate: Date,
   id: string,
-  sellerId: string,
-  buyerId: string,
+  seller: User,
+  buyer: User,
 
   amount: number,
   currency: Currency,
   price: number,
   paymentMethod: PaymentMethod,
+  paymentDataEncrypted?: string,
+  paymentData?: PaymentData,
+  paymentDataSignature?: string,
+  paymentDataError?: string,
 
   kycRequired: boolean,
   kycType?: KYCType,
@@ -102,8 +131,14 @@ declare type Contract = {
   paymentConfirmed: Date|null,
 
   releaseAddress: string,
+  releaseTransaction: string,
+  releaseTxId?: string,
 
-  disputeActive: boolean
+  ratingBuyer?: Rating,
+  ratingSeller?: Rating,
+
+  disputeActive: boolean,
+  canceled: boolean,
 }
 
 declare type PeachWallet = {

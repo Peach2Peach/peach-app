@@ -1,11 +1,15 @@
 import { setPeachAccount } from '../peachAPI'
-import { createWallet, getWallet, setWallet } from '../wallet'
+import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 
 export const defaultAccount: Account = {
   settings: {},
   paymentData: [],
   offers: [],
   contracts: [],
+  pgp: {
+    privateKey: '',
+    publicKey: '',
+  }
 }
 
 export let account = defaultAccount
@@ -24,5 +28,7 @@ export const setAccount = async (acc: Account) => {
   }
 
   setWallet((await createWallet(account.mnemonic)).wallet) // TODO add error handling
-  setPeachAccount(getWallet())
+
+  const firstAddress = getMainAddress(wallet)
+  setPeachAccount(firstAddress)
 }
