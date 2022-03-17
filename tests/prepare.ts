@@ -1,10 +1,22 @@
 export {}
 
+import * as accountData from './data/accountData'
+
+
 jest.mock('react-native-screens', () => {
   const actual = jest.requireActual('react-native-screens')
   return {
     ...actual,
     enableScreens: jest.fn()
+  }
+})
+
+
+jest.mock('react-native-fast-openpgp', () => {
+  const actual = jest.requireActual('react-native-fast-openpgp')
+  return {
+    ...actual,
+    generate: () => accountData.account1.pgp
   }
 })
 

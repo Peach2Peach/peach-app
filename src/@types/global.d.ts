@@ -132,10 +132,10 @@ declare type Contract = {
 
   releaseAddress: string,
   releaseTransaction: string,
-  releaseTxId: string,
+  releaseTxId?: string,
 
-  ratingBuyer: Rating,
-  ratingSeller: Rating,
+  ratingBuyer?: Rating,
+  ratingSeller?: Rating,
 
   disputeActive: boolean,
   canceled: boolean,

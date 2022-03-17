@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Text } from '../../components'
-import { backupAccount, deleteAccount } from '../../utils/account'
+import { account, backupAccount, deleteAccount } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -50,6 +50,13 @@ export default ({ navigation }: Props): ReactElement => {
           secondary={true}
           onPress={() => navigation.goBack()}
           title="Back"
+        />
+      </View>
+      <View style={tw`mt-4`}>
+        <Button
+          secondary={true}
+          onPress={() => console.log(JSON.stringify(account))}
+          title="Data Dump"
         />
       </View>
     </View>
