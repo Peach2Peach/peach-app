@@ -53,6 +53,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
+  // eslint-disable-next-line max-statements
   const toggleMatch = async (match: Match) => {
     let result: any
     let err
@@ -64,6 +65,16 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (offer.type === 'ask') {
         const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
+        if (!paymentData) {
+          error('Error', err)
+          // TODO show payment Data form again
+          updateMessage({
+            msg: i18n('search.error.paymentDataMissing'),
+            level: 'ERROR',
+          })
+          return
+        }
+        delete paymentData.selected
         encryptedResult = await signAndEncrypt(
           JSON.stringify(paymentData),
           match.user.pgpPublicKey
