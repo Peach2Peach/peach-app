@@ -136,7 +136,8 @@ declare type Contract = {
   ratingBuyer: Rating,
   ratingSeller: Rating,
 
-  disputeActive: boolean
+  disputeActive: boolean,
+  canceled: boolean,
 }
 
 declare type PeachWallet = {

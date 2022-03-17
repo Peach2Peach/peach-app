@@ -37,7 +37,6 @@ type Props = {
   navigation: ProfileScreenNavigationProp,
 }
 
-// TODO check offer status (escrow, searching, matched, online/offline, what else?)
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
@@ -185,11 +184,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         />
         {contract && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
-            <Timer
-              text={i18n(`contract.timer.${requiredAction}`)}
-              start={getTimerStart(contract, requiredAction)}
-              duration={TIMERS[requiredAction]}
-            />
+            {requiredAction !== 'none'
+              ? <Timer
+                text={i18n(`contract.timer.${requiredAction}`)}
+                start={getTimerStart(contract, requiredAction)}
+                duration={TIMERS[requiredAction]}
+              />
+              : null
+            }
             <ContractDetails contract={contract} view={view} />
             <Button
               style={tw`mt-4`}

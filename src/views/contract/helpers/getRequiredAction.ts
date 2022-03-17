@@ -4,7 +4,7 @@
  * @returns required action on contract
  */
 export const getRequiredAction = (contract: Contract|null): ContractAction => {
-  if (!contract) return 'none'
+  if (!contract || contract.canceled) return 'none'
 
   if (contract.kycRequired && !contract.kycConfirmed) {
     return 'kycResponse'

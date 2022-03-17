@@ -14,7 +14,14 @@ type ContractDetailsProps = {
 export default ({ contract, view }: ContractDetailsProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
 
-  return <Card style={tw`p-4`}>
+  return <Card style={[
+    tw`p-4`,
+    contract.canceled ? tw`opacity-50` : {}
+  ]}>
+    {contract.canceled
+      ? <Text style={tw`text-red`}>Canceled</Text>
+      : null
+    }
     <View style={tw`flex-row`}>
       <Text style={tw`font-baloo text-lg text-peach-1 w-3/8`}>
         {i18n(view === 'seller' ? 'buyer' : 'seller')}:
