@@ -66,7 +66,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
-      saveAndUpdate(contract ? { ...contract, ...result } : result)
+      saveAndUpdate(contract
+        ? {
+          ...contract,
+          ...result,
+          // canceled: contract.canceled
+        }
+        : result
+      )
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -76,7 +83,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     (async () => {
-      if (!contract || !view) return
+      if (!contract || !view || contract.canceled) return
 
       if ((view === 'seller' && contract?.ratingBuyer)
         || (view === 'buyer' && contract?.ratingSeller)) {
@@ -90,18 +97,13 @@ export default ({ route, navigation }: Props): ReactElement => {
         ? await getPaymentDataBuyer(contract)
         : await getPaymentDataSeller(contract)
 
-      if (err) {
-        error(err)
-        updateMessage({
-          msg: i18n('error.invalidPaymentData'),
-          level: 'ERROR',
-        })
-        return
-      }
+      if (err) error(err)
       if (paymentData) {
+        // TODO if err is yielded consider open a disput directly
         saveAndUpdate({
           ...contract,
-          paymentData
+          paymentData,
+          paymentDataError: err?.message || contract.paymentDataError,
         })
       }
     })()

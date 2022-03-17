@@ -11,6 +11,7 @@ type ContractDetailsProps = {
   view: 'seller' | 'buyer' | ''
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ contract, view }: ContractDetailsProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
 
@@ -19,7 +20,15 @@ export default ({ contract, view }: ContractDetailsProps): ReactElement => {
     contract.canceled ? tw`opacity-50` : {}
   ]}>
     {contract.canceled
-      ? <Text style={tw`text-red`}>Canceled</Text>
+      ? <Text style={tw`text-red text-center font-baloo mb-4`}>
+        {i18n('contract.canceled')}
+      </Text>
+      : null
+    }
+    {contract.paymentDataError
+      ? <Text style={tw`text-red text-center mb-4`}>
+        {i18n(`contract.error.${contract.paymentDataError}`)}
+      </Text>
       : null
     }
     <View style={tw`flex-row`}>
