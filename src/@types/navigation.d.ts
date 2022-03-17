@@ -16,6 +16,7 @@ declare type RootStackParamList = {
     contractId: string,
   },
   tradeComplete: {
+    contract: Contract,
     view: 'buyer' | 'seller' | '',
   },
   refund: {

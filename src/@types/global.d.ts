@@ -28,6 +28,11 @@ declare type Account = {
   contracts: Contract[],
 }
 
+declare type Rating = {
+  rating: -1 | 1,
+  signature: string,
+  ratedBy: User.id,
+}
 declare type User = {
   id: string,
   creationDate: Date,
@@ -127,6 +132,9 @@ declare type Contract = {
   releaseAddress: string,
   releaseTransaction: string,
   releaseTxId: string,
+
+  ratingBuyer: Rating,
+  ratingSeller: Rating,
 
   disputeActive: boolean
 }

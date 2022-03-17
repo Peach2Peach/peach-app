@@ -8,7 +8,6 @@ type GetContractEffectProps = {
   onError: (error: APIError) => void,
 }
 
-// TODO set interval?
 export default ({
   contractId,
   onSuccess,

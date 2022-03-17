@@ -77,7 +77,15 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     (async () => {
-      if (!contract || contract.paymentData || !view) return
+      if (!contract || !view) return
+
+      if ((view === 'seller' && contract?.ratingBuyer)
+        || (view === 'buyer' && contract?.ratingSeller)) {
+        navigation.navigate('tradeComplete', { contract, view })
+        return
+      }
+
+      if (contract.paymentData) return
 
       const [paymentData, err] = view === 'buyer'
         ? await getPaymentDataBuyer(contract)
@@ -211,7 +219,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
         {contract && contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
-            <Rate contract={contract} view={view} navigation={navigation} />
+            <Rate contract={contract} view={view} navigation={navigation} saveAndUpdate={saveAndUpdate} />
           </View>
           : null
         }

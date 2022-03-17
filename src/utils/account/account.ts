@@ -1,5 +1,5 @@
 import { setPeachAccount } from '../peachAPI'
-import { createWallet, getMainAddress, getWallet, setWallet, wallet } from '../wallet'
+import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 
 export const defaultAccount: Account = {
   settings: {},

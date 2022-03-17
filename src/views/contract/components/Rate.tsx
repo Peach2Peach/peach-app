@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native'
 import { Button, Card, Headline, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
+import { rateUser } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
@@ -12,16 +13,30 @@ type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'cont
 type RateProps = {
   contract: Contract,
   view: 'seller' | 'buyer' | ''
-  navigation: ProfileScreenNavigationProp
+  navigation: ProfileScreenNavigationProp,
+  saveAndUpdate: (contract: Contract) => void
 }
 
-export default ({ contract, view, navigation }: RateProps): ReactElement => {
+export default ({ contract, view, navigation, saveAndUpdate }: RateProps): ReactElement => {
   const [vote, setVote] = useState('')
 
   const rate = () => {
     // const user = view === 'buyer' ? contract.seller : contract.buyer
     // TODO add calling endpoint to rate user.id
-    navigation.navigate('tradeComplete', { view })
+    if (!view) return
+
+    const rating = rateUser(
+      view === 'seller' ? contract.buyer.id : contract.seller.id,
+      vote === 'positive' ? 1 : -1
+    )
+    const ratedUser = view === 'seller' ? 'ratingBuyer' : 'ratingSeller'
+
+    saveAndUpdate({
+      ...contract,
+      [ratedUser]: rating
+    })
+
+    navigation.navigate('tradeComplete', { contract, view })
   }
   return <View>
     <Card style={tw`p-4`}>
