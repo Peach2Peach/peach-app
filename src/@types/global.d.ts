@@ -29,15 +29,17 @@ declare type Account = {
 }
 
 declare type Rating = {
+  creationDate: Date,
   rating: -1 | 1,
-  signature: string,
   ratedBy: User.id,
+  signature: string,
 }
 declare type User = {
   id: string,
   creationDate: Date,
   rating: number|null,
   ratingCount: number,
+  ratings?: Rating[],
   pgpPublicKey: string,
   pgpPublicKeyProof: string,
 }
@@ -134,11 +136,11 @@ declare type Contract = {
   releaseTransaction: string,
   releaseTxId?: string,
 
-  ratingBuyer?: Rating,
-  ratingSeller?: Rating,
-
   disputeActive: boolean,
   canceled: boolean,
+
+  ratingBuyer: boolean,
+  ratingSeller: boolean,
 }
 
 declare type PeachWallet = {
