@@ -27,7 +27,7 @@ export const setAccount = async (acc: Account) => {
     ...acc
   }
 
-  setWallet((await createWallet(account.mnemonic)).wallet) // TODO add error handling
+  setWallet((await createWallet(account.mnemonic)).wallet)
 
   const firstAddress = getMainAddress(wallet)
   setPeachAccount(firstAddress)

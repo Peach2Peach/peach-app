@@ -23,7 +23,7 @@ export const createAccount = async ({
   onError
 }: CreateAccountProps): Promise<void> => {
   info('Create account')
-  const { wallet, mnemonic } = await createWallet() // TODO add error handling
+  const { wallet, mnemonic } = await createWallet()
   const firstAddress = getMainAddress(wallet)
   const recipient = await OpenPGP.generate({})
 
