@@ -55,6 +55,7 @@ export default ({ navigation }: Props): ReactElement => {
       <View style={tw`mt-4`}>
         <Button
           secondary={true}
+          // eslint-disable-next-line no-console
           onPress={() => console.log(JSON.stringify(account))}
           title="Data Dump"
         />
