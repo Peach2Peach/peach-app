@@ -38,6 +38,8 @@ import Contract from './views/contract/Contract'
 import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
+import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
+import { error } from './utils/log'
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
@@ -91,6 +93,7 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
+// eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
@@ -102,6 +105,16 @@ const App: React.FC = () => {
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState('home')
+
+  ErrorUtils.setGlobalHandler((err: Error) => {
+    error(err)
+    updateMessage({ msg: i18n((err as Error).message || 'error.general'), level: 'ERROR' })
+  })
+
+  setUnhandledPromiseRejectionTracker((id, err) => {
+    error(err)
+    updateMessage({ msg: i18n((err as Error).message || 'error.general'), level: 'ERROR' })
+  })
 
   useEffect(showMessageEffect(msg, width, slideInAnim), [msg, time])
   useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])

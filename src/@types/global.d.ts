@@ -1,3 +1,13 @@
+interface Global {
+  ErrorUtils: {
+    setGlobalHandler: any
+    reportFatalError: any
+    getGlobalHandler: any
+  }
+}
+
+declare const global: Global
+
 declare type AnyObject = {
   [key: string]: any
 }
