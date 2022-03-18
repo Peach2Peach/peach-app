@@ -37,8 +37,10 @@ declare type Rating = {
 declare type User = {
   id: string,
   creationDate: Date,
-  rating: number|null,
+  rating: number,
+  userRating: number,
   ratingCount: number,
+  peachRating: number,
   ratings?: Rating[],
   pgpPublicKey: string,
   pgpPublicKeyProof: string,
