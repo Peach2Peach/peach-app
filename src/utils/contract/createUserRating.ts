@@ -10,13 +10,14 @@ import { getMainAddress, wallet } from '../wallet'
  * @param rating the rating
  * @returns User Rating
  */
-export const rateUser = (userId: User['id'], rating: Rating['rating']): Rating => {
+export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
   const keyPair = getPeachAccount() || getMainAddress(wallet)
   const signature = keyPair.sign(bitcoin.crypto.sha256(Buffer.from(userId))).toString('hex')
 
   return {
+    creationDate: new Date(),
     rating,
+    ratedBy: account.publicKey,
     signature,
-    ratedBy: account.publicKey
   }
 }

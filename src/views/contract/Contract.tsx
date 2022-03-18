@@ -87,6 +87,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if ((view === 'seller' && contract?.ratingBuyer)
         || (view === 'buyer' && contract?.ratingSeller)) {
+        setContractId('')
         navigation.navigate('tradeComplete', { contract, view })
         return
       }

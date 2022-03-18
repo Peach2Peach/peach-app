@@ -1,12 +1,14 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Button, Card, Headline, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
-import { rateUser } from '../../../utils/contract'
+import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
+import { MessageContext } from '../../../utils/message'
+import { rateUser } from '../../../utils/peachAPI'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -19,21 +21,30 @@ type RateProps = {
 
 export default ({ contract, view, navigation, saveAndUpdate }: RateProps): ReactElement => {
   const [vote, setVote] = useState('')
+  const [, updateMessage] = useContext(MessageContext)
 
-  const rate = () => {
-    // const user = view === 'buyer' ? contract.seller : contract.buyer
-    // TODO add calling endpoint to rate user.id
+  const rate = async () => {
     if (!view) return
 
-    const rating = rateUser(
+    const rating = createUserRating(
       view === 'seller' ? contract.buyer.id : contract.seller.id,
       vote === 'positive' ? 1 : -1
     )
     const ratedUser = view === 'seller' ? 'ratingBuyer' : 'ratingSeller'
 
+    const [result, err] = await rateUser({
+      contractId: contract.id,
+      rating: rating.rating,
+      signature: rating.signature
+    })
+
+    if (err) {
+      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      return
+    }
     saveAndUpdate({
       ...contract,
-      [ratedUser]: rating
+      [ratedUser]: true
     })
 
     navigation.navigate('tradeComplete', { contract, view })

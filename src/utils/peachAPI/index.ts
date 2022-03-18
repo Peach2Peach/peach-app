@@ -63,4 +63,5 @@ export {
 export {
   getContract,
   confirmPayment,
+  rateUser,
 } from './private/contract'

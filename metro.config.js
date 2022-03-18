@@ -11,6 +11,7 @@ module.exports = (async () => {
     resolver: { sourceExts, assetExts },
   } = await getDefaultConfig()
   return {
+    resetCache: true,
     transformer: {
       server: {
         port: 8081,
