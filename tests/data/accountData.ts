@@ -136,4 +136,6 @@ export const contract: Contract = {
   releaseAddress: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
   releaseTransaction: 'rawtransaction',
   canceled: false,
+  ratingBuyer: false,
+  ratingSeller: false,
 }
