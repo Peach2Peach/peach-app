@@ -134,6 +134,7 @@
   "contract.payment.made": "Payment made",
   "contract.payment.received": "Payment received",
   "contract.canceled": "Contract has been canceled",
+  "contract.error.NO_PAYMENTDATA": "No payment data has been received from the seller. Please contract the peach support team.",
   "contract.error.INVALID_PAYMENTDATA": "The payment data received from the seller is invalid!",
   "contract.error.INVALID_SIGNATURE": "The payment data received from the seller could not be verified.\nProceed with caution!",
   "rate.title": "Trade complete",
