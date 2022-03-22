@@ -199,6 +199,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         saveAndUpdate({
           ...offer,
           funding: result.funding,
+          // TODO this should not be necessary after updating sell offer order
           returnAddress: result.returnAddress,
           depositAddress: offer.depositAddress || result.returnAddress,
         })
