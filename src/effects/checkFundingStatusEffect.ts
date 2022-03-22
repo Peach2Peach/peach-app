@@ -1,6 +1,6 @@
 import { EffectCallback } from 'react'
-import { error, info } from '../../../utils/log'
-import { getFundingStatus } from '../../../utils/peachAPI'
+import { error, info } from '../utils/log'
+import { getFundingStatus } from '../utils/peachAPI'
 
 type CheckFundingStatusEffectProps = {
   offer: SellOffer,
