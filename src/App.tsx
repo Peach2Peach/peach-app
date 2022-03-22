@@ -40,6 +40,8 @@ import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { error } from './utils/log'
+import { setPeachFee } from './constants'
+import { getInfo } from './utils/peachAPI'
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
@@ -77,6 +79,12 @@ const views: ViewType[] = [
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   const { password } = await initSession()
   if (password) await loadAccount(password)
+
+  const [peachInfo, err] = await getInfo()
+
+  if (peachInfo) {
+    setPeachFee(peachInfo.fees.escrow)
+  }
 
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop

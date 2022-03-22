@@ -49,6 +49,7 @@ export const parseResponse = async <T>(
   }
 }
 
+export { getStatus, getInfo } from './public/system'
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { auth, getAccessToken, setPGP } from './private/user'
