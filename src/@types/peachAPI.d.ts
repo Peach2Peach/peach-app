@@ -36,6 +36,18 @@ declare type FundingStatus = {
   amount: number
 }
 
+declare type GetStatusResponse = {
+  error: null, // TODO there will be error codes,
+  status: 'online', // TODO there will be other stati
+  date: string,
+}
+
+declare type GetInfoResponse = {
+  fees: {
+    escrow: number,
+  }
+}
+
 declare type GetTxResponse = Transaction
 declare type PostTxResponse = {
   txId: string,

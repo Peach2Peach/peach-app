@@ -18,7 +18,7 @@ import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/log'
-import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
+import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../utils/overlay'
 import { cancelOffer } from '../../utils/peachAPI'
@@ -199,6 +199,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         saveAndUpdate({
           ...offer,
           funding: result.funding,
+          // TODO this should not be necessary after updating sell offer order
           returnAddress: result.returnAddress,
           depositAddress: offer.depositAddress || result.returnAddress,
         })

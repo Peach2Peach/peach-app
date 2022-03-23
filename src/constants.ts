@@ -1,4 +1,6 @@
-export const PEACHFEE = 1.5 // TODO fetch fee from API
+export let PEACHFEE = 1.5
+export const setPeachFee = (fee: number) => PEACHFEE = fee
+
 export const CURRENCIES: Currency[] = [
   'EUR',
   'CHF',

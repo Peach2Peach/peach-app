@@ -5,8 +5,7 @@ export const getPaymentDataBuyer = async (contract: Contract): Promise<[PaymentD
   let decryptedPaymentData: PaymentData|null = null
 
   if (contract.paymentData) return [contract.paymentData, null]
-  // TODO consider throwing error message?
-  if (!contract.paymentDataEncrypted || !contract.paymentDataSignature) return [null, null]
+  if (!contract.paymentDataEncrypted || !contract.paymentDataSignature) return [null, new Error('MISSING_PAYMENTDATA')]
 
   const decryptedPaymentDataString = await decrypt(contract.paymentDataEncrypted)
   try {

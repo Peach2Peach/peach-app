@@ -44,6 +44,10 @@ jest.mock('react-native-crypto-js', () => ({
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native-qrcode-scanner', () => jest.fn())
+jest.mock('react-native-promise-rejection-utils', () => ({
+  setUnhandledPromiseRejectionTracker: jest.fn()
+}))
+
 jest.mock('react-native-snap-carousel', () => jest.fn())
 jest.mock('@react-native-clipboard/clipboard', () => jest.fn())
 jest.mock('@env', () => ({

@@ -5,7 +5,7 @@ import { SellViewProps } from './Sell'
 import { saveOffer } from '../../utils/offer'
 import { MessageContext } from '../../utils/message'
 import createEscrowEffect from './effects/createEscrowEffect'
-import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
+import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import { thousands } from '../../utils/string'
@@ -70,6 +70,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       saveAndUpdate({
         ...offer,
         funding: result.funding,
+        // TODO this should not be necessary after updating sell offer order
         returnAddress: result.returnAddress,
         depositAddress: offer.depositAddress || result.returnAddress,
       })

@@ -25,7 +25,8 @@ export default ({ contract, view }: ContractDetailsProps): ReactElement => {
       </Text>
       : null
     }
-    {contract.paymentDataError
+    {contract.paymentDataError // TODO this is most likely a temporary error message,
+    // will be converted to opening a dispute directly
       ? <Text style={tw`text-red text-center mb-4`}>
         {i18n(`contract.error.${contract.paymentDataError}`)}
       </Text>

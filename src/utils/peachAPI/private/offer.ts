@@ -162,14 +162,17 @@ export const cancelOffer = async ({
   satsPerByte
 }: CancelOfferProps): Promise<[CancelOfferResponse|null, APIError|null]> => {
   const response = await fetch(
-    `${API_URL}/v1/offer/${offerId}/cancel?satsPerByte=${encodeURIComponent(satsPerByte)}`,
+    `${API_URL}/v1/offer/${offerId}/cancel`,
     {
       headers: {
         Authorization: await getAccessToken(),
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify({
+        satsPerByte,
+      }),
     }
   )
 
