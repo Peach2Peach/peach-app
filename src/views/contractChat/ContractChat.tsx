@@ -1,34 +1,33 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
+  Pressable,
   ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
-import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Loading, Timer, Title } from '../../components'
+import { Button, Input, Loading, Text, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
-import { error, info } from '../../utils/log'
+import { error } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
 import { getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
-import { confirmPayment } from '../../utils/peachAPI'
-import { getOffer } from '../../utils/offer'
 import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
-import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
-import ContractDetails from './components/ContractDetails'
-import Rate from './components/Rate'
-import { verifyPSBT } from './helpers/verifyPSBT'
-import { getTimerStart } from './helpers/getTimerStart'
-import { getPaymentDataBuyer, getPaymentDataSeller } from './helpers/parseContract'
-import { getRequiredAction } from './helpers/getRequiredAction'
+import getMessagesEffect from './effects/getMessagesEffect'
+import Icon from '../../components/Icon'
+import { signAndEncrypt, decrypt } from '../../utils/pgp'
+import { postChat } from '../../utils/peachAPI'
+import ChatBox from './components/ChatBox'
+import { getTimerStart } from '../contract/helpers/getTimerStart'
+import { getPaymentDataBuyer, getPaymentDataSeller } from '../contract/helpers/parseContract'
+import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
 type Props = {
   route: RouteProp<{ params: {
@@ -43,13 +42,15 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
   const [updatePending, setUpdatePending] = useState(true)
-  const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
+  const [tradingPartner, setTradingPartner] = useState<User|null>()
+  const [messages, setMessages] = useState<Message[]>([])
+  const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
 
-  const saveAndUpdate = (contractData: Contract) => {
+  const saveAndUpdateContract = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
     setContract(() => contractData)
@@ -66,7 +67,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
-      saveAndUpdate(contract
+      setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
+      saveAndUpdateContract(contract
         ? {
           ...contract,
           ...result,
@@ -74,6 +76,21 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
         : result
       )
+    },
+    onError: err => updateMessage({
+      msg: i18n(err.error || 'error.general'),
+      level: 'ERROR',
+    })
+  }), [contractId])
+
+  useEffect(getMessagesEffect({
+    contractId,
+    onSuccess: async (result) => {
+      const decryptedMessages = await Promise.all(result.map(async (message) => ({
+        ...message,
+        message: await decrypt(message.message)
+      })))
+      setMessages(decryptedMessages)
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -100,8 +117,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (err) error(err)
       if (paymentData) {
-        // TODO if err is yielded consider open a disput directly
-        saveAndUpdate({
+        // TODO if err is yielded consider open a dispute directly
+        saveAndUpdateContract({
           ...contract,
           paymentData,
           paymentDataError: err?.message || contract.paymentDataError,
@@ -114,67 +131,28 @@ export default ({ route, navigation }: Props): ReactElement => {
     setUpdatePending(false)
   }, [contract])
 
-  const postConfirmPaymentBuyer = async () => {
-    if (!contract) return
+  const sendMessage = async () => {
+    if (!contract || !tradingPartner) return
 
-    const [result, err] = await confirmPayment({ contractId: contract.id })
+    const encryptedResult = await signAndEncrypt(
+      newMessage,
+      tradingPartner.pgpPublicKey
+    )
+
+    const [result, err] = await postChat({
+      contractId: contract.id,
+      message: encryptedResult.encrypted,
+      signature: encryptedResult.signature,
+    })
 
     if (err) {
-      error(err.error)
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
-      return
-    }
-
-    saveAndUpdate({
-      ...contract,
-      paymentMade: new Date()
-    })
-  }
-
-  const postConfirmPaymentSeller = async () => {
-    if (!contract) return
-    setLoading(true)
-
-    const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
-    if (!sellOffer.id || !sellOffer?.funding) return
-
-    const psbt = bitcoin.Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
-
-    // Don't trust the response, verify
-    const errorMsg = verifyPSBT(psbt, sellOffer, contract)
-
-    if (errorMsg.length) {
-      setLoading(false)
       updateMessage({
-        msg: errorMsg.join('\n'),
-        level: 'WARN',
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
       })
-      return
+    } else {
+      setNewMessage('')
     }
-
-    // Sign psbt
-    psbt.signInput(0, getEscrowWallet(sellOffer.id))
-
-    const tx = psbt
-      .finalizeInput(0, getFinalScript)
-      .extractTransaction()
-      .toHex()
-
-    const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
-
-    setLoading(false)
-
-    if (err) {
-      error(err.error)
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
-      return
-    }
-
-    saveAndUpdate({
-      ...contract,
-      paymentConfirmed: new Date(),
-      releaseTxId: result?.txId || ''
-    })
   }
 
   return updatePending
@@ -195,37 +173,25 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
               : null
             }
-            <ContractDetails contract={contract} view={view} />
+            <ChatBox messages={messages} />
+            <View style={tw`mt-4`}>
+              <Input
+                onChange={setNewMessage}
+                value={newMessage}
+                label={i18n('chat.yourMessage')}
+                isValid={true}
+                autoCorrect={true}
+              />
+              <Pressable onPress={sendMessage}>
+                <Icon id="send" style={tw`w-5 h-5`} />
+              </Pressable>
+            </View>
             <Button
-              onPress={() => navigation.navigate('contractChat', { contractId: contract.id })}
-              style={tw`mt-4`}
-              title={i18n('chat')}
               secondary={true}
+              onPress={() => navigation.back()}
+              style={tw`mt-2`}
+              title={i18n('back')}
             />
-            {view === 'buyer' && requiredAction === 'paymentMade'
-              ? <Button
-                disabled={loading}
-                onPress={postConfirmPaymentBuyer}
-                style={tw`mt-2`}
-                title={i18n('contract.payment.made')}
-              />
-              : null
-            }
-            {view === 'seller' && requiredAction === 'paymentConfirmed'
-              ? <Button
-                disabled={loading}
-                onPress={postConfirmPaymentSeller}
-                style={tw`mt-2`}
-                title={i18n('contract.payment.received')}
-              />
-              : null
-            }
-          </View>
-          : null
-        }
-        {contract && contract.paymentConfirmed
-          ? <View style={tw`mt-16`}>
-            <Rate contract={contract} view={view} navigation={navigation} saveAndUpdate={saveAndUpdate} />
           </View>
           : null
         }

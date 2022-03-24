@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View, ViewStyle } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import { Button, Headline, Text } from '..'
@@ -25,6 +25,10 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
 
   const [selectedCurrency, setSelectedCurrency] = useState(Object.keys(match.prices)[0] as Currency)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(match.paymentMethods[0])
+
+  useEffect(() => {
+    setSelectedCurrency('EUR')
+  }, [])
 
   return <Shadow {...mildShadow} viewStyle={[tw`border border-grey-4 rounded bg-white-1`, style]}>
     {match.matched

@@ -124,3 +124,5 @@ declare type ConfirmPaymentResponse = {
   success: true,
   txId?: string,
 }
+
+declare type GetChatResponse = Message[]

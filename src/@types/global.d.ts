@@ -159,3 +159,10 @@ declare type PeachWallet = {
   wallet: bitcoin.bip32.BIP32Interface,
   mnemonic: string
 }
+
+declare type Message = {
+  from: User['id'],
+  date: Date,
+  message: string,
+  signature: string,
+}
