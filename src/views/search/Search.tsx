@@ -83,7 +83,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       [result, err] = await matchOffer({
         offerId: offer.id,
         matchingOfferId: match.offerId,
-        currency: Object.keys(match.prices)[0] as Currency,
+        currency: 'EUR', // TODO make dynamic
         paymentMethod: match.paymentMethods[0],
         paymentDataEncrypted: encryptedResult?.encrypted,
         paymentDataSignature: encryptedResult?.signature,
