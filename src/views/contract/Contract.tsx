@@ -25,7 +25,7 @@ import ContractDetails from './components/ContractDetails'
 import Rate from './components/Rate'
 import { verifyPSBT } from './helpers/verifyPSBT'
 import { getTimerStart } from './helpers/getTimerStart'
-import { getPaymentDataBuyer, getPaymentDataSeller } from './helpers/parseContract'
+import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
@@ -66,10 +66,18 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+
+      const [symmetricKey, err] = contract?.symmetricKey
+        ? [contract.symmetricKey, null]
+        : await decryptSymmetricKey(result)
+
+      if (err) error(err)
+
       saveAndUpdate(contract
         ? {
           ...contract,
           ...result,
+          symmetricKey,
           // canceled: contract.canceled
         }
         : result
@@ -94,9 +102,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (contract.paymentData) return
 
-      const [paymentData, err] = view === 'buyer'
-        ? await getPaymentDataBuyer(contract)
-        : await getPaymentDataSeller(contract)
+      const [paymentData, err] = await getPaymentData(contract)
 
       if (err) error(err)
       if (paymentData) {

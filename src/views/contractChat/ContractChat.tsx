@@ -20,7 +20,7 @@ import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import Icon from '../../components/Icon'
-import { signAndEncrypt, decrypt } from '../../utils/pgp'
+import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
 import { postChat } from '../../utils/peachAPI'
 import ChatBox from './components/ChatBox'
 import { getTimerStart } from '../contract/helpers/getTimerStart'
@@ -45,7 +45,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>(account.chats[contractId] || [])
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
@@ -67,6 +67,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      setMessages(account.chats[contractId] || [])
+
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
       saveAndUpdateContract(contract
         ? {
@@ -86,10 +88,15 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(getMessagesEffect({
     contractId,
     onSuccess: async (result) => {
-      const decryptedMessages = await Promise.all(result.map(async (message) => ({
-        ...message,
-        message: await decrypt(message.message)
-      })))
+      const decryptedMessages = await Promise.all(result.map(async (message) => {
+        const existingMessage = messages.find(m => m.date === message.date && m.from === message.from)
+        const decryptedMessage = existingMessage?.message
+          || await decryptSymmetric(message.message, contract.symmetricKey)
+        return {
+          ...message,
+          message: decryptedMessage
+        }
+      }))
       setMessages(decryptedMessages)
     },
     onError: err => updateMessage({
@@ -134,9 +141,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const sendMessage = async () => {
     if (!contract || !tradingPartner) return
 
-    const encryptedResult = await signAndEncrypt(
+    const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
-      tradingPartner.pgpPublicKey
+      contract.symmetricKey
     )
 
     const [result, err] = await postChat({
@@ -151,6 +158,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     } else {
+      setMessages(() => messages.concat({
+        from: account.publicKey,
+        date: new Date(),
+        message: encryptedResult.encrypted,
+        signature: encryptedResult.signature,
+      }))
       setNewMessage('')
     }
   }

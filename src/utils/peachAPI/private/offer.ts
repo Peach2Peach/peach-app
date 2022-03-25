@@ -208,6 +208,8 @@ type MatchProps = {
   matchingOfferId: string,
   currency: Currency,
   paymentMethod: PaymentMethod,
+  symmetricKeyEncrypted?: string,
+  symmetricKeySignature?: string,
   paymentDataEncrypted?: string,
   paymentDataSignature?: string,
 }
@@ -222,6 +224,8 @@ export const matchOffer = async ({
   currency,
   paymentMethod,
   matchingOfferId,
+  symmetricKeyEncrypted,
+  symmetricKeySignature,
   paymentDataEncrypted,
   paymentDataSignature,
 }: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
@@ -235,6 +239,8 @@ export const matchOffer = async ({
       matchingOfferId,
       currency,
       paymentMethod,
+      symmetricKeyEncrypted,
+      symmetricKeySignature,
       paymentDataEncrypted,
       paymentDataSignature,
     }),
