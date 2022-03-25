@@ -26,7 +26,15 @@ module.exports = {
           1: '#F57940',
           2: '#DB6C39',
           translucent: '#F57940BB',
-          'translucent-2': '#F57940FA'
+          'translucent-2': '#F57940FA',
+        },
+        chat: {
+          you: '#40BCF5',
+          partner: '#888888',
+          mediator: '#F57940',
+          'you-translucent': '#40BCF519',
+          'partner-translucent': '#88888819',
+          'mediator-translucent': '#F5794019',
         },
         green: '#0AE557',
         red: '#E43B5F',

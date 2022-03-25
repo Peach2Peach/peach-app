@@ -24,10 +24,12 @@ export default ({
     })
 
     if (result) {
-      const messages = result.map((message: Message) => ({
-        ...message,
-        date: new Date(message.date),
-      }))
+      const messages = result
+        .reverse()
+        .map((message: Message) => ({
+          ...message,
+          date: new Date(message.date),
+        }))
       onSuccess(messages)
     } else if (err) {
       error('Error', err)

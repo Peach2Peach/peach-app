@@ -1,4 +1,3 @@
-import { getOffer } from '../../../utils/offer'
 import { decrypt, decryptSymmetric, verify } from '../../../utils/pgp'
 
 export const decryptSymmetricKey = async (contract: Contract): Promise<[string, Error|null]> => {

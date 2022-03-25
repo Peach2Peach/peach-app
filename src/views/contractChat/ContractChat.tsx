@@ -88,6 +88,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(getMessagesEffect({
     contractId,
     onSuccess: async (result) => {
+      if (!contract || !contract.symmetricKey) return
+
       const decryptedMessages = await Promise.all(result.map(async (message) => {
         const existingMessage = messages.find(m => m.date === message.date && m.from === message.from)
         const decryptedMessage = existingMessage?.message
@@ -125,10 +127,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (err) error(err)
       if (paymentData) {
         // TODO if err is yielded consider open a dispute directly
+        const contractErrors = contract.contractErrors || []
+        if (err) contractErrors.push(err.message)
         saveAndUpdateContract({
           ...contract,
           paymentData,
-          paymentDataError: err?.message || contract.paymentDataError,
+          contractErrors,
         })
       }
     })()
@@ -139,7 +143,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [contract])
 
   const sendMessage = async () => {
-    if (!contract || !tradingPartner) return
+    if (!contract || !tradingPartner || !contract.symmetricKey) return
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
@@ -161,7 +165,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setMessages(() => messages.concat({
         from: account.publicKey,
         date: new Date(),
-        message: encryptedResult.encrypted,
+        message: newMessage,
         signature: encryptedResult.signature,
       }))
       setNewMessage('')
@@ -170,24 +174,26 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return updatePending
     ? <Loading />
-    : <ScrollView style={tw`pt-6`}>
-      <View style={tw`pb-32`}>
-        <Title
-          title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
-        />
-        {contract && !contract.paymentConfirmed
-          ? <View style={tw`mt-16`}>
-            {requiredAction !== 'none'
-              ? <Timer
-                text={i18n(`contract.timer.${requiredAction}`)}
-                start={getTimerStart(contract, requiredAction)}
-                duration={TIMERS[requiredAction]}
-              />
-              : null
-            }
-            <ChatBox messages={messages} />
-            <View style={tw`mt-4`}>
+    : <View style={tw`h-full pt-6 pb-24 flex-col content-between items-center`}>
+      <Title
+        title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
+        subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
+      />
+      {contract && !contract.paymentConfirmed
+        ? <View style={tw`h-full flex-col flex-shrink mt-16`}>
+          {requiredAction !== 'none'
+            ? <Timer
+              text={i18n(`contract.timer.${requiredAction}`)}
+              start={getTimerStart(contract, requiredAction)}
+              duration={TIMERS[requiredAction]}
+            />
+            : null
+          }
+          <View style={tw`w-full h-full flex-col flex-shrink`}>
+            <View style={tw`h-full flex-shrink`}>
+              <ChatBox messages={messages} />
+            </View>
+            <View style={tw`mt-4 flex-shrink-0`}>
               <Input
                 onChange={setNewMessage}
                 value={newMessage}
@@ -195,19 +201,20 @@ export default ({ route, navigation }: Props): ReactElement => {
                 isValid={true}
                 autoCorrect={true}
               />
-              <Pressable onPress={sendMessage}>
+              <Pressable onPress={sendMessage} style={tw`h-full absolute right-3 flex justify-center`}>
                 <Icon id="send" style={tw`w-5 h-5`} />
               </Pressable>
             </View>
-            <Button
-              secondary={true}
-              onPress={() => navigation.back()}
-              style={tw`mt-2`}
-              title={i18n('back')}
-            />
           </View>
-          : null
-        }
-      </View>
-    </ScrollView>
+        </View>
+        : null
+      }
+      <Button
+        secondary={true}
+        wide={false}
+        onPress={() => navigation.back()}
+        style={tw`mt-2`}
+        title={i18n('back')}
+      />
+    </View>
 }

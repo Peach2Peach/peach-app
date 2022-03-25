@@ -1,8 +1,10 @@
 import React, { ReactElement } from 'react'
-import { ViewStyle } from 'react-native'
+import { ScrollView, View, ViewStyle } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
+import { account } from '../../../utils/account'
+import i18n from '../../../utils/i18n'
 import { innerShadow } from '../../../utils/layout'
 
 type ChatBoxProps = {
@@ -10,10 +12,36 @@ type ChatBoxProps = {
   style?: ViewStyle|ViewStyle[]
 }
 
-export default ({ messages, style }: ChatBoxProps): ReactElement =>
+export default ({ messages, style }: ChatBoxProps): ReactElement => <View style={tw`overflow-hidden rounded`}>
   <Shadow {...innerShadow} viewStyle={[
-    tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-7 pr-3`,
+    tw`w-full h-full flex-col border border-grey-4 rounded py-4`,
     style ? style : {},
   ]}>
-    {messages.map((message: Message) => <Text>{message.message}</Text>)}
+    <ScrollView style={tw`w-full h-full px-7`}>
+      {messages.map((message: Message, i, self) => {
+        const isYou = message.from === account.publicKey
+        const previous = self[i - 1]
+        const showName = !previous || previous.from !== message.from
+        return <View key={message.date.getTime()} style={[
+          tw`w-11/12`,
+          isYou ? tw`self-end` : {}
+        ]}>
+          {showName
+            ? <Text style={[
+              tw`px-1 mt-4 -mb-1 font-baloo text-xs`,
+              isYou ? tw`text-chat-you text-right` : tw`text-chat-partner`
+            ]}>{i18n(isYou ? 'chat.you' : 'chat.tradePartner')}</Text>
+            : null
+          }
+          <Text style={[
+            tw`p-3 mt-1 rounded`,
+            isYou ? tw`bg-chat-you-translucent` : tw`bg-chat-partner-translucent`
+          ]}
+          >
+            {message.message}
+          </Text>
+        </View>
+      })}
+    </ScrollView>
   </Shadow>
+</View>
