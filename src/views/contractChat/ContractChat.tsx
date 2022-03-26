@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
   Pressable,
   ScrollView,
@@ -21,11 +21,12 @@ import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import Icon from '../../components/Icon'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
-import { postChat } from '../../utils/peachAPI'
+import { postChat, websocket } from '../../utils/peachAPI'
 import ChatBox from './components/ChatBox'
 import { getTimerStart } from '../contract/helpers/getTimerStart'
-import { getPaymentDataBuyer, getPaymentDataSeller } from '../contract/helpers/parseContract'
+import { getPaymentData } from '../contract/helpers/parseContract'
 import { getRequiredAction } from '../contract/helpers/getRequiredAction'
+import { API_URL } from '@env'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -45,10 +46,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
-  const [messages, setMessages] = useState<Message[]>(account.chats[contractId] || [])
+  const [chat, setChat] = useState<Message[]>(account.chats[contractId] || [])
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
+  const ws = useRef<PeachWS>()
+
+  useEffect(() => {
+    ws.current = websocket(`/v1/contract/${contractId}/chat`)
+    ws.current.on('message', async (message) => {
+      if (!contract || !contract.symmetricKey) return
+      const decryptedMessage = {
+        ...message,
+        date: new Date(message.date),
+        message: await decryptSymmetric(message.message, contract.symmetricKey)
+      }
+      setChat(prevChat => [...prevChat, decryptedMessage])
+    })
+  }, [])
 
   const saveAndUpdateContract = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -61,13 +76,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     setContractId(() => route.params.contractId)
   }, [route])
 
+  useEffect(() => {
+    setChat(account.chats[contractId] || [])
+  }, [contractId])
+
   useEffect(getContractEffect({
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
-      setMessages(account.chats[contractId] || [])
 
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
       saveAndUpdateContract(contract
@@ -91,7 +109,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!contract || !contract.symmetricKey) return
 
       const decryptedMessages = await Promise.all(result.map(async (message) => {
-        const existingMessage = messages.find(m => m.date === message.date && m.from === message.from)
+        const existingMessage = chat.find(m => m.date === message.date && m.from === message.from)
         const decryptedMessage = existingMessage?.message
           || await decryptSymmetric(message.message, contract.symmetricKey)
         return {
@@ -99,7 +117,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           message: decryptedMessage
         }
       }))
-      setMessages(decryptedMessages)
+      setChat(decryptedMessages)
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -120,9 +138,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (contract.paymentData) return
 
-      const [paymentData, err] = view === 'buyer'
-        ? await getPaymentDataBuyer(contract)
-        : await getPaymentDataSeller(contract)
+      const [paymentData, err] = await getPaymentData(contract)
 
       if (err) error(err)
       if (paymentData) {
@@ -143,33 +159,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [contract])
 
   const sendMessage = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey) return
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws.current) return
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
       contract.symmetricKey
     )
-
-    const [result, err] = await postChat({
-      contractId: contract.id,
+    ws.current.send(JSON.stringify({
+      from: account.publicKey,
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
-    })
-
-    if (err) {
-      updateMessage({
-        msg: i18n(err.error || 'error.general'),
-        level: 'ERROR',
-      })
-    } else {
-      setMessages(() => messages.concat({
-        from: account.publicKey,
-        date: new Date(),
-        message: newMessage,
-        signature: encryptedResult.signature,
-      }))
-      setNewMessage('')
-    }
+    }))
+    setNewMessage('')
   }
 
   return updatePending
@@ -191,7 +192,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
           <View style={tw`w-full h-full flex-col flex-shrink`}>
             <View style={tw`h-full flex-shrink`}>
-              <ChatBox messages={messages} />
+              <ChatBox messages={chat} />
             </View>
             <View style={tw`mt-4 flex-shrink-0`}>
               <Input

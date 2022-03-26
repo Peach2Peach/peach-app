@@ -1,5 +1,7 @@
+import { API_URL } from '@env'
 import { BIP32Interface } from 'bip32'
-import { error } from '../log'
+import { error, info } from '../log'
+import { authWS } from './private/user'
 
 
 export let accessToken: AccessToken|null
@@ -65,3 +67,42 @@ export {
   rateUser,
   getChat, postChat,
 } from './private/contract'
+
+
+type PeachWSType = {
+  ws: WebSocket,
+  authenticated: boolean,
+  listeners: {
+    message: ((message: string) => void)[]
+  },
+}
+export const websocket = (path: string): PeachWS => {
+  const peachWS: PeachWSType = {
+    ws: new WebSocket(`${API_URL.replace('http', 'ws')}${path}`),
+    authenticated: false,
+    listeners: {
+      message: [],
+    }
+  }
+
+  peachWS.ws.onopen = () => authWS(peachWS.ws)
+  peachWS.ws.onmessage = (msg) => {
+    const message = JSON.parse(msg.data)
+    if (!peachWS.authenticated && message.accessToken) {
+      info('Peach WS API - authenticated')
+      peachWS.authenticated = true
+      return
+    }
+    if (!peachWS.authenticated) return
+
+    peachWS.listeners.message.forEach(listener => listener(message))
+  }
+
+  return {
+    send: (data: string) => {
+      peachWS.ws.send(data)
+    },
+    onmessage: () => peachWS.authenticated ? peachWS.ws.onmessage : () => {},
+    on: (listener: 'message', callback: (message: any) => void) => peachWS.listeners[listener].push(callback)
+  }
+}

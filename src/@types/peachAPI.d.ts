@@ -1,4 +1,8 @@
-
+declare type PeachWS = {
+  send: WebSocket['send'],
+  onmessage: WebSocket['onmessage']|(() => {}),
+  on: (listener: 'message', callback: (message: any) => void) => {},
+}
 declare type AccessToken = {
   expiry: number,
   accessToken: string

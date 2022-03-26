@@ -37,10 +37,5 @@ export default ({
     }
   }
 
-  const interval = setInterval(checkingFunction, 30 * 1000)
   checkingFunction()
-
-  return () => {
-    clearInterval(interval)
-  }
 }

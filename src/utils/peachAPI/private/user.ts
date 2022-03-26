@@ -2,19 +2,18 @@ import { API_URL } from '@env'
 import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
-import { accessToken, parseResponse, peachAccount, setAccessToken, setPeachAccount } from '..'
+import { accessToken, peachAccount, parseResponse, setAccessToken } from '..'
 import fetch from '../../fetch'
 import { error, info, log } from '../../log'
 
 /**
  * @description Method to authenticate with Peach API
- * @param keyPair key pair needed for authentication
  * @returns AccessToken or APIError
  */
-export const auth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, APIError|null]> => {
+export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
-  setPeachAccount(keyPair)
+  if (!peachAccount) throw new Error('Peach Account not set')
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
@@ -24,16 +23,16 @@ export const auth = async (keyPair: BIP32Interface): Promise<[AccessToken|null, 
       },
       method: 'POST',
       body: JSON.stringify({
-        publicKey: keyPair.publicKey.toString('hex'),
+        publicKey: peachAccount.publicKey.toString('hex'),
         message,
-        signature: keyPair.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
+        signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
       })
     })
 
     const token = await response.json() as AccessToken
     setAccessToken(token)
 
-    info('peachAPI - auth - SUCCESS', keyPair.publicKey.toString('hex'), token)
+    info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
 
     return [token, null]
   } catch (e) {
@@ -60,7 +59,7 @@ export const getAccessToken = async (): Promise<string> => {
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
-  const [result, err] = await auth(peachAccount as BIP32Interface)
+  const [result, err] = await auth()
 
   if (!result || err) {
     error('peachAPI - getAccessToken', err)
@@ -99,4 +98,21 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
   })
 
   return await parseResponse<APISuccess>(response, 'pgp')
+}
+
+/**
+ * @description Method to authenticate with Peach WS API
+ * @param ws the websocket
+ */
+export const authWS = (ws: WebSocket) => {
+  const message = 'Peach Registration ' + (new Date()).getTime()
+
+  if (!peachAccount) throw new Error('Peach Account not set')
+
+  ws.send(JSON.stringify({
+    method: 'AUTH',
+    publicKey: peachAccount.publicKey.toString('hex'),
+    message,
+    signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
+  }))
 }
