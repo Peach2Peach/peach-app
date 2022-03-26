@@ -196,6 +196,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             </View>
             <View style={tw`mt-4 flex-shrink-0`}>
               <Input
+                style={tw`pr-12`}
                 onChange={setNewMessage}
                 value={newMessage}
                 label={i18n('chat.yourMessage')}
