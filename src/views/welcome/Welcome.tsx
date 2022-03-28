@@ -16,28 +16,24 @@ import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
-import { whiteGradient } from '../../utils/layout'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
-type Props = {
+type ScreenProps = {
   navigation: ProfileScreenNavigationProp;
 }
 
-type Screen = (props: Props) => ReactElement
+type Screen = (props: ScreenProps) => ReactElement
 
 
 const screens = [
   WelcomeToPeach,
-  YouOwnYourData,
   PeachOfMind,
+  YouOwnYourData,
   LetsGetStarted,
 ]
 
-// eslint-disable-next-line max-lines-per-function
-export default ({ navigation }: Props): ReactElement => {
-  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
-
+export default ({ navigation }: ScreenProps): ReactElement => {
   useContext(LanguageContext)
 
   const [page, setPage] = useState(0)
@@ -55,20 +51,10 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <View style={tw`w-full h-8 mt-32 -mb-8 z-10`}>
-        <LinearGradient colorList={whiteGradient} angle={-90} />
-      </View>
-      <ScrollView ref={scroll}>
-        <View style={tw`pb-8 px-8`}>
-          <View style={tw`flex items-center`}>
-            <Image source={require('../../../assets/favico/peach-icon-192.png')} />
-          </View>
-          <CurrentScreen navigation={navigation} />
-        </View>
-      </ScrollView>
-      <View style={tw`w-full h-8 -mt-8`}>
-        <LinearGradient colorList={whiteGradient} angle={90} />
+    <View style={tw`h-full flex-shrink p-8 pt-14 flex-col items-center`}>
+      <Image source={require('../../../assets/favico/peach-icon-192.png')} />
+      <View style={tw`mt-4`}>
+        <CurrentScreen navigation={navigation} />
       </View>
     </View>
     <View style={tw`mb-8 w-full`}>

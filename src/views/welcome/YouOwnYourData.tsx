@@ -17,8 +17,5 @@ export default (): ReactElement => {
     <Text style={tw`mt-4 text-center`}>
       {i18n('welcome.youOwnYourData.description.1')}
     </Text>
-    <Text style={tw`mt-3 text-center`}>
-      {i18n('welcome.youOwnYourData.description.2')}
-    </Text>
   </View>
 }
