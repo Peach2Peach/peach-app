@@ -1,3 +1,17 @@
+declare type PeachWS = {
+  ws?: WebSocket,
+  authenticated: boolean,
+  connected: boolean,
+  queue: (() => boolean)[],
+  listeners: {
+    message: ((message: string) => void)[]
+    close: (() => void)[]
+  },
+  on: (listener: 'message'|'close', callback: (message: any) => void) => {},
+  send: (data: string) => boolean,
+  close: WebSocket['close'],
+  onmessage?: WebSocket['onmessage']|(() => {}),
+}
 
 declare type AccessToken = {
   expiry: number,
@@ -124,3 +138,5 @@ declare type ConfirmPaymentResponse = {
   success: true,
   txId?: string,
 }
+
+declare type GetChatResponse = Message[]

@@ -10,7 +10,7 @@ import * as bitcoin from 'bitcoinjs-lib'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Loading, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
-import getContractEffect from './effects/getContractEffect'
+import getContractEffect from '../../effects/getContractEffect'
 import { error, info } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
@@ -25,7 +25,7 @@ import ContractDetails from './components/ContractDetails'
 import Rate from './components/Rate'
 import { verifyPSBT } from './helpers/verifyPSBT'
 import { getTimerStart } from './helpers/getTimerStart'
-import { getPaymentDataBuyer, getPaymentDataSeller } from './helpers/parseContract'
+import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
@@ -66,10 +66,18 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+
+      const [symmetricKey, err] = contract?.symmetricKey
+        ? [contract.symmetricKey, null]
+        : await decryptSymmetricKey(result)
+
+      if (err) error(err)
+
       saveAndUpdate(contract
         ? {
           ...contract,
           ...result,
+          symmetricKey,
           // canceled: contract.canceled
         }
         : result
@@ -94,17 +102,17 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (contract.paymentData) return
 
-      const [paymentData, err] = view === 'buyer'
-        ? await getPaymentDataBuyer(contract)
-        : await getPaymentDataSeller(contract)
+      const [paymentData, err] = await getPaymentData(contract)
 
       if (err) error(err)
       if (paymentData) {
         // TODO if err is yielded consider open a disput directly
+        const contractErrors = contract.contractErrors || []
+        if (err) contractErrors.push(err.message)
         saveAndUpdate({
           ...contract,
           paymentData,
-          paymentDataError: err?.message || contract.paymentDataError,
+          contractErrors,
         })
       }
     })()
@@ -197,6 +205,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             }
             <ContractDetails contract={contract} view={view} />
             <Button
+              onPress={() => navigation.navigate('contractChat', { contractId: contract.id })}
               style={tw`mt-4`}
               title={i18n('chat')}
               secondary={true}

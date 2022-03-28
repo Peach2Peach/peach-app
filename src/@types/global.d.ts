@@ -28,7 +28,7 @@ declare type PGPKeychain = {
 }
 
 declare type Account = {
-  publicKey?: string,
+  publicKey: string,
   privKey?: string,
   mnemonic?: string,
   pgp: PGPKeychain,
@@ -36,6 +36,9 @@ declare type Account = {
   paymentData: PaymentData[],
   offers: (SellOffer|BuyOffer)[],
   contracts: Contract[],
+  chats: {
+    [key: string]: Message[]
+  }
 }
 
 declare type Rating = {
@@ -127,6 +130,10 @@ declare type Contract = {
   seller: User,
   buyer: User,
 
+  symmetricKeyEncrypted: string,
+  symmetricKey?: string,
+  symmetricKeySignature: string,
+
   amount: number,
   currency: Currency,
   price: number,
@@ -134,7 +141,8 @@ declare type Contract = {
   paymentDataEncrypted?: string,
   paymentData?: PaymentData,
   paymentDataSignature?: string,
-  paymentDataError?: string,
+
+  contractErrors?: string[],
 
   kycRequired: boolean,
   kycType?: KYCType,
@@ -158,4 +166,12 @@ declare type Contract = {
 declare type PeachWallet = {
   wallet: bitcoin.bip32.BIP32Interface,
   mnemonic: string
+}
+
+declare type Message = {
+  roomId: string,
+  from: User['id'],
+  date: Date,
+  message?: string,
+  signature: string,
 }

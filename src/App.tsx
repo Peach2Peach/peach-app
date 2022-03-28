@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, ReducerAction, useEffect, useReducer, useRef, useState } from 'react'
 import { SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
@@ -35,13 +35,15 @@ import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
+import ContractChat from './views/contractChat/ContractChat'
 import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { error } from './utils/log'
+import { error, info } from './utils/log'
 import { setPeachFee } from './constants'
 import { getInfo } from './utils/peachAPI'
+import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
@@ -63,6 +65,7 @@ const views: ViewType[] = [
   { name: 'sell', component: Sell },
   { name: 'search', component: Search },
   { name: 'contract', component: Contract },
+  { name: 'contractChat', component: ContractChat },
   { name: 'tradeComplete', component: TradeComplete },
   { name: 'refund', component: Refund },
   { name: 'offers', component: Offers },
@@ -101,10 +104,31 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
+/**
+ * @description Method to initialize web socket
+ * @param updatePeachWS update function
+ */
+const initWebSocket = async (updatePeachWS: Function): Promise<void> => {
+  const ws = createWebsocket()
+
+  updatePeachWS(ws)
+
+  ws.on('message', (message: Message) => {
+    info('MESSAGE', message)
+  })
+  ws.on('close', () => {
+    info('CLOSE')
+    setTimeout(() => {
+      initWebSocket(updatePeachWS)
+    }, 3000)
+  })
+}
+
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = GetWindowDimensions()
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -128,55 +152,60 @@ const App: React.FC = () => {
   useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])
 
   useEffect(() => {
-    initApp(navigationRef)
+    (async () => {
+      await initApp(navigationRef)
+      initWebSocket(updatePeachWS)
+    })()
   }, [])
 
   return <SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
-      <BitcoinContext.Provider value={bitcoinContext}>
-        <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
-          <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
-            <View style={tw`h-full flex-col`}>
-              {account?.settings?.skipTutorial
-                ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
-                : <View style={[
-                  tw`absolute top-10 right-4 z-20`,
-                  !session.initialized ? tw`hidden` : {}
-                ]}>
-                  <LanguageSelect locale={locale} setLocale={setLocale} />
-                </View>
-              }
-              {msg
-                ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                  <Message msg={msg} level={level} style={{ minHeight: 60 }} />
-                </Animated.View>
-                : null
-              }
-              {content
-                ? <Overlay content={content} showCloseButton={showCloseButton} />
-                : null
-              }
-              <View style={tw`h-full flex-shrink`}>
-                <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                  if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
-                }}>
-                  <Stack.Navigator detachInactiveScreens={true} screenOptions={{
-                    detachPreviousScreen: true,
-                    headerShown: false,
-                    cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
+      <PeachWSContext.Provider value={peachWS}>
+        <BitcoinContext.Provider value={bitcoinContext}>
+          <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
+            <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
+              <View style={tw`h-full flex-col`}>
+                {account?.settings?.skipTutorial
+                  ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
+                  : <View style={[
+                    tw`absolute top-10 right-4 z-20`,
+                    !session.initialized ? tw`hidden` : {}
+                  ]}>
+                    <LanguageSelect locale={locale} setLocale={setLocale} />
+                  </View>
+                }
+                {msg
+                  ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
+                    <Message msg={msg} level={level} style={{ minHeight: 60 }} />
+                  </Animated.View>
+                  : null
+                }
+                {content
+                  ? <Overlay content={content} showCloseButton={showCloseButton} />
+                  : null
+                }
+                <View style={tw`h-full flex-shrink`}>
+                  <NavigationContainer ref={navigationRef} onStateChange={(state) => {
+                    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
                   }}>
-                    {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
-                  </Stack.Navigator>
-                </NavigationContainer>
+                    <Stack.Navigator detachInactiveScreens={true} screenOptions={{
+                      detachPreviousScreen: true,
+                      headerShown: false,
+                      cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
+                    }}>
+                      {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
+                    </Stack.Navigator>
+                  </NavigationContainer>
+                </View>
+                {account?.settings?.skipTutorial
+                  ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+                  : null
+                }
               </View>
-              {account?.settings?.skipTutorial
-                ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
-                : null
-              }
-            </View>
-          </OverlayContext.Provider>
-        </MessageContext.Provider>
-      </BitcoinContext.Provider>
+            </OverlayContext.Provider>
+          </MessageContext.Provider>
+        </BitcoinContext.Provider>
+      </PeachWSContext.Provider>
     </LanguageContext.Provider>
   </SafeAreaView>
 }

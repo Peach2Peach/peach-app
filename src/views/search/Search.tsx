@@ -22,8 +22,10 @@ import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../utils/overlay'
 import { cancelOffer } from '../../utils/peachAPI'
-import { signAndEncrypt } from '../../utils/pgp'
+import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
 import ConfirmCancelTrade from './components/ConfirmCancelTrade'
+import { account } from '../../utils/account'
+import { getRandom } from '../../utils/crypto'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -61,9 +63,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!offer.id) return
 
     if (!match.matched) {
-      let encryptedResult
+      let encryptedSymmmetricKey
+      let encryptedPaymentData
 
       if (offer.type === 'ask') {
+        const symmetricKey = (await getRandom(256)).toString('hex')
         const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
         if (!paymentData) {
           error('Error', err)
@@ -75,18 +79,29 @@ export default ({ route, navigation }: Props): ReactElement => {
           return
         }
         delete paymentData.selected
-        encryptedResult = await signAndEncrypt(
+        encryptedPaymentData = await signAndEncryptSymmetric(
           JSON.stringify(paymentData),
-          match.user.pgpPublicKey
+          symmetricKey
+        )
+        encryptedSymmmetricKey = await signAndEncrypt(
+          symmetricKey,
+          [
+            account.pgp.publicKey,
+            match.user.pgpPublicKey
+          ].join('\n')
         )
       }
+
+      // TODO add reintroduce hashed payment data
       [result, err] = await matchOffer({
         offerId: offer.id,
         matchingOfferId: match.offerId,
-        currency: Object.keys(match.prices)[0] as Currency,
+        currency: 'EUR', // TODO make dynamic
         paymentMethod: match.paymentMethods[0],
-        paymentDataEncrypted: encryptedResult?.encrypted,
-        paymentDataSignature: encryptedResult?.signature,
+        symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
+        symmetricKeySignature: encryptedSymmmetricKey?.signature,
+        paymentDataEncrypted: encryptedPaymentData?.encrypted,
+        paymentDataSignature: encryptedPaymentData?.signature,
       })
     } else if (offer.type === 'bid') {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })

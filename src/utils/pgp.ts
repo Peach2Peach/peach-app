@@ -20,6 +20,22 @@ export const signAndEncrypt = async (message: string, publicKey: string): Promis
   }
 }
 
+
+/**
+ * @description Method to encrypt message and sign encrypted message with passphrase
+ * @param message message to encrypt
+ * @param passphrase passphrase to encrypt with
+ * @returns Promise resolving to encrypted message and signature
+ */
+export const signAndEncryptSymmetric = async (message: string, passphrase: string): Promise<SignAndEncryptResult> => {
+  const signature = await OpenPGP.sign(message, account.pgp.publicKey, account.pgp.privateKey, '')
+  const encrypted = await OpenPGP.encryptSymmetric(message, passphrase, undefined, { cipher: 2 })
+  return {
+    signature,
+    encrypted,
+  }
+}
+
 /**
  * @description Method to decrypt message
  * @param encrypted encrypted message
@@ -27,6 +43,14 @@ export const signAndEncrypt = async (message: string, publicKey: string): Promis
  */
 export const decrypt = async (encrypted: string): Promise<string> =>
   await OpenPGP.decrypt(encrypted, account.pgp.privateKey, '')
+
+/**
+ * @description Method to decrypt message with passphrase
+ * @param encrypted encrypted message
+ * @returns Promise resolving to decrypted message
+ */
+export const decryptSymmetric = async (encrypted: string, passphrase: string): Promise<string> =>
+  await OpenPGP.decryptSymmetric(encrypted, passphrase, { cipher: 2 })
 
 
 /**

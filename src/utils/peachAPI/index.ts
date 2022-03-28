@@ -26,10 +26,10 @@ export const parseResponse = async <T>(
 
     const data = await response.json()
     if (response.status !== 200) {
-      error(`peachAPI - ${caller}`, {
+      error(`peachAPI - ${caller}`, JSON.stringify({
         status: response.status,
         data
-      })
+      }))
 
       return [null, data]
     }
@@ -54,10 +54,8 @@ export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { auth, getAccessToken, setPGP } from './private/user'
 export {
-  getOfferDetails,
-  postOffer,
-  createEscrow,
-  getFundingStatus,
+  postOffer, getOfferDetails,
+  createEscrow, getFundingStatus,
   cancelOffer,
   getMatches
 } from './private/offer'
@@ -65,4 +63,5 @@ export {
   getContract,
   confirmPayment,
   rateUser,
+  getChat, postChat,
 } from './private/contract'

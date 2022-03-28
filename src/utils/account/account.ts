@@ -2,10 +2,12 @@ import { setPeachAccount } from '../peachAPI'
 import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 
 export const defaultAccount: Account = {
+  publicKey: '',
   settings: {},
   paymentData: [],
   offers: [],
   contracts: [],
+  chats: {},
   pgp: {
     privateKey: '',
     publicKey: '',
