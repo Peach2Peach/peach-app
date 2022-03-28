@@ -112,7 +112,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         const existingMessage = chat.find(m => m.date === message.date && m.from === message.from)
         let decryptedMessage = existingMessage?.message
         try {
-          decryptedMessage = decryptedMessage || await decryptSymmetric(message.message, contract.symmetricKey)
+          if (message.message && contract.symmetricKey) {
+            decryptedMessage = decryptedMessage || await decryptSymmetric(message.message || '', contract.symmetricKey)
+          }
         } catch (e) {
           error('Could not decrypt message', e)
         }
@@ -223,7 +225,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       <Button
         secondary={true}
         wide={false}
-        onPress={() => navigation.back()}
+        onPress={() => navigation.goBack()}
         style={tw`mt-2`}
         title={i18n('back')}
       />
