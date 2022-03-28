@@ -1,5 +1,4 @@
 import { API_URL } from '@env'
-import { BIP32Interface } from 'bip32'
 import * as bitcoin from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
 import { accessToken, peachAccount, parseResponse, setAccessToken } from '..'
@@ -110,7 +109,7 @@ export const authWS = (ws: WebSocket) => {
   if (!peachAccount) throw new Error('Peach Account not set')
 
   ws.send(JSON.stringify({
-    method: 'AUTH',
+    path: '/v1/user/auth',
     publicKey: peachAccount.publicKey.toString('hex'),
     message,
     signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')

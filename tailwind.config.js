@@ -35,6 +35,7 @@ module.exports = {
           'you-translucent': '#40BCF519',
           'partner-translucent': '#88888819',
           'mediator-translucent': '#F5794019',
+          'error-translucent': '#E43B5FA0',
         },
         green: '#0AE557',
         red: '#E43B5F',

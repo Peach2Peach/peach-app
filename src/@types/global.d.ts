@@ -169,8 +169,9 @@ declare type PeachWallet = {
 }
 
 declare type Message = {
+  roomId: string,
   from: User['id'],
   date: Date,
-  message: string,
+  message?: string,
   signature: string,
 }

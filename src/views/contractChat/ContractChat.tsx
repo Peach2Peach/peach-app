@@ -1,14 +1,13 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
   Pressable,
-  ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Input, Loading, Text, Timer, Title } from '../../components'
+import { Button, Input, Loading, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -21,12 +20,11 @@ import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import Icon from '../../components/Icon'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
-import { postChat, websocket } from '../../utils/peachAPI'
 import ChatBox from './components/ChatBox'
 import { getTimerStart } from '../contract/helpers/getTimerStart'
 import { getPaymentData } from '../contract/helpers/parseContract'
 import { getRequiredAction } from '../contract/helpers/getRequiredAction'
-import { API_URL } from '@env'
+import { PeachWSContext } from '../../utils/peachAPI/websocket'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -40,6 +38,7 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const ws = useContext(PeachWSContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [updatePending, setUpdatePending] = useState(true)
@@ -50,12 +49,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
-  const ws = useRef<PeachWS>()
 
   useEffect(() => {
-    ws.current = websocket(`/v1/contract/${contractId}/chat`)
-    ws.current.on('message', async (message) => {
+    if (!ws.connected) return
+    ws.on('message', async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
+      if (!message.message || message.roomId !== `contract-${contract.id}`) return
+
       const decryptedMessage = {
         ...message,
         date: new Date(message.date),
@@ -63,7 +63,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
       setChat(prevChat => [...prevChat, decryptedMessage])
     })
-  }, [])
+  }, [ws.connected])
 
   const saveAndUpdateContract = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -103,18 +103,22 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId])
 
-  useEffect(getMessagesEffect({
+  useEffect(ws.connected && contractId ? getMessagesEffect({
     contractId,
     onSuccess: async (result) => {
       if (!contract || !contract.symmetricKey) return
 
       const decryptedMessages = await Promise.all(result.map(async (message) => {
         const existingMessage = chat.find(m => m.date === message.date && m.from === message.from)
-        const decryptedMessage = existingMessage?.message
-          || await decryptSymmetric(message.message, contract.symmetricKey)
+        let decryptedMessage = existingMessage?.message
+        try {
+          decryptedMessage = decryptedMessage || await decryptSymmetric(message.message, contract.symmetricKey)
+        } catch (e) {
+          error('Could not decrypt message', e)
+        }
         return {
           ...message,
-          message: decryptedMessage
+          message: decryptedMessage,
         }
       }))
       setChat(decryptedMessages)
@@ -123,7 +127,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       msg: i18n(err.error || 'error.general'),
       level: 'ERROR',
     })
-  }), [contractId])
+  }) : () => {}, [ws.connected, contractId])
 
   useEffect(() => {
     (async () => {
@@ -159,13 +163,15 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [contract])
 
   const sendMessage = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws.current) return
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws) return
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
       contract.symmetricKey
     )
-    ws.current.send(JSON.stringify({
+    ws.send(JSON.stringify({
+      path: '/v1/contract/chat',
+      contractId: contract.id,
       from: account.publicKey,
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
@@ -190,7 +196,10 @@ export default ({ route, navigation }: Props): ReactElement => {
             />
             : null
           }
-          <View style={tw`w-full h-full flex-col flex-shrink`}>
+          <View style={[
+            tw`w-full h-full flex-col flex-shrink`,
+            !ws.connected ? tw`opacity-50 pointer-events-none` : {}
+          ]}>
             <View style={tw`h-full flex-shrink`}>
               <ChatBox messages={chat} />
             </View>

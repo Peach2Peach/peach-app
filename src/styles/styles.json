@@ -5666,6 +5666,12 @@
 		"borderBottomColor": "#F5794019",
 		"borderLeftColor": "#F5794019"
 	},
+	"border-chat-error-translucent": {
+		"borderTopColor": "#E43B5FA0",
+		"borderRightColor": "#E43B5FA0",
+		"borderBottomColor": "#E43B5FA0",
+		"borderLeftColor": "#E43B5FA0"
+	},
 	"border-opacity-0": {
 		"--tw-border-opacity": 0
 	},
@@ -6000,6 +6006,9 @@
 	},
 	"bg-chat-mediator-translucent": {
 		"backgroundColor": "#F5794019"
+	},
+	"bg-chat-error-translucent": {
+		"backgroundColor": "#E43B5FA0"
 	},
 	"bg-opacity-0": {
 		"--tw-bg-opacity": 0
@@ -7460,6 +7469,9 @@
 	"text-chat-mediator-translucent": {
 		"color": "#F5794019"
 	},
+	"text-chat-error-translucent": {
+		"color": "#E43B5FA0"
+	},
 	"text-opacity-0": {
 		"--tw-text-opacity": 0
 	},
@@ -7947,6 +7959,9 @@
 	"ring-chat-mediator-translucent": {
 		"--tw-ring-color": "#F5794019"
 	},
+	"ring-chat-error-translucent": {
+		"--tw-ring-color": "#E43B5FA0"
+	},
 	"ring-opacity-0": {
 		"--tw-ring-opacity": 0
 	},
@@ -8228,6 +8243,9 @@
 	},
 	"ring-offset-chat-mediator-translucent": {
 		"--tw-ring-offset-color": "#F5794019"
+	},
+	"ring-offset-chat-error-translucent": {
+		"--tw-ring-offset-color": "#E43B5FA0"
 	},
 	"filter": {
 		"--tw-blur": "var(--tw-empty, )",

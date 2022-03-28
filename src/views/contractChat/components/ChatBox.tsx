@@ -42,10 +42,11 @@ export default ({ messages, style }: ChatBoxProps): ReactElement => {
             }
             <Text style={[
               tw`p-3 mt-1 rounded`,
-              isYou ? tw`bg-chat-you-translucent` : tw`bg-chat-partner-translucent`
+              isYou ? tw`bg-chat-you-translucent` : tw`bg-chat-partner-translucent`,
+              !message.message ? tw`bg-chat-error-translucent` : {}
             ]}
             >
-              {message.message}
+              {message.message || i18n('chat.decyptionFailed')}
             </Text>
           </View>
         })}

@@ -158,6 +158,7 @@
   "chat.yourMessage": "Your message",
   "chat.you": "You",
   "chat.tradePartner": "Trade partner",
+  "chat.decyptionFailed": "Could not decrypt message...",
   "buy": "Buy",
   "sell": "Sell",
   "buyer": "Buyer",
