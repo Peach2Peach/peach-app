@@ -45,7 +45,10 @@ import { setPeachFee } from './constants'
 import { getInfo } from './utils/peachAPI'
 import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
-LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+  /Require cycle/u,
+])
 
 enableScreens()
 
