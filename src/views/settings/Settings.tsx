@@ -1,13 +1,12 @@
 import React, { ReactElement, useContext } from 'react'
 import {
-  ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Text } from '../../components'
+import { Button, PeachScrollView, Text } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
@@ -19,7 +18,7 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  return <ScrollView>
+  return <PeachScrollView>
     <View style={tw`pb-32 h-full`}>
       <View style={tw`flex-col justify-center h-full`}>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
@@ -61,5 +60,5 @@ export default ({ navigation }: Props): ReactElement => {
         />
       </View>
     </View>
-  </ScrollView>
+  </PeachScrollView>
 }

@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import {
   Image,
-  ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -9,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Text, FadeInView } from '../../components'
+import { Button, Text, FadeInView, PeachScrollView } from '../../components'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'home'>
 
@@ -20,7 +19,7 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  return <ScrollView>
+  return <PeachScrollView>
     <View style={tw`pb-32 flex-col justify-center h-full`}>
       <FadeInView duration={400} delay={500} style={tw`flex items-center`} >
         <Image source={require('../../../assets/favico/peach-icon-192.png')} />
@@ -60,5 +59,5 @@ export default ({ navigation }: Props): ReactElement => {
         {i18n('i18n.explainer')}
       </Text>
     </View>
-  </ScrollView>
+  </PeachScrollView>
 }

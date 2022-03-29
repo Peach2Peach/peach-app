@@ -10,7 +10,7 @@ const { LinearGradient } = require('react-native-gradients')
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button } from '../../components'
+import { Button, PeachScrollView } from '../../components'
 import i18n from '../../utils/i18n'
 import LetsExplainPeach from './LetsExplainPeach'
 import { whiteGradient } from '../../utils/layout'
@@ -56,14 +56,14 @@ export default ({ navigation }: Props): ReactElement => {
       <View style={tw`w-full h-8 mt-32 -mb-8 z-10`}>
         <LinearGradient colorList={whiteGradient} angle={-90} />
       </View>
-      <ScrollView ref={scroll}>
+      <PeachScrollView ref={scroll}>
         <View style={tw`pb-8 px-8`}>
           <View style={tw`flex items-center`}>
             <Image source={require('../../../assets/favico/peach-icon-192.png')} />
           </View>
           <CurrentScreen navigation={navigation} />
         </View>
-      </ScrollView>
+      </PeachScrollView>
       <View style={tw`w-full h-8 -mt-8`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>

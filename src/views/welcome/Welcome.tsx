@@ -1,8 +1,7 @@
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import {
   Image,
   Pressable,
-  ScrollView,
   View
 } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -37,16 +36,13 @@ export default ({ navigation }: ScreenProps): ReactElement => {
 
   const [page, setPage] = useState(0)
   const CurrentScreen: Screen = screens[page]
-  const scroll = useRef<ScrollView>(null)
 
   const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
-    scroll.current?.scrollTo({ x: 0 })
   }
   const goTo = (p: number) => {
     setPage(p)
-    scroll.current?.scrollTo({ x: 0 })
   }
 
   return <View style={tw`h-full flex`}>

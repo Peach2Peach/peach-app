@@ -1,5 +1,7 @@
 export { AvoidKeyboard } from './AvoidKeyboard'
+export { PeachScrollView } from './PeachScrollView'
 export { BitcoinAddress } from './bitcoin'
+
 export { Button } from './Button'
 export { Card } from './Card'
 export { Fade, FadeInView, Loading } from './animation'
