@@ -90,8 +90,10 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink p-8 pt-12 flex-col items-center`}>
-      <Image source={require('../../../assets/favico/peach-icon-192.png')} />
+    <View style={tw`h-full flex-shrink p-6 pt-12 flex-col items-center`}>
+      <Image source={require('../../../assets/favico/peach-icon-192.png')}
+        style={[tw`h-40`, { resizeMode: 'contain' }]}
+      />
       <View style={tw`mt-4 w-full`}>
         <Text style={[tw`font-baloo text-center text-3xl leading-3xl text-peach-1`, tw.md`text-5xl`]}>
           {i18n(loading ? 'newUser.title.create' : 'newUser.title.new')}
@@ -119,7 +121,10 @@ export default ({ navigation }: Props): ReactElement => {
         <View>
           <Input
             onChange={onPasswordChange}
-            onSubmit={onPasswordChange}
+            onSubmit={(val: string) => {
+              onPasswordChange(val)
+              submit()
+            }}
             secureTextEntry={true}
             value={password}
             isValid={!isPristine && !isFieldInError('password')}

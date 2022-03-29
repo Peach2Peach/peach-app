@@ -90,7 +90,10 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
       <View style={tw`mt-4`}>
         <Input
           onChange={setPassword}
-          onSubmit={onPasswordChange}
+          onSubmit={(val: string) => {
+            onPasswordChange(val)
+            submit()
+          }}
           secureTextEntry={true}
           label={i18n('restoreBackup.decrypt.password')}
           value={password}
