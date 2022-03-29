@@ -29,6 +29,7 @@
   "restoreBackup.manual.description.1": "We couldn’t find a backup in the default directory.",
   "restoreBackup.manual.description.2": "If you have the backup file somewhere else, please select it manually.",
   "restoreBackup.decrypt.description.1": "Your backup is password encrypted. Please type in your account password.",
+  "restoreBackup.decrypt.password": "Backup password",
   "restoreBackup.restored.description.1": "We restored your backup. Let’s continue your Peer to Peer journey!",
   "createAccount": "Create account",
   "tutorial.title": "Let’s explain peach",

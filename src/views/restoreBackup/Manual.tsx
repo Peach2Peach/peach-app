@@ -1,42 +1,111 @@
-import React, { Dispatch, ReactElement, useContext, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useContext, useState } from 'react'
+import { Image, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, FileData, FileInput, Text } from '../../components'
+import { Button, FileInput, Input, Loading, Text } from '../../components'
 import i18n from '../../utils/i18n'
+import { StackNavigationProp } from '@react-navigation/stack'
+import Icon from '../../components/Icon'
+const { LinearGradient } = require('react-native-gradients')
+import { whiteGradient } from '../../utils/layout'
+import { getMessages, rules } from '../../utils/validation'
+import { account, recoverAccount, saveAccount } from '../../utils/account'
+const { useValidation } = require('react-native-form-validator')
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
 
 type ManualProps = {
-  file: FileData,
-  setFile: Dispatch<FileData>,
-  submit: () => void
+  navigation: ProfileScreenNavigationProp;
+  onSuccess: () => void,
+  onError: () => void,
 }
-export default ({ file, setFile, submit }: ManualProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement => {
   useContext(LanguageContext)
+  const [file, setFile] = useState({
+    name: '',
+    content: ''
+  })
+  const [password, setPassword] = useState('')
 
-  return <View>
-    <Text style={[tw`font-baloo text-center text-3xl leading-3xl text-peach-1`, tw.md`text-5xl`]}>
-      {i18n('restoreBackup')}
-    </Text>
-    <Text style={tw`mt-4 text-center`}>
-      {i18n('restoreBackup.manual.description.1')}
-    </Text>
-    <Text style={tw`mt-3 text-center`}>
-      {i18n('restoreBackup.manual.description.2')}
-    </Text>
-    <View style={tw`mt-4`}>
-      <FileInput
-        fileName={file.name}
-        style={tw`w-full`}
-        onChange={setFile}
-      />
+  const { validate, isFieldInError } = useValidation({
+    deviceLocale: 'default',
+    state: { password },
+    rules,
+    messages: getMessages()
+  })
+
+  const onPasswordChange = (value: string) => {
+    setPassword(value)
+
+    validate({
+      password: {
+        required: true,
+      }
+    })
+  }
+
+  const submit = async () => {
+    await recoverAccount({
+      encryptedAccount: file.content,
+      password,
+      onSuccess,
+      onError
+    })
+    account.settings.skipTutorial = false
+
+    saveAccount(account, password)
+  }
+
+  return <View style={tw`h-full flex`}>
+    <View style={tw`h-full flex-shrink p-8 pt-12 flex-col items-center`}>
+      <Image source={require('../../../assets/favico/peach-icon-192.png')} />
+      <View style={tw`mt-4 w-full`}>
+        <Text style={[tw`font-baloo text-center text-3xl leading-3xl text-peach-1`, tw.md`text-5xl`]}>
+          {i18n('restoreBackup')}
+        </Text>
+        <Text style={tw`mt-4 text-center`}>
+          {i18n('restoreBackup.manual.description.1')}
+        </Text>
+        <Text style={tw`mt-3 text-center`}>
+          {i18n('restoreBackup.manual.description.2')}
+        </Text>
+      </View>
     </View>
-    <View style={tw`mt-4 flex items-center`}>
-      <Button
-        onPress={submit}
-        wide={false}
-        title={i18n('restoreBackup')}
-      />
+    <View style={tw`pb-8 mt-4 flex items-center w-full bg-white-1`}>
+      <View style={tw`w-full h-8 -mt-8`}>
+        <LinearGradient colorList={whiteGradient} angle={90} />
+      </View>
+      <View style={tw`w-full`}>
+        <FileInput
+          fileName={file.name}
+          style={tw`w-full`}
+          onChange={setFile}
+        />
+      </View>
+      <View style={tw`mt-4`}>
+        <Input
+          onChange={setPassword}
+          onSubmit={onPasswordChange}
+          secureTextEntry={true}
+          label={i18n('restoreBackup.decrypt.password')}
+          value={password}
+          isValid={!isFieldInError('password')}
+          errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}
+        />
+      </View>
+      <View style={tw`w-full mt-5 flex items-center`}>
+        <Pressable style={tw`absolute left-0`} onPress={() => navigation.goBack()}>
+          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+        </Pressable>
+        <Button
+          onPress={submit}
+          disabled={!file.content || !password}
+          wide={false}
+          title={i18n('restoreBackup')}
+        />
+      </View>
     </View>
   </View>
 }

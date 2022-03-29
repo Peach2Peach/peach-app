@@ -17,10 +17,10 @@ interface RecoverAccountProps {
  * @param props.onError callback on error
  */
 export const recoverAccount = async ({ encryptedAccount, password = '', onSuccess, onError }: RecoverAccountProps) => {
-  info('Recovering account', encryptedAccount)
+  info('Recovering account')
 
   try {
-    await setAccount(decrypt(encryptedAccount, password))
+    await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     onSuccess()
   } catch (e) {
     onError(e)

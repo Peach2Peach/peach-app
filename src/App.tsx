@@ -1,4 +1,4 @@
-import React, { ReactElement, ReducerAction, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
 import { SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
@@ -16,7 +16,7 @@ import LanguageContext from './components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoin'
 import i18n from './utils/i18n'
 import PGPTest from './views/pgpTest/PGPTest'
-import { Footer, Header, LanguageSelect } from './components'
+import { AvoidKeyboard, Footer, Header, LanguageSelect } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
@@ -109,6 +109,13 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
  * @param updatePeachWS update function
  */
 const initWebSocket = async (updatePeachWS: Function): Promise<void> => {
+  if (!account.publicKey) {
+    setTimeout(() => {
+      initWebSocket(updatePeachWS)
+    }, 10000)
+    return
+  }
+
   const ws = createWebsocket()
 
   updatePeachWS(ws)
@@ -158,7 +165,7 @@ const App: React.FC = () => {
     })()
   }, [])
 
-  return <SafeAreaView style={tw`bg-white-1`}>
+  return <AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <PeachWSContext.Provider value={peachWS}>
         <BitcoinContext.Provider value={bitcoinContext}>
@@ -193,7 +200,10 @@ const App: React.FC = () => {
                       headerShown: false,
                       cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
                     }}>
-                      {views.map(view => <Stack.Screen name={view.name} component={view.component} key={view.name} />)}
+                      {views.map(view => <Stack.Screen
+                        name={view.name}
+                        component={view.component} key={view.name}
+                      />)}
                     </Stack.Navigator>
                   </NavigationContainer>
                 </View>
@@ -207,6 +217,6 @@ const App: React.FC = () => {
         </BitcoinContext.Provider>
       </PeachWSContext.Provider>
     </LanguageContext.Provider>
-  </SafeAreaView>
+  </SafeAreaView></AvoidKeyboard>
 }
 export default App

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import {
   Image,
   Pressable,
@@ -6,7 +6,6 @@ import {
   View
 } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-const { LinearGradient } = require('react-native-gradients')
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
@@ -51,38 +50,36 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   }
 
   return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink p-8 pt-14 flex-col items-center`}>
+    <View style={tw`h-full flex-shrink p-8 pt-12 flex-col items-center`}>
       <Image source={require('../../../assets/favico/peach-icon-192.png')} />
-      <View style={tw`mt-4`}>
+      <View style={tw`mt-4 w-full`}>
         <CurrentScreen navigation={navigation} />
       </View>
     </View>
-    <View style={tw`mb-8 w-full`}>
-      <View style={tw`mt-4 flex items-center`}>
-        {page !== screens.length - 1
-          ? <Button
-            title={i18n('next')}
-            wide={false}
-            onPress={next}
-          />
-          : <View>
-            <View style={tw`mt-1 flex items-center`}>
-              <Button
-                onPress={() => navigation.navigate('newUser')}
-                wide={false}
-                title={i18n('newUser')}
-              />
-            </View>
-            <View style={tw`mt-4`}>
-              <Button
-                onPress={() => navigation.navigate('restoreBackup')}
-                secondary={true}
-                title={i18n('restoreBackup')}
-              />
-            </View>
+    <View style={tw`mb-8 mt-4 flex items-center w-full`}>
+      {page !== screens.length - 1
+        ? <Button
+          title={i18n('next')}
+          wide={false}
+          onPress={next}
+        />
+        : <View>
+          <View style={tw`flex items-center`}>
+            <Button
+              onPress={() => navigation.navigate('newUser')}
+              wide={false}
+              title={i18n('newUser')}
+            />
           </View>
-        }
-      </View>
+          <View style={tw`mt-4`}>
+            <Button
+              onPress={() => navigation.navigate('restoreBackup')}
+              secondary={true}
+              title={i18n('restoreBackup')}
+            />
+          </View>
+        </View>
+      }
       <View style={tw`w-full flex-row justify-center mt-16`}>
         {screens.map((screen, i) =>
           <Pressable key={i} onPress={() => goTo(i)}
