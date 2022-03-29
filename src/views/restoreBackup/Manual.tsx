@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useState } from 'react'
-import { Image, Pressable, View } from 'react-native'
+import { Image, Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
@@ -50,12 +50,15 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     await recoverAccount({
       encryptedAccount: file.content,
       password,
-      onSuccess,
+      onSuccess: () => {},
       onError
     })
+    Keyboard.dismiss()
+
     account.settings.skipTutorial = false
 
-    saveAccount(account, password)
+    await saveAccount(account, password)
+    onSuccess()
   }
 
   return <View style={tw`h-full flex`}>
