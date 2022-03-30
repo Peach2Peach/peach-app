@@ -128,7 +128,7 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
                   </Text>
                 </View>
                 <View style={tw`w-1/4 flex-shrink-0`}>
-                  <Text style={tw`text-right`}>{i18n(`paymentMethod.${data.type}`)}</Text>
+                  <Text style={tw`text-right text-grey-1`}>{i18n(`paymentMethod.${data.type}`)}</Text>
                 </View>
               </View>
             }))}
