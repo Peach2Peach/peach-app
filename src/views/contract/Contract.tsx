@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Loading, Timer, Title } from '../../components'
+import { Button, Loading, PeachScrollView, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error, info } from '../../utils/log'

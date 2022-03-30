@@ -2,6 +2,7 @@ import { setAccount } from '.'
 import { decrypt } from '../crypto'
 import { info } from '../log'
 import { setSession } from '../session'
+import { account } from './account'
 
 interface RecoverAccountProps {
   encryptedAccount: string,
@@ -23,7 +24,7 @@ export const recoverAccount = async ({ encryptedAccount, password = '', onSucces
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     await setSession({ password })
-    onSuccess()
+    onSuccess(account)
   } catch (e) {
     onError(e)
   }

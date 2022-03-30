@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
-import {ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
