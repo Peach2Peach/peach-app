@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Shadow } from 'react-native-shadow-2'
@@ -28,6 +28,8 @@ const NoPaymentMethods = (): ReactElement => <View style={tw`p-5 py-2 bg-white-1
 const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
   const [iban, setIBAN] = useState('')
   const [beneficiary, setBeneficiary] = useState('')
+  const $iban = useRef<TextInput>(null)
+
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
     state: { iban, beneficiary },
@@ -58,6 +60,7 @@ const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
     <View>
       <Input
         onChange={setBeneficiary}
+        onSubmit={() => $iban.current.focus()}
         value={beneficiary}
         label={i18n('form.beneficiary')}
         isValid={!isFieldInError('beneficiary')}
@@ -68,6 +71,8 @@ const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
     <View style={tw`mt-2`}>
       <Input
         onChange={setIBAN}
+        onSubmit={save}
+        reference={$iban}
         value={iban}
         label={i18n('form.iban')}
         isValid={!isFieldInError('iban')}

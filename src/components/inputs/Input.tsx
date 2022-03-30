@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement, Ref } from 'react'
+import React, { ReactElement, Ref } from 'react'
 import {
   Pressable,
   View,
@@ -24,8 +24,8 @@ interface InputProps {
   onFocus?: Function,
   onBlur?: Function,
   secureTextEntry?: boolean,
-  style?: ViewStyle|ViewStyle[]
-  reference?: Ref<ComponentType<any>>,
+  style?: ViewStyle|ViewStyle[],
+  reference?: Ref<TextInput>,
 }
 
 /**

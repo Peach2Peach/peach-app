@@ -1,10 +1,10 @@
 
-import React, { LegacyRef, ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, Ref } from 'react'
 import { ScrollView, View, ViewStyle } from 'react-native'
 
 interface ScrollViewProps {
   children?: ReactNode,
-  scrollRef?: LegacyRef<ScrollView>,
+  scrollRef?: Ref<ScrollView>,
   contentContainerStyle?: ViewStyle|ViewStyle[],
   style?: ViewStyle|ViewStyle[],
 
