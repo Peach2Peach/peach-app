@@ -110,6 +110,7 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
 
   const addPaymentMethod = (data: PaymentData) => {
     account.paymentData.push(data)
+    data.selected = true
     updatePaymentData(account.paymentData)
     setShowAddNew(false)
   }
