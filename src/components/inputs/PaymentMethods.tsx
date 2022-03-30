@@ -115,18 +115,18 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
   }
   return <View>
     {paymentData.length
-      ? <View style={tw`w-full flex-row mt-2 px-7`}>
+      ? <View style={tw`w-full flex-row mt-2`}>
         <View style={tw`w-full flex-shrink`}>
           <Checkboxes
             items={paymentData.map((data: PaymentData) => ({
               value: data.id,
-              display: <View style={tw`flex-row`}>
-                <View style={tw`flex-shrink w-24`}>
+              display: <View style={tw`flex-row pr-3`}>
+                <View style={tw`w-3/4 flex-shrink`}>
                   <Text numberOfLines={1} ellipsizeMode="tail">
                     {(data.iban || data.email || data.phone)}
                   </Text>
                 </View>
-                <View style={tw`w-16 flex-shrink-0`}>
+                <View style={tw`w-1/4 flex-shrink-0`}>
                   <Text style={tw`text-right`}>{i18n(`paymentMethod.${data.type}`)}</Text>
                 </View>
               </View>
