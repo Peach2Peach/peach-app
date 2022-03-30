@@ -1,5 +1,5 @@
 import React, { ReactElement, useRef, useState } from 'react'
-import { View, ViewStyle } from 'react-native'
+import { TextInput, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Shadow } from 'react-native-shadow-2'
 import { mildShadow } from '../../utils/layout'
@@ -17,13 +17,13 @@ interface PaymentFormProps {
   onSubmit: (data: PaymentData) => void
 }
 
-const NoPaymentMethods = (): ReactElement => <View style={tw`p-5 py-2 bg-white-1 border border-grey-4 rounded`}>
-  <Shadow {...mildShadow} viewStyle={tw`w-full`}>
+const NoPaymentMethods = (): ReactElement => <Shadow {...mildShadow} viewStyle={tw`w-full`}>
+  <View style={tw`p-5 py-2 bg-white-1 border border-grey-4 rounded`}>
     <Text style={tw`text-center text-grey-2`}>
       {i18n('sell.paymentMethods.empty')}
     </Text>
-  </Shadow>
-</View>
+  </View>
+</Shadow>
 
 const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
   const [iban, setIBAN] = useState('')
@@ -49,7 +49,7 @@ const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
     })
     if (!isFormValid()) return
     onSubmit({
-      id: `iban-${iban.replace(/\s/gu, '')}`,
+      id: `iban-${iban.replace(/\s/gu, '')}-${new Date().getTime()}`,
       type: 'iban',
       iban,
       beneficiary,
@@ -60,7 +60,7 @@ const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
     <View>
       <Input
         onChange={setBeneficiary}
-        onSubmit={() => $iban.current.focus()}
+        onSubmit={() => $iban.current?.focus()}
         value={beneficiary}
         label={i18n('form.beneficiary')}
         isValid={!isFieldInError('beneficiary')}
@@ -114,10 +114,11 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
   const PaymentMethodForm = newPaymentMethod ? PaymentMethodForms[newPaymentMethod] : null
 
   const addPaymentMethod = (data: PaymentData) => {
-    account.paymentData.push(data)
     data.selected = true
+    account.paymentData.push(data)
     updatePaymentData(account.paymentData)
     setShowAddNew(false)
+    if (onChange) onChange(account.paymentData)
   }
   return <View>
     {paymentData.length
