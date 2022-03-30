@@ -48,6 +48,16 @@ jest.mock('react-native-promise-rejection-utils', () => ({
   setUnhandledPromiseRejectionTracker: jest.fn()
 }))
 
+type Storage = {
+  [key: string]: string
+}
+const storage: Storage = {
+}
+jest.mock('react-native-encrypted-storage', () => ({
+  getItem: async (key: string, val: string) => storage[key] = val,
+  setItem: async (key: string) => storage[key],
+}))
+
 jest.mock('react-native-snap-carousel', () => jest.fn())
 jest.mock('@react-native-clipboard/clipboard', () => jest.fn())
 jest.mock('@env', () => ({
