@@ -25,7 +25,7 @@ const NoPaymentMethods = (): ReactElement => <View style={tw`p-5 py-2 bg-white-1
   </Shadow>
 </View>
 
-const SEPA = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
+const IBAN = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
   const [iban, setIBAN] = useState('')
   const [beneficiary, setBeneficiary] = useState('')
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -47,8 +47,8 @@ const SEPA = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
     })
     if (!isFormValid()) return
     onSubmit({
-      id: `sepa-${iban.replace(/\s/gu, '')}`,
-      type: 'sepa',
+      id: `iban-${iban.replace(/\s/gu, '')}`,
+      type: 'iban',
       iban,
       beneficiary,
     })
@@ -57,22 +57,22 @@ const SEPA = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
   return <View style={style}>
     <View>
       <Input
-        onChange={setIBAN}
-        value={iban}
-        label={i18n('form.iban')}
-        isValid={!isFieldInError('iban')}
-        autoCorrect={false}
-        errorMessage={getErrorsInField('iban')}
-      />
-    </View>
-    <View style={tw`mt-4`}>
-      <Input
         onChange={setBeneficiary}
         value={beneficiary}
         label={i18n('form.beneficiary')}
         isValid={!isFieldInError('beneficiary')}
         autoCorrect={false}
         errorMessage={getErrorsInField('beneficiary')}
+      />
+    </View>
+    <View style={tw`mt-2`}>
+      <Input
+        onChange={setIBAN}
+        value={iban}
+        label={i18n('form.iban')}
+        isValid={!isFieldInError('iban')}
+        autoCorrect={false}
+        errorMessage={getErrorsInField('iban')}
       />
     </View>
     <View style={tw`flex items-center mt-4`}>
@@ -86,7 +86,7 @@ const SEPA = ({ style, onSubmit }: PaymentFormProps): ReactElement => {
 }
 
 const PaymentMethodForms = {
-  sepa: SEPA
+  iban: IBAN
 }
 
 

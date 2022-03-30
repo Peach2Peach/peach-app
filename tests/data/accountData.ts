@@ -5,7 +5,7 @@ export const buyOffer: BuyOffer = {
   type: 'bid',
   published: false,
   currencies: ['EUR', 'CHF'],
-  paymentMethods: ['sepa'],
+  paymentMethods: ['iban'],
   kyc: false,
   amount: 250000,
   matches: [],
@@ -21,12 +21,12 @@ export const sellOffer: SellOffer = {
   currencies: ['EUR'],
   paymentData: [
     {
-      id: 'sepa',
-      type: 'sepa',
+      id: 'iban',
+      type: 'iban',
       selected: true
     }
   ],
-  paymentMethods: ['sepa'],
+  paymentMethods: ['iban'],
   kyc: false,
   amount: 250000,
   premium: 1.5,
@@ -41,7 +41,7 @@ export const buyOfferUnpublished: BuyOffer = {
   type: 'bid',
   published: false,
   currencies: ['EUR', 'CHF'],
-  paymentMethods: ['sepa'],
+  paymentMethods: ['iban'],
   kyc: false,
   amount: 250000,
   matches: [],
@@ -69,7 +69,7 @@ export const account1: Account = {
     skipTutorial: true,
     amount: 1000000,
     currencies: ['EUR', 'CHF'],
-    paymentMethods: ['sepa'],
+    paymentMethods: ['iban'],
     kyc: false
   },
   paymentData: [],
@@ -93,14 +93,14 @@ export const paymentData: PaymentData[] = [
   {
     'beneficiary': 'Melocoton',
     'iban': 'IE29 AIBK 9311 5212 3456 78',
-    'id': 'sepa-IE29AIBK93115212345678',
+    'id': 'iban-IE29AIBK93115212345678',
     'selected': true,
-    'type': 'sepa'
+    'type': 'iban'
   }, {
     'beneficiary': 'Test',
     'iban': 'EE38 2200 2210 2014 5685',
-    'id': 'sepa-EE382200221020145685',
-    'type': 'sepa'
+    'id': 'iban-EE382200221020145685',
+    'type': 'iban'
   }
 ]
 
@@ -138,7 +138,7 @@ export const contract: Contract = {
   kycRequired: false,
   paymentConfirmed: null,
   paymentMade: null,
-  paymentMethod: 'sepa',
+  paymentMethod: 'iban',
   price: 89.04,
   releaseAddress: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
   releaseTransaction: 'rawtransaction',

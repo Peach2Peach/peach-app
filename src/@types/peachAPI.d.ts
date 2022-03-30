@@ -41,7 +41,7 @@ declare type Currency = 'EUR' | 'CHF' | 'GBP'
 declare type Pricebook = {
   [key in Currency]: number
 }
-declare type PaymentMethod = 'sepa'
+declare type PaymentMethod = 'iban'
 declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'

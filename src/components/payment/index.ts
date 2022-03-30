@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import DetailSEPA from './detail/sepa'
+import DetailIBAN from './detail/iban'
 
 export type PaymentTemplateProps = { paymentData: PaymentData }
 
@@ -8,5 +8,5 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  'sepa': DetailSEPA
+  'iban': DetailIBAN
 }

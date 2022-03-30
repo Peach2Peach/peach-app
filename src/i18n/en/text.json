@@ -91,7 +91,7 @@
   "currency.USD": "Dollar",
   "currency.GBP": "Pound sterling",
   "currency.SEK": "Swedish Krona",
-  "paymentMethod.sepa": "SEPA",
+  "paymentMethod.iban": "IBAN",
   "scanQR": "Scan QR",
   "scanBTCAddress": "Scan your Bitcoin address QR",
   "paste": "Paste",
