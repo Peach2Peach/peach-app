@@ -69,16 +69,19 @@ export const Input = ({
   secureTextEntry,
   style,
   reference
-}: InputProps): ReactElement => <View>
+}: InputProps): ReactElement => <View style={tw`h-12`}>
   <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
-      tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-7 pr-3`,
+      tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-4 pr-3`,
       style ? style : {},
       isValid && value ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {},
     ]}>
       <TextInput ref={reference ? reference : null}
-        style={[tw`w-full flex-shrink  h-10 p-0 text-grey-1 text-lg leading-5`]}
+        style={[
+          tw`w-full flex-shrink h-10 p-0 text-grey-1 text-lg leading-5`,
+          label && !value ? tw`font-baloo text-xs uppercase` : {}
+        ]}
         placeholder={label}
         value={value}
         editable={!disabled}
@@ -100,7 +103,7 @@ export const Input = ({
   </View>
 
   {errorMessage.length > 0
-    ? <Text style={tw`font-baloo text-xs text-red text-center mt-2`}>{errorMessage[0]}</Text>
+    ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
     : null
   }
 </View>

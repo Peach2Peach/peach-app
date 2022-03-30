@@ -1,8 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
-import {
-  ScrollView,
-  View
-} from 'react-native'
+import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -19,7 +16,7 @@ import { saveOffer } from '../../utils/offer'
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../utils/message'
 import { error } from '../../utils/log'
-import { Loading, Navigation } from '../../components'
+import { Loading, Navigation, PeachScrollView } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 
@@ -174,7 +171,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <ScrollView ref={scroll}
+      <PeachScrollView ref={scroll}
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
@@ -200,7 +197,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           </View>
           : null
         }
-      </ScrollView>
+      </PeachScrollView>
     </View>
     {!scrollable && !updatePending
       ? <Navigation

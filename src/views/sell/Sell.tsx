@@ -19,7 +19,7 @@ import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp } from '@react-navigation/native'
 import { error } from '../../utils/log'
-import { Loading, Navigation, Text } from '../../components'
+import { Loading, Navigation, PeachScrollView, Text } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 import { MessageContext } from '../../utils/message'
@@ -194,7 +194,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <ScrollView ref={scroll}
+      <PeachScrollView ref={scroll}
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
@@ -221,7 +221,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           </View>
           : null
         }
-      </ScrollView>
+      </PeachScrollView>
     </View>
     {!scrollable && !updatePending
       ? <Navigation

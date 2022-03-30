@@ -1,14 +1,11 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import {
-  ScrollView,
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Loading, Timer, Title } from '../../components'
+import { Button, Loading, PeachScrollView, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error, info } from '../../utils/log'
@@ -187,7 +184,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return updatePending
     ? <Loading />
-    : <ScrollView style={tw`pt-6`}>
+    : <PeachScrollView style={tw`pt-6`}>
       <View style={tw`pb-32`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
@@ -238,5 +235,5 @@ export default ({ route, navigation }: Props): ReactElement => {
           : null
         }
       </View>
-    </ScrollView>
+    </PeachScrollView>
 }

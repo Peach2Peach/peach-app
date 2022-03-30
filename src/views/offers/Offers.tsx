@@ -1,14 +1,13 @@
 import React, { ReactElement, useContext } from 'react'
 import {
   Pressable,
-  ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Text } from '../../components'
+import { PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
 
@@ -56,7 +55,7 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  return <ScrollView>
+  return <PeachScrollView>
     <View style={tw`pb-32`}>
       <View>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
@@ -71,5 +70,5 @@ export default ({ navigation }: Props): ReactElement => {
         </Pressable>
       </View>)}
     </View>
-  </ScrollView>
+  </PeachScrollView>
 }

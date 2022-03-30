@@ -162,7 +162,7 @@ describe('recoverAccount', () => {
 
   it('would decrypt recovery account', async () => {
     await recoverAccount({
-      encryptedAccount: 'mockdata',
+      encryptedAccount: JSON.stringify(accountData.recoveredAccount),
       password: 'mockpassword',
       onSuccess,
       onError
