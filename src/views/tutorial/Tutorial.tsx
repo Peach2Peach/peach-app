@@ -56,7 +56,7 @@ export default ({ navigation }: Props): ReactElement => {
       <View style={tw`w-full h-8 mt-32 -mb-8 z-10`}>
         <LinearGradient colorList={whiteGradient} angle={-90} />
       </View>
-      <PeachScrollView ref={scroll}>
+      <PeachScrollView scrollRef={scroll}>
         <View style={tw`pb-8 px-8`}>
           <View style={tw`flex items-center`}>
             <Image source={require('../../../assets/favico/peach-icon-192.png')} />

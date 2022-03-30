@@ -24,7 +24,7 @@ export default ({ messages, style }: ChatBoxProps): ReactElement => {
       tw`w-full h-full flex-col border border-grey-4 rounded py-4`,
       style ? style : {},
     ]}>
-      <PeachScrollView ref={scroll} style={tw`w-full h-full px-7`}>
+      <PeachScrollView scrollRef={scroll} style={tw`w-full h-full px-7`}>
         {messages.map((message: Message, i, self) => {
           const isYou = message.from === account.publicKey
           const previous = self[i - 1]
