@@ -89,7 +89,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
           onChange={setFile}
         />
       </View>
-      <View style={tw`mt-4`}>
+      <View style={tw`mt-2`}>
         <Input
           onChange={setPassword}
           onSubmit={(val: string) => {
