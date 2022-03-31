@@ -17,7 +17,7 @@ const tailwind = create({
  * @example [tw`mt-2 text-lg`, tw.md`mt-4 text-xl`, tw.lg`mt-5 text-2xl`]
  */
 const tw: Tailwind = cls => tailwind(cls)
-tw.md = cls => (GetWindowDimensions().width || 0) >= 600 ? tailwind(cls) : {}
-tw.lg = cls => (GetWindowDimensions().width || 0) >= 1200 ? tailwind(cls) : {}
+tw.md = cls => (GetWindowDimensions().width || 0) > 375 ? tailwind(cls) : {}
+tw.lg = cls => (GetWindowDimensions().width || 0) > 1200 ? tailwind(cls) : {}
 
 export default tw

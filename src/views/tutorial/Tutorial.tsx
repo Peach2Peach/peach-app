@@ -59,7 +59,9 @@ export default ({ navigation }: Props): ReactElement => {
       <PeachScrollView ref={scroll}>
         <View style={tw`pb-8 px-8`}>
           <View style={tw`flex items-center`}>
-            <Image source={require('../../../assets/favico/peach-icon-192.png')} />
+            <Image source={require('../../../assets/favico/peach-logo.png')}
+              style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
+            />
           </View>
           <CurrentScreen navigation={navigation} />
         </View>
