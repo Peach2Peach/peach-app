@@ -28,7 +28,7 @@ export default ({ navigation }: Props): ReactElement => {
     <View style={tw`pt-12 pb-32 flex-col justify-center items-center h-full`}>
       <Image source={require('../../../assets/favico/peach-logo.png')}
         style={[tw`h-12`, { resizeMode: 'contain' }]}/>
-      <Headline style={tw`text-3xl leading-3xl`}>
+      <Headline style={tw`text-3xl leading-3xl mt-4`}>
         {i18n('welcome.welcomeToPeach.title')}
       </Headline>
       <View style={tw`w-full flex-row mt-10`}>
