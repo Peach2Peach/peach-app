@@ -82,7 +82,7 @@ export default ({ navigation }: Props): ReactElement => {
       }
     })
     setIsPristine(false)
-    setLoading(true)
+    setLoading(isValid)
     if (isValid) {
       Keyboard.dismiss()
       createAccount({ password, onSuccess, onError })
@@ -131,6 +131,7 @@ export default ({ navigation }: Props): ReactElement => {
             secureTextEntry={true}
             value={password}
             isValid={!isPristine && !isFieldInError('password')}
+            hint={i18n('form.password.error')}
             errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}
           />
         </View>

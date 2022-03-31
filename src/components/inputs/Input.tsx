@@ -18,6 +18,7 @@ interface InputProps {
   autoCorrect?: boolean
   disabled?: boolean
   isValid?: boolean,
+  hint?: string
   errorMessage?: string[]
   onChange?: Function,
   onSubmit?: Function,
@@ -37,6 +38,7 @@ interface InputProps {
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
+ * @param [props.hint] hint
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
@@ -61,6 +63,7 @@ export const Input = ({
   autoCorrect = false,
   disabled = false,
   isValid,
+  hint,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -106,6 +109,10 @@ export const Input = ({
 
   {errorMessage.length > 0
     ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
+    : null
+  }
+  {hint && errorMessage.length === 0
+    ? <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
     : null
   }
 </View>
