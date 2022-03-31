@@ -62,11 +62,14 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
   }
 
   return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink p-8 pt-12 flex-col items-center`}>
+    <View style={[
+      tw`h-full flex-shrink p-8 pt-16 flex-col items-center`,
+      tw.md`pt-36`
+    ]}>
       <Image source={require('../../../assets/favico/peach-logo.png')}
         style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
       />
-      <View style={tw`mt-4 w-full`}>
+      <View style={[tw`mt-11 w-full`, tw.md`mt-14`]}>
         <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
           {i18n('restoreBackup')}
         </Text>
