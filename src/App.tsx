@@ -157,7 +157,7 @@ const App: React.FC = () => {
 
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
-  const [currentPage, setCurrentPage] = useState('home')
+  const [currentPage, setCurrentPage] = useState('splashScreen')
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
