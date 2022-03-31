@@ -25,7 +25,7 @@ tw.md = cls => {
 }
 tw.lg = cls => {
   const { width } = GetWindowDimensions()
-  return (width || 0) > 1200
+  return (width || 0) >= 1200
     ? tailwind(cls)
     : {}
 }
