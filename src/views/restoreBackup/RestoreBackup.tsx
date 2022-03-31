@@ -22,7 +22,7 @@ type Props = {
 // 4. backup restored > continue button
 export default ({ navigation }: Props): ReactElement => {
   const [autoScanComplete, setAutoScanComplete] = useState(true)
-
+  const [recoveredAccount, setRecoveredAccount] = useState(account)
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -34,8 +34,6 @@ export default ({ navigation }: Props): ReactElement => {
   }, [])
 
 
-  const onSuccess = () => {}
-
   const onError = () => {
     updateMessage({
       msg: i18n('form.password.invalid'),
@@ -45,10 +43,10 @@ export default ({ navigation }: Props): ReactElement => {
 
   return !autoScanComplete
     ? <AutoScan />
-    : !account.publicKey
+    : !recoveredAccount.publicKey
       ? <Manual
         navigation={navigation}
-        onSuccess={onSuccess}
+        onSuccess={(acc: Account) => setRecoveredAccount(acc)}
         onError={onError}
       />
       : <Restored navigation={navigation} />

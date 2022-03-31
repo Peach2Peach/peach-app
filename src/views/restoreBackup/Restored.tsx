@@ -27,7 +27,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <View style={tw`h-full flex`}>
     <View style={[
-      tw`h-full flex-shrink p-6 pt-16 flex-col items-center`,
+      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
       tw.md`pt-36`
     ]}>
       <Image source={require('../../../assets/favico/peach-logo.png')}
