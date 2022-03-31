@@ -6,5 +6,5 @@ import tw from '../../styles/tailwind'
 
 export default (): ReactElement =>
   <Fade show={true} duration={400} delay={500} style={tw`h-full flex items-center justify-center`}>
-    <Image source={require('../../../assets/favico/peach-icon-192.png')} />
+    <Image source={require('../../../assets/favico/peach-logo.png')} />
   </Fade>

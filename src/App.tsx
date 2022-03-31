@@ -157,7 +157,7 @@ const App: React.FC = () => {
 
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
-  const [currentPage, setCurrentPage] = useState('home')
+  const [currentPage, setCurrentPage] = useState('splashScreen')
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -207,7 +207,7 @@ const App: React.FC = () => {
                     <Stack.Navigator detachInactiveScreens={true} screenOptions={{
                       detachPreviousScreen: true,
                       headerShown: false,
-                      cardStyle: [tw`bg-white-1 px-6`, tw.md`p-8`]
+                      cardStyle: tw`bg-white-1 px-6`
                     }}>
                       {views.map(view => <Stack.Screen
                         name={view.name}
