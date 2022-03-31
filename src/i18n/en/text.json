@@ -36,6 +36,7 @@
   "tutorial.description": "The way Peach works is a bit different from what you might be used to from traditional exchanges.",
   "startTutorial": "Start tutorial",
   "skipTutorial": "Skip tutorial",
+  "home.currentPrice": "Current bitcoin price",
   "sell.title": "Sell bitcoin",
   "sell.subtitle": "How much do you want to sell?",
   "sell.summary.subtitle": "Summary",
