@@ -9,14 +9,11 @@ import {
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './views/home/Home'
-import ComponentsTest from './views/componentsTest/ComponentsTest'
-import InputTest from './views/inputTest/InputTest'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoin'
 import i18n from './utils/i18n'
-import PGPTest from './views/pgpTest/PGPTest'
-import { AvoidKeyboard, Footer, Header, LanguageSelect } from './components'
+import { AvoidKeyboard, Footer, Header } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
@@ -29,7 +26,7 @@ import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
 import GetWindowDimensions from './hooks/GetWindowDimensions'
 import { account, loadAccount } from './utils/account'
-import { initSession, session } from './utils/session'
+import { initSession } from './utils/session'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
@@ -55,28 +52,43 @@ enableScreens()
 const Stack = createStackNavigator<RootStackParamList>()
 type ViewType = {
   name: keyof RootStackParamList,
-  component: (props: any) => ReactElement
+  component: (props: any) => ReactElement,
+  showHeader: boolean,
+  showFooter: boolean,
 }
+
 const views: ViewType[] = [
-  { name: 'splashScreen', component: SplashScreen },
-  { name: 'welcome', component: Welcome },
-  { name: 'newUser', component: NewUser },
-  { name: 'restoreBackup', component: RestoreBackup },
-  { name: 'tutorial', component: Tutorial },
-  { name: 'home', component: Home },
-  { name: 'buy', component: Buy },
-  { name: 'sell', component: Sell },
-  { name: 'search', component: Search },
-  { name: 'contract', component: Contract },
-  { name: 'contractChat', component: ContractChat },
-  { name: 'tradeComplete', component: TradeComplete },
-  { name: 'refund', component: Refund },
-  { name: 'offers', component: Offers },
-  { name: 'settings', component: Settings },
-  { name: 'componentsTest', component: ComponentsTest },
-  { name: 'inputTest', component: InputTest },
-  { name: 'pgpTest', component: PGPTest },
+  { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
+  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
+  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
+  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
+  { name: 'tutorial', component: Tutorial, showHeader: false, showFooter: false },
+  { name: 'home', component: Home, showHeader: false, showFooter: true },
+  { name: 'buy', component: Buy, showHeader: true, showFooter: true },
+  { name: 'sell', component: Sell, showHeader: true, showFooter: true },
+  { name: 'search', component: Search, showHeader: true, showFooter: true },
+  { name: 'contract', component: Contract, showHeader: true, showFooter: true },
+  { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
+  { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
+  { name: 'refund', component: Refund, showHeader: true, showFooter: true },
+  { name: 'offers', component: Offers, showHeader: true, showFooter: true },
+  { name: 'settings', component: Settings, showHeader: true, showFooter: true },
 ]
+
+/**
+ * @description Method to determine weather header should be shown
+ * @param view view id
+ * @returns true if view should show header
+ */
+const showHeader = (view: string) => views.find(v => v.name === view)?.showHeader
+
+
+/**
+ * @description Method to determine weather header should be shown
+ * @param view view id
+ * @returns true if view should show header
+ */
+const showFooter = (view: string) => views.find(v => v.name === view)?.showFooter
 
 /**
  * @description Method to initialize app by retrieving app session and user account
@@ -136,7 +148,6 @@ const initWebSocket = async (updatePeachWS: Function): Promise<void> => {
 
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
-  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
@@ -175,14 +186,9 @@ const App: React.FC = () => {
           <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
             <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
               <View style={tw`h-full flex-col`}>
-                {account?.settings?.skipTutorial
+                {showHeader(currentPage)
                   ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
-                  : <View style={[
-                    tw`absolute top-10 right-4 z-20`,
-                    !session.initialized ? tw`hidden` : {}
-                  ]}>
-                    <LanguageSelect locale={locale} setLocale={setLocale} />
-                  </View>
+                  : null
                 }
                 {msg
                   ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
@@ -210,7 +216,7 @@ const App: React.FC = () => {
                     </Stack.Navigator>
                   </NavigationContainer>
                 </View>
-                {account?.settings?.skipTutorial
+                {showFooter(currentPage)
                   ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
                   : null
                 }

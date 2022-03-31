@@ -1,5 +1,4 @@
 {
-  "i18n.explainer": "i18n stands for internationalization (the number 18 refers to the 18 letters that are omitted).",
   "i18n.test": "Variable test: $0 $1 $2",
   "i18n.test.fallback.1": "Fallback Test 1 en",
   "i18n.test.fallback.2": "Fallback Test 2 en",
@@ -37,6 +36,7 @@
   "tutorial.description": "The way Peach works is a bit different from what you might be used to from traditional exchanges.",
   "startTutorial": "Start tutorial",
   "skipTutorial": "Skip tutorial",
+  "home.currentPrice": "Current bitcoin price",
   "sell.title": "Sell bitcoin",
   "sell.subtitle": "How much do you want to sell?",
   "sell.summary.subtitle": "Summary",

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useReducer, useState } from 'react'
 import {
   Image,
   Pressable,
@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button } from '../../components'
+import { Button, LanguageSelect } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
@@ -33,6 +33,7 @@ const screens = [
 
 export default ({ navigation }: ScreenProps): ReactElement => {
   useContext(LanguageContext)
+  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
 
   const [page, setPage] = useState(0)
   const CurrentScreen: Screen = screens[page]
@@ -46,6 +47,9 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   }
 
   return <View style={tw`h-full flex`}>
+    <View style={tw`absolute top-10 right-4 z-20`}>
+      <LanguageSelect locale={locale} setLocale={setLocale} />
+    </View>
     <View style={tw`h-full flex-shrink p-8 pt-12 flex-col items-center`}>
       <Image source={require('../../../assets/favico/peach-icon-192.png')} />
       <View style={tw`mt-4 w-full`}>
