@@ -52,7 +52,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
       <LanguageSelect locale={locale} setLocale={setLocale} />
     </View>
     <View style={[
-      tw`h-full flex-shrink p-6 pt-16 flex-col items-center`,
+      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
       tw.md`pt-40`
     ]}>
       <Image source={require('../../../assets/favico/peach-logo.png')}
