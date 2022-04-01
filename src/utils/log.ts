@@ -5,7 +5,7 @@ import crashlytics from '@react-native-firebase/crashlytics'
  * @param  {...any} args arguments
  */
 export const info = (...args: any[]) => {
-  console.log([new Date(), 'INFO', ...args].join(' - '))
+  console.info([new Date(), 'INFO', ...args].join(' - '))
   crashlytics().log([new Date(), 'INFO', ...args].join(' - '))
 }
 

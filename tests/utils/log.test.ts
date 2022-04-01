@@ -1,4 +1,4 @@
-import { info, log, trace, warn, error } from '../../src/utils/log'
+import { info, log, error } from '../../src/utils/log'
 
 describe('info', () => {
   const infoSpy = jest.spyOn(console, 'info')
@@ -25,7 +25,7 @@ describe('log', () => {
 })
 
 describe('error', () => {
-  const errorSpy = jest.spyOn(console, 'error')
+  const errorSpy = jest.spyOn(console, 'log')
 
   beforeEach(() => {
     jest.clearAllMocks()
