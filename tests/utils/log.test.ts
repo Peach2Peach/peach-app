@@ -24,31 +24,6 @@ describe('log', () => {
   })
 })
 
-describe('trace', () => {
-  const traceSpy = jest.spyOn(console, 'trace')
-
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-  it('is logging trace to console', () => {
-    trace('Test')
-    expect(traceSpy).toHaveBeenCalled()
-  })
-})
-
-describe('warn', () => {
-  const warnSpy = jest.spyOn(console, 'warn')
-
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-  it('is logging warn to console', () => {
-    warn('Test')
-    expect(warnSpy).toHaveBeenCalled()
-  })
-})
-
-
 describe('error', () => {
   const errorSpy = jest.spyOn(console, 'error')
 

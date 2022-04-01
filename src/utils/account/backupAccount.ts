@@ -17,6 +17,6 @@ export const backupAccount = async () => {
     })
     info(result)
   } catch (e) {
-    error('Error =>', e)
+    error(e)
   }
 }

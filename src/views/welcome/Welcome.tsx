@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext, useReducer, useState } from 'react'
+import crashlytics from '@react-native-firebase/crashlytics'
 import {
   Image,
   Pressable,
@@ -14,6 +15,7 @@ import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
+import { info } from '../../utils/log'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
