@@ -32,6 +32,7 @@ export const PeachText = ({ style, children, numberOfLines, ellipsizeMode }: Tex
       tw.md`text-lg`,
       style
     ]}
+    allowFontScaling={false}
     numberOfLines={numberOfLines}
     ellipsizeMode={ellipsizeMode}>
     {children}
