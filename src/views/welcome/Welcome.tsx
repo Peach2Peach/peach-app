@@ -1,5 +1,4 @@
 import React, { ReactElement, useContext, useReducer, useState } from 'react'
-import crashlytics from '@react-native-firebase/crashlytics'
 import {
   Image,
   Pressable,
@@ -33,7 +32,6 @@ const screens = [
   LetsGetStarted,
 ]
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: ScreenProps): ReactElement => {
   useContext(LanguageContext)
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
