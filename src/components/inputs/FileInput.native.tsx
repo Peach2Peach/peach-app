@@ -51,7 +51,7 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
         })
       }, 10000)
     } catch (e) {
-      error('File could not be read', e.message)
+      error('File could not be read', e)
       resolve({
         name: '',
         content: ''

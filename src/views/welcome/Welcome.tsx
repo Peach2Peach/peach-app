@@ -14,6 +14,7 @@ import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
+import { info } from '../../utils/log'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
@@ -31,7 +32,6 @@ const screens = [
   LetsGetStarted,
 ]
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: ScreenProps): ReactElement => {
   useContext(LanguageContext)
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })

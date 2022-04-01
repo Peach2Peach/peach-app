@@ -41,6 +41,7 @@ import { error, info } from './utils/log'
 import { setPeachFee } from './constants'
 import { getInfo } from './utils/peachAPI'
 import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
+import { firebase } from '@react-native-firebase/crashlytics'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
