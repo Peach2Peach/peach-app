@@ -11,7 +11,7 @@ type KYCProps = {
   setKYCType: (kycType: KYCType) => void,
 }
 export default ({ kyc, setKYC, kycType, setKYCType }: KYCProps): ReactElement => <View>
-  <Headline style={tw`mt-16`}>
+  <Headline style={tw`mt-16 text-grey-1`}>
     {i18n('sell.kyc')}
   </Headline>
   <RadioButtons
