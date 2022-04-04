@@ -8,5 +8,6 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  'iban': DetailIBAN
+  'iban': DetailIBAN,
+  'paypal': DetailIBAN, // TODO
 }

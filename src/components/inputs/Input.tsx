@@ -76,8 +76,8 @@ export const Input = ({
       tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
       tw.md`h-10`,
       style ? style : {},
-      isValid && value ? tw`border-green` : {},
-      errorMessage.length > 0 ? tw`border-red` : {},
+      isValid && value && !disabled ? tw`border-green` : {},
+      errorMessage.length > 0 && !disabled ? tw`border-red` : {},
     ]}>
       <TextInput ref={reference ? reference : null}
         style={[

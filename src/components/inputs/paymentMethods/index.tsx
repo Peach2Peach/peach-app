@@ -9,7 +9,23 @@ import { account, updatePaymentData } from '../../../utils/account'
 import { OverlayContext } from '../../../utils/overlay'
 import NoPaymentMethods from './NoPaymentMethods'
 import AddPaymentMethod from './AddPaymentMethod'
+import { PaymentMethodForms } from './paymentForms'
+import { Headline } from '../../text'
 
+type PaymentMethodViewProps = {
+  data: PaymentData
+}
+
+const PaymentMethodView = ({ data }: PaymentMethodViewProps) => {
+  const PaymentForm = PaymentMethodForms[data.type]
+
+  return <View style={tw`h-full w-full flex-shrink flex-col`}>
+    <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
+      {i18n('paymentMethod.view')}
+    </Headline>
+    <PaymentForm data={data} />
+  </View>
+}
 interface PaymentMethodsProps {
   paymentData: PaymentData[],
   onChange?: (PaymentData: PaymentData[]) => void
@@ -74,15 +90,15 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
             }}/>
         </View>
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>
-          {paymentData.map(data =>
-            <Button
-              key={data.id}
-              style={tw`mb-4`}
-              // eslint-disable-next-line no-alert
-              onPress={() => alert(JSON.stringify(data))}
-              // TODO implement real view
-              title={i18n('view')}
-            />
+          {paymentData.map((data: PaymentData, i) => <Button
+            key={data.id}
+            style={i > 0 ? tw`h-10 mt-4` : tw`h-10`}
+            onPress={() => updateOverlay({
+              content: <PaymentMethodView data={data} />,
+              showCloseButton: true
+            })}
+            title={i18n('view')}
+          />
           )}
         </View>
       </View>

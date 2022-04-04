@@ -2,8 +2,9 @@ import { ReactElement } from 'react'
 import { IBAN } from './iban'
 
 type PaymentFormProps = ComponentProps & {
-  onSubmit: (data: PaymentData) => void
-  onCancel: () => void
+  data?: PaymentData,
+  onSubmit?: (data: PaymentData) => void,
+  onCancel?: () => void,
 }
 export type PaymentMethodForm = ({ style, onSubmit, onCancel }: PaymentFormProps) => ReactElement
 

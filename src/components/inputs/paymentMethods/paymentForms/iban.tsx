@@ -9,9 +9,10 @@ import Icon from '../../../Icon'
 import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
-export const IBAN: PaymentMethodForm = ({ style, onSubmit, onCancel }) => {
-  const [iban, setIBAN] = useState('')
-  const [beneficiary, setBeneficiary] = useState('')
+// eslint-disable-next-line max-lines-per-function
+export const IBAN: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => {
+  const [iban, setIBAN] = useState(data?.iban || '')
+  const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const $iban = useRef<TextInput>(null)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -32,7 +33,7 @@ export const IBAN: PaymentMethodForm = ({ style, onSubmit, onCancel }) => {
       }
     })
     if (!isFormValid()) return
-    onSubmit({
+    if (onSubmit) onSubmit({
       id: `iban-${iban.replace(/\s/gu, '')}-${new Date().getTime()}`,
       type: 'iban',
       iban,
@@ -47,6 +48,7 @@ export const IBAN: PaymentMethodForm = ({ style, onSubmit, onCancel }) => {
           onChange={setBeneficiary}
           onSubmit={() => $iban.current?.focus()}
           value={beneficiary}
+          disabled={!!data}
           label={i18n('form.beneficiary')}
           isValid={!isFieldInError('beneficiary')}
           autoCorrect={false}
@@ -59,6 +61,7 @@ export const IBAN: PaymentMethodForm = ({ style, onSubmit, onCancel }) => {
           onSubmit={save}
           reference={$iban}
           value={iban}
+          disabled={!!data}
           label={i18n('form.iban')}
           isValid={!isFieldInError('iban')}
           autoCorrect={false}
@@ -66,16 +69,19 @@ export const IBAN: PaymentMethodForm = ({ style, onSubmit, onCancel }) => {
         />
       </View>
     </View>
-    <View style={tw`w-full flex items-center`}>
-      <Pressable style={tw`absolute left-0 z-10`} onPress={onCancel}>
-        <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
-      </Pressable>
-      <Button
-        title={i18n('form.paymentMethod.add')}
-        secondary={true}
-        wide={false}
-        onPress={save}
-      />
-    </View>
+    {!data
+      ? <View style={tw`w-full flex items-center`}>
+        <Pressable style={tw`absolute left-0 z-10`} onPress={onCancel}>
+          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
+        </Pressable>
+        <Button
+          title={i18n('form.paymentMethod.add')}
+          secondary={true}
+          wide={false}
+          onPress={save}
+        />
+      </View>
+      : null
+    }
   </View>
 }
