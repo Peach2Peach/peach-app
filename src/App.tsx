@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
+import { Dimensions, ScaledSize } from 'react-native'
 import { SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
@@ -24,7 +25,6 @@ import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
-import GetWindowDimensions from './hooks/GetWindowDimensions'
 import { account, loadAccount } from './utils/account'
 import { initSession } from './utils/session'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
@@ -153,7 +153,7 @@ const App: React.FC = () => {
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
-  const { width } = GetWindowDimensions()
+  const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 

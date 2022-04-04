@@ -1,7 +1,7 @@
 
 import React, { ReactElement } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import QRCode from 'react-native-qrcode-svg'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
@@ -9,10 +9,9 @@ import { Card, Text } from '..'
 import Icon from '../Icon'
 import { splitAt } from '../../utils/string'
 
-interface BitcoinAddressProps {
+type BitcoinAddressProps = ComponentProps & {
   address: string,
   showQR: boolean,
-  style?: ViewStyle|ViewStyle[]
 }
 
 /**

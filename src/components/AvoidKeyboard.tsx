@@ -1,14 +1,12 @@
 
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native'
 
-interface AvoidKeyboardProps {
-  children?: ReactNode
-}
+type AvoidKeyboardProps = ComponentProps
 
 /**
  * @description Component to avoid keyboard overlapping

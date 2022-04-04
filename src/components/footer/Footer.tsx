@@ -1,24 +1,23 @@
 
 import React, { ReactElement } from 'react'
 import {
-  Image,
+  // Image,
   Pressable,
-  View, ViewStyle
+  View
 } from 'react-native'
 
 import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { footerShadow, nativeShadow } from '../../utils/layout'
+import { footerShadow } from '../../utils/layout'
 import Icon from '../Icon'
-import BG from './bg.svg'
+// import BG from './bg.svg'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
-interface FooterProps {
+type FooterProps = ComponentProps & {
   active: string,
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
-  style?: ViewStyle|ViewStyle[]
 }
 interface FooterItemProps {
   id: string,
@@ -27,10 +26,10 @@ interface FooterItemProps {
 }
 
 const height = 52
-const circleStyle = {
-  width: 58,
-  height
-}
+// const circleStyle = {
+//   width: 58,
+//   height
+// }
 
 /**
  * @description Component to display the Footer Item

@@ -79,7 +79,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Title title={i18n('sell.title')} subtitle={i18n('sell.returnAddress.subtitle')} help={<Text>TODO</Text>} />
     <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
       style={[
-        tw`mt-24 flex-row`,
+        tw`flex-row`,
         useDepositAddress ? tw`opacity-50 pointer-events-none` : {}
       ]}>
       <View style={tw`w-full flex-shrink mr-2`}>

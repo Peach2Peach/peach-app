@@ -1,15 +1,12 @@
 
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import {
   ViewStyle
 } from 'react-native'
 import { Text } from '.'
 import tw from '../../styles/tailwind'
 
-interface HeadlineProps {
-  style?: ViewStyle|ViewStyle[],
-  children?: ReactNode,
-}
+type HeadlineProps = ComponentProps
 
 /**
  * @description Component to display text with predefined text style

@@ -1,6 +1,6 @@
 
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { View, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import { Button, Headline, Text } from '..'
 
@@ -9,9 +9,8 @@ import i18n from '../../utils/i18n'
 import { mildShadow } from '../../utils/layout'
 import LanguageContext from '../inputs/LanguageSelect'
 
-interface MatchProps {
+type MatchProps = ComponentProps & {
   match: Match,
-  style?: ViewStyle|ViewStyle[]
 }
 
 /**

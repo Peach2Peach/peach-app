@@ -1,9 +1,8 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
-import { Text } from '..'
 import { mildShadow } from '../../utils/layout'
 
 interface Item {
@@ -11,11 +10,10 @@ interface Item {
   display: ReactNode
 }
 
-interface CheckboxesProps {
+type CheckboxesProps = ComponentProps & {
   items: Item[],
   selectedValues?: (string|number)[],
   onChange?: (values: (string|number)[]) => void,
-  style?: ViewStyle|ViewStyle[],
 }
 
 /**

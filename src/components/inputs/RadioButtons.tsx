@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
@@ -11,11 +11,10 @@ interface Item {
   display: ReactNode
 }
 
-interface RadioButtonsProps {
+type RadioButtonsProps = ComponentProps & {
   items: Item[],
   selectedValue?: string|number|boolean,
   onChange?: (value: (string|number|boolean)) => void,
-  style?: ViewStyle|ViewStyle[],
 }
 
 /**

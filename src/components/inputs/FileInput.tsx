@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import { error } from '../../utils/log'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
@@ -42,11 +41,10 @@ const selectFile = async () => {
     content: null
   }
 }
-interface InputProps {
+type InputProps = ComponentProps & {
   fileName?: string|null,
   autoCorrect?: boolean
   isValid?: boolean,
-  style?: ViewStyle|ViewStyle[],
   errorMessage?: string[]
   onChange?: Function,
   secureTextEntry?: boolean

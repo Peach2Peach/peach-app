@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import { error } from '../../utils/log'
 import RNFS from '../../utils/fileSystem/RNFS'
@@ -65,11 +64,10 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
   }
 })
 
-interface FileInputProps {
+type FileInputProps = ComponentProps & {
   fileName?: string,
   autoCorrect?: boolean
   isValid?: boolean,
-  style?: ViewStyle|ViewStyle[],
   errorMessage?: string[]
   onChange?: Function,
   secureTextEntry?: boolean

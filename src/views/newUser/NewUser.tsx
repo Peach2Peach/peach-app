@@ -121,7 +121,7 @@ export default ({ navigation }: Props): ReactElement => {
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
-        <View>
+        <View style={tw`h-12`}>
           <Input
             onChange={onPasswordChange}
             onSubmit={(val: string) => {

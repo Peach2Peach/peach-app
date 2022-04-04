@@ -3,16 +3,14 @@ import React, { ReactElement, useState } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import tw from '../styles/tailwind'
 import Icon from './Icon'
 import { Text } from '.'
 
-interface IconButtonProps {
+type IconButtonProps = ComponentProps & {
   icon: string,
   title: string,
-  style?: ViewStyle|ViewStyle[],
   onPress?: Function
 }
 
