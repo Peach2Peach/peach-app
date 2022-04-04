@@ -65,25 +65,11 @@ export const Footer = ({ active, style, navigation }: FooterProps): ReactElement
   <View style={[tw`w-full flex-row items-start`, { height }, style]}>
     <View style={tw`h-full flex-grow relative`}>
       <Shadow {...footerShadow} viewStyle={tw`w-full`}>
-        <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
-          <FooterItem id="buy" active={active === 'buy'}
+        <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
+          <FooterItem id="buy" active={active === 'buy' || active === 'home'}
             onPress={() => navigation.navigate({ name: 'buy', merge: false, params: {} })} />
           <FooterItem id="sell" active={active === 'sell'}
             onPress={() => navigation.navigate({ name: 'sell', merge: false, params: {} })} />
-        </View>
-      </Shadow>
-    </View>
-    <Pressable style={[tw`h-full flex-shrink-0 flex items-center z-10`, circleStyle]}
-      onPress={() => navigation.navigate({ name: 'home', merge: false, params: {} })}>
-      <BG style={[circleStyle, nativeShadow]} />
-      <Image source={require('../../../assets/favico/peach-logo.png')} style={[
-        tw`w-10 h-10 absolute -top-5`,
-        active !== 'home' ? tw`opacity-30` : {}
-      ]}/>
-    </Pressable>
-    <View style={tw`h-full flex-grow`}>
-      <Shadow {...footerShadow} viewStyle={tw`w-full`}>
-        <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
           <FooterItem id="offers" active={active === 'offers'}
             onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
           <FooterItem id="settings" active={active === 'settings'}
@@ -94,3 +80,23 @@ export const Footer = ({ active, style, navigation }: FooterProps): ReactElement
   </View>
 
 export default Footer
+
+
+/* <Pressable style={[tw`h-full flex-shrink-0 flex items-center z-10`, circleStyle]}
+  onPress={() => navigation.navigate({ name: 'home', merge: false, params: {} })}>
+  <BG style={[circleStyle, nativeShadow]} />
+  <Image source={require('../../../assets/favico/peach-logo.png')} style={[
+    tw`w-10 h-10 absolute -top-5`,
+    active !== 'home' ? tw`opacity-30` : {}
+  ]}/>
+</Pressable>
+<View style={tw`h-full flex-grow`}>
+  <Shadow {...footerShadow} viewStyle={tw`w-full`}>
+    <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
+      <FooterItem id="offers" active={active === 'offers'}
+        onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
+      <FooterItem id="settings" active={active === 'settings'}
+        onPress={() => navigation.navigate({ name: 'settings', merge: false, params: {} })} />
+    </View>
+  </Shadow>
+</View> */
