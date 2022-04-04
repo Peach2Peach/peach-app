@@ -63,35 +63,37 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     })
   }, [address])
 
-  return <View style={tw`mt-16`}>
+  return <View style={tw`h-full flex-col justify-between`}>
     <Title title={i18n('buy.title')} />
-    <Headline style={tw`mt-24`}>
-      {i18n('buy.releaseAddress')}
-    </Headline>
-    <View style={tw`flex-row`}>
-      <View style={tw`w-full flex-shrink mr-2`}>
-        <Input value={focused ? address : shortAddress}
-          style={tw`pl-4 pr-8`}
-          onChange={(value: string) => focused ? setAddress(() => value) : null}
-          onSubmit={() => setFocused(() => false)}
-          label={i18n('form.btcAddress')}
-          isValid={!isFieldInError('address')}
-          onFocus={() => setFocused(() => true)}
-          onBlur={() => setFocused(() => false)}
-          errorMessage={getErrorsInField('address')}
+    <View>
+      <Headline style={tw`text-grey-1`}>
+        {i18n('buy.releaseAddress')}
+      </Headline>
+      <View style={tw`flex-row mt-3`}>
+        <View style={tw`w-full flex-shrink mr-2`}>
+          <Input value={focused ? address : shortAddress}
+            style={tw`pl-4 pr-8`}
+            onChange={(value: string) => focused ? setAddress(() => value) : null}
+            onSubmit={() => setFocused(() => false)}
+            label={i18n('form.btcAddress')}
+            isValid={!isFieldInError('address')}
+            onFocus={() => setFocused(() => true)}
+            onBlur={() => setFocused(() => false)}
+            errorMessage={getErrorsInField('address')}
+          />
+        </View>
+        <IconButton
+          icon="camera"
+          title={i18n('scanQR')}
+          style={tw`mr-2`}
+          onPress={() => setScanQR(!scanQR)}
+        />
+        <IconButton
+          icon="copy"
+          title={i18n('paste')}
+          onPress={pasteAddress}
         />
       </View>
-      <IconButton
-        icon="camera"
-        title={i18n('scanQR')}
-        style={tw`mr-2`}
-        onPress={() => setScanQR(!scanQR)}
-      />
-      <IconButton
-        icon="copy"
-        title={i18n('paste')}
-        onPress={pasteAddress}
-      />
     </View>
     {scanQR
       ? <View style={tw`mt-20`}>
