@@ -75,37 +75,51 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     }
   }, [useDepositAddress])
 
-  return <View style={tw`mt-16`}>
+  return <View style={tw`h-full flex-col justify-between`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.returnAddress.subtitle')} help={<Text>TODO</Text>} />
-    <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
-      style={[
-        tw`flex-row`,
-        useDepositAddress ? tw`opacity-50 pointer-events-none` : {}
-      ]}>
-      <View style={tw`w-full flex-shrink mr-2`}>
-        <Input reference={(el: any) => $address = el}
-          value={focused ? address : shortAddress}
-          style={tw`pl-4 pr-8`}
-          onChange={(value: string) => focused ? setAddress(() => value) : null}
-          onSubmit={() => setFocused(() => false)}
-          label={i18n('form.btcAddress')}
-          isValid={!isFieldInError('address')}
-          onFocus={() => setFocused(() => true)}
-          onBlur={() => setFocused(() => false)}
-          errorMessage={getErrorsInField('address')}
+    <View>
+      <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
+        style={[
+          tw`flex-row`,
+          useDepositAddress ? tw`opacity-50 pointer-events-none` : {}
+        ]}>
+        <View style={tw`w-full flex-shrink mr-2`}>
+          <Input reference={(el: any) => $address = el}
+            value={focused ? address : shortAddress}
+            style={tw`pl-4 pr-8`}
+            onChange={(value: string) => focused ? setAddress(() => value) : null}
+            onSubmit={() => setFocused(() => false)}
+            label={i18n('form.btcAddress')}
+            isValid={!isFieldInError('address')}
+            onFocus={() => setFocused(() => true)}
+            onBlur={() => setFocused(() => false)}
+            errorMessage={getErrorsInField('address')}
+          />
+        </View>
+        <IconButton
+          icon="camera"
+          title={i18n('scanQR')}
+          style={tw`mr-2`}
+          onPress={() => setScanQR(!scanQR)}
+        />
+        <IconButton
+          icon="copy"
+          title={i18n('paste')}
+          onPress={pasteAddress}
         />
       </View>
-      <IconButton
-        icon="camera"
-        title={i18n('scanQR')}
-        style={tw`mr-2`}
-        onPress={() => setScanQR(!scanQR)}
-      />
-      <IconButton
-        icon="copy"
-        title={i18n('paste')}
-        onPress={pasteAddress}
-      />
+      <Pressable style={tw`flex-row items-center px-5 mt-4`}
+        onPress={() => setUseDepositAddress(!useDepositAddress)}>
+        {useDepositAddress
+          ? <Icon id="checkbox" style={tw`w-5 h-5`} />
+          : <View style={tw`w-5 h-5 flex justify-center items-center`}>
+            <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
+          </View>
+        }
+        <Text style={tw`mx-4`}>
+          {i18n('sell.returnAddress.useDepositAddress')}
+        </Text>
+      </Pressable>
     </View>
     {scanQR
       ? <View style={tw`mt-20`}>
@@ -117,18 +131,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         />
       </View>
       : null}
-
-    <Pressable style={tw`flex-row items-center px-5 mt-4`}
-      onPress={() => setUseDepositAddress(!useDepositAddress)}>
-      {useDepositAddress
-        ? <Icon id="checkbox" style={tw`w-5 h-5`} />
-        : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-          <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
-        </View>
-      }
-      <Text style={tw`mx-4`}>
-        {i18n('sell.returnAddress.useDepositAddress')}
-      </Text>
-    </Pressable>
+    <View>{/* dummy for layout */}</View>
   </View>
 }
