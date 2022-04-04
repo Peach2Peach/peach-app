@@ -22,8 +22,8 @@ export const AddPaymentMethod = ({ onSubmit }: AddPaymentMethodProps) => {
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
   return <View style={tw`h-full w-full pb-8 flex-col`}>
-    <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
-      {i18n('form.paymentMethod.select')}
+    <Headline style={tw`h-28 text-white-1 text-3xl leading-5xl`}>
+      {i18n(`form.paymentMethod.${!paymentMethod ? 'select' : 'details'}`)}
     </Headline>
     {!paymentMethod
       ? <View style={[
