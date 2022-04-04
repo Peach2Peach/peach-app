@@ -18,6 +18,7 @@ interface InputProps {
   autoCorrect?: boolean
   disabled?: boolean
   isValid?: boolean,
+  hint?: string
   errorMessage?: string[]
   onChange?: Function,
   onSubmit?: Function,
@@ -37,6 +38,7 @@ interface InputProps {
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
+ * @param [props.hint] hint
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
@@ -61,6 +63,7 @@ export const Input = ({
   autoCorrect = false,
   disabled = false,
   isValid,
+  hint,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -72,14 +75,16 @@ export const Input = ({
 }: InputProps): ReactElement => <View style={tw`h-12`}>
   <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
-      tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-4 pr-3`,
+      tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3`,
+      tw.md`h-10`,
       style ? style : {},
       isValid && value ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {},
     ]}>
       <TextInput ref={reference ? reference : null}
         style={[
-          tw`w-full flex-shrink h-10 p-0 text-grey-1 text-lg leading-5`,
+          tw`w-full flex-shrink h-8 p-0 text-grey-1 text-lg leading-5`,
+          tw.md`h-10`,
           label && !value ? tw`font-baloo text-xs uppercase` : {}
         ]}
         placeholder={label}
@@ -95,7 +100,7 @@ export const Input = ({
       />
       {icon
         ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
-          <Icon id="send" style={tw`w-5 h-5`} />
+          <Icon id={icon} style={tw`w-5 h-5`} />
         </Pressable>
         : null
       }
@@ -104,6 +109,10 @@ export const Input = ({
 
   {errorMessage.length > 0
     ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
+    : null
+  }
+  {hint && errorMessage.length === 0
+    ? <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
     : null
   }
 </View>

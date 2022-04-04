@@ -11,7 +11,7 @@ export default (): ReactElement => {
   useContext(LanguageContext)
 
   return <View>
-    <Text style={[tw`font-baloo text-center text-3xl leading-3xl text-peach-1`, tw.md`text-5xl`]}>
+    <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
       {i18n('welcome.youOwnYourData.title')}
     </Text>
     <Text style={tw`mt-4 text-center`}>

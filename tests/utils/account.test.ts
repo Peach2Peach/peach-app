@@ -153,21 +153,16 @@ describe('backupAccount', () => {
 })
 
 describe('recoverAccount', () => {
-  const onSuccess = jest.fn()
-  const onError = jest.fn()
-
   beforeAll(async () => {
     await setAccount(accountData.account1)
   })
 
   it('would decrypt recovery account', async () => {
-    await recoverAccount({
+    const [recoveredAccount] = await recoverAccount({
       encryptedAccount: JSON.stringify(accountData.recoveredAccount),
       password: 'mockpassword',
-      onSuccess,
-      onError
     })
-    expect(onSuccess).toBeCalled()
+    deepStrictEqual(recoveredAccount, accountData.recoveredAccount)
   })
 })
 

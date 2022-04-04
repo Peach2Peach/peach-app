@@ -42,6 +42,9 @@ jest.mock('react-native-crypto-js', () => ({
   }
 }))
 
+jest.mock('@react-native-firebase/crashlytics', () => () => ({
+  log: jest.fn()
+}))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native-qrcode-scanner', () => jest.fn())
 jest.mock('react-native-promise-rejection-utils', () => ({

@@ -27,7 +27,6 @@ type Screen = (props: Props) => ReactElement
 
 const screens = [LetsExplainPeach]
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
@@ -52,24 +51,22 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <View style={tw`w-full h-8 mt-32 -mb-8 z-10`}>
-        <LinearGradient colorList={whiteGradient} angle={-90} />
-      </View>
-      <PeachScrollView scrollRef={scroll}>
-        <View style={tw`pb-8 px-8`}>
-          <View style={tw`flex items-center`}>
-            <Image source={require('../../../assets/favico/peach-icon-192.png')} />
-          </View>
-          <CurrentScreen navigation={navigation} />
-        </View>
-      </PeachScrollView>
-      <View style={tw`w-full h-8 -mt-8`}>
-        <LinearGradient colorList={whiteGradient} angle={90} />
+    <View style={[
+      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
+      tw.md`pt-40`
+    ]}>
+      <Image source={require('../../../assets/favico/peach-logo.png')}
+        style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
+      />
+      <View style={[tw`mt-11 w-full`, tw.md`mt-16`]}>
+        <CurrentScreen navigation={navigation} />
       </View>
     </View>
-    <View style={tw`mb-8 w-full`}>
-      <View style={tw`mt-4 flex items-center`}>
+    <View style={[
+      tw`mb-10 mt-4 flex items-center w-full`,
+      tw.md`mb-16`
+    ]}>
+      <View style={tw`flex items-center`}>
         {page !== screens.length - 1
           ? <Button
             title={i18n('next')}

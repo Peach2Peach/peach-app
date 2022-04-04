@@ -4,7 +4,7 @@ export { BitcoinAddress } from './bitcoin'
 
 export { Button } from './Button'
 export { Card } from './Card'
-export { Fade, FadeInView, Loading } from './animation'
+export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
 export { Header } from './Header'

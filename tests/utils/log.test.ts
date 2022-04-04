@@ -1,4 +1,4 @@
-import { info, log, trace, warn, error } from '../../src/utils/log'
+import { info, log, error } from '../../src/utils/log'
 
 describe('info', () => {
   const infoSpy = jest.spyOn(console, 'info')
@@ -24,33 +24,8 @@ describe('log', () => {
   })
 })
 
-describe('trace', () => {
-  const traceSpy = jest.spyOn(console, 'trace')
-
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-  it('is logging trace to console', () => {
-    trace('Test')
-    expect(traceSpy).toHaveBeenCalled()
-  })
-})
-
-describe('warn', () => {
-  const warnSpy = jest.spyOn(console, 'warn')
-
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-  it('is logging warn to console', () => {
-    warn('Test')
-    expect(warnSpy).toHaveBeenCalled()
-  })
-})
-
-
 describe('error', () => {
-  const errorSpy = jest.spyOn(console, 'error')
+  const errorSpy = jest.spyOn(console, 'log')
 
   beforeEach(() => {
     jest.clearAllMocks()

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useReducer, useState } from 'react'
 import {
   Image,
   Pressable,
@@ -8,12 +8,13 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button } from '../../components'
+import { Button, LanguageSelect } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
+import { info } from '../../utils/log'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
@@ -33,6 +34,7 @@ const screens = [
 
 export default ({ navigation }: ScreenProps): ReactElement => {
   useContext(LanguageContext)
+  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
 
   const [page, setPage] = useState(0)
   const CurrentScreen: Screen = screens[page]
@@ -46,13 +48,24 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   }
 
   return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink p-8 pt-12 flex-col items-center`}>
-      <Image source={require('../../../assets/favico/peach-icon-192.png')} />
-      <View style={tw`mt-4 w-full`}>
+    <View style={tw`absolute top-10 right-4 z-20`}>
+      <LanguageSelect locale={locale} setLocale={setLocale} />
+    </View>
+    <View style={[
+      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
+      tw.md`pt-40`
+    ]}>
+      <Image source={require('../../../assets/favico/peach-logo.png')}
+        style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
+      />
+      <View style={[tw`mt-11 w-full`, tw.md`mt-16`]}>
         <CurrentScreen navigation={navigation} />
       </View>
     </View>
-    <View style={tw`mb-8 mt-4 flex items-center w-full`}>
+    <View style={[
+      tw`mb-10 mt-4 flex items-center w-full`,
+      tw.md`mb-16`
+    ]}>
       {page !== screens.length - 1
         ? <Button
           title={i18n('next')}
@@ -76,7 +89,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           </View>
         </View>
       }
-      <View style={tw`w-full flex-row justify-center mt-16`}>
+      <View style={tw`w-full flex-row justify-center mt-11`}>
         {screens.map((screen, i) =>
           <Pressable key={i} onPress={() => goTo(i)}
             style={[
