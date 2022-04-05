@@ -21,7 +21,9 @@ export const Overlay = ({ content, showCloseButton }: OverlayState): ReactElemen
     tw`absolute z-20 w-full h-full flex items-center justify-between`,
     tw`p-3 pb-8 bg-peach-translucent-2`,
   ]}>
+    <View>{/* dummy content for layout */}</View>
     {content}
+    <View>{/* dummy content for layout */}</View>
     {showCloseButton
       ? <Button
         title={i18n('close')}
