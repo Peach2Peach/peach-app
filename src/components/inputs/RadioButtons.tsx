@@ -45,7 +45,6 @@ export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioBut
       <Shadow {...mildShadow}
         viewStyle={[
           tw`w-full`,
-          
           i > 0 ? tw`mt-2` : {}
         ]}>
         <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}

@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, ScaledSize } from 'react-native'
-import { SafeAreaView, View, Animated, LogBox } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 import {
@@ -14,7 +13,7 @@ import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoin'
 import i18n from './utils/i18n'
-import { AvoidKeyboard, Footer, Header } from './components'
+import { AvoidKeyboard, Footer, Header, Text } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
@@ -42,6 +41,7 @@ import { setPeachFee } from './constants'
 import { getInfo } from './utils/peachAPI'
 import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import { firebase } from '@react-native-firebase/crashlytics'
+import { DEV, NETWORK } from '@env'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -188,6 +188,13 @@ const App: React.FC = () => {
           <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
             <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
               <View style={tw`h-full flex-col`}>
+                {NETWORK !== 'mainnet'
+                  ? <View style={tw`absolute top-2 left-2 z-30 w-full`}>
+                    <Text style={tw`text-xs text-grey-3 text-center`}>{NETWORK}</Text>
+                    <Text style={tw`text-xs text-grey-3 text-center`}>{DEV ? 'staging' : null}</Text>
+                  </View>
+                  : null
+                }
                 {showHeader(currentPage)
                   ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
                   : null
