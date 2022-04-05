@@ -13,7 +13,7 @@ const { useValidation } = require('react-native-form-validator')
 export const IBAN: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => {
   const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
-  const $iban = useRef<TextInput>(null)
+  let $iban = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
@@ -46,7 +46,7 @@ export const IBAN: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => 
       <View>
         <Input
           onChange={setBeneficiary}
-          onSubmit={() => $iban.current?.focus()}
+          onSubmit={() => $iban?.focus()}
           value={beneficiary}
           disabled={!!data}
           label={i18n('form.beneficiary')}
@@ -59,7 +59,7 @@ export const IBAN: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => 
         <Input
           onChange={setIBAN}
           onSubmit={save}
-          reference={$iban}
+          reference={(el: any) => $iban = el}
           value={iban}
           disabled={!!data}
           label={i18n('form.iban')}
