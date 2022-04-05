@@ -5,7 +5,6 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { saveOffer } from '../../utils/offer'
 import { IconButton, Input, ScanQR, Text, Title } from '../../components'
 import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
@@ -56,10 +55,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     setStepValid(true)
 
     updateOffer({
-      ...offer,
-      returnAddress: address,
-    })
-    saveOffer({
       ...offer,
       returnAddress: address,
     })
