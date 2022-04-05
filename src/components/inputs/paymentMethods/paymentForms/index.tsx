@@ -1,5 +1,9 @@
 import { ReactElement } from 'react'
-import { IBAN } from './iban'
+import { IBAN } from './IBAN'
+import { PayPal } from './PayPal'
+import { GiftCard } from './GiftCard'
+import { Revolut } from './Revolut'
+import { ApplePay } from './ApplePay'
 
 type PaymentFormProps = ComponentProps & {
   data?: PaymentData,
@@ -13,5 +17,8 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   iban: IBAN,
-  paypal: IBAN, // TODO
+  paypal: PayPal,
+  giftCard: GiftCard,
+  revolut: Revolut,
+  applePay: ApplePay,
 }

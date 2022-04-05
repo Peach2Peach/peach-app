@@ -66,7 +66,7 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
               display: <View style={tw`flex-row pr-3`}>
                 <View style={tw`w-3/4 flex-shrink`}>
                   <Text numberOfLines={1} ellipsizeMode="tail">
-                    {(data.iban || data.email || data.phone)}
+                    {(data.iban || data.email || data.phone || data.paypal)}
                   </Text>
                 </View>
                 <View style={tw`w-1/4 flex-shrink-0`}>

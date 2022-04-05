@@ -6,7 +6,7 @@ export const CURRENCIES: Currency[] = [
   'CHF',
   'GBP'
 ]
-export const PAYMENTMETHODS: PaymentMethod[] = ['iban', 'paypal']
+export const PAYMENTMETHODS: PaymentMethod[] = ['iban', 'paypal', 'giftCard', 'revolut', 'applePay']
 export const BUCKETS = [
   250000,
   500000,
