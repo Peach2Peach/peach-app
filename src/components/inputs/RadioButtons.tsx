@@ -41,12 +41,11 @@ type RadioButtonsProps = ComponentProps & {
  */
 export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioButtonsProps): ReactElement =>
   <View style={style}>
-    {items.map((item, i) =>
+    {items.map((item, i) => <View key={i} style={item.value !== selectedValue ? tw`opacity-50` : {}}>
       <Shadow {...mildShadow}
-        key={i}
         viewStyle={[
           tw`w-full`,
-          item.value !== selectedValue ? tw`opacity-50` : {},
+          
           i > 0 ? tw`mt-2` : {}
         ]}>
         <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
@@ -62,6 +61,7 @@ export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioBut
           </Text>
         </Pressable>
       </Shadow>
+    </View>
     )}
   </View>
 
