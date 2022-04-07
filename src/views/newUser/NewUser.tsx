@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { account, createAccount, saveAccount } from '../../utils/account'
+import { account, createAccount, saveAccount, updateSettings } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Loading, Text } from '../../components'
 import i18n from '../../utils/i18n'
@@ -60,7 +60,13 @@ export default ({ navigation }: Props): ReactElement => {
 
   const onSuccess = async () => {
     saveAccount(account, password)
-    await setPGP(account.pgp)
+    const [result] = await setPGP(account.pgp)
+
+    if (result) {
+      updateSettings({
+        pgpPublished: true
+      })
+    }
     setLoading(false)
     navigation.navigate('tutorial')
   }

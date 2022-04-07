@@ -24,7 +24,7 @@ import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
-import { account, loadAccount } from './utils/account'
+import { account, loadAccount, updateSettings } from './utils/account'
 import { initSession } from './utils/session'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
@@ -38,7 +38,7 @@ import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { error, info } from './utils/log'
 import { setPeachFee } from './constants'
-import { getInfo } from './utils/peachAPI'
+import { getInfo, setPGP } from './utils/peachAPI'
 import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 LogBox.ignoreLogs([
@@ -102,6 +102,16 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
 
   if (peachInfo) {
     setPeachFee(peachInfo.fees.escrow)
+  }
+
+  if (account.pgp && !account.settings.pgpPublished) {
+    const [result] = await setPGP(account.pgp)
+
+    if (result) {
+      updateSettings({
+        pgpPublished: true
+      })
+    }
   }
 
   while (!navigationRef.isReady()) {
