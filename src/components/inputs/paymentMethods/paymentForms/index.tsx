@@ -13,12 +13,12 @@ type PaymentFormProps = ComponentProps & {
 export type PaymentMethodForm = ({ style, onSubmit, onCancel }: PaymentFormProps) => ReactElement
 
 export type PaymentMethodForms = {
-  [key in PaymentMethod]: PaymentMethodForm
+  [key in PaymentMethod]?: PaymentMethodForm
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   iban: IBAN,
   paypal: PayPal,
-  giftCard: GiftCard,
-  revolut: Revolut,
-  applePay: ApplePay,
+  // giftCard: GiftCard,
+  // revolut: Revolut,
+  // applePay: ApplePay,
 }

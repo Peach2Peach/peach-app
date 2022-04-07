@@ -97,6 +97,8 @@
   "paymentMethod.giftCard": "Gift Card",
   "paymentMethod.revolut": "Revolut",
   "paymentMethod.applePay": "Apple Pay",
+  "paymentMethod.twint": "Twint",
+  "paymentMethod.wise": "Wise",
   "scanQR": "Scan QR",
   "scanBTCAddress": "Scan your Bitcoin address QR",
   "paste": "Paste",

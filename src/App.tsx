@@ -37,7 +37,7 @@ import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { error, info } from './utils/log'
-import { setPeachFee } from './constants'
+import { setBuckets, setPaymentMethods, setPeachFee } from './constants'
 import { getInfo } from './utils/peachAPI'
 import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
@@ -101,6 +101,8 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   const [peachInfo, err] = await getInfo()
 
   if (peachInfo) {
+    setPaymentMethods(peachInfo.paymentMethods)
+    setBuckets(peachInfo.buckets)
     setPeachFee(peachInfo.fees.escrow)
   }
 

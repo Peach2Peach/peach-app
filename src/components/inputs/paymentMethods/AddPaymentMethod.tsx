@@ -30,14 +30,17 @@ export const AddPaymentMethod = ({ onSubmit }: AddPaymentMethodProps) => {
         tw`h-full flex-shrink mt-32`,
         tw.md`mt-40`,
       ]}>
-        {PAYMENTMETHODS.map((PAYMENTMETHOD, index) =>
-          <MenuItem
-            key={PAYMENTMETHOD}
-            style={index ? tw`mt-2` : {}}
-            text={i18n(`paymentMethod.${PAYMENTMETHOD}`)}
-            onPress={() => setPaymentMethod(PAYMENTMETHOD)}
-          />
-        )}
+        {PAYMENTMETHODS
+          .filter(PAYMENTMETHOD => PaymentMethodForms[PAYMENTMETHOD])
+          .map((PAYMENTMETHOD, index) =>
+            <MenuItem
+              key={PAYMENTMETHOD}
+              style={index ? tw`mt-2` : {}}
+              text={i18n(`paymentMethod.${PAYMENTMETHOD}`)}
+              onPress={() => setPaymentMethod(PAYMENTMETHOD)}
+            />
+          )
+        }
       </View>
       : null
     }
