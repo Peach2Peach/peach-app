@@ -1,15 +1,24 @@
-module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
-    [
-      'module:react-native-dotenv', {
-        moduleName: '@env',
-        path: '.env',
-        blacklist: null,
-        whitelist: null,
-        safe: false,
-        allowUndefined: false
-      }
+const suffix = process.env.NODE_ENV || process.env.APP_ENV || 'sandbox'
+
+module.exports = (api) => {
+  const path = `.env.${suffix}`
+  api.cache(suffix !== 'sandbox')
+
+  // console.log(process.env.NODE_ENV, path)
+  return {
+    presets: ['module:metro-react-native-babel-preset'],
+    plugins: [
+      [
+        'module:react-native-dotenv', {
+          envName: 'BUNDLE',
+          moduleName: '@env',
+          path,
+          blocklist: null,
+          allowlist: null,
+          safe: false,
+          allowUndefined: false
+        }
+      ]
     ]
-  ]
+  }
 }
