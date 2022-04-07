@@ -8,6 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, PeachScrollView, Text } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
+import { API_URL, DEV, NETWORK } from '@env'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -25,6 +26,15 @@ export default ({ navigation }: Props): ReactElement => {
           Settings
         </Text>
       </View>
+      <Text style={tw`text-sm text-grey-2`}>
+        API URL: {API_URL}
+      </Text>
+      <Text style={tw`text-sm text-grey-2`}>
+        Network: {NETWORK}
+      </Text>
+      <Text style={tw`text-sm text-grey-2`}>
+        Env: {DEV ? 'staging' : null}
+      </Text>
       <View style={tw`mt-4`}>
         <Button
           onPress={backupAccount}

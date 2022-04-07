@@ -25,6 +25,7 @@ export const parseResponse = async <T>(
     }
 
     const data = await response.json()
+
     if (response.status !== 200) {
       error(`peachAPI - ${caller}`, JSON.stringify({
         status: response.status,
