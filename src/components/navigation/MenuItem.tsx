@@ -9,7 +9,7 @@ import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
 import { mildShadow } from '../../utils/layout'
 
-interface MenuItemProps {
+type MenuItemProps = ComponentProps & {
   text: string,
   onPress: Function,
 }
@@ -25,14 +25,22 @@ interface MenuItemProps {
  * />
  */
 export const MenuItem = ({
+  style,
   text,
   onPress,
-}: MenuItemProps): ReactElement => <Shadow {...mildShadow} viewStyle={tw`w-full  border border-grey-4 rounded `}>
-  <Pressable onPress={() => onPress()}
-    style={tw`h-10 pl-4 pr-2 flex flex-row items-center justify-between bg-white-1`}>
-    <Text>{text}</Text>
-    <Icon id="triangleRight" style={tw`w-6 h-6`} />
-  </Pressable>
-</Shadow>
+}: MenuItemProps): ReactElement =>
+  <Shadow {...mildShadow} viewStyle={[
+    tw`w-full border border-grey-4 rounded`,
+    style || {},
+  ]}>
+    <Pressable onPress={() => onPress()}
+      style={[
+        tw`h-8 pl-4 pr-2 flex flex-row items-center justify-between bg-white-1`,
+        tw.md`h-10`,
+      ]}>
+      <Text>{text}</Text>
+      <Icon id="triangleRight" style={tw`w-6 h-6`} />
+    </Pressable>
+  </Shadow>
 
 export default MenuItem

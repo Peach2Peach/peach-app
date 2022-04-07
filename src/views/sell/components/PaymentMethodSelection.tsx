@@ -10,7 +10,7 @@ type PaymentMethodSelectionProps = {
   setPaymentData: (data: PaymentData[]) => void
 }
 export default ({ setPaymentData }: PaymentMethodSelectionProps): ReactElement => <View>
-  <Headline style={tw`mt-16`}>
+  <Headline style={tw`mt-16 text-grey-1`}>
     {i18n('sell.paymentMethods')}
   </Headline>
   <PaymentMethods paymentData={account.paymentData}

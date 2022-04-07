@@ -8,6 +8,11 @@ interface Global {
 
 declare const global: Global
 
+declare type ComponentProps = {
+  children?: ReactNode,
+  style?: ViewStyle|ViewStyle[],
+}
+
 declare type AnyObject = {
   [key: string]: any
 }

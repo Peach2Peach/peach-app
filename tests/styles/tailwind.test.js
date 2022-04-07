@@ -1,9 +1,12 @@
 import { deepStrictEqual } from 'assert'
 import tw from '../../src/styles/tailwind'
-import GetWindowDimensions from '../../src/hooks/GetWindowDimensions'
 
-jest.mock('../../src/hooks/GetWindowDimensions')
-
+const mockDimensions = ({ width, height }) => {
+  jest.resetModules()
+  jest.doMock('react-native/Libraries/Utilities/Dimensions', () => ({
+    get: jest.fn().mockReturnValue({ width, height })
+  }))
+}
 describe('tailwind', () => {
   it('returns correct styles', () => {
     deepStrictEqual(tw`mt-4`, { marginTop: 16 })
@@ -13,7 +16,7 @@ describe('tailwind', () => {
     })
   })
   it('does not return styles for md or lg when on sm', () => {
-    GetWindowDimensions.mockReturnValue({
+    mockDimensions({
       width: 320,
       height: 700
     })
@@ -22,7 +25,7 @@ describe('tailwind', () => {
   })
 
   it('does return styles for sm and md when on md', () => {
-    GetWindowDimensions.mockReturnValue({
+    mockDimensions({
       width: 600,
       height: 840
     })
@@ -32,7 +35,7 @@ describe('tailwind', () => {
   })
 
   it('does return styles for sm and md when on lg', () => {
-    GetWindowDimensions.mockReturnValue({
+    mockDimensions({
       width: 1200,
       height: 840
     })

@@ -1,9 +1,8 @@
 import React, { ReactElement, ReactNode, useRef } from 'react'
-import { Animated, ViewStyle } from 'react-native'
+import { Animated } from 'react-native'
 
-type FadeProps = {
+type FadeProps = ComponentProps & {
   children: ReactNode,
-  style?: ViewStyle,
   show?: boolean,
   duration?: number,
   delay?: number

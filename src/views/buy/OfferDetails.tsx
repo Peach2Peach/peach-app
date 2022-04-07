@@ -43,6 +43,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     <Title title={i18n('buy.title')} />
     <Currencies title={i18n('buy.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
     <PaymentMethodSelection paymentMethods={paymentMethods} setPaymentMethods={setPaymentMethods} />
-    <KYC kyc={kyc} setKYC={setKYC} />
+    {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

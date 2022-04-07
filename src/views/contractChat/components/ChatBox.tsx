@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
-import { ScrollView, View, ViewStyle } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import { PeachScrollView, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
@@ -7,9 +7,8 @@ import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { innerShadow } from '../../../utils/layout'
 
-type ChatBoxProps = {
+type ChatBoxProps = ComponentProps & {
   messages: Message[],
-  style?: ViewStyle|ViewStyle[]
 }
 
 export default ({ messages, style }: ChatBoxProps): ReactElement => {
@@ -24,7 +23,7 @@ export default ({ messages, style }: ChatBoxProps): ReactElement => {
       tw`w-full h-full flex-col border border-grey-4 rounded py-4`,
       style ? style : {},
     ]}>
-      <PeachScrollView ref={scroll} style={tw`w-full h-full px-7`}>
+      <PeachScrollView scrollRef={scroll} style={tw`w-full h-full px-7`}>
         {messages.map((message: Message, i, self) => {
           const isYou = message.from === account.publicKey
           const previous = self[i - 1]

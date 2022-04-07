@@ -1,13 +1,10 @@
 
-import React, { LegacyRef, ReactElement, ReactNode } from 'react'
+import React, { ReactElement, Ref } from 'react'
 import { ScrollView, View, ViewStyle } from 'react-native'
 
-interface ScrollViewProps {
-  children?: ReactNode,
-  ref?: LegacyRef<ScrollView>,
+type ScrollViewProps = ComponentProps & {
+  scrollRef?: Ref<ScrollView>,
   contentContainerStyle?: ViewStyle|ViewStyle[],
-  style?: ViewStyle|ViewStyle[],
-
 }
 
 /**
@@ -19,8 +16,8 @@ interface ScrollViewProps {
  *    <Text>Your content</Text>
  * </ScrollView>
  */
-export const PeachScrollView = ({ children, ref, contentContainerStyle, style }: ScrollViewProps): ReactElement =>
-  <ScrollView ref={ref}
+export const PeachScrollView = ({ children, scrollRef, contentContainerStyle, style }: ScrollViewProps): ReactElement =>
+  <ScrollView ref={scrollRef}
     contentContainerStyle={contentContainerStyle || {}}
     style={style || {}}>
     <View onStartShouldSetResponder={() => true}>

@@ -12,6 +12,18 @@ Install dependencies
 
 `cd ios && pod install`
 
+## Environment Setup
+
+Copy template for each environment
+
+```
+cp .env.dist .env.sandbox
+cp .env.dist .env.development
+cp .env.dist .env.production
+```
+
+Then edit the variables according to your setup
+
 # Run simulator
 
 **iOS**

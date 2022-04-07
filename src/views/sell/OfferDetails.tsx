@@ -74,6 +74,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       currency={currency}
       price={price}
     />
-    <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} />
+    {/* <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} /> */}
   </View>
 }

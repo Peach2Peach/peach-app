@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from 'react-native-shadow-2'
@@ -11,11 +11,10 @@ interface Item {
   display: ReactNode
 }
 
-interface RadioButtonsProps {
+type RadioButtonsProps = ComponentProps & {
   items: Item[],
   selectedValue?: string|number|boolean,
   onChange?: (value: (string|number|boolean)) => void,
-  style?: ViewStyle|ViewStyle[],
 }
 
 /**
@@ -42,12 +41,10 @@ interface RadioButtonsProps {
  */
 export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioButtonsProps): ReactElement =>
   <View style={style}>
-    {items.map((item, i) =>
+    {items.map((item, i) => <View key={i} style={item.value !== selectedValue ? tw`opacity-50` : {}}>
       <Shadow {...mildShadow}
-        key={i}
         viewStyle={[
           tw`w-full`,
-          item.value !== selectedValue ? tw`opacity-50` : {},
           i > 0 ? tw`mt-2` : {}
         ]}>
         <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
@@ -63,6 +60,7 @@ export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioBut
           </Text>
         </Pressable>
       </Shadow>
+    </View>
     )}
   </View>
 

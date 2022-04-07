@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
-import { SafeAreaView, View, Animated, LogBox } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 import {
@@ -8,12 +8,12 @@ import {
   useNavigationContainerRef
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import Home from './views/home/Home'
+// import Home from './views/home/Home'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoin'
 import i18n from './utils/i18n'
-import { AvoidKeyboard, Footer, Header } from './components'
+import { AvoidKeyboard, Footer, Header, Text } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
@@ -24,7 +24,6 @@ import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
-import GetWindowDimensions from './hooks/GetWindowDimensions'
 import { account, loadAccount } from './utils/account'
 import { initSession } from './utils/session'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
@@ -41,7 +40,6 @@ import { error, info } from './utils/log'
 import { setPeachFee } from './constants'
 import { getInfo } from './utils/peachAPI'
 import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
-import { firebase } from '@react-native-firebase/crashlytics'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -153,7 +151,7 @@ const App: React.FC = () => {
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
-  const { width } = GetWindowDimensions()
+  const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 

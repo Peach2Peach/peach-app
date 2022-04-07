@@ -1,7 +1,7 @@
 import { create, Style } from 'tailwind-react-native-classnames'
 import styles from './styles.json'
 import * as fontStyles from './font-styles.json'
-import GetWindowDimensions from '../hooks/GetWindowDimensions'
+import { Dimensions } from 'react-native'
 
 interface Tailwind {
   (classes: TemplateStringsArray): Style,
@@ -18,13 +18,13 @@ const tailwind = create({
  */
 const tw: Tailwind = cls => tailwind(cls)
 tw.md = cls => {
-  const { width, height } = GetWindowDimensions()
+  const { width, height } = Dimensions.get('window')
   return (width || 0) > 375 && (height || 0) > 690
     ? tailwind(cls)
     : {}
 }
 tw.lg = cls => {
-  const { width } = GetWindowDimensions()
+  const { width } = Dimensions.get('window')
   return (width || 0) >= 1200
     ? tailwind(cls)
     : {}

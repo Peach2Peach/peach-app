@@ -1,13 +1,9 @@
 
 import React, { ReactElement } from 'react'
-import {
-  ViewStyle
-} from 'react-native'
 import { Text } from '.'
 import Icons from './icons'
-interface IconProps {
+type IconProps = ComponentProps & {
   id: string,
-  style?: ViewStyle|ViewStyle[],
   color?: string,
 }
 

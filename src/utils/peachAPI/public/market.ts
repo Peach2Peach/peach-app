@@ -9,6 +9,5 @@ import fetch from '../../fetch'
  */
 export const marketPrice = async (currency: Currency): Promise<[PeachPairInfo|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {})
-
   return await parseResponse<PeachPairInfo>(response, 'marketPrice')
 }

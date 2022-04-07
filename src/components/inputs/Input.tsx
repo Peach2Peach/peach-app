@@ -1,8 +1,7 @@
-import React, { ComponentType, ReactElement, Ref } from 'react'
+import React, { ReactElement, Ref } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
@@ -11,7 +10,7 @@ import { Text } from '..'
 import { Shadow } from 'react-native-shadow-2'
 import { innerShadow } from '../../utils/layout'
 
-interface InputProps {
+type InputProps = ComponentProps & {
   value?: string,
   label?: string,
   icon?: string,
@@ -25,8 +24,7 @@ interface InputProps {
   onFocus?: Function,
   onBlur?: Function,
   secureTextEntry?: boolean,
-  style?: ViewStyle|ViewStyle[]
-  reference?: Ref<ComponentType<any>>,
+  reference?: Ref<TextInput>,
 }
 
 /**
@@ -72,14 +70,14 @@ export const Input = ({
   secureTextEntry,
   style,
   reference
-}: InputProps): ReactElement => <View style={tw`h-12`}>
+}: InputProps): ReactElement => <View>
   <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
-      tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3`,
+      tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
       tw.md`h-10`,
       style ? style : {},
-      isValid && value ? tw`border-green` : {},
-      errorMessage.length > 0 ? tw`border-red` : {},
+      isValid && value && !disabled ? tw`border-green` : {},
+      errorMessage.length > 0 && !disabled ? tw`border-red` : {},
     ]}>
       <TextInput ref={reference ? reference : null}
         style={[

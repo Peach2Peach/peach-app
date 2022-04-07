@@ -3,17 +3,15 @@ import React, { ReactElement, useState } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import { Text } from '.'
 import tw from '../styles/tailwind'
 
-interface ButtonProps {
+type ButtonProps = ComponentProps & {
   title: string,
   secondary?: boolean,
   tertiary?: boolean,
   wide?: boolean,
-  style?: ViewStyle|ViewStyle[],
   disabled?: boolean,
   onPress?: Function
 }

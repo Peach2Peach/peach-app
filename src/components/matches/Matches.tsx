@@ -1,16 +1,14 @@
 
 import React, { ReactElement, useRef, useState } from 'react'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import GetWindowDimensions from '../../hooks/GetWindowDimensions'
 
-interface MatchProps {
+type MatchProps = ComponentProps & {
   matches: Match[],
   onChange: (i: number) => void,
-  style?: ViewStyle|ViewStyle[],
 }
 
 type SliderArrowProps = {
@@ -36,7 +34,7 @@ const NextButton = ({ onPress }: SliderArrowProps) => <Pressable onPress={(e) =>
  * <Matches matches={matches} />
  */
 export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement => {
-  const [{ width }] = useState(GetWindowDimensions())
+  const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
 
   return <View style={[tw`flex-row items-center`, style]}>

@@ -58,7 +58,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
   }, [update])
 
 
-  return <View {...panResponder.panHandlers}>
+  return <View {...panResponder.panHandlers} onStartShouldSetResponder={() => true}>
     <Shadow {...mildShadow} viewStyle={tw`w-full`}>
       <View style={tw`p-5 pt-3 bg-white-1 border border-grey-4 rounded`}>
         <View style={tw`w-full flex-row justify-between`}>

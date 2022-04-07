@@ -24,6 +24,9 @@ import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 import { MessageContext } from '../../utils/message'
 
+const { LinearGradient } = require('react-native-gradients')
+import { whiteGradient } from '../../utils/layout'
+
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
 type Props = {
@@ -79,13 +82,13 @@ const screens = [
     scrollable: false
   },
   {
-    id: 'escrow',
-    view: Escrow,
+    id: 'returnAddress',
+    view: ReturnAddress,
     scrollable: false
   },
   {
-    id: 'returnAddress',
-    view: ReturnAddress,
+    id: 'escrow',
+    view: Escrow,
     scrollable: false
   },
   {
@@ -193,8 +196,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`pb-24 h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <PeachScrollView ref={scroll}
+    <View style={[
+      tw`h-full flex-shrink`,
+      currentScreen.id === 'main' ? tw`z-20` : {},
+    ]}>
+      <PeachScrollView scrollRef={scroll}
         contentContainerStyle={!scrollable ? tw`h-full` : {}}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
@@ -224,10 +230,15 @@ export default ({ route, navigation }: Props): ReactElement => {
       </PeachScrollView>
     </View>
     {!scrollable && !updatePending
-      ? <Navigation
-        screen={currentScreen.id}
-        back={back} next={next}
-        stepValid={stepValid} />
+      ? <View style={tw`mt-4 flex items-center w-full bg-white-1`}>
+        <View style={tw`w-full h-8 -mt-8`}>
+          <LinearGradient colorList={whiteGradient} angle={90} />
+        </View>
+        <Navigation
+          screen={currentScreen.id}
+          back={back} next={next}
+          stepValid={stepValid} />
+      </View>
       : null
     }
   </View>

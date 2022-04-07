@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Modal, View } from 'react-native'
+import { Dimensions, Modal, View } from 'react-native'
 
 import { BarCodeReadEvent } from 'react-native-camera'
 
@@ -7,7 +7,6 @@ import QRCodeScanner from 'react-native-qrcode-scanner'
 import { Button, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import GetWindowDimensions from '../../hooks/GetWindowDimensions'
 import FocusView from './focusView.svg'
 interface ScanQRProps {
   onSuccess(e: BarCodeReadEvent): void;
@@ -15,7 +14,7 @@ interface ScanQRProps {
 }
 
 export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
-  const windowDimensions = GetWindowDimensions()
+  const windowDimensions = Dimensions.get('window')
   const viewSize = windowDimensions.width * 0.75
   const overlayY = [
     tw`bg-peach-translucent w-full`,

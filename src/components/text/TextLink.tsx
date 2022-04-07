@@ -1,16 +1,13 @@
 
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import {
   Pressable,
   Text,
-  ViewStyle
 } from 'react-native'
 import tw from '../../styles/tailwind'
 
-interface TextLinkProps {
-  style?: ViewStyle|ViewStyle[],
+type TextLinkProps = ComponentProps & {
   onPress?: Function,
-  children?: ReactNode,
 }
 
 /**

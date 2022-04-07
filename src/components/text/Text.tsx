@@ -1,14 +1,9 @@
 
-import React, { ReactElement, ReactNode } from 'react'
-import {
-  Text,
-  ViewStyle
-} from 'react-native'
+import React, { ReactElement } from 'react'
+import { Text } from 'react-native'
 import tw from '../../styles/tailwind'
 
-interface TextProps {
-  style?: ViewStyle|ViewStyle[],
-  children?: ReactNode,
+type TextProps = ComponentProps & {
   numberOfLines?: number
   ellipsizeMode?: 'head'|'tail'|'middle'
 }
