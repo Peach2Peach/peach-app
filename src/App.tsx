@@ -13,7 +13,7 @@ import { enableScreens } from 'react-native-screens'
 import LanguageContext from './components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './utils/bitcoin'
 import i18n from './utils/i18n'
-import { AvoidKeyboard, Footer, Header, Text } from './components'
+import { AvoidKeyboard, Footer, Header } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
@@ -24,8 +24,7 @@ import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
-import { account, loadAccount } from './utils/account'
-import { initSession } from './utils/session'
+import { account } from './utils/account'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
@@ -36,10 +35,11 @@ import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { error, info } from './utils/log'
-import { setBuckets, setPaymentMethods, setPeachFee } from './constants'
-import { getInfo } from './utils/peachAPI'
-import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
+import { error } from './utils/log'
+import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
+import events from './init/events'
+import session from './init/session'
+import websocket from './init/websocket'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -95,16 +95,8 @@ const showFooter = (view: string) => views.find(v => v.name === view)?.showFoote
  * @param navigationRef reference to navigation
  */
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
-  const { password } = await initSession()
-  if (password) await loadAccount(password)
-
-  const [peachInfo, err] = await getInfo()
-
-  if (peachInfo) {
-    setPaymentMethods(peachInfo.paymentMethods)
-    setBuckets(peachInfo.buckets)
-    setPeachFee(peachInfo.fees.escrow)
-  }
+  events()
+  await session()
 
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop
@@ -121,32 +113,6 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
-/**
- * @description Method to initialize web socket
- * @param updatePeachWS update function
- */
-const initWebSocket = async (updatePeachWS: Function): Promise<void> => {
-  if (!account.publicKey) {
-    setTimeout(() => {
-      initWebSocket(updatePeachWS)
-    }, 10000)
-    return
-  }
-
-  const ws = createWebsocket()
-
-  updatePeachWS(ws)
-
-  ws.on('message', (message: Message) => {
-    info('MESSAGE', message)
-  })
-  ws.on('close', () => {
-    info('CLOSE')
-    setTimeout(() => {
-      initWebSocket(updatePeachWS)
-    }, 3000)
-  })
-}
 
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
@@ -177,7 +143,7 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef)
-      initWebSocket(updatePeachWS)
+      websocket(updatePeachWS)
     })()
   }, [])
 
