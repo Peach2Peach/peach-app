@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, PeachScrollView, Text } from '../../components'
+import { Button, PeachScrollView, Text, Title } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
 import { API_URL, DEV, NETWORK } from '@env'
 
@@ -19,13 +19,9 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  return <PeachScrollView>
-    <View style={tw`pb-32 h-full`}>
-      <View style={tw`flex-col justify-center h-full`}>
-        <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
-          Settings
-        </Text>
-      </View>
+  return <View style={tw`pb-32 h-full`}>
+    <PeachScrollView>
+      <Title title={'Settings'} />
       <Text style={tw`text-sm text-grey-2`}>
         API URL: {API_URL}
       </Text>
@@ -69,6 +65,6 @@ export default ({ navigation }: Props): ReactElement => {
           title="Data Dump"
         />
       </View>
-    </View>
-  </PeachScrollView>
+    </PeachScrollView>
+  </View>
 }
