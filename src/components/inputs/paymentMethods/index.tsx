@@ -20,11 +20,15 @@ type PaymentMethodViewProps = {
 const PaymentMethodView = ({ data }: PaymentMethodViewProps) => {
   const PaymentForm = PaymentMethodForms[data.type]
 
+
   return <View style={tw`h-full w-full flex-shrink flex-col`}>
     <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
       {i18n('paymentMethod.view')}
     </Headline>
-    <PaymentForm data={data} />
+    {PaymentForm
+      ? <PaymentForm data={data} />
+      : null
+    }
   </View>
 }
 interface PaymentMethodsProps {
