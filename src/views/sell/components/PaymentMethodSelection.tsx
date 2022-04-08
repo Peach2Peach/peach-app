@@ -7,12 +7,14 @@ import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 
 type PaymentMethodSelectionProps = {
-  setPaymentData: (data: PaymentData[]) => void
+  currencies: Currency[],
+  setPaymentData: (data: PaymentData[]) => void,
 }
-export default ({ setPaymentData }: PaymentMethodSelectionProps): ReactElement => <View>
+export default ({ setPaymentData, currencies }: PaymentMethodSelectionProps): ReactElement => <View>
   <Headline style={tw`mt-16 text-grey-1`}>
     {i18n('sell.paymentMethods')}
   </Headline>
   <PaymentMethods paymentData={account.paymentData}
+    currencies={currencies}
     onChange={(updatedPaymentData: PaymentData[]) => setPaymentData(updatedPaymentData)}/>
 </View>

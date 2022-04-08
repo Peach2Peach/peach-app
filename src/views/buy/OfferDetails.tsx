@@ -10,6 +10,7 @@ import i18n from '../../utils/i18n'
 import Currencies from '../../components/inputs/Currencies'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
 import { Title } from '../../components'
+import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount
@@ -22,6 +23,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies)
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(offer.paymentMethods)
   const [kyc, setKYC] = useState(offer.kyc)
+
+  useEffect(() => {
+    setPaymentMethods(paymentMethods.filter(method => paymentMethodAllowedForCurrencies(method, currencies)))
+  }, [currencies])
 
   useEffect(() => {
     updateOffer({
@@ -42,7 +47,11 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   return <View style={tw`mb-16`}>
     <Title title={i18n('buy.title')} />
     <Currencies title={i18n('buy.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
-    <PaymentMethodSelection paymentMethods={paymentMethods} setPaymentMethods={setPaymentMethods} />
+    <PaymentMethodSelection
+      currencies={currencies}
+      paymentMethods={paymentMethods}
+      setPaymentMethods={setPaymentMethods}
+    />
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

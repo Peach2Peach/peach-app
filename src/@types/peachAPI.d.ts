@@ -41,7 +41,13 @@ declare type Currency = 'EUR' | 'CHF' | 'GBP'
 declare type Pricebook = {
   [key in Currency]: number
 }
-declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay'
+declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
+declare type PaymentMethodInfo = {
+  id: PaymentMethod,
+  currencies: Currency[],
+  exchange: boolean,
+}
+
 declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
@@ -59,7 +65,9 @@ declare type GetStatusResponse = {
 declare type GetInfoResponse = {
   fees: {
     escrow: number,
-  }
+  },
+  buckets: number[],
+  paymentMethods: PaymentMethodInfo[],
 }
 
 declare type GetTxResponse = Transaction

@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext } from '../../utils/bitcoin'
 import { SellViewProps } from './Sell'
-import { updateSettings } from '../../utils/account'
+import { updatePaymentData, updateSettings } from '../../utils/account'
 import Premium from './components/Premium'
 import Currencies from '../../components/inputs/Currencies'
 import KYC from './components/KYC'
@@ -13,6 +13,7 @@ import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
 import { debounce } from '../../utils/performance'
+import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
 
 type UpdateOfferProps = {
   currencies: Currency[],
@@ -65,7 +66,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   return <View style={tw`mb-16`}>
     <Title title={i18n('sell.title')} />
     <Currencies title={i18n('sell.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
-    <PaymentMethodSelection setPaymentData={setPaymentData} />
+    <PaymentMethodSelection setPaymentData={setPaymentData} currencies={currencies} />
     <Premium
       premium={premium}
       setPremium={setPremium}
