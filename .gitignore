@@ -28,8 +28,7 @@ build/
 .gradle
 local.properties
 *.iml
-index.android.bundle
-android/app/src/main/res/raw
+*.hprof
 
 # node.js
 #
@@ -62,7 +61,7 @@ buck-out/
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
+# Ruby / CocoaPods
 /ios/Pods/
 
 .DS_Store
@@ -70,6 +69,11 @@ buck-out/
 
 /public/assets/
 
+/vendor/bundle/
+
+
 .env
 .env.*
 !.env.dist
+index.android.bundle
+android/app/src/main/res/raw
