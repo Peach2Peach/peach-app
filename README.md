@@ -48,3 +48,26 @@ Then edit the variables according to your setup
 `npm run test ./tests/utils/validationUtils.test.js`
 
 `npm run test ./tests/utils/*.test.js`
+
+
+## Troubleshooting
+
+### Can't build Android
+
+#### General
+
+1. Clean gradle
+
+`cd android & ./gradlew clean`
+
+2. Clear metro cache
+
+`npm run cache:clear`
+
+#### Error: Duplicate resources
+
+1. Run `rm -rf android/app/src/main/res/drawable-*`
+2. Then open folder android in Android Studio and build project
+3. Select Build/Generate signed APK to build release
+
+
