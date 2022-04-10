@@ -71,3 +71,14 @@ Then edit the variables according to your setup
 3. Select Build/Generate signed APK to build release
 
 
+
+### Can't build iOS
+
+#### After react-native updates
+
+1. Install pods
+
+```
+npx react-native link
+cd ios && pod install
+```
