@@ -25,8 +25,8 @@ export const getOfferDetails = async (offerId: string): Promise<[BuyOffer|SellOf
  * @description Method to get offer of user
  * @returns GetOffersResponse
  */
-export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/offer`, {
+export const getOffers = async (): Promise<[(SellOffer|BuyOffer)[]|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offers`, {
     headers: {
       Authorization: await getAccessToken(),
       'Accept': 'application/json',
@@ -35,7 +35,7 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
     method: 'GET'
   })
 
-  return await parseResponse<Offer[]>(response, 'getOffers')
+  return await parseResponse<(SellOffer|BuyOffer)[]>(response, 'getOffers')
 }
 
 type PostOfferProps = {

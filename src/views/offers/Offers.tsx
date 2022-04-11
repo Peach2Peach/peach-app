@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import {
   Pressable,
   View
@@ -10,6 +10,11 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
+import { MessageContext } from '../../utils/message'
+import { error } from '../../utils/log'
+import getOffersEffect from '../../effects/getOffersEffect'
+import i18n from '../../utils/i18n'
+import { saveOffer } from '../../utils/offer'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
 
@@ -54,6 +59,20 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
 // TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateMessage] = useContext(MessageContext)
+
+  useEffect(getOffersEffect({
+    onSuccess: result => {
+      Promise.all(result.map(offer => saveOffer(offer)))
+    },
+    onError: err => {
+      error('Could not fetch offer information')
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
+  }), [])
 
   return <PeachScrollView>
     <View style={tw`pb-32`}>
