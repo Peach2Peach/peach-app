@@ -55,6 +55,7 @@ export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { auth, getAccessToken, setPGP } from './private/user'
 export {
+  getOffers,
   postOffer, getOfferDetails,
   createEscrow, getFundingStatus,
   cancelOffer,
