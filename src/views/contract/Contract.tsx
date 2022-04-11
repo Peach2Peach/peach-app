@@ -97,7 +97,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
 
-      if (contract.paymentData) return
+      if (contract.paymentData || !contract.symmetricKey) return
 
       const [paymentData, err] = await getPaymentData(contract)
 

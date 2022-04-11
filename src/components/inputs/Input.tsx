@@ -1,9 +1,9 @@
 import React, { ReactElement, Ref } from 'react'
 import {
   Pressable,
+  TextInput,
   View,
 } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Text } from '..'

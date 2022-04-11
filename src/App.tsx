@@ -2,6 +2,8 @@ import React, { ReactElement, useEffect, useReducer, useRef, useState } from 're
 import { Dimensions, SafeAreaView, View, Animated, LogBox } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
+// eslint-disable-next-line no-duplicate-imports
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
@@ -43,6 +45,10 @@ import { createWebsocket, getWebSocket, PeachWSContext, setPeachWS } from './uti
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
+  // eslint-disable-next-line max-len
+  '[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!',
+  /ViewPropTypes will be removed from React Native./u,
+  /RCTBridge required dispatch_sync/u,
   /Require cycle/u,
 ])
 
@@ -181,7 +187,7 @@ const App: React.FC = () => {
     })()
   }, [])
 
-  return <AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
+  return <GestureHandlerRootView><AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <PeachWSContext.Provider value={peachWS}>
         <BitcoinContext.Provider value={bitcoinContext}>
@@ -228,6 +234,6 @@ const App: React.FC = () => {
         </BitcoinContext.Provider>
       </PeachWSContext.Provider>
     </LanguageContext.Provider>
-  </SafeAreaView></AvoidKeyboard>
+  </SafeAreaView></AvoidKeyboard></GestureHandlerRootView>
 }
 export default App

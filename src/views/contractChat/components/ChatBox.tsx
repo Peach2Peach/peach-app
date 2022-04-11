@@ -28,7 +28,7 @@ export default ({ messages, style }: ChatBoxProps): ReactElement => {
           const isYou = message.from === account.publicKey
           const previous = self[i - 1]
           const showName = !previous || previous.from !== message.from
-          return <View key={message.date.getTime()} style={[
+          return <View key={message.date.getTime() + message.signature.substring(0, 4)} style={[
             tw`w-11/12`,
             isYou ? tw`self-end` : {}
           ]}>
