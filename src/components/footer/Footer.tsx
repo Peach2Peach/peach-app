@@ -6,8 +6,7 @@ import {
   View
 } from 'react-native'
 
-import { Text } from '..'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { footerShadow } from '../../utils/layout'

@@ -30,6 +30,7 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     },
     send: (data: string) => true,
     on: (listener: 'message'|'close', callback: (message?: any) => void) => peachWS.listeners[listener].push(callback),
+    // TODO add off listenter
     close: ws.close,
   }
 

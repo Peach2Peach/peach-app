@@ -5,7 +5,7 @@ import { getTx } from '../utils/peachAPI'
 type GetTxEffectProps = {
   txId: string,
   onSuccess: (result: GetTxResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   txId,

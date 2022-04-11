@@ -1,13 +1,12 @@
 import React, { ReactElement, Ref } from 'react'
 import {
   Pressable,
+  TextInput,
   View,
 } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Text } from '..'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
 type InputProps = ComponentProps & {
@@ -81,7 +80,7 @@ export const Input = ({
     ]}>
       <TextInput ref={reference ? reference : null}
         style={[
-          tw`w-full flex-shrink h-8 p-0 text-grey-1 text-lg leading-5`,
+          tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
           tw.md`h-10`,
           label && !value ? tw`font-baloo text-xs uppercase` : {}
         ]}

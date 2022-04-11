@@ -1,13 +1,13 @@
-import { BIP32Interface } from 'bip32'
+import * as bitcoin from 'bitcoinjs-lib'
 import { error } from '../log'
 
 
 export let accessToken: AccessToken|null
-export let peachAccount: BIP32Interface|null
+export let peachAccount: bitcoin.bip32.BIP32Interface|null
 
 export const setAccessToken = (token: AccessToken) => accessToken = token
 export const getPeachAccount = () => peachAccount
-export const setPeachAccount = (acc: BIP32Interface) => peachAccount = acc
+export const setPeachAccount = (acc: bitcoin.bip32.BIP32Interface) => peachAccount = acc
 
 /**
  * @description Method to parse and handle peach response
