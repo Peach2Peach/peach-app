@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
-import { Shadow } from 'react-native-shadow-2'
-import { PeachScrollView, Text } from '../../../components'
+import { PeachScrollView, Shadow, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'

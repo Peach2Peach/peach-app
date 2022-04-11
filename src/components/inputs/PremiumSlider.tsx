@@ -2,9 +2,8 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Animated, PanResponder, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Shadow } from 'react-native-shadow-2'
 import { mildShadow } from '../../utils/layout'
-import { Text } from '..'
+import { Shadow, Text } from '..'
 
 interface PremiumSliderProps {
   value: number,

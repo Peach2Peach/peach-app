@@ -6,8 +6,7 @@ import {
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Text } from '..'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
 type InputProps = ComponentProps & {
