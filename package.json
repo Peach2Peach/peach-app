@@ -131,7 +131,7 @@
       "\\.(ts|tsx)$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-qrcode-svg)/)"
+      "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg)/)"
     ],
     "setupFiles": [
       "./tests/prepare.ts",

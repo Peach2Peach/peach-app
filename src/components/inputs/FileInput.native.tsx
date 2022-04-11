@@ -56,7 +56,7 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
         content: ''
       })
     }
-  } catch (err) {
+  } catch (err: any) {
     if (!DocumentPicker.isCancel(err)) {
       // User cancelled the picker, exit any dialogs or menus and move on
       throw err
