@@ -5,7 +5,7 @@ import { postOffer } from '../utils/peachAPI'
 type PostOfferEffectProps = {
   offer: SellOffer|BuyOffer,
   onSuccess: (result: PostOfferResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   offer,

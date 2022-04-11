@@ -6,9 +6,8 @@ import {
 import { error } from '../../utils/log'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
-import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
-import { Text } from '..'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
 

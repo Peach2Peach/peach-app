@@ -29,7 +29,7 @@ export const innerShadow = {
   distance: 8,
   startColor: '#00000000',
   finalColor: '#0000000D',
-  offset: [0, 6] as [x: string | number, y: string | number],
+  offset: [0, 6] as [x: number, y: number],
   radius: 0
 }
 

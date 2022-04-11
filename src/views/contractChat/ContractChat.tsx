@@ -209,6 +209,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               <Input
                 style={tw`pr-12`}
                 onChange={setNewMessage}
+                onSubmit={sendMessage}
                 value={newMessage}
                 label={i18n('chat.yourMessage')}
                 isValid={true}
