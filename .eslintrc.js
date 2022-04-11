@@ -19,6 +19,7 @@ module.exports = {
   },
   'ignorePatterns': [
     '.eslintrc.js',
+    'index.js',
     'babel.config.js',
     'metro.config.js',
     'react-native.config.js',
