@@ -1,7 +1,12 @@
 import { deepStrictEqual } from 'assert'
 import tw from '../../src/styles/tailwind'
 
-const mockDimensions = ({ width, height }) => {
+type Dimension = {
+  width: number,
+  height: number
+}
+
+const mockDimensions = ({ width, height }: Dimension) => {
   jest.resetModules()
   jest.doMock('react-native/Libraries/Utilities/Dimensions', () => ({
     get: jest.fn().mockReturnValue({ width, height })

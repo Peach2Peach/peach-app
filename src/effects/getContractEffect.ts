@@ -5,7 +5,7 @@ import { getContract } from '../utils/peachAPI'
 type GetContractEffectProps = {
   contractId: string,
   onSuccess: (result: GetContractResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 
 export default ({
