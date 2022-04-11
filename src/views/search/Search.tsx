@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../utils/message'
-import { BigTitle, Button, Loading, Matches, Text } from '../../components'
+import { BigTitle, Button, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'

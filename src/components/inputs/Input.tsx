@@ -74,6 +74,7 @@ export const Input = ({
     <Shadow {...innerShadow} viewStyle={[
       tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
       tw.md`h-10`,
+      icon ? tw`pr-12` : {},
       style ? style : {},
       isValid && value && !disabled ? tw`border-green` : {},
       errorMessage.length > 0 && !disabled ? tw`border-red` : {},
@@ -96,7 +97,8 @@ export const Input = ({
         secureTextEntry={secureTextEntry}
       />
       {icon
-        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
+        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
+          style={tw`h-full absolute right-3 flex justify-center`}>
           <Icon id={icon} style={tw`w-5 h-5`} />
         </Pressable>
         : null

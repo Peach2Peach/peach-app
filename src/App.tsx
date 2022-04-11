@@ -151,9 +151,10 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef)
-      websocket(updatePeachWS)
     })()
   }, [])
+
+  useEffect(websocket(updatePeachWS), [])
 
   return <GestureHandlerRootView><AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>

@@ -13,8 +13,31 @@ let peachWS: PeachWS = {
     close: [],
   },
   send: (data: string) => true,
-  on: (listener: 'message'|'close', callback: (message?: any) => void) => peachWS.listeners[listener].push(callback),
+  on: (listener: 'message'|'close', callback: WSCallback) => {
+    peachWS.listeners[listener].push(callback)
+    peachWS.listeners[listener] = peachWS.listeners[listener].filter((cllbck, index, self) =>
+      self.findIndex(c => c.toString() === cllbck.toString()) === index
+    )
+  },
+  off: (listener: 'message'|'close', callback: WSCallback) => {
+    peachWS.listeners[listener] = peachWS.listeners[listener].filter(cllbck =>
+      cllbck.toString() !== callback.toString()
+    ) as WSCallback[]
+  },
   close: () => {},
+}
+
+const onMessageHandler = (msg: MessageEvent<any>) => {
+  const message = JSON.parse(msg.data)
+
+  if (!peachWS.authenticated && message.accessToken) {
+    info('Peach WS API - authenticated')
+    peachWS.authenticated = true
+    return
+  }
+  if (!peachWS.authenticated) return
+
+  peachWS.listeners.message.forEach(listener => listener(message))
 }
 
 export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
@@ -29,9 +52,21 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
       close: [],
     },
     send: (data: string) => true,
-    on: (listener: 'message'|'close', callback: (message?: any) => void) => peachWS.listeners[listener].push(callback),
-    // TODO add off listenter
-    close: ws.close,
+    on: (listener: 'message'|'close', callback: WSCallback) => {
+      peachWS.listeners[listener].push(callback)
+      peachWS.listeners[listener] = peachWS.listeners[listener].filter((cllbck, index, self) =>
+        self.findIndex(c => c.toString() === cllbck.toString()) === index
+      )
+    },
+    off: (listener: 'message'|'close', callback: WSCallback) => {
+      peachWS.listeners[listener] = peachWS.listeners[listener].filter(cllbck =>
+        cllbck.toString() !== callback.toString()
+      ) as WSCallback[]
+    },
+    close: () => {
+      ws.removeEventListener('message', onMessageHandler)
+      ws.close()
+    },
   }
 
   peachWS.send = (data: string): boolean => {
@@ -49,7 +84,6 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     return true
   }
 
-
   ws.onopen = () => {
     peachWS.connected = true
     authWS(ws)
@@ -57,23 +91,14 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     // if a queue built up while offline, now send what has queued up
     peachWS.queue = peachWS.queue.filter(callback => !callback())
   }
-  ws.onmessage = (msg) => {
-    const message = JSON.parse(msg.data)
 
-    if (!peachWS.authenticated && message.accessToken) {
-      info('Peach WS API - authenticated')
-      peachWS.authenticated = true
-      return
-    }
-    if (!peachWS.authenticated) return
-
-    peachWS.listeners.message.forEach(listener => listener(message))
-  }
+  ws.addEventListener('message', onMessageHandler)
 
   ws.onclose = () => {
     info('Peach WS API - connection closed.')
     peachWS.connected = false
     peachWS.listeners.close.forEach(listener => listener())
+    ws.removeEventListener('message', onMessageHandler)
   }
 
   return peachWS
