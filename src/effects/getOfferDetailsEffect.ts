@@ -6,7 +6,7 @@ type GetOfferEffectProps = {
   offerId: string|null|undefined,
   interval?: number,
   onSuccess: (result: BuyOffer|SellOffer) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   offerId,

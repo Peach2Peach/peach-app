@@ -17,39 +17,10 @@ declare type AnyObject = {
   [key: string]: any
 }
 
-declare type Settings = {
-  skipTutorial?: boolean,
-  amount?: number,
-  currencies?: Currency[],
-  paymentMethods?: PaymentMethod[],
-  premium?: number,
-  kyc?: boolean,
-  kycType?: KYCType,
-}
-
-declare type PGPKeychain = {
-  privateKey: string,
-  publicKey: string,
-}
-
-declare type Account = {
-  publicKey: string,
-  privKey?: string,
-  mnemonic?: string,
-  pgp: PGPKeychain,
-  settings: Settings,
-  paymentData: PaymentData[],
-  offers: (SellOffer|BuyOffer)[],
-  contracts: Contract[],
-  chats: {
-    [key: string]: Message[]
-  }
-}
-
 declare type Rating = {
   creationDate: Date,
   rating: -1 | 1,
-  ratedBy: User.id,
+  ratedBy: string,
   signature: string,
 }
 declare type User = {
@@ -62,26 +33,6 @@ declare type User = {
   ratings?: Rating[],
   pgpPublicKey: string,
   pgpPublicKeyProof: string,
-}
-
-declare type MessageState = {
-  msg: string,
-  level: Level,
-  time?: number,
-}
-declare type OverlayState = {
-  content: ReactNode,
-  showCloseButton: boolean,
-}
-declare type BitcoinContextType = {
-  currency: Currency,
-  price: number,
-  satsPerUnit: number
-}
-
-declare type Session = {
-  initialized: boolean
-  password?: string
 }
 
 declare type PaymentData = {
@@ -168,15 +119,64 @@ declare type Contract = {
   ratingSeller: boolean,
 }
 
-declare type PeachWallet = {
-  wallet: bitcoin.bip32.BIP32Interface,
-  mnemonic: string
-}
-
 declare type Message = {
   roomId: string,
   from: User['id'],
   date: Date,
   message?: string,
   signature: string,
+}
+
+declare type Settings = {
+  skipTutorial?: boolean,
+  amount?: number,
+  currencies?: Currency[],
+  paymentMethods?: PaymentMethod[],
+  premium?: number,
+  kyc?: boolean,
+  kycType?: KYCType,
+}
+
+declare type PGPKeychain = {
+  privateKey: string,
+  publicKey: string,
+}
+
+declare type Account = {
+  publicKey: string,
+  privKey?: string,
+  mnemonic?: string,
+  pgp: PGPKeychain,
+  settings: Settings,
+  paymentData: PaymentData[],
+  offers: (SellOffer|BuyOffer)[],
+  contracts: Contract[],
+  chats: {
+    [key: string]: Message[]
+  }
+}
+
+declare type MessageState = {
+  msg: string,
+  level: Level,
+  time?: number,
+}
+declare type OverlayState = {
+  content: ReactNode,
+  showCloseButton: boolean,
+}
+declare type BitcoinContextType = {
+  currency: Currency,
+  price: number,
+  satsPerUnit: number
+}
+
+declare type Session = {
+  initialized: boolean
+  password?: string
+}
+
+declare type PeachWallet = {
+  wallet: bitcoin.bip32.BIP32Interface,
+  mnemonic: string
 }

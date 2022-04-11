@@ -4,7 +4,7 @@ import { Pressable, View } from 'react-native'
 import Icon from '../Icon'
 import { Text } from '..'
 
-interface Item {
+export interface Item {
   value: string|number,
   display: string
 }

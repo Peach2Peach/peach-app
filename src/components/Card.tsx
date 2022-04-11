@@ -1,10 +1,11 @@
 
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Shadow } from 'react-native-shadow-2'
 
 import tw from '../styles/tailwind'
 import { mildShadow } from '../utils/layout'
+
+import { Shadow } from '.'
 
 type CardProps = ComponentProps
 

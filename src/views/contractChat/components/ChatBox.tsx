@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
-import { Shadow } from 'react-native-shadow-2'
-import { PeachScrollView, Text } from '../../../components'
+import { PeachScrollView, Shadow, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -28,7 +27,7 @@ export default ({ messages, style }: ChatBoxProps): ReactElement => {
           const isYou = message.from === account.publicKey
           const previous = self[i - 1]
           const showName = !previous || previous.from !== message.from
-          return <View key={message.date.getTime()} style={[
+          return <View key={message.date.getTime() + message.signature.substring(0, 4)} style={[
             tw`w-11/12`,
             isYou ? tw`self-end` : {}
           ]}>
