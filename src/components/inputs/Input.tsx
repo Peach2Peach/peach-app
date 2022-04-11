@@ -81,7 +81,7 @@ export const Input = ({
     ]}>
       <TextInput ref={reference ? reference : null}
         style={[
-          tw`w-full flex-shrink h-8 p-0 text-grey-1 text-lg leading-5`,
+          tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
           tw.md`h-10`,
           label && !value ? tw`font-baloo text-xs uppercase` : {}
         ]}
