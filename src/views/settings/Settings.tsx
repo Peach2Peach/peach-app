@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, PeachScrollView, Text, Title } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
-import { API_URL, DEV, NETWORK } from '@env'
+import { API_URL, NETWORK } from '@env'
 
 import { version } from '../../../package.json'
 
@@ -34,9 +34,6 @@ export default ({ navigation }: Props): ReactElement => {
       </Text>
       <Text style={tw`text-sm text-grey-2`}>
         Your public key: {account.publicKey}
-      </Text>
-      <Text style={tw`text-sm text-grey-2`}>
-        Env: {DEV ? 'staging' : null}
       </Text>
       <View style={tw`mt-4`}>
         <Button
