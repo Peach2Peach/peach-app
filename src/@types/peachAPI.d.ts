@@ -1,13 +1,15 @@
+declare type WSCallback = (message?: any) => void
 declare type PeachWS = {
   ws?: WebSocket,
   authenticated: boolean,
   connected: boolean,
   queue: (() => boolean)[],
   listeners: {
-    message: ((message: string) => void)[]
+    message: WSCallback[]
     close: (() => void)[]
   },
-  on: (listener: 'message'|'close', callback: (message: any) => void) => {},
+  on: (listener: 'message'|'close', callback: WSCallback) => void,
+  off: (listener: 'message'|'close', callback: WSCallback) => void,
   send: (data: string) => boolean,
   close: WebSocket['close'],
   onmessage?: WebSocket['onmessage']|(() => {}),

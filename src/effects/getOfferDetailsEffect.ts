@@ -42,5 +42,7 @@ export default ({
   }
 
 
-  return () => {}
+  return () => {
+    if (intrvl) clearInterval(intrvl)
+  }
 }

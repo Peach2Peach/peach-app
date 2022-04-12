@@ -10,6 +10,8 @@ import { Button, PeachScrollView, Text, Title } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
 import { API_URL, DEV, NETWORK } from '@env'
 
+import { version } from '../../../package.json'
+
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
 type Props = {
@@ -18,15 +20,20 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-
   return <View style={tw`pb-32 h-full`}>
     <PeachScrollView>
       <Title title={'Settings'} />
+      <Text style={tw`text-sm text-grey-2`}>
+        App version: {version}
+      </Text>
       <Text style={tw`text-sm text-grey-2`}>
         API URL: {API_URL}
       </Text>
       <Text style={tw`text-sm text-grey-2`}>
         Network: {NETWORK}
+      </Text>
+      <Text style={tw`text-sm text-grey-2`}>
+        Your public key: {account.publicKey}
       </Text>
       <Text style={tw`text-sm text-grey-2`}>
         Env: {DEV ? 'staging' : null}
