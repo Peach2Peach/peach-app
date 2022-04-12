@@ -133,6 +133,8 @@ declare type Match = {
   paymentMethods: PaymentMethod[],
   kyc: boolean,
   kycType?: KYCType,
+  symmetricKeyEncrypted: string,
+  symmetricKeySignature: string,
   matched?: boolean
 }
 declare type GetMatchesResponse = {
