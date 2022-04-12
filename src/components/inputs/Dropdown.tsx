@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow } from '..'
 import { innerShadow, mildShadow } from '../../utils/layout'
 
 interface Item {

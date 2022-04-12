@@ -1,13 +1,12 @@
 import React, { ReactElement, Ref } from 'react'
 import {
   Pressable,
+  TextInput,
   View,
 } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Text } from '..'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
 type InputProps = ComponentProps & {
@@ -75,13 +74,14 @@ export const Input = ({
     <Shadow {...innerShadow} viewStyle={[
       tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
       tw.md`h-10`,
+      icon ? tw`pr-12` : {},
       style ? style : {},
       isValid && value && !disabled ? tw`border-green` : {},
       errorMessage.length > 0 && !disabled ? tw`border-red` : {},
     ]}>
       <TextInput ref={reference ? reference : null}
         style={[
-          tw`w-full flex-shrink h-8 p-0 text-grey-1 text-lg leading-5`,
+          tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
           tw.md`h-10`,
           label && !value ? tw`font-baloo text-xs uppercase` : {}
         ]}
@@ -97,7 +97,8 @@ export const Input = ({
         secureTextEntry={secureTextEntry}
       />
       {icon
-        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
+        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
+          style={tw`h-full absolute right-3 flex justify-center`}>
           <Icon id={icon} style={tw`w-5 h-5`} />
         </Pressable>
         : null

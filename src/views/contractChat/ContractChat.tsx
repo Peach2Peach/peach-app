@@ -1,6 +1,5 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
-  Pressable,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -18,11 +17,10 @@ import { account } from '../../utils/account'
 import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
-import Icon from '../../components/Icon'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
 import ChatBox from './components/ChatBox'
 import { getTimerStart } from '../contract/helpers/getTimerStart'
-import { getPaymentData } from '../contract/helpers/parseContract'
+import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseContract'
 import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 
@@ -35,7 +33,7 @@ type Props = {
   navigation: ProfileScreenNavigationProp,
 }
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const ws = useContext(PeachWSContext)
@@ -50,9 +48,15 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
 
+  const saveAndUpdate = (contractData: Contract) => {
+    if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
+
+    setContract(() => contractData)
+    saveContract(contractData)
+  }
+
   useEffect(() => {
-    if (!ws.connected) return
-    ws.on('message', async (message: Message) => {
+    const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
 
@@ -62,7 +66,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
       setChat(prevChat => [...prevChat, decryptedMessage])
-    })
+    }
+
+    if (!ws.connected) return () => {
+      ws.off('message', messageHandler)
+    }
+
+    ws.on('message', messageHandler)
+
+    return () => {
+      ws.off('message', messageHandler)
+    }
   }, [ws.connected])
 
   const saveAndUpdateContract = (contractData: Contract) => {
@@ -86,6 +100,22 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+
+      const [symmetricKey, err] = contract?.symmetricKey
+        ? [contract.symmetricKey, null]
+        : await decryptSymmetricKey(result)
+
+      if (err) error(err)
+
+      saveAndUpdate(contract
+        ? {
+          ...contract,
+          ...result,
+          symmetricKey,
+          // canceled: contract.canceled
+        }
+        : result
+      )
 
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
       saveAndUpdateContract(contract
@@ -142,7 +172,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
 
-      if (contract.paymentData) return
+      if (contract.paymentData && contract.symmetricKey) return
 
       const [paymentData, err] = await getPaymentData(contract)
 
@@ -165,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [contract])
 
   const sendMessage = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws) return
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
@@ -178,7 +208,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
     }))
-    setNewMessage('')
+    setNewMessage(() => '')
   }
 
   return updatePending
@@ -200,23 +230,21 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
           <View style={[
             tw`w-full h-full flex-col flex-shrink`,
-            !ws.connected ? tw`opacity-50 pointer-events-none` : {}
+            !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
           ]}>
             <View style={tw`h-full flex-shrink`}>
               <ChatBox messages={chat} />
             </View>
             <View style={tw`mt-4 flex-shrink-0`}>
               <Input
-                style={tw`pr-12`}
                 onChange={setNewMessage}
+                onSubmit={sendMessage}
+                icon="send"
                 value={newMessage}
                 label={i18n('chat.yourMessage')}
                 isValid={true}
                 autoCorrect={true}
               />
-              <Pressable onPress={sendMessage} style={tw`h-full absolute right-3 flex justify-center`}>
-                <Icon id="send" style={tw`w-5 h-5`} />
-              </Pressable>
             </View>
           </View>
         </View>

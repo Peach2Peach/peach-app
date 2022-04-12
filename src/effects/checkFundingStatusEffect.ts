@@ -5,7 +5,7 @@ import { getFundingStatus } from '../utils/peachAPI'
 type CheckFundingStatusEffectProps = {
   offer: SellOffer,
   onSuccess: (result: FundingStatusResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   offer,

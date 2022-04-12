@@ -1,8 +1,7 @@
 
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import { Shadow } from 'react-native-shadow-2'
-import { Button, Headline, Text } from '..'
+import { Button, Headline, Shadow, Text } from '..'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

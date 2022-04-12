@@ -8,13 +8,13 @@ import DetailApplePay from './detail/applePay'
 export type PaymentTemplateProps = { paymentData: PaymentData }
 
 export type PaymentDetailTemplates = {
-  [key in PaymentMethod]: (props: PaymentTemplateProps) => ReactElement
+  [key in PaymentMethod]?: (props: PaymentTemplateProps) => ReactElement
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
   'iban': DetailIBAN,
   'paypal': DetailPaypal,
-  'giftCard': DetailGiftCard,
-  'revolut': DetailRevolut,
-  'applePay': DetailApplePay,
+  // 'giftCard': DetailGiftCard,
+  // 'revolut': DetailRevolut,
+  // 'applePay': DetailApplePay,
 }

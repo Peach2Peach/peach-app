@@ -21,6 +21,7 @@ export {
 } from './inputs'
 
 export { Match, Matches } from './matches'
+export { ShadowFixed as Shadow } from './ui/Shadow'
 
 export { paymentDetailTemplates } from './payment/'
 export { ScanQR } from './camera/ScanQR'

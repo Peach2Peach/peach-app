@@ -5,7 +5,7 @@ import { cancelOffer } from '../utils/peachAPI'
 type CancelOfferEffectProps = {
   offer: SellOffer|BuyOffer,
   onSuccess: (result: CancelOfferResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   offer,

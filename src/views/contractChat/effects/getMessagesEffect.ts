@@ -5,7 +5,7 @@ import { getChat, getContract } from '../../../utils/peachAPI'
 type GetMessagesEffectProps = {
   contractId: string,
   onSuccess: (result: GetChatResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 
 // TODO this should be a websocket

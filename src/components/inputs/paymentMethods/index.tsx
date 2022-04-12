@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { Button, Text } from '../..'
@@ -11,6 +11,7 @@ import NoPaymentMethods from './NoPaymentMethods'
 import AddPaymentMethod from './AddPaymentMethod'
 import { PaymentMethodForms } from './paymentForms'
 import { Headline } from '../../text'
+import { paymentMethodAllowedForCurrencies } from '../../../utils/validation'
 
 type PaymentMethodViewProps = {
   data: PaymentData
@@ -19,15 +20,20 @@ type PaymentMethodViewProps = {
 const PaymentMethodView = ({ data }: PaymentMethodViewProps) => {
   const PaymentForm = PaymentMethodForms[data.type]
 
+
   return <View style={tw`h-full w-full flex-shrink flex-col`}>
     <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
       {i18n('paymentMethod.view')}
     </Headline>
-    <PaymentForm data={data} />
+    {PaymentForm
+      ? <PaymentForm data={data} />
+      : null
+    }
   </View>
 }
 interface PaymentMethodsProps {
   paymentData: PaymentData[],
+  currencies: Currency[],
   onChange?: (PaymentData: PaymentData[]) => void
 }
 
@@ -35,14 +41,24 @@ interface PaymentMethodsProps {
  * @description Component to display payment methods
  * @param props Component properties
  * @param props.paymentData array of saved payment methods
+ * @param props.currencies array of selected currencies
  * @param [props.onChange] on change handler
  * @example
  */
 // eslint-disable-next-line max-lines-per-function
-export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): ReactElement => {
+export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMethodsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [showAddNew, setShowAddNew] = useState(false)
+
+  useEffect(() => {
+    account.paymentData = account.paymentData.map(data => ({
+      ...data,
+      selected: data.selected ? paymentMethodAllowedForCurrencies(data.type, currencies) : false,
+    }))
+    updatePaymentData(account.paymentData)
+    if (onChange) onChange(account.paymentData)
+  }, [currencies])
 
   const addPaymentMethod = (data: PaymentData) => {
     data.selected = true
@@ -51,6 +67,7 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
     setShowAddNew(false)
     if (onChange) onChange(account.paymentData)
   }
+
 
   const openAddPaymentMethodDialog = () => updateOverlay({
     content: <AddPaymentMethod onSubmit={addPaymentMethod} />,
@@ -63,14 +80,17 @@ export const PaymentMethods = ({ paymentData, onChange }: PaymentMethodsProps): 
           <Checkboxes
             items={paymentData.map((data: PaymentData) => ({
               value: data.id,
+              disabled: !paymentMethodAllowedForCurrencies(data.type, currencies),
               display: <View style={tw`flex-row pr-3`}>
                 <View style={tw`w-3/4 flex-shrink`}>
-                  <Text numberOfLines={1} ellipsizeMode="tail">
+                  <Text numberOfLines={1} ellipsizeMode="tail" style={tw`leading-6`}>
                     {(data.iban || data.email || data.phone || data.paypal)}
                   </Text>
                 </View>
                 <View style={tw`w-1/4 flex-shrink-0`}>
-                  <Text style={tw`text-right text-grey-1`}>{i18n(`paymentMethod.${data.type}`)}</Text>
+                  <Text style={tw`text-right text-grey-1 leading-6`}>
+                    {i18n(`paymentMethod.${data.type}`)}
+                  </Text>
                 </View>
               </View>
             }))}
