@@ -8,7 +8,7 @@ import LanguageContext from '../../components/inputs/LanguageSelect'
 import { Button, Loading, PeachScrollView, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
-import { error, info } from '../../utils/log'
+import { error } from '../../utils/log'
 import { MessageContext } from '../../utils/message'
 import i18n from '../../utils/i18n'
 import { getContract, saveContract } from '../../utils/contract'
@@ -104,7 +104,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
 
-      console.log('contract.symmetricKey', contract.symmetricKey)
       if (contract.paymentData || !contract.symmetricKey) return
 
       const [paymentData, err] = await getPaymentData(contract)

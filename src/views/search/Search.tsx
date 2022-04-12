@@ -78,7 +78,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           ].join('\n')
         )
       } else if (offer.type === 'ask') {
-        console.log(match.user.pgpPublicKey);
         [symmetricKey, err] = await decryptSymmetricKey(
           match.symmetricKeyEncrypted,
           match.symmetricKeySignature,
