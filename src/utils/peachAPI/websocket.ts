@@ -35,7 +35,7 @@ const onOpenHandler = () => {
   peachWS.queue = peachWS.queue.filter(callback => !callback())
 }
 
-const onMessageHandler = (msg: MessageEvent<any>) => {
+const onMessageHandler = (msg: WebSocketMessageEvent) => {
   const message = JSON.parse(msg.data)
 
   if (!peachWS.authenticated && message.accessToken) {
