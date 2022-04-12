@@ -26,6 +26,7 @@ import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
 import ConfirmCancelTrade from './components/ConfirmCancelTrade'
 import { account } from '../../utils/account'
 import { getRandom } from '../../utils/crypto'
+import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -55,20 +56,38 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
-  // eslint-disable-next-line max-statements
+  // eslint-disable-next-line max-statements, max-lines-per-function
   const toggleMatch = async (match: Match) => {
+    let symmetricKey: string
     let result: any
     let err
 
-    if (!offer.id) return
+    if (!offer || !offer.id) return
 
     if (!match.matched) {
       let encryptedSymmmetricKey
       let encryptedPaymentData
 
-      if (offer.type === 'ask') {
-        const symmetricKey = (await getRandom(256)).toString('hex')
+      if (offer.type === 'bid') {
+        symmetricKey = (await getRandom(256)).toString('hex')
+        encryptedSymmmetricKey = await signAndEncrypt(
+          symmetricKey,
+          [
+            account.pgp.publicKey,
+            match.user.pgpPublicKey
+          ].join('\n')
+        )
+      } else if (offer.type === 'ask') {
+        console.log(match.user.pgpPublicKey);
+        [symmetricKey, err] = await decryptSymmetricKey(
+          match.symmetricKeyEncrypted,
+          match.symmetricKeySignature,
+          match.user.pgpPublicKey
+        )
         const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
+
+        if (err) error(err)
+
         if (!paymentData) {
           error('Error', err)
           // TODO show payment Data form again
@@ -82,13 +101,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         encryptedPaymentData = await signAndEncryptSymmetric(
           JSON.stringify(paymentData),
           symmetricKey
-        )
-        encryptedSymmmetricKey = await signAndEncrypt(
-          symmetricKey,
-          [
-            account.pgp.publicKey,
-            match.user.pgpPublicKey
-          ].join('\n')
         )
       }
 

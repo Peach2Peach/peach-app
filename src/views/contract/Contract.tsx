@@ -66,7 +66,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       const [symmetricKey, err] = contract?.symmetricKey
         ? [contract.symmetricKey, null]
-        : await decryptSymmetricKey(result)
+        : await decryptSymmetricKey(
+          result.symmetricKeyEncrypted,
+          result.symmetricKeySignature,
+          result.buyer.pgpPublicKey,
+        )
 
       if (err) error(err)
 
@@ -77,7 +81,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
           // canceled: contract.canceled
         }
-        : result
+        : {
+          ...result,
+          symmetricKey,
+        }
       )
     },
     onError: err => updateMessage({
@@ -97,7 +104,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
 
-      if (contract.paymentData && contract.symmetricKey) return
+      console.log('contract.symmetricKey', contract.symmetricKey)
+      if (contract.paymentData || !contract.symmetricKey) return
 
       const [paymentData, err] = await getPaymentData(contract)
 

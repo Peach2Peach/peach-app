@@ -103,7 +103,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       const [symmetricKey, err] = contract?.symmetricKey
         ? [contract.symmetricKey, null]
-        : await decryptSymmetricKey(result)
+        : await decryptSymmetricKey(
+          result.symmetricKeyEncrypted,
+          result.symmetricKeySignature,
+          result.buyer.pgpPublicKey,
+        )
 
       if (err) error(err)
 

@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../components/inputs/LanguageSelect'
 import BitcoinContext, { getBitcoinContext } from '../../utils/bitcoin'
 import { SellViewProps } from './Sell'
-import { updatePaymentData, updateSettings } from '../../utils/account'
+import { updateSettings } from '../../utils/account'
 import Premium from './components/Premium'
 import Currencies from '../../components/inputs/Currencies'
 import KYC from './components/KYC'
@@ -13,7 +13,6 @@ import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Title } from '../../components'
 import { debounce } from '../../utils/performance'
-import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
 
 type UpdateOfferProps = {
   currencies: Currency[],
