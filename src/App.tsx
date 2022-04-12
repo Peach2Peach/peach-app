@@ -26,7 +26,7 @@ import NewUser from './views/newUser/NewUser'
 import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './utils/message'
-import { account } from './utils/account'
+import { account, updateSettings } from './utils/account'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './utils/overlay'
@@ -37,11 +37,13 @@ import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
+import { setPGP } from './utils/peachAPI'
 import { error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
 import session from './init/session'
 import websocket from './init/websocket'
+import pgp from './init/pgp'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -105,6 +107,7 @@ const showFooter = (view: string) => views.find(v => v.name === view)?.showFoote
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   events()
   await session()
+  await pgp()
 
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop

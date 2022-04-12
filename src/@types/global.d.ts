@@ -135,6 +135,7 @@ declare type Settings = {
   premium?: number,
   kyc?: boolean,
   kycType?: KYCType,
+  pgpPublished?: boolean,
 }
 
 declare type PGPKeychain = {
