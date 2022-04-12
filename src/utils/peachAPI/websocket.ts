@@ -27,6 +27,14 @@ let peachWS: PeachWS = {
   close: () => {},
 }
 
+const onOpenHandler = () => {
+  peachWS.connected = true
+  authWS(ws)
+
+  // if a queue built up while offline, now send what has queued up
+  peachWS.queue = peachWS.queue.filter(callback => !callback())
+}
+
 const onMessageHandler = (msg: MessageEvent<any>) => {
   const message = JSON.parse(msg.data)
 
@@ -40,9 +48,24 @@ const onMessageHandler = (msg: MessageEvent<any>) => {
   peachWS.listeners.message.forEach(listener => listener(message))
 }
 
+const onCloseHandler = () => {
+  info('Peach WS API - connection closed.')
+  peachWS.connected = false
+  peachWS.listeners.close.forEach(listener => listener())
+  peachWS.listeners.close = []
+  ws.removeEventListener('message', onMessageHandler)
+}
+
 export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
+  if (ws) {
+    ws.removeEventListener('open', onOpenHandler)
+    ws.removeEventListener('message', onMessageHandler)
+    ws.removeEventListener('close', onCloseHandler)
+  }
+
   ws = new WebSocket(`${API_URL.replace('http', 'ws')}/`)
   peachWS = {
+    ...peachWS,
     ws,
     authenticated: false,
     connected: false,
@@ -50,18 +73,6 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     listeners: oldPeachWS?.listeners || {
       message: [],
       close: [],
-    },
-    send: (data: string) => true,
-    on: (listener: 'message'|'close', callback: WSCallback) => {
-      peachWS.listeners[listener].push(callback)
-      peachWS.listeners[listener] = peachWS.listeners[listener].filter((cllbck, index, self) =>
-        self.findIndex(c => c.toString() === cllbck.toString()) === index
-      )
-    },
-    off: (listener: 'message'|'close', callback: WSCallback) => {
-      peachWS.listeners[listener] = peachWS.listeners[listener].filter(cllbck =>
-        cllbck.toString() !== callback.toString()
-      ) as WSCallback[]
     },
     close: () => {
       ws.removeEventListener('message', onMessageHandler)
@@ -84,23 +95,9 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     return true
   }
 
-  ws.onopen = () => {
-    peachWS.connected = true
-    authWS(ws)
-
-    // if a queue built up while offline, now send what has queued up
-    peachWS.queue = peachWS.queue.filter(callback => !callback())
-  }
-
+  ws.addEventListener('open', onOpenHandler)
   ws.addEventListener('message', onMessageHandler)
-
-  ws.onclose = () => {
-    info('Peach WS API - connection closed.')
-    peachWS.connected = false
-    peachWS.listeners.close.forEach(listener => listener())
-    ws.removeEventListener('message', onMessageHandler)
-  }
-
+  ws.addEventListener('close', onCloseHandler)
   return peachWS
 }
 
