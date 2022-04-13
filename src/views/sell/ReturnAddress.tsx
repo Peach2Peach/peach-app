@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { IconButton, Input, ScanQR, Text, Title } from '../../components'
@@ -10,6 +10,7 @@ import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../components/Icon'
 import { cutOffAddress } from '../../utils/string'
+import { parseBitcoinRequest } from '../../utils/bitcoin'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -21,7 +22,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [address, setAddress] = useState(offer.returnAddress)
   const [shortAddress, setShortAddress] = useState(offer.returnAddress ? cutOffAddress(offer.returnAddress) : '')
   const [focused, setFocused] = useState(false)
-  const [useDepositAddress, setUseDepositAddress] = useState(offer.returnAddress === offer.depositAddress)
+  const [useDepositAddress, setUseDepositAddress] = useState(!offer.returnAddress)
   const [scanQR, setScanQR] = useState(false)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -32,14 +33,19 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   })
 
   const pasteAddress = async () => {
-    const newAddress = await Clipboard.getString()
-    setAddress(() => newAddress)
+    const clipboard = await Clipboard.getString()
+    const request = parseBitcoinRequest(clipboard)
+    setAddress(request.address || clipboard)
   }
 
   useEffect(() => {
-    if (!address && !offer.depositAddress) return
+    if (useDepositAddress) return
+    if (!address) {
+      setStepValid(false)
+      return
+    }
 
-    setShortAddress(cutOffAddress(address || offer.depositAddress || ''))
+    setShortAddress(cutOffAddress(address || ''))
 
     validate({
       address: {
@@ -47,6 +53,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         bitcoinAddress: true
       }
     })
+
     if (!isFormValid()) {
       setStepValid(false)
       return
@@ -58,15 +65,13 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       ...offer,
       returnAddress: address,
     })
-  }, [address])
+  }, [address, useDepositAddress])
 
   useEffect(() => {
     if (useDepositAddress) {
-      setAddress(() => {
-        $address.blur()
-        setFocused(!useDepositAddress)
-        return offer.depositAddress
-      })
+      $address.blur()
+      setFocused(!useDepositAddress)
+      setStepValid(true)
     }
   }, [useDepositAddress])
 
@@ -119,7 +124,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     {scanQR
       ? <View style={tw`mt-20`}>
         <ScanQR onSuccess={e => {
-          setAddress(e.data)
+          const request = parseBitcoinRequest(e.data)
+
+          setAddress(request.address || e.data)
           setScanQR(false)
         }}
         onCancel={() => setScanQR(false)}

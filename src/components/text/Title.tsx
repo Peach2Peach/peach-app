@@ -3,7 +3,7 @@ import { Image, Pressable, View } from 'react-native'
 import Icon from '../Icon'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { OverlayContext } from '../../utils/overlay'
+import { OverlayContext } from '../../contexts/overlay'
 import { Text } from '.'
 
 type TitleProps = {

@@ -6,7 +6,7 @@ import i18n from '../../../utils/i18n'
 import { Checkboxes } from '..'
 
 import { account, updatePaymentData } from '../../../utils/account'
-import { OverlayContext } from '../../../utils/overlay'
+import { OverlayContext } from '../../../contexts/overlay'
 import NoPaymentMethods from './NoPaymentMethods'
 import AddPaymentMethod from './AddPaymentMethod'
 import { PaymentMethodForms } from './paymentForms'

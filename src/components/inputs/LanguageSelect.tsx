@@ -1,25 +1,9 @@
-import React, { createContext, ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
+import LanguageContext from '../../contexts/language'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Select from './Select'
-
-/**
- * @description Context for localization
- * @example
- * import LanguageContext from './components/inputs/LanguageSelect'
- *
- * export default (): ReactElement =>
- *   const { locale } = useContext(LanguageContext)
- *   return <Text>
- *     {locale}
- *   </Text>
- * }
- */
-export const LanguageContext = createContext({ locale: 'en' })
-
-
-export default LanguageContext
 
 interface LanguageSelectProps {
   locale: string,
@@ -33,11 +17,11 @@ interface LanguageSelectProps {
  * @param props.setLocale method to set locale on value change
  */
 export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
+  useContext(LanguageContext)
   const languages = i18n.getLocales().map(lcl => ({
     value: lcl,
     display: i18n(`languageName.${lcl}`)
   }))
-  useContext(LanguageContext)
   const [pristine, setPristine] = useState(true)
 
   return <View style={tw`w-40`}>

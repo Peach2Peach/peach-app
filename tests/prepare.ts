@@ -62,6 +62,7 @@ jest.mock('react-native-encrypted-storage', () => ({
 }))
 
 jest.mock('react-native-snap-carousel', () => jest.fn())
+jest.mock('react-native-url-polyfill/auto', () => jest.fn())
 jest.mock('@react-native-clipboard/clipboard', () => jest.fn())
 jest.mock('@env', () => ({
   NETWORK: 'regtest',

@@ -17,6 +17,8 @@ declare type AnyObject = {
   [key: string]: any
 }
 
+type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
+
 declare type Rating = {
   creationDate: Date,
   rating: -1 | 1,

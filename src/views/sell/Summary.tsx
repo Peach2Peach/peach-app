@@ -2,11 +2,11 @@ import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Card, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { getBitcoinContext } from '../../utils/bitcoin'
+import { getBitcoinContext } from '../../contexts/bitcoin'
 import { unique } from '../../utils/array'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
