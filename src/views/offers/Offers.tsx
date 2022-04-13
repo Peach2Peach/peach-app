@@ -6,11 +6,11 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
-import { MessageContext } from '../../utils/message'
+import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'

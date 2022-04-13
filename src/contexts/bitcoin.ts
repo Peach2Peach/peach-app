@@ -12,10 +12,10 @@ export const getBitcoinContext = (): BitcoinContextType => bitcoinContext
 /**
  * @description Context for bitcoin
  * @example
- * import BitcoinContext from './components/inputs/LanguageSelect'
+ * import BitcoinContext from './components/contexts/bitcoin'
  *
  * export default (): ReactElement =>
- *   const { locale } = useContext(LanguageContext)
+ *   const { locale } = useContext(BitcoinContext)
  *   return <Text>
  *     {locale}
  *   </Text>

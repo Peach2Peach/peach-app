@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useRef, useState } from 're
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
 import { updateSettings } from '../../utils/account'

@@ -2,7 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Text } from '../../components'
 import i18n from '../../utils/i18n'
 

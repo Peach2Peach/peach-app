@@ -6,7 +6,7 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
@@ -22,7 +22,7 @@ import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView, Text } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
-import { MessageContext } from '../../utils/message'
+import { MessageContext } from '../../contexts/message'
 
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'

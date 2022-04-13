@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Image, Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Button, FileInput, Input, Loading, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigationProp } from '@react-navigation/stack'

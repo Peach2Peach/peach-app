@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { IconButton, Input, ScanQR, Text, Title } from '../../components'

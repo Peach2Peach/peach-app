@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Dropdown, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'

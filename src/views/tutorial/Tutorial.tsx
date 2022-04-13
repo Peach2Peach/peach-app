@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 const { LinearGradient } = require('react-native-gradients')
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Button, PeachScrollView } from '../../components'
 import i18n from '../../utils/i18n'
 import LetsExplainPeach from './LetsExplainPeach'

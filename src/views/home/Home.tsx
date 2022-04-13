@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../../utils/i18n'
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Headline, PeachScrollView, Text } from '../../components'
 import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
 import { thousands } from '../../utils/string'

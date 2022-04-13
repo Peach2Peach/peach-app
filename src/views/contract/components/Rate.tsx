@@ -7,7 +7,7 @@ import Icon from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
 import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { MessageContext } from '../../../utils/message'
+import { MessageContext } from '../../../contexts/message'
 import { rateUser } from '../../../utils/peachAPI'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>

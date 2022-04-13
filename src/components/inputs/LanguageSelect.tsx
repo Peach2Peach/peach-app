@@ -1,25 +1,9 @@
-import React, { createContext, ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
+import LanguageContext from '../../contexts/language'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Select from './Select'
-
-/**
- * @description Context for localization
- * @example
- * import LanguageContext from './components/inputs/LanguageSelect'
- *
- * export default (): ReactElement =>
- *   const { locale } = useContext(LanguageContext)
- *   return <Text>
- *     {locale}
- *   </Text>
- * }
- */
-export const LanguageContext = createContext({ locale: 'en' })
-
-
-export default LanguageContext
 
 interface LanguageSelectProps {
   locale: string,

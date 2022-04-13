@@ -7,7 +7,7 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Button, LanguageSelect } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'

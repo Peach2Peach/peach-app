@@ -6,7 +6,7 @@ import { Button, Headline } from '../../../components'
 import Icon from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { OverlayContext } from '../../../utils/overlay'
+import { OverlayContext } from '../../../contexts/overlay'
 
 const TradeCanceled = () => <View style={tw`flex items-center`}>
   <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
