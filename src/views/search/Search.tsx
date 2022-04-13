@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../components/inputs/LanguageSelect'
-import BitcoinContext from '../../utils/bitcoin'
+import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 
 import { RouteProp } from '@react-navigation/native'
