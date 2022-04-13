@@ -11,6 +11,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { cutOffAddress } from '../../utils/string'
 import { OverlayContext } from '../../utils/overlay'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
+import { parseBitcoinRequest } from '../../utils/bitcoin'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -32,8 +33,9 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   })
 
   const pasteAddress = async () => {
-    const newAddress = await Clipboard.getString()
-    setAddress(() => newAddress)
+    const clipboard = await Clipboard.getString()
+    const request = parseBitcoinRequest(clipboard)
+    setAddress(request.address || clipboard)
   }
 
   useEffect(() => {
@@ -98,7 +100,9 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     {scanQR
       ? <View style={tw`mt-20`}>
         <ScanQR onSuccess={e => {
-          setAddress(e.data)
+          const request = parseBitcoinRequest(e.data)
+
+          setAddress(request.address || e.data)
           setScanQR(false)
         }}
         onCancel={() => setScanQR(false)}
