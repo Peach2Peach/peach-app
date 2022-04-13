@@ -68,7 +68,7 @@ export default ({ navigation }: Props): ReactElement => {
       })
     }
     setLoading(false)
-    navigation.navigate('tutorial')
+    navigation.navigate('home', {})
   }
 
   const onError = (e: string) => {
