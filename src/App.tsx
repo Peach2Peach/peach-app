@@ -23,7 +23,6 @@ import Settings from './views/settings/Settings'
 import SplashScreen from './views/splashScreen/SplashScreen'
 import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
-import Tutorial from './views/tutorial/Tutorial'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { account, updateSettings } from './utils/account'
@@ -71,7 +70,6 @@ const views: ViewType[] = [
   { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
   { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
-  { name: 'tutorial', component: Tutorial, showHeader: false, showFooter: false },
   // { name: 'home', component: Home, showHeader: false, showFooter: true },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
