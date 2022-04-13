@@ -17,11 +17,11 @@ interface LanguageSelectProps {
  * @param props.setLocale method to set locale on value change
  */
 export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
+  useContext(LanguageContext)
   const languages = i18n.getLocales().map(lcl => ({
     value: lcl,
     display: i18n(`languageName.${lcl}`)
   }))
-  useContext(LanguageContext)
   const [pristine, setPristine] = useState(true)
 
   return <View style={tw`w-40`}>
