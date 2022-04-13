@@ -1,5 +1,7 @@
 
 import React, { ReactElement, useState } from 'react'
+import 'react-native-url-polyfill/auto'
+
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -14,6 +16,8 @@ import { Fade } from '../animation'
 type BitcoinAddressProps = ComponentProps & {
   address: string,
   showQR: boolean,
+  amount?: number,
+  label?: string,
 }
 
 /**
@@ -25,8 +29,12 @@ type BitcoinAddressProps = ComponentProps & {
  * @example
  * <BitcoinAddress address={'1BitcoinEaterAddressDontSendf59kuE'} />
  */
-export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps): ReactElement => {
+export const BitcoinAddress = ({ address, showQR, amount, label, style }: BitcoinAddressProps): ReactElement => {
   const [showCopied, setShowCopied] = useState(false)
+  const urn = new URL(`bitcoin:${address}`)
+
+  if (amount) urn.searchParams.set('amount', String(amount))
+  if (label) urn.searchParams.set('message', label)
 
   const addressParts = {
     one: address.slice(0, 8),
@@ -36,7 +44,7 @@ export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps):
   addressParts.two = splitAt(addressParts.two, Math.floor(addressParts.two.length / 2) - 2).join('\n')
 
   const copy = () => {
-    Clipboard.setString(address)
+    Clipboard.setString(urn.toString())
     setShowCopied(true)
     setTimeout(() => setShowCopied(false), 500)
   }
@@ -46,7 +54,7 @@ export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps):
       ? <Card style={tw`p-4`}>
         <QRCode
           size={241}
-          value={address}
+          value={urn.toString()}
           logo={peachLogo}
         />
       </Card>

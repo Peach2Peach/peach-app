@@ -117,7 +117,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     {updatePending
       ? <Loading />
       : escrow && fundingStatus && !fundingError
-        ? <FundingView escrow={escrow} />
+        ? <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
         : <NoEscrowFound />
     }
   </View>
