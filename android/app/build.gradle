@@ -80,11 +80,21 @@ import com.android.build.OutputFile
  * ]
  */
 
-def myExtraPackagerArgs=["--dev","true"]
+def environment = 'development'
+def myExtraPackagerArgs = ['--dev', 'true']
 
-if(System.getenv("dev").toString() == 'false') {
-    myExtraPackagerArgs = ["--dev","false"]
+if (System.getenv('NODE_ENV').toString()) {
+    environment = System.getenv('NODE_ENV').toString()
 }
+if (System.getenv('dev').toString() == 'false') {
+    environment = 'production'
+}
+
+if (environment == 'production') {
+    myExtraPackagerArgs = ['--dev', 'false']
+}
+
+println 'Build environment: ' + environment
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
@@ -93,7 +103,9 @@ project.ext.react = [
     extraPackagerArgs: myExtraPackagerArgs
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
+if (environment == 'production') {
+    apply from: "../../node_modules/react-native/react.gradle"
+}
 
 /**
  * Set this to true to create two separate APKs instead of one:

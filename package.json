@@ -6,9 +6,9 @@
   "private": true,
   "scripts": {
     "web": "cp -r ./assets ./public/assets/ && react-scripts start",
-    "android": "react-native run-android --port=8081",
-    "ios": "react-native run-ios --port=8081",
-    "start": "react-native start --port=8081",
+    "android": "NODE_ENV=sandbox react-native run-android --port=8081",
+    "ios": "NODE_ENV=sandbox react-native run-ios --port=8081",
+    "start": "npm run start:dev",
     "start:dev": "NODE_ENV=development react-native start --port=8081",
     "start:prod": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
