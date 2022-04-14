@@ -65,7 +65,9 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
     account.paymentData.push(data)
     updatePaymentData(account.paymentData)
     setShowAddNew(false)
-    if (onChange) onChange(account.paymentData)
+
+    // we use .map() here to make react understand there's a dependency update
+    if (onChange) onChange(account.paymentData.map(d => d))
   }
 
 
