@@ -19,7 +19,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
   useEffect(() => {
     updateOffer({ ...offer, amount })
-    updateSettings({ amount })
+    updateSettings({ amount }, true)
     setStepValid(true)
   }, [amount])
 

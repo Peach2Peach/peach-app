@@ -10,7 +10,7 @@ import Icon from '../../components/Icon'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import { getMessages, rules } from '../../utils/validation'
-import { recoverAccount, saveAccount } from '../../utils/account'
+import { recoverAccount, saveAccount, updateSettings } from '../../utils/account'
 const { useValidation } = require('react-native-form-validator')
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
@@ -59,6 +59,9 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
 
     if (recoveredAccount) {
       recoveredAccount.settings.skipTutorial = false
+      await updateSettings({
+        skipTutorial: true
+      })
       await saveAccount(recoveredAccount, password)
       onSuccess(recoveredAccount)
     } else {

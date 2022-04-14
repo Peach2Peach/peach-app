@@ -39,7 +39,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       currencies,
       paymentMethods,
       kyc
-    })
+    }, true)
   }, [currencies, paymentMethods, kyc])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
