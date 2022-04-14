@@ -18,6 +18,7 @@
     "build:android:testnet": "react-native bundle --reset-cache --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
     "build:android:mainnet": "react-native bundle --reset-cache --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
     "bundle:android": "react-native-version --never-amend && cd android && ./gradlew bundleRelease",
+    "bundle:ios": "react-native-version --never-amend && react-native run-ios --configuration Release",
     "test": "jest --coverage",
     "test:ci": "jest --ci",
     "lint": "eslint ."
