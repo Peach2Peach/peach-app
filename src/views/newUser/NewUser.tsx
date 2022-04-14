@@ -59,7 +59,9 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const onSuccess = async () => {
-    saveAccount(account, password)
+    updateSettings({
+      skipTutorial: true
+    })
     const [result] = await setPGP(account.pgp)
 
     if (result) {
@@ -67,6 +69,8 @@ export default ({ navigation }: Props): ReactElement => {
         pgpPublished: true
       })
     }
+    saveAccount(account, password)
+
     setLoading(false)
     navigation.navigate('home', {})
   }

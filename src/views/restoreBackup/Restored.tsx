@@ -6,7 +6,6 @@ import LanguageContext from '../../contexts/language'
 import { Button, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { updateSettings } from '../../utils/account'
 
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
@@ -19,9 +18,6 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
   const finish = () => {
-    updateSettings({
-      skipTutorial: true
-    })
     navigation.navigate('home', {})
   }
 
