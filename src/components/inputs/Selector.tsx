@@ -50,8 +50,8 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
     setIsAtEnd(contentOffset.x + layoutMeasurement.width >= contentSize.width)
   }
   return <View style={[tw`h-6`, style]}>
-    <Fade show={!isAtStart} duration={200} style={tw`absolute left-0 h-full w-8 z-10`}>
-      <LinearGradient colorList={whiteGradient} angle={0} />
+    <Fade show={!isAtStart} duration={200} style={tw`absolute left-0 h-full w-8 z-10`} pointerEvents="none">
+      <LinearGradient colorList={whiteGradient} angle={0}/>
     </Fade>
     <PeachScrollView horizontal={true} showsHorizontalScrollIndicator={false}
       onScroll={onScroll}
@@ -73,7 +73,7 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
         )}
       </View>
     </PeachScrollView>
-    <Fade show={!isAtEnd} duration={200} style={tw`absolute right-0 h-full w-8 z-10`}>
+    <Fade show={!isAtEnd} duration={200} style={tw`absolute right-0 h-full w-8 z-10`} pointerEvents="none">
       <LinearGradient colorList={whiteGradient} angle={180} />
     </Fade>
   </View>
