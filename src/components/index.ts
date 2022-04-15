@@ -17,11 +17,15 @@ export {
   LanguageSelect,
   PremiumSlider,
   RadioButtons,
-  Select
+  Select,
+  Selector,
 } from './inputs'
 
 export { Match, Matches } from './matches'
-export { ShadowFixed as Shadow } from './ui/Shadow'
+export {
+  HorizontalLine,
+  Shadow,
+} from './ui'
 
 export { paymentDetailTemplates } from './payment/'
 export { ScanQR } from './camera/ScanQR'

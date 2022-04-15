@@ -36,7 +36,6 @@ import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { setPGP } from './utils/peachAPI'
 import { error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
@@ -185,7 +184,7 @@ const App: React.FC = () => {
                     <Stack.Navigator detachInactiveScreens={true} screenOptions={{
                       detachPreviousScreen: true,
                       headerShown: false,
-                      cardStyle: tw`bg-white-1 px-6`
+                      cardStyle: tw`bg-white-1`
                     }}>
                       {views.map(view => <Stack.Screen
                         name={view.name}

@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Matches, Text } from '../../components'
+import { BigTitle, Button, Headline, Matches, Text, Title } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
@@ -240,8 +240,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={tw`pb-24 h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <View style={tw`h-full flex justify-center pb-8`}>
-        <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />
+      <View style={tw`h-full flex justify-center pb-8 pt-12`}>
+        {!matches.length
+          ? <BigTitle title={i18n('search.searchingForAPeer')} />
+          : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
+            {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
+          </Headline>
+        }
         {offer.type === 'ask' && !matches.length
           ? <View>
             <Text style={tw`text-center`}>
@@ -253,9 +258,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           </View>
           : null
         }
-        {offer.type === 'bid' && matches.length
+        {matches.length
           ? <Text style={tw`text-grey-3 text-center -mt-2`}>
-            {i18n('search.buyOffer', thousands(offer.amount))}
+            {i18n(offer.type === 'bid' ? 'search.buyOffer' : 'search.sellOffer')} <Text style={tw`text-black-1`}>{thousands(offer.amount)}</Text> {i18n('currency.SATS')} { // eslint-disable-line max-len
+            }
           </Text>
           : null
         }

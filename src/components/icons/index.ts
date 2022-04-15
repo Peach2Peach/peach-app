@@ -10,15 +10,15 @@ import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
 import help from './help.svg'
-import next from './next.svg'
 import negative from './negative.svg'
 import positive from './positive.svg'
 import offers from './offers.svg'
-import prev from './prev.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
+import sliderNext from './slider-next.svg'
+import sliderPrev from './slider-prev.svg'
 import settings from './settings.svg'
 import triangleRight from './triangleRight.svg'
 import triangleUp from './triangleUp.svg'
@@ -38,16 +38,16 @@ const Icons: Icons = {
   dropdownOpen,
   file,
   help,
-  next,
   negative,
   positive,
   offers,
-  prev,
   selectClosed,
   selectOpen,
   sell,
   send,
   settings,
+  sliderNext,
+  sliderPrev,
   triangleRight,
   triangleUp,
 }

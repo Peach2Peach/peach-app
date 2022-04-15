@@ -46,7 +46,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
     setPage(p)
   }
 
-  return <View style={tw`h-full flex`}>
+  return <View style={tw`h-full flex px-6`}>
     <View style={tw`absolute top-10 right-4 z-20`}>
       <LanguageSelect locale={locale} setLocale={setLocale} />
     </View>

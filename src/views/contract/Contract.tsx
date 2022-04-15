@@ -191,7 +191,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return updatePending
     ? <Loading />
-    : <PeachScrollView style={tw`pt-6`}>
+    : <PeachScrollView style={tw`pt-6 px-6`}>
       <View style={tw`pb-32`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}

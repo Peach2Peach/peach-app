@@ -25,7 +25,7 @@ export default ({ navigation }: Props): ReactElement => {
   const { currency, price, satsPerUnit } = getBitcoinContext()
 
   return <PeachScrollView>
-    <View style={tw`pt-12 pb-32 flex-col justify-center items-center h-full`}>
+    <View style={tw`pt-12 pb-32 flex-col justify-center items-center h-full px-6`}>
       <Image source={require('../../../assets/favico/peach-logo.png')}
         style={[tw`h-12`, { resizeMode: 'contain' }]}/>
       <Headline style={tw`text-3xl leading-3xl mt-4`}>

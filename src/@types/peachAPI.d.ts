@@ -43,7 +43,7 @@ declare type Currency = 'EUR' | 'CHF' | 'GBP'
 declare type Pricebook = {
   [key in Currency]: number
 }
-declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
+declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],

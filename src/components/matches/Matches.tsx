@@ -14,17 +14,15 @@ type MatchProps = ComponentProps & {
 type SliderArrowProps = {
   onPress: Function
 }
-const PrevButton = ({ onPress }: SliderArrowProps) => <Pressable onPress={(e) => onPress(e)}>
-  <View style={tw`rounded-full bg-peach-1 w-5 h-5 flex items-center justify-center`}>
-    <Icon id="prev" style={tw`w-4 h-4`}/>
-  </View>
-</Pressable>
+const PrevButton = ({ onPress }: SliderArrowProps) =>
+  <Pressable onPress={(e) => onPress(e)} style={tw`absolute left-2 z-10`}>
+    <Icon id="sliderPrev" style={tw`w-4 h-4`}/>
+  </Pressable>
 
-const NextButton = ({ onPress }: SliderArrowProps) => <Pressable onPress={(e) => onPress(e)}>
-  <View style={tw`rounded-full bg-peach-1 w-5 h-5 flex items-center justify-center`}>
-    <Icon id="next" style={tw`w-4 h-4`}/>
-  </View>
-</Pressable>
+const NextButton = ({ onPress }: SliderArrowProps) =>
+  <Pressable onPress={(e) => onPress(e)} style={tw`absolute right-2 z-10`}>
+    <Icon id="sliderNext" style={tw`w-4 h-4`}/>
+  </Pressable>
 
 //  showsButtons={true} showsPagination={false}
 // prevButton={<PrevButton />} nextButton={<NextButton />}
@@ -37,7 +35,7 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
 
-  return <View style={[tw`flex-row items-center`, style]}>
+  return <View style={[tw`flex-row items-center justify-center`, style]}>
     {matches.length > 1
       ? <PrevButton onPress={() => $carousel.current?.snapToPrev()} />
       : null
@@ -45,10 +43,14 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
     <Carousel loop={true}
       ref={$carousel}
       data={matches}
-      sliderWidth={width - 40}
-      itemWidth={width - 40}
+      containerCustomStyle={[tw`overflow-visible`]}
+      sliderWidth={width}
+      itemWidth={width - 80}
+      inactiveSlideScale={0.9}
+      inactiveSlideOpacity={0.7}
+      activeSlideAlignment="center"
       onSnapToItem={onChange}
-      renderItem={({ item }) => <View style={tw`px-2`} >
+      renderItem={({ item }) => <View style={tw`px-2`} onStartShouldSetResponder={() => true}>
         <Match match={item} />
       </View>}
     />

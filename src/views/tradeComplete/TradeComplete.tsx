@@ -17,7 +17,7 @@ type Props = {
   } }>,
   navigation: ProfileScreenNavigationProp,
 }
-export default ({ route, navigation }: Props): ReactElement => <View style={tw`pb-24 h-full flex`}>
+export default ({ route, navigation }: Props): ReactElement => <View style={tw`pb-24 px-6 h-full flex`}>
   <View style={tw`h-full flex-shrink flex justify-center`}>
     <BigTitle title={i18n(`tradeComplete.title.${route.params.view}.default`)}/>
   </View>
