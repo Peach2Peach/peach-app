@@ -8,7 +8,7 @@
     "web": "cp -r ./assets ./public/assets/ && react-scripts start",
     "android": "NODE_ENV=sandbox react-native run-android --port=8081",
     "ios": "NODE_ENV=sandbox react-native run-ios --port=8081",
-    "start": "npm run start:dev",
+    "start": "NODE_ENV=sandbox react-native start --port=8081",
     "start:dev": "NODE_ENV=development react-native start --port=8081",
     "start:prod": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
@@ -116,8 +116,8 @@
     "react-native-svg-transformer": "^1.0.0",
     "react-native-version": "^4.0.0",
     "react-test-renderer": "17.0.1",
-    "tailwind-rn": "^4.2.0",
-    "tailwindcss": "^3.0.23",
+    "tailwind-rn": "^3.0.1",
+    "tailwindcss": "^2.2.7",
     "ts-jest": "^27.1.4"
   },
   "jest": {

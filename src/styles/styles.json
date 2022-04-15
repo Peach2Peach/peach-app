@@ -7134,6 +7134,9 @@
 	"leading-10": {
 		"lineHeight": 40
 	},
+	"leading-lg": {
+		"lineHeight": 18
+	},
 	"leading-xl": {
 		"lineHeight": 24
 	},
