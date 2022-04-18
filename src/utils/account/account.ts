@@ -23,8 +23,8 @@ export const getAccount = () => account
  * @description Method to set account for app session
  * @param acc account
  */
-export const setAccount = async (acc: Account) => {
-  account = {
+export const setAccount = async (acc: Account, overwrite?: boolean) => {
+  account = overwrite ? acc : {
     ...defaultAccount,
     ...acc
   }

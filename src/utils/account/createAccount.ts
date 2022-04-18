@@ -37,7 +37,7 @@ export const createAccount = async ({
       privateKey: recipient.privateKey,
       publicKey: recipient.publicKey
     }
-  })
+  }, true)
 
   onSuccess()
 }
