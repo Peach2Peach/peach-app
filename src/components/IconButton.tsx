@@ -34,7 +34,7 @@ export const IconButton = ({ icon, title, style, onPress }: IconButtonProps): Re
   return <View>
     <Pressable
       style={[
-        tw`w-14 h-8 flex-col items-center justify-between p-0 rounded bg-peach-1`,
+        tw`w-14 h-8 flex-col items-center justify-between p-0 pt-0.5 rounded bg-peach-1`,
         tw.md`h-10`,
         active ? tw`bg-peach-2` : {},
         style || {}
