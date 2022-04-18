@@ -4,8 +4,9 @@ import {
   Pressable,
   View,
 } from 'react-native'
-import { Text } from '.'
+import { Shadow, Text } from '.'
 import tw from '../styles/tailwind'
+import { mildShadowOrange } from '../utils/layout'
 
 type ButtonProps = ComponentProps & {
   title: string,
@@ -44,7 +45,7 @@ export const Button = ({
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
-  return <View>
+  return <Shadow {...mildShadowOrange}>
     <Pressable
       style={[
         tw`flex items-center justify-center p-3 rounded`,
@@ -68,7 +69,7 @@ export const Button = ({
         {title}
       </Text>
     </Pressable>
-  </View>
+  </Shadow>
 }
 
 export default Button
