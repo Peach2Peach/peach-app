@@ -1,9 +1,10 @@
 
 import React, { ReactElement, useState } from 'react'
 import {
+  View,
   Pressable,
 } from 'react-native'
-import { Shadow, Text } from '.'
+import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'
 import { mildShadowOrange } from '../utils/layout'
 
@@ -13,6 +14,7 @@ type ButtonProps = ComponentProps & {
   tertiary?: boolean,
   wide?: boolean,
   disabled?: boolean,
+  loading?: boolean,
   onPress?: Function
 }
 
@@ -40,6 +42,7 @@ export const Button = ({
   wide = true,
   style,
   disabled,
+  loading,
   onPress
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
@@ -58,7 +61,7 @@ export const Button = ({
       onPress={e => onPress && !disabled ? onPress(e) : null}
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
-      style={tw`w-full flex items-center justify-center p-3`}
+      style={tw`w-full flex-row items-center justify-center p-3`}
     >
       <Text style={[
         tw`font-baloo text-sm uppercase`,
@@ -67,6 +70,12 @@ export const Button = ({
       ]}>
         {title}
       </Text>
+      {loading
+        ? <View style={tw`absolute right-5 w-4 h-4`}>
+          <Loading size="small" color={tw`text-white-1`.color as string} />
+        </View>
+        : null
+      }
     </Pressable>
   </Shadow>
 }

@@ -34,6 +34,8 @@ export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): 
       wide={false}
       onPress={stepValid ? next : () => {}}
       title={buttonText}
+      loading={screen === 'escrow' && !stepValid}
+      style={screen === 'escrow' && !stepValid ? tw`w-56` : {}}
     />
   </View>
 }

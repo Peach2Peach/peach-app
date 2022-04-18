@@ -114,7 +114,7 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>
           {paymentData.map((data: PaymentData, i) => <Button
             key={data.id}
-            style={i > 0 ? tw`h-10 mt-4` : tw`h-10`}
+            style={i > 0 ? tw`w-16 h-10 mt-4` : tw`w-16 h-10`}
             onPress={() => updateOverlay({
               content: <PaymentMethodView data={data} />,
               showCloseButton: true
