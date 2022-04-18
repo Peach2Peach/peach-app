@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>0.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>12</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<true />
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -31,21 +31,21 @@
 			<key>195.15.243.48</key>
 			<dict>
 				<key>NSAllowsArbitraryLoads</key>
-				<true/>
+				<true />
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<true />
 			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<true />
 			</dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow access to your camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string />
 	<key>UIAppFonts</key>
 	<array>
 		<string>B612 Mono Regular.ttf</string>
@@ -64,6 +64,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<false />
 </dict>
 </plist>
