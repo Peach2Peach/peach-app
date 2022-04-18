@@ -2,7 +2,6 @@
 import React, { ReactElement, useState } from 'react'
 import {
   Pressable,
-  View,
 } from 'react-native'
 import { Shadow, Text } from '.'
 import tw from '../styles/tailwind'
@@ -45,18 +44,17 @@ export const Button = ({
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
-  return <Shadow {...mildShadowOrange}>
+  return <Shadow {...mildShadowOrange} viewStyle={[
+    tw`flex items-center justify-center p-3 rounded`,
+    secondary ? tw`bg-white-2 border border-peach-1 `
+      : tertiary ? tw`border border-white-2 `
+        : tw`bg-peach-1`,
+    wide ? tw`w-full` : tw`w-40`,
+    active ? tw`bg-peach-2` : {},
+    disabled ? tw`opacity-50` : {},
+    style || {}
+  ]}>
     <Pressable
-      style={[
-        tw`flex items-center justify-center p-3 rounded`,
-        secondary ? tw`bg-white-2 border border-peach-1 `
-          : tertiary ? tw`border border-white-2 `
-            : tw`bg-peach-1`,
-        wide ? tw`w-full` : tw`w-40`,
-        active ? tw`bg-peach-2` : {},
-        disabled ? tw`opacity-50` : {},
-        style || {}
-      ]}
       onPress={e => onPress && !disabled ? onPress(e) : null}
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
