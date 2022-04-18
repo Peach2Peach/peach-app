@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 type LoadingProps = {
   color?: string,
-  size: 'small' | 'large'
+  size?: 'small' | 'large'
 }
 export const Loading = ({ color, size = 'large' }: LoadingProps): ReactElement =>
   <View style={tw`h-full w-full flex justify-center items-center`}>
