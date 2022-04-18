@@ -10,6 +10,7 @@ import LanguageContext from '../../contexts/language'
 import { Selector } from '../inputs'
 import { thousands } from '../../utils/string'
 import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
+import Medal from '../medal'
 
 type MatchProps = ComponentProps & {
   match: Match,
@@ -21,6 +22,7 @@ type MatchProps = ComponentProps & {
  * @example
  * <Match match={match} />
  */
+// eslint-disable-next-line max-lines-per-function
 export const Match = ({ match, style }: MatchProps): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
@@ -34,22 +36,36 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
   }, [])
 
   return <Shadow {...mildShadow} viewStyle={[
-    tw`border border-grey-4 rounded-md bg-white-1`,
+    tw`w-full border border-grey-4 rounded-md bg-white-1`,
     match.matched ? tw`border-green` : {},
     style
   ]}>
     {match.matched
-      ? <Headline style={tw`absolute bottom-full w-full text-center text-green`}>
+      ? <Text style={tw`absolute bottom-full w-full text-center font-baloo text-green text-xs`}>
         {i18n('search.waitingForSeller')}
-      </Headline>
+      </Text>
       : null
     }
     <View style={[
-      tw`p-4`,
+      tw`px-5 pt-6 pb-9`,
       match.matched ? tw`opacity-20` : {},
     ]}>
-      <Text>{match.user.id.substring(0, 8)} {match.user.rating ? match.user.rating : null}</Text>
-      <HorizontalLine />
+      <View style={tw`w-full flex-row justify-between`}>
+        <View style={tw`px-6`}>
+          <Text style={tw`text-lg`}>
+            {match.user.id.substring(0, 8)}
+          </Text>
+          <View style={tw`flex-row justify-between mt-2`}>
+            <Medal id="gold" style={tw`w-5 h-4 opacity-50`}/>
+            <Medal id="gold" style={tw`w-5 h-4`}/>
+            <Medal id="gold" style={tw`w-5 h-4 opacity-50`}/>
+          </View>
+        </View>
+        <View style={tw`px-6`}>
+          <Medal id={match.user.rating > 0.9 ? 'gold' : 'silver'} />
+        </View>
+      </View>
+      <HorizontalLine style={tw`mt-4`}/>
       <View style={tw`flex-row justify-center mt-3`}>
         <Text style={tw`font-baloo text-xl leading-xl text-peach-1`}>
           {i18n(`currency.format.${selectedCurrency}`, String(match.prices[selectedCurrency]))}
@@ -75,7 +91,7 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
       <Selector
         style={tw`mt-4`}
         selectedValue={selectedPaymentMethod}
-        items={match.paymentMethods.concat(['iban', 'giftCard', 'revolut', 'applePay', 'twint', 'wise']).map(p => ({
+        items={match.paymentMethods.concat(['giftCard', 'revolut', 'applePay', 'twint', 'wise']).map(p => ({
           value: p,
           display: i18n(`paymentMethod.${p}`)
         }))}
