@@ -17,13 +17,14 @@ export default ({ paymentMethods, currencies, setPaymentMethods }: PaymentMethod
   </Headline>
   <Checkboxes
     style={tw`px-7 mt-2`}
-    items={PAYMENTMETHODS.map((method: PaymentMethod) => ({
-      value: method,
-      disabled: !paymentMethodAllowedForCurrencies(method, currencies),
-      display: <Text style={tw`-mt-0.5`}>
-        {i18n(`paymentMethod.${method}`)}
-      </Text>
-    }))}
+    items={PAYMENTMETHODS
+      .filter(method => paymentMethodAllowedForCurrencies(method, currencies))
+      .map(method => ({
+        value: method,
+        display: <Text style={tw`-mt-0.5`}>
+          {i18n(`paymentMethod.${method}`)}
+        </Text>
+      }))}
     selectedValues={paymentMethods}
     onChange={(values) => setPaymentMethods(values as PaymentMethod[])}/>
 </View>

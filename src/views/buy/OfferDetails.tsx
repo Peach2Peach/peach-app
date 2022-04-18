@@ -11,6 +11,7 @@ import Currencies from '../../components/inputs/Currencies'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
 import { Title } from '../../components'
 import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
+import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount
@@ -19,8 +20,10 @@ const validate = (offer: BuyOffer) =>
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
+  useContext(BitcoinContext)
+  const { currency } = getBitcoinContext()
 
-  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies)
+  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies.length ? offer.currencies : [currency])
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(offer.paymentMethods)
   const [kyc, setKYC] = useState(offer.kyc)
 

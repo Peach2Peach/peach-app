@@ -24,5 +24,5 @@ export default ({ title, currencies, setCurrencies }: CurrenciesProps): ReactEle
       </Text>
     }))}
     selectedValues={currencies}
-    onChange={values => setCurrencies(values as Currency[])}/>
+    onChange={values => values.length ? setCurrencies(values as Currency[]) : null}/>
 </View>
