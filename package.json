@@ -8,6 +8,8 @@
     "web": "cp -r ./assets ./public/assets/ && react-scripts start",
     "android": "NODE_ENV=sandbox react-native run-android --port=8081",
     "ios": "NODE_ENV=sandbox react-native run-ios --port=8081",
+    "ios:testnet": "NODE_ENV=development react-native run-ios --port=8081",
+    "ios:mainnet": "NODE_ENV=production react-native run-ios --port=8081",
     "start": "npm run start:dev",
     "start:dev": "NODE_ENV=development react-native start --port=8081",
     "start:prod": "NODE_ENV=production react-native start --port=8081",
@@ -18,6 +20,8 @@
     "build:android:testnet": "react-native bundle --reset-cache --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
     "build:android:mainnet": "react-native bundle --reset-cache --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
     "bundle:android": "react-native-version --never-amend && cd android && ./gradlew bundleRelease",
+    "bundle:ios:testnet": "react-native-version --never-amend && NODE_ENV=development react-native run-ios --configuration Release",
+    "bundle:ios:mainnet": "react-native-version --never-amend && NODE_ENV=production react-native run-ios --configuration Release",
     "test": "jest --coverage",
     "test:ci": "jest --ci",
     "lint": "eslint ."
