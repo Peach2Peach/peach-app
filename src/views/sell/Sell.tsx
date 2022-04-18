@@ -63,7 +63,7 @@ const getDefaultSellOffer = (): SellOffer => ({
   released: false,
 })
 
-type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
+type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
 const screens = [
   {
@@ -93,7 +93,7 @@ const screens = [
   },
   {
     id: 'search',
-    view: Loading
+    view: null
   }
 ]
 

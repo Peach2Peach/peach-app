@@ -54,7 +54,7 @@ const getDefaultBuyOffer = (): BuyOffer => ({
   doubleMatched: false,
 })
 
-type Screen = ({ offer, updateOffer }: BuyViewProps) => ReactElement
+type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
 
 const screens = [
   {
@@ -71,10 +71,6 @@ const screens = [
     id: 'releaseAddress',
     view: ReleaseAddress,
     scrollable: false
-  },
-  {
-    id: 'search',
-    view: Loading
   }
 ]
 
