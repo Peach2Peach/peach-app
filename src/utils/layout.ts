@@ -6,6 +6,14 @@ export const mildShadow = {
   radius: 0
 }
 
+export const mildShadowOrange = {
+  distance: 14,
+  startColor: '#F579400D',
+  finalColor: '#F5794000',
+  offset: [0, 4] as [x: string | number, y: string | number],
+  radius: 0
+}
+
 export const footerShadow = {
   distance: 16,
   startColor: '#0000000D',
