@@ -45,7 +45,7 @@ export const Button = ({
   const [active, setActive] = useState(false)
 
   return <Shadow {...mildShadowOrange} viewStyle={[
-    tw`flex items-center justify-center p-3 rounded`,
+    tw`rounded`,
     secondary ? tw`bg-white-2 border border-peach-1 `
       : tertiary ? tw`border border-white-2 `
         : tw`bg-peach-1`,
@@ -58,6 +58,7 @@ export const Button = ({
       onPress={e => onPress && !disabled ? onPress(e) : null}
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
+      style={tw`w-full flex items-center justify-center p-3`}
     >
       <Text style={[
         tw`font-baloo text-sm uppercase`,
