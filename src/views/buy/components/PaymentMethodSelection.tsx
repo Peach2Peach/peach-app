@@ -20,7 +20,7 @@ export default ({ paymentMethods, currencies, setPaymentMethods }: PaymentMethod
     items={PAYMENTMETHODS.map((method: PaymentMethod) => ({
       value: method,
       disabled: !paymentMethodAllowedForCurrencies(method, currencies),
-      display: <Text>
+      display: <Text style={tw`-mt-0.5`}>
         {i18n(`paymentMethod.${method}`)}
       </Text>
     }))}

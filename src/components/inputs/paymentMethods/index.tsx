@@ -83,7 +83,7 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
             items={paymentData.map((data: PaymentData) => ({
               value: data.id,
               disabled: !paymentMethodAllowedForCurrencies(data.type, currencies),
-              display: <View style={tw`flex-row pr-3`}>
+              display: <View style={tw`flex-row pr-3 -mt-0.5`}>
                 <View style={tw`w-3/4 flex-shrink`}>
                   <Text numberOfLines={1} ellipsizeMode="tail" style={tw`leading-6`}>
                     {(data.iban || data.email || data.phone || data.paypal)}
