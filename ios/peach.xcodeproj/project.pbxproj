@@ -17,8 +17,8 @@
 		72F6E312831A88954A4182A6 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */; };
 		7D1F2680BED84AE1B7B6343B /* Lato Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B827F156BC264B3CB39698AF /* Lato Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		E378589A855E4E4783AFECF3 /* Baloo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD2B82AF79604AD38FD943A3 /* Baloo.ttf */; };
 		FCEA11EE7BAC4C90833AE775 /* B612 Mono Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D72151F0E904B9CADC58DCE /* B612 Mono Regular.ttf */; };
+		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,11 +51,12 @@
 		95A7125260244CB9A6E45C88 /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFileSystem.xcodeproj; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; };
 		9D72151F0E904B9CADC58DCE /* B612 Mono Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "B612 Mono Regular.ttf"; path = "../assets/fonts/B612 Mono Regular.ttf"; sourceTree = "<group>"; };
 		B827F156BC264B3CB39698AF /* Lato Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato Bold.ttf"; path = "../assets/fonts/Lato Bold.ttf"; sourceTree = "<group>"; };
-		BD2B82AF79604AD38FD943A3 /* Baloo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Baloo.ttf; path = ../assets/fonts/Baloo.ttf; sourceTree = "<group>"; };
 		BD954848B14C5B14201D5990 /* libPods-peach.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C53D6151A4EC4E14BBAD6383 /* .ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = ".ttf"; path = "../assets/fonts/.ttf"; sourceTree = "<group>"; };
 		C71CF1A69DCFF4545075AB4D /* Pods-peach.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.release.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.release.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.release.xcconfig"; sourceTree = "<group>"; };
+		AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,9 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				9D72151F0E904B9CADC58DCE /* B612 Mono Regular.ttf */,
-				BD2B82AF79604AD38FD943A3 /* Baloo.ttf */,
 				B827F156BC264B3CB39698AF /* Lato Bold.ttf */,
 				21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */,
+				AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -274,10 +275,10 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				FCEA11EE7BAC4C90833AE775 /* B612 Mono Regular.ttf in Resources */,
-				E378589A855E4E4783AFECF3 /* Baloo.ttf in Resources */,
 				7D1F2680BED84AE1B7B6343B /* Lato Bold.ttf in Resources */,
 				31885939C8A1473685945107 /* Lato Regular.ttf in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
+				F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

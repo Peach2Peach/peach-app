@@ -124,6 +124,11 @@
     "tailwindcss": "^3.0.23",
     "ts-jest": "^27.1.4"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "jest": {
     "rootDir": "./",
     "preset": "react-native",

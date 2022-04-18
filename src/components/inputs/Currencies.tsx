@@ -19,7 +19,7 @@ export default ({ title, currencies, setCurrencies }: CurrenciesProps): ReactEle
     style={tw`px-7 mt-2`}
     items={CURRENCIES.map(value => ({
       value,
-      display: <Text>
+      display: <Text style={tw`-mt-0.5`}>
         {i18n(`currency.${value}`)} <Text style={tw`text-grey-1`}>({value})</Text>
       </Text>
     }))}

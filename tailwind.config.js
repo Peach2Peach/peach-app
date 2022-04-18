@@ -84,7 +84,7 @@ module.exports = {
     },
     fontFamily: {
       baloo: [
-        '"Baloo"',
+        '"Baloo2-Bold"',
         'sans-serif'
       ],
       lato: [
