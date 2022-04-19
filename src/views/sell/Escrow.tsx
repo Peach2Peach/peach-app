@@ -14,6 +14,7 @@ import { Loading, Title } from '../../components'
 import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
