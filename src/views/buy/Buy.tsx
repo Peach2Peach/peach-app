@@ -71,6 +71,10 @@ const screens = [
     id: 'releaseAddress',
     view: ReleaseAddress,
     scrollable: false
+  },
+  {
+    id: 'search',
+    view: null
   }
 ]
 
