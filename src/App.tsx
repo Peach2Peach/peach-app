@@ -187,7 +187,7 @@ const App: React.FC = () => {
                       detachPreviousScreen: true,
                       gestureEnabled: false,
                       headerShown: false,
-                      cardStyle: tw`bg-white-1 px-6`,
+                      cardStyle: tw`bg-white-1`,
                     }}>
                       {views.map(view => <Stack.Screen
                         name={view.name}

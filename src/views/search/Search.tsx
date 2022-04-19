@@ -238,7 +238,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`pb-24 h-full flex`}>
+  return <View style={tw`h-full flex pb-24 px-6`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8`}>
         <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />

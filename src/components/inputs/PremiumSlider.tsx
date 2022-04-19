@@ -28,6 +28,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
   const [delta] = useState(max - min)
   const [markerX] = useState((value - min) / delta)
   let trackWidth = useRef(260).current
+
   const pan = useRef(new Animated.Value(markerX * trackWidth)).current
   const panResponder = useRef(
     PanResponder.create({
@@ -57,7 +58,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
   }, [update])
 
 
-  return <View {...panResponder.panHandlers} onStartShouldSetResponder={() => true}>
+  return <View {...panResponder.panHandlers}>
     <Shadow {...mildShadow} viewStyle={tw`w-full`}>
       <View style={tw`p-5 pt-3 bg-white-1 border border-grey-4 rounded`}>
         <View style={tw`w-full flex-row justify-between`}>
@@ -69,21 +70,21 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
         </View>
         <View style={tw`h-0 mx-3 flex-row items-center mt-2 border-2 border-grey-4 rounded`}
           onLayout={event => trackWidth = event.nativeEvent.layout.width}>
-          <Animated.View style={[
-            tw`z-10`,
-            {
-              marginLeft: -tw`w-6`.width / 2,
-              transform: [
-                {
-                  translateX: pan.interpolate({
-                    inputRange: [0, trackWidth],
-                    outputRange: [0, trackWidth],
-                    extrapolate: 'clamp'
-                  })
-                }
-              ]
-            }
-          ]}>
+          <Animated.View onStartShouldSetResponder={() => true}
+            style={[
+              tw`z-10 w-10 flex items-center`,
+              {
+                transform: [
+                  {
+                    translateX: pan.interpolate({
+                      inputRange: [0, trackWidth],
+                      outputRange: [-tw`w-10`.width / 2, trackWidth - (tw`w-6`.width as number / 2)],
+                      extrapolate: 'clamp'
+                    })
+                  }
+                ]
+              }
+            ]}>
             <Icon id="triangleUp" style={tw`w-6 h-6`} />
           </Animated.View>
         </View>

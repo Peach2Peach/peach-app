@@ -47,7 +47,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
-  return <View style={tw`mb-16`}>
+  return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('buy.title')} />
     <Currencies title={i18n('buy.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
     <PaymentMethodSelection

@@ -195,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  return <View style={tw`pb-24 h-full flex`}>
+  return <View style={tw`h-full flex pb-24`}>
     <View style={[
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
@@ -219,7 +219,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
         </View>
         {scrollable && !updatePending
-          ? <View style={tw`mb-8`}>
+          ? <View style={tw`mb-8 px-6`}>
             <Navigation
               screen={currentScreen.id}
               back={back} next={next}

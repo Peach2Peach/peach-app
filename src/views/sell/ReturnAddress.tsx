@@ -75,7 +75,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     }
   }, [useDepositAddress])
 
-  return <View style={tw`h-full flex-col justify-between`}>
+  return <View style={tw`h-full flex-col justify-between px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.returnAddress.subtitle')} help={<Text>TODO</Text>} />
     <View>
       <View pointerEvents={useDepositAddress ? 'none' : 'auto'}

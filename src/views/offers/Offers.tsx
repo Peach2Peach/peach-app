@@ -74,7 +74,7 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }), [])
 
-  return <PeachScrollView>
+  return <PeachScrollView contentContainerStyle={tw`px-6`}>
     <View style={tw`pb-32`}>
       <View>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>

@@ -20,8 +20,8 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  return <View style={tw`pb-32 h-full`}>
-    <PeachScrollView>
+  return <View style={tw`h-full pb-32`}>
+    <PeachScrollView contentContainerStyle={tw`px-6`}>
       <Title title={'Settings'} />
       <Text style={tw`text-sm text-grey-2`}>
         App version: {version}
