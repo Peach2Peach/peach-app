@@ -192,14 +192,7 @@ const App: React.FC = () => {
                       {views.map(view => <Stack.Screen
                         name={view.name}
                         component={view.component} key={view.name}
-                        options={{
-                          animationEnabled: true,
-                          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                          transitionSpec: {
-                            open: { animation: 'timing', config: { duration: 150 } },
-                            close: { animation: 'timing', config: { duration: 150 } },
-                          }
-                        }}
+                        options={{ animationEnabled: false }}
                       />)}
                     </Stack.Navigator>
                   </NavigationContainer>
