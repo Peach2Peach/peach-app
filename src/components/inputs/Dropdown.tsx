@@ -101,10 +101,12 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
         </Pressable>
       }
     </Shadow>
-    <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
-      style={tw`w-6 h-10 absolute right-2`}
-      color={tw`text-peach-1`.color as string}
-    />
+    <Pressable style={tw` absolute right-2`} onPress={toggle}>
+      <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
+        style={tw`w-6 h-10`}
+        color={tw`text-peach-1`.color as string}
+      />
+    </Pressable>
   </View>
 }
 
