@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
   View
@@ -60,10 +60,12 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
+  const [offers, setOffers] = useState(account.offers)
 
   useEffect(getOffersEffect({
     onSuccess: result => {
       Promise.all(result.map(offer => saveOffer(offer)))
+      setOffers(account.offers)
     },
     onError: err => {
       error('Could not fetch offer information')
@@ -81,7 +83,7 @@ export default ({ navigation }: Props): ReactElement => {
           Offers
         </Text>
       </View>
-      {account.offers.map(offer => <View key={offer.id}>
+      {offers.map(offer => <View key={offer.id}>
         <Pressable onPress={() => navigateToOffer(offer, navigation)}>
           <Text style={!offer.online ? tw`opacity-50` : {}}>
             {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
