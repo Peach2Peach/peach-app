@@ -77,9 +77,8 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
   ]}>
     <Shadow {...(isOpen ? mildShadow : innerShadow)}
       viewStyle={[
-        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
+        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded bg-white-1`,
         { width, height },
-        isOpen ? tw`bg-white-1` : {}
       ]}>
       {isOpen
         ? [

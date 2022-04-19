@@ -65,7 +65,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     })
   }, [address])
 
-  return <View style={tw`h-full flex-col justify-between`}>
+  return <View style={tw`h-full flex-col justify-between px-6`}>
     <Title title={i18n('buy.title')} />
     <View>
       <Headline style={tw`text-grey-1`}>

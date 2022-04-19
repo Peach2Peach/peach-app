@@ -70,7 +70,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     setLoading(false)
   }
 
-  return <View style={tw`h-full flex`}>
+  return <View style={tw`h-full flex px-6`}>
     <View style={[
       tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
       tw.md`pt-36`

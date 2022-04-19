@@ -15,7 +15,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
 
   useEffect(() => setStepValid(true))
 
-  return <View>
+  return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.summary.subtitle')} />
     <View style={tw`mt-16`}>
       <Card style={tw`p-4`}>

@@ -111,7 +111,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.id])
 
-  return <View>
+  return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
       help={<EscrowHelp />} />
     {updatePending
