@@ -42,8 +42,8 @@ type Props = {
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
-
   const [, updateMessage] = useContext(MessageContext)
+
   const [currentMatch, setCurrentMatch] = useState(0)
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>()
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>()

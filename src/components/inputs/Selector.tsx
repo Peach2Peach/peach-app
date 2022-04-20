@@ -49,14 +49,14 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
     setIsAtStart(contentOffset.x <= 0)
     setIsAtEnd(contentOffset.x + layoutMeasurement.width >= contentSize.width)
   }
-  return <View style={[tw`h-6`, style]}>
+  return <View style={[tw`w-full flex-col items-center h-6`, style]}>
     <Fade show={!isAtStart} duration={200} style={tw`absolute left-0 h-full w-8 z-10`} pointerEvents="none">
       <LinearGradient colorList={whiteGradient} angle={0}/>
     </Fade>
     <PeachScrollView horizontal={true} showsHorizontalScrollIndicator={false}
       onScroll={onScroll}
-      contentContainerStyle={items.length === 1 ? tw`w-full flex-row justify-center` : {}}
       scrollEventThrottle={128}
+      style={tw`max-w-full`}
     >
       <View style={tw`flex-row flex-nowrap`}>
         {items.map((item, i) => <Pressable
