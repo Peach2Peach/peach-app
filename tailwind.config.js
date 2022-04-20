@@ -58,6 +58,7 @@ module.exports = {
         '9xl': '8rem'
       },
       lineHeight: {
+        'lg': '1.125rem',
         'xl': '1.5rem',
         '2xl': '2rem',
         '3xl': '2.25rem',

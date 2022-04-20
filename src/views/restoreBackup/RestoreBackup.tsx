@@ -8,6 +8,8 @@ import { MessageContext } from '../../contexts/message'
 import AutoScan from './AutoScan'
 import Manual from './Manual'
 import Restored from './Restored'
+import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
@@ -41,13 +43,16 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
 
-  return !autoScanComplete
-    ? <AutoScan />
-    : !recoveredAccount.publicKey
-      ? <Manual
-        navigation={navigation}
-        onSuccess={(acc: Account) => setRecoveredAccount(acc)}
-        onError={onError}
-      />
-      : <Restored navigation={navigation} />
+  return <View style={tw`px-6`}>
+    {!autoScanComplete
+      ? <AutoScan />
+      : !recoveredAccount.publicKey
+        ? <Manual
+          navigation={navigation}
+          onSuccess={(acc: Account) => setRecoveredAccount(acc)}
+          onError={onError}
+        />
+        : <Restored navigation={navigation} />
+    }
+  </View>
 }

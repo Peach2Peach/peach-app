@@ -43,7 +43,7 @@ declare type Currency = 'EUR' | 'CHF' | 'GBP'
 declare type Pricebook = {
   [key in Currency]: number
 }
-declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
+declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
@@ -130,12 +130,14 @@ declare type Match = {
   user: User,
   offerId: string,
   prices: Pricebook,
+  selectedCurrency: Currency | null,
   paymentMethods: PaymentMethod[],
+  selectedPaymentMethod: PaymentMethod | null,
   kyc: boolean,
   kycType?: KYCType,
   symmetricKeyEncrypted: string,
   symmetricKeySignature: string,
-  matched?: boolean
+  matched: boolean
 }
 declare type GetMatchesResponse = {
   offerId: string,

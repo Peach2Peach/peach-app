@@ -1,5 +1,6 @@
 import { unique } from './utils/array'
 
+export const SATSINBTC = 100000000
 export let PEACHFEE = 1.5
 export const setPeachFee = (fee: number) => PEACHFEE = fee
 

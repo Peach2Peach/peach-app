@@ -1,10 +1,9 @@
 
 import React, { ReactElement, Ref } from 'react'
-import { ScrollView, View, ViewStyle } from 'react-native'
+import { ScrollView, ScrollViewProps, View } from 'react-native'
 
-type ScrollViewProps = ComponentProps & {
+type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
   scrollRef?: Ref<ScrollView>,
-  contentContainerStyle?: ViewStyle|ViewStyle[],
 }
 
 /**
@@ -16,8 +15,21 @@ type ScrollViewProps = ComponentProps & {
  *    <Text>Your content</Text>
  * </ScrollView>
  */
-export const PeachScrollView = ({ children, scrollRef, contentContainerStyle, style }: ScrollViewProps): ReactElement =>
+export const PeachScrollView = ({
+  children,
+  scrollRef,
+  contentContainerStyle,
+  horizontal = false,
+  showsHorizontalScrollIndicator = true,
+  scrollEventThrottle,
+  onScroll,
+  style
+}: PeachScrollViewProps): ReactElement =>
   <ScrollView ref={scrollRef}
+    horizontal={horizontal}
+    onScroll={onScroll}
+    scrollEventThrottle={scrollEventThrottle}
+    showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
     contentContainerStyle={contentContainerStyle || {}}
     style={style || {}}>
     <View onStartShouldSetResponder={() => true}>

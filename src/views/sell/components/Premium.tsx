@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Headline, PremiumSlider, SatsFormat, Text } from '../../../components'
+import { SATSINBTC } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
@@ -29,7 +30,7 @@ export default ({ premium, setPremium, identifier, offer, currency, price }: Pre
       <Text style={tw`text-peach-1`}>
         {i18n(
           `currency.format.${currency}`,
-          String(Math.round((price / 100000000 * offer.amount) * (1 + premium / 100) * 10) / 10)
+          String(Math.round((price / SATSINBTC * offer.amount) * (1 + premium / 100) * 10) / 10)
         )} </Text> ({i18n('form.premium.youget')} <Text style={tw`text-peach-1`}>{premium}%</Text> {i18n(premium >= 0 ? 'form.premium.more' : 'form.premium.less')}) { // eslint-disable-line max-len
       }
     </Text>

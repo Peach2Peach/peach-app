@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { BitcoinAddress } from '../../../components'
+import { SATSINBTC } from '../../../constants'
 import tw from '../../../styles/tailwind'
 
 type FundingViewProps = {
@@ -12,7 +13,7 @@ export default ({ escrow, amount, label }: FundingViewProps): ReactElement => <V
   <BitcoinAddress
     style={tw`my-4`}
     address={escrow}
-    amount={amount / 100000000}
+    amount={amount / SATSINBTC}
     label={label}
     showQR={true}
   />

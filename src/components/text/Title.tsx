@@ -17,7 +17,7 @@ export const Title = ({ title, subtitle, help }: TitleProps): ReactElement => {
 
   return <View style={tw`flex items-center`}>
     <Image source={require('../../../assets/favico/peach-logo.png')} style={tw`w-12 h-12`}/>
-    <Text style={tw`font-baloo text-center text-4xl leading-5xl uppercase text-peach-1 mt-3`}>
+    <Text style={tw`font-baloo text-center text-3xl leading-3xl uppercase text-peach-1 mt-3`}>
       {title}
     </Text>
     {subtitle

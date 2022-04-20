@@ -1,11 +1,10 @@
-import React, { ReactElement, ReactNode, useRef } from 'react'
-import { Animated } from 'react-native'
+import React, { ReactElement, useRef } from 'react'
+import { Animated, ViewProps } from 'react-native'
 
-type FadeProps = ComponentProps & {
-  children: ReactNode,
+type FadeProps = ViewProps & ComponentProps & {
   show?: boolean,
   duration?: number,
-  delay?: number
+  delay?: number,
 }
 
 /**
@@ -20,7 +19,7 @@ type FadeProps = ComponentProps & {
     <Text>🍑</Text>
   </Fade>
  */
-export const Fade = ({ children, style, show, duration = 400, delay = 0 }: FadeProps): ReactElement => {
+export const Fade = ({ children, style, show, duration = 400, delay = 0, pointerEvents }: FadeProps): ReactElement => {
   const fadeAnim = useRef(new Animated.Value(0)).current
 
   React.useEffect(() => {
@@ -34,7 +33,7 @@ export const Fade = ({ children, style, show, duration = 400, delay = 0 }: FadeP
     ).start()
   }, [show, delay, duration, fadeAnim])
 
-  return <Animated.View style={{
+  return <Animated.View pointerEvents={pointerEvents} style={{
     ...style,
     opacity: fadeAnim,
     display: fadeAnim ? 'flex' : 'none',

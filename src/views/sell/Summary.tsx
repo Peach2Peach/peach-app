@@ -8,6 +8,7 @@ import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { getBitcoinContext } from '../../contexts/bitcoin'
 import { unique } from '../../utils/array'
+import { SATSINBTC } from '../../constants'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -32,7 +33,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
               <Text>
                 {i18n(
                   `currency.format.${currency}`,
-                  (price * offer.amount * ((100 + offer.premium) / 100) / 100000000).toFixed(2)
+                  (price * offer.amount * ((100 + offer.premium) / 100) / SATSINBTC).toFixed(2)
                 )}
               </Text>
             </View>

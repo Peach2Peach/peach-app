@@ -3,6 +3,7 @@ import {
   View, ViewStyle,
 } from 'react-native'
 import { Text } from '.'
+import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { padString } from '../../utils/string'
@@ -26,7 +27,7 @@ export const SatsFormat = ({ sats, format = 'inline', color }: SatsFormat): Reac
   let btc = '0'
   let sat = satsString.slice(-8, satsString.length)
 
-  if (sats >= 100000000) {
+  if (sats >= SATSINBTC) {
     btc = satsString.slice(0, -8)
   }
 
