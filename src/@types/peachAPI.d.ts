@@ -130,12 +130,14 @@ declare type Match = {
   user: User,
   offerId: string,
   prices: Pricebook,
+  selectedCurrency: Currency | null,
   paymentMethods: PaymentMethod[],
+  selectedPaymentMethod: PaymentMethod | null,
   kyc: boolean,
   kycType?: KYCType,
   symmetricKeyEncrypted: string,
   symmetricKeySignature: string,
-  matched?: boolean
+  matched: boolean
 }
 declare type GetMatchesResponse = {
   offerId: string,

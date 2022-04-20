@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
@@ -36,7 +37,7 @@ type Props = {
   } }>,
   navigation: ProfileScreenNavigationProp,
 }
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   useContext(BitcoinContext)
@@ -44,6 +45,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>()
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>()
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
   const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
@@ -54,6 +57,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     setOffer(offerData)
     setOfferId(offerData.id)
     saveOffer(offerData)
+  }
+
+  const setMatchingOptions = (match?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => {
+    if (match) setCurrentMatch(match)
+    if (currency) setSelectedCurrency(currency)
+    if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
   // eslint-disable-next-line max-statements, max-lines-per-function
@@ -68,10 +77,18 @@ export default ({ route, navigation }: Props): ReactElement => {
       let encryptedSymmmetricKey
       let encryptedPaymentData
 
+      if (!selectedCurrency || !selectedPaymentMethod) {
+        error(
+          'Match data missing values.',
+          `selectedCurrency: ${selectedCurrency}`,
+          `selectedPaymentMethod: ${selectedPaymentMethod}`
+        )
+        return
+      }
+
       if (offer.type === 'bid') {
-        symmetricKey = (await getRandom(256)).toString('hex')
         encryptedSymmmetricKey = await signAndEncrypt(
-          symmetricKey,
+          (await getRandom(256)).toString('hex'),
           [
             account.pgp.publicKey,
             match.user.pgpPublicKey
@@ -83,9 +100,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           match.symmetricKeySignature,
           match.user.pgpPublicKey
         )
-        const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
 
         if (err) error(err)
+
+        const paymentData = offer.paymentData?.find(data => data.type === match.paymentMethods[0])
 
         if (!paymentData) {
           error('Error', err)
@@ -104,11 +122,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
 
       // TODO add reintroduce hashed payment data
-      [result, err] = await matchOffer({
+      console.log(selectedCurrency, selectedPaymentMethod)
+      ;[result, err] = await matchOffer({
         offerId: offer.id,
         matchingOfferId: match.offerId,
-        currency: 'EUR', // TODO make dynamic
-        paymentMethod: match.paymentMethods[0],
+        currency: selectedCurrency,
+        paymentMethod: selectedPaymentMethod,
         symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
         symmetricKeySignature: encryptedSymmmetricKey?.signature,
         paymentDataEncrypted: encryptedPaymentData?.encrypted,
@@ -128,6 +147,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
 
         if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
+      } else {
+
       }
     } else {
       error('Error', err)
@@ -238,7 +259,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`h-full flex pb-24 px-6`}>
+  return <View style={tw`h-full flex pb-24`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8 pt-12`}>
         {!matches.length
@@ -259,21 +280,32 @@ export default ({ route, navigation }: Props): ReactElement => {
           : null
         }
         {matches.length
-          ? <Text style={tw`text-grey-3 text-center -mt-2`}>
-            {i18n(offer.type === 'bid' ? 'search.buyOffer' : 'search.sellOffer')} <Text style={tw`text-black-1`}>{thousands(offer.amount)}</Text> {i18n('currency.SATS')} { // eslint-disable-line max-len
+          ? <Text style={tw`text-grey-2 text-center -mt-2`}>
+            {i18n(offer.type === 'bid' ? 'search.buyOffer' : 'search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)}</Text> {i18n('currency.SATS')} { // eslint-disable-line max-len
             }
           </Text>
           : null
         }
         {matches.length
           ? <View>
-            <Matches style={tw`mt-9`} matches={matches} onChange={setCurrentMatch}/>
+            <Matches style={tw`mt-9`} offer={offer} matches={matches}
+              onChange={setMatchingOptions} toggleMatch={toggleMatch}/>
             <View style={tw`flex items-center mt-6`}>
               <Button
-                title={i18n('search.matchOffer')}
+                title={i18n(matches[currentMatch].matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 wide={false}
+                disabled={matches[currentMatch].matched}
                 onPress={() => toggleMatch(matches[currentMatch])}
               />
+              <View style={tw`mt-1`}>
+                <Text style={tw`text-center text-xs leading-6`}>
+                  {selectedCurrency} {selectedPaymentMethod}
+                  {matches[currentMatch].matched ? i18n('search.matchAsManyAsYouWant.1') : ''}
+                </Text>
+                <Text style={tw`text-center text-xs leading-6`}>
+                  {matches[currentMatch].matched ? i18n('search.matchAsManyAsYouWant.2') : ''}
+                </Text>
+              </View>
             </View>
           </View>
           : <View style={tw`flex items-center mt-6`}>

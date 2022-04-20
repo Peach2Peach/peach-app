@@ -8,7 +8,9 @@ import Icon from '../Icon'
 
 type MatchProps = ComponentProps & {
   matches: Match[],
-  onChange: (i: number) => void,
+  offer: BuyOffer|SellOffer,
+  onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
+  toggleMatch: (match: Match) => void,
 }
 
 type SliderArrowProps = {
@@ -31,7 +33,7 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
  * @example
  * <Matches matches={matches} />
  */
-export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement => {
+export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchProps): ReactElement => {
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
 
@@ -49,9 +51,9 @@ export const Matches = ({ matches, onChange, style }: MatchProps): ReactElement 
       inactiveSlideScale={0.9}
       inactiveSlideOpacity={0.7}
       activeSlideAlignment="center"
-      onSnapToItem={onChange}
+      onSnapToItem={i => onChange(i, matches[i].selectedCurrency, matches[i].selectedPaymentMethod)}
       renderItem={({ item }) => <View style={tw`px-2`} onStartShouldSetResponder={() => true}>
-        <Match match={item} />
+        <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}
     />
     {matches.length > 1

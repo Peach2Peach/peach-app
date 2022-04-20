@@ -61,6 +61,7 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
       <View style={tw`flex-row flex-nowrap`}>
         {items.map((item, i) => <Pressable
           onPress={() => onChange ? onChange(item.value) : null}
+          key={item.value}
           style={[
             tw`px-3 h-6 flex justify-center border border-grey-1 rounded-lg`,
             item.value === selectedValue ? tw`border-peach-1` : {},
