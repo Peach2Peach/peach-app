@@ -4,7 +4,10 @@ Follow [react native setup guide](https://reactnative.dev/docs/environment-setup
 
 Run
 
-`npm install`
+```
+npm install
+npx react-native link
+```
 
 **iOS**
 

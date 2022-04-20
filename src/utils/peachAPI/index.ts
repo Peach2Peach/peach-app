@@ -6,6 +6,7 @@ export let accessToken: AccessToken|null
 export let peachAccount: bitcoin.bip32.BIP32Interface|null
 
 export const setAccessToken = (token: AccessToken) => accessToken = token
+export const deleteAccessToken = () => accessToken = null
 export const getPeachAccount = () => peachAccount
 export const setPeachAccount = (acc: bitcoin.bip32.BIP32Interface) => peachAccount = acc
 

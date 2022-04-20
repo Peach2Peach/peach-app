@@ -139,7 +139,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  return <View style={tw`pb-24 px-6 h-full flex`}>
+  return <View style={tw`h-full flex pb-24 px-6`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>

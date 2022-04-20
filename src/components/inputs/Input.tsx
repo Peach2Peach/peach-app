@@ -83,7 +83,7 @@ export const Input = ({
         style={[
           tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
           tw.md`h-10`,
-          label && !value ? tw`font-baloo text-xs uppercase` : {}
+          label && !value ? tw`font-baloo text-xs leading-5 uppercase` : {}
         ]}
         placeholder={label}
         value={value}

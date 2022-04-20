@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.0.1-rc.4",
+  "version": "0.0.1-rc.6",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -123,6 +123,11 @@
     "tailwind-rn": "^3.0.1",
     "tailwindcss": "^2.2.7",
     "ts-jest": "^27.1.4"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   },
   "jest": {
     "rootDir": "./",

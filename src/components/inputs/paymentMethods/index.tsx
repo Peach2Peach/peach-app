@@ -80,22 +80,23 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
       ? <View style={tw`w-full flex-row mt-2`}>
         <View style={tw`w-full flex-shrink`}>
           <Checkboxes
-            items={paymentData.map((data: PaymentData) => ({
-              value: data.id,
-              disabled: !paymentMethodAllowedForCurrencies(data.type, currencies),
-              display: <View style={tw`flex-row pr-3`}>
-                <View style={tw`w-3/4 flex-shrink`}>
-                  <Text numberOfLines={1} ellipsizeMode="tail" style={tw`leading-6`}>
-                    {(data.iban || data.email || data.phone || data.paypal)}
-                  </Text>
+            items={paymentData
+              .filter(data => paymentMethodAllowedForCurrencies(data.type, currencies))
+              .map(data => ({
+                value: data.id,
+                display: <View style={tw`flex-row pr-3 -mt-0.5`}>
+                  <View style={tw`w-3/4 flex-shrink`}>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={tw`leading-6`}>
+                      {(data.iban || data.email || data.phone || data.paypal)}
+                    </Text>
+                  </View>
+                  <View style={tw`w-1/4 flex-shrink-0`}>
+                    <Text style={tw`text-right text-grey-1 leading-6`}>
+                      {i18n(`paymentMethod.${data.type}`)}
+                    </Text>
+                  </View>
                 </View>
-                <View style={tw`w-1/4 flex-shrink-0`}>
-                  <Text style={tw`text-right text-grey-1 leading-6`}>
-                    {i18n(`paymentMethod.${data.type}`)}
-                  </Text>
-                </View>
-              </View>
-            }))}
+              }))}
             selectedValues={paymentData.filter(data => data.selected).map(data => data.id)}
             onChange={values => {
               paymentData.forEach(data => data.selected = false)
@@ -112,16 +113,18 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
             }}/>
         </View>
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>
-          {paymentData.map((data: PaymentData, i) => <Button
-            key={data.id}
-            style={i > 0 ? tw`h-10 mt-4` : tw`h-10`}
-            onPress={() => updateOverlay({
-              content: <PaymentMethodView data={data} />,
-              showCloseButton: true
-            })}
-            title={i18n('view')}
-          />
-          )}
+          {paymentData
+            .filter(data => paymentMethodAllowedForCurrencies(data.type, currencies))
+            .map((data, i) => <Button
+              key={data.id}
+              style={i > 0 ? tw`w-16 h-10 mt-4` : tw`w-16 h-10`}
+              onPress={() => updateOverlay({
+                content: <PaymentMethodView data={data} />,
+                showCloseButton: true
+              })}
+              title={i18n('view')}
+            />
+            )}
         </View>
       </View>
       : <NoPaymentMethods />

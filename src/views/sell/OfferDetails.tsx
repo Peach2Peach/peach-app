@@ -31,7 +31,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useContext(BitcoinContext)
 
   const { currency, price } = getBitcoinContext()
-  const [currencies, setCurrencies] = useState(offer.currencies)
+  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies.length ? offer.currencies : [currency])
   const [premium, setPremium] = useState(offer.premium)
   const [paymentData, setPaymentData] = useState(offer.paymentData)
   const [kyc, setKYC] = useState(offer.kyc)
@@ -62,7 +62,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
-  return <View style={tw`mb-16`}>
+  return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('sell.title')} />
     <Currencies title={i18n('sell.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
     <PaymentMethodSelection setPaymentData={setPaymentData} currencies={currencies} />

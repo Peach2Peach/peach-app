@@ -2,8 +2,8 @@ import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Shadow } from '..'
 import { mildShadow } from '../../utils/layout'
+import { Shadow } from '..'
 
 interface Item {
   value: string|number,

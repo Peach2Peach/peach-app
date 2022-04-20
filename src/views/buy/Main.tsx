@@ -27,7 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     setStepValid(true)
   }, [])
 
-  return <View>
+  return <View style={tw`px-6`}>
     <Title title={i18n('buy.title')} subtitle={i18n('buy.subtitle')} />
     <View style={tw`z-20 my-24`}>
       <View style={tw`flex items-center`}>

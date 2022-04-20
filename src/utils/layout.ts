@@ -6,6 +6,14 @@ export const mildShadow = {
   radius: 0
 }
 
+export const mildShadowOrange = {
+  distance: 14,
+  startColor: '#F579400D',
+  finalColor: '#F5794000',
+  offset: [0, 4] as [x: string | number, y: string | number],
+  radius: 0
+}
+
 export const footerShadow = {
   distance: 16,
   startColor: '#0000000D',
@@ -35,6 +43,6 @@ export const innerShadow = {
 
 
 export const whiteGradient = [
-  { offset: '0%', color: '#FFF', opacity: '1' },
-  { offset: '100%', color: '#FFF', opacity: '0' }
+  { offset: '0%', color: '#FCFCFD', opacity: '1' },
+  { offset: '100%', color: '#FCFCFD', opacity: '0' }
 ]

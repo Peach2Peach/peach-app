@@ -21,46 +21,48 @@ export const AddPaymentMethod = ({ onSubmit }: AddPaymentMethodProps) => {
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
-  return <View style={tw`h-full w-full pb-8 flex-col`}>
-    <Headline style={tw`h-28 text-white-1 text-3xl leading-5xl`}>
-      {i18n(`form.paymentMethod.${!paymentMethod ? 'select' : 'details'}`)}
-    </Headline>
-    {!paymentMethod
-      ? <View style={[
-        tw`h-full flex-shrink mt-32`,
-        tw.md`mt-40`,
-      ]}>
-        {PAYMENTMETHODS
-          .filter(PAYMENTMETHOD => PaymentMethodForms[PAYMENTMETHOD])
-          .map((PAYMENTMETHOD, index) =>
-            <MenuItem
-              key={PAYMENTMETHOD}
-              style={index ? tw`mt-2` : {}}
-              text={i18n(`paymentMethod.${PAYMENTMETHOD}`)}
-              onPress={() => setPaymentMethod(PAYMENTMETHOD)}
-            />
-          )
-        }
-      </View>
-      : null
-    }
-    {PaymentMethodForm
-      ? <PaymentMethodForm style={tw`h-full flex-shrink flex-col justify-between`}
-        onSubmit={(paymentData) => {
-          onSubmit(paymentData)
-          updateOverlay({ content: null, showCloseButton: true })
-        }}
-        onCancel={() => setPaymentMethod(null)}
-      />
-      : <View style={tw`w-full flex items-center`}>
-        <Button
-          title={i18n('close')}
-          secondary={true}
-          wide={false}
-          onPress={closeOverlay}
+  return <View style={tw`h-full w-full flex justify-center`}>
+    <View style={tw`h-5/6 w-full flex-col`}>
+      <Headline style={tw`h-28 text-white-1 text-3xl leading-5xl`}>
+        {i18n(`form.paymentMethod.${!paymentMethod ? 'select' : 'details'}`)}
+      </Headline>
+      {!paymentMethod
+        ? <View style={[
+          tw`h-full flex-shrink mt-32`,
+          tw.md`mt-40`,
+        ]}>
+          {PAYMENTMETHODS
+            .filter(PAYMENTMETHOD => PaymentMethodForms[PAYMENTMETHOD])
+            .map((PAYMENTMETHOD, index) =>
+              <MenuItem
+                key={PAYMENTMETHOD}
+                style={index ? tw`mt-2` : {}}
+                text={i18n(`paymentMethod.${PAYMENTMETHOD}`)}
+                onPress={() => setPaymentMethod(PAYMENTMETHOD)}
+              />
+            )
+          }
+        </View>
+        : null
+      }
+      {PaymentMethodForm
+        ? <PaymentMethodForm style={tw`h-full flex-shrink flex-col justify-between`}
+          onSubmit={(paymentData) => {
+            onSubmit(paymentData)
+            updateOverlay({ content: null, showCloseButton: true })
+          }}
+          onCancel={() => setPaymentMethod(null)}
         />
-      </View>
-    }
+        : <View style={tw`w-full flex items-center`}>
+          <Button
+            title={i18n('close')}
+            secondary={true}
+            wide={false}
+            onPress={closeOverlay}
+          />
+        </View>
+      }
+    </View>
   </View>
 }
 

@@ -9,7 +9,7 @@ import {
   NavigationContainerRefWithCurrent,
   useNavigationContainerRef
 } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack'
 // import Home from './views/home/Home'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './contexts/language'
@@ -57,6 +57,7 @@ LogBox.ignoreLogs([
 enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
+
 type ViewType = {
   name: keyof RootStackParamList,
   component: (props: any) => ReactElement,
@@ -183,12 +184,14 @@ const App: React.FC = () => {
                   }}>
                     <Stack.Navigator detachInactiveScreens={true} screenOptions={{
                       detachPreviousScreen: true,
+                      gestureEnabled: false,
                       headerShown: false,
-                      cardStyle: tw`bg-white-1`
+                      cardStyle: tw`bg-white-1`,
                     }}>
                       {views.map(view => <Stack.Screen
                         name={view.name}
                         component={view.component} key={view.name}
+                        options={{ animationEnabled: false }}
                       />)}
                     </Stack.Navigator>
                   </NavigationContainer>

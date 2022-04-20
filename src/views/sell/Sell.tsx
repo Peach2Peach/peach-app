@@ -63,7 +63,7 @@ const getDefaultSellOffer = (): SellOffer => ({
   released: false,
 })
 
-type Screen = ({ offer, updateOffer }: SellViewProps) => ReactElement
+type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
 const screens = [
   {
@@ -93,7 +93,7 @@ const screens = [
   },
   {
     id: 'search',
-    view: Loading
+    view: null
   }
 ]
 
@@ -195,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  return <View style={tw`pb-24 h-full flex px-6`}>
+  return <View style={tw`h-full flex pb-24 px-6`}>
     <View style={[
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
@@ -219,7 +219,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
         </View>
         {scrollable && !updatePending
-          ? <View style={tw`mb-8`}>
+          ? <View style={tw`mb-8 px-6`}>
             <Navigation
               screen={currentScreen.id}
               back={back} next={next}

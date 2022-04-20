@@ -82,6 +82,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           <View style={tw`mt-4`}>
             <Button
               onPress={() => navigation.navigate('restoreBackup')}
+              wide={false}
               secondary={true}
               title={i18n('restoreBackup')}
             />
