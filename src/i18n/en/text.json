@@ -76,6 +76,8 @@
   "search.matchAsManyAsYouWant.1": "You can match as many offers as you want!",
   "search.matchAsManyAsYouWant.2": "A trade will be created with the first seller who matches you back.",
   "search.error.paymentDataMissing": "Payment Data is missing on your offer. Please insert your payment data.",
+  "match.selectedCurrency": "Selected currency",
+  "match.selectedPaymentMethod": "Selected payment method",
   "cancelTrade": "Cancel trade",
   "cancelTrade.confirm.title": "Are you sure you want to cancel this trade?",
   "cancelTrade.confirm.ok": "Do it",

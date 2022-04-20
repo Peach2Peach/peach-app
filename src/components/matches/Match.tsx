@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
@@ -52,6 +52,10 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
     setSelectedPaymentMethod(paymentMethod)
     onChange(null, selectedCurrency, paymentMethod)
   }
+
+  useEffect(() => {
+    onChange(null, selectedCurrency, selectedPaymentMethod)
+  }, [])
   return <Shadow {...(match.matched ? mildShadowOrange : mildShadow)} viewStyle={[
     tw`w-full border border-grey-4 rounded-md bg-white-1`,
     match.matched ? tw`border-peach-1` : {},
@@ -96,7 +100,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
       </View>
       <HorizontalLine style={tw`mt-3`}/>
       <Headline style={tw`mt-4 lowercase text-grey-1`}>
-        {i18n('form.currency')}:
+        {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
       </Headline>
       <Selector
         style={tw`mt-4`}
@@ -106,7 +110,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
       />
       <HorizontalLine style={tw`mt-5`}/>
       <Headline style={tw`mt-4 lowercase text-grey-1`}>
-        {i18n('form.paymentMethod')}:
+        {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
       </Headline>
       <Selector
         style={tw`mt-4`}
