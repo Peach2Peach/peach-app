@@ -36,7 +36,10 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
     match.selectedCurrency
     || Object.keys(match.prices)[0] as Currency
   )
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(match.selectedPaymentMethod)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
+    match.selectedPaymentMethod
+    || match.paymentMethods[0]
+  )
   const price = match.prices[selectedCurrency] / (offer.amount / SATSINBTC)
 
   const setCurrency = (currency: Currency) => {
