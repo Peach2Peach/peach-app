@@ -59,7 +59,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const setMatchingOptions = (match?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => {
-    if (match) setCurrentMatch(match)
+    if (typeof match === 'number') setCurrentMatch(match)
     if (currency) setSelectedCurrency(currency)
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
