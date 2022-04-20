@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useRef } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
@@ -26,8 +26,6 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
     <Icon id="sliderNext" style={tw`w-4 h-4`}/>
   </Pressable>
 
-//  showsButtons={true} showsPagination={false}
-// prevButton={<PrevButton />} nextButton={<NextButton />}
 /**
  * @description Component to display matches
  * @example

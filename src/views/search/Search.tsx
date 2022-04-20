@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
@@ -8,12 +7,11 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 
 import { RouteProp } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Matches, Text, Title } from '../../components'
+import { BigTitle, Button, Headline, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
@@ -28,6 +26,8 @@ import ConfirmCancelTrade from './components/ConfirmCancelTrade'
 import { account } from '../../utils/account'
 import { getRandom } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
+import MatchDisclaimer from './components/MatchDisclaimer'
+import SearchingForBuyOffers from './components/SearchingForBuyOffers'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -40,7 +40,6 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [, updateMessage] = useContext(MessageContext)
@@ -89,15 +88,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (offer.type === 'bid') {
         encryptedSymmmetricKey = await signAndEncrypt(
           (await getRandom(256)).toString('hex'),
-          [
-            account.pgp.publicKey,
-            match.user.pgpPublicKey
-          ].join('\n')
+          [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
         )
       } else if (offer.type === 'ask') {
         [symmetricKey, err] = await decryptSymmetricKey(
-          match.symmetricKeyEncrypted,
-          match.symmetricKeySignature,
+          match.symmetricKeyEncrypted, match.symmetricKeySignature,
           match.user.pgpPublicKey
         )
 
@@ -105,9 +100,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         const paymentData = offer.paymentData?.find(data => data.type === match.paymentMethods[0])
 
-        if (!paymentData) {
+        if (!paymentData) { // TODO show payment Data form again
           error('Error', err)
-          // TODO show payment Data form again
           updateMessage({
             msg: i18n('search.error.paymentDataMissing'),
             level: 'ERROR',
@@ -122,12 +116,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
 
       // TODO add reintroduce hashed payment data
-      console.log(selectedCurrency, selectedPaymentMethod)
-      ;[result, err] = await matchOffer({
-        offerId: offer.id,
-        matchingOfferId: match.offerId,
-        currency: selectedCurrency,
-        paymentMethod: selectedPaymentMethod,
+      [result, err] = await matchOffer({
+        offerId: offer.id, matchingOfferId: match.offerId,
+        currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
         symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
         symmetricKeySignature: encryptedSymmmetricKey?.signature,
         paymentDataEncrypted: encryptedPaymentData?.encrypted,
@@ -147,8 +138,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
 
         if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
-      } else {
-
       }
     } else {
       error('Error', err)
@@ -212,9 +201,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
-      if (result.contractId) {
-        navigation.navigate('contract', { contractId: result.contractId })
-      }
+      if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
+
       setUpdatePending(() => false)
     },
     onError: err => {
@@ -269,14 +257,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Headline>
         }
         {offer.type === 'ask' && !matches.length
-          ? <View>
-            <Text style={tw`text-center`}>
-              {i18n('search.sellOffer.1')}
-            </Text>
-            <Text style={tw`text-center mt-2`}>
-              {i18n('search.sellOffer.2')}
-            </Text>
-          </View>
+          ? <SearchingForBuyOffers />
           : null
         }
         {matches.length
@@ -297,15 +278,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 disabled={matches[currentMatch].matched}
                 onPress={() => toggleMatch(matches[currentMatch])}
               />
-              <View style={tw`mt-1`}>
-                <Text style={tw`text-center text-xs leading-6`}>
-                  {selectedCurrency} {selectedPaymentMethod}
-                  {matches[currentMatch].matched ? i18n('search.matchAsManyAsYouWant.1') : ''}
-                </Text>
-                <Text style={tw`text-center text-xs leading-6`}>
-                  {matches[currentMatch].matched ? i18n('search.matchAsManyAsYouWant.2') : ''}
-                </Text>
-              </View>
+              <MatchDisclaimer matched={matches[currentMatch].matched}/>
             </View>
           </View>
           : <View style={tw`flex items-center mt-6`}>

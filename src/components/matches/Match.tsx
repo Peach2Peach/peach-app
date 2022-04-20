@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
@@ -13,6 +13,7 @@ import Medal from '../medal'
 import { unique } from '../../utils/array'
 import { SATSINBTC } from '../../constants'
 import Icon from '../Icon'
+import { ExtraMedals } from './components/ExtraMedals'
 
 type MatchProps = ComponentProps & {
   match: Match,
@@ -75,11 +76,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
           <Text style={tw`text-lg`}>
             {match.user.id.substring(0, 8)}
           </Text>
-          <View style={tw`flex-row justify-between mt-2`}>
-            <Medal id="gold" style={tw`w-5 h-4 opacity-50`}/>
-            <Medal id="gold" style={tw`w-5 h-4`}/>
-            <Medal id="gold" style={tw`w-5 h-4 opacity-50`}/>
-          </View>
+          <ExtraMedals user={match.user} style={tw`mt-2`} />
         </View>
         <View style={tw`px-6`}>
           <Medal id={match.user.rating > 0.9 ? 'gold' : 'silver'} />
@@ -110,7 +107,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
       </Headline>
       <Selector
         style={tw`mt-4`}
-        selectedValue={selectedPaymentMethod}
+        selectedValue={selectedPaymentMethod as string}
         items={match.paymentMethods.filter(unique()).map(p => ({
           value: p,
           display: i18n(`paymentMethod.${p}`)
