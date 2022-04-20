@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
@@ -24,7 +25,7 @@ import { cancelOffer } from '../../utils/peachAPI'
 import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
 import ConfirmCancelTrade from './components/ConfirmCancelTrade'
 import { account } from '../../utils/account'
-import { getRandom } from '../../utils/crypto'
+import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import MatchDisclaimer from './components/MatchDisclaimer'
 import SearchingForBuyOffers from './components/SearchingForBuyOffers'
@@ -69,6 +70,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     let symmetricKey: string
     let result: any
     let err
+    let paymentData
 
     if (!offer || !offer.id) return
 
@@ -98,7 +100,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         if (err) error(err)
 
-        const paymentData = offer.paymentData?.find(data => data.type === match.paymentMethods[0])
+        paymentData = offer.paymentData?.find(data =>
+          data.type === match.paymentMethods[0]
+        ) as Omit<PaymentData, 'id' | 'type'>
 
         if (!paymentData) { // TODO show payment Data form again
           error('Error', err)
@@ -108,7 +112,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           })
           return
         }
+
         delete paymentData.selected
+        delete paymentData.id
+        delete paymentData.type
+
         encryptedPaymentData = await signAndEncryptSymmetric(
           JSON.stringify(paymentData),
           symmetricKey
@@ -116,6 +124,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
 
       // TODO add reintroduce hashed payment data
+      // TODO handle 404 error (match already taken)
       [result, err] = await matchOffer({
         offerId: offer.id, matchingOfferId: match.offerId,
         currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
@@ -123,6 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         symmetricKeySignature: encryptedSymmmetricKey?.signature,
         paymentDataEncrypted: encryptedPaymentData?.encrypted,
         paymentDataSignature: encryptedPaymentData?.signature,
+        hashedPaymentData: paymentData ? sha256(JSON.stringify(paymentData)) : undefined,
       })
     } else if (offer.type === 'bid') {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })

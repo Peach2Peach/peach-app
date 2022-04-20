@@ -212,6 +212,7 @@ type MatchProps = {
   symmetricKeySignature?: string,
   paymentDataEncrypted?: string,
   paymentDataSignature?: string,
+  hashedPaymentData?: string,
 }
 
 /**
@@ -228,6 +229,7 @@ export const matchOffer = async ({
   symmetricKeySignature,
   paymentDataEncrypted,
   paymentDataSignature,
+  hashedPaymentData,
 }: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: {
@@ -243,6 +245,7 @@ export const matchOffer = async ({
       symmetricKeySignature,
       paymentDataEncrypted,
       paymentDataSignature,
+      hashedPaymentData,
     }),
     method: 'POST'
   })
