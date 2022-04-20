@@ -18,8 +18,18 @@ module.exports = {
     'Buffer': true
   },
   'ignorePatterns': [
+    '.eslintrc.js',
+    'index.js',
+    'babel.config.js',
+    'metro.config.js',
+    'react-native.config.js',
+    'shim.js',
+    'tailwind.config.js',
+    '__mocks__/**/*.js',
+    'devUtils/**/*.js',
     'build/**/*.js',
-    'coverage/**/*.js'
+    'coverage/**/*.js',
+    'src/sw.js',
   ],
   'rules': {
     'accessor-pairs': 'error',
@@ -183,6 +193,7 @@ module.exports = {
     'no-throw-literal': 'error',
     'no-trailing-spaces': 'error',
     'no-undef-init': 'error',
+    'no-undef': 'off',
     'no-undefined': 'off',
     'no-underscore-dangle': 'off',
     'no-unmodified-loop-condition': 'error',

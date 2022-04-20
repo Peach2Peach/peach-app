@@ -16,13 +16,7 @@ export const readFile = async (path: string, password?: string): Promise<string>
     content = await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8') as string
     if (password) content = decrypt(content, password)
   } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('File could not be read', err)
+    error('File could not be read', e)
   }
   return content
 }
@@ -40,13 +34,7 @@ export const writeFile = async (path: string, content: string, password: string)
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + path, content, 'utf8')
     return true
   } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('File could not be written', err)
+    error('File could not be written', e)
     return false
   }
 }
@@ -61,13 +49,7 @@ export const deleteFile = async (path: string): Promise<boolean> => {
     await RNFS.unlink(RNFS.DocumentDirectoryPath + '/peach-account.json')
     return true
   } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-    error('File could not be deleted', err)
+    error('File could not be deleted', e)
     return false
   }
 }

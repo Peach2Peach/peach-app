@@ -1,15 +1,13 @@
 
-import React, { ReactElement, ReactNode } from 'react'
-import { View, ViewStyle } from 'react-native'
-import { Shadow } from 'react-native-shadow-2'
+import React, { ReactElement } from 'react'
+import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 import { mildShadow } from '../utils/layout'
 
-interface CardProps {
-  children?: ReactNode,
-  style?: ViewStyle|ViewStyle[]
-}
+import { Shadow } from '.'
+
+type CardProps = ComponentProps
 
 /**
  * @description Component to display a Card component

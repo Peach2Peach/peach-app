@@ -5,7 +5,7 @@ import { getTx } from '../utils/peachAPI'
 type GetTxEffectProps = {
   txId: string,
   onSuccess: (result: GetTxResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   txId,
@@ -29,7 +29,7 @@ export default ({
   }
 
   (() => {
-    interval = setInterval(checkingFunction, 60 * 1000)
+    interval = setInterval(checkingFunction, 30 * 1000)
     checkingFunction()
   })()
 

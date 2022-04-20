@@ -13,7 +13,7 @@ type PremiumProps = {
   price: number,
 }
 export default ({ premium, setPremium, identifier, offer, currency, price }: PremiumProps): ReactElement => <View>
-  <Headline style={tw`mt-16 mb-2`}>
+  <Headline style={tw`mt-16 mb-2 text-grey-1`}>
     {i18n('sell.price')}
   </Headline>
   <PremiumSlider min={-10} max={10} value={premium}

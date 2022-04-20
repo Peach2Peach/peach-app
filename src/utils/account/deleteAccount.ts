@@ -1,6 +1,8 @@
 import { setAccount, defaultAccount } from '.'
 import { deleteFile } from '../file'
 import { info } from '../log'
+import { deleteAccessToken } from '../peachAPI'
+import { setSession } from '../session'
 
 interface DeleteAccountProps {
   onSuccess: Function,
@@ -16,7 +18,9 @@ export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) 
   info('Deleting account')
 
   if (await deleteFile('/peach-account.json')) {
-    setAccount(defaultAccount)
+    await setSession({ password: null })
+    setAccount(defaultAccount, true)
+    deleteAccessToken()
     onSuccess()
   } else {
     onError()

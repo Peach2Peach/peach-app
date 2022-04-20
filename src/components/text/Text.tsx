@@ -1,14 +1,9 @@
 
-import React, { ReactElement, ReactNode } from 'react'
-import {
-  Text,
-  ViewStyle
-} from 'react-native'
+import React, { ReactElement } from 'react'
+import { Text } from 'react-native'
 import tw from '../../styles/tailwind'
 
-interface TextProps {
-  style?: ViewStyle|ViewStyle[],
-  children?: ReactNode,
+type TextProps = ComponentProps & {
   numberOfLines?: number
   ellipsizeMode?: 'head'|'tail'|'middle'
 }
@@ -28,9 +23,11 @@ interface TextProps {
 export const PeachText = ({ style, children, numberOfLines, ellipsizeMode }: TextProps): ReactElement =>
   <Text
     style={[
-      tw`font-lato text-lg text-black-1`,
+      tw`font-lato text-base text-black-1`,
+      tw.md`text-lg`,
       style
     ]}
+    allowFontScaling={false}
     numberOfLines={numberOfLines}
     ellipsizeMode={ellipsizeMode}>
     {children}

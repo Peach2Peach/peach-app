@@ -6,7 +6,7 @@ import { getPublicKeyForEscrow } from '../../../utils/wallet'
 type CreateEscrowIfNewProps = {
   offer: SellOffer,
   onSuccess: (result: CreateEscrowResponse) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   offer,

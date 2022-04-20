@@ -2,34 +2,34 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Dropdown, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
-import { getBitcoinContext } from '../../utils/bitcoin'
+import { getBitcoinContext } from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
-import { account, updateSettings } from '../../utils/account'
+import { updateSettings } from '../../utils/account'
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const { currency, satsPerUnit } = getBitcoinContext()
-  const [amount, setAmount] = useState(account.settings.amount || offer.amount)
+  const [amount, setAmount] = useState(offer.amount)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   useEffect(() => {
     updateOffer({ ...offer, amount })
-    updateSettings({ amount })
+    updateSettings({ amount }, true)
     setStepValid(true)
   }, [amount])
 
   useEffect(() => {
-    updateOffer({ ...offer, amount })
+    setStepValid(true)
   }, [])
 
-  return <View>
+  return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.subtitle')} />
-    <View style={tw`z-20 my-32`}>
+    <View style={tw`z-20 my-24`}>
       <View style={tw`flex items-center`}>
         <Dropdown
           selectedValue={amount}

@@ -1,16 +1,20 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
-  ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Text } from '../../components'
+import LanguageContext from '../../contexts/language'
+import { PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
+import { MessageContext } from '../../contexts/message'
+import { error } from '../../utils/log'
+import getOffersEffect from '../../effects/getOffersEffect'
+import i18n from '../../utils/i18n'
+import { saveOffer } from '../../utils/offer'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
 
@@ -24,6 +28,14 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
   }
 
   if (offer.contractId) {
+    const contract = getContract(offer.contractId)
+    if (contract) {
+      const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
+      if ((view === 'seller' && contract.ratingBuyer)
+        || (view === 'buyer' && contract.ratingSeller)) {
+        return navigation.navigate('tradeComplete', { view, contract })
+      }
+    }
     return navigation.navigate('contract', { contractId: offer.contractId })
   }
 
@@ -47,15 +59,31 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
 // TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateMessage] = useContext(MessageContext)
+  const [offers, setOffers] = useState(account.offers)
 
-  return <ScrollView>
+  useEffect(getOffersEffect({
+    onSuccess: result => {
+      Promise.all(result.map(offer => saveOffer(offer)))
+      setOffers(account.offers)
+    },
+    onError: err => {
+      error('Could not fetch offer information')
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
+  }), [])
+
+  return <PeachScrollView contentContainerStyle={tw`px-6`}>
     <View style={tw`pb-32`}>
       <View>
         <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
           Offers
         </Text>
       </View>
-      {account.offers.map(offer => <View key={offer.id}>
+      {offers.map(offer => <View key={offer.id}>
         <Pressable onPress={() => navigateToOffer(offer, navigation)}>
           <Text style={!offer.online ? tw`opacity-50` : {}}>
             {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
@@ -63,5 +91,5 @@ export default ({ navigation }: Props): ReactElement => {
         </Pressable>
       </View>)}
     </View>
-  </ScrollView>
+  </PeachScrollView>
 }

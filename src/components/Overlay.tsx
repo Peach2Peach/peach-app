@@ -5,7 +5,7 @@ import { Button } from '.'
 
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { OverlayContext } from '../utils/overlay'
+import { OverlayContext } from '../contexts/overlay'
 
 /**
  * @description Component to display the Overlay
@@ -17,13 +17,16 @@ import { OverlayContext } from '../utils/overlay'
  */
 export const Overlay = ({ content, showCloseButton }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-
-  return <View style={tw`absolute z-20 w-full h-full flex items-center justify-center p-3 bg-peach-translucent-2`}>
+  return <View style={[
+    tw`absolute z-20 w-full h-full flex items-center justify-between`,
+    tw`p-3 pb-8 bg-peach-translucent-2`,
+  ]}>
+    <View>{/* dummy content for layout */}</View>
     {content}
+    <View>{/* dummy content for layout */}</View>
     {showCloseButton
       ? <Button
         title={i18n('close')}
-        style={tw`mt-6`}
         secondary={true}
         onPress={() => updateOverlay({ content: null, showCloseButton: true })}
         wide={false}

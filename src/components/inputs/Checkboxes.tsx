@@ -1,21 +1,20 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Shadow } from 'react-native-shadow-2'
-import { Text } from '..'
 import { mildShadow } from '../../utils/layout'
+import { Shadow } from '..'
 
 interface Item {
   value: string|number,
+  disabled?: boolean,
   display: ReactNode
 }
 
-interface CheckboxesProps {
+type CheckboxesProps = ComponentProps & {
   items: Item[],
   selectedValues?: (string|number)[],
   onChange?: (values: (string|number)[]) => void,
-  style?: ViewStyle|ViewStyle[],
 }
 
 /**
@@ -52,16 +51,17 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
   const isSelected = (item: Item) => selectedValues.indexOf(item.value) !== -1
 
   return <View style={style}>
-    {items.map((item, i) =>
+    {items.map((item, i) => <View key={i} style={[
+      !isSelected(item) ? tw`opacity-50` : {},
+      item.disabled ? tw`opacity-20` : {},
+    ]}>
       <Shadow {...mildShadow}
-        key={i}
         viewStyle={[
           tw`w-full`,
-          !isSelected(item) ? tw`opacity-50` : {},
           i > 0 ? tw`mt-2` : {}
         ]}>
-        <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
-          onPress={() => select(item.value)}>
+        <Pressable style={tw`flex-row items-center p-3 h-12 bg-white-1 border border-grey-4 rounded`}
+          onPress={() => !item.disabled ? select(item.value) : () => {}}>
           {isSelected(item)
             ? <Icon id="checkbox" style={tw`w-5 h-5`} />
             : <View style={tw`w-5 h-5 flex justify-center items-center`}>
@@ -73,6 +73,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
           </View>
         </Pressable>
       </Shadow>
+    </View>
     )}
   </View>
 }

@@ -2,16 +2,14 @@ import React, { ReactElement } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import { error } from '../../utils/log'
 import RNFS from '../../utils/fileSystem/RNFS'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
-import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
-import { Text } from '..'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
 export type FileData = {
@@ -51,13 +49,13 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
         })
       }, 10000)
     } catch (e) {
-      error('File could not be read', e.message)
+      error('File could not be read', e)
       resolve({
         name: '',
         content: ''
       })
     }
-  } catch (err) {
+  } catch (err: any) {
     if (!DocumentPicker.isCancel(err)) {
       // User cancelled the picker, exit any dialogs or menus and move on
       throw err
@@ -65,11 +63,10 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
   }
 })
 
-interface FileInputProps {
+type FileInputProps = ComponentProps & {
   fileName?: string,
   autoCorrect?: boolean
   isValid?: boolean,
-  style?: ViewStyle|ViewStyle[],
   errorMessage?: string[]
   onChange?: Function,
   secureTextEntry?: boolean
@@ -100,19 +97,24 @@ export const FileInput = ({
 }: FileInputProps): ReactElement => <View>
   <Pressable
     style={[
-      tw`flex h-10 border border-grey-4 rounded overflow-hidden`,
+      tw`flex h-8 border border-grey-4 rounded overflow-hidden`,
+      tw.md`h-10`,
       isValid && fileName ? tw`border-green` : {},
       errorMessage.length > 0 ? tw`border-red` : {},
       style || {}
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow viewStyle={tw`w-full flex flex-row items-center justify-between h-10 pl-4 pr-3 py-2 rounded`}
-      {...innerShadow}>
+    <Shadow {...innerShadow}
+      viewStyle={[
+        tw`w-full flex flex-row items-center justify-between h-8 pl-4 pr-3 py-2 rounded`,
+        tw.md`h-10`,
+      ]}
+    >
       <Text
         style={[
           tw`flex-grow-0 flex-shrink font-baloo text-xs uppercase`,
-          fileName ? tw`text-grey-1` : tw`text-peach-1`
+          fileName ? tw`text-peach-1` : tw`text-grey-1`
         ]}
         numberOfLines={1}
         ellipsizeMode="middle"
@@ -121,7 +123,7 @@ export const FileInput = ({
       </Text>
       <Icon id="file"
         style={tw`flex-shrink-0 w-5 h-5`}
-        color={(fileName ? tw`text-grey-1` : tw`text-peach-1`).color as string}
+        color={(tw`text-peach-1`).color as string}
       />
     </Shadow>
   </Pressable>

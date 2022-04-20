@@ -1,14 +1,16 @@
 import React, { ReactElement, useContext } from 'react'
 import {
-  ScrollView,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
-import { Button, Text } from '../../components'
-import { backupAccount } from '../../utils/account'
+import LanguageContext from '../../contexts/language'
+import { Button, PeachScrollView, Text, Title } from '../../components'
+import { account, backupAccount, deleteAccount } from '../../utils/account'
+import { API_URL, NETWORK } from '@env'
+
+import { version } from '../../../package.json'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -18,18 +20,38 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-
-  return <ScrollView>
-    <View style={tw`pb-32`}>
-      <View style={tw`flex-col justify-center h-full`}>
-        <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
-          Settings
-        </Text>
-      </View>
+  return <View style={tw`h-full pb-32`}>
+    <PeachScrollView contentContainerStyle={tw`px-6`}>
+      <Title title={'Settings'} />
+      <Text style={tw`text-sm text-grey-2`}>
+        App version: {version}
+      </Text>
+      <Text style={tw`text-sm text-grey-2`}>
+        API URL: {API_URL}
+      </Text>
+      <Text style={tw`text-sm text-grey-2`}>
+        Network: {NETWORK}
+      </Text>
+      <Text style={tw`text-sm text-grey-2`}>
+        Your public key: {account.publicKey}
+      </Text>
       <View style={tw`mt-4`}>
         <Button
           onPress={backupAccount}
           title="Backup account"
+        />
+      </View>
+      <View style={tw`mt-4`}>
+        <Button
+          onPress={async () => {
+            await deleteAccount({
+              onSuccess: () => {
+                navigation.navigate('welcome')
+              },
+              onError: () => {}
+            })
+          }}
+          title="Delete account"
         />
       </View>
       <View style={tw`mt-4`}>
@@ -39,6 +61,14 @@ export default ({ navigation }: Props): ReactElement => {
           title="Back"
         />
       </View>
-    </View>
-  </ScrollView>
+      <View style={tw`mt-4`}>
+        <Button
+          secondary={true}
+          // eslint-disable-next-line no-console
+          onPress={() => console.log(JSON.stringify(account))}
+          title="Data Dump"
+        />
+      </View>
+    </PeachScrollView>
+  </View>
 }

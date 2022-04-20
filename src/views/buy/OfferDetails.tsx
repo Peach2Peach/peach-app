@@ -2,14 +2,16 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './Buy'
-import { account, updateSettings } from '../../utils/account'
+import { updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import Currencies from '../../components/inputs/Currencies'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
 import { Title } from '../../components'
+import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
+import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount
@@ -18,10 +20,16 @@ const validate = (offer: BuyOffer) =>
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
+  useContext(BitcoinContext)
+  const { currency } = getBitcoinContext()
 
-  const [currencies, setCurrencies] = useState<Currency[]>(account.settings.currencies || [])
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(account.settings.paymentMethods || [])
-  const [kyc, setKYC] = useState(account.settings.kyc || false)
+  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies.length ? offer.currencies : [currency])
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(offer.paymentMethods)
+  const [kyc, setKYC] = useState(offer.kyc)
+
+  useEffect(() => {
+    setPaymentMethods(paymentMethods.filter(method => paymentMethodAllowedForCurrencies(method, currencies)))
+  }, [currencies])
 
   useEffect(() => {
     updateOffer({
@@ -34,15 +42,19 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       currencies,
       paymentMethods,
       kyc
-    })
+    }, true)
   }, [currencies, paymentMethods, kyc])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
-  return <View style={tw`mb-16`}>
+  return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('buy.title')} />
     <Currencies title={i18n('buy.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
-    <PaymentMethodSelection paymentMethods={paymentMethods} setPaymentMethods={setPaymentMethods} />
-    <KYC kyc={kyc} setKYC={setKYC} />
+    <PaymentMethodSelection
+      currencies={currencies}
+      paymentMethods={paymentMethods}
+      setPaymentMethods={setPaymentMethods}
+    />
+    {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

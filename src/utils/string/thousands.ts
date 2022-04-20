@@ -1,8 +1,7 @@
 
 /**
  * @description Method to group number in thousands
- * @param props parameters
- * @param props.string the string to pad
+ * @param number the number
  * @returns number grouped in thousands
  */
 export const thousands = (number: number): string => {

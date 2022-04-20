@@ -9,7 +9,7 @@ type KYCProps = {
   setKYC: (kyc: boolean) => void,
 }
 export default ({ kyc, setKYC }: KYCProps): ReactElement => <View>
-  <Headline style={tw`mt-16`}>
+  <Headline style={tw`mt-16 text-grey-1`}>
     {i18n('buy.kyc')}
   </Headline>
   <RadioButtons

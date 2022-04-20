@@ -1,10 +1,10 @@
 import { API_URL } from '@env'
 import { parseResponse } from '..'
 import fetch from '../../fetch'
-import { getAccessToken } from './auth'
+import { getAccessToken } from './user'
 
 type GetContractProps = {
-  contractId: string,
+  contractId: Contract['id'],
 }
 
 /**
@@ -14,7 +14,7 @@ type GetContractProps = {
  */
 export const getContract = async ({
   contractId,
-}: GetContractProps): Promise<[Contract|null, APIError|null]> => {
+}: GetContractProps): Promise<[GetContractResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -24,5 +24,129 @@ export const getContract = async ({
     method: 'GET'
   })
 
-  return await parseResponse<Contract>(response, 'getContract')
+  return await parseResponse<GetContractResponse>(response, 'getContract')
+}
+
+type ConfirmPaymentProps = {
+  contractId: Contract['id'],
+  releaseTransaction?: string
+}
+
+/**
+ * @description Method to confirm either payment made or received depending on party
+ * @param contractId contract id
+ * @returns Contract
+ */
+export const confirmPayment = async ({
+  contractId,
+  releaseTransaction,
+}: ConfirmPaymentProps): Promise<[ConfirmPaymentResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment/confirm`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      releaseTransaction,
+    })
+  })
+
+  return await parseResponse<ConfirmPaymentResponse>(response, 'confirmPayment')
+}
+
+type RateUserProps = {
+  contractId: Contract['id'],
+  rating: 1 | -1,
+  signature: string
+}
+
+/**
+ * @description Method to confirm either payment made or received depending on party
+ * @param contractId contract id
+ * @returns Contract
+ */
+export const rateUser = async ({
+  contractId,
+  rating,
+  signature,
+}: RateUserProps): Promise<[APISuccess|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/user/rate`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      rating,
+      signature,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'rateUser')
+}
+
+
+type GetChatProps = {
+  contractId: Contract['id'],
+  page?: number
+}
+
+/**
+ * @description Method to get contract chat
+ * @param contractId contract id
+ * @param [page] page
+ * @returns Chat log
+ */
+export const getChat = async ({
+  contractId,
+  page = 0
+}: GetChatProps): Promise<[GetChatResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/chat?page=${page}`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  return await parseResponse<GetChatResponse>(response, 'getChat')
+}
+
+
+type PostChatProps = {
+  contractId: Contract['id'],
+  message: string,
+  signature: string,
+}
+
+/**
+ * @description Method to get contract chat
+ * @param contractId contract id
+ * @param message encrypted message
+ * @param signature signature of message
+ * @returns Chat log
+ */
+export const postChat = async ({
+  contractId,
+  message,
+  signature,
+}: PostChatProps): Promise<[APISuccess|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/chat`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      message,
+      signature,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'postChat')
 }

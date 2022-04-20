@@ -11,6 +11,8 @@ import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
 import help from './help.svg'
 import next from './next.svg'
+import negative from './negative.svg'
+import positive from './positive.svg'
 import offers from './offers.svg'
 import prev from './prev.svg'
 import selectClosed from './selectClosed.svg'
@@ -37,6 +39,8 @@ const Icons: Icons = {
   file,
   help,
   next,
+  negative,
+  positive,
   offers,
   prev,
   selectClosed,

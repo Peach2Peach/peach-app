@@ -1,20 +1,20 @@
 
 import React, { ReactElement, useState } from 'react'
 import {
-  Pressable,
   View,
-  ViewStyle
+  Pressable,
 } from 'react-native'
-import { Text } from '.'
+import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'
+import { mildShadowOrange } from '../utils/layout'
 
-interface ButtonProps {
+type ButtonProps = ComponentProps & {
   title: string,
   secondary?: boolean,
   tertiary?: boolean,
   wide?: boolean,
-  style?: ViewStyle|ViewStyle[],
   disabled?: boolean,
+  loading?: boolean,
   onPress?: Function
 }
 
@@ -42,25 +42,26 @@ export const Button = ({
   wide = true,
   style,
   disabled,
+  loading,
   onPress
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
-  return <View>
+  return <Shadow {...mildShadowOrange} viewStyle={[
+    tw`rounded`,
+    secondary ? tw`bg-white-2 border border-peach-1 `
+      : tertiary ? tw`border border-white-2 `
+        : tw`bg-peach-1`,
+    wide ? tw`w-full` : tw`w-40`,
+    active ? tw`bg-peach-2` : {},
+    disabled ? tw`opacity-50` : {},
+    style || {}
+  ]}>
     <Pressable
-      style={[
-        tw`flex items-center justify-center p-3 rounded`,
-        secondary ? tw`bg-white-2 border border-peach-1 `
-          : tertiary ? tw`border border-white-2 `
-            : tw`bg-peach-1`,
-        wide ? tw`w-full` : tw`w-40`,
-        active ? tw`bg-peach-2` : {},
-        disabled ? tw`opacity-50` : {},
-        style || {}
-      ]}
       onPress={e => onPress && !disabled ? onPress(e) : null}
       onPressIn={() => setActive(true)}
       onPressOut={() => setActive(false)}
+      style={tw`w-full flex-row items-center justify-center p-3`}
     >
       <Text style={[
         tw`font-baloo text-sm uppercase`,
@@ -69,8 +70,14 @@ export const Button = ({
       ]}>
         {title}
       </Text>
+      {loading
+        ? <View style={tw`absolute right-5 w-4 h-4`}>
+          <Loading size="small" color={tw`text-white-1`.color as string} />
+        </View>
+        : null
+      }
     </Pressable>
-  </View>
+  </Shadow>
 }
 
 export default Button

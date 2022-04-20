@@ -1,31 +1,29 @@
-import React, { ComponentType, ReactElement, Ref } from 'react'
+import React, { ReactElement, Ref } from 'react'
 import {
   Pressable,
+  TextInput,
   View,
-  ViewStyle
 } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { Text } from '..'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
-interface InputProps {
+type InputProps = ComponentProps & {
   value?: string,
   label?: string,
   icon?: string,
   autoCorrect?: boolean
   disabled?: boolean
   isValid?: boolean,
+  hint?: string
   errorMessage?: string[]
   onChange?: Function,
   onSubmit?: Function,
   onFocus?: Function,
   onBlur?: Function,
   secureTextEntry?: boolean,
-  style?: ViewStyle|ViewStyle[]
-  reference?: Ref<ComponentType<any>>,
+  reference?: Ref<TextInput>,
 }
 
 /**
@@ -37,6 +35,7 @@ interface InputProps {
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
+ * @param [props.hint] hint
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
@@ -61,6 +60,7 @@ export const Input = ({
   autoCorrect = false,
   disabled = false,
   isValid,
+  hint,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -72,13 +72,19 @@ export const Input = ({
 }: InputProps): ReactElement => <View>
   <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
-      tw`w-full flex flex-row items-center h-10 border border-grey-4 rounded pl-7 pr-3`,
+      tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
+      tw.md`h-10`,
+      icon ? tw`pr-12` : {},
       style ? style : {},
-      isValid && value ? tw`border-green` : {},
-      errorMessage.length > 0 ? tw`border-red` : {},
+      isValid && value && !disabled ? tw`border-green` : {},
+      errorMessage.length > 0 && !disabled ? tw`border-red` : {},
     ]}>
       <TextInput ref={reference ? reference : null}
-        style={[tw`w-full flex-shrink  h-10 p-0 text-grey-1 text-lg leading-5`]}
+        style={[
+          tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
+          tw.md`h-10`,
+          label && !value ? tw`font-baloo text-xs leading-5 uppercase` : {}
+        ]}
         placeholder={label}
         value={value}
         editable={!disabled}
@@ -91,8 +97,9 @@ export const Input = ({
         secureTextEntry={secureTextEntry}
       />
       {icon
-        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}>
-          <Icon id="send" style={tw`w-5 h-5`} />
+        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
+          style={tw`h-full absolute right-3 flex justify-center`}>
+          <Icon id={icon} style={tw`w-5 h-5`} />
         </Pressable>
         : null
       }
@@ -100,7 +107,11 @@ export const Input = ({
   </View>
 
   {errorMessage.length > 0
-    ? <Text style={tw`font-baloo text-xs text-red text-center mt-2`}>{errorMessage[0]}</Text>
+    ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
+    : null
+  }
+  {hint && errorMessage.length === 0
+    ? <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
     : null
   }
 </View>

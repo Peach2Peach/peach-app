@@ -1,41 +1,40 @@
-type Settings = {
-  skipTutorial?: boolean,
-  amount?: number,
-  currencies?: Currency[],
-  paymentMethods?: PaymentMethod[],
-  premium?: number,
-  kyc?: boolean,
-  kycType?: KYCType,
+interface Global {
+  ErrorUtils: {
+    setGlobalHandler: any
+    reportFatalError: any
+    getGlobalHandler: any
+  }
 }
 
-declare type Account = {
-  publicKey?: string,
-  privKey?: string,
-  mnemonic?: string,
-  settings: Settings,
-  paymentData: PaymentData[],
-  offers: (SellOffer|BuyOffer)[],
-  contracts: Contract[],
+declare const global: Global
+
+declare type ComponentProps = {
+  children?: ReactNode,
+  style?: ViewStyle|ViewStyle[],
 }
 
-declare type MessageState = {
-  msg: string,
-  level: Level,
-  time?: number,
-}
-declare type OverlayState = {
-  content: ReactNode,
-  showCloseButton: boolean,
-}
-declare type BitcoinContextType = {
-  currency: Currency,
-  price: number,
-  satsPerUnit: number
+declare type AnyObject = {
+  [key: string]: any
 }
 
-declare type Session = {
-  initialized: boolean
-  password?: string
+type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
+
+declare type Rating = {
+  creationDate: Date,
+  rating: -1 | 1,
+  ratedBy: string,
+  signature: string,
+}
+declare type User = {
+  id: string,
+  creationDate: Date,
+  rating: number,
+  userRating: number,
+  ratingCount: number,
+  peachRating: number,
+  ratings?: Rating[],
+  pgpPublicKey: string,
+  pgpPublicKeyProof: string,
 }
 
 declare type PaymentData = {
@@ -64,7 +63,6 @@ declare type SellOffer = Offer & {
   type: 'ask',
   premium: number,
   paymentData: PaymentData[],
-  hashedPaymentData: string,
   kycType?: KYCType,
   depositAddress?: string,
   returnAddress?: string,
@@ -82,16 +80,27 @@ declare type BuyOffer = Offer & {
   releaseAddress?: string,
 }
 
+declare type ContractAction = 'none' | 'kycResponse' | 'paymentMade' | 'paymentConfirmed'
+
 declare type Contract = {
   creationDate: Date,
   id: string,
-  sellerId: string,
-  buyerId: string,
+  seller: User,
+  buyer: User,
+
+  symmetricKeyEncrypted: string,
+  symmetricKey?: string,
+  symmetricKeySignature: string,
 
   amount: number,
   currency: Currency,
   price: number,
   paymentMethod: PaymentMethod,
+  paymentDataEncrypted?: string,
+  paymentData?: PaymentData,
+  paymentDataSignature?: string,
+
+  contractErrors?: string[],
 
   kycRequired: boolean,
   kycType?: KYCType,
@@ -102,8 +111,72 @@ declare type Contract = {
   paymentConfirmed: Date|null,
 
   releaseAddress: string,
+  releaseTransaction: string,
+  releaseTxId?: string,
 
-  disputeActive: boolean
+  disputeActive: boolean,
+  canceled: boolean,
+
+  ratingBuyer: boolean,
+  ratingSeller: boolean,
+}
+
+declare type Message = {
+  roomId: string,
+  from: User['id'],
+  date: Date,
+  message?: string,
+  signature: string,
+}
+
+declare type Settings = {
+  skipTutorial?: boolean,
+  amount?: number,
+  currencies?: Currency[],
+  paymentMethods?: PaymentMethod[],
+  premium?: number,
+  kyc?: boolean,
+  kycType?: KYCType,
+  pgpPublished?: boolean,
+}
+
+declare type PGPKeychain = {
+  privateKey: string,
+  publicKey: string,
+}
+
+declare type Account = {
+  publicKey: string,
+  privKey?: string,
+  mnemonic?: string,
+  pgp: PGPKeychain,
+  settings: Settings,
+  paymentData: PaymentData[],
+  offers: (SellOffer|BuyOffer)[],
+  contracts: Contract[],
+  chats: {
+    [key: string]: Message[]
+  }
+}
+
+declare type MessageState = {
+  msg: string,
+  level: Level,
+  time?: number,
+}
+declare type OverlayState = {
+  content: ReactNode,
+  showCloseButton: boolean,
+}
+declare type BitcoinContextType = {
+  currency: Currency,
+  price: number,
+  satsPerUnit: number
+}
+
+declare type Session = {
+  initialized: boolean
+  password?: string
 }
 
 declare type PeachWallet = {

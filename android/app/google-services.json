@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "901064894090",
+    "project_id": "peach-app-dc55c",
+    "storage_bucket": "peach-app-dc55c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901064894090:android:967f937232da81c0806f73",
+        "android_client_info": {
+          "package_name": "com.peachbitcoin.peach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901064894090-c5n7t78nmd53vqa2bmonemajiv6ol7k9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.peachbitcoin.peach",
+            "certificate_hash": "aa21fede6541d9b7b3bed85951df03954f08627e"
+          }
+        },
+        {
+          "client_id": "901064894090-bg6eaqqg62jm0ee83miarvs3ril999o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXXIuHoFPBi-CID5hiKYOQ5xNlSzzZo64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901064894090-bg6eaqqg62jm0ee83miarvs3ril999o6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
