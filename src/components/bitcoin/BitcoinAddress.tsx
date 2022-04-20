@@ -1,18 +1,23 @@
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
+import 'react-native-url-polyfill/auto'
+
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Pressable, View, ViewStyle } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import QRCode from 'react-native-qrcode-svg'
 import peachLogo from '../../../assets/favico/peach-icon-192.png'
 import { Card, Text } from '..'
 import Icon from '../Icon'
 import { splitAt } from '../../utils/string'
+import i18n from '../../utils/i18n'
+import { Fade } from '../animation'
 
-interface BitcoinAddressProps {
+type BitcoinAddressProps = ComponentProps & {
   address: string,
   showQR: boolean,
-  style?: ViewStyle|ViewStyle[]
+  amount?: number,
+  label?: string,
 }
 
 /**
@@ -24,7 +29,13 @@ interface BitcoinAddressProps {
  * @example
  * <BitcoinAddress address={'1BitcoinEaterAddressDontSendf59kuE'} />
  */
-export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps): ReactElement => {
+export const BitcoinAddress = ({ address, showQR, amount, label, style }: BitcoinAddressProps): ReactElement => {
+  const [showCopied, setShowCopied] = useState(false)
+  const urn = new URL(`bitcoin:${address}`)
+
+  if (amount) urn.searchParams.set('amount', String(amount))
+  if (label) urn.searchParams.set('message', label)
+
   const addressParts = {
     one: address.slice(0, 8),
     two: address.slice(8, -5),
@@ -32,12 +43,18 @@ export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps):
   }
   addressParts.two = splitAt(addressParts.two, Math.floor(addressParts.two.length / 2) - 2).join('\n')
 
+  const copy = () => {
+    Clipboard.setString(urn.toString())
+    setShowCopied(true)
+    setTimeout(() => setShowCopied(false), 500)
+  }
+
   return <View style={[tw`flex-col items-center`, style]}>
     {showQR && address
       ? <Card style={tw`p-4`}>
         <QRCode
           size={241}
-          value={address}
+          value={urn.toString()}
           logo={peachLogo}
         />
       </Card>
@@ -47,14 +64,19 @@ export const BitcoinAddress = ({ address, showQR, style }: BitcoinAddressProps):
       tw`flex-row items-center`,
       showQR ? tw`mt-4` : {}
     ]}>
-      <Text>
+      <Text style={tw`text-base`}>
         {addressParts.one}
-        <Text style={tw`text-grey-2 leading-6`}>
+        <Text style={tw`text-base text-grey-2 leading-6`}>
           {addressParts.two}
         </Text>
         {addressParts.three}
       </Text>
-      <Pressable onPress={() => Clipboard.setString(address)}>
+      <Pressable onPress={copy}>
+        <Fade show={showCopied} duration={300} delay={0}>
+          <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
+            {i18n('copied')}
+          </Text>
+        </Fade>
         <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
       </Pressable>
     </View>

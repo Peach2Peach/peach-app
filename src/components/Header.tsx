@@ -1,19 +1,15 @@
 
 import React, { ReactElement } from 'react'
-import {
-  View, ViewStyle
-} from 'react-native'
+import { View } from 'react-native'
 
-import { Text } from '.'
-import { Shadow } from 'react-native-shadow-2'
+import { Shadow, Text } from '.'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { thousands } from '../utils/string'
 import { mildShadow } from '../utils/layout'
 
-interface HeaderProps {
+type HeaderProps = ComponentProps & {
   bitcoinContext: BitcoinContextType,
-  style?: ViewStyle|ViewStyle[]
 }
 
 /**

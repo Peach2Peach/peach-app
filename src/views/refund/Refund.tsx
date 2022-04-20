@@ -2,10 +2,10 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Button, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
-import { MessageContext } from '../../utils/message'
+import { MessageContext } from '../../contexts/message'
 import * as bitcoin from 'bitcoinjs-lib'
 import cancelOfferEffect from '../../effects/cancelOfferEffect'
 import getTransactionEffect from '../../effects/getTxEffect'
@@ -139,7 +139,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  return <View style={tw`pb-24 h-full flex`}>
+  return <View style={tw`h-full flex pb-24 px-6`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>

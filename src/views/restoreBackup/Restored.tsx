@@ -1,8 +1,8 @@
 import React, { ReactElement, useContext } from 'react'
-import { View } from 'react-native'
+import { Image, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import { Button, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -17,16 +17,30 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  return <View>
-    <Text style={[tw`font-baloo text-center text-3xl leading-3xl text-peach-1`, tw.md`text-5xl`]}>
-      {i18n('backupRestored')}
-    </Text>
-    <Text style={tw`mt-4 text-center`}>
-      {i18n('restoreBackup.restored.description.1')}
-    </Text>
-    <View style={tw`mt-8 flex items-center`}>
+  const finish = () => {
+    navigation.navigate('home', {})
+  }
+
+  return <View style={tw`h-full flex px-6`}>
+    <View style={[
+      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
+      tw.md`pt-36`
+    ]}>
+      <Image source={require('../../../assets/favico/peach-logo.png')}
+        style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
+      />
+      <View style={[tw`mt-11 w-full`, tw.md`mt-14`]}>
+        <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
+          {i18n('backupRestored')}
+        </Text>
+        <Text style={tw`mt-4 text-center`}>
+          {i18n('restoreBackup.restored.description.1')}
+        </Text>
+      </View>
+    </View>
+    <View style={tw`pb-8 mt-4 flex items-center w-full bg-white-1`}>
       <Button
-        onPress={() => navigation.navigate('home', {})}
+        onPress={finish}
         wide={false}
         title={i18n('continue')}
       />

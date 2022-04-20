@@ -1,16 +1,14 @@
 /* eslint-disable no-console */
 import { DEV } from '@env'
-
-export const isProduction = () => DEV !== 'true'
+import crashlytics from '@react-native-firebase/crashlytics'
 
 /**
  * @description Wrapper method to handle logging
  * @param  {...any} args arguments
  */
 export const info = (...args: any[]) => {
-  if (!isProduction()) {
-    console.info(new Date(), args)
-  }
+  console.info([new Date(), 'INFO', ...args].join(' - '))
+  if (!DEV) crashlytics().log([new Date(), 'INFO', ...args].join(' - '))
 }
 
 /**
@@ -18,29 +16,8 @@ export const info = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const log = (...args: any[]) => {
-  if (!isProduction()) {
-    console.log(new Date(), args)
-  }
-}
-
-/**
- * @description Wrapper method to handle logging
- * @param  {...any} args arguments
- */
-export const trace = (...args: any[]) => {
-  if (!isProduction()) {
-    console.trace(new Date(), args)
-  }
-}
-
-/**
- * @description Wrapper method to handle logging
- * @param  {...any} args arguments
- */
-export const warn = (...args: any[]) => {
-  if (!isProduction()) {
-    console.warn(new Date(), args)
-  }
+  console.log([new Date(), 'LOG', ...args].join(' - '))
+  if (!DEV) crashlytics().log([new Date(), 'LOG', ...args].join(' - '))
 }
 
 /**
@@ -48,13 +25,16 @@ export const warn = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const error = (...args: any[]) => {
-  console.error(new Date(), args)
+  console.log([new Date(), 'ERROR', ...args].join(' - '))
+  if (!DEV) crashlytics().log([new Date(), 'ERROR', ...args].join(' - '))
+
+  if (!DEV) args
+    .filter(arg => arg instanceof Error)
+    .forEach(err => crashlytics().recordError(err))
 }
 
 export default {
   info,
   log,
-  trace,
-  warn,
   error
 }

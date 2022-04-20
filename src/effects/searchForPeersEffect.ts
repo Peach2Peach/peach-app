@@ -5,7 +5,7 @@ import { getMatches } from '../utils/peachAPI'
 type SearchForPeersEffectProps = {
   offer: SellOffer|BuyOffer,
   onSuccess: (result: Match[]) => void,
-  onError: (error: APIError) => void,
+  onError: (err: APIError) => void,
 }
 export default ({
   offer,
@@ -33,7 +33,7 @@ export default ({
     }
   }
   (async () => {
-    interval = setInterval(checkingFunction, 60 * 1000)
+    interval = setInterval(checkingFunction, 30 * 1000)
     checkingFunction()
   })()
 

@@ -1,13 +1,14 @@
-import { BIP32Interface } from 'bip32'
+import * as bitcoin from 'bitcoinjs-lib'
 import { error } from '../log'
 
 
 export let accessToken: AccessToken|null
-export let peachAccount: BIP32Interface|null
+export let peachAccount: bitcoin.bip32.BIP32Interface|null
 
 export const setAccessToken = (token: AccessToken) => accessToken = token
+export const deleteAccessToken = () => accessToken = null
 export const getPeachAccount = () => peachAccount
-export const setPeachAccount = (acc: BIP32Interface) => peachAccount = acc
+export const setPeachAccount = (acc: bitcoin.bip32.BIP32Interface) => peachAccount = acc
 
 /**
  * @description Method to parse and handle peach response
@@ -25,11 +26,12 @@ export const parseResponse = async <T>(
     }
 
     const data = await response.json()
+
     if (response.status !== 200) {
-      error(`peachAPI - ${caller}`, {
+      error(`peachAPI - ${caller}`, JSON.stringify({
         status: response.status,
         data
-      })
+      }))
 
       return [null, data]
     }
@@ -49,15 +51,20 @@ export const parseResponse = async <T>(
   }
 }
 
+export { getStatus, getInfo } from './public/system'
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
-export { userAuth, getAccessToken } from './private/auth'
+export { auth, getAccessToken, setPGP } from './private/user'
 export {
-  getOfferDetails,
-  postOffer,
-  createEscrow,
-  getFundingStatus,
+  getOffers,
+  postOffer, getOfferDetails,
+  createEscrow, getFundingStatus,
   cancelOffer,
   getMatches
 } from './private/offer'
-export { getContract } from './private/contract'
+export {
+  getContract,
+  confirmPayment,
+  rateUser,
+  getChat, postChat,
+} from './private/contract'

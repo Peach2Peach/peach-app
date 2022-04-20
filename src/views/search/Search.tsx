@@ -6,23 +6,27 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../components/inputs/LanguageSelect'
-import BitcoinContext from '../../utils/bitcoin'
+import LanguageContext from '../../contexts/language'
+import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 
 import { RouteProp } from '@react-navigation/native'
-import { MessageContext } from '../../utils/message'
-import { BigTitle, Button, Loading, Matches, Text } from '../../components'
+import { MessageContext } from '../../contexts/message'
+import { BigTitle, Button, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/log'
-import checkFundingStatusEffect from '../sell/effects/checkFundingStatusEffect'
+import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { OverlayContext } from '../../utils/overlay'
+import { OverlayContext } from '../../contexts/overlay'
 import { cancelOffer } from '../../utils/peachAPI'
+import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
 import ConfirmCancelTrade from './components/ConfirmCancelTrade'
+import { account } from '../../utils/account'
+import { getRandom } from '../../utils/crypto'
+import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -41,27 +45,74 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [currentMatch, setCurrentMatch] = useState(0)
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
+  const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
 
   const [matches, setMatches] = useState<Match[]>([])
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
     setOffer(offerData)
+    setOfferId(offerData.id)
     saveOffer(offerData)
   }
 
+  // eslint-disable-next-line max-statements, max-lines-per-function
   const toggleMatch = async (match: Match) => {
+    let symmetricKey: string
     let result: any
     let err
 
-    if (!offer.id) return
+    if (!offer || !offer.id) return
 
     if (!match.matched) {
+      let encryptedSymmmetricKey
+      let encryptedPaymentData
+
+      if (offer.type === 'bid') {
+        symmetricKey = (await getRandom(256)).toString('hex')
+        encryptedSymmmetricKey = await signAndEncrypt(
+          symmetricKey,
+          [
+            account.pgp.publicKey,
+            match.user.pgpPublicKey
+          ].join('\n')
+        )
+      } else if (offer.type === 'ask') {
+        [symmetricKey, err] = await decryptSymmetricKey(
+          match.symmetricKeyEncrypted,
+          match.symmetricKeySignature,
+          match.user.pgpPublicKey
+        )
+        const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
+
+        if (err) error(err)
+
+        if (!paymentData) {
+          error('Error', err)
+          // TODO show payment Data form again
+          updateMessage({
+            msg: i18n('search.error.paymentDataMissing'),
+            level: 'ERROR',
+          })
+          return
+        }
+        delete paymentData.selected
+        encryptedPaymentData = await signAndEncryptSymmetric(
+          JSON.stringify(paymentData),
+          symmetricKey
+        )
+      }
+
+      // TODO add reintroduce hashed payment data
       [result, err] = await matchOffer({
         offerId: offer.id,
         matchingOfferId: match.offerId,
-        currency: Object.keys(match.prices)[0] as Currency,
+        currency: 'EUR', // TODO make dynamic
         paymentMethod: match.paymentMethods[0],
+        symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
+        symmetricKeySignature: encryptedSymmmetricKey?.signature,
+        paymentDataEncrypted: encryptedPaymentData?.encrypted,
+        paymentDataSignature: encryptedPaymentData?.signature,
       })
     } else if (offer.type === 'bid') {
       [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
@@ -119,6 +170,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     setOffer(route.params.offer)
+    setOfferId(route.params.offer.id)
     setUpdatePending(() => true)
   }, [route])
 
@@ -130,13 +182,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveAndUpdate({ ...offer, matches: matchedOffers })
   }, [matches])
 
-  useEffect(offer.id ? getOfferDetailsEffect({
-    offerId: offer.id,
+  useEffect(getOfferDetailsEffect({
+    offerId,
+    interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
       saveAndUpdate({
         ...offer,
         ...result,
       })
+
+      if (result.contractId) {
+        navigation.navigate('contract', { contractId: result.contractId })
+      }
       setUpdatePending(() => false)
     },
     onError: err => {
@@ -146,7 +203,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }) : () => {}, [offer.id])
+  }), [offerId])
 
   useEffect(!updatePending ? searchForPeersEffect({
     offer,
@@ -168,6 +225,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         saveAndUpdate({
           ...offer,
           funding: result.funding,
+          // TODO this should not be necessary after updating sell offer order
           returnAddress: result.returnAddress,
           depositAddress: offer.depositAddress || result.returnAddress,
         })
@@ -180,7 +238,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`pb-24 h-full flex`}>
+  return <View style={tw`h-full flex pb-24 px-6`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8`}>
         <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />
@@ -212,7 +270,13 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
             </View>
           </View>
-          : null
+          : <View style={tw`flex items-center mt-6`}>
+            <Button
+              title={i18n('goBackHome')}
+              wide={false}
+              onPress={() => navigation.navigate('home', {})}
+            />
+          </View>
         }
         <Pressable style={tw`mt-4`} onPress={cancelTrade}>
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>

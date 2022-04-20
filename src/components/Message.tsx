@@ -1,15 +1,14 @@
 
 import React, { ReactElement } from 'react'
-import { View, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
 import { Text } from '.'
 import tw from '../styles/tailwind'
-import { Level } from '../utils/message'
+import { Level } from '../contexts/message'
 
-interface MessageProps {
+type MessageProps = ComponentProps & {
   msg: string,
   level: Level,
-  style?: ViewStyle|ViewStyle[]
 }
 
 /**

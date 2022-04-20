@@ -12,21 +12,15 @@ type NavigationProps = {
   screen: string,
   back: () => void,
   next: () => void,
-  navigation: ProfileScreenNavigationProp,
   stepValid: boolean,
 }
 
-export const Navigation = ({ screen, back, next, navigation, stepValid }: NavigationProps): ReactElement => {
+export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): ReactElement => {
   const buttonText = screen === 'escrow' && !stepValid
     ? i18n('sell.escrow.fundToContinue')
     : /returnAddress|releaseAddress/u.test(screen)
       ? i18n('lookForAMatch')
-      : screen === 'search'
-        ? i18n('goBackHome')
-        : i18n('next')
-  const buttonClick = screen === 'search'
-    ? () => navigation.navigate('home', {})
-    : next
+      : i18n('next')
 
   return <View style={tw`w-full flex items-center`}>
     {!/main|escrow|search/u.test(screen)
@@ -38,8 +32,10 @@ export const Navigation = ({ screen, back, next, navigation, stepValid }: Naviga
     <Button
       disabled={!stepValid}
       wide={false}
-      onPress={stepValid ? buttonClick : () => {}}
+      onPress={stepValid ? next : () => {}}
       title={buttonText}
+      loading={screen === 'escrow' && !stepValid}
+      style={screen === 'escrow' && !stepValid ? tw`w-56` : {}}
     />
   </View>
 }

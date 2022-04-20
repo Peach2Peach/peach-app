@@ -38,5 +38,6 @@ export const loadAccount = async (password: string): Promise<Account> => {
   })
 
   await setAccount(acc)
+  info('Account loaded', account.publicKey)
   return account
 }

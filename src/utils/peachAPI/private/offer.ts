@@ -1,7 +1,7 @@
 import { API_URL } from '@env'
 import { parseResponse } from '..'
 import fetch from '../../fetch'
-import { getAccessToken } from './auth'
+import { getAccessToken } from './user'
 
 /**
  * @description Method to get offer
@@ -25,8 +25,8 @@ export const getOfferDetails = async (offerId: string): Promise<[BuyOffer|SellOf
  * @description Method to get offer of user
  * @returns GetOffersResponse
  */
-export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/offer`, {
+export const getOffers = async (): Promise<[(SellOffer|BuyOffer)[]|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/offers`, {
     headers: {
       Authorization: await getAccessToken(),
       'Accept': 'application/json',
@@ -35,7 +35,7 @@ export const getOffers = async (): Promise<[Offer[]|null, APIError|null]> => {
     method: 'GET'
   })
 
-  return await parseResponse<Offer[]>(response, 'getOffers')
+  return await parseResponse<(SellOffer|BuyOffer)[]>(response, 'getOffers')
 }
 
 type PostOfferProps = {
@@ -44,7 +44,6 @@ type PostOfferProps = {
   premium?: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
-  hashedPaymentData?: string,
   kyc: boolean,
   returnAddress?: string,
   releaseAddress?: string
@@ -67,7 +66,6 @@ export const postOffer = async ({
   premium = 0,
   currencies,
   paymentMethods,
-  hashedPaymentData,
   kyc,
   returnAddress,
   releaseAddress
@@ -85,7 +83,6 @@ export const postOffer = async ({
       premium,
       currencies,
       paymentMethods,
-      hashedPaymentData,
       kyc,
       returnAddress,
       releaseAddress
@@ -165,14 +162,17 @@ export const cancelOffer = async ({
   satsPerByte
 }: CancelOfferProps): Promise<[CancelOfferResponse|null, APIError|null]> => {
   const response = await fetch(
-    `${API_URL}/v1/offer/${offerId}/cancel?satsPerByte=${encodeURIComponent(satsPerByte)}`,
+    `${API_URL}/v1/offer/${offerId}/cancel`,
     {
       headers: {
         Authorization: await getAccessToken(),
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify({
+        satsPerByte,
+      }),
     }
   )
 
@@ -208,9 +208,14 @@ type MatchProps = {
   matchingOfferId: string,
   currency: Currency,
   paymentMethod: PaymentMethod,
+  symmetricKeyEncrypted?: string,
+  symmetricKeySignature?: string,
+  paymentDataEncrypted?: string,
+  paymentDataSignature?: string,
 }
 
 /**
+ * TODO: for KYC, send encrypted (using seller PGP key) KYC data
  * @description Method to match an offer
  * @returns MatchResponse
  */
@@ -218,7 +223,11 @@ export const matchOffer = async ({
   offerId,
   currency,
   paymentMethod,
-  matchingOfferId
+  matchingOfferId,
+  symmetricKeyEncrypted,
+  symmetricKeySignature,
+  paymentDataEncrypted,
+  paymentDataSignature,
 }: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: {
@@ -230,6 +239,10 @@ export const matchOffer = async ({
       matchingOfferId,
       currency,
       paymentMethod,
+      symmetricKeyEncrypted,
+      symmetricKeySignature,
+      paymentDataEncrypted,
+      paymentDataSignature,
     }),
     method: 'POST'
   })

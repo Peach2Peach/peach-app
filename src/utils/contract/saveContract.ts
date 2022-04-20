@@ -8,7 +8,7 @@ import { session } from '../session'
  * @param contract the contract
 */
 export const saveContract = (contract: Contract): void => {
-  info('saveContract', contract)
+  // info('saveContract', contract)
 
   if (contractExists(contract.id)) {
     const index = account.contracts.findIndex(c => c.id === contract.id)

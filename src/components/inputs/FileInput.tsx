@@ -2,14 +2,12 @@ import React, { ReactElement } from 'react'
 import {
   Pressable,
   View,
-  ViewStyle
 } from 'react-native'
 import { error } from '../../utils/log'
 import DocumentPicker from '../../utils/fileSystem/DocumentPicker'
 import tw from '../../styles/tailwind'
-import { Shadow } from 'react-native-shadow-2'
 import i18n from '../../utils/i18n'
-import { Text } from '..'
+import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 
 
@@ -42,11 +40,10 @@ const selectFile = async () => {
     content: null
   }
 }
-interface InputProps {
+type InputProps = ComponentProps & {
   fileName?: string|null,
   autoCorrect?: boolean
   isValid?: boolean,
-  style?: ViewStyle|ViewStyle[],
   errorMessage?: string[]
   onChange?: Function,
   secureTextEntry?: boolean

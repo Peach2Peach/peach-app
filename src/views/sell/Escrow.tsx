@@ -1,20 +1,20 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
-import LanguageContext from '../../components/inputs/LanguageSelect'
+import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
 import { saveOffer } from '../../utils/offer'
-import { MessageContext } from '../../utils/message'
+import { MessageContext } from '../../contexts/message'
 import createEscrowEffect from './effects/createEscrowEffect'
-import checkFundingStatusEffect from './effects/checkFundingStatusEffect'
+import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
-import { Title } from '../../components'
+import { Loading, Title } from '../../components'
 import { info } from '../../utils/log'
-import { ScrollView } from 'react-native-gesture-handler'
 import postOfferEffect from '../../effects/postOfferEffect'
+import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -26,7 +26,8 @@ const defaultFunding: FundingStatus = {
 export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-  const [escrow, setEscrow] = useState(offer.escrow || '')
+  const [updatePending, setUpdatePending] = useState(true)
+  const [escrow, setEscrow] = useState('')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
   const fundingAmount = Math.round(offer.amount)
@@ -52,7 +53,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       info('Created escrow', result)
       setEscrow(() => result.escrow)
       setFundingStatus(() => result.funding)
-
+      setUpdatePending(false)
       saveAndUpdate({
         ...offer,
         escrow: result.escrow,
@@ -70,6 +71,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       saveAndUpdate({
         ...offer,
         funding: result.funding,
+        // TODO this should not be necessary after updating sell offer order
         returnAddress: result.returnAddress,
         depositAddress: offer.depositAddress || result.returnAddress,
       })
@@ -106,16 +108,18 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
   useEffect(() => { // workaround to update escrow status if offer changes
     setStepValid(false)
     setEscrow(() => offer.escrow || '')
+    setUpdatePending(!offer.escrow)
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.id])
 
-  return <ScrollView>
+  return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
-      help={<EscrowHelp />}
-    />
-    {escrow && fundingStatus && !fundingError
-      ? <FundingView escrow={escrow} />
-      : <NoEscrowFound />
+      help={<EscrowHelp />} />
+    {updatePending
+      ? <Loading />
+      : escrow && fundingStatus && !fundingError
+        ? <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
+        : <NoEscrowFound />
     }
-  </ScrollView>
+  </View>
 }

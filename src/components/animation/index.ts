@@ -1,2 +1,2 @@
-export { FadeInView } from './FadeInView'
+export { Fade } from './Fade'
 export { Loading } from './Loading'

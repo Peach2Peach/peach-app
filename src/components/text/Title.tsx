@@ -3,7 +3,7 @@ import { Image, Pressable, View } from 'react-native'
 import Icon from '../Icon'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { OverlayContext } from '../../utils/overlay'
+import { OverlayContext } from '../../contexts/overlay'
 import { Text } from '.'
 
 type TitleProps = {
@@ -25,7 +25,7 @@ export const Title = ({ title, subtitle, help }: TitleProps): ReactElement => {
         <Text style={tw`text-center leading-6 text-grey-2 `}>
           {i18n(subtitle)}
         </Text>
-        {help // TODO open help
+        {help
           ? <Pressable style={tw`absolute -right-7`}
             onPress={() => updateOverlay({ content: help, showCloseButton: true })}>
             <Icon id="help" style={tw`w-5 h-5`} />

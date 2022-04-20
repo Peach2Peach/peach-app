@@ -1,7 +1,10 @@
+export { AvoidKeyboard } from './AvoidKeyboard'
+export { PeachScrollView } from './PeachScrollView'
 export { BitcoinAddress } from './bitcoin'
+
 export { Button } from './Button'
 export { Card } from './Card'
-export { FadeInView, Loading } from './animation'
+export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
 export { Header } from './Header'
@@ -18,7 +21,9 @@ export {
 } from './inputs'
 
 export { Match, Matches } from './matches'
+export { ShadowFixed as Shadow } from './ui/Shadow'
 
+export { paymentDetailTemplates } from './payment/'
 export { ScanQR } from './camera/ScanQR'
 export {
   BigTitle,
@@ -26,6 +31,7 @@ export {
   SatsFormat,
   Text,
   TextLink,
+  Timer,
   Title,
 } from './text'
 

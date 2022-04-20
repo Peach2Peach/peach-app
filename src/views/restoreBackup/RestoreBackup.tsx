@@ -1,22 +1,13 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import {
-  Image,
-  ScrollView,
-  View
-} from 'react-native'
-const { LinearGradient } = require('react-native-gradients')
 
-import tw from '../../styles/tailwind'
-import { account, updateSettings } from '../../utils/account'
+import { account } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../../utils/i18n'
-import { whiteGradient } from '../../utils/layout'
-import LanguageContext from '../../components/inputs/LanguageSelect'
-import { MessageContext } from '../../utils/message'
+import LanguageContext from '../../contexts/language'
+import { MessageContext } from '../../contexts/message'
 import AutoScan from './AutoScan'
 import Manual from './Manual'
 import Restored from './Restored'
-import Decrypt from './Decrypt'
 
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
@@ -30,13 +21,8 @@ type Props = {
 // 3. ask for password
 // 4. backup restored > continue button
 export default ({ navigation }: Props): ReactElement => {
-  const [file, setFile] = useState({
-    name: '',
-    content: ''
-  })
   const [autoScanComplete, setAutoScanComplete] = useState(true)
-  const [gotFile, setGotFile] = useState(false)
-
+  const [recoveredAccount, setRecoveredAccount] = useState(account)
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -48,13 +34,6 @@ export default ({ navigation }: Props): ReactElement => {
   }, [])
 
 
-  const onSuccess = () => {
-    updateSettings({
-      skipTutorial: true
-    })
-  }
-
-
   const onError = () => {
     updateMessage({
       msg: i18n('form.password.invalid'),
@@ -62,37 +41,13 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
 
-  return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <View style={tw`w-full h-8 mt-32 -mb-8 z-10`}>
-        <LinearGradient colorList={whiteGradient} angle={-90} />
-      </View>
-      <ScrollView>
-        <View style={tw`pb-8`}>
-          <View style={tw`flex items-center`}>
-            <Image source={require('../../../assets/favico/peach-icon-192.png')} />
-          </View>
-          {!autoScanComplete
-            ? <AutoScan />
-            : !gotFile
-              ? <Manual
-                file={file}
-                setFile={setFile}
-                submit={() => setGotFile(true)}
-              />
-              : !account.publicKey
-                ? <Decrypt
-                  encryptedAccount={file.content}
-                  onSuccess={onSuccess}
-                  onError={onError}
-                />
-                : <Restored navigation={navigation}/>
-          }
-        </View>
-      </ScrollView>
-      <View style={tw`w-full h-8 -mt-8`}>
-        <LinearGradient colorList={whiteGradient} angle={90} />
-      </View>
-    </View>
-  </View>
+  return !autoScanComplete
+    ? <AutoScan />
+    : !recoveredAccount.publicKey
+      ? <Manual
+        navigation={navigation}
+        onSuccess={(acc: Account) => setRecoveredAccount(acc)}
+        onError={onError}
+      />
+      : <Restored navigation={navigation} />
 }
