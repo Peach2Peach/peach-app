@@ -15,6 +15,12 @@ interface PremiumSliderProps {
 
 const onStartShouldSetResponder = () => true
 
+type ExtendedAnimatedValue = Animated.Value & {
+  x: {
+    _value: number
+  }
+}
+
 /**
  * @description Component to display premium slider
  * @param props Component properties
@@ -49,9 +55,11 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
   useEffect(() => {
     pan.extractOffset()
     pan.addListener((props) => {
+      if (props.value < 0) pan.setOffset(0)
+      if (props.value > trackWidth) pan.setOffset(trackWidth)
       if (onChange) {
         const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
-        const val = Math.round((boundedX / trackWidth * delta + min) * 10) / 10
+        const val = Math.round((boundedX / trackWidth * delta + min) * 2) / 2
         onChange(val)
       }
     })
@@ -80,7 +88,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
                   {
                     translateX: pan.interpolate({
                       inputRange: [0, trackWidth],
-                      outputRange: [-tw`w-10`.width / 2, trackWidth - (tw`w-6`.width as number / 2)],
+                      outputRange: [-tw`w-10`.width / 2, trackWidth - (tw`w-6`.width as number)],
                       extrapolate: 'clamp'
                     })
                   }
