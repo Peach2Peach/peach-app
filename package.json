@@ -19,9 +19,10 @@
     "style:update": "create-tailwind-rn && mv ./styles.json ./src/styles/styles.json",
     "build:android:testnet": "react-native bundle --reset-cache --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
     "build:android:mainnet": "react-native bundle --reset-cache --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleRelease",
-    "bundle:android": "react-native-version --never-amend && cd android && ./gradlew bundleRelease",
-    "bundle:ios:testnet": "react-native-version --never-amend && NODE_ENV=development react-native run-ios --configuration Release",
-    "bundle:ios:mainnet": "react-native-version --never-amend && NODE_ENV=production react-native run-ios --configuration Release",
+    "bundle:android": "cd android && ./gradlew bundleRelease",
+    "build:ios:testnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev true --bundle-output ios/main.jsbundle --assets-dest ios",
+    "build:ios:mainnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
+    "bump:version": "react-native-version --never-amend",
     "test": "jest --coverage",
     "test:ci": "jest --ci",
     "lint": "eslint ."
