@@ -4,6 +4,7 @@ import { ScrollView, ScrollViewProps, View } from 'react-native'
 
 type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
   scrollRef?: Ref<ScrollView>,
+  disable?: boolean,
 }
 
 /**
@@ -21,20 +22,24 @@ export const PeachScrollView = ({
   contentContainerStyle,
   horizontal = false,
   showsHorizontalScrollIndicator = true,
+  disable,
   scrollEventThrottle,
   onScroll,
   style
-}: PeachScrollViewProps): ReactElement =>
-  <ScrollView ref={scrollRef}
+}: PeachScrollViewProps): ReactElement => {
+  const onStartShouldSetResponder = () => !disable
+
+  return <ScrollView ref={scrollRef}
     horizontal={horizontal}
     onScroll={onScroll}
     scrollEventThrottle={scrollEventThrottle}
     showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
     contentContainerStyle={contentContainerStyle || {}}
     style={style || {}}>
-    <View onStartShouldSetResponder={() => true}>
+    <View onStartShouldSetResponder={onStartShouldSetResponder}>
       {children}
     </View>
   </ScrollView>
+}
 
 export default PeachScrollView
