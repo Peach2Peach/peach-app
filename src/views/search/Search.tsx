@@ -257,26 +257,28 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`h-full flex pb-24 px-6`}>
+  return <View style={tw`h-full flex pb-24`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8 pt-12`}>
-        {!matches.length
-          ? <BigTitle title={i18n('search.searchingForAPeer')} />
-          : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
-            {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
-          </Headline>
-        }
-        {offer.type === 'ask' && !matches.length
-          ? <SearchingForBuyOffers />
-          : null
-        }
-        {matches.length
-          ? <Text style={tw`text-grey-2 text-center -mt-2`}>
-            {i18n(offer.type === 'bid' ? 'search.buyOffer' : 'search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)}</Text> {i18n('currency.SATS')} { // eslint-disable-line max-len
-            }
-          </Text>
-          : null
-        }
+        <View style={tw`px-6`}>
+          {!matches.length
+            ? <BigTitle title={i18n('search.searchingForAPeer')} />
+            : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
+              {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
+            </Headline>
+          }
+          {offer.type === 'ask' && !matches.length
+            ? <SearchingForBuyOffers />
+            : null
+          }
+          {matches.length
+            ? <Text style={tw`text-grey-2 text-center -mt-2`}>
+              {i18n(offer.type === 'bid' ? 'search.buyOffer' : 'search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)}</Text> {i18n('currency.SATS')} { // eslint-disable-line max-len
+              }
+            </Text>
+            : null
+          }
+        </View>
         {matches.length
           ? <View>
             <Matches style={tw`mt-9`} offer={offer} matches={matches}
