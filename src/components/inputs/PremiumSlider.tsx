@@ -51,7 +51,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
     pan.addListener((props) => {
       if (onChange) {
         const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
-        const val = Math.round((boundedX / trackWidth * delta + min) * 10) / 10
+        const val = Math.round((boundedX / trackWidth * delta + min) * 2) / 2
         onChange(val)
       }
     })
