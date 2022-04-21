@@ -125,6 +125,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       // TODO add reintroduce hashed payment data
       // TODO handle 404 error (match already taken)
+      console.log(selectedCurrency, selectedPaymentMethod, match.paymentMethods, match.prices);
       [result, err] = await matchOffer({
         offerId: offer.id, matchingOfferId: match.offerId,
         currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
