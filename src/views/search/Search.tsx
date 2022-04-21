@@ -257,7 +257,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`h-full flex pb-24`}>
+  return <View style={tw`h-full flex pb-24 px-6`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8 pt-12`}>
         {!matches.length

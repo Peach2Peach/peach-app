@@ -54,8 +54,10 @@ export const SatsFormat = ({ sats, format = 'inline', color }: SatsFormat): Reac
       </Text>
     </Text>
     : <View style={tw`flex-row justify-start items-center`}>
-      <Text style={tw`font-mono text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={tw`font-mono`}>{finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}</Text>
+      <Text style={tw`font-mono text-grey-3`}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={tw`font-mono text-black-1`}>
+        {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
+      </Text>
     </View>
 }
 
