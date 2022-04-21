@@ -195,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  return <View style={tw`h-full flex pb-24 px-6`}>
+  return <View style={tw`h-full flex pb-24`}>
     <View style={[
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},

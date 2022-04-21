@@ -55,6 +55,7 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
     </Fade>
     <PeachScrollView horizontal={true} showsHorizontalScrollIndicator={false}
       onScroll={onScroll}
+      disable={items.length === 1}
       scrollEventThrottle={128}
       style={tw`max-w-full`}
     >

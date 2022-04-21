@@ -13,6 +13,8 @@ interface PremiumSliderProps {
   onChange?: (value: number) => void
 }
 
+const onStartShouldSetResponder = () => true
+
 /**
  * @description Component to display premium slider
  * @param props Component properties
@@ -70,7 +72,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
         </View>
         <View style={tw`h-0 mx-3 flex-row items-center mt-2 border-2 border-grey-4 rounded`}
           onLayout={event => trackWidth = event.nativeEvent.layout.width}>
-          <Animated.View onStartShouldSetResponder={() => true}
+          <Animated.View onStartShouldSetResponder={onStartShouldSetResponder}
             style={[
               tw`z-10 w-10 flex items-center`,
               {

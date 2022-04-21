@@ -16,6 +16,8 @@ type MatchProps = ComponentProps & {
 type SliderArrowProps = {
   onPress: Function
 }
+const onStartShouldSetResponder = () => true
+
 const PrevButton = ({ onPress }: SliderArrowProps) =>
   <Pressable onPress={(e) => onPress(e)} style={tw`absolute left-2 z-10`}>
     <Icon id="sliderPrev" style={tw`w-4 h-4`}/>
@@ -44,13 +46,13 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       ref={$carousel}
       data={matches}
       containerCustomStyle={[tw`overflow-visible`]}
-      sliderWidth={width}
-      itemWidth={width - 80}
-      inactiveSlideScale={0.9}
-      inactiveSlideOpacity={0.7}
+      sliderWidth={width} itemWidth={width - 80}
+      inactiveSlideScale={0.9} inactiveSlideOpacity={0.7}
       activeSlideAlignment="center"
+      lockScrollWhileSnapping={true}
+      shouldOptimizeUpdates={true}
       onSnapToItem={i => onChange(i, matches[i].selectedCurrency, matches[i].selectedPaymentMethod)}
-      renderItem={({ item }) => <View style={tw`px-2`} onStartShouldSetResponder={() => true}>
+      renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`-mx-4 px-4`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}
     />

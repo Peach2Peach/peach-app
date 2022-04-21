@@ -9,7 +9,7 @@ type MatchDisclaimerProps = {
 }
 
 export const MatchDisclaimer = ({ matched }: MatchDisclaimerProps): ReactElement =>
-  <View style={tw`mt-1`}>
+  <View style={tw`mt-1 h-10`}>
     <Text style={tw`text-center text-xs leading-6`}>
       {matched ? i18n('search.matchAsManyAsYouWant.1') : ''}
     </Text>
