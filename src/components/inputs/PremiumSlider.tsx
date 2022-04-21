@@ -80,7 +80,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
                   {
                     translateX: pan.interpolate({
                       inputRange: [0, trackWidth],
-                      outputRange: [-tw`w-10`.width / 2, trackWidth - (tw`w-6`.width as number / 2)],
+                      outputRange: [-tw`w-10`.width / 2, trackWidth - (tw`w-6`.width as number)],
                       extrapolate: 'clamp'
                     })
                   }
