@@ -130,6 +130,8 @@ declare type Match = {
   user: User,
   offerId: string,
   prices: Pricebook,
+  matchedPrice: number | null,
+  premium: number,
   selectedCurrency: Currency | null,
   paymentMethods: PaymentMethod[],
   selectedPaymentMethod: PaymentMethod | null,
@@ -145,6 +147,7 @@ declare type GetMatchesResponse = {
 }
 declare type MatchResponse = {
   success: true,
+  matchedPrice?: number,
   contractId?: string,
 }
 declare type GetContractResponse = Contract

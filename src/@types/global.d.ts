@@ -171,7 +171,8 @@ declare type OverlayState = {
 declare type BitcoinContextType = {
   currency: Currency,
   price: number,
-  satsPerUnit: number
+  satsPerUnit: number,
+  prices: Pricebook,
 }
 
 declare type Session = {

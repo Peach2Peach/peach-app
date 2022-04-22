@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
@@ -8,13 +8,13 @@ import i18n from '../../utils/i18n'
 import { mildShadow, mildShadowOrange, mildShadowRed } from '../../utils/layout'
 import LanguageContext from '../../contexts/language'
 import { Selector } from '../inputs'
-import { thousands } from '../../utils/string'
+import { padString, thousands } from '../../utils/string'
 import Medal from '../medal'
 import { unique } from '../../utils/array'
-import { SATSINBTC } from '../../constants'
 import Icon from '../Icon'
 import { ExtraMedals } from './components/ExtraMedals'
-import { error } from '../../utils/log'
+import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
+import { SATSINBTC } from '../../constants'
 
 type MatchProps = ComponentProps & {
   match: Match,
@@ -40,14 +40,15 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
     match.selectedPaymentMethod || match.paymentMethods[0]
   )
 
-  let price = 0
-  if (match.prices[selectedCurrency]) {
-    // having 0 as a fallback while checking the value looks strange, but it's just to satisfy TypeScript
-    price = (match.prices[selectedCurrency] || 0) / (offer.amount / SATSINBTC)
-  } else {
-    error('Price not defined for match', match)
-  }
-
+  const matchPrice = match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency] as number
+  const price = (matchPrice) / (offer.amount / SATSINBTC)
+  let displayPrice = String(match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency])
+  displayPrice = `${(displayPrice).split('.')[0]}.${padString({
+    string: (displayPrice).split('.')[1],
+    length: 2,
+    char: '0',
+    side: 'right'
+  })}`
   const setCurrency = (currency: Currency) => {
     match.selectedCurrency = selectedCurrency
     setSelectedCurrency(currency)
@@ -95,10 +96,16 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
       <HorizontalLine style={tw`mt-4`}/>
       <View style={tw`flex-row justify-center mt-3`}>
         <Text style={tw`font-baloo text-xl leading-xl text-peach-1`}>
-          {i18n(`currency.format.${selectedCurrency}`, String(match.prices[selectedCurrency]))}
+          {i18n(
+            `currency.format.${selectedCurrency}`,
+            displayPrice
+          )}
         </Text>
         <Text style={tw`text-lg leading-lg ml-2`}>
-          {i18n('pricePerBitcoin', i18n(`currency.format.${selectedCurrency}`, thousands(Math.round(price))))}
+          {i18n(
+            'pricePerBitcoin',
+            i18n(`currency.format.${selectedCurrency}`, thousands(Math.round(price)))
+          )}
         </Text>
       </View>
       <HorizontalLine style={tw`mt-3`}/>

@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
@@ -43,6 +43,11 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
   const onBeforeSnapToItem = (i: number) => {
     onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
   }
+
+  useEffect(() => {
+    if (!matches.length) return
+    onChange(null, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
+  }, [])
 
   return <View style={[tw`flex-row items-center justify-center`, style]}>
     {matches.length > 1
