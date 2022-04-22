@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useEffect, useRef } from 'react'
+import React, { ReactElement, useRef } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
@@ -40,10 +40,9 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
 
-  useEffect(() => {
-    if (!matches.length) return
-    onChange(null, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
-  }, [])
+  const onBeforeSnapToItem = (i: number) => {
+    onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
+  }
 
   return <View style={[tw`flex-row items-center justify-center`, style]}>
     {matches.length > 1
@@ -59,7 +58,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       activeSlideAlignment="center"
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}
-      onSnapToItem={i => onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))}
+      onBeforeSnapToItem={onBeforeSnapToItem}
       renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`-mx-4 px-4`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}

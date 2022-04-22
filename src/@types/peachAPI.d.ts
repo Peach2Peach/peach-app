@@ -41,7 +41,7 @@ declare type Buckets = {
 }
 declare type Currency = 'EUR' | 'CHF' | 'GBP'
 declare type Pricebook = {
-  [key in Currency]: number
+  [key in Currency]?: number
 }
 declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
 declare type PaymentMethodInfo = {
