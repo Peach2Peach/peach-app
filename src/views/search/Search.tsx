@@ -329,15 +329,15 @@ export default ({ route, navigation }: Props): ReactElement => {
                 <MatchDisclaimer matched={currentMatch?.matched}/>
               </View>
               : <View style={tw`flex-row justify-center mt-6`}>
-                <Button
+                {/* <Button
                   title={i18n('search.declineMatch')}
                   wide={false}
                   secondary={true}
                   disabled={currentMatch?.matched}
                   onPress={_decline}
-                />
+                /> */}
                 <Button
-                  style={tw`ml-6`}
+                  // style={tw`ml-6`}
                   title={i18n('search.acceptMatch')}
                   wide={false}
                   disabled={currentMatch?.matched}
