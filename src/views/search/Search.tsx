@@ -229,14 +229,15 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(!updatePending ? searchForPeersEffect({
     offer,
     onSuccess: result => {
-      setMatches(() => {
-        result = result.map(m => ({
-          ...m,
-          matched: offer.matches && offer.matches.indexOf(m.offerId) !== -1
-        }))
-
-        return matches.concat(result).filter(unique('offerId'))
-      })
+      setMatches(() => matches.concat(result)
+        .filter(unique('offerId'))
+        .filter((match, i) => {
+          // don't mess with the current slide position by removing previous slides
+          if (i < currentMatchIndex + 1) return true
+          // otherwise, remove later slides if they are not present in results
+          return result.some(m => m.offerId === match.offerId)
+        })
+      )
     },
     onError: err => updateMessage({ msg: i18n(err.error), level: 'ERROR' }),
   }) : () => {}, [updatePending])
