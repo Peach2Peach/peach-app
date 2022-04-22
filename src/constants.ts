@@ -1,8 +1,14 @@
 import { unique } from './utils/array'
+import { version } from '../package.json'
 
 export const SATSINBTC = 100000000
+
 export let PEACHFEE = 1.5
 export const setPeachFee = (fee: number) => PEACHFEE = fee
+
+export const APPVERSION = version
+export let MINAPPVERSION = version
+export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver
 
 export let CURRENCIES: Currency[] = [
   'EUR',

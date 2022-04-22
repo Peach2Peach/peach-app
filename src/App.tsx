@@ -42,6 +42,8 @@ import events from './init/events'
 import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
+import { APPVERSION, MINAPPVERSION } from './constants'
+import { compatibilityCheck } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -152,6 +154,9 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef)
+      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+        updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
+      }
     })()
   }, [])
 

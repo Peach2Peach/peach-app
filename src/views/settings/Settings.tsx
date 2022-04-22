@@ -9,8 +9,8 @@ import LanguageContext from '../../contexts/language'
 import { Button, PeachScrollView, Text, Title } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
 import { API_URL, NETWORK } from '@env'
+import { APPVERSION } from '../../constants'
 
-import { version } from '../../../package.json'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -24,7 +24,7 @@ export default ({ navigation }: Props): ReactElement => {
     <PeachScrollView contentContainerStyle={tw`px-6`}>
       <Title title={'Settings'} />
       <Text style={tw`text-sm text-grey-2`}>
-        App version: {version}
+        App version: {APPVERSION}
       </Text>
       <Text style={tw`text-sm text-grey-2`}>
         API URL: {API_URL}
