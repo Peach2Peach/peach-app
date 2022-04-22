@@ -33,12 +33,10 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
   useContext(LanguageContext)
 
   const [selectedCurrency, setSelectedCurrency] = useState(
-    match.selectedCurrency
-    || Object.keys(match.prices)[0] as Currency
+    match.selectedCurrency || Object.keys(match.prices)[0] as Currency
   )
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
-    match.selectedPaymentMethod
-    || match.paymentMethods[0]
+    match.selectedPaymentMethod || match.paymentMethods[0]
   )
   const price = match.prices[selectedCurrency] / (offer.amount / SATSINBTC)
 
@@ -53,9 +51,6 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
     onChange(null, selectedCurrency, paymentMethod)
   }
 
-  useEffect(() => {
-    onChange(null, selectedCurrency, selectedPaymentMethod)
-  }, [])
   return <Shadow {...(match.matched ? mildShadowOrange : mildShadow)} viewStyle={[
     tw`w-full border border-grey-4 rounded-md bg-white-1`,
     match.matched ? tw`border-peach-1` : {},

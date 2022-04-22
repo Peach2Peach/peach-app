@@ -72,33 +72,36 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
   }
 
   return <View style={[
-    tw`z-10 rounded`,
+    tw`z-10 rounded bg-white-1`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
     <Shadow {...(isOpen ? mildShadow : innerShadow)}
       viewStyle={[
-        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded bg-white-1`,
+        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded `,
+        isOpen ? tw`bg-white-1` : {},
         { width, height },
       ]}>
-      {isOpen
-        ? [
-          <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
-            onPress={toggle}>
-            {selectedItem?.display(false)}
-          </Pressable>,
-          items
-            .map(item => <Pressable
-              key={item.value}
-              style={tw`h-10 flex justify-center`}
-              onPress={() => select(item)}>
-              {item.display(isOpen)}
-            </Pressable>
-            )
-        ]
-        : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
-          {selectedItem.display(isOpen)}
-        </Pressable>
-      }
+      <View>
+        {isOpen
+          ? [
+            <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
+              onPress={toggle}>
+              {selectedItem?.display(false)}
+            </Pressable>,
+            items
+              .map(item => <Pressable
+                key={item.value}
+                style={tw`h-10 flex justify-center`}
+                onPress={() => select(item)}>
+                {item.display(isOpen)}
+              </Pressable>
+              )
+          ]
+          : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
+            {selectedItem.display(isOpen)}
+          </Pressable>
+        }
+      </View>
     </Shadow>
     <Pressable style={tw` absolute right-2`} onPress={toggle}>
       <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
