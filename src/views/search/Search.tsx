@@ -181,7 +181,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const _toggleMatch = () => currentMatch.matched ? _unmatch(currentMatch) : _match(currentMatch)
 
   // const _decline = () => {
-    // alert('todo')
+  // alert('todo')
   // }
   const confirmCancelTrade = async () => {
     if (!offer.id) return
