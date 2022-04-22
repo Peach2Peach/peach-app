@@ -40,7 +40,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
 
-  const onSnapToItem = (i: number) => {
+  const onBeforeSnapToItem = (i: number) => {
     onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
   }
 
@@ -58,7 +58,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       activeSlideAlignment="center"
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}
-      onSnapToItem={onSnapToItem}
+      onBeforeSnapToItem={onBeforeSnapToItem}
       renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`-mx-4 px-4`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}
