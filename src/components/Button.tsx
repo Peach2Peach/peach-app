@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'
-import { mildShadowOrange } from '../utils/layout'
+import { mildShadowOrange, noShadow } from '../utils/layout'
 
 type ButtonProps = ComponentProps & {
   title: string,
@@ -47,7 +47,7 @@ export const Button = ({
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
-  return <Shadow {...mildShadowOrange} viewStyle={[
+  return <Shadow {...(!secondary && !tertiary ? mildShadowOrange : noShadow)} viewStyle={[
     tw`rounded`,
     secondary ? tw`bg-white-2 border border-peach-1 `
       : tertiary ? tw`border border-white-2 `

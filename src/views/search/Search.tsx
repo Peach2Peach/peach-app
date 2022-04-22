@@ -68,77 +68,95 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   // eslint-disable-next-line max-statements, max-lines-per-function
-  const toggleMatch = async (match: Match) => {
-    let symmetricKey: string
-    let result: any
-    let err
+  const _match = async (match: Match) => {
+    let encryptedSymmmetricKey
+    let encryptedPaymentData
     let paymentData
 
     if (!offer || !offer.id) return
 
-    if (!match.matched) {
-      let encryptedSymmmetricKey
-      let encryptedPaymentData
+    if (!selectedCurrency || !selectedPaymentMethod) {
+      error(
+        'Match data missing values.',
+        `selectedCurrency: ${selectedCurrency}`,
+        `selectedPaymentMethod: ${selectedPaymentMethod}`
+      )
+      return
+    }
 
-      if (!selectedCurrency || !selectedPaymentMethod) {
-        error(
-          'Match data missing values.',
-          `selectedCurrency: ${selectedCurrency}`,
-          `selectedPaymentMethod: ${selectedPaymentMethod}`
-        )
+    if (offer.type === 'bid') {
+      encryptedSymmmetricKey = await signAndEncrypt(
+        (await getRandom(256)).toString('hex'),
+        [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
+      )
+    } else if (offer.type === 'ask') {
+      const [symmetricKey, decryptErr] = await decryptSymmetricKey(
+        match.symmetricKeyEncrypted, match.symmetricKeySignature,
+        match.user.pgpPublicKey
+      )
+
+      if (decryptErr) error(decryptErr)
+
+      paymentData = offer.paymentData?.find(data =>
+        data.type === match.paymentMethods[0]
+      ) as Omit<PaymentData, 'id' | 'type'>
+
+      if (!paymentData) { // TODO show payment Data form again
+        error('Payment data could not be found for offer', offer.id)
+        updateMessage({
+          msg: i18n('search.error.paymentDataMissing'),
+          level: 'ERROR',
+        })
         return
       }
 
-      if (offer.type === 'bid') {
-        encryptedSymmmetricKey = await signAndEncrypt(
-          (await getRandom(256)).toString('hex'),
-          [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
-        )
-      } else if (offer.type === 'ask') {
-        [symmetricKey, err] = await decryptSymmetricKey(
-          match.symmetricKeyEncrypted, match.symmetricKeySignature,
-          match.user.pgpPublicKey
-        )
+      delete paymentData.selected
+      delete paymentData.id
+      delete paymentData.type
 
-        if (err) error(err)
-
-        paymentData = offer.paymentData?.find(data =>
-          data.type === match.paymentMethods[0]
-        ) as Omit<PaymentData, 'id' | 'type'>
-
-        if (!paymentData) { // TODO show payment Data form again
-          error('Error', err)
-          updateMessage({
-            msg: i18n('search.error.paymentDataMissing'),
-            level: 'ERROR',
-          })
-          return
-        }
-
-        delete paymentData.selected
-        delete paymentData.id
-        delete paymentData.type
-
-        encryptedPaymentData = await signAndEncryptSymmetric(
-          JSON.stringify(paymentData),
-          symmetricKey
-        )
-      }
-
-      // TODO add reintroduce hashed payment data
-      // TODO handle 404 error (match already taken)
-      [result, err] = await matchOffer({
-        offerId: offer.id, matchingOfferId: match.offerId,
-        currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
-        symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
-        symmetricKeySignature: encryptedSymmmetricKey?.signature,
-        paymentDataEncrypted: encryptedPaymentData?.encrypted,
-        paymentDataSignature: encryptedPaymentData?.signature,
-        hashedPaymentData: paymentData ? sha256(JSON.stringify(paymentData)) : undefined,
-      })
-    } else if (offer.type === 'bid') {
-      [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
+      encryptedPaymentData = await signAndEncryptSymmetric(
+        JSON.stringify(paymentData),
+        symmetricKey
+      )
     }
+
+    // TODO handle 404 error (match already taken)
+    const [result, err] = await matchOffer({
+      offerId: offer.id, matchingOfferId: match.offerId,
+      currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
+      symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
+      symmetricKeySignature: encryptedSymmmetricKey?.signature,
+      paymentDataEncrypted: encryptedPaymentData?.encrypted,
+      paymentDataSignature: encryptedPaymentData?.signature,
+      hashedPaymentData: paymentData ? sha256(JSON.stringify(paymentData)) : undefined,
+    })
+
+    if (result) {
+      setMatches(() => matches.map(m => {
+        if (m.offerId !== match.offerId) return m
+        m.matched = true
+        if (result.matchedPrice) m.matchedPrice = result.matchedPrice
+        return m
+      }))
+
+      if (offer.type === 'ask') {
+        saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
+
+        if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
+      }
+    } else {
+      error('Error', err)
+      updateMessage({
+        msg: i18n(err?.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
+  }
+
+  const _unmatch = async (match: Match) => {
+    if (!offer || !offer.id) return
+
+    const [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
 
     if (result) {
       setMatches(() => matches.map(m => ({
@@ -160,6 +178,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
+  const _toggleMatch = () => currentMatch.matched ? _unmatch(currentMatch) : _match(currentMatch)
+
+  const _decline = () => {
+    alert('todo')
+  }
   const confirmCancelTrade = async () => {
     if (!offer.id) return
 
@@ -237,6 +260,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           // otherwise, remove later slides if they are not present in results
           return result.some(m => m.offerId === match.offerId)
         })
+        .map(match => {
+          const update = result.find(m => m.offerId === match.offerId)
+          match.prices = (update || match).prices
+          return match
+        })
       )
     },
     onError: err => updateMessage({ msg: i18n(err.error), level: 'ERROR' }),
@@ -289,16 +317,34 @@ export default ({ route, navigation }: Props): ReactElement => {
         {matches.length
           ? <View>
             <Matches style={tw`mt-9`} offer={offer} matches={matches}
-              onChange={setMatchingOptions} toggleMatch={toggleMatch}/>
-            <View style={tw`flex items-center mt-6`}>
-              <Button
-                title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
-                wide={false}
-                disabled={currentMatch?.matched}
-                onPress={() => toggleMatch(currentMatch)}
-              />
-              <MatchDisclaimer matched={currentMatch?.matched}/>
-            </View>
+              onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
+            {offer.type === 'bid'
+              ? <View style={tw`flex items-center mt-6`}>
+                <Button
+                  title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
+                  wide={false}
+                  disabled={currentMatch?.matched}
+                  onPress={_toggleMatch}
+                />
+                <MatchDisclaimer matched={currentMatch?.matched}/>
+              </View>
+              : <View style={tw`flex-row justify-center mt-6`}>
+                <Button
+                  title={i18n('search.declineMatch')}
+                  wide={false}
+                  secondary={true}
+                  disabled={currentMatch?.matched}
+                  onPress={_decline}
+                />
+                <Button
+                  style={tw`ml-6`}
+                  title={i18n('search.acceptMatch')}
+                  wide={false}
+                  disabled={currentMatch?.matched}
+                  onPress={() => _match(currentMatch)}
+                />
+              </View>
+            }
           </View>
           : <View style={tw`flex items-center mt-6`}>
             <Button
