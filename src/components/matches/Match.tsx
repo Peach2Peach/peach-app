@@ -14,6 +14,7 @@ import { unique } from '../../utils/array'
 import { SATSINBTC } from '../../constants'
 import Icon from '../Icon'
 import { ExtraMedals } from './components/ExtraMedals'
+import { error } from '../../utils/log'
 
 type MatchProps = ComponentProps & {
   match: Match,
@@ -38,7 +39,14 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     match.selectedPaymentMethod || match.paymentMethods[0]
   )
-  const price = match.prices[selectedCurrency] / (offer.amount / SATSINBTC)
+
+  let price = 0
+  if (match.prices[selectedCurrency]) {
+    // having 0 as a fallback while checking the value looks strange, but it's just to satisfy TypeScript
+    price = (match.prices[selectedCurrency] || 0) / (offer.amount / SATSINBTC)
+  } else {
+    error('Price not defined for match', match)
+  }
 
   const setCurrency = (currency: Currency) => {
     match.selectedCurrency = selectedCurrency

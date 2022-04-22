@@ -29,6 +29,7 @@ import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import MatchDisclaimer from './components/MatchDisclaimer'
 import SearchingForBuyOffers from './components/SearchingForBuyOffers'
+import { unique } from '../../utils/array'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -44,7 +45,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [currentMatch, setCurrentMatch] = useState(0)
+  const [currentMatchIndex, setCurrentMatchIndex] = useState(0)
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>()
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>()
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
@@ -52,6 +53,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [updatePending, setUpdatePending] = useState(true)
 
   const [matches, setMatches] = useState<Match[]>([])
+  const currentMatch = matches[currentMatchIndex]
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
     setOffer(offerData)
@@ -60,7 +62,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const setMatchingOptions = (match?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => {
-    if (typeof match === 'number') setCurrentMatch(match)
+    if (typeof match === 'number') setCurrentMatchIndex(match)
     if (currency) setSelectedCurrency(currency)
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
@@ -195,7 +197,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [route])
 
   useEffect(() => {
-    if (!offer.id) return
+    if (!offer.id || !matches.length) return
 
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
 
@@ -227,10 +229,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(!updatePending ? searchForPeersEffect({
     offer,
     onSuccess: result => {
-      setMatches(() => result.map(m => ({
-        ...m,
-        matched: offer.matches && offer.matches.indexOf(m.offerId) !== -1
-      })))
+      setMatches(() => {
+        result = result.map(m => ({
+          ...m,
+          matched: offer.matches && offer.matches.indexOf(m.offerId) !== -1
+        }))
+
+        return matches.concat(result).filter(unique('offerId'))
+      })
     },
     onError: err => updateMessage({ msg: i18n(err.error), level: 'ERROR' }),
   }) : () => {}, [updatePending])
@@ -285,12 +291,12 @@ export default ({ route, navigation }: Props): ReactElement => {
               onChange={setMatchingOptions} toggleMatch={toggleMatch}/>
             <View style={tw`flex items-center mt-6`}>
               <Button
-                title={i18n(matches[currentMatch].matched ? 'search.waitingForSeller' : 'search.matchOffer')}
+                title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 wide={false}
-                disabled={matches[currentMatch].matched}
-                onPress={() => toggleMatch(matches[currentMatch])}
+                disabled={currentMatch?.matched}
+                onPress={() => toggleMatch(currentMatch)}
               />
-              <MatchDisclaimer matched={matches[currentMatch].matched}/>
+              <MatchDisclaimer matched={currentMatch?.matched}/>
             </View>
           </View>
           : <View style={tw`flex items-center mt-6`}>
