@@ -25,10 +25,12 @@ export const recoverAccount = async ({
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     await setSession({ password })
+    // console.log('XOXOXO', result)
 
     info('Get offers')
     const [result, err] = await getOffers()
-    if (result) {
+    console.log('KOKOKO', result, err)
+    if (result?.length) {
       info(`Got ${result.length} offers`)
       result.map(offer => saveOffer(offer, true))
     } else if (err) {

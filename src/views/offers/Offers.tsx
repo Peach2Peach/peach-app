@@ -65,6 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(getOffersEffect({
     onSuccess: result => {
+      if (!result?.length) return
       result.map(offer => saveOffer(offer, true))
       if (session.password) saveAccount(getAccount(), session.password)
 
