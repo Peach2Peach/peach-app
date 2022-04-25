@@ -13,7 +13,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		31885939C8A1473685945107 /* Lato Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */; };
 		40009D2A5A35DC3C72532C6E /* libPods-peach.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD954848B14C5B14201D5990 /* libPods-peach.a */; };
-		675514852812B90200A17B6C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 675514812812AA1D00A17B6C /* main.jsbundle */; };
 		675514872812BA4E00A17B6C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
 		72F6E312831A88954A4182A6 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */; };
@@ -282,7 +281,6 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				675514872812BA4E00A17B6C /* assets in Resources */,
-				675514852812B90200A17B6C /* main.jsbundle in Resources */,
 				FCEA11EE7BAC4C90833AE775 /* B612 Mono Regular.ttf in Resources */,
 				7D1F2680BED84AE1B7B6343B /* Lato Bold.ttf in Resources */,
 				31885939C8A1473685945107 /* Lato Regular.ttf in Resources */,
