@@ -29,7 +29,6 @@ export const recoverAccount = async ({
 
     info('Get offers')
     const [result, err] = await getOffers()
-    console.log('KOKOKO', result, err)
     if (result?.length) {
       info(`Got ${result.length} offers`)
       result.map(offer => saveOffer(offer, true))
