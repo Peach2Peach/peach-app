@@ -1,4 +1,4 @@
-import { BIP32Interface } from 'bip32'
+import { BIP32Interface } from 'bitcoinjs-lib'
 
 const accessToken: AccessToken = {
   expiry: (new Date()).getTime() + 1000 * 60 * 60,
