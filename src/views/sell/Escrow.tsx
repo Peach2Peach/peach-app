@@ -92,7 +92,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       return
     }
 
-    if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
+    if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
 
       if (!offer.published) saveAndUpdate({ ...offer, published: true })

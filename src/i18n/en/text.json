@@ -45,6 +45,7 @@
   "sell.kyc.id": "Government ID scan",
   "sell.escrow.subtitle": "Send $0 sats to the\nescrow to publish your offer",
   "sell.escrow.fundToContinue": "Fund to continue",
+  "sell.escrow.waitingForConfirmation": "Waiting for confirmation",
   "escrow.help.title": "Peach escrow",
   "escrow.help.description.intro": "The amount you send here consists of:",
   "escrow.help.description.1": "1. The amount of sats you’re selling",
