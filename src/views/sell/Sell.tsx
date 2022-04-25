@@ -223,7 +223,8 @@ export default ({ route, navigation }: Props): ReactElement => {
             <Navigation
               screen={currentScreen.id}
               back={back} next={next}
-              stepValid={stepValid} />
+              stepValid={stepValid}
+              offer={offer} />
           </View>
           : null
         }
@@ -237,7 +238,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Navigation
           screen={currentScreen.id}
           back={back} next={next}
-          stepValid={stepValid} />
+          stepValid={stepValid}
+          offer={offer} />
       </View>
       : null
     }

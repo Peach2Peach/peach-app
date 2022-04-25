@@ -13,14 +13,17 @@ type NavigationProps = {
   back: () => void,
   next: () => void,
   stepValid: boolean,
+  offer?: BuyOffer|SellOffer,
 }
 
-export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): ReactElement => {
-  const buttonText = screen === 'escrow' && !stepValid
-    ? i18n('sell.escrow.fundToContinue')
-    : /returnAddress|releaseAddress/u.test(screen)
-      ? i18n('lookForAMatch')
-      : i18n('next')
+export const Navigation = ({ screen, back, next, stepValid, offer }: NavigationProps): ReactElement => {
+  let buttonText = i18n('next')
+  if (offer && offer.type === 'ask' && screen === 'escrow' && !stepValid) {
+    buttonText = offer.funding?.status === 'MEMPOOL'
+      ? i18n('sell.escrow.waitingForConfirmation')
+      : i18n('sell.escrow.fundToContinue')
+  }
+  if (/returnAddress|releaseAddress/u.test(screen)) buttonText = i18n('lookForAMatch')
 
   return <View style={tw`w-full flex items-center`}>
     {!/main|escrow|search/u.test(screen)
@@ -35,7 +38,9 @@ export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): 
       onPress={stepValid ? next : () => {}}
       title={buttonText}
       loading={screen === 'escrow' && !stepValid}
-      style={screen === 'escrow' && !stepValid ? tw`w-56` : {}}
+      style={screen === 'escrow' && !stepValid && offer && offer.type === 'ask'
+        ? offer.funding?.status === 'MEMPOOL' ? tw`w-72` : tw`w-56`
+        : {}}
     />
   </View>
 }
