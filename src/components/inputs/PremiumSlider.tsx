@@ -5,7 +5,7 @@ import Icon from '../Icon'
 import { mildShadow } from '../../utils/layout'
 import { Shadow, Text } from '..'
 
-interface PremiumSliderProps {
+type PremiumSliderProps = ComponentProps & {
   value: number,
   min: number,
   max: number,
@@ -26,7 +26,7 @@ const onStartShouldSetResponder = () => true
  * @param [props.onChange] on change handler
  * @example
  */
-export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSliderProps): ReactElement => {
+export const PremiumSlider = ({ value, min, max, update, onChange, style }: PremiumSliderProps): ReactElement => {
   const [delta] = useState(max - min)
   const [markerX] = useState((value - min) / delta)
   let trackWidth = useRef(260).current
@@ -62,7 +62,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange }: PremiumSlid
   }, [update])
 
 
-  return <View {...panResponder.panHandlers}>
+  return <View {...panResponder.panHandlers} style={style}>
     <Shadow {...mildShadow} viewStyle={tw`w-full`}>
       <View style={tw`p-5 pt-3 bg-white-1 border border-grey-4 rounded`}>
         <View style={tw`w-full flex-row justify-between`}>

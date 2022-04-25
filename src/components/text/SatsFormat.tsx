@@ -49,7 +49,7 @@ export const SatsFormat = ({ sats, format = 'inline', color }: SatsFormat): Reac
   return format === 'inline'
     ? <Text>
       <Text style={tw`text-grey-2`}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={color || tw`text-peach-1`}>
+      <Text style={color || tw`text-black-2`}>
         {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
       </Text>
     </Text>
