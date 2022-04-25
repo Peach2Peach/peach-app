@@ -1,4 +1,5 @@
 import { account, saveAccount } from '../account'
+import { sort } from '../array'
 import { info } from '../log'
 import { session } from '../session'
 import { offerExists } from './offerExists'
@@ -22,5 +23,7 @@ export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false): void 
   } else {
     account.offers.push(offer)
   }
+
+  account.offers = account.offers.sort(sort('id'))
   if (session.password && !disableSave) saveAccount(account, session.password)
 }
