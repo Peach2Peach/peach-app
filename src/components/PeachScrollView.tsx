@@ -1,6 +1,7 @@
 
 import React, { ReactElement, Ref } from 'react'
 import { ScrollView, ScrollViewProps, View } from 'react-native'
+import tw from '../styles/tailwind'
 
 type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
   scrollRef?: Ref<ScrollView>,
@@ -36,7 +37,7 @@ export const PeachScrollView = ({
     showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
     contentContainerStyle={contentContainerStyle || {}}
     style={style || {}}>
-    <View onStartShouldSetResponder={onStartShouldSetResponder}>
+    <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`}>
       {children}
     </View>
   </ScrollView>
