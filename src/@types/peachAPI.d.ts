@@ -70,6 +70,7 @@ declare type GetInfoResponse = {
   },
   buckets: number[],
   paymentMethods: PaymentMethodInfo[],
+  minAppVersion: string,
 }
 
 declare type GetTxResponse = Transaction

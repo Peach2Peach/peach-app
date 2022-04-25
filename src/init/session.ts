@@ -1,4 +1,4 @@
-import { setBuckets, setPaymentMethods, setPeachFee } from '../constants'
+import { setBuckets, setMinAppVersion, setPaymentMethods, setPeachFee } from '../constants'
 import { loadAccount } from '../utils/account'
 import { getInfo } from '../utils/peachAPI'
 import { initSession } from '../utils/session'
@@ -13,5 +13,6 @@ export default async () => {
     setPaymentMethods(peachInfo.paymentMethods)
     setBuckets(peachInfo.buckets)
     setPeachFee(peachInfo.fees.escrow)
+    setMinAppVersion(peachInfo.minAppVersion)
   }
 }

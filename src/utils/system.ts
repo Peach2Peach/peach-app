@@ -23,3 +23,11 @@ export const isIOS = () => Platform.OS === 'ios'
  * @returns true if app is compiled for mobile
  */
 export const isMobile = () => isAndroid() || isIOS()
+
+/**
+ * @description Method to check if app is compatible with minimum version requirement
+ * @param version current version number
+ * @param minVersion minimum version mumber required
+ */
+export const compatibilityCheck = (version: string, minVersion: string) =>
+  version >= minVersion
