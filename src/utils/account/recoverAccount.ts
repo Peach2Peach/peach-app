@@ -1,6 +1,8 @@
 import { setAccount } from '.'
 import { decrypt } from '../crypto'
-import { info } from '../log'
+import { error, info } from '../log'
+import { saveOffer } from '../offer'
+import { getOffers } from '../peachAPI'
 import { setSession } from '../session'
 import { account } from './account'
 
@@ -23,6 +25,15 @@ export const recoverAccount = async ({
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     await setSession({ password })
+
+    info('Get offers')
+    const [result, err] = await getOffers()
+    if (result) {
+      info(`Got ${result.length} offers`)
+      result.map(offer => saveOffer(offer, true))
+    } else if (err) {
+      error('Error', err)
+    }
     return [account, null]
   } catch (e) {
     return [null, e as Error]

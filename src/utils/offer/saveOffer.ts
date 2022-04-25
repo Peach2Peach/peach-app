@@ -7,7 +7,7 @@ import { offerExists } from './offerExists'
   * @description Method to add offer to offer list
   * @param offer the offer
   */
-export const saveOffer = (offer: SellOffer|BuyOffer): void => {
+export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false): void => {
   info('saveOffer', offer)
   if (!offer.id) throw new Error('offerId is required')
 
@@ -22,5 +22,5 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
   } else {
     account.offers.push(offer)
   }
-  if (session.password) saveAccount(account, session.password)
+  if (session.password && !disableSave) saveAccount(account, session.password)
 }

@@ -8,13 +8,14 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
 import { PeachScrollView, Text } from '../../components'
-import { account } from '../../utils/account'
+import { account, getAccount, saveAccount } from '../../utils/account'
 import { getContract } from '../../utils/contract'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
+import { session } from '../../utils/session'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
 
@@ -64,7 +65,9 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(getOffersEffect({
     onSuccess: result => {
-      Promise.all(result.map(offer => saveOffer(offer)))
+      result.map(offer => saveOffer(offer, true))
+      if (session.password) saveAccount(getAccount(), session.password)
+
       setOffers(account.offers)
     },
     onError: err => {
