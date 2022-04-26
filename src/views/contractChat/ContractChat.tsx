@@ -1,12 +1,13 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
+  Keyboard,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Input, Loading, Timer, Title } from '../../components'
+import { Button, Fade, Input, Loading, Timer, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -39,6 +40,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
   const [, updateMessage] = useContext(MessageContext)
 
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
@@ -198,6 +200,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     setUpdatePending(false)
   }, [contract])
 
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
+    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
+  }, [])
+
   const sendMessage = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
 
@@ -217,13 +226,15 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return updatePending
     ? <Loading />
-    : <View style={tw`h-full pt-6 pb-24 px-6 flex-col content-between items-center`}>
-      <Title
-        title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-        subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
-      />
+    : <View style={tw`h-full pt-6 pb-10 px-6 flex-col content-between items-center`}>
+      <Fade show={!keyboardOpen} style={tw`mb-16`}>
+        <Title
+          title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
+          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
+        />
+      </Fade>
       {contract && !contract.paymentConfirmed
-        ? <View style={tw`h-full flex-col flex-shrink mt-16`}>
+        ? <View style={tw`h-full flex-col flex-shrink`}>
           {requiredAction !== 'none'
             ? <Timer
               text={i18n(`contract.timer.${requiredAction}`)}
@@ -254,12 +265,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         </View>
         : null
       }
-      <Button
-        secondary={true}
-        wide={false}
-        onPress={() => navigation.goBack()}
-        style={tw`mt-2`}
-        title={i18n('back')}
-      />
+      <Fade show={!keyboardOpen}>
+        <Button
+          secondary={true}
+          wide={false}
+          onPress={() => navigation.goBack()}
+          style={tw`mt-2`}
+          title={i18n('back')}
+        />
+      </Fade>
     </View>
 }

@@ -1,11 +1,11 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { BuyViewProps } from './Buy'
-import { Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
+import { Fade, Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
 import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { cutOffAddress } from '../../utils/string'
@@ -23,6 +23,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [address, setAddress] = useState(offer.releaseAddress)
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
   const [focused, setFocused] = useState(false)
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -64,6 +65,13 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       releaseAddress: address,
     })
   }, [address])
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
+    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
+  }, [])
 
   return <View style={tw`h-full flex-col justify-between px-6`}>
     <Title title={i18n('buy.title')} />
@@ -110,10 +118,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       </View>
       : null}
 
-    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({
-      content: <IDontHaveAWallet />, showCloseButton: true
-    })}>
-      {i18n('iDontHaveAWallet')}
-    </TextLink>
+    <Fade show={!keyboardOpen} displayNone={false}>
+      <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({
+        content: <IDontHaveAWallet />, showCloseButton: true
+      })}>
+        {i18n('iDontHaveAWallet')}
+      </TextLink>
+    </Fade>
   </View>
 }

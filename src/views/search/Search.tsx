@@ -270,7 +270,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`h-full flex pb-24`}>
+  return <View style={tw`h-full flex pb-10`}>
     <View style={tw`h-full flex-shrink`}>
       <View style={tw`h-full flex justify-center pb-8 pt-12`}>
         <View style={tw`px-6`}>
