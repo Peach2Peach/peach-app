@@ -26,9 +26,9 @@ type Props = {
 }
 
 const showOffer = (offer: SellOffer|BuyOffer) =>
-  offer.type === 'bid'
-  || (offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
-  || offer.funding?.txId
+  offer.type === 'bid' && offer.online && !offer.contractId
+  || (offer.type === 'ask' && offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
+  || (offer.type === 'ask' && offer.funding?.txId)
 
 
 const navigateToOffer = (
