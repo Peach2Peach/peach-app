@@ -297,7 +297,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
                   {i18n('currency.SATS')}
                 </Text>
-                <Text style={tw`text-grey-2 text-center`}>
+                <Text style={tw`text-grey-2 text-center -mt-1`}>
                   {i18n(
                     offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount',
                     String(Math.abs(offer.premium))
