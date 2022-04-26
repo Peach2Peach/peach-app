@@ -47,9 +47,9 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   }
 
   return <View style={tw`h-full flex px-6`}>
-    <View style={tw`absolute top-10 right-4 z-20`}>
+    {/* <View style={tw`absolute top-10 right-4 z-20`}>
       <LanguageSelect locale={locale} setLocale={setLocale} />
-    </View>
+    </View> */}
     <View style={[
       tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
       tw.md`pt-40`
