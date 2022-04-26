@@ -21,7 +21,7 @@ export const Title = ({ title, subtitle, help }: TitleProps): ReactElement => {
       {title}
     </Text>
     {subtitle
-      ? <View style={tw`flex justify-center -mt-4`}>
+      ? <View style={tw`flex justify-center -mt-3`}>
         <Text style={tw`text-center leading-6 text-grey-2 `}>
           {i18n(subtitle)}
         </Text>

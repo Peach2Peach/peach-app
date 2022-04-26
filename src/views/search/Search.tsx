@@ -23,7 +23,7 @@ import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
 import { cancelOffer } from '../../utils/peachAPI'
 import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
-import ConfirmCancelTrade from './components/ConfirmCancelTrade'
+import ConfirmCancelTrade from '../../overlays/ConfirmCancelTrade'
 import { account } from '../../utils/account'
 import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
@@ -183,33 +183,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   // const _decline = () => {
   // alert('todo')
   // }
-  const confirmCancelTrade = async () => {
-    if (!offer.id) return
 
-    const [result, err] = await cancelOffer({
-      offerId: offer.id,
-      satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
-    })
-    if (result) {
-      info('Cancel offer: ', JSON.stringify(result))
-      if (offer.type === 'ask' && offer.funding) {
-        saveAndUpdate({
-          ...offer, online: false,
-          funding: {
-            ...offer.funding,
-            status: 'CANCELED',
-          }
-        })
-      } else {
-        saveAndUpdate({ ...offer, online: false })
-      }
-    } else if (err) {
-      error('Error', err)
-    }
-  }
 
   const cancelTrade = () => updateOverlay({
-    content: <ConfirmCancelTrade offer={offer} confirm={confirmCancelTrade} navigation={navigation} />,
+    content: <ConfirmCancelTrade offer={offer} navigation={navigation} />,
     showCloseButton: false
   })
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import {
   ScrollView,
   View
@@ -13,7 +13,6 @@ import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
-import ReturnAddress from './ReturnAddress'
 
 import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
@@ -40,7 +39,7 @@ type Props = {
 export type SellViewProps = {
   offer: SellOffer,
   updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
-  setStepValid: (isValid: boolean) => void,
+  setStepValid: Dispatch<SetStateAction<boolean>>,
   back: () => void,
   next: () => void,
   navigation: ProfileScreenNavigationProp,
@@ -82,14 +81,9 @@ const screens = [
     scrollable: false
   },
   {
-    id: 'returnAddress',
-    view: ReturnAddress,
-    scrollable: false
-  },
-  {
     id: 'escrow',
     view: Escrow,
-    scrollable: false
+    scrollable: true
   },
   {
     id: 'search',
@@ -130,7 +124,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     const offr = route.params?.offer || getDefaultSellOffer()
 
     setOfferId(undefined)
-    if (offr.confirmedReturnAddress) {
+    if (offr.funding?.status === 'FUNDED') {
       navigation.navigate('search', { offer })
       return
     }
@@ -156,7 +150,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       } as SellOffer)
 
-      if (offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
+      if (offer.funding?.status === 'FUNDED') {
         navigation.navigate('search', { offer })
         return
       }
@@ -177,7 +171,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     if (screens[page].id === 'search') {
-      saveAndUpdate({ ...offer, confirmedReturnAddress: true })
+      saveAndUpdate({ ...offer })
       navigation.navigate('search', { offer })
     }
   }, [page])
@@ -223,6 +217,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             <Navigation
               screen={currentScreen.id}
               back={back} next={next}
+              navigation={navigation}
               stepValid={stepValid}
               offer={offer} />
           </View>
@@ -238,8 +233,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Navigation
           screen={currentScreen.id}
           back={back} next={next}
+          navigation={navigation}
           stepValid={stepValid}
-          offer={offer} />
+          offer={offer}
+        />
       </View>
       : null
     }

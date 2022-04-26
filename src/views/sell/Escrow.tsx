@@ -10,11 +10,12 @@ import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
-import { Loading, Title } from '../../components'
+import { Headline, Loading, Text, Title } from '../../components'
 import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
+import ReturnAddress from './components/ReturnAddress'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -97,11 +98,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
       if (!offer.published) saveAndUpdate({ ...offer, published: true })
 
-      if (!offer.confirmedReturnAddress) {
-        next()
-      } else {
-        navigation.navigate('search', { offer })
-      }
+      next()
     }
   }, [fundingStatus])
 
@@ -112,13 +109,27 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.id])
 
+  const returnAddressValidation = (isValid: boolean) => {
+    setStepValid((valid: boolean) => valid && isValid)
+  }
+
   return <View style={tw`px-6`}>
-    <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
+    <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}
       help={<EscrowHelp />} />
     {updatePending
       ? <Loading />
       : escrow && fundingStatus && !fundingError
-        ? <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
+        ? <View>
+          <Headline style={tw`text-grey-1 mt-6 mb-5`}>
+            {i18n('sell.escrow.sendSats.1')}
+            <Text style={tw`font-baloo text-xl uppercase text-peach-1`}> {thousands(fundingAmount)} </Text>
+            {i18n('sell.escrow.sendSats.2')}
+          </Headline>
+          <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
+          <ReturnAddress style={tw`mt-16`}
+            offer={offer} updateOffer={updateOffer} setStepValid={returnAddressValidation}
+          />
+        </View>
         : <NoEscrowFound />
     }
   </View>

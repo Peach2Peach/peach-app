@@ -2,12 +2,40 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
-import { Button, Headline } from '../../../components'
-import Icon from '../../../components/Icon'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { OverlayContext } from '../../../contexts/overlay'
+import { Button, Headline } from '../components'
+import Icon from '../components/Icon'
+import tw from '../styles/tailwind'
+import i18n from '../utils/i18n'
+import { OverlayContext } from '../contexts/overlay'
+import { cancelOffer } from '../utils/peachAPI'
+import { error, info } from '../utils/log'
+import { saveOffer } from '../utils/offer'
 
+
+const confirm = async (offer: BuyOffer|SellOffer) => {
+  if (!offer.id) return
+
+  const [result, err] = await cancelOffer({
+    offerId: offer.id,
+    satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
+  })
+  if (result) {
+    info('Cancel offer: ', JSON.stringify(result))
+    if (offer.type === 'ask' && offer.funding) {
+      saveOffer({
+        ...offer, online: false,
+        funding: {
+          ...offer.funding,
+          status: 'CANCELED',
+        }
+      })
+    } else {
+      saveOffer({ ...offer, online: false })
+    }
+  } else if (err) {
+    error('Error', err)
+  }
+}
 const TradeCanceled = () => <View style={tw`flex items-center`}>
   <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
     {i18n('cancelTrade.confirm.success')}
@@ -18,24 +46,23 @@ const TradeCanceled = () => <View style={tw`flex items-center`}>
 </View>
 
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'|'contract'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'|'sell'|'search'|'contract'>
 type ConfirmCancelTradeProps = {
   offer: BuyOffer|SellOffer,
-  confirm: () => Promise<void>,
   navigation: ProfileScreenNavigationProp,
 }
 
-export default ({ offer, confirm, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export default ({ offer, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   const ok = async () => {
-    await confirm()
+    await confirm(offer)
     updateOverlay({ content: <TradeCanceled />, showCloseButton: false })
     setTimeout(() => {
       closeOverlay()
 
-      if (offer.type === 'bid') {
+      if (offer.type === 'bid' || offer.funding?.status === 'NULL') {
         navigation.navigate('home', {})
         return
       }
