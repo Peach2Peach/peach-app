@@ -16,21 +16,34 @@ import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { session } from '../../utils/session'
+import Refund from '../../overlays/Refund'
+import { OverlayContext } from '../../contexts/overlay'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
 const showOffer = (offer: SellOffer|BuyOffer) =>
-  offer.type === 'bid'
-  || (offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
-  || offer.funding?.txId
+  offer.type === 'bid' && offer.online && !offer.contractId
+  || (offer.type === 'ask' && offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
+  || (offer.type === 'ask' && offer.funding?.txId)
 
-const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNavigationProp): void => {
+
+const navigateToOffer = (
+  offer: SellOffer|BuyOffer,
+  navigation: ProfileScreenNavigationProp,
+  updateOverlay: React.Dispatch<OverlayState>
+): void => {
+  const navigate = () => navigation.navigate('offers', {})
+
   if (offer.type === 'ask' && offer.funding?.txId && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    return navigation.navigate('refund', { offer })
+    // return navigation.navigate('refund', { offer })
+    return updateOverlay({
+      content: <Refund offer={offer} navigate={navigate} />,
+      showCloseButton: false
+    })
   }
 
   if (offer.contractId) {
@@ -65,6 +78,7 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
 // TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [offers, setOffers] = useState(account.offers)
 
@@ -95,7 +109,7 @@ export default ({ navigation }: Props): ReactElement => {
       {offers
         .filter(showOffer)
         .map(offer => <View key={offer.id}>
-          <Pressable onPress={() => navigateToOffer(offer, navigation)}>
+          <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}>
             <Text style={!offer.online ? tw`opacity-50` : {}}>
               {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
             </Text>

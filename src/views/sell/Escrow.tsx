@@ -16,6 +16,8 @@ import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import ReturnAddress from './components/ReturnAddress'
+import Refund from '../../overlays/Refund'
+import { OverlayContext } from '../../contexts/overlay'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -26,6 +28,7 @@ const defaultFunding: FundingStatus = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [updatePending, setUpdatePending] = useState(true)
   const [escrow, setEscrow] = useState('')
@@ -37,6 +40,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     updateOffer(() => offerData)
     saveOffer(offerData)
   }
+  const navigate = () => navigation.navigate('offers', {})
 
   useEffect(!offer.id ? postOfferEffect({
     offer,
@@ -89,7 +93,11 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
-      navigation.navigate('refund', { offer })
+      // navigation.navigate('refund', { offer })
+      updateOverlay({
+        content: <Refund offer={offer} navigate={navigate} />,
+        showCloseButton: false
+      })
       return
     }
 

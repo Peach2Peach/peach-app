@@ -184,9 +184,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
+  const navigate = () => navigation.navigate('offers', {})
 
   const cancelTrade = () => updateOverlay({
-    content: <ConfirmCancelTrade offer={offer} navigation={navigation} />,
+    content: <ConfirmCancelTrade offer={offer} navigate={navigate} />,
     showCloseButton: false
   })
 
