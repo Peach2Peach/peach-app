@@ -112,7 +112,6 @@ export default ({ navigation }: Props): ReactElement => {
           <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}>
             <Text style={!offer.online ? tw`opacity-50` : {}}>
               {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
-              {offer.funding?.status}
             </Text>
           </Pressable>
         </View>
