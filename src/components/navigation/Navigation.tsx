@@ -1,10 +1,13 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
 import { Button } from '..'
 import Icon from '../Icon'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Text } from '../text'
+import ConfirmCancelTrade from '../../overlays/ConfirmCancelTrade'
+import { OverlayContext } from '../../contexts/overlay'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'|'buy'>
 
@@ -12,11 +15,13 @@ type NavigationProps = {
   screen: string,
   back: () => void,
   next: () => void,
+  navigation: ProfileScreenNavigationProp,
   stepValid: boolean,
-  offer?: BuyOffer|SellOffer,
+  offer: BuyOffer|SellOffer,
 }
 
-export const Navigation = ({ screen, back, next, stepValid, offer }: NavigationProps): ReactElement => {
+export const Navigation = ({ screen, back, next, navigation, stepValid, offer }: NavigationProps): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   let buttonText = i18n('next')
   if (offer && offer.type === 'ask' && screen === 'escrow' && !stepValid) {
     buttonText = offer.funding?.status === 'MEMPOOL'
@@ -24,6 +29,11 @@ export const Navigation = ({ screen, back, next, stepValid, offer }: NavigationP
       : i18n('sell.escrow.fundToContinue')
   }
   if (/returnAddress|releaseAddress/u.test(screen)) buttonText = i18n('lookForAMatch')
+
+  const cancelTrade = () => updateOverlay({
+    content: <ConfirmCancelTrade offer={offer} navigation={navigation} />,
+    showCloseButton: false
+  })
 
   return <View style={tw`w-full flex items-center`}>
     {!/main|escrow|search/u.test(screen)
@@ -42,6 +52,14 @@ export const Navigation = ({ screen, back, next, stepValid, offer }: NavigationP
         ? offer.funding?.status === 'MEMPOOL' ? tw`w-72` : tw`w-56`
         : {}}
     />
+    {screen === 'escrow'
+      ? <Pressable style={tw`mt-4`} onPress={cancelTrade}>
+        <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
+          {i18n('cancelTrade')}
+        </Text>
+      </Pressable>
+      : null
+    }
   </View>
 }
 

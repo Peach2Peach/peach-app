@@ -23,8 +23,13 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+const showOffer = (offer: SellOffer|BuyOffer) =>
+  offer.type === 'bid'
+  || (offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
+  || offer.funding?.txId
+
 const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNavigationProp): void => {
-  if (offer.type === 'ask' && offer.funding && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
+  if (offer.type === 'ask' && offer.funding?.txId && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
     return navigation.navigate('refund', { offer })
   }
 
@@ -87,13 +92,16 @@ export default ({ navigation }: Props): ReactElement => {
           Offers
         </Text>
       </View>
-      {offers.map(offer => <View key={offer.id}>
-        <Pressable onPress={() => navigateToOffer(offer, navigation)}>
-          <Text style={!offer.online ? tw`opacity-50` : {}}>
-            {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
-          </Text>
-        </Pressable>
-      </View>)}
+      {offers
+        .filter(showOffer)
+        .map(offer => <View key={offer.id}>
+          <Pressable onPress={() => navigateToOffer(offer, navigation)}>
+            <Text style={!offer.online ? tw`opacity-50` : {}}>
+              {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
+            </Text>
+          </Pressable>
+        </View>
+        )}
     </View>
   </PeachScrollView>
 }
