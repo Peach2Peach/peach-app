@@ -51,17 +51,18 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
   const isSelected = (item: Item) => selectedValues.indexOf(item.value) !== -1
 
   return <View style={style}>
-    {items.map((item, i) => <View key={i} style={[
-      !isSelected(item) ? tw`opacity-50` : {},
-      item.disabled ? tw`opacity-20` : {},
-    ]}>
-      <Shadow {...mildShadow}
-        viewStyle={[
-          tw`w-full`,
-          i > 0 ? tw`mt-2` : {}
-        ]}>
-        <Pressable style={tw`flex-row items-center p-3 h-12 bg-white-1 border border-grey-4 rounded`}
-          onPress={() => !item.disabled ? select(item.value) : () => {}}>
+    <Shadow {...mildShadow}
+      viewStyle={tw`w-full`}>
+      {items.map((item, i) => <View key={i} style={[
+        tw`bg-white-1 rounded`,
+        i > 0 ? tw`mt-2` : {}
+      ]}>
+        <Pressable style={[
+          tw`flex-row items-center p-3 h-12 border border-grey-4 rounded`,
+          !isSelected(item) ? tw`opacity-50` : {},
+          item.disabled ? tw`opacity-20` : {},
+        ]}
+        onPress={() => !item.disabled ? select(item.value) : () => {}}>
           {isSelected(item)
             ? <Icon id="checkbox" style={tw`w-5 h-5`} />
             : <View style={tw`w-5 h-5 flex justify-center items-center`}>
@@ -72,9 +73,9 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
             {item.display}
           </View>
         </Pressable>
-      </Shadow>
-    </View>
-    )}
+      </View>
+      )}
+    </Shadow>
   </View>
 }
 

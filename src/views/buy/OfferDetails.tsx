@@ -55,6 +55,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       paymentMethods={paymentMethods}
       setPaymentMethods={setPaymentMethods}
     />
-    {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
+    <KYC kyc={kyc} setKYC={setKYC} />
   </View>
 }
