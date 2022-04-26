@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import { Image, View } from 'react-native'
 
 import { Shadow, Text } from '.'
 import tw from '../styles/tailwind'
@@ -34,6 +34,7 @@ export const Header = ({ bitcoinContext, style }: HeaderProps): ReactElement =>
             {i18n(`currency.format.${bitcoinContext.currency}`, thousands(Math.round(bitcoinContext.price)))}
           </Text>
         </View>
+        <Image source={require('../../assets/favico/peach-logo.png')} style={tw`w-10 h-10`}/>
         <View>
           <Text style={tw`font-lato leading-5 text-grey-1`}>
             {i18n(`currency.${bitcoinContext.currency}`)}
