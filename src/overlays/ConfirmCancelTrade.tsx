@@ -1,4 +1,3 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
@@ -10,6 +9,7 @@ import { OverlayContext } from '../contexts/overlay'
 import { cancelOffer } from '../utils/peachAPI'
 import { error, info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
+import Refund from './Refund'
 
 
 const confirm = async (offer: BuyOffer|SellOffer) => {
@@ -46,13 +46,12 @@ const TradeCanceled = () => <View style={tw`flex items-center`}>
 </View>
 
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'|'sell'|'search'|'contract'>
 type ConfirmCancelTradeProps = {
   offer: BuyOffer|SellOffer,
-  navigation: ProfileScreenNavigationProp,
+  navigate: () => void
 }
 
-export default ({ offer, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export default ({ offer, navigate }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
@@ -63,10 +62,13 @@ export default ({ offer, navigation }: ConfirmCancelTradeProps): ReactElement =>
       closeOverlay()
 
       if (offer.type === 'bid' || offer.funding?.status === 'NULL') {
-        navigation.navigate('home', {})
+        navigate()
         return
       }
-      navigation.navigate('refund', { offer })
+      updateOverlay({
+        content: <Refund offer={offer} navigate={navigate} />,
+        showCloseButton: false
+      })
 
     }, 3000)
   }

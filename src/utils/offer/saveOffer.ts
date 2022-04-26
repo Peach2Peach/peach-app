@@ -9,7 +9,7 @@ import { offerExists } from './offerExists'
   * @param offer the offer
   */
 export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false): void => {
-  info('saveOffer', offer)
+  info('saveOffer', offer.id, offer)
   if (!offer.id) throw new Error('offerId is required')
 
   delete offer.user

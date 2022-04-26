@@ -32,7 +32,6 @@ import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import ContractChat from './views/contractChat/ContractChat'
-import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
@@ -80,7 +79,6 @@ const views: ViewType[] = [
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'refund', component: Refund, showHeader: true, showFooter: true },
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
 ]
