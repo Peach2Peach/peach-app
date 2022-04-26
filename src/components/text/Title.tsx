@@ -1,23 +1,22 @@
 import React, { ReactElement, ReactNode, useContext } from 'react'
-import { Image, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import Icon from '../Icon'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { OverlayContext } from '../../contexts/overlay'
 import { Text } from '.'
 
-type TitleProps = {
+type TitleProps = ComponentProps & {
   title: string,
   subtitle?: string,
   help?: ReactNode
 }
 
-export const Title = ({ title, subtitle, help }: TitleProps): ReactElement => {
+export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  return <View style={tw`flex items-center`}>
-    <Image source={require('../../../assets/favico/peach-logo.png')} style={tw`w-12 h-12`}/>
-    <Text style={tw`font-baloo text-center text-3xl leading-3xl uppercase text-peach-1 mt-3`}>
+  return <View style={[tw`flex items-center`, style]}>
+    <Text style={tw`font-baloo text-center text-3xl leading-3xl uppercase text-peach-1`}>
       {title}
     </Text>
     {subtitle
