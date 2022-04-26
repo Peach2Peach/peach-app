@@ -285,10 +285,25 @@ export default ({ route, navigation }: Props): ReactElement => {
             : null
           }
           {matches.length
-            ? <Text style={tw`text-grey-2 text-center -mt-2`}>
-              {i18n(offer.type === 'bid' ? 'search.buyOffer' : 'search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)}</Text> {i18n('currency.SATS')} { // eslint-disable-line max-len
-              }
-            </Text>
+            ? offer.type === 'bid'
+              ? <View>
+                <Text style={tw`text-grey-2 text-center -mt-2`}>
+                  {i18n('search.buyOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
+                  {i18n('currency.SATS')}
+                </Text>
+              </View>
+              : <View>
+                <Text style={tw`text-grey-2 text-center -mt-2`}>
+                  {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
+                  {i18n('currency.SATS')}
+                </Text>
+                <Text style={tw`text-grey-2 text-center`}>
+                  {i18n(
+                    offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount',
+                    String(Math.abs(offer.premium))
+                  )}
+                </Text>
+              </View>
             : null
           }
         </View>
