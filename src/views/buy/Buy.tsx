@@ -172,13 +172,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  return <View style={tw`h-full flex pb-24`}>
+  return <View style={tw`h-full flex`}>
     <View style={[
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
       <PeachScrollView scrollRef={scroll}
-        contentContainerStyle={!scrollable ? tw`h-full` : {}}
+        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-24`}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {updatePending
@@ -199,21 +199,27 @@ export default ({ route, navigation }: Props): ReactElement => {
             <Navigation
               screen={currentScreen.id}
               back={back} next={next}
-              stepValid={stepValid} />
+              navigation={navigation}
+              stepValid={stepValid}
+              offer={offer}
+            />
           </View>
           : null
         }
       </PeachScrollView>
     </View>
     {!scrollable && !updatePending
-      ? <View style={tw`mt-4 flex items-center w-full bg-white-1 px-6`}>
+      ? <View style={tw`mt-4 px-6 pb-24 flex items-center w-full bg-white-1 `}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
         <Navigation
           screen={currentScreen.id}
           back={back} next={next}
-          stepValid={stepValid} />
+          navigation={navigation}
+          stepValid={stepValid}
+          offer={offer}
+        />
       </View>
       : null
     }

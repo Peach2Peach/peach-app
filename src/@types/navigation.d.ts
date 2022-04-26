@@ -22,9 +22,6 @@ declare type RootStackParamList = {
     contract: Contract,
     view: 'buyer' | 'seller' | '',
   },
-  refund: {
-    offer: SellOffer,
-  },
   offers: {},
   settings: {},
 }

@@ -8,23 +8,42 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
 import { PeachScrollView, Text } from '../../components'
-import { account } from '../../utils/account'
+import { account, getAccount, saveAccount } from '../../utils/account'
 import { getContract } from '../../utils/contract'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
+import { session } from '../../utils/session'
+import Refund from '../../overlays/Refund'
+import { OverlayContext } from '../../contexts/overlay'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNavigationProp): void => {
-  if (offer.type === 'ask' && offer.funding && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    return navigation.navigate('refund', { offer })
+const showOffer = (offer: SellOffer|BuyOffer) =>
+  offer.type === 'bid' && offer.online && !offer.contractId
+  || (offer.type === 'ask' && offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
+  || (offer.type === 'ask' && offer.funding?.txId)
+
+
+const navigateToOffer = (
+  offer: SellOffer|BuyOffer,
+  navigation: ProfileScreenNavigationProp,
+  updateOverlay: React.Dispatch<OverlayState>
+): void => {
+  const navigate = () => navigation.navigate('offers', {})
+
+  if (offer.type === 'ask' && offer.funding?.txId && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
+    // return navigation.navigate('refund', { offer })
+    return updateOverlay({
+      content: <Refund offer={offer} navigate={navigate} />,
+      showCloseButton: false
+    })
   }
 
   if (offer.contractId) {
@@ -59,12 +78,16 @@ const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNav
 // TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [offers, setOffers] = useState(account.offers)
 
   useEffect(getOffersEffect({
     onSuccess: result => {
-      Promise.all(result.map(offer => saveOffer(offer)))
+      if (!result?.length) return
+      result.map(offer => saveOffer(offer, true))
+      if (session.password) saveAccount(getAccount(), session.password)
+
       setOffers(account.offers)
     },
     onError: err => {
@@ -83,13 +106,16 @@ export default ({ navigation }: Props): ReactElement => {
           Offers
         </Text>
       </View>
-      {offers.map(offer => <View key={offer.id}>
-        <Pressable onPress={() => navigateToOffer(offer, navigation)}>
-          <Text style={!offer.online ? tw`opacity-50` : {}}>
-            {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
-          </Text>
-        </Pressable>
-      </View>)}
+      {offers
+        .filter(showOffer)
+        .map(offer => <View key={offer.id}>
+          <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}>
+            <Text style={!offer.online ? tw`opacity-50` : {}}>
+              {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
+            </Text>
+          </Pressable>
+        </View>
+        )}
     </View>
   </PeachScrollView>
 }

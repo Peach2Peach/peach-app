@@ -37,11 +37,12 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   if (label) urn.searchParams.set('message', label)
 
   const addressParts = {
-    one: address.slice(0, 8),
-    two: address.slice(8, -5),
-    three: address.slice(-5),
+    one: address.slice(0, 4),
+    two: address.slice(4, 8),
+    three: address.slice(8, -5),
+    four: address.slice(-5),
   }
-  addressParts.two = splitAt(addressParts.two, Math.floor(addressParts.two.length / 2) - 2).join('\n')
+  addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
 
   const copy = () => {
     Clipboard.setString(urn.toString())
@@ -60,26 +61,25 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
       </Card>
       : null
     }
-    <View style={[
+    <Pressable onPress={copy} style={[
       tw`flex-row items-center`,
       showQR ? tw`mt-4` : {}
     ]}>
-      <Text style={tw`text-base`}>
+      <Text style={tw`text-lg text-grey-2`}>
         {addressParts.one}
-        <Text style={tw`text-base text-grey-2 leading-6`}>
-          {addressParts.two}
-        </Text>
+        <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.two}</Text>
         {addressParts.three}
+        <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.four}</Text>
       </Text>
-      <Pressable onPress={copy}>
-        <Fade show={showCopied} duration={300} delay={0}>
+      <View>
+        <Fade show={showCopied} duration={300} delay={0} >
           <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
             {i18n('copied')}
           </Text>
         </Fade>
         <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   </View>
 }
 

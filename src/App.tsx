@@ -32,7 +32,6 @@ import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import ContractChat from './views/contractChat/ContractChat'
-import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
@@ -42,6 +41,8 @@ import events from './init/events'
 import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
+import { APPVERSION, MINAPPVERSION } from './constants'
+import { compatibilityCheck } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -78,7 +79,6 @@ const views: ViewType[] = [
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'refund', component: Refund, showHeader: true, showFooter: true },
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
 ]
@@ -152,6 +152,9 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef)
+      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+        updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
+      }
     })()
   }, [])
 

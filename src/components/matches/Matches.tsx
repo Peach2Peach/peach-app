@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
@@ -28,6 +28,9 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
     <Icon id="sliderNext" style={tw`w-4 h-4`}/>
   </Pressable>
 
+const getMatchCurrency = (match: Match) => match.selectedCurrency || Object.keys(match.prices)[0] as Currency
+const getMatchPaymentMethod = (match: Match) => match.selectedPaymentMethod || match.paymentMethods[0]
+
 /**
  * @description Component to display matches
  * @example
@@ -36,6 +39,15 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
 export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchProps): ReactElement => {
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
+
+  const onBeforeSnapToItem = (i: number) => {
+    onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
+  }
+
+  useEffect(() => {
+    if (!matches.length) return
+    onChange(null, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
+  }, [])
 
   return <View style={[tw`flex-row items-center justify-center`, style]}>
     {matches.length > 1
@@ -51,7 +63,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       activeSlideAlignment="center"
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}
-      onSnapToItem={i => onChange(i, matches[i].selectedCurrency, matches[i].selectedPaymentMethod)}
+      onBeforeSnapToItem={onBeforeSnapToItem}
       renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`-mx-4 px-4`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}

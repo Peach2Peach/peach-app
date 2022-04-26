@@ -1,3 +1,9 @@
+export const noShadow = {
+  distance: 0,
+  startColor: '#00000000',
+  finalColor: '#00000000',
+}
+
 export const mildShadow = {
   distance: 16,
   startColor: '#0000000D',
@@ -52,7 +58,7 @@ export const nativeShadow = {
 
 export const innerShadow = {
   paintInside: true,
-  distance: 8,
+  distance: 16,
   startColor: '#00000000',
   finalColor: '#0000000D',
   offset: [0, 6] as [x: number, y: number],

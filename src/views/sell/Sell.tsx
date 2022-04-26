@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import {
   ScrollView,
   View
@@ -13,7 +13,6 @@ import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
-import ReturnAddress from './ReturnAddress'
 
 import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
@@ -40,7 +39,7 @@ type Props = {
 export type SellViewProps = {
   offer: SellOffer,
   updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
-  setStepValid: (isValid: boolean) => void,
+  setStepValid: Dispatch<SetStateAction<boolean>>,
   back: () => void,
   next: () => void,
   navigation: ProfileScreenNavigationProp,
@@ -82,14 +81,9 @@ const screens = [
     scrollable: false
   },
   {
-    id: 'returnAddress',
-    view: ReturnAddress,
-    scrollable: false
-  },
-  {
     id: 'escrow',
     view: Escrow,
-    scrollable: false
+    scrollable: true
   },
   {
     id: 'search',
@@ -130,8 +124,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     const offr = route.params?.offer || getDefaultSellOffer()
 
     setOfferId(undefined)
-    if (offr.confirmedReturnAddress) {
-      navigation.navigate('search', { offer })
+    if (offr.funding?.status === 'FUNDED') {
+      navigation.navigate('search', { offer: offr })
       return
     }
 
@@ -156,8 +150,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       } as SellOffer)
 
-      if (offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
-        navigation.navigate('search', { offer })
+      if (offer.funding?.status === 'FUNDED') {
+        navigation.navigate('search', { offer: {
+          ...offer,
+          ...result,
+        } })
         return
       }
 
@@ -177,7 +174,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     if (screens[page].id === 'search') {
-      saveAndUpdate({ ...offer, confirmedReturnAddress: true })
+      saveAndUpdate({ ...offer })
       navigation.navigate('search', { offer })
     }
   }, [page])
@@ -195,13 +192,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  return <View style={tw`h-full flex pb-24`}>
+  return <View style={tw`h-full flex`}>
     <View style={[
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
       <PeachScrollView scrollRef={scroll}
-        contentContainerStyle={!scrollable ? tw`h-full` : {}}
+        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-24`}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {updatePending
@@ -223,21 +220,26 @@ export default ({ route, navigation }: Props): ReactElement => {
             <Navigation
               screen={currentScreen.id}
               back={back} next={next}
-              stepValid={stepValid} />
+              navigation={navigation}
+              stepValid={stepValid}
+              offer={offer} />
           </View>
           : null
         }
       </PeachScrollView>
     </View>
     {!scrollable && !updatePending
-      ? <View style={tw`mt-4 flex items-center w-full bg-white-1`}>
+      ? <View style={tw`mt-4 px-6 pb-24 flex items-center w-full bg-white-1`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
         <Navigation
           screen={currentScreen.id}
           back={back} next={next}
-          stepValid={stepValid} />
+          navigation={navigation}
+          stepValid={stepValid}
+          offer={offer}
+        />
       </View>
       : null
     }

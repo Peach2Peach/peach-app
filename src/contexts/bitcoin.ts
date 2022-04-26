@@ -1,11 +1,12 @@
 import { createContext } from 'react'
 import { SATSINBTC } from '../constants'
-import { marketPrice } from '../utils/peachAPI'
+import { marketPrices } from '../utils/peachAPI/public/market'
 
 export let bitcoinContext: BitcoinContextType = {
   currency: 'EUR',
   price: NaN,
-  satsPerUnit: NaN
+  satsPerUnit: NaN,
+  prices: {}
 }
 
 export const getBitcoinContext = (): BitcoinContextType => bitcoinContext
@@ -29,19 +30,20 @@ export const updateBitcoinContext = async (currency: Currency): Promise<BitcoinC
   let price = bitcoinContext.price
   let satsPerUnit = bitcoinContext.satsPerUnit
 
-  const [pairInfo, error] = await marketPrice(currency)
+  const [prices, error] = await marketPrices()
 
-  if (!pairInfo || error?.error) {
+  if (!prices || error?.error) {
     return bitcoinContext
   }
 
-  price = Number(pairInfo.price)
+  price = prices[currency] || price
   satsPerUnit = Math.round(SATSINBTC / price)
   // eslint-disable-next-line require-atomic-updates
   bitcoinContext = {
     currency,
     price,
-    satsPerUnit
+    satsPerUnit,
+    prices,
   }
 
   return bitcoinContext

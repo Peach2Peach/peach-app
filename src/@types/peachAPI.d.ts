@@ -41,7 +41,7 @@ declare type Buckets = {
 }
 declare type Currency = 'EUR' | 'CHF' | 'GBP'
 declare type Pricebook = {
-  [key in Currency]: number
+  [key in Currency]?: number
 }
 declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
 declare type PaymentMethodInfo = {
@@ -70,6 +70,7 @@ declare type GetInfoResponse = {
   },
   buckets: number[],
   paymentMethods: PaymentMethodInfo[],
+  minAppVersion: string,
 }
 
 declare type GetTxResponse = Transaction
@@ -130,6 +131,8 @@ declare type Match = {
   user: User,
   offerId: string,
   prices: Pricebook,
+  matchedPrice: number | null,
+  premium: number,
   selectedCurrency: Currency | null,
   paymentMethods: PaymentMethod[],
   selectedPaymentMethod: PaymentMethod | null,
@@ -145,6 +148,7 @@ declare type GetMatchesResponse = {
 }
 declare type MatchResponse = {
   success: true,
+  matchedPrice?: number,
   contractId?: string,
 }
 declare type GetContractResponse = Contract
