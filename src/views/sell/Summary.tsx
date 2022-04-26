@@ -23,7 +23,10 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
       <HorizontalLine style={tw`mt-4`}/>
       <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('sell.summary.for')}</Headline>
       <Text style={tw`text-center`}>
-        {i18n('sell.summary.premiumDiscount', String(offer.premium))}
+        {i18n(
+          offer.premium > 0 ? 'sell.summary.premium' : 'sell.summary.discount',
+          String(Math.abs(offer.premium))
+        )}
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('sell.summary.in')}</Headline>
