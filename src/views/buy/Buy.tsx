@@ -45,7 +45,6 @@ export type BuyViewProps = {
 const getDefaultBuyOffer = (): BuyOffer => ({
   type: 'bid',
   creationDate: new Date(),
-  published: false,
   currencies: account.settings.currencies || [],
   paymentMethods: account.settings.paymentMethods || [],
   kyc: account.settings.kyc || false,
@@ -144,8 +143,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
 
         if (result) {
-          saveAndUpdate({ ...offer, id: result.offerId, published: true })
-          navigation.navigate('search', { offer: { ...offer, id: result.offerId, published: true } })
+          saveAndUpdate({ ...offer, id: result.offerId })
+          navigation.navigate('search', { offer: { ...offer, id: result.offerId } })
           return
         }
 

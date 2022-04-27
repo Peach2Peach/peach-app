@@ -49,7 +49,6 @@ declare type Offer = {
   creationDate: Date,
   online?: boolean,
   user?: User,
-  published: boolean,
   amount: number,
   currencies: Currency[],
   paymentMethods: PaymentMethod[],
