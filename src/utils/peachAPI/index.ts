@@ -57,7 +57,7 @@ export { marketPrice } from './public/market'
 export { auth, getAccessToken, setPGP } from './private/user'
 export {
   getOffers,
-  postOffer, getOfferDetails,
+  postOffer, getOfferDetails, patchOffer,
   createEscrow, getFundingStatus,
   cancelOffer,
   getMatches

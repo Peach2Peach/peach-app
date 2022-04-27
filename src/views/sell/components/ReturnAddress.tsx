@@ -10,19 +10,23 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
+import { patchOffer } from '../../../utils/peachAPI'
+import { error } from '../../../utils/log'
+import { MessageContext } from '../../../contexts/message'
 
 const { useValidation } = require('react-native-form-validator')
 
 
 export type ReturnAddressProps = ComponentProps & {
   offer: SellOffer,
-  updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
+  updateOffer: (offer: SellOffer) => void,
   setStepValid: (isValid: boolean) => void,
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps): ReactElement => {
   useContext(LanguageContext)
+  const [, updateMessage] = useContext(MessageContext)
 
   let $address: any
   const [address, setAddress] = useState(offer.returnAddress)
@@ -71,6 +75,17 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
       ...offer,
       returnAddress: address,
     })
+
+    ;(async () => {
+      const [result, err] = await patchOffer({
+        offerId: offer.id,
+        returnAddress: address
+      })
+      if (!result?.success || err) {
+        error('Error', err)
+        if (err) updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      }
+    })()
   }, [address, useDepositAddress])
 
   useEffect(() => {
