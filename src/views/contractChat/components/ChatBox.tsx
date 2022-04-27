@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
-import { ScrollView, View } from 'react-native'
+import { Keyboard, ScrollView, View } from 'react-native'
 import { PeachScrollView, Shadow, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
@@ -16,6 +16,10 @@ export default ({ messages, style }: ChatBoxProps): ReactElement => {
   useEffect(() => {
     scroll.current?.scrollToEnd()
   }, [messages.length])
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', () => scroll.current?.scrollToEnd())
+  }, [])
 
   return <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[

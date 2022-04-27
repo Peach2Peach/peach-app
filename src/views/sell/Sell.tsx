@@ -198,7 +198,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
       <PeachScrollView scrollRef={scroll}
-        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-24`}
+        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>
           {updatePending
@@ -229,7 +229,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       </PeachScrollView>
     </View>
     {!scrollable && !updatePending
-      ? <View style={tw`mt-4 px-6 pb-24 flex items-center w-full bg-white-1`}>
+      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

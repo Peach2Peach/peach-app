@@ -200,7 +200,7 @@ const App: React.FC = () => {
                   </NavigationContainer>
                 </View>
                 {showFooter(currentPage)
-                  ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+                  ? <Footer style={tw`z-10`} active={currentPage} navigation={navigationRef} />
                   : null
                 }
               </View>
