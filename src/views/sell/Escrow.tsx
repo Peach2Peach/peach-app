@@ -104,8 +104,6 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
 
-      if (!offer.published) saveAndUpdate({ ...offer, published: true })
-
       next()
     }
   }, [fundingStatus])

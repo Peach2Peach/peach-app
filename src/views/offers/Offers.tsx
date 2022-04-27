@@ -27,8 +27,7 @@ type Props = {
 
 const showOffer = (offer: SellOffer|BuyOffer) =>
   offer.type === 'bid' && offer.online && !offer.contractId
-  || (offer.type === 'ask' && offer.funding && !/NULL|CANCELED/u.test(offer.funding.status))
-  || (offer.type === 'ask' && offer.funding?.txId)
+  || (offer.type === 'ask' && offer.escrow)
 
 
 const navigateToOffer = (
@@ -59,17 +58,14 @@ const navigateToOffer = (
   }
 
   if (offer.type === 'ask') {
-    if (offer.published && offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
+    if (offer.funding?.status === 'FUNDED') {
       return navigation.navigate('search', { offer })
     }
     return navigation.navigate('sell', { offer })
   }
 
-  if (offer.type === 'bid') {
-    if (offer.published) {
-      return navigation.navigate('search', { offer })
-    }
-    return navigation.navigate('buy', { offer })
+  if (offer.type === 'bid' && offer.online) {
+    return navigation.navigate('search', { offer })
   }
 
   return navigation.navigate('offers', {})

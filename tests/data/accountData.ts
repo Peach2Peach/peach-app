@@ -3,7 +3,6 @@ export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   id: '37',
   type: 'bid',
-  published: false,
   currencies: ['EUR', 'CHF'],
   paymentMethods: ['iban'],
   kyc: false,
@@ -17,7 +16,6 @@ export const sellOffer: SellOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   id: '38',
   type: 'ask',
-  published: false,
   currencies: ['EUR'],
   paymentData: [
     {
@@ -39,7 +37,6 @@ export const sellOffer: SellOffer = {
 export const buyOfferUnpublished: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   type: 'bid',
-  published: false,
   currencies: ['EUR', 'CHF'],
   paymentMethods: ['iban'],
   kyc: false,

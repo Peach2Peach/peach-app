@@ -48,7 +48,6 @@ export type SellViewProps = {
 const getDefaultSellOffer = (): SellOffer => ({
   type: 'ask',
   creationDate: new Date(),
-  published: false,
   premium: account.settings.premium || 1.5,
   currencies: account.settings.currencies || [],
   paymentData: account.paymentData || [],
