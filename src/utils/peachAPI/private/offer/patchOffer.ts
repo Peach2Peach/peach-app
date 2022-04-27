@@ -3,8 +3,6 @@ import { parseResponse } from '../..'
 import fetch from '../../../fetch'
 import { getAccessToken } from '../user'
 
-
-
 type PatchOfferProps = {
   offerId: Offer['id'],
   returnAddress: string,
