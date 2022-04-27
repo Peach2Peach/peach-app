@@ -63,7 +63,6 @@ declare type SellOffer = Offer & {
   premium: number,
   paymentData: PaymentData[],
   kycType?: KYCType,
-  depositAddress?: string,
   returnAddress?: string,
   confirmedReturnAddress?: boolean,
   escrow?: string,

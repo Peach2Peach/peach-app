@@ -76,9 +76,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       saveAndUpdate({
         ...offer,
         funding: result.funding,
-        // TODO this should not be necessary after updating sell offer order
         returnAddress: result.returnAddress,
-        depositAddress: offer.depositAddress || result.returnAddress,
       })
       setFundingStatus(() => result.funding)
       setFundingError(() => result.error || '')
@@ -133,7 +131,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
           </Headline>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
           <ReturnAddress style={tw`mt-16`}
-            offer={offer} updateOffer={updateOffer} setStepValid={returnAddressValidation}
+            offer={offer} updateOffer={saveAndUpdate} setStepValid={returnAddressValidation}
           />
         </View>
         : <NoEscrowFound />
