@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'
-import { mildShadowOrange, noShadow } from '../utils/layout'
+import { mildShadowOrange } from '../utils/layout'
 
 type ButtonProps = ComponentProps & {
   title: string,
@@ -47,7 +47,7 @@ export const Button = ({
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
-  return <Shadow {...(!secondary && !tertiary ? mildShadowOrange : noShadow)} viewStyle={[
+  const viewStyle = [
     tw`rounded`,
     secondary ? tw`bg-white-2 border border-peach-1 `
       : tertiary ? tw`border border-white-2 `
@@ -56,28 +56,35 @@ export const Button = ({
     active ? tw`bg-peach-2` : {},
     disabled ? tw`opacity-50` : {},
     style || {}
-  ]}>
-    <Pressable
-      onPress={e => onPress && !disabled ? onPress(e) : null}
-      onPressIn={() => setActive(true)}
-      onPressOut={() => setActive(false)}
-      style={tw`w-full flex-row items-center justify-center p-3`}
-    >
-      <Text style={[
-        tw`font-baloo text-sm uppercase`,
-        secondary ? tw`text-peach-1 ` : tw`text-white-2`,
-        active ? tw`text-white-2` : {}
-      ]}>
-        {title}
-      </Text>
-      {loading
-        ? <View style={tw`absolute right-5 w-4 h-4`}>
-          <Loading size="small" color={tw`text-white-1`.color as string} />
-        </View>
-        : null
-      }
-    </Pressable>
-  </Shadow>
+  ]
+  const ButtonContent = (): ReactElement => <Pressable
+    onPress={e => onPress && !disabled ? onPress(e) : null}
+    onPressIn={() => setActive(true)}
+    onPressOut={() => setActive(false)}
+    style={tw`w-full flex-row items-center justify-center p-3`}
+  >
+    <Text style={[
+      tw`font-baloo text-sm uppercase`,
+      secondary ? tw`text-peach-1 ` : tw`text-white-2`,
+      active ? tw`text-white-2` : {}
+    ]}>
+      {title}
+    </Text>
+    {loading
+      ? <View style={tw`absolute right-5 w-4 h-4`}>
+        <Loading size="small" color={tw`text-white-1`.color as string} />
+      </View>
+      : null
+    }
+  </Pressable>
+
+  return !secondary && !tertiary
+    ? <Shadow {...mildShadowOrange} viewStyle={viewStyle}>
+      <ButtonContent />
+    </Shadow>
+    : <View style={viewStyle}>
+      <ButtonContent />
+    </View>
 }
 
 export default Button
