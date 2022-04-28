@@ -110,6 +110,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         return
       }
 
+      paymentData = JSON.parse(JSON.stringify(paymentData)) // break link to original
+
       delete paymentData.selected
       delete paymentData.id
       delete paymentData.type

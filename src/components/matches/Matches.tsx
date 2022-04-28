@@ -57,14 +57,16 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
     <Carousel loop={true}
       ref={$carousel}
       data={matches}
+      enableSnap={true} enableMomentum={false}
       containerCustomStyle={[tw`overflow-visible`]}
       sliderWidth={width} itemWidth={width - 80}
-      inactiveSlideScale={0.9} inactiveSlideOpacity={0.7}
+      inactiveSlideScale={0.9} inactiveSlideOpacity={0.7} inactiveSlideShift={-10}
       activeSlideAlignment="center"
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}
       onBeforeSnapToItem={onBeforeSnapToItem}
-      renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`-mx-4 px-4`}>
+      renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
+        style={tw`-mx-4 px-4 bg-white-1`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}
     />

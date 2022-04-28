@@ -118,6 +118,8 @@
   "paymentMethod.applePay": "Apple Pay",
   "paymentMethod.twint": "Twint",
   "paymentMethod.wise": "Wise",
+  "medal.fastTrader": "#FastTrader",
+  "medal.superTrader": "#SuperTrader",
   "scanQR": "Scan QR",
   "scanBTCAddress": "Scan your Bitcoin address QR",
   "paste": "Paste",

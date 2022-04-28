@@ -65,10 +65,13 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
           key={item.value}
           style={[
             tw`px-3 h-6 flex justify-center border border-grey-1 rounded-lg`,
-            item.value === selectedValue ? tw`border-peach-1` : {},
+            item.value === selectedValue ? tw`border-peach-1 bg-peach-1` : {},
             i > 0 ? tw`ml-2` : {}
           ]}>
-          <Text style={tw`font-baloo text-xs leading-6 text-grey-1`}>
+          <Text style={[
+            tw`font-baloo text-xs leading-6 `,
+            item.value === selectedValue ? tw`text-white-1` : tw`text-grey-1`
+          ]}>
             {item.display}
           </Text>
         </Pressable>
