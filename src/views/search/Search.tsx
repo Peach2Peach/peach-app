@@ -97,6 +97,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (decryptErr) error(decryptErr)
 
+      console.log(offer.paymentData)
       paymentData = offer.paymentData?.find(data =>
         data.type === match.paymentMethods[0]
       ) as Omit<PaymentData, 'id' | 'type'>
@@ -109,6 +110,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
         return
       }
+
+      paymentData = JSON.parse(JSON.stringify(paymentData)) // break link to original
 
       delete paymentData.selected
       delete paymentData.id
