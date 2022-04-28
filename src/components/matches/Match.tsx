@@ -81,39 +81,39 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
       </View>
       : null
     }
-    <View style={tw`px-5 pt-6 pb-9`}>
-      <View style={tw`w-full flex-row justify-between`}>
+    <View style={tw`px-5 pt-5 pb-8`}>
+      <View style={tw`w-full flex-row justify-between items-center`}>
         <View style={tw`px-6`}>
           <Text style={tw`text-lg`}>
             {match.user.id.substring(0, 8)}
           </Text>
-          <ExtraMedals user={match.user} style={tw`mt-2`} />
+          <ExtraMedals user={match.user} />
         </View>
         <View style={tw`px-6`}>
-          <Medal id={match.user.rating > 0.9 ? 'gold' : 'silver'} />
+          <Medal id={match.user.rating > 0.9 ? 'gold' : 'silver'} style={tw`w-16 h-12`}/>
         </View>
       </View>
       <HorizontalLine style={tw`mt-4`}/>
-      <View style={tw`flex-row justify-center mt-3`}>
-        <Text style={tw`font-baloo text-xl leading-xl text-peach-1`}>
+      <View style={tw`mt-4`}>
+        <Text style={tw`font-baloo text-xl leading-xl text-peach-1 text-center`}>
           {i18n(
             `currency.format.${selectedCurrency}`,
             displayPrice
           )}
         </Text>
-        <Text style={tw`text-lg leading-lg ml-2`}>
+        <Text style={tw`text-lg leading-lg text-center ml-2`}>
           {i18n(
             'pricePerBitcoin',
             i18n(`currency.format.${selectedCurrency}`, thousands(Math.round(price)))
           )}
         </Text>
       </View>
-      <HorizontalLine style={tw`mt-3`}/>
+      <HorizontalLine style={tw`mt-5`}/>
       <Headline style={tw`mt-4 lowercase text-grey-1`}>
         {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
       </Headline>
       <Selector
-        style={tw`mt-4`}
+        style={tw`mt-2`}
         selectedValue={selectedCurrency}
         items={Object.keys(match.prices).map(c => ({ value: c, display: c }))}
         onChange={c => setCurrency(c as Currency)}
@@ -123,7 +123,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
         {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
       </Headline>
       <Selector
-        style={tw`mt-4`}
+        style={tw`mt-2`}
         selectedValue={selectedPaymentMethod as string}
         items={match.paymentMethods.filter(unique()).map(p => ({
           value: p,
