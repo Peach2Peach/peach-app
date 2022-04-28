@@ -46,3 +46,7 @@ export const TIMERS: Timers = {
   paymentMade: 1000 * 60 * 60 * 12,
   paymentConfirmed: 1000 * 60 * 60 * 12,
 }
+
+// Reputation
+export const GOLDMEDAL = 0.9
+export const SILVERMEDAL = 0.7

@@ -13,8 +13,7 @@ import Medal from '../medal'
 import { unique } from '../../utils/array'
 import Icon from '../Icon'
 import { ExtraMedals } from './components/ExtraMedals'
-import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
-import { SATSINBTC } from '../../constants'
+import { GOLDMEDAL, SATSINBTC, SILVERMEDAL } from '../../constants'
 
 type MatchProps = ComponentProps & {
   match: Match,
@@ -39,6 +38,12 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     match.selectedPaymentMethod || match.paymentMethods[0]
   )
+
+  const medal = match.user.rating > GOLDMEDAL
+    ? 'gold'
+    : match.user.rating > SILVERMEDAL
+      ? 'silver'
+      : null
 
   const matchPrice = match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency] as number
   const price = (matchPrice) / (offer.amount / SATSINBTC)
@@ -89,9 +94,12 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
           </Text>
           <ExtraMedals user={match.user} />
         </View>
-        <View style={tw`px-6`}>
-          <Medal id={match.user.rating > 0.9 ? 'gold' : 'silver'} style={tw`w-16 h-12`}/>
-        </View>
+        {medal
+          ? <View style={tw`px-6`}>
+            <Medal id={medal} style={tw`w-16 h-12`}/>
+          </View>
+          : null
+        }
       </View>
       <HorizontalLine style={tw`mt-4`}/>
       <View style={tw`mt-4`}>
