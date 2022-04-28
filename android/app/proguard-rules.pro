@@ -9,4 +9,5 @@
 
 # Add any project specific keep options here:
 
--keep public class com.horcrux.svg.** {*;}
+# Package: react-native-svg
+-keep public class com.horcrux.svg.** { *; }
