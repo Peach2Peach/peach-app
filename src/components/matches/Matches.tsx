@@ -59,7 +59,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       data={matches}
       containerCustomStyle={[tw`overflow-visible`]}
       sliderWidth={width} itemWidth={width - 80}
-      inactiveSlideScale={0.9} inactiveSlideOpacity={0.7}
+      inactiveSlideScale={0.9} inactiveSlideOpacity={0.7} inactiveSlideShift={-10}
       activeSlideAlignment="center"
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}

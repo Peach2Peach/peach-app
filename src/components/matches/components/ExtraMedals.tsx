@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import Medal from '../../medal'
+import i18n from '../../../utils/i18n'
+import { Text } from '../../text'
 
 type ExtraMedalsProps = ComponentProps & {
   user: User,
@@ -12,8 +13,8 @@ type ExtraMedalsProps = ComponentProps & {
  * @param user the user
  */
 export const ExtraMedals = ({ user, style }: ExtraMedalsProps): ReactElement =>
-  <View style={[tw`flex-row justify-between`, style]}>
-    <Medal id="gold" style={tw`w-5 h-4 opacity-50`}/>
-    <Medal id="gold" style={tw`w-5 h-4`}/>
-    <Medal id="gold" style={tw`w-5 h-4 opacity-50`}/>
+  <View style={style}>
+    {user.medals.map(medal => <Text key={medal} style={tw`text-sm text-peach-1`}>
+      {i18n(`medal.${medal}`)}
+    </Text>)}
   </View>
