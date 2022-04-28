@@ -16,7 +16,7 @@ type PadStringProps = {
  * @param [props.side] side to pad to
  * @returns padded string
  */
-export const padString = ({ string, length, char = '0', side = 'left' }: PadStringProps): string => {
+export const padString = ({ string = '', length, char = '0', side = 'left' }: PadStringProps): string => {
   while (string.length < length) {
     if (side === 'left') {
       string = char + string
