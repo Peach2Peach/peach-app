@@ -1,15 +1,8 @@
-export const noShadow = {
-  distance: 0,
-  startColor: '#00000000',
-  finalColor: '#00000000',
-}
-
 export const mildShadow = {
   distance: 16,
   startColor: '#0000000D',
   finalColor: '#00000000',
   offset: [1, 1] as [x: string | number, y: string | number],
-  radius: 0
 }
 
 export const dropShadow = {
@@ -17,7 +10,6 @@ export const dropShadow = {
   startColor: '#00000040',
   finalColor: '#00000000',
   offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
 }
 
 export const mildShadowOrange = {
@@ -25,7 +17,6 @@ export const mildShadowOrange = {
   startColor: '#F579400D',
   finalColor: '#F5794000',
   offset: [0, 4] as [x: string | number, y: string | number],
-  radius: 0
 }
 
 
@@ -34,7 +25,6 @@ export const mildShadowRed = {
   startColor: '#E43B5F0D',
   finalColor: '#E43B5F00',
   offset: [0, 2] as [x: string | number, y: string | number],
-  radius: 0
 }
 
 
@@ -43,7 +33,6 @@ export const footerShadow = {
   startColor: '#0000000D',
   finalColor: '#00000000',
   offset: [0, -2] as [x: string | number, y: string | number],
-  radius: 0
 }
 
 export const nativeShadow = {
@@ -62,7 +51,6 @@ export const innerShadow = {
   startColor: '#00000000',
   finalColor: '#0000000D',
   offset: [0, 6] as [x: number, y: number],
-  radius: 0
 }
 
 

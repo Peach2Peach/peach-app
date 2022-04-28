@@ -26,7 +26,8 @@ type Props = {
 }
 
 const showOffer = (offer: SellOffer|BuyOffer) =>
-  offer.type === 'bid' && offer.online && !offer.contractId
+  offer.contractId
+  || (offer.type === 'bid' && offer.online)
   || (offer.type === 'ask' && offer.escrow)
 
 
