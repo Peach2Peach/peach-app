@@ -1,6 +1,6 @@
 
 import React, { ReactElement, useContext, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
@@ -90,6 +90,9 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
       <View style={tw`w-full flex-row justify-between items-center`}>
         <View style={tw`px-6`}>
           <Text style={tw`text-lg`}>
+            <Image source={require('../../../assets/favico/peach-logo.png')}
+              style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
+            />
             {match.user.id.substring(0, 8)}
           </Text>
           <ExtraMedals user={match.user} />
