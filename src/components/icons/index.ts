@@ -5,24 +5,28 @@ import camera from './camera.svg'
 import check from './check.svg'
 import checkbox from './checkbox.svg'
 import circle from './circle.svg'
+import clock from './clock.svg'
 import copy from './copy.svg'
+import cross from './cross.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
+import fundEscrow from './fundEscrow.svg'
+import heart from './heart.svg'
 import help from './help.svg'
 import negative from './negative.svg'
 import offers from './offers.svg'
 import positive from './positive.svg'
-import undo from './undo.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
+import settings from './settings.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
-import settings from './settings.svg'
 import triangleRight from './triangleRight.svg'
 import triangleUp from './triangleUp.svg'
+import undo from './undo.svg'
 
 type Icons = {
   [key: string]: React.FC<SvgProps>
@@ -34,15 +38,18 @@ const Icons: Icons = {
   check,
   checkbox,
   circle,
+  clock,
   copy,
+  cross,
   dropdownClosed,
   dropdownOpen,
   file,
+  fundEscrow,
+  heart,
   help,
   negative,
   offers,
   positive,
-  undo,
   selectClosed,
   selectOpen,
   sell,
@@ -52,6 +59,7 @@ const Icons: Icons = {
   sliderPrev,
   triangleRight,
   triangleUp,
+  undo,
 }
 
 export default Icons
