@@ -23,6 +23,7 @@ declare type SellOffer = Offer & {
   txId?: string,
   refunded: boolean,
   released: boolean,
+  matched: Offer['id'][],
   seenMatches: Offer['id'][],
 }
 

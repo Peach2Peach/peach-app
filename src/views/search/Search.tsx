@@ -204,7 +204,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
 
-    saveAndUpdate({ ...offer, matches: matchedOffers })
+    saveAndUpdate({ ...offer, matched: matchedOffers })
   }, [matches])
 
   useEffect(getOfferDetailsEffect({
