@@ -1,25 +1,20 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import {
-  Pressable,
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { PeachScrollView, Text } from '../../components'
+import { Headline, PeachScrollView, Title } from '../../components'
 import { account, getAccount, saveAccount } from '../../utils/account'
-import { getContract } from '../../utils/contract'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
-import { saveOffer } from '../../utils/offer'
+import { getOffers, saveOffer } from '../../utils/offer'
 import { session } from '../../utils/session'
-import Refund from '../../overlays/Refund'
-import { OverlayContext } from '../../contexts/overlay'
+import { OfferItem } from './components/OfferItem'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
+export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
@@ -31,53 +26,10 @@ const showOffer = (offer: SellOffer|BuyOffer) =>
   || (offer.type === 'ask' && offer.escrow)
 
 
-const navigateToOffer = (
-  offer: SellOffer|BuyOffer,
-  navigation: ProfileScreenNavigationProp,
-  updateOverlay: React.Dispatch<OverlayState>
-): void => {
-  const navigate = () => navigation.navigate('offers', {})
-
-  if (offer.type === 'ask' && offer.funding?.txId && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    // return navigation.navigate('refund', { offer })
-    return updateOverlay({
-      content: <Refund offer={offer} navigate={navigate} />,
-      showCloseButton: false
-    })
-  }
-
-  if (offer.contractId) {
-    const contract = getContract(offer.contractId)
-    if (contract) {
-      const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-      if ((view === 'seller' && contract.ratingBuyer)
-        || (view === 'buyer' && contract.ratingSeller)) {
-        return navigation.navigate('tradeComplete', { view, contract })
-      }
-    }
-    return navigation.navigate('contract', { contractId: offer.contractId })
-  }
-
-  if (offer.type === 'ask') {
-    if (offer.funding?.status === 'FUNDED') {
-      return navigation.navigate('search', { offer })
-    }
-    return navigation.navigate('sell', { offer })
-  }
-
-  if (offer.type === 'bid' && offer.online) {
-    return navigation.navigate('search', { offer })
-  }
-
-  return navigation.navigate('offers', {})
-}
-
-// TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
-  const [offers, setOffers] = useState(account.offers)
+  const [offers, setOffers] = useState(getOffers())
 
   useEffect(getOffersEffect({
     onSuccess: result => {
@@ -97,22 +49,18 @@ export default ({ navigation }: Props): ReactElement => {
   }), [])
 
   return <PeachScrollView contentContainerStyle={tw`px-6`}>
-    <View style={tw`pb-32`}>
-      <View>
-        <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
-          Offers
-        </Text>
-      </View>
+    <View style={tw`pb-10 px-10`}>
+      <Title title={i18n('offers.title')}/>
+      <Headline style={tw`mt-20 text-grey-1`}>
+        {i18n('offers.openOffers')}
+      </Headline>
       {offers
         .filter(showOffer)
-        .map(offer => <View key={offer.id}>
-          <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}>
-            <Text style={!offer.online ? tw`opacity-50` : {}}>
-              {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
-            </Text>
-          </Pressable>
-        </View>
-        )}
+        .map(offer => <OfferItem key={offer.id}
+          style={tw`mt-3`}
+          offer={offer} navigation={navigation}
+        />)
+      }
     </View>
   </PeachScrollView>
 }
