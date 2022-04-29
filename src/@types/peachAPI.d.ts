@@ -30,8 +30,15 @@ declare type APIError = {
 
 declare type User = {
   id: string,
-  rating: number|null,
+  creationDate: Date,
+  trades: number,
+  rating: number,
+  userRating: number,
   ratingCount: number,
+  peachRating: number,
+  medals: Medal[],
+  pgpPublicKey: string
+  pgpPublicKeyProof: string
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'

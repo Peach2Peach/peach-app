@@ -252,7 +252,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
     ? checkFundingStatusEffect({
-      offer,
+      offer: offer as SellOffer,
       onSuccess: result => {
         info('Checked funding status', result)
 
