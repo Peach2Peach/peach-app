@@ -84,20 +84,24 @@ declare type PeachPairInfo = {
 }
 declare type Offer = {
   id: string,
+  creationDate: Date,
   online: boolean,
-  userId: string,
+  user?: User,
   publicKey: string,
   type: 'bid' | 'ask',
   amount: number,
   premium: number,
-  currencies: string|string[],
+  currencies: Currency[],
   prices?: Pricebook,
-  paymentMethods: string|string[],
+  paymentMethods: PaymentMethod[],
   kyc: boolean,
   kycType: KYCType,
   returnAddress: string,
   escrow?: string,
-  funding?: FundingStatus
+  funding?: FundingStatus,
+  matches: Offer['id'][],
+  doubleMatched: boolean,
+  contractId?: string
 }
 
 declare type PostOfferResponse = {
