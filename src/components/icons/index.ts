@@ -14,6 +14,7 @@ import file from './file.svg'
 import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
 import help from './help.svg'
+import money from './money.svg'
 import negative from './negative.svg'
 import offers from './offers.svg'
 import positive from './positive.svg'
@@ -47,6 +48,7 @@ const Icons: Icons = {
   fundEscrow,
   heart,
   help,
+  money,
   negative,
   offers,
   positive,
