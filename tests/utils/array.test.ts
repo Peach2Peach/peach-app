@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { sort, unique } from '../../src/utils/array'
+import { diff, intersect, sort, unique } from '../../src/utils/array'
 
 describe('sort', () => {
   it('filters duplicated items in an array', () => {
@@ -25,7 +25,6 @@ describe('sort', () => {
   })
 })
 
-
 describe('unique', () => {
   it('filters duplicated items in an array', () => {
     const arrayA = [
@@ -46,5 +45,31 @@ describe('unique', () => {
     deepStrictEqual(arrayA.filter(unique('id')), expectedA)
     deepStrictEqual(arrayB.filter(unique()), expectedB)
     deepStrictEqual(arrayC.filter(unique()), expectedC)
+  })
+})
+
+describe('intersect', () => {
+  it('filters duplicated items in an array', () => {
+    const arrayA1 = [1, 2, 3, 5]
+    const arrayA2 = [1, 3, 5, 6]
+    const expectedA = [1, 3, 5]
+    const arrayB1 = ['a', 'b', 'd']
+    const arrayB2 = ['b', 'd', 'e']
+    const expectedB = ['b', 'd']
+    deepStrictEqual(intersect(arrayA1, arrayA2), expectedA)
+    deepStrictEqual(intersect(arrayB1, arrayB2), expectedB)
+  })
+})
+
+describe('diff', () => {
+  it('filters duplicated items in an array', () => {
+    const arrayA1 = [1, 2, 3, 5]
+    const arrayA2 = [1, 3, 5, 6]
+    const expectedA = [2]
+    const arrayB1 = ['a', 'b', 'd']
+    const arrayB2 = ['b', 'd', 'e']
+    const expectedB = ['a']
+    deepStrictEqual(diff(arrayA1, arrayA2), expectedA)
+    deepStrictEqual(diff(arrayB1, arrayB2), expectedB)
   })
 })

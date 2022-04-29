@@ -46,7 +46,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
 
   useEffect(() => {
     if (!matches.length) return
-    onChange(null, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
+    onChange(0, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
   }, [])
 
   return <View style={[tw`flex-row items-center justify-center`, style]}>

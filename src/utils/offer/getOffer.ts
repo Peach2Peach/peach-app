@@ -10,7 +10,5 @@ export const getOffer = (id: string): SellOffer|BuyOffer|null => {
 
   if (!offer) return null
 
-  offer.matches = offer.matches || []
-  offer.seenMatches = offer.seenMatches || []
   return offer
 }

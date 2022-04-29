@@ -4,7 +4,7 @@
  * @param b array B
  * @returns intersection of A and B
  */
-export const diff = (a: string[], b: string[]) =>
+export const diff = <T>(a: T[], b: T[]): T[] =>
   a.filter(val => b.indexOf(val) === -1)
 
 export default diff

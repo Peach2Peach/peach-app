@@ -66,7 +66,7 @@ const ICONMAP: IconMap = {
   escrowWaitingForConfirmation: 'fundEscrow',
   offerPublished: 'clock',
   match: 'clock',
-  contractCreated: 'clock',
+  contractCreated: 'money',
   tradeCompleted: 'check',
   offerCanceled: 'cross',
   tradeCanceled: 'cross',

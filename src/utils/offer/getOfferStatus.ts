@@ -19,7 +19,7 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
     }
 
     if (contract.canceled) return {
-      status: 'offerCanceled',
+      status: 'tradeCanceled',
       actionRequired: false
     }
 
@@ -37,18 +37,28 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
     }
   }
 
-  if (!offer.online && !offer.contractId) return {
-    status: 'offerCanceled',
-    actionRequired: false
-  }
-
   if (offer.type === 'ask') {
-    if (offer.escrow && offer.funding?.status !== 'FUNDED') return {
+    if (offer.escrow
+      && offer.funding?.status !== 'FUNDED'
+      && offer.funding?.status !== 'WRONG_FUNDING_AMOUNT'
+      && offer.funding?.status !== 'CANCELED') return {
       status: 'escrowWaitingForConfirmation',
       // if it requires funding escrow
       actionRequired: offer.funding?.status === 'NULL'
     }
+    if (!offer.online && !offer.contractId) {
+      return {
+        status: 'offerCanceled',
+        actionRequired: false
+      }
+    }
+  } else if (!offer.online && !offer.contractId) {
+    return {
+      status: 'offerCanceled',
+      actionRequired: false
+    }
   }
+
   if (offer.online) return {
     status: 'offerPublished',
     // if not all matches have been seen
