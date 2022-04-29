@@ -1,3 +1,5 @@
 export { getOffer } from './getOffer'
+export { getOffers } from './getOffers'
+export { getOfferStatus } from './getOfferStatus'
 export { offerExists } from './offerExists'
 export { saveOffer } from './saveOffer'
