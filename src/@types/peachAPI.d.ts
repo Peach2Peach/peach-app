@@ -163,6 +163,7 @@ declare type MatchResponse = {
   contractId?: string,
 }
 declare type GetContractResponse = Contract
+declare type GetContractsResponse = Contract[]
 declare type ConfirmPaymentResponse = {
   success: true,
   txId?: string,

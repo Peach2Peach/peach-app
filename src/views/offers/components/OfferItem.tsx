@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { SatsFormat, Text } from '../../../components'
+import { Bubble, SatsFormat, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
@@ -78,6 +78,8 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const icon = ICONMAP[requiredAction] || ICONMAP[status]
+  const contract = offer.contractId ? getContract(offer.contractId) : null
+
   return <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}
     style={[
       tw`pl-4 pr-2 py-2 rounded`,
@@ -104,5 +106,12 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
         color={(requiredAction ? tw`text-white-1` : tw`text-grey-1`).color as string}
       />
     </View>
+    {contract?.messages
+      ? <Bubble color={tw`text-green`.color as string}
+        style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
+        <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{contract.messages}</Text>
+      </Bubble>
+      : null
+    }
   </Pressable>
 }

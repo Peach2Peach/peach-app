@@ -13,6 +13,8 @@ import i18n from '../../utils/i18n'
 import { getOffers, getOfferStatus, saveOffer } from '../../utils/offer'
 import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
+import { saveContract } from '../../utils/contract'
+import getContractsEffect from '../../effects/getContractsEffect'
 
 export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
@@ -47,6 +49,23 @@ export default ({ navigation }: Props): ReactElement => {
     },
     onError: err => {
       error('Could not fetch offer information')
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
+  }), [])
+
+  useEffect(getContractsEffect({
+    onSuccess: result => {
+      if (!result?.length) return
+      result.map(contract => saveContract(contract, true))
+      if (session.password) saveAccount(getAccount(), session.password)
+
+      setOffers(account.offers)
+    },
+    onError: err => {
+      error('Could not fetch contract information')
       updateMessage({
         msg: i18n(err.error || 'error.general'),
         level: 'ERROR',

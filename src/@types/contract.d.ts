@@ -39,4 +39,6 @@ declare type Contract = {
 
   ratingBuyer: boolean,
   ratingSeller: boolean,
+
+  messages: number
 }

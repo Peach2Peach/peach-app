@@ -27,6 +27,24 @@ export const getContract = async ({
   return await parseResponse<GetContractResponse>(response, 'getContract')
 }
 
+
+/**
+ * @description Method to get contracts
+ * @returns Contracts
+ */
+export const getContracts = async (): Promise<[GetContractsResponse|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contracts`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  return await parseResponse<GetContractsResponse>(response, 'getContract')
+}
+
 type ConfirmPaymentProps = {
   contractId: Contract['id'],
   releaseTransaction?: string
