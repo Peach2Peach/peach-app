@@ -58,29 +58,30 @@ type OfferItemProps = ComponentProps & {
   navigation: ProfileScreenNavigationProp,
 }
 
-type IconMap = {
-  [key in OfferStatus['status']]: string
-}
+type IconMap = { [key in OfferStatus['status']]?: string }
+  & { [key in OfferStatus['requiredAction']]?: string }
 
 const ICONMAP: IconMap = {
-  escrowWaitingForConfirmation: 'fundEscrow',
   offerPublished: 'clock',
+  escrowWaitingForConfirmation: 'fundEscrow',
+  fundEscrow: 'fundEscrow',
   match: 'clock',
-  contractCreated: 'money',
-  tradeCompleted: 'check',
   offerCanceled: 'cross',
+  sendPayment: 'money',
+  confirmPayment: 'money',
+  rate: 'heart',
+  tradeCompleted: 'check',
   tradeCanceled: 'cross',
-  null: 'cross',
 }
 
 export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const { status, actionRequired } = getOfferStatus(offer)
-  const icon = ICONMAP[status]
+  const { status, requiredAction } = getOfferStatus(offer)
+  const icon = ICONMAP[requiredAction] || ICONMAP[status]
   return <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}
     style={[
       tw`pl-4 pr-2 py-2 rounded`,
-      actionRequired ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
+      requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
       style
     ]}>
     <View style={tw`flex-row justify-between`}>
@@ -88,7 +89,7 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
         <View style={tw`pr-1`}>
           <Text style={[
             tw`text-lg font-bold uppercase`,
-            actionRequired ? tw`text-white-1` : tw`text-grey-2`
+            requiredAction ? tw`text-white-1` : tw`text-grey-2`
           ]}>
             {i18n(offer.type === 'ask' ? 'sell' : 'buy')}
           </Text>
@@ -96,11 +97,11 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
         <SatsFormat
           style={tw`text-lg font-bold`}
           sats={offer.amount}
-          color={actionRequired ? tw`text-white-1` : tw`text-grey-1`}
-          color2={actionRequired ? tw`text-peach-mild` : tw`text-grey-3`} />
+          color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
+          color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
       </View>
-      <Icon id={icon} style={tw`w-7 h-7`}
-        color={(actionRequired ? tw`text-white-1` : tw`text-grey-1`).color as string}
+      <Icon id={icon || 'help'} style={tw`w-7 h-7`}
+        color={(requiredAction ? tw`text-white-1` : tw`text-grey-1`).color as string}
       />
     </View>
   </Pressable>

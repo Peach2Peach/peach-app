@@ -1,13 +1,20 @@
 declare type OfferStatus = {
   status: 'escrowWaitingForConfirmation'
-  | 'offerPublished'
-  | 'match'
-  | 'contractCreated'
-  | 'tradeCompleted'
-  | 'offerCanceled'
-  | 'tradeCanceled'
-  | 'null',
-  actionRequired: boolean,
+    | 'offerPublished'
+    | 'match'
+    | 'contractCreated'
+    | 'tradeCompleted'
+    | 'offerCanceled'
+    | 'tradeCanceled'
+  requiredAction: ''
+    | 'fundEscrow'
+    | 'refundEscrow'
+    | 'checkMatches'
+    | 'sendKYC'
+    | 'confirmKYC'
+    | 'sendPayment'
+    | 'confirmPayment'
+    | 'rate'
 }
 
 declare type SellOffer = Offer & {

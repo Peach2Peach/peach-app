@@ -13,7 +13,6 @@ import i18n from '../../utils/i18n'
 import { getOffers, getOfferStatus, saveOffer } from '../../utils/offer'
 import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
-import { getContract } from '../../utils/contract'
 
 export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
@@ -29,13 +28,14 @@ const isPastOffer = (offer: SellOffer|BuyOffer) => {
 
 const isOpenOffer = (offer: SellOffer|BuyOffer) => !isPastOffer(offer)
 
+const showOffer = (offer: SellOffer|BuyOffer) => offer.online || offer.contractId || offer.type === 'ask'
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [offers, setOffers] = useState(getOffers())
-  const openOffers = offers.filter(isOpenOffer)
-  const pastOffers = offers.filter(isPastOffer)
+  const openOffers = offers.filter(isOpenOffer).filter(showOffer)
+  const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
   useEffect(getOffersEffect({
     onSuccess: result => {

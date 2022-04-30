@@ -1,71 +1,107 @@
 import { diff } from '../array'
 import { getContract } from '../contract'
 
+const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
+  offer.type === 'ask'
+  && offer.escrow
+  && offer.funding?.status !== 'FUNDED'
+  && offer.funding?.status !== 'WRONG_FUNDING_AMOUNT'
+  && offer.funding?.status !== 'CANCELED'
+
+const isEscrowTransactionSent = (offer: SellOffer) => offer.funding?.status === 'NULL'
+
+const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
+
+const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
+
+const isEscrowRefunded = (offer: SellOffer) => offer.refunded
+
+const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
+  offer.type === 'bid'
+  && contract.kycRequired
+  && !contract.kycConfirmed
+  && contract.kycResponseDate !== null
+
+const isKYCConfirmationRequired = (offer: SellOffer, contract: Contract) =>
+  offer.type === 'ask'
+  && contract.kycRequired
+  && contract.kycResponseDate === null
+
+const isPaymentRequired = (offer: BuyOffer, contract: Contract) =>
+  !isKYCRequired(offer, contract)
+  && contract.paymentMade === null
+
+const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>
+  offer.type === 'ask'
+  && contract.paymentMade !== null
+  && !contract.paymentConfirmed
+
+const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
+  offer.type === 'bid' && !contract.ratingBuyer
+  || offer.type === 'ask' && contract.ratingSeller
+
+const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
+
+const isTradeCanceled = (contract: Contract) => contract.canceled
+
 /**
  * @description Method to get current status of offer
  * @param offer offer
  * @returns offer status
  */
-// eslint-disable-next-line complexity
 export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
   if (contract) {
-    if (contract.paymentConfirmed) return {
+    if (isTradeComplete(contract)) return {
       status: 'tradeCompleted',
-      // if it requires rating
-      actionRequired: offer.type === 'bid' && !contract.ratingBuyer
-        || offer.type === 'ask' && contract.ratingSeller
+      requiredAction: isRatingRequired(offer, contract) ? 'rate' : ''
     }
 
-    if (contract.canceled) return {
+    if (isTradeCanceled(contract)) return {
       status: 'tradeCanceled',
-      actionRequired: false
+      requiredAction: ''
     }
 
-    if (offer.type === 'bid') return {
-      status: 'contractCreated',
-      // if it requires sending KYC or Payment
-      actionRequired: contract.kycRequired && !contract.kycConfirmed && contract.kycResponseDate !== null
-        || contract.kycRequired && contract.kycConfirmed && contract.paymentMade === null
-    }
     return {
       status: 'contractCreated',
-      // if it requires confirming KYC or reception of payment
-      actionRequired: contract.kycRequired && !contract.kycConfirmed === null
-        || contract.paymentMade === null && !contract.paymentConfirmed
+      requiredAction: isKYCRequired(offer as BuyOffer, contract)
+        ? 'sendKYC'
+        : isKYCConfirmationRequired(offer as SellOffer, contract)
+          ? 'confirmKYC'
+          : isPaymentRequired(offer as BuyOffer, contract)
+            ? 'sendPayment'
+            : isPaymentConfirmationRequired(offer as SellOffer, contract)
+              ? 'confirmPayment'
+              : ''
     }
   }
 
   if (offer.type === 'ask') {
-    if (offer.escrow
-      && offer.funding?.status !== 'FUNDED'
-      && offer.funding?.status !== 'WRONG_FUNDING_AMOUNT'
-      && offer.funding?.status !== 'CANCELED') return {
+    if (isEscrowWaitingForConfirmation(offer as SellOffer)) return {
       status: 'escrowWaitingForConfirmation',
-      // if it requires funding escrow
-      actionRequired: offer.funding?.status === 'NULL'
+      requiredAction: isEscrowTransactionSent(offer as SellOffer)
+        ? 'fundEscrow'
+        : ''
     }
-    if (!offer.online && !offer.contractId) {
+    if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        actionRequired: false
+        requiredAction: ''
       }
-    }
-  } else if (!offer.online && !offer.contractId) {
-    return {
-      status: 'offerCanceled',
-      actionRequired: false
     }
   }
 
-  if (offer.online) return {
-    status: 'offerPublished',
-    // if not all matches have been seen
-    actionRequired: diff(offer.matches, offer.seenMatches).length > 0
+  if (isOfferCanceled(offer)) {
+    return {
+      status: 'offerCanceled',
+      requiredAction: !isEscrowRefunded(offer as SellOffer) ? 'refundEscrow' : ''
+    }
   }
   return {
-    status: 'null',
-    actionRequired: false
+    status: 'offerPublished',
+    requiredAction: hasSeenAllMatches(offer)
+      ? 'checkMatches'
+      : ''
   }
 }
