@@ -146,6 +146,7 @@ export const contract: Contract = {
   disputeActive: false,
   id: '14-15',
   kycRequired: false,
+  kycConfirmed: false,
   paymentConfirmed: null,
   paymentMade: null,
   paymentMethod: 'iban',
@@ -155,4 +156,6 @@ export const contract: Contract = {
   canceled: false,
   ratingBuyer: false,
   ratingSeller: false,
+
+  messages: 0,
 }
