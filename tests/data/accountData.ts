@@ -9,6 +9,8 @@ export const buyOffer: BuyOffer = {
   kyc: false,
   amount: 250000,
   matches: [],
+  matched: [],
+  seenMatches: [],
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
 }
@@ -31,6 +33,8 @@ export const sellOffer: SellOffer = {
   amount: 250000,
   premium: 1.5,
   matches: [],
+  matched: [],
+  seenMatches: [],
   doubleMatched: false,
   returnAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   refunded: false,
@@ -39,12 +43,14 @@ export const sellOffer: SellOffer = {
 export const buyOfferUnpublished: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   type: 'bid',
-  online: true,
+  online: false,
   currencies: ['EUR', 'CHF'],
   paymentMethods: ['iban'],
   kyc: false,
   amount: 250000,
   matches: [],
+  matched: [],
+  seenMatches: [],
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
 }
