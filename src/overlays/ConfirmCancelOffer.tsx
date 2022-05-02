@@ -11,7 +11,6 @@ import { error, info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import Refund from './Refund'
 
-
 const confirm = async (offer: BuyOffer|SellOffer) => {
   if (!offer.id) return
 
@@ -38,7 +37,7 @@ const confirm = async (offer: BuyOffer|SellOffer) => {
 }
 const TradeCanceled = () => <View style={tw`flex items-center`}>
   <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-    {i18n('cancelTrade.confirm.success')}
+    {i18n('cancelOffer.confirm.success')}
   </Headline>
   <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
     <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
@@ -46,12 +45,12 @@ const TradeCanceled = () => <View style={tw`flex items-center`}>
 </View>
 
 
-type ConfirmCancelTradeProps = {
+type ConfirmCancelOfferProps = {
   offer: BuyOffer|SellOffer,
   navigate: () => void
 }
 
-export default ({ offer, navigate }: ConfirmCancelTradeProps): ReactElement => {
+export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
@@ -74,18 +73,18 @@ export default ({ offer, navigate }: ConfirmCancelTradeProps): ReactElement => {
   }
   return <View style={tw`flex items-center`}>
     <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
-      {i18n('cancelTrade.confirm.title')}
+      {i18n('cancelOffer.confirm.title')}
     </Headline>
     <Button
       style={tw`mt-2`}
-      title={i18n('cancelTrade.confirm.back')}
+      title={i18n('cancelOffer.confirm.back')}
       secondary={true}
       wide={false}
       onPress={closeOverlay}
     />
     <Button
       style={tw`mt-2`}
-      title={i18n('cancelTrade.confirm.ok')}
+      title={i18n('cancelOffer.confirm.ok')}
       tertiary={true}
       wide={false}
       onPress={ok}
