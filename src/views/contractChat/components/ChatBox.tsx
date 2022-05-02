@@ -65,7 +65,7 @@ export default ({ chat, style }: ChatBoxProps): ReactElement => {
 
   return <View style={tw`overflow-hidden rounded`}>
     <Shadow {...innerShadow} viewStyle={[
-      tw`w-full border border-grey-4 rounded`,
+      tw`w-full h-full border border-grey-4 rounded`,
       style ? style : {},
     ]}>
       <FlatList ref={scroll} contentContainerStyle={tw`py-4 pb-10`}
