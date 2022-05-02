@@ -43,6 +43,7 @@ export type BuyViewProps = {
 }
 
 const getDefaultBuyOffer = (): BuyOffer => ({
+  online: false,
   type: 'bid',
   creationDate: new Date(),
   currencies: account.settings.currencies || [],
@@ -50,6 +51,8 @@ const getDefaultBuyOffer = (): BuyOffer => ({
   kyc: account.settings.kyc || false,
   amount: account.settings.amount || BUCKETS[0],
   matches: [],
+  seenMatches: [],
+  matched: [],
   doubleMatched: false,
 })
 

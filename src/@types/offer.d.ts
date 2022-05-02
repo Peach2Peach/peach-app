@@ -17,7 +17,8 @@ declare type OfferStatus = {
     | 'rate'
 }
 
-declare type SellOffer = Offer & {
+declare type SellOffer = Omit<Offer, 'id'> & {
+  id?: string,
   type: 'ask',
   premium: number,
   paymentData: PaymentData[],
@@ -34,7 +35,8 @@ declare type SellOffer = Offer & {
   seenMatches: Offer['id'][],
 }
 
-declare type BuyOffer = Offer & {
+declare type BuyOffer = Omit<Offer, 'id'> & {
+  id?: string,
   type: 'bid'
   releaseAddress?: string,
   matched: Offer['id'][],
