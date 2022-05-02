@@ -12,7 +12,7 @@ export const getChat = (id: string): Chat => {
   // TODO legacy support, remove for version 0.1.0
   if (!messages && Array.isArray(chat)) messages = chat
 
-  if (!chat) return {
+  if (!chat || !messages || !messages.length) return {
     id,
     lastSeen: new Date(),
     messages: []
