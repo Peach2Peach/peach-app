@@ -22,6 +22,7 @@ import { account } from '../../utils/account'
 
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
+import pgp from '../../init/pgp'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
 
@@ -141,6 +142,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     (async () => {
       if (screens[page].id === 'search' && !offer.id) {
         setUpdatePending(true)
+
+        await pgp() // make sure pgp has been sent
         const [result, err] = await postOffer({
           ...offer,
         })
