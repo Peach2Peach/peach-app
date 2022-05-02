@@ -21,9 +21,8 @@ import { error, info } from '../../utils/log'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
-import { cancelOffer } from '../../utils/peachAPI'
 import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
-import ConfirmCancelTrade from '../../overlays/ConfirmCancelTrade'
+import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { account } from '../../utils/account'
 import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
@@ -208,8 +207,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const navigate = () => navigation.navigate('offers', {})
 
-  const cancelTrade = () => updateOverlay({
-    content: <ConfirmCancelTrade offer={offer} navigate={navigate} />,
+  const cancelOffer = () => updateOverlay({
+    content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
     showCloseButton: false
   })
 
@@ -372,9 +371,9 @@ export default ({ route, navigation }: Props): ReactElement => {
             />
           </View>
         }
-        <Pressable style={tw`mt-4`} onPress={cancelTrade}>
+        <Pressable style={tw`mt-4`} onPress={cancelOffer}>
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
-            {i18n('cancelTrade')}
+            {i18n('cancelOffer')}
           </Text>
         </Pressable>
       </View>

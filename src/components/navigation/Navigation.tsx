@@ -6,7 +6,7 @@ import Icon from '../Icon'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Text } from '../text'
-import ConfirmCancelTrade from '../../overlays/ConfirmCancelTrade'
+import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { OverlayContext } from '../../contexts/overlay'
 import { Fade } from '../animation'
 
@@ -34,8 +34,8 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
 
   const navigate = () => navigation.navigate('offers', {})
 
-  const cancelTrade = () => updateOverlay({
-    content: <ConfirmCancelTrade offer={offer} navigate={navigate} />,
+  const cancelOffer = () => updateOverlay({
+    content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
     showCloseButton: false
   })
 
@@ -64,9 +64,9 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
         : {}}
     />
     {screen === 'escrow'
-      ? <Pressable style={tw`mt-4`} onPress={cancelTrade}>
+      ? <Pressable style={tw`mt-4`} onPress={cancelOffer}>
         <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
-          {i18n('cancelTrade')}
+          {i18n('cancelOffer')}
         </Text>
       </Pressable>
       : null
