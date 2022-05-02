@@ -34,6 +34,12 @@ declare type Message = {
   signature: string,
 }
 
+declare type Chat = {
+  id: string,
+  lastSeen: Date,
+  messages: Message[]
+}
+
 declare type MessageState = {
   msg: string,
   level: Level,

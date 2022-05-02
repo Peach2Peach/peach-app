@@ -6,6 +6,7 @@ import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
+import { getChat } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { getOfferStatus } from '../../../utils/offer'
@@ -79,6 +80,10 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
   const { status, requiredAction } = getOfferStatus(offer)
   const icon = ICONMAP[requiredAction] || ICONMAP[status]
   const contract = offer.contractId ? getContract(offer.contractId) : null
+  const contractChat = offer.contractId ? getChat(offer.contractId) : null
+  const messagesSeen = contractChat
+    ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
+    : 0
 
   return <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}
     style={[
@@ -106,10 +111,10 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
         color={(requiredAction ? tw`text-white-1` : tw`text-grey-1`).color as string}
       />
     </View>
-    {contract?.messages
+    {contract?.messages && contract.messages - messagesSeen > 0
       ? <Bubble color={tw`text-green`.color as string}
         style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{contract.messages}</Text>
+        <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{contract.messages - messagesSeen}</Text>
       </Bubble>
       : null
     }

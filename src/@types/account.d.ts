@@ -24,6 +24,6 @@ declare type Account = {
   offers: (SellOffer|BuyOffer)[],
   contracts: Contract[],
   chats: {
-    [key: string]: Message[]
+    [key: string]: Chat
   }
 }
