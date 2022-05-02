@@ -26,7 +26,7 @@ export const PeachScrollView = ({
   disable,
   scrollEventThrottle,
   onScroll,
-  style
+  style,
 }: PeachScrollViewProps): ReactElement => {
   const onStartShouldSetResponder = () => !disable
 

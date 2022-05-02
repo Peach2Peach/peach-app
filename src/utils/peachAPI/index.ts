@@ -64,6 +64,7 @@ export {
 } from './private/offer'
 export {
   getContract,
+  getContracts,
   confirmPayment,
   rateUser,
   getChat, postChat,

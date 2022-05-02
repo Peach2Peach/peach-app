@@ -46,6 +46,7 @@ export type SellViewProps = {
 }
 
 const getDefaultSellOffer = (): SellOffer => ({
+  online: false,
   type: 'ask',
   creationDate: new Date(),
   premium: account.settings.premium || 1.5,
@@ -56,6 +57,8 @@ const getDefaultSellOffer = (): SellOffer => ({
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   matches: [],
+  seenMatches: [],
+  matched: [],
   doubleMatched: false,
   refunded: false,
   released: false,

@@ -77,6 +77,8 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
     })
 
     ;(async () => {
+      if (!offer.id) return
+
       const [result, err] = await patchOffer({
         offerId: offer.id,
         returnAddress: address

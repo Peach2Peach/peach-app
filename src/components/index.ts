@@ -23,6 +23,7 @@ export {
 
 export { Match, Matches } from './matches'
 export {
+  Bubble,
   HorizontalLine,
   Shadow,
 } from './ui'

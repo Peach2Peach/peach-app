@@ -24,6 +24,7 @@ import { getTimerStart } from '../contract/helpers/getTimerStart'
 import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseContract'
 import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
+import { getChat, saveChat } from '../../utils/chat'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -45,7 +46,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
-  const [chat, setChat] = useState<Message[]>(account.chats[contractId] || [])
+  const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
@@ -67,7 +68,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         date: new Date(message.date),
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
-      setChat(prevChat => [...prevChat, decryptedMessage])
+      setChat(prevChat => {
+        const c = {
+          ...prevChat,
+          messages: [...prevChat.messages, decryptedMessage]
+        }
+        saveChat(contract.id, c)
+        return c
+      })
     }
 
     if (!ws.connected) return () => {
@@ -93,7 +101,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [route])
 
   useEffect(() => {
-    setChat(account.chats[contractId] || [])
+    setChat(getChat(contractId) || {})
   }, [contractId])
 
   useEffect(getContractEffect({
@@ -145,7 +153,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!contract || !contract.symmetricKey) return
 
       const decryptedMessages = await Promise.all(result.map(async (message) => {
-        const existingMessage = chat.find(m => m.date === message.date && m.from === message.from)
+        const existingMessage = chat.messages.find(m => m.date === message.date && m.from === message.from)
         let decryptedMessage = existingMessage?.message
         try {
           if (message.message && contract.symmetricKey) {
@@ -159,7 +167,12 @@ export default ({ route, navigation }: Props): ReactElement => {
           message: decryptedMessage,
         }
       }))
-      setChat(decryptedMessages)
+
+      saveChat(contractId, { messages: decryptedMessages })
+      setChat(c => ({
+        ...c,
+        messages: decryptedMessages
+      }))
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -248,7 +261,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
           ]}>
             <View style={tw`h-full flex-shrink`}>
-              <ChatBox messages={chat} />
+              <ChatBox chat={chat} />
             </View>
             <View style={tw`mt-4 flex-shrink-0`}>
               <Input

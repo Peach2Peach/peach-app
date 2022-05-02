@@ -30,8 +30,15 @@ declare type APIError = {
 
 declare type User = {
   id: string,
-  rating: number|null,
+  creationDate: Date,
+  trades: number,
+  rating: number,
+  userRating: number,
   ratingCount: number,
+  peachRating: number,
+  medals: Medal[],
+  pgpPublicKey: string
+  pgpPublicKeyProof: string
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
@@ -84,20 +91,24 @@ declare type PeachPairInfo = {
 }
 declare type Offer = {
   id: string,
+  creationDate: Date,
   online: boolean,
-  userId: string,
-  publicKey: string,
+  user?: User,
+  publicKey?: string,
   type: 'bid' | 'ask',
   amount: number,
-  premium: number,
-  currencies: string|string[],
+  premium?: number,
+  currencies: Currency[],
   prices?: Pricebook,
-  paymentMethods: string|string[],
+  paymentMethods: PaymentMethod[],
   kyc: boolean,
-  kycType: KYCType,
-  returnAddress: string,
+  kycType?: KYCType,
+  returnAddress?: string,
   escrow?: string,
-  funding?: FundingStatus
+  funding?: FundingStatus,
+  matches: Offer['id'][],
+  doubleMatched: boolean,
+  contractId?: string
 }
 
 declare type PostOfferResponse = {
@@ -152,6 +163,7 @@ declare type MatchResponse = {
   contractId?: string,
 }
 declare type GetContractResponse = Contract
+declare type GetContractsResponse = Contract[]
 declare type ConfirmPaymentResponse = {
   success: true,
   txId?: string,

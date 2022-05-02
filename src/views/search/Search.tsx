@@ -53,6 +53,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [updatePending, setUpdatePending] = useState(true)
 
   const [matches, setMatches] = useState<Match[]>([])
+  const [seenMatches, setSeenMatches] = useState<Offer['id'][]>(route.params.offer.seenMatches)
   const currentMatch = matches[currentMatchIndex]
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
@@ -62,7 +63,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const setMatchingOptions = (match?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => {
-    if (typeof match === 'number') setCurrentMatchIndex(match)
+    if (typeof match === 'number') {
+      setCurrentMatchIndex(match)
+      setSeenMatches(seen => {
+        seen = (offer.seenMatches || []).concat([matches[match].offerId]).filter(unique())
+        saveAndUpdate({
+          ...offer,
+          seenMatches: seen
+        })
+        return seen
+      })
+
+    }
     if (currency) setSelectedCurrency(currency)
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
@@ -142,7 +154,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       }))
 
       if (offer.type === 'ask') {
-        saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
+        saveAndUpdate({
+          ...offer,
+          doubleMatched: true,
+          contractId: result.contractId
+        })
 
         if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
       }
@@ -167,7 +183,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       })))
 
       if (offer.type === 'ask') {
-        saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
+        saveAndUpdate({
+          ...offer,
+          doubleMatched: true,
+          contractId: result.contractId
+        })
 
         if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
       }
@@ -204,13 +224,18 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
 
-    saveAndUpdate({ ...offer, matches: matchedOffers })
+    saveAndUpdate({
+      ...offer,
+      seenMatches,
+      matched: matchedOffers
+    })
   }, [matches])
 
   useEffect(getOfferDetailsEffect({
     offerId,
     interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
+
       saveAndUpdate({
         ...offer,
         ...result,
@@ -252,7 +277,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
     ? checkFundingStatusEffect({
-      offer,
+      offer: offer as SellOffer,
       onSuccess: result => {
         info('Checked funding status', result)
 
