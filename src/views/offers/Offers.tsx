@@ -74,7 +74,7 @@ export default ({ navigation }: Props): ReactElement => {
   }), [])
 
   return <PeachScrollView contentContainerStyle={tw`px-6`}>
-    <View style={tw`pb-10 px-10`}>
+    <View style={tw`pt-5 pb-10 px-10`}>
       <Title title={i18n('offers.title')}/>
       {openOffers.length
         ? <Headline style={tw`mt-20 text-grey-1`}>
