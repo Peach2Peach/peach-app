@@ -2,6 +2,7 @@
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   id: '37',
+  online: true,
   type: 'bid',
   currencies: ['EUR', 'CHF'],
   paymentMethods: ['iban'],
@@ -15,6 +16,7 @@ export const buyOffer: BuyOffer = {
 export const sellOffer: SellOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   id: '38',
+  online: true,
   type: 'ask',
   currencies: ['EUR'],
   paymentData: [
@@ -37,6 +39,7 @@ export const sellOffer: SellOffer = {
 export const buyOfferUnpublished: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   type: 'bid',
+  online: true,
   currencies: ['EUR', 'CHF'],
   paymentMethods: ['iban'],
   kyc: false,
@@ -107,6 +110,7 @@ export const contract: Contract = {
     id: '02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9',
     creationDate: new Date(),
     trades: 0,
+    online: true,
     rating: 0,
     userRating: 0,
     ratingCount: 0,
@@ -119,6 +123,7 @@ export const contract: Contract = {
     id: '02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9',
     creationDate: new Date(),
     trades: 0,
+    online: true,
     rating: 0,
     userRating: 0,
     ratingCount: 0,
@@ -129,6 +134,7 @@ export const contract: Contract = {
   },
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
 
+  online: true,
   symmetricKey: 'TODO',
   symmetricKeyEncrypted: 'TODO',
   symmetricKeySignature: 'TODO',
