@@ -138,7 +138,6 @@ export const contract: Contract = {
   },
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
 
-  online: true,
   symmetricKey: 'TODO',
   symmetricKeyEncrypted: 'TODO',
   symmetricKeySignature: 'TODO',
