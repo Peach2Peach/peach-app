@@ -28,7 +28,8 @@ const isKYCConfirmationRequired = (offer: SellOffer, contract: Contract) =>
   && contract.kycResponseDate === null
 
 const isPaymentRequired = (offer: BuyOffer, contract: Contract) =>
-  !isKYCRequired(offer, contract)
+  offer.type === 'bid'
+  && !isKYCRequired(offer, contract)
   && contract.paymentMade === null
 
 const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>

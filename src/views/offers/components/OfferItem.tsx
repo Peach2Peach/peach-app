@@ -71,6 +71,7 @@ const ICONMAP: IconMap = {
   sendPayment: 'money',
   confirmPayment: 'money',
   rate: 'heart',
+  contractCreated: 'check',
   tradeCompleted: 'check',
   tradeCanceled: 'cross',
 }

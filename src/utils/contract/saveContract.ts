@@ -9,7 +9,6 @@ import { session } from '../session'
 */
 export const saveContract = (contract: Contract, disableSave = false): void => {
   // info('saveContract', contract)
-
   if (contractExists(contract.id)) {
     const index = account.contracts.findIndex(c => c.id === contract.id)
     account.contracts[index] = {

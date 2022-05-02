@@ -45,7 +45,7 @@ export default ({ navigation }: Props): ReactElement => {
       result.map(offer => saveOffer(offer, true))
       if (session.password) saveAccount(getAccount(), session.password)
 
-      setOffers(account.offers)
+      setOffers(getOffers())
     },
     onError: err => {
       error('Could not fetch offer information')
@@ -62,7 +62,7 @@ export default ({ navigation }: Props): ReactElement => {
       result.map(contract => saveContract(contract, true))
       if (session.password) saveAccount(getAccount(), session.password)
 
-      setOffers(account.offers)
+      setOffers(getOffers())
     },
     onError: err => {
       error('Could not fetch contract information')
