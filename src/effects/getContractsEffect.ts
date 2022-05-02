@@ -25,9 +25,11 @@ export default ({
         if (contract.kycResponseDate) contract.kycResponseDate = new Date(contract.kycResponseDate)
         if (contract.paymentMade) contract.paymentMade = new Date(contract.paymentMade)
         if (contract.paymentConfirmed) contract.paymentConfirmed = new Date(contract.paymentConfirmed)
+
+        return contract
       })
 
-      onSuccess(result)
+      onSuccess(contracts)
     } else if (err) {
       error('Error', err)
       onError(err)
