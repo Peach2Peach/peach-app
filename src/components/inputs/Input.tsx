@@ -83,9 +83,10 @@ export const Input = ({
         style={[
           tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
           tw.md`h-10`,
-          label && !value ? tw`font-baloo text-xs leading-5 uppercase` : {}
+          label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
         ]}
         placeholder={label}
+        placeholderTextColor={tw`text-grey-1`.color as string}
         value={value}
         editable={!disabled}
         autoCorrect={autoCorrect}
