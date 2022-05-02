@@ -159,7 +159,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           contractId: result.contractId
         })
 
-        if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
+        if (result.contractId) navigation.replace('contract', { contractId: result.contractId })
       }
     } else {
       error('Error', err)
@@ -180,16 +180,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...m,
         matched: m.offerId === match.offerId ? !m.matched : m.matched
       })))
-
-      if (offer.type === 'ask') {
-        saveAndUpdate({
-          ...offer,
-          doubleMatched: true,
-          contractId: result.contractId
-        })
-
-        if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
-      }
     } else {
       error('Error', err)
       updateMessage({
@@ -240,7 +230,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
-      if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
+      if (result.contractId) navigation.replace('contract', { contractId: result.contractId })
 
       setUpdatePending(() => false)
     },
