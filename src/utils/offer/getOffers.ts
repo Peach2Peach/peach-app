@@ -6,5 +6,6 @@ import { getOffer } from './getOffer'
   * @returns offer
   */
 export const getOffers = (): (SellOffer|BuyOffer)[] => account.offers
-  .map(o => getOffer(o.id) as (SellOffer|BuyOffer))
+  .map(o => getOffer(o.id || '') as (SellOffer|BuyOffer))
+  .filter(o => o)
   .sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1)
