@@ -1,3 +1,10 @@
+export const noShadow = {
+  distance: 0,
+  startColor: '#00000000',
+  finalColor: '#00000000',
+  radius: 0
+}
+
 export const mildShadow = {
   distance: 16,
   startColor: '#0000000D',

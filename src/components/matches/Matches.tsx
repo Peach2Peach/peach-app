@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useEffect, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
@@ -17,6 +17,9 @@ type SliderArrowProps = {
   onPress: Function
 }
 const onStartShouldSetResponder = () => true
+
+const shouldRenderShadow = (currentIndex: number, index: number) => 
+  currentIndex + 1 <= index && currentIndex + 5 >= index || currentIndex === index
 
 const PrevButton = ({ onPress }: SliderArrowProps) =>
   <Pressable onPress={(e) => onPress(e)} style={tw`absolute left-2 z-10`}>
@@ -39,9 +42,10 @@ const getMatchPaymentMethod = (match: Match) => match.selectedPaymentMethod || m
 export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchProps): ReactElement => {
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
-
+  const [currentIndex, setCurrentIndex] = useState(0)
   const onBeforeSnapToItem = (i: number) => {
     onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
+    setCurrentIndex(i)
   }
 
   useEffect(() => {
@@ -64,9 +68,11 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}
       onBeforeSnapToItem={onBeforeSnapToItem}
-      renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
+      keyExtractor={(item, index) => `${item.offerId}-${index}`}
+      renderItem={({ item, index }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
         style={tw`-mx-4 px-4 py-4 bg-transparent`}>
-        <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
+        <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange}
+          renderShadow={shouldRenderShadow(currentIndex, index)} />
       </View>}
     />
     {matches.length > 1
