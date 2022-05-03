@@ -47,6 +47,24 @@
       ]
     }
   },
+  "bitcoinTestnet": {
+    "base58Check": {
+      "valid": [
+        "2MsftWdaS4y847oVwfcD7m5MbRaYaLcfYSQ"
+      ],
+      "invalid": [
+        "2MsftWdaS4y847oVwfcD7m5MbRaYaLcfAA"
+      ]
+    },
+    "bech32": {
+      "valid": [
+        "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgk7"
+      ],
+      "invalid": [
+        "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgaa"
+      ]
+    }
+  },
   "iban": {
     "valid": [
       "IE29 AIBK 9311 5212 3456 78",
