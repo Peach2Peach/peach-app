@@ -35,7 +35,8 @@ const showOffer = (offer: SellOffer|BuyOffer) => offer.online || offer.contractI
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-  const [offers, setOffers] = useState(getOffers())
+  const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
+  const offers = getOffers()
   const openOffers = offers.filter(isOpenOffer).filter(showOffer)
   const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
@@ -44,8 +45,7 @@ export default ({ navigation }: Props): ReactElement => {
       if (!result?.length) return
       result.map(offer => saveOffer(offer, true))
       if (session.password) saveAccount(getAccount(), session.password)
-
-      setOffers(getOffers())
+      setLastUpdate(new Date().getTime())
     },
     onError: err => {
       error('Could not fetch offer information')
@@ -61,8 +61,7 @@ export default ({ navigation }: Props): ReactElement => {
       if (!result?.length) return
       result.map(contract => saveContract(contract, true))
       if (session.password) saveAccount(getAccount(), session.password)
-
-      setOffers(getOffers())
+      setLastUpdate(new Date().getTime())
     },
     onError: err => {
       error('Could not fetch contract information')
