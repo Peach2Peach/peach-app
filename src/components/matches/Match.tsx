@@ -66,7 +66,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
   }
 
   return <Shadow {...(match.matched ? mildShadowOrange : mildShadow)} viewStyle={[
-    tw`w-full border border-grey-4 rounded-md bg-white-1`,
+    tw`w-full border border-grey-4 bg-white-1 rounded-md`,
     match.matched ? tw`border-peach-1` : {},
     style
   ]}>

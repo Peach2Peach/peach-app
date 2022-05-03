@@ -49,7 +49,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
     onChange(0, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
   }, [])
 
-  return <View style={[tw`flex-row items-center justify-center`, style]}>
+  return <View style={[tw`flex-row items-center justify-center overflow-visible`, style]}>
     {matches.length > 1
       ? <PrevButton onPress={() => $carousel.current?.snapToPrev()} />
       : null
@@ -58,7 +58,6 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       ref={$carousel}
       data={matches}
       enableSnap={true} enableMomentum={false}
-      containerCustomStyle={[tw`overflow-visible`]}
       sliderWidth={width} itemWidth={width - 80}
       inactiveSlideScale={0.9} inactiveSlideOpacity={0.7} inactiveSlideShift={-10}
       activeSlideAlignment="center"
@@ -66,7 +65,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       shouldOptimizeUpdates={true}
       onBeforeSnapToItem={onBeforeSnapToItem}
       renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
-        style={tw`-mx-4 px-4 bg-white-1`}>
+        style={tw`-mx-4 px-4 py-4 bg-transparent`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
       </View>}
     />
