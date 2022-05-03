@@ -96,6 +96,7 @@
   "offers.title": "Offers",
   "offers.openOffers": "Open offers",
   "offers.pastOffers": "Past offers",
+  "offers.noOffers": "You have not created any offers yet.",
   "cancelOffer": "Cancel offer",
   "cancelOffer.confirm.title": "Are you sure you want to cancel this offer?",
   "cancelOffer.confirm.ok": "Do it",

@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Headline, PeachScrollView, Title } from '../../components'
+import { Headline, PeachScrollView, Text, Title } from '../../components'
 import { account, getAccount, saveAccount } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
@@ -32,6 +32,7 @@ const isOpenOffer = (offer: SellOffer|BuyOffer) => !isPastOffer(offer)
 
 const showOffer = (offer: SellOffer|BuyOffer) => offer.online || offer.contractId || offer.type === 'ask'
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -75,6 +76,12 @@ export default ({ navigation }: Props): ReactElement => {
   return <PeachScrollView contentContainerStyle={tw`px-6`}>
     <View style={tw`pt-5 pb-10 px-10`}>
       <Title title={i18n('offers.title')}/>
+      {openOffers.length + pastOffers.length === 0
+        ? <Text style={tw`text-center`}>
+          {i18n('offers.noOffers')}
+        </Text>
+        : null
+      }
       {openOffers.length
         ? <Headline style={tw`mt-20 text-grey-1`}>
           {i18n('offers.openOffers')}
