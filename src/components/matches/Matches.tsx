@@ -18,7 +18,7 @@ type SliderArrowProps = {
 }
 const onStartShouldSetResponder = () => true
 
-const shouldRenderShadow = (currentIndex: number, index: number) => 
+const shouldRenderShadow = (currentIndex: number, index: number) =>
   currentIndex + 1 <= index && currentIndex + 5 >= index || currentIndex === index
 
 const PrevButton = ({ onPress }: SliderArrowProps) =>
