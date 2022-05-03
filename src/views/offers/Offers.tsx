@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Headline, PeachScrollView, Title } from '../../components'
+import { Headline, PeachScrollView, Text, Title } from '../../components'
 import { account, getAccount, saveAccount } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
