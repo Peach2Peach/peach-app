@@ -16,7 +16,7 @@ import { getMessages, rules } from '../../utils/validation'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import Icon from '../../components/Icon'
-import { error } from '../../utils/log'
+import { error, info } from '../../utils/log'
 import { setPGP } from '../../utils/peachAPI'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
@@ -62,12 +62,15 @@ export default ({ navigation }: Props): ReactElement => {
     updateSettings({
       skipTutorial: true
     })
-    const [result] = await setPGP(account.pgp)
+    const [result, err] = await setPGP(account.pgp)
 
     if (result) {
+      info('Set PGP for user', account.publicKey)
       updateSettings({
         pgpPublished: true
       })
+    } else {
+      error('PGP could not be set', err)
     }
     saveAccount(account, password)
 

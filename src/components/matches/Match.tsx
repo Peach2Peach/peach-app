@@ -5,7 +5,7 @@ import { Headline, Shadow, Text, HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { mildShadow, mildShadowOrange, mildShadowRed } from '../../utils/layout'
+import { mildShadow, mildShadowOrange, mildShadowRed, noShadow } from '../../utils/layout'
 import LanguageContext from '../../contexts/language'
 import { Selector } from '../inputs'
 import { padString, thousands } from '../../utils/string'
@@ -20,6 +20,7 @@ type MatchProps = ComponentProps & {
   offer: BuyOffer|SellOffer,
   toggleMatch: (match: Match) => void,
   onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
+  renderShadow?: boolean
 }
 
 /**
@@ -29,7 +30,7 @@ type MatchProps = ComponentProps & {
  * <Match match={match} />
  */
 // eslint-disable-next-line max-lines-per-function
-export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps): ReactElement => {
+export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style }: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
   const [selectedCurrency, setSelectedCurrency] = useState(
@@ -38,6 +39,12 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     match.selectedPaymentMethod || match.paymentMethods[0]
   )
+
+  const shadow = renderShadow
+    ? match.matched
+      ? mildShadowOrange
+      : mildShadow
+    : noShadow
 
   const medal = match.user.rating > GOLDMEDAL
     ? 'gold'
@@ -65,8 +72,8 @@ export const Match = ({ match, offer, toggleMatch, onChange, style }: MatchProps
     onChange(null, selectedCurrency, paymentMethod)
   }
 
-  return <Shadow {...(match.matched ? mildShadowOrange : mildShadow)} viewStyle={[
-    tw`w-full border border-grey-4 rounded-md bg-white-1`,
+  return <Shadow {...shadow} viewStyle={[
+    tw`w-full border border-grey-4 bg-white-1 rounded-md`,
     match.matched ? tw`border-peach-1` : {},
     style
   ]}>

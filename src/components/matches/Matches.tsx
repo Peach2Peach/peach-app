@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useEffect, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
@@ -17,6 +17,9 @@ type SliderArrowProps = {
   onPress: Function
 }
 const onStartShouldSetResponder = () => true
+
+const shouldRenderShadow = (currentIndex: number, index: number) =>
+  currentIndex + 1 <= index && currentIndex + 5 >= index || currentIndex === index
 
 const PrevButton = ({ onPress }: SliderArrowProps) =>
   <Pressable onPress={(e) => onPress(e)} style={tw`absolute left-2 z-10`}>
@@ -39,9 +42,10 @@ const getMatchPaymentMethod = (match: Match) => match.selectedPaymentMethod || m
 export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchProps): ReactElement => {
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
-
+  const [currentIndex, setCurrentIndex] = useState(0)
   const onBeforeSnapToItem = (i: number) => {
     onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
+    setCurrentIndex(i)
   }
 
   useEffect(() => {
@@ -49,7 +53,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
     onChange(0, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
   }, [])
 
-  return <View style={[tw`flex-row items-center justify-center`, style]}>
+  return <View style={[tw`flex-row items-center justify-center overflow-visible`, style]}>
     {matches.length > 1
       ? <PrevButton onPress={() => $carousel.current?.snapToPrev()} />
       : null
@@ -58,16 +62,17 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       ref={$carousel}
       data={matches}
       enableSnap={true} enableMomentum={false}
-      containerCustomStyle={[tw`overflow-visible`]}
       sliderWidth={width} itemWidth={width - 80}
       inactiveSlideScale={0.9} inactiveSlideOpacity={0.7} inactiveSlideShift={-10}
       activeSlideAlignment="center"
       lockScrollWhileSnapping={true}
       shouldOptimizeUpdates={true}
       onBeforeSnapToItem={onBeforeSnapToItem}
-      renderItem={({ item }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
-        style={tw`-mx-4 px-4 bg-white-1`}>
-        <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange} />
+      keyExtractor={(item, index) => `${item.offerId}-${index}`}
+      renderItem={({ item, index }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
+        style={tw`-mx-4 px-4 py-4 bg-transparent`}>
+        <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange}
+          renderShadow={shouldRenderShadow(currentIndex, index)} />
       </View>}
     />
     {matches.length > 1

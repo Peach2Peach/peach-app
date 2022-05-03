@@ -284,89 +284,86 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`h-full flex pb-10`}>
-    <View style={tw`h-full flex-shrink`}>
-      <View style={tw`h-full flex justify-center pb-8 pt-12`}>
-        <View style={tw`px-6`}>
-          {!matches.length
-            ? <BigTitle title={i18n('search.searchingForAPeer')} />
-            : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
-              {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
-            </Headline>
-          }
-          {offer.type === 'ask' && !matches.length
-            ? <SearchingForBuyOffers />
-            : null
-          }
-          {matches.length
-            ? offer.type === 'bid'
-              ? <View>
-                <Text style={tw`text-grey-2 text-center -mt-2`}>
-                  {i18n('search.buyOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
-                  {i18n('currency.SATS')}
-                </Text>
-              </View>
-              : <View>
-                <Text style={tw`text-grey-2 text-center -mt-2`}>
-                  {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
-                  {i18n('currency.SATS')}
-                </Text>
-                <Text style={tw`text-grey-2 text-center -mt-1`}>
-                  {i18n(
-                    offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount',
-                    String(Math.abs(offer.premium))
-                  )}
-                </Text>
-              </View>
-            : null
+  return <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
+    <View style={tw`px-6`}>
+      {!matches.length
+        ? <BigTitle title={i18n('search.searchingForAPeer')} />
+        : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
+          {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
+        </Headline>
+      }
+      {offer.type === 'ask' && !matches.length
+        ? <SearchingForBuyOffers />
+        : null
+      }
+      {matches.length
+        ? offer.type === 'bid'
+          ? <View>
+            <Text style={tw`text-grey-2 text-center -mt-2`}>
+              {i18n('search.buyOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
+              {i18n('currency.SATS')}
+            </Text>
+          </View>
+          : <View>
+            <Text style={tw`text-grey-2 text-center -mt-2`}>
+              {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
+              {i18n('currency.SATS')}
+            </Text>
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n(
+                offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount',
+                String(Math.abs(offer.premium))
+              )}
+            </Text>
+          </View>
+        : null
+      }
+    </View>
+    <View style={tw`h-full flex-shrink flex-col justify-end`}>
+      {matches.length
+        ? <View style={tw`h-full flex-shrink flex-col justify-end`}>
+          <Matches offer={offer} matches={matches}
+            onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
+          {offer.type === 'bid'
+            ? <View style={tw`flex items-center`}>
+              <Button
+                title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
+                wide={false}
+                disabled={currentMatch?.matched}
+                onPress={_toggleMatch}
+              />
+            </View>
+            : <View style={tw`flex items-center`}>
+              {/* <Button
+                title={i18n('search.declineMatch')}
+                wide={false}
+                secondary={true}
+                disabled={currentMatch?.matched}
+                onPress={_decline}
+              /> */}
+              <Button
+                // style={tw`ml-6`}
+                title={i18n('search.acceptMatch')}
+                wide={false}
+                disabled={currentMatch?.matched}
+                onPress={() => _match(currentMatch)}
+              />
+            </View>
           }
         </View>
-        {matches.length
-          ? <View>
-            <Matches style={tw`mt-9`} offer={offer} matches={matches}
-              onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
-            {offer.type === 'bid'
-              ? <View style={tw`flex items-center mt-6`}>
-                <Button
-                  title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
-                  wide={false}
-                  disabled={currentMatch?.matched}
-                  onPress={_toggleMatch}
-                />
-                <MatchDisclaimer matched={currentMatch?.matched}/>
-              </View>
-              : <View style={tw`flex-row justify-center mt-6`}>
-                {/* <Button
-                  title={i18n('search.declineMatch')}
-                  wide={false}
-                  secondary={true}
-                  disabled={currentMatch?.matched}
-                  onPress={_decline}
-                /> */}
-                <Button
-                  // style={tw`ml-6`}
-                  title={i18n('search.acceptMatch')}
-                  wide={false}
-                  disabled={currentMatch?.matched}
-                  onPress={() => _match(currentMatch)}
-                />
-              </View>
-            }
-          </View>
-          : <View style={tw`flex items-center mt-6`}>
-            <Button
-              title={i18n('goBackHome')}
-              wide={false}
-              onPress={() => navigation.navigate('home', {})}
-            />
-          </View>
-        }
-        <Pressable style={tw`mt-4`} onPress={cancelOffer}>
-          <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
-            {i18n('cancelOffer')}
-          </Text>
-        </Pressable>
-      </View>
+        : <View style={tw`flex items-center mt-6`}>
+          <Button
+            title={i18n('goBackHome')}
+            wide={false}
+            onPress={() => navigation.navigate('home', {})}
+          />
+        </View>
+      }
+      <Pressable style={tw`mt-3`} onPress={cancelOffer}>
+        <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
+          {i18n('cancelOffer')}
+        </Text>
+      </Pressable>
     </View>
   </View>
 }
