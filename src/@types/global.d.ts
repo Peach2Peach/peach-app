@@ -58,7 +58,8 @@ declare type BitcoinContextType = {
 
 declare type Session = {
   initialized: boolean
-  password?: string
+  password?: string,
+  peachInfo?: PeachInfo
 }
 
 declare type PeachWallet = {
