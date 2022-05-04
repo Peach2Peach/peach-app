@@ -100,7 +100,7 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
     }
   }
   return {
-    status: 'offerPublished',
+    status: offer.matches.length === 0 ? 'searchingForPeer' : 'match',
     requiredAction: hasSeenAllMatches(offer)
       ? 'checkMatches'
       : ''
