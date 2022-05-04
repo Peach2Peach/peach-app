@@ -16,6 +16,7 @@ export default ({
     const [result, err] = await getOffers()
     if (result) {
       info(`Got ${result.length} offers`)
+
       onSuccess(result)
     } else if (err) {
       error('Error', err)
@@ -23,7 +24,11 @@ export default ({
     }
   }
 
+  const interval = setInterval(checkingFunction, 30 * 1000)
+
   checkingFunction()
 
-  return () => {}
+  return () => {
+    clearInterval(interval)
+  }
 }

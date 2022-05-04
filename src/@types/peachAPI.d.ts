@@ -106,6 +106,7 @@ declare type Offer = {
   kycType?: KYCType,
   returnAddress?: string,
   escrow?: string,
+  refunded?: boolean,
   funding?: FundingStatus,
   matches: Offer['id'][],
   doubleMatched: boolean,

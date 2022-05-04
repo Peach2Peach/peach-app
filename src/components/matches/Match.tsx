@@ -5,7 +5,7 @@ import { Headline, Shadow, Text, HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { mildShadow, mildShadowOrange, mildShadowRed, noShadow } from '../../utils/layout'
+import { mildShadow, mildShadowOrange, dropShadowRed, noShadow } from '../../utils/layout'
 import LanguageContext from '../../contexts/language'
 import { Selector } from '../inputs'
 import { padString, thousands } from '../../utils/string'
@@ -80,7 +80,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
     {match.matched
       ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
         <Pressable onPress={() => toggleMatch(match)} style={tw`absolute top-0 right-0 p-2 z-10`}>
-          <Shadow {...mildShadowRed}>
+          <Shadow {...dropShadowRed}>
             <View style={tw`bg-white-1 rounded-full p-0.5`}>
               <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string}/>
             </View>

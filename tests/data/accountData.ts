@@ -151,11 +151,13 @@ export const contract: Contract = {
   paymentMade: null,
   paymentMethod: 'iban',
   price: 89.04,
+  premium: 1.5,
+  escrow: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
   releaseAddress: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
   releaseTransaction: 'rawtransaction',
   canceled: false,
-  ratingBuyer: false,
-  ratingSeller: false,
+  ratingBuyer: 0,
+  ratingSeller: 0,
 
   messages: 0,
 }

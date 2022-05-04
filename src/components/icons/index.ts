@@ -2,6 +2,7 @@ import { SvgProps } from 'react-native-svg'
 import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
+import chat from './chat.svg'
 import check from './check.svg'
 import checkbox from './checkbox.svg'
 import circle from './circle.svg'
@@ -15,6 +16,7 @@ import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
 import help from './help.svg'
 import money from './money.svg'
+import link from './link.svg'
 import negative from './negative.svg'
 import offers from './offers.svg'
 import positive from './positive.svg'
@@ -36,6 +38,7 @@ const Icons: Icons = {
   arrowLeft,
   buy,
   camera,
+  chat,
   check,
   checkbox,
   circle,
@@ -49,6 +52,7 @@ const Icons: Icons = {
   heart,
   help,
   money,
+  link,
   negative,
   offers,
   positive,

@@ -8,6 +8,7 @@ export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
 export { Header } from './Header'
+export { Icon } from './Icon'
 export { IconButton } from './IconButton'
 export {
   Checkboxes,
@@ -22,6 +23,7 @@ export {
 } from './inputs'
 
 export { Match, Matches } from './matches'
+export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
 export {
   Bubble,
   HorizontalLine,

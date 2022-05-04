@@ -15,17 +15,27 @@ import { ProfileScreenNavigationProp } from '../Offers'
 
 const navigateToOffer = (
   offer: SellOffer|BuyOffer,
+  offerStatus: OfferStatus,
   navigation: ProfileScreenNavigationProp,
   updateOverlay: React.Dispatch<OverlayState>
+// eslint-disable-next-line max-params
 ): void => {
   const navigate = () => navigation.navigate('offers', {})
 
-  if (offer.type === 'ask' && offer.funding?.txId && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
+  if (offer.type === 'ask'
+    && offer.funding?.txId
+    && !offer.refunded
+    && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
     // return navigation.navigate('refund', { offer })
     return updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,
       showCloseButton: false
     })
+  }
+
+  if (!/rate/u.test(offerStatus.requiredAction)
+    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
+    return navigation.navigate('offer', { offer })
   }
 
   if (offer.contractId) {
@@ -87,7 +97,7 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
     ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
     : 0
 
-  return <Pressable onPress={() => navigateToOffer(offer, navigation, updateOverlay)}
+  return <Pressable onPress={() => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)}
     style={[
       tw`pl-4 pr-2 py-2 rounded`,
       requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,

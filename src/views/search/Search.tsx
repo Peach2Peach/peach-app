@@ -261,7 +261,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
       )
     },
-    onError: err => updateMessage({ msg: i18n(err.error), level: 'ERROR' }),
+    onError: err => err.error !== 'UNAUTHORIZED'
+      ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
+      : null,
   }) : () => {}, [updatePending])
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'

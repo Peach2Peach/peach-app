@@ -27,11 +27,19 @@ export const mildShadowOrange = {
 }
 
 
-export const mildShadowRed = {
+export const dropShadowRed = {
   distance: 4,
   startColor: '#E43B5F0D',
   finalColor: '#E43B5F00',
   offset: [0, 2] as [x: string | number, y: string | number],
+}
+
+
+export const mildShadowRed = {
+  distance: 14,
+  startColor: '#E43B5F0D',
+  finalColor: '#E43B5F00',
+  offset: [0, 4] as [x: string | number, y: string | number],
 }
 
 

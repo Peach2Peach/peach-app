@@ -23,5 +23,8 @@ declare type RootStackParamList = {
     view: 'buyer' | 'seller' | '',
   },
   offers: {},
+  offer: {
+    offer: SellOffer|BuyOffer,
+  },
   settings: {},
 }
