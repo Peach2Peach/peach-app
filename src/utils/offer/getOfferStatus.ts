@@ -38,8 +38,8 @@ const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>
   && !contract.paymentConfirmed
 
 const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
-  offer.type === 'bid' && !contract.ratingBuyer
-  || offer.type === 'ask' && !contract.ratingSeller
+  offer.type === 'bid' && !contract.ratingSeller
+  || offer.type === 'ask' && !contract.ratingBuyer
 
 const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
 
