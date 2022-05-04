@@ -1,6 +1,7 @@
 declare type OfferStatus = {
   status: 'escrowWaitingForConfirmation'
     | 'offerPublished'
+    | 'searchingForPeer'
     | 'match'
     | 'contractCreated'
     | 'tradeCompleted'

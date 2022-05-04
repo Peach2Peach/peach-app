@@ -64,6 +64,7 @@ type IconMap = { [key in OfferStatus['status']]?: string }
 
 const ICONMAP: IconMap = {
   offerPublished: 'clock',
+  searchingForPeer: 'clock',
   escrowWaitingForConfirmation: 'fundEscrow',
   fundEscrow: 'fundEscrow',
   match: 'clock',
@@ -92,7 +93,7 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
       requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
       style
     ]}>
-    <View style={tw`flex-row justify-between`}>
+    <View style={tw`flex-row justify-between items-center`}>
       <View style={tw`flex-row`}>
         <View style={tw`pr-1`}>
           <Text style={[
@@ -108,8 +109,8 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
           color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
           color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
       </View>
-      <Icon id={icon || 'help'} style={tw`w-7 h-7`}
-        color={(requiredAction ? tw`text-white-1` : tw`text-grey-1`).color as string}
+      <Icon id={icon || 'help'} style={tw`w-5 h-5`}
+        color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
       />
     </View>
     {contract?.messages && contract.messages - messagesSeen > 0
