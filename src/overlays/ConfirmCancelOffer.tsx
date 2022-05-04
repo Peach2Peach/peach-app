@@ -11,6 +11,12 @@ import { error, info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import Refund from './Refund'
 
+const dummyFunding: FundingStatus = {
+  status: 'NULL',
+  confirmations: 0,
+  amount: 0
+}
+
 const confirm = async (offer: BuyOffer|SellOffer) => {
   if (!offer.id) return
 
@@ -20,11 +26,11 @@ const confirm = async (offer: BuyOffer|SellOffer) => {
   })
   if (result) {
     info('Cancel offer: ', JSON.stringify(result))
-    if (offer.type === 'ask' && offer.funding) {
+    if (offer.type === 'ask') {
       saveOffer({
         ...offer, online: false,
         funding: {
-          ...offer.funding,
+          ...(offer.funding || dummyFunding),
           status: 'CANCELED',
         }
       })
