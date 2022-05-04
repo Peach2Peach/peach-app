@@ -130,9 +130,12 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
             {i18n('sell.escrow.sendSats.2')}
           </Headline>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
-          <ReturnAddress style={tw`mt-16`}
-            offer={offer} updateOffer={saveAndUpdate} setStepValid={returnAddressValidation}
-          />
+          {fundingStatus.status === 'NULL'
+            ? <ReturnAddress style={tw`mt-16`}
+              offer={offer} updateOffer={saveAndUpdate} setStepValid={returnAddressValidation}
+            />
+            : null
+          }
         </View>
         : <NoEscrowFound />
     }
