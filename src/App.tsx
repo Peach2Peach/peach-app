@@ -43,6 +43,7 @@ import websocket from './init/websocket'
 import pgp from './init/pgp'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
+import Offer from './views/offers/Offer'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -80,6 +81,7 @@ const views: ViewType[] = [
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
+  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
 ]
 

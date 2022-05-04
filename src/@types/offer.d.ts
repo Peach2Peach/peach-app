@@ -30,7 +30,6 @@ declare type SellOffer = Omit<Offer, 'id'> & {
   funding?: FundingStatus,
   tx?: string,
   txId?: string,
-  refunded: boolean,
   released: boolean,
   matched: Offer['id'][],
   seenMatches: Offer['id'][],

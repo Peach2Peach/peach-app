@@ -25,7 +25,6 @@ export const recoverAccount = async ({
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     await setSession({ password })
-    // console.log('XOXOXO', result)
 
     info('Get offers')
     const [result, err] = await getOffers()

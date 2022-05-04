@@ -34,7 +34,7 @@ export default ({
 
   if (interval) {
     (async () => {
-      intrvl = setInterval(checkingFunction, 30 * 1000)
+      intrvl = setInterval(checkingFunction, interval)
     })()
     return () => {
       clearInterval(intrvl)
