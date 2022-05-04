@@ -26,8 +26,6 @@ import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { account } from '../../utils/account'
 import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
-import MatchDisclaimer from './components/MatchDisclaimer'
-import SearchingForBuyOffers from './components/SearchingForBuyOffers'
 import { unique } from '../../utils/array'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
@@ -294,8 +292,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
         </Headline>
       }
-      {offer.type === 'ask' && !matches.length
-        ? <SearchingForBuyOffers />
+      {!matches.length
+        ? <Text style={tw`text-center mt-3`}>
+          {i18n('search.weWillNotifyYou')}
+        </Text>
         : null
       }
       {matches.length
