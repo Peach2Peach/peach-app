@@ -234,6 +234,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
     }))
+    saveChat(chat.id, { lastSeen: new Date() })
     setNewMessage(() => '')
   }
 
