@@ -184,13 +184,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     (async () => {
       if (!contract || !view || contract.canceled) return
 
-      if ((view === 'seller' && contract?.ratingBuyer)
-        || (view === 'buyer' && contract?.ratingSeller)) {
-        setContractId('')
-        navigation.navigate('tradeComplete', { contract, view })
-        return
-      }
-
       if (contract.paymentData && contract.symmetricKey) return
 
       const [paymentData, err] = await getPaymentData(contract)
@@ -247,7 +240,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
         />
       </Fade>
-      {contract && !contract.paymentConfirmed
+      {contract
         ? <View style={tw`h-full flex-col flex-shrink`}>
           {requiredAction !== 'none'
             ? <Timer

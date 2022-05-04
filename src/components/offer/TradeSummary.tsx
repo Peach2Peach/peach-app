@@ -37,19 +37,19 @@ export const TradeSummary = ({ type, contract, style }: TradeSummaryProps): Reac
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('contract.summary.from')}</Headline>
-    <View style={tw`flex-row justify-center`}>
+    <View style={tw`flex-row justify-center items-center`}>
+      <Image source={require('../../../assets/favico/peach-logo.png')}
+        style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
+      />
       <Text>
-        <Image source={require('../../../assets/favico/peach-logo.png')}
-          style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
-        />
         {(type === 'ask' ? contract.buyer : contract.seller).id.substring(0, 8)}
-        {ratingTradingPartner === 1
-          ? <Icon id="positive" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string}/>
-          : ratingTradingPartner === -1
-            ? <Icon id="negative" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string}/>
-            : null
-        }
       </Text>
+      {ratingTradingPartner === 1
+        ? <Icon id="positive" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string}/>
+        : ratingTradingPartner === -1
+          ? <Icon id="negative" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string}/>
+          : null
+      }
     </View>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('contract.summary.in')}</Headline>

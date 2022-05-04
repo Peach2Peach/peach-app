@@ -8,6 +8,7 @@ export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
 export { Header } from './Header'
+export { Icon } from './Icon'
 export { IconButton } from './IconButton'
 export {
   Checkboxes,

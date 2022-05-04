@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Button, Title, TradeSummary } from '../../../components'
+import { ChatButton } from '../../../components/chat/ChatButton'
 import tw from '../../../styles/tailwind'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -22,8 +23,9 @@ export const ContractSummary = ({ offer, status, navigation }: ContractSummaryPr
   return <View>
     <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle}/>
 
-    <View style={[tw`mt-7`, status === 'tradeCanceled' ? tw`opacity-50` : {}]}>
-      <TradeSummary type={offer.type} contract={contract} />
+    <View style={tw`mt-7`}>
+      <ChatButton contract={contract} navigation={navigation} style={tw`absolute top-4 right-0 -mr-4 z-10`}/>
+      <TradeSummary type={offer.type} contract={contract} style={status === 'tradeCanceled' ? tw`opacity-50` : {}}/>
     </View>
 
     <View style={tw`flex items-center mt-4`}>
