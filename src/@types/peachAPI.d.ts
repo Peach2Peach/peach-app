@@ -79,6 +79,7 @@ declare type GetInfoResponse = {
   paymentMethods: PaymentMethodInfo[],
   minAppVersion: string,
 }
+declare type PeachInfo = GetInfoResponse
 
 declare type GetTxResponse = Transaction
 declare type PostTxResponse = {

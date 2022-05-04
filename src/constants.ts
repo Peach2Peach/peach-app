@@ -16,7 +16,13 @@ export let CURRENCIES: Currency[] = [
   'GBP'
 ]
 export let PAYMENTMETHODS: PaymentMethod[] = ['iban']
-export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = []
+export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
+  {
+    id: 'iban',
+    currencies: ['EUR', 'CHF', 'GBP'],
+    exchange: true
+  }
+]
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
