@@ -22,7 +22,7 @@ export {
 } from './inputs'
 
 export { Match, Matches } from './matches'
-export { BuyOfferSummary, SellOfferSummary } from './offer'
+export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
 export {
   Bubble,
   HorizontalLine,

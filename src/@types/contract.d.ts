@@ -15,6 +15,7 @@ declare type Contract = {
   amount: number,
   currency: Currency,
   price: number,
+  premium: number,
   paymentMethod: PaymentMethod,
   paymentDataEncrypted?: string,
   paymentData?: PaymentData,
@@ -30,6 +31,7 @@ declare type Contract = {
   paymentMade: Date|null,
   paymentConfirmed: Date|null,
 
+  escrow: string,
   releaseAddress: string,
   releaseTransaction: string,
   releaseTxId?: string,
@@ -37,8 +39,8 @@ declare type Contract = {
   disputeActive: boolean,
   canceled: boolean,
 
-  ratingBuyer: boolean,
-  ratingSeller: boolean,
+  ratingBuyer: 1|0|-1,
+  ratingSeller: 1|0|-1,
 
   messages: number
 }

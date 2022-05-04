@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -11,8 +11,7 @@ import i18n from '../../utils/i18n'
 import { getOffer, getOfferStatus, saveOffer } from '../../utils/offer'
 import { RouteProp } from '@react-navigation/native'
 import { OfferSummary } from './components/OfferSummary'
-import { OfferComplete } from './components/OfferComplete'
-import { TradeCanceled } from './components/TradeCanceled'
+import { ContractSummary } from './components/ContractSummary'
 
 export type OfferScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offer'>
 
@@ -45,8 +44,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
-      if (result.matches.length) navigation.replace('search', { offer })
-      if (result.contractId) navigation.replace('contract', { contractId: result.contractId })
+      if (result.matches.length && !result.contractId) navigation.replace('search', { offer })
+      if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
+        navigation.replace('contract', { contractId: result.contractId })
+      }
     },
     onError: err => {
       error('Could not fetch offer information for offer', offerId)
@@ -62,12 +63,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       ? <OfferSummary offer={offer} status={offerStatus.status} navigation={navigation} />
       : null
     }
-    {offerStatus.status === 'tradeCompleted'
-      ? <OfferComplete offer={offer} navigation={navigation} />
-      : null
-    }
-    {offerStatus.status === 'tradeCanceled'
-      ? <TradeCanceled offer={offer} navigation={navigation} />
+    {/tradeCompleted|tradeCanceled/u.test(offerStatus.status)
+      ? <ContractSummary offer={offer} status={offerStatus.status} navigation={navigation} />
       : null
     }
   </PeachScrollView>

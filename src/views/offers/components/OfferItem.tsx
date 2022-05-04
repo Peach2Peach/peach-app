@@ -33,7 +33,6 @@ const navigateToOffer = (
     })
   }
 
-
   if (/offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(status)) {
     return navigation.navigate('offer', { offer })
   }
