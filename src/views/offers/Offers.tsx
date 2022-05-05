@@ -38,7 +38,13 @@ export default ({ navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
-  const openOffers = offers.filter(isOpenOffer).filter(showOffer)
+  const allOpenOffers = offers
+    .filter(isOpenOffer)
+    .filter(showOffer)
+  const openOffers = {
+    buy: allOpenOffers.filter(o => o.type === 'bid'),
+    sell: allOpenOffers.filter(o => o.type === 'ask'),
+  }
   const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
   useEffect(getOffersEffect({
@@ -76,20 +82,35 @@ export default ({ navigation }: Props): ReactElement => {
   return <PeachScrollView contentContainerStyle={tw`px-6`}>
     <View style={tw`pt-5 pb-10 px-11`}>
       <Title title={i18n('offers.title')}/>
-      {openOffers.length + pastOffers.length === 0
+      {allOpenOffers.length + pastOffers.length === 0
         ? <Text style={tw`text-center`}>
           {i18n('offers.noOffers')}
         </Text>
         : null
       }
-      {openOffers.length
+      {openOffers.buy.length
         ? <Headline style={tw`mt-20 text-grey-1`}>
-          {i18n('offers.openOffers')}
+          {i18n('offers.open')}
+          <Headline style={tw`text-green`}> {i18n('offers.buy')} </Headline>
+          {i18n('offers.offers')}
         </Headline>
         : null
       }
-      {openOffers.map(offer => <OfferItem key={offer.id}
-        style={tw`mt-3`}
+      {openOffers.buy.map(offer => <OfferItem key={offer.id}
+        style={tw`mt-3`} showType={false}
+        offer={offer} navigation={navigation}
+      />)
+      }
+      {openOffers.sell.length
+        ? <Headline style={tw`mt-20 text-grey-1`}>
+          {i18n('offers.open')}
+          <Headline style={tw`text-red`}> {i18n('offers.sell')} </Headline>
+          {i18n('offers.offers')}
+        </Headline>
+        : null
+      }
+      {openOffers.sell.map(offer => <OfferItem key={offer.id}
+        style={tw`mt-3`} showType={false}
         offer={offer} navigation={navigation}
       />)
       }
