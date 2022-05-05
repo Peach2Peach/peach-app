@@ -26,7 +26,7 @@ export default ({ route, navigation }: Props): ReactElement => <View style={tw`h
       title={i18n('goBackHome')}
       secondary={true}
       wide={false}
-      onPress={() => navigation.navigate('home', {})}
+      onPress={() => navigation.replace('home', {})}
     />
   </View>
 </View>

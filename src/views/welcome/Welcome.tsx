@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import { Button, LanguageSelect } from '../../components'
+import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
@@ -33,7 +33,7 @@ const screens = [
 
 export default ({ navigation }: ScreenProps): ReactElement => {
   useContext(LanguageContext)
-  const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
+  // const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
 
   const [page, setPage] = useState(0)
   const CurrentScreen: Screen = screens[page]
@@ -74,14 +74,14 @@ export default ({ navigation }: ScreenProps): ReactElement => {
         : <View>
           <View style={tw`flex items-center`}>
             <Button
-              onPress={() => navigation.navigate('newUser')}
+              onPress={() => navigation.replace('newUser', {})}
               wide={false}
               title={i18n('newUser')}
             />
           </View>
           <View style={tw`mt-4`}>
             <Button
-              onPress={() => navigation.navigate('restoreBackup')}
+              onPress={() => navigation.replace('restoreBackup', {})}
               wide={false}
               secondary={true}
               title={i18n('restoreBackup')}

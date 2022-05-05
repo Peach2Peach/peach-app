@@ -46,7 +46,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
         title={i18n('back')}
         secondary={true}
         wide={false}
-        onPress={() => navigation.navigate('offers', {})}
+        onPress={() => navigation.replace('offers', {})}
       />
     </View>
     {status !== 'offerCanceled'
