@@ -27,10 +27,18 @@ const isPastOffer = (offer: SellOffer|BuyOffer) => {
 
   return /tradeCompleted|tradeCanceled|offerCanceled/u.test(status)
 }
-
 const isOpenOffer = (offer: SellOffer|BuyOffer) => !isPastOffer(offer)
-
 const showOffer = (offer: SellOffer|BuyOffer) => offer.online || offer.contractId || offer.type === 'ask'
+const statusPriority = [
+  'escrowWaitingForConfirmation',
+  'offerPublished',
+  'searchingForPeer',
+  'match',
+  'contractCreated',
+]
+
+const sortByStatus = (a: SellOffer|BuyOffer, b: SellOffer|BuyOffer) =>
+  statusPriority.indexOf(getOfferStatus(a).status) - statusPriority.indexOf(getOfferStatus(b).status)
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
@@ -41,6 +49,7 @@ export default ({ navigation }: Props): ReactElement => {
   const allOpenOffers = offers
     .filter(isOpenOffer)
     .filter(showOffer)
+    .sort(sortByStatus)
   const openOffers = {
     buy: allOpenOffers.filter(o => o.type === 'bid'),
     sell: allOpenOffers.filter(o => o.type === 'ask'),
