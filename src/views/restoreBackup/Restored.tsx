@@ -18,7 +18,7 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
   const finish = () => {
-    navigation.navigate('home', {})
+    navigation.replace('home', {})
   }
 
   return <View style={tw`h-full flex px-6`}>

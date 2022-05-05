@@ -100,7 +100,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if ((view === 'seller' && contract?.ratingBuyer)
         || (view === 'buyer' && contract?.ratingSeller)) {
         setContractId('')
-        navigation.navigate('tradeComplete', { contract, view })
+        navigation.replace('tradeComplete', { contract, view })
         return
       }
 
@@ -209,7 +209,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             }
             <ContractDetails contract={contract} view={view} />
             <Button
-              onPress={() => navigation.navigate('contractChat', { contractId: contract.id })}
+              onPress={() => navigation.replace('contractChat', { contractId: contract.id })}
               style={tw`mt-4`}
               title={i18n('chat')}
               secondary={true}

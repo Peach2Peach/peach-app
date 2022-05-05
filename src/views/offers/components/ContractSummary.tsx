@@ -33,7 +33,7 @@ export const ContractSummary = ({ offer, status, navigation }: ContractSummaryPr
         title={i18n('back')}
         secondary={true}
         wide={false}
-        onPress={() => navigation.navigate('offers', {})}
+        onPress={() => navigation.replace('offers', {})}
       />
     </View>
   </View>

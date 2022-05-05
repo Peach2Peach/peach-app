@@ -1,5 +1,5 @@
 declare type RootStackParamList = {
-  [key: string]: undefined,
+  [key: string]: {},
   home: {},
   sell: {
     offer?: SellOffer,

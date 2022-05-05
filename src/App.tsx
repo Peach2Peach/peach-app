@@ -118,7 +118,7 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
       if (account?.settings?.skipTutorial) {
         navigationRef.navigate('home', {})
       } else {
-        navigationRef.navigate('welcome')
+        navigationRef.navigate('welcome', {})
       }
     }
   }, 3000)

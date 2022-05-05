@@ -40,7 +40,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     updateOffer(() => offerData)
     saveOffer(offerData)
   }
-  const navigate = () => navigation.navigate('offers', {})
+  const navigate = () => navigation.replace('offers', {})
 
   useEffect(!offer.id ? postOfferEffect({
     offer,
@@ -91,7 +91,6 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
-      // navigation.navigate('refund', { offer })
       updateOverlay({
         content: <Refund offer={offer} navigate={navigate} />,
         showCloseButton: false

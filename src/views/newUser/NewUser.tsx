@@ -75,7 +75,7 @@ export default ({ navigation }: Props): ReactElement => {
     saveAccount(account, password)
 
     setLoading(false)
-    navigation.navigate('home', {})
+    navigation.replace('home', {})
   }
 
   const onError = (e: string) => {

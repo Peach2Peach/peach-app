@@ -127,7 +127,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     setOfferId(undefined)
     if (offr.funding?.status === 'FUNDED') {
-      navigation.navigate('search', { offer: offr })
+      navigation.replace('search', { offer: offr })
       return
     }
 
@@ -153,7 +153,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       } as SellOffer)
 
       if (offer.funding?.status === 'FUNDED') {
-        navigation.navigate('search', { offer: {
+        navigation.replace('search', { offer: {
           ...offer,
           ...result,
         } })
@@ -177,7 +177,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (screens[page].id === 'search') {
       saveAndUpdate({ ...offer })
-      navigation.navigate('search', { offer })
+      navigation.replace('search', { offer })
     }
   }, [page])
 

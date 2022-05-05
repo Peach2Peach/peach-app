@@ -193,7 +193,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
-  const navigate = () => navigation.navigate('offers', {})
+  const navigate = () => navigation.replace('offers', {})
 
   const cancelOffer = () => updateOverlay({
     content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
@@ -357,7 +357,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button
             title={i18n('goBackHome')}
             wide={false}
-            onPress={() => navigation.navigate('home', {})}
+            onPress={() => navigation.replace('home', {})}
           />
         </View>
       }
