@@ -36,5 +36,6 @@ const isCancel: isCancel = () => false
 
 export default {
   pick,
+  pickSingle: pick,
   isCancel
 }
