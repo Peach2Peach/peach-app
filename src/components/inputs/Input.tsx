@@ -71,7 +71,7 @@ export const Input = ({
   reference
 }: InputProps): ReactElement => <View>
   <View style={tw`overflow-hidden rounded`}>
-    <Shadow {...innerShadow} viewStyle={[
+    <Shadow shadow={innerShadow} style={[
       tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
       tw.md`h-10`,
       icon ? tw`pr-12` : {},

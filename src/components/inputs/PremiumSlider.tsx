@@ -63,7 +63,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange, style }: Prem
 
 
   return <View {...panResponder.panHandlers} style={style}>
-    <Shadow {...mildShadow} viewStyle={tw`w-full`}>
+    <Shadow shadow={mildShadow} style={tw`w-full`}>
       <View style={tw`p-5 pt-3 bg-white-1 border border-grey-4 rounded`}>
         <View style={tw`w-full flex-row justify-between`}>
           <Text style={tw`font-baloo text-xs text-red`}>{min}%</Text>

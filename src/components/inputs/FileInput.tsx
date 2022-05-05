@@ -81,7 +81,7 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow viewStyle={tw`w-full rounded`} {...innerShadow}>
+    <Shadow style={tw`w-full rounded`} shadow={innerShadow}>
       <Text style={[tw`h-10 p-2 text-grey-1 text-lg`]}>
         {fileName || i18n('form.file')}
       </Text>

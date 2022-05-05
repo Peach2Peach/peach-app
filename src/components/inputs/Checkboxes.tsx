@@ -51,8 +51,8 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
   const isSelected = (item: Item) => selectedValues.indexOf(item.value) !== -1
 
   return <View style={style}>
-    <Shadow {...mildShadow}
-      viewStyle={tw`w-full`}>
+    <Shadow shadow={mildShadow}
+      style={tw`w-full`}>
       <View>
         {items.map((item, i) => <View key={i} style={[
           tw`bg-white-1 rounded`,

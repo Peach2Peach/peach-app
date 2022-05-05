@@ -72,88 +72,90 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
     onChange(null, selectedCurrency, paymentMethod)
   }
 
-  return <Shadow {...shadow} viewStyle={[
-    tw`w-full border border-grey-4 bg-white-1 rounded-md`,
-    match.matched ? tw`border-peach-1` : {},
-    style
-  ]}>
-    {match.matched
-      ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
-        <Pressable onPress={() => toggleMatch(match)} style={tw`absolute top-0 right-0 p-2 z-10`}>
-          <Shadow {...dropShadowRed}>
-            <View style={tw`bg-white-1 rounded-full p-0.5`}>
-              <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string}/>
-            </View>
-          </Shadow>
-        </Pressable>
-        <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
-        <Text style={tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`}>
-          {i18n('search.matched')}
-        </Text>
-      </View>
-      : null
-    }
-    <View style={tw`px-5 pt-5 pb-8`}>
-      <View style={tw`w-full flex-row justify-between items-center`}>
-        <View style={tw`px-6`}>
-          <Text style={tw`text-lg`}>
-            <Image source={require('../../../assets/favico/peach-logo.png')}
-              style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
-            />
-            {match.user.id.substring(0, 8)}
+  return <Shadow shadow={shadow}>
+    <View style={[
+      tw`w-full border border-grey-4 bg-white-1 rounded-md`,
+      match.matched ? tw`border-peach-1` : {},
+      style
+    ]}>
+      {match.matched
+        ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
+          <Pressable onPress={() => toggleMatch(match)} style={tw`absolute top-0 right-0 p-2 z-10`}>
+            <Shadow shadow={dropShadowRed}>
+              <View style={tw`bg-white-1 rounded-full p-0.5`}>
+                <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string}/>
+              </View>
+            </Shadow>
+          </Pressable>
+          <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
+          <Text style={tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`}>
+            {i18n('search.matched')}
           </Text>
-          <ExtraMedals user={match.user} />
         </View>
-        {medal
-          ? <View style={tw`px-6`}>
-            <Medal id={medal} style={tw`w-16 h-12`}/>
-          </View>
-          : null
-        }
-      </View>
-      <HorizontalLine style={tw`mt-4`}/>
-      <View style={tw`mt-4`}>
-        <Text style={tw`font-baloo text-xl leading-xl text-peach-1 text-center`}>
-          {i18n(
-            `currency.format.${selectedCurrency}`,
-            displayPrice
-          )}
-        </Text>
-        <Text style={tw`text-lg leading-lg text-center ml-2`}>
-          {i18n(
-            'pricePerBitcoin',
-            i18n(`currency.format.${selectedCurrency}`, thousands(Math.round(price)))
-          )}
-        </Text>
-      </View>
-      <HorizontalLine style={tw`mt-5`}/>
-      <Headline style={tw`mt-4 lowercase text-grey-1`}>
-        {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
-      </Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedCurrency}
-        items={Object.keys(match.prices).map(c => ({ value: c, display: c }))}
-        onChange={c => setCurrency(c as Currency)}
-      />
-      <HorizontalLine style={tw`mt-5`}/>
-      <Headline style={tw`mt-4 lowercase text-grey-1`}>
-        {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
-      </Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedPaymentMethod as string}
-        items={match.paymentMethods.filter(unique()).map(p => ({
-          value: p,
-          display: i18n(`paymentMethod.${p}`)
-        }))}
-        onChange={c => setPaymentMethod(c as PaymentMethod)}
-      />
-      {/* <HorizontalLine style={tw`mt-5`}/>
-      {!match.kyc
-        ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
         : null
-      } */}
+      }
+      <View style={tw`px-5 pt-5 pb-8`}>
+        <View style={tw`w-full flex-row justify-between items-center`}>
+          <View style={tw`px-6`}>
+            <Text style={tw`text-lg`}>
+              <Image source={require('../../../assets/favico/peach-logo.png')}
+                style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
+              />
+              {match.user.id.substring(0, 8)}
+            </Text>
+            <ExtraMedals user={match.user} />
+          </View>
+          {medal
+            ? <View style={tw`px-6`}>
+              <Medal id={medal} style={tw`w-16 h-12`}/>
+            </View>
+            : null
+          }
+        </View>
+        <HorizontalLine style={tw`mt-4`}/>
+        <View style={tw`mt-4`}>
+          <Text style={tw`font-baloo text-xl leading-xl text-peach-1 text-center`}>
+            {i18n(
+              `currency.format.${selectedCurrency}`,
+              displayPrice
+            )}
+          </Text>
+          <Text style={tw`text-lg leading-lg text-center ml-2`}>
+            {i18n(
+              'pricePerBitcoin',
+              i18n(`currency.format.${selectedCurrency}`, thousands(Math.round(price)))
+            )}
+          </Text>
+        </View>
+        <HorizontalLine style={tw`mt-5`}/>
+        <Headline style={tw`mt-4 lowercase text-grey-1`}>
+          {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
+        </Headline>
+        <Selector
+          style={tw`mt-2`}
+          selectedValue={selectedCurrency}
+          items={Object.keys(match.prices).map(c => ({ value: c, display: c }))}
+          onChange={c => setCurrency(c as Currency)}
+        />
+        <HorizontalLine style={tw`mt-5`}/>
+        <Headline style={tw`mt-4 lowercase text-grey-1`}>
+          {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
+        </Headline>
+        <Selector
+          style={tw`mt-2`}
+          selectedValue={selectedPaymentMethod as string}
+          items={match.paymentMethods.filter(unique()).map(p => ({
+            value: p,
+            display: i18n(`paymentMethod.${p}`)
+          }))}
+          onChange={c => setPaymentMethod(c as PaymentMethod)}
+        />
+        {/* <HorizontalLine style={tw`mt-5`}/>
+        {!match.kyc
+          ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
+          : null
+        } */}
+      </View>
     </View>
   </Shadow>
 }

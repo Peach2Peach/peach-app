@@ -40,7 +40,7 @@ type RadioButtonsProps = ComponentProps & {
  */
 export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioButtonsProps): ReactElement =>
   <View style={style}>
-    <Shadow {...mildShadow} viewStyle={tw`w-full`}>
+    <Shadow shadow={mildShadow} style={tw`w-full`}>
       <View>
         {items.map((item, i) => <View key={i} style={[
           tw`bg-white-1 rounded`,

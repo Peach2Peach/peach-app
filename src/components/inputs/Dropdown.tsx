@@ -72,16 +72,14 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
   }
 
   return <View style={[
-    tw`z-10 rounded bg-white-1`,
+    tw`w-full z-10 rounded bg-white-1`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
-    <Shadow {...(isOpen ? mildShadow : innerShadow)}
-      viewStyle={[
-        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded `,
-        isOpen ? tw`bg-white-1` : {},
-        { width, height },
+    <Shadow shadow={isOpen ? mildShadow : innerShadow}>
+      <View style={[
+        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
+        isOpen ? tw`bg-white-1` : {}
       ]}>
-      <View>
         {isOpen
           ? [
             <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
@@ -102,13 +100,13 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
           </Pressable>
         }
       </View>
+      <Pressable style={tw`absolute right-2`} onPress={toggle}>
+        <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
+          style={tw`w-6 h-10`}
+          color={tw`text-peach-1`.color as string}
+        />
+      </Pressable>
     </Shadow>
-    <Pressable style={tw` absolute right-2`} onPress={toggle}>
-      <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
-        style={tw`w-6 h-10`}
-        color={tw`text-peach-1`.color as string}
-      />
-    </Pressable>
   </View>
 }
 

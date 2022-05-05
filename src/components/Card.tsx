@@ -19,12 +19,11 @@ type CardProps = ComponentProps
  * </Card>
  */
 export const Card = ({ children, style }: CardProps): ReactElement =>
-  <Shadow {...mildShadow}
-    viewStyle={[
+  <Shadow shadow={mildShadow}>
+    <View style={[
       tw`w-full border border-grey-4 rounded bg-white-1`,
       style
     ]}>
-    <View>
       {children}
     </View>
   </Shadow>

@@ -27,7 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     setStepValid(true)
   }, [])
 
-  return <View style={tw`h-full flex-col justify-center px-6`}>
+  return <View style={tw`h-full flex-col justify-center px-12`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.subtitle')} />
     <View style={tw`z-20 mt-24`}>
       <View style={tw`flex items-center`}>

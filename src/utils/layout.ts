@@ -1,53 +1,57 @@
-export const noShadow = {
-  distance: 0,
-  startColor: '#00000000',
-  finalColor: '#00000000',
-  radius: 0
+import { ShadowType } from '../components/ui/Shadow'
+
+export const noShadow: ShadowType = {
+  blur: 0,
+  color: '#000000',
 }
 
-export const mildShadow = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#00000000',
-  offset: [1, 1] as [x: string | number, y: string | number],
+export const mildShadow: ShadowType = {
+  blur: 16,
+  color: '#000000',
+  opacity: 0.05,
+  offsetX: 0,
+  offsetY: 6,
 }
 
-export const dropShadow = {
-  distance: 4,
-  startColor: '#00000040',
-  finalColor: '#00000000',
-  offset: [0, 6] as [x: string | number, y: string | number],
+export const dropShadow: ShadowType = {
+  blur: 4,
+  color: '#000000',
+  offsetX: 0,
+  offsetY: 6,
 }
 
 export const mildShadowOrange = {
-  distance: 14,
-  startColor: '#F579400D',
-  finalColor: '#F5794000',
-  offset: [0, 4] as [x: string | number, y: string | number],
+  blur: 14,
+  color: '#F57940',
+  opacity: 0.18,
+  offsetX: 0,
+  offsetY: 4,
 }
 
 
 export const dropShadowRed = {
-  distance: 4,
-  startColor: '#E43B5F0D',
-  finalColor: '#E43B5F00',
-  offset: [0, 2] as [x: string | number, y: string | number],
+  blur: 4,
+  color: '#E43B5F',
+  offsetX: 0,
+  offsetY: 2,
 }
 
 
 export const mildShadowRed = {
-  distance: 14,
-  startColor: '#E43B5F0D',
-  finalColor: '#E43B5F00',
-  offset: [0, 4] as [x: string | number, y: string | number],
+  blur: 14,
+  color: '#E43B5F',
+  opacity: 0.18,
+  offsetX: 0,
+  offsetY: 4,
 }
 
 
-export const footerShadow = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#00000000',
-  offset: [0, -2] as [x: string | number, y: string | number],
+export const footerShadow: ShadowType = {
+  blur: 16,
+  opacity: 0.15,
+  color: '#000000',
+  offsetX: 0,
+  offsetY: -2,
 }
 
 export const nativeShadow = {
@@ -60,12 +64,13 @@ export const nativeShadow = {
   shadowRadius: 8
 }
 
-export const innerShadow = {
-  paintInside: true,
-  distance: 16,
-  startColor: '#00000000',
-  finalColor: '#0000000D',
-  offset: [0, 6] as [x: number, y: number],
+export const innerShadow: ShadowType = {
+  inset: true,
+  blur: 16,
+  color: '#000000',
+  opacity: 0.05,
+  offsetX: 0,
+  offsetY: 6,
 }
 
 
