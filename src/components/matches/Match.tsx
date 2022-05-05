@@ -81,7 +81,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
       {match.matched
         ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
           <Pressable onPress={() => toggleMatch(match)} style={tw`absolute top-0 right-0 p-2 z-10`}>
-            <Shadow shadow={dropShadowRed}>
+            <Shadow shadow={dropShadowRed} style={tw`rounded-full`}>
               <View style={tw`bg-white-1 rounded-full p-0.5`}>
                 <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string}/>
               </View>

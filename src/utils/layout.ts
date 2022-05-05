@@ -32,6 +32,7 @@ export const mildShadowOrange = {
 export const dropShadowRed = {
   blur: 4,
   color: '#E43B5F',
+  opacity: 0.18,
   offsetX: 0,
   offsetY: 2,
 }

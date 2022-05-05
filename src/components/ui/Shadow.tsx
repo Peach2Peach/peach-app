@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Dimensions, LayoutChangeEvent, View } from 'react-native'
 import Canvas from 'react-native-canvas'
 import tw from '../../styles/tailwind'
@@ -17,6 +17,7 @@ export type ShadowType = {
 type ShadowProps = ComponentProps & {
   shadow: ShadowType
 }
+// eslint-disable-next-line max-lines-per-function
 export const Shadow = ({ shadow, children, style }: ShadowProps): ReactElement => {
   const [scale] = useState(Dimensions.get('window').scale)
   const [dimensions, setDimensions] = useState({
@@ -33,11 +34,16 @@ export const Shadow = ({ shadow, children, style }: ShadowProps): ReactElement =
     marginTop: -(shadow.blur || 0) + (shadow.offsetY || 0),
   }
 
+  useEffect(() => {
+    setRedraw(true)
+  }, [shadow])
+
   const onLayout = (event: LayoutChangeEvent) => {
     setDimensions(event.nativeEvent.layout)
     setRedraw(true)
   }
 
+  // eslint-disable-next-line max-statements
   const drawShadow = (canvas: Canvas) => {
     if (!redraw || !canvas) return
 
@@ -65,11 +71,21 @@ export const Shadow = ({ shadow, children, style }: ShadowProps): ReactElement =
     } else {
       ctx.shadowOffsetX = trickShift.x * scale
       ctx.shadowOffsetY = trickShift.y * scale
-      ctx.fillRect(
-        shadow.blur - trickShift.x,
-        shadow.blur - trickShift.y,
-        dimensions.width, dimensions.height
-      )
+      if (style?.borderTopLeftRadius > 999) {
+        ctx.beginPath()
+        ctx.arc(
+          (shadow.blur - trickShift.x) + dimensions.width / 2,
+          shadow.blur - trickShift.y + dimensions.height / 2,
+          dimensions.width / 2, 0, 2 * Math.PI, false
+        )
+        ctx.fill()
+      } else {
+        ctx.fillRect(
+          shadow.blur - trickShift.x,
+          shadow.blur - trickShift.y,
+          dimensions.width, dimensions.height
+        )
+      }
     }
     setRedraw(false)
   }
