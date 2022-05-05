@@ -65,7 +65,8 @@ const navigateToOffer = (
 }
 
 type OfferItemProps = ComponentProps & {
-  offer: BuyOffer | SellOffer
+  offer: BuyOffer | SellOffer,
+  showType?: boolean,
   navigation: ProfileScreenNavigationProp,
 }
 
@@ -77,17 +78,17 @@ const ICONMAP: IconMap = {
   searchingForPeer: 'clock',
   escrowWaitingForConfirmation: 'fundEscrow',
   fundEscrow: 'fundEscrow',
-  match: 'clock',
+  match: 'heart',
   offerCanceled: 'cross',
   sendPayment: 'money',
   confirmPayment: 'money',
-  rate: 'heart',
-  contractCreated: 'check',
+  rate: 'check',
+  contractCreated: 'money',
   tradeCompleted: 'check',
   tradeCanceled: 'cross',
 }
 
-export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactElement => {
+export const OfferItem = ({ offer, showType = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const icon = ICONMAP[requiredAction] || ICONMAP[status]
@@ -105,14 +106,17 @@ export const OfferItem = ({ offer, navigation, style }: OfferItemProps): ReactEl
     ]}>
     <View style={tw`flex-row justify-between items-center`}>
       <View style={tw`flex-row`}>
-        <View style={tw`pr-1`}>
-          <Text style={[
-            tw`text-lg font-bold uppercase`,
-            requiredAction ? tw`text-white-1` : tw`text-grey-2`
-          ]}>
-            {i18n(offer.type === 'ask' ? 'sell' : 'buy')}
-          </Text>
-        </View>
+        {showType
+          ? <View style={tw`pr-1`}>
+            <Text style={[
+              tw`text-lg font-bold uppercase`,
+              requiredAction ? tw`text-white-1` : tw`text-grey-2`
+            ]}>
+              {i18n(offer.type === 'ask' ? 'sell' : 'buy')}
+            </Text>
+          </View>
+          : null
+        }
         <SatsFormat
           style={tw`text-lg font-bold`}
           sats={offer.amount}
