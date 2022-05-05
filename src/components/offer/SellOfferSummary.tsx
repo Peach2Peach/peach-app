@@ -35,13 +35,12 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
     <Selector
-      items={offer.paymentData.filter(unique('type')).map(p => ({
-        value: p.type,
-        display: i18n(`paymentMethod.${p.type}`).toLowerCase()
+      items={offer.paymentMethods.filter(unique('type')).map(p => ({
+        value: p,
+        display: i18n(`paymentMethod.${p}`).toLowerCase()
       }))}
       style={tw`mt-2`}
     />
-
     {offer.funding?.txId
       ? <View>
         <HorizontalLine style={tw`mt-4`}/>
