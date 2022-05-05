@@ -61,7 +61,7 @@ export const getAccessToken = async (): Promise<string> => {
   const [result, err] = await auth()
 
   if (!result || err) {
-    error('peachAPI - getAccessToken', err)
+    error('peachAPI - getAccessToken', new Error(err?.error))
 
     return ''
   }
