@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -13,7 +13,7 @@ import ReleaseAddress from './ReleaseAddress'
 import { BUCKETS } from '../../constants'
 import { postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/offer'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView } from '../../components'
@@ -104,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultBuyOffer()
 
     if (!route.params?.offer) {
@@ -117,9 +117,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOfferId(() => offr.id)
       setUpdatePending(true)
     }
-  }, [route])
+  }, []))
 
-  useEffect(getOfferDetailsEffect({
+  useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     onSuccess: result => {
       saveAndUpdate({
@@ -135,7 +135,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId])
+  }), [offerId]))
 
 
   useEffect(() => {
