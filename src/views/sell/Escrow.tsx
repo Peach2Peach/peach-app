@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
@@ -18,6 +18,7 @@ import tw from '../../styles/tailwind'
 import ReturnAddress from './components/ReturnAddress'
 import Refund from '../../overlays/Refund'
 import { OverlayContext } from '../../contexts/overlay'
+import { useFocusEffect } from '@react-navigation/native'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -68,7 +69,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
-  useEffect(offer.escrow && offer.funding?.status !== 'FUNDED' ? checkFundingStatusEffect({
+  useFocusEffect(useCallback(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -87,7 +88,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
         level: 'ERROR',
       })
     },
-  }) : () => {}, [offer.escrow])
+  }), [offer.escrow]))
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {

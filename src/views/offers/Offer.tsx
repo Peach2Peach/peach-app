@@ -1,15 +1,15 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
 import { PeachScrollView } from '../../components'
 import { MessageContext } from '../../contexts/message'
-import { error } from '../../utils/log'
+import { info, error } from '../../utils/log'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import i18n from '../../utils/i18n'
 import { getOffer, getOfferStatus, saveOffer } from '../../utils/offer'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { OfferSummary } from './components/OfferSummary'
 import { ContractSummary } from './components/ContractSummary'
 
@@ -33,7 +33,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
-  useEffect(getOfferDetailsEffect({
+  useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     interval: 30 * 1000,
     onSuccess: result => {
@@ -44,8 +44,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
-      if (result.matches.length && !result.contractId) navigation.replace('search', { offer })
+      if (result.matches.length && !result.contractId) {
+        info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
+        navigation.replace('search', { offer })
+      }
       if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
+        info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
         navigation.replace('contract', { contractId: result.contractId })
       }
     },
@@ -56,7 +60,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offer])
+  }), [offer]))
 
   return <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
     {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status)

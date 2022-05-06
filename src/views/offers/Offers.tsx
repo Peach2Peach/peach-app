@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -15,6 +15,7 @@ import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
 import { saveContract } from '../../utils/contract'
 import getContractsEffect from '../../effects/getContractsEffect'
+import { useFocusEffect } from '@react-navigation/native'
 
 export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
@@ -56,7 +57,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
   const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
-  useEffect(getOffersEffect({
+  useFocusEffect(useCallback(getOffersEffect({
     onSuccess: result => {
       if (!result?.length) return
       result.map(offer => saveOffer(offer, true))
@@ -70,9 +71,9 @@ export default ({ navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [])
+  }), []))
 
-  useEffect(getContractsEffect({
+  useFocusEffect(useCallback(getContractsEffect({
     onSuccess: result => {
       if (!result?.length) return
       result.map(contract => saveContract(contract, true))
@@ -86,7 +87,7 @@ export default ({ navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [])
+  }), []))
 
   return <PeachScrollView contentContainerStyle={tw`px-6`}>
     <View style={tw`pt-5 pb-10 px-11`}>

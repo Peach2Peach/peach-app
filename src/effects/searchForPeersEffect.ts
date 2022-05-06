@@ -15,7 +15,7 @@ export default ({
   let interval: NodeJS.Timer
 
   const checkingFunction = async () => {
-    if (!offer.id) return
+    if (!offer?.id) return
     if (offer.doubleMatched) return
     if (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED')) return
 
