@@ -59,7 +59,6 @@ interface DropdownProps {
  */
 export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
-  const height = tw`h-10`.height as number * (isOpen ? items.length + 1 : 1)
   const selectedItem = items.find(item => item.value === selectedValue) || items[0]
 
   const toggle = () => {
@@ -72,7 +71,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
   }
 
   return <View style={[
-    tw`w-full z-10 rounded bg-white-1`,
+    tw`w-full rounded bg-white-1`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
     <Shadow shadow={isOpen ? mildShadow : innerShadow}>

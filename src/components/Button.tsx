@@ -33,7 +33,8 @@ const ButtonContent = ({ title, secondary, loading, disabled, onPress }: ButtonP
     onPressOut={onPressOutHandler}
     cancelable={false}
     style={[
-      tw`rounded w-full flex-row items-center justify-center p-3`,
+      tw`rounded w-full flex-row items-center justify-center px-3 py-2`,
+      tw.md`p-3`,
       active ? tw`bg-peach-2` : {},
     ]}
   >
