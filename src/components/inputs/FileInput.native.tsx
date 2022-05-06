@@ -27,13 +27,13 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
   let timeout: NodeJS.Timer
 
   try {
-    const result = await DocumentPicker.pick()
+    const result = await DocumentPicker.pickSingle()
     try {
       if (!result.uri) {
         throw Error('File could not be read')
       }
 
-      RNFS.readFile(result.uri, 'utf8').then(content => {
+      RNFS.readFile(decodeURIComponent(result.uri), 'utf8').then(content => {
         clearTimeout(timeout)
         resolve({
           name: result.name || '',

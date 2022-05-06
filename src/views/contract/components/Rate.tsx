@@ -47,7 +47,7 @@ export default ({ contract, view, navigation, saveAndUpdate }: RateProps): React
       [ratedUser]: true
     })
 
-    navigation.navigate('tradeComplete', { contract, view })
+    navigation.replace('tradeComplete', { contract, view })
   }
   return <View>
     <Card style={tw`p-4`}>

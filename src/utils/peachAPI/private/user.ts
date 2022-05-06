@@ -53,7 +53,7 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
  * @returns Access Token
  */
 export const getAccessToken = async (): Promise<string> => {
-  if (accessToken && accessToken.expiry > (new Date()).getTime()) {
+  if (accessToken && accessToken.expiry > (new Date()).getTime() + 60 * 1000) {
     log(accessToken.expiry, (new Date()).getTime(), accessToken.expiry > (new Date()).getTime())
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
@@ -61,7 +61,7 @@ export const getAccessToken = async (): Promise<string> => {
   const [result, err] = await auth()
 
   if (!result || err) {
-    error('peachAPI - getAccessToken', err)
+    error('peachAPI - getAccessToken', new Error(err?.error))
 
     return ''
   }

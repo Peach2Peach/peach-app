@@ -18,7 +18,7 @@ export type FileData = {
 
 const selectFile = async () => {
   try {
-    const result = await DocumentPicker.pick()
+    const result = await DocumentPicker.pickSingle()
     try {
       if (result.content) {
         return {
@@ -27,7 +27,7 @@ const selectFile = async () => {
         }
       }
     } catch (e) {
-      error('File could not be read', e.message)
+      error('File could not be read', e)
     }
   } catch (err) {
     if (!DocumentPicker.isCancel(err)) {

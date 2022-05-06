@@ -13,8 +13,7 @@ export default ({
   onError
 }: CheckFundingStatusEffectProps): EffectCallback => () => {
   const checkingFunction = async () => {
-    if (!offer.id || !offer.escrow || offer.refunded || offer.released) return
-
+    if (!offer.id || !offer.escrow || offer.refunded || offer.released || offer.funding?.status === 'FUNDED') return
     info('Checking funding status of', offer.id, offer.escrow)
 
     const [result, err] = await getFundingStatus({

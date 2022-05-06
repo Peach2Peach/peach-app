@@ -65,7 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
           onPress={async () => {
             await deleteAccount({
               onSuccess: () => {
-                navigation.navigate('welcome')
+                navigation.replace('welcome', {})
               },
               onError: () => {}
             })
