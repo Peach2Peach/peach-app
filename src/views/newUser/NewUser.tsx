@@ -149,7 +149,7 @@ export default ({ navigation }: Props): ReactElement => {
           />
         </View>
         <View style={tw`w-full mt-5 flex items-center`}>
-          <Pressable style={tw`absolute left-0`} onPress={() => navigation.goBack()}>
+          <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>
           <Button
