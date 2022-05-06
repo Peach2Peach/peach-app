@@ -3,6 +3,8 @@ import {
   Pressable,
   View
 } from 'react-native'
+import { getUniqueId } from 'react-native-device-info'
+
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -54,6 +56,7 @@ export default ({ navigation }: Props): ReactElement => {
           <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
         </View>
       </Pressable>
+      <Text style={tw`text-sm text-grey-2`}>Unique Device ID: {getUniqueId()}</Text>
       <View style={tw`mt-4`}>
         <Button
           onPress={backupAccount}
