@@ -64,7 +64,7 @@ export default ({ chat, style }: ChatBoxProps): ReactElement => {
   }, [])
 
   return <View style={tw`overflow-hidden rounded`}>
-    <Shadow {...innerShadow} viewStyle={[
+    <Shadow shadow={innerShadow} style={[
       tw`w-full h-full border border-grey-4 rounded`,
       style ? style : {},
     ]}>

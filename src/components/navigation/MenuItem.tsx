@@ -27,7 +27,7 @@ export const MenuItem = ({
   text,
   onPress,
 }: MenuItemProps): ReactElement =>
-  <Shadow {...mildShadow} viewStyle={[
+  <Shadow shadow={mildShadow} style={[
     tw`w-full border border-grey-4 rounded`,
     style || {},
   ]}>

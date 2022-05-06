@@ -105,8 +105,8 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow {...innerShadow}
-      viewStyle={[
+    <Shadow shadow={innerShadow}
+      style={[
         tw`w-full flex flex-row items-center justify-between h-8 pl-4 pr-3 py-2 rounded`,
         tw.md`h-10`,
       ]}

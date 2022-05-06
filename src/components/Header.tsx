@@ -24,7 +24,7 @@ type HeaderProps = ComponentProps & {
  */
 export const Header = ({ bitcoinContext, style }: HeaderProps): ReactElement =>
   <View style={style}>
-    <Shadow {...mildShadow}>
+    <Shadow shadow={mildShadow}>
       <View style={tw`w-full flex-row items-center justify-between px-3 py-2 bg-white-1`}>
         <View>
           <Text style={tw`font-lato leading-5 text-grey-1 text-right`}>

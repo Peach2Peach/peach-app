@@ -27,7 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     setStepValid(true)
   }, [])
 
-  return <View style={tw`h-full flex-col justify-center px-6`}>
+  return <View style={tw`h-full flex-col justify-center px-12`}>
     <Title title={i18n('buy.title')} subtitle={i18n('buy.subtitle')} />
     <View style={tw`z-20 mt-24`}>
       <View style={tw`flex items-center`}>
@@ -35,7 +35,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
           selectedValue={amount}
           onChange={value => setAmount(value as number)}
           onToggle={(isOpen) => setDropdownOpen(isOpen)}
-          width={tw`w-80`.width as number}
           items={BUCKETS.map(value => ({
             value,
             display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>

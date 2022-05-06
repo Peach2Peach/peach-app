@@ -62,7 +62,7 @@ const FooterItem = ({ id, active, onPress }: FooterItemProps): ReactElement =>
 export const Footer = ({ active, style, navigation }: FooterProps): ReactElement =>
   <View style={[tw`w-full flex-row items-start`, { height }, style]}>
     <View style={tw`h-full flex-grow relative`}>
-      <Shadow {...footerShadow} viewStyle={tw`w-full`}>
+      <Shadow shadow={footerShadow} style={tw`w-full`}>
         <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
           <FooterItem id="buy" active={active === 'buy' || active === 'home'}
             onPress={() => navigation.navigate({ name: 'buy', merge: false, params: {} })} />
@@ -89,7 +89,7 @@ export default Footer
   ]}/>
 </Pressable>
 <View style={tw`h-full flex-grow`}>
-  <Shadow {...footerShadow} viewStyle={tw`w-full`}>
+  <Shadow shadow={footerShadow} stule={tw`w-full`}>
     <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
       <FooterItem id="offers" active={active === 'offers'}
         onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
