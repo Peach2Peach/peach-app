@@ -294,7 +294,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     <View style={tw`px-6`}>
       {!matches.length
         ? <BigTitle title={i18n('search.searchingForAPeer')} />
-        : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
+        : <Headline style={[
+          tw`text-center text-2xl leading-2xl uppercase text-peach-1`,
+          tw.md`text-3xl leading-3xl`,
+        ]}>
           {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
         </Headline>
       }

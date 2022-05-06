@@ -112,8 +112,8 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
             : null
           }
         </View>
-        <HorizontalLine style={tw`mt-4`}/>
-        <View style={tw`mt-4`}>
+        <HorizontalLine style={[tw`mt-3`, tw.md`mt-4`]}/>
+        <View style={[tw`mt-3`, tw.md`mt-4`]}>
           <Text style={tw`font-baloo text-xl leading-xl text-peach-1 text-center`}>
             {i18n(
               `currency.format.${selectedCurrency}`,
@@ -127,8 +127,8 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
             )}
           </Text>
         </View>
-        <HorizontalLine style={tw`mt-5`}/>
-        <Headline style={tw`mt-4 lowercase text-grey-1`}>
+        <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>
+        <Headline style={[tw`mt-3`, tw.md`mt-4 lowercase text-grey-1`]}>
           {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
         </Headline>
         <Selector
@@ -137,8 +137,8 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
           items={Object.keys(match.prices).map(c => ({ value: c, display: c }))}
           onChange={c => setCurrency(c as Currency)}
         />
-        <HorizontalLine style={tw`mt-5`}/>
-        <Headline style={tw`mt-4 lowercase text-grey-1`}>
+        <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>
+        <Headline style={[tw`mt-3`, tw.md`mt-4 lowercase text-grey-1`]}>
           {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
         </Headline>
         <Selector

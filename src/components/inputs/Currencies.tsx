@@ -12,7 +12,7 @@ type CurrenciesProps = {
 }
 
 export default ({ title, currencies, setCurrencies }: CurrenciesProps): ReactElement => <View>
-  <Headline style={tw`mt-9 text-grey-1`}>
+  <Headline style={tw`mt-16 text-grey-1`}>
     {title}
   </Headline>
   <Checkboxes

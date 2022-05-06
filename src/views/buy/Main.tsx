@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import { Dropdown, SatsFormat, Text, Title } from '../../components'
+import { Dropdown, Headline, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../contexts/bitcoin'
@@ -27,10 +27,13 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     setStepValid(true)
   }, [])
 
-  return <View style={tw`h-full flex-col justify-center px-12`}>
-    <Title title={i18n('buy.title')} subtitle={i18n('buy.subtitle')} />
-    <View style={tw`z-20 mt-24`}>
-      <View style={tw`flex items-center`}>
+  return <View style={tw`h-full`}>
+    <Title title={i18n('buy.title')} />
+    <View style={tw`z-20`}>
+      <Headline style={tw`mt-16 text-grey-1 px-5`}>
+        {i18n('buy.subtitle')}
+      </Headline>
+      <View style={tw`h-10 w-full z-10 flex items-center px-12 mt-3`}>
         <Dropdown
           selectedValue={amount}
           onChange={value => setAmount(value as number)}
@@ -50,12 +53,9 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
           )}
         />
       </View>
-      {!dropdownOpen
-        ? <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
-          ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
-        </Text>
-        : null
-      }
+      <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
+        ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
+      </Text>
     </View>
   </View>
 }
