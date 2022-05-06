@@ -1,4 +1,13 @@
-import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import {
   ScrollView,
   View
@@ -16,7 +25,7 @@ import Escrow from './Escrow'
 
 import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView, Text } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
@@ -122,7 +131,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultSellOffer()
 
     setOfferId(undefined)
@@ -142,9 +151,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOfferId(() => offr.id)
       setUpdatePending(true)
     }
-  }, [route])
+  }, []))
 
-  useEffect(getOfferDetailsEffect({
+  useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     onSuccess: result => {
       saveAndUpdate({
@@ -172,7 +181,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId])
+  }), [offerId]))
 
   useEffect(() => {
     if (screens[page].id === 'search') {
