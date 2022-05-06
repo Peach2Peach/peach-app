@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
   View
@@ -10,7 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
 import { BigTitle, Button, Headline, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
@@ -157,7 +157,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           contractId: result.contractId
         })
 
-        if (result.contractId) navigation.replace('contract', { contractId: result.contractId })
+        if (result.contractId) {
+          info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
+          navigation.replace('contract', { contractId: result.contractId })
+        }
       }
     } else {
       error('Error', err)
@@ -218,7 +221,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }, [matches])
 
-  useEffect(getOfferDetailsEffect({
+  useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
@@ -228,7 +231,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
-      if (result.contractId) navigation.replace('contract', { contractId: result.contractId })
+      if (result.contractId) {
+        info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
+        navigation.replace('contract', { contractId: result.contractId })
+      }
 
       setUpdatePending(() => false)
     },
@@ -239,9 +245,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId])
+  }), [offerId]))
 
-  useEffect(!updatePending ? searchForPeersEffect({
+  useFocusEffect(useCallback(searchForPeersEffect({
     offer,
     onSuccess: result => {
       setMatches(() => matches.concat(result)
@@ -262,7 +268,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     onError: err => err.error !== 'UNAUTHORIZED'
       ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
       : null,
-  }) : () => {}, [updatePending])
+  }), [updatePending]))
 
   useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
     ? checkFundingStatusEffect({

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import {
   Keyboard,
   View
@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
 import { Button, Fade, Input, Loading, Timer, Title } from '../../components'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
@@ -104,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setChat(getChat(contractId) || {})
   }, [contractId])
 
-  useEffect(getContractEffect({
+  useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
@@ -145,7 +145,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       msg: i18n(err.error || 'error.general'),
       level: 'ERROR',
     })
-  }), [contractId])
+  }), [contractId]))
 
   useEffect(ws.connected && contractId ? getMessagesEffect({
     contractId,

@@ -33,14 +33,8 @@ export default ({
   checkingFunction()
 
   if (interval) {
-    (async () => {
-      intrvl = setInterval(checkingFunction, interval)
-    })()
-    return () => {
-      clearInterval(intrvl)
-    }
+    intrvl = setInterval(checkingFunction, interval)
   }
-
 
   return () => {
     if (intrvl) clearInterval(intrvl)
