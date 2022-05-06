@@ -49,7 +49,7 @@ export const mildShadowRed = {
 
 export const footerShadow: ShadowType = {
   blur: 16,
-  opacity: 0.15,
+  opacity: 0.05,
   color: '#000000',
   offsetX: 0,
   offsetY: -2,
