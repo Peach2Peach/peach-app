@@ -32,7 +32,7 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
   }
   if (/returnAddress|releaseAddress/u.test(screen)) buttonText = i18n('lookForAMatch')
 
-  const navigate = () => navigation.replace('offer', { offer })
+  const navigate = () => navigation.navigate('offer', { offer })
 
   const cancelOffer = () => updateOverlay({
     content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,

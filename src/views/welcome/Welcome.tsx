@@ -74,14 +74,14 @@ export default ({ navigation }: ScreenProps): ReactElement => {
         : <View>
           <View style={tw`flex items-center`}>
             <Button
-              onPress={() => navigation.replace('newUser', {})}
+              onPress={() => navigation.navigate('newUser', {})}
               wide={false}
               title={i18n('newUser')}
             />
           </View>
           <View style={tw`mt-4`}>
             <Button
-              onPress={() => navigation.replace('restoreBackup', {})}
+              onPress={() => navigation.navigate('restoreBackup', {})}
               wide={false}
               secondary={true}
               title={i18n('restoreBackup')}

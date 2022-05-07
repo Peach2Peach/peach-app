@@ -41,7 +41,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     updateOffer(() => offerData)
     saveOffer(offerData)
   }
-  const navigate = () => navigation.replace('offers', {})
+  const navigate = () => navigation.navigate('offers', {})
 
   useEffect(!offer.id ? postOfferEffect({
     offer,
