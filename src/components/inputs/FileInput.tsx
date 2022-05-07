@@ -18,7 +18,7 @@ export type FileData = {
 
 const selectFile = async () => {
   try {
-    const result = await DocumentPicker.pickSingle()
+    const result = await DocumentPicker.pick()
     try {
       if (result.content) {
         return {
