@@ -23,7 +23,7 @@ export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): Re
 
   return <View style={style}>
     <Shadow shadow={shadow}>
-      <Pressable onPress={() => navigation.replace('contractChat', { contractId: contract.id })}
+      <Pressable onPress={() => navigation.navigate('contractChat', { contractId: contract.id })}
         style={[
           tw`w-10 h-10 flex justify-center items-center rounded`,
           contract.disputeActive ? tw`bg-red` : tw`bg-peach-1`

@@ -75,7 +75,7 @@ export default ({ navigation }: Props): ReactElement => {
     saveAccount(account, password)
 
     setLoading(false)
-    navigation.replace('home', {})
+    navigation.navigate('home', {})
   }
 
   const onError = (e: string) => {
@@ -149,7 +149,7 @@ export default ({ navigation }: Props): ReactElement => {
           />
         </View>
         <View style={tw`w-full mt-5 flex items-center`}>
-          <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
+          <Pressable style={tw`absolute left-0`} onPress={() => navigation.navigate('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>
           <Button

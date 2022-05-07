@@ -15,7 +15,8 @@ import Icon from '../Icon'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
 type FooterProps = ComponentProps & {
-  active: string,
+  active: keyof RootStackParamList,
+  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>,
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
 }
 interface FooterItemProps {
@@ -59,23 +60,31 @@ const FooterItem = ({ id, active, onPress }: FooterItemProps): ReactElement =>
  * @example
  * <Footer active={'home'} />
  */
-export const Footer = ({ active, style, navigation }: FooterProps): ReactElement =>
-  <View style={[tw`w-full flex-row items-start`, { height }, style]}>
+export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
+  const navTo = (page: keyof RootStackParamList) => {
+    setCurrentPage(page)
+    navigation.navigate({ name: page, merge: false, params: {} })
+  }
+  const navigate = {
+    home: () => navTo('home'),
+    buy: () => navTo('buy'),
+    sell: () => navTo('sell'),
+    offers: () => navTo('offers'),
+    settings: () => navTo('settings'),
+  }
+  return <View style={[tw`w-full flex-row items-start`, { height }, style]}>
     <View style={tw`h-full flex-grow relative`}>
       <Shadow shadow={footerShadow} style={tw`w-full`}>
         <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
-          <FooterItem id="buy" active={active === 'buy' || active === 'home'}
-            onPress={() => navigation.navigate({ name: 'buy', merge: false, params: {} })} />
-          <FooterItem id="sell" active={active === 'sell'}
-            onPress={() => navigation.navigate({ name: 'sell', merge: false, params: {} })} />
-          <FooterItem id="offers" active={active === 'offers'}
-            onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
-          <FooterItem id="settings" active={active === 'settings'}
-            onPress={() => navigation.navigate({ name: 'settings', merge: false, params: {} })} />
+          <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
+          <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+          <FooterItem id="offers" active={active === 'offers'} onPress={navigate.offers} />
+          <FooterItem id="settings" active={active === 'settings'} onPress={navigate.settings} />
         </View>
       </Shadow>
     </View>
   </View>
+}
 
 export default Footer
 

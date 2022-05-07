@@ -20,13 +20,13 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
-  const navigate = () => navigation.replace('offers', {})
+  const navigate = () => navigation.navigate('offers', {})
 
   if (offer.type === 'ask'
     && offer.funding?.txId
     && !offer.refunded
     && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    // return navigation.replace('refund', { offer })
+    // return navigation.navigate('refund', { offer })
     return updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,
       showCloseButton: false
@@ -35,7 +35,7 @@ const navigateToOffer = (
 
   if (!/rate/u.test(offerStatus.requiredAction)
     && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
-    return navigation.replace('offer', { offer })
+    return navigation.navigate('offer', { offer })
   }
 
   if (offer.contractId) {
@@ -44,24 +44,24 @@ const navigateToOffer = (
       const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
       if ((view === 'seller' && contract.ratingBuyer)
         || (view === 'buyer' && contract.ratingSeller)) {
-        return navigation.replace('tradeComplete', { view, contract })
+        return navigation.navigate('tradeComplete', { view, contract })
       }
     }
-    return navigation.replace('contract', { contractId: offer.contractId })
+    return navigation.navigate('contract', { contractId: offer.contractId })
   }
 
   if (offer.type === 'ask') {
     if (offer.funding?.status === 'FUNDED') {
-      return navigation.replace('search', { offer })
+      return navigation.navigate('search', { offer })
     }
-    return navigation.replace('sell', { offer })
+    return navigation.navigate('sell', { offer })
   }
 
   if (offer.type === 'bid' && offer.online) {
-    return navigation.replace('search', { offer })
+    return navigation.navigate('search', { offer })
   }
 
-  return navigation.replace('offers', {})
+  return navigation.navigate('offers', {})
 }
 
 type OfferItemProps = ComponentProps & {
