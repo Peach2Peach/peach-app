@@ -11,7 +11,7 @@ import NoPaymentMethods from './NoPaymentMethods'
 import AddPaymentMethod from './AddPaymentMethod'
 import { PaymentMethodForms } from './paymentForms'
 import { Headline } from '../../text'
-import { paymentMethodAllowedForCurrencies } from '../../../utils/validation'
+import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/validation'
 
 type PaymentMethodViewProps = {
   data: PaymentData
@@ -61,7 +61,7 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
   }, [currencies])
 
   const addPaymentMethod = (data: PaymentData) => {
-    data.selected = true
+    data.selected = paymentMethodNotYetSelected(data, account.paymentData)
     account.paymentData.push(data)
     updatePaymentData(account.paymentData)
     setShowAddNew(false)
@@ -84,6 +84,7 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
               .filter(data => paymentMethodAllowedForCurrencies(data.type, currencies))
               .map(data => ({
                 value: data.id,
+                disabled: !paymentMethodNotYetSelected(data, paymentData),
                 display: <View style={tw`flex-row pr-3 -mt-0.5`}>
                   <View style={tw`w-3/4 flex-shrink`}>
                     <Text numberOfLines={1} ellipsizeMode="tail" style={tw`leading-6`}>
