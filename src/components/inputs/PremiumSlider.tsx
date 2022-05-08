@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { Animated, PanResponder, View } from 'react-native'
+import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { mildShadow } from '../../utils/layout'
@@ -61,6 +61,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange, style }: Prem
     return () => pan.removeAllListeners()
   }, [update])
 
+  const onLayout = (event: LayoutChangeEvent) => trackWidth = event.nativeEvent.layout.width
 
   return <View {...panResponder.panHandlers} style={style}>
     <Shadow shadow={mildShadow} style={tw`w-full`}>
@@ -72,8 +73,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange, style }: Prem
           </Text>
           <Text style={tw`font-baloo text-xs text-green`}>+{max}%</Text>
         </View>
-        <View style={tw`h-0 mx-3 flex-row items-center mt-2 border-2 border-grey-4 rounded`}
-          onLayout={event => trackWidth = event.nativeEvent.layout.width}>
+        <View onLayout={onLayout} style={tw`h-0 mx-3 flex-row items-center mt-2 border-2 border-grey-4 rounded`}>
           <Animated.View onStartShouldSetResponder={onStartShouldSetResponder}
             style={[
               tw`z-10 w-10 flex items-center`,
