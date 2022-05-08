@@ -11,6 +11,7 @@ import NoPaymentMethods from './NoPaymentMethods'
 import AddPaymentMethod from './AddPaymentMethod'
 import { PaymentMethodForms } from './paymentForms'
 import { Headline } from '../../text'
+import { getCheckboxItems } from './paymentMethodUtils'
 import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/validation'
 
 type PaymentMethodViewProps = {
@@ -19,7 +20,6 @@ type PaymentMethodViewProps = {
 
 const PaymentMethodView = ({ data }: PaymentMethodViewProps) => {
   const PaymentForm = PaymentMethodForms[data.type]
-
 
   return <View style={tw`h-full w-full flex-shrink flex-col`}>
     <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
@@ -70,7 +70,21 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
     if (onChange) onChange(account.paymentData.map(d => d))
   }
 
+  const checkboxItems = getCheckboxItems(paymentData, currencies)
+  const selectedMoPs = paymentData.filter(data => data.selected).map(data => data.id)
+  const onMoPSelect = (values: (string | number)[]) => {
+    paymentData.forEach(data => data.selected = false)
+    values.forEach(id => {
+      const data = paymentData.find((d: PaymentData) => d.id === id)
+      if (data) data.selected = true
+    })
+    if (onChange) {
+      const updatedPaymentMethods = values
+        .map(id => paymentData.find((d: PaymentData) => d.id === id) as PaymentData)
 
+      onChange(updatedPaymentMethods)
+    }
+  }
   const openAddPaymentMethodDialog = () => updateOverlay({
     content: <AddPaymentMethod onSubmit={addPaymentMethod} />,
     showCloseButton: false
@@ -79,39 +93,7 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
     {paymentData.length
       ? <View style={tw`w-full flex-row mt-2`}>
         <View style={tw`w-full flex-shrink`}>
-          <Checkboxes
-            items={paymentData
-              .filter(data => paymentMethodAllowedForCurrencies(data.type, currencies))
-              .map(data => ({
-                value: data.id,
-                disabled: !paymentMethodNotYetSelected(data, paymentData),
-                display: <View style={tw`flex-row pr-3 -mt-0.5`}>
-                  <View style={tw`w-3/4 flex-shrink`}>
-                    <Text numberOfLines={1} ellipsizeMode="tail" style={tw`leading-6`}>
-                      {(data.iban || data.email || data.phone || data.paypal)}
-                    </Text>
-                  </View>
-                  <View style={tw`w-1/4 flex-shrink-0`}>
-                    <Text style={tw`text-right text-grey-1 leading-6`}>
-                      {i18n(`paymentMethod.${data.type}`)}
-                    </Text>
-                  </View>
-                </View>
-              }))}
-            selectedValues={paymentData.filter(data => data.selected).map(data => data.id)}
-            onChange={values => {
-              paymentData.forEach(data => data.selected = false)
-              values.forEach(id => {
-                const data = paymentData.find((d: PaymentData) => d.id === id)
-                if (data) data.selected = true
-              })
-              if (onChange) {
-                const updatedPaymentMethods = values
-                  .map(id => paymentData.find((d: PaymentData) => d.id === id) as PaymentData)
-
-                onChange(updatedPaymentMethods)
-              }
-            }}/>
+          <Checkboxes items={checkboxItems} selectedValues={selectedMoPs} onChange={onMoPSelect}/>
         </View>
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>
           {paymentData
