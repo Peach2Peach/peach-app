@@ -200,7 +200,7 @@
   "rate.subtitle": "How would you rate your trade partner?",
   "tradeComplete.title.buyer.default": "That’s it! You stacked sats!",
   "tradeComplete.title.seller.default": "Made some money just like that",
-  "AUTHENTICATION_FAILED": "",
+  "AUTHENTICATION_FAILURE": "Could not authenticate. You can only register one account on your device.",
   "NETWORK_ERROR": "There has been a problem with your connection to the peach server. Please try again later or contact the peach support-team.",
   "UNAUTHORIZED": "You don't have permission to view this content.",
   "CANNOT_DOUBLEMATCH": "You cannot double match an offer that hasn't match with yours first. The counterparty has likely just retracted their offer.",

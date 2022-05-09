@@ -30,12 +30,17 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
       })
     })
 
-    const token = await response.json() as AccessToken
-    setAccessToken(token)
 
-    info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
+    const token = await response.json() as AccessToken|APIError
 
-    return [token, null]
+    if ('accessToken' in token) {
+      setAccessToken(token)
+      info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
+      return [token, null]
+    }
+
+    error('peachAPI - auth - FAILED', new Error((token as APIError).error))
+    return [null, token as APIError]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -64,8 +69,7 @@ export const getAccessToken = async (): Promise<string> => {
 
   if (!result || err) {
     error('peachAPI - getAccessToken', new Error(err?.error))
-
-    return ''
+    throw Error('AUTHENTICATION_FAILURE')
   }
 
   return 'Basic ' + Buffer.from(result.accessToken)

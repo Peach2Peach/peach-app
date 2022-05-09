@@ -107,7 +107,9 @@ const showFooter = (view: string) => views.find(v => v.name === view)?.showFoote
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   events()
   await session()
-  await pgp()
+  try {
+    await pgp()
+  } catch (e) {}
 
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop
