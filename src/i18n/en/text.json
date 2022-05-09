@@ -208,6 +208,7 @@
   "AUTHENTICATION_FAILED": "",
   "NETWORK_ERROR": "There has been a problem with your connection to the peach server. Please try again later or contact the peach support-team.",
   "UNAUTHORIZED": "You don't have permission to view this content.",
+  "TRADING_LIMIT_REACHED": "Your trading limit has been reached.",
   "CANNOT_DOUBLEMATCH": "You cannot double match an offer that hasn't match with yours first. The counterparty has likely just retracted their offer.",
   "addNew": "Add new",
   "next": "next",
