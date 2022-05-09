@@ -334,7 +334,7 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
-  - react-native-document-picker (8.1.0):
+  - react-native-document-picker (5.2.0):
     - React-Core
   - react-native-encrypted-storage (4.0.2):
     - React-Core
@@ -714,7 +714,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 90f0bfd5d04e0b066c29216a110ffb9a6c34f23f
   React-logger: 8474fefa09d05f573a13c044cb0dfd751d4e52e3
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-document-picker: 5663fe4bcdb646200683a41790464d2793307ac8
+  react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
   react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
   react-native-fast-openpgp: e2c759cd1d4a46519b017c589207cc8dedbfe2ee
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
