@@ -12,6 +12,7 @@ import { cutOffAddress } from '../../utils/string'
 import { OverlayContext } from '../../contexts/overlay'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
+import { BarCodeReadEvent } from 'react-native-camera'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -73,6 +74,17 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
   }, [])
 
+  const showQRScanner = () => setScanQR(true)
+  const closeQRScanner = () => setScanQR(false)
+  const onQRScanSuccess = (e: BarCodeReadEvent) => {
+    const request = parseBitcoinRequest(e.data)
+
+    setAddress(request.address || e.data)
+    setScanQR(false)
+  }
+  const showIDontHaveAWallet = () => updateOverlay({
+    content: <IDontHaveAWallet />, showCloseButton: true
+  })
   return <View style={tw`h-full flex-col justify-between px-6`}>
     <Title title={i18n('buy.title')} />
     <View>
@@ -96,7 +108,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
           icon="camera"
           title={i18n('scanQR')}
           style={tw`mr-2`}
-          onPress={() => setScanQR(!scanQR)}
+          onPress={showQRScanner}
         />
         <IconButton
           icon="copy"
@@ -107,21 +119,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     </View>
     {scanQR
       ? <View style={tw`mt-20`}>
-        <ScanQR onSuccess={e => {
-          const request = parseBitcoinRequest(e.data)
-
-          setAddress(request.address || e.data)
-          setScanQR(false)
-        }}
-        onCancel={() => setScanQR(false)}
-        />
+        <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQRScanner}/>
       </View>
       : null}
 
     <Fade show={!keyboardOpen} displayNone={false}>
-      <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({
-        content: <IDontHaveAWallet />, showCloseButton: true
-      })}>
+      <TextLink style={tw`mt-4 text-center`} onPress={showIDontHaveAWallet}>
         {i18n('iDontHaveAWallet')}
       </TextLink>
     </Fade>

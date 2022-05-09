@@ -13,6 +13,7 @@ import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { patchOffer } from '../../../utils/peachAPI'
 import { error } from '../../../utils/log'
 import { MessageContext } from '../../../contexts/message'
+import { BarCodeReadEvent } from 'react-native-camera'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -98,6 +99,15 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
     }
   }, [useDepositAddress])
 
+  const showQRScanner = () => setScanQR(true)
+  const closeQRScanner = () => setScanQR(false)
+  const onQRScanSuccess = (e: BarCodeReadEvent) => {
+    const request = parseBitcoinRequest(e.data)
+
+    setAddress(request.address || e.data)
+    setScanQR(false)
+  }
+  const toggleUseDepositAddress = () => setUseDepositAddress(!useDepositAddress)
   return <View style={style}>
     <Headline style={tw`text-grey-1`}>
       {i18n('sell.escrow.returnAddress.title')}
@@ -127,7 +137,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
         icon="camera"
         title={i18n('scanQR')}
         style={tw`mr-2`}
-        onPress={() => setScanQR(!scanQR)}
+        onPress={showQRScanner}
       />
       <IconButton
         icon="copy"
@@ -136,7 +146,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
       />
     </View>
     <Pressable style={tw`flex-row items-center px-5 mt-4`}
-      onPress={() => setUseDepositAddress(!useDepositAddress)}>
+      onPress={toggleUseDepositAddress}>
       {useDepositAddress
         ? <Icon id="checkbox" style={tw`w-5 h-5`} />
         : <View style={tw`w-5 h-5 flex justify-center items-center`}>
@@ -149,14 +159,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
     </Pressable>
     {scanQR
       ? <View style={tw`mt-20`}>
-        <ScanQR onSuccess={e => {
-          const request = parseBitcoinRequest(e.data)
-
-          setAddress(request.address || e.data)
-          setScanQR(false)
-        }}
-        onCancel={() => setScanQR(false)}
-        />
+        <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQRScanner}/>
       </View>
       : null}
   </View>

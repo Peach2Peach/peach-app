@@ -90,7 +90,7 @@ export default Footer
 
 
 /* <Pressable style={[tw`h-full flex-shrink-0 flex items-center z-10`, circleStyle]}
-  onPress={() => navigation.navigate({ name: 'home', merge: false, params: {} })}>
+  onPress={navigate.home})}>
   <BG style={[circleStyle, nativeShadow]} />
   <Image source={require('../../../assets/favico/peach-logo.png')} style={[
     tw`w-10 h-10 absolute -top-5`,
@@ -101,9 +101,9 @@ export default Footer
   <Shadow shadow={footerShadow} stule={tw`w-full`}>
     <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
       <FooterItem id="offers" active={active === 'offers'}
-        onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
+        onPress={navigate.offers} />
       <FooterItem id="settings" active={active === 'settings'}
-        onPress={() => navigation.navigate({ name: 'settings', merge: false, params: {} })} />
+        onPress={navigate.settings} />
     </View>
   </Shadow>
 </View> */
