@@ -107,11 +107,11 @@ export const Input = ({
     </Shadow>
   </View>
 
-  {errorMessage.length > 0
+  {errorMessage.length > 0 && errorMessage[0]
     ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
     : null
   }
-  {hint && errorMessage.length === 0
+  {hint && errorMessage.length === 0 && errorMessage[0]
     ? <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
     : null
   }
