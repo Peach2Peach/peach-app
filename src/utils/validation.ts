@@ -14,6 +14,17 @@ export const paymentMethodAllowedForCurrencies = (paymentMethod: PaymentMethod, 
   return paymentMethodInfo?.currencies.some(c => currencies.indexOf(c) !== -1)
 }
 
+/**
+ * @description Method to check whether another MoP of the same type has not been selected
+ * @param paymentData MoP in question
+ * @param allPaymentData all MoPs of account
+ * @returns true if no other MoP of the same type has been selected
+ */
+export const paymentMethodNotYetSelected = (paymentData: PaymentData, allPaymentData: PaymentData[]) => {
+  const sameTypeMoPs = allPaymentData.filter(p => p.type === paymentData.type && p.id !== paymentData.id)
+  return !sameTypeMoPs.some(p => p.selected)
+}
+
 // eslint-disable-next-line prefer-named-capture-group, max-len
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u
 
