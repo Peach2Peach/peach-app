@@ -58,33 +58,39 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
+  const onError = (e: Error) => {
+    setLoading(false)
+    error('Error', e)
+    updateMessage({
+      msg: i18n('AUTHENTICATION_FAILURE'),
+      level: 'ERROR',
+    })
+    setLoading(false)
+  }
+
   const onSuccess = async () => {
     updateSettings({
       skipTutorial: true
     })
-    const [result, err] = await setPGP(account.pgp)
 
-    if (result) {
-      info('Set PGP for user', account.publicKey)
-      updateSettings({
-        pgpPublished: true
-      })
-    } else {
-      error('PGP could not be set', err)
+    try {
+      const [result, err] = await setPGP(account.pgp)
+
+      if (result) {
+        info('Set PGP for user', account.publicKey)
+        updateSettings({
+          pgpPublished: true
+        })
+      } else {
+        error('PGP could not be set', err)
+      }
+      saveAccount(account, password)
+
+      setLoading(false)
+      navigation.replace('home', {})
+    } catch (e) {
+      onError(e as Error)
     }
-    saveAccount(account, password)
-
-    setLoading(false)
-    navigation.replace('home', {})
-  }
-
-  const onError = (e: string) => {
-    setLoading(false)
-    error('Error', e)
-    updateMessage({
-      msg: i18n('error.createAccount'),
-      level: 'ERROR',
-    })
   }
 
   const submit = () => {
