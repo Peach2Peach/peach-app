@@ -46,11 +46,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (result.matches.length && !result.contractId) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
-        navigation.replace('search', { offer })
+        navigation.navigate('search', { offer })
       }
       if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
-        navigation.replace('contract', { contractId: result.contractId })
+        navigation.navigate('contract', { contractId: result.contractId })
       }
     },
     onError: err => {

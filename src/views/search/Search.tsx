@@ -159,7 +159,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         if (result.contractId) {
           info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
-          navigation.replace('contract', { contractId: result.contractId })
+          navigation.navigate('contract', { contractId: result.contractId })
         }
       }
     } else {
@@ -196,7 +196,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
-  const navigate = () => navigation.replace('offers', {})
+  const navigate = () => navigation.navigate('offers', {})
 
   const cancelOffer = () => updateOverlay({
     content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
@@ -233,7 +233,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (result.contractId) {
         info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
-        navigation.replace('contract', { contractId: result.contractId })
+        navigation.navigate('contract', { contractId: result.contractId })
       }
 
       setUpdatePending(() => false)
@@ -294,7 +294,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     <View style={tw`px-6`}>
       {!matches.length
         ? <BigTitle title={i18n('search.searchingForAPeer')} />
-        : <Headline style={tw`text-center text-3xl leading-3xl uppercase text-peach-1`}>
+        : <Headline style={[
+          tw`text-center text-2xl leading-2xl uppercase text-peach-1`,
+          tw.md`text-3xl leading-3xl`,
+        ]}>
           {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
         </Headline>
       }
@@ -363,7 +366,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button
             title={i18n('goBackHome')}
             wide={false}
-            onPress={() => navigation.replace('home', {})}
+            onPress={() => navigation.navigate('home', {})}
           />
         </View>
       }

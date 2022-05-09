@@ -5,10 +5,43 @@ import Icon from '../Icon'
 import { mildShadow } from '../../utils/layout'
 import { Shadow } from '..'
 
-interface Item {
+type Item = {
   value: string|number,
   disabled?: boolean,
   display: ReactNode
+}
+
+type CheckboxItemProps = {
+  item: Item,
+  index: number,
+  selectedValues: (string|number)[],
+  select: (value: string | number) => void,
+}
+const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps): ReactElement => {
+  const isSelected = (itm: Item) => selectedValues.indexOf(itm.value) !== -1
+  const selectItem = () => !item.disabled ? select(item.value) : () => {}
+
+  return <View style={[
+    tw`bg-white-1 rounded`,
+    index > 0 ? tw`mt-2` : {}
+  ]}>
+    <Pressable style={[
+      tw`flex-row items-center p-3 h-12 border border-grey-4 rounded`,
+      !isSelected(item) ? tw`opacity-50` : {},
+      item.disabled ? tw`opacity-20` : {},
+    ]}
+    onPress={selectItem}>
+      {isSelected(item)
+        ? <Icon id="checkbox" style={tw`w-5 h-5`} />
+        : <View style={tw`w-5 h-5 flex justify-center items-center`}>
+          <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
+        </View>
+      }
+      <View style={tw`mx-4`}>
+        {item.display}
+      </View>
+    </Pressable>
+  </View>
 }
 
 type CheckboxesProps = ComponentProps & {
@@ -48,33 +81,17 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
     if (onChange) onChange(newValues)
   }
 
-  const isSelected = (item: Item) => selectedValues.indexOf(item.value) !== -1
 
   return <View style={style}>
     <Shadow shadow={mildShadow}
       style={tw`w-full`}>
       <View>
-        {items.map((item, i) => <View key={i} style={[
-          tw`bg-white-1 rounded`,
-          i > 0 ? tw`mt-2` : {}
-        ]}>
-          <Pressable style={[
-            tw`flex-row items-center p-3 h-12 border border-grey-4 rounded`,
-            !isSelected(item) ? tw`opacity-50` : {},
-            item.disabled ? tw`opacity-20` : {},
-          ]}
-          onPress={() => !item.disabled ? select(item.value) : () => {}}>
-            {isSelected(item)
-              ? <Icon id="checkbox" style={tw`w-5 h-5`} />
-              : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-                <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
-              </View>
-            }
-            <View style={tw`mx-4`}>
-              {item.display}
-            </View>
-          </Pressable>
-        </View>
+        {items.map((item, i) => <CheckboxItem
+          key={i} index={i}
+          item={item}
+          selectedValues={selectedValues}
+          select={select}
+        />
         )}
       </View>
     </Shadow>

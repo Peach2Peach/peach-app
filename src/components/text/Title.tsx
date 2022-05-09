@@ -16,7 +16,10 @@ export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElemen
   const [, updateOverlay] = useContext(OverlayContext)
 
   return <View style={[tw`flex items-center`, style]}>
-    <Text style={tw`font-baloo text-center text-3xl leading-3xl uppercase text-peach-1`}>
+    <Text style={[
+      tw`font-baloo text-center text-2xl leading-2xl uppercase text-peach-1`,
+      tw.md`text-3xl leading-3xl`,
+    ]}>
       {title}
     </Text>
     {subtitle

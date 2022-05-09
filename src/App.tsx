@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
+  NavigationState,
   useNavigationContainerRef
 } from '@react-navigation/native'
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack'
@@ -90,7 +91,7 @@ const views: ViewType[] = [
  * @param view view id
  * @returns true if view should show header
  */
-const showHeader = (view: string) => views.find(v => v.name === view)?.showHeader
+const showHeader = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showHeader
 
 
 /**
@@ -98,7 +99,7 @@ const showHeader = (view: string) => views.find(v => v.name === view)?.showHeade
  * @param view view id
  * @returns true if view should show header
  */
-const showFooter = (view: string) => views.find(v => v.name === view)?.showFooter
+const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showFooter
 
 /**
  * @description Method to initialize app by retrieving app session and user account
@@ -138,7 +139,7 @@ const App: React.FC = () => {
 
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
-  const [currentPage, setCurrentPage] = useState('splashScreen')
+  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -164,6 +165,10 @@ const App: React.FC = () => {
 
   useEffect(websocket(updatePeachWS), [])
 
+  const onNavStateChange = (state: NavigationState | undefined) => {
+    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
+  }
+
   return <GestureHandlerRootView><AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <PeachWSContext.Provider value={peachWS}>
@@ -186,9 +191,7 @@ const App: React.FC = () => {
                   : null
                 }
                 <View style={tw`h-full flex-shrink`}>
-                  <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
-                  }}>
+                  <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
                     <Stack.Navigator detachInactiveScreens={true} screenOptions={{
                       detachPreviousScreen: true,
                       gestureEnabled: false,
@@ -204,7 +207,8 @@ const App: React.FC = () => {
                   </NavigationContainer>
                 </View>
                 {showFooter(currentPage)
-                  ? <Footer style={tw`z-10`} active={currentPage} navigation={navigationRef} />
+                  ? <Footer style={tw`z-10`} active={currentPage} navigation={navigationRef}
+                    setCurrentPage={setCurrentPage} />
                   : null
                 }
               </View>

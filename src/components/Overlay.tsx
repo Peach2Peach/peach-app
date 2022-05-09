@@ -17,6 +17,7 @@ import { OverlayContext } from '../contexts/overlay'
  */
 export const Overlay = ({ content, showCloseButton }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   return <View style={[
     tw`absolute z-20 w-full h-full flex items-center justify-between`,
     tw`p-3 pb-8 bg-peach-translucent-2`,
@@ -28,7 +29,7 @@ export const Overlay = ({ content, showCloseButton }: OverlayState): ReactElemen
       ? <Button
         title={i18n('close')}
         secondary={true}
-        onPress={() => updateOverlay({ content: null, showCloseButton: true })}
+        onPress={closeOverlay}
         wide={false}
       />
       : null
