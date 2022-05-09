@@ -233,7 +233,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return updatePending
     ? <Loading />
-    : <View style={tw`h-full pt-6 pb-10 px-6 flex-col content-between items-center`}>
+    : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
       <Fade show={!keyboardOpen} style={tw`mb-16`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
