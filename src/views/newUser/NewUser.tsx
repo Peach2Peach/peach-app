@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { account, createAccount, saveAccount, updateSettings } from '../../utils/account'
+import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Loading, Text } from '../../components'
 import i18n from '../../utils/i18n'
@@ -29,7 +29,6 @@ type Props = {
 }
 
 
-// TODO add loading animation on submit
 export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [isPristine, setIsPristine] = useState(true)
@@ -59,13 +58,19 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const onError = (e: Error) => {
-    setLoading(false)
     error('Error', e)
     updateMessage({
       msg: i18n('AUTHENTICATION_FAILURE'),
       level: 'ERROR',
     })
-    setLoading(false)
+    deleteAccount({
+      onSuccess: () => {
+        setLoading(false)
+      },
+      onError: () => {
+        setLoading(false)
+      }
+    })
   }
 
   const onSuccess = async () => {

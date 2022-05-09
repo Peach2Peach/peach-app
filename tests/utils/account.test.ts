@@ -22,6 +22,7 @@ import * as accountData from '../data/accountData'
 const password = 'supersecret'
 
 jest.mock('react-native-fs', () => ({
+  exists: async (): Promise<boolean> => true,
   readFile: async (): Promise<string> => JSON.stringify(accountData.account1),
   writeFile: async (): Promise<void> => {},
   unlink: async (): Promise<void> => {}

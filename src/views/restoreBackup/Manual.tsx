@@ -18,7 +18,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'rest
 type ManualProps = {
   navigation: ProfileScreenNavigationProp;
   onSuccess: (account: Account) => void,
-  onError: () => void,
+  onError: (err: Error) => void,
 }
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement => {
@@ -52,7 +52,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     setLoading(true)
     Keyboard.dismiss()
 
-    const [recoveredAccount] = await recoverAccount({
+    const [recoveredAccount, err] = await recoverAccount({
       encryptedAccount: file.content,
       password
     })
@@ -65,7 +65,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
       await saveAccount(recoveredAccount, password)
       onSuccess(recoveredAccount)
     } else {
-      onError()
+      onError(err as Error)
     }
     setLoading(false)
   }
