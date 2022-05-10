@@ -19,6 +19,8 @@ import ReturnAddress from './components/ReturnAddress'
 import Refund from '../../overlays/Refund'
 import { OverlayContext } from '../../contexts/overlay'
 import { useFocusEffect } from '@react-navigation/native'
+import { getTradingLimit } from '../../utils/peachAPI'
+import { updateTradingLimit } from '../../utils/account'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -106,6 +108,12 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
       setStepValid(true)
 
       next()
+
+      getTradingLimit().then(([tradingLimit]) => {
+        if (tradingLimit) {
+          updateTradingLimit(tradingLimit)
+        }
+      })
     }
   }, [fundingStatus])
 
