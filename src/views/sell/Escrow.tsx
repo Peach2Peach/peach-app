@@ -27,7 +27,7 @@ const defaultFunding: FundingStatus = {
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, next, back, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -50,7 +50,10 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
       saveAndUpdate({ ...offer, id: result.offerId })
     },
-    onError: err => updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+    onError: err => {
+      updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+      back()
+    }
   }) : () => {}, [])
 
   useEffect(offer.id && !offer.escrow ? createEscrowEffect({

@@ -41,6 +41,13 @@ declare type User = {
   pgpPublicKeyProof: string
 }
 
+declare type TradingLimit = {
+  daily: number,
+  dailyAmount: number,
+  yearly: number,
+  yearlyAmount: number,
+}
+
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
 declare type Buckets = {

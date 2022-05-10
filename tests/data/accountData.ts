@@ -79,6 +79,12 @@ export const account1: Account = {
     kyc: false
   },
   paymentData: [],
+  tradingLimit: {
+    daily: 0,
+    dailyAmount: 1000,
+    yearly: 0,
+    yearlyAmount: 100000,
+  },
   offers: [
     buyOffer,
     sellOffer,

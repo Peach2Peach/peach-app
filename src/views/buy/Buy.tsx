@@ -11,14 +11,14 @@ import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
 
 import { BUCKETS } from '../../constants'
-import { postOffer } from '../../utils/peachAPI'
+import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { account } from '../../utils/account'
+import { account, updateTradingLimit } from '../../utils/account'
 
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
@@ -104,6 +104,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
+  const next = () => {
+    if (page >= screens.length - 1) return
+    setPage(page + 1)
+
+    scroll.current?.scrollTo({ x: 0 })
+  }
+  const back = () => {
+    if (page === 0) return
+    setPage(page - 1)
+    scroll.current?.scrollTo({ x: 0 })
+  }
+
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultBuyOffer()
 
@@ -149,6 +161,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
 
         if (result) {
+          const [tradingLimit] = await getTradingLimit()
+
+          if (tradingLimit) {
+            updateTradingLimit(tradingLimit)
+          }
           saveAndUpdate({ ...offer, id: result.offerId })
           navigation.navigate('search', { offer: { ...offer, id: result.offerId } })
           return
@@ -161,21 +178,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           msg: i18n(err?.error || 'error.postOffer'),
           level: 'ERROR',
         })
+
+        if (err?.error === 'TRADING_LIMIT_REACHED') back()
       }
     })()
   }, [page])
-
-  const next = () => {
-    if (page >= screens.length - 1) return
-    setPage(page + 1)
-
-    scroll.current?.scrollTo({ x: 0 })
-  }
-  const back = () => {
-    if (page === 0) return
-    setPage(page - 1)
-    scroll.current?.scrollTo({ x: 0 })
-  }
 
   return <View style={tw`h-full flex`}>
     <View style={[
