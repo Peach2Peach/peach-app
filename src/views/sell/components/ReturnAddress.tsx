@@ -50,31 +50,35 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
   }
 
   useEffect(() => {
-    if (useDepositAddress) return
-    if (!address) {
-      setStepValid(false)
-      return
-    }
-
-    setShortAddress(cutOffAddress(address || ''))
-
-    validate({
-      address: {
-        required: true,
-        bitcoinAddress: true
+    if (!useDepositAddress) {
+      if (!address) {
+        setStepValid(false)
+        return
       }
-    })
 
-    if (!isFormValid()) {
-      setStepValid(false)
-      return
+      setShortAddress(cutOffAddress(address || ''))
+
+      validate({
+        address: {
+          required: true,
+          bitcoinAddress: true
+        }
+      })
+
+      if (!isFormValid()) {
+        setStepValid(false)
+        return
+      }
+
+      setStepValid(true)
     }
 
-    setStepValid(true)
+    if (!useDepositAddress && !address) return
 
     updateOffer({
       ...offer,
-      returnAddress: address,
+      returnAddress: useDepositAddress ? '' : address,
+      returnAddressSet: !useDepositAddress
     })
 
     ;(async () => {
@@ -82,7 +86,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
 
       const [result, err] = await patchOffer({
         offerId: offer.id,
-        returnAddress: address
+        returnAddress: useDepositAddress ? '' : address as string
       })
       if (!result?.success || err) {
         error('Error', err)

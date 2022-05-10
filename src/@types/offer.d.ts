@@ -25,7 +25,7 @@ declare type SellOffer = Omit<Offer, 'id'> & {
   paymentData: PaymentData[],
   kycType?: KYCType,
   returnAddress?: string,
-  confirmedReturnAddress?: boolean,
+  returnAddressSet?: boolean,
   escrow?: string,
   funding?: FundingStatus,
   tx?: string,
