@@ -23,7 +23,6 @@ interface DropdownProps {
  * @param props Component properties
  * @param props.items the items in the dropdown
  * @param [props.selectedValue] selected value
- * @param [props.width] dropdown width
  * @param props.onChange method to set locale on value change
  * @param [props.onToggle] callback function when dropdown opens or closes
  * @example
@@ -57,7 +56,7 @@ interface DropdownProps {
  *   ]}
  * />
  */
-export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle }: DropdownProps): ReactElement => {
+export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
   const selectedItem = items.find(item => item.value === selectedValue) || items[0]
 
@@ -95,7 +94,7 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
               )
           ]
           : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
-            {selectedItem.display(isOpen)}
+            {selectedItem?.display(isOpen)}
           </Pressable>
         }
       </View>

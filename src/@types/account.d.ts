@@ -21,6 +21,7 @@ declare type Account = {
   pgp: PGPKeychain,
   settings: Settings,
   paymentData: PaymentData[],
+  tradingLimit: TradingLimit,
   offers: (SellOffer|BuyOffer)[],
   contracts: Contract[],
   chats: {

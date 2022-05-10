@@ -70,9 +70,9 @@ export const getAccessToken = async (): Promise<string> => {
 }
 
 /**
- * @description Method to get offer of user
+ * @description Method to send pgp keys of user to peach
  * @param pgp PGP public key
- * @returns GetOffersResponse
+ * @returns APISuccess
  */
 export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIError|null]> => {
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
@@ -96,7 +96,25 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
     })
   })
 
-  return await parseResponse<APISuccess>(response, 'pgp')
+  return await parseResponse<APISuccess>(response, 'setPGP')
+}
+
+
+/**
+ * @description Method to get trading limit of user
+ * @returns TradingLimit
+ */
+export const getTradingLimit = async (): Promise<[TradingLimit|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/user/tradingLimit`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  return await parseResponse<TradingLimit>(response, 'getTradingLimit')
 }
 
 /**
