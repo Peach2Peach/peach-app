@@ -231,6 +231,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     setNewMessage(() => '')
   }
 
+  const returnTrue = () => true
+
   return updatePending
     ? <Loading />
     : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
@@ -257,7 +259,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             <View style={tw`h-full flex-shrink`}>
               <ChatBox chat={chat} />
             </View>
-            <View style={tw`mt-4 flex-shrink-0`}>
+            <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
               <Input
                 onChange={setNewMessage}
                 onSubmit={sendMessage}
