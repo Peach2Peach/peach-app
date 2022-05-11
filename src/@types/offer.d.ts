@@ -27,7 +27,7 @@ declare type SellOffer = Omit<Offer, 'id'> & {
   returnAddress?: string,
   returnAddressSet?: boolean,
   escrow?: string,
-  funding?: FundingStatus,
+  funding: FundingStatus,
   tx?: string,
   txId?: string,
   released: boolean,

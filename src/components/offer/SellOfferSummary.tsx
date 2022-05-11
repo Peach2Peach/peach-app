@@ -41,14 +41,14 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       }))}
       style={tw`mt-2`}
     />
-    {offer.funding?.txId
+    {offer.funding.txId
       ? <View>
         <HorizontalLine style={tw`mt-4`}/>
         <Headline style={tw`text-grey-1 normal-case mt-4`}>
           {i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}
         </Headline>
         <Pressable style={tw`flex-row justify-center items-center`}
-          onPress={() => showTransaction(offer.txId || offer.funding?.txId as string, NETWORK)}>
+          onPress={() => showTransaction(offer.txId || offer.funding.txId as string, NETWORK)}>
           <Text>
             {i18n('escrow.viewInExplorer')}
           </Text>

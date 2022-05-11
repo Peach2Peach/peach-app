@@ -10,7 +10,7 @@ import { reverseBuffer } from '../../../utils/crypto'
  */
 export const verifyPSBT = (psbt: bitcoin.Psbt, sellOffer: SellOffer, contract: Contract): string[] => {
   const errorMsg = []
-  if (sellOffer.funding?.txId !== reverseBuffer(psbt.txInputs[0].hash).toString('hex')) {
+  if (sellOffer.funding.txId !== reverseBuffer(psbt.txInputs[0].hash).toString('hex')) {
     errorMsg.push('invalidInput')
   }
   if (psbt.txOutputs[0].address !== contract.releaseAddress) {

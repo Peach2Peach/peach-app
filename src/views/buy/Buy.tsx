@@ -129,9 +129,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOfferId(() => offr.id)
       setUpdatePending(true)
     }
-  }, []))
+  }, [route]))
 
-  useFocusEffect(useCallback(getOfferDetailsEffect({
+  useEffect(getOfferDetailsEffect({
     offerId,
     onSuccess: result => {
       saveAndUpdate({
@@ -147,8 +147,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId]))
-
+  }), [offerId])
 
   useEffect(() => {
     (async () => {

@@ -66,7 +66,7 @@ export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
     setTimeout(() => {
       closeOverlay()
 
-      if (offer.type === 'bid' || offer.funding?.status === 'NULL') {
+      if (offer.type === 'bid' || offer.funding.status === 'NULL') {
         navigate()
         return
       }

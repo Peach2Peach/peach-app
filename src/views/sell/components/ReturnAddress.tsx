@@ -82,7 +82,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
     })
 
     ;(async () => {
-      if (!offer.id || offer.funding?.status !== 'NULL') return
+      if (!offer.id || offer.funding.status !== 'NULL') return
 
       const [result, err] = await patchOffer({
         offerId: offer.id,
