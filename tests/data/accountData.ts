@@ -28,6 +28,10 @@ export const sellOffer: SellOffer = {
       selected: true
     }
   ],
+  funding: {
+    status: 'NULL',
+    amount: 0,
+  },
   paymentMethods: ['iban'],
   kyc: false,
   amount: 250000,
