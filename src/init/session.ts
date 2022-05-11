@@ -1,18 +1,30 @@
 import { setBuckets, setMinAppVersion, setPaymentMethods, setPeachFee } from '../constants'
-import { loadAccount } from '../utils/account'
+import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
 import { error } from '../utils/log'
-import { getInfo } from '../utils/peachAPI'
+import { getInfo, getTradingLimit } from '../utils/peachAPI'
 import { getSession, initSession, setSession } from '../utils/session'
 
 export default async () => {
   const { password } = await initSession()
-  if (password) await loadAccount(password)
+  let account
+  if (password) account = await loadAccount(password)
 
-  let [peachInfo, err] = await getInfo() // eslint-disable-line prefer-const
+  const [
+    [peachInfoResponse, err],
+    [tradingLimit, tradingLimitErr],
+  ] = await Promise.all([
+    getInfo(),
+    account ? getTradingLimit() : [defaultAccount.tradingLimit, null]
+  ])
 
-  if (!peachInfo) {
-    error('Error fetching peach info', JSON.stringify(err))
+  let peachInfo = peachInfoResponse
+
+  if (!peachInfo || !tradingLimit) {
+    error('Error fetching peach info', JSON.stringify(err || tradingLimitErr))
     peachInfo = getSession().peachInfo || null
+  }
+  if (tradingLimit) {
+    updateTradingLimit(tradingLimit)
   }
   if (peachInfo) {
     setPaymentMethods(peachInfo.paymentMethods)

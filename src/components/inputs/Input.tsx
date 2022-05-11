@@ -1,7 +1,10 @@
 import React, { ReactElement, Ref } from 'react'
 import {
+  NativeSyntheticEvent,
   Pressable,
   TextInput,
+  TextInputEndEditingEventData,
+  TextInputSubmitEditingEventData,
   View,
 } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -55,66 +58,69 @@ type InputProps = ComponentProps & {
  */
 export const Input = ({
   value,
-  label,
-  icon,
+  label, hint, icon,
   autoCorrect = false,
   disabled = false,
   isValid,
-  hint,
   errorMessage = [],
-  onChange,
-  onSubmit,
-  onFocus,
-  onBlur,
+  onChange, onSubmit,
+  onFocus, onBlur,
   secureTextEntry,
   style,
   reference
-}: InputProps): ReactElement => <View>
-  <View style={tw`overflow-hidden rounded`}>
-    <Shadow shadow={innerShadow} style={[
-      tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
-      tw.md`h-10`,
-      icon ? tw`pr-12` : {},
-      style ? style : {},
-      isValid && value && !disabled ? tw`border-green` : {},
-      errorMessage.length > 0 && !disabled ? tw`border-red` : {},
-    ]}>
-      <TextInput ref={reference ? reference : null}
-        style={[
-          tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
-          tw.md`h-10`,
-          label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
-        ]}
-        placeholder={label}
-        placeholderTextColor={tw`text-grey-2`.color as string}
-        value={value}
-        editable={!disabled}
-        autoCorrect={autoCorrect}
-        onChangeText={(val: string) => onChange ? onChange(val) : null}
-        onSubmitEditing={(e) => onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null}
-        onEndEditing={(e) => onChange ? onChange(e.nativeEvent.text?.trim()) : null}
-        onFocus={() => onFocus ? onFocus() : null}
-        onBlur={() => onBlur ? onBlur() : null}
-        secureTextEntry={secureTextEntry}
-      />
-      {icon
-        ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
-          style={tw`h-full absolute right-3 flex justify-center`}>
-          <Icon id={icon} style={tw`w-5 h-5`} />
-        </Pressable>
-        : null
-      }
-    </Shadow>
-  </View>
+}: InputProps): ReactElement => {
+  const onChangeText = (val: string) => onChange ? onChange(val) : null
+  const onSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) =>
+    onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null
+  const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
+    onChange ? onChange(e.nativeEvent.text?.trim()) : null
+  const onFocusHandler = () => onFocus ? onFocus() : null
+  const onBlurHandler = () => onBlur ? onBlur() : null
 
-  {errorMessage.length > 0
-    ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
-    : null
-  }
-  {hint && errorMessage.length === 0
-    ? <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
-    : null
-  }
-</View>
+  return <View>
+    <View style={tw`overflow-hidden rounded`}>
+      <Shadow shadow={innerShadow} style={[
+        tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
+        tw.md`h-10`,
+        icon ? tw`pr-12` : {},
+        style ? style : {},
+        isValid && value && !disabled ? tw`border-green` : {},
+        errorMessage.length > 0 && !disabled ? tw`border-red` : {},
+      ]}>
+        <TextInput ref={reference ? reference : null}
+          style={[
+            tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
+            tw.md`h-10`,
+            label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
+          ]}
+          placeholder={label} placeholderTextColor={tw`text-grey-2`.color as string}
+          value={value}
+          editable={!disabled} autoCorrect={autoCorrect}
+          onChangeText={onChangeText}
+          onSubmitEditing={onSubmitEditing} onEndEditing={onEndEditing}
+          blurOnSubmit={false}
+          onFocus={onFocusHandler} onBlur={onBlurHandler}
+          secureTextEntry={secureTextEntry}
+        />
+        {icon
+          ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
+            style={tw`h-full absolute right-3 flex justify-center`}>
+            <Icon id={icon} style={tw`w-5 h-5`} />
+          </Pressable>
+          : null
+        }
+      </Shadow>
+    </View>
+
+    {errorMessage.length > 0 && errorMessage[0]
+      ? <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
+      : null
+    }
+    {hint && errorMessage.length === 0 && errorMessage[0]
+      ? <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
+      : null
+    }
+  </View>
+}
 
 export default Input

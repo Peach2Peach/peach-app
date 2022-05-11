@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function, max-len */
 import React, { ReactElement, useContext, useState } from 'react'
 import {
   Pressable,
@@ -9,7 +10,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Fade, PeachScrollView, Text, Title } from '../../components'
+import { Button, Fade, Headline, PeachScrollView, Text, Title } from '../../components'
 import { account, backupAccount, deleteAccount } from '../../utils/account'
 import { API_URL, NETWORK } from '@env'
 import { APPVERSION } from '../../constants'
@@ -36,16 +37,17 @@ export default ({ navigation }: Props): ReactElement => {
     setTimeout(() => setShowCopied(false), 500)
   }
 
-  return <View style={tw`h-full pb-32`}>
-    <PeachScrollView contentContainerStyle={tw`px-6`}>
+  return <View style={tw`h-full pb-10`}>
+    <PeachScrollView contentContainerStyle={tw`pt-6 px-6`}>
       <Title title={'Settings'} />
-      <Text style={tw`text-sm text-grey-2`}>
-        App version: {APPVERSION}
-      </Text>
-      <Text style={tw`text-sm text-grey-2`}>API URL: {API_URL}</Text>
-      <Text style={tw`text-sm text-grey-2`}>Network: {NETWORK}</Text>
-      <Text style={tw`text-sm text-grey-2`}>Your public key:</Text>
-      <Pressable onPress={copy} style={tw`flex-row items-center`}>
+      <Headline style={tw`text-grey-1`}>App version</Headline>
+      <Text style={tw`text-sm text-grey-2 text-center`}>{APPVERSION}</Text>
+      <Headline style={tw`text-grey-1 mt-2`}>API URL</Headline>
+      <Text style={tw`text-sm text-grey-2 text-center`}>{API_URL}</Text>
+      <Headline style={tw`text-grey-1 mt-2`}>Network</Headline>
+      <Text style={tw`text-sm text-grey-2 text-center`}>{NETWORK}</Text>
+      <Headline style={tw`text-grey-1 mt-2`}>Your public key</Headline>
+      <Pressable onPress={copy} style={tw`flex-row items-center justify-center`}>
         <Text style={tw`text-sm text-grey-2`}>{publicKey}</Text>
         <View>
           <Fade show={showCopied} duration={300} delay={0} >
@@ -56,7 +58,16 @@ export default ({ navigation }: Props): ReactElement => {
           <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
         </View>
       </Pressable>
-      <Text style={tw`text-sm text-grey-2`}>Unique Device ID: {getUniqueId()}</Text>
+      <Headline style={tw`text-grey-1 mt-2`}>Device ID</Headline>
+      <Text style={tw`text-sm text-grey-2 text-center`}>{getUniqueId()}</Text>
+      <Headline style={tw`text-grey-1 mt-2`}>Trading Limit</Headline>
+      <Text style={tw`text-sm text-grey-2 text-center`}>
+        Today: CHF {account.tradingLimit.dailyAmount}/{account.tradingLimit.daily === Infinity ? '∞' : account.tradingLimit.daily}
+      </Text>
+      <Text style={tw`text-sm text-grey-2 text-center`}>
+        This Year: CHF {account.tradingLimit.yearlyAmount}/{account.tradingLimit.yearly === Infinity ? '∞' : account.tradingLimit.yearly}
+      </Text>
+
       <View style={tw`mt-4`}>
         <Button
           onPress={backupAccount}

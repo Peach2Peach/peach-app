@@ -3,12 +3,12 @@
     "fontFamily": "Baloo2-Bold"
   },
   "font-lato": {
-    "fontFamily": "Lato Regular"
+    "fontFamily": "Lato-Regular"
   },
   "font-lato-bold": {
-    "fontFamily": "Lato Bold"
+    "fontFamily": "Lato-Bold"
   },
   "font-mono": {
-    "fontFamily": "B612 Mono Regular"
+    "fontFamily": "B612Mono-Regular"
   }
 }

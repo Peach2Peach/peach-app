@@ -19,6 +19,8 @@ import ReturnAddress from './components/ReturnAddress'
 import Refund from '../../overlays/Refund'
 import { OverlayContext } from '../../contexts/overlay'
 import { useFocusEffect } from '@react-navigation/native'
+import { getTradingLimit } from '../../utils/peachAPI'
+import { updateTradingLimit } from '../../utils/account'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -27,7 +29,7 @@ const defaultFunding: FundingStatus = {
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, next, back, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -50,7 +52,10 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
       saveAndUpdate({ ...offer, id: result.offerId })
     },
-    onError: err => updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+    onError: err => {
+      updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+      back()
+    }
   }) : () => {}, [])
 
   useEffect(offer.id && !offer.escrow ? createEscrowEffect({
@@ -103,6 +108,12 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       setStepValid(true)
 
       next()
+
+      getTradingLimit().then(([tradingLimit]) => {
+        if (tradingLimit) {
+          updateTradingLimit(tradingLimit)
+        }
+      })
     }
   }, [fundingStatus])
 

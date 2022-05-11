@@ -1,6 +1,7 @@
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import {
+  Keyboard,
   // Image,
   Pressable,
   View
@@ -61,6 +62,7 @@ const FooterItem = ({ id, active, onPress }: FooterItemProps): ReactElement =>
  * <Footer active={'home'} />
  */
 export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
   const navTo = (page: keyof RootStackParamList) => {
     setCurrentPage(page)
     navigation.navigate({ name: page, merge: false, params: {} })
@@ -72,18 +74,28 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     offers: () => navTo('offers'),
     settings: () => navTo('settings'),
   }
-  return <View style={[tw`w-full flex-row items-start`, { height }, style]}>
-    <View style={tw`h-full flex-grow relative`}>
-      <Shadow shadow={footerShadow} style={tw`w-full`}>
-        <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
-          <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
-          <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
-          <FooterItem id="offers" active={active === 'offers'} onPress={navigate.offers} />
-          <FooterItem id="settings" active={active === 'settings'} onPress={navigate.settings} />
-        </View>
-      </Shadow>
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
+    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
+  }, [])
+
+  return !keyboardOpen
+    ? <View style={[tw`w-full flex-row items-start`, { height }, style]}>
+      <View style={tw`h-full flex-grow relative`}>
+        <Shadow shadow={footerShadow} style={tw`w-full`}>
+          <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
+            <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
+            <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+            <FooterItem id="offers" active={active === 'offers'} onPress={navigate.offers} />
+            <FooterItem id="settings" active={active === 'settings'} onPress={navigate.settings} />
+          </View>
+        </Shadow>
+      </View>
     </View>
-  </View>
+    : <View />
 }
 
 export default Footer

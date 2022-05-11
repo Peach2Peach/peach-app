@@ -26,7 +26,7 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   let buttonText = i18n('next')
   if (offer && offer.type === 'ask' && screen === 'escrow' && !stepValid) {
-    buttonText = offer.funding?.status === 'MEMPOOL'
+    buttonText = offer.funding.status === 'MEMPOOL'
       ? i18n('sell.escrow.waitingForConfirmation')
       : i18n('sell.escrow.fundToContinue')
   }
@@ -60,7 +60,7 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
       title={buttonText}
       loading={screen === 'escrow' && !stepValid}
       style={screen === 'escrow' && !stepValid && offer && offer.type === 'ask'
-        ? offer.funding?.status === 'MEMPOOL' ? tw`w-72` : tw`w-56`
+        ? offer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-56`
         : {}}
     />
     {screen === 'escrow'
