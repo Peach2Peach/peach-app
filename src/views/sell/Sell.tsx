@@ -65,6 +65,10 @@ const getDefaultSellOffer = (): SellOffer => ({
   amount: account.settings.amount || BUCKETS[0],
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
+  funding: {
+    status: 'NULL',
+    amount: 0,
+  },
   matches: [],
   seenMatches: [],
   matched: [],
@@ -133,27 +137,24 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultSellOffer()
-
-    setOfferId(undefined)
-    if (offr.funding?.status === 'FUNDED') {
+    if (offr.funding.status === 'FUNDED') {
       navigation.navigate('search', { offer: offr })
       return
     }
 
-
     if (!route.params?.offer) {
       setOffer(getDefaultSellOffer())
-      setOfferId(() => undefined)
+      setOfferId(undefined)
       setUpdatePending(false)
       setPage(0)
     } else {
-      setOffer(() => offr)
-      setOfferId(() => offr.id)
+      setOffer(offr)
+      setOfferId(offr.id)
       setUpdatePending(true)
     }
-  }, []))
+  }, [route]))
 
-  useFocusEffect(useCallback(getOfferDetailsEffect({
+  useEffect(getOfferDetailsEffect({
     offerId,
     onSuccess: result => {
       saveAndUpdate({
@@ -161,7 +162,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       } as SellOffer)
 
-      if (offer.funding?.status === 'FUNDED') {
+      if (offer.funding.status === 'FUNDED') {
         navigation.navigate('search', { offer: {
           ...offer,
           ...result,
@@ -181,7 +182,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId]))
+  }), [offerId])
 
   useEffect(() => {
     if (screens[page].id === 'search') {

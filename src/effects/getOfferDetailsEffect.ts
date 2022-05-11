@@ -22,7 +22,7 @@ export default ({
     info('Get offer details for', offerId)
     const [result, err] = await getOfferDetails(offerId)
     if (result) {
-      info('Got offer details: ', JSON.stringify(result))
+      // info('Got offer details: ', JSON.stringify(result))
       onSuccess(result)
     } else if (err) {
       error('Error', err)

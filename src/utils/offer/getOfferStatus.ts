@@ -4,11 +4,11 @@ import { getContract } from '../contract'
 const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
   offer.type === 'ask'
   && offer.escrow
-  && offer.funding?.status !== 'FUNDED'
-  && offer.funding?.status !== 'WRONG_FUNDING_AMOUNT'
-  && offer.funding?.status !== 'CANCELED'
+  && offer.funding.status !== 'FUNDED'
+  && offer.funding.status !== 'WRONG_FUNDING_AMOUNT'
+  && offer.funding.status !== 'CANCELED'
 
-const isEscrowTransactionSent = (offer: SellOffer) => offer.funding?.status === 'NULL'
+const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.status === 'NULL'
 
 const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
 

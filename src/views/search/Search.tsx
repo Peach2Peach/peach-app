@@ -270,7 +270,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       : null,
   }), [updatePending]))
 
-  useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
+  useEffect(() => offer.type === 'ask' && offer.funding.status !== 'FUNDED'
     ? checkFundingStatusEffect({
       offer: offer as SellOffer,
       onSuccess: result => {

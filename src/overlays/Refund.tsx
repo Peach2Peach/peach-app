@@ -79,7 +79,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
   const [transactionId, setTransactionId] = useState<string>(offer.txId || '')
-  const fundingStatus = offer.funding?.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
+  const fundingStatus = offer.funding.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
 
   const closeOverlay = () => {
     navigate()
