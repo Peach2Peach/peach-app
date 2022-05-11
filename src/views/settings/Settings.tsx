@@ -1,9 +1,11 @@
-/* eslint-disable max-len */
+/* eslint-disable max-lines-per-function, max-len */
 import React, { ReactElement, useContext, useState } from 'react'
 import {
   Pressable,
   View
 } from 'react-native'
+import { getUniqueId } from 'react-native-device-info'
+
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -56,6 +58,8 @@ export default ({ navigation }: Props): ReactElement => {
           <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
         </View>
       </Pressable>
+      <Headline style={tw`text-grey-1 mt-2`}>Device ID</Headline>
+      <Text style={tw`text-sm text-grey-2 text-center`}>{getUniqueId()}</Text>
       <Headline style={tw`text-grey-1 mt-2`}>Trading Limit</Headline>
       <Text style={tw`text-sm text-grey-2 text-center`}>
         Today: CHF {account.tradingLimit.dailyAmount}/{account.tradingLimit.daily === Infinity ? '∞' : account.tradingLimit.daily}

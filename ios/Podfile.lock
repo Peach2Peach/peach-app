@@ -417,6 +417,8 @@ PODS:
     - React-perflogger (= 0.68.0)
   - RNCClipboard (1.9.0):
     - React-Core
+  - RNDeviceInfo (8.7.1):
+    - React-Core
   - RNFBApp (14.7.0):
     - Firebase/CoreOnly (= 8.14.0)
     - React-Core
@@ -533,6 +535,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
   - RNFS (from `../node_modules/react-native-fs`)
@@ -650,6 +653,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBCrashlytics:
@@ -733,6 +738,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 9b1304f48e344c55bb3c36e13bf11461cb4da5d8
   ReactCommon: fab89a13b52f1ac42b59a0e4b4f76f21aea9eebe
   RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
+  RNDeviceInfo: aad3c663b25752a52bf8fce93f2354001dd185aa
   RNFBApp: 097a31d372b3db15b41c7a1a5c429433b0609e12
   RNFBCrashlytics: 4ec9aae1a1dbb6572d095417392483bec82b07bb
   RNFS: fc610f78fdf8bfc89a9e5cc2f898519f4dba1002

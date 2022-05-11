@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { account, createAccount, saveAccount, updateSettings } from '../../utils/account'
+import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Loading, Text } from '../../components'
 import i18n from '../../utils/i18n'
@@ -30,7 +30,6 @@ type Props = {
 }
 
 
-// TODO add loading animation on submit
 export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
@@ -71,6 +70,22 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
+  const onError = (e: Error) => {
+    error('Error', e)
+    updateMessage({
+      msg: i18n('AUTHENTICATION_FAILURE'),
+      level: 'ERROR',
+    })
+    deleteAccount({
+      onSuccess: () => {
+        setLoading(false)
+      },
+      onError: () => {
+        setLoading(false)
+      }
+    })
+  }
+
   const onPasswordRepeatChange = (value: string) => {
     setPasswordRepeat(value)
 
@@ -91,29 +106,25 @@ export default ({ navigation }: Props): ReactElement => {
     updateSettings({
       skipTutorial: true
     })
-    const [result, err] = await setPGP(account.pgp)
 
-    if (result) {
-      info('Set PGP for user', account.publicKey)
-      updateSettings({
-        pgpPublished: true
-      })
-    } else {
-      error('PGP could not be set', err)
+    try {
+      const [result, err] = await setPGP(account.pgp)
+
+      if (result) {
+        info('Set PGP for user', account.publicKey)
+        updateSettings({
+          pgpPublished: true
+        })
+      } else {
+        error('PGP could not be set', err)
+      }
+      saveAccount(account, password)
+
+      setLoading(false)
+      navigation.navigate('home', {})
+    } catch (e) {
+      onError(e as Error)
     }
-    saveAccount(account, password)
-
-    setLoading(false)
-    navigation.navigate('home', {})
-  }
-
-  const onError = (e: string) => {
-    setLoading(false)
-    error('Error', e)
-    updateMessage({
-      msg: i18n('error.createAccount'),
-      level: 'ERROR',
-    })
   }
 
   const submit = () => {
