@@ -36,7 +36,7 @@ import ContractChat from './views/contractChat/ContractChat'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { error } from './utils/log'
+import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
 import session from './init/session'
@@ -45,6 +45,25 @@ import pgp from './init/pgp'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import Offer from './views/offers/Offer'
+import messaging from '@react-native-firebase/messaging'
+
+const requestUserPermission = async () => {
+  const authStatus = await messaging().requestPermission({
+    alert: true,
+    badge: true,
+    sound: true,
+  })
+
+  if (authStatus === messaging.AuthorizationStatus.AUTHORIZED
+    || authStatus === messaging.AuthorizationStatus.PROVISIONAL) {
+    info('Permission status:', authStatus)
+  }
+}
+requestUserPermission()
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage)
+})
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -161,6 +180,23 @@ const App: React.FC = () => {
         updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
       }
     })()
+  }, [])
+
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+    })
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      info('Notification caused app to open from background state:', remoteMessage.notification)
+      const navigateToScreen = remoteMessage.data?.type
+
+      if (!navigateToScreen) return
+
+      navigationRef.navigate({ name: navigateToScreen, merge: false, params: {} })
+    })
+
+    return unsubscribe
   }, [])
 
   useEffect(websocket(updatePeachWS), [])
