@@ -2,6 +2,14 @@ export {}
 
 import * as accountData from './data/accountData'
 
+jest.mock('../src/utils/peachAPI', () => {
+  const actual = jest.requireActual('../src/utils//peachAPI')
+  const mock = jest.requireActual('../src/utils/__mocks__/peachAPI')
+  return {
+    ...actual,
+    ...mock
+  }
+})
 
 jest.mock('react-native-screens', () => {
   const actual = jest.requireActual('react-native-screens')
@@ -10,7 +18,6 @@ jest.mock('react-native-screens', () => {
     enableScreens: jest.fn()
   }
 })
-
 
 jest.mock('react-native-fast-openpgp', () => {
   const actual = jest.requireActual('react-native-fast-openpgp')
@@ -45,7 +52,13 @@ jest.mock('react-native-crypto-js', () => ({
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
   log: jest.fn()
 }))
+jest.mock('react-native-device-info', () => () => ({
+  getUniqueId: jest.fn()
+}))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('react-native-canvas')
+jest.mock('react-native-webview')
 jest.mock('react-native-qrcode-scanner', () => jest.fn())
 jest.mock('react-native-promise-rejection-utils', () => ({
   setUnhandledPromiseRejectionTracker: jest.fn()

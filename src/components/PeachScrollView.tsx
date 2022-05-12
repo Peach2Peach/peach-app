@@ -1,10 +1,11 @@
 
 import React, { ReactElement, Ref } from 'react'
-import { ScrollView, View, ViewStyle } from 'react-native'
+import { ScrollView, ScrollViewProps, View } from 'react-native'
+import tw from '../styles/tailwind'
 
-type ScrollViewProps = ComponentProps & {
+type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
   scrollRef?: Ref<ScrollView>,
-  contentContainerStyle?: ViewStyle|ViewStyle[],
+  disable?: boolean,
 }
 
 /**
@@ -16,13 +17,30 @@ type ScrollViewProps = ComponentProps & {
  *    <Text>Your content</Text>
  * </ScrollView>
  */
-export const PeachScrollView = ({ children, scrollRef, contentContainerStyle, style }: ScrollViewProps): ReactElement =>
-  <ScrollView ref={scrollRef}
+export const PeachScrollView = ({
+  children,
+  scrollRef,
+  contentContainerStyle,
+  horizontal = false,
+  showsHorizontalScrollIndicator = true,
+  disable,
+  scrollEventThrottle,
+  onScroll,
+  style,
+}: PeachScrollViewProps): ReactElement => {
+  const onStartShouldSetResponder = () => !disable
+
+  return <ScrollView ref={scrollRef}
+    horizontal={horizontal}
+    onScroll={onScroll}
+    scrollEventThrottle={scrollEventThrottle}
+    showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
     contentContainerStyle={contentContainerStyle || {}}
     style={style || {}}>
-    <View onStartShouldSetResponder={() => true}>
+    <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`}>
       {children}
     </View>
   </ScrollView>
+}
 
 export default PeachScrollView

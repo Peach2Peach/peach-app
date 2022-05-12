@@ -54,16 +54,17 @@ export const parseResponse = async <T>(
 export { getStatus, getInfo } from './public/system'
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
-export { auth, getAccessToken, setPGP } from './private/user'
+export { auth, getAccessToken, setPGP, getTradingLimit } from './private/user'
 export {
   getOffers,
-  postOffer, getOfferDetails,
+  postOffer, getOfferDetails, patchOffer,
   createEscrow, getFundingStatus,
   cancelOffer,
   getMatches
 } from './private/offer'
 export {
   getContract,
+  getContracts,
   confirmPayment,
   rateUser,
   getChat, postChat,

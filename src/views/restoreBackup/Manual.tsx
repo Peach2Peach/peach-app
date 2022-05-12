@@ -18,7 +18,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'rest
 type ManualProps = {
   navigation: ProfileScreenNavigationProp;
   onSuccess: (account: Account) => void,
-  onError: () => void,
+  onError: (err: Error) => void,
 }
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement => {
@@ -52,7 +52,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     setLoading(true)
     Keyboard.dismiss()
 
-    const [recoveredAccount] = await recoverAccount({
+    const [recoveredAccount, err] = await recoverAccount({
       encryptedAccount: file.content,
       password
     })
@@ -65,14 +65,14 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
       await saveAccount(recoveredAccount, password)
       onSuccess(recoveredAccount)
     } else {
-      onError()
+      onError(err as Error)
     }
     setLoading(false)
   }
 
-  return <View style={tw`h-full flex px-6`}>
+  return <View style={tw`h-full flex`}>
     <View style={[
-      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
+      tw`h-full flex-shrink py-6 pt-32 flex-col items-center`,
       tw.md`pt-36`
     ]}>
       <Image source={require('../../../assets/favico/peach-logo.png')}
@@ -89,9 +89,6 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
           : <View>
             <Text style={tw`mt-4 text-center`}>
               {i18n('restoreBackup.manual.description.1')}
-            </Text>
-            <Text style={tw`mt-3 text-center`}>
-              {i18n('restoreBackup.manual.description.2')}
             </Text>
           </View>
         }
@@ -124,7 +121,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
           />
         </View>
         <View style={tw`w-full mt-5 flex items-center`}>
-          <Pressable style={tw`absolute left-0`} onPress={() => navigation.goBack()}>
+          <Pressable style={tw`absolute left-0`} onPress={() => navigation.navigate('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>
           <Button

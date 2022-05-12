@@ -8,6 +8,8 @@ import { MessageContext } from '../../contexts/message'
 import AutoScan from './AutoScan'
 import Manual from './Manual'
 import Restored from './Restored'
+import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
@@ -34,20 +36,23 @@ export default ({ navigation }: Props): ReactElement => {
   }, [])
 
 
-  const onError = () => {
+  const onError = (e: Error) => {
     updateMessage({
-      msg: i18n('form.password.invalid'),
+      msg: i18n(e.message === 'AUTHENTICATION_FAILURE' ? e.message : 'form.password.invalid'),
       level: 'ERROR',
     })
   }
 
-  return !autoScanComplete
-    ? <AutoScan />
-    : !recoveredAccount.publicKey
-      ? <Manual
-        navigation={navigation}
-        onSuccess={(acc: Account) => setRecoveredAccount(acc)}
-        onError={onError}
-      />
-      : <Restored navigation={navigation} />
+  return <View style={tw`px-6`}>
+    {!autoScanComplete
+      ? <AutoScan />
+      : !recoveredAccount.publicKey
+        ? <Manual
+          navigation={navigation}
+          onSuccess={(acc: Account) => setRecoveredAccount(acc)}
+          onError={onError}
+        />
+        : <Restored navigation={navigation} />
+    }
+  </View>
 }

@@ -40,27 +40,31 @@ type RadioButtonsProps = ComponentProps & {
  */
 export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioButtonsProps): ReactElement =>
   <View style={style}>
-    {items.map((item, i) => <View key={i} style={item.value !== selectedValue ? tw`opacity-50` : {}}>
-      <Shadow {...mildShadow}
-        viewStyle={[
-          tw`w-full`,
+    <Shadow shadow={mildShadow} style={tw`w-full`}>
+      <View>
+        {items.map((item, i) => <View key={i} style={[
+          tw`bg-white-1 rounded`,
           i > 0 ? tw`mt-2` : {}
         ]}>
-        <Pressable style={tw`flex-row items-center p-3 bg-white-1 border border-grey-4 rounded`}
+          <Pressable style={[
+            tw`flex-row items-center p-3 border border-grey-4 rounded`,
+            item.value !== selectedValue ? tw`opacity-50` : {}
+          ]}
           onPress={() => onChange ? onChange(item.value) : null}>
-          <View style={tw`w-5 h-5 rounded-full border-2 border-grey-3 flex justify-center items-center`}>
-            {item.value === selectedValue
-              ? <Icon id="circle" style={tw`w-3 h-3`} />
-              : null
-            }
-          </View>
-          <Text style={tw`ml-4`}>
-            {item.display}
-          </Text>
-        </Pressable>
-      </Shadow>
-    </View>
-    )}
+            <View style={tw`w-5 h-5 rounded-full border-2 border-grey-3 flex justify-center items-center`}>
+              {item.value === selectedValue
+                ? <Icon id="circle" style={tw`w-3 h-3`} />
+                : null
+              }
+            </View>
+            <Text style={tw`ml-4`}>
+              {item.display}
+            </Text>
+          </Pressable>
+        </View>
+        )}
+      </View>
+    </Shadow>
   </View>
 
 export default RadioButtons

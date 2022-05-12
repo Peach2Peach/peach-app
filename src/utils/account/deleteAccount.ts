@@ -1,5 +1,5 @@
 import { setAccount, defaultAccount } from '.'
-import { deleteFile } from '../file'
+import { deleteFile, exists } from '../file'
 import { info } from '../log'
 import { deleteAccessToken } from '../peachAPI'
 import { setSession } from '../session'
@@ -17,9 +17,11 @@ interface DeleteAccountProps {
 export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) => {
   info('Deleting account')
 
-  if (await deleteFile('/peach-account.json')) {
+  setAccount(defaultAccount, true)
+
+  if (await exists('/peach-account.json')) {
+    await deleteFile('/peach-account.json')
     await setSession({ password: null })
-    setAccount(defaultAccount, true)
     deleteAccessToken()
     onSuccess()
   } else {

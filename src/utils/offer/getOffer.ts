@@ -5,4 +5,12 @@ import { account } from '../account'
   * @param id offer id
   * @returns offer
   */
-export const getOffer = (id: string): SellOffer|BuyOffer|undefined => account.offers.find(c => c.id === id)
+export const getOffer = (id: string): SellOffer|BuyOffer|null => {
+  const offer = account.offers.find(c => c.id === id)
+
+  if (!offer) return null
+
+  if (!offer.seenMatches) offer.seenMatches = []
+
+  return offer
+}

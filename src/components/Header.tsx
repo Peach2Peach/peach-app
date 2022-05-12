@@ -1,6 +1,6 @@
 
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import { Image, View } from 'react-native'
 
 import { Shadow, Text } from '.'
 import tw from '../styles/tailwind'
@@ -24,19 +24,20 @@ type HeaderProps = ComponentProps & {
  */
 export const Header = ({ bitcoinContext, style }: HeaderProps): ReactElement =>
   <View style={style}>
-    <Shadow {...mildShadow}>
+    <Shadow shadow={mildShadow}>
       <View style={tw`w-full flex-row items-center justify-between px-3 py-2 bg-white-1`}>
         <View>
           <Text style={tw`font-lato leading-5 text-grey-1 text-right`}>
-            Bitcoin
+            1 Bitcoin
           </Text>
           <Text style={tw`font-lato leading-5 text-peach-1 text-right`}>
             {i18n(`currency.format.${bitcoinContext.currency}`, thousands(Math.round(bitcoinContext.price)))}
           </Text>
         </View>
+        <Image source={require('../../assets/favico/peach-logo.png')} style={tw`w-10 h-10`}/>
         <View>
           <Text style={tw`font-lato leading-5 text-grey-1`}>
-            {i18n(`currency.${bitcoinContext.currency}`)}
+            1 {bitcoinContext.currency}
           </Text>
           <Text style={tw`font-lato leading-5 text-peach-1`}>
             {i18n('currency.format.sats', String(Math.round(bitcoinContext.satsPerUnit)))}

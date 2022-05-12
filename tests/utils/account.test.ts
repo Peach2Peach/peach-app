@@ -22,6 +22,7 @@ import * as accountData from '../data/accountData'
 const password = 'supersecret'
 
 jest.mock('react-native-fs', () => ({
+  exists: async (): Promise<boolean> => true,
   readFile: async (): Promise<string> => JSON.stringify(accountData.account1),
   writeFile: async (): Promise<void> => {},
   unlink: async (): Promise<void> => {}
@@ -29,7 +30,7 @@ jest.mock('react-native-fs', () => ({
 
 describe('setAccount', () => {
   it('sets an account, sets wallet and peachAccount', async () => {
-    await setAccount(accountData.account1)
+    await setAccount(accountData.account1, true)
     deepStrictEqual(account, accountData.account1)
     ok(getWallet())
     ok(getPeachAccount())
@@ -158,10 +159,11 @@ describe('recoverAccount', () => {
   })
 
   it('would decrypt recovery account', async () => {
-    const [recoveredAccount] = await recoverAccount({
+    const [recoveredAccount, err] = await recoverAccount({
       encryptedAccount: JSON.stringify(accountData.recoveredAccount),
       password: 'mockpassword',
     })
+    ok(!err, 'Error has been thrown ' + err)
     deepStrictEqual(recoveredAccount, accountData.recoveredAccount)
   })
 })

@@ -11,13 +11,14 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		31885939C8A1473685945107 /* Lato Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */; };
+		1A77FFE7B5114FE9B932E079 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CC714957D934E2DB340F792 /* Lato-Regular.ttf */; };
 		40009D2A5A35DC3C72532C6E /* libPods-peach.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD954848B14C5B14201D5990 /* libPods-peach.a */; };
+		675514872812BA4E00A17B6C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
+		67D471762829472A00C2911E /* B612Mono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67D471752829472A00C2911E /* B612Mono-Regular.ttf */; };
 		72F6E312831A88954A4182A6 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */; };
-		7D1F2680BED84AE1B7B6343B /* Lato Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B827F156BC264B3CB39698AF /* Lato Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		FCEA11EE7BAC4C90833AE775 /* B612 Mono Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D72151F0E904B9CADC58DCE /* B612 Mono Regular.ttf */; };
+		CFBAABEB18364DC2B43C488B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */; };
 		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 /* End PBXBuildFile section */
 
@@ -42,21 +43,26 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = peach/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = peach/main.m; sourceTree = "<group>"; };
 		21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato Regular.ttf"; path = "../assets/fonts/Lato Regular.ttf"; sourceTree = "<group>"; };
+		451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		5AAA790E5C044C2AD05ED413 /* Pods-peach.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.debug.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.debug.xcconfig"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
+		675514812812AA1D00A17B6C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = peach/main.jsbundle; sourceTree = "<group>"; };
+		675514832812B60700A17B6C /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		675514862812BA4E00A17B6C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		6769491127F72D6900C73BEF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../ios/peach/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		67D471752829472A00C2911E /* B612Mono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "B612Mono-Regular.ttf"; path = "../assets/fonts/B612Mono-Regular.ttf"; sourceTree = "<group>"; };
+		6CC714957D934E2DB340F792 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = peach/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.debug.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.debug.xcconfig"; sourceTree = "<group>"; };
 		92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peachTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A7125260244CB9A6E45C88 /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFileSystem.xcodeproj; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; };
 		9D72151F0E904B9CADC58DCE /* B612 Mono Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "B612 Mono Regular.ttf"; path = "../assets/fonts/B612 Mono Regular.ttf"; sourceTree = "<group>"; };
+		AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; };
 		B827F156BC264B3CB39698AF /* Lato Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato Bold.ttf"; path = "../assets/fonts/Lato Bold.ttf"; sourceTree = "<group>"; };
 		BD954848B14C5B14201D5990 /* libPods-peach.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C53D6151A4EC4E14BBAD6383 /* .ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = ".ttf"; path = "../assets/fonts/.ttf"; sourceTree = "<group>"; };
 		C71CF1A69DCFF4545075AB4D /* Pods-peach.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.release.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F8B16E02B840AD431E567E31 /* Pods-peach-peachTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.release.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.release.xcconfig"; sourceTree = "<group>"; };
-		AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 		13B07FAE1A68108700A75B9A /* peach */ = {
 			isa = PBXGroup;
 			children = (
+				675514812812AA1D00A17B6C /* main.jsbundle */,
 				67094FCB26B447E200F2F356 /* peach.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -127,6 +134,8 @@
 				B827F156BC264B3CB39698AF /* Lato Bold.ttf */,
 				21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */,
 				AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */,
+				451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */,
+				6CC714957D934E2DB340F792 /* Lato-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -142,6 +151,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				67D471752829472A00C2911E /* B612Mono-Regular.ttf */,
+				675514862812BA4E00A17B6C /* assets */,
+				675514832812B60700A17B6C /* main.jsbundle */,
 				6769491127F72D6900C73BEF /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* peach */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -272,13 +284,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D471762829472A00C2911E /* B612Mono-Regular.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				FCEA11EE7BAC4C90833AE775 /* B612 Mono Regular.ttf in Resources */,
-				7D1F2680BED84AE1B7B6343B /* Lato Bold.ttf in Resources */,
-				31885939C8A1473685945107 /* Lato Regular.ttf in Resources */,
+				675514872812BA4E00A17B6C /* assets in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
 				F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */,
+				CFBAABEB18364DC2B43C488B /* Lato-Bold.ttf in Resources */,
+				1A77FFE7B5114FE9B932E079 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +506,7 @@
 			baseConfigurationReference = 8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -502,7 +516,7 @@
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = peachTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -529,12 +543,13 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = peachTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -562,20 +577,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = peach/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.0.1-rc.4";
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -596,19 +611,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = peach/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.0.1-rc.4";
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -671,7 +686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -730,7 +745,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",

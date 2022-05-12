@@ -53,6 +53,19 @@ describe('rules', () => {
       ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
     }
 
+    for (const address of paymentData.bitcoinTestnet.base58Check.valid) {
+      ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
+    }
+    for (const address of paymentData.bitcoinTestnet.base58Check.invalid) {
+      ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
+    }
+    for (const address of paymentData.bitcoinTestnet.bech32.valid) {
+      ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
+    }
+    for (const address of paymentData.bitcoinTestnet.bech32.invalid) {
+      ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
+    }
+
     // general invalid input
     ok(!rules.bitcoinAddress(true, 'invalid'))
   })

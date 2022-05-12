@@ -1,4 +1,5 @@
 import { account, saveAccount } from '../account'
+import { sort } from '../array'
 import { info } from '../log'
 import { session } from '../session'
 import { offerExists } from './offerExists'
@@ -7,8 +8,8 @@ import { offerExists } from './offerExists'
   * @description Method to add offer to offer list
   * @param offer the offer
   */
-export const saveOffer = (offer: SellOffer|BuyOffer): void => {
-  info('saveOffer', offer)
+export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false): void => {
+  info('saveOffer', offer.id, offer)
   if (!offer.id) throw new Error('offerId is required')
 
   delete offer.user
@@ -22,5 +23,7 @@ export const saveOffer = (offer: SellOffer|BuyOffer): void => {
   } else {
     account.offers.push(offer)
   }
-  if (session.password) saveAccount(account, session.password)
+
+  account.offers = account.offers.sort(sort('id'))
+  if (session.password && !disableSave) saveAccount(account, session.password)
 }

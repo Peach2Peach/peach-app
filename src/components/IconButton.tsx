@@ -1,6 +1,7 @@
 
 import React, { ReactElement, useState } from 'react'
 import {
+  GestureResponderEvent,
   Pressable,
   View,
 } from 'react-native'
@@ -11,7 +12,7 @@ import { Text } from '.'
 type IconButtonProps = ComponentProps & {
   icon: string,
   title: string,
-  onPress?: Function
+  onPress: ((event: GestureResponderEvent) => void) | null | undefined
 }
 
 /**
@@ -30,7 +31,8 @@ type IconButtonProps = ComponentProps & {
  */
 export const IconButton = ({ icon, title, style, onPress }: IconButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
-
+  const showAsActive = () => setActive(true)
+  const showAsNormal = () => setActive(false)
   return <View>
     <Pressable
       style={[
@@ -39,9 +41,8 @@ export const IconButton = ({ icon, title, style, onPress }: IconButtonProps): Re
         active ? tw`bg-peach-2` : {},
         style || {}
       ]}
-      onPress={e => onPress ? onPress(e) : null}
-      onPressIn={() => setActive(true)}
-      onPressOut={() => setActive(false)}
+      onPress={onPress}
+      onPressIn={showAsActive} onPressOut={showAsNormal}
     >
       <Icon id={icon} style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
       <Text style={[

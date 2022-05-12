@@ -5,13 +5,26 @@ import { account } from '../account'
  * @param id chat id
  * @returns chat
 */
-export const getChat = (id: string): Message[]|null => {
-  const messages = account.chats[id]
+export const getChat = (id: string): Chat => {
+  const chat = account.chats[id]
+  let messages = chat?.messages
 
-  if (!messages) return null
+  // TODO legacy support, remove for version 0.1.0
+  if (!messages && Array.isArray(chat)) messages = chat
 
-  return messages.map((message: Message) => ({
+  if (!chat || !messages || !messages.length) return {
+    id,
+    lastSeen: new Date(),
+    messages: []
+  }
+
+  messages = messages.map((message: Message) => ({
     ...message,
     date: new Date(message.date)
   }))
+  return {
+    id,
+    lastSeen: messages[messages.length - 1].date,
+    messages
+  }
 }

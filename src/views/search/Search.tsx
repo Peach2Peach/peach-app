@@ -1,4 +1,5 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+/* eslint-disable max-lines */
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
   View
@@ -7,12 +8,11 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Matches, Text } from '../../components'
+import { BigTitle, Button, Headline, Matches, Text } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
@@ -21,12 +21,12 @@ import { error, info } from '../../utils/log'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
-import { cancelOffer } from '../../utils/peachAPI'
 import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
-import ConfirmCancelTrade from './components/ConfirmCancelTrade'
+import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { account } from '../../utils/account'
-import { getRandom } from '../../utils/crypto'
+import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
+import { unique } from '../../utils/array'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -36,19 +36,22 @@ type Props = {
   } }>,
   navigation: ProfileScreenNavigationProp,
 }
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
   const [, updateOverlay] = useContext(OverlayContext)
-
   const [, updateMessage] = useContext(MessageContext)
-  const [currentMatch, setCurrentMatch] = useState(0)
+
+  const [currentMatchIndex, setCurrentMatchIndex] = useState(0)
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>()
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>()
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
   const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
 
   const [matches, setMatches] = useState<Match[]>([])
+  const [seenMatches, setSeenMatches] = useState<Offer['id'][]>(route.params.offer.seenMatches)
+  const currentMatch = matches[currentMatchIndex]
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
     setOffer(offerData)
@@ -56,78 +59,108 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveOffer(offerData)
   }
 
+  const setMatchingOptions = (match?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => {
+    if (typeof match === 'number') {
+      setCurrentMatchIndex(match)
+      setSeenMatches(seen => {
+        seen = (offer.seenMatches || []).concat([matches[match].offerId]).filter(unique())
+        saveAndUpdate({
+          ...offer,
+          seenMatches: seen
+        })
+        return seen
+      })
+
+    }
+    if (currency) setSelectedCurrency(currency)
+    if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
+  }
+
   // eslint-disable-next-line max-statements, max-lines-per-function
-  const toggleMatch = async (match: Match) => {
-    let symmetricKey: string
-    let result: any
-    let err
+  const _match = async (match: Match) => {
+    let encryptedSymmmetricKey
+    let encryptedPaymentData
+    let paymentData
 
     if (!offer || !offer.id) return
 
-    if (!match.matched) {
-      let encryptedSymmmetricKey
-      let encryptedPaymentData
-
-      if (offer.type === 'bid') {
-        symmetricKey = (await getRandom(256)).toString('hex')
-        encryptedSymmmetricKey = await signAndEncrypt(
-          symmetricKey,
-          [
-            account.pgp.publicKey,
-            match.user.pgpPublicKey
-          ].join('\n')
-        )
-      } else if (offer.type === 'ask') {
-        [symmetricKey, err] = await decryptSymmetricKey(
-          match.symmetricKeyEncrypted,
-          match.symmetricKeySignature,
-          match.user.pgpPublicKey
-        )
-        const paymentData = offer.paymentData.find(data => data.type === match.paymentMethods[0])
-
-        if (err) error(err)
-
-        if (!paymentData) {
-          error('Error', err)
-          // TODO show payment Data form again
-          updateMessage({
-            msg: i18n('search.error.paymentDataMissing'),
-            level: 'ERROR',
-          })
-          return
-        }
-        delete paymentData.selected
-        encryptedPaymentData = await signAndEncryptSymmetric(
-          JSON.stringify(paymentData),
-          symmetricKey
-        )
-      }
-
-      // TODO add reintroduce hashed payment data
-      [result, err] = await matchOffer({
-        offerId: offer.id,
-        matchingOfferId: match.offerId,
-        currency: 'EUR', // TODO make dynamic
-        paymentMethod: match.paymentMethods[0],
-        symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
-        symmetricKeySignature: encryptedSymmmetricKey?.signature,
-        paymentDataEncrypted: encryptedPaymentData?.encrypted,
-        paymentDataSignature: encryptedPaymentData?.signature,
-      })
-    } else if (offer.type === 'bid') {
-      [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
+    if (!selectedCurrency || !selectedPaymentMethod) {
+      error(
+        'Match data missing values.',
+        `selectedCurrency: ${selectedCurrency}`,
+        `selectedPaymentMethod: ${selectedPaymentMethod}`
+      )
+      return
     }
 
+    if (offer.type === 'bid') {
+      encryptedSymmmetricKey = await signAndEncrypt(
+        (await getRandom(256)).toString('hex'),
+        [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
+      )
+    } else if (offer.type === 'ask') {
+      const [symmetricKey, decryptErr] = await decryptSymmetricKey(
+        match.symmetricKeyEncrypted, match.symmetricKeySignature,
+        match.user.pgpPublicKey
+      )
+
+      if (decryptErr) error(decryptErr)
+
+      paymentData = offer.paymentData?.find(data =>
+        data.type === match.paymentMethods[0]
+      ) as Omit<PaymentData, 'id' | 'type'>
+
+      if (!paymentData) { // TODO show payment Data form again
+        error('Payment data could not be found for offer', offer.id)
+        updateMessage({
+          msg: i18n('search.error.paymentDataMissing'),
+          level: 'ERROR',
+        })
+        return
+      }
+
+      paymentData = JSON.parse(JSON.stringify(paymentData)) // break link to original
+
+      delete paymentData.selected
+      delete paymentData.id
+      delete paymentData.type
+
+      encryptedPaymentData = await signAndEncryptSymmetric(
+        JSON.stringify(paymentData),
+        symmetricKey
+      )
+    }
+
+    // TODO handle 404 error (match already taken)
+    const [result, err] = await matchOffer({
+      offerId: offer.id, matchingOfferId: match.offerId,
+      currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
+      symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
+      symmetricKeySignature: encryptedSymmmetricKey?.signature,
+      paymentDataEncrypted: encryptedPaymentData?.encrypted,
+      paymentDataSignature: encryptedPaymentData?.signature,
+      hashedPaymentData: paymentData ? sha256(JSON.stringify(paymentData)) : undefined,
+    })
+
     if (result) {
-      setMatches(() => matches.map(m => ({
-        ...m,
-        matched: m.offerId === match.offerId ? !m.matched : m.matched
-      })))
+      setMatches(() => matches.map(m => {
+        if (m.offerId !== match.offerId) return m
+        m.matched = true
+        if (result.matchedPrice) m.matchedPrice = result.matchedPrice
+        return m
+      }))
 
       if (offer.type === 'ask') {
-        saveAndUpdate({ ...offer, doubleMatched: true, contractId: result.contractId })
+        saveAndUpdate({
+          ...offer,
+          doubleMatched: true,
+          contractId: result.contractId
+        })
 
-        if (result.contractId) navigation.navigate('contract', { contractId: result.contractId })
+        if (result.contractId) {
+          info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
+          navigation.navigate('contract', { contractId: result.contractId })
+        }
       }
     } else {
       error('Error', err)
@@ -138,33 +171,35 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  const confirmCancelTrade = async () => {
-    if (!offer.id) return
+  const _unmatch = async (match: Match) => {
+    if (!offer || !offer.id) return
 
-    const [result, err] = await cancelOffer({
-      offerId: offer.id,
-      satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
-    })
+    const [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
+
     if (result) {
-      info('Cancel offer: ', JSON.stringify(result))
-      if (offer.type === 'ask' && offer.funding) {
-        saveAndUpdate({
-          ...offer, online: false,
-          funding: {
-            ...offer.funding,
-            status: 'CANCELED',
-          }
-        })
-      } else {
-        saveAndUpdate({ ...offer, online: false })
-      }
-    } else if (err) {
+      setMatches(() => matches.map(m => ({
+        ...m,
+        matched: m.offerId === match.offerId ? !m.matched : m.matched
+      })))
+    } else {
       error('Error', err)
+      updateMessage({
+        msg: i18n(err?.error || 'error.general'),
+        level: 'ERROR',
+      })
     }
   }
 
-  const cancelTrade = () => updateOverlay({
-    content: <ConfirmCancelTrade offer={offer} confirm={confirmCancelTrade} navigation={navigation} />,
+  const _toggleMatch = () => currentMatch.matched ? _unmatch(currentMatch) : _match(currentMatch)
+
+  // const _decline = () => {
+  // alert('todo')
+  // }
+
+  const navigate = () => navigation.navigate('offers', {})
+
+  const cancelOffer = () => updateOverlay({
+    content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
     showCloseButton: false
   })
 
@@ -175,25 +210,32 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [route])
 
   useEffect(() => {
-    if (!offer.id) return
+    if (!offer.id || !matches.length) return
 
     const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
 
-    saveAndUpdate({ ...offer, matches: matchedOffers })
+    saveAndUpdate({
+      ...offer,
+      seenMatches,
+      matched: matchedOffers
+    })
   }, [matches])
 
-  useEffect(getOfferDetailsEffect({
+  useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
+
       saveAndUpdate({
         ...offer,
         ...result,
       })
 
       if (result.contractId) {
+        info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
         navigation.navigate('contract', { contractId: result.contractId })
       }
+
       setUpdatePending(() => false)
     },
     onError: err => {
@@ -203,31 +245,41 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId])
+  }), [offerId]))
 
-  useEffect(!updatePending ? searchForPeersEffect({
+  useFocusEffect(useCallback(searchForPeersEffect({
     offer,
     onSuccess: result => {
-      setMatches(() => result.map(m => ({
-        ...m,
-        matched: offer.matches && offer.matches.indexOf(m.offerId) !== -1
-      })))
+      setMatches(() => matches.concat(result)
+        .filter(unique('offerId'))
+        .filter((match, i) => {
+          // don't mess with the current slide position by removing previous slides
+          if (i < currentMatchIndex + 1) return true
+          // otherwise, remove later slides if they are not present in results
+          return result.some(m => m.offerId === match.offerId)
+        })
+        .map(match => {
+          const update = result.find(m => m.offerId === match.offerId)
+          match.prices = (update || match).prices
+          return match
+        })
+      )
     },
-    onError: err => updateMessage({ msg: i18n(err.error), level: 'ERROR' }),
-  }) : () => {}, [updatePending])
+    onError: err => err.error !== 'UNAUTHORIZED'
+      ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
+      : null,
+  }), [updatePending]))
 
-  useEffect(() => 'escrow' in offer && offer.funding?.status !== 'FUNDED'
+  useEffect(() => offer.type === 'ask' && offer.funding.status !== 'FUNDED'
     ? checkFundingStatusEffect({
-      offer,
+      offer: offer as SellOffer,
       onSuccess: result => {
         info('Checked funding status', result)
 
         saveAndUpdate({
           ...offer,
           funding: result.funding,
-          // TODO this should not be necessary after updating sell offer order
           returnAddress: result.returnAddress,
-          depositAddress: offer.depositAddress || result.returnAddress,
         })
       },
       onError: err => {
@@ -238,52 +290,91 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
     })() : () => {}, [offer.id])
 
-  return <View style={tw`h-full flex pb-24 px-6`}>
-    <View style={tw`h-full flex-shrink`}>
-      <View style={tw`h-full flex justify-center pb-8`}>
-        <BigTitle title={i18n(matches.length ? 'search.youGotAMatch' : 'search.searchingForAPeer')} />
-        {offer.type === 'ask' && !matches.length
+  return <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
+    <View style={tw`px-6`}>
+      {!matches.length
+        ? <BigTitle title={i18n('search.searchingForAPeer')} />
+        : <Headline style={[
+          tw`text-center text-2xl leading-2xl uppercase text-peach-1`,
+          tw.md`text-3xl leading-3xl`,
+        ]}>
+          {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
+        </Headline>
+      }
+      {!matches.length
+        ? <Text style={tw`text-center mt-3`}>
+          {i18n('search.weWillNotifyYou')}
+        </Text>
+        : null
+      }
+      {matches.length
+        ? offer.type === 'bid'
           ? <View>
-            <Text style={tw`text-center`}>
-              {i18n('search.sellOffer.1')}
-            </Text>
-            <Text style={tw`text-center mt-2`}>
-              {i18n('search.sellOffer.2')}
+            <Text style={tw`text-grey-2 text-center -mt-2`}>
+              {i18n('search.buyOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
+              {i18n('currency.SATS')}
             </Text>
           </View>
-          : null
-        }
-        {offer.type === 'bid' && matches.length
-          ? <Text style={tw`text-grey-3 text-center -mt-2`}>
-            {i18n('search.buyOffer', thousands(offer.amount))}
-          </Text>
-          : null
-        }
-        {matches.length
-          ? <View>
-            <Matches style={tw`mt-9`} matches={matches} onChange={setCurrentMatch}/>
-            <View style={tw`flex items-center mt-6`}>
+          : <View>
+            <Text style={tw`text-grey-2 text-center -mt-2`}>
+              {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
+              {i18n('currency.SATS')}
+            </Text>
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n(
+                offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount',
+                String(Math.abs(offer.premium))
+              )}
+            </Text>
+          </View>
+        : null
+      }
+    </View>
+    <View style={tw`h-full flex-shrink flex-col justify-end`}>
+      {matches.length
+        ? <View style={tw`h-full flex-shrink flex-col justify-end`}>
+          <Matches offer={offer} matches={matches}
+            onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
+          {offer.type === 'bid'
+            ? <View style={tw`flex items-center`}>
               <Button
-                title={i18n('search.matchOffer')}
+                title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 wide={false}
-                onPress={() => toggleMatch(matches[currentMatch])}
+                disabled={currentMatch?.matched}
+                onPress={_toggleMatch}
               />
             </View>
-          </View>
-          : <View style={tw`flex items-center mt-6`}>
-            <Button
-              title={i18n('goBackHome')}
-              wide={false}
-              onPress={() => navigation.navigate('home', {})}
-            />
-          </View>
-        }
-        <Pressable style={tw`mt-4`} onPress={cancelTrade}>
-          <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
-            {i18n('cancelTrade')}
-          </Text>
-        </Pressable>
-      </View>
+            : <View style={tw`flex items-center`}>
+              {/* <Button
+                title={i18n('search.declineMatch')}
+                wide={false}
+                secondary={true}
+                disabled={currentMatch?.matched}
+                onPress={_decline}
+              /> */}
+              <Button
+                // style={tw`ml-6`}
+                title={i18n('search.acceptMatch')}
+                wide={false}
+                disabled={currentMatch?.matched}
+                onPress={() => _match(currentMatch)}
+              />
+            </View>
+          }
+        </View>
+        : <View style={tw`flex items-center mt-6`}>
+          <Button
+            title={i18n('goBackHome')}
+            wide={false}
+            onPress={() => navigation.navigate('home', {})}
+          />
+        </View>
+      }
+      <Pressable style={tw`mt-3`} onPress={cancelOffer}>
+        <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
+          {i18n('cancelOffer')}
+        </Text>
+      </Pressable>
     </View>
   </View>
 }

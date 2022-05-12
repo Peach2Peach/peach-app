@@ -17,24 +17,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>28</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true />
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>195.15.243.48</key>
-			<dict>
-				<key>NSAllowsArbitraryLoads</key>
-				<true />
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
-			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -48,9 +41,9 @@
 	<string />
 	<key>UIAppFonts</key>
 	<array>
-		<string>B612 Mono Regular.ttf</string>
-		<string>Lato Bold.ttf</string>
-		<string>Lato Regular.ttf</string>
+		<string>B612Mono-Regular.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-Regular.ttf</string>
 		<string>Baloo2-Bold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
@@ -59,6 +52,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<false />
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

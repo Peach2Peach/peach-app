@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import {
+  Platform,
   Pressable,
   View,
 } from 'react-native'
@@ -27,16 +28,21 @@ const selectFile = (): Promise<FileData> => new Promise(async resolve => {
   let timeout: NodeJS.Timer
 
   try {
-    const result = await DocumentPicker.pick()
+    const file = await DocumentPicker.pick()
     try {
-      if (!result.uri) {
+      if (!file.uri) {
         throw Error('File could not be read')
       }
 
-      RNFS.readFile(result.uri, 'utf8').then(content => {
+      const uri = Platform.select({
+        android: file.uri,
+        ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
+      }) as string
+
+      RNFS.readFile(uri, 'utf8').then(content => {
         clearTimeout(timeout)
         resolve({
-          name: result.name || '',
+          name: file.name || '',
           content
         })
       })
@@ -105,8 +111,8 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow {...innerShadow}
-      viewStyle={[
+    <Shadow shadow={innerShadow}
+      style={[
         tw`w-full flex flex-row items-center justify-between h-8 pl-4 pr-3 py-2 rounded`,
         tw.md`h-10`,
       ]}

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
@@ -10,11 +10,17 @@ import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
-import { Loading, Title } from '../../components'
+import { Headline, Loading, Text, Title } from '../../components'
 import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
+import ReturnAddress from './components/ReturnAddress'
+import Refund from '../../overlays/Refund'
+import { OverlayContext } from '../../contexts/overlay'
+import { useFocusEffect } from '@react-navigation/native'
+import { getTradingLimit } from '../../utils/peachAPI'
+import { updateTradingLimit } from '../../utils/account'
 
 const defaultFunding: FundingStatus = {
   confirmations: 0,
@@ -23,8 +29,9 @@ const defaultFunding: FundingStatus = {
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer, setStepValid, next, navigation }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, next, back, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [updatePending, setUpdatePending] = useState(true)
   const [escrow, setEscrow] = useState('')
@@ -36,6 +43,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     updateOffer(() => offerData)
     saveOffer(offerData)
   }
+  const navigate = () => navigation.navigate('offers', {})
 
   useEffect(!offer.id ? postOfferEffect({
     offer,
@@ -44,7 +52,10 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
 
       saveAndUpdate({ ...offer, id: result.offerId })
     },
-    onError: err => updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+    onError: err => {
+      updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+      back()
+    }
   }) : () => {}, [])
 
   useEffect(offer.id && !offer.escrow ? createEscrowEffect({
@@ -63,7 +74,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
-  useEffect(offer.escrow && offer.funding?.status !== 'FUNDED' ? checkFundingStatusEffect({
+  useFocusEffect(useCallback(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -71,9 +82,7 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
       saveAndUpdate({
         ...offer,
         funding: result.funding,
-        // TODO this should not be necessary after updating sell offer order
         returnAddress: result.returnAddress,
-        depositAddress: offer.depositAddress || result.returnAddress,
       })
       setFundingStatus(() => result.funding)
       setFundingError(() => result.error || '')
@@ -84,24 +93,27 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
         level: 'ERROR',
       })
     },
-  }) : () => {}, [offer.escrow])
+  }), [offer.escrow]))
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
-      navigation.navigate('refund', { offer })
+      updateOverlay({
+        content: <Refund offer={offer} navigate={navigate} />,
+        showCloseButton: false
+      })
       return
     }
 
-    if (fundingStatus && /MEMPOOL|FUNDED/u.test(fundingStatus.status)) {
+    if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
       setStepValid(true)
 
-      if (!offer.published) saveAndUpdate({ ...offer, published: true })
+      next()
 
-      if (!offer.confirmedReturnAddress) {
-        next()
-      } else {
-        navigation.navigate('search', { offer })
-      }
+      getTradingLimit().then(([tradingLimit]) => {
+        if (tradingLimit) {
+          updateTradingLimit(tradingLimit)
+        }
+      })
     }
   }, [fundingStatus])
 
@@ -112,13 +124,30 @@ export default ({ offer, updateOffer, setStepValid, next, navigation }: SellView
     setFundingStatus(() => offer.funding || defaultFunding)
   }, [offer.id])
 
+  const returnAddressValidation = (isValid: boolean) => {
+    setStepValid((valid: boolean) => valid && isValid)
+  }
+
   return <View style={tw`px-6`}>
-    <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle', thousands(fundingAmount))}
+    <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}
       help={<EscrowHelp />} />
     {updatePending
       ? <Loading />
       : escrow && fundingStatus && !fundingError
-        ? <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
+        ? <View>
+          <Headline style={tw`text-grey-1 mt-6 mb-5`}>
+            {i18n('sell.escrow.sendSats.1')}
+            <Text style={tw`font-baloo text-xl uppercase text-peach-1`}> {thousands(fundingAmount)} </Text>
+            {i18n('sell.escrow.sendSats.2')}
+          </Headline>
+          <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
+          {fundingStatus.status === 'NULL'
+            ? <ReturnAddress style={tw`mt-16`}
+              offer={offer} updateOffer={saveAndUpdate} setStepValid={returnAddressValidation}
+            />
+            : null
+          }
+        </View>
         : <NoEscrowFound />
     }
   </View>

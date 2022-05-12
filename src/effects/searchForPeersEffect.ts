@@ -15,7 +15,7 @@ export default ({
   let interval: NodeJS.Timer
 
   const checkingFunction = async () => {
-    if (!offer.id) return
+    if (!offer?.id) return
     if (offer.doubleMatched) return
     if (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED')) return
 
@@ -24,8 +24,7 @@ export default ({
       offerId: offer.id,
     })
     if (result) {
-      info('matches: ', JSON.stringify(result.matches))
-      if (result.matches.length > 0) clearInterval(interval)
+      // info('matches: ', JSON.stringify(result.matches))
       onSuccess(result.matches)
     } else if (err) {
       error('Error', err)
@@ -33,7 +32,7 @@ export default ({
     }
   }
   (async () => {
-    interval = setInterval(checkingFunction, 30 * 1000)
+    interval = setInterval(checkingFunction, 15 * 1000)
     checkingFunction()
   })()
 

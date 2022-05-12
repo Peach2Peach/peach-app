@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -6,7 +6,7 @@ import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../contexts/language'
 import { Button, Loading, PeachScrollView, Timer, Title } from '../../components'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
@@ -57,7 +57,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setContractId(() => route.params.contractId)
   }, [route])
 
-  useEffect(getContractEffect({
+  useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
@@ -91,7 +91,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       msg: i18n(err.error || 'error.general'),
       level: 'ERROR',
     })
-  }), [contractId])
+  }), [contractId]))
 
   useEffect(() => {
     (async () => {

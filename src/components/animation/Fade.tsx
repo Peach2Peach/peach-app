@@ -1,11 +1,11 @@
-import React, { ReactElement, ReactNode, useRef } from 'react'
-import { Animated } from 'react-native'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import { Animated, ViewProps } from 'react-native'
 
-type FadeProps = ComponentProps & {
-  children: ReactNode,
+type FadeProps = ViewProps & ComponentProps & {
   show?: boolean,
   duration?: number,
-  delay?: number
+  delay?: number,
+  displayNone?: boolean
 }
 
 /**
@@ -20,10 +20,18 @@ type FadeProps = ComponentProps & {
     <Text>🍑</Text>
   </Fade>
  */
-export const Fade = ({ children, style, show, duration = 400, delay = 0 }: FadeProps): ReactElement => {
+export const Fade = ({
+  children,
+  style,
+  show,
+  duration = 400, delay = 0,
+  pointerEvents,
+  displayNone = true,
+}: FadeProps): ReactElement => {
   const fadeAnim = useRef(new Animated.Value(0)).current
+  const [display, setDisplay] = useState('flex')
 
-  React.useEffect(() => {
+  useEffect(() => {
     Animated.timing(
       fadeAnim, {
         toValue: show ? 1 : 0,
@@ -34,10 +42,16 @@ export const Fade = ({ children, style, show, duration = 400, delay = 0 }: FadeP
     ).start()
   }, [show, delay, duration, fadeAnim])
 
-  return <Animated.View style={{
+  useEffect(() => {
+    fadeAnim.addListener((fade) => {
+      setDisplay(!displayNone || fade.value > 0 ? 'flex' : 'none')
+    })
+  }, [])
+
+  return <Animated.View pointerEvents={pointerEvents} style={{
     ...style,
     opacity: fadeAnim,
-    display: fadeAnim ? 'flex' : 'none',
+    display,
   }}>
     {children}
   </Animated.View>

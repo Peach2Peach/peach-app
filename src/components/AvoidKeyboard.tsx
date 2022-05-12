@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   TouchableWithoutFeedback,
 } from 'react-native'
 
@@ -18,7 +19,7 @@ type AvoidKeyboardProps = ComponentProps
  * </AvoidKeyboard>
  */
 export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement =>
-  <KeyboardAvoidingView behavior="height">
+  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       {children}
     </TouchableWithoutFeedback>

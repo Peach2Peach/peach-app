@@ -24,9 +24,8 @@ export const parseBitcoinRequest = (request: string = 'bitcoin:'): BitcoinReques
   } catch (e) {
     urn = new URL('bitcoin:')
   }
-
   const isLightning = /^ln/u.exec(request)
-  const address = /^(?:bc1|tb1|bcrt1|[13])[a-zA-HJ-NP-Z0-9]{25,62}/u.exec(String(request.split(':').pop()))
+  const address = /^(?:bc1|tb1|bcrt1|[123])[a-zA-HJ-NP-Z0-9]{25,62}/u.exec(String(request.split(':').pop()))
 
   if (address && !isLightning) parsedRequest.address = address[0]
   if (urn.searchParams.get('amount')) parsedRequest.amount = Number(urn.searchParams.get('amount'))

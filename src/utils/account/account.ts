@@ -5,6 +5,12 @@ export const defaultAccount: Account = {
   publicKey: '',
   settings: {},
   paymentData: [],
+  tradingLimit: {
+    daily: 1000,
+    dailyAmount: 0,
+    yearly: 100000,
+    yearlyAmount: 0,
+  },
   offers: [],
   contracts: [],
   chats: {},

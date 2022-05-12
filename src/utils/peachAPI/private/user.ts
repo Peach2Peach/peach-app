@@ -1,4 +1,5 @@
 import { API_URL } from '@env'
+import { getUniqueId } from 'react-native-device-info'
 import * as bitcoin from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
 import { accessToken, peachAccount, parseResponse, setAccessToken } from '..'
@@ -23,17 +24,23 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
+        uniqueId: getUniqueId(),
         message,
         signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
       })
     })
 
-    const token = await response.json() as AccessToken
-    setAccessToken(token)
 
-    info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
+    const token = await response.json() as AccessToken|APIError
 
-    return [token, null]
+    if ('accessToken' in token) {
+      setAccessToken(token)
+      info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
+      return [token, null]
+    }
+
+    error('peachAPI - auth - FAILED', new Error((token as APIError).error))
+    return [null, token as APIError]
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
@@ -53,7 +60,7 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
  * @returns Access Token
  */
 export const getAccessToken = async (): Promise<string> => {
-  if (accessToken && accessToken.expiry > (new Date()).getTime()) {
+  if (accessToken && accessToken.expiry > (new Date()).getTime() + 60 * 1000) {
     log(accessToken.expiry, (new Date()).getTime(), accessToken.expiry > (new Date()).getTime())
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
@@ -61,18 +68,17 @@ export const getAccessToken = async (): Promise<string> => {
   const [result, err] = await auth()
 
   if (!result || err) {
-    error('peachAPI - getAccessToken', err)
-
-    return ''
+    error('peachAPI - getAccessToken', new Error(err?.error))
+    throw Error('AUTHENTICATION_FAILURE')
   }
 
   return 'Basic ' + Buffer.from(result.accessToken)
 }
 
 /**
- * @description Method to get offer of user
+ * @description Method to send pgp keys of user to peach
  * @param pgp PGP public key
- * @returns GetOffersResponse
+ * @returns APISuccess
  */
 export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIError|null]> => {
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
@@ -96,7 +102,25 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
     })
   })
 
-  return await parseResponse<APISuccess>(response, 'pgp')
+  return await parseResponse<APISuccess>(response, 'setPGP')
+}
+
+
+/**
+ * @description Method to get trading limit of user
+ * @returns TradingLimit
+ */
+export const getTradingLimit = async (): Promise<[TradingLimit|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/user/tradingLimit`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  })
+
+  return await parseResponse<TradingLimit>(response, 'getTradingLimit')
 }
 
 /**

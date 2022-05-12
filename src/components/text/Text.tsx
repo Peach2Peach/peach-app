@@ -23,7 +23,7 @@ type TextProps = ComponentProps & {
 export const PeachText = ({ style, children, numberOfLines, ellipsizeMode }: TextProps): ReactElement =>
   <Text
     style={[
-      tw`font-lato text-base text-black-1`,
+      tw`font-lato text-base text-grey-1`,
       tw.md`text-lg`,
       style
     ]}

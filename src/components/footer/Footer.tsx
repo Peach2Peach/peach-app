@@ -1,6 +1,7 @@
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import {
+  Keyboard,
   // Image,
   Pressable,
   View
@@ -15,7 +16,8 @@ import Icon from '../Icon'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
 type FooterProps = ComponentProps & {
-  active: string,
+  active: keyof RootStackParamList,
+  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>,
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
 }
 interface FooterItemProps {
@@ -59,29 +61,48 @@ const FooterItem = ({ id, active, onPress }: FooterItemProps): ReactElement =>
  * @example
  * <Footer active={'home'} />
  */
-export const Footer = ({ active, style, navigation }: FooterProps): ReactElement =>
-  <View style={[tw`w-full flex-row items-start`, { height }, style]}>
-    <View style={tw`h-full flex-grow relative`}>
-      <Shadow {...footerShadow} viewStyle={tw`w-full`}>
-        <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
-          <FooterItem id="buy" active={active === 'buy' || active === 'home'}
-            onPress={() => navigation.navigate({ name: 'buy', merge: false, params: {} })} />
-          <FooterItem id="sell" active={active === 'sell'}
-            onPress={() => navigation.navigate({ name: 'sell', merge: false, params: {} })} />
-          <FooterItem id="offers" active={active === 'offers'}
-            onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
-          <FooterItem id="settings" active={active === 'settings'}
-            onPress={() => navigation.navigate({ name: 'settings', merge: false, params: {} })} />
-        </View>
-      </Shadow>
+export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const navTo = (page: keyof RootStackParamList) => {
+    setCurrentPage(page)
+    navigation.navigate({ name: page, merge: false, params: {} })
+  }
+  const navigate = {
+    home: () => navTo('home'),
+    buy: () => navTo('buy'),
+    sell: () => navTo('sell'),
+    offers: () => navTo('offers'),
+    settings: () => navTo('settings'),
+  }
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
+    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
+  }, [])
+
+  return !keyboardOpen
+    ? <View style={[tw`w-full flex-row items-start`, { height }, style]}>
+      <View style={tw`h-full flex-grow relative`}>
+        <Shadow shadow={footerShadow} style={tw`w-full`}>
+          <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
+            <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
+            <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+            <FooterItem id="offers" active={active === 'offers'} onPress={navigate.offers} />
+            <FooterItem id="settings" active={active === 'settings'} onPress={navigate.settings} />
+          </View>
+        </Shadow>
+      </View>
     </View>
-  </View>
+    : <View />
+}
 
 export default Footer
 
 
 /* <Pressable style={[tw`h-full flex-shrink-0 flex items-center z-10`, circleStyle]}
-  onPress={() => navigation.navigate({ name: 'home', merge: false, params: {} })}>
+  onPress={navigate.home})}>
   <BG style={[circleStyle, nativeShadow]} />
   <Image source={require('../../../assets/favico/peach-logo.png')} style={[
     tw`w-10 h-10 absolute -top-5`,
@@ -89,12 +110,12 @@ export default Footer
   ]}/>
 </Pressable>
 <View style={tw`h-full flex-grow`}>
-  <Shadow {...footerShadow} viewStyle={tw`w-full`}>
+  <Shadow shadow={footerShadow} stule={tw`w-full`}>
     <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
       <FooterItem id="offers" active={active === 'offers'}
-        onPress={() => navigation.navigate({ name: 'offers', merge: false, params: {} })} />
+        onPress={navigate.offers} />
       <FooterItem id="settings" active={active === 'settings'}
-        onPress={() => navigation.navigate({ name: 'settings', merge: false, params: {} })} />
+        onPress={navigate.settings} />
     </View>
   </Shadow>
 </View> */

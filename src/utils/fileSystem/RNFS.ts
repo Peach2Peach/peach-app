@@ -14,6 +14,13 @@ const writeFile: writeFile = async (path, content, _encoding) => {
   await db.set(path, content)
 }
 
+/**
+ * @description Web method to emulate fs readFile by using indexedDB
+ * @param path document path
+ * @param [_encoding] character encoding
+ */
+const exists = async (path: string): Promise<boolean> => !!(await db.get(path))
+
 interface readFile {
   (path: string, _encoding?: string): Promise<string | object | null>
 }
@@ -38,6 +45,7 @@ const unlink: unlink = async (path) => await db.remove(path)
 
 export default {
   writeFile,
+  exists,
   readFile,
   unlink,
   DocumentDirectoryPath: ''
