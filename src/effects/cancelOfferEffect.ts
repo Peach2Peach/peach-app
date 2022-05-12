@@ -14,7 +14,7 @@ export default ({
 }: CancelOfferEffectProps): EffectCallback => () => {
   const checkingFunction = async () => {
     if (!offer.id) return
-    if (offer.type !== 'ask' || !offer.escrow || offer.refunded || offer.released) return
+    if (offer.type !== 'ask' || !offer.escrow || offer.refunded || offer.released || (offer.tx && offer.txId)) return
 
     info('Checking cancelation and refunding info for ', offer.id)
     const [result, err] = await cancelOffer({
