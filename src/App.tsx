@@ -10,7 +10,7 @@ import {
   NavigationState,
   useNavigationContainerRef
 } from '@react-navigation/native'
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 // import Home from './views/home/Home'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './contexts/language'
@@ -26,7 +26,7 @@ import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { account, updateSettings } from './utils/account'
+import { account } from './utils/account'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
@@ -42,28 +42,11 @@ import events from './init/events'
 import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
+import fcm from './init/fcm'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import Offer from './views/offers/Offer'
 import messaging from '@react-native-firebase/messaging'
-
-const requestUserPermission = async () => {
-  const authStatus = await messaging().requestPermission({
-    alert: true,
-    badge: true,
-    sound: true,
-  })
-
-  if (authStatus === messaging.AuthorizationStatus.AUTHORIZED
-    || authStatus === messaging.AuthorizationStatus.PROVISIONAL) {
-    info('Permission status:', authStatus)
-  }
-}
-requestUserPermission()
-
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage)
-})
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -127,6 +110,8 @@ const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name ==
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   events()
   await session()
+  fcm()
+
   try {
     await pgp()
   } catch (e) {}
@@ -183,8 +168,10 @@ const App: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+      alert('got message!')
     })
 
     messaging().onNotificationOpenedApp(remoteMessage => {

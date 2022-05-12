@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">peach</string>
+    <string name="notification.title.match">You got a match!</string>
+    <string name="notification.body.match">Matches are waiting for you! The faster you accept, the better your Peach Reputation score will be.</string>
+    <string name="notification.title.contractCreated">Match accepted!</string>
+    <string name="notification.body.contractCreated">Your match got accepted: proceed to payment! The faster you pay, the better your Peach score will be.</string>
 </resources>

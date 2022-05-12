@@ -3,12 +3,37 @@
  */
 
 import { AppRegistry } from 'react-native'
-import App from './App'
 import { name as appName } from './app.json'
 import { isWeb } from './utils/system'
 import * as db from './utils/db'
+import { setFCMToken } from './utils/peachAPI'
+import messaging from '@react-native-firebase/messaging'
+import { info } from './utils/log'
+import { HeadlessCheck } from './HeadlessCheck'
 
-AppRegistry.registerComponent(appName, () => App)
+
+const requestUserPermission = async () => {
+  const authStatus = await messaging().requestPermission({
+    alert: true,
+    badge: true,
+    sound: true,
+  })
+
+  if (authStatus === messaging.AuthorizationStatus.AUTHORIZED
+    || authStatus === messaging.AuthorizationStatus.PROVISIONAL) {
+    info('Permission status:', authStatus)
+  }
+}
+requestUserPermission()
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage)
+})
+
+messaging().onTokenRefresh(setFCMToken)
+
+
+AppRegistry.registerComponent(appName, () => HeadlessCheck)
 
 if (typeof document !== 'undefined') {
   // start webapp if document available

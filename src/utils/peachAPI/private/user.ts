@@ -107,6 +107,29 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
 
 
 /**
+ * @description Method to send fcm token of user to peach for push notification
+ * @param fcmToken fcm token
+ * @returns APISuccess
+ */
+export const setFCMToken = async (fcmToken: string): Promise<[APISuccess|null, APIError|null]> => {
+  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
+
+  const response = await fetch(`${API_URL}/v1/user/fcm`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      fcmToken,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'setFCMToken')
+}
+
+/**
  * @description Method to get trading limit of user
  * @returns TradingLimit
  */
