@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
+  NavigationState,
   useNavigationContainerRef
 } from '@react-navigation/native'
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack'
@@ -32,17 +33,18 @@ import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import ContractChat from './views/contractChat/ContractChat'
-import Refund from './views/refund/Refund'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { setPGP } from './utils/peachAPI'
 import { error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
 import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
+import { APPVERSION, MINAPPVERSION } from './constants'
+import { compatibilityCheck } from './utils/system'
+import Offer from './views/offers/Offer'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -79,8 +81,8 @@ const views: ViewType[] = [
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'refund', component: Refund, showHeader: true, showFooter: true },
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
+  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
 ]
 
@@ -89,7 +91,7 @@ const views: ViewType[] = [
  * @param view view id
  * @returns true if view should show header
  */
-const showHeader = (view: string) => views.find(v => v.name === view)?.showHeader
+const showHeader = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showHeader
 
 
 /**
@@ -97,7 +99,7 @@ const showHeader = (view: string) => views.find(v => v.name === view)?.showHeade
  * @param view view id
  * @returns true if view should show header
  */
-const showFooter = (view: string) => views.find(v => v.name === view)?.showFooter
+const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showFooter
 
 /**
  * @description Method to initialize app by retrieving app session and user account
@@ -106,7 +108,9 @@ const showFooter = (view: string) => views.find(v => v.name === view)?.showFoote
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   events()
   await session()
-  await pgp()
+  try {
+    await pgp()
+  } catch (e) {}
 
   while (!navigationRef.isReady()) {
     // eslint-disable-next-line no-await-in-loop
@@ -117,7 +121,7 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
       if (account?.settings?.skipTutorial) {
         navigationRef.navigate('home', {})
       } else {
-        navigationRef.navigate('welcome')
+        navigationRef.navigate('welcome', {})
       }
     }
   }, 3000)
@@ -135,7 +139,7 @@ const App: React.FC = () => {
 
   const bitcoinContext = getBitcoinContext()
   const [, setBitcoinContext] = useState(getBitcoinContext())
-  const [currentPage, setCurrentPage] = useState('splashScreen')
+  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -153,10 +157,17 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef)
+      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+        updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
+      }
     })()
   }, [])
 
   useEffect(websocket(updatePeachWS), [])
+
+  const onNavStateChange = (state: NavigationState | undefined) => {
+    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
+  }
 
   return <GestureHandlerRootView><AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
@@ -180,9 +191,7 @@ const App: React.FC = () => {
                   : null
                 }
                 <View style={tw`h-full flex-shrink`}>
-                  <NavigationContainer ref={navigationRef} onStateChange={(state) => {
-                    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
-                  }}>
+                  <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
                     <Stack.Navigator detachInactiveScreens={true} screenOptions={{
                       detachPreviousScreen: true,
                       gestureEnabled: false,
@@ -198,7 +207,8 @@ const App: React.FC = () => {
                   </NavigationContainer>
                 </View>
                 {showFooter(currentPage)
-                  ? <Footer style={tw`z-10 absolute bottom-0`} active={currentPage} navigation={navigationRef} />
+                  ? <Footer style={tw`z-10`} active={currentPage} navigation={navigationRef}
+                    setCurrentPage={setCurrentPage} />
                   : null
                 }
               </View>

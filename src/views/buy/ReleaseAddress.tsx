@@ -1,17 +1,18 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { BuyViewProps } from './Buy'
-import { Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
+import { Fade, Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
 import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { cutOffAddress } from '../../utils/string'
 import { OverlayContext } from '../../contexts/overlay'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
+import { BarCodeReadEvent } from 'react-native-camera'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -23,6 +24,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [address, setAddress] = useState(offer.releaseAddress)
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
   const [focused, setFocused] = useState(false)
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -65,6 +67,24 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     })
   }, [address])
 
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
+    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
+    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
+  }, [])
+
+  const showQRScanner = () => setScanQR(true)
+  const closeQRScanner = () => setScanQR(false)
+  const onQRScanSuccess = (e: BarCodeReadEvent) => {
+    const request = parseBitcoinRequest(e.data)
+
+    setAddress(request.address || e.data)
+    setScanQR(false)
+  }
+  const showIDontHaveAWallet = () => updateOverlay({
+    content: <IDontHaveAWallet />, showCloseButton: true
+  })
   return <View style={tw`h-full flex-col justify-between px-6`}>
     <Title title={i18n('buy.title')} />
     <View>
@@ -88,7 +108,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
           icon="camera"
           title={i18n('scanQR')}
           style={tw`mr-2`}
-          onPress={() => setScanQR(!scanQR)}
+          onPress={showQRScanner}
         />
         <IconButton
           icon="copy"
@@ -99,21 +119,14 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     </View>
     {scanQR
       ? <View style={tw`mt-20`}>
-        <ScanQR onSuccess={e => {
-          const request = parseBitcoinRequest(e.data)
-
-          setAddress(request.address || e.data)
-          setScanQR(false)
-        }}
-        onCancel={() => setScanQR(false)}
-        />
+        <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQRScanner}/>
       </View>
       : null}
 
-    <TextLink style={tw`mt-4 text-center`} onPress={() => updateOverlay({
-      content: <IDontHaveAWallet />, showCloseButton: true
-    })}>
-      {i18n('iDontHaveAWallet')}
-    </TextLink>
+    <Fade show={!keyboardOpen} displayNone={false}>
+      <TextLink style={tw`mt-4 text-center`} onPress={showIDontHaveAWallet}>
+        {i18n('iDontHaveAWallet')}
+      </TextLink>
+    </Fade>
   </View>
 }

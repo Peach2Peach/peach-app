@@ -3,6 +3,15 @@ import RNFS from './fileSystem/RNFS'
 import { decrypt, encrypt } from './crypto'
 
 /**
+ * @description Method to check whether file exists
+ * @param path path to file
+ * @param password secret
+ * @return Promise resolving true of false
+ */
+export const exists = async (path: string): Promise<boolean> =>
+  await RNFS.exists(RNFS.DocumentDirectoryPath + path) as boolean
+
+/**
  * @description Method to read file
  * @param path path to file
  * @param password secret

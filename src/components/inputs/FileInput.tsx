@@ -27,7 +27,7 @@ const selectFile = async () => {
         }
       }
     } catch (e) {
-      error('File could not be read', e.message)
+      error('File could not be read', e)
     }
   } catch (err) {
     if (!DocumentPicker.isCancel(err)) {
@@ -81,7 +81,7 @@ export const FileInput = ({
     ]}
     onPress={async () => onChange ? onChange(await selectFile()) : null}
   >
-    <Shadow viewStyle={tw`w-full rounded`} {...innerShadow}>
+    <Shadow style={tw`w-full rounded`} shadow={innerShadow}>
       <Text style={[tw`h-10 p-2 text-grey-1 text-lg`]}>
         {fileName || i18n('form.file')}
       </Text>

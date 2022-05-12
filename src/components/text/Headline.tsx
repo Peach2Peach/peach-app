@@ -20,7 +20,8 @@ type HeadlineProps = ComponentProps
  */
 export const Headline = ({ style, children }: HeadlineProps): ReactElement =>
   <Text style={[
-    tw`font-baloo text-xl uppercase text-center text-peach-1`,
+    tw`font-baloo text-lg uppercase text-center text-peach-1`,
+    tw.md`text-xl`,
     style as ViewStyle
   ]}>
     {children}

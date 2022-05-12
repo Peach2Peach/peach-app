@@ -1,71 +1,68 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import {
-  Pressable,
-  View
-} from 'react-native'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { PeachScrollView, Text } from '../../components'
-import { account } from '../../utils/account'
-import { getContract } from '../../utils/contract'
+import { Headline, PeachScrollView, Text, Title } from '../../components'
+import { account, getAccount, saveAccount } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
-import { saveOffer } from '../../utils/offer'
+import { getOffers, getOfferStatus, saveOffer } from '../../utils/offer'
+import { session } from '../../utils/session'
+import { OfferItem } from './components/OfferItem'
+import { saveContract } from '../../utils/contract'
+import getContractsEffect from '../../effects/getContractsEffect'
+import { useFocusEffect } from '@react-navigation/native'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>
+export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-const navigateToOffer = (offer: SellOffer|BuyOffer, navigation: ProfileScreenNavigationProp): void => {
-  if (offer.type === 'ask' && offer.funding && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    return navigation.navigate('refund', { offer })
-  }
+const isPastOffer = (offer: SellOffer|BuyOffer) => {
+  const { status } = getOfferStatus(offer)
 
-  if (offer.contractId) {
-    const contract = getContract(offer.contractId)
-    if (contract) {
-      const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-      if ((view === 'seller' && contract.ratingBuyer)
-        || (view === 'buyer' && contract.ratingSeller)) {
-        return navigation.navigate('tradeComplete', { view, contract })
-      }
-    }
-    return navigation.navigate('contract', { contractId: offer.contractId })
-  }
-
-  if (offer.type === 'ask') {
-    if (offer.published && offer.confirmedReturnAddress && offer.funding?.status === 'FUNDED') {
-      return navigation.navigate('search', { offer })
-    }
-    return navigation.navigate('sell', { offer })
-  }
-
-  if (offer.type === 'bid') {
-    if (offer.published) {
-      return navigation.navigate('search', { offer })
-    }
-    return navigation.navigate('buy', { offer })
-  }
-
-  return navigation.navigate('offers', {})
+  return /tradeCompleted|tradeCanceled|offerCanceled/u.test(status)
 }
+const isOpenOffer = (offer: SellOffer|BuyOffer) => !isPastOffer(offer)
+const showOffer = (offer: SellOffer|BuyOffer) => offer.online || offer.contractId || offer.type === 'ask'
+const statusPriority = [
+  'escrowWaitingForConfirmation',
+  'offerPublished',
+  'searchingForPeer',
+  'match',
+  'contractCreated',
+]
 
-// TODO check offer status (escrow, searching, matched, online/offline, contractId, what else?)
+const sortByStatus = (a: SellOffer|BuyOffer, b: SellOffer|BuyOffer) =>
+  statusPriority.indexOf(getOfferStatus(a).status) - statusPriority.indexOf(getOfferStatus(b).status)
+
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
-  const [offers, setOffers] = useState(account.offers)
+  const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
+  const offers = getOffers()
+  const allOpenOffers = offers
+    .filter(isOpenOffer)
+    .filter(showOffer)
+    .sort(sortByStatus)
+  const openOffers = {
+    buy: allOpenOffers.filter(o => o.type === 'bid'),
+    sell: allOpenOffers.filter(o => o.type === 'ask'),
+  }
+  const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
-  useEffect(getOffersEffect({
+  useFocusEffect(useCallback(getOffersEffect({
     onSuccess: result => {
-      Promise.all(result.map(offer => saveOffer(offer)))
-      setOffers(account.offers)
+      if (!result?.length) return
+      result.map(offer => saveOffer(offer, true))
+      if (session.password) saveAccount(getAccount(), session.password)
+      setLastUpdate(new Date().getTime())
     },
     onError: err => {
       error('Could not fetch offer information')
@@ -74,22 +71,70 @@ export default ({ navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [])
+  }), []))
+
+  useFocusEffect(useCallback(getContractsEffect({
+    onSuccess: result => {
+      if (!result?.length) return
+      result.map(contract => saveContract(contract, true))
+      if (session.password) saveAccount(getAccount(), session.password)
+      setLastUpdate(new Date().getTime())
+    },
+    onError: err => {
+      error('Could not fetch contract information')
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
+  }), []))
 
   return <PeachScrollView contentContainerStyle={tw`px-6`}>
-    <View style={tw`pb-32`}>
-      <View>
-        <Text style={tw`font-lato-bold text-center text-5xl leading-5xl text-gray-700`}>
-          Offers
+    <View style={tw`pt-5 pb-10 px-11`}>
+      <Title title={i18n('offers.title')}/>
+      {allOpenOffers.length + pastOffers.length === 0
+        ? <Text style={tw`text-center`}>
+          {i18n('offers.noOffers')}
         </Text>
-      </View>
-      {offers.map(offer => <View key={offer.id}>
-        <Pressable onPress={() => navigateToOffer(offer, navigation)}>
-          <Text style={!offer.online ? tw`opacity-50` : {}}>
-            {offer.id} - {offer.type} - {offer.amount} - {offer.contractId ? getContract(offer.contractId)?.id : null}
-          </Text>
-        </Pressable>
-      </View>)}
+        : null
+      }
+      {openOffers.buy.length
+        ? <Headline style={tw`mt-20 text-grey-1`}>
+          {i18n('offers.open')}
+          <Headline style={tw`text-green`}> {i18n('offers.buy')} </Headline>
+          {i18n('offers.offers')}
+        </Headline>
+        : null
+      }
+      {openOffers.buy.map(offer => <OfferItem key={offer.id}
+        style={tw`mt-3`} showType={false}
+        offer={offer} navigation={navigation}
+      />)
+      }
+      {openOffers.sell.length
+        ? <Headline style={tw`mt-20 text-grey-1`}>
+          {i18n('offers.open')}
+          <Headline style={tw`text-red`}> {i18n('offers.sell')} </Headline>
+          {i18n('offers.offers')}
+        </Headline>
+        : null
+      }
+      {openOffers.sell.map(offer => <OfferItem key={offer.id}
+        style={tw`mt-3`} showType={false}
+        offer={offer} navigation={navigation}
+      />)
+      }
+      {pastOffers.length
+        ? <Headline style={tw`mt-20 text-grey-1`}>
+          {i18n('offers.pastOffers')}
+        </Headline>
+        : null
+      }
+      {pastOffers.map(offer => <OfferItem key={offer.id}
+        style={tw`mt-3`}
+        offer={offer} navigation={navigation}
+      />)
+      }
     </View>
   </PeachScrollView>
 }

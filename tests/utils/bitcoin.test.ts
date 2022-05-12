@@ -33,6 +33,14 @@ describe('parseBitcoinRequest', () => {
     deepStrictEqual(parseBitcoinRequest(request), parsedRequest)
   })
 
+  it('parses valid bitcoin requests with testnet address only', () => {
+    const request = 'bitcoin:2MsftWdaS4y847oVwfcD7m5MbRaYaLcfYSQ'
+    const parsedRequest = {
+      address: '2MsftWdaS4y847oVwfcD7m5MbRaYaLcfYSQ',
+    }
+    deepStrictEqual(parseBitcoinRequest(request), parsedRequest)
+  })
+
   it('parses valid bitcoin address as fallback', () => {
     const addressesMainnet = [
       'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',

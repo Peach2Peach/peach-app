@@ -1,5 +1,5 @@
 declare type RootStackParamList = {
-  [key: string]: undefined,
+  [key: string]: {},
   home: {},
   sell: {
     offer?: SellOffer,
@@ -22,9 +22,9 @@ declare type RootStackParamList = {
     contract: Contract,
     view: 'buyer' | 'seller' | '',
   },
-  refund: {
-    offer: SellOffer,
-  },
   offers: {},
+  offer: {
+    offer: SellOffer|BuyOffer,
+  },
   settings: {},
 }

@@ -1,25 +1,58 @@
-export const mildShadow = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#00000000',
-  offset: [0, 6] as [x: string | number, y: string | number],
-  radius: 0
+import { ShadowType } from '../components/ui/Shadow'
+
+export const noShadow: ShadowType = {
+  blur: 0,
+  color: '#000000',
+}
+
+export const mildShadow: ShadowType = {
+  blur: 16,
+  color: '#000000',
+  opacity: 0.05,
+  offsetX: 0,
+  offsetY: 6,
+}
+
+export const dropShadow: ShadowType = {
+  blur: 4,
+  color: '#000000',
+  offsetX: 0,
+  offsetY: 6,
 }
 
 export const mildShadowOrange = {
-  distance: 14,
-  startColor: '#F579400D',
-  finalColor: '#F5794000',
-  offset: [0, 4] as [x: string | number, y: string | number],
-  radius: 0
+  blur: 14,
+  color: '#F57940',
+  opacity: 0.18,
+  offsetX: 0,
+  offsetY: 4,
 }
 
-export const footerShadow = {
-  distance: 16,
-  startColor: '#0000000D',
-  finalColor: '#00000000',
-  offset: [0, -2] as [x: string | number, y: string | number],
-  radius: 0
+
+export const dropShadowRed = {
+  blur: 4,
+  color: '#E43B5F',
+  opacity: 0.18,
+  offsetX: 0,
+  offsetY: 2,
+}
+
+
+export const mildShadowRed = {
+  blur: 14,
+  color: '#E43B5F',
+  opacity: 0.18,
+  offsetX: 0,
+  offsetY: 4,
+}
+
+
+export const footerShadow: ShadowType = {
+  blur: 16,
+  opacity: 0.05,
+  color: '#000000',
+  offsetX: 0,
+  offsetY: -2,
 }
 
 export const nativeShadow = {
@@ -32,13 +65,13 @@ export const nativeShadow = {
   shadowRadius: 8
 }
 
-export const innerShadow = {
-  paintInside: true,
-  distance: 8,
-  startColor: '#00000000',
-  finalColor: '#0000000D',
-  offset: [0, 6] as [x: number, y: number],
-  radius: 0
+export const innerShadow: ShadowType = {
+  inset: true,
+  blur: 16,
+  color: '#000000',
+  opacity: 0.05,
+  offsetX: 0,
+  offsetY: 6,
 }
 
 

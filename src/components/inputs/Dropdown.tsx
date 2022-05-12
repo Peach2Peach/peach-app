@@ -23,7 +23,6 @@ interface DropdownProps {
  * @param props Component properties
  * @param props.items the items in the dropdown
  * @param [props.selectedValue] selected value
- * @param [props.width] dropdown width
  * @param props.onChange method to set locale on value change
  * @param [props.onToggle] callback function when dropdown opens or closes
  * @example
@@ -57,9 +56,8 @@ interface DropdownProps {
  *   ]}
  * />
  */
-export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle }: DropdownProps): ReactElement => {
+export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
-  const height = tw`h-10`.height as number * (isOpen ? items.length + 1 : 1)
   const selectedItem = items.find(item => item.value === selectedValue) || items[0]
 
   const toggle = () => {
@@ -72,40 +70,41 @@ export const Dropdown = ({ items, selectedValue, width = 273, onChange, onToggle
   }
 
   return <View style={[
-    tw`z-10 rounded`,
+    tw`w-full rounded bg-white-1`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
-    <Shadow {...(isOpen ? mildShadow : innerShadow)}
-      viewStyle={[
-        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded bg-white-1`,
-        { width, height },
+    <Shadow shadow={isOpen ? mildShadow : innerShadow}>
+      <View style={[
+        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
+        isOpen ? tw`bg-white-1` : {}
       ]}>
-      {isOpen
-        ? [
-          <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
-            onPress={toggle}>
-            {selectedItem?.display(false)}
-          </Pressable>,
-          items
-            .map(item => <Pressable
-              key={item.value}
-              style={tw`h-10 flex justify-center`}
-              onPress={() => select(item)}>
-              {item.display(isOpen)}
-            </Pressable>
-            )
-        ]
-        : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
-          {selectedItem.display(isOpen)}
-        </Pressable>
-      }
+        {isOpen
+          ? [
+            <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
+              onPress={toggle}>
+              {selectedItem?.display(false)}
+            </Pressable>,
+            items
+              .map(item => <Pressable
+                key={item.value}
+                style={tw`h-10 flex justify-center`}
+                onPress={() => select(item)}>
+                {item.display(isOpen)}
+              </Pressable>
+              )
+          ]
+          : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
+            {selectedItem?.display(isOpen)}
+          </Pressable>
+        }
+      </View>
+      <Pressable style={tw`absolute right-2`} onPress={toggle}>
+        <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
+          style={tw`w-6 h-10`}
+          color={tw`text-peach-1`.color as string}
+        />
+      </Pressable>
     </Shadow>
-    <Pressable style={tw` absolute right-2`} onPress={toggle}>
-      <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
-        style={tw`w-6 h-10`}
-        color={tw`text-peach-1`.color as string}
-      />
-    </Pressable>
   </View>
 }
 

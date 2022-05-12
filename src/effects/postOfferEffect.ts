@@ -1,6 +1,8 @@
 import { EffectCallback } from 'react'
+import pgp from '../init/pgp'
+import { updateTradingLimit } from '../utils/account'
 import { error, info } from '../utils/log'
-import { postOffer } from '../utils/peachAPI'
+import { getTradingLimit, postOffer } from '../utils/peachAPI'
 
 type PostOfferEffectProps = {
   offer: SellOffer|BuyOffer,
@@ -16,9 +18,17 @@ export default ({
     if (offer.id) return
 
     info('Posting offer ', JSON.stringify(offer))
+
+    await pgp() // make sure pgp has been sent
+
     const [result, err] = await postOffer(offer)
     if (result) {
       info('cancel offer: ', JSON.stringify(result))
+      const [tradingLimit] = await getTradingLimit()
+
+      if (tradingLimit) {
+        updateTradingLimit(tradingLimit)
+      }
       onSuccess(result)
     } else if (err) {
       error('Error', err)

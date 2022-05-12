@@ -25,6 +25,7 @@ module.exports = {
         peach: {
           1: '#F57940',
           2: '#DB6C39',
+          mild: '#F6A884',
           translucent: '#F57940BB',
           'translucent-2': '#F57940FA',
         },
@@ -58,6 +59,7 @@ module.exports = {
         '9xl': '8rem'
       },
       lineHeight: {
+        'lg': '1.125rem',
         'xl': '1.5rem',
         '2xl': '2rem',
         '3xl': '2.25rem',

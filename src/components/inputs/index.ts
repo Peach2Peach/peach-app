@@ -7,5 +7,6 @@ export { PaymentMethods } from './paymentMethods'
 export { PremiumSlider } from './PremiumSlider'
 export { RadioButtons } from './RadioButtons'
 export { Select } from './Select'
+export { Selector } from './Selector'
 
 export type { FileData } from './FileInput'
