@@ -58,7 +58,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveContract(contractData)
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
@@ -77,17 +77,16 @@ export default ({ route, navigation }: Props): ReactElement => {
         return c
       })
     }
-
-    if (!ws.connected) return () => {
+    const unsubscribe = () => {
       ws.off('message', messageHandler)
     }
+
+    if (!ws.connected) return unsubscribe
 
     ws.on('message', messageHandler)
 
-    return () => {
-      ws.off('message', messageHandler)
-    }
-  }, [ws.connected])
+    return unsubscribe
+  }, [ws.connected]))
 
   const saveAndUpdateContract = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
