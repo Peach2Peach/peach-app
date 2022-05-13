@@ -4,8 +4,8 @@
     <string name="notification.body.offer.escrowFunded">The escrow has been funded and your offer is published.<string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
     <string name="notification.body.offer.matchBuyer"><string>
-    <string name="notification.title.offer.match">Matches are waiting for you!</string>
-    <string name="notification.body.offer.match">The faster you accept, the better your Peach Reputation score will be.<string>
+    <string name="notification.title.offer.matchSeller">Matches are waiting for you!</string>
+    <string name="notification.body.offer.matchSeller">The faster you accept, the better your Peach Reputation score will be.<string>
     <string name="notification.title.contract.contractCreated">Your match got accepted:</string>
     <string name="notification.body.contract.contractCreated">proceed to payment! The faster you pay, the better your Peach score will be.<string>
     <string name="notification.title.contract.buyer.paymentTimerHasRunOut">Timer has expired!</string>
@@ -16,4 +16,5 @@
     <string name="notification.body.contract.paymentMade">Confirm that you received it</string>
     <string name="notification.title.contract.tradeCompleted">Trade completed!</string>
     <string name="notification.body.contract.tradeCompleted">You received %1$d sats in your wallet</string>
+    <string name="notification.title.contract.chat">Chat</string>
 </resources>
