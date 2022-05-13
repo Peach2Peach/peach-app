@@ -25,7 +25,6 @@ export const DetailIBAN = ({ paymentData }: PaymentTemplateProps): ReactElement 
     setTimeout(() => setShowCopiedBeneficiary(false), 500)
   }
 
-  console.log(paymentData)
   return <View>
     <View style={tw`z-10`}><Pressable onPress={copyIBAN} style={tw`absolute right-0 mt-2`}>
       <Fade show={showCopiedIBAN} duration={300} delay={0}>
