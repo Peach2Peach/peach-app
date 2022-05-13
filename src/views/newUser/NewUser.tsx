@@ -7,6 +7,7 @@ import {
   TextInput,
   View
 } from 'react-native'
+import messaging from '@react-native-firebase/messaging'
 
 import tw from '../../styles/tailwind'
 import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
@@ -18,9 +19,11 @@ import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import Icon from '../../components/Icon'
 import { error, info } from '../../utils/log'
-import { setPGP } from '../../utils/peachAPI'
+import { setFCMToken, setPGP } from '../../utils/peachAPI'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
+import pgp from '../../init/pgp'
+import fcm from '../../init/fcm'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -108,20 +111,13 @@ export default ({ navigation }: Props): ReactElement => {
     })
 
     try {
-      const [result, err] = await setPGP(account.pgp)
-
-      if (result) {
-        info('Set PGP for user', account.publicKey)
-        updateSettings({
-          pgpPublished: true
-        })
-      } else {
-        error('PGP could not be set', err)
-      }
+      await pgp()
       saveAccount(account, password)
 
       setLoading(false)
       navigation.navigate('home', {})
+
+      fcm()
     } catch (e) {
       onError(e as Error)
     }

@@ -23,7 +23,7 @@ export default ({
 
     const [result, err] = await postOffer(offer)
     if (result) {
-      info('cancel offer: ', JSON.stringify(result))
+      info('posted offer: ', JSON.stringify(result))
       const [tradingLimit] = await getTradingLimit()
 
       if (tradingLimit) {

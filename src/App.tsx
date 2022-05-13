@@ -10,7 +10,7 @@ import {
   NavigationState,
   useNavigationContainerRef
 } from '@react-navigation/native'
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 // import Home from './views/home/Home'
 import { enableScreens } from 'react-native-screens'
 import LanguageContext from './contexts/language'
@@ -26,7 +26,7 @@ import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
 import Message from './components/Message'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { account, updateSettings } from './utils/account'
+import { account } from './utils/account'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
@@ -36,15 +36,18 @@ import ContractChat from './views/contractChat/ContractChat'
 import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { error } from './utils/log'
+import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
 import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
+import fcm from './init/fcm'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import Offer from './views/offers/Offer'
+import messaging from '@react-native-firebase/messaging'
+import { getOffer } from './utils/offer'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -66,6 +69,12 @@ type ViewType = {
   component: (props: any) => ReactElement,
   showHeader: boolean,
   showFooter: boolean,
+}
+
+type PushNotificationData = {
+  offerId?: string,
+  contractId?: string,
+  isChat?: string,
 }
 
 const views: ViewType[] = [
@@ -108,6 +117,8 @@ const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name ==
 const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
   events()
   await session()
+  fcm()
+
   try {
     await pgp()
   } catch (e) {}
@@ -161,6 +172,31 @@ const App: React.FC = () => {
         updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
       }
     })()
+  }, [])
+
+  useEffect(() => {
+    info('Subscribe to push notifications')
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+    })
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
+      const { offerId, contractId, isChat } = remoteMessage.data as PushNotificationData
+
+      if (offerId) {
+        const offer = getOffer(offerId)
+        if (offer) navigationRef.navigate({ name: 'offer', merge: false, params: { offer } })
+      }
+      if (contractId && isChat !== 'true') {
+        navigationRef.navigate({ name: 'contract', merge: false, params: { contractId } })
+      }
+      if (contractId && isChat === 'true') {
+        navigationRef.navigate({ name: 'contractChat', merge: false, params: { contractId } })
+      }
+    })
+
+    return unsubscribe
   }, [])
 
   useEffect(websocket(updatePeachWS), [])

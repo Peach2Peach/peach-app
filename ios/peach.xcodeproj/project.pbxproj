@@ -43,15 +43,16 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = peach/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = peach/main.m; sourceTree = "<group>"; };
 		21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato Regular.ttf"; path = "../assets/fonts/Lato Regular.ttf"; sourceTree = "<group>"; };
-		451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
+		451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		5AAA790E5C044C2AD05ED413 /* Pods-peach.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.debug.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.debug.xcconfig"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
 		675514812812AA1D00A17B6C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = peach/main.jsbundle; sourceTree = "<group>"; };
 		675514832812B60700A17B6C /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		675514862812BA4E00A17B6C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		6769491127F72D6900C73BEF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../ios/peach/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		67D10E1E282BFAD400DA4D19 /* peachDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peachDebug.entitlements; path = peach/peachDebug.entitlements; sourceTree = "<group>"; };
 		67D471752829472A00C2911E /* B612Mono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "B612Mono-Regular.ttf"; path = "../assets/fonts/B612Mono-Regular.ttf"; sourceTree = "<group>"; };
-		6CC714957D934E2DB340F792 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		6CC714957D934E2DB340F792 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = peach/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C52616AD59D6891A23911B1 /* Pods-peach-peachTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peachTests.debug.xcconfig"; path = "Target Support Files/Pods-peach-peachTests/Pods-peach-peachTests.debug.xcconfig"; sourceTree = "<group>"; };
 		92510930528C49B9BB24ACE6 /* libPods-peach-peachTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peachTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +106,7 @@
 		13B07FAE1A68108700A75B9A /* peach */ = {
 			isa = PBXGroup;
 			children = (
+				67D10E1E282BFAD400DA4D19 /* peachDebug.entitlements */,
 				675514812812AA1D00A17B6C /* main.jsbundle */,
 				67094FCB26B447E200F2F356 /* peach.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -576,7 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
+				CODE_SIGN_ENTITLEMENTS = peach/peachDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				ENABLE_BITCODE = YES;
