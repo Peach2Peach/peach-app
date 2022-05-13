@@ -18,7 +18,6 @@ import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/log'
-import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
 import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
@@ -269,26 +268,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
       : null,
   }), [updatePending]))
-
-  useEffect(() => offer.type === 'ask' && offer.funding.status !== 'FUNDED'
-    ? checkFundingStatusEffect({
-      offer: offer as SellOffer,
-      onSuccess: result => {
-        info('Checked funding status', result)
-
-        saveAndUpdate({
-          ...offer,
-          funding: result.funding,
-          returnAddress: result.returnAddress,
-        })
-      },
-      onError: err => {
-        updateMessage({
-          msg: i18n(err.error || 'error.general'),
-          level: 'ERROR',
-        })
-      },
-    })() : () => {}, [offer.id])
 
   return <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
     <View style={tw`px-6`}>

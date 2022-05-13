@@ -86,7 +86,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  useEffect(!offer.tx && !offer.txId ? cancelOfferEffect({
+  useEffect(cancelOfferEffect({
     offer,
     onSuccess: response => {
       (async () => {
@@ -117,7 +117,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
         level: 'ERROR',
       })
     },
-  }) : () => {}, [offer])
+  }), [])
 
   return <View style={tw`px-6`}>
     <Headline style={tw`text-3xl leading-3xl text-white-1`}>
