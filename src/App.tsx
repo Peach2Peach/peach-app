@@ -47,6 +47,7 @@ import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import Offer from './views/offers/Offer'
 import messaging from '@react-native-firebase/messaging'
+import { getOffer } from './utils/offer'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -68,6 +69,12 @@ type ViewType = {
   component: (props: any) => ReactElement,
   showHeader: boolean,
   showFooter: boolean,
+}
+
+type PushNotificationData = {
+  offerId?: string,
+  contractId?: string,
+  isChat?: string,
 }
 
 const views: ViewType[] = [
@@ -171,16 +178,22 @@ const App: React.FC = () => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
-      alert('got message!')
     })
 
     messaging().onNotificationOpenedApp(remoteMessage => {
-      info('Notification caused app to open from background state:', remoteMessage.notification)
-      const navigateToScreen = remoteMessage.data?.type
+      info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
+      const { offerId, contractId, isChat } = remoteMessage.data as PushNotificationData
 
-      if (!navigateToScreen) return
-
-      navigationRef.navigate({ name: navigateToScreen, merge: false, params: {} })
+      if (offerId) {
+        const offer = getOffer(offerId)
+        if (offer) navigationRef.navigate({ name: 'offer', merge: false, params: { offer } })
+      }
+      if (contractId && isChat !== 'true') {
+        navigationRef.navigate({ name: 'contract', merge: false, params: { contractId } })
+      }
+      if (contractId && isChat === 'true') {
+        navigationRef.navigate({ name: 'contractChat', merge: false, params: { contractId } })
+      }
     })
 
     return unsubscribe

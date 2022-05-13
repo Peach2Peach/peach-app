@@ -17,4 +17,5 @@
     <string name="notification.title.contract.tradeCompleted">Trade completed!</string>
     <string name="notification.body.contract.tradeCompleted">You received %1$d sats in your wallet</string>
     <string name="notification.title.contract.chat">Chat</string>
+    <string name="notification.body.contract.chat">You got a chat message</string>
 </resources>

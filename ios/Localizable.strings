@@ -14,4 +14,5 @@
 "notification.body.contract.paymentMade" = "Confirm that you received it"
 "notification.title.contract.tradeCompleted" = "Trade completed!"
 "notification.body.contract.tradeCompleted" = "You received %@ sats in your wallet"
-"notification.titl.contract.chat" = "Chat"
+"notification.title.contract.chat" = "Chat"
+"notification.body.contract.chat" = "You got a chat message"
