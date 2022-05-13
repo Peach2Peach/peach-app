@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Loading, PeachScrollView, Timer, Title } from '../../components'
+import { Button, Loading, PeachScrollView, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -18,12 +18,12 @@ import { getOffer } from '../../utils/offer'
 import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
-import ContractDetails from './components/ContractDetails'
 import Rate from './components/Rate'
 import { verifyPSBT } from './helpers/verifyPSBT'
 import { getTimerStart } from './helpers/getTimerStart'
 import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
+import { ContractSummary } from '../offers/components/ContractSummary'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -34,7 +34,7 @@ type Props = {
   navigation: ProfileScreenNavigationProp,
 }
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, complexity
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -199,39 +199,50 @@ export default ({ route, navigation }: Props): ReactElement => {
         />
         {contract && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
-            {requiredAction !== 'none'
-              ? <Timer
-                text={i18n(`contract.timer.${requiredAction}`)}
-                start={getTimerStart(contract, requiredAction)}
-                duration={TIMERS[requiredAction]}
-              />
-              : null
-            }
-            <ContractDetails contract={contract} view={view} />
-            <Button
-              onPress={() => navigation.navigate('contractChat', { contractId: contract.id })}
-              style={tw`mt-4`}
-              title={i18n('chat')}
-              secondary={true}
-            />
-            {view === 'buyer' && requiredAction === 'paymentMade'
-              ? <Button
-                disabled={loading}
-                onPress={postConfirmPaymentBuyer}
-                style={tw`mt-2`}
-                title={i18n('contract.payment.made')}
-              />
-              : null
-            }
-            {view === 'seller' && requiredAction === 'paymentConfirmed'
-              ? <Button
-                disabled={loading}
-                onPress={postConfirmPaymentSeller}
-                style={tw`mt-2`}
-                title={i18n('contract.payment.received')}
-              />
-              : null
-            }
+            <ContractSummary contract={contract} view={view} navigation={navigation} />
+            <View style={tw`mt-16 flex-row justify-center`}>
+              {(view === 'buyer' && requiredAction === 'paymentMade')
+              || (view === 'seller' && requiredAction === 'paymentConfirmed')
+                ? <View style={tw`absolute bottom-full mb-1`}>
+                  <Timer
+                    text={i18n(`contract.timer.${requiredAction}`)}
+                    start={getTimerStart(contract, requiredAction)}
+                    duration={TIMERS[requiredAction]}
+                  />
+                </View>
+                : null
+              }
+              {!(view === 'buyer' && requiredAction === 'paymentMade')
+              && !(view === 'seller' && requiredAction === 'paymentConfirmed')
+                ? <Button
+                  disabled={true}
+                  wide={false}
+                  style={tw`w-52`}
+                  title={i18n(`contract.waitingFor.${view === 'buyer' ? 'seller' : 'buyer'}`)}
+                />
+                : null
+              }
+              {view === 'buyer' && requiredAction === 'paymentMade'
+                ? <Button
+                  disabled={loading}
+                  wide={false}
+                  style={tw`w-52`}
+                  onPress={postConfirmPaymentBuyer}
+                  title={i18n('contract.payment.made')}
+                />
+                : null
+              }
+              {view === 'seller' && requiredAction === 'paymentConfirmed'
+                ? <Button
+                  disabled={loading}
+                  wide={false}
+                  onPress={postConfirmPaymentSeller}
+                  style={tw`w-52`}
+                  title={i18n('contract.payment.received')}
+                />
+                : null
+              }
+            </View>
           </View>
           : null
         }
