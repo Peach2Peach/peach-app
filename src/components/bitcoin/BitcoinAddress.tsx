@@ -45,7 +45,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
 
   const copy = () => {
-    Clipboard.setString(urn.toString())
+    Clipboard.setString(address)
     setShowCopied(true)
     setTimeout(() => setShowCopied(false), 500)
   }
@@ -72,7 +72,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
         <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.four}</Text>
       </Text>
       <View>
-        <Fade show={showCopied} duration={300} delay={0} >
+        <Fade show={showCopied} duration={300} delay={0}>
           <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
             {i18n('copied')}
           </Text>

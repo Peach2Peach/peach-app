@@ -8,7 +8,7 @@ import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
 import { Text } from '../text'
 import { Bubble } from '../ui'
 
-export type NavigationProp = StackNavigationProp<RootStackParamList, 'offer'|'contract'>
+export type NavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
 type ChatButtonProps = ComponentProps & {
   contract: Contract,
