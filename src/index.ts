@@ -27,7 +27,7 @@ const requestUserPermission = async () => {
 requestUserPermission()
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage)
+  info('Message handled in the background!', remoteMessage)
 })
 
 messaging().onTokenRefresh(setFCMToken)
