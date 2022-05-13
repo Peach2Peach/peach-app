@@ -1,5 +1,5 @@
-"notification.title.offer.match" = "Escrow funded"
-"notification.body.offer.match" = "The escrow has been funded and your offer is published"
+"notification.title.offer.escrowFunded" = "Escrow funded"
+"notification.body.offer.escrowFunded" = "The escrow has been funded and your offer is published"
 "notification.title.offer.matchBuyer" = "Matches are waiting for you."
 "notification.body.offer.matchBuyer" = ""
 "notification.title.offer.match" = "Matches are waiting for you!"
