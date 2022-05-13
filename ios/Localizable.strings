@@ -1,0 +1,4 @@
+"notification.title.match = "You got a match!"
+"notification.body.match = "Matches are waiting for you! The faster you accept, the better your Peach Reputation score will be."
+"notification.title.contractCreated = "Match accepted!"
+"notification.body.contractCreated = "Your match got accepted: proceed to payment! The faster you pay, the better your Peach score will be."
