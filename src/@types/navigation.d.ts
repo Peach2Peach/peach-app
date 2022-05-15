@@ -20,7 +20,6 @@ declare type RootStackParamList = {
   },
   tradeComplete: {
     contract: Contract,
-    view: 'buyer' | 'seller' | '',
   },
   offers: {},
   offer: {

@@ -10,16 +10,16 @@ import i18n from '../../../utils/i18n'
 import { MessageContext } from '../../../contexts/message'
 import { rateUser } from '../../../utils/peachAPI'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'tradeComplete'>
 
-type RateProps = {
+type RateProps = ComponentProps & {
   contract: Contract,
   view: 'seller' | 'buyer' | ''
   navigation: ProfileScreenNavigationProp,
   saveAndUpdate: (contract: Contract) => void
 }
 
-export default ({ contract, view, navigation, saveAndUpdate }: RateProps): ReactElement => {
+export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps): ReactElement => {
   const [vote, setVote] = useState('')
   const [, updateMessage] = useContext(MessageContext)
 
@@ -47,13 +47,10 @@ export default ({ contract, view, navigation, saveAndUpdate }: RateProps): React
       [ratedUser]: true
     })
 
-    navigation.navigate('tradeComplete', { contract, view })
+    navigation.navigate('home', {})
   }
-  return <View>
+  return <View style={style}>
     <Card style={tw`p-4`}>
-      <Headline style={tw`text-3xl leading-3xl text-center`}>
-        {i18n('rate.title')}
-      </Headline>
       <Text style={tw`mt-2 text-grey-2 text-center`}>{i18n('rate.subtitle')}</Text>
 
       <View style={tw`mt-4 flex-row justify-center`}>
@@ -73,7 +70,7 @@ export default ({ contract, view, navigation, saveAndUpdate }: RateProps): React
     </Card>
     <View style={tw`mt-4 flex items-center`}>
       <Button
-        title={i18n('rate')}
+        title={i18n('rate.rateAndFinish')}
         disabled={!vote}
         wide={false}
         onPress={rate}

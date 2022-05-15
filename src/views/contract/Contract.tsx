@@ -18,12 +18,12 @@ import { getOffer } from '../../utils/offer'
 import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
-import Rate from './components/Rate'
 import { verifyPSBT } from './helpers/verifyPSBT'
 import { getTimerStart } from './helpers/getTimerStart'
 import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { ContractSummary } from '../offers/components/ContractSummary'
+import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -97,10 +97,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     (async () => {
       if (!contract || !view || contract.canceled) return
 
-      if ((view === 'seller' && contract?.ratingBuyer)
-        || (view === 'buyer' && contract?.ratingSeller)) {
-        setContractId('')
-        navigation.navigate('tradeComplete', { contract, view })
+      if (isTradeComplete(contract)) {
+        navigation.navigate('tradeComplete', { contract })
         return
       }
 
@@ -243,12 +241,6 @@ export default ({ route, navigation }: Props): ReactElement => {
                 : null
               }
             </View>
-          </View>
-          : null
-        }
-        {contract && contract.paymentConfirmed
-          ? <View style={tw`mt-16`}>
-            <Rate contract={contract} view={view} navigation={navigation} saveAndUpdate={saveAndUpdate} />
           </View>
           : null
         }
