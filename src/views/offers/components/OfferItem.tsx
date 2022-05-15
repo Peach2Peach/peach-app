@@ -40,12 +40,8 @@ const navigateToOffer = (
 
   if (offer.contractId) {
     const contract = getContract(offer.contractId)
-    if (contract) {
-      const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-      if ((view === 'seller' && contract.ratingBuyer)
-        || (view === 'buyer' && contract.ratingSeller)) {
-        return navigation.navigate('tradeComplete', { view, contract })
-      }
+    if (contract && offerStatus.status === 'tradeCompleted') {
+      return navigation.navigate('tradeComplete', { contract })
     }
     return navigation.navigate('contract', { contractId: offer.contractId })
   }
