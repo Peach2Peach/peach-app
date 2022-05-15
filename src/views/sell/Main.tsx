@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../contexts/language'
 import { Dropdown, Headline, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
-import { BUCKETS } from '../../constants'
+import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
 import { getBitcoinContext } from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
 import { getTradingLimit, updateSettings } from '../../utils/account'
@@ -32,7 +32,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const onChange = (value: string|number) => setAmount(value as number)
   const onToggle = (isOpen: boolean) => setDropdownOpen(isOpen)
 
-  const dropdownItems = applyTradingLimit(BUCKETS, prices.CHF as number, getTradingLimit()).map(value => ({
+  const allowedSellBuckets = BUCKETS.filter(b => DEPRECATED_BUCKETS.indexOf(b) === -1)
+  const dropdownItems = applyTradingLimit(allowedSellBuckets, prices.CHF as number, getTradingLimit()).map(value => ({
     value,
     display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
       <SatsFormat sats={value} format="big"/>

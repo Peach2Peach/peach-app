@@ -39,7 +39,9 @@ export let BUCKETS = [
   2000000,
   5000000
 ]
+export let DEPRECATED_BUCKETS: number[] = []
 export const setBuckets = (buckets: number[]) => BUCKETS = buckets
+export const setDeprecatedBuckets = (buckets: number[]) => DEPRECATED_BUCKETS = buckets
 
 type Timers = {
   [key in ContractAction]: number
