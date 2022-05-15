@@ -134,6 +134,8 @@ export const setFCMToken = async (fcmToken: string): Promise<[APISuccess|null, A
  * @returns TradingLimit
  */
 export const getTradingLimit = async (): Promise<[TradingLimit|null, APIError|null]> => {
+  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
+
   const response = await fetch(`${API_URL}/v1/user/tradingLimit`, {
     headers: {
       Authorization: await getAccessToken(),
