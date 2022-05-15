@@ -14,7 +14,6 @@ type Props = {
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ contractId, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 

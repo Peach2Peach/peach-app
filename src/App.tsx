@@ -200,13 +200,15 @@ const App: React.FC = () => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
-      if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated' && /buy|sell|home|/.test(currentPage as string)) {
+      if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
+        && /buy|sell|home|/u.test(currentPage as string)) {
         updateOverlay({
           content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
           showCloseButton: false
         })
       }
-      if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade' && /buy|sell|home|/.test(currentPage as string)) {
+      if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade'
+        && /buy|sell|home|/u.test(currentPage as string)) {
         updateOverlay({
           content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
           showCloseButton: false
