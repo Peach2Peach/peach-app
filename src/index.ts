@@ -9,8 +9,7 @@ import * as db from './utils/db'
 import { setFCMToken } from './utils/peachAPI'
 import messaging from '@react-native-firebase/messaging'
 import { info } from './utils/log'
-import { HeadlessCheck } from './HeadlessCheck'
-
+import App from './App'
 
 const requestUserPermission = async () => {
   const authStatus = await messaging().requestPermission({
@@ -33,7 +32,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 messaging().onTokenRefresh(setFCMToken)
 
 
-AppRegistry.registerComponent(appName, () => HeadlessCheck)
+AppRegistry.registerComponent(appName, () => App)
 
 if (typeof document !== 'undefined') {
   // start webapp if document available
