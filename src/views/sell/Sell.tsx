@@ -23,7 +23,7 @@ import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
 
-import { BUCKETS } from '../../constants'
+import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { error } from '../../utils/log'

@@ -1,4 +1,4 @@
-import { setBuckets, setMinAppVersion, setPaymentMethods, setPeachFee } from '../constants'
+import { setBuckets, setDeprecatedBuckets, setMinAppVersion, setPaymentMethods, setPeachFee } from '../constants'
 import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
 import { error } from '../utils/log'
 import { getInfo, getTradingLimit } from '../utils/peachAPI'
@@ -34,6 +34,7 @@ export default async () => {
   if (peachInfo) {
     setPaymentMethods(peachInfo.paymentMethods)
     setBuckets(peachInfo.buckets)
+    setDeprecatedBuckets(peachInfo.deprecatedBuckets)
     setPeachFee(peachInfo.fees.escrow)
     setMinAppVersion(peachInfo.minAppVersion)
     setSession({ peachInfo })

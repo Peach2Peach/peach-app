@@ -83,6 +83,7 @@ declare type GetInfoResponse = {
     escrow: number,
   },
   buckets: number[],
+  deprecatedBuckets: number[],
   paymentMethods: PaymentMethodInfo[],
   minAppVersion: string,
 }
