@@ -110,6 +110,18 @@ const showHeader = (view: keyof RootStackParamList) => views.find(v => v.name ==
  */
 const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showFooter
 
+
+const requestUserPermission = async () => {
+  info('Requesting notification permissions')
+  const authStatus = await messaging().requestPermission({
+    alert: true,
+    badge: true,
+    sound: true,
+  })
+
+  info('Permission status:', authStatus)
+}
+
 /**
  * @description Method to initialize app by retrieving app session and user account
  * @param navigationRef reference to navigation
@@ -142,6 +154,7 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
         navigationRef.navigate('welcome', {})
       }
     }
+    requestUserPermission()
   }, 3000)
 }
 

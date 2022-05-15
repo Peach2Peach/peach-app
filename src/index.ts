@@ -11,20 +11,6 @@ import messaging from '@react-native-firebase/messaging'
 import { info } from './utils/log'
 import App from './App'
 
-const requestUserPermission = async () => {
-  const authStatus = await messaging().requestPermission({
-    alert: true,
-    badge: true,
-    sound: true,
-  })
-
-  if (authStatus === messaging.AuthorizationStatus.AUTHORIZED
-    || authStatus === messaging.AuthorizationStatus.PROVISIONAL) {
-    info('Permission status:', authStatus)
-  }
-}
-requestUserPermission()
-
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   info('Message handled in the background!', remoteMessage)
 })
