@@ -48,6 +48,8 @@ import { compatibilityCheck } from './utils/system'
 import Offer from './views/offers/Offer'
 import messaging from '@react-native-firebase/messaging'
 import { getOffer } from './utils/offer'
+import MatchAccepted from './overlays/MatchAccepted'
+import PaymentMade from './overlays/PaymentMade'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -110,6 +112,18 @@ const showHeader = (view: keyof RootStackParamList) => views.find(v => v.name ==
  */
 const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showFooter
 
+
+const requestUserPermission = async () => {
+  info('Requesting notification permissions')
+  const authStatus = await messaging().requestPermission({
+    alert: true,
+    badge: true,
+    sound: true,
+  })
+
+  info('Permission status:', authStatus)
+}
+
 /**
  * @description Method to initialize app by retrieving app session and user account
  * @param navigationRef reference to navigation
@@ -142,6 +156,7 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
         navigationRef.navigate('welcome', {})
       }
     }
+    requestUserPermission()
   }, 3000)
 }
 
@@ -185,6 +200,20 @@ const App: React.FC = () => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+      if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
+        && /buy|sell|home|/u.test(currentPage as string)) {
+        updateOverlay({
+          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
+          showCloseButton: false
+        })
+      }
+      if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade'
+        && /buy|sell|home|/u.test(currentPage as string)) {
+        updateOverlay({
+          content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
+          showCloseButton: false
+        })
+      }
     })
 
     messaging().onNotificationOpenedApp(remoteMessage => {
@@ -202,6 +231,7 @@ const App: React.FC = () => {
         navigationRef.navigate({ name: 'contractChat', merge: false, params: { contractId } })
       }
     })
+
 
     return unsubscribe
   }, [])
