@@ -121,11 +121,18 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
 
   try {
     await pgp()
-  } catch (e) {}
+  } catch (e) {
+    error(e)
+  }
 
+  let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
+    if (waitForNavCounter === 0) {
+      throw new Error('Failed to initialize navigation')
+    }
     // eslint-disable-next-line no-await-in-loop
     await sleep(100)
+    waitForNavCounter--
   }
   setTimeout(() => {
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {

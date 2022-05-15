@@ -5,9 +5,14 @@ import { getInfo, getTradingLimit } from '../utils/peachAPI'
 import { getSession, initSession, setSession } from '../utils/session'
 
 export default async () => {
-  const { password } = await initSession()
   let account
-  if (password) account = await loadAccount(password)
+
+  try {
+    const { password } = await initSession()
+    if (password) account = await loadAccount(password)
+  } catch (e) {
+    error(e)
+  }
 
   const [
     [peachInfoResponse, err],
