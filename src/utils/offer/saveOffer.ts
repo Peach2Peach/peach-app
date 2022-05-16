@@ -15,11 +15,13 @@ export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false): void 
   delete offer.user
 
   if (offerExists(offer.id)) {
-    const index = account.offers.findIndex(o => o.id === offer.id)
-    account.offers[index] = {
-      ...account.offers[index],
-      ...offer
-    }
+    account.offers = account.offers.map(o => {
+      if (o.id !== offer.id) return o
+      return {
+        ...o,
+        ...offer
+      }
+    })
   } else {
     account.offers.push(offer)
   }

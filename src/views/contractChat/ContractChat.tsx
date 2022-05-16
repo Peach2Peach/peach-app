@@ -88,14 +88,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     return unsubscribe
   }, [ws.connected]))
 
-  const saveAndUpdateContract = (contractData: Contract) => {
-    if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
-
-    setContract(() => contractData)
-    saveContract(contractData)
-  }
-
   useEffect(() => {
+    setUpdatePending(true)
     setContractId(() => route.params.contractId)
   }, [route])
 
@@ -109,14 +103,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
-      const [symmetricKey, err] = contract?.symmetricKey
-        ? [contract.symmetricKey, null]
-        : await decryptSymmetricKey(
-          result.symmetricKeyEncrypted,
-          result.symmetricKeySignature,
-          result.buyer.pgpPublicKey,
-        )
+      const [symmetricKey, err] = await decryptSymmetricKey(
+        result.symmetricKeyEncrypted,
+        result.symmetricKeySignature,
+        result.buyer.pgpPublicKey,
+      )
 
       if (err) error(err)
 
@@ -127,17 +120,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
           // canceled: contract.canceled
         }
-        : result
-      )
-
-      setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
-      saveAndUpdateContract(contract
-        ? {
-          ...contract,
+        : {
           ...result,
-          // canceled: contract.canceled
+          symmetricKey,
         }
-        : result
       )
     },
     onError: err => updateMessage({
@@ -146,8 +132,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
-  useEffect(ws.connected && contractId ? getMessagesEffect({
-    contractId,
+  useEffect(ws.connected && contract ? getMessagesEffect({
+    contractId: contract.id,
     onSuccess: async (result) => {
       if (!contract || !contract.symmetricKey) return
 
@@ -172,12 +158,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...c,
         messages: decryptedMessages
       }))
+      setUpdatePending(false)
+
     },
-    onError: err => updateMessage({
-      msg: i18n(err.error || 'error.general'),
-      level: 'ERROR',
-    })
-  }) : () => {}, [ws.connected, contractId])
+    onError: err => {
+      setUpdatePending(false)
+      updateMessage({
+        msg: i18n(err.error || 'error.general'),
+        level: 'ERROR',
+      })
+    }
+  }) : () => {}, [ws.connected, contract])
 
   useEffect(() => {
     (async () => {
@@ -192,7 +183,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         // TODO if err is yielded consider open a dispute directly
         const contractErrors = contract.contractErrors || []
         if (err) contractErrors.push(err.message)
-        saveAndUpdateContract({
+        saveAndUpdate({
           ...contract,
           paymentData,
           contractErrors,
@@ -201,8 +192,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     })()
 
     setRequiredAction(getRequiredAction(contract))
-
-    setUpdatePending(false)
   }, [contract])
 
   useEffect(() => {
