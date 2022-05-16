@@ -2,9 +2,10 @@ import { setAccount } from '.'
 import { decrypt } from '../crypto'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
-import { getOffers } from '../peachAPI'
+import { getOffers, getTradingLimit } from '../peachAPI'
 import { setSession } from '../session'
 import { account } from './account'
+import { updateTradingLimit } from './tradingLimit'
 
 interface RecoverAccountProps {
   encryptedAccount: string,
@@ -27,12 +28,24 @@ export const recoverAccount = async ({
     await setSession({ password })
 
     info('Get offers')
-    const [result, err] = await getOffers()
-    if (result?.length) {
-      info(`Got ${result.length} offers`)
-      result.map(offer => saveOffer(offer, true))
-    } else if (err) {
-      error('Error', err)
+    const [
+      [getOffersResult, getOffersErr],
+      [getTradingLimitResult, getTradingLimitErr],
+    ] = await Promise.all([
+      getOffers(),
+      getTradingLimit(),
+    ])
+    if (getOffersResult?.length) {
+      info(`Got ${getOffersResult.length} offers`)
+      getOffersResult.map(offer => saveOffer(offer, true))
+    } else if (getOffersErr) {
+      error('Error', getOffersErr)
+    }
+    if (getTradingLimitResult) {
+      info(`Got tradinglimit`)
+      updateTradingLimit(getTradingLimitResult)
+    } else if (getTradingLimitErr) {
+      error('Error', getTradingLimitErr)
     }
     return [account, null]
   } catch (e) {

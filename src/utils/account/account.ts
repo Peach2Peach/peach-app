@@ -32,7 +32,8 @@ export const getAccount = () => account
 export const setAccount = async (acc: Account, overwrite?: boolean) => {
   account = overwrite ? acc : {
     ...defaultAccount,
-    ...acc
+    ...acc,
+    tradingLimit: defaultAccount.tradingLimit,
   }
 
   setWallet((await createWallet(account.mnemonic)).wallet)
