@@ -42,7 +42,7 @@ export const recoverAccount = async ({
       error('Error', getOffersErr)
     }
     if (getTradingLimitResult) {
-      info(`Got tradinglimit`)
+      info('Got tradinglimit')
       updateTradingLimit(getTradingLimitResult)
     } else if (getTradingLimitErr) {
       error('Error', getTradingLimitErr)
