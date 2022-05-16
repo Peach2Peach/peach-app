@@ -1,12 +1,14 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useReducer, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Headline, PeachScrollView, Text, Title } from '../../components'
-import { account, getAccount, saveAccount } from '../../utils/account'
+import AppContext, { getAppContext, setAppContext } from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
+
+import { Headline, PeachScrollView, Text, Title } from '../../components'
+import { getAccount, saveAccount } from '../../utils/account'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
@@ -16,6 +18,7 @@ import { OfferItem } from './components/OfferItem'
 import { saveContract } from '../../utils/contract'
 import getContractsEffect from '../../effects/getContractsEffect'
 import { useFocusEffect } from '@react-navigation/native'
+import { getChatNotifications } from '../../utils/chat'
 
 export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
 
@@ -44,6 +47,7 @@ const sortByStatus = (a: SellOffer|BuyOffer, b: SellOffer|BuyOffer) =>
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
   const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
@@ -79,6 +83,9 @@ export default ({ navigation }: Props): ReactElement => {
       result.map(contract => saveContract(contract, true))
       if (session.password) saveAccount(getAccount(), session.password)
       setLastUpdate(new Date().getTime())
+      updateAppContext({
+        notifications: getChatNotifications()
+      })
     },
     onError: err => {
       error('Could not fetch contract information')

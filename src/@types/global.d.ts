@@ -40,6 +40,10 @@ declare type Chat = {
   messages: Message[]
 }
 
+
+declare type AppState = {
+  notifications: number,
+}
 declare type MessageState = {
   msg: string,
   level: Level,

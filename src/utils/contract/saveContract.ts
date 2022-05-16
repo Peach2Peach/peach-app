@@ -9,6 +9,9 @@ import { session } from '../session'
 */
 export const saveContract = (contract: Contract, disableSave = false): void => {
   // info('saveContract', contract)
+
+  if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
+
   if (contractExists(contract.id)) {
     account.contracts = account.contracts.map(c => {
       if (c.id !== contract.id) return c
