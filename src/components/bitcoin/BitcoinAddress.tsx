@@ -59,12 +59,15 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   return <View style={[tw`flex-col items-center`, style]}>
     {showQR && address
       ? <Pressable onPress={copyPaymentRequest}>
-          <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
-            <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute bottom-full w-20 left-1/2 -ml-10 text-center`}>
-              {i18n('copied')}
-            </Text>
-          </Fade>
-          <Card style={tw`p-4`}>
+        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
+          <Text style={[
+            tw`font-baloo text-grey-1 text-sm text-center`,
+            tw`uppercase absolute bottom-full w-20 left-1/2 -ml-10`
+          ]}>
+            {i18n('copied')}
+          </Text>
+        </Fade>
+        <Card style={tw`p-4`}>
           <QRCode
             size={241}
             value={urn.toString()}
