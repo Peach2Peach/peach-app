@@ -17,7 +17,7 @@ export const saveChat = (id: string, chat: Partial<Chat>): Chat => {
       ...chat
     }
   }
-  
+
   const savedChat = getChat(id)
   account.chats[id] = {
     ...savedChat,

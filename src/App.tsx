@@ -163,7 +163,6 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
   }, 3000)
 }
 
-
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
@@ -202,7 +201,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     info('Subscribe to push notifications')
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
       if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
         && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
@@ -218,6 +217,7 @@ const App: React.FC = () => {
           showCloseButton: false
         })
       }
+      return null
     })
 
     messaging().onNotificationOpenedApp(remoteMessage => {
@@ -235,7 +235,6 @@ const App: React.FC = () => {
         navigationRef.navigate({ name: 'contractChat', merge: false, params: { contractId } })
       }
     })
-
 
     return unsubscribe
   }, [])

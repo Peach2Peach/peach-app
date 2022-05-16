@@ -1,7 +1,7 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import { Shadow, Text } from '../../../components'
-import AppContext, { getAppContext, setAppContext } from '../../../contexts/app'
+import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import { getChatNotifications, saveChat } from '../../../utils/chat'
@@ -93,10 +93,6 @@ export default ({ chat, page, loadMore, loading, style }: ChatBoxProps): ReactEl
         onRefresh={loadMore}
         refreshing={loading}
       />
-      <Text>{chat.messages[chat.messages.length - 1].date.getTime()}
-      -
-      {chat.lastSeen.getTime()}
-      </Text>
     </Shadow>
   </View>
 }

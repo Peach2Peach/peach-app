@@ -140,11 +140,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       onSuccess: async (result) => {
         if (!contract || !contract.symmetricKey) return
         const decryptedMessages = await Promise.all(result.map(async (message) => {
-          const existingMessage = chat.messages.find(m => m.date.getTime() === message.date.getTime() && m.from === message.from)
+          const existingMessage = chat.messages.find(m =>
+            m.date.getTime() === message.date.getTime() && m.from === message.from
+          )
           let decryptedMessage = existingMessage?.message
           try {
             if (message.message && contract.symmetricKey) {
-              decryptedMessage = decryptedMessage || await decryptSymmetric(message.message || '', contract.symmetricKey)
+              decryptedMessage = decryptedMessage
+                || await decryptSymmetric(message.message || '', contract.symmetricKey)
             }
           } catch (e) {
             error('Could not decrypt message', e)
@@ -223,7 +226,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const loadMore = () => {
     setLoadingMessages(true)
-    setPage(page => page + 1)
+    setPage(p => p + 1)
   }
 
   const returnTrue = () => true

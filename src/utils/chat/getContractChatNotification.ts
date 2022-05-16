@@ -11,5 +11,5 @@ export const getContractChatNotification = (contract: Contract) => {
     ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
     : 0
 
-    return contract.messages - messagesSeen
+  return contract.messages - messagesSeen
 }

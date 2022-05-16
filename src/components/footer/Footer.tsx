@@ -60,7 +60,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps)
       {i18n(id)}
     </Text>
     {notifications
-      ?  <Bubble color={tw`text-green`.color as string}
+      ? <Bubble color={tw`text-green`.color as string}
         style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
         <Text style={tw`text-sm font-baloo text-white-1 text-center mt-0.5`}>{notifications}</Text>
       </Bubble>
@@ -97,7 +97,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
         updateAppContext({
           notifications: notifications + 1
         })
-        const [contract] = await getContract({ contractId: remoteMessage.data.contractId})
+        const [contract] = await getContract({ contractId: remoteMessage.data.contractId })
         if (contract) {
           saveContract(contract)
         }
@@ -123,7 +123,12 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
           <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
             <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
             <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
-            <FooterItem id="offers" active={active === 'offers'} onPress={navigate.offers} notifications={notifications} />
+            <FooterItem
+              id="offers"
+              active={active === 'offers'}
+              onPress={navigate.offers}
+              notifications={notifications}
+            />
             <FooterItem id="settings" active={active === 'settings'} onPress={navigate.settings} />
           </View>
         </Shadow>
