@@ -57,6 +57,7 @@
   "contract.summary.in": "in",
   "contract.summary.from": "from",
   "contract.summary.on": "on",
+  "contract.summary.via": "via",
   "contract.summary.escrow": "escrow",
   "contract.summary.releaseTx": "release tx",
   "sell.currencies": "Which currencies do you want to accept?",
