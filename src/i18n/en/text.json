@@ -246,5 +246,21 @@
   "payment": "Payment",
   "kyc": "KYC",
   "kycFree": "KYC - Free",
-  "showTransaction": "Show transaction"
+  "showTransaction": "Show transaction",
+  "settings.title": "Settings",
+  "settings.contactUs": "Contact us",
+  "settings.appSettings": "App Settings",
+  "settings.notifications": "Notifications on / off",
+  "settings.language": "Language",
+  "settings.displayCurrency": "Display currency",
+  "settings.accountSettings": "Account Settings",
+  "settings.myAccount": "My account",
+  "settings.backups": "Backups",
+  "settings.paymentMethods": "Payment methods",
+  "settings.deleteAccount": "Delete account",
+  "settings.aboutPeach": "About Peach",
+  "settings.fees": "Fees",
+  "settings.socials": "Socials",
+  "settings.website": "Website",
+  "settings.peachApp": "Peach App v"
 }
