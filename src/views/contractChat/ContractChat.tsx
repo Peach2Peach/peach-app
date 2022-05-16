@@ -25,6 +25,7 @@ import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseCo
 import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
+import { unique } from '../../utils/array'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -43,6 +44,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
+  const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
@@ -50,6 +52,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
+  const [page, setPage] = useState(0)
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -68,14 +71,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         date: new Date(message.date),
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
-      setChat(prevChat => {
-        const c = {
-          ...prevChat,
-          messages: [...prevChat.messages, decryptedMessage]
-        }
-        saveChat(contract.id, c)
-        return c
-      })
+      setChat(() => saveChat(contractId, {
+        messages: [decryptedMessage]
+      }))
     }
     const unsubscribe = () => {
       ws.off('message', messageHandler)
@@ -91,6 +89,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     setUpdatePending(true)
     setContractId(() => route.params.contractId)
+    setPage(0)
   }, [route])
 
   useEffect(() => {
@@ -132,43 +131,46 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
-  useEffect(ws.connected && contract ? getMessagesEffect({
-    contractId: contract.id,
-    onSuccess: async (result) => {
-      if (!contract || !contract.symmetricKey) return
+  useEffect(() => {
+    if (!contract) return
 
-      const decryptedMessages = await Promise.all(result.map(async (message) => {
-        const existingMessage = chat.messages.find(m => m.date === message.date && m.from === message.from)
-        let decryptedMessage = existingMessage?.message
-        try {
-          if (message.message && contract.symmetricKey) {
-            decryptedMessage = decryptedMessage || await decryptSymmetric(message.message || '', contract.symmetricKey)
+    getMessagesEffect({
+      contractId: contract.id,
+      page,
+      onSuccess: async (result) => {
+        if (!contract || !contract.symmetricKey) return
+        const decryptedMessages = await Promise.all(result.map(async (message) => {
+          const existingMessage = chat.messages.find(m => m.date.getTime() === message.date.getTime() && m.from === message.from)
+          let decryptedMessage = existingMessage?.message
+          try {
+            if (message.message && contract.symmetricKey) {
+              decryptedMessage = decryptedMessage || await decryptSymmetric(message.message || '', contract.symmetricKey)
+            }
+          } catch (e) {
+            error('Could not decrypt message', e)
           }
-        } catch (e) {
-          error('Could not decrypt message', e)
-        }
-        return {
-          ...message,
-          message: decryptedMessage,
-        }
-      }))
+          return {
+            ...message,
+            message: decryptedMessage,
+          }
+        }))
 
-      saveChat(contractId, { messages: decryptedMessages })
-      setChat(c => ({
-        ...c,
-        messages: decryptedMessages
-      }))
-      setUpdatePending(false)
-
-    },
-    onError: err => {
-      setUpdatePending(false)
-      updateMessage({
-        msg: i18n(err.error || 'error.general'),
-        level: 'ERROR',
-      })
-    }
-  }) : () => {}, [ws.connected, contract])
+        setChat(() => saveChat(contractId, {
+          messages: decryptedMessages.filter(unique('date'))
+        }))
+        setLoadingMessages(false)
+        setUpdatePending(false)
+      },
+      onError: err => {
+        setUpdatePending(false)
+        setLoadingMessages(false)
+        updateMessage({
+          msg: i18n(err.error || 'error.general'),
+          level: 'ERROR',
+        })
+      }
+    })()
+  }, [contract, page])
 
   useEffect(() => {
     (async () => {
@@ -219,6 +221,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     setNewMessage(() => '')
   }
 
+  const loadMore = () => {
+    setLoadingMessages(true)
+    setPage(page => page + 1)
+  }
+
   const returnTrue = () => true
 
   return updatePending
@@ -245,7 +252,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
           ]}>
             <View style={tw`h-full flex-shrink`}>
-              <ChatBox chat={chat} />
+              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages} />
             </View>
             <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
               <Input
