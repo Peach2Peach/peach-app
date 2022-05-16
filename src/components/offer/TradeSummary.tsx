@@ -135,7 +135,7 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
   return <View>
     <View style={tw`p-5`}>
       <Headline style={tw`text-grey-1 normal-case`}>
-        {!isTradeCanceled(contract)
+        {isTradeCanceled(contract)
           ? i18n(`contract.summary.${view === 'seller' ? 'youAreSelling' : 'youAreBuying'}`)
           : i18n(`contract.summary.${view === 'seller' ? 'youHaveSold' : 'youHaveBought'}`)
         }

@@ -22,7 +22,7 @@ export default ({ contractId, navigation }: Props): ReactElement => {
   }
 
   const goToContract = () => {
-    navigation.navigate('contract', { contractId })
+    navigation.navigate('contractChat', { contractId })
     closeOverlay()
   }
 
