@@ -1,9 +1,12 @@
+import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI'
 import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 
 export const defaultAccount: Account = {
   publicKey: '',
-  settings: {},
+  settings: {
+    locale: 'en'
+  },
   paymentData: [],
   tradingLimit: {
     daily: 1000,
@@ -35,6 +38,8 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
     ...acc,
     tradingLimit: defaultAccount.tradingLimit,
   }
+
+  setLocaleQuiet(account.settings.locale || 'en')
 
   setWallet((await createWallet(account.mnemonic)).wallet)
 

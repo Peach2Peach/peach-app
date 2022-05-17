@@ -1,5 +1,6 @@
 declare type Settings = {
   skipTutorial?: boolean,
+  locale: string,
   amount?: number,
   currencies?: Currency[],
   paymentMethods?: PaymentMethod[],
