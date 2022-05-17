@@ -24,7 +24,6 @@ import { AvoidKeyboard, Footer, Header } from './components'
 import Buy from './views/buy/Buy'
 import Sell from './views/sell/Sell'
 import Offers from './views/offers/Offers'
-import Settings from './views/settings/Settings'
 import SplashScreen from './views/splashScreen/SplashScreen'
 import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
@@ -35,8 +34,10 @@ import Contract from './views/contract/Contract'
 import ContractChat from './views/contractChat/ContractChat'
 import TradeComplete from './views/tradeComplete/TradeComplete'
 import Offer from './views/offers/Offer'
+import Settings from './views/settings/Settings'
 import Contact from './views/contact/Contact'
 import Report from './views/report/Report'
+import Language from './views/settings/Language'
 
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { account } from './utils/account'
@@ -101,6 +102,7 @@ const views: ViewType[] = [
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
+  { name: 'language', component: Language, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
 ]

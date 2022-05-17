@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function, max-len */
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 
@@ -25,7 +24,8 @@ export default ({ navigation }: Props): ReactElement => {
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
     <Title title={i18n('contact.title')} />
     <View style={tw`h-full flex-shrink overflow-hidden rounded mt-12`}>
-      <Shadow shadow={innerShadow} style={tw`w-full h-full border border-grey-4 rounded px-12 flex items-center justify-center`}>
+      <Shadow shadow={innerShadow}
+        style={tw`w-full h-full border border-grey-4 rounded px-12 flex items-center justify-center`}>
         <Text style={tw`text-center mb-10`}>
           {i18n('contact.whyAreYouContactingUs')}
         </Text>

@@ -258,6 +258,7 @@
   "settings.notifications.on": "on",
   "settings.notifications.off": "off",
   "settings.language": "Language",
+  "settings.language.subtitle": "Display language",
   "settings.displayCurrency": "Display currency",
   "settings.accountSettings": "Account Settings",
   "settings.myAccount": "My account",
