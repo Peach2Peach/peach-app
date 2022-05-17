@@ -115,7 +115,6 @@ const getInitialPageForOffer = (offer: SellOffer) =>
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())

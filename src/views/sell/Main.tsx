@@ -6,14 +6,14 @@ import LanguageContext from '../../contexts/language'
 import { Dropdown, Headline, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
-import { getBitcoinContext } from '../../contexts/bitcoin'
+import BitcoinContext from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
 import { getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
-  const { currency, satsPerUnit, prices } = getBitcoinContext()
+  const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   const [amount, setAmount] = useState(offer.amount)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)

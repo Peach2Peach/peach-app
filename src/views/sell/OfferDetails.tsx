@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
+import BitcoinContext from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
 import { updateSettings } from '../../utils/account'
 import Premium from './components/Premium'
@@ -28,9 +28,8 @@ const validate = (offer: SellOffer) =>
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
 
-  const { currency, price } = getBitcoinContext()
+  const [{ currency, price }] = useContext(BitcoinContext)
   const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies.length ? offer.currencies : [currency])
   const [premium, setPremium] = useState(offer.premium)
   const [paymentData, setPaymentData] = useState(offer.paymentData)

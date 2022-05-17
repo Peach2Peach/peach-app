@@ -60,7 +60,10 @@ export const buyOfferUnpublished: BuyOffer = {
 }
 
 export const recoveredAccount: Account = {
-  settings: {},
+  settings: {
+    locale: 'en',
+    displayCurrency: 'EUR'
+  },
   paymentData: [],
   offers: [],
   contracts: [],
@@ -83,7 +86,9 @@ export const recoveredAccount: Account = {
 export const account1: Account = {
   settings: {
     skipTutorial: true,
+    locale: 'en',
     amount: 1000000,
+    displayCurrency: 'EUR',
     currencies: ['EUR', 'CHF'],
     paymentMethods: ['iban'],
     kyc: false

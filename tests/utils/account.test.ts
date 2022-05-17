@@ -114,7 +114,10 @@ describe('updateSettings', () => {
     }
 
     updateSettings(newSettings)
-    deepStrictEqual(account.settings, newSettings)
+    deepStrictEqual(account.settings, {
+      ...account.settings,
+      ...newSettings
+    })
   })
 
   it('updates account settings without overwriting untouched settings', () => {
@@ -125,6 +128,8 @@ describe('updateSettings', () => {
     updateSettings(newSettings)
     deepStrictEqual(account.settings, {
       skipTutorial: true,
+      displayCurrency: 'EUR',
+      locale: 'en',
       currencies: ['EUR'],
     })
   })

@@ -1,5 +1,5 @@
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { Image, View } from 'react-native'
 
 import { Shadow, Text } from '.'
@@ -7,10 +7,11 @@ import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { thousands } from '../utils/string'
 import { mildShadow } from '../utils/layout'
+import { marketPrices } from '../utils/peachAPI/public/market'
+import BitcoinContext from '../contexts/bitcoin'
+import { account } from '../utils/account'
 
-type HeaderProps = ComponentProps & {
-  bitcoinContext: BitcoinContextType,
-}
+type HeaderProps = ComponentProps
 
 /**
  * @description Component to display the Header
@@ -22,8 +23,25 @@ type HeaderProps = ComponentProps & {
  * @example
  * <Header bitcoinContext={bitcoinContext} />
  */
-export const Header = ({ bitcoinContext, style }: HeaderProps): ReactElement =>
-  <View style={style}>
+export const Header = ({ style }: HeaderProps): ReactElement => {
+  const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
+
+  useEffect(() => {
+    const checkingFunction = async () => {
+      const [prices] = await marketPrices()
+
+      if (prices) updateBitcoinContext({ prices })
+    }
+    const interval = setInterval(checkingFunction, 15 * 1000)
+    updateBitcoinContext({ currency: account.settings.displayCurrency })
+    checkingFunction()
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
+  return <View style={style}>
     <Shadow shadow={mildShadow}>
       <View style={tw`w-full flex-row items-center justify-between px-3 py-2 bg-white-1`}>
         <View>
@@ -46,4 +64,6 @@ export const Header = ({ bitcoinContext, style }: HeaderProps): ReactElement =>
       </View>
     </Shadow>
   </View>
+}
+
 export default Header

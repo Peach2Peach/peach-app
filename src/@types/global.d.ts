@@ -53,7 +53,7 @@ declare type OverlayState = {
   content: ReactNode,
   showCloseButton: boolean,
 }
-declare type BitcoinContextType = {
+declare type BitcoinState = {
   currency: Currency,
   price: number,
   satsPerUnit: number,

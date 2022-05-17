@@ -59,7 +59,7 @@ export default ({ navigation }: Props): ReactElement => {
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
 
   return <View style={tw`h-full pb-10`}>
-    <PeachScrollView contentContainerStyle={tw`pt-6 px-6`}>
+    <PeachScrollView contentContainerStyle={tw`pt-6 px-12`}>
       <Title title={i18n('settings.title')} />
       <Pressable style={tw`mt-20`} onPress={goToContactUs}>
         <Card>

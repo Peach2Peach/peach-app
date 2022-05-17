@@ -2,6 +2,7 @@ declare type Settings = {
   skipTutorial?: boolean,
   locale: string,
   amount?: number,
+  displayCurrency: Currency,
   currencies?: Currency[],
   paymentMethods?: PaymentMethod[],
   premium?: number,

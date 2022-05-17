@@ -15,7 +15,7 @@ import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
 
 import LanguageContext from './contexts/language'
-import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './contexts/bitcoin'
+import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
 import AppContext, { getAppContext, setAppContext } from './contexts/app'
 
 import i18n from './utils/i18n'
@@ -38,6 +38,7 @@ import Settings from './views/settings/Settings'
 import Contact from './views/contact/Contact'
 import Report from './views/report/Report'
 import Language from './views/settings/Language'
+import Currency from './views/settings/Currency'
 
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { account } from './utils/account'
@@ -57,6 +58,7 @@ import { compatibilityCheck } from './utils/system'
 import { getOffer } from './utils/offer'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
+import { handlePushNotification } from './utils/navigation'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -80,12 +82,6 @@ type ViewType = {
   showFooter: boolean,
 }
 
-type PushNotificationData = {
-  offerId?: string,
-  contractId?: string,
-  isChat?: string,
-}
-
 const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
   { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
@@ -103,6 +99,7 @@ const views: ViewType[] = [
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'language', component: Language, showHeader: true, showFooter: true },
+  { name: 'currency', component: Currency, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
 ]
@@ -173,6 +170,8 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
+  const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
+
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
@@ -180,8 +179,6 @@ const App: React.FC = () => {
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
-  const bitcoinContext = getBitcoinContext()
-  const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
 
   ErrorUtils.setGlobalHandler((err: Error) => {
@@ -195,7 +192,6 @@ const App: React.FC = () => {
   })
 
   useEffect(showMessageEffect(msg, width, slideInAnim), [msg, time])
-  useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])
 
   useEffect(() => {
     (async () => {
@@ -229,18 +225,7 @@ const App: React.FC = () => {
 
     messaging().onNotificationOpenedApp(remoteMessage => {
       info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
-      const { offerId, contractId, isChat } = remoteMessage.data as PushNotificationData
-
-      if (offerId) {
-        const offer = getOffer(offerId)
-        if (offer) navigationRef.navigate({ name: 'offer', merge: false, params: { offer } })
-      }
-      if (contractId && isChat !== 'true') {
-        navigationRef.navigate({ name: 'contract', merge: false, params: { contractId } })
-      }
-      if (contractId && isChat === 'true') {
-        navigationRef.navigate({ name: 'contractChat', merge: false, params: { contractId } })
-      }
+      if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
     })
 
     return unsubscribe
@@ -256,12 +241,12 @@ const App: React.FC = () => {
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
-          <BitcoinContext.Provider value={bitcoinContext}>
+          <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
             <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
               <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
                 <View style={tw`h-full flex-col`}>
                   {showHeader(currentPage)
-                    ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
+                    ? <Header style={tw`z-10`} />
                     : null
                   }
                   {msg

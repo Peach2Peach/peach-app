@@ -8,5 +8,6 @@ export { PremiumSlider } from './PremiumSlider'
 export { RadioButtons } from './RadioButtons'
 export { Select } from './Select'
 export { Selector } from './Selector'
+export { SelectorBig } from './SelectorBig'
 
 export type { FileData } from './FileInput'
