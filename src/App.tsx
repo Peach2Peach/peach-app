@@ -39,6 +39,7 @@ import Contact from './views/contact/Contact'
 import Report from './views/report/Report'
 import Language from './views/settings/Language'
 import Currency from './views/settings/Currency'
+import Profile from './views/profile/Profile'
 
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { account } from './utils/account'
@@ -97,6 +98,7 @@ const views: ViewType[] = [
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },
+  { name: 'profile', component: Profile, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'language', component: Language, showHeader: true, showFooter: true },
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
@@ -135,7 +137,27 @@ const requestUserPermission = async () => {
  * @description Method to initialize app by retrieving app session and user account
  * @param navigationRef reference to navigation
  */
-const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
+const initApp = async (
+  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
+  updateMessage: React.Dispatch<MessageState>,
+): Promise<void> => {
+  const goHome = () => {
+    if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
+      if (account?.settings?.skipTutorial) {
+        navigationRef.navigate('home', {})
+      } else {
+        navigationRef.navigate('welcome', {})
+      }
+    }
+    requestUserPermission()
+  }
+  const timeout = setTimeout(() => {
+    // go home anyway after 10 seconds
+    goHome()
+    updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
+  }, 15000)
+
+
   events()
   await session()
   fcm()
@@ -155,16 +177,8 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
     await sleep(100)
     waitForNavCounter--
   }
-  setTimeout(() => {
-    if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
-      if (account?.settings?.skipTutorial) {
-        navigationRef.navigate('home', {})
-      } else {
-        navigationRef.navigate('welcome', {})
-      }
-    }
-    requestUserPermission()
-  }, 3000)
+  goHome()
+  clearTimeout(timeout)
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -195,7 +209,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      await initApp(navigationRef)
+      await initApp(navigationRef, updateMessage)
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
       }
@@ -262,7 +276,6 @@ const App: React.FC = () => {
                   <View style={tw`h-full flex-shrink`}>
                     <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
                       <Stack.Navigator detachInactiveScreens={true} screenOptions={{
-                        detachPreviousScreen: true,
                         gestureEnabled: false,
                         headerShown: false,
                         cardStyle: tw`bg-white-1`,

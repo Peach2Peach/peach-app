@@ -32,7 +32,10 @@ declare type RootStackParamList = {
   },
   language: {},
   currency: {},
-  myAccount: {},
+  profile: {
+    userId: User['id'],
+    user: User,
+  },
   backups: {},
   paymentMethods: {},
   deleteAccount: {},

@@ -58,11 +58,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (result.matches.length && !result.contractId) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
-        navigation.navigate('search', { offer })
+        navigation.replace('search', { offer })
       }
       if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
-        navigation.navigate('contract', { contractId: result.contractId })
+        navigation.replace('contract', { contractId: result.contractId })
       }
     },
     onError: err => {
@@ -92,7 +92,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               title={i18n('back')}
               secondary={true}
               wide={false}
-              onPress={() => navigation.navigate('offers', {})}
+              onPress={() => navigation.replace('offers', {})}
             />
           </View>
         </View>

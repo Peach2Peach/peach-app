@@ -55,6 +55,7 @@ export { getStatus, getInfo } from './public/system'
 export { sendReport } from './public/contact'
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
+export { getUser } from './public/user'
 export { auth, getAccessToken, setPGP, setFCMToken, getTradingLimit } from './private/user'
 export {
   getOffers,

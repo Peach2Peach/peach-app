@@ -58,3 +58,5 @@ export const TIMERS: Timers = {
 // Reputation
 export const GOLDMEDAL = 0.9
 export const SILVERMEDAL = 0.7
+
+export const MEDALS = ['fastTrader', 'superTrader']

@@ -15,6 +15,7 @@ import { APPVERSION } from '../../constants'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
 import { useFocusEffect } from '@react-navigation/native'
+import { account } from '../../utils/account'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -50,7 +51,7 @@ export default ({ navigation }: Props): ReactElement => {
   const goToContactUs = () => navigation.navigate('contact', {})
   const goToLanguageSettings = () => navigation.navigate('language', {})
   const goToCurrencySettings = () => navigation.navigate('currency', {})
-  const goToMyAccount = () => navigation.navigate('myAccount', {})
+  const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
   const goToDeleteAccount = () => navigation.navigate('deleteAccount', {})

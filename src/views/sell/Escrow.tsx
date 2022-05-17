@@ -43,7 +43,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     updateOffer(() => offerData)
     saveOffer(offerData)
   }
-  const navigate = () => navigation.navigate('offers', {})
+  const navigate = () => navigation.replace('offers', {})
 
   useEffect(!offer.id ? postOfferEffect({
     offer,

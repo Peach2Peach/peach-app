@@ -121,7 +121,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
           />
         </View>
         <View style={tw`w-full mt-5 flex items-center`}>
-          <Pressable style={tw`absolute left-0`} onPress={() => navigation.navigate('welcome', {})}>
+          <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>
           <Button

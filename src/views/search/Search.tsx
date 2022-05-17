@@ -158,7 +158,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         if (result.contractId) {
           info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
-          navigation.navigate('contract', { contractId: result.contractId })
+          navigation.replace('contract', { contractId: result.contractId })
         }
       }
     } else {
@@ -195,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
-  const navigate = () => navigation.navigate('offers', {})
+  const navigate = () => navigation.replace('offers', {})
 
   const cancelOffer = () => updateOverlay({
     content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
@@ -232,7 +232,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (result.contractId) {
         info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
-        navigation.navigate('contract', { contractId: result.contractId })
+        navigation.replace('contract', { contractId: result.contractId })
       }
 
       setUpdatePending(() => false)
@@ -312,7 +312,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     <View style={tw`h-full flex-shrink flex-col justify-end`}>
       {matches.length
         ? <View style={tw`h-full flex-shrink flex-col justify-end`}>
-          <Matches offer={offer} matches={matches}
+          <Matches offer={offer} matches={matches} navigation={navigation}
             onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
           {offer.type === 'bid'
             ? <View style={tw`flex items-center`}>
@@ -345,7 +345,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button
             title={i18n('goBackHome')}
             wide={false}
-            onPress={() => navigation.navigate('home', {})}
+            onPress={() => navigation.replace('home', {})}
           />
         </View>
       }

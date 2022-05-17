@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
 import tw from '../styles/tailwind'
 
@@ -24,7 +23,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const goToHome = () => {
-    navigation.navigate('home', {})
+    navigation.replace('home', {})
     closeOverlay()
   }
   return <View style={tw`px-6`}>

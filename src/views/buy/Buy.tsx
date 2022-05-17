@@ -165,7 +165,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             updateTradingLimit(tradingLimit)
           }
           saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.navigate('search', { offer: { ...offer, id: result.offerId } })
+          navigation.replace('search', { offer: { ...offer, id: result.offerId } })
           return
         }
 
