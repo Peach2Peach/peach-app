@@ -70,3 +70,6 @@ declare type PeachWallet = {
   wallet: bitcoin.bip32.BIP32Interface,
   mnemonic: string
 }
+
+
+declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other'

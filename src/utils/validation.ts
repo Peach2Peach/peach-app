@@ -71,5 +71,6 @@ export const getMessages = () => ({
     bitcoinAddress: i18n('form.btcAddress.error'),
     iban: i18n('form.invalid.error'),
     account: i18n('form.account.error'),
+    email: i18n('form.email.error')
   }
 })

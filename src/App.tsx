@@ -29,16 +29,20 @@ import SplashScreen from './views/splashScreen/SplashScreen'
 import Welcome from './views/welcome/Welcome'
 import NewUser from './views/newUser/NewUser'
 import Message from './components/Message'
-import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { account } from './utils/account'
 import RestoreBackup from './views/restoreBackup/RestoreBackup'
-import Overlay from './components/Overlay'
-import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
 import Search from './views/search/Search'
 import Contract from './views/contract/Contract'
 import ContractChat from './views/contractChat/ContractChat'
-import { sleep } from './utils/performance'
 import TradeComplete from './views/tradeComplete/TradeComplete'
+import Offer from './views/offers/Offer'
+import Contact from './views/contact/Contact'
+import Report from './views/report/Report'
+
+import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
+import { account } from './utils/account'
+import Overlay from './components/Overlay'
+import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
+import { sleep } from './utils/performance'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
@@ -49,7 +53,6 @@ import pgp from './init/pgp'
 import fcm from './init/fcm'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
-import Offer from './views/offers/Offer'
 import { getOffer } from './utils/offer'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
@@ -98,6 +101,8 @@ const views: ViewType[] = [
   { name: 'offers', component: Offers, showHeader: true, showFooter: true },
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
+  { name: 'contact', component: Contact, showHeader: true, showFooter: true },
+  { name: 'report', component: Report, showHeader: true, showFooter: true },
 ]
 
 /**
