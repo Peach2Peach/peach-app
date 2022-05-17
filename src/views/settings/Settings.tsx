@@ -1,25 +1,20 @@
-/* eslint-disable max-lines-per-function, max-len */
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import {
+  AppState,
   Linking,
   Pressable,
   View
 } from 'react-native'
-import { getUniqueId } from 'react-native-device-info'
 
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Card, Fade, Headline, PeachScrollView, Text, Title } from '../../components'
-import { account, backupAccount, deleteAccount } from '../../utils/account'
-import { API_URL, NETWORK } from '@env'
+import { Card, Headline, PeachScrollView, Text, Title } from '../../components'
 import { APPVERSION } from '../../constants'
-import Clipboard from '@react-native-clipboard/clipboard'
 import i18n from '../../utils/i18n'
-import Icon from '../../components/Icon'
-import { splitAt } from '../../utils/string'
-
+import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
+import { useFocusEffect } from '@react-navigation/native'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -27,16 +22,30 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  const [showCopied, setShowCopied] = useState(false)
 
-  const publicKey = splitAt(account.publicKey, Math.floor(account.publicKey.length / 2) - 1).join('\n')
-  const copy = () => {
-    Clipboard.setString(account.publicKey)
-    setShowCopied(true)
-    setTimeout(() => setShowCopied(false), 500)
-  }
+  const [notificationsOn, setNotificationsOn] = useState(false)
+
+  useEffect(() => {
+    (async () => {
+      setNotificationsOn(await checkNotificationStatus())
+    })()
+  })
+
+  useFocusEffect(useCallback(() => {
+    const checkingFunction = async () => {
+      setNotificationsOn(await checkNotificationStatus())
+    }
+    const eventListener = AppState.addEventListener('change', checkingFunction)
+
+    checkingFunction()
+
+    return () => {
+      eventListener.remove()
+    }
+  }, []))
 
   const goToContactUs = () => navigation.navigate('contact', {})
   const goToLanguageSettings = () => navigation.navigate('language', {})
@@ -48,8 +57,6 @@ export default ({ navigation }: Props): ReactElement => {
   const gotoFees = () => navigation.navigate('fees', {})
   const goToSocials = () => navigation.navigate('socials', {})
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
-
-  const toggleNotifications = () => {} // TODO
 
   return <View style={tw`h-full pb-10`}>
     <PeachScrollView contentContainerStyle={tw`pt-6 px-6`}>
@@ -65,7 +72,12 @@ export default ({ navigation }: Props): ReactElement => {
       </Headline>
       <Pressable style={tw`mt-2`} onPress={toggleNotifications}>
         <Card>
-          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.notifications')}</Text>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>
+            {i18n('settings.notifications')}
+            <Text style={notificationsOn ? tw`text-peach-1 font-bold` : {}}> {i18n('settings.notifications.on')} </Text>
+            /
+            <Text style={notificationsOn ? {} : tw`text-peach-1 font-bold`}> {i18n('settings.notifications.off')}</Text>
+          </Text>
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToLanguageSettings}>
