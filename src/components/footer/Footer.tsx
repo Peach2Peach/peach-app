@@ -39,7 +39,8 @@ const height = 52
 //   height
 // }
 
-const isSettings = /settings|contact|language|currency|backups|paymentMethods|deleteAccount|fees|socials/u
+// eslint-disable-next-line max-len
+const isSettings = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
 
 /**
  * @description Component to display the Footer Item

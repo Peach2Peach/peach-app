@@ -1,11 +1,33 @@
 import padString from './padString'
 
 /**
- * @description Format date as dd/mm/yyy
+ * @description Format date as hh::mm
  * @param date date to format
- * @returns formatted date as dd/mm/yyy
+ * @param [showTime] if true, append time
+ * @returns formatted date as hh:mm
  */
-export const toShortDateFormat = (date: Date) => [
+const toTimeFormat = (date: Date) => [
+  padString({
+    string: String(date.getHours()),
+    char: '0',
+    length: 2,
+    side: 'left'
+  }),
+  padString({
+    string: String(date.getMinutes()),
+    char: '0',
+    length: 2,
+    side: 'left'
+  })
+].join(':')
+
+/**
+ * @description Format date as dd/mm/yyyy (hh:mm)
+ * @param date date to format
+ * @param [showTime] if true, append time
+ * @returns formatted date as dd/mm/yyyy (hh:mm)
+ */
+export const toShortDateFormat = (date: Date, showTime = false) => [
   padString({
     string: String(date.getDate()),
     char: '0',
@@ -19,6 +41,6 @@ export const toShortDateFormat = (date: Date) => [
     side: 'left'
   }),
   date.getFullYear()
-].join('/')
+].join('/') + (showTime ? ' ' + toTimeFormat(date) : '')
 
 export default toShortDateFormat

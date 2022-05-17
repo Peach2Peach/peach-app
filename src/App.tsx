@@ -39,6 +39,8 @@ import Contact from './views/contact/Contact'
 import Report from './views/report/Report'
 import Language from './views/settings/Language'
 import Currency from './views/settings/Currency'
+import Backups from './views/settings/Backups'
+import SeedWords from './views/settings/SeedWords'
 import Profile from './views/profile/Profile'
 
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
@@ -102,6 +104,8 @@ const views: ViewType[] = [
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'language', component: Language, showHeader: true, showFooter: true },
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
+  { name: 'backups', component: Backups, showHeader: true, showFooter: true },
+  { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
 ]

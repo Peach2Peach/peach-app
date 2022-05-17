@@ -10,6 +10,7 @@ declare type Settings = {
   kycType?: KYCType,
   pgpPublished?: boolean,
   fcmTokenPublished?: boolean,
+  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {

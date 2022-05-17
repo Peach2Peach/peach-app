@@ -6,8 +6,9 @@ import { isMobile } from '../system'
 /**
  * @description Method to backup account
  * Will open share dialogue on mobile or automatically download the file on web
+ * @param onSuccess callback function on success
  */
-export const backupAccount = async () => {
+export const backupAccount = async (onSuccess: Function) => {
   info('Backing up account')
   try {
     const result = await Share.open({
@@ -16,6 +17,7 @@ export const backupAccount = async () => {
       subject: 'peach-account.json',
     })
     info(result)
+    onSuccess()
   } catch (e) {
     error(e)
   }

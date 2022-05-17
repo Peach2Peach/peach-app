@@ -37,6 +37,7 @@ declare type RootStackParamList = {
     user: User,
   },
   backups: {},
+  '12Words': {},
   paymentMethods: {},
   deleteAccount: {},
   fees: {},
