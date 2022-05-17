@@ -39,6 +39,8 @@ const height = 52
 //   height
 // }
 
+const isSettings = /settings|contact|language|currency|backups|paymentMethods|deleteAccount|fees|socials/u
+
 /**
  * @description Component to display the Footer Item
  * @param props Component properties
@@ -129,7 +131,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
               onPress={navigate.offers}
               notifications={notifications}
             />
-            <FooterItem id="settings" active={active === 'settings'} onPress={navigate.settings} />
+            <FooterItem id="settings" active={isSettings.test(active as string)} onPress={navigate.settings} />
           </View>
         </Shadow>
       </View>
