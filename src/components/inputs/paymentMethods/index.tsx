@@ -34,7 +34,8 @@ const PaymentMethodView = ({ data }: PaymentMethodViewProps) => {
 interface PaymentMethodsProps {
   paymentData: PaymentData[],
   currencies: Currency[],
-  onChange?: (PaymentData: PaymentData[]) => void
+  onChange?: (PaymentData: PaymentData[]) => void,
+  showCheckBoxes: boolean
 }
 
 /**
@@ -42,11 +43,17 @@ interface PaymentMethodsProps {
  * @param props Component properties
  * @param props.paymentData array of saved payment methods
  * @param props.currencies array of selected currencies
+ * @param props.showCheckBoxes if true, show checkboxes for selection
  * @param [props.onChange] on change handler
  * @example
  */
 // eslint-disable-next-line max-lines-per-function
-export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMethodsProps): ReactElement => {
+export const PaymentMethods = ({
+  paymentData,
+  currencies,
+  onChange,
+  showCheckBoxes
+}: PaymentMethodsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [showAddNew, setShowAddNew] = useState(false)
@@ -92,9 +99,22 @@ export const PaymentMethods = ({ paymentData, currencies, onChange }: PaymentMet
   return <View>
     {paymentData.length
       ? <View style={tw`w-full flex-row mt-2`}>
-        <View style={tw`w-full flex-shrink`}>
-          <Checkboxes items={checkboxItems} selectedValues={selectedMoPs} onChange={onMoPSelect}/>
-        </View>
+        {showCheckBoxes
+          ? <View style={tw`w-full flex-shrink`}>
+            <Checkboxes items={checkboxItems} selectedValues={selectedMoPs} onChange={onMoPSelect}/>
+          </View>
+          : <View style={tw`w-full flex-shrink`}>
+            {checkboxItems.map((item, index) => <View
+              key={item.value}
+              style={[
+                tw`bg-white-1 flex-row items-center p-3 px-4 h-12 border border-grey-4 rounded`,
+                index > 0 ? tw`mt-2` : {}
+              ]}>
+              {item.display}
+            </View>
+            )}
+          </View>
+        }
         <View style={tw`ml-2 flex-shrink-0 mt-1`}>
           {paymentData
             .filter(data => paymentMethodAllowedForCurrencies(data.type, currencies))

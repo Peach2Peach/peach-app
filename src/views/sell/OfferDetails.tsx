@@ -11,7 +11,7 @@ import Currencies from '../../components/inputs/Currencies'
 import KYC from './components/KYC'
 import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
-import { Title } from '../../components'
+import { Headline, Title } from '../../components'
 import { debounce } from '../../utils/performance'
 
 type UpdateOfferProps = {
@@ -64,6 +64,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('sell.title')} />
     <Currencies title={i18n('sell.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
+    <Headline style={tw`mt-16 text-grey-1`}>
+      {i18n('sell.paymentMethods')}
+    </Headline>
     <PaymentMethodSelection setPaymentData={setPaymentData} currencies={currencies} />
     <Premium
       premium={premium}
