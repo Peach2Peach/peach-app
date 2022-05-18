@@ -4,7 +4,7 @@ import fetch from '../../fetch'
 
 type SendReportProps = {
   email: string,
-  reason: ContactReason,
+  reason: string,
   topic: string,
   message: string,
 }

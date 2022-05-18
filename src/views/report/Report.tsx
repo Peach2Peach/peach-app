@@ -63,7 +63,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
     if (!isFormValid()) return
 
-    const [result, err] = await sendReport({ email, reason, topic, message })
+    const [result, err] = await sendReport({
+      email,
+      reason: i18n(`contact.reason.${reason}`),
+      topic,
+      message
+    })
     if (result) {
       updateOverlay({
         content: <ReportSuccess navigation={navigation} />,
