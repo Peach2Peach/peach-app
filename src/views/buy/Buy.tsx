@@ -84,7 +84,6 @@ const screens = [
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer())
@@ -166,7 +165,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             updateTradingLimit(tradingLimit)
           }
           saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.navigate('search', { offer: { ...offer, id: result.offerId } })
+          navigation.replace('search', { offer: { ...offer, id: result.offerId } })
           return
         }
 

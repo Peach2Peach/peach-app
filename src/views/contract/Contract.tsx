@@ -96,7 +96,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!contract || !view || contract.canceled) return
 
       if (isTradeComplete(contract)) {
-        navigation.navigate('tradeComplete', { contract })
+        navigation.replace('tradeComplete', { contract })
         return
       }
 

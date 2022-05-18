@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import i18n from '../../utils/i18n'
 import LanguageContext from '../../contexts/language'
 import { Headline, PeachScrollView, Text } from '../../components'
-import BitcoinContext, { getBitcoinContext } from '../../contexts/bitcoin'
+import BitcoinContext from '../../contexts/bitcoin'
 import { thousands } from '../../utils/string'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'home'>
@@ -20,9 +20,7 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
-
-  const { currency, price, satsPerUnit } = getBitcoinContext()
+  const [{ currency, price, satsPerUnit }] = useContext(BitcoinContext)
 
   return <PeachScrollView>
     <View style={tw`pt-12 pb-32 flex-col justify-center items-center h-full px-6`}>

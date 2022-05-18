@@ -26,4 +26,20 @@ declare type RootStackParamList = {
     offer: SellOffer|BuyOffer,
   },
   settings: {},
+  contact: {},
+  report: {
+    reason: ContactReason,
+  },
+  language: {},
+  currency: {},
+  profile: {
+    userId: User['id'],
+    user?: User,
+  },
+  backups: {},
+  seedWords: {},
+  paymentMethods: {},
+  deleteAccount: {},
+  fees: {},
+  socials: {},
 }

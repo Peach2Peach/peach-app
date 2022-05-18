@@ -5,12 +5,16 @@ import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
+import { StackNavigationProp } from '@react-navigation/stack'
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
 type MatchProps = ComponentProps & {
   matches: Match[],
   offer: BuyOffer|SellOffer,
   onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
   toggleMatch: (match: Match) => void,
+  navigation: ProfileScreenNavigationProp,
 }
 
 type SliderArrowProps = {
@@ -39,7 +43,7 @@ const getMatchPaymentMethod = (match: Match) => match.selectedPaymentMethod || m
  * @example
  * <Matches matches={matches} />
  */
-export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchProps): ReactElement => {
+export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, style }: MatchProps): ReactElement => {
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -72,6 +76,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, style }: MatchP
       renderItem={({ item, index }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
         style={tw`-mx-4 px-4 py-4 bg-transparent`}>
         <Match match={item} offer={offer} toggleMatch={toggleMatch} onChange={onChange}
+          navigation={navigation}
           renderShadow={shouldRenderShadow(currentIndex, index)} />
       </View>}
     />

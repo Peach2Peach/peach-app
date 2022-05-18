@@ -24,6 +24,9 @@ export const parseResponse = async <T>(
     if (!response.status) {
       return [null, { error: 'NETWORK_ERROR' }]
     }
+    if (response.status === 500) {
+      return [null, { error: 'INTERNAL_SERVER_ERROR' }]
+    }
 
     const data = await response.json()
 
@@ -52,8 +55,10 @@ export const parseResponse = async <T>(
 }
 
 export { getStatus, getInfo } from './public/system'
+export { sendReport } from './public/contact'
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
+export { getUser } from './public/user'
 export { auth, getAccessToken, setPGP, setFCMToken, getTradingLimit } from './private/user'
 export {
   getOffers,

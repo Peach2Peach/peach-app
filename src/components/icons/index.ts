@@ -12,6 +12,7 @@ import cross from './cross.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
+import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
 import help from './help.svg'
@@ -48,6 +49,7 @@ const Icons: Icons = {
   dropdownClosed,
   dropdownOpen,
   file,
+  fire,
   fundEscrow,
   heart,
   help,

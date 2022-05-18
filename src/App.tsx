@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated, LogBox } from 'react-native'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
+import { Dimensions, SafeAreaView, View, Animated } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
@@ -15,30 +15,18 @@ import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
 
 import LanguageContext from './contexts/language'
-import BitcoinContext, { getBitcoinContext, bitcoinContextEffect } from './contexts/bitcoin'
+import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
 import AppContext, { getAppContext, setAppContext } from './contexts/app'
 
 import i18n from './utils/i18n'
 import { AvoidKeyboard, Footer, Header } from './components'
-// import Home from './views/home/Home'
-import Buy from './views/buy/Buy'
-import Sell from './views/sell/Sell'
-import Offers from './views/offers/Offers'
-import Settings from './views/settings/Settings'
-import SplashScreen from './views/splashScreen/SplashScreen'
-import Welcome from './views/welcome/Welcome'
-import NewUser from './views/newUser/NewUser'
 import Message from './components/Message'
+
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { account } from './utils/account'
-import RestoreBackup from './views/restoreBackup/RestoreBackup'
 import Overlay from './components/Overlay'
 import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
-import Search from './views/search/Search'
-import Contract from './views/contract/Contract'
-import ContractChat from './views/contractChat/ContractChat'
 import { sleep } from './utils/performance'
-import TradeComplete from './views/tradeComplete/TradeComplete'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
@@ -49,56 +37,15 @@ import pgp from './init/pgp'
 import fcm from './init/fcm'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
-import Offer from './views/offers/Offer'
-import { getOffer } from './utils/offer'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
-
-// TODO check if these messages have a fix
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-  // eslint-disable-next-line max-len
-  '[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!',
-  /ViewPropTypes will be removed from React Native./u,
-  /RCTBridge required dispatch_sync/u,
-  /Can't perform a React state update on an unmounted component/u,
-  /Require cycle/u,
-])
+import { handlePushNotification } from './utils/navigation'
+import views from './views'
 
 enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-type ViewType = {
-  name: keyof RootStackParamList,
-  component: (props: any) => ReactElement,
-  showHeader: boolean,
-  showFooter: boolean,
-}
-
-type PushNotificationData = {
-  offerId?: string,
-  contractId?: string,
-  isChat?: string,
-}
-
-const views: ViewType[] = [
-  { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
-  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
-  // { name: 'home', component: Home, showHeader: false, showFooter: true },
-  { name: 'home', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-  { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  { name: 'search', component: Search, showHeader: true, showFooter: true },
-  { name: 'contract', component: Contract, showHeader: true, showFooter: true },
-  { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
-  { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'offers', component: Offers, showHeader: true, showFooter: true },
-  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
-  { name: 'settings', component: Settings, showHeader: true, showFooter: true },
-]
 
 /**
  * @description Method to determine weather header should be shown
@@ -131,7 +78,27 @@ const requestUserPermission = async () => {
  * @description Method to initialize app by retrieving app session and user account
  * @param navigationRef reference to navigation
  */
-const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>): Promise<void> => {
+const initApp = async (
+  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
+  updateMessage: React.Dispatch<MessageState>,
+): Promise<void> => {
+  const goHome = () => {
+    if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
+      if (account?.settings?.skipTutorial) {
+        navigationRef.navigate('home', {})
+      } else {
+        navigationRef.navigate('welcome', {})
+      }
+    }
+    requestUserPermission()
+  }
+  const timeout = setTimeout(() => {
+    // go home anyway after 10 seconds
+    goHome()
+    updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
+  }, 15000)
+
+
   events()
   await session()
   fcm()
@@ -151,21 +118,15 @@ const initApp = async (navigationRef: NavigationContainerRefWithCurrent<RootStac
     await sleep(100)
     waitForNavCounter--
   }
-  setTimeout(() => {
-    if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
-      if (account?.settings?.skipTutorial) {
-        navigationRef.navigate('home', {})
-      } else {
-        navigationRef.navigate('welcome', {})
-      }
-    }
-    requestUserPermission()
-  }, 3000)
+  goHome()
+  clearTimeout(timeout)
 }
 
 // eslint-disable-next-line max-lines-per-function
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
+  const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
+
   const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
@@ -173,8 +134,6 @@ const App: React.FC = () => {
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
-  const bitcoinContext = getBitcoinContext()
-  const [, setBitcoinContext] = useState(getBitcoinContext())
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
 
   ErrorUtils.setGlobalHandler((err: Error) => {
@@ -188,11 +147,10 @@ const App: React.FC = () => {
   })
 
   useEffect(showMessageEffect(msg, width, slideInAnim), [msg, time])
-  useEffect(bitcoinContextEffect(bitcoinContext, setBitcoinContext), [bitcoinContext.currency])
 
   useEffect(() => {
     (async () => {
-      await initApp(navigationRef)
+      await initApp(navigationRef, updateMessage)
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
       }
@@ -222,18 +180,7 @@ const App: React.FC = () => {
 
     messaging().onNotificationOpenedApp(remoteMessage => {
       info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
-      const { offerId, contractId, isChat } = remoteMessage.data as PushNotificationData
-
-      if (offerId) {
-        const offer = getOffer(offerId)
-        if (offer) navigationRef.navigate({ name: 'offer', merge: false, params: { offer } })
-      }
-      if (contractId && isChat !== 'true') {
-        navigationRef.navigate({ name: 'contract', merge: false, params: { contractId } })
-      }
-      if (contractId && isChat === 'true') {
-        navigationRef.navigate({ name: 'contractChat', merge: false, params: { contractId } })
-      }
+      if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
     })
 
     return unsubscribe
@@ -249,12 +196,12 @@ const App: React.FC = () => {
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
-          <BitcoinContext.Provider value={bitcoinContext}>
+          <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
             <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
               <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
                 <View style={tw`h-full flex-col`}>
                   {showHeader(currentPage)
-                    ? <Header bitcoinContext={bitcoinContext} style={tw`z-10`} />
+                    ? <Header style={tw`z-10`} />
                     : null
                   }
                   {msg
@@ -270,7 +217,6 @@ const App: React.FC = () => {
                   <View style={tw`h-full flex-shrink`}>
                     <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
                       <Stack.Navigator detachInactiveScreens={true} screenOptions={{
-                        detachPreviousScreen: true,
                         gestureEnabled: false,
                         headerShown: false,
                         cardStyle: tw`bg-white-1`,

@@ -19,7 +19,7 @@ export const updateTradingLimit = async (tradingLimit: TradingLimit, save?: bool
     yearly: tradingLimit.yearly || Infinity,
     yearlyAmount: tradingLimit.yearlyAmount || 0,
   }
-  if (save && session.password) await saveAccount(account, session.password)
+  if (save && session.password && account.publicKey) await saveAccount(account, session.password)
 }
 
 /**

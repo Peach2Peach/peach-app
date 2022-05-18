@@ -47,7 +47,7 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
       [ratedUser]: true
     })
 
-    navigation.navigate('home', {})
+    navigation.replace('home', {})
   }
   return <View style={style}>
     <Card style={tw`p-4`}>

@@ -37,6 +37,11 @@ declare type User = {
   ratingCount: number,
   peachRating: number,
   medals: Medal[],
+  disputes: {
+    opened: number,
+    won: number,
+    lost: number,
+  },
   pgpPublicKey: string
   pgpPublicKeyProof: string
 }

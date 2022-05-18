@@ -1,6 +1,6 @@
 
 import React, { ReactElement, useContext, useState } from 'react'
-import { Image, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
@@ -8,18 +8,21 @@ import i18n from '../../utils/i18n'
 import { mildShadow, mildShadowOrange, dropShadowRed, noShadow } from '../../utils/layout'
 import LanguageContext from '../../contexts/language'
 import { Selector } from '../inputs'
-import { padString, thousands } from '../../utils/string'
-import Medal from '../medal'
+import { padString } from '../../utils/string'
+import { Rating, ExtraMedals } from '../user'
 import { unique } from '../../utils/array'
 import Icon from '../Icon'
-import { ExtraMedals } from './components/ExtraMedals'
-import { GOLDMEDAL, SATSINBTC, SILVERMEDAL } from '../../constants'
+import { interpolate } from '../../utils/math'
+import { StackNavigationProp } from '@react-navigation/stack'
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
 type MatchProps = ComponentProps & {
   match: Match,
   offer: BuyOffer|SellOffer,
   toggleMatch: (match: Match) => void,
   onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
+  navigation: ProfileScreenNavigationProp,
   renderShadow?: boolean
 }
 
@@ -30,7 +33,15 @@ type MatchProps = ComponentProps & {
  * <Match match={match} />
  */
 // eslint-disable-next-line max-lines-per-function
-export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style }: MatchProps): ReactElement => {
+export const Match = ({
+  match,
+  offer,
+  toggleMatch,
+  onChange,
+  navigation,
+  renderShadow,
+  style
+}: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
   const [selectedCurrency, setSelectedCurrency] = useState(
@@ -46,14 +57,7 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
       : mildShadow
     : noShadow
 
-  const medal = match.user.rating > GOLDMEDAL
-    ? 'gold'
-    : match.user.rating > SILVERMEDAL
-      ? 'silver'
-      : null
-
-  const matchPrice = match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency] as number
-  const price = (matchPrice) / (offer.amount / SATSINBTC)
+  const userRating = Math.round(interpolate(match.user.rating, [-1, 1], [0, 5]) * 10) / 10
   let displayPrice = String(match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency])
   displayPrice = `${(displayPrice).split('.')[0]}.${padString({
     string: (displayPrice).split('.')[1],
@@ -95,23 +99,24 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
         : null
       }
       <View style={tw`px-5 pt-5 pb-8`}>
-        <View style={tw`w-full flex-row justify-between items-center`}>
+        <Pressable onPress={() => navigation.navigate('profile', { userId: match.user.id, user: match.user })}
+          style={tw`w-full flex-row justify-between items-center`}>
           <View style={tw`px-6`}>
             <Text style={tw`text-lg`}>
-              <Image source={require('../../../assets/favico/peach-logo.png')}
-                style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
-              />
-              {match.user.id.substring(0, 8)}
+              <Text style={tw`font-bold`}>
+                {i18n(offer.type === 'ask' ? 'buyer' : 'seller')}:
+              </Text>
+              <Text> {match.user.id.substring(0, 8)}</Text>
             </Text>
+            <View style={tw`flex-row`}>
+              <Rating rating={match.user.rating} style={tw`h-4`}/>
+              <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 text-grey-2`}>{userRating} / 5</Text>
+            </View>
+          </View>
+          <View style={tw`px-6`}>
             <ExtraMedals user={match.user} />
           </View>
-          {medal
-            ? <View style={tw`px-6`}>
-              <Medal id={medal} style={tw`w-16 h-12`}/>
-            </View>
-            : null
-          }
-        </View>
+        </Pressable>
         <HorizontalLine style={[tw`mt-3`, tw.md`mt-4`]}/>
         <View style={[tw`mt-3`, tw.md`mt-4`]}>
           <Text style={tw`font-baloo text-xl leading-xl text-peach-1 text-center`}>
@@ -121,10 +126,10 @@ export const Match = ({ match, offer, toggleMatch, onChange, renderShadow, style
             )}
           </Text>
           <Text style={tw`text-lg leading-lg text-center ml-2`}>
-            {i18n(
-              'pricePerBitcoin',
-              i18n(`currency.format.${selectedCurrency}`, thousands(Math.round(price)))
-            )}
+            ({i18n(
+              match.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount',
+              String(Math.abs(match.premium))
+            )})
           </Text>
         </View>
         <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>

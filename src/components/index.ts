@@ -20,6 +20,7 @@ export {
   RadioButtons,
   Select,
   Selector,
+  SelectorBig,
 } from './inputs'
 
 export { Match, Matches } from './matches'

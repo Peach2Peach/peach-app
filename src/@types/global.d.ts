@@ -53,7 +53,7 @@ declare type OverlayState = {
   content: ReactNode,
   showCloseButton: boolean,
 }
-declare type BitcoinContextType = {
+declare type BitcoinState = {
   currency: Currency,
   price: number,
   satsPerUnit: number,
@@ -70,3 +70,6 @@ declare type PeachWallet = {
   wallet: bitcoin.bip32.BIP32Interface,
   mnemonic: string
 }
+
+
+declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other'

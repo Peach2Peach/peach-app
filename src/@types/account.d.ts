@@ -1,6 +1,8 @@
 declare type Settings = {
   skipTutorial?: boolean,
+  locale: string,
   amount?: number,
+  displayCurrency: Currency,
   currencies?: Currency[],
   paymentMethods?: PaymentMethod[],
   premium?: number,
@@ -8,6 +10,7 @@ declare type Settings = {
   kycType?: KYCType,
   pgpPublished?: boolean,
   fcmTokenPublished?: boolean,
+  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {

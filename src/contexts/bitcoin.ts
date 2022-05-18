@@ -1,15 +1,20 @@
-import { createContext } from 'react'
+import { createContext, Dispatch, ReducerState } from 'react'
 import { SATSINBTC } from '../constants'
-import { marketPrices } from '../utils/peachAPI/public/market'
 
-export let bitcoinContext: BitcoinContextType = {
-  currency: 'EUR',
-  price: NaN,
-  satsPerUnit: NaN,
-  prices: {}
-}
+let currency: Currency = 'EUR'
+let price = NaN
+let satsPerUnit = NaN
+let prices: Pricebook = {}
 
-export const getBitcoinContext = (): BitcoinContextType => bitcoinContext
+export const setDisplayCurrencyQuiet = (c: Currency) => currency = c
+export const getBitcoinContext = (): BitcoinState => ({
+  currency,
+  price,
+  satsPerUnit,
+  prices,
+})
+
+const dispatch: Dispatch<Partial<BitcoinState>> = () => {}
 
 /**
  * @description Context for bitcoin
@@ -17,55 +22,30 @@ export const getBitcoinContext = (): BitcoinContextType => bitcoinContext
  * import BitcoinContext from './components/contexts/bitcoin'
  *
  * export default (): ReactElement =>
- *   const { locale } = useContext(BitcoinContext)
+ *   const [{ currency }] = useContext(BitcoinContext)
  *   return <Text>
  *     {locale}
  *   </Text>
  * }
  */
-export const BitcoinContext = createContext(bitcoinContext)
-
-
-export const updateBitcoinContext = async (currency: Currency): Promise<BitcoinContextType> => {
-  let price = bitcoinContext.price
-  let satsPerUnit = bitcoinContext.satsPerUnit
-
-  const [prices, error] = await marketPrices()
-
-  if (!prices || error?.error) {
-    return bitcoinContext
-  }
+export const setBitcoinContext = (state: ReducerState<any>, newState: Partial<BitcoinState>): BitcoinState => {
+  if (newState.prices) prices = newState.prices
+  if (newState.currency) currency = newState.currency
 
   price = prices[currency] || price
   satsPerUnit = Math.round(SATSINBTC / price)
-  // eslint-disable-next-line require-atomic-updates
-  bitcoinContext = {
+
+  return {
     currency,
     price,
     satsPerUnit,
     prices,
   }
-
-  return bitcoinContext
 }
 
-export const bitcoinContextEffect = (
-  context: BitcoinContextType,
-  setBitcoinContext: React.Dispatch<React.SetStateAction<BitcoinContextType>>
-) => () => {
-  let interval: NodeJS.Timer
-
-  const checkingFunction = async () => {
-    // TODO add error handling in case data is not available
-    setBitcoinContext(await updateBitcoinContext(context.currency))
-  }
-  (async () => {
-    interval = setInterval(checkingFunction, 30 * 1000)
-    checkingFunction()
-  })()
-  return () => {
-    clearInterval(interval)
-  }
-}
+export const BitcoinContext = createContext([
+  getBitcoinContext(),
+  dispatch
+] as const)
 
 export default BitcoinContext

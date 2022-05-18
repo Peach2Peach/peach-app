@@ -16,6 +16,7 @@ type InputProps = ComponentProps & {
   value?: string,
   label?: string,
   icon?: string,
+  multiline?: boolean
   autoCorrect?: boolean
   disabled?: boolean
   isValid?: boolean,
@@ -35,6 +36,7 @@ type InputProps = ComponentProps & {
  * @param [props.value] current value
  * @param [props.label] input label
  * @param [props.icon] icon id
+ * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
@@ -59,6 +61,7 @@ type InputProps = ComponentProps & {
 export const Input = ({
   value,
   label, hint, icon,
+  multiline = false,
   autoCorrect = false,
   disabled = false,
   isValid,
@@ -91,11 +94,13 @@ export const Input = ({
           style={[
             tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
             tw.md`h-10`,
+            multiline ? tw`h-full pt-2` : {},
             label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
           ]}
           placeholder={label} placeholderTextColor={tw`text-grey-2`.color as string}
           value={value}
           editable={!disabled} autoCorrect={autoCorrect}
+          multiline={multiline}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing} onEndEditing={onEndEditing}
           blurOnSubmit={false}
