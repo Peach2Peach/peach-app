@@ -1,24 +1,16 @@
-import React, { ReactElement, useContext, useReducer, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Card, Headline, Icon, Text, Title } from '../../components'
+import { Button, Card, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { account, backupAccount, updateSettings } from '../../utils/account'
 import { OverlayContext } from '../../contexts/overlay'
 import { toShortDateFormat } from '../../utils/string'
-
-const BackupCreated = () => <View style={tw`flex items-center`}>
-  <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-    {i18n('settings.backups.created')}
-  </Headline>
-  <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-    <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
-  </View>
-</View>
+import { BackupCreated } from '../../overlays/BackupCreated'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
 
@@ -31,21 +23,28 @@ export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const initAccountBackup = () => {
-    backupAccount(() => {
-      updateSettings({
-        lastBackupDate: (new Date()).getTime()
-      })
-      updateOverlay({
-        content: <BackupCreated />,
-        showCloseButton: false
-      })
-      setTimeout(() => {
-        updateOverlay({
-          content: null,
-          showCloseButton: true
-        })
-      }, 3000)
+    const previousDate = account.settings.lastBackupDate
+    updateSettings({
+      lastBackupDate: (new Date()).getTime()
     })
+    backupAccount({
+      onSuccess: () => {
+        updateOverlay({
+          content: <BackupCreated />,
+          showCloseButton: false
+        })
+        setTimeout(() => {
+          updateOverlay({
+            content: null,
+            showCloseButton: true
+          })
+        }, 3000)
+      },
+      onError: () => {
+        updateSettings({
+          lastBackupDate: previousDate
+        })
+      }})
   }
 
   const goTo12Words = () => navigation.navigate('seedWords', {})

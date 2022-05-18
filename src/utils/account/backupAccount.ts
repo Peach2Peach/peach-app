@@ -3,12 +3,18 @@ import Share from '../fileSystem/Share'
 import { error, info } from '../log'
 import { isMobile } from '../system'
 
+type BackupAccountProps = {
+  onSuccess: Function,
+  onError: Function,
+}
+
 /**
  * @description Method to backup account
  * Will open share dialogue on mobile or automatically download the file on web
  * @param onSuccess callback function on success
+ * @param onError callback function on error
  */
-export const backupAccount = async (onSuccess: Function) => {
+export const backupAccount = async ({ onSuccess, onError }: BackupAccountProps) => {
   info('Backing up account')
   try {
     const result = await Share.open({
@@ -20,5 +26,6 @@ export const backupAccount = async (onSuccess: Function) => {
     onSuccess()
   } catch (e) {
     error(e)
+    onError()
   }
 }

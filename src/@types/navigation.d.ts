@@ -34,7 +34,7 @@ declare type RootStackParamList = {
   currency: {},
   profile: {
     userId: User['id'],
-    user: User,
+    user?: User,
   },
   backups: {},
   seedWords: {},

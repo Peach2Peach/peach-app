@@ -91,7 +91,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { userId } = route.params
   const [updatePending, setUpdatePending] = useState(!route.params.user)
   const [showCopied, setShowCopied] = useState(false)
-  const [user, setUser] = useState<User>(route.params.user)
+  const [user, setUser] = useState<User|undefined>(route.params.user)
   const isMyAccount = account.publicKey === userId
   const publicKey = splitAt(userId, Math.floor(userId.length / 2) - 1).join('\n')
   const now = new Date()

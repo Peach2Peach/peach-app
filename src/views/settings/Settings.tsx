@@ -16,6 +16,8 @@ import i18n from '../../utils/i18n'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
 import { useFocusEffect } from '@react-navigation/native'
 import { account } from '../../utils/account'
+import { OverlayContext } from '../../contexts/overlay'
+import { DeleteAccount } from '../../overlays/DeleteAccount'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -26,6 +28,7 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)
 
@@ -54,7 +57,12 @@ export default ({ navigation }: Props): ReactElement => {
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
-  const goToDeleteAccount = () => navigation.navigate('deleteAccount', {})
+  const deleteAccount = () => {
+    updateOverlay({
+      content: <DeleteAccount navigate={() => navigation.replace('welcome', {})}/>,
+      showCloseButton: false
+    })
+  }
   const gotoFees = () => navigation.navigate('fees', {})
   const goToSocials = () => navigation.navigate('socials', {})
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
@@ -110,7 +118,7 @@ export default ({ navigation }: Props): ReactElement => {
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.paymentMethods')}</Text>
         </Card>
       </Pressable>
-      <Pressable style={tw`mt-2`} onPress={goToDeleteAccount}>
+      <Pressable style={tw`mt-2`} onPress={deleteAccount}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.deleteAccount')}</Text>
         </Card>

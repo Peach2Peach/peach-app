@@ -19,7 +19,7 @@ export default async () => {
     [tradingLimit, tradingLimitErr],
   ] = await Promise.all([
     getInfo(),
-    account ? getTradingLimit() : [defaultAccount.tradingLimit, null]
+    account?.publicKey ? getTradingLimit() : [defaultAccount.tradingLimit, null]
   ])
 
   let peachInfo = peachInfoResponse
