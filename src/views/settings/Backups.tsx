@@ -44,7 +44,8 @@ export default ({ navigation }: Props): ReactElement => {
         updateSettings({
           lastBackupDate: previousDate
         })
-      }})
+      }
+    })
   }
 
   const goTo12Words = () => navigation.navigate('seedWords', {})

@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated, LogBox } from 'react-native'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
+import { Dimensions, SafeAreaView, View, Animated } from 'react-native'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
@@ -20,31 +20,7 @@ import AppContext, { getAppContext, setAppContext } from './contexts/app'
 
 import i18n from './utils/i18n'
 import { AvoidKeyboard, Footer, Header } from './components'
-// import Home from './views/home/Home'
-import Buy from './views/buy/Buy'
-import Sell from './views/sell/Sell'
-import Offers from './views/offers/Offers'
-import SplashScreen from './views/splashScreen/SplashScreen'
-import Welcome from './views/welcome/Welcome'
-import NewUser from './views/newUser/NewUser'
 import Message from './components/Message'
-import RestoreBackup from './views/restoreBackup/RestoreBackup'
-import Search from './views/search/Search'
-import Contract from './views/contract/Contract'
-import ContractChat from './views/contractChat/ContractChat'
-import TradeComplete from './views/tradeComplete/TradeComplete'
-import Offer from './views/offers/Offer'
-import Settings from './views/settings/Settings'
-import Contact from './views/contact/Contact'
-import Report from './views/report/Report'
-import Language from './views/settings/Language'
-import Currency from './views/settings/Currency'
-import Backups from './views/settings/Backups'
-import SeedWords from './views/settings/SeedWords'
-import PaymentMethods from './views/settings/PaymentMethods'
-import Fees from './views/settings/Fees'
-import Socials from './views/settings/Socials'
-import Profile from './views/profile/Profile'
 
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { account } from './utils/account'
@@ -61,60 +37,15 @@ import pgp from './init/pgp'
 import fcm from './init/fcm'
 import { APPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
-import { getOffer } from './utils/offer'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
 import { handlePushNotification } from './utils/navigation'
-
-// TODO check if these messages have a fix
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-  // eslint-disable-next-line max-len
-  '[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!',
-  /ViewPropTypes will be removed from React Native./u,
-  /RCTBridge required dispatch_sync/u,
-  /Can't perform a React state update on an unmounted component/u,
-  /Require cycle/u,
-])
+import views from './views'
 
 enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-type ViewType = {
-  name: keyof RootStackParamList,
-  component: (props: any) => ReactElement,
-  showHeader: boolean,
-  showFooter: boolean,
-}
-
-const views: ViewType[] = [
-  { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
-  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
-  // { name: 'home', component: Home, showHeader: false, showFooter: true },
-  { name: 'home', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-  { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  { name: 'search', component: Search, showHeader: true, showFooter: true },
-  { name: 'contract', component: Contract, showHeader: true, showFooter: true },
-  { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
-  { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'offers', component: Offers, showHeader: true, showFooter: true },
-  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
-  { name: 'profile', component: Profile, showHeader: true, showFooter: true },
-  { name: 'settings', component: Settings, showHeader: true, showFooter: true },
-  { name: 'language', component: Language, showHeader: true, showFooter: true },
-  { name: 'currency', component: Currency, showHeader: true, showFooter: true },
-  { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
-  { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-  { name: 'fees', component: Fees, showHeader: true, showFooter: true },
-  { name: 'socials', component: Socials, showHeader: true, showFooter: true },
-  { name: 'contact', component: Contact, showHeader: true, showFooter: true },
-  { name: 'report', component: Report, showHeader: true, showFooter: true },
-]
 
 /**
  * @description Method to determine weather header should be shown

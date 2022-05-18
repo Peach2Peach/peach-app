@@ -1,6 +1,5 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import {
-  AppState,
   Linking,
   Pressable,
   View
@@ -10,14 +9,8 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Card, Headline, Icon, PeachScrollView, Text, Title } from '../../components'
-import { APPVERSION } from '../../constants'
+import { Button, Card, Icon, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
-import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
-import { useFocusEffect } from '@react-navigation/native'
-import { account } from '../../utils/account'
-import { OverlayContext } from '../../contexts/overlay'
-import { DeleteAccount } from '../../overlays/DeleteAccount'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
 
@@ -25,31 +18,8 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  const [notificationsOn, setNotificationsOn] = useState(false)
-
-  useEffect(() => {
-    (async () => {
-      setNotificationsOn(await checkNotificationStatus())
-    })()
-  })
-
-  useFocusEffect(useCallback(() => {
-    const checkingFunction = async () => {
-      setNotificationsOn(await checkNotificationStatus())
-    }
-    const eventListener = AppState.addEventListener('change', checkingFunction)
-
-    checkingFunction()
-
-    return () => {
-      eventListener.remove()
-    }
-  }, []))
 
   const goToTwitter = () => Linking.openURL('https://twitter.com/peachBTC')
   const goToInstagram = () => Linking.openURL('https://www.instagram.com/')
