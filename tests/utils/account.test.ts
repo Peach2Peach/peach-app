@@ -153,7 +153,7 @@ describe('backupAccount', () => {
 
   it('opens share dialog', async () => {
     const openSpy = jest.spyOn(Share, 'open')
-    await backupAccount()
+    await backupAccount({ onSuccess: () => {}, onError: () => {} })
     expect(openSpy).toBeCalled()
   })
 })

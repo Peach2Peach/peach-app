@@ -28,7 +28,7 @@ export default ({ navigation }: Props): ReactElement => {
         style={tw`mb-3`}
         onPress={() => setLocale({ locale: lcl })}
         wide={true}
-        grey={true}
+        grey={locale !== lcl}
       />)}
     </View>
     <View style={tw`flex items-center mt-16`}>
