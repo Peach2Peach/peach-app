@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1A77FFE7B5114FE9B932E079 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CC714957D934E2DB340F792 /* Lato-Regular.ttf */; };
 		40009D2A5A35DC3C72532C6E /* libPods-peach.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD954848B14C5B14201D5990 /* libPods-peach.a */; };
+		6728B3ED28352D4A00939769 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6728B3EB28352D4A00939769 /* Localizable.strings */; };
 		675514872812BA4E00A17B6C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
 		67D471762829472A00C2911E /* B612Mono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67D471752829472A00C2911E /* B612Mono-Regular.ttf */; };
@@ -46,6 +47,7 @@
 		451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		5AAA790E5C044C2AD05ED413 /* Pods-peach.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach.debug.xcconfig"; path = "Target Support Files/Pods-peach/Pods-peach.debug.xcconfig"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
+		6728B3EC28352D4A00939769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		675514812812AA1D00A17B6C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = peach/main.jsbundle; sourceTree = "<group>"; };
 		675514832812B60700A17B6C /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		675514862812BA4E00A17B6C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		6099E5A24FA44EE9A47A52D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				67E19EB42835220500717E17 /* Base.lproj */,
 				9D72151F0E904B9CADC58DCE /* B612 Mono Regular.ttf */,
 				B827F156BC264B3CB39698AF /* Lato Bold.ttf */,
 				21389F9D59A1419E86A97DF9 /* Lato Regular.ttf */,
@@ -140,6 +143,14 @@
 				6CC714957D934E2DB340F792 /* Lato-Regular.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		67E19EB42835220500717E17 /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				6728B3EB28352D4A00939769 /* Localizable.strings */,
+			);
+			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -290,6 +301,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				675514872812BA4E00A17B6C /* assets in Resources */,
+				6728B3ED28352D4A00939769 /* Localizable.strings in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
 				F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */,
 				CFBAABEB18364DC2B43C488B /* Lato-Bold.ttf in Resources */,
@@ -501,6 +513,17 @@
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6728B3EB28352D4A00939769 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6728B3EC28352D4A00939769 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
