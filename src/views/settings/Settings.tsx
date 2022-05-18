@@ -10,7 +10,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Card, Headline, PeachScrollView, Text, Title } from '../../components'
+import { Card, Headline, Icon, PeachScrollView, Text, Title } from '../../components'
 import { APPVERSION } from '../../constants'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
@@ -138,8 +138,9 @@ export default ({ navigation }: Props): ReactElement => {
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToWebsite}>
-        <Card>
+        <Card style={tw`flex-row items-center justify-center`}>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.website')}</Text>
+          <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color as string} />
         </Card>
       </Pressable>
 

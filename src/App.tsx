@@ -43,6 +43,7 @@ import Backups from './views/settings/Backups'
 import SeedWords from './views/settings/SeedWords'
 import PaymentMethods from './views/settings/PaymentMethods'
 import Fees from './views/settings/Fees'
+import Socials from './views/settings/Socials'
 import Profile from './views/profile/Profile'
 
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
@@ -110,6 +111,7 @@ const views: ViewType[] = [
   { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
   { name: 'fees', component: Fees, showHeader: true, showFooter: true },
+  { name: 'socials', component: Socials, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
 ]
