@@ -5,7 +5,7 @@ export const buyOffer: BuyOffer = {
   online: true,
   type: 'bid',
   currencies: ['EUR', 'CHF'],
-  paymentMethods: ['iban'],
+  paymentMethods: ['sepa'],
   kyc: false,
   amount: 250000,
   matches: [],
@@ -23,8 +23,8 @@ export const sellOffer: SellOffer = {
   currencies: ['EUR'],
   paymentData: [
     {
-      id: 'iban',
-      type: 'iban',
+      id: 'sepa',
+      type: 'sepa',
       selected: true
     }
   ],
@@ -32,7 +32,7 @@ export const sellOffer: SellOffer = {
     status: 'NULL',
     amount: 0,
   },
-  paymentMethods: ['iban'],
+  paymentMethods: ['sepa'],
   kyc: false,
   amount: 250000,
   premium: 1.5,
@@ -49,7 +49,7 @@ export const buyOfferUnpublished: BuyOffer = {
   type: 'bid',
   online: false,
   currencies: ['EUR', 'CHF'],
-  paymentMethods: ['iban'],
+  paymentMethods: ['sepa'],
   kyc: false,
   amount: 250000,
   matches: [],
@@ -90,7 +90,7 @@ export const account1: Account = {
     amount: 1000000,
     displayCurrency: 'EUR',
     currencies: ['EUR', 'CHF'],
-    paymentMethods: ['iban'],
+    paymentMethods: ['sepa'],
     kyc: false
   },
   paymentData: [],

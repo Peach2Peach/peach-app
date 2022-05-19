@@ -37,7 +37,6 @@ export const MenuItem = ({
         tw.md`h-10`,
       ]}>
       <Text>{text}</Text>
-      <Icon id="triangleRight" style={tw`w-6 h-6`} />
     </Pressable>
   </Shadow>
 

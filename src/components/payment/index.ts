@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import DetailIBAN from './detail/iban'
+import DetailSEPA from './detail/sepa'
 import DetailPaypal from './detail/paypal'
 import DetailGiftCard from './detail/giftCard'
 import DetailRevolut from './detail/revolut'
@@ -12,7 +12,7 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  'iban': DetailIBAN,
+  'sepa': DetailSEPA,
   'paypal': DetailPaypal,
   // 'giftCard': DetailGiftCard,
   // 'revolut': DetailRevolut,

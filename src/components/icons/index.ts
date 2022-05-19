@@ -26,10 +26,14 @@ import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
+import next from './next.svg'
+import prev from './prev.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
-import triangleRight from './triangleRight.svg'
 import triangleUp from './triangleUp.svg'
+import triangleDown from './triangleDown.svg'
+import triangleLeft from './triangleLeft.svg'
+import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
 
 type Icons = {
@@ -63,10 +67,14 @@ const Icons: Icons = {
   sell,
   send,
   settings,
+  next,
+  prev,
   sliderNext,
   sliderPrev,
-  triangleRight,
   triangleUp,
+  triangleDown,
+  triangleLeft,
+  triangleRight,
   undo,
 }
 

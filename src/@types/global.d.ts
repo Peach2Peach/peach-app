@@ -26,6 +26,23 @@ declare type PaymentData = {
   selected?: boolean,
 }
 
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency' 
+declare type PaymentCategories = {
+  [key in PaymentCategory]: PaymentMethod[]
+}
+
+declare type HashedPaymentData = string
+
+declare type MappedPaymentMethods = {
+  [p in PaymentMethod]: {
+    selected: boolean,
+    paymentData: PaymentData['id']|HashedPaymentData
+  }
+}
+declare type MeansOfPayment = {
+  [c in Currency]: MappedPaymentMethods
+}
+
 declare type Message = {
   roomId: string,
   from: User['id'],

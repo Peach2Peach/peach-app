@@ -10,7 +10,7 @@ import Icon from '../../Icon'
 import { Headline } from '../../text'
 import { HorizontalLine } from '../../ui'
 
-export const DetailIBAN = ({ paymentData }: PaymentTemplateProps): ReactElement => {
+export const DetailSEPA = ({ paymentData }: PaymentTemplateProps): ReactElement => {
   const [showCopiedIBAN, setShowCopiedIBAN] = useState(false)
   const [showCopiedBeneficiary, setShowCopiedBeneficiary] = useState(false)
 
@@ -53,4 +53,4 @@ export const DetailIBAN = ({ paymentData }: PaymentTemplateProps): ReactElement 
     <Text style={tw`text-center text-grey-2`}>{paymentData.beneficiary}</Text>
   </View>
 }
-export default DetailIBAN
+export default DetailSEPA

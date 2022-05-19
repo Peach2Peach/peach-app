@@ -105,7 +105,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (decryptErr) error(decryptErr)
 
-      paymentData = offer.paymentData?.find(data =>
+      paymentData = account.paymentData?.find(data =>
         data.type === match.paymentMethods[0]
       ) as Omit<PaymentData, 'id' | 'type'>
 

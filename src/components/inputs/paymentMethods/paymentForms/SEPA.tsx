@@ -11,7 +11,7 @@ import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const IBAN: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => {
+export const SEPA: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
@@ -36,8 +36,8 @@ export const IBAN: PaymentMethodForm = ({ style, data, onSubmit, onCancel }) => 
     })
     if (!isFormValid()) return
     if (onSubmit) onSubmit({
-      id: `iban-${iban.replace(/\s/gu, '')}-${new Date().getTime()}`,
-      type: 'iban',
+      id: `sepa-${iban.replace(/\s/gu, '')}-${new Date().getTime()}`,
+      type: 'sepa',
       iban,
       beneficiary,
     })

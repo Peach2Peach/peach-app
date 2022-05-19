@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { IBAN } from './IBAN'
+import { SEPA } from './SEPA'
 import { PayPal } from './PayPal'
 import { GiftCard } from './GiftCard'
 import { Revolut } from './Revolut'
@@ -16,7 +16,7 @@ export type PaymentMethodForms = {
   [key in PaymentMethod]?: PaymentMethodForm
 }
 export const PaymentMethodForms: PaymentMethodForms = {
-  iban: IBAN,
+  sepa: SEPA,
   paypal: PayPal,
   // giftCard: GiftCard,
   // revolut: Revolut,

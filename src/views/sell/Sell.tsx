@@ -59,9 +59,8 @@ const getDefaultSellOffer = (): SellOffer => ({
   type: 'ask',
   creationDate: new Date(),
   premium: account.settings.premium || 1.5,
-  currencies: account.settings.currencies || [],
-  paymentData: account.paymentData || [],
-  paymentMethods: [],
+  meansOfPayment: account.settings.meansOfPayment || {},
+  paymentData: account.paymentData || [], // TODO remove this and use account.paymentData
   amount: account.settings.amount || BUCKETS[0],
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
