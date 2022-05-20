@@ -7,8 +7,7 @@ type PostOfferProps = {
   type: OfferType,
   amount: number,
   premium?: number,
-  currencies: Currency[],
-  paymentMethods: PaymentMethod[],
+  meansOfPayment: MeansOfPayment,
   kyc: boolean,
   returnAddress?: string,
   releaseAddress?: string
@@ -19,8 +18,7 @@ type PostOfferProps = {
  * @param type ask or bid
  * @param amount Amount in sats (250k 500k 1M 2M 5M)
  * @param premium Premium in % (default: 0)
- * @param currencies Post offer of specific currency
- * @param paymentMethods Post offer for specific payment methods
+ * @param meansOfPayment mapping of currency and payment methods
  * @param kyc If true, require KYC
  * @param returnAddress Bitcoin address to return funds to in case of cancellation
  * @returns PostOfferResponse
@@ -29,8 +27,7 @@ export const postOffer = async ({
   type,
   amount,
   premium = 0,
-  currencies,
-  paymentMethods,
+  meansOfPayment,
   kyc,
   returnAddress,
   releaseAddress
@@ -46,8 +43,7 @@ export const postOffer = async ({
       type,
       amount,
       premium,
-      currencies,
-      paymentMethods,
+      meansOfPayment,
       kyc,
       returnAddress,
       releaseAddress

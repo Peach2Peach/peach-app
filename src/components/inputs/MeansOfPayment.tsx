@@ -1,45 +1,23 @@
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
-import { CURRENCIES, LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
+import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import tw from '../../styles/tailwind'
-import { intersect } from '../../utils/array'
 import i18n from '../../utils/i18n'
-import { paymentMethodAllowedForCurrency } from '../../utils/validation'
+import {
+  getApplicablePaymentCategories,
+  getLocalMoPCountry,
+  hasLocalPaymentMethods,
+  isLocalPaymentMethod,
+  paymentMethodAllowedForCurrency,
+  paymentMethodSelected
+} from '../../utils/paymentMethod'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 const onStartShouldSetResponder = () => true
-
-const isLocalPaymentMethod = (paymentMethod: PaymentMethod) => LOCALPAYMENTMETHODS
-  .map(tuple => tuple[0])
-  .indexOf(paymentMethod) !== -1
-
-const getLocalMoPCountry = (paymentMethod: PaymentMethod): string => {
-  const localMoP = LOCALPAYMENTMETHODS.find(tuple => tuple[0] === paymentMethod)
-  return localMoP ? localMoP[1] : ''
-}
-
-
-const hasApplicablePaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean =>
-  PAYMENTCATEGORIES[paymentCategory].filter(paymentMethod =>
-    paymentMethodAllowedForCurrency(paymentMethod, currency)
-  ).length > 0
-
-const getApplicablePaymentCategories = (currency: Currency): PaymentCategory[] =>
-  (Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
-    .filter(category => hasApplicablePaymentMethods(category, currency))
-
-const hasLocalPaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean =>
-  intersect(LOCALPAYMENTMETHODS.map(tuple => tuple[0]), PAYMENTCATEGORIES[paymentCategory])
-    .filter(paymentMethod => paymentMethodAllowedForCurrency(paymentMethod, currency)).length > 0
-
-const paymentMethodSelected = (paymentMethod: PaymentMethod, mappedPaymentMethods: MappedPaymentMethods) =>
-  mappedPaymentMethods
-  && mappedPaymentMethods[paymentMethod]
-  && mappedPaymentMethods[paymentMethod].selected
 
 type ItemProps = ComponentProps & {
   label: string,
@@ -83,9 +61,7 @@ const Currencies = ({
   {CURRENCIES.map((c, i) => <View key={c} style={i > 0 ? tw`ml-2` : {}}>
     <Item
       label={c} isSelected={c === selected}
-      isComplete={meansOfPayment[c]
-        && (Object.keys(meansOfPayment[c]) as PaymentMethod[]).some(p => meansOfPayment[c][p].selected)
-      }
+      isComplete={meansOfPayment[c] && meansOfPayment[c].length > 0}
       onPress={() => onChange(c)}
       style={tw`w-16`}
     />
@@ -101,6 +77,65 @@ const Currencies = ({
   )}
 </View>
 
+type PaymentMethodsProps = {
+  meansOfPayment: MeansOfPayment,
+  paymentCategory: PaymentCategory,
+  currency: Currency,
+  onChange: (currency: Currency, paymentMethod: PaymentMethod) => void,
+}
+const PaymentMethods = ({ meansOfPayment, paymentCategory, currency, onChange }: PaymentMethodsProps): ReactElement => {
+  const [showLocalOptions, setShowLocalOptions] = useState(false)
+  const toggleShowLocalOptions = () => setShowLocalOptions(show => !show)
+
+  useEffect(() => {
+    setShowLocalOptions(false)
+  }, [paymentCategory, currency])
+
+  console.log(paymentCategory, PAYMENTCATEGORIES[paymentCategory])
+  return <View>
+    <View style={tw`flex-row flex-wrap justify-center`}>
+      {PAYMENTCATEGORIES[paymentCategory]
+        .filter((paymentMethod: PaymentMethod) => paymentMethodAllowedForCurrency(paymentMethod, currency))
+        .filter((paymentMethod: PaymentMethod) => showLocalOptions
+          ? isLocalPaymentMethod(paymentMethod)
+          : !isLocalPaymentMethod(paymentMethod)
+        )
+        .map((paymentMethod: PaymentMethod) => <View key={paymentMethod} style={tw`mt-3 mr-2`}>
+          {showLocalOptions
+            ? <Text style={tw`text-sm text-grey-2 text-center`}>
+              {i18n(`country.${getLocalMoPCountry(paymentMethod)}`)}
+            </Text>
+            : null
+          }
+          <Item
+            label={i18n(`paymentMethod.${paymentMethod}`)}
+            isSelected={paymentMethodSelected(paymentMethod, meansOfPayment[currency])}
+            onPress={() => onChange(currency, paymentMethod)}
+          />
+        </View>
+        )}
+    </View>
+    {hasLocalPaymentMethods(paymentCategory, currency)
+      ? <Pressable onPress={toggleShowLocalOptions} style={tw`flex-row justify-center mt-4`}>
+        <Card style={tw`flex-row items-center py-1 px-3`}>
+          {showLocalOptions
+            ? <Icon id="triangleLeft" style={tw`w-2 h-2 mr-3 -mt-0.5`} color={tw`text-peach-1`.color as string} />
+            : null
+          }
+          <Text style={tw`font-baloo text-sm`}>
+            {i18n(showLocalOptions ? 'paymentCategory.globalOptions' : 'paymentCategory.localOptions')}
+          </Text>
+          {!showLocalOptions
+            ? <Icon id="triangleRight" style={tw`w-2 h-2 ml-3 -mt-0.5`} color={tw`text-peach-1`.color as string} />
+            : null
+          }
+        </Card>
+      </Pressable>
+      : null
+    }
+  </View>
+}
+
 type MeansOfPaymentProps = {
   meansOfPayment: MeansOfPayment,
   setMeansOfPayment: React.Dispatch<React.SetStateAction<MeansOfPayment>>
@@ -113,26 +148,31 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
   const [applicablePaymentCategories, setApplicablePaymentCategories] = useState(
     getApplicablePaymentCategories(selectedCurrency)
   )
+  const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>(
+    applicablePaymentCategories[0]
+  )
 
-  const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>('bankTransfer')
-  const [showLocalOptions, setShowLocalOptions] = useState(false)
   const $carousel = useRef<Carousel<any>>(null)
 
-  const changeCurrency = (currency: Currency) => {
-    setSelectedCurrency(currency)
-    setShowLocalOptions(false)
-    setApplicablePaymentCategories(getApplicablePaymentCategories(currency))
-    $carousel.current?.snapToItem(0)
-  }
+  useEffect(() => {
+    setApplicablePaymentCategories(getApplicablePaymentCategories(selectedCurrency))
+    setTimeout(() => $carousel.current?.snapToItem(0))
+  }, [selectedCurrency])
+
+  useEffect(() => {
+    setSelectedPaymentCategory(applicablePaymentCategories[0])
+    setTimeout(() => $carousel.current?.snapToItem(0))
+  }, [applicablePaymentCategories])
+
 
   const togglePaymentMethod = (currency: Currency, paymentMethod: PaymentMethod) => {
     setMeansOfPayment(mops => {
-      mops[currency] = {
-        ...(mops[currency] || {}),
-        [paymentMethod]: {
-          selected: !paymentMethodSelected(paymentMethod, mops[currency]),
-          paymentData: null
-        }
+      if (!mops[currency]) mops[currency] = []
+
+      if (mops[currency].indexOf(paymentMethod) !== -1) {
+        mops[currency] = mops[currency].filter(p => p !== paymentMethod)
+      } else {
+        mops[currency].push(paymentMethod)
       }
 
       return mops
@@ -144,14 +184,12 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
   const next = () => $carousel.current?.snapToNext()
   const onBeforeSnapToItem = (index: number) => {
     setSelectedPaymentCategory(applicablePaymentCategories[index])
-    setShowLocalOptions(false)
   }
-  const toggleShowLocalOptions = () => setShowLocalOptions(show => !show)
 
   return <View style={tw`px-7`}>
-    <Currencies onChange={(c) => changeCurrency(c)} selected={selectedCurrency} meansOfPayment={meansOfPayment} />
+    <Currencies onChange={(c) => setSelectedCurrency(c)} selected={selectedCurrency} meansOfPayment={meansOfPayment} />
     <View style={tw`flex-row justify-center items-center mt-8`}>
-      <Pressable onPress={prev}>
+      <Pressable onPress={prev} style={applicablePaymentCategories.length === 1 ? tw`opacity-50` : {}}>
         <Icon id="prev" style={tw`w-3 h-3`} />
       </Pressable>
       <View>
@@ -175,51 +213,17 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
           </View>}
         />
       </View>
-      <Pressable onPress={next}>
+      <Pressable onPress={next} style={applicablePaymentCategories.length === 1 ? tw`opacity-50` : {}}>
         <Icon id="next" style={tw`w-3 h-3`} />
       </Pressable>
     </View>
     <HorizontalLine style={tw`mt-3`} />
-    <View style={tw`flex-row flex-wrap justify-center`}>
-      {PAYMENTCATEGORIES[selectedPaymentCategory]
-        .filter((paymentMethod: PaymentMethod) => paymentMethodAllowedForCurrency(paymentMethod, selectedCurrency))
-        .filter((paymentMethod: PaymentMethod) => showLocalOptions
-          ? isLocalPaymentMethod(paymentMethod)
-          : !isLocalPaymentMethod(paymentMethod)
-        )
-        .map((paymentMethod: PaymentMethod) => <View key={paymentMethod} style={tw`mt-3 mr-2`}>
-          {showLocalOptions
-            ? <Text style={tw`text-sm text-grey-2 text-center`}>
-              {i18n(`country.${getLocalMoPCountry(paymentMethod)}`)}
-            </Text>
-            : null
-          }
-          <Item
-            label={i18n(`paymentMethod.${paymentMethod}`)}
-            isSelected={paymentMethodSelected(paymentMethod, meansOfPayment[selectedCurrency])}
-            onPress={() => togglePaymentMethod(selectedCurrency, paymentMethod)}
-          />
-        </View>
-        )}
-    </View>
-    {hasLocalPaymentMethods(selectedPaymentCategory, selectedCurrency)
-      ? <Pressable onPress={toggleShowLocalOptions} style={tw`flex-row justify-center mt-4`}>
-        <Card style={tw`flex-row items-center py-1 px-3`}>
-          {showLocalOptions
-            ? <Icon id="triangleLeft" style={tw`w-2 h-2 mr-3 -mt-0.5`} color={tw`text-peach-1`.color as string} />
-            : null
-          }
-          <Text style={tw`font-baloo text-sm`}>
-            {i18n(showLocalOptions ? 'paymentCategory.globalOptions' : 'paymentCategory.localOptions')}
-          </Text>
-          {!showLocalOptions
-            ? <Icon id="triangleRight" style={tw`w-2 h-2 ml-3 -mt-0.5`} color={tw`text-peach-1`.color as string} />
-            : null
-          }
-        </Card>
-      </Pressable>
-      : null
-    }
+    <PaymentMethods
+      meansOfPayment={meansOfPayment}
+      paymentCategory={selectedPaymentCategory}
+      currency={selectedCurrency}
+      onChange={(currency, paymentMethod) => togglePaymentMethod(currency, paymentMethod)}
+    />
 
     {/* <View style={tw`flex-row flex-wrap`}>
       {PAYMENTCATEGORIES[selectedPaymentCategory]

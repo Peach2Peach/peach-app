@@ -10,7 +10,13 @@ export const defaultAccount: Account = {
     appVersion: APPVERSION,
     displayCurrency: 'EUR',
     locale: 'en',
-    meansOfPayment: {},
+    meansOfPayment: {
+      EUR: [],
+      CHF: [],
+      GBP: [],
+      USD: [],
+      SEK: [],
+    },
   },
   paymentData: [],
   tradingLimit: {

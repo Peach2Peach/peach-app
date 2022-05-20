@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { cos } from 'react-native-reanimated'
 import { Checkboxes, Headline, Text } from '../../../components'
 import { PAYMENTMETHODS } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { paymentMethodAllowedForCurrencies } from '../../../utils/validation'
+import { paymentMethodAllowedForCurrencies } from '../../../utils/paymentMethod'
 
 type PaymentMethodSelectionProps = {
   paymentMethods: PaymentMethod[],

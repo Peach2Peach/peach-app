@@ -33,15 +33,7 @@ declare type PaymentCategories = {
 
 declare type HashedPaymentData = string
 
-declare type MappedPaymentMethods = {
-  [p in PaymentMethod]: {
-    selected: boolean,
-    paymentData: PaymentData['id']|HashedPaymentData
-  }
-}
-declare type MeansOfPayment = {
-  [c in Currency]: MappedPaymentMethods
-}
+declare type MeansOfPayment = Record<Currency, PaymentMethod[]>
 
 declare type Message = {
   roomId: string,

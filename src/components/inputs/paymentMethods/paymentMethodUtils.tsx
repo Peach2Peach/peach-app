@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/validation'
+import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/paymentMethod'
 import { Text } from '../../text'
 
 export const getCheckboxItems = (paymentData: PaymentData[], currencies: Currency[]) => paymentData

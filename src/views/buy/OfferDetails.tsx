@@ -7,11 +7,7 @@ import { BuyViewProps } from './Buy'
 import { updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
-import Currencies from '../../components/inputs/Currencies'
-import PaymentMethodSelection from './components/PaymentMethodSelection'
 import { Headline, Title } from '../../components'
-import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
-import BitcoinContext from '../../contexts/bitcoin'
 import { MeansOfPayment } from '../../components/inputs'
 
 const validate = (offer: BuyOffer) =>
@@ -20,14 +16,9 @@ const validate = (offer: BuyOffer) =>
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
-  const [{ currency }] = useContext(BitcoinContext)
-
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(offer.meansOfPayment)
   const [kyc, setKYC] = useState(offer.kyc)
 
-  // useEffect(() => {
-  //   setPaymentMethods(paymentMethods.filter(method => paymentMethodAllowedForCurrencies(method, currencies)))
-  // }, [currencies])
 
   useEffect(() => {
     updateOffer({

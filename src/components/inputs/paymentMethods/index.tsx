@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { Button, Text } from '../..'
+import { Button } from '../..'
 import i18n from '../../../utils/i18n'
 import { Checkboxes } from '..'
 
@@ -12,7 +12,7 @@ import AddPaymentMethod from './AddPaymentMethod'
 import { PaymentMethodForms } from './paymentForms'
 import { Headline } from '../../text'
 import { getCheckboxItems } from './paymentMethodUtils'
-import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/validation'
+import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/paymentMethod'
 
 type PaymentMethodViewProps = {
   data: PaymentData
