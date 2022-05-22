@@ -6,8 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import { Button, Title } from '../../components'
 import i18n from '../../utils/i18n'
-import { CURRENCIES } from '../../constants'
-import PaymentMethodSelection from './components/PaymentMethodSelection'
+import { PaymentMethods } from '../../components/inputs'
 
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
@@ -19,11 +18,10 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   const [update, setUpdate] = useState(0)
   const dummy = () => setUpdate(Math.random())
-
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
     <Title title={i18n('settings.title')} subtitle={i18n('settings.paymentMethods.subtitle')} />
     <View style={tw`h-full flex-shrink mt-12`}>
-      <PaymentMethodSelection setPaymentData={dummy} currencies={CURRENCIES} showCheckBoxes={false} />
+      <PaymentMethods onChange={dummy} />
     </View>
     <View style={tw`flex items-center mt-16`}>
       <Button

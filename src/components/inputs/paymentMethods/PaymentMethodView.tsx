@@ -6,7 +6,11 @@ import i18n from '../../../utils/i18n'
 import { OverlayContext } from '../../../contexts/overlay'
 import { PaymentMethodForms } from './paymentForms'
 import { Headline } from '../../text'
-import { PaymentMethodViewProps } from '.'
+
+export type PaymentMethodViewProps = {
+  data: PaymentData,
+  onSubmit?: (data?: PaymentData) => void,
+}
 
 export const PaymentMethodView = ({ data, onSubmit }: PaymentMethodViewProps) => {
   const [, updateOverlay] = useContext(OverlayContext)

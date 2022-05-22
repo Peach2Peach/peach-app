@@ -1,5 +1,4 @@
 import { account, saveAccount } from '.'
-import { paymentMethodNotYetSelected } from '../paymentMethod'
 import { session } from '../session'
 import { updateSettings } from './updateSettings'
 
@@ -17,7 +16,6 @@ export const addPaymentData = async (data: PaymentData) => {
     })
   }
 
-  data.selected = paymentMethodNotYetSelected(data, account.paymentData)
   account.paymentData.push(data)
 
   if (session.password) await saveAccount(account, session.password)
