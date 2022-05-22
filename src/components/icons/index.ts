@@ -1,4 +1,5 @@
 import { SvgProps } from 'react-native-svg'
+import add from './add.svg'
 import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
@@ -40,6 +41,7 @@ type Icons = {
   [key: string]: React.FC<SvgProps>
 }
 const Icons: Icons = {
+  add,
   arrowLeft,
   buy,
   camera,

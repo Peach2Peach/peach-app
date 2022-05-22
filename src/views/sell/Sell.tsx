@@ -16,18 +16,17 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 import Escrow from './Escrow'
 
-import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
+import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { error } from '../../utils/log'
-import { Loading, Navigation, PeachScrollView, Text } from '../../components'
+import { Loading, Navigation, PeachScrollView } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
@@ -60,7 +59,7 @@ const getDefaultSellOffer = (): SellOffer => ({
   creationDate: new Date(),
   premium: account.settings.premium || 1.5,
   meansOfPayment: account.settings.meansOfPayment || {},
-  paymentData: account.paymentData || [], // TODO remove this and use account.paymentData
+  paymentData: {},
   amount: account.settings.amount || BUCKETS[0],
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',

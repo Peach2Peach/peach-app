@@ -174,7 +174,7 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
         mops[currency]?.push(paymentMethod)
       }
 
-      return mops
+      return { ...mops }
     })
     setUpdate(Math.random())
   }

@@ -10,13 +10,14 @@ import { Headline } from '../../text'
 import { PaymentMethodForms } from './paymentForms'
 
 type AddPaymentMethodProps = {
+  method?: PaymentMethod,
   onSubmit: (data: PaymentData) => void
 }
 
-export const AddPaymentMethod = ({ onSubmit }: AddPaymentMethodProps) => {
+export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|null>(null)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|null>(method)
   const PaymentMethodForm = paymentMethod ? PaymentMethodForms[paymentMethod] : null
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
@@ -49,7 +50,7 @@ export const AddPaymentMethod = ({ onSubmit }: AddPaymentMethodProps) => {
         ? <PaymentMethodForm style={tw`h-full flex-shrink flex-col justify-between`}
           view="new"
           onSubmit={onSubmit}
-          onCancel={() => setPaymentMethod(null)}
+          onCancel={() => method ? closeOverlay() : setPaymentMethod(null)}
         />
         : <View style={tw`w-full flex items-center`}>
           <Button

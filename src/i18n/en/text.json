@@ -193,6 +193,7 @@
   "form.premium.underMarketPrice": "under market price",
   "form.paymentMethod.select": "Select your payment method",
   "form.paymentMethod.details": "Enter your details",
+  "form.paymentMethod.addDetails": "Add $0 details",
   "form.paymentMethod.add": "Add method",
   "form.paymentMethod.update": "Update method",
   "form.paymentMethod.remove": "Remove payment method",

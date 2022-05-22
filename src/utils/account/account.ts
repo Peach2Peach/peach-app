@@ -10,13 +10,8 @@ export const defaultAccount: Account = {
     appVersion: APPVERSION,
     displayCurrency: 'EUR',
     locale: 'en',
-    meansOfPayment: {
-      EUR: [],
-      CHF: [],
-      GBP: [],
-      USD: [],
-      SEK: [],
-    },
+    meansOfPayment: {},
+    preferredPaymentMethods: {}
   },
   paymentData: [],
   tradingLimit: {
@@ -47,6 +42,10 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   account = overwrite ? acc : {
     ...defaultAccount,
     ...acc,
+    settings: {
+      ...defaultAccount.settings,
+      ...acc.settings,
+    },
     tradingLimit: defaultAccount.tradingLimit,
   }
 

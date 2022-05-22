@@ -8,7 +8,7 @@ import { intersect, unique } from './array'
  */
 export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod[] =>
   Object.keys(meansOfPayment)
-    .reduce((arr, c: Currency) => arr.concat(meansOfPayment[c]), [] as PaymentMethod[])
+    .reduce((arr, c) => arr.concat((meansOfPayment as Required<MeansOfPayment>)[c as Currency]), [] as PaymentMethod[])
     .filter(unique())
 
 /**

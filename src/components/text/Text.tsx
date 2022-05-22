@@ -24,7 +24,7 @@ export const PeachText = ({ style, children, numberOfLines, ellipsizeMode }: Tex
   <Text
     style={[
       tw`font-lato text-base text-grey-1`,
-      tw.md`text-lg`,
+      tw.md`text-lg leading-5`,
       style
     ]}
     allowFontScaling={false}

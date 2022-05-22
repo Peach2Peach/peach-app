@@ -29,7 +29,6 @@ export const rules = {
     return valid
   },
   duplicate (existingValue: any) {
-    console.log(existingValue)
     return !existingValue
   },
   password (_: boolean, value: string) {

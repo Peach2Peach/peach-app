@@ -1,12 +1,22 @@
 import { account, saveAccount } from '.'
 import { paymentMethodNotYetSelected } from '../paymentMethod'
 import { session } from '../session'
+import { updateSettings } from './updateSettings'
 
 /**
  * @description Method to add account payment data
  * @param paymentData settings to add
  */
 export const addPaymentData = async (data: PaymentData) => {
+  if (!account.settings.preferredPaymentMethods[data.type]) {
+    updateSettings({
+      preferredPaymentMethods: {
+        ...account.settings.preferredPaymentMethods,
+        [data.type]: data.id
+      }
+    })
+  }
+
   data.selected = paymentMethodNotYetSelected(data, account.paymentData)
   account.paymentData.push(data)
 

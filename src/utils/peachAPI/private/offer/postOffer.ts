@@ -8,6 +8,7 @@ type PostOfferProps = {
   amount: number,
   premium?: number,
   meansOfPayment: MeansOfPayment,
+  paymentData?: SellOffer['paymentData'],
   kyc: boolean,
   returnAddress?: string,
   releaseAddress?: string
@@ -28,6 +29,7 @@ export const postOffer = async ({
   amount,
   premium = 0,
   meansOfPayment,
+  paymentData,
   kyc,
   returnAddress,
   releaseAddress
@@ -44,6 +46,7 @@ export const postOffer = async ({
       amount,
       premium,
       meansOfPayment,
+      paymentData,
       kyc,
       returnAddress,
       releaseAddress

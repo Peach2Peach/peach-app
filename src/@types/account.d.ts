@@ -5,7 +5,7 @@ declare type Settings = {
   amount?: number,
   displayCurrency: Currency,
   meansOfPayment: MeansOfPayment,
-  paymentMethods?: [],
+  preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>,
   premium?: number,
   kyc?: boolean,
   kycType?: KYCType,
