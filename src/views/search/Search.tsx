@@ -26,6 +26,7 @@ import { account } from '../../utils/account'
 import { getRandom, sha256 } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
+import { getPaymentMethods } from '../../utils/paymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -106,7 +107,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (decryptErr) error(decryptErr)
 
       paymentData = account.paymentData?.find(data =>
-        data.type === match.paymentMethods[0]
+        data.type === getPaymentMethods(match.meansOfPayment).shift()
       ) as Omit<PaymentData, 'id' | 'type'>
 
       if (!paymentData) { // TODO show payment Data form again
@@ -298,7 +299,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
               {i18n('currency.SATS')}
             </Text>
-            <Text style={tw`text-grey-2 text-center -mt-1`}>
+            <Text style={tw`text-grey-2 text-center`}>
               {i18n(
                 offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount',
                 String(Math.abs(offer.premium))

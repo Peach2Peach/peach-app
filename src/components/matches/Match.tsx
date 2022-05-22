@@ -14,6 +14,7 @@ import { unique } from '../../utils/array'
 import Icon from '../Icon'
 import { interpolate } from '../../utils/math'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { getPaymentMethods } from '../../utils/paymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -45,10 +46,10 @@ export const Match = ({
   useContext(LanguageContext)
 
   const [selectedCurrency, setSelectedCurrency] = useState(
-    match.selectedCurrency || Object.keys(match.prices)[0] as Currency
+    match.selectedCurrency || Object.keys(match.meansOfPayment)[0] as Currency
   )
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
-    match.selectedPaymentMethod || match.paymentMethods[0]
+    match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment)[0]
   )
 
   const shadow = renderShadow
@@ -101,21 +102,19 @@ export const Match = ({
       <View style={tw`px-5 pt-5 pb-8`}>
         <Pressable onPress={() => navigation.navigate('profile', { userId: match.user.id, user: match.user })}
           style={tw`w-full flex-row justify-between items-center`}>
-          <View style={tw`px-6`}>
-            <Text style={tw`text-lg`}>
-              <Text style={tw`font-bold`}>
+          <View>
+            <Text style={tw`text-base`}>
+              <Text style={tw`font-bold text-base`}>
                 {i18n(offer.type === 'ask' ? 'buyer' : 'seller')}:
               </Text>
-              <Text> {match.user.id.substring(0, 8)}</Text>
+              <Text style={tw`text-base`}> Peach{match.user.id.substring(0, 8)}</Text>
             </Text>
-            <View style={tw`flex-row`}>
+            <View style={tw`flex-row items-center`}>
               <Rating rating={match.user.rating} style={tw`h-4`}/>
-              <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 text-grey-2`}>{userRating} / 5</Text>
+              <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 mt-2 text-grey-2`}>{userRating} / 5</Text>
             </View>
           </View>
-          <View style={tw`px-6`}>
-            <ExtraMedals user={match.user} />
-          </View>
+          <ExtraMedals user={match.user} />
         </Pressable>
         <HorizontalLine style={[tw`mt-3`, tw.md`mt-4`]}/>
         <View style={[tw`mt-3`, tw.md`mt-4`]}>
@@ -125,7 +124,7 @@ export const Match = ({
               displayPrice
             )}
           </Text>
-          <Text style={tw`text-lg leading-lg text-center ml-2`}>
+          <Text style={tw`text-lg leading-lg text-center text-grey-2 ml-2`}>
             ({i18n(
               match.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount',
               String(Math.abs(match.premium))
@@ -133,7 +132,7 @@ export const Match = ({
           </Text>
         </View>
         <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>
-        <Headline style={[tw`mt-3`, tw.md`mt-4 lowercase text-grey-1`]}>
+        <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
           {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
         </Headline>
         <Selector
@@ -143,13 +142,13 @@ export const Match = ({
           onChange={c => setCurrency(c as Currency)}
         />
         <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>
-        <Headline style={[tw`mt-3`, tw.md`mt-4 lowercase text-grey-1`]}>
+        <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
           {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
         </Headline>
         <Selector
           style={tw`mt-2`}
           selectedValue={selectedPaymentMethod as string}
-          items={match.paymentMethods.filter(unique()).map(p => ({
+          items={getPaymentMethods(match.meansOfPayment).map(p => ({
             value: p,
             display: i18n(`paymentMethod.${p}`)
           }))}

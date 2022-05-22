@@ -6,6 +6,7 @@ import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { getPaymentMethods } from '../../utils/paymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -35,8 +36,10 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
     <Icon id="sliderNext" style={tw`w-4 h-4`}/>
   </Pressable>
 
-const getMatchCurrency = (match: Match) => match.selectedCurrency || Object.keys(match.prices)[0] as Currency
-const getMatchPaymentMethod = (match: Match) => match.selectedPaymentMethod || match.paymentMethods[0]
+const getMatchCurrency = (match: Match) =>
+  match.selectedCurrency || Object.keys(match.meansOfPayment).shift() as Currency
+const getMatchPaymentMethod = (match: Match) =>
+  match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment).shift()
 
 /**
  * @description Component to display matches
