@@ -187,6 +187,7 @@
   "form.beneficiary": "Account holder name",
   "form.paypal": "Email or merchant id",
   "form.account.error": "Account cannot be decrypted",
+  "form.premium.marketPrice": "market price",
   "form.premium.yousell": "you’ll sell",
   "form.premium.for": "for",
   "form.premium.overMarketPrice": "over market price",

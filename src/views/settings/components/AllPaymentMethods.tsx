@@ -11,7 +11,7 @@ import AddPaymentMethod from '../../../components/inputs/paymentMethods/AddPayme
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
 import { Text } from '../../../components/text'
 
-type PaymentMethodsProps = {
+type AllPaymentMethodsProps = {
   onChange?: (PaymentData: PaymentData[]) => void,
 }
 
@@ -21,7 +21,7 @@ type PaymentMethodsProps = {
  * @param [props.onChange] on change handler
  * @example
  */
-export const PaymentMethods = ({ onChange }: PaymentMethodsProps): ReactElement => {
+export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [showAddNew, setShowAddNew] = useState(false)
@@ -82,4 +82,4 @@ export const PaymentMethods = ({ onChange }: PaymentMethodsProps): ReactElement 
   </View>
 }
 
-export default PaymentMethods
+export default AllPaymentMethods

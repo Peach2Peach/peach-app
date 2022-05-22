@@ -22,8 +22,7 @@ type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 declare type PaymentData = {
   [key: string]: any,
   id: string,
-  type: PaymentMethod,
-  selected?: boolean,
+  type: PaymentMethod
 }
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency' 

@@ -4,8 +4,10 @@ export const buyOffer: BuyOffer = {
   id: '37',
   online: true,
   type: 'bid',
-  currencies: ['EUR', 'CHF'],
-  paymentMethods: ['sepa'],
+  meansOfPayment: {
+    EUR: ['sepa'],
+    CHF: ['sepa'],
+  },
   kyc: false,
   amount: 250000,
   matches: [],
@@ -20,19 +22,16 @@ export const sellOffer: SellOffer = {
   id: '38',
   online: true,
   type: 'ask',
-  currencies: ['EUR'],
-  paymentData: [
-    {
-      id: 'sepa',
-      type: 'sepa',
-      selected: true
-    }
-  ],
+  meansOfPayment: {
+    EUR: ['sepa']
+  },
+  paymentData: {
+    'sepa': 'TODO add payment hash',
+  },
   funding: {
     status: 'NULL',
     amount: 0,
   },
-  paymentMethods: ['sepa'],
   kyc: false,
   amount: 250000,
   premium: 1.5,
@@ -48,8 +47,10 @@ export const buyOfferUnpublished: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   type: 'bid',
   online: false,
-  currencies: ['EUR', 'CHF'],
-  paymentMethods: ['sepa'],
+  meansOfPayment: {
+    EUR: ['sepa'],
+    CHF: ['sepa']
+  },
   kyc: false,
   amount: 250000,
   matches: [],
@@ -62,7 +63,13 @@ export const buyOfferUnpublished: BuyOffer = {
 export const recoveredAccount: Account = {
   settings: {
     locale: 'en',
-    displayCurrency: 'EUR'
+    displayCurrency: 'EUR',
+    appVersion: '0.1.0',
+    meansOfPayment: {
+      EUR: ['sepa'],
+      CHF: ['sepa'],
+    },
+    preferredPaymentMethods: {},
   },
   paymentData: [],
   offers: [],
@@ -85,12 +92,16 @@ export const recoveredAccount: Account = {
 
 export const account1: Account = {
   settings: {
+    appVersion: '0.1.0',
     skipTutorial: true,
     locale: 'en',
     amount: 1000000,
     displayCurrency: 'EUR',
-    currencies: ['EUR', 'CHF'],
-    paymentMethods: ['sepa'],
+    meansOfPayment: {
+      EUR: ['sepa'],
+      CHF: ['sepa'],
+    },
+    preferredPaymentMethods: {},
     kyc: false
   },
   paymentData: [],
@@ -122,12 +133,12 @@ export const paymentData: PaymentData[] = [
     'iban': 'IE29 AIBK 9311 5212 3456 78',
     'id': 'iban-IE29AIBK93115212345678',
     'selected': true,
-    'type': 'iban'
+    'type': 'sepa'
   }, {
     'beneficiary': 'Test',
     'iban': 'EE38 2200 2210 2014 5685',
     'id': 'iban-EE382200221020145685',
-    'type': 'iban'
+    'type': 'sepa'
   }
 ]
 
@@ -180,7 +191,7 @@ export const contract: Contract = {
   kycConfirmed: false,
   paymentConfirmed: null,
   paymentMade: null,
-  paymentMethod: 'iban',
+  paymentMethod: 'sepa',
   price: 89.04,
   premium: 1.5,
   escrow: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',

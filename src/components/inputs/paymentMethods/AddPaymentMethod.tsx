@@ -11,13 +11,13 @@ import { PaymentMethodForms } from './paymentForms'
 
 type AddPaymentMethodProps = {
   method?: PaymentMethod,
-  onSubmit: (data: PaymentData) => void
+  onSubmit: (data?: PaymentData) => void
 }
 
 export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|null>(method)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|null>(method || null)
   const PaymentMethodForm = paymentMethod ? PaymentMethodForms[paymentMethod] : null
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })

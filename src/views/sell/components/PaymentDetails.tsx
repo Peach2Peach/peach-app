@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
-import { Card, Headline, Icon, RadioButtons, RadioButtonsWithCTA, Text } from '../../../components'
+import { Card, Headline, Icon, RadioButtons, Text } from '../../../components'
 import AddPaymentMethod from '../../../components/inputs/paymentMethods/AddPaymentMethod'
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
 import { OverlayContext } from '../../../contexts/overlay'
