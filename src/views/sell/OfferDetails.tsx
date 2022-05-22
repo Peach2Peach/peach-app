@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -10,7 +10,6 @@ import Premium from './components/Premium'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
-import { debounce } from '../../utils/performance'
 import { hasMopsConfigured } from '../../utils/offer'
 import { MeansOfPayment } from '../../components/inputs'
 import { getPaymentMethods } from '../../utils/paymentMethod'
@@ -45,25 +44,17 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       kycType: offr.kycType,
     })
   }
-  const debounced = useRef(debounce((deps: UpdateOfferProps) => {
-    saveAndUpdate({
-      ...offer,
-      premium: deps.premium,
-    })
-  }, 300))
-
-  const deps: AnyObject = { premium }
-  useEffect(() => debounced.current(deps), Object.keys(deps).map(dep => deps[dep]))
 
   useEffect(() => {
     saveAndUpdate({
       ...offer,
       meansOfPayment,
       paymentData,
+      premium,
       kyc,
       kycType,
     })
-  }, [meansOfPayment, paymentData, kyc, kycType])
+  }, [meansOfPayment, premium, paymentData, kyc, kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
@@ -81,7 +72,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Premium
       premium={premium}
       setPremium={setPremium}
-      identifier={`${Object.keys(meansOfPayment).join()}${kyc}`}
       offer={offer}
     />
     {/* <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} /> */}
