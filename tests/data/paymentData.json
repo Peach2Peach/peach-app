@@ -120,5 +120,31 @@
       "invalid",
       ""
     ]
+  },
+  "bic": {
+    "valid": [
+      "TODO"
+    ],
+    "invalid": [
+      "TODO"
+    ]
+  },
+  "ukSortCode": {
+    "valid": [
+      "60-16-13"
+    ],
+    "invalid": [
+      "TODO"
+    ]
+  },
+  "ukBankAccount": {
+    "valid": [
+      "31926819"
+    ],
+    "invalid": [
+      "ABCDEFGH",
+      "319268",
+      "319268234"
+    ]
   }
 }

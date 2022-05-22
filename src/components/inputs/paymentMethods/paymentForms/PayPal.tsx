@@ -16,12 +16,18 @@ const { useValidation } = require('react-native-form-validator')
 export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
+  const [phone, setPhone] = useState(data?.phone || '')
+  const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
+  let $id = useRef<TextInput>(null).current
+  let $phone = useRef<TextInput>(null).current
+  let $email = useRef<TextInput>(null).current
   let $userName = useRef<TextInput>(null).current
+  const anyFieldSet = !!(phone || userName || email)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, userName },
+    state: { id, phone, userName, email },
     rules,
     messages: getMessages()
   })
@@ -32,8 +38,16 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
         required: true,
         duplicate: view === 'new' && getPaymentData(id)
       },
+      phone: {
+        required: !email && !userName,
+        email: true
+      },
+      email: {
+        required: !phone && !userName,
+        email: true
+      },
       userName: {
-        required: true,
+        required: !phone && !email,
         userName: true
       },
     })
@@ -44,6 +58,8 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
     const paymentData: PaymentData = {
       id,
       type: 'paypal',
+      phone,
+      email,
       userName,
     }
     addPaymentData(paymentData)
@@ -60,6 +76,7 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
     Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
     Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
     Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
+    $id?.focus()
   }, [])
 
   return <View style={style}>
@@ -67,7 +84,8 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
       <View>
         <Input
           onChange={setId}
-          onSubmit={() => $userName?.focus()}
+          onSubmit={() => $phone?.focus()}
+          reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
@@ -78,12 +96,41 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
       </View>
       <View style={tw`mt-2`}>
         <Input
+          onChange={setPhone}
+          onSubmit={() => $email?.focus()}
+          reference={(el: any) => $phone = el}
+          value={phone}
+          required={!anyFieldSet}
+          disabled={view === 'view'}
+          label={i18n('form.phone')}
+          isValid={!isFieldInError('phone')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('phone')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setEmail}
+          onSubmit={() => $userName?.focus()}
+          reference={(el: any) => $email = el}
+          required={!anyFieldSet}
+          value={email}
+          disabled={view === 'view'}
+          label={i18n('form.email')}
+          isValid={!isFieldInError('userName')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('userName')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
           onChange={setUserName}
           onSubmit={save}
           reference={(el: any) => $userName = el}
+          required={!anyFieldSet}
           value={userName}
           disabled={view === 'view'}
-          label={i18n('form.paypal')}
+          label={i18n('form.userName')}
           isValid={!isFieldInError('userName')}
           autoCorrect={false}
           errorMessage={getErrorsInField('userName')}

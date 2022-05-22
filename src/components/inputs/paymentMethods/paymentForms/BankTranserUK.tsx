@@ -9,22 +9,25 @@ import { Fade } from '../../../animation'
 import Button from '../../../Button'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
+import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
-export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
+// eslint-disable-next-line max-lines-per-function, max-statements
+export const BankTranserUK: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
-  const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
+  const [ukSortCode, setUKSortCode] = useState(data?.ukSortCode || '')
+  const [ukBankAccount, setUKBankAccount] = useState(data?.ukBankAccount || '')
   let $id = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
-  let $iban = useRef<TextInput>(null).current
+  let $ukSortCode = useRef<TextInput>(null).current
+  let $ukBankAccount = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, iban, beneficiary },
+    state: { id, beneficiary, ukSortCode, ukBankAccount },
     rules,
     messages: getMessages()
   })
@@ -38,19 +41,25 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
       beneficiary: {
         required: true,
       },
-      iban: {
+      ukSortCode: {
         required: true,
-        iban: true
+        ukSortCode: true
+      },
+      ukBankAccount: {
+        required: true,
+        ukBankAccount: true
       },
     })
     if (!isFormValid()) return
 
     if (view === 'edit') removePaymentData(data?.id || '')
+
     const paymentData: PaymentData = {
       id,
-      type: 'sepa',
-      iban,
+      type: 'bankTransferUK',
       beneficiary,
+      ukSortCode,
+      ukBankAccount,
     }
     addPaymentData(paymentData)
     if (onSubmit) onSubmit(paymentData)
@@ -87,7 +96,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
       <View style={tw`mt-2`}>
         <Input
           onChange={setBeneficiary}
-          onSubmit={() => $iban?.focus()}
+          onSubmit={() => $ukSortCode?.focus()}
           reference={(el: any) => $beneficiary = el}
           value={beneficiary}
           disabled={view === 'view'}
@@ -99,15 +108,28 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setIBAN}
-          onSubmit={save}
-          reference={(el: any) => $iban = el}
-          value={iban}
+          onChange={setUKSortCode}
+          onSubmit={() => $ukBankAccount?.focus()}
+          reference={(el: any) => $ukSortCode = el}
+          value={ukSortCode}
           disabled={view === 'view'}
-          label={i18n('form.iban')}
-          isValid={!isFieldInError('iban')}
+          label={i18n('form.ukSortCode')}
+          isValid={!isFieldInError('ukSortCode')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('iban')}
+          errorMessage={getErrorsInField('ukSortCode')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setUKBankAccount}
+          onSubmit={save}
+          reference={(el: any) => $ukBankAccount = el}
+          value={ukBankAccount}
+          disabled={view === 'view'}
+          label={i18n('form.ukBankAccount')}
+          isValid={!isFieldInError('ukBankAccount')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('ukBankAccount')}
         />
       </View>
     </View>
@@ -117,7 +139,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
         </Pressable>
         <Button
-          title={i18n(view === 'new' ? 'form.paymentMethod.add' : 'form.paymentMethod.update')}
+          title={i18n('form.paymentMethod.add')}
           secondary={true}
           wide={false}
           onPress={save}

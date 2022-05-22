@@ -8,6 +8,7 @@ import Button from '../../Button'
 import { MenuItem } from '../../navigation'
 import { Headline } from '../../text'
 import { PaymentMethodForms } from './paymentForms'
+import PeachScrollView from '../../PeachScrollView'
 
 type AddPaymentMethodProps = {
   method?: PaymentMethod,
@@ -25,13 +26,10 @@ export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) =>
   return <View style={tw`h-full w-full flex justify-center`}>
     <View style={tw`h-5/6 w-full flex-col`}>
       <Headline style={tw`h-28 text-white-1 text-3xl leading-5xl`}>
-        {i18n(`form.paymentMethod.${!paymentMethod ? 'select' : 'details'}`)}
+        {i18n(`form.paymentMethod.${!paymentMethod ? 'select' : 'details'}`, i18n(`paymentMethod.${paymentMethod}`))}
       </Headline>
       {!paymentMethod
-        ? <View style={[
-          tw`h-full flex-shrink mt-32`,
-          tw.md`mt-40`,
-        ]}>
+        ? <PeachScrollView style={tw`h-full flex-shrink my-16`}>
           {PAYMENTMETHODS
             .filter(PAYMENTMETHOD => PaymentMethodForms[PAYMENTMETHOD])
             .map((PAYMENTMETHOD, index) =>
@@ -43,7 +41,7 @@ export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) =>
               />
             )
           }
-        </View>
+        </PeachScrollView>
         : null
       }
       {PaymentMethodForm

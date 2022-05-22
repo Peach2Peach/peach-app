@@ -1,9 +1,11 @@
 import { ReactElement } from 'react'
 import { SEPA } from './SEPA'
 import { PayPal } from './PayPal'
-import { GiftCard } from './GiftCard'
+// import { GiftCard } from './GiftCard'
 import { Revolut } from './Revolut'
 import { ApplePay } from './ApplePay'
+import { Wise } from './Wise'
+import { BankTranserUK } from './BankTranserUK'
 
 type PaymentFormProps = ComponentProps & {
   data?: PaymentData,
@@ -18,7 +20,17 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
+  bankTransferCH: SEPA,
+  bankTransferUK: BankTranserUK,
   paypal: PayPal,
+  revolut: Revolut,
+  applePay: ApplePay,
+  wise: Wise,
+  twint: SEPA,
+  swish: SEPA,
+  mbWay: SEPA,
+  bizum: SEPA,
+  tether: SEPA,
   // giftCard: GiftCard,
   // revolut: Revolut,
   // applePay: ApplePay,

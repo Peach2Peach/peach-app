@@ -11,12 +11,14 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
+import i18n from '../../utils/i18n'
 
 type InputProps = ComponentProps & {
   value?: string,
   label?: string,
   icon?: string,
   multiline?: boolean
+  required?: boolean
   autoCorrect?: boolean
   disabled?: boolean
   isValid?: boolean,
@@ -61,6 +63,7 @@ type InputProps = ComponentProps & {
 export const Input = ({
   value,
   label, hint, icon,
+  required = true,
   multiline = false,
   autoCorrect = false,
   disabled = false,
@@ -97,12 +100,12 @@ export const Input = ({
             multiline ? tw`h-full pt-2` : {},
             label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
           ]}
-          placeholder={label} placeholderTextColor={tw`text-grey-2`.color as string}
+          placeholder={label + (!required ? ` (${i18n('form.optional')})` : '')}
+          placeholderTextColor={tw`text-grey-2`.color as string}
           value={value}
-          editable={!disabled} autoCorrect={autoCorrect}
-          multiline={multiline}
+          editable={!disabled} autoCorrect={autoCorrect} multiline={multiline}
           onChangeText={onChangeText}
-          onSubmitEditing={onSubmitEditing} onEndEditing={onEndEditing}
+          onSubmitEditing={onSubmitEditing} onEndEditing={onSubmitEditing}
           blurOnSubmit={false}
           onFocus={onFocusHandler} onBlur={onBlurHandler}
           secureTextEntry={secureTextEntry}
