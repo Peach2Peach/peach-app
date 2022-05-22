@@ -1,16 +1,13 @@
-import React, { ReactElement, useContext, useReducer, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
-import { Button, SelectorBig, Title } from '../../components'
+import { Button, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { CURRENCIES } from '../../constants'
-import BitcoinContext from '../../contexts/bitcoin'
-import { account, updateSettings } from '../../utils/account'
-import PaymentMethodSelection from '../sell/components/PaymentMethodSelection'
+import PaymentMethodSelection from './components/PaymentMethodSelection'
 
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>

@@ -47,10 +47,8 @@ export const AddPaymentMethod = ({ onSubmit }: AddPaymentMethodProps) => {
       }
       {PaymentMethodForm
         ? <PaymentMethodForm style={tw`h-full flex-shrink flex-col justify-between`}
-          onSubmit={(paymentData) => {
-            onSubmit(paymentData)
-            updateOverlay({ content: null, showCloseButton: true })
-          }}
+          view="new"
+          onSubmit={onSubmit}
           onCancel={() => setPaymentMethod(null)}
         />
         : <View style={tw`w-full flex items-center`}>

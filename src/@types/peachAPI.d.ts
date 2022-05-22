@@ -107,6 +107,8 @@ declare type PeachPairInfo = {
   pair: TradingPair,
   price: number,
 }
+declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
+
 declare type Offer = {
   id: string,
   creationDate: Date,

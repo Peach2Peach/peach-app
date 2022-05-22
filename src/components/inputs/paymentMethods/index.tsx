@@ -12,21 +12,26 @@ import AddPaymentMethod from './AddPaymentMethod'
 import { PaymentMethodForms } from './paymentForms'
 import { Headline } from '../../text'
 import { getCheckboxItems } from './paymentMethodUtils'
-import { paymentMethodAllowedForCurrencies, paymentMethodNotYetSelected } from '../../../utils/paymentMethod'
+import { paymentMethodAllowedForCurrencies } from '../../../utils/paymentMethod'
 
 type PaymentMethodViewProps = {
-  data: PaymentData
+  data: PaymentData,
+  onSubmit?: (data?: PaymentData) => void,
 }
 
-const PaymentMethodView = ({ data }: PaymentMethodViewProps) => {
+const PaymentMethodView = ({ data, onSubmit }: PaymentMethodViewProps) => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const PaymentForm = PaymentMethodForms[data.type]
+
+  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
   return <View style={tw`h-full w-full flex-shrink flex-col`}>
     <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
       {i18n('paymentMethod.view')}
     </Headline>
     {PaymentForm
-      ? <PaymentForm data={data} />
+      ? <PaymentForm style={tw`h-full flex-shrink flex-col justify-between`}
+        data={data} view="edit" onSubmit={onSubmit} onCancel={closeOverlay} />
       : null
     }
   </View>
@@ -67,15 +72,6 @@ export const PaymentMethods = ({
     if (onChange) onChange(account.paymentData)
   }, [currencies])
 
-  const addPaymentMethod = (data: PaymentData) => {
-    data.selected = paymentMethodNotYetSelected(data, account.paymentData)
-    account.paymentData.push(data)
-    updatePaymentData(account.paymentData)
-    setShowAddNew(false)
-
-    // we use .map() here to make react understand there's a dependency update
-    if (onChange) onChange(account.paymentData.map(d => d))
-  }
 
   const checkboxItems = getCheckboxItems(paymentData, currencies)
   const selectedMoPs = paymentData.filter(data => data.selected).map(data => data.id)
@@ -92,8 +88,17 @@ export const PaymentMethods = ({
       onChange(updatedPaymentMethods)
     }
   }
+
+  const onPaymentDataUpdate = () => {
+    setShowAddNew(false)
+
+    // we use .map() here to make react understand there's a dependency update
+    if (onChange) onChange(account.paymentData.map((d: PaymentData) => d))
+    updateOverlay({ content: null, showCloseButton: true })
+  }
+
   const openAddPaymentMethodDialog = () => updateOverlay({
-    content: <AddPaymentMethod onSubmit={addPaymentMethod} />,
+    content: <AddPaymentMethod onSubmit={onPaymentDataUpdate} />,
     showCloseButton: false
   })
   return <View>
@@ -120,12 +125,12 @@ export const PaymentMethods = ({
             .filter(data => paymentMethodAllowedForCurrencies(data.type, currencies))
             .map((data, i) => <Button
               key={data.id}
-              style={i > 0 ? tw`w-16 h-10 mt-4` : tw`w-16 h-10`}
+              style={i > 0 ? tw`w-16 h-10 mt-4 flex` : tw`w-16 h-10`}
               onPress={() => updateOverlay({
-                content: <PaymentMethodView data={data} />,
-                showCloseButton: true
+                content: <PaymentMethodView data={data} onSubmit={onPaymentDataUpdate} />,
+                showCloseButton: false
               })}
-              title={i18n('view')}
+              title={i18n('edit')}
             />
             )}
         </View>

@@ -1,5 +1,15 @@
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../constants'
-import { intersect } from './array'
+import { intersect, unique } from './array'
+
+/**
+ * @description Method to return all selected payment methods
+ * @param meansOfPayment payment methods mapped to currency
+ * @returns array of payment methods configured
+ */
+export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod[] =>
+  Object.keys(meansOfPayment)
+    .reduce((arr, c: Currency) => arr.concat(meansOfPayment[c]), [] as PaymentMethod[])
+    .filter(unique())
 
 /**
  * @description Method to check whether MoP supports given currency

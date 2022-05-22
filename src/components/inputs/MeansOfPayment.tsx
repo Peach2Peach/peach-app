@@ -61,7 +61,7 @@ const Currencies = ({
   {CURRENCIES.map((c, i) => <View key={c} style={i > 0 ? tw`ml-2` : {}}>
     <Item
       label={c} isSelected={c === selected}
-      isComplete={meansOfPayment[c] && meansOfPayment[c].length > 0}
+      isComplete={(meansOfPayment as Required<MeansOfPayment>)[c]?.length > 0}
       onPress={() => onChange(c)}
       style={tw`w-16`}
     />
@@ -91,7 +91,6 @@ const PaymentMethods = ({ meansOfPayment, paymentCategory, currency, onChange }:
     setShowLocalOptions(false)
   }, [paymentCategory, currency])
 
-  console.log(paymentCategory, PAYMENTCATEGORIES[paymentCategory])
   return <View>
     <View style={tw`flex-row flex-wrap justify-center`}>
       {PAYMENTCATEGORIES[paymentCategory]
@@ -169,10 +168,10 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
     setMeansOfPayment(mops => {
       if (!mops[currency]) mops[currency] = []
 
-      if (mops[currency].indexOf(paymentMethod) !== -1) {
-        mops[currency] = mops[currency].filter(p => p !== paymentMethod)
+      if (mops[currency]?.indexOf(paymentMethod) !== -1) {
+        mops[currency] = mops[currency]?.filter(p => p !== paymentMethod)
       } else {
-        mops[currency].push(paymentMethod)
+        mops[currency]?.push(paymentMethod)
       }
 
       return mops

@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Headline, PremiumSlider, SatsFormat, Text } from '../../../components'
-import { SATSINBTC } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
@@ -10,10 +9,8 @@ type PremiumProps = {
   setPremium: (premium: number) => void
   identifier: string,
   offer: SellOffer,
-  currency: Currency,
-  price: number,
 }
-export default ({ premium, setPremium, identifier, offer, currency, price }: PremiumProps): ReactElement => <View>
+export default ({ premium, setPremium, identifier, offer }: PremiumProps): ReactElement => <View>
   <Headline style={tw`mt-16 mb-2 text-grey-1`}>
     {i18n('sell.price')}
   </Headline>

@@ -204,14 +204,14 @@ const App: React.FC = () => {
                     ? <Header style={tw`z-10`} />
                     : null
                   }
+                  {content
+                    ? <Overlay content={content} showCloseButton={showCloseButton} />
+                    : null
+                  }
                   {msg
                     ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
                       <Message msg={msg} level={level} style={{ minHeight: 60 }} />
                     </Animated.View>
-                    : null
-                  }
-                  {content
-                    ? <Overlay content={content} showCloseButton={showCloseButton} />
                     : null
                   }
                   <View style={tw`h-full flex-shrink`}>

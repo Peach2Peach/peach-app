@@ -33,8 +33,6 @@ declare type PaymentCategories = {
 
 declare type HashedPaymentData = string
 
-declare type MeansOfPayment = Record<Currency, PaymentMethod[]>
-
 declare type Message = {
   roomId: string,
   from: User['id'],

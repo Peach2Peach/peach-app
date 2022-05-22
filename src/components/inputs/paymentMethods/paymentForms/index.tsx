@@ -7,10 +7,11 @@ import { ApplePay } from './ApplePay'
 
 type PaymentFormProps = ComponentProps & {
   data?: PaymentData,
-  onSubmit?: (data: PaymentData) => void,
+  view: 'new' | 'edit' | 'view',
+  onSubmit?: (data?: PaymentData) => void,
   onCancel?: () => void,
 }
-export type PaymentMethodForm = ({ style, onSubmit, onCancel }: PaymentFormProps) => ReactElement
+export type PaymentMethodForm = ({ style, view, onSubmit, onCancel }: PaymentFormProps) => ReactElement
 
 export type PaymentMethodForms = {
   [key in PaymentMethod]?: PaymentMethodForm

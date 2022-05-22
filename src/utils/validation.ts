@@ -28,6 +28,10 @@ export const rules = {
 
     return valid
   },
+  duplicate (existingValue: any) {
+    console.log(existingValue)
+    return !existingValue
+  },
   password (_: boolean, value: string) {
     return value && value.length > 7
   },
@@ -35,7 +39,7 @@ export const rules = {
     if (!value) return false
     return IBAN.isValid(value)
   },
-  paypal (_: boolean, value: string | null) {
+  userName (_: boolean, value: string | null) {
     if (!value) return false
     return emailRegex.test(value) || /^@[a-z0-9]*/iu.test(value)
   }
@@ -46,8 +50,10 @@ export const getMessages = () => ({
     required: i18n('form.required.error'),
     password: i18n('form.password.error'),
     bitcoinAddress: i18n('form.btcAddress.error'),
+    duplicate: i18n('form.duplicate.error'),
     iban: i18n('form.invalid.error'),
     account: i18n('form.account.error'),
-    email: i18n('form.email.error')
+    email: i18n('form.email.error'),
+    userName: i18n('form.invalid.error'),
   }
 })
