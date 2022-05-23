@@ -52,15 +52,15 @@ declare type BankTransferUKData = {
 }
 declare type BizumData = {
   phone: string,
-  name: string,
+  beneficiary: string,
 }
 declare type MBWayData = {
   phone: string,
-  name: string,
+  beneficiary: string,
 }
 declare type RevolutData = {
   phone: string,
-  name: string,
+  userName: string,
   email: string,
 }
 declare type SwishData = {

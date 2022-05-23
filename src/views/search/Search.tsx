@@ -123,7 +123,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       const paymentDataHashes = paymentDataForMethod.map(data =>  hashPaymentData(data))
       const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
 
-
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Pressable } from 'react-native'
 import { Fade } from '../animation'
