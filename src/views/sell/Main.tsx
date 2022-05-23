@@ -46,25 +46,24 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     </View>
   }))
 
-  return <View style={tw`h-full`}>
+  return <View style={tw`h-full flex`}>
     <Title title={i18n('sell.title')} />
-    <View style={tw`z-20`}>
-      <Headline style={tw`mt-16 text-grey-1 px-5`}>
-        {i18n('sell.subtitle')}
-      </Headline>
-      <View style={tw`h-10 w-full z-10 flex items-center px-12 mt-3`}>
-        <Dropdown
-          items={dropdownItems}
-          selectedValue={amount}
-          onChange={onChange} onToggle={onToggle}
-        />
-      </View>
-      {!dropdownOpen
-        ? <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
+    <View style={tw`h-full flex-shrink flex justify-center`}>
+      <View>
+        <Headline style={tw`mt-16 text-grey-1 px-5`}>
+          {i18n('sell.subtitle')}
+        </Headline>
+        <View style={tw`w-full h-10 z-10 flex items-center px-12 mt-3`}>
+          <Dropdown
+            items={dropdownItems}
+            selectedValue={amount}
+            onChange={onChange} onToggle={onToggle}
+          />
+        </View>
+        <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
           ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
         </Text>
-        : null
-      }
+      </View>
     </View>
   </View>
 }

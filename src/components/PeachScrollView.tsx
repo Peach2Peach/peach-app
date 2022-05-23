@@ -30,17 +30,21 @@ export const PeachScrollView = ({
 }: PeachScrollViewProps): ReactElement => {
   const onStartShouldSetResponder = () => !disable
 
-  return <ScrollView ref={scrollRef}
-    horizontal={horizontal}
-    onScroll={onScroll}
-    scrollEventThrottle={scrollEventThrottle}
-    showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
-    contentContainerStyle={contentContainerStyle || {}}
-    style={style || {}}>
-    <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`}>
+  return !disable
+    ? <ScrollView ref={scrollRef}
+      horizontal={horizontal}
+      onScroll={onScroll}
+      scrollEventThrottle={scrollEventThrottle}
+      showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+      contentContainerStyle={contentContainerStyle || {}}
+      style={style || {}}>
+      <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`}>
+        {children}
+      </View>
+    </ScrollView>
+    : <View style={style}>
       {children}
     </View>
-  </ScrollView>
 }
 
 export default PeachScrollView
