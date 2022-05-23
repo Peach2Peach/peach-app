@@ -54,7 +54,7 @@ type InputProps = ComponentProps & {
  * <Input
  *   onChange={setAddress}
  *   value={address}
- *   label={i18n('form.btcAddress')}
+ *   label={i18n('form.address.btc')}
  *   isValid={!isFieldInError('address')}
  *   autoCorrect={false}
  *   errorMessage={getErrorsInField('address')}

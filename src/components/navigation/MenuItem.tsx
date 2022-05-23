@@ -19,7 +19,7 @@ type MenuItemProps = ComponentProps & {
  * @param [props.onPress] callback on press
  * @example
  * <MenuItem
- *   text={i18n('form.btcAddress')}
+ *   text={i18n('form.address.btc')}
  * />
  */
 export const MenuItem = ({

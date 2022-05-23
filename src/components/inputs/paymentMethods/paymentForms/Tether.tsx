@@ -13,18 +13,16 @@ import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
+export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
-  const [phone, setPhone] = useState(data?.phone || '')
-  const [name, setName] = useState(data?.name || '')
+  const [address, setAddress] = useState(data?.address || '')
   let $id = useRef<TextInput>(null).current
-  let $phone = useRef<TextInput>(null).current
-  let $name = useRef<TextInput>(null).current
+  let $address = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, phone, name },
+    state: { id, address },
     rules,
     messages: getMessages()
   })
@@ -35,9 +33,9 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
         required: true,
         duplicate: view === 'new' && getPaymentData(id)
       },
-      phone: {
+      address: {
         required: true,
-        phone: true,
+        tetherAddress: true,
       }
     })
     if (!isFormValid()) return
@@ -45,9 +43,8 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
     if (view === 'edit') removePaymentData(data?.id || '')
     const paymentData: PaymentData = {
       id,
-      type: 'twint',
-      phone,
-      name,
+      type: 'tether',
+      address,
     }
     addPaymentData(paymentData)
     if (onSubmit) onSubmit(paymentData)
@@ -71,7 +68,7 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
       <View>
         <Input
           onChange={setId}
-          onSubmit={() => $phone?.focus()}
+          onSubmit={() => $address?.focus()}
           reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
@@ -83,29 +80,15 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setPhone}
-          onSubmit={() => $name?.focus()}
-          reference={(el: any) => $phone = el}
-          value={phone}
-          disabled={view === 'view'}
-          label={i18n('form.phone')}
-          isValid={!isFieldInError('phone')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('phone')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={setName}
+          onChange={setAddress}
           onSubmit={save}
-          reference={(el: any) => $name = el}
-          value={name}
-          required={false}
+          reference={(el: any) => $address = el}
+          value={address}
           disabled={view === 'view'}
-          label={i18n('form.name')}
-          isValid={!isFieldInError('name')}
+          label={i18n('form.address.tether')}
+          isValid={!isFieldInError('address')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('name')}
+          errorMessage={getErrorsInField('address')}
         />
       </View>
     </View>

@@ -30,6 +30,23 @@ export const rules = {
 
     return valid
   },
+  tetherAddress (_: boolean, value: string) {
+    if (!value) return false
+
+    // Tether as erc-20 token
+    if (/0x+[A-F,a-f,0-9]{40}/u.test(value)) return true
+
+    // Tether as trc-20 token
+    if (/T[A-Za-z1-9]{33}/u.test(value)) return true
+
+    // tether on omni layer
+    let valid = false
+    try {
+      bitcoin.address.fromBase58Check(value)
+      valid = true
+    } catch (e) { }
+    return valid
+  },
   duplicate (existingValue: any) {
     return !existingValue
   },
@@ -67,7 +84,8 @@ export const getMessages = () => ({
     email: i18n('form.email.error'),
     account: i18n('form.account.error'),
     password: i18n('form.password.error'),
-    bitcoinAddress: i18n('form.btcAddress.error'),
+    bitcoinAddress: i18n('form.address.error'),
+    tetherAddress: i18n('form.address.error'),
     duplicate: i18n('form.duplicate.error'),
     iban: i18n('form.invalid.error'),
     bic: i18n('form.invalid.error'),

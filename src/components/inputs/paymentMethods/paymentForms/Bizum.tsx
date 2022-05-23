@@ -13,7 +13,7 @@ import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
+export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
   const [phone, setPhone] = useState(data?.phone || '')
@@ -45,7 +45,7 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
     if (view === 'edit') removePaymentData(data?.id || '')
     const paymentData: PaymentData = {
       id,
-      type: 'twint',
+      type: 'bizum',
       phone,
       name,
     }

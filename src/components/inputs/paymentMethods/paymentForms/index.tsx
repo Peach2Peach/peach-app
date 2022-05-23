@@ -1,12 +1,15 @@
 import { ReactElement } from 'react'
 import { SEPA } from './SEPA'
 import { PayPal } from './PayPal'
-// import { GiftCard } from './GiftCard'
 import { Revolut } from './Revolut'
 import { ApplePay } from './ApplePay'
 // import { Wise } from './Wise'
 import { BankTranserUK } from './BankTranserUK'
 import { Twint } from './Twint'
+import { Bizum } from './Bizum'
+import { Swish } from './Swish'
+import { MBWay } from './MBWay'
+// import { Tether } from './Tether'
 
 type PaymentFormProps = ComponentProps & {
   data?: PaymentData,
@@ -28,11 +31,8 @@ export const PaymentMethodForms: PaymentMethodForms = {
   applePay: ApplePay,
   // wise: Wise,
   twint: Twint,
-  swish: SEPA,
-  mbWay: SEPA,
-  bizum: SEPA,
-  tether: SEPA,
-  // giftCard: GiftCard,
-  // revolut: Revolut,
-  // applePay: ApplePay,
+  swish: Swish,
+  mbWay: MBWay,
+  bizum: Bizum,
+  // tether: Tether,
 }
