@@ -62,6 +62,10 @@ export const rules = {
 export const getMessages = () => ({
   default: {
     required: i18n('form.required.error'),
+    number: i18n('form.invalid.error'),
+    phone: i18n('form.invalid.error'),
+    email: i18n('form.email.error'),
+    account: i18n('form.account.error'),
     password: i18n('form.password.error'),
     bitcoinAddress: i18n('form.btcAddress.error'),
     duplicate: i18n('form.duplicate.error'),
@@ -69,8 +73,6 @@ export const getMessages = () => ({
     bic: i18n('form.invalid.error'),
     ukSortCode: i18n('form.invalid.error'),
     ukBankAccount: i18n('form.invalid.error'),
-    account: i18n('form.account.error'),
-    email: i18n('form.email.error'),
     userName: i18n('form.invalid.error'),
     url: i18n('form.invalid.error'),
   }

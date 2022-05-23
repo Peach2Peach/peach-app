@@ -4,8 +4,9 @@ import { PayPal } from './PayPal'
 // import { GiftCard } from './GiftCard'
 import { Revolut } from './Revolut'
 import { ApplePay } from './ApplePay'
-import { Wise } from './Wise'
+// import { Wise } from './Wise'
 import { BankTranserUK } from './BankTranserUK'
+import { Twint } from './Twint'
 
 type PaymentFormProps = ComponentProps & {
   data?: PaymentData,
@@ -25,8 +26,8 @@ export const PaymentMethodForms: PaymentMethodForms = {
   paypal: PayPal,
   revolut: Revolut,
   applePay: ApplePay,
-  wise: Wise,
-  twint: SEPA,
+  // wise: Wise,
+  twint: Twint,
   swish: SEPA,
   mbWay: SEPA,
   bizum: SEPA,

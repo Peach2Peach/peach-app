@@ -191,6 +191,7 @@
   "form.ukSortCode": "UK Sort Code",
   "form.ukBankAccount": "Account number",
   "form.beneficiary": "Account holder name",
+  "form.name": "Name",
   "form.paypal": "Email or merchant id",
   "form.account.error": "Account cannot be decrypted",
   "form.premium.marketPrice": "market price",
