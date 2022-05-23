@@ -1,5 +1,6 @@
 import { deepStrictEqual, ok, strictEqual, notStrictEqual } from 'assert'
 import Share from 'react-native-share'
+import { APPVERSION } from '../../src/constants'
 import {
   account,
   backupAccount,
@@ -131,7 +132,7 @@ describe('updateSettings', () => {
 
     updateSettings({ meansOfPayment })
     deepStrictEqual(account.settings, {
-      appVersion: '0.0.3-rc.3',
+      appVersion: APPVERSION,
       skipTutorial: true,
       displayCurrency: 'EUR',
       locale: 'en',
