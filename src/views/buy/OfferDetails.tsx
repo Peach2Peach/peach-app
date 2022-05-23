@@ -4,56 +4,45 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './Buy'
-import { updateSettings } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
-import Currencies from '../../components/inputs/Currencies'
-import PaymentMethodSelection from './components/PaymentMethodSelection'
-import { Title } from '../../components'
-import { paymentMethodAllowedForCurrencies } from '../../utils/validation'
-import BitcoinContext from '../../contexts/bitcoin'
+import { Headline, Title } from '../../components'
+import { MeansOfPayment } from '../../components/inputs'
+import { hasMopsConfigured } from '../../utils/offer'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount
-  && offer.currencies.length > 0
-  && offer.paymentMethods.length > 0
+  && hasMopsConfigured(offer)
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
-  const [{ currency }] = useContext(BitcoinContext)
-
-  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies.length ? offer.currencies : [currency])
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>(offer.paymentMethods)
+  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
+    offer.meansOfPayment || account.settings.meansOfPayment
+  )
   const [kyc, setKYC] = useState(offer.kyc)
 
-  useEffect(() => {
-    setPaymentMethods(paymentMethods.filter(method => paymentMethodAllowedForCurrencies(method, currencies)))
-  }, [currencies])
 
   useEffect(() => {
     updateOffer({
       ...offer,
-      currencies,
-      paymentMethods,
+      meansOfPayment,
       kyc,
     })
     updateSettings({
-      currencies,
-      paymentMethods,
+      meansOfPayment,
       kyc
     }, true)
-  }, [currencies, paymentMethods, kyc])
+  }, [meansOfPayment, kyc])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('buy.title')} />
-    <Currencies title={i18n('buy.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
-    <PaymentMethodSelection
-      currencies={currencies}
-      paymentMethods={paymentMethods}
-      setPaymentMethods={setPaymentMethods}
-    />
+    <Headline style={tw`mt-16 text-grey-1`}>
+      {i18n('buy.meansOfPayment')}
+    </Headline>
+    <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} />
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

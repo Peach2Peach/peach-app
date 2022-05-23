@@ -1,10 +1,11 @@
 declare type Settings = {
+  appVersion: string,
   skipTutorial?: boolean,
   locale: string,
   amount?: number,
   displayCurrency: Currency,
-  currencies?: Currency[],
-  paymentMethods?: PaymentMethod[],
+  meansOfPayment: MeansOfPayment,
+  preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>,
   premium?: number,
   kyc?: boolean,
   kycType?: KYCType,

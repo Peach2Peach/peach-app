@@ -58,11 +58,15 @@ declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 declare type Buckets = {
   [key: string]: number
 }
-declare type Currency = 'EUR' | 'CHF' | 'GBP'
+declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
-declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
+declare type PaymentMethod =
+  'sepa' | 'bankTransferCH' | 'bankTransferUK'
+  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish' | 'mbWay' | 'bizum'
+  | 'tether'
+
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
@@ -103,6 +107,8 @@ declare type PeachPairInfo = {
   pair: TradingPair,
   price: number,
 }
+declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
+
 declare type Offer = {
   id: string,
   creationDate: Date,
@@ -112,9 +118,8 @@ declare type Offer = {
   type: 'bid' | 'ask',
   amount: number,
   premium?: number,
-  currencies: Currency[],
   prices?: Pricebook,
-  paymentMethods: PaymentMethod[],
+  meansOfPayment: MeansOfPayment,
   kyc: boolean,
   kycType?: KYCType,
   returnAddress?: string,
@@ -159,9 +164,9 @@ declare type Match = {
   prices: Pricebook,
   matchedPrice: number | null,
   premium: number,
-  selectedCurrency: Currency | null,
-  paymentMethods: PaymentMethod[],
-  selectedPaymentMethod: PaymentMethod | null,
+  meansOfPayment: MeansOfPayment,
+  selectedCurrency?: Currency,
+  selectedPaymentMethod?: PaymentMethod,
   kyc: boolean,
   kycType?: KYCType,
   symmetricKeyEncrypted: string,

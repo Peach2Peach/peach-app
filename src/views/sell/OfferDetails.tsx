@@ -1,80 +1,78 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
-import { updateSettings } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
+import PaymentDetails from './components/PaymentDetails'
 import Premium from './components/Premium'
-import Currencies from '../../components/inputs/Currencies'
 import KYC from './components/KYC'
-import PaymentMethodSelection from './components/PaymentMethodSelection'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
-import { debounce } from '../../utils/performance'
+import { hasMopsConfigured } from '../../utils/offer'
+import { MeansOfPayment } from '../../components/inputs'
+import { getPaymentMethods } from '../../utils/paymentMethod'
 
-type UpdateOfferProps = {
-  currencies: Currency[],
-  paymentData: PaymentData[],
-  premium: number,
-  kyc: boolean,
-  kycType: KYCType,
+const validate = (offer: SellOffer) => {
+  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
+  const selectedPaymentMethods = Object.keys(offer.paymentData)
+
+  return !!offer.amount
+  && hasMopsConfigured(offer)
+  && selectedPaymentMethods.length > 0
+  && paymentMethods.every((p) => selectedPaymentMethods.indexOf(p as PaymentMethod) !== -1)
 }
-const validate = (offer: SellOffer) =>
-  !!offer.amount
-  && offer.currencies.length > 0
-  && offer.paymentData?.length > 0
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
 
-  const [{ currency, price }] = useContext(BitcoinContext)
-  const [currencies, setCurrencies] = useState<Currency[]>(offer.currencies.length ? offer.currencies : [currency])
+  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
+    offer.meansOfPayment || account.settings.meansOfPayment
+  )
   const [premium, setPremium] = useState(offer.premium)
   const [paymentData, setPaymentData] = useState(offer.paymentData)
   const [kyc, setKYC] = useState(offer.kyc)
   const [kycType, setKYCType] = useState(offer.kycType)
 
-  const debounced = useRef(debounce((deps: UpdateOfferProps) => {
-    const selectedPaymentData = deps.paymentData.filter(data => data.selected)
-
-    updateOffer({
-      ...offer,
-      currencies: deps.currencies,
-      paymentData: selectedPaymentData,
-      paymentMethods: selectedPaymentData.map(p => p.type),
-      premium: deps.premium,
-      kyc: deps.kyc,
-      kycType: deps.kycType,
-    })
+  const saveAndUpdate = (offr: SellOffer) => {
+    updateOffer(offr)
     updateSettings({
-      currencies: deps.currencies,
-      premium: deps.premium,
-      kyc: deps.kyc,
-      kycType: deps.kycType,
+      meansOfPayment: offr.meansOfPayment,
+      premium: offr.premium,
+      kyc: offr.kyc,
+      kycType: offr.kycType,
     })
-  }, 300))
+  }
 
-  const deps: AnyObject = { currencies, paymentData, premium, kyc, kycType }
-  useEffect(() => debounced.current(deps), Object.keys(deps).map(dep => deps[dep]))
+  useEffect(() => {
+    saveAndUpdate({
+      ...offer,
+      meansOfPayment,
+      paymentData,
+      premium,
+      kyc,
+      kycType,
+    })
+  }, [meansOfPayment, premium, paymentData, kyc, kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('sell.title')} />
-    <Currencies title={i18n('sell.currencies')} currencies={currencies} setCurrencies={setCurrencies} />
     <Headline style={tw`mt-16 text-grey-1`}>
-      {i18n('sell.paymentMethods')}
+      {i18n('sell.meansOfPayment')}
     </Headline>
-    <PaymentMethodSelection setPaymentData={setPaymentData} currencies={currencies} />
+    <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} />
+    <PaymentDetails
+      meansOfPayment={meansOfPayment}
+      paymentMethods={getPaymentMethods(meansOfPayment)}
+      setPaymentData={setPaymentData}
+    />
     <Premium
       premium={premium}
       setPremium={setPremium}
-      identifier={`${currencies.join()}${paymentData.join()}${kyc}`}
       offer={offer}
-      currency={currency}
-      price={price}
     />
     {/* <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} /> */}
   </View>

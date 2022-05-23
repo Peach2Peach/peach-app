@@ -22,9 +22,15 @@ type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 declare type PaymentData = {
   [key: string]: any,
   id: string,
-  type: PaymentMethod,
-  selected?: boolean,
+  type: PaymentMethod
 }
+
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency'
+declare type PaymentCategories = {
+  [key in PaymentCategory]: PaymentMethod[]
+}
+
+declare type HashedPaymentData = string
 
 declare type Message = {
   roomId: string,

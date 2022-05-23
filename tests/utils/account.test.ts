@@ -108,9 +108,13 @@ describe('updateSettings', () => {
   })
 
   it('updates account settings', () => {
+    const meansOfPayment: MeansOfPayment = {
+      EUR: ['sepa'],
+      CHF: ['sepa', 'twint'],
+    }
     const newSettings = {
       skipTutorial: true,
-      currencies: ['EUR', 'CHF'] as Currency[],
+      meansOfPayment,
     }
 
     updateSettings(newSettings)
@@ -121,16 +125,20 @@ describe('updateSettings', () => {
   })
 
   it('updates account settings without overwriting untouched settings', () => {
-    const newSettings = {
-      currencies: ['EUR'] as Currency[],
+    const meansOfPayment: MeansOfPayment = {
+      EUR: ['sepa', 'paypal']
     }
 
-    updateSettings(newSettings)
+    updateSettings({ meansOfPayment })
     deepStrictEqual(account.settings, {
+      appVersion: '0.0.3-rc.3',
       skipTutorial: true,
       displayCurrency: 'EUR',
       locale: 'en',
-      currencies: ['EUR'],
+      meansOfPayment: {
+        'EUR': ['sepa', 'paypal']
+      },
+      preferredPaymentMethods: {}
     })
   })
 })

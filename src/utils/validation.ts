@@ -1,32 +1,11 @@
 import * as bitcoin from 'bitcoinjs-lib'
 import IBAN from 'iban'
-import { PAYMENTMETHODINFOS } from '../constants'
 import i18n from './i18n'
-
-/**
- * @description Method to check whether MoP supports at least one of the given currencies
- * @param paymentMethod id of MoP
- * @param currencies currencies
- * @returns true if payment method supports at least one of the selected currencies
- */
-export const paymentMethodAllowedForCurrencies = (paymentMethod: PaymentMethod, currencies: Currency[]) => {
-  const paymentMethodInfo = PAYMENTMETHODINFOS.find(info => info.id === paymentMethod)
-  return paymentMethodInfo?.currencies.some(c => currencies.indexOf(c) !== -1)
-}
-
-/**
- * @description Method to check whether another MoP of the same type has not been selected
- * @param paymentData MoP in question
- * @param allPaymentData all MoPs of account
- * @returns true if no other MoP of the same type has been selected
- */
-export const paymentMethodNotYetSelected = (paymentData: PaymentData, allPaymentData: PaymentData[]) => {
-  const sameTypeMoPs = allPaymentData.filter(p => p.type === paymentData.type && p.id !== paymentData.id)
-  return !sameTypeMoPs.some(p => p.selected)
-}
 
 // eslint-disable-next-line prefer-named-capture-group, max-len
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u
+// eslint-disable-next-line prefer-named-capture-group, max-len
+const bicRegex = /([a-zA-Z]{4})([a-zA-Z]{2})(([2-9a-zA-Z]{1})([0-9a-np-zA-NP-Z]{1}))((([0-9a-wy-zA-WY-Z]{1})([0-9a-zA-Z]{2}))|([xX]{3})|)/u
 
 export const rules = {
   required (required: boolean, value: string | number | null) {
@@ -51,6 +30,26 @@ export const rules = {
 
     return valid
   },
+  tetherAddress (_: boolean, value: string) {
+    if (!value) return false
+
+    // Tether as erc-20 token
+    if (/0x+[A-F,a-f,0-9]{40}/u.test(value)) return true
+
+    // Tether as trc-20 token
+    if (/T[A-Za-z1-9]{33}/u.test(value)) return true
+
+    // tether on omni layer
+    let valid = false
+    try {
+      bitcoin.address.fromBase58Check(value)
+      valid = true
+    } catch (e) { }
+    return valid
+  },
+  duplicate (existingValue: any) {
+    return !existingValue
+  },
   password (_: boolean, value: string) {
     return value && value.length > 7
   },
@@ -58,19 +57,41 @@ export const rules = {
     if (!value) return false
     return IBAN.isValid(value)
   },
-  paypal (_: boolean, value: string | null) {
+  bic: bicRegex,
+  ukSortCode: /^(?!(?:0{6}|00-00-00))(?:\d{6}|\d\d-\d\d-\d\d)$/u,
+  ukBankAccount: /^\d{8}$/u,
+  userName (_: boolean, value: string | null) {
     if (!value) return false
-    return emailRegex.test(value) || /^@[a-z0-9]*/iu.test(value)
+    return /^@[a-z0-9]*/iu.test(value)
+  },
+  url (_: boolean, value: string) {
+    if (!value) return false
+    try {
+      const link = /http/u.test(value) ? value : `http://${value}`
+      const url = new URL(link)
+      return !!url
+    } catch (e) {
+      return false
+    }
   }
 }
 
 export const getMessages = () => ({
   default: {
     required: i18n('form.required.error'),
-    password: i18n('form.password.error'),
-    bitcoinAddress: i18n('form.btcAddress.error'),
-    iban: i18n('form.invalid.error'),
+    number: i18n('form.invalid.error'),
+    phone: i18n('form.invalid.error'),
+    email: i18n('form.email.error'),
     account: i18n('form.account.error'),
-    email: i18n('form.email.error')
+    password: i18n('form.password.error'),
+    bitcoinAddress: i18n('form.address.error'),
+    tetherAddress: i18n('form.address.error'),
+    duplicate: i18n('form.duplicate.error'),
+    iban: i18n('form.invalid.error'),
+    bic: i18n('form.invalid.error'),
+    ukSortCode: i18n('form.invalid.error'),
+    ukBankAccount: i18n('form.invalid.error'),
+    userName: i18n('form.invalid.error'),
+    url: i18n('form.invalid.error'),
   }
 })

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import DetailIBAN from './detail/iban'
+import DetailSEPA from './detail/sepa'
 import DetailPaypal from './detail/paypal'
-import DetailGiftCard from './detail/giftCard'
+// import DetailGiftCard from './detail/giftCard'
 import DetailRevolut from './detail/revolut'
 import DetailApplePay from './detail/applePay'
 
@@ -12,9 +12,17 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  'iban': DetailIBAN,
-  'paypal': DetailPaypal,
-  // 'giftCard': DetailGiftCard,
-  // 'revolut': DetailRevolut,
-  // 'applePay': DetailApplePay,
+  sepa: DetailSEPA,
+  bankTransferCH: DetailSEPA,
+  bankTransferUK: DetailSEPA,
+  paypal: DetailPaypal,
+  revolut: DetailRevolut,
+  applePay: DetailApplePay,
+  wise: DetailSEPA,
+  twint: DetailSEPA,
+  swish: DetailSEPA,
+  mbWay: DetailSEPA,
+  bizum: DetailSEPA,
+  tether: DetailSEPA,
+  // giftCard: DetailGiftCard,
 }

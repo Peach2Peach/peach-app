@@ -2,9 +2,9 @@ import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { unique } from '../../utils/array'
 import { showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
+import { getCurrencies, getPaymentMethods } from '../../utils/paymentMethod'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -30,12 +30,12 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
-    <Selector items={offer.currencies.map(c => ({ value: c, display: c }))}
+    <Selector items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
       style={tw`mt-2`}/>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
     <Selector
-      items={offer.paymentMethods.filter(unique('type')).map(p => ({
+      items={getPaymentMethods(offer.meansOfPayment).map(p => ({
         value: p,
         display: i18n(`paymentMethod.${p}`).toLowerCase()
       }))}

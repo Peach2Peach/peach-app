@@ -4,7 +4,6 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
@@ -47,8 +46,7 @@ const getDefaultBuyOffer = (): BuyOffer => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
-  currencies: account.settings.currencies || [],
-  paymentMethods: account.settings.paymentMethods || [],
+  meansOfPayment: account.settings.meansOfPayment || {},
   kyc: account.settings.kyc || false,
   amount: account.settings.amount || BUCKETS[0],
   matches: [],

@@ -1,3 +1,4 @@
+import { APPVERSION } from '../../constants'
 import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI'
@@ -6,8 +7,11 @@ import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 export const defaultAccount: Account = {
   publicKey: '',
   settings: {
+    appVersion: APPVERSION,
     displayCurrency: 'EUR',
-    locale: 'en'
+    locale: 'en',
+    meansOfPayment: {},
+    preferredPaymentMethods: {}
   },
   paymentData: [],
   tradingLimit: {
@@ -38,6 +42,10 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   account = overwrite ? acc : {
     ...defaultAccount,
     ...acc,
+    settings: {
+      ...defaultAccount.settings,
+      ...acc.settings,
+    },
     tradingLimit: defaultAccount.tradingLimit,
   }
 

@@ -1,4 +1,5 @@
 import { SvgProps } from 'react-native-svg'
+import add from './add.svg'
 import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
@@ -26,16 +27,21 @@ import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
+import next from './next.svg'
+import prev from './prev.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
-import triangleRight from './triangleRight.svg'
 import triangleUp from './triangleUp.svg'
+import triangleDown from './triangleDown.svg'
+import triangleLeft from './triangleLeft.svg'
+import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
 
 type Icons = {
   [key: string]: React.FC<SvgProps>
 }
 const Icons: Icons = {
+  add,
   arrowLeft,
   buy,
   camera,
@@ -63,10 +69,14 @@ const Icons: Icons = {
   sell,
   send,
   settings,
+  next,
+  prev,
   sliderNext,
   sliderPrev,
-  triangleRight,
   triangleUp,
+  triangleDown,
+  triangleLeft,
+  triangleRight,
   undo,
 }
 
