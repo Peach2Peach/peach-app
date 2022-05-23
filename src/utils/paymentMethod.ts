@@ -1,5 +1,7 @@
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../constants'
 import { intersect, unique } from './array'
+import { sha256 } from './crypto'
+import { SignAndEncryptResult, signAndEncryptSymmetric } from './pgp'
 
 /**
  * @description Method to return all configured currencies
@@ -100,3 +102,38 @@ export const getApplicablePaymentCategories = (currency: Currency): PaymentCateg
  */
 export const paymentMethodSelected = (paymentMethod: PaymentMethod, selectedPaymentMethods: PaymentMethod[] = []) =>
   selectedPaymentMethods.indexOf(paymentMethod) !== -1
+
+
+/**
+ * @description Method to hash a payment data into hex representation using sha256
+ * @param paymentData payment data to hash
+ * @returns hashed payment data as hex
+ */
+export const hashPaymentData = (paymentData: PaymentData): string => {
+  const data = JSON.parse(JSON.stringify(paymentData))
+  delete data.id
+  delete data.type
+
+  return sha256(JSON.stringify(data))
+}
+
+/**
+ * @description Method to encrypt payment data and sign encrypted payment data with passphrase
+ * @param paymentData payment data
+ * @param passphrase passphrase to encrypt with
+ * @returns Promise resolving to encrypted payment data and signature
+ */
+export const encryptPaymentData = async (
+  paymentData: PaymentData,
+  symmetricKey: string
+): Promise<SignAndEncryptResult> => {
+  const data = JSON.parse(JSON.stringify(paymentData))
+
+  delete data.id
+  delete data.type
+
+  return await signAndEncryptSymmetric(
+    JSON.stringify(data),
+    symmetricKey
+  )
+}

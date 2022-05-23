@@ -17,14 +17,14 @@ export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
   const [phone, setPhone] = useState(data?.phone || '')
-  const [name, setName] = useState(data?.name || '')
+  const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   let $id = useRef<TextInput>(null).current
   let $phone = useRef<TextInput>(null).current
-  let $name = useRef<TextInput>(null).current
+  let $beneficiary = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, phone, name },
+    state: { id, phone, beneficiary },
     rules,
     messages: getMessages()
   })
@@ -43,11 +43,11 @@ export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
     if (!isFormValid()) return
 
     if (view === 'edit') removePaymentData(data?.id || '')
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & BizumData = {
       id,
       type: 'bizum',
       phone,
-      name,
+      beneficiary,
     }
     addPaymentData(paymentData)
     if (onSubmit) onSubmit(paymentData)
@@ -84,7 +84,7 @@ export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
       <View style={tw`mt-2`}>
         <Input
           onChange={setPhone}
-          onSubmit={() => $name?.focus()}
+          onSubmit={() => $beneficiary?.focus()}
           reference={(el: any) => $phone = el}
           value={phone}
           disabled={view === 'view'}
@@ -96,16 +96,16 @@ export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setName}
+          onChange={setBeneficiary}
           onSubmit={save}
-          reference={(el: any) => $name = el}
-          value={name}
+          reference={(el: any) => $beneficiary = el}
+          value={beneficiary}
           required={false}
           disabled={view === 'view'}
           label={i18n('form.name')}
-          isValid={!isFieldInError('name')}
+          isValid={!isFieldInError('beneficiary')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('name')}
+          errorMessage={getErrorsInField('beneficiary')}
         />
       </View>
     </View>

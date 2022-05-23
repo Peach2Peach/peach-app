@@ -7,7 +7,7 @@ import i18n from '../../../utils/i18n'
 import { Headline } from '../../text'
 import { CopyAble, HorizontalLine } from '../../ui'
 
-export const DetailSEPA = ({ paymentData }: PaymentTemplateProps): ReactElement => <View>
+export const DetailBankTransferCH = ({ paymentData }: PaymentTemplateProps): ReactElement => <View>
   <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.iban} /></View>
   <Headline style={tw`text-grey-2 normal-case mt-4`}>
     {i18n('contract.payment.to')}
@@ -20,4 +20,4 @@ export const DetailSEPA = ({ paymentData }: PaymentTemplateProps): ReactElement 
   </Headline>
   <Text style={tw`text-center text-grey-2`}>{paymentData.beneficiary}</Text>
 </View>
-export default DetailSEPA
+export default DetailBankTransferCH

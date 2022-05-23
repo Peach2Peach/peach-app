@@ -13,21 +13,18 @@ import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
+export const SWIFT: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
-  const [phone, setPhone] = useState(data?.phone || '')
-  const [userName, setUserName] = useState(data?.userName || '')
-  const [email, setEmail] = useState(data?.email || '')
-  const anyFieldSet = !!(phone || userName || email)
+  const [bic, setBIC] = useState(data?.iban || '')
+  const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   let $id = useRef<TextInput>(null).current
-  let $phone = useRef<TextInput>(null).current
-  let $userName = useRef<TextInput>(null).current
-  let $email = useRef<TextInput>(null).current
+  let $beneficiary = useRef<TextInput>(null).current
+  let $bic = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, phone, userName, email },
+    state: { id, bic, beneficiary },
     rules,
     messages: getMessages()
   })
@@ -38,29 +35,22 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
         required: true,
         duplicate: view === 'new' && getPaymentData(id)
       },
-      phone: {
-        required: !userName && !email,
-        phone: true
+      beneficiary: {
+        required: true,
       },
-      userName: {
-        required: !phone && !email,
-        userName: true
-      },
-      email: {
-        required: !userName && !phone,
-        email: true
+      bic: {
+        required: true,
+        bic: true
       },
     })
     if (!isFormValid()) return
 
     if (view === 'edit') removePaymentData(data?.id || '')
-
-    const paymentData: PaymentData & RevolutData = {
+    const paymentData: PaymentData & SWIFTData = {
       id,
-      type: 'revolut',
-      phone,
-      userName,
-      email,
+      type: 'swift',
+      bic,
+      beneficiary,
     }
     addPaymentData(paymentData)
     if (onSubmit) onSubmit(paymentData)
@@ -84,7 +74,7 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
       <View>
         <Input
           onChange={setId}
-          onSubmit={() => $phone?.focus()}
+          onSubmit={() => $beneficiary?.focus()}
           reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
@@ -96,47 +86,28 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setPhone}
-          onSubmit={() => $userName?.focus()}
-          reference={(el: any) => $phone = el}
-          value={phone}
-          required={!anyFieldSet}
+          onChange={setBeneficiary}
+          onSubmit={() => $bic?.focus()}
+          reference={(el: any) => $beneficiary = el}
+          value={beneficiary}
           disabled={view === 'view'}
-          label={i18n('form.phone')}
-          isValid={!isFieldInError('phone')}
+          label={i18n('form.beneficiary')}
+          isValid={!isFieldInError('beneficiary')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('phone')}
+          errorMessage={getErrorsInField('beneficiary')}
         />
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setUserName}
-          onSubmit={() => {
-            setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
-            $email?.focus()
-          }}
-          reference={(el: any) => $userName = el}
-          value={userName}
-          required={!anyFieldSet}
-          disabled={view === 'view'}
-          label={i18n('form.userName')}
-          isValid={!isFieldInError('paymentLink')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('paymentLink')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={setEmail}
+          onChange={setBIC}
           onSubmit={save}
-          reference={(el: any) => $email = el}
-          value={email}
-          required={!anyFieldSet}
+          reference={(el: any) => $bic = el}
+          value={bic}
           disabled={view === 'view'}
-          label={i18n('form.email')}
-          isValid={!isFieldInError('email')}
+          label={i18n('form.bic')}
+          isValid={!isFieldInError('bic')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('email')}
+          errorMessage={getErrorsInField('bic')}
         />
       </View>
     </View>
@@ -146,7 +117,7 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
         </Pressable>
         <Button
-          title={i18n('form.paymentMethod.add')}
+          title={i18n(view === 'new' ? 'form.paymentMethod.add' : 'form.paymentMethod.update')}
           secondary={true}
           wide={false}
           onPress={save}

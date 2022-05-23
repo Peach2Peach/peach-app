@@ -105,7 +105,7 @@ export const Input = ({
           value={value}
           editable={!disabled} autoCorrect={autoCorrect} multiline={multiline}
           onChangeText={onChangeText}
-          onSubmitEditing={onSubmitEditing} onEndEditing={onSubmitEditing}
+          onSubmitEditing={onSubmitEditing}
           blurOnSubmit={false}
           onFocus={onFocusHandler} onBlur={onBlurHandler}
           secureTextEntry={secureTextEntry}

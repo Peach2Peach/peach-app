@@ -74,7 +74,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel 
 
     if (view === 'edit') removePaymentData(data?.id || '')
 
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & WiseData = {
       id,
       type: 'wise',
       email,

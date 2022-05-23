@@ -63,7 +63,7 @@ declare type Pricebook = {
   [key in Currency]?: number
 }
 declare type PaymentMethod =
-  'sepa' | 'bankTransferCH' | 'bankTransferUK'
+  'sepa' | 'swift' | 'bankTransferCH' | 'bankTransferUK'
   | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish' | 'mbWay' | 'bizum'
   | 'tether'
 

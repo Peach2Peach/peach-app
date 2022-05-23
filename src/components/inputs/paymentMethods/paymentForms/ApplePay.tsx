@@ -42,7 +42,7 @@ export const ApplePay: PaymentMethodForm = ({ style, view, data, onSubmit, onCan
 
     if (view === 'edit') removePaymentData(data?.id || '')
 
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & ApplePayData = {
       id,
       type: 'applePay',
       phone,

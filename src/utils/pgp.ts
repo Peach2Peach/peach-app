@@ -1,7 +1,7 @@
 import OpenPGP from 'react-native-fast-openpgp'
 import { account } from './account'
 
-type SignAndEncryptResult = {
+export type SignAndEncryptResult = {
   signature: string,
   encrypted: string,
 }
