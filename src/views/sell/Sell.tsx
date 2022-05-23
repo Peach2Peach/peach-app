@@ -207,6 +207,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
       <PeachScrollView scrollRef={scroll}
+        disable={!scrollable}
         contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
         style={tw`pt-6 overflow-visible`}>
         <View style={tw`pb-8`}>

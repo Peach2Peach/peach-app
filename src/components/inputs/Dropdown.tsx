@@ -4,6 +4,7 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from '..'
 import { innerShadow, mildShadow } from '../../utils/layout'
+import PeachScrollView from '../PeachScrollView'
 
 interface Item {
   value: string|number,
@@ -75,25 +76,29 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownP
   ]}>
     <Shadow shadow={isOpen ? mildShadow : innerShadow}>
       <View style={[
-        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
+        tw`w-full py-0 border border-grey-4 rounded`,
         isOpen ? tw`bg-white-1` : {}
       ]}>
         {isOpen
           ? [
-            <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
+            <Pressable key={selectedItem?.value} style={tw`h-10 pl-4 pr-3 flex justify-center opacity-30`}
               onPress={toggle}>
               {selectedItem?.display(false)}
             </Pressable>,
-            items
-              .map(item => <Pressable
+            <PeachScrollView style={[
+              tw`pl-4 pr-3`,
+              { height: (tw`h-10`.height as number) * Math.min(5, items.length) }
+            ]}>
+              {items.map(item => <Pressable
                 key={item.value}
                 style={tw`h-10 flex justify-center`}
                 onPress={() => select(item)}>
                 {item.display(isOpen)}
               </Pressable>
-              )
+              )}
+            </PeachScrollView>
           ]
-          : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
+          : <Pressable style={tw`h-10 pl-4 pr-3 flex justify-center`} onPress={toggle}>
             {selectedItem?.display(isOpen)}
           </Pressable>
         }
