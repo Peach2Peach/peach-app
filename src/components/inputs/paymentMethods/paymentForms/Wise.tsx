@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 import React, { useEffect, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'

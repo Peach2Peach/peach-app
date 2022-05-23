@@ -25,7 +25,7 @@ declare type PaymentData = {
   type: PaymentMethod
 }
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency' 
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }

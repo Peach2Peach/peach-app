@@ -191,7 +191,7 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
       paymentMethods
         .filter(p => PAYMENTMETHODS.indexOf(p) === -1)
         .forEach(p => {
-          togglePaymentMethod(c, p)
+          togglePaymentMethod(c as Currency, p)
         })
     })
   }, [applicablePaymentCategories])
