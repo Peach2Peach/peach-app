@@ -2,6 +2,15 @@ import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../c
 import { intersect, unique } from './array'
 
 /**
+ * @description Method to return all configured currencies
+ * @param meansOfPayment payment methods mapped to currency
+ * @returns array of currencies configured
+ */
+export const getCurrencies = (meansOfPayment: MeansOfPayment): Currency[] =>
+  (Object.keys(meansOfPayment) as Currency[])
+    .filter(c => meansOfPayment[c]?.length)
+
+/**
  * @description Method to return all selected payment methods
  * @param meansOfPayment payment methods mapped to currency
  * @returns array of payment methods configured
@@ -10,6 +19,7 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
   Object.keys(meansOfPayment)
     .reduce((arr, c) => arr.concat((meansOfPayment as Required<MeansOfPayment>)[c as Currency]), [] as PaymentMethod[])
     .filter(unique())
+
 
 /**
  * @description Method to check whether MoP supports given currency

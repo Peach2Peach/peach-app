@@ -4,7 +4,7 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
-import { getPaymentMethods } from '../../utils/paymentMethod'
+import { getCurrencies, getPaymentMethods } from '../../utils/paymentMethod'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -30,7 +30,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
-    <Selector items={Object.keys(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
+    <Selector items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
       style={tw`mt-2`}/>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>

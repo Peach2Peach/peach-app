@@ -4,19 +4,22 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './Buy'
-import { updateSettings } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { MeansOfPayment } from '../../components/inputs'
+import { hasMopsConfigured } from '../../utils/offer'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount
-  && !!offer.meansOfPayment // TODO
+  && hasMopsConfigured(offer)
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
-  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(offer.meansOfPayment)
+  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
+    offer.meansOfPayment || account.settings.meansOfPayment
+  )
   const [kyc, setKYC] = useState(offer.kyc)
 
 

@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
-import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
+import { CURRENCIES, PAYMENTCATEGORIES, PAYMENTMETHODS } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import {
@@ -153,17 +153,6 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
 
   const $carousel = useRef<Carousel<any>>(null)
 
-  useEffect(() => {
-    setApplicablePaymentCategories(getApplicablePaymentCategories(selectedCurrency))
-    setTimeout(() => $carousel.current?.snapToItem(0))
-  }, [selectedCurrency])
-
-  useEffect(() => {
-    setSelectedPaymentCategory(applicablePaymentCategories[0])
-    setTimeout(() => $carousel.current?.snapToItem(0))
-  }, [applicablePaymentCategories])
-
-
   const togglePaymentMethod = (currency: Currency, paymentMethod: PaymentMethod) => {
     setMeansOfPayment(mops => {
       if (!mops[currency]) mops[currency] = []
@@ -184,6 +173,28 @@ export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPay
   const onBeforeSnapToItem = (index: number) => {
     setSelectedPaymentCategory(applicablePaymentCategories[index])
   }
+
+  useEffect(() => {
+    setApplicablePaymentCategories(getApplicablePaymentCategories(selectedCurrency))
+    setTimeout(() => $carousel.current?.snapToItem(0))
+  }, [selectedCurrency])
+
+  useEffect(() => {
+    setSelectedPaymentCategory(applicablePaymentCategories[0])
+    setTimeout(() => $carousel.current?.snapToItem(0))
+  }, [applicablePaymentCategories])
+
+  useEffect(() => { // clean MoPs from removed payment methods
+    Object.keys(meansOfPayment).forEach(c => {
+      const paymentMethods = meansOfPayment[c as Currency]
+      if (!paymentMethods) return
+      paymentMethods
+        .filter(p => PAYMENTMETHODS.indexOf(p) === -1)
+        .forEach(p => {
+          togglePaymentMethod(c, p)
+        })
+    })
+  }, [applicablePaymentCategories])
 
   return <View style={tw`px-7`}>
     <Currencies onChange={(c) => setSelectedCurrency(c)} selected={selectedCurrency} meansOfPayment={meansOfPayment} />

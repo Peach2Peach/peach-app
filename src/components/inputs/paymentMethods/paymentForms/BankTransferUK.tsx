@@ -9,12 +9,11 @@ import { Fade } from '../../../animation'
 import Button from '../../../Button'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
-import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function, max-statements
-export const BankTranserUK: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
+// eslint-disable-next-line max-lines-per-function
+export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')

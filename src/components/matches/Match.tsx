@@ -14,7 +14,7 @@ import { unique } from '../../utils/array'
 import Icon from '../Icon'
 import { interpolate } from '../../utils/math'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getPaymentMethods } from '../../utils/paymentMethod'
+import { getCurrencies, getPaymentMethods, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -51,6 +51,10 @@ export const Match = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment)[0]
   )
+  const currencies = getCurrencies(offer.type === 'bid' ? offer.meansOfPayment : match.meansOfPayment)
+  const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(
+    getPaymentMethods(match.meansOfPayment).filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
+  )
 
   const shadow = renderShadow
     ? match.matched
@@ -69,6 +73,12 @@ export const Match = ({
   const setCurrency = (currency: Currency) => {
     match.selectedCurrency = selectedCurrency
     setSelectedCurrency(currency)
+    setApplicablePaymentMethods(getPaymentMethods(match.meansOfPayment)
+      .filter(p => paymentMethodAllowedForCurrency(p, currency))
+    )
+    if (!paymentMethodAllowedForCurrency(selectedPaymentMethod, currency)) {
+      setSelectedPaymentMethod((match.meansOfPayment[currency] || [])[0])
+    }
     onChange(null, currency, selectedPaymentMethod)
   }
   const setPaymentMethod = (paymentMethod: PaymentMethod) => {
@@ -138,7 +148,7 @@ export const Match = ({
         <Selector
           style={tw`mt-2`}
           selectedValue={selectedCurrency}
-          items={Object.keys(match.prices).map(c => ({ value: c, display: c }))}
+          items={currencies.map(c => ({ value: c, display: c }))}
           onChange={c => setCurrency(c as Currency)}
         />
         <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>
@@ -148,7 +158,7 @@ export const Match = ({
         <Selector
           style={tw`mt-2`}
           selectedValue={selectedPaymentMethod as string}
-          items={getPaymentMethods(match.meansOfPayment).map(p => ({
+          items={applicablePaymentMethods.map(p => ({
             value: p,
             display: i18n(`paymentMethod.${p}`)
           }))}

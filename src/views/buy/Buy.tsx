@@ -4,7 +4,6 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'

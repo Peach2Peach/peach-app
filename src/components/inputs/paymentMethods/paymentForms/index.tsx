@@ -4,7 +4,8 @@ import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
 import { ApplePay } from './ApplePay'
 // import { Wise } from './Wise'
-import { BankTranserUK } from './BankTranserUK'
+import { BankTransferCH } from './BankTransferCH'
+import { BankTransferUK } from './BankTransferUK'
 import { Twint } from './Twint'
 import { Bizum } from './Bizum'
 import { Swish } from './Swish'
@@ -24,8 +25,8 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
-  bankTransferCH: SEPA,
-  bankTransferUK: BankTranserUK,
+  bankTransferCH: BankTransferCH,
+  bankTransferUK: BankTransferUK,
   paypal: PayPal,
   revolut: Revolut,
   applePay: ApplePay,
