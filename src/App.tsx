@@ -127,7 +127,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [{ template, msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = Dimensions.get('window')
@@ -146,7 +146,7 @@ const App: React.FC = () => {
     updateMessage({ msg: i18n((err as Error).message || 'error.general'), level: 'ERROR' })
   })
 
-  useEffect(showMessageEffect(msg, width, slideInAnim), [msg, time])
+  useEffect(showMessageEffect(template || msg, width, slideInAnim), [msg, time])
 
   useEffect(() => {
     (async () => {
@@ -197,7 +197,7 @@ const App: React.FC = () => {
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-            <MessageContext.Provider value={[{ msg, level }, updateMessage]}>
+            <MessageContext.Provider value={[{ template, msg, level }, updateMessage]}>
               <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
                 <View style={tw`h-full flex-col`}>
                   {showHeader(currentPage)
@@ -208,9 +208,9 @@ const App: React.FC = () => {
                     ? <Overlay content={content} showCloseButton={showCloseButton} />
                     : null
                   }
-                  {msg
+                  {template || msg
                     ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                      <Message msg={msg} level={level} style={{ minHeight: 60 }} />
+                      <Message template={template} msg={msg} level={level} style={{ minHeight: 60 }} />
                     </Animated.View>
                     : null
                   }

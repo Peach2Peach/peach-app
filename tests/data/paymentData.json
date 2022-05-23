@@ -123,7 +123,8 @@
   },
   "bic": {
     "valid": [
-      "TODO"
+      "AAAA BB CC 123",
+      "AAAABBCC123"
     ],
     "invalid": [
       "TODO"

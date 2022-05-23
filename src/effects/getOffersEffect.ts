@@ -11,9 +11,9 @@ export default ({
   onError
 }: GetOffersProps): EffectCallback => () => {
   const checkingFunction = async () => {
-
     info('Get offers')
     const [result, err] = await getOffers()
+
     if (result) {
       info(`Got ${result.length} offers`)
 

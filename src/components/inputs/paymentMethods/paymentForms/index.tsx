@@ -10,6 +10,7 @@ import { Twint } from './Twint'
 import { Bizum } from './Bizum'
 import { Swish } from './Swish'
 import { MBWay } from './MBWay'
+import { SWIFT } from './SWIFT'
 // import { Tether } from './Tether'
 
 type PaymentFormProps = ComponentProps & {
@@ -25,6 +26,7 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
+  swift: SWIFT,
   bankTransferCH: BankTransferCH,
   bankTransferUK: BankTransferUK,
   paypal: PayPal,

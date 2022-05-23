@@ -5,10 +5,9 @@ import AddPaymentMethod from '../../../components/inputs/paymentMethods/AddPayme
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
-import { account, getPaymentDataByType, updateSettings } from '../../../utils/account'
-import { sha256 } from '../../../utils/crypto'
+import { account, getPaymentData, getPaymentDataByType, updateSettings } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { getPaymentMethods } from '../../../utils/paymentMethod'
+import { getPaymentMethods, hashPaymentData } from '../../../utils/paymentMethod'
 
 const mapPaymentDataToRadioItem = (paymentData: PaymentData) => ({
   value: paymentData.id,
@@ -28,9 +27,12 @@ export default ({ meansOfPayment, paymentMethods, setPaymentData }: PaymentDetai
   const update = () => {
     const selectedPaymentData = getPaymentMethods(meansOfPayment).reduce((obj, mop) => {
       const preferredPaymentMethod = account.settings.preferredPaymentMethods[mop]
-      if (preferredPaymentMethod) obj[mop] = sha256(preferredPaymentMethod)
+      const data = getPaymentData(preferredPaymentMethod || '')
+
+      if (data) obj[mop] = hashPaymentData(data)
+
       return obj
-    }, {} as Settings['preferredPaymentMethods'])
+    }, {} as SellOffer['paymentData'])
     setPaymentData(selectedPaymentData)
   }
   const onPaymentDataUpdate = () => {

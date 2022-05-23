@@ -25,6 +25,64 @@ declare type PaymentData = {
   type: PaymentMethod
 }
 
+declare type PaypalData = {
+  phone: string,
+  email: string,
+  userName: string,
+}
+declare type ApplePayData = {
+  phone: string,
+}
+declare type SEPAData = {
+  beneficiary: string,
+  iban: string,
+}
+declare type SWIFTData = {
+  beneficiary: string,
+  bic: string,
+}
+declare type BankTransferCHData = {
+  beneficiary: string,
+  iban: string,
+}
+declare type BankTransferUKData = {
+  beneficiary: string,
+  ukSortCode: string,
+  ukBankAccount: string,
+}
+declare type BizumData = {
+  phone: string,
+  name: string,
+}
+declare type MBWayData = {
+  phone: string,
+  name: string,
+}
+declare type RevolutData = {
+  phone: string,
+  name: string,
+  email: string,
+}
+declare type SwishData = {
+  phone: string,
+  beneficiary: string,
+}
+declare type TetherData = {
+  tetherAddress: string,
+}
+declare type TwintData = {
+  phone: string,
+  beneficiary: string,
+}
+declare type WiseData = {
+  email: string,
+  beneficiary: string,
+  iban: string,
+  bic: string,
+  ukSortCode: string,
+  ukBankAccount: string,
+}
+
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
@@ -51,7 +109,8 @@ declare type AppState = {
   notifications: number,
 }
 declare type MessageState = {
-  msg: string,
+  template?: ReactNode,
+  msg?: string,
   level: Level,
   time?: number,
 }

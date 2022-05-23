@@ -40,11 +40,11 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
       },
       phone: {
         required: !email && !userName,
-        email: true
+        phone: true
       },
       email: {
         required: !phone && !userName,
-        email: true
+        email: !phone && !userName
       },
       userName: {
         required: !phone && !email,
@@ -55,7 +55,7 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
 
     if (view === 'edit') removePaymentData(data?.id || '')
 
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & PaypalData = {
       id,
       type: 'paypal',
       phone,
@@ -125,7 +125,10 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onCance
       <View style={tw`mt-2`}>
         <Input
           onChange={setUserName}
-          onSubmit={save}
+          onSubmit={() => {
+            setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
+            save()
+          }}
           reference={(el: any) => $userName = el}
           required={!anyFieldSet}
           value={userName}

@@ -55,7 +55,7 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
 
     if (view === 'edit') removePaymentData(data?.id || '')
 
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & RevolutData = {
       id,
       type: 'revolut',
       phone,

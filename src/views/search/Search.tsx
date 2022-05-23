@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Matches, Text } from '../../components'
+import { BigTitle, Button, Headline, Matches, Text, TextLink } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
@@ -23,10 +23,11 @@ import { OverlayContext } from '../../contexts/overlay'
 import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { account } from '../../utils/account'
-import { getRandom, sha256 } from '../../utils/crypto'
+import { getRandom } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
-import { getPaymentMethods } from '../../utils/paymentMethod'
+import { encryptPaymentData, getPaymentMethods, hashPaymentData } from '../../utils/paymentMethod'
+import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -76,11 +77,21 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
+  const onPaymentDataUpdate = () => {
+    updateOverlay({ content: null, showCloseButton: true })
+  }
+  const openAddPaymentMethodDialog = () => {
+    updateMessage({ template: null, level: 'ERROR' })
+    updateOverlay({
+      content: <AddPaymentMethod method={selectedPaymentMethod} onSubmit={onPaymentDataUpdate} />,
+      showCloseButton: false
+    })
+  }
+
   // eslint-disable-next-line max-statements, max-lines-per-function
   const _match = async (match: Match) => {
     let encryptedSymmmetricKey
     let encryptedPaymentData
-    let paymentData
 
     if (!offer || !offer.id) return
 
@@ -106,26 +117,38 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       if (decryptErr) error(decryptErr)
 
-      paymentData = account.paymentData?.find(data =>
-        data.type === getPaymentMethods(match.meansOfPayment).shift()
-      ) as Omit<PaymentData, 'id' | 'type'>
+      const paymentDataForMethod = account.paymentData.filter(data =>
+        data.type === selectedPaymentMethod
+      )
+      const paymentDataHashes = paymentDataForMethod.map(data =>  hashPaymentData(data))
+      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
 
-      if (!paymentData) { // TODO show payment Data form again
+
+      if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
-          msg: i18n('search.error.paymentDataMissing'),
+          template: <View>
+            <Headline style={tw`text-white-1 text-lg`}>{i18n('error.paymentDataMissing.title')}</Headline>
+            <Text style={tw`text-white-1 text-center mt-1`}>
+              {i18n('error.paymentDataMissing.text.1')}
+            </Text>
+            <View style={tw`flex-row items-center justify-center mt-1`}>
+              <Text style={tw`text-white-1 text-center`}>
+                {i18n('error.paymentDataMissing.text.2')}
+              </Text>
+              <TextLink style={tw`text-white-1 ml-1`}
+                onPress={openAddPaymentMethodDialog}>
+                {i18n('error.paymentDataMissing.text.3')}
+              </TextLink>
+            </View>
+          </View>,
           level: 'ERROR',
         })
         return
       }
 
-      paymentData = JSON.parse(JSON.stringify(paymentData)) // break link to original
-
-      delete paymentData.id
-      delete paymentData.type
-
-      encryptedPaymentData = await signAndEncryptSymmetric(
-        JSON.stringify(paymentData),
+      encryptedPaymentData = await encryptPaymentData(
+        paymentDataForMethod[index],
         symmetricKey
       )
     }
@@ -138,7 +161,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       symmetricKeySignature: encryptedSymmmetricKey?.signature,
       paymentDataEncrypted: encryptedPaymentData?.encrypted,
       paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData: paymentData ? sha256(JSON.stringify(paymentData)) : undefined,
+      hashedPaymentData: offer.type === 'ask' ? offer.paymentData[selectedPaymentMethod] : undefined,
     })
 
     if (result) {
@@ -202,11 +225,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     showCloseButton: false
   })
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     setOffer(route.params.offer)
     setOfferId(route.params.offer.id)
     setUpdatePending(() => true)
-  }, [route])
+  }, [route]))
 
   useEffect(() => {
     if (!offer.id || !matches.length) return

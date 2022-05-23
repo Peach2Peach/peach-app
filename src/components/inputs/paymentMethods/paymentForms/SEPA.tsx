@@ -46,7 +46,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
     if (!isFormValid()) return
 
     if (view === 'edit') removePaymentData(data?.id || '')
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & SEPAData = {
       id,
       type: 'sepa',
       iban,

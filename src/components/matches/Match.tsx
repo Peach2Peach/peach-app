@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
@@ -79,13 +79,15 @@ export const Match = ({
     if (!paymentMethodAllowedForCurrency(selectedPaymentMethod, currency)) {
       setSelectedPaymentMethod((match.meansOfPayment[currency] || [])[0])
     }
-    onChange(null, currency, selectedPaymentMethod)
   }
   const setPaymentMethod = (paymentMethod: PaymentMethod) => {
     match.selectedPaymentMethod = selectedPaymentMethod
     setSelectedPaymentMethod(paymentMethod)
-    onChange(null, selectedCurrency, paymentMethod)
   }
+
+  useEffect(() => {
+    onChange(null, selectedCurrency, selectedPaymentMethod)
+  }, [selectedCurrency, selectedPaymentMethod])
 
   return <Shadow shadow={shadow}>
     <View style={[

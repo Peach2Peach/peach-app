@@ -45,7 +45,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   }
   const navigate = () => navigation.replace('offers', {})
 
-  useEffect(!offer.id ? postOfferEffect({
+  useFocusEffect(useCallback(!offer.id ? postOfferEffect({
     offer,
     onSuccess: result => {
       info('Posted offer', result)
@@ -56,7 +56,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
       updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
       back()
     }
-  }) : () => {}, [])
+  }) : () => {}, []))
 
   useEffect(offer.id && !offer.escrow ? createEscrowEffect({
     offer,

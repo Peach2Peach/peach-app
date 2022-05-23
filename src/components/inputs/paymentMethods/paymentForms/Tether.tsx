@@ -16,13 +16,13 @@ const { useValidation } = require('react-native-form-validator')
 export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
-  const [address, setAddress] = useState(data?.address || '')
+  const [tetherAddress, setTetherAddress] = useState(data?.tetherAddress || '')
   let $id = useRef<TextInput>(null).current
-  let $address = useRef<TextInput>(null).current
+  let $tetherAddress = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, address },
+    state: { id, tetherAddress },
     rules,
     messages: getMessages()
   })
@@ -33,7 +33,7 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onCance
         required: true,
         duplicate: view === 'new' && getPaymentData(id)
       },
-      address: {
+      tetherAddress: {
         required: true,
         tetherAddress: true,
       }
@@ -41,10 +41,10 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onCance
     if (!isFormValid()) return
 
     if (view === 'edit') removePaymentData(data?.id || '')
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & TetherData = {
       id,
       type: 'tether',
-      address,
+      tetherAddress,
     }
     addPaymentData(paymentData)
     if (onSubmit) onSubmit(paymentData)
@@ -68,7 +68,7 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onCance
       <View>
         <Input
           onChange={setId}
-          onSubmit={() => $address?.focus()}
+          onSubmit={() => $tetherAddress?.focus()}
           reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
@@ -80,15 +80,15 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onCance
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setAddress}
+          onChange={setTetherAddress}
           onSubmit={save}
-          reference={(el: any) => $address = el}
-          value={address}
+          reference={(el: any) => $tetherAddress = el}
+          value={tetherAddress}
           disabled={view === 'view'}
-          label={i18n('form.address.tether')}
-          isValid={!isFieldInError('address')}
+          label={i18n('form.tetherAddress.tether')}
+          isValid={!isFieldInError('tetherAddress')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('address')}
+          errorMessage={getErrorsInField('tetherAddress')}
         />
       </View>
     </View>

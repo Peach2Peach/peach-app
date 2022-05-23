@@ -1,9 +1,7 @@
 
 import React, { ReactElement } from 'react'
-import {
-  Pressable,
-  Text,
-} from 'react-native'
+import { Pressable } from 'react-native'
+import { Text } from '.'
 import tw from '../../styles/tailwind'
 
 type TextLinkProps = ComponentProps & {
@@ -23,11 +21,10 @@ type TextLinkProps = ComponentProps & {
  */
 export const TextLink = ({ style, children, onPress }: TextLinkProps): ReactElement =>
   <Pressable onPress={(e) => onPress ? onPress(e) : null}>
-    <Text
-      style={[
-        tw`font-lato text-lg text-peach-1 underline`,
-        style
-      ]}>
+    <Text style={[
+      tw`text-peach-1 underline`,
+      style
+    ]}>
       {children}
     </Text>
   </Pressable>

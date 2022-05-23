@@ -53,7 +53,7 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
 
     if (view === 'edit') removePaymentData(data?.id || '')
 
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & BankTransferUKData = {
       id,
       type: 'bankTransferUK',
       beneficiary,

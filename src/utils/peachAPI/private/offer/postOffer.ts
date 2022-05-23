@@ -34,6 +34,8 @@ export const postOffer = async ({
   returnAddress,
   releaseAddress
 }: PostOfferProps): Promise<[PostOfferResponse|null, APIError|null]> => {
+  console.log('Im doing it')
+
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -52,6 +54,7 @@ export const postOffer = async ({
       releaseAddress
     })
   })
+  console.log('I did it')
 
   return await parseResponse<PostOfferResponse>(response, 'postOffer')
 }

@@ -38,8 +38,21 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
 
 const getMatchCurrency = (match: Match) =>
   match.selectedCurrency || Object.keys(match.meansOfPayment).shift() as Currency
-const getMatchPaymentMethod = (match: Match) =>
-  match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment).shift()
+
+const getPaymentMethodsByCurrency = (meansOfPayment: MeansOfPayment, currency: Currency) => meansOfPayment[currency]
+
+const getMatchPaymentMethod = (match: Match) => {
+  const fallback = match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment).shift() as PaymentMethod
+
+  if (!match.selectedCurrency) return fallback
+
+  const paymentMethods = getPaymentMethodsByCurrency(match.meansOfPayment, match.selectedCurrency)
+  if (!paymentMethods?.length) return fallback
+
+  const firstMethod = paymentMethods[0]
+
+  return paymentMethods.indexOf(fallback) === -1 ? firstMethod : fallback
+}
 
 /**
  * @description Component to display matches

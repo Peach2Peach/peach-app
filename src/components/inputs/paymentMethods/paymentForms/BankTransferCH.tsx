@@ -46,7 +46,7 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
     if (!isFormValid()) return
 
     if (view === 'edit') removePaymentData(data?.id || '')
-    const paymentData: PaymentData = {
+    const paymentData: PaymentData & BankTransferCHData = {
       id,
       type: 'bankTransferCH',
       iban,

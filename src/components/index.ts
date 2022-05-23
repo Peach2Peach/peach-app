@@ -27,6 +27,7 @@ export { Match, Matches } from './matches'
 export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
 export {
   Bubble,
+  CopyAble,
   HorizontalLine,
   Shadow,
 } from './ui'
