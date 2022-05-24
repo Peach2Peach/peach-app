@@ -32,9 +32,14 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     : grey
       ? tw`text-grey-2`
       : tw`text-white-2`
+  const bgColor = secondary ? tw`bg-white-2` : tw`bg-peach-1`
   const bgColorActive = grey
     ? tw`bg-grey-2`
     : tw`bg-peach-2`
+  const border = secondary ? tw`border border-peach-1 `
+    : tertiary ? tw`border border-white-2 `
+      : grey ? tw`border border-grey-2 `
+        : {}
   return <Pressable
     onPress={onPressHandler}
     onPressIn={onPressInHandler}
@@ -43,12 +48,14 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     style={[
       tw`rounded w-full flex-row items-center justify-center px-3 py-2`,
       tw.md`p-3`,
-      active ? bgColorActive : {},
+      border,
+      active ? bgColorActive : bgColor,
     ]}
   >
     <Text style={[
       tw`font-baloo text-sm uppercase`,
       color,
+      border,
       active ? tw`text-white-2` : {}
     ]}>
       {title}
@@ -95,10 +102,6 @@ export const Button = ({
 
   const viewStyle = [
     tw`rounded`,
-    secondary ? tw`bg-white-2 border border-peach-1 `
-      : tertiary ? tw`border border-white-2 `
-        : grey ? tw`border border-grey-2 `
-          : tw`bg-peach-1`,
     wide ? tw`w-full` : tw`w-40`,
     disabled ? tw`opacity-50` : {},
     style || {}
