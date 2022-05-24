@@ -35,7 +35,7 @@ type Props = {
 
 export type BuyViewProps = {
   offer: BuyOffer,
-  updateOffer: (data: BuyOffer) => void,
+  updateOffer: (data: BuyOffer, shield?: boolean) => void,
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
@@ -95,10 +95,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const saveAndUpdate = (offerData: BuyOffer) => {
+  const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
     setOffer(() => offerData)
     setOfferId(() => offerData.id)
-    saveOffer(offerData)
+    saveOffer(offerData, undefined, shield)
   }
 
   const next = () => {

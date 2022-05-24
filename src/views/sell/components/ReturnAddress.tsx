@@ -20,7 +20,7 @@ const { useValidation } = require('react-native-form-validator')
 
 export type ReturnAddressProps = ComponentProps & {
   offer: SellOffer,
-  updateOffer: (offer: SellOffer) => void,
+  updateOffer: (offer: SellOffer, shield: boolean) => void,
   setStepValid: (isValid: boolean) => void,
 }
 
@@ -79,7 +79,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
       ...offer,
       returnAddress: useDepositAddress ? '' : address,
       returnAddressSet: !useDepositAddress
-    })
+    }, false)
 
     ;(async () => {
       if (!offer.id || offer.funding.status !== 'NULL') return

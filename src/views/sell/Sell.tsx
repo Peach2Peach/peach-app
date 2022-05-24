@@ -46,7 +46,7 @@ type Props = {
 
 export type SellViewProps = {
   offer: SellOffer,
-  updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
+  updateOffer: (offer: SellOffer, shield?: boolean) => void,
   setStepValid: Dispatch<SetStateAction<boolean>>,
   back: () => void,
   next: () => void,
@@ -126,10 +126,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const saveAndUpdate = (offerData: SellOffer) => {
+  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(() => offerData)
     setOfferId(() => offerData.id)
-    saveOffer(offerData)
+    saveOffer(offerData, undefined, shield)
   }
 
   useFocusEffect(useCallback(() => {
@@ -218,7 +218,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           {!updatePending && CurrentView
             ? <CurrentView
               offer={offer}
-              updateOffer={setOffer}
+              updateOffer={saveAndUpdate}
               setStepValid={setStepValid}
               back={back} next={next}
               navigation={navigation} />
