@@ -34,13 +34,8 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
 }
 
 export const LOCALPAYMENTMETHODS: [PaymentMethod, string][] = [
-  ['bankTransferCH', 'CH'],
-  ['bankTransferUK', 'UK'],
-
   ['mbWay', 'PT'],
   ['bizum', 'ES'],
-  ['twint', 'CH'],
-  ['swish', 'SE']
 ]
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
