@@ -98,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
     setOffer(() => offerData)
     setOfferId(() => offerData.id)
-    saveOffer(offerData, undefined, shield)
+    if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
   const next = () => {

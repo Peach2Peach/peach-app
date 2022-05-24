@@ -129,7 +129,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(() => offerData)
     setOfferId(() => offerData.id)
-    saveOffer(offerData, undefined, shield)
+    if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
   useFocusEffect(useCallback(() => {

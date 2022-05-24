@@ -51,7 +51,7 @@ export const Match = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment)[0]
   )
-  const currencies = getCurrencies(offer.type === 'bid' ? offer.meansOfPayment : match.meansOfPayment)
+  const currencies = getCurrencies(match.meansOfPayment)
   const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(
     getPaymentMethods(match.meansOfPayment).filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
   )
