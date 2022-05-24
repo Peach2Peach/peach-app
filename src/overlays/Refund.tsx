@@ -40,12 +40,11 @@ const checkAndRefund = async (
 
   if (offer.funding.amount !== amount + fees) {
     return { err: 'INVALID_AMOUNT' }
-
   }
+
   if (returnAddress !== offer.returnAddress
     || psbt.txOutputs[0].address !== offer.returnAddress) {
     return { err: 'RETURN_ADDRESS_MISMATCH' }
-
   }
 
   // Sign psbt

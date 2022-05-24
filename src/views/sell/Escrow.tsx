@@ -39,9 +39,9 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
   const fundingAmount = Math.round(offer.amount)
 
-  const saveAndUpdate = (offerData: SellOffer) => {
+  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     updateOffer(() => offerData)
-    saveOffer(offerData)
+    saveOffer(offerData, undefined, shield)
   }
   const navigate = () => navigation.replace('offers', {})
 

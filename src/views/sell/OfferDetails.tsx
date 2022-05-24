@@ -35,8 +35,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [kyc, setKYC] = useState(offer.kyc)
   const [kycType, setKYCType] = useState(offer.kycType)
 
-  const saveAndUpdate = (offr: SellOffer) => {
-    updateOffer(offr)
+  const saveAndUpdate = (offr: SellOffer, shield = true) => {
+    updateOffer(offr, shield)
     updateSettings({
       meansOfPayment: offr.meansOfPayment,
       premium: offr.premium,
@@ -53,7 +53,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       premium,
       kyc,
       kycType,
-    })
+    }, false)
   }, [meansOfPayment, premium, paymentData, kyc, kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])

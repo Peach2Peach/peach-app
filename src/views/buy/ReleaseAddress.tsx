@@ -64,7 +64,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     updateOffer({
       ...offer,
       releaseAddress: address,
-    })
+    }, false)
   }, [address])
 
   useEffect(() => {
