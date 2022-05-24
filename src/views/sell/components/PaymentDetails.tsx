@@ -64,9 +64,12 @@ export default ({ meansOfPayment, paymentMethods, setPaymentData }: PaymentDetai
   }, [meansOfPayment])
 
   return <View>
-    <Headline style={tw`mt-16 text-grey-1`}>
-      {i18n('sell.paymentDetails')}
-    </Headline>
+    {paymentMethods.length > 0
+      ? <Headline style={tw`mt-16 text-grey-1`}>
+        {i18n('sell.paymentDetails')}
+      </Headline>
+      : null
+    }
     {paymentMethods.map((paymentMethod, i) => {
       const dataByType = getPaymentDataByType(paymentMethod)
       return <View key={paymentMethod} style={i > 0 ? tw`mt-4` : {}}>
