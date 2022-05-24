@@ -35,7 +35,7 @@ type Props = {
 
 export type BuyViewProps = {
   offer: BuyOffer,
-  updateOffer: (data: BuyOffer, shield: boolean) => void,
+  updateOffer: (data: BuyOffer, shield?: boolean) => void,
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,

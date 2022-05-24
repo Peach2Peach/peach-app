@@ -40,7 +40,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const fundingAmount = Math.round(offer.amount)
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
-    updateOffer(() => offerData)
+    updateOffer(offerData)
     saveOffer(offerData, undefined, shield)
   }
   const navigate = () => navigation.replace('offers', {})
