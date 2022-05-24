@@ -92,7 +92,8 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const contract = offer.contractId ? getContract(offer.contractId) : null
   const notifications = contract ? getContractChatNotification(contract) : 0
 
-  return <Pressable onPress={() => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)}
+  const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
+  return <Pressable onPress={navigate}
     style={[
       tw`rounded`,
       requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
@@ -126,6 +127,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             ? <View style={tw`flex items-center mt-3 mb-1`}>
               <Button
                 title={i18n(`offer.requiredAction.${requiredAction}`)}
+                onPress={navigate}
                 secondary={true}
                 wide={false}
               />
