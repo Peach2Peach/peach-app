@@ -96,8 +96,8 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }), []))
 
-  return <PeachScrollView contentContainerStyle={tw`px-6`}>
-    <View style={tw`pt-5 pb-10 px-11`}>
+  return <PeachScrollView contentContainerStyle={tw`px-12`}>
+    <View style={tw`pt-5 pb-10`}>
       <Title title={i18n('offers.title')}/>
       {allOpenOffers.length + pastOffers.length === 0
         ? <Text style={tw`text-center`}>
@@ -114,7 +114,7 @@ export default ({ navigation }: Props): ReactElement => {
         : null
       }
       {openOffers.buy.map(offer => <OfferItem key={offer.id}
-        style={tw`mt-3`} showType={false}
+        style={tw`mt-3`} extended={true}
         offer={offer} navigation={navigation}
       />)
       }
@@ -127,7 +127,7 @@ export default ({ navigation }: Props): ReactElement => {
         : null
       }
       {openOffers.sell.map(offer => <OfferItem key={offer.id}
-        style={tw`mt-3`} showType={false}
+        style={tw`mt-3`} extended={true}
         offer={offer} navigation={navigation}
       />)
       }
@@ -138,6 +138,7 @@ export default ({ navigation }: Props): ReactElement => {
         : null
       }
       {pastOffers.map(offer => <OfferItem key={offer.id}
+        extended={false}
         style={tw`mt-3`}
         offer={offer} navigation={navigation}
       />)

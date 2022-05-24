@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Bubble, SatsFormat, Text } from '../../../components'
+import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
@@ -8,7 +8,8 @@ import tw from '../../../styles/tailwind'
 import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getOfferStatus } from '../../../utils/offer'
+import { mildShadow } from '../../../utils/layout'
+import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { ProfileScreenNavigationProp } from '../Offers'
 
 
@@ -61,7 +62,7 @@ const navigateToOffer = (
 
 type OfferItemProps = ComponentProps & {
   offer: BuyOffer | SellOffer,
-  showType?: boolean,
+  extended?: boolean,
   navigation: ProfileScreenNavigationProp,
 }
 
@@ -83,7 +84,8 @@ const ICONMAP: IconMap = {
   tradeCanceled: 'cross',
 }
 
-export const OfferItem = ({ offer, showType = true, navigation, style }: OfferItemProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const icon = ICONMAP[requiredAction] || ICONMAP[status]
@@ -92,33 +94,61 @@ export const OfferItem = ({ offer, showType = true, navigation, style }: OfferIt
 
   return <Pressable onPress={() => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)}
     style={[
-      tw`pl-4 pr-2 py-2 rounded`,
+      tw`rounded`,
       requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
       style
     ]}>
-    <View style={tw`flex-row justify-between items-center`}>
-      <View style={tw`flex-row`}>
-        {showType
-          ? <View style={tw`pr-1`}>
-            <Text style={[
-              tw`text-lg font-bold uppercase`,
-              requiredAction ? tw`text-white-1` : tw`text-grey-2`
-            ]}>
-              {i18n(offer.type === 'ask' ? 'sell' : 'buy')}
-            </Text>
+
+    <Shadow shadow={mildShadow}>
+      {extended
+        ? <View style={tw`px-4 py-2`}>
+          <View style={tw`flex-row items-center`}>
+            <View style={tw`w-full flex-shrink`}>
+              <Headline style={[
+                tw`text-lg font-bold normal-case text-left`,
+                requiredAction ? tw`text-white-1` : tw`text-grey-2`
+              ]}>
+                {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
+              </Headline>
+              <View style={tw`-mt-2`}>
+                <SatsFormat
+                  style={tw`text-lg`}
+                  sats={offer.amount}
+                  color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
+                  color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
+              </View>
+            </View>
+            <Icon id={icon || 'help'} style={tw`w-7 h-7`}
+              color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
+            />
           </View>
-          : null
-        }
-        <SatsFormat
-          style={tw`text-lg font-bold`}
-          sats={offer.amount}
-          color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
-          color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
-      </View>
-      <Icon id={icon || 'help'} style={tw`w-5 h-5`}
-        color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
-      />
-    </View>
+          {requiredAction
+            ? <View style={tw`flex items-center mt-3 mb-1`}>
+              <Button
+                title={i18n(`offer.requiredAction.${requiredAction}`)}
+                secondary={true}
+                wide={false}
+              />
+            </View>
+            : null
+          }
+        </View>
+        : <View style={tw`flex-row justify-between items-center p-2`}>
+          <View style={tw`flex-row items-center`}>
+            <Icon id={offer.type === 'ask' ? 'sell' : 'buy'} style={tw`w-5 h-5 mr-2`}
+              color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}/>
+            <SatsFormat
+              style={tw`text-lg`}
+              sats={offer.amount}
+              color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
+              color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
+          </View>
+          <Icon id={icon || 'help'} style={tw`w-5 h-5`}
+            color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
+          />
+        </View>
+      }
+    </Shadow>
     {notifications > 0
       ? <Bubble color={tw`text-green`.color as string}
         style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
