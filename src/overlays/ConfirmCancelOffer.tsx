@@ -11,12 +11,6 @@ import { error, info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import Refund from './Refund'
 
-const dummyFunding: FundingStatus = {
-  status: 'NULL',
-  confirmations: 0,
-  amount: 0
-}
-
 const confirm = async (offer: BuyOffer|SellOffer) => {
   if (!offer.id) return
 
@@ -30,7 +24,7 @@ const confirm = async (offer: BuyOffer|SellOffer) => {
       saveOffer({
         ...offer, online: false,
         funding: {
-          ...(offer.funding || dummyFunding),
+          ...(offer.funding),
           status: 'CANCELED',
         }
       })

@@ -3,8 +3,10 @@ import { version } from '../package.json'
 
 export const SATSINBTC = 100000000
 
-export let PEACHFEE = 1.5
+export let PEACHFEE = 0.015
 export const setPeachFee = (fee: number) => PEACHFEE = fee
+
+export const MAXMININGFEE = 20000
 
 export const APPVERSION = version
 export let MINAPPVERSION = version

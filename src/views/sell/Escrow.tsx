@@ -22,12 +22,6 @@ import { useFocusEffect } from '@react-navigation/native'
 import { getTradingLimit } from '../../utils/peachAPI'
 import { updateTradingLimit } from '../../utils/account'
 
-const defaultFunding: FundingStatus = {
-  confirmations: 0,
-  status: 'NULL',
-  amount: 0
-}
-
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid, next, back, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -36,7 +30,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [updatePending, setUpdatePending] = useState(true)
   const [escrow, setEscrow] = useState('')
   const [fundingError, setFundingError] = useState<FundingError>('')
-  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
+  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
   const fundingAmount = Math.round(offer.amount)
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
@@ -121,7 +115,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     setStepValid(false)
     setEscrow(() => offer.escrow || '')
     setUpdatePending(!offer.escrow)
-    setFundingStatus(() => offer.funding || defaultFunding)
+    setFundingStatus(() => offer.funding)
   }, [offer.id])
 
   const returnAddressValidation = (isValid: boolean) => {

@@ -85,10 +85,6 @@ export const Match = ({
     setSelectedPaymentMethod(paymentMethod)
   }
 
-  useEffect(() => {
-    onChange(null, selectedCurrency, selectedPaymentMethod)
-  }, [selectedCurrency, selectedPaymentMethod])
-
   return <Shadow shadow={shadow}>
     <View style={[
       tw`w-full border border-grey-4 bg-white-1 rounded-md`,

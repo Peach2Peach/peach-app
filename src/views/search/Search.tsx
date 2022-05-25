@@ -73,6 +73,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       })
 
     }
+
     if (currency) setSelectedCurrency(currency)
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
