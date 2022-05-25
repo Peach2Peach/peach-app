@@ -161,10 +161,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
 
     // Sign psbt
-    psbt.signInput(0, getEscrowWallet(sellOffer.id))
+    psbt.txInputs.forEach((input, i) =>
+      psbt
+        .signInput(i, getEscrowWallet(sellOffer.id!))
+        .finalizeInput(i, getFinalScript)
+    )
 
     const tx = psbt
-      .finalizeInput(0, getFinalScript)
       .extractTransaction()
       .toHex()
 

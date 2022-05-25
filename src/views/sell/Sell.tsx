@@ -65,7 +65,9 @@ const getDefaultSellOffer = (): SellOffer => ({
   kycType: account.settings.kycType || 'iban',
   funding: {
     status: 'NULL',
-    amount: 0,
+    txIds: [],
+    amounts: [],
+    vouts: [],
   },
   matches: [],
   seenMatches: [],

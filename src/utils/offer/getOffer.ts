@@ -23,5 +23,10 @@ export const getOffer = (id: string): SellOffer|BuyOffer|null => {
       [currency]: (offer as LegacyOffer).paymentMethods
     }), {})
   }
+
+  // TODO remove for release 0.1.0
+  if (offer.funding?.amount) {
+    offer.funding.amounts = [offer.funding.amount]
+  }
   return offer
 }

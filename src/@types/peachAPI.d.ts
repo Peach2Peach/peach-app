@@ -77,8 +77,10 @@ declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
   confirmations?: number,
-  txId?: string,
-  amount: number
+  txIds: string[],
+  vouts: number[],
+  amounts: number[],
+  amount?: number // TODO remove for release 0.1.0
 }
 
 declare type GetStatusResponse = {
