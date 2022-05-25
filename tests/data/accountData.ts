@@ -30,7 +30,9 @@ export const sellOffer: SellOffer = {
   },
   funding: {
     status: 'NULL',
-    amount: 0,
+    txIds: [],
+    vouts: [],
+    amounts: [],
   },
   kyc: false,
   amount: 250000,
