@@ -37,7 +37,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     value,
     display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
       <SatsFormat sats={value} format="big"/>
-      {isOpen
+      {isOpen && satsPerUnit
         ? <Text style={tw`font-mono text-peach-1`}>
           {i18n(`currency.format.${currency}`, String(Math.round(value / satsPerUnit)))}
         </Text>
@@ -62,9 +62,12 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
             />
           </View>
         </View>
-        <Text style={tw`mt-4 mt-16 font-mono text-peach-1 text-center`}>
-          ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
-        </Text>
+        {satsPerUnit
+          ? <Text style={tw`mt-4 mt-16 font-mono text-peach-1 text-center`}>
+            ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
+          </Text>
+          : null
+        }
       </View>
     </View>
   </View>
