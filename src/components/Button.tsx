@@ -55,7 +55,6 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     <Text style={[
       tw`font-baloo text-sm uppercase`,
       color,
-      border,
       active ? tw`text-white-2` : {}
     ]}>
       {title}

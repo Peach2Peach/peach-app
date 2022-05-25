@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
@@ -59,7 +59,7 @@ interface DropdownProps {
  */
 export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
-  const selectedItem = items.find(item => item.value === selectedValue) || items[0]
+  const selectedItem = items.find(item => item.value === selectedValue)
 
   const toggle = () => {
     setOpen(!isOpen)
@@ -69,6 +69,10 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownP
     if (onChange) onChange(item.value)
     toggle()
   }
+
+  useEffect(() => {
+    if (onChange) onChange(items[0].value)
+  }, [])
 
   return <View style={[
     tw`w-full rounded bg-white-1`,

@@ -53,14 +53,16 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         <Headline style={tw`mt-16 text-grey-1 px-5`}>
           {i18n('sell.subtitle')}
         </Headline>
-        <View style={tw`w-full h-10 z-10 flex items-center px-12 mt-3`}>
-          <Dropdown
-            items={dropdownItems}
-            selectedValue={amount}
-            onChange={onChange} onToggle={onToggle}
-          />
+        <View>
+          <View style={tw`w-full absolute z-10 flex items-center px-12 mt-3`}>
+            <Dropdown
+              items={dropdownItems}
+              selectedValue={amount}
+              onChange={onChange} onToggle={onToggle}
+            />
+          </View>
         </View>
-        <Text style={tw`mt-4 font-mono text-peach-1 text-center`}>
+        <Text style={tw`mt-4 mt-16 font-mono text-peach-1 text-center`}>
           ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
         </Text>
       </View>
