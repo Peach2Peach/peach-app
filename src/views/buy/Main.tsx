@@ -32,7 +32,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const onChange = (value: string|number) => setAmount(value as number)
   const onToggle = (isOpen: boolean) => setDropdownOpen(isOpen)
 
-  const dropdownItems = [1,2,3,4].concat(applyTradingLimit(BUCKETS, prices.CHF as number, getTradingLimit())).map(value => ({
+  const dropdownItems = applyTradingLimit(BUCKETS, prices.CHF as number, getTradingLimit()).map(value => ({
     value,
     display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
       <SatsFormat sats={value} format="big"/>
