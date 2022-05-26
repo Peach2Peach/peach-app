@@ -23,7 +23,7 @@ const navigateToOffer = (
   const navigate = () => navigation.replace('offers', {})
 
   if (offer.type === 'ask'
-    && offer.funding.txIds
+    && offer.funding?.txIds
     && !offer.refunded
     && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
     // return navigation.replace('refund', { offer })

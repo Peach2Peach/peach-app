@@ -153,7 +153,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }, [route]))
 
-  useEffect(getOfferDetailsEffect({
+  useCallback(getOfferDetailsEffect({
     offerId,
     onSuccess: result => {
       saveAndUpdate({
