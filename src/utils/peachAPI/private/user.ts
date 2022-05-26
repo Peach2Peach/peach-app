@@ -61,7 +61,6 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
  */
 export const getAccessToken = async (): Promise<string> => {
   if (accessToken && accessToken.expiry > (new Date()).getTime() + 60 * 1000) {
-    log(accessToken.expiry, (new Date()).getTime(), accessToken.expiry > (new Date()).getTime())
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
