@@ -93,14 +93,13 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const notifications = contract ? getContractChatNotification(contract) : 0
 
   const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
-  return <Pressable onPress={navigate}
-    style={[
-      tw`rounded`,
-      requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
-      style
-    ]}>
-
-    <Shadow shadow={mildShadow}>
+  return <Shadow shadow={mildShadow}>
+    <Pressable onPress={navigate}
+      style={[
+        tw`rounded`,
+        requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
+        style
+      ]}>
       {extended
         ? <View style={tw`px-4 py-2`}>
           <View style={tw`flex-row items-center`}>
@@ -150,13 +149,13 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
           />
         </View>
       }
-    </Shadow>
-    {notifications > 0
-      ? <Bubble color={tw`text-green`.color as string}
-        style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{notifications}</Text>
-      </Bubble>
-      : null
-    }
-  </Pressable>
+      {notifications > 0
+        ? <Bubble color={tw`text-green`.color as string}
+          style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
+          <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{notifications}</Text>
+        </Bubble>
+        : null
+      }
+    </Pressable>
+  </Shadow>
 }
