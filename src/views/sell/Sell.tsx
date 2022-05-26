@@ -118,7 +118,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
-  const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [page, setPage] = useState(0)
@@ -130,7 +129,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(() => offerData)
-    setOfferId(() => offerData.id)
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
@@ -143,45 +141,40 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (!route.params?.offer) {
       setOffer(getDefaultSellOffer())
-      setOfferId(undefined)
       setUpdatePending(false)
       setPage(0)
     } else {
       setOffer(offr)
-      setOfferId(offr.id)
       setUpdatePending(true)
+      getOfferDetailsEffect({
+        offerId: offr.id,
+        onSuccess: result => {
+          const sellOffer = {
+            ...offr,
+            ...result,
+          } as SellOffer
+          saveAndUpdate(sellOffer)
+
+          if (sellOffer.funding.status === 'FUNDED') {
+            navigation.replace('search', { offer: sellOffer })
+            return
+          }
+
+          setPage(() => getInitialPageForOffer(sellOffer))
+          setUpdatePending(false)
+        },
+        onError: err => {
+          setPage(() => getInitialPageForOffer(offr))
+          setUpdatePending(false)
+          error('Could not fetch offer information for offer', offr.id)
+          updateMessage({
+            msg: i18n(err.error || 'error.general'),
+            level: 'ERROR',
+          })
+        }
+      })()
     }
   }, [route]))
-
-  useCallback(getOfferDetailsEffect({
-    offerId,
-    onSuccess: result => {
-      saveAndUpdate({
-        ...offer,
-        ...result,
-      } as SellOffer)
-
-      if (offer.funding.status === 'FUNDED') {
-        navigation.replace('search', { offer: {
-          ...offer,
-          ...result,
-        } })
-        return
-      }
-
-      setPage(() => getInitialPageForOffer(offer))
-      setUpdatePending(false)
-    },
-    onError: err => {
-      setPage(() => getInitialPageForOffer(offer))
-      setUpdatePending(false)
-      error('Could not fetch offer information for offer', offer.id)
-      updateMessage({
-        msg: i18n(err.error || 'error.general'),
-        level: 'ERROR',
-      })
-    }
-  }), [offerId])
 
   useEffect(() => {
     if (screens[page].id === 'search') {
