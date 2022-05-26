@@ -89,7 +89,7 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownP
               onPress={toggle}>
               {selectedItem?.display(false)}
             </Pressable>,
-            <PeachScrollView style={[
+            <PeachScrollView key="scroll" style={[
               tw`pl-4 pr-3`,
               { height: (tw`h-10`.height as number) * Math.min(5, items.length) }
             ]}>
