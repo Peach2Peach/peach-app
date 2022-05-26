@@ -172,6 +172,7 @@
   "paymentMethod.tether": "Tether",
   "medal.fastTrader": "#FastTrader",
   "medal.superTrader": "#SuperTrader",
+  "medal.ambassador": "#Ambassador",
   "scanQR": "Scan QR",
   "scanBTCAddress": "Scan your Bitcoin address QR",
   "paste": "Paste",
