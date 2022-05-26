@@ -41,7 +41,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       }))}
       style={tw`mt-2`}
     />
-    {offer.funding.txIds.length > 0
+    {offer.funding?.txIds?.length > 0
       ? <View>
         <HorizontalLine style={tw`mt-4`}/>
         <Headline style={tw`text-grey-1 normal-case mt-4`}>
