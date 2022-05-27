@@ -100,7 +100,7 @@ export const Input = ({
             multiline ? tw`h-full pt-2` : {},
             label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
           ]}
-          placeholder={label + (!required ? ` (${i18n('form.optional')})` : '')}
+          placeholder={label ? label + (!required ? ` (${i18n('form.optional')})` : '') : ''}
           placeholderTextColor={tw`text-grey-2`.color as string}
           value={value}
           editable={!disabled} autoCorrect={autoCorrect} multiline={multiline}
