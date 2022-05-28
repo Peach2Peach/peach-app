@@ -68,7 +68,7 @@ export const getAccessToken = async (): Promise<string> => {
 
   if (!result || err) {
     error('peachAPI - getAccessToken', new Error(err?.error))
-    throw Error('AUTHENTICATION_FAILURE')
+    throw Error(err?.error || 'AUTHENTICATION_FAILURE')
   }
 
   return 'Basic ' + Buffer.from(result.accessToken)
