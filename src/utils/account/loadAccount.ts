@@ -1,5 +1,5 @@
 import { account, setAccount } from '.'
-import { readFile } from '../file'
+import { exists, readFile } from '../file'
 import { error, info } from '../log'
 
 /**
@@ -15,7 +15,12 @@ export const loadAccount = async (password: string): Promise<Account> => {
   let acc
 
   try {
-    acc = JSON.parse(await readFile('/peach-account.json', password)) as Account
+    if (await exists('/peach-account.json')) {
+      acc = JSON.parse(await readFile('/peach-account.json', password)) as Account
+    } else {
+      error('Account File does not exist')
+      return account
+    }
   } catch (e) {
     let err = 'UNKOWN_ERROR'
     if (typeof e === 'string') {
