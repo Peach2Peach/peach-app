@@ -4,7 +4,7 @@ import { error, info } from '../utils/log'
 import { setPGP } from '../utils/peachAPI'
 
 export default async () => {
-  if (account.pgp && !account.settings.pgpPublished) {
+  if (account.pgp.publicKey && !account.settings.pgpPublished) {
     const [result, err] = await setPGP(account.pgp)
 
     if (result) {
