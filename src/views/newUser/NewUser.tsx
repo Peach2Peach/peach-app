@@ -7,7 +7,6 @@ import {
   TextInput,
   View
 } from 'react-native'
-import messaging from '@react-native-firebase/messaging'
 
 import tw from '../../styles/tailwind'
 import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
@@ -18,8 +17,7 @@ import { getMessages, rules } from '../../utils/validation'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import Icon from '../../components/Icon'
-import { error, info } from '../../utils/log'
-import { setFCMToken, setPGP } from '../../utils/peachAPI'
+import { error } from '../../utils/log'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import pgp from '../../init/pgp'
@@ -76,14 +74,14 @@ export default ({ navigation }: Props): ReactElement => {
   const onError = (e: Error) => {
     error('Error', e)
     updateMessage({
-      msg: i18n(e.message || 'AUTHENTICATION_FAILURE'),
+      msg: i18n(e.message || 'AUTHENTICATION_FAILURE'),
       level: 'ERROR',
     })
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
       },
-      onError: () => {
+      onError: () => {
         setLoading(false)
       }
     })
