@@ -8,9 +8,8 @@ import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
-import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
-import { Headline, Loading, Text, Title } from '../../components'
+import { Loading, SatsFormat, Text, Title } from '../../components'
 import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
@@ -129,11 +128,12 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
       ? <Loading />
       : escrow && fundingStatus && !fundingError
         ? <View>
-          <Headline style={tw`text-grey-1 mt-6 mb-5`}>
-            {i18n('sell.escrow.sendSats.1')}
-            <Text style={tw`font-baloo text-xl uppercase text-peach-1`}> {thousands(fundingAmount)} </Text>
-            {i18n('sell.escrow.sendSats.2')}
-          </Headline>
+          <Text style={tw`mt-6 mb-5 text-center`}>
+            <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>
+            <SatsFormat style={tw`font-baloo text-lg uppercase`}
+              sats={fundingAmount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
+            <Text style={tw`font-baloo text-lg uppercase text-grey-2`}> {i18n('sell.escrow.sendSats.2')}</Text>
+          </Text>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
           {fundingStatus.status === 'NULL'
             ? <ReturnAddress style={tw`mt-16`}

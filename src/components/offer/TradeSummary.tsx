@@ -134,23 +134,23 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
 
   return <View>
     <View style={tw`p-5`}>
-      <Headline style={tw`text-grey-1 normal-case`}>
+      <Headline style={tw`text-grey-2 normal-case`}>
         {isTradeCanceled(contract)
           ? i18n(`contract.summary.${view === 'seller' ? 'youAreSelling' : 'youAreBuying'}`)
           : i18n(`contract.summary.${view === 'seller' ? 'youHaveSold' : 'youHaveBought'}`)
         }
       </Headline>
       <Text style={tw`text-center`}>
-        <SatsFormat sats={contract.amount} color={tw`text-black-1`} />
+        <SatsFormat sats={contract.amount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
-      <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('contract.summary.for')}</Headline>
+      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.for')}</Headline>
       <Text style={tw`text-center`}>
         {i18n(`currency.format.${contract.currency}`, contract.price.toString())}
         <Text> ({contract.premium > 0 ? '+' : '-'}{Math.abs(contract.premium)}%)</Text>
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
-      <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('contract.summary.from')}</Headline>
+      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.from')}</Headline>
       <View style={tw`flex-row justify-center items-center`}>
         <Image source={require('../../../assets/favico/peach-logo.png')}
           style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
@@ -166,11 +166,11 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
         }
       </View>
       <HorizontalLine style={tw`mt-4`}/>
-      <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('contract.summary.in')}</Headline>
+      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.in')}</Headline>
       <Selector items={[{ value: contract.currency, display: contract.currency }]}
         style={tw`mt-2`}/>
       <HorizontalLine style={tw`mt-4`}/>
-      <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('contract.summary.via')}</Headline>
+      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.via')}</Headline>
       <Selector
         items={[
           {
@@ -184,7 +184,7 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
       {contract.escrow || contract.releaseTxId
         ? <View>
           <HorizontalLine style={tw`mt-4`}/>
-          <Headline style={tw`text-grey-1 normal-case mt-4`}>
+          <Headline style={tw`text-grey-2 normal-case mt-4`}>
             {i18n(contract.releaseTxId ? 'contract.summary.releaseTx' : 'contract.summary.escrow')}
           </Headline>
           <Pressable style={tw`flex-row justify-center items-center`}

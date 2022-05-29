@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Loading, PeachScrollView, Text, Timer, Title } from '../../components'
+import { Button, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -15,7 +15,6 @@ import { getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
 import { confirmPayment } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
-import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
 import { verifyPSBT } from './helpers/verifyPSBT'
@@ -194,8 +193,15 @@ export default ({ route, navigation }: Props): ReactElement => {
       <View style={tw`pb-32`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
         />
+        {contract?.amount
+          ? <Text style={tw`text-grey-2 text-center -mt-1`}>
+            {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount}
+              color={tw`text-grey-2`} color2={tw`text-grey-4`}
+            />
+          </Text>
+          : null
+        }
         {contract && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />

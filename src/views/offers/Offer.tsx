@@ -8,11 +8,11 @@ import { MessageContext } from '../../contexts/message'
 import { info, error } from '../../utils/log'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import i18n from '../../utils/i18n'
-import { getOffer, getOfferStatus, saveOffer } from '../../utils/offer'
+import { getOffer, getOfferStatus, offerIdToHex, saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { OfferSummary } from './components/OfferSummary'
 import { ContractSummary } from './components/ContractSummary'
-import { getContract } from '../../utils/contract'
+import { contractIdToHex, getContract } from '../../utils/contract'
 import { View } from 'react-native'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { toShortDateFormat } from '../../utils/string'
@@ -37,7 +37,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
     ? isTradeComplete(contract)
-      ? i18n('offers.offerCompleted.subtitle', finishedDate ? toShortDateFormat(finishedDate) : '')
+      ? i18n('offers.offerCompleted.subtitle',
+        contractIdToHex(contract.id),
+        finishedDate ? toShortDateFormat(finishedDate) : ''
+      )
       : i18n('offers.tradeCanceled.subtitle')
     : ''
 
