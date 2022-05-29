@@ -165,7 +165,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
 
     if (result) {
-      setMatches(() => matches.map(m => {
+      setMatches(matches.map(m => {
         if (m.offerId !== match.offerId) return m
         m.matched = true
         if (result.matchedPrice) m.matchedPrice = result.matchedPrice
@@ -199,7 +199,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     const [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
 
     if (result) {
-      setMatches(() => matches.map(m => ({
+      setMatches(matches.map(m => ({
         ...m,
         matched: m.offerId === match.offerId ? !m.matched : m.matched
       })))
@@ -272,7 +272,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(searchForPeersEffect({
     offer,
     onSuccess: result => {
-      setMatches(() => matches.concat(result)
+      setMatches(matches.concat(result)
         .filter(unique('offerId'))
         .filter((match, i) => {
           // don't mess with the current slide position by removing previous slides

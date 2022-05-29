@@ -46,7 +46,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract|null>(getContract(contractId))
+  const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
