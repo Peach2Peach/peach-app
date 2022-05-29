@@ -12,9 +12,8 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Loading, Matches, Text, TextLink } from '../../components'
+import { BigTitle, Button, Headline, Loading, Matches, SatsFormat, Text, TextLink } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/log'
@@ -316,15 +315,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       {matches.length
         ? offer.type === 'bid'
           ? <View>
-            <Text style={tw`text-grey-2 text-center -mt-2`}>
-              {i18n('search.buyOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
-              {i18n('currency.SATS')}
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n('search.buyOffer')} <SatsFormat sats={offer.amount}
+                color={tw`text-grey-2`} color2={tw`text-grey-4`}
+              />
             </Text>
           </View>
           : <View>
-            <Text style={tw`text-grey-2 text-center -mt-2`}>
-              {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
-              {i18n('currency.SATS')}
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n('search.sellOffer')} <SatsFormat sats={offer.amount}
+                color={tw`text-grey-2`} color2={tw`text-grey-4`}
+              />
             </Text>
             <Text style={tw`text-grey-2 text-center`}>
               {i18n(

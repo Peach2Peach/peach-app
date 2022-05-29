@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Fade, Input, Loading, Timer, Title } from '../../components'
+import { Button, Fade, Input, Loading, SatsFormat, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -15,7 +15,6 @@ import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
 import { getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
-import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
@@ -237,8 +236,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       <Fade show={!keyboardOpen} style={tw`mb-16`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
         />
+        <Text style={tw`text-grey-2 text-center -mt-1`}>
+          {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0}
+            color={tw`text-grey-2`} color2={tw`text-grey-4`}
+          />
+        </Text>
       </Fade>
       {contract
         ? <View style={tw`h-full flex-col flex-shrink`}>

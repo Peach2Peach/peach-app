@@ -1,11 +1,10 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Button, BuyOfferSummary, SellOfferSummary, Text, Title } from '../../../components'
+import { Button, BuyOfferSummary, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
 import { OfferScreenNavigationProp } from '../Offer'
 
 type OfferSummaryProps = {
@@ -19,16 +18,23 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
   const title = status !== 'offerCanceled'
     ? i18n('offers.search.title')
     : i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)
-  const subtitle = status !== 'offerCanceled'
-    ? i18n(`offers.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`, thousands(offer.amount))
-    : i18n('offers.offerCanceled.subtitle')
 
   const cancelOffer = () => updateOverlay({
     content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
     showCloseButton: false
   })
   return <View>
-    <Title title={title} subtitle={subtitle}/>
+    <Title title={title}/>
+    {status !== 'offerCanceled'
+      ? <Text style={tw`text-grey-2 text-center -mt-1`}>
+        {i18n(`offers.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`)} <SatsFormat sats={offer.amount}
+          color={tw`text-grey-2`} color2={tw`text-grey-4`}
+        />
+      </Text>
+      : <Text style={tw`text-grey-2 text-center -mt-1`}>
+        {i18n('offers.offerCanceled.subtitle')}
+      </Text>
+    }
     {status !== 'offerCanceled'
       ? <Text style={tw`text-black-1 mt-5 text-center`}>{i18n('search.weWillNotifyYou')}</Text>
       : null
