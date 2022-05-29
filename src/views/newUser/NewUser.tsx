@@ -133,8 +133,8 @@ export default ({ navigation }: Props): ReactElement => {
     setIsPristine(false)
     const pwMatch = checkPasswordMatch()
     if (pwMatch && isValid) {
-      setLoading(isValid)
       Keyboard.dismiss()
+      setLoading(isValid)
       createAccount({ password, onSuccess, onError })
     }
   }
