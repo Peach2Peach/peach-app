@@ -26,7 +26,7 @@ import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { error } from '../../utils/log'
-import { Loading, Navigation, PeachScrollView } from '../../components'
+import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
@@ -127,6 +127,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  const { daily, dailyAmount } = account.tradingLimit
+
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(() => offerData)
     if (offerData.id) saveOffer(offerData, undefined, shield)
@@ -201,10 +203,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
+      {currentScreen.id === 'main'
+        ? <View style={tw`h-0`}><Progress
+          percent={dailyAmount / daily}
+          text={i18n('profile.tradingLimits.daily', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
+        /></View>
+        : null
+      }
       <PeachScrollView scrollRef={scroll}
         disable={!scrollable}
         contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
-        style={tw`pt-6 overflow-visible`}>
+        style={tw`pt-7 overflow-visible`}>
         <View style={tw`pb-8`}>
           {updatePending
             ? <Loading />
