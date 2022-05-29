@@ -55,7 +55,7 @@ export const writeFile = async (path: string, content: string, password: string)
  */
 export const deleteFile = async (path: string): Promise<boolean> => {
   try {
-    await RNFS.unlink(RNFS.DocumentDirectoryPath + '/peach-account.json')
+    await RNFS.unlink(RNFS.DocumentDirectoryPath + path)
     return true
   } catch (e) {
     error('File could not be deleted', e)

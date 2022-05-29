@@ -68,7 +68,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
-  useCallback(checkFundingStatusEffect({
+  useEffect(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)

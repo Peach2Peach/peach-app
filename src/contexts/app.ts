@@ -14,7 +14,7 @@ export const AppContext = createContext([
 ] as const)
 
 export const setAppContext = (state: ReducerState<any>, newState: Partial<AppState>): AppState => {
-  notifications = newState.notifications ?? notifications
+  notifications = Math.max(0, newState.notifications ?? notifications)
   return {
     notifications
   }

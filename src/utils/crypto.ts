@@ -1,6 +1,7 @@
 import * as bitcoin from 'bitcoinjs-lib'
 const { randomBytes } = require('react-native-randombytes')
 import CryptoJS from 'react-native-crypto-js'
+import { error } from './log'
 
 export let wallet: bitcoin.bip32.BIP32Interface
 
@@ -29,8 +30,12 @@ export const reverseBuffer = (buffer: Buffer): Buffer => {
  */
 export const getRandom = (count: number): Promise<Buffer> => new Promise((resolve, reject) =>
   randomBytes(count, (err: any, bytes: Buffer) => {
-    if (err) reject(err)
-    else resolve(bytes)
+    if (err) {
+      error(err)
+      reject(err)
+    } else {
+      resolve(bytes)
+    }
   }))
 
 /**
