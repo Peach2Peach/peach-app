@@ -192,7 +192,7 @@ const App: React.FC = () => {
     if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
   }
 
-  return <GestureHandlerRootView><AvoidKeyboard><SafeAreaView style={tw`bg-white-1`}>
+  return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
