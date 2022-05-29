@@ -144,7 +144,7 @@ type MeansOfPaymentProps = {
 export const MeansOfPayment = ({ meansOfPayment, setMeansOfPayment }: MeansOfPaymentProps): ReactElement => {
   const [update, setUpdate] = useState(0)
   const [selectedCurrency, setSelectedCurrency] = useState(CURRENCIES[0])
-  const [applicablePaymentCategories, setApplicablePaymentCategories] = useState(
+  const [applicablePaymentCategories, setApplicablePaymentCategories] = useState(() =>
     getApplicablePaymentCategories(selectedCurrency)
   )
   const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>(

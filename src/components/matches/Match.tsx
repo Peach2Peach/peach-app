@@ -45,14 +45,14 @@ export const Match = ({
 }: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
-  const [selectedCurrency, setSelectedCurrency] = useState(
+  const [selectedCurrency, setSelectedCurrency] = useState(() =>
     match.selectedCurrency || Object.keys(match.meansOfPayment)[0] as Currency
   )
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(() =>
     match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment)[0]
   )
   const currencies = getCurrencies(match.meansOfPayment)
-  const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(
+  const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(() =>
     getPaymentMethods(match.meansOfPayment).filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
   )
 
