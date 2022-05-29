@@ -135,7 +135,11 @@ export default ({ navigation }: Props): ReactElement => {
     if (pwMatch && isValid) {
       Keyboard.dismiss()
       setLoading(isValid)
-      createAccount({ password, onSuccess, onError })
+
+      // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
+      setTimeout(() => {
+        createAccount({ password, onSuccess, onError })
+      })
     }
   }
 
