@@ -16,7 +16,7 @@ const confirm = async (offer: BuyOffer|SellOffer) => {
 
   const [result, err] = await cancelOffer({
     offerId: offer.id,
-    satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
+    // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
   })
   if (result) {
     info('Cancel offer: ', JSON.stringify(result))

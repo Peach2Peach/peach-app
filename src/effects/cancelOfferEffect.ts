@@ -19,7 +19,7 @@ export default ({
     info('Checking cancelation and refunding info for ', offer.id)
     const [result, err] = await cancelOffer({
       offerId: offer.id,
-      satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
+      // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
     })
     if (result) {
       info('cancel offer: ', JSON.stringify(result))

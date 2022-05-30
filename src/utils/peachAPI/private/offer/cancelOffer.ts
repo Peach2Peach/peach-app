@@ -3,9 +3,8 @@ import { parseResponse } from '../..'
 import fetch from '../../../fetch'
 import { getAccessToken } from '../user'
 
-type CancelOfferProps = {
+type CancelOfferProps = CancelOfferRequest & {
   offerId: string,
-  satsPerByte: number|string,
 }
 
 /**
@@ -18,6 +17,10 @@ export const cancelOffer = async ({
   offerId,
   satsPerByte
 }: CancelOfferProps): Promise<[CancelOfferResponse|null, APIError|null]> => {
+  const data: CancelOfferRequest = {}
+
+  if (satsPerByte) data.satsPerByte = satsPerByte
+
   const response = await fetch(
     `${API_URL}/v1/offer/${offerId}/cancel`,
     {
@@ -27,9 +30,7 @@ export const cancelOffer = async ({
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: JSON.stringify({
-        satsPerByte,
-      }),
+      body: JSON.stringify(data),
     }
   )
 
