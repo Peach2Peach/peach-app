@@ -151,13 +151,16 @@ declare type FundingStatusResponse = {
   error?: FundingError,
   returnAddress: string
 }
+
+declare type CancelOfferRequest = {
+  satsPerByte?: number
+}
 declare type CancelOfferResponse = {
   psbt: string,
   returnAddress: string,
   amount: number,
   fees: number,
-  returnAddress: string,
-  inputIndex: number,
+  satsPerByte: number,
 }
 
 declare type Match = {
