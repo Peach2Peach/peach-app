@@ -152,7 +152,9 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
       {notifications > 0
         ? <Bubble color={tw`text-green`.color as string}
           style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-          <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{notifications}</Text>
+          <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+            {notifications}
+          </Text>
         </Bubble>
         : null
       }

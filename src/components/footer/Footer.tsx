@@ -62,7 +62,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps)
     {notifications
       ? <Bubble color={tw`text-green`.color as string}
         style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="clip" numberOfLines={1}>
+        <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
           {notifications}
         </Text>
       </Bubble>
