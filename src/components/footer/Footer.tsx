@@ -52,20 +52,19 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement =>
-  <Pressable
-    style={[
-      tw`flex items-center`,
-      !active ? tw`opacity-30` : {}
-    ]}
-    onPress={onPress}>
-    <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-    <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1`}>
-      {i18n(id)}
-    </Text>
+  <Pressable style={tw`flex items-center`} onPress={onPress}>
+    <View style={!active ? tw`opacity-30` : {}}>
+      <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
+      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1`}>
+        {i18n(id)}
+      </Text>
+    </View>
     {notifications
       ? <Bubble color={tw`text-green`.color as string}
         style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-sm font-baloo text-white-1 text-center mt-0.5`}>{notifications}</Text>
+        <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="clip" numberOfLines={1}>
+          {notifications}
+        </Text>
       </Bubble>
       : null
     }
