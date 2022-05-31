@@ -1,7 +1,6 @@
 
 import React, { ReactElement } from 'react'
-import { GestureResponderEvent } from 'react-native'
-import { Text } from 'react-native'
+import { Text, GestureResponderEvent } from 'react-native'
 import tw from '../../styles/tailwind'
 
 type TextProps = ComponentProps & {

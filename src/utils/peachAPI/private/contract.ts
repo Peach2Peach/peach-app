@@ -173,22 +173,25 @@ export const postChat = async ({
 type RaiseDisputeProps = {
   contractId: Contract['id'],
   email: string,
-  topic: DisputeTopic,
+  reason: DisputeReason,
   message: string,
+  symmetricKey: string
 }
 
 /**
  * @description Method to raise a dispute for a contract
  * @param contractId contract id
  * @param email email
- * @param topic topic
+ * @param reason reason
  * @param message message
+ * @param symmetricKey symmetricKey to encrypt/decrypt messages
  */
 export const raiseDispute = async ({
   contractId,
   email,
-  topic,
+  reason,
   message,
+  symmetricKey,
 }: RaiseDisputeProps): Promise<[APISuccess|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute`, {
     headers: {
@@ -199,8 +202,9 @@ export const raiseDispute = async ({
     method: 'POST',
     body: JSON.stringify({
       email,
-      topic,
+      reason,
       message,
+      symmetricKey
     })
   })
 

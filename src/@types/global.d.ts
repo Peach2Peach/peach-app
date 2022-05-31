@@ -139,4 +139,4 @@ declare type PeachWallet = {
 
 declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other'
 
-declare type DisputeTopic = 'payment' | 'behaviourSeller' | 'behaviourBuyer' | 'other'
+declare type DisputeReason = 'payment' | 'behaviourSeller' | 'behaviourBuyer' | 'other'

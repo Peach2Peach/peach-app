@@ -27,4 +27,4 @@ export const DisputeDisclaimer = ({ navigation, contractId, style }: DisputeDisc
       </TextLink>
     </Text>
   </View>
-      }
+}

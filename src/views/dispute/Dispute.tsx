@@ -31,12 +31,12 @@ type Props = {
   navigation: ProfileScreenNavigationProp,
 }
 
-const disputeTopicsSeller: DisputeTopic[] = [
+const disputeReasonsSeller: DisputeReason[] = [
   'payment',
   'behaviourBuyer',
   'other'
 ]
-const disputeTopicsBuyer: DisputeTopic[] = [
+const disputeReasonsBuyer: DisputeReason[] = [
   'payment',
   'behaviourSeller',
   'other'
@@ -51,13 +51,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
-  const [topic, setTopic] = useState<DisputeTopic>()
+  const [reason, setReason] = useState<DisputeReason>()
   const [email, setEmail] = useState()
   const [message, setMessage] = useState()
   let $message = useRef<TextInput>(null).current
 
   const view = contract ? account.publicKey === contract.seller.id ? 'seller' : 'buyer' : ''
-  const availableTopics = view === 'seller' ? disputeTopicsSeller : disputeTopicsBuyer
+  const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
@@ -84,7 +84,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     showCloseButton: true
   })
   const goBack = () => {
-    if (topic) return setTopic(undefined)
+    if (reason) return setReason(undefined)
     return setStart(false)
   }
 
@@ -95,22 +95,23 @@ export default ({ route, navigation }: Props): ReactElement => {
         required: true,
         email: true
       },
-      topic: {
+      reason: {
         required: true,
       },
       message: {
         required: true,
       }
     })
-    if (!isFormValid() || !email || !topic || !message) return
+    if (!isFormValid() || !email || !reason || !message) return
 
     const [result, err] = await raiseDispute({
       contractId,
       email,
-      topic,
+      reason,
       message
     })
     if (result) {
+      Keyboard.dismiss()
       updateOverlay({
         content: <RaiseDisputeSuccess navigation={navigation} contractId={contractId} message={message} />,
         showCloseButton: false
@@ -165,17 +166,17 @@ export default ({ route, navigation }: Props): ReactElement => {
           title={i18n('whatIsThis')}
         />
       </View>
-      : !topic
+      : !reason
         ? <View style={tw`flex items-center`}>
           <Text style={tw`text-center`}>
             {i18n('dispute.whatIsTheDisputeAbout') + '\n'}
           </Text>
-          {availableTopics.map((tpc, i) => <Button
-            key={tpc}
+          {availableReasons.map((rsn, i) => <Button
+            key={rsn}
             wide={false}
-            onPress={() => setTopic(tpc)}
+            onPress={() => setReason(rsn)}
             style={i === 0 ? tw`mt-5` : tw`mt-2`}
-            title={i18n(`dispute.topic.${tpc}`)}
+            title={i18n(`dispute.reason.${rsn}`)}
           />)}
         </View>
         : <View style={tw`flex items-center`}>
