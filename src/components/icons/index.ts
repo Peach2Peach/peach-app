@@ -8,8 +8,10 @@ import check from './check.svg'
 import checkbox from './checkbox.svg'
 import circle from './circle.svg'
 import clock from './clock.svg'
+import timer from './timer.svg'
 import copy from './copy.svg'
 import cross from './cross.svg'
+import dispute from './dispute.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
@@ -50,8 +52,10 @@ const Icons: Icons = {
   checkbox,
   circle,
   clock,
+  timer,
   copy,
   cross,
+  dispute,
   dropdownClosed,
   dropdownOpen,
   file,

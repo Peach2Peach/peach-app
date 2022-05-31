@@ -25,6 +25,7 @@ import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
 import { unique } from '../../utils/array'
+import ContractActions from './components/ContractActions'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -259,6 +260,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ]}>
             <View style={tw`h-full flex-shrink`}>
               <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages} />
+              <ContractActions contract={contract} view={view} style={tw`absolute right-0 top-4 -mr-3`}/>
             </View>
             <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
               <Input
