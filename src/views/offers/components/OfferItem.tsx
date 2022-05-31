@@ -2,6 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
 import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
 import Icon from '../../../components/Icon'
+import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
@@ -67,8 +68,8 @@ type OfferItemProps = ComponentProps & {
   navigation: ProfileScreenNavigationProp,
 }
 
-type IconMap = { [key in OfferStatus['status']]?: string }
-  & { [key in OfferStatus['requiredAction']]?: string }
+type IconMap = { [key in OfferStatus['status']]?: IconType }
+  & { [key in OfferStatus['requiredAction']]?: IconType }
 
 const ICONMAP: IconMap = {
   offerPublished: 'clock',

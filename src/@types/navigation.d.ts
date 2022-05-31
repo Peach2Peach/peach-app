@@ -13,10 +13,13 @@ declare type RootStackParamList = {
     offer: SellOffer|BuyOffer,
   },
   contract: {
-    contractId: string,
+    contractId: Contract['id'],
   },
   contractChat: {
-    contractId: string,
+    contractId: Contract['id'],
+  },
+  dispute: {
+    contractId: Contract['id'],
   },
   tradeComplete: {
     contract: Contract,

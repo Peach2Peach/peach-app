@@ -12,11 +12,12 @@ import Icon from '../Icon'
 import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
 import i18n from '../../utils/i18n'
+import { IconType } from '../icons'
 
 type InputProps = ComponentProps & {
   value?: string,
   label?: string,
-  icon?: string,
+  icon?: IconType,
   multiline?: boolean
   required?: boolean
   autoCorrect?: boolean

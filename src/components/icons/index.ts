@@ -39,10 +39,7 @@ import triangleLeft from './triangleLeft.svg'
 import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
 
-type Icons = {
-  [key: string]: React.FC<SvgProps>
-}
-const Icons: Icons = {
+const Icons = {
   add,
   arrowLeft,
   buy,
@@ -83,5 +80,7 @@ const Icons: Icons = {
   triangleRight,
   undo,
 }
+
+export type IconType = keyof typeof Icons
 
 export default Icons
