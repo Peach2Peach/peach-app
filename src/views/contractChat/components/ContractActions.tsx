@@ -1,13 +1,14 @@
 
+import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useState } from 'react'
-import { Pressable, View } from 'react-native'
-import { Icon, Shadow, Text } from '../../../components'
+import { GestureResponderEvent, Pressable, View } from 'react-native'
+import { Icon, Shadow, } from '../../../components'
+import { IconType } from '../../../components/icons'
 import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
 import { mildShadowOrange } from '../../../utils/layout'
 
 type IconButtonProps = ComponentProps & {
-  icon: string,
+  icon: IconType,
   onPress: (event: GestureResponderEvent) => void,
 }
 
@@ -29,15 +30,19 @@ const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => 
   </Shadow>
 }
 
+
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
+
 type ContractActionsProps = ComponentProps & {
   contract: Contract,
-  view: 'buyer' | 'seller',
+  view: 'buyer' | 'seller' | '',
+  navigation: ProfileScreenNavigationProp,
 }
 
-export const ContractActions = ({ contract, view, style }: ContractActionsProps): ReactElement => {
+export const ContractActions = ({ contract, view, navigation, style }: ContractActionsProps): ReactElement => {
   const cancelTrade = () => alert('todo cancel trade')
-  const extendTime = () => alert('todo extend time')
-  const raiseDispute = () => alert('todo raise dispute')
+  // const extendTime = () => alert('todo extend time')
+  const raiseDispute = () => navigation.navigate('dispute', { contractId: contract.id })
 
   return <View style={style}>
     {view === 'buyer' ? <IconButton onPress={cancelTrade} icon="cross" /> : null}

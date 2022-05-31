@@ -19,14 +19,13 @@ export const Overlay = ({ content, showCloseButton }: OverlayState): ReactElemen
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   return <View style={[
-    tw`absolute z-20 w-full h-full flex items-center justify-between`,
+    tw`absolute z-20 w-full h-full flex items-center justify-center`,
     tw`p-3 pb-8 bg-peach-translucent-2`,
   ]}>
-    <View>{/* dummy content for layout */}</View>
     {content}
-    <View>{/* dummy content for layout */}</View>
     {showCloseButton
       ? <Button
+        style={tw`mt-7`}
         title={i18n('close')}
         secondary={true}
         onPress={closeOverlay}

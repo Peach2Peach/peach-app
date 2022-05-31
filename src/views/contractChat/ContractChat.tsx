@@ -26,6 +26,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
 import { unique } from '../../utils/array'
 import ContractActions from './components/ContractActions'
+import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -259,8 +260,13 @@ export default ({ route, navigation }: Props): ReactElement => {
             !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
           ]}>
             <View style={tw`h-full flex-shrink`}>
-              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages} />
-              <ContractActions contract={contract} view={view} style={tw`absolute right-0 top-4 -mr-3`}/>
+              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
+                disclaimer={<DisputeDisclaimer navigation={navigation} contractId={contract.id}/>} />
+              <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
+                contract={contract}
+                view={view}
+                navigation={navigation}
+              />
             </View>
             <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
               <Input

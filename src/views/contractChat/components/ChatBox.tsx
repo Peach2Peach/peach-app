@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
-import { Shadow, Text, TextLink } from '../../../components'
+import { Shadow, Text } from '../../../components'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
@@ -9,22 +9,6 @@ import i18n from '../../../utils/i18n'
 import { innerShadow } from '../../../utils/layout'
 
 const PAGE_SIZE = 21
-
-type DisputeDisclaimerProps = ComponentProps & {}
-
-const DisputeDisclaimer = ({ style }: DisputeDisclaimerProps): ReactElement => <View style={style}>
-  <Text style={tw`text-center text-sm`}>
-    {i18n('chat.disputeDisclaimer.1')}
-    <Text style={tw`font-bold text-sm`}> {i18n('chat.disputeDisclaimer.2')} </Text>
-    {i18n('chat.disputeDisclaimer.3')}
-  </Text>
-  <Text>
-    <Text style={tw`text-center text-sm`}>{i18n('chat.disputeDisclaimer.4')} </Text>
-    <TextLink style={tw`text-grey-1 text-sm`} onPress={() => alert('todo')}>
-      {i18n('chat.disputeDisclaimer.5')}
-    </TextLink>
-  </Text>
-</View>
 
 type ChatMessageProps = {
   chat: Chat,
@@ -65,9 +49,10 @@ type ChatBoxProps = ComponentProps & {
   page: number,
   loadMore: () => void,
   loading: boolean
+  disclaimer: ReactElement
 }
 
-export default ({ chat, page, loadMore, loading, style }: ChatBoxProps): ReactElement => {
+export default ({ chat, page, loadMore, loading, disclaimer, style }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
 
@@ -96,7 +81,7 @@ export default ({ chat, page, loadMore, loading, style }: ChatBoxProps): ReactEl
       tw`w-full h-full border border-grey-4 rounded`,
       style ? style : {},
     ]}>
-      <DisputeDisclaimer style={tw`my-4 px-6`} />
+      {disclaimer ? <View style={tw`my-4 px-6`}>{disclaimer}</View> : null}
       <FlatList ref={scroll} contentContainerStyle={tw`py-4 pb-10`}
         data={chat.messages.slice(-(page + 1) * PAGE_SIZE)}
         onContentSizeChange={onContentSizeChange}

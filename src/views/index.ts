@@ -25,6 +25,7 @@ import PaymentMethods from './settings/PaymentMethods'
 import Fees from './settings/Fees'
 import Socials from './settings/Socials'
 import Profile from './profile/Profile'
+import Dispute from './dispute/Dispute'
 
 
 type ViewType = {
@@ -60,6 +61,7 @@ export const views: ViewType[] = [
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
+  { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
 ]
 
 export default views

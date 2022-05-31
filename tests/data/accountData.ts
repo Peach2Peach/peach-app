@@ -203,5 +203,7 @@ export const contract: Contract = {
   ratingBuyer: 0,
   ratingSeller: 0,
 
+  disputeDate: null,
+
   messages: 0,
 }
