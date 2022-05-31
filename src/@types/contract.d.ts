@@ -37,6 +37,7 @@ declare type Contract = {
   releaseTxId?: string,
 
   disputeActive: boolean,
+  disputeDate: Date|null,
   canceled: boolean,
 
   ratingBuyer: 1|0|-1,

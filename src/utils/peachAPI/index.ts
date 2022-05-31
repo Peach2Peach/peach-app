@@ -76,4 +76,5 @@ export {
   confirmPayment,
   rateUser,
   getChat, postChat,
+  raiseDispute,
 } from './private/contract'

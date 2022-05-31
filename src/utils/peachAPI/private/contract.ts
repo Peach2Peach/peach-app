@@ -168,3 +168,41 @@ export const postChat = async ({
 
   return await parseResponse<APISuccess>(response, 'postChat')
 }
+
+
+type RaiseDisputeProps = {
+  contractId: Contract['id'],
+  email: string,
+  topic: DisputeTopic,
+  message: string,
+}
+
+/**
+ * @description Method to raise a dispute for a contract
+ * @param contractId contract id
+ * @param email email
+ * @param topic topic
+ * @param message message
+ */
+export const raiseDispute = async ({
+  contractId,
+  email,
+  topic,
+  message,
+}: RaiseDisputeProps): Promise<[APISuccess|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      topic,
+      message,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'raiseDispute')
+}
