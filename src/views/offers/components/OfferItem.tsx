@@ -20,13 +20,14 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
-  const navigate = () => navigation.replace('offers', {})
+  if (!offer) return navigation.replace('offers', {})
 
   if (offer.type === 'ask'
     && offer.funding?.txIds
     && !offer.refunded
     && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    // return navigation.replace('refund', { offer })
+    const navigate = () => navigation.replace('offers', {})
+
     return updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,
       showCloseButton: false
