@@ -55,7 +55,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps)
   <Pressable style={tw`flex items-center`} onPress={onPress}>
     <View style={!active ? tw`opacity-30` : {}}>
       <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1`}>
+      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1 text-center`}>
         {i18n(id)}
       </Text>
     </View>
