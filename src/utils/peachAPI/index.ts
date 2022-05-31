@@ -27,6 +27,9 @@ export const parseResponse = async <T>(
     if (response.status === 500) {
       return [null, { error: 'INTERNAL_SERVER_ERROR' }]
     }
+    if (response.status === 503) {
+      return [null, { error: 'SERVICE_UNAVAILABLE' }]
+    }
 
     const data = await response.json()
 

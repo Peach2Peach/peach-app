@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 
 type TextProps = ComponentProps & {
   numberOfLines?: number,
-  ellipsizeMode?: 'head'|'tail'|'middle',
+  ellipsizeMode?: 'head'|'tail'|'middle'|'clip',
   onPress?: (e: GestureResponderEvent) => void
 }
 

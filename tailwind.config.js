@@ -28,6 +28,7 @@ module.exports = {
           mild: '#F6A884',
           translucent: '#F57940BB',
           'translucent-2': '#F57940FA',
+          transparent: '#F5794066',
         },
         chat: {
           you: '#40BCF5',

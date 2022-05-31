@@ -29,6 +29,7 @@ export {
   Bubble,
   CopyAble,
   HorizontalLine,
+  Progress,
   Shadow,
 } from './ui'
 

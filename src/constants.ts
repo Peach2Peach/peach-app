@@ -75,4 +75,4 @@ export const TIMERS: Timers = {
 export const GOLDMEDAL = 0.9
 export const SILVERMEDAL = 0.7
 
-export const MEDALS = ['fastTrader', 'superTrader']
+export const MEDALS = ['fastTrader', 'superTrader', 'ambassador']

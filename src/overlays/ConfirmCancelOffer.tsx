@@ -1,7 +1,7 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 
-import { Button, Headline } from '../components'
+import { Button, Headline, Loading } from '../components'
 import Icon from '../components/Icon'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -16,7 +16,7 @@ const confirm = async (offer: BuyOffer|SellOffer) => {
 
   const [result, err] = await cancelOffer({
     offerId: offer.id,
-    satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
+    // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
   })
   if (result) {
     info('Cancel offer: ', JSON.stringify(result))
@@ -52,10 +52,14 @@ type ConfirmCancelOfferProps = {
 
 export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const [loading, setLoading] = useState(false)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   const ok = async () => {
+    setLoading(true)
     await confirm(offer)
+    setLoading(false)
+
     updateOverlay({ content: <TradeCanceled />, showCloseButton: false })
     setTimeout(() => {
       closeOverlay()
@@ -75,19 +79,25 @@ export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
     <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
       {i18n('cancelOffer.confirm.title')}
     </Headline>
-    <Button
-      style={tw`mt-2`}
-      title={i18n('cancelOffer.confirm.back')}
-      secondary={true}
-      wide={false}
-      onPress={closeOverlay}
-    />
-    <Button
-      style={tw`mt-2`}
-      title={i18n('cancelOffer.confirm.ok')}
-      tertiary={true}
-      wide={false}
-      onPress={ok}
-    />
+    <View style={loading ? tw`opacity-0` : {}} pointerEvents={loading ? 'none' : 'auto'}>
+      <Button
+        style={tw`mt-2`}
+        title={i18n('cancelOffer.confirm.back')}
+        secondary={true}
+        wide={false}
+        onPress={closeOverlay}
+      />
+      <Button
+        style={tw`mt-2`}
+        title={i18n('cancelOffer.confirm.ok')}
+        tertiary={true}
+        wide={false}
+        onPress={ok}
+      />
+    </View>
+    {loading
+      ? <Loading style={tw`absolute mt-4`}color={tw`text-white-1`.color as string} />
+      : null
+    }
   </View>
 }

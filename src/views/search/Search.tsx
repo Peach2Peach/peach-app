@@ -12,21 +12,20 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Matches, Text, TextLink } from '../../components'
+import { BigTitle, Button, Headline, Loading, Matches, SatsFormat, Text, TextLink } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { thousands } from '../../utils/string'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { error, info } from '../../utils/log'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
-import { signAndEncrypt, signAndEncryptSymmetric } from '../../utils/pgp'
+import { signAndEncrypt } from '../../utils/pgp'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { account } from '../../utils/account'
 import { getRandom } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
-import { encryptPaymentData, getPaymentMethods, hashPaymentData } from '../../utils/paymentMethod'
+import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
@@ -49,6 +48,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
   const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
+  const [matchLoading, setMatchLoading] = useState(false)
 
   const [matches, setMatches] = useState<Match[]>([])
   const [seenMatches, setSeenMatches] = useState<Offer['id'][]>(route.params.offer.seenMatches)
@@ -104,6 +104,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       )
       return
     }
+
+    setMatchLoading(true)
 
     if (offer.type === 'bid') {
       encryptedSymmmetricKey = await signAndEncrypt(
@@ -165,7 +167,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
 
     if (result) {
-      setMatches(() => matches.map(m => {
+      setMatches(matches.map(m => {
         if (m.offerId !== match.offerId) return m
         m.matched = true
         if (result.matchedPrice) m.matchedPrice = result.matchedPrice
@@ -191,6 +193,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
+    setMatchLoading(false)
   }
 
   const _unmatch = async (match: Match) => {
@@ -199,7 +202,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     const [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
 
     if (result) {
-      setMatches(() => matches.map(m => ({
+      setMatches(matches.map(m => ({
         ...m,
         matched: m.offerId === match.offerId ? !m.matched : m.matched
       })))
@@ -272,7 +275,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(searchForPeersEffect({
     offer,
     onSuccess: result => {
-      setMatches(() => matches.concat(result)
+      setMatches(matches.concat(result)
         .filter(unique('offerId'))
         .filter((match, i) => {
           // don't mess with the current slide position by removing previous slides
@@ -312,15 +315,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       {matches.length
         ? offer.type === 'bid'
           ? <View>
-            <Text style={tw`text-grey-2 text-center -mt-2`}>
-              {i18n('search.buyOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
-              {i18n('currency.SATS')}
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n('search.buyOffer')} <SatsFormat sats={offer.amount}
+                color={tw`text-grey-2`} color2={tw`text-grey-4`}
+              />
             </Text>
           </View>
           : <View>
-            <Text style={tw`text-grey-2 text-center -mt-2`}>
-              {i18n('search.sellOffer')} <Text style={tw`text-grey-1`}>{thousands(offer.amount)} </Text>
-              {i18n('currency.SATS')}
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n('search.sellOffer')} <SatsFormat sats={offer.amount}
+                color={tw`text-grey-2`} color2={tw`text-grey-4`}
+              />
             </Text>
             <Text style={tw`text-grey-2 text-center`}>
               {i18n(
@@ -340,11 +345,18 @@ export default ({ route, navigation }: Props): ReactElement => {
           {offer.type === 'bid'
             ? <View style={tw`flex items-center`}>
               <Button
-                title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
+                title={matchLoading
+                  ? ' '
+                  : i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')
+                }
                 wide={false}
                 disabled={currentMatch?.matched}
                 onPress={_toggleMatch}
               />
+              {matchLoading
+                ? <Loading style={tw`absolute`} color={tw`text-white-1`.color as string} size="small" />
+                : null
+              }
             </View>
             : <View style={tw`flex items-center`}>
               {/* <Button

@@ -83,9 +83,9 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
     ]}>
       <Text style={tw`text-lg text-grey-2`}>
         {addressParts.one}
-        <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.two}</Text>
+        <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.two}</Text>
         {addressParts.three}
-        <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.four}</Text>
+        <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
       </Text>
       <View>
         <Fade show={showCopied} duration={300} delay={0}>

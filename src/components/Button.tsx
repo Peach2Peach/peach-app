@@ -109,11 +109,11 @@ export const Button = ({
 
   return !secondary && !tertiary && !grey
     ? <Shadow shadow={mildShadowOrange} style={viewStyle}>
-      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey}
+      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} disabled={disabled}
         title={title} loading={loading} onPress={onPress} />
     </Shadow>
     : <View style={viewStyle}>
-      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey}
+      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} disabled={disabled}
         title={title} loading={loading} onPress={onPress} />
     </View>
 }

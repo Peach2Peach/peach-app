@@ -16,12 +16,12 @@ type SellOfferSummaryProps = ComponentProps & {
 }
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement =>
   <Card style={[tw`p-5`, style]}>
-    <Headline style={tw`text-grey-1 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
     <Text style={tw`text-center`}>
-      <SatsFormat sats={offer.amount} color={tw`text-black-1`} />
+      <SatsFormat sats={offer.amount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>
     <Text style={tw`text-center`}>
       {i18n(
         offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount',
@@ -29,11 +29,11 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       )}
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
     <Selector items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
       style={tw`mt-2`}/>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
     <Selector
       items={getPaymentMethods(offer.meansOfPayment).map(p => ({
         value: p,
@@ -44,7 +44,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     {offer.funding?.txIds?.length > 0
       ? <View>
         <HorizontalLine style={tw`mt-4`}/>
-        <Headline style={tw`text-grey-1 normal-case mt-4`}>
+        <Headline style={tw`text-grey-2 normal-case mt-4`}>
           {i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}
         </Headline>
         <Pressable style={tw`flex-row justify-center items-center`}

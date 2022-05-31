@@ -12,16 +12,16 @@ type BuyOfferSummaryProps = ComponentProps & {
 }
 export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement =>
   <Card style={[tw`pt-7 pb-8 px-5`, style]}>
-    <Headline style={tw`text-grey-1 normal-case`}>{i18n('offer.summary.youAreBuying')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreBuying')}</Headline>
     <Text style={tw`text-center`}>
-      <SatsFormat sats={offer.amount} color={tw`text-black-1`} />
+      <SatsFormat sats={offer.amount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
     <Selector items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
       style={tw`mt-2`}/>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
     <Selector
       items={getPaymentMethods(offer.meansOfPayment).map(p => ({
         value: p,

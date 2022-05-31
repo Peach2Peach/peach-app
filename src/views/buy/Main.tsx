@@ -52,8 +52,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         <Headline style={tw`mt-16 text-grey-1 px-5`}>
           {i18n('buy.subtitle')}
         </Headline>
-        <View>
-          <View style={tw`w-full absolute z-10 flex items-center px-12 mt-3`}>
+        <View style={tw`z-10`}>
+          <View style={tw`w-full absolute flex items-center px-12 mt-3`}>
             <Dropdown
               items={dropdownItems}
               selectedValue={amount}

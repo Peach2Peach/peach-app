@@ -49,8 +49,8 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
   }
 
   const submit = async () => {
-    setLoading(true)
     Keyboard.dismiss()
+    setLoading(true)
 
     const [recoveredAccount, err] = await recoverAccount({
       encryptedAccount: file.content,

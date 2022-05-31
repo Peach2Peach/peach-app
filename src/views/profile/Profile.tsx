@@ -10,47 +10,8 @@ import { account } from '../../utils/account'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { splitAt, toShortDateFormat } from '../../utils/string'
-import { Rating, ExtraMedals } from '../../components/user'
+import { Rating, ExtraMedals, TradingLimit } from '../../components/user'
 import { getUser } from '../../utils/peachAPI'
-
-type ProgressProps = ComponentProps & {
-  percent: number,
-  text?: string,
-}
-const Progress = ({ percent, text, style }: ProgressProps): ReactElement =>
-  <View style={[tw`h-4 bg-peach-translucent overflow-hidden`, style]}>
-    <View style={[tw`h-full bg-peach-1`, { width: `${percent * 100}%` }]}/>
-    {text
-      ? <View style={tw`absolute w-full`}>
-        <Text style={tw`text-sm font-baloo text-white-2 text-center uppercase -mt-px`}>
-          {text}
-        </Text>
-      </View>
-      : null
-    }
-  </View>
-
-type TradingLimitProps = ComponentProps & {
-  tradingLimit: TradingLimit,
-}
-const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactElement => {
-  const { daily, dailyAmount, yearly, yearlyAmount } = tradingLimit
-  return <View style={style}>
-    <Text style={tw`text-center text-grey-1 font-bold`}>
-      {i18n('profile.tradingLimits')}
-    </Text>
-    <Progress
-      style={tw`rounded`}
-      percent={dailyAmount / daily}
-      text={i18n('profile.tradingLimits.daily', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
-    />
-    <Progress
-      style={tw`mt-1 rounded`}
-      percent={yearlyAmount / yearly}
-      text={i18n('profile.tradingLimits.yearly', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
-    />
-  </View>
-}
 
 type UserTradeDetailsProps = {
   user: User,

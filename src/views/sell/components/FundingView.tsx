@@ -11,7 +11,6 @@ type FundingViewProps = {
 }
 export default ({ escrow, amount, label }: FundingViewProps): ReactElement => <View>
   <BitcoinAddress
-    style={tw`my-4`}
     address={escrow}
     amount={amount / SATSINBTC}
     label={label}
