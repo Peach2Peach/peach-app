@@ -24,6 +24,7 @@ import link from './link.svg'
 import negative from './negative.svg'
 import offers from './offers.svg'
 import positive from './positive.svg'
+import plus from './plus.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
@@ -65,6 +66,7 @@ const Icons = {
   negative,
   offers,
   positive,
+  plus,
   selectClosed,
   selectOpen,
   sell,

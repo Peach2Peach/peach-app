@@ -11,8 +11,8 @@ import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { MeansOfPayment } from '../../components/inputs'
 import { getPaymentMethods } from '../../utils/paymentMethod'
+import PaymentMethods from './components/PaymentMethods'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -63,7 +63,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Headline style={tw`mt-16 text-grey-1`}>
       {i18n('sell.meansOfPayment')}
     </Headline>
-    <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} />
+    <PaymentMethods style={tw`mt-1`} />
     <PaymentDetails
       meansOfPayment={meansOfPayment}
       paymentMethods={getPaymentMethods(meansOfPayment)}
