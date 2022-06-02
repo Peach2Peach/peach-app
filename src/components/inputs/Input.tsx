@@ -104,7 +104,7 @@ export const Input = ({
           placeholder={label ? label + (!required ? ` (${i18n('form.optional')})` : '') : ''}
           placeholderTextColor={tw`text-grey-2`.color as string}
           value={value}
-          editable={!disabled} autoCorrect={autoCorrect} multiline={multiline}
+          editable={!disabled} autoCorrect={autoCorrect} multiline={multiline} textAlignVertical="top"
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing}
           blurOnSubmit={false}
