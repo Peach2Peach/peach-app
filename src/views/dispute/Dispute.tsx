@@ -38,13 +38,13 @@ const disputeReasonsSeller: DisputeReason[] = [
   'wrongPaymentAmount',
   'buyerUnresponsive',
   'buyerBehaviour',
-  'other'
+  'disputeOther'
 ]
 const disputeReasonsBuyer: DisputeReason[] = [
   'satsNotReceived',
   'sellerUnresponsive',
   'sellerBehaviour',
-  'other'
+  'disputeOther'
 ]
 
 // eslint-disable-next-line max-lines-per-function, max-statements
