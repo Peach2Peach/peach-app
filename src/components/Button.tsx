@@ -53,14 +53,14 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     ]}
   >
     <Text style={[
-      tw`font-baloo text-sm uppercase`,
+      tw`w-full font-baloo text-sm uppercase text-center`,
       color,
       active ? tw`text-white-2` : {}
     ]}>
       {!loading ? title : ''}
     </Text>
     {loading
-      ? <Loading size="small" style={tw`h-1`} color={color.color as string} />
+      ? <Loading size="small" style={tw`h-1 absolute`} color={color.color as string} />
       : null
     }
   </Pressable>
