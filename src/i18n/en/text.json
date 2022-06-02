@@ -300,7 +300,7 @@
   "dispute.reason.satsNotReceived": "I haven't received my sats",
   "dispute.reason.sellerUnresponsive": "The seller is unresponsive",
   "dispute.reason.sellerBehaviour": "The seller's behavior is inappropriate",
-  "dispute.reason.other": "Other",
+  "dispute.reason.disputeOther": "Other",
   "dispute.provideExplanation": "Please provide a short summary of your issue and your email address:",
   "dispute.explanation.title": "Creating a dispute",
   "dispute.explanation.description.1": "During a dispute, a Peach employee will mediate between you and your counterparty.",

@@ -141,4 +141,4 @@ declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other'
 
 declare type DisputeReason = 'wrongPaymentAmount' | 'noPayment' | 'buyerUnresponsive' | 'buyerBehaviour'
   | 'satsNotReceived' | 'sellerUnresponsive' | 'sellerBehaviour'
-  | 'other'
+  | 'disputeOther'
