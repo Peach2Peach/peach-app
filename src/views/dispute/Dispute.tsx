@@ -34,13 +34,16 @@ type Props = {
 }
 
 const disputeReasonsSeller: DisputeReason[] = [
-  'payment',
-  'behaviourBuyer',
+  'noPayment',
+  'wrongPaymentAmount',
+  'buyerUnresponsive',
+  'buyerBehaviour',
   'other'
 ]
 const disputeReasonsBuyer: DisputeReason[] = [
-  'payment',
-  'behaviourSeller',
+  'satsNotReceived',
+  'sellerUnresponsive',
+  'sellerBehaviour',
   'other'
 ]
 
@@ -192,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Text>
           {availableReasons.map((rsn, i) => <Button
             key={rsn}
-            wide={false}
+            wide={true}
             onPress={() => setReason(rsn)}
             style={i === 0 ? tw`mt-5` : tw`mt-2`}
             title={i18n(`dispute.reason.${rsn}`)}
