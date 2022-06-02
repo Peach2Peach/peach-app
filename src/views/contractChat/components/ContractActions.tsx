@@ -42,12 +42,17 @@ type ContractActionsProps = ComponentProps & {
 export const ContractActions = ({ contract, view, navigation, style }: ContractActionsProps): ReactElement => {
   const cancelTrade = () => alert('todo cancel trade')
   // const extendTime = () => alert('todo extend time')
-  const raiseDispute = () => navigation.navigate('dispute', { contractId: contract.id })
+  const raiseDispute = () => !contract.disputeActive
+    ? navigation.navigate('dispute', { contractId: contract.id })
+    : null
 
   return <View style={style}>
     {view === 'buyer' ? <IconButton onPress={cancelTrade} icon="cross" /> : null}
     {/* <IconButton style={tw`mt-3`} onPress={extendTime} icon="timer" /> */}
-    <IconButton style={tw`mt-3`} onPress={raiseDispute} icon="dispute" />
+    <IconButton style={[tw`mt-3`, contract.disputeActive ? tw`opacity-50` : {}]}
+      onPress={raiseDispute}
+      icon="dispute"
+    />
   </View>
 }
 

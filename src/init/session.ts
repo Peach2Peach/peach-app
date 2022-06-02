@@ -1,4 +1,11 @@
-import { setBuckets, setDeprecatedBuckets, setMinAppVersion, setPaymentMethods, setPeachFee } from '../constants'
+import {
+  setBuckets,
+  setDeprecatedBuckets,
+  setMinAppVersion,
+  setPaymentMethods,
+  setPeachFee,
+  setPeachPGPPublicKey
+} from '../constants'
 import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
 import { error } from '../utils/log'
 import { getInfo, getTradingLimit } from '../utils/peachAPI'
@@ -32,6 +39,7 @@ export default async () => {
     updateTradingLimit(tradingLimit)
   }
   if (peachInfo) {
+    setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey)
     setPaymentMethods(peachInfo.paymentMethods)
     setBuckets(peachInfo.buckets)
     setDeprecatedBuckets(peachInfo.deprecatedBuckets)

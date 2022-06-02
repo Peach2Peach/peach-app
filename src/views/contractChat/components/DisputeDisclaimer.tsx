@@ -8,11 +8,11 @@ import i18n from '../../../utils/i18n'
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 type DisputeDisclaimerProps = ComponentProps & {
   navigation: ProfileScreenNavigationProp,
-  contractId: Contract['id'],
+  contract: Contract,
 }
 
-export const DisputeDisclaimer = ({ navigation, contractId, style }: DisputeDisclaimerProps): ReactElement => {
-  const raiseDispute = () => navigation.navigate('dispute', { contractId })
+export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDisclaimerProps): ReactElement => {
+  const raiseDispute = () => navigation.navigate('dispute', { contractId: contract.id })
 
   return <View style={style}>
     <Text style={tw`text-center text-sm`}>
@@ -20,11 +20,14 @@ export const DisputeDisclaimer = ({ navigation, contractId, style }: DisputeDisc
       <Text style={tw`font-bold text-sm`}> {i18n('chat.disputeDisclaimer.2')} </Text>
       {i18n('chat.disputeDisclaimer.3')}
     </Text>
-    <Text>
-      <Text style={tw`text-center text-sm`}>{i18n('chat.disputeDisclaimer.4')} </Text>
-      <TextLink style={tw`text-grey-1 text-sm`} onPress={raiseDispute}>
-        {i18n('chat.disputeDisclaimer.5')}
-      </TextLink>
-    </Text>
+    {!contract.disputeActive
+      ? <Text>
+        <Text style={tw`text-center text-sm`}>{i18n('chat.disputeDisclaimer.4')} </Text>
+        <TextLink style={tw`text-grey-1 text-sm`} onPress={raiseDispute}>
+          {i18n('chat.disputeDisclaimer.5')}
+        </TextLink>
+      </Text>
+      : null
+    }
   </View>
 }
