@@ -180,7 +180,7 @@ const App: React.FC = () => {
         return updateOverlay({
           content: <YouGotADispute
             contractId={remoteMessage.data.contractId}
-            message={remoteMessage.data.contractId}
+            message={remoteMessage.data.message}
             navigation={navigationRef} />,
           showCloseButton: false
         })
