@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Loading, Matches, SatsFormat, Text, TextLink } from '../../components'
+import { BigTitle, Button, Headline, Matches, SatsFormat, Text, TextLink } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
@@ -316,16 +316,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         ? offer.type === 'bid'
           ? <View>
             <Text style={tw`text-grey-2 text-center -mt-1`}>
-              {i18n('search.buyOffer')} <SatsFormat sats={offer.amount}
-                color={tw`text-grey-2`} color2={tw`text-grey-4`}
-              />
+              {i18n('search.buyOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
             </Text>
           </View>
           : <View>
             <Text style={tw`text-grey-2 text-center -mt-1`}>
-              {i18n('search.sellOffer')} <SatsFormat sats={offer.amount}
-                color={tw`text-grey-2`} color2={tw`text-grey-4`}
-              />
+              {i18n('search.sellOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
             </Text>
             <Text style={tw`text-grey-2 text-center`}>
               {i18n(
@@ -350,13 +346,10 @@ export default ({ route, navigation }: Props): ReactElement => {
                   : i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')
                 }
                 wide={false}
-                disabled={currentMatch?.matched}
+                disabled={currentMatch?.matched || matchLoading}
+                loading={matchLoading}
                 onPress={_toggleMatch}
               />
-              {matchLoading
-                ? <Loading style={tw`absolute`} color={tw`text-white-1`.color as string} size="small" />
-                : null
-              }
             </View>
             : <View style={tw`flex items-center`}>
               {/* <Button

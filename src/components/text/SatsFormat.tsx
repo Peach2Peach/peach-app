@@ -12,7 +12,6 @@ type SatsFormat = ComponentProps & {
   sats: number,
   format?: 'inline' | 'big',
   color?: ViewStyle|ViewStyle[],
-  color2?: ViewStyle|ViewStyle[],
 }
 
 /**
@@ -20,11 +19,10 @@ type SatsFormat = ComponentProps & {
  * @param props Component properties
  * @param props.sats satoshis
  * @param props.color sats color
- * @param props.color2 sats color 2
  * @example
  * <SatsFormat sats={5000}/>
  */
-export const SatsFormat = ({ sats, format = 'inline', color, color2, style }: SatsFormat): ReactElement => {
+export const SatsFormat = ({ sats, format = 'inline', color, style }: SatsFormat): ReactElement => {
   const satsString = String(sats)
   let btc = '0'
   let sat = satsString.slice(-8, satsString.length)
@@ -50,7 +48,7 @@ export const SatsFormat = ({ sats, format = 'inline', color, color2, style }: Sa
         : 0
   return format === 'inline'
     ? <Text>
-      <Text style={[color2 || tw`text-grey-2`, style]}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={[tw`opacity-50`, color || tw`text-grey-2`, style]}>{finalString.slice(0, cutIndex)}</Text>
       <Text style={[color || tw`text-black-2`, style]}>
         {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
       </Text>
