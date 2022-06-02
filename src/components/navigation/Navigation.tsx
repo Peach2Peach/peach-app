@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { Text } from '../text'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { OverlayContext } from '../../contexts/overlay'
-import { Fade } from '../animation'
+import { Fade, Loading } from '../animation'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'|'buy'>
 
@@ -24,14 +24,18 @@ type NavigationProps = {
 export const Navigation = ({ screen, back, next, navigation, stepValid, offer }: NavigationProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
-  let buttonText = i18n('next')
+  let buttonText:string|JSX.Element = i18n('next')
   if (offer && offer.type === 'ask' && screen === 'escrow' && !stepValid) {
     buttonText = offer.funding.status === 'MEMPOOL'
       ? i18n('sell.escrow.waitingForConfirmation')
-      : i18n('sell.escrow.fundToContinue')
+      : <Text style={tw`font-baloo text-sm uppercase text-white-1`}>
+        {i18n('sell.escrow.fundToContinue')}
+        <View style={tw`w-8 h-0 bg-red absolute -mt-10`}>
+          <Loading size="small" style={tw`-mt-2`} color={tw`text-white-1`.color as string} />
+        </View>
+      </Text>
   }
   if (/returnAddress|releaseAddress/u.test(screen)) buttonText = i18n('lookForAMatch')
-
   const navigate = () => navigation.replace('offer', { offer })
 
   const cancelOffer = () => updateOverlay({
@@ -58,9 +62,8 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
       wide={false}
       onPress={stepValid ? next : () => {}}
       title={buttonText}
-      loading={screen === 'escrow' && !stepValid}
       style={screen === 'escrow' && !stepValid && offer && offer.type === 'ask'
-        ? offer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-56`
+        ? offer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`
         : {}}
     />
     {screen === 'escrow'

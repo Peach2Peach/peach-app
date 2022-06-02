@@ -18,7 +18,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
   <Card style={[tw`p-5`, style]}>
     <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
     <Text style={tw`text-center`}>
-      <SatsFormat sats={offer.amount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
+      <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>

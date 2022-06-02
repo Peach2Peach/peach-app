@@ -16,7 +16,7 @@ type ChatMessageProps = {
   index: number,
 }
 
-const ChatMessage = ({ chat, item, index }: ChatMessageProps) => {
+const ChatMessage = ({ chat, item, index }: ChatMessageProps): ReactElement => {
   const message = item
   const isYou = message.from === account.publicKey
   const previous = chat.messages[index - 1]
@@ -49,9 +49,10 @@ type ChatBoxProps = ComponentProps & {
   page: number,
   loadMore: () => void,
   loading: boolean
+  disclaimer: ReactElement
 }
 
-export default ({ chat, page, loadMore, loading, style }: ChatBoxProps): ReactElement => {
+export default ({ chat, page, loadMore, loading, disclaimer, style }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
 
@@ -80,11 +81,12 @@ export default ({ chat, page, loadMore, loading, style }: ChatBoxProps): ReactEl
       tw`w-full h-full border border-grey-4 rounded`,
       style ? style : {},
     ]}>
+      {disclaimer ? <View style={tw`my-4 px-6`}>{disclaimer}</View> : null}
       <FlatList ref={scroll} contentContainerStyle={tw`py-4 pb-10`}
         data={chat.messages.slice(-(page + 1) * PAGE_SIZE)}
         onContentSizeChange={onContentSizeChange}
         onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
-        onViewableItemsChanged={onViewableItemsChanged}
+        // onViewableItemsChanged={onViewableItemsChanged}
         keyExtractor={item => item.date.toString()}
         renderItem={({ item, index }) =>
           <ChatMessage chat={chat} item={item} index={index} />

@@ -90,6 +90,9 @@ declare type GetStatusResponse = {
 }
 
 declare type GetInfoResponse = {
+  peach: {
+    pgpPublicKey: string,
+  },
   fees: {
     escrow: number,
   },

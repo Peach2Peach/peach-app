@@ -18,3 +18,5 @@
 "notification.body.contract.tradeCompleted" = "You received %@ sats in your wallet";
 "notification.title.contract.chat" = "Chat";
 "notification.body.contract.chat" = "You got a chat message";
+"notification.title.contract.disputeRaised" = "Dispute";
+"notification.body.contract.disputeRaised" = "Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.";

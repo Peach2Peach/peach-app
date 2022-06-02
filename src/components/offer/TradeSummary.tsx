@@ -141,7 +141,7 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
         }
       </Headline>
       <Text style={tw`text-center`}>
-        <SatsFormat sats={contract.amount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
+        <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.for')}</Headline>

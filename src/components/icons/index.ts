@@ -8,8 +8,10 @@ import check from './check.svg'
 import checkbox from './checkbox.svg'
 import circle from './circle.svg'
 import clock from './clock.svg'
+import timer from './timer.svg'
 import copy from './copy.svg'
 import cross from './cross.svg'
+import dispute from './dispute.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import file from './file.svg'
@@ -37,10 +39,7 @@ import triangleLeft from './triangleLeft.svg'
 import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
 
-type Icons = {
-  [key: string]: React.FC<SvgProps>
-}
-const Icons: Icons = {
+const Icons = {
   add,
   arrowLeft,
   buy,
@@ -50,8 +49,10 @@ const Icons: Icons = {
   checkbox,
   circle,
   clock,
+  timer,
   copy,
   cross,
+  dispute,
   dropdownClosed,
   dropdownOpen,
   file,
@@ -79,5 +80,7 @@ const Icons: Icons = {
   triangleRight,
   undo,
 }
+
+export type IconType = keyof typeof Icons
 
 export default Icons

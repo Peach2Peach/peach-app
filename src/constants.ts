@@ -3,6 +3,9 @@ import { version } from '../package.json'
 
 export const SATSINBTC = 100000000
 
+export let PEACHPGPPUBLICKEY = ''
+export const setPeachPGPPublicKey = (pgpPublicKey: string) => PEACHPGPPUBLICKEY = pgpPublicKey
+
 export let PEACHFEE = 0.015
 export const setPeachFee = (fee: number) => PEACHFEE = fee
 

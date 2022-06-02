@@ -20,4 +20,6 @@
     <string name="notification.body.contract.tradeCompleted">You received %1$s sats in your wallet</string>
     <string name="notification.title.contract.chat">Chat</string>
     <string name="notification.body.contract.chat">You got a chat message</string>
+    <string name="notification.title.contract.disputeRaised">Dispute</string>
+    <string name="notification.body.contract.disputeRaised">Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.</string>
 </resources>

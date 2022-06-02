@@ -28,7 +28,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
     {status !== 'offerCanceled'
       ? <Text style={tw`text-grey-2 text-center -mt-1`}>
         {i18n(`offers.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`)} <SatsFormat sats={offer.amount}
-          color={tw`text-grey-2`} color2={tw`text-grey-4`}
+          color={tw`text-grey-2`}
         />
       </Text>
       : <Text style={tw`text-grey-2 text-center -mt-1`}>

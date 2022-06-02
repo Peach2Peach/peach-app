@@ -10,7 +10,7 @@ import tw from '../styles/tailwind'
 import { mildShadowOrange } from '../utils/layout'
 
 type ButtonProps = ComponentProps & {
-  title: string,
+  title: string|JSX.Element,
   secondary?: boolean,
   tertiary?: boolean,
   grey?: boolean,
@@ -57,12 +57,10 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
       color,
       active ? tw`text-white-2` : {}
     ]}>
-      {title}
+      {!loading ? title : ''}
     </Text>
     {loading
-      ? <View style={tw`absolute right-5 w-4 h-4`}>
-        <Loading size="small" color={color.color as string} />
-      </View>
+      ? <Loading size="small" style={tw`h-1`} color={color.color as string} />
       : null
     }
   </Pressable>

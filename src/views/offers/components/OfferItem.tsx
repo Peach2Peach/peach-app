@@ -2,6 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
 import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
 import Icon from '../../../components/Icon'
+import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
@@ -20,13 +21,14 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
-  const navigate = () => navigation.replace('offers', {})
+  if (!offer) return navigation.replace('offers', {})
 
   if (offer.type === 'ask'
     && offer.funding?.txIds
     && !offer.refunded
     && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    // return navigation.replace('refund', { offer })
+    const navigate = () => navigation.replace('offers', {})
+
     return updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,
       showCloseButton: false
@@ -66,8 +68,8 @@ type OfferItemProps = ComponentProps & {
   navigation: ProfileScreenNavigationProp,
 }
 
-type IconMap = { [key in OfferStatus['status']]?: string }
-  & { [key in OfferStatus['requiredAction']]?: string }
+type IconMap = { [key in OfferStatus['status']]?: IconType }
+  & { [key in OfferStatus['requiredAction']]?: IconType }
 
 const ICONMAP: IconMap = {
   offerPublished: 'clock',
@@ -84,7 +86,7 @@ const ICONMAP: IconMap = {
   tradeCanceled: 'cross',
 }
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, complexity
 export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
@@ -97,7 +99,11 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
     <Pressable onPress={navigate}
       style={[
         tw`rounded`,
-        requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
+        contract?.disputeActive
+          ? tw`bg-red`
+          : requiredAction
+            ? tw`bg-peach-1`
+            : tw`bg-white-1 border border-grey-2`,
         style
       ]}>
       {extended
@@ -106,7 +112,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             <View style={tw`w-full flex-shrink`}>
               <Headline style={[
                 tw`text-lg font-bold normal-case text-left`,
-                requiredAction ? tw`text-white-1` : tw`text-grey-2`
+                requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`
               ]}>
                 {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
               </Headline>
@@ -114,15 +120,14 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                 <SatsFormat
                   style={tw`text-lg`}
                   sats={offer.amount}
-                  color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
-                  color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
+                  color={requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`} />
               </View>
             </View>
             <Icon id={icon || 'help'} style={tw`w-7 h-7`}
-              color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
             />
           </View>
-          {requiredAction
+          {requiredAction && !contract?.disputeActive
             ? <View style={tw`flex items-center mt-3 mb-1`}>
               <Button
                 title={i18n(`offer.requiredAction.${requiredAction}`)}
@@ -137,15 +142,14 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
         : <View style={tw`flex-row justify-between items-center p-2`}>
           <View style={tw`flex-row items-center`}>
             <Icon id={offer.type === 'ask' ? 'sell' : 'buy'} style={tw`w-5 h-5 mr-2`}
-              color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}/>
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}/>
             <SatsFormat
               style={tw`text-lg`}
               sats={offer.amount}
-              color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
-              color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
+              color={requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`} />
           </View>
           <Icon id={icon || 'help'} style={tw`w-5 h-5`}
-            color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
+            color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
           />
         </View>
       }

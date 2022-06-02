@@ -20,6 +20,7 @@ import { getChatNotifications } from '../../utils/chat'
 import AppContext from '../../contexts/app'
 import { saveContract } from '../../utils/contract'
 import { getContract } from '../../utils/peachAPI'
+import { IconType } from '../icons'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
@@ -27,7 +28,7 @@ type FooterProps = ComponentProps & {
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
 }
 interface FooterItemProps {
-  id: string,
+  id: IconType,
   active: boolean,
   onPress: () => void,
   notifications?: number
@@ -52,10 +53,10 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement =>
-  <Pressable style={tw`flex items-center`} onPress={onPress}>
-    <View style={!active ? tw`opacity-30` : {}}>
+  <Pressable onPress={onPress}>
+    <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
       <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1`}>
+      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1 text-center`}>
         {i18n(id)}
       </Text>
     </View>

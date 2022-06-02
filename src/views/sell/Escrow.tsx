@@ -130,8 +130,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
         ? <View>
           <Text style={tw`mt-6 mb-5 text-center`}>
             <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>
-            <SatsFormat style={tw`font-baloo text-lg uppercase`}
-              sats={fundingAmount} color={tw`text-grey-2`} color2={tw`text-grey-4`} />
+            <SatsFormat style={tw`font-baloo text-lg uppercase`} sats={fundingAmount} color={tw`text-grey-2`} />
             <Text style={tw`font-baloo text-lg uppercase text-grey-2`}> {i18n('sell.escrow.sendSats.2')}</Text>
           </Text>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />

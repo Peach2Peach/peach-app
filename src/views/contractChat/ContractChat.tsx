@@ -25,6 +25,8 @@ import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
 import { unique } from '../../utils/array'
+import ContractActions from './components/ContractActions'
+import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -239,7 +241,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         />
         <Text style={tw`text-grey-2 text-center -mt-1`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0}
-            color={tw`text-grey-2`} color2={tw`text-grey-4`}
+            color={tw`text-grey-2`}
           />
         </Text>
       </Fade>
@@ -258,7 +260,13 @@ export default ({ route, navigation }: Props): ReactElement => {
             !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
           ]}>
             <View style={tw`h-full flex-shrink`}>
-              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages} />
+              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
+                disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
+              <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
+                contract={contract}
+                view={view}
+                navigation={navigation}
+              />
             </View>
             <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
               <Input

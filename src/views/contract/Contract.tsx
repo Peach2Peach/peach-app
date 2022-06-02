@@ -23,6 +23,8 @@ import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { ContractSummary } from '../offers/components/ContractSummary'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { OverlayContext } from '../../contexts/overlay'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -36,6 +38,7 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [updatePending, setUpdatePending] = useState(true)
@@ -83,6 +86,18 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
         }
       )
+
+      if (result.disputeActive
+        && result.disputeInitiator !== account.publicKey
+        && !result.disputeAcknowledgedByCounterParty) {
+        updateOverlay({
+          content: <YouGotADispute
+            contractId={result.id}
+            message={result.disputeClaim as string}
+            navigation={navigation} />,
+          showCloseButton: false
+        })
+      }
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -197,7 +212,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         {contract?.amount
           ? <Text style={tw`text-grey-2 text-center -mt-1`}>
             {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount}
-              color={tw`text-grey-2`} color2={tw`text-grey-4`}
+              color={tw`text-grey-2`}
             />
           </Text>
           : null

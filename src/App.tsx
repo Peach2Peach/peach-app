@@ -41,6 +41,7 @@ import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
 import { handlePushNotification } from './utils/navigation'
 import views from './views'
+import YouGotADispute from './overlays/YouGotADispute'
 
 enableScreens()
 
@@ -172,6 +173,15 @@ const App: React.FC = () => {
         && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
         return updateOverlay({
           content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
+          showCloseButton: false
+        })
+      }
+      if (remoteMessage.data && remoteMessage.data.type === 'contract.disputeRaised') {
+        return updateOverlay({
+          content: <YouGotADispute
+            contractId={remoteMessage.data.contractId}
+            message={remoteMessage.data.message}
+            navigation={navigationRef} />,
           showCloseButton: false
         })
       }

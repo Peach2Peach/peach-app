@@ -12,7 +12,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'report'>
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: ProfileScreenNavigationProp
 }
 
 export default ({ navigation }: Props): ReactElement => {
