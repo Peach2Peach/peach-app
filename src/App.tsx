@@ -130,7 +130,7 @@ const App: React.FC = () => {
 
   const [{ template, msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
-  const [{ content, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [{ content, showCloseIcon, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -208,14 +208,17 @@ const App: React.FC = () => {
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
             <MessageContext.Provider value={[{ template, msg, level }, updateMessage]}>
-              <OverlayContext.Provider value={[{ content, showCloseButton: true }, updateOverlay]}>
+              <OverlayContext.Provider value={[
+                { content, showCloseButton: false, showCloseIcon: false },
+                updateOverlay
+              ]}>
                 <View style={tw`h-full flex-col`}>
                   {showHeader(currentPage)
                     ? <Header style={tw`z-10`} />
                     : null
                   }
                   {content
-                    ? <Overlay content={content} showCloseButton={showCloseButton} />
+                    ? <Overlay content={content} showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
                     : null
                   }
                   {template || msg

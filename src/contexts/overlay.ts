@@ -1,12 +1,13 @@
 import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
 
 let content: ReactNode
-let showCloseButton = true
+let showCloseIcon = false
+let showCloseButton = false
 
 const dispatch: Dispatch<OverlayState> = () => {}
 
 export const OverlayContext = createContext([
-  { content, showCloseButton },
+  { content, showCloseIcon, showCloseButton },
   dispatch
 ] as const)
 
@@ -16,6 +17,7 @@ export const OverlayContext = createContext([
  */
 export const getOverlay = (): OverlayState => ({
   content,
+  showCloseIcon,
   showCloseButton,
 })
 
@@ -27,10 +29,12 @@ export const getOverlay = (): OverlayState => ({
  */
 export const setOverlay = (state: ReducerState<any>, newState: OverlayState): OverlayState => {
   content = newState.content
-  showCloseButton = newState.showCloseButton
+  showCloseIcon = newState.showCloseIcon ?? showCloseIcon
+  showCloseButton = newState.showCloseButton ?? showCloseButton
 
   return {
     content,
+    showCloseIcon,
     showCloseButton,
   }
 }

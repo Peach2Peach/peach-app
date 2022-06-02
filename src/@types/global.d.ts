@@ -87,6 +87,7 @@ declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'c
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
+declare type LocalPaymentMethods = Partial<Record<Currency, Record<string, PaymentMethod[]>>>
 
 declare type HashedPaymentData = string
 
@@ -116,7 +117,8 @@ declare type MessageState = {
 }
 declare type OverlayState = {
   content: ReactNode,
-  showCloseButton: boolean,
+  showCloseIcon?: boolean,
+  showCloseButton?: boolean,
 }
 declare type BitcoinState = {
   currency: Currency,
