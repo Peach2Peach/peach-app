@@ -20,6 +20,8 @@ import { MessageContext } from '../../contexts/message'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
 import { raiseDispute } from '../../utils/peachAPI'
 import { error } from '../../utils/log'
+import { signAndEncrypt } from '../../utils/pgp'
+import { PEACHPGPPUBLICKEY } from '../../constants'
 const { useValidation } = require('react-native-form-validator')
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'dispute'>
@@ -42,7 +44,7 @@ const disputeReasonsBuyer: DisputeReason[] = [
   'other'
 ]
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -54,6 +56,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [reason, setReason] = useState<DisputeReason>()
   const [email, setEmail] = useState()
   const [message, setMessage] = useState()
+  const [loading, setLoading] = useState(false)
   let $message = useRef<TextInput>(null).current
 
   const view = contract ? account.publicKey === contract.seller.id ? 'seller' : 'buyer' : ''
@@ -90,6 +93,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
 
   const submit = async () => {
+    if (!contract?.symmetricKey) return
+
     validate({
       email: {
         required: true,
@@ -103,19 +108,32 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     })
     if (!isFormValid() || !email || !reason || !message) return
+    setLoading(true)
+
+    const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(
+      contract.symmetricKey,
+      PEACHPGPPUBLICKEY
+    )
 
     const [result, err] = await raiseDispute({
       contractId,
       email,
       reason,
-      message
+      message,
+      symmetricKeyEncrypted
     })
     if (result) {
       Keyboard.dismiss()
       updateOverlay({
-        content: <RaiseDisputeSuccess navigation={navigation} contractId={contractId} message={message} />,
+        content: <RaiseDisputeSuccess />,
         showCloseButton: false
       })
+      setTimeout(() => {
+        navigation.navigate('contract', { contractId })
+        updateOverlay({ content: null, showCloseButton: true })
+      }, 3000)
+      setLoading(false)
+
       return
     }
 
@@ -126,6 +144,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
+    setLoading(false)
   }
 
 
@@ -136,7 +155,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       />
       <Text style={tw`text-grey-2 text-center -mt-1`}>
         {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0}
-          color={tw`text-grey-2`} color2={tw`text-grey-4`}
+          color={tw`text-grey-2`}
         />
       </Text>
     </View>
@@ -210,6 +229,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button
             wide={false}
             onPress={submit}
+            loading={loading}
+            disabled={loading}
             style={tw`mt-2`}
             title={i18n('confirm')}
           />
