@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
 import { OverlayContext } from '../../contexts/overlay'
@@ -7,16 +7,13 @@ import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import {
-  getLocalMoPCountry,
-  hasLocalPaymentMethods,
-  isLocalPaymentMethod,
+  getApplicablePaymentCategories,
   paymentMethodAllowedForCurrency,
   paymentMethodSelected
 } from '../../utils/paymentMethod'
 import Button from '../Button'
-import Card from '../Card'
 import Icon from '../Icon'
-import { Headline, Text } from '../text'
+import { Headline } from '../text'
 import { HorizontalLine } from '../ui'
 import { Item } from './Item'
 
@@ -38,7 +35,9 @@ export const PaymentMethods = ({
   style,
 }: PaymentMethodsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const [applicablePaymentCategories] = useState(() =>
+    getApplicablePaymentCategories(currency)
+  )
   const localPaymentMethods = LOCALPAYMENTMETHODS[currency]
   const textColor = invertColors ? tw`text-white-1` : tw`text-grey-1`
   const lineColor = invertColors ? tw`text-white-1` : tw`text-grey-1`
@@ -50,9 +49,8 @@ export const PaymentMethods = ({
   })
 
   return <View style={style}>
-    {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
-      .filter(pc => PAYMENTCATEGORIES[pc].filter(mop => paymentMethodAllowedForCurrency(mop, currency)).length > 0)
-      .map((paymentCategory, i) => <View>
+    {applicablePaymentCategories
+      .map((paymentCategory, i) => <View key={paymentCategory}>
         {i > 0 ? <HorizontalLine style={[tw`opacity-50 mt-8`, lineColor]}/> : null}
 
         <Headline style={[tw`text-lg`, i > 0 ? tw`mt-5` : {}, textColor]}>{paymentCategory}</Headline>
@@ -99,7 +97,7 @@ export const PaymentMethods = ({
                 )}
             </View>
           </View>
-          : <View>
+          : <View style={tw`flex items-center`}>
             <Headline style={[tw`text-lg`, tw`mt-5`, textColor]}>{i18n('paymentCategory.localOptions')}</Headline>
             <Button
               style={tw`mt-2`}
@@ -113,6 +111,5 @@ export const PaymentMethods = ({
       </View>
       : null
     }
-    
   </View>
 }

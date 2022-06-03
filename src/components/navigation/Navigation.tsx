@@ -9,6 +9,7 @@ import { Text } from '../text'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import { OverlayContext } from '../../contexts/overlay'
 import { Fade, Loading } from '../animation'
+import keyboard from '../../effects/keyboard'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'|'buy'>
 
@@ -43,12 +44,7 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
     showCloseButton: false
   })
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
   return <Fade show={!keyboardOpen} style={tw`w-full flex items-center`} displayNone={false}>
     {!/main|escrow|search/u.test(screen)

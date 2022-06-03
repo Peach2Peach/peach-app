@@ -16,11 +16,11 @@ type ToggleProps = ComponentProps & {
 
 const Toggle = ({ label, value, active, onToggle, style }: ToggleProps) => {
   const elementStyle = tw`h-10 px-4 flex items-center justify-center border border-white-1 rounded`
-  const textStyle = [tw`font-baloo text-sm`, active ? tw`text-peach-1` : tw`text-white-1`]
+  const textStyle = [tw`font-baloo text-sm text-center`, active ? tw`text-peach-1` : tw`text-white-1`]
 
   const toggle = () => onToggle(value)
   return <Pressable onPress={toggle} style={[tw`w-full flex-row`, style]}>
-    <View style={[elementStyle, tw`mr-3`, active ? tw`bg-white-1` : {}]}>
+    <View style={[elementStyle, tw`w-10 mr-3`, active ? tw`bg-white-1` : {}]}>
       <Text style={textStyle}>{active ? '-' : '+'}</Text>
     </View>
     <View style={[elementStyle, tw`w-full flex-shrink`, active ? tw`bg-white-1` : {}]}>

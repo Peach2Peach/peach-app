@@ -71,6 +71,7 @@ export const recoveredAccount: Account = {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
+    preferredCurrencies: [],
     preferredPaymentMethods: {},
   },
   paymentData: [],
@@ -103,6 +104,7 @@ export const account1: Account = {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
+    preferredCurrencies: [],
     preferredPaymentMethods: {},
     kyc: false
   },
@@ -133,13 +135,13 @@ export const paymentData: PaymentData[] = [
   {
     'beneficiary': 'Melocoton',
     'iban': 'IE29 AIBK 9311 5212 3456 78',
-    'id': 'iban-IE29AIBK93115212345678',
+    'id': 'Bank Account Ireland',
     'selected': true,
     'type': 'sepa'
   }, {
     'beneficiary': 'Test',
     'iban': 'EE38 2200 2210 2014 5685',
-    'id': 'iban-EE382200221020145685',
+    'id': 'Bank Account Estonia',
     'type': 'sepa'
   }
 ]

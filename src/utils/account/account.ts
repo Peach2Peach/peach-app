@@ -11,7 +11,7 @@ export const defaultAccount: Account = {
     displayCurrency: 'EUR',
     locale: 'en',
     preferredCurrencies: [],
-    preferredPaymentMethods: [],
+    preferredPaymentMethods: {},
     meansOfPayment: {},
   },
   paymentData: [],

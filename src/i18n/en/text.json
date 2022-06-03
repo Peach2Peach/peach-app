@@ -160,6 +160,7 @@
   "country.UK": "United Kingdom",
   "paymentMethod.select.title": "Add payment method",
   "paymentMethod.select.disclaimer": "Please select at least one payment method for all currencies",
+  "paymentMethod.details.title": "Payment details",
   "paymentMethod.view": "Your payment method",
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.swift": "SWIFT",

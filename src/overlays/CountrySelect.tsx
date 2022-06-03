@@ -40,7 +40,7 @@ export default ({ currency, onConfirm }: CountrySelectProps): ReactElement => {
         </Headline>
         <View style={tw`px-5`}>
           {Object.keys(LOCALPAYMENTMETHODS[currency]!).map((c, i) =>
-            <Pressable onPress={() => select(c)} style={[
+            <Pressable key={c} onPress={() => select(c)} style={[
               tw`w-full h-10 px-4 flex items-center justify-center border border-white-1 rounded`,
               c === country ? tw`bg-white-1` : {},
               i > 0 ? tw`mt-3` : {}

@@ -13,6 +13,18 @@ export const getCurrencies = (meansOfPayment: MeansOfPayment): Currency[] =>
     .filter(c => meansOfPayment[c]?.length)
 
 /**
+ * @description Method to build means of payment object
+ * @param mops means of payment
+ * @param currency currency
+ * @returns means of payment with added currency
+ * @example currencies.reduce(toMeansOfPayment, {})
+ */
+export const toMeansOfPayment = (mops: MeansOfPayment, currency: Currency) => {
+  mops[currency] = []
+  return mops
+}
+
+/**
  * @description Method to return all selected payment methods
  * @param meansOfPayment payment methods mapped to currency
  * @returns array of payment methods configured
@@ -21,7 +33,6 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
   Object.keys(meansOfPayment)
     .reduce((arr, c) => arr.concat((meansOfPayment as Required<MeansOfPayment>)[c as Currency]), [] as PaymentMethod[])
     .filter(unique())
-
 
 /**
  * @description Method to check whether MoP supports given currency
@@ -49,31 +60,27 @@ export const paymentMethodAllowedForCurrencies = (paymentMethod: PaymentMethod, 
  * @description Method to check whether a payment method is a local payment method (e.g Bizum in Spain only)
  * @param paymentMethod payment method
  * @returns true if payment method is local
+ * @TODO check if still needed, if yes, fix method
  */
-export const isLocalPaymentMethod = (paymentMethod: PaymentMethod) => LOCALPAYMENTMETHODS
-  .map(tuple => tuple[0])
-  .indexOf(paymentMethod) !== -1
+export const isLocalPaymentMethod = (paymentMethod: PaymentMethod) => true
 
 /**
  * @description Method to check whether a payment method is a local payment method (e.g Bizum in Spain only)
  * @param paymentCategory payment category
  * @param currency currency
  * @returns true if payment category has local payment methods
+ * @TODO check if still needed, if yes, fix method
  */
-export const hasLocalPaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean =>
-  intersect(LOCALPAYMENTMETHODS.map(tuple => tuple[0]), PAYMENTCATEGORIES[paymentCategory])
-    .filter(paymentMethod => paymentMethodAllowedForCurrency(paymentMethod, currency)).length > 0
+export const hasLocalPaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean => true
 
 
 /**
  * @description Method to get country of local payment method
  * @param paymentMethod payment method
  * @returns country of local payment method or empty string if it's not local
+ * @TODO check if still needed, if yes, fix method
  */
-export const getLocalMoPCountry = (paymentMethod: PaymentMethod): string => {
-  const localMoP = LOCALPAYMENTMETHODS.find(tuple => tuple[0] === paymentMethod)
-  return localMoP ? localMoP[1] : ''
-}
+export const getLocalMoPCountry = (paymentMethod: PaymentMethod): string => 'ES'
 
 /**
  * @description Method to check whether a payment method category has applicable MoPs for given currency

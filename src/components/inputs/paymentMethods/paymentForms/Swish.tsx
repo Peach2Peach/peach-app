@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Keyboard, Pressable, TextInput, View } from 'react-native'
+import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
+import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
 import { addPaymentData, getPaymentData, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -42,7 +43,6 @@ export const Swish: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
     })
     if (!isFormValid()) return
 
-    if (view === 'edit') removePaymentData(data?.id || '')
     const paymentData: PaymentData & SwishData = {
       id,
       type: 'swish',
@@ -58,16 +58,10 @@ export const Swish: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel
     if (onSubmit) onSubmit()
   }
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-    $id?.focus()
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
-  return <View style={style}>
-    <View style={[tw`mt-32`, tw.md`mt-40`]}>
+  return <View style={[tw`flex`, style]}>
+    <View style={tw`h-full flex-shrink flex justify-center`}>
       <View>
         <Input
           onChange={setId}

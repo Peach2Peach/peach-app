@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Keyboard, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
@@ -13,6 +13,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
+import keyboard from '../../effects/keyboard'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -67,12 +68,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     }, false)
   }, [address])
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
   const showQRScanner = () => setScanQR(true)
   const closeQRScanner = () => setScanQR(false)

@@ -1,8 +1,5 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import {
-  Keyboard,
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -27,6 +24,7 @@ import { getChat, saveChat } from '../../utils/chat'
 import { unique } from '../../utils/array'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
+import keyboard from '../../effects/keyboard'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -200,12 +198,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setRequiredAction(getRequiredAction(contract))
   }, [contract])
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
   const sendMessage = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return

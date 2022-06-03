@@ -2,15 +2,19 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import { Button, Icon } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
-import CurrencySelect, { CurrencySelection } from '../../../overlays/CurrencySelect'
+import CurrencySelect from '../../../overlays/CurrencySelect'
 import PaymentMethodSelect from '../../../overlays/PaymentMethodSelect'
+import SetPaymentDetails from '../../../overlays/SetPaymentDetails'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const onPaymentMethodSelect = (meansOfPayment: MeansOfPayment) => console.log(meansOfPayment)
+  const onPaymentMethodSelect = (meansOfPayment: MeansOfPayment) => updateOverlay({
+    content: <SetPaymentDetails meansOfPayment={meansOfPayment} onConfirm={onPaymentMethodSelect} />,
+    showCloseIcon: true,
+    showCloseButton: false
+  })
   const onCurrencySelect = (currencies: Currency[]) => updateOverlay({
     content: <PaymentMethodSelect currencies={currencies} onConfirm={onPaymentMethodSelect} />,
     showCloseIcon: true,

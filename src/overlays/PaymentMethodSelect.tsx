@@ -1,65 +1,64 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../styles/tailwind'
 
-import { Button, Card, Headline, HorizontalLine, Icon, PeachScrollView, Text } from '../components'
+import { Button, Headline, HorizontalLine, Icon, PeachScrollView, Text } from '../components'
 import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
-import { getApplicablePaymentCategories, getCurrencies } from '../utils/paymentMethod'
+import { getCurrencies, toMeansOfPayment } from '../utils/paymentMethod'
 import { Currencies, PaymentMethods, } from '../components/inputs'
 import CurrencySelect from './CurrencySelect'
 
-const isValid = (meansOfPayment: MeansOfPayment) => getCurrencies(meansOfPayment).some(currency => meansOfPayment[currency]!.length > 0)
+const isValid = (meansOfPayment: MeansOfPayment) =>
+  getCurrencies(meansOfPayment).some(currency => meansOfPayment[currency]!.length > 0)
 type PaymentMethodSelectProps = {
   currencies: Currency[],
+  meansOfPayment?: MeansOfPayment,
   onConfirm: (meansOfPayment: MeansOfPayment) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
-export const PaymentMethodSelect = ({ currencies, onConfirm }: PaymentMethodSelectProps): ReactElement => {
+export const PaymentMethodSelect = ({
+  currencies,
+  meansOfPayment,
+  onConfirm
+}: PaymentMethodSelectProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [applicablePaymentCategories, setApplicablePaymentCategories] = useState(() =>
-    getApplicablePaymentCategories(selectedCurrency)
-  )
-  const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>(
-    applicablePaymentCategories[0]
-  )
-  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>({})
-  const stepValid = isValid(meansOfPayment)
+  const [mops, setMeansOfPayment] = useState<MeansOfPayment>(meansOfPayment || currencies.reduce(toMeansOfPayment, {}))
+  const stepValid = isValid(mops)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
-  useEffect(() => {
-    console.log(meansOfPayment)
-  }, [meansOfPayment])
   const togglePaymentMethod = (currency: Currency, paymentMethod: PaymentMethod) => {
-    setMeansOfPayment(mops => {
-      if (!mops[currency]) mops[currency] = []
+    setMeansOfPayment(state => {
+      if (!state[currency]) state[currency] = []
 
-      if (mops[currency]?.indexOf(paymentMethod) !== -1) {
-        mops[currency] = mops[currency]?.filter(p => p !== paymentMethod)
+      if (state[currency]!.indexOf(paymentMethod) !== -1) {
+        state[currency] = state[currency]?.filter(p => p !== paymentMethod)
       } else {
-        mops[currency]?.push(paymentMethod)
+        state[currency]!.push(paymentMethod)
       }
 
-      return { ...mops }
+      return { ...state }
     })
   }
 
   const confirm = () => {
-    onConfirm(meansOfPayment)
     closeOverlay()
+    onConfirm(mops)
   }
 
   const onCurrencySelect = (selection: Currency[]) => updateOverlay({
-    content: <PaymentMethodSelect currencies={selection} onConfirm={onConfirm} />,
+    content: <PaymentMethodSelect currencies={selection} meansOfPayment={mops} onConfirm={onConfirm} />,
     showCloseIcon: true,
     showCloseButton: false
   })
   const onCountrySelect = () => updateOverlay({
-    content: <PaymentMethodSelect currencies={currencies} onConfirm={onConfirm} />,
+    content: <PaymentMethodSelect meansOfPayment={mops}
+      currencies={Object.keys(mops) as Currency[]}
+      onConfirm={onConfirm} />,
     showCloseIcon: true,
     showCloseButton: false
   })
@@ -79,12 +78,12 @@ export const PaymentMethodSelect = ({ currencies, onConfirm }: PaymentMethodSele
           currencies={currencies}
           onChange={(c) => setSelectedCurrency(c)}
           selected={selectedCurrency}
-          meansOfPayment={meansOfPayment}
+          meansOfPayment={mops}
           invertColors={true}
         />
         <PaymentMethods
           style={tw`mt-14`}
-          meansOfPayment={meansOfPayment}
+          meansOfPayment={mops}
           currency={selectedCurrency}
           onChange={(currency, paymentMethod) => togglePaymentMethod(currency, paymentMethod)}
           onCountrySelect={onCountrySelect}
