@@ -21,10 +21,10 @@ export const Item = ({
     : isSelected ? tw`bg-peach-1` : {}
   const borderColor = invertColors
     ? tw`border-white-1`
-    : tw`border-peach-1`
+    : isSelected ? tw`border-peach-1` : tw`border-grey-2`
   const textColor = invertColors
     ? isSelected ? tw`text-peach-1` : tw`text-white-1`
-    : isSelected ? tw`text-white-1` : tw`text-peach-1`
+    : isSelected ? tw`text-white-1` : tw`text-grey-2`
 
   return <Pressable
     onPress={onPress}
@@ -34,7 +34,7 @@ export const Item = ({
       style
     ]}>
     <Text style={[
-      tw`font-baloo text-xs leading-6 text-center`,
+      tw`font-baloo text-xs leading-5 text-center`,
       textColor,
     ]}>
       {label}

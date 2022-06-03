@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods } from '../../utils/paymentMethod'
-import PaymentMethods from './components/PaymentMethods'
+import AddPaymentMethods from './components/AddPaymentMethods'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -63,12 +63,12 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Headline style={tw`mt-16 text-grey-1`}>
       {i18n('sell.meansOfPayment')}
     </Headline>
-    <PaymentMethods style={tw`mt-1`} />
     <PaymentDetails
-      meansOfPayment={meansOfPayment}
-      paymentMethods={getPaymentMethods(meansOfPayment)}
+      paymentData={account.paymentData}
       setPaymentData={setPaymentData}
     />
+    <AddPaymentMethods style={tw`mt-1`} />
+
     <Premium
       premium={premium}
       setPremium={setPremium}

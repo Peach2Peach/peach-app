@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { Button, PeachScrollView } from '../../../components'
 import i18n from '../../../utils/i18n'
 
-import { account } from '../../../utils/account'
+import { account, addPaymentData } from '../../../utils/account'
 import { OverlayContext } from '../../../contexts/overlay'
 import NoPaymentMethods from '../../../components/inputs/paymentMethods/NoPaymentMethods'
 import AddPaymentMethod from '../../../components/inputs/paymentMethods/AddPaymentMethod'
@@ -26,9 +26,9 @@ export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactEl
 
   const [showAddNew, setShowAddNew] = useState(false)
 
-  const onPaymentDataUpdate = () => {
+  const onPaymentDataUpdate = (data: PaymentData) => {
     setShowAddNew(false)
-
+    addPaymentData(data)
     if (onChange) onChange({ ...account.paymentData })
     updateOverlay({ content: null, showCloseButton: true })
   }

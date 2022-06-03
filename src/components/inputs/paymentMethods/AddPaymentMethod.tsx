@@ -12,7 +12,7 @@ import PeachScrollView from '../../PeachScrollView'
 
 type AddPaymentMethodProps = {
   method?: PaymentMethod,
-  onSubmit: (data?: PaymentData) => void
+  onSubmit: (data: PaymentData) => void
 }
 
 export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) => {

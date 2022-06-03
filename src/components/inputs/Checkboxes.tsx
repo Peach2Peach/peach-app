@@ -22,25 +22,27 @@ const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps
   const selectItem = () => !item.disabled ? select(item.value) : () => {}
 
   return <View style={[
-    tw`bg-white-1 rounded`,
-    index > 0 ? tw`mt-2` : {}
+    tw`flex-row items-center`,
+    index > 0 ? tw`mt-2` : {},
+    !isSelected(item) ? tw`opacity-50` : {},
+    item.disabled ? tw`opacity-20` : {},
   ]}>
-    <Pressable style={[
-      tw`flex-row items-center p-3 h-12 border border-grey-4 rounded`,
-      !isSelected(item) ? tw`opacity-50` : {},
-      item.disabled ? tw`opacity-20` : {},
-    ]}
-    onPress={selectItem}>
-      {isSelected(item)
-        ? <Icon id="checkbox" style={tw`w-5 h-5`} />
-        : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-          <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
-        </View>
-      }
-      <View style={tw`mx-4`}>
+    {!item.disabled
+      ? <Pressable onPress={selectItem}>
+        {isSelected(item)
+          ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+          : <View style={tw`w-5 h-5 flex justify-center items-center`}>
+            <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
+          </View>
+        }
+      </Pressable>
+      : <View style={tw`w-5 h-5`}/>
+    }
+    <Shadow shadow={mildShadow} style={tw`w-full`}>
+      <View style={tw`bg-white-1 rounded mx-4 p-3`}>
         {item.display}
       </View>
-    </Pressable>
+    </Shadow>
   </View>
 }
 
@@ -83,18 +85,13 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
 
 
   return <View style={style}>
-    <Shadow shadow={mildShadow}
-      style={tw`w-full`}>
-      <View>
-        {items.map((item, i) => <CheckboxItem
-          key={i} index={i}
-          item={item}
-          selectedValues={selectedValues}
-          select={select}
-        />
-        )}
-      </View>
-    </Shadow>
+    {items.map((item, i) => <CheckboxItem
+      key={i} index={i}
+      item={item}
+      selectedValues={selectedValues}
+      select={select}
+    />
+    )}
   </View>
 }
 

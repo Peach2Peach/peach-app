@@ -1,5 +1,3 @@
-import { SvgProps } from 'react-native-svg'
-import add from './add.svg'
 import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
@@ -41,7 +39,6 @@ import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
 
 const Icons = {
-  add,
   arrowLeft,
   buy,
   camera,

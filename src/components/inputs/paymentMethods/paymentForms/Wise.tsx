@@ -222,7 +222,7 @@ return <View style={style}>
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
         </Pressable>
         <Button
-          title={i18n('form.paymentMethod.add')}
+          title={i18n(view === 'new' ? 'form.paymentMethod.add' : 'form.paymentMethod.update')}
           secondary={true}
           wide={false}
           onPress={save}
