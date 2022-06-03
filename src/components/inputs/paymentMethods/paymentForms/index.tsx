@@ -14,10 +14,11 @@ import { SWIFT } from './SWIFT'
 // import { Tether } from './Tether'
 
 type PaymentFormProps = ComponentProps & {
-  data?: PaymentData,
+  data?: Partial<PaymentData>,
   view: 'new' | 'edit' | 'view',
-  onSubmit?: (data?: PaymentData) => void,
-  onCancel?: () => void,
+  onSubmit?: (data: PaymentData) => void,
+  onChange?: (data: Partial<PaymentData>) => void,
+  onCancel?: (data: Partial<PaymentData>) => void,
 }
 export type PaymentMethodForm = ({ style, view, onSubmit, onCancel }: PaymentFormProps) => ReactElement
 

@@ -34,6 +34,14 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
     .reduce((arr, c) => arr.concat((meansOfPayment as Required<MeansOfPayment>)[c as Currency]), [] as PaymentMethod[])
     .filter(unique())
 
+
+/**
+ * @description Method to get payment method info of given method id
+ * @param id payment method id
+ * @returns payment method info
+ */
+export const getPaymentMethodInfo = (id: PaymentMethod): PaymentMethodInfo => PAYMENTMETHODINFOS.find(p => p.id === id)
+
 /**
  * @description Method to check whether MoP supports given currency
  * @param paymentMethod id of MoP

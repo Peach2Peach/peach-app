@@ -6,8 +6,9 @@ import { updateSettings } from './updateSettings'
 /**
  * @description Method to add account payment data
  * @param paymentData settings to add
+ * @param save if true save on account
  */
-export const addPaymentData = async (data: PaymentData) => {
+export const addPaymentData = async (data: PaymentData, save = true) => {
   if (getPaymentData(data.id)) { // existing payment data, update
     account.paymentData = account.paymentData.map(d => {
       if (d.id !== data.id) return d
@@ -27,5 +28,5 @@ export const addPaymentData = async (data: PaymentData) => {
     })
   }
 
-  if (session.password) await saveAccount(account, session.password)
+  if (save && session.password) await saveAccount(account, session.password)
 }

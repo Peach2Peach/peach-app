@@ -3,7 +3,7 @@ import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
 import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
-import { addPaymentData, getPaymentData, removePaymentData } from '../../../../utils/account'
+import { getPaymentData, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { Fade } from '../../../animation'
@@ -11,16 +11,19 @@ import Button from '../../../Button'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 import Input from '../../Input'
+import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
+export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [ukSortCode, setUKSortCode] = useState(data?.ukSortCode || '')
   const [ukBankAccount, setUKBankAccount] = useState(data?.ukBankAccount || '')
-  let $id = useRef<TextInput>(null).current
+  const [currencies, setCurrencies] = useState(data?.currencies || [])
+  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
+
   let $beneficiary = useRef<TextInput>(null).current
   let $ukSortCode = useRef<TextInput>(null).current
   let $ukBankAccount = useRef<TextInput>(null).current
@@ -31,6 +34,20 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
     rules,
     messages: getMessages()
   })
+
+  const buildPaymentData = (): PaymentData & BankTransferUKData => ({
+    id,
+    type: 'bankTransferUK',
+    beneficiary,
+    ukSortCode,
+    ukBankAccount,
+    currencies,
+  })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
+
 
   const save = () => {
     validate({
@@ -52,23 +69,23 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
     })
     if (!isFormValid()) return
 
-    const paymentData: PaymentData & BankTransferUKData = {
-      id,
-      type: 'bankTransferUK',
-      beneficiary,
-      ukSortCode,
-      ukBankAccount,
-    }
-    addPaymentData(paymentData)
-    if (onSubmit) onSubmit(paymentData)
+    if (onSubmit) onSubmit(buildPaymentData())
+  }
+
+  const cancel = () => {
+    if (onCancel) onCancel(buildPaymentData())
   }
 
   const remove = () => {
     removePaymentData(data?.id || '')
-    if (onSubmit) onSubmit()
+    if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
+
+  useEffect(() => {
+    if (onChange) onChange(buildPaymentData())
+  }, [id, beneficiary, ukSortCode, ukBankAccount, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
@@ -76,7 +93,6 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
         <Input
           onChange={setId}
           onSubmit={() => $beneficiary?.focus()}
-          reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
@@ -124,10 +140,15 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
           errorMessage={getErrorsInField('ukBankAccount')}
         />
       </View>
+      <CurrencySelection style={tw`mt-2`}
+        paymentMethod="bankTransferUK"
+        selectedCurrencies={selectedCurrencies}
+        onToggle={onCurrencyToggle}
+      />
     </View>
     {view !== 'view'
       ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>
-        <Pressable style={tw`absolute left-0 z-10`} onPress={onCancel}>
+        <Pressable style={tw`absolute left-0 z-10`} onPress={cancel}>
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
         </Pressable>
         <Button

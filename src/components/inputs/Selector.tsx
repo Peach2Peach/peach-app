@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
-import { NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView, View } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '..'
 import PeachScrollView from '../PeachScrollView'

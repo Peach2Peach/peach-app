@@ -11,15 +11,18 @@ import Button from '../../../Button'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 import Input from '../../Input'
+import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel }) => {
+export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
   const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
-  let $id = useRef<TextInput>(null).current
+  const [currencies] = useState(data?.currencies || [])
+  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
+
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
 
@@ -29,6 +32,18 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
     rules,
     messages: getMessages()
   })
+
+  const buildPaymentData = (): PaymentData & SEPAData => ({
+    id,
+    type: 'sepa',
+    iban,
+    beneficiary,
+    currencies,
+  })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const save = () => {
     validate({
@@ -46,23 +61,23 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
     })
     if (!isFormValid()) return
 
-  useEffect(keyboard(setKeyboardOpen), [])
-    const paymentData: PaymentData & SEPAData = {
-      id,
-      type: 'sepa',
-      iban,
-      beneficiary,
-    }
-    addPaymentData(paymentData)
-    if (onSubmit) onSubmit(paymentData)
+    if (onSubmit) onSubmit(buildPaymentData())
+  }
+
+  const cancel = () => {
+    if (onCancel) onCancel(buildPaymentData())
   }
 
   const remove = () => {
     removePaymentData(data?.id || '')
-    if (onSubmit) onSubmit()
+    if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
+
+  useEffect(() => {
+    if (onChange) onChange(buildPaymentData())
+  }, [id, iban, beneficiary, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
@@ -70,7 +85,6 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
         <Input
           onChange={setId}
           onSubmit={() => $beneficiary?.focus()}
-          reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
@@ -105,10 +119,15 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onCancel 
           errorMessage={getErrorsInField('iban')}
         />
       </View>
+      <CurrencySelection style={tw`mt-2`}
+        paymentMethod="sepa"
+        selectedCurrencies={selectedCurrencies}
+        onToggle={onCurrencyToggle}
+      />
     </View>
     {view !== 'view'
       ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>
-        <Pressable style={tw`absolute left-0 z-10`} onPress={onCancel}>
+        <Pressable style={tw`absolute left-0 z-10`} onPress={cancel}>
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
         </Pressable>
         <Button

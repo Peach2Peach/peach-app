@@ -5,13 +5,34 @@ import { OverlayContext } from '../../../contexts/overlay'
 import CurrencySelect from '../../../overlays/CurrencySelect'
 import PaymentMethodSelect from '../../../overlays/PaymentMethodSelect'
 import SetPaymentDetails from '../../../overlays/SetPaymentDetails'
+import { session } from '../../../utils/session'
 import tw from '../../../styles/tailwind'
+import RestorePaymentData from '../../../overlays/RestorePaymentData'
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
+  const onRestore = () => {
+    const meansOfPayment = session.unsavedPaymentData!.reduce((mop: MeansOfPayment, data: PaymentData) => {
+      data.currencies.forEach((currency) => {
+        if (!mop[currency]) mop[currency] = []
+        if (mop[currency]!.indexOf(data.type) === -1) mop[currency]!.push(data.type)
+      })
+      return mop
+    }, {} as MeansOfPayment)
+
+    updateOverlay({
+      content: <SetPaymentDetails
+        meansOfPayment={meansOfPayment}
+        restoredPaymentData={session.unsavedPaymentData}
+        onConfirm={() => {}}
+      />,
+      showCloseIcon: true,
+      showCloseButton: false
+    })
+  }
   const onPaymentMethodSelect = (meansOfPayment: MeansOfPayment) => updateOverlay({
-    content: <SetPaymentDetails meansOfPayment={meansOfPayment} onConfirm={onPaymentMethodSelect} />,
+    content: <SetPaymentDetails meansOfPayment={meansOfPayment} onConfirm={() => {}} />,
     showCloseIcon: true,
     showCloseButton: false
   })
@@ -21,11 +42,27 @@ export default ({ style }: ComponentProps): ReactElement => {
     showCloseButton: false
   })
 
-  const addPaymentMethods = () => updateOverlay({
+  const openCurrencySelect = () => updateOverlay({
     content: <CurrencySelect onConfirm={onCurrencySelect} />,
     showCloseIcon: true,
     showCloseButton: false
   })
+
+  const addPaymentMethods = () => {
+    if (session.unsavedPaymentData) {
+      updateOverlay({
+        content: <RestorePaymentData
+          paymentData={session.unsavedPaymentData}
+          onConfirm={onRestore}
+          onCancel={openCurrencySelect}
+        />,
+        showCloseIcon: true,
+        showCloseButton: false
+      })
+    } else {
+      openCurrencySelect()
+    }
+  }
 
   return <View style={style}>
     <View style={tw`flex items-center`}>

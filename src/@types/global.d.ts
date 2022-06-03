@@ -22,7 +22,8 @@ type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 declare type PaymentData = {
   [key: string]: any,
   id: string,
-  type: PaymentMethod
+  type: PaymentMethod,
+  currencies: Currency[],
 }
 
 declare type PaypalData = {
@@ -130,7 +131,8 @@ declare type BitcoinState = {
 declare type Session = {
   initialized: boolean
   password?: string,
-  peachInfo?: PeachInfo
+  peachInfo?: PeachInfo,
+  unsavedPaymentData?: PaymentData[],
 }
 
 declare type PeachWallet = {

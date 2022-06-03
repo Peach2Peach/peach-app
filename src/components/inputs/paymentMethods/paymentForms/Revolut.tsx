@@ -3,7 +3,7 @@ import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
 import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
-import { addPaymentData, getPaymentData, removePaymentData } from '../../../../utils/account'
+import { getPaymentData, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { Fade } from '../../../animation'
@@ -11,17 +11,20 @@ import Button from '../../../Button'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 import Input from '../../Input'
+import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCancel }) => {
+export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [id, setId] = useState(data?.id || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [userName, setUserName] = useState(data?.userName || '')
   const [email, setEmail] = useState(data?.email || '')
+  const [currencies, setCurrencies] = useState(data?.currencies || [])
+  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
   const anyFieldSet = !!(phone || userName || email)
-  let $id = useRef<TextInput>(null).current
+
   let $phone = useRef<TextInput>(null).current
   let $userName = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
@@ -32,6 +35,19 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
     rules,
     messages: getMessages()
   })
+
+  const buildPaymentData = (): PaymentData & RevolutData => ({
+    id,
+    type: 'revolut',
+    phone,
+    userName,
+    email,
+    currencies,
+  })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const save = () => {
     validate({
@@ -54,23 +70,23 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
     })
     if (!isFormValid()) return
 
-    const paymentData: PaymentData & RevolutData = {
-      id,
-      type: 'revolut',
-      phone,
-      userName,
-      email,
-    }
-    addPaymentData(paymentData)
-    if (onSubmit) onSubmit(paymentData)
+    if (onSubmit) onSubmit(buildPaymentData())
+  }
+
+  const cancel = () => {
+    if (onCancel) onCancel(buildPaymentData())
   }
 
   const remove = () => {
     removePaymentData(data?.id || '')
-    if (onSubmit) onSubmit()
+    if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
+
+  useEffect(() => {
+    if (onChange) onChange(buildPaymentData())
+  }, [id, phone, userName, email, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
@@ -78,7 +94,6 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
         <Input
           onChange={setId}
           onSubmit={() => $phone?.focus()}
-          reference={(el: any) => $id = el}
           value={id}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
@@ -132,10 +147,15 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onCanc
           errorMessage={getErrorsInField('email')}
         />
       </View>
+      <CurrencySelection style={tw`mt-2`}
+        paymentMethod="revolut"
+        selectedCurrencies={selectedCurrencies}
+        onToggle={onCurrencyToggle}
+      />
     </View>
     {view !== 'view'
       ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>
-        <Pressable style={tw`absolute left-0 z-10`} onPress={onCancel}>
+        <Pressable style={tw`absolute left-0 z-10`} onPress={cancel}>
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
         </Pressable>
         <Button
