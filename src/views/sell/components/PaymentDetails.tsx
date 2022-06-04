@@ -5,7 +5,7 @@ import { Item } from '../../../components/inputs'
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
-import { account, updateSettings } from '../../../utils/account'
+import { account, addPaymentData, updateSettings } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { hashPaymentData } from '../../../utils/paymentMethod'
 
@@ -14,18 +14,32 @@ const dummy = () => {}
 type PaymentDataKeyFactsProps = {
   paymentData: PaymentData,
 }
-const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => <View>
-  <Text>{paymentData.id}</Text>
-  <View style={tw`flex-row mt-2`}>
-    <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy}/>
-    {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
-      key={currency}
-      label={currency}
-      isSelected={true}
-      onPress={dummy}
-    />)}
-  </View>
-</View>
+const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
+  const [, updateOverlay] = useContext(OverlayContext)
+
+  const onPaymentDataUpdate = (data: PaymentData) => {
+    addPaymentData(data)
+    updateOverlay({ content: null, showCloseButton: true })
+  }
+  const editPaymentMethod = () => updateOverlay({
+    content: <PaymentMethodView data={paymentData} onSubmit={onPaymentDataUpdate} />,
+    showCloseIcon: false,
+    showCloseButton: false
+  })
+
+  return <Pressable onPress={editPaymentMethod}>
+    <Text>{paymentData.id}</Text>
+    <View style={tw`flex-row mt-2`}>
+      <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
+      {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
+        key={currency}
+        label={currency}
+        isSelected={true}
+        onPress={dummy}
+      />)}
+    </View>
+  </Pressable>
+}
 
 
 type PaymentDetailsProps = {

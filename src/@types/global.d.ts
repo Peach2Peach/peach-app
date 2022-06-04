@@ -22,6 +22,7 @@ type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 declare type PaymentData = {
   [key: string]: any,
   id: string,
+  label: string,
   type: PaymentMethod,
   currencies: Currency[],
 }

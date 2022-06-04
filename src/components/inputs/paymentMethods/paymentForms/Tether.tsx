@@ -3,7 +3,7 @@ import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
 import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
-import { getPaymentData, removePaymentData } from '../../../../utils/account'
+import { getPaymentDataByLabel, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { Fade } from '../../../animation'
@@ -17,7 +17,7 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel  }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
-  const [id, setId] = useState(data?.id || '')
+  const [label, setLabel] = useState(data?.label || '')
   const [tetherAddress, setTetherAddress] = useState(data?.tetherAddress || '')
   const [currencies, setCurrencies] = useState(data?.currencies || [])
   const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
@@ -26,13 +26,14 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChang
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, tetherAddress },
+    state: { label, tetherAddress },
     rules,
     messages: getMessages()
   })
 
   const buildPaymentData = (): PaymentData & TetherData => ({
-    id,
+    id: data?.id || `paypal-${new Date().getTime()}`,
+    label,
     type: 'tether',
     tetherAddress,
     currencies,
@@ -44,9 +45,9 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChang
 
   const save = () => {
     validate({
-      id: {
+      label: {
         required: true,
-        duplicate: view === 'new' && getPaymentData(id)
+        duplicate: view === 'new' && getPaymentDataByLabel(label)
       },
       tetherAddress: {
         required: true,
@@ -63,28 +64,28 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChang
   }
 
   const remove = () => {
-    removePaymentData(data?.id || '')
-    if (onSubmit) onSubmit(buildPaymentData())
+    if (data?.id) removePaymentData(data.id)
+    if (onCancel) onCancel(buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [id, tetherAddress, selectedCurrencies])
+  }, [label, tetherAddress, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
       <View>
         <Input
-          onChange={setId}
+          onChange={setLabel}
           onSubmit={() => $tetherAddress?.focus()}
-          value={id}
+          value={label}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
-          isValid={!isFieldInError('id')}
+          isValid={!isFieldInError('label')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('id')}
+          errorMessage={getErrorsInField('label')}
         />
       </View>
       <View style={tw`mt-2`}>

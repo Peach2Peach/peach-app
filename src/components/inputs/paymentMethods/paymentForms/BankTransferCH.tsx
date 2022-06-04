@@ -3,7 +3,7 @@ import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
 import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
-import { getPaymentData, removePaymentData } from '../../../../utils/account'
+import { getPaymentDataByLabel, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { Fade } from '../../../animation'
@@ -17,7 +17,7 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel  }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
-  const [id, setId] = useState(data?.id || '')
+  const [label, setLabel] = useState(data?.label || '')
   const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [currencies, setCurrencies] = useState(data?.currencies || [])
@@ -28,13 +28,14 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, iban, beneficiary },
+    state: { label, iban, beneficiary },
     rules,
     messages: getMessages()
   })
 
   const buildPaymentData = (): PaymentData & BankTransferCHData => ({
-    id,
+    id: data?.id || `paypal-${new Date().getTime()}`,
+    label,
     type: 'bankTransferCH',
     iban,
     beneficiary,
@@ -47,9 +48,9 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
 
   const save = () => {
     validate({
-      id: {
+      label: {
         required: true,
-        duplicate: view === 'new' && getPaymentData(id)
+        duplicate: view === 'new' && getPaymentDataByLabel(label)
       },
       beneficiary: {
         required: true,
@@ -69,27 +70,27 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
   }
 
   const remove = () => {
-    removePaymentData(data?.id || '')
-    if (onSubmit) onSubmit(buildPaymentData())
+    if (data?.id) removePaymentData(data.id)
+    if (onCancel) onCancel(buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [id, iban, beneficiary, selectedCurrencies])
+  }, [label, iban, beneficiary, selectedCurrencies])
 
 return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
       <View>
         <Input
-          onChange={setId}
+          onChange={setLabel}
           onSubmit={() => $beneficiary?.focus()}
-          value={id}
+          value={label}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
-          isValid={!isFieldInError('id')}
+          isValid={!isFieldInError('label')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('id')}
+          errorMessage={getErrorsInField('label')}
         />
       </View>
       <View style={tw`mt-2`}>

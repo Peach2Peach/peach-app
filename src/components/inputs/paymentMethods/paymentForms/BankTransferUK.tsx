@@ -3,7 +3,7 @@ import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
 import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
-import { getPaymentData, removePaymentData } from '../../../../utils/account'
+import { getPaymentDataByLabel, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { Fade } from '../../../animation'
@@ -17,7 +17,7 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
-  const [id, setId] = useState(data?.id || '')
+  const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [ukSortCode, setUKSortCode] = useState(data?.ukSortCode || '')
   const [ukBankAccount, setUKBankAccount] = useState(data?.ukBankAccount || '')
@@ -30,13 +30,14 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { id, beneficiary, ukSortCode, ukBankAccount },
+    state: { label, beneficiary, ukSortCode, ukBankAccount },
     rules,
     messages: getMessages()
   })
 
   const buildPaymentData = (): PaymentData & BankTransferUKData => ({
-    id,
+    id: data?.id || `paypal-${new Date().getTime()}`,
+    label,
     type: 'bankTransferUK',
     beneficiary,
     ukSortCode,
@@ -51,9 +52,9 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
 
   const save = () => {
     validate({
-      id: {
+      label: {
         required: true,
-        duplicate: view === 'new' && getPaymentData(id)
+        duplicate: view === 'new' && getPaymentDataByLabel(label)
       },
       beneficiary: {
         required: true,
@@ -77,28 +78,28 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
   }
 
   const remove = () => {
-    removePaymentData(data?.id || '')
-    if (onSubmit) onSubmit(buildPaymentData())
+    if (data?.id) removePaymentData(data.id)
+    if (onCancel) onCancel(buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [id, beneficiary, ukSortCode, ukBankAccount, selectedCurrencies])
+  }, [label, beneficiary, ukSortCode, ukBankAccount, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
       <View>
         <Input
-          onChange={setId}
+          onChange={setLabel}
           onSubmit={() => $beneficiary?.focus()}
-          value={id}
+          value={label}
           disabled={view === 'view'}
           label={i18n('form.paymentMethodName')}
-          isValid={!isFieldInError('id')}
+          isValid={!isFieldInError('label')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('id')}
+          errorMessage={getErrorsInField('label')}
         />
       </View>
       <View style={tw`mt-2`}>
