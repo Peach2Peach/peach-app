@@ -34,7 +34,7 @@ export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
   })
 
   const buildPaymentData = (): PaymentData & BizumData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `bizum-${new Date().getTime()}`,
     label,
     type: 'bizum',
     phone,

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Keyboard, Pressable, TextInput, View } from 'react-native'
+import { Pressable, TextInput, View } from 'react-native'
 import { PaymentMethodForm } from '.'
 import keyboard from '../../../../effects/keyboard'
 import tw from '../../../../styles/tailwind'
-import { addPaymentData, getPaymentData, removePaymentData } from '../../../../utils/account'
+import { getPaymentDataByLabel, removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { Fade } from '../../../animation'
@@ -34,7 +34,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
   })
 
   const buildPaymentData = (): PaymentData & SEPAData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `sepa-${new Date().getTime()}`,
     label,
     type: 'sepa',
     iban,

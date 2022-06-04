@@ -34,7 +34,7 @@ export const SWIFT: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
   })
 
   const buildPaymentData = (): PaymentData & SWIFTData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `swift-${new Date().getTime()}`,
     label,
     type: 'swift',
     bic,

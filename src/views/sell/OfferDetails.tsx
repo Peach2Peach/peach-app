@@ -66,6 +66,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <PaymentDetails
       paymentData={account.paymentData}
       setPaymentData={setPaymentData}
+      setMeansOfPayment={setMeansOfPayment}
     />
     <AddPaymentMethods style={tw`mt-1`} />
 

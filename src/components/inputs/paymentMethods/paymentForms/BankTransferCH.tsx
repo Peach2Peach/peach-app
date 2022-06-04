@@ -34,7 +34,7 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
   })
 
   const buildPaymentData = (): PaymentData & BankTransferCHData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `bankTransferCH-${new Date().getTime()}`,
     label,
     type: 'bankTransferCH',
     iban,

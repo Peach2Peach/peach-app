@@ -32,7 +32,7 @@ export const ApplePay: PaymentMethodForm = ({ style, view, data, onSubmit, onCha
   })
 
   const buildPaymentData = (): PaymentData & ApplePayData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `applePay-${new Date().getTime()}`,
     label,
     type: 'applePay',
     phone,

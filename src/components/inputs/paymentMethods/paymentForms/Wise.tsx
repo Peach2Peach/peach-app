@@ -44,7 +44,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
   })
 
   const buildPaymentData = (): PaymentData & WiseData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `wise-${new Date().getTime()}`,
     label,
     type: 'wise',
     email,

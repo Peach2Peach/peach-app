@@ -34,7 +34,7 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
   })
 
   const buildPaymentData = (): PaymentData & TwintData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `twint-${new Date().getTime()}`,
     label,
     type: 'twint',
     phone,

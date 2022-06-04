@@ -18,11 +18,11 @@ const initPaymentData = (meansOfPayment: MeansOfPayment) => {
 
   return paymentMethods.map(type => {
     const existingPaymentMethodsOfType = getPaymentDataByType(type).length + 1
-    const id = i18n(`paymentMethod.${type}`) + ' #' + existingPaymentMethodsOfType
+    const label = i18n(`paymentMethod.${type}`) + ' #' + existingPaymentMethodsOfType
     const selectedCurrencies = currencies.filter(currency => meansOfPayment[currency]?.indexOf(type) !== -1)
 
     return {
-      id,
+      label,
       type,
       currencies: selectedCurrencies
     }

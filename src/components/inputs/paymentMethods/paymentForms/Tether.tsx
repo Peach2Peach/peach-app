@@ -32,7 +32,7 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChang
   })
 
   const buildPaymentData = (): PaymentData & TetherData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `tether-${new Date().getTime()}`,
     label,
     type: 'tether',
     tetherAddress,

@@ -43,10 +43,9 @@ const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
 
 type PaymentDetailsProps = {
   paymentData: PaymentData[],
-  setPaymentData: React.Dispatch<React.SetStateAction<SellOffer['paymentData']>>
   setMeansOfPayment: React.Dispatch<React.SetStateAction<SellOffer['meansOfPayment']>>
 }
-export default ({ paymentData, setPaymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
+export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const preferredMoPs = account.settings.preferredPaymentMethods
   const selectedPaymentData = (Object.keys(preferredMoPs) as PaymentMethod[]).reduce(
@@ -57,11 +56,6 @@ export default ({ paymentData, setPaymentData, setMeansOfPayment }: PaymentDetai
     }, [])
 
   const update = () => {
-    setPaymentData(paymentData.reduce((obj, data) => {
-      obj[data.type] = hashPaymentData(data)
-
-      return obj
-    }, {} as SellOffer['paymentData']))
     setMeansOfPayment(selectedPaymentData.map(getPaymentData)
       .filter(data => data)
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))

@@ -37,7 +37,7 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onChan
   })
 
   const buildPaymentData = (): PaymentData & RevolutData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `revolut-${new Date().getTime()}`,
     label,
     type: 'revolut',
     phone,

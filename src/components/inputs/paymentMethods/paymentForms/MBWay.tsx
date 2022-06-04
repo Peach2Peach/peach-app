@@ -34,7 +34,7 @@ export const MBWay: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
   })
 
   const buildPaymentData = (): PaymentData & MBWayData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `mbWay-${new Date().getTime()}`,
     label,
     type: 'mbWay',
     phone,

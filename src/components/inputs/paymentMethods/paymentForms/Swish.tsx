@@ -34,7 +34,7 @@ export const Swish: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
   })
 
   const buildPaymentData = (): PaymentData & SwishData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `swish-${new Date().getTime()}`,
     label,
     type: 'swish',
     phone,

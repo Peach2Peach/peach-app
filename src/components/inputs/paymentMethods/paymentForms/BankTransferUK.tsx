@@ -36,7 +36,7 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
   })
 
   const buildPaymentData = (): PaymentData & BankTransferUKData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `bankTransferUK-${new Date().getTime()}`,
     label,
     type: 'bankTransferUK',
     beneficiary,
