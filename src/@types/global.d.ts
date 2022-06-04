@@ -38,6 +38,9 @@ declare type ApplePayData = {
 declare type SEPAData = {
   beneficiary: string,
   iban: string,
+  bic?: string,
+  address?: string,
+  reference?: string,
 }
 declare type SWIFTData = {
   beneficiary: string,
@@ -46,11 +49,13 @@ declare type SWIFTData = {
 declare type BankTransferCHData = {
   beneficiary: string,
   iban: string,
+  address?: string
 }
 declare type BankTransferUKData = {
   beneficiary: string,
   ukSortCode: string,
   ukBankAccount: string,
+  address?: string,
 }
 declare type BizumData = {
   phone: string,

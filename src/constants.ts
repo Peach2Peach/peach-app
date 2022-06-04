@@ -20,7 +20,6 @@ export let CURRENCIES: Currency[] = [
   'CHF',
   'GBP',
   'SEK',
-  'USD'
 ]
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -32,7 +31,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'swift', 'bankTransferCH', 'bankTransferUK'],
+  bankTransfer: ['sepa', 'bankTransferCH', 'bankTransferUK'],
   onlineWallet: ['paypal', 'revolut', 'applePay', 'wise', 'twint', 'swish'],
   giftCard: [],
   cryptoCurrency: ['tether']

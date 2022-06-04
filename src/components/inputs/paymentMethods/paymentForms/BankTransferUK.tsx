@@ -14,23 +14,25 @@ import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [ukSortCode, setUKSortCode] = useState(data?.ukSortCode || '')
   const [ukBankAccount, setUKBankAccount] = useState(data?.ukBankAccount || '')
+  const [address, setAddress] = useState(data?.address || '')
   const [currencies, setCurrencies] = useState(data?.currencies || [])
   const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $ukSortCode = useRef<TextInput>(null).current
   let $ukBankAccount = useRef<TextInput>(null).current
+  let $address = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { label, beneficiary, ukSortCode, ukBankAccount },
+    state: { label, beneficiary, ukSortCode, ukBankAccount, address },
     rules,
     messages: getMessages()
   })
@@ -42,13 +44,13 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
     beneficiary,
     ukSortCode,
     ukBankAccount,
+    address,
     currencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
-
 
   const save = () => {
     validate({
@@ -66,6 +68,9 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
       ukBankAccount: {
         required: true,
         ukBankAccount: true
+      },
+      address: {
+        required: false,
       },
     })
     if (!isFormValid()) return
@@ -86,7 +91,7 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, beneficiary, ukSortCode, ukBankAccount, selectedCurrencies])
+  }, [label, beneficiary, ukSortCode, ukBankAccount, address, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
@@ -131,7 +136,7 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
       <View style={tw`mt-2`}>
         <Input
           onChange={setUKBankAccount}
-          onSubmit={save}
+          onSubmit={() => $address?.focus()}
           reference={(el: any) => $ukBankAccount = el}
           value={ukBankAccount}
           disabled={view === 'view'}
@@ -139,6 +144,20 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
           isValid={!isFieldInError('ukBankAccount')}
           autoCorrect={false}
           errorMessage={getErrorsInField('ukBankAccount')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setAddress}
+          onSubmit={save}
+          reference={(el: any) => $address = el}
+          value={address}
+          required={false}
+          disabled={view === 'view'}
+          label={i18n('form.address')}
+          isValid={!isFieldInError('address')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('address')}
         />
       </View>
       <CurrencySelection style={tw`mt-2`}

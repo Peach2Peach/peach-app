@@ -15,20 +15,22 @@ import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel  }) => {
+export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [label, setLabel] = useState(data?.label || '')
   const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
+  const [address, setAddress] = useState(data?.address || '')
   const [currencies, setCurrencies] = useState(data?.currencies || [])
   const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
+  let $address = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { label, iban, beneficiary },
+    state: { label, beneficiary, iban, address },
     rules,
     messages: getMessages()
   })
@@ -37,8 +39,9 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
     id: data?.id || `bankTransferCH-${new Date().getTime()}`,
     label,
     type: 'bankTransferCH',
-    iban,
     beneficiary,
+    iban,
+    address,
     currencies,
   })
 
@@ -77,9 +80,9 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
   useEffect(keyboard(setKeyboardOpen), [])
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, iban, beneficiary, selectedCurrencies])
+  }, [label, iban, beneficiary, address, selectedCurrencies])
 
-return <View style={[tw`flex`, style]}>
+  return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
       <View>
         <Input
@@ -109,7 +112,7 @@ return <View style={[tw`flex`, style]}>
       <View style={tw`mt-2`}>
         <Input
           onChange={setIBAN}
-          onSubmit={save}
+          onSubmit={() => $address?.focus()}
           reference={(el: any) => $iban = el}
           value={iban}
           disabled={view === 'view'}
@@ -117,6 +120,20 @@ return <View style={[tw`flex`, style]}>
           isValid={!isFieldInError('iban')}
           autoCorrect={false}
           errorMessage={getErrorsInField('iban')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setAddress}
+          onSubmit={save}
+          reference={(el: any) => $address = el}
+          value={address}
+          required={false}
+          disabled={view === 'view'}
+          label={i18n('form.address')}
+          isValid={!isFieldInError('address')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('address')}
         />
       </View>
       <CurrencySelection style={tw`mt-2`}

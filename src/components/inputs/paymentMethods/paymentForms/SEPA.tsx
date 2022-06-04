@@ -14,21 +14,27 @@ import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [label, setLabel] = useState(data?.label || '')
-  const [iban, setIBAN] = useState(data?.iban || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
+  const [iban, setIBAN] = useState(data?.iban || '')
+  const [bic, setBIC] = useState(data?.bic || '')
+  const [address, setAddress] = useState(data?.address || '')
+  const [reference, setReference] = useState(data?.reference || '')
   const [currencies] = useState(data?.currencies || [])
   const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
+  let $bic = useRef<TextInput>(null).current
+  let $address = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { label, iban, beneficiary },
+    state: { label, beneficiary, iban, bic, address, reference },
     rules,
     messages: getMessages()
   })
@@ -37,8 +43,11 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
     id: data?.id || `sepa-${new Date().getTime()}`,
     label,
     type: 'sepa',
-    iban,
     beneficiary,
+    iban,
+    bic,
+    address,
+    reference,
     currencies,
   })
 
@@ -59,6 +68,16 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
         required: true,
         iban: true
       },
+      bic: {
+        required: false,
+        bic: true
+      },
+      address: {
+        required: false,
+      },
+      reference: {
+        required: false,
+      },
     })
     if (!isFormValid()) return
 
@@ -78,7 +97,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, iban, beneficiary, selectedCurrencies])
+  }, [label, iban, beneficiary, bic, address, reference, selectedCurrencies])
 
   return <View style={[tw`flex`, style]}>
     <View style={tw`h-full flex-shrink flex justify-center`}>
@@ -110,7 +129,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
       <View style={tw`mt-2`}>
         <Input
           onChange={setIBAN}
-          onSubmit={save}
+          onSubmit={() => $bic?.focus()}
           reference={(el: any) => $iban = el}
           value={iban}
           disabled={view === 'view'}
@@ -118,6 +137,48 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
           isValid={!isFieldInError('iban')}
           autoCorrect={false}
           errorMessage={getErrorsInField('iban')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setBIC}
+          onSubmit={() => $address?.focus()}
+          reference={(el: any) => $bic = el}
+          value={bic}
+          required={false}
+          disabled={view === 'view'}
+          label={i18n('form.bic')}
+          isValid={!isFieldInError('bic')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('bic')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setAddress}
+          onSubmit={() => $reference?.focus()}
+          reference={(el: any) => $address = el}
+          value={address}
+          required={false}
+          disabled={view === 'view'}
+          label={i18n('form.address')}
+          isValid={!isFieldInError('address')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('address')}
+        />
+      </View>
+      <View style={tw`mt-2`}>
+        <Input
+          onChange={setReference}
+          onSubmit={save}
+          reference={(el: any) => $reference = el}
+          value={reference}
+          required={false}
+          disabled={view === 'view'}
+          label={i18n('form.reference')}
+          isValid={!isFieldInError('reference')}
+          autoCorrect={false}
+          errorMessage={getErrorsInField('reference')}
         />
       </View>
       <CurrencySelection style={tw`mt-2`}

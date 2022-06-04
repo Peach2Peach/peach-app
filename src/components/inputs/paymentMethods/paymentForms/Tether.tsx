@@ -15,7 +15,7 @@ import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel  }) => {
+export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChange, onCancel }) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [label, setLabel] = useState(data?.label || '')
   const [tetherAddress, setTetherAddress] = useState(data?.tetherAddress || '')

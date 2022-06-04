@@ -111,7 +111,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
     if (onChange) onChange(buildPaymentData())
   }, [label, email, beneficiary, iban, bic, ukSortCode, ukBankAccount, selectedCurrencies])
 
-return <View style={style}>
+  return <View style={style}>
     <View>
       <View>
         <Input
