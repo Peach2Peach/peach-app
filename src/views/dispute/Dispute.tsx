@@ -22,6 +22,7 @@ import { raiseDispute } from '../../utils/peachAPI'
 import { error } from '../../utils/log'
 import { signAndEncrypt } from '../../utils/pgp'
 import { PEACHPGPPUBLICKEY } from '../../constants'
+import keyboard from '../../effects/keyboard'
 const { useValidation } = require('react-native-form-validator')
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'dispute'>
@@ -77,12 +78,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setContract(getContract(route.params.contractId))
   }, [route])
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
   const startDispute = () => setStart(true)
   const openExplainer = () => updateOverlay({

@@ -9,7 +9,7 @@ import { Headline } from '../../text'
 
 export type PaymentMethodViewProps = {
   data: PaymentData,
-  onSubmit?: (data?: PaymentData) => void,
+  onSubmit?: (data: PaymentData) => void,
 }
 
 export const PaymentMethodView = ({ data, onSubmit }: PaymentMethodViewProps) => {

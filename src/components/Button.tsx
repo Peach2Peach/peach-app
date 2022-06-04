@@ -53,7 +53,7 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     ]}
   >
     <Text style={[
-      tw`w-full font-baloo text-sm uppercase text-center`,
+      tw`font-baloo text-sm uppercase text-center`,
       color,
       active ? tw`text-white-2` : {}
     ]}>

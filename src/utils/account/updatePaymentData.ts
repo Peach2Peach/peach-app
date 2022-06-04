@@ -2,7 +2,7 @@ import { account, saveAccount } from '.'
 import { session } from '../session'
 
 /**
- * @description Method to update account payment data
+ * @description Method to overwrite all account payment data
  * @param paymentData settings to update
  */
 export const updatePaymentData = async (paymentData: PaymentData[]) => {

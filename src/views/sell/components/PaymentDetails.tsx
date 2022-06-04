@@ -1,92 +1,58 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
-import { Card, Headline, Icon, RadioButtons, Text } from '../../../components'
-import AddPaymentMethod from '../../../components/inputs/paymentMethods/AddPaymentMethod'
+import { Checkboxes, } from '../../../components'
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
+import { PaymentDataKeyFacts } from '../../../components/payment/PaymentDataKeyFacts'
 import { OverlayContext } from '../../../contexts/overlay'
-import tw from '../../../styles/tailwind'
-import { account, getPaymentData, getPaymentDataByType, updateSettings } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { getPaymentMethods, hashPaymentData } from '../../../utils/paymentMethod'
-
-const mapPaymentDataToRadioItem = (paymentData: PaymentData) => ({
-  value: paymentData.id,
-  display: paymentData.id,
-  data: paymentData,
-})
+import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../../utils/account'
+import { dataToMeansOfPayment, hashPaymentData, isValidPaymentdata } from '../../../utils/paymentMethod'
 
 type PaymentDetailsProps = {
-  meansOfPayment: MeansOfPayment,
-  paymentMethods: PaymentMethod[],
+  paymentData: PaymentData[],
   setPaymentData: React.Dispatch<React.SetStateAction<SellOffer['paymentData']>>
+  setMeansOfPayment: React.Dispatch<React.SetStateAction<SellOffer['meansOfPayment']>>
 }
-export default ({ meansOfPayment, paymentMethods, setPaymentData }: PaymentDetailsProps): ReactElement => {
+export default ({ paymentData, setPaymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const preferredPaymentMethods = account.settings.preferredPaymentMethods
+  const preferredMoPs = account.settings.preferredPaymentMethods
+  const selectedPaymentData = getSelectedPaymentDataIds()
 
   const update = () => {
-    const selectedPaymentData = getPaymentMethods(meansOfPayment).reduce((obj, mop) => {
-      const preferredPaymentMethod = account.settings.preferredPaymentMethods[mop]
-      const data = getPaymentData(preferredPaymentMethod || '')
-
-      if (data) obj[mop] = hashPaymentData(data)
+    setPaymentData(paymentData.reduce((obj, data) => {
+      obj[data.type] = hashPaymentData(data)
 
       return obj
-    }, {} as SellOffer['paymentData'])
-    setPaymentData(selectedPaymentData)
+    }, {} as SellOffer['paymentData']))
+    setMeansOfPayment(selectedPaymentData.map(getPaymentData)
+      .filter(data => data)
+      .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }
-  const onPaymentDataUpdate = () => {
-    updateOverlay({ content: null, showCloseButton: true })
-    update()
-  }
-  const openAddPaymentMethodDialog = (method: PaymentMethod) => updateOverlay({
-    content: <AddPaymentMethod method={method} onSubmit={onPaymentDataUpdate} />,
-    showCloseButton: false
+
+  const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
+    value: data.id,
+    display: <PaymentDataKeyFacts paymentData={data} />,
+    disabled: !!preferredMoPs[data.type] && preferredMoPs[data.type] !== data.id,
+    data,
   })
-  const editPaymentMethod = (data: PaymentData) => {
-    updateOverlay({
-      content: <PaymentMethodView data={data} onSubmit={onPaymentDataUpdate} />,
-      showCloseButton: false
-    })
-  }
-  const setPreferredPaymentMethods = (paymentMethod: PaymentMethod, id: PaymentData['id']) => {
+
+  const setPreferredPaymentMethods = (ids: (string|number)[]) => {
     updateSettings({
-      preferredPaymentMethods: {
-        ...preferredPaymentMethods,
-        [paymentMethod]: id
-      }
+      preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
+        const method = paymentData.find(d => d.id === id)!.type
+        obj[method] = id
+        return obj
+      }, {} as Settings['preferredPaymentMethods'])
     })
     update()
   }
 
   useEffect(() => {
     update()
-  }, [meansOfPayment])
+  }, [paymentData])
 
   return <View>
-    {paymentMethods.length > 0
-      ? <Headline style={tw`mt-16 text-grey-1`}>
-        {i18n('sell.paymentDetails')}
-      </Headline>
-      : null
-    }
-    {paymentMethods.map((paymentMethod, i) => {
-      const dataByType = getPaymentDataByType(paymentMethod)
-      return <View key={paymentMethod} style={i > 0 ? tw`mt-4` : {}}>
-        {dataByType.length
-          ? <RadioButtons items={dataByType.map(mapPaymentDataToRadioItem)}
-            selectedValue={preferredPaymentMethods[paymentMethod]}
-            onChange={id => setPreferredPaymentMethods(paymentMethod, id as string)}
-            ctaLabel={i18n('edit')} ctaAction={editPaymentMethod} />
-          : null
-        }
-        <Pressable onPress={() => openAddPaymentMethodDialog(paymentMethod)}>
-          <Card style={tw`flex-row items-center justify-between p-3 mt-2`}>
-            <Text>{i18n('form.paymentMethod.addDetails', i18n(`paymentMethod.${paymentMethod}`))}</Text>
-            <Icon id="add" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string} />
-          </Card>
-        </Pressable>
-      </View>
-    })}
+    <Checkboxes items={paymentData.map(mapPaymentDataToCheckboxes)}
+      selectedValues={selectedPaymentData}
+      onChange={setPreferredPaymentMethods}/>
   </View>
 }

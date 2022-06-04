@@ -10,6 +10,8 @@ import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { MeansOfPayment } from '../../components/inputs'
 import { hasMopsConfigured } from '../../utils/offer'
+import PaymentDetails from './components/PaymentDetails'
+import AddPaymentMethods from './components/AddPaymentMethods'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount
@@ -21,7 +23,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     offer.meansOfPayment || account.settings.meansOfPayment
   )
   const [kyc, setKYC] = useState(offer.kyc)
-
 
   useEffect(() => {
     updateOffer({
@@ -42,7 +43,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     <Headline style={tw`mt-16 text-grey-1`}>
       {i18n('buy.meansOfPayment')}
     </Headline>
-    <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} />
+    <PaymentDetails
+      paymentData={account.paymentData}
+      setMeansOfPayment={setMeansOfPayment}
+    />
+    <AddPaymentMethods style={tw`mt-4`} />
+    {/* <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} /> */}
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

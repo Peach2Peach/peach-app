@@ -4,24 +4,29 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import { SellViewProps } from './Sell'
-import { account, updateSettings } from '../../utils/account'
+import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
 import PaymentDetails from './components/PaymentDetails'
 import Premium from './components/Premium'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { MeansOfPayment } from '../../components/inputs'
-import { getPaymentMethods } from '../../utils/paymentMethod'
+import { getPaymentMethods, isValidPaymentdata } from '../../utils/paymentMethod'
+import AddPaymentMethods from '../../components/payment/AddPaymentMethods'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
   const selectedPaymentMethods = Object.keys(offer.paymentData)
+  const paymentDataValid = getSelectedPaymentDataIds()
+    .map(getPaymentData)
+    .filter(d => d)
+    .every(d => isValidPaymentdata(d!))
 
   return !!offer.amount
   && hasMopsConfigured(offer)
   && selectedPaymentMethods.length > 0
   && paymentMethods.every(p => offer.paymentData[p])
+  && paymentDataValid
 }
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
@@ -63,12 +68,13 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     <Headline style={tw`mt-16 text-grey-1`}>
       {i18n('sell.meansOfPayment')}
     </Headline>
-    <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} />
     <PaymentDetails
-      meansOfPayment={meansOfPayment}
-      paymentMethods={getPaymentMethods(meansOfPayment)}
+      paymentData={account.paymentData}
       setPaymentData={setPaymentData}
+      setMeansOfPayment={setMeansOfPayment}
     />
+    <AddPaymentMethods style={tw`mt-4`} />
+
     <Premium
       premium={premium}
       setPremium={setPremium}

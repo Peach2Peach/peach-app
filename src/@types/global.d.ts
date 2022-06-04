@@ -22,7 +22,9 @@ type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 declare type PaymentData = {
   [key: string]: any,
   id: string,
-  type: PaymentMethod
+  label: string,
+  type: PaymentMethod,
+  currencies: Currency[],
 }
 
 declare type PaypalData = {
@@ -36,6 +38,9 @@ declare type ApplePayData = {
 declare type SEPAData = {
   beneficiary: string,
   iban: string,
+  bic?: string,
+  address?: string,
+  reference?: string,
 }
 declare type SWIFTData = {
   beneficiary: string,
@@ -44,11 +49,13 @@ declare type SWIFTData = {
 declare type BankTransferCHData = {
   beneficiary: string,
   iban: string,
+  address?: string
 }
 declare type BankTransferUKData = {
   beneficiary: string,
   ukSortCode: string,
   ukBankAccount: string,
+  address?: string,
 }
 declare type BizumData = {
   phone: string,
@@ -87,6 +94,7 @@ declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'c
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
+declare type LocalPaymentMethods = Partial<Record<Currency, Record<string, PaymentMethod[]>>>
 
 declare type HashedPaymentData = string
 
@@ -116,7 +124,8 @@ declare type MessageState = {
 }
 declare type OverlayState = {
   content: ReactNode,
-  showCloseButton: boolean,
+  showCloseIcon?: boolean,
+  showCloseButton?: boolean,
 }
 declare type BitcoinState = {
   currency: Currency,
@@ -128,7 +137,8 @@ declare type BitcoinState = {
 declare type Session = {
   initialized: boolean
   password?: string,
-  peachInfo?: PeachInfo
+  peachInfo?: PeachInfo,
+  unsavedPaymentData?: PaymentData[],
 }
 
 declare type PeachWallet = {

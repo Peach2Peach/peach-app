@@ -20,7 +20,6 @@ export let CURRENCIES: Currency[] = [
   'CHF',
   'GBP',
   'SEK',
-  'USD'
 ]
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -32,16 +31,18 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'swift', 'bankTransferCH', 'bankTransferUK'],
-  onlineWallet: ['paypal', 'revolut', 'applePay', 'wise', 'twint', 'swish', 'mbWay', 'bizum'],
+  bankTransfer: ['sepa', 'bankTransferCH', 'bankTransferUK'],
+  onlineWallet: ['paypal', 'revolut', 'applePay', 'wise', 'twint', 'swish'],
   giftCard: [],
   cryptoCurrency: ['tether']
 }
 
-export const LOCALPAYMENTMETHODS: [PaymentMethod, string][] = [
-  ['mbWay', 'PT'],
-  ['bizum', 'ES'],
-]
+export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
+  EUR: {
+    PT: ['mbWay'],
+    ES: ['bizum'],
+  }
+}
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos

@@ -1,15 +1,27 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { Button, PeachScrollView } from '../../../components'
+import { Button, Headline, PeachScrollView, Shadow } from '../../../components'
 import i18n from '../../../utils/i18n'
 
-import { account } from '../../../utils/account'
+import { account, addPaymentData } from '../../../utils/account'
 import { OverlayContext } from '../../../contexts/overlay'
 import NoPaymentMethods from '../../../components/inputs/paymentMethods/NoPaymentMethods'
-import AddPaymentMethod from '../../../components/inputs/paymentMethods/AddPaymentMethod'
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
-import { Text } from '../../../components/text'
+import { PaymentDataKeyFacts } from '../../../components/payment/PaymentDataKeyFacts'
+import { mildShadow } from '../../../utils/layout'
+import AddPaymentMethods from '../../../components/payment/AddPaymentMethods'
+import { PAYMENTCATEGORIES } from '../../../constants'
+
+const sortingMap = (Object.keys(PAYMENTCATEGORIES) as PaymentCategory[]).reduce((arr, cat) =>
+  arr.concat(PAYMENTCATEGORIES[cat]), [] as PaymentMethod[]
+)
+
+const sortByType = (a: PaymentData, b: PaymentData) => {
+  if (sortingMap.indexOf(a.type) === -1) return 1
+  if (sortingMap.indexOf(b.type) === -1) return -1
+  return sortingMap.indexOf(a.type) - sortingMap.indexOf(b.type)
+}
 
 type AllPaymentMethodsProps = {
   onChange?: (PaymentData: PaymentData[]) => void,
@@ -24,63 +36,55 @@ type AllPaymentMethodsProps = {
 export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [showAddNew, setShowAddNew] = useState(false)
-
-  const onPaymentDataUpdate = () => {
-    setShowAddNew(false)
-
+  const onPaymentDataUpdate = (data: PaymentData) => {
+    addPaymentData(data)
     if (onChange) onChange({ ...account.paymentData })
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  const openAddPaymentMethodDialog = () => updateOverlay({
-    content: <AddPaymentMethod onSubmit={onPaymentDataUpdate} />,
-    showCloseButton: false
-  })
+  let currentType = ''
+
   return <View>
     <PeachScrollView>
       {account.paymentData.length
-        ? <View style={tw`w-full flex-row mt-2`}>
-          {<View style={tw`w-full flex-shrink`}>
-            {account.paymentData.map((data, index) => <View
-              key={data.id}
-              style={[
-                tw`bg-white-1 flex-row items-center p-3 px-4 h-12 border border-grey-4 rounded`,
-                index > 0 ? tw`mt-2` : {}
+        ? account.paymentData
+          .sort(sortByType)
+          .map((data, index) => {
+            let showHeadline = false
+            if (currentType !== data.type) {
+              showHeadline = true
+              currentType = data.type
+            }
+            return <View key={data.id}>
+              {showHeadline
+                ? <Headline style={tw`mt-8 text-grey-1`}>
+                  {i18n(`paymentMethod.${currentType}`)}
+                </Headline>
+                : null
+              }
+              <View style={[
+                tw`flex-row items-center`,
+                index > 0 ? tw`mt-4` : {}
               ]}>
-              <Text>{data.id}</Text>
+                <Shadow shadow={mildShadow} style={tw`w-full flex-shrink bg-white-1 p-3`}>
+                  <PaymentDataKeyFacts paymentData={data} />
+                </Shadow>
+                <Button
+                  key={data.id}
+                  style={tw`flex-shrink-0 ml-2 w-16 h-10`}
+                  onPress={() => updateOverlay({
+                    content: <PaymentMethodView data={data} onSubmit={onPaymentDataUpdate} />,
+                    showCloseButton: false
+                  })}
+                  title={i18n('edit')}
+                />
+              </View>
             </View>
-            )}
-          </View>
-          }
-          <View style={tw`ml-2 flex-shrink-0 mt-1`}>
-            {account.paymentData
-              .map((data, i) => <Button
-                key={data.id}
-                style={i > 0 ? tw`w-16 h-10 mt-4 flex` : tw`w-16 h-10`}
-                onPress={() => updateOverlay({
-                  content: <PaymentMethodView data={data} onSubmit={onPaymentDataUpdate} />,
-                  showCloseButton: false
-                })}
-                title={i18n('edit')}
-              />
-              )}
-          </View>
-        </View>
+          })
         : <NoPaymentMethods />
       }
+      <AddPaymentMethods style={tw`mt-10`} />
     </PeachScrollView>
-    <View style={tw`flex items-center mt-2`}>
-      {showAddNew
-        ? null
-        : <Button
-          secondary={true}
-          wide={false}
-          onPress={openAddPaymentMethodDialog}
-          title={i18n('addNew')}
-        />
-      }
-    </View>
   </View>
 }
 

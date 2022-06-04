@@ -1,5 +1,3 @@
-import { SvgProps } from 'react-native-svg'
-import add from './add.svg'
 import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
@@ -24,6 +22,7 @@ import link from './link.svg'
 import negative from './negative.svg'
 import offers from './offers.svg'
 import positive from './positive.svg'
+import plus from './plus.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
@@ -40,7 +39,6 @@ import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
 
 const Icons = {
-  add,
   arrowLeft,
   buy,
   camera,
@@ -65,6 +63,7 @@ const Icons = {
   negative,
   offers,
   positive,
+  plus,
   selectClosed,
   selectOpen,
   sell,

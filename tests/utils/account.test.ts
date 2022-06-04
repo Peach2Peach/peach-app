@@ -3,6 +3,7 @@ import Share from 'react-native-share'
 import { APPVERSION } from '../../src/constants'
 import {
   account,
+  addPaymentData,
   backupAccount,
   createAccount,
   defaultAccount,
@@ -139,8 +140,28 @@ describe('updateSettings', () => {
       meansOfPayment: {
         'EUR': ['sepa', 'paypal']
       },
+      preferredCurrencies: [],
       preferredPaymentMethods: {}
     })
+  })
+})
+
+describe('addPaymentData', () => {
+  beforeAll(async () => {
+    await setAccount(defaultAccount)
+  })
+
+  it('adds new payment data to account', () => {
+    addPaymentData(accountData.paymentData[0])
+    addPaymentData(accountData.paymentData[1])
+    deepStrictEqual(account.paymentData, accountData.paymentData)
+  })
+  it('updates payment data on account', () => {
+    addPaymentData({
+      ...accountData.paymentData[1],
+      beneficiary: 'Hal'
+    })
+    deepStrictEqual(account.paymentData[1].beneficiary, 'Hal')
   })
 })
 
@@ -149,7 +170,7 @@ describe('updatePaymentData', () => {
     await setAccount(defaultAccount)
   })
 
-  it('add a new offer to account', () => {
+  it('updates account payment data', () => {
     updatePaymentData(accountData.paymentData)
     deepStrictEqual(account.paymentData, accountData.paymentData)
   })

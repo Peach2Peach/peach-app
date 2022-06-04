@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
-import { Keyboard, TextInput, View } from 'react-native'
+import { TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -14,6 +14,7 @@ import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import { OverlayContext } from '../../contexts/overlay'
 import ReportSuccess from '../../overlays/ReportSuccess'
+import keyboard from '../../effects/keyboard'
 const { useValidation } = require('react-native-form-validator')
 
 
@@ -86,12 +87,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
     <Title title={i18n('report.title')} />
