@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, isValidPaymentdata } from '../../utils/paymentMethod'
-import AddPaymentMethods from './components/AddPaymentMethods'
+import AddPaymentMethods from '../../components/payment/AddPaymentMethods'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)

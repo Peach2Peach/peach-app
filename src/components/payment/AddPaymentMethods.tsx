@@ -1,14 +1,14 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { Button, Icon } from '../../../components'
-import { OverlayContext } from '../../../contexts/overlay'
-import CurrencySelect from '../../../overlays/CurrencySelect'
-import PaymentMethodSelect from '../../../overlays/PaymentMethodSelect'
-import SetPaymentDetails from '../../../overlays/SetPaymentDetails'
-import { session } from '../../../utils/session'
-import tw from '../../../styles/tailwind'
-import RestorePaymentData from '../../../overlays/RestorePaymentData'
-import { dataToMeansOfPayment } from '../../../utils/paymentMethod'
+import { Button, Icon } from '..'
+import { OverlayContext } from '../../contexts/overlay'
+import CurrencySelect from '../../overlays/CurrencySelect'
+import PaymentMethodSelect from '../../overlays/PaymentMethodSelect'
+import SetPaymentDetails from '../../overlays/SetPaymentDetails'
+import { session } from '../../utils/session'
+import tw from '../../styles/tailwind'
+import RestorePaymentData from '../../overlays/RestorePaymentData'
+import { dataToMeansOfPayment } from '../../utils/paymentMethod'
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)

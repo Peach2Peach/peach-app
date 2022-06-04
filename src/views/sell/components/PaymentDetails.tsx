@@ -1,47 +1,11 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
-import { Checkboxes, Text } from '../../../components'
-import { Item } from '../../../components/inputs'
+import { Checkboxes, } from '../../../components'
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
+import { PaymentDataKeyFacts } from '../../../components/payment/PaymentDataKeyFacts'
 import { OverlayContext } from '../../../contexts/overlay'
-import tw from '../../../styles/tailwind'
-import { account, addPaymentData, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../../utils/account'
+import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../../utils/account'
 import { dataToMeansOfPayment, hashPaymentData, isValidPaymentdata } from '../../../utils/paymentMethod'
-
-const dummy = () => {}
-
-type PaymentDataKeyFactsProps = {
-  paymentData: PaymentData,
-}
-const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  const onPaymentDataUpdate = (data: PaymentData) => {
-    addPaymentData(data)
-    updateOverlay({ content: null, showCloseButton: true })
-  }
-  const editPaymentMethod = () => updateOverlay({
-    content: <PaymentMethodView data={paymentData} onSubmit={onPaymentDataUpdate} />,
-    showCloseIcon: false,
-    showCloseButton: false
-  })
-
-  const isValid = isValidPaymentdata(paymentData)
-
-  return <Pressable onPress={editPaymentMethod}>
-    <Text style={!isValid ? tw`text-red` : {}}>{paymentData.label}</Text>
-    <View style={tw`flex-row mt-2`}>
-      <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
-      {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
-        key={currency}
-        label={currency}
-        isSelected={true}
-        onPress={dummy}
-      />)}
-    </View>
-  </Pressable>
-}
-
 
 type PaymentDetailsProps = {
   paymentData: PaymentData[],
@@ -64,22 +28,9 @@ export default ({ paymentData, setPaymentData, setMeansOfPayment }: PaymentDetai
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }
 
-  const onPaymentDataUpdate = () => {
-    updateOverlay({ content: null, showCloseButton: true })
-    update()
-  }
-  const editPaymentMethod = (data: PaymentData) => {
-    updateOverlay({
-      content: <PaymentMethodView data={data} onSubmit={onPaymentDataUpdate} />,
-      showCloseButton: false
-    })
-  }
-
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
-    display: <Pressable onPress={() => editPaymentMethod(data)}>
-      <PaymentDataKeyFacts paymentData={data} />
-    </Pressable>,
+    display: <PaymentDataKeyFacts paymentData={data} />,
     disabled: !!preferredMoPs[data.type] && preferredMoPs[data.type] !== data.id,
     data,
   })
