@@ -5,8 +5,8 @@ import { Item } from '../../../components/inputs'
 import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
-import { account, addPaymentData, getPaymentData, updateSettings } from '../../../utils/account'
-import { dataToMeansOfPayment, hashPaymentData } from '../../../utils/paymentMethod'
+import { account, addPaymentData, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../../utils/account'
+import { dataToMeansOfPayment, hashPaymentData, isValidPaymentdata } from '../../../utils/paymentMethod'
 
 const dummy = () => {}
 
@@ -26,8 +26,10 @@ const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
     showCloseButton: false
   })
 
+  const isValid = isValidPaymentdata(paymentData)
+
   return <Pressable onPress={editPaymentMethod}>
-    <Text>{paymentData.label}</Text>
+    <Text style={!isValid ? tw`text-red` : {}}>{paymentData.label}</Text>
     <View style={tw`flex-row mt-2`}>
       <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
       {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
@@ -49,12 +51,7 @@ type PaymentDetailsProps = {
 export default ({ paymentData, setPaymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const preferredMoPs = account.settings.preferredPaymentMethods
-  const selectedPaymentData = (Object.keys(preferredMoPs) as PaymentMethod[]).reduce(
-    (arr: string[], type: PaymentMethod) => {
-      const id = preferredMoPs[type]
-      if (!id) return arr
-      return arr.concat(id)
-    }, [])
+  const selectedPaymentData = getSelectedPaymentDataIds()
 
   const update = () => {
     setPaymentData(paymentData.reduce((obj, data) => {

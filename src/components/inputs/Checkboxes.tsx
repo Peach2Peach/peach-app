@@ -8,7 +8,7 @@ import { Shadow } from '..'
 type Item = {
   value: string|number,
   disabled?: boolean,
-  display: ReactNode
+  display: ReactNode,
 }
 
 type CheckboxItemProps = {
@@ -79,6 +79,8 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
     } else {
       newValues.push(value)
     }
+
+    newValues = newValues.filter(v => !items.find(item => item.value === v)!.invalid)
 
     if (onChange) onChange(newValues)
   }

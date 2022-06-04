@@ -1,5 +1,5 @@
-import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../constants'
-import { intersect, unique } from './array'
+import { PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../constants'
+import { unique } from './array'
 import { sha256 } from './crypto'
 import { SignAndEncryptResult, signAndEncryptSymmetric } from './pgp'
 
@@ -55,7 +55,18 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
  * @param id payment method id
  * @returns payment method info
  */
-export const getPaymentMethodInfo = (id: PaymentMethod): PaymentMethodInfo => PAYMENTMETHODINFOS.find(p => p.id === id)
+export const getPaymentMethodInfo = (id: PaymentMethod): PaymentMethodInfo => PAYMENTMETHODINFOS.find(p => p.id === id)!
+
+/**
+ * @description Method to determine whether payment data is valid
+ * @param data payment data
+ * @returns true if payment data is valid
+ * @TODO check actual fields for validity
+ */
+export const isValidPaymentdata = (data: PaymentData) => {
+  const dataKeys = Object.keys(data).filter(key => !/id|label|type|currencies/u.test(key))
+  return dataKeys.some(key => data[key])
+}
 
 /**
  * @description Method to check whether MoP supports given currency

@@ -8,7 +8,7 @@ import tw from '../../../styles/tailwind'
 import { account, addPaymentData, getPaymentData, updateSettings } from '../../../utils/account'
 import { dataToMeansOfPayment } from '../../../utils/paymentMethod'
 
-const getSelectedPaymentData = (preferredMoPs: Settings['preferredPaymentMethods']) =>
+const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce(
     (arr: string[], type: PaymentMethod) => {
       const id = preferredMoPs[type]
@@ -54,10 +54,10 @@ type PaymentDetailsProps = {
 export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const preferredMoPs = account.settings.preferredPaymentMethods
-  const selectedPaymentData = getSelectedPaymentData(account.settings.preferredPaymentMethods)
+  const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {
-    setMeansOfPayment(getSelectedPaymentData(account.settings.preferredPaymentMethods).map(getPaymentData)
+    setMeansOfPayment(getSelectedPaymentDataIds(account.settings.preferredPaymentMethods).map(getPaymentData)
       .filter(data => data)
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }

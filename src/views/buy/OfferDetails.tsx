@@ -25,7 +25,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [kyc, setKYC] = useState(offer.kyc)
 
   useEffect(() => {
-    console.log(meansOfPayment)
     updateOffer({
       ...offer,
       meansOfPayment,

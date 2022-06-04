@@ -159,7 +159,7 @@
   "country.UK": "United Kingdom",
   "paymentMethod.select.title": "Add payment method",
   "paymentMethod.select.disclaimer": "Please select at least one payment method for all currencies",
-  "paymentMethod.details.title": "Payment details",
+  "paymentMethod.details.title": "Account details",
   "paymentMethod.restore.title": "You closed your previous payment method",
   "paymentMethod.restore.description": "Do you want to restore it?",
   "paymentMethod.restore.restore": "Restore",
