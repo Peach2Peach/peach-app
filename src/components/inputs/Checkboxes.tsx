@@ -80,8 +80,6 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
       newValues.push(value)
     }
 
-    newValues = newValues.filter(v => !items.find(item => item.value === v)!.invalid)
-
     if (onChange) onChange(newValues)
   }
 
