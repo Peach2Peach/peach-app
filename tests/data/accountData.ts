@@ -133,15 +133,17 @@ export const account1: Account = {
 
 export const paymentData: PaymentData[] = [
   {
+    'id': 'sepa-1069850495',
     'beneficiary': 'Melocoton',
     'iban': 'IE29 AIBK 9311 5212 3456 78',
-    'id': 'Bank Account Ireland',
+    'label': 'Bank Account Ireland',
     'selected': true,
     'type': 'sepa'
   }, {
+    'id': 'sepa-1095805944',
     'beneficiary': 'Test',
     'iban': 'EE38 2200 2210 2014 5685',
-    'id': 'Bank Account Estonia',
+    'label': 'Bank Account Estonia',
     'type': 'sepa'
   }
 ]
