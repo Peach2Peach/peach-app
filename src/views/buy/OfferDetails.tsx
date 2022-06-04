@@ -24,8 +24,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   )
   const [kyc, setKYC] = useState(offer.kyc)
 
-
   useEffect(() => {
+    console.log(meansOfPayment)
     updateOffer({
       ...offer,
       meansOfPayment,
@@ -48,7 +48,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       paymentData={account.paymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethods style={tw`mt-1`} />
+    <AddPaymentMethods style={tw`mt-4`} />
     {/* <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} /> */}
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>

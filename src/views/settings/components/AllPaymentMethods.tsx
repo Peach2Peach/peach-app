@@ -48,7 +48,7 @@ export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactEl
                 tw`bg-white-1 flex-row items-center p-3 px-4 h-12 border border-grey-4 rounded`,
                 index > 0 ? tw`mt-2` : {}
               ]}>
-              <Text>{data.id}</Text>
+              <Text>{data.label}</Text>
             </View>
             )}
           </View>

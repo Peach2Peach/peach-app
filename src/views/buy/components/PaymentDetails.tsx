@@ -6,7 +6,15 @@ import { PaymentMethodView } from '../../../components/inputs/paymentMethods/Pay
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
 import { account, addPaymentData, getPaymentData, updateSettings } from '../../../utils/account'
-import { dataToMeansOfPayment, hashPaymentData } from '../../../utils/paymentMethod'
+import { dataToMeansOfPayment } from '../../../utils/paymentMethod'
+
+const getSelectedPaymentData = (preferredMoPs: Settings['preferredPaymentMethods']) =>
+  (Object.keys(preferredMoPs) as PaymentMethod[]).reduce(
+    (arr: string[], type: PaymentMethod) => {
+      const id = preferredMoPs[type]
+      if (!id) return arr
+      return arr.concat(id)
+    }, [])
 
 const dummy = () => {}
 
@@ -27,8 +35,7 @@ const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
   })
 
   return <Pressable onPress={editPaymentMethod}>
-    <Text>{paymentData.label}</Text>
-    <View style={tw`flex-row mt-2`}>
+    <View style={tw`flex-row`}>
       <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
       {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
         key={currency}
@@ -40,7 +47,6 @@ const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
   </Pressable>
 }
 
-
 type PaymentDetailsProps = {
   paymentData: PaymentData[],
   setMeansOfPayment: React.Dispatch<React.SetStateAction<SellOffer['meansOfPayment']>>
@@ -48,15 +54,10 @@ type PaymentDetailsProps = {
 export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const preferredMoPs = account.settings.preferredPaymentMethods
-  const selectedPaymentData = (Object.keys(preferredMoPs) as PaymentMethod[]).reduce(
-    (arr: string[], type: PaymentMethod) => {
-      const id = preferredMoPs[type]
-      if (!id) return arr
-      return arr.concat(id)
-    }, [])
+  const selectedPaymentData = getSelectedPaymentData(account.settings.preferredPaymentMethods)
 
   const update = () => {
-    setMeansOfPayment(selectedPaymentData.map(getPaymentData)
+    setMeansOfPayment(getSelectedPaymentData(account.settings.preferredPaymentMethods).map(getPaymentData)
       .filter(data => data)
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }
@@ -71,6 +72,10 @@ export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactE
       showCloseButton: false
     })
   }
+
+  useEffect(() => {
+    update()
+  }, [paymentData])
 
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,

@@ -23,7 +23,7 @@ const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps
 
   return <View style={[
     tw`flex-row items-center`,
-    index > 0 ? tw`mt-2` : {},
+    index > 0 ? tw`mt-4` : {},
     !isSelected(item) ? tw`opacity-50` : {},
     item.disabled ? tw`opacity-20` : {},
   ]}>
