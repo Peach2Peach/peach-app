@@ -89,11 +89,11 @@ export default ({ navigation }: Props): ReactElement => {
           </Text>
         </Card>
       </Pressable>
-      <Pressable style={tw`mt-2`} onPress={goToLanguageSettings}>
+      {/* <Pressable style={tw`mt-2`} onPress={goToLanguageSettings}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.language')}</Text>
         </Card>
-      </Pressable>
+      </Pressable> */}
       <Pressable style={tw`mt-2`} onPress={goToCurrencySettings}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.displayCurrency')}</Text>
