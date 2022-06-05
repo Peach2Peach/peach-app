@@ -17,6 +17,7 @@ export const getOffer = (id: string): SellOffer|BuyOffer|null => {
 
   if (!offer.seenMatches) offer.seenMatches = []
 
+  // TODO remove for release 0.1.0
   if ((offer as LegacyOffer).currencies && Array.isArray((offer as LegacyOffer).currencies)) {
     offer.meansOfPayment = (offer as LegacyOffer).currencies.reduce((mops, currency) => ({
       ...mops,

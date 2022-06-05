@@ -32,7 +32,7 @@ export const toMeansOfPayment = (mops: MeansOfPayment, currency: Currency) => {
  * @example paymentData.reduce(dataToMeansOfPayment, {})
  */
 export const dataToMeansOfPayment = (mop: MeansOfPayment, data: PaymentData) => {
-  data.currencies.forEach((currency) => {
+  (data.currencies || []).forEach((currency) => {
     if (!mop[currency]) mop[currency] = []
     if (mop[currency]!.indexOf(data.type) === -1) mop[currency]!.push(data.type)
   })

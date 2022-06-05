@@ -30,10 +30,10 @@ export const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps): 
   const isValid = isValidPaymentdata(paymentData)
 
   return <Pressable onPress={editPaymentMethod}>
-    <Text style={!isValid ? tw`text-red` : {}}>{paymentData.label}</Text>
+    <Text style={!isValid ? tw`text-red` : {}}>{paymentData.label || paymentData.id}</Text>
     <View style={tw`flex-row mt-2`}>
       <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
-      {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
+      {(paymentData.currencies || []).map(currency => <Item style={tw`h-5 px-1 mx-px`}
         key={currency}
         label={currency}
         isSelected={true}

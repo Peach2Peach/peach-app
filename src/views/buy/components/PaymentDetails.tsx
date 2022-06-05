@@ -37,7 +37,7 @@ const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
   return <Pressable onPress={editPaymentMethod}>
     <View style={tw`flex-row`}>
       <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
-      {paymentData.currencies.map(currency => <Item style={tw`h-5 px-1 mx-px`}
+      {(paymentData.currencies || []).map(currency => <Item style={tw`h-5 px-1 mx-px`}
         key={currency}
         label={currency}
         isSelected={true}

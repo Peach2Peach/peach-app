@@ -61,6 +61,7 @@ type InputProps = ComponentProps & {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
+// eslint-disable-next-line complexity, max-lines-per-function
 export const Input = ({
   value,
   label, hint, icon,
@@ -104,7 +105,8 @@ export const Input = ({
           placeholder={label ? label + (!required ? ` (${i18n('form.optional')})` : '') : ''}
           placeholderTextColor={tw`text-grey-2`.color as string}
           value={value}
-          editable={!disabled} autoCorrect={autoCorrect} multiline={multiline} textAlignVertical="top"
+          editable={!disabled} autoCorrect={autoCorrect}
+          multiline={multiline} textAlignVertical={multiline ? 'top' : 'center'}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing}
           blurOnSubmit={false}

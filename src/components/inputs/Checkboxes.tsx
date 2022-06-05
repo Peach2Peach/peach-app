@@ -28,7 +28,7 @@ const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps
     item.disabled ? tw`opacity-20` : {},
   ]}>
     {!item.disabled
-      ? <Pressable onPress={selectItem}>
+      ? <Pressable onPress={selectItem} style={tw`h-10 w-10 flex items-center justify-center`}>
         {isSelected(item)
           ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
           : <View style={tw`w-5 h-5 flex justify-center items-center`}>
@@ -36,7 +36,7 @@ const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps
           </View>
         }
       </Pressable>
-      : <View style={tw`w-5 h-5`}/>
+      : <View style={tw`w-10 h-10`}/>
     }
     <Shadow shadow={mildShadow} style={tw`w-full`}>
       <View style={tw`bg-white-1 rounded mx-4 p-3`}>
