@@ -22,7 +22,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
     <Progress
       style={tw`mt-1 rounded`}
       percent={yearlyAmount / yearly}
-      text={i18n('profile.tradingLimits.yearly', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
+      text={i18n('profile.tradingLimits.yearly', String(yearlyAmount), String(yearly === Infinity ? '∞' : yearly))}
     />
   </View>
 }
