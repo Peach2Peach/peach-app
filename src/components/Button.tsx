@@ -32,7 +32,7 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     : grey
       ? tw`text-grey-2`
       : tw`text-white-2`
-  const bgColor = secondary ? tw`bg-white-2` : tw`bg-peach-1`
+  const bgColor = secondary || grey ? tw`bg-white-2` : tw`bg-peach-1`
   const bgColorActive = grey
     ? tw`bg-grey-2`
     : tw`bg-peach-2`
