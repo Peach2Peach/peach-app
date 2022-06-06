@@ -214,7 +214,7 @@ const App: React.FC = () => {
               ]}>
                 <View style={tw`h-full flex-col`}>
                   {showHeader(currentPage)
-                    ? <Header style={tw`z-10`} />
+                    ? <Header style={tw`z-10`} navigation={navigationRef} />
                     : null
                   }
                   {content
