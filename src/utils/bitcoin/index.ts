@@ -1,4 +1,5 @@
 export { parseBitcoinRequest } from './parseBitcoinRequest'
+export { isxpub } from './isxPub'
 export { showAddress } from './showAddress'
 export { showTransaction } from './showTransaction'
 export { txIdPartOfPSBT } from './txIdPartOfPSBT'

@@ -7,7 +7,7 @@ const varuint = require('varuint-bitcoin')
 
 export let wallet: bitcoin.bip32.BIP32Interface
 
-const network = NETWORK === 'testnet'
+export const network = NETWORK === 'testnet'
   ? bitcoin.networks.testnet
   : NETWORK === 'regtest'
     ? bitcoin.networks.regtest

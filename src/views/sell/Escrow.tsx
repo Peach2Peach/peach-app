@@ -14,7 +14,6 @@ import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import ReturnAddress from './components/ReturnAddress'
 import Refund from '../../overlays/Refund'
 import { OverlayContext } from '../../contexts/overlay'
 import { useFocusEffect } from '@react-navigation/native'
@@ -117,10 +116,6 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     setFundingStatus(() => offer.funding)
   }, [offer.id])
 
-  const returnAddressValidation = (isValid: boolean) => {
-    setStepValid((valid: boolean) => valid && isValid)
-  }
-
   return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}
       help={<EscrowHelp />} />
@@ -134,12 +129,6 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
             <Text style={tw`font-baloo text-lg uppercase text-grey-2`}> {i18n('sell.escrow.sendSats.2')}</Text>
           </Text>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
-          {fundingStatus.status === 'NULL'
-            ? <ReturnAddress style={tw`mt-16`}
-              offer={offer} updateOffer={saveAndUpdate} setStepValid={returnAddressValidation}
-            />
-            : null
-          }
         </View>
         : <NoEscrowFound />
     }

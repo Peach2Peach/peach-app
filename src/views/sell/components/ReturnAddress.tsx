@@ -2,7 +2,6 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
-import LanguageContext from '../../../contexts/language'
 import i18n from '../../../utils/i18n'
 import { Headline, IconButton, Input, ScanQR, Text } from '../../../components'
 import { getMessages, rules } from '../../../utils/validation'
@@ -10,30 +9,22 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
-import { patchOffer } from '../../../utils/peachAPI'
-import { error } from '../../../utils/log'
-import { MessageContext } from '../../../contexts/message'
 import { BarCodeReadEvent } from 'react-native-camera'
 
 const { useValidation } = require('react-native-form-validator')
 
-
 export type ReturnAddressProps = ComponentProps & {
-  offer: SellOffer,
-  updateOffer: (offer: SellOffer, shield: boolean) => void,
-  setStepValid: (isValid: boolean) => void,
+  returnAddress?: string,
+  update: (address: string) => void,
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps): ReactElement => {
-  useContext(LanguageContext)
-  const [, updateMessage] = useContext(MessageContext)
-
+export default ({ returnAddress, update, style }: ReturnAddressProps): ReactElement => {
   let $address: any
-  const [address, setAddress] = useState(offer.returnAddress)
-  const [shortAddress, setShortAddress] = useState(offer.returnAddress ? cutOffAddress(offer.returnAddress) : '')
+  const [address, setAddress] = useState(returnAddress)
+  const [shortAddress, setShortAddress] = useState(returnAddress ? cutOffAddress(returnAddress) : '')
   const [focused, setFocused] = useState(false)
-  const [useDepositAddress, setUseDepositAddress] = useState(!offer.returnAddress)
+  const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress)
   const [scanQR, setScanQR] = useState(false)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
@@ -51,10 +42,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
 
   useEffect(() => {
     if (!useDepositAddress) {
-      if (!address) {
-        setStepValid(false)
-        return
-      }
+      if (!address) return
 
       setShortAddress(cutOffAddress(address || ''))
 
@@ -65,41 +53,17 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
         }
       })
 
-      if (!isFormValid()) {
-        setStepValid(false)
-        return
-      }
-
-      setStepValid(true)
+      if (!isFormValid()) return
+      update(address)
+    } else {
+      update('')
     }
-
-    if (!useDepositAddress && !address) return
-
-    updateOffer({
-      ...offer,
-      returnAddress: useDepositAddress ? '' : address,
-      returnAddressSet: !useDepositAddress
-    }, false)
-
-    ;(async () => {
-      if (!offer.id || offer.funding.status !== 'NULL') return
-
-      const [result, err] = await patchOffer({
-        offerId: offer.id,
-        returnAddress: useDepositAddress ? '' : address as string
-      })
-      if (!result?.success || err) {
-        error('Error', err)
-        if (err) updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
-      }
-    })()
   }, [address, useDepositAddress])
 
   useEffect(() => {
     if (useDepositAddress) {
       $address.blur()
       setFocused(!useDepositAddress)
-      setStepValid(true)
     }
   }, [useDepositAddress])
 
@@ -152,7 +116,7 @@ export default ({ offer, updateOffer, setStepValid, style }: ReturnAddressProps)
     <Pressable style={tw`flex-row items-center px-5 mt-4`}
       onPress={toggleUseDepositAddress}>
       {useDepositAddress
-        ? <Icon id="checkbox" style={tw`w-5 h-5`} />
+        ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string}/>
         : <View style={tw`w-5 h-5 flex justify-center items-center`}>
           <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
         </View>

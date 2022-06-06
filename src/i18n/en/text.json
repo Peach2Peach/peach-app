@@ -382,6 +382,8 @@
   "settings.seedWords.note": "Please note:",
   "settings.seedWords.note.description": "The 12-word backup only recovers your Bitcoin in an emergency. To backup your Peach account & active trades, use the file backup.",
   "settings.seedWords.iUnderstand": "I understand",
+  "settings.escrow": "Escrow",
+  "settings.escrow.subtitle": "Escrow",
   "settings.paymentMethods": "Payment methods",
   "settings.paymentMethods.subtitle": "Payment methods",
   "settings.deleteAccount": "Delete account",
