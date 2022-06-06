@@ -51,6 +51,8 @@ export const isTradeCanceled = (contract: Contract) => contract.canceled
  * @returns offer status
  */
 export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
+  if (!offer) return { status: 'null', requiredAction: '' }
+
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
   if (contract) {

@@ -26,7 +26,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [updatePending, setUpdatePending] = useState(true)
-  const [escrow, setEscrow] = useState('')
+  const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
   const fundingAmount = Math.round(offer.amount)
@@ -66,7 +66,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
-  useFocusEffect(useCallback(checkFundingStatusEffect({
+  useEffect(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -85,7 +85,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
         level: 'ERROR',
       })
     },
-  }), [offer.escrow]))
+  }), [offer.id])
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
@@ -109,12 +109,12 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     }
   }, [fundingStatus])
 
-  useEffect(() => { // workaround to update escrow status if offer changes
+  useFocusEffect(useCallback(() => { // workaround to update escrow status if offer changes
     setStepValid(false)
-    setEscrow(() => offer.escrow || '')
+    setEscrow(offer.escrow || '')
     setUpdatePending(!offer.escrow)
-    setFundingStatus(() => offer.funding)
-  }, [offer.id])
+    setFundingStatus(offer.funding)
+  }, []))
 
   return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}

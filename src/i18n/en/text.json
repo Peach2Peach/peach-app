@@ -294,6 +294,8 @@
   "cancel": "Cancel",
   "close": "close",
   "or": "or",
+  "offerExpired.title": "No match",
+  "offerExpired.description": "It's been $0 days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.",
   "matchAccepted.title": "Match accepted!",
   "matchAccepted.description": "A seller has accepted one of your matches. You should pay the offer within 12 hours of accepting.",
   "paymentMade.title": "Payment made!",
