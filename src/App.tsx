@@ -42,6 +42,8 @@ import PaymentMade from './overlays/PaymentMade'
 import { handlePushNotification } from './utils/navigation'
 import views from './views'
 import YouGotADispute from './overlays/YouGotADispute'
+import OfferExpired from './overlays/OfferExpired'
+import { getOffer } from './utils/offer'
 
 enableScreens()
 
@@ -161,7 +163,17 @@ const App: React.FC = () => {
   useEffect(() => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage' + currentPage)
+      if (remoteMessage.data && remoteMessage.data.type === 'offer.expired'
+        && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
+        const offer = getOffer(remoteMessage.data.offerId) as SellOffer
+        const args = remoteMessage.notification?.bodyLocArgs
+
+        return updateOverlay({
+          content: <OfferExpired offer={offer} days={args ? args[0] || '15' : '15'} navigation={navigationRef} />,
+          showCloseButton: false
+        })
+      }
       if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
         && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
         return updateOverlay({
