@@ -161,7 +161,7 @@ const App: React.FC = () => {
   useEffect(() => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage' + currentPage)
       if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
         && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
         return updateOverlay({

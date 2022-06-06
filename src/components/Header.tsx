@@ -32,12 +32,11 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const [active, setActive] = useState(true)
 
   useEffect(appStateEffect({
-    callback: (isActive, delta) => {
+    callback: isActive => {
       setActive(isActive)
       if (isActive) {
         session()
         clearTimeout(goHomeTimeout)
-        if (delta > TIMETORESTART) RNRestart.Restart() // android
       } else {
         goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
       }
