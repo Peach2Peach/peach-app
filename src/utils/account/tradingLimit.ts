@@ -1,12 +1,26 @@
 import { account, saveAccount } from '.'
 import { SATSINBTC } from '../../constants'
+import { getBitcoinContext } from '../../contexts/bitcoin'
 import { session } from '../session'
 import { defaultAccount } from './account'
 
 /**
  * @description Method to get trading limit of account
  */
-export const getTradingLimit = () => account.tradingLimit || defaultAccount.tradingLimit
+export const getTradingLimit = (currency: Currency): TradingLimit => {
+  const { prices } = getBitcoinContext()
+  let exchangeRate = 1
+  const tradingLimit = account.tradingLimit || defaultAccount.tradingLimit
+
+  if (currency) exchangeRate = prices[currency]! / prices.CHF!
+
+  return {
+    daily: Math.round(tradingLimit.daily * exchangeRate),
+    dailyAmount: Math.round(tradingLimit.dailyAmount * exchangeRate * 100) / 100,
+    yearly: Math.round(tradingLimit.yearly * exchangeRate ),
+    yearlyAmount: Math.round(tradingLimit.yearlyAmount * exchangeRate * 100) / 100,
+  }
+}
 
 /**
  * @description Method to update trading limit of account

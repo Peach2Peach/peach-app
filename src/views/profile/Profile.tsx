@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -6,12 +6,13 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import { Button, Fade, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
-import { account } from '../../utils/account'
+import { account, getTradingLimit } from '../../utils/account'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { splitAt, toShortDateFormat } from '../../utils/string'
 import { Rating, ExtraMedals, TradingLimit } from '../../components/user'
 import { getUser } from '../../utils/peachAPI'
+import BitcoinContext from '../../contexts/bitcoin'
 
 type UserTradeDetailsProps = {
   user: User,
@@ -49,6 +50,8 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
+  const [bitcoinContext] = useContext(BitcoinContext)
+
   const { userId } = route.params
   const [updatePending, setUpdatePending] = useState(!route.params.user)
   const [showCopied, setShowCopied] = useState(false)
@@ -133,7 +136,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           : null
         }
         {isMyAccount
-          ? <TradingLimit tradingLimit={account.tradingLimit} style={tw`mt-4 px-2`} />
+          ? <TradingLimit tradingLimit={getTradingLimit(bitcoinContext.currency)} style={tw`mt-4 px-2`} />
           : null
         }
         {user
