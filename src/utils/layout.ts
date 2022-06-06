@@ -74,8 +74,13 @@ export const innerShadow: ShadowType = {
   offsetY: 6,
 }
 
-
 export const whiteGradient = [
   { offset: '0%', color: '#FCFCFD', opacity: '1' },
   { offset: '100%', color: '#FCFCFD', opacity: '0' }
 ]
+
+export const textShadow = {
+  textShadowColor: 'rgba(0, 0, 0, 0.15)',
+  textShadowOffset: { width: 0, height: 2 },
+  textShadowRadius: 2
+}

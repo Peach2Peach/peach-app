@@ -16,7 +16,6 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
@@ -27,7 +26,7 @@ import { BUCKETS } from '../../constants'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { error } from '../../utils/log'
-import { Loading, Navigation, PeachScrollView, Text } from '../../components'
+import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
@@ -47,7 +46,7 @@ type Props = {
 
 export type SellViewProps = {
   offer: SellOffer,
-  updateOffer: React.Dispatch<React.SetStateAction<SellOffer>>,
+  updateOffer: (offer: SellOffer, shield?: boolean) => void,
   setStepValid: Dispatch<SetStateAction<boolean>>,
   back: () => void,
   next: () => void,
@@ -59,15 +58,16 @@ const getDefaultSellOffer = (): SellOffer => ({
   type: 'ask',
   creationDate: new Date(),
   premium: account.settings.premium || 1.5,
-  currencies: account.settings.currencies || [],
-  paymentData: account.paymentData || [],
-  paymentMethods: [],
+  meansOfPayment: account.settings.meansOfPayment || {},
+  paymentData: {},
   amount: account.settings.amount || BUCKETS[0],
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   funding: {
     status: 'NULL',
-    amount: 0,
+    txIds: [],
+    amounts: [],
+    vouts: [],
   },
   matches: [],
   seenMatches: [],
@@ -115,11 +115,9 @@ const getInitialPageForOffer = (offer: SellOffer) =>
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
-  const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [page, setPage] = useState(0)
@@ -129,65 +127,61 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const saveAndUpdate = (offerData: SellOffer) => {
+  const { daily, dailyAmount } = account.tradingLimit
+
+  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(() => offerData)
-    setOfferId(() => offerData.id)
-    saveOffer(offerData)
+    if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultSellOffer()
     if (offr.funding.status === 'FUNDED') {
-      navigation.navigate('search', { offer: offr })
+      navigation.replace('search', { offer: offr })
       return
     }
 
     if (!route.params?.offer) {
       setOffer(getDefaultSellOffer())
-      setOfferId(undefined)
       setUpdatePending(false)
       setPage(0)
     } else {
       setOffer(offr)
-      setOfferId(offr.id)
       setUpdatePending(true)
+      getOfferDetailsEffect({
+        offerId: offr.id,
+        onSuccess: result => {
+          const sellOffer = {
+            ...offr,
+            ...result,
+          } as SellOffer
+          saveAndUpdate(sellOffer)
+
+          if (sellOffer.funding.status === 'FUNDED') {
+            navigation.replace('search', { offer: sellOffer })
+            return
+          }
+
+          setPage(() => getInitialPageForOffer(sellOffer))
+          setUpdatePending(false)
+        },
+        onError: err => {
+          setPage(() => getInitialPageForOffer(offr))
+          setUpdatePending(false)
+          error('Could not fetch offer information for offer', offr.id)
+          updateMessage({
+            msg: i18n(err.error || 'error.general'),
+            level: 'ERROR',
+          })
+        }
+      })()
     }
   }, [route]))
-
-  useEffect(getOfferDetailsEffect({
-    offerId,
-    onSuccess: result => {
-      saveAndUpdate({
-        ...offer,
-        ...result,
-      } as SellOffer)
-
-      if (offer.funding.status === 'FUNDED') {
-        navigation.navigate('search', { offer: {
-          ...offer,
-          ...result,
-        } })
-        return
-      }
-
-      setPage(() => getInitialPageForOffer(offer))
-      setUpdatePending(false)
-    },
-    onError: err => {
-      setPage(() => getInitialPageForOffer(offer))
-      setUpdatePending(false)
-      error('Could not fetch offer information for offer', offer.id)
-      updateMessage({
-        msg: i18n(err.error || 'error.general'),
-        level: 'ERROR',
-      })
-    }
-  }), [offerId])
 
   useEffect(() => {
     if (screens[page].id === 'search') {
       saveAndUpdate({ ...offer })
-      navigation.navigate('search', { offer })
+      navigation.replace('search', { offer })
     }
   }, [page])
 
@@ -209,9 +203,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
+      {currentScreen.id === 'main'
+        ? <View style={tw`h-0`}><Progress
+          percent={dailyAmount / daily}
+          text={i18n('profile.tradingLimits.daily', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
+        /></View>
+        : null
+      }
       <PeachScrollView scrollRef={scroll}
+        disable={!scrollable}
         contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
-        style={tw`pt-6 overflow-visible`}>
+        style={tw`pt-7 overflow-visible`}>
         <View style={tw`pb-8`}>
           {updatePending
             ? <Loading />
@@ -220,7 +222,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           {!updatePending && CurrentView
             ? <CurrentView
               offer={offer}
-              updateOffer={setOffer}
+              updateOffer={saveAndUpdate}
               setStepValid={setStepValid}
               back={back} next={next}
               navigation={navigation} />

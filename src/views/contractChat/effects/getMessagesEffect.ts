@@ -4,23 +4,25 @@ import { getChat, getContract } from '../../../utils/peachAPI'
 
 type GetMessagesEffectProps = {
   contractId: string,
+  page?: number,
   onSuccess: (result: GetChatResponse) => void,
   onError: (err: APIError) => void,
 }
 
-// TODO this should be a websocket
 export default ({
   contractId,
+  page = 0,
   onSuccess,
   onError
 }: GetMessagesEffectProps): EffectCallback => () => {
   const checkingFunction = async () => {
     if (!contractId) return
 
-    info('Get contract info', contractId)
+    info('Get chat messages', contractId)
 
     const [result, err] = await getChat({
       contractId,
+      page,
     })
 
     if (result) {

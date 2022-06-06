@@ -8,9 +8,8 @@ import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
-import { thousands } from '../../utils/string'
 import EscrowHelp from './components/EscrowHelp'
-import { Headline, Loading, Text, Title } from '../../components'
+import { Loading, SatsFormat, Text, Title } from '../../components'
 import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
@@ -22,12 +21,6 @@ import { useFocusEffect } from '@react-navigation/native'
 import { getTradingLimit } from '../../utils/peachAPI'
 import { updateTradingLimit } from '../../utils/account'
 
-const defaultFunding: FundingStatus = {
-  confirmations: 0,
-  status: 'NULL',
-  amount: 0
-}
-
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid, next, back, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
@@ -36,16 +29,16 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [updatePending, setUpdatePending] = useState(true)
   const [escrow, setEscrow] = useState('')
   const [fundingError, setFundingError] = useState<FundingError>('')
-  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding || defaultFunding)
+  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
   const fundingAmount = Math.round(offer.amount)
 
-  const saveAndUpdate = (offerData: SellOffer) => {
-    updateOffer(() => offerData)
-    saveOffer(offerData)
+  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
+    updateOffer(offerData)
+    saveOffer(offerData, undefined, shield)
   }
-  const navigate = () => navigation.navigate('offers', {})
+  const navigate = () => navigation.replace('offers', {})
 
-  useEffect(!offer.id ? postOfferEffect({
+  useFocusEffect(useCallback(!offer.id ? postOfferEffect({
     offer,
     onSuccess: result => {
       info('Posted offer', result)
@@ -56,7 +49,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
       updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
       back()
     }
-  }) : () => {}, [])
+  }) : () => {}, []))
 
   useEffect(offer.id && !offer.escrow ? createEscrowEffect({
     offer,
@@ -74,7 +67,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
-  useFocusEffect(useCallback(checkFundingStatusEffect({
+  useEffect(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -93,7 +86,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
         level: 'ERROR',
       })
     },
-  }), [offer.escrow]))
+  }), [offer.escrow])
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
@@ -121,7 +114,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     setStepValid(false)
     setEscrow(() => offer.escrow || '')
     setUpdatePending(!offer.escrow)
-    setFundingStatus(() => offer.funding || defaultFunding)
+    setFundingStatus(() => offer.funding)
   }, [offer.id])
 
   const returnAddressValidation = (isValid: boolean) => {
@@ -135,11 +128,11 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
       ? <Loading />
       : escrow && fundingStatus && !fundingError
         ? <View>
-          <Headline style={tw`text-grey-1 mt-6 mb-5`}>
-            {i18n('sell.escrow.sendSats.1')}
-            <Text style={tw`font-baloo text-xl uppercase text-peach-1`}> {thousands(fundingAmount)} </Text>
-            {i18n('sell.escrow.sendSats.2')}
-          </Headline>
+          <Text style={tw`mt-6 mb-5 text-center`}>
+            <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>
+            <SatsFormat style={tw`font-baloo text-lg uppercase`} sats={fundingAmount} color={tw`text-grey-2`} />
+            <Text style={tw`font-baloo text-lg uppercase text-grey-2`}> {i18n('sell.escrow.sendSats.2')}</Text>
+          </Text>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
           {fundingStatus.status === 'NULL'
             ? <ReturnAddress style={tw`mt-16`}

@@ -61,7 +61,6 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
  */
 export const getAccessToken = async (): Promise<string> => {
   if (accessToken && accessToken.expiry > (new Date()).getTime() + 60 * 1000) {
-    log(accessToken.expiry, (new Date()).getTime(), accessToken.expiry > (new Date()).getTime())
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
@@ -69,7 +68,7 @@ export const getAccessToken = async (): Promise<string> => {
 
   if (!result || err) {
     error('peachAPI - getAccessToken', new Error(err?.error))
-    throw Error('AUTHENTICATION_FAILURE')
+    throw Error(err?.error || 'AUTHENTICATION_FAILURE')
   }
 
   return 'Basic ' + Buffer.from(result.accessToken)
@@ -107,10 +106,35 @@ export const setPGP = async (pgp: PGPKeychain): Promise<[APISuccess|null, APIErr
 
 
 /**
+ * @description Method to send fcm token of user to peach for push notification
+ * @param fcmToken fcm token
+ * @returns APISuccess
+ */
+export const setFCMToken = async (fcmToken: string): Promise<[APISuccess|null, APIError|null]> => {
+  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
+
+  const response = await fetch(`${API_URL}/v1/user/fcm`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      fcmToken,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'setFCMToken')
+}
+
+/**
  * @description Method to get trading limit of user
  * @returns TradingLimit
  */
 export const getTradingLimit = async (): Promise<[TradingLimit|null, APIError|null]> => {
+  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
+
   const response = await fetch(`${API_URL}/v1/user/tradingLimit`, {
     headers: {
       Authorization: await getAccessToken(),

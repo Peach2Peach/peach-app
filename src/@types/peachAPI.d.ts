@@ -37,6 +37,11 @@ declare type User = {
   ratingCount: number,
   peachRating: number,
   medals: Medal[],
+  disputes: {
+    opened: number,
+    won: number,
+    lost: number,
+  },
   pgpPublicKey: string
   pgpPublicKeyProof: string
 }
@@ -53,11 +58,15 @@ declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 declare type Buckets = {
   [key: string]: number
 }
-declare type Currency = 'EUR' | 'CHF' | 'GBP'
+declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
-declare type PaymentMethod = 'iban' | 'paypal' | 'giftCard' | 'revolut' | 'applePay' | 'twint' | 'wise'
+declare type PaymentMethod =
+  'sepa' | 'swift' | 'bankTransferCH' | 'bankTransferUK'
+  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish' | 'mbWay' | 'bizum'
+  | 'tether'
+
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
@@ -68,8 +77,10 @@ declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
   confirmations?: number,
-  txId?: string,
-  amount: number
+  txIds: string[],
+  vouts: number[],
+  amounts: number[],
+  amount?: number // TODO remove for release 0.1.0
 }
 
 declare type GetStatusResponse = {
@@ -79,10 +90,14 @@ declare type GetStatusResponse = {
 }
 
 declare type GetInfoResponse = {
+  peach: {
+    pgpPublicKey: string,
+  },
   fees: {
     escrow: number,
   },
   buckets: number[],
+  deprecatedBuckets: number[],
   paymentMethods: PaymentMethodInfo[],
   minAppVersion: string,
 }
@@ -97,6 +112,8 @@ declare type PeachPairInfo = {
   pair: TradingPair,
   price: number,
 }
+declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
+
 declare type Offer = {
   id: string,
   creationDate: Date,
@@ -106,9 +123,8 @@ declare type Offer = {
   type: 'bid' | 'ask',
   amount: number,
   premium?: number,
-  currencies: Currency[],
   prices?: Pricebook,
-  paymentMethods: PaymentMethod[],
+  meansOfPayment: MeansOfPayment,
   kyc: boolean,
   kycType?: KYCType,
   returnAddress?: string,
@@ -138,13 +154,16 @@ declare type FundingStatusResponse = {
   error?: FundingError,
   returnAddress: string
 }
+
+declare type CancelOfferRequest = {
+  satsPerByte?: number
+}
 declare type CancelOfferResponse = {
   psbt: string,
   returnAddress: string,
   amount: number,
   fees: number,
-  returnAddress: string,
-  inputIndex: number,
+  satsPerByte: number,
 }
 
 declare type Match = {
@@ -153,9 +172,9 @@ declare type Match = {
   prices: Pricebook,
   matchedPrice: number | null,
   premium: number,
-  selectedCurrency: Currency | null,
-  paymentMethods: PaymentMethod[],
-  selectedPaymentMethod: PaymentMethod | null,
+  meansOfPayment: MeansOfPayment,
+  selectedCurrency?: Currency,
+  selectedPaymentMethod?: PaymentMethod,
   kyc: boolean,
   kycType?: KYCType,
   symmetricKeyEncrypted: string,

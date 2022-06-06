@@ -1,4 +1,6 @@
-import { Platform } from 'react-native'
+import { Linking, Platform } from 'react-native'
+import { checkNotifications } from 'react-native-permissions'
+import messaging from '@react-native-firebase/messaging'
 
 /**
  * @description Method to check if app is compiled for web
@@ -31,3 +33,41 @@ export const isMobile = () => isAndroid() || isIOS()
  */
 export const compatibilityCheck = (version: string, minVersion: string) =>
   version >= minVersion
+
+/**
+ * @description Method to check if app is allowed to receive push notifications
+ * @returns true if notifications are enabled
+ */
+export const checkNotificationStatus = async (): Promise<boolean> => {
+  if (isIOS()) {
+    const authStatus = await messaging().hasPermission()
+    if (authStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+      return true
+    }
+    return false
+  }
+
+  const { status } = await checkNotifications()
+  if (status === 'granted') {
+    return true
+  }
+
+  return false
+}
+
+/**
+ * @description Method to toggle notification status
+ * in most cases, user needs to make these settings in the OS settings
+ */
+export const toggleNotifications = async () => {
+  if (isIOS()) {
+    const authStatus = await messaging().hasPermission()
+    if (authStatus === messaging.AuthorizationStatus.NOT_DETERMINED) {
+      await messaging().requestPermission()
+    } else {
+      Linking.openURL('app-settings://')
+    }
+  } else {
+    Linking.openSettings()
+  }
+}

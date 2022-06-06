@@ -1,9 +1,10 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow } from '..'
 import { innerShadow, mildShadow } from '../../utils/layout'
+import PeachScrollView from '../PeachScrollView'
 
 interface Item {
   value: string|number,
@@ -58,7 +59,7 @@ interface DropdownProps {
  */
 export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
-  const selectedItem = items.find(item => item.value === selectedValue) || items[0]
+  const selectedItem = items.find(item => item.value === selectedValue)
 
   const toggle = () => {
     setOpen(!isOpen)
@@ -69,31 +70,39 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownP
     toggle()
   }
 
+  useEffect(() => {
+    if (onChange) onChange(items[0].value)
+  }, [])
+
   return <View style={[
     tw`w-full rounded bg-white-1`,
     !isOpen ? tw`overflow-hidden` : {}
   ]}>
     <Shadow shadow={isOpen ? mildShadow : innerShadow}>
       <View style={[
-        tw`w-full py-0 pl-4 pr-3 border border-grey-4 rounded`,
+        tw`w-full py-0 border border-grey-4 rounded`,
         isOpen ? tw`bg-white-1` : {}
       ]}>
         {isOpen
           ? [
-            <Pressable key={selectedItem?.value} style={tw`h-10 flex justify-center opacity-30`}
+            <Pressable key={selectedItem?.value} style={tw`h-10 pl-4 pr-3 flex justify-center opacity-30`}
               onPress={toggle}>
               {selectedItem?.display(false)}
             </Pressable>,
-            items
-              .map(item => <Pressable
+            <PeachScrollView key="scroll" style={[
+              tw`pl-4 pr-3`,
+              { height: (tw`h-10`.height as number) * Math.min(5, items.length) }
+            ]}>
+              {items.map(item => <Pressable
                 key={item.value}
                 style={tw`h-10 flex justify-center`}
                 onPress={() => select(item)}>
                 {item.display(isOpen)}
               </Pressable>
-              )
+              )}
+            </PeachScrollView>
           ]
-          : <Pressable style={tw`h-10 flex justify-center`} onPress={toggle}>
+          : <Pressable style={tw`h-10 pl-4 pr-3 flex justify-center`} onPress={toggle}>
             {selectedItem?.display(isOpen)}
           </Pressable>
         }

@@ -4,13 +4,15 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { mildShadow } from '../../utils/layout'
 import { Shadow, Text } from '..'
+import { debounce } from '../../utils/performance'
+import i18n from '../../utils/i18n'
 
 type PremiumSliderProps = ComponentProps & {
   value: number,
   min: number,
   max: number,
-  update: string,
   onChange?: (value: number) => void
+  displayUpdate?: (value: number) => void
 }
 
 const onStartShouldSetResponder = () => true
@@ -22,13 +24,21 @@ const onStartShouldSetResponder = () => true
  * @param props.min minimum value
  * @param props.max maximum value
  * @param props.value current value
- * @param [props.update] spicy workaround to update onChange callback
  * @param [props.onChange] on change handler
  * @example
  */
-export const PremiumSlider = ({ value, min, max, update, onChange, style }: PremiumSliderProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export const PremiumSlider = ({
+  value,
+  min,
+  max,
+  onChange,
+  displayUpdate,
+  style
+}: PremiumSliderProps): ReactElement => {
   const [delta] = useState(max - min)
   const [markerX] = useState((value - min) / delta)
+  const [premium, setPremium] = useState(value)
   let trackWidth = useRef(260).current
 
   const pan = useRef(new Animated.Value(markerX * trackWidth)).current
@@ -51,15 +61,25 @@ export const PremiumSlider = ({ value, min, max, update, onChange, style }: Prem
     pan.addListener((props) => {
       if (props.value < 0) pan.setOffset(0)
       if (props.value > trackWidth) pan.setOffset(trackWidth)
-      if (onChange) {
-        const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
-        const val = Math.round((boundedX / trackWidth * delta + min) * 2) / 2
-        onChange(val)
-      }
+
+      const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
+      const val = Math.round((boundedX / trackWidth * delta + min) * 2) / 2
+      setPremium(val)
     })
 
     return () => pan.removeAllListeners()
-  }, [update])
+  }, [])
+
+  const debounced = useRef(debounce((deps: { premium: number }) => {
+    if (onChange) onChange(deps.premium)
+  }, 300))
+
+  const deps: AnyObject = { premium }
+  useEffect(() => debounced.current(deps), Object.keys(deps).map(dep => deps[dep]))
+
+  useEffect(() => {
+    if (displayUpdate) displayUpdate(premium)
+  }, [premium])
 
   const onLayout = (event: LayoutChangeEvent) => trackWidth = event.nativeEvent.layout.width
 
@@ -69,7 +89,7 @@ export const PremiumSlider = ({ value, min, max, update, onChange, style }: Prem
         <View style={tw`w-full flex-row justify-between`}>
           <Text style={tw`font-baloo text-xs text-red`}>{min}%</Text>
           <Text style={tw`font-baloo text-xs text-grey-2`}>
-            market price
+            {i18n('form.premium.marketPrice')}
           </Text>
           <Text style={tw`font-baloo text-xs text-green`}>+{max}%</Text>
         </View>

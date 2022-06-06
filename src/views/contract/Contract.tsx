@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Loading, PeachScrollView, Timer, Title } from '../../components'
+import { Button, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -15,15 +15,16 @@ import { getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
 import { confirmPayment } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
-import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
-import ContractDetails from './components/ContractDetails'
-import Rate from './components/Rate'
 import { verifyPSBT } from './helpers/verifyPSBT'
 import { getTimerStart } from './helpers/getTimerStart'
 import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
 import { getRequiredAction } from './helpers/getRequiredAction'
+import { ContractSummary } from '../offers/components/ContractSummary'
+import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { OverlayContext } from '../../contexts/overlay'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -37,12 +38,13 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [updatePending, setUpdatePending] = useState(true)
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract|null>(getContract(contractId))
+  const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
 
@@ -64,13 +66,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
-      const [symmetricKey, err] = contract?.symmetricKey
-        ? [contract.symmetricKey, null]
-        : await decryptSymmetricKey(
-          result.symmetricKeyEncrypted,
-          result.symmetricKeySignature,
-          result.buyer.pgpPublicKey,
-        )
+      const [symmetricKey, err] = await decryptSymmetricKey(
+        result.symmetricKeyEncrypted,
+        result.symmetricKeySignature,
+        result.buyer.pgpPublicKey,
+      )
 
       if (err) error(err)
 
@@ -86,6 +86,18 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
         }
       )
+
+      if (result.disputeActive
+        && result.disputeInitiator !== account.publicKey
+        && !result.disputeAcknowledgedByCounterParty) {
+        updateOverlay({
+          content: <YouGotADispute
+            contractId={result.id}
+            message={result.disputeClaim as string}
+            navigation={navigation} />,
+          showCloseButton: false
+        })
+      }
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -97,10 +109,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     (async () => {
       if (!contract || !view || contract.canceled) return
 
-      if ((view === 'seller' && contract?.ratingBuyer)
-        || (view === 'buyer' && contract?.ratingSeller)) {
-        setContractId('')
-        navigation.navigate('tradeComplete', { contract, view })
+      if (isTradeComplete(contract)) {
+        navigation.replace('tradeComplete', { contract })
         return
       }
 
@@ -165,10 +175,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
 
     // Sign psbt
-    psbt.signInput(0, getEscrowWallet(sellOffer.id))
+    psbt.txInputs.forEach((input, i) =>
+      psbt
+        .signInput(i, getEscrowWallet(sellOffer.id!))
+        .finalizeInput(i, getFinalScript)
+    )
 
     const tx = psbt
-      .finalizeInput(0, getFinalScript)
       .extractTransaction()
       .toHex()
 
@@ -195,49 +208,61 @@ export default ({ route, navigation }: Props): ReactElement => {
       <View style={tw`pb-32`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
         />
-        {contract && !contract.paymentConfirmed
-          ? <View style={tw`mt-16`}>
-            {requiredAction !== 'none'
-              ? <Timer
-                text={i18n(`contract.timer.${requiredAction}`)}
-                start={getTimerStart(contract, requiredAction)}
-                duration={TIMERS[requiredAction]}
-              />
-              : null
-            }
-            <ContractDetails contract={contract} view={view} />
-            <Button
-              onPress={() => navigation.navigate('contractChat', { contractId: contract.id })}
-              style={tw`mt-4`}
-              title={i18n('chat')}
-              secondary={true}
+        {contract?.amount
+          ? <Text style={tw`text-grey-2 text-center -mt-1`}>
+            {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount}
+              color={tw`text-grey-2`}
             />
-            {view === 'buyer' && requiredAction === 'paymentMade'
-              ? <Button
-                disabled={loading}
-                onPress={postConfirmPaymentBuyer}
-                style={tw`mt-2`}
-                title={i18n('contract.payment.made')}
-              />
-              : null
-            }
-            {view === 'seller' && requiredAction === 'paymentConfirmed'
-              ? <Button
-                disabled={loading}
-                onPress={postConfirmPaymentSeller}
-                style={tw`mt-2`}
-                title={i18n('contract.payment.received')}
-              />
-              : null
-            }
-          </View>
+          </Text>
           : null
         }
-        {contract && contract.paymentConfirmed
+        {contract && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
-            <Rate contract={contract} view={view} navigation={navigation} saveAndUpdate={saveAndUpdate} />
+            <ContractSummary contract={contract} view={view} navigation={navigation} />
+            <View style={tw`mt-16 flex-row justify-center`}>
+              {(view === 'buyer' && requiredAction === 'paymentMade')
+              || (view === 'seller' && requiredAction === 'paymentConfirmed')
+                ? <View style={tw`absolute bottom-full mb-1`}>
+                  <Timer
+                    text={i18n(`contract.timer.${requiredAction}`)}
+                    start={getTimerStart(contract, requiredAction)}
+                    duration={TIMERS[requiredAction]}
+                  />
+                </View>
+                : null
+              }
+              {!(view === 'buyer' && requiredAction === 'paymentMade')
+              && !(view === 'seller' && requiredAction === 'paymentConfirmed')
+                ? <Button
+                  disabled={true}
+                  wide={false}
+                  style={tw`w-52`}
+                  title={i18n(`contract.waitingFor.${view === 'buyer' ? 'seller' : 'buyer'}`)}
+                />
+                : null
+              }
+              {view === 'buyer' && requiredAction === 'paymentMade'
+                ? <Button
+                  disabled={loading}
+                  wide={false}
+                  style={tw`w-52`}
+                  onPress={postConfirmPaymentBuyer}
+                  title={i18n('contract.payment.made')}
+                />
+                : null
+              }
+              {view === 'seller' && requiredAction === 'paymentConfirmed'
+                ? <Button
+                  disabled={loading}
+                  wide={false}
+                  onPress={postConfirmPaymentSeller}
+                  style={tw`w-52`}
+                  title={i18n('contract.payment.received')}
+                />
+                : null
+              }
+            </View>
           </View>
           : null
         }

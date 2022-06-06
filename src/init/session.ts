@@ -1,20 +1,32 @@
-import { setBuckets, setMinAppVersion, setPaymentMethods, setPeachFee } from '../constants'
+import {
+  setBuckets,
+  setDeprecatedBuckets,
+  setMinAppVersion,
+  setPaymentMethods,
+  setPeachFee,
+  setPeachPGPPublicKey
+} from '../constants'
 import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
 import { error } from '../utils/log'
 import { getInfo, getTradingLimit } from '../utils/peachAPI'
 import { getSession, initSession, setSession } from '../utils/session'
 
 export default async () => {
-  const { password } = await initSession()
   let account
-  if (password) account = await loadAccount(password)
+
+  try {
+    const { password } = await initSession()
+    if (password) account = await loadAccount(password)
+  } catch (e) {
+    error(e)
+  }
 
   const [
     [peachInfoResponse, err],
     [tradingLimit, tradingLimitErr],
   ] = await Promise.all([
     getInfo(),
-    account ? getTradingLimit() : [defaultAccount.tradingLimit, null]
+    account?.publicKey ? getTradingLimit() : [defaultAccount.tradingLimit, null]
   ])
 
   let peachInfo = peachInfoResponse
@@ -27,8 +39,10 @@ export default async () => {
     updateTradingLimit(tradingLimit)
   }
   if (peachInfo) {
+    setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey)
     setPaymentMethods(peachInfo.paymentMethods)
     setBuckets(peachInfo.buckets)
+    setDeprecatedBuckets(peachInfo.deprecatedBuckets)
     setPeachFee(peachInfo.fees.escrow)
     setMinAppVersion(peachInfo.minAppVersion)
     setSession({ peachInfo })

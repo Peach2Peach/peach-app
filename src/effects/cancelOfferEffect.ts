@@ -14,12 +14,12 @@ export default ({
 }: CancelOfferEffectProps): EffectCallback => () => {
   const checkingFunction = async () => {
     if (!offer.id) return
-    if (offer.type !== 'ask' || !offer.escrow || offer.refunded || offer.released) return
+    if (offer.type !== 'ask' || !offer.escrow || offer.refunded || offer.released || (offer.tx && offer.txId)) return
 
     info('Checking cancelation and refunding info for ', offer.id)
     const [result, err] = await cancelOffer({
       offerId: offer.id,
-      satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
+      // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
     })
     if (result) {
       info('cancel offer: ', JSON.stringify(result))

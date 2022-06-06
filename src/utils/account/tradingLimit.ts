@@ -19,7 +19,7 @@ export const updateTradingLimit = async (tradingLimit: TradingLimit, save?: bool
     yearly: tradingLimit.yearly || Infinity,
     yearlyAmount: tradingLimit.yearlyAmount || 0,
   }
-  if (save && session.password) await saveAccount(account, session.password)
+  if (save && session.password && account.publicKey) await saveAccount(account, session.password)
 }
 
 /**
@@ -31,6 +31,8 @@ export const updateTradingLimit = async (tradingLimit: TradingLimit, save?: bool
  */
 export const applyTradingLimit = (buckets: number[], price: number, tradingLimit: TradingLimit) =>
   buckets.filter(bucket => {
+    if (!price) return true
+
     const amount = bucket * price / SATSINBTC
 
     return amount < tradingLimit.daily && amount < tradingLimit.yearly

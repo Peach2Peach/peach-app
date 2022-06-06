@@ -168,3 +168,75 @@ export const postChat = async ({
 
   return await parseResponse<APISuccess>(response, 'postChat')
 }
+
+
+type RaiseDisputeProps = {
+  contractId: Contract['id'],
+  email: string,
+  reason: DisputeReason,
+  message: string,
+  symmetricKeyEncrypted: string
+}
+
+/**
+ * @description Method to raise a dispute for a contract
+ * @param contractId contract id
+ * @param email email
+ * @param reason reason
+ * @param message message
+ * @param symmetricKey symmetricKey to encrypt/decrypt messages
+ */
+export const raiseDispute = async ({
+  contractId,
+  email,
+  reason,
+  message,
+  symmetricKeyEncrypted,
+}: RaiseDisputeProps): Promise<[APISuccess|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      reason,
+      message,
+      symmetricKeyEncrypted,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'raiseDispute')
+}
+
+
+type AcknowledgeDisputeProps = {
+  contractId: Contract['id'],
+  email: string,
+}
+
+/**
+ * @description Method to acknowlege a dispute for a contract
+ * @param contractId contract id
+ * @param email email
+ */
+export const acknowledgeDispute = async ({
+  contractId,
+  email,
+}: AcknowledgeDisputeProps): Promise<[APISuccess|null, APIError|null]> => {
+  const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute/acknowledge`, {
+    headers: {
+      Authorization: await getAccessToken(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+    })
+  })
+
+  return await parseResponse<APISuccess>(response, 'acknowledgeDispute')
+}

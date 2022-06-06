@@ -5,6 +5,7 @@ import tw from '../../styles/tailwind'
 import { isAndroid } from '../../utils/system'
 
 const trickShift = { x: 1000, y: 1000 }
+let cachedScale = 0
 
 export type ShadowType = {
   inset?: boolean,
@@ -20,11 +21,13 @@ type ShadowProps = ComponentProps & {
 }
 // eslint-disable-next-line max-lines-per-function
 export const Shadow = ({ shadow, children, style }: ShadowProps): ReactElement => {
-  const [scale] = useState(Dimensions.get('window').scale)
+  const [scale] = useState(() => cachedScale || Dimensions.get('window').scale)
   const [dimensions, setDimensions] = useState({
     width: style?.width ? parseInt(style.width, 10) : 0,
     height: style?.height ? parseInt(style.height, 10) : 0,
   })
+
+  if (!cachedScale) cachedScale = scale
 
   const [redraw, setRedraw] = useState(true)
   const [canvasDrawn, setCanvasDrawn] = useState(false)

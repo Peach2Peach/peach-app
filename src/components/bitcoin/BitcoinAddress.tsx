@@ -31,6 +31,7 @@ type BitcoinAddressProps = ComponentProps & {
  */
 export const BitcoinAddress = ({ address, showQR, amount, label, style }: BitcoinAddressProps): ReactElement => {
   const [showCopied, setShowCopied] = useState(false)
+  const [showPaymentRequestCopied, setShowPaymentRequestCopied] = useState(false)
   const urn = new URL(`bitcoin:${address}`)
 
   if (amount) urn.searchParams.set('amount', String(amount))
@@ -45,20 +46,35 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
 
   const copy = () => {
-    Clipboard.setString(urn.toString())
+    Clipboard.setString(address)
     setShowCopied(true)
     setTimeout(() => setShowCopied(false), 500)
+  }
+  const copyPaymentRequest = () => {
+    Clipboard.setString(urn.toString())
+    setShowPaymentRequestCopied(true)
+    setTimeout(() => setShowPaymentRequestCopied(false), 500)
   }
 
   return <View style={[tw`flex-col items-center`, style]}>
     {showQR && address
-      ? <Card style={tw`p-4`}>
-        <QRCode
-          size={241}
-          value={urn.toString()}
-          logo={peachLogo}
-        />
-      </Card>
+      ? <Pressable onPress={copyPaymentRequest}>
+        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
+          <Text style={[
+            tw`font-baloo text-grey-1 text-sm text-center`,
+            tw`uppercase absolute bottom-full w-20 left-1/2 -ml-10`
+          ]}>
+            {i18n('copied')}
+          </Text>
+        </Fade>
+        <Card style={tw`p-4`}>
+          <QRCode
+            size={241}
+            value={urn.toString()}
+            logo={peachLogo}
+          />
+        </Card>
+      </Pressable>
       : null
     }
     <Pressable onPress={copy} style={[
@@ -67,12 +83,12 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
     ]}>
       <Text style={tw`text-lg text-grey-2`}>
         {addressParts.one}
-        <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.two}</Text>
+        <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.two}</Text>
         {addressParts.three}
-        <Text style={tw`text-lg text-grey-1 leading-6`}>{addressParts.four}</Text>
+        <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
       </Text>
       <View>
-        <Fade show={showCopied} duration={300} delay={0} >
+        <Fade show={showCopied} duration={300} delay={0}>
           <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
             {i18n('copied')}
           </Text>

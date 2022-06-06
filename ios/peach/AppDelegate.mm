@@ -1,3 +1,4 @@
+#import "RNFBMessagingModule.h"
 #import <Firebase.h>
 #import <Firebase.h>
 #import "AppDelegate.h"

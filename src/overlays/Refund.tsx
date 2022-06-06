@@ -16,8 +16,9 @@ import { postTx } from '../utils/peachAPI'
 import { saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'
 import { OverlayContext } from '../contexts/overlay'
-import { showTransaction } from '../utils/bitcoin'
+import { showTransaction, txIdPartOfPSBT } from '../utils/bitcoin'
 import { NETWORK } from '@env'
+import { sum } from '../utils/math'
 
 const checkAndRefund = async (
   response: CancelOfferResponse,
@@ -28,30 +29,32 @@ const checkAndRefund = async (
     err?: string|null,
   }> => {
   if (!offer.id) return { err: 'NOT_FOUND' }
-  const { returnAddress, inputIndex, amount, fees } = response
+  const { returnAddress, amount, fees } = response
   const psbt = bitcoin.Psbt.fromBase64(response.psbt, { network: getNetwork() })
 
-  if (!amount || !fees || !psbt || !offer || !offer.funding) return { err: 'NOT_FOUND' }
+  if (!amount || !fees || !psbt || !offer || !offer.funding?.txIds) return { err: 'NOT_FOUND' }
 
   // Don't trust the response, verify
-  if (offer.funding.txId !== reverseBuffer(psbt.txInputs[inputIndex].hash).toString('hex')) {
+  const txIds = offer.funding.txIds
+  if (!txIds.every(txId => txIdPartOfPSBT(txId, psbt))) {
     return { err: 'INVALID_INPUT' }
   }
 
-  if (offer.funding.amount !== amount + fees) {
-    return { err: 'INVALID_AMOUNT' }
-
-  }
+  // refunds should only have one output and this is the expected returnAddress
+  if (psbt.txOutputs.length > 1) return { err: 'INVALID_OUTPUT' }
   if (returnAddress !== offer.returnAddress
     || psbt.txOutputs[0].address !== offer.returnAddress) {
     return { err: 'RETURN_ADDRESS_MISMATCH' }
-
   }
 
   // Sign psbt
-  psbt.signInput(inputIndex, getEscrowWallet(offer.id))
+  psbt.txInputs.forEach((input, i) =>
+    psbt
+      .signInput(i, getEscrowWallet(offer.id!))
+      .finalizeInput(i, getFinalScript)
+  )
 
-  const tx = psbt.finalizeInput(0, getFinalScript)
+  const tx = psbt
     .extractTransaction()
     .toHex()
 
@@ -86,7 +89,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  useEffect(!offer.tx && !offer.txId ? cancelOfferEffect({
+  useEffect(cancelOfferEffect({
     offer,
     onSuccess: response => {
       (async () => {
@@ -117,7 +120,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
         level: 'ERROR',
       })
     },
-  }) : () => {}, [offer])
+  }), [])
 
   return <View style={tw`px-6`}>
     <Headline style={tw`text-3xl leading-3xl text-white-1`}>
@@ -130,7 +133,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
             {i18n(`refund.${fundingStatus}.description`)}
           </Text>
           <Text style={tw`text-white-1 text-center mt-2 leading-5 `}>
-            {i18n(`refund.${fundingStatus}.youSent`)}: {thousands(offer.funding.amount)}
+            {i18n(`refund.${fundingStatus}.youSent`)}: {thousands(offer.funding.amounts.reduce(sum, 0))}
           </Text>
           <Text style={tw`text-white-1 text-center mt-2 leading-5`}>
             {i18n(`refund.${fundingStatus}.correctAmount`)}: {thousands(offer.amount)}

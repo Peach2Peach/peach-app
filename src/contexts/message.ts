@@ -1,16 +1,17 @@
-import { createContext, Dispatch, ReducerState } from 'react'
+import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
 import { Animated } from 'react-native'
 
 export type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 
-let msg: string = ''
+let template: ReactNode
+let msg: string|undefined
 let level: Level = 'OK'
 let time: number = 0
 
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([
-  { msg, level: level as Level },
+  { template, msg, level: level as Level },
   dispatch
 ] as const)
 
@@ -19,6 +20,7 @@ export const MessageContext = createContext([
  * @returns message
  */
 export const getMessage = (): MessageState => ({
+  template,
   msg,
   level,
   time
@@ -31,11 +33,13 @@ export const getMessage = (): MessageState => ({
  * @returns message state
  */
 export const setMessage = (state: ReducerState<any>, newState: MessageState): MessageState => {
+  template = newState.template
   msg = newState.msg
   level = newState.level
   time = (new Date()).getTime()
 
   return {
+    template,
     msg,
     level,
     time
@@ -43,10 +47,10 @@ export const setMessage = (state: ReducerState<any>, newState: MessageState): Me
 }
 
 
-export const showMessageEffect = (message: string, width: number, slideInAnim: Animated.Value) => () => {
+export const showMessageEffect = (content: ReactNode|string, width: number, slideInAnim: Animated.Value) => () => {
   let slideOutTimeout: NodeJS.Timer
 
-  if (message) {
+  if (content) {
     Animated.timing(slideInAnim, {
       toValue: 0,
       duration: 300,

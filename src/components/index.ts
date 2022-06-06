@@ -20,13 +20,16 @@ export {
   RadioButtons,
   Select,
   Selector,
+  SelectorBig,
 } from './inputs'
 
 export { Match, Matches } from './matches'
 export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
 export {
   Bubble,
+  CopyAble,
   HorizontalLine,
+  Progress,
   Shadow,
 } from './ui'
 
