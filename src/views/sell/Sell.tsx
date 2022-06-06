@@ -15,7 +15,6 @@ import {
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
@@ -28,11 +27,12 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { account } from '../../utils/account'
+import { account, getTradingLimit } from '../../utils/account'
 import { MessageContext } from '../../contexts/message'
 
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
+import BitcoinContext from '../../contexts/bitcoin'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -114,7 +114,7 @@ const getInitialPageForOffer = (offer: SellOffer) =>
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
+  const [bitcoinContext] = useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer())
@@ -127,7 +127,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const { daily, dailyAmount } = account.tradingLimit
+  const { daily, dailyAmount } = getTradingLimit(bitcoinContext.currency)
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(() => offerData)
@@ -203,10 +203,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
-      {currentScreen.id === 'main'
+      {currentScreen.id === 'main' && !isNaN(dailyAmount)
         ? <View style={tw`h-0`}><Progress
           percent={dailyAmount / daily}
-          text={i18n('profile.tradingLimits.daily', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
+          text={i18n(
+            'profile.tradingLimits.daily',
+            bitcoinContext.currency, String(dailyAmount), String(daily === Infinity ? '∞' : daily)
+          )}
         /></View>
         : null
       }
