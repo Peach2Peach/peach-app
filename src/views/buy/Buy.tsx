@@ -183,7 +183,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
-      {currentScreen.id === 'main'
+      {currentScreen.id === 'main' && !isNaN(dailyAmount)
         ? <View style={tw`h-0`}><Progress
           percent={dailyAmount / daily}
           text={i18n(

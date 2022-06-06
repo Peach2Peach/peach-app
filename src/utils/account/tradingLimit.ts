@@ -7,7 +7,7 @@ import { defaultAccount } from './account'
 /**
  * @description Method to get trading limit of account
  */
-export const getTradingLimit = (currency: Currency): TradingLimit => {
+export const getTradingLimit = (currency?: Currency): TradingLimit => {
   const { prices } = getBitcoinContext()
   let exchangeRate = 1
   const tradingLimit = account.tradingLimit || defaultAccount.tradingLimit
