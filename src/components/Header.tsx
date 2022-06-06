@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Image, View } from 'react-native'
 
 import { Shadow, Text } from '.'
@@ -11,6 +11,7 @@ import { marketPrices } from '../utils/peachAPI/public/market'
 import BitcoinContext from '../contexts/bitcoin'
 import { account } from '../utils/account'
 import { Fade } from './animation'
+import appStateEffect from '../effects/appStateEffect'
 
 type HeaderProps = ComponentProps
 
@@ -26,8 +27,17 @@ type HeaderProps = ComponentProps
  */
 export const Header = ({ style }: HeaderProps): ReactElement => {
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
+  const [active, setActive] = useState(true)
+
+  useEffect(appStateEffect({
+    callback: isActive => {
+      setActive(isActive)
+    }
+  }), [])
 
   useEffect(() => {
+    if (!active) return () => {}
+
     const checkingFunction = async () => {
       const [prices] = await marketPrices()
 
@@ -40,7 +50,7 @@ export const Header = ({ style }: HeaderProps): ReactElement => {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [active])
 
   return <View style={style}>
     <Shadow shadow={mildShadow}>
