@@ -8,7 +8,7 @@ import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
 import { Text } from '../text'
 import { Bubble } from '../ui'
 
-export type NavigationProp = StackNavigationProp<RootStackParamList, 'offer'|'contract'>
+export type NavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
 type ChatButtonProps = ComponentProps & {
   contract: Contract,
@@ -33,7 +33,9 @@ export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): Re
         {contract.messages && contract.messages - messagesSeen > 0
           ? <Bubble color={tw`text-green`.color as string}
             style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-            <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{contract.messages - messagesSeen}</Text>
+            <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+              {contract.messages - messagesSeen}
+            </Text>
           </Bubble>
           : null
         }

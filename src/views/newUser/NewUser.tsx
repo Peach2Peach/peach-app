@@ -7,7 +7,6 @@ import {
   TextInput,
   View
 } from 'react-native'
-import messaging from '@react-native-firebase/messaging'
 
 import tw from '../../styles/tailwind'
 import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
@@ -18,8 +17,7 @@ import { getMessages, rules } from '../../utils/validation'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import Icon from '../../components/Icon'
-import { error, info } from '../../utils/log'
-import { setFCMToken, setPGP } from '../../utils/peachAPI'
+import { error } from '../../utils/log'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import pgp from '../../init/pgp'
@@ -76,14 +74,14 @@ export default ({ navigation }: Props): ReactElement => {
   const onError = (e: Error) => {
     error('Error', e)
     updateMessage({
-      msg: i18n('AUTHENTICATION_FAILURE'),
+      msg: i18n(e.message || 'AUTHENTICATION_FAILURE'),
       level: 'ERROR',
     })
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
       },
-      onError: () => {
+      onError: () => {
         setLoading(false)
       }
     })
@@ -115,7 +113,7 @@ export default ({ navigation }: Props): ReactElement => {
       saveAccount(account, password)
 
       setLoading(false)
-      navigation.navigate('home', {})
+      navigation.replace('home', {})
 
       fcm()
     } catch (e) {
@@ -133,9 +131,13 @@ export default ({ navigation }: Props): ReactElement => {
     setIsPristine(false)
     const pwMatch = checkPasswordMatch()
     if (pwMatch && isValid) {
-      setLoading(isValid)
       Keyboard.dismiss()
-      createAccount({ password, onSuccess, onError })
+      setLoading(isValid)
+
+      // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
+      setTimeout(() => {
+        createAccount({ password, onSuccess, onError })
+      })
     }
   }
 
@@ -205,7 +207,7 @@ export default ({ navigation }: Props): ReactElement => {
           />
         </View>
         <View style={tw`w-full mt-5 flex items-center`}>
-          <Pressable style={tw`absolute left-0`} onPress={() => navigation.navigate('welcome', {})}>
+          <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>
           <Button

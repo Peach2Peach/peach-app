@@ -11,11 +11,15 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
+import i18n from '../../utils/i18n'
+import { IconType } from '../icons'
 
 type InputProps = ComponentProps & {
   value?: string,
   label?: string,
-  icon?: string,
+  icon?: IconType,
+  multiline?: boolean
+  required?: boolean
   autoCorrect?: boolean
   disabled?: boolean
   isValid?: boolean,
@@ -35,6 +39,7 @@ type InputProps = ComponentProps & {
  * @param [props.value] current value
  * @param [props.label] input label
  * @param [props.icon] icon id
+ * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
@@ -50,15 +55,18 @@ type InputProps = ComponentProps & {
  * <Input
  *   onChange={setAddress}
  *   value={address}
- *   label={i18n('form.btcAddress')}
+ *   label={i18n('form.address.btc')}
  *   isValid={!isFieldInError('address')}
  *   autoCorrect={false}
  *   errorMessage={getErrorsInField('address')}
  * />
  */
+// eslint-disable-next-line complexity, max-lines-per-function
 export const Input = ({
   value,
   label, hint, icon,
+  required = true,
+  multiline = false,
   autoCorrect = false,
   disabled = false,
   isValid,
@@ -91,13 +99,16 @@ export const Input = ({
           style={[
             tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
             tw.md`h-10`,
+            multiline ? tw`h-full pt-2` : {},
             label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
           ]}
-          placeholder={label} placeholderTextColor={tw`text-grey-2`.color as string}
+          placeholder={label ? label + (!required ? ` (${i18n('form.optional')})` : '') : ''}
+          placeholderTextColor={tw`text-grey-2`.color as string}
           value={value}
           editable={!disabled} autoCorrect={autoCorrect}
+          multiline={multiline} textAlignVertical={multiline ? 'top' : 'center'}
           onChangeText={onChangeText}
-          onSubmitEditing={onSubmitEditing} onEndEditing={onEndEditing}
+          onSubmitEditing={onSubmitEditing}
           blurOnSubmit={false}
           onFocus={onFocusHandler} onBlur={onBlurHandler}
           secureTextEntry={secureTextEntry}

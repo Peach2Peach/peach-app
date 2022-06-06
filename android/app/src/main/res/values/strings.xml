@@ -2,6 +2,8 @@
     <string name="app_name">peach</string>
     <string name="notification.title.offer.escrowFunded">Escrow funded</string>
     <string name="notification.body.offer.escrowFunded">The escrow has been funded and your offer is published.</string>
+    <string name="notification.title.offer.wrongFundingAmount">Escrow not funded</string>
+    <string name="notification.body.offer.wrongFundingAmount">Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
     <string name="notification.body.offer.matchBuyer"></string>
     <string name="notification.title.offer.matchSeller">Matches are waiting for you!</string>
@@ -18,4 +20,6 @@
     <string name="notification.body.contract.tradeCompleted">You received %1$s sats in your wallet</string>
     <string name="notification.title.contract.chat">Chat</string>
     <string name="notification.body.contract.chat">You got a chat message</string>
+    <string name="notification.title.contract.disputeRaised">Dispute</string>
+    <string name="notification.body.contract.disputeRaised">Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.</string>
 </resources>

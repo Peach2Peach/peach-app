@@ -4,8 +4,10 @@ export const buyOffer: BuyOffer = {
   id: '37',
   online: true,
   type: 'bid',
-  currencies: ['EUR', 'CHF'],
-  paymentMethods: ['iban'],
+  meansOfPayment: {
+    EUR: ['sepa'],
+    CHF: ['sepa'],
+  },
   kyc: false,
   amount: 250000,
   matches: [],
@@ -20,19 +22,18 @@ export const sellOffer: SellOffer = {
   id: '38',
   online: true,
   type: 'ask',
-  currencies: ['EUR'],
-  paymentData: [
-    {
-      id: 'iban',
-      type: 'iban',
-      selected: true
-    }
-  ],
+  meansOfPayment: {
+    EUR: ['sepa']
+  },
+  paymentData: {
+    'sepa': 'TODO add payment hash',
+  },
   funding: {
     status: 'NULL',
-    amount: 0,
+    txIds: [],
+    vouts: [],
+    amounts: [],
   },
-  paymentMethods: ['iban'],
   kyc: false,
   amount: 250000,
   premium: 1.5,
@@ -48,8 +49,10 @@ export const buyOfferUnpublished: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   type: 'bid',
   online: false,
-  currencies: ['EUR', 'CHF'],
-  paymentMethods: ['iban'],
+  meansOfPayment: {
+    EUR: ['sepa'],
+    CHF: ['sepa']
+  },
   kyc: false,
   amount: 250000,
   matches: [],
@@ -60,7 +63,17 @@ export const buyOfferUnpublished: BuyOffer = {
 }
 
 export const recoveredAccount: Account = {
-  settings: {},
+  settings: {
+    locale: 'en',
+    displayCurrency: 'EUR',
+    appVersion: '0.1.0',
+    meansOfPayment: {
+      EUR: ['sepa'],
+      CHF: ['sepa'],
+    },
+    preferredCurrencies: [],
+    preferredPaymentMethods: {},
+  },
   paymentData: [],
   offers: [],
   contracts: [],
@@ -82,10 +95,17 @@ export const recoveredAccount: Account = {
 
 export const account1: Account = {
   settings: {
+    appVersion: '0.1.0',
     skipTutorial: true,
+    locale: 'en',
     amount: 1000000,
-    currencies: ['EUR', 'CHF'],
-    paymentMethods: ['iban'],
+    displayCurrency: 'EUR',
+    meansOfPayment: {
+      EUR: ['sepa'],
+      CHF: ['sepa'],
+    },
+    preferredCurrencies: [],
+    preferredPaymentMethods: {},
     kyc: false
   },
   paymentData: [],
@@ -113,16 +133,20 @@ export const account1: Account = {
 
 export const paymentData: PaymentData[] = [
   {
+    'id': 'sepa-1069850495',
     'beneficiary': 'Melocoton',
     'iban': 'IE29 AIBK 9311 5212 3456 78',
-    'id': 'iban-IE29AIBK93115212345678',
+    'label': 'Bank Account Ireland',
     'selected': true,
-    'type': 'iban'
+    'type': 'sepa',
+    'currencies': ['EUR'],
   }, {
+    'id': 'sepa-1095805944',
     'beneficiary': 'Test',
     'iban': 'EE38 2200 2210 2014 5685',
-    'id': 'iban-EE382200221020145685',
-    'type': 'iban'
+    'label': 'Bank Account Estonia',
+    'type': 'sepa',
+    'currencies': ['EUR'],
   }
 ]
 
@@ -137,6 +161,11 @@ export const contract: Contract = {
     ratingCount: 0,
     peachRating: 0,
     medals: [],
+    disputes: {
+      opened: 0,
+      won: 0,
+      lost: 0,
+    },
     pgpPublicKey: '-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGIyIM8BCAC/FTDaVmJ1kvkEF7Zv0kbQNgYmNMux0aGQMwA9fOA1Cvp/HPmL\nlD3Yuy2FQt3zMPZS5nimCWprs5HeuTONf2BQApFBtXrScwDnWvwAIP6Ldbf6XtH6\nFcxx5z4oROtgyKy11McS6T50UD9Ebp7wh/KR7c3cloxH54ADefYU5McWX0+ppCpy\nfZh+VIxvNBGALe1jqmQU/3TyCZKBAJ8Z2TuQqfZ+eMK7GvGJoll0DERfVbvPh4vj\n9SJ0wmRdrfD50s+a1v5s59/FHvSadk7Zun0G8G9tteTTTx+ghfOSR6Bhpbmsirr/\nAuvI0u8sT+tN/FQwJUBj8BT8EDWeU7WvvIVVABEBAAHNAMLAaAQTAQgAHAUCYjIg\nzwkQwtevQuBWmE0CGwMCGQECCwcCFQgAAOipCAB8x52lwTA6f0FOgoIfZTN+6ve9\nZH6W305ZK/ZyYn9KE9ubruyPxZj0LTClhK/jnxmmrYDmUZdapGFhraQb3wUFCFJc\nN5f+LGOHgqDvtfa0GfN8LwmYXMNAkfShzI3gJU4AqDfFv+9BuQkORpWYPF7eXZtl\nuvNsgQ2ezsGbSOvu5OtWIeaJBIBkJlkbS/UAh+Hrj1STsZxHCS7dhnePnWOMh/ES\nrGyp0T5Ep04TvhbrVV2sJYG95wehbGdqMtphXPKrX1tdn8hVhz17j6k7s+4z6GMS\nzXd5szk51rd8MMihGwHObiCf/j1wpvPc1JNmjMO2bEJ68lDSUNPSpcDwgJD2zsBN\nBGIyIM8BCADa+yXuWO0Nq1TJC73ATaUQL9U31VAeZe/bxr+Mf/pW1pABAb9rZGGN\nscP9jKUiJZPFfQCK3W3nu2XjRwKI6F7jlCwLGm+sDPhMURw3QI006s6pbeIJq1vo\nFlj94gMzsyIkuEf4tdKkWNtygbltD5g/1ZoO75vIDbf/E8P44G+JuLG6UV4gf40d\noNuQFuLgpOx8bWHy2Ev5Zcs4RhtMCQhQ1KUNZWBmR7zIvXbuJFUww68bznVL4SJY\nvbYTX/8TboeTYBN/Vp+d1NocTfO8h5ikdGxILyiKZiV/wguXd9nIR0KdI+8++sIT\nRnjuqmKYZwG0GMbwnCkdz2HkF/bYgd+JABEBAAHCwF8EGAEIABMFAmIyIM8JEMLX\nr0LgVphNAhsMAADDuggAX6EyWbfc1Ti2GCogyrUIp+2nh6IqVzG0CtqANBGUA9re\n60U+NrgXzffcZ+yrFYL6cT0C2XAutpP0o1wfUnsl19FMIPc6JOej7GOzew2flcuR\nRdxps7nqP00F2tce9hu+BugxW6K7bAnmxlq8K6n7/oZXsS1SJejl3pEFB0l4bIRL\ncp/Ql17hvtYLjb3qBNURS+Iu2GHsLZHJGpG50VQBk2kiVS0RjN17GiOejTs+Hb+4\nLEW3cv+Lk1RHAThlxX3XGQgU6M28ncS8Xs3WrqMk97nNYg8+xDX8YAqUZLa+kkYL\nApar4GBPVjEMVuNjtPfgC9PtIhFhnK3BFX7VZaCs3Q==\n=/EpH\n-----END PGP PUBLIC KEY BLOCK-----',
     pgpPublicKeyProof: '45a32da3eaaf89803af0cf6f13d68518147ca48c170f3d30a7fe38610513115e0bc73a9d6ea4e3d866014478e576baddfb705a0a36367fe11b8732c47f0b9c8f',
   },
@@ -149,6 +178,11 @@ export const contract: Contract = {
     ratingCount: 0,
     peachRating: 0,
     medals: [],
+    disputes: {
+      opened: 0,
+      won: 0,
+      lost: 0,
+    },
     pgpPublicKey: '-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGIyIM8BCAC/FTDaVmJ1kvkEF7Zv0kbQNgYmNMux0aGQMwA9fOA1Cvp/HPmL\nlD3Yuy2FQt3zMPZS5nimCWprs5HeuTONf2BQApFBtXrScwDnWvwAIP6Ldbf6XtH6\nFcxx5z4oROtgyKy11McS6T50UD9Ebp7wh/KR7c3cloxH54ADefYU5McWX0+ppCpy\nfZh+VIxvNBGALe1jqmQU/3TyCZKBAJ8Z2TuQqfZ+eMK7GvGJoll0DERfVbvPh4vj\n9SJ0wmRdrfD50s+a1v5s59/FHvSadk7Zun0G8G9tteTTTx+ghfOSR6Bhpbmsirr/\nAuvI0u8sT+tN/FQwJUBj8BT8EDWeU7WvvIVVABEBAAHNAMLAaAQTAQgAHAUCYjIg\nzwkQwtevQuBWmE0CGwMCGQECCwcCFQgAAOipCAB8x52lwTA6f0FOgoIfZTN+6ve9\nZH6W305ZK/ZyYn9KE9ubruyPxZj0LTClhK/jnxmmrYDmUZdapGFhraQb3wUFCFJc\nN5f+LGOHgqDvtfa0GfN8LwmYXMNAkfShzI3gJU4AqDfFv+9BuQkORpWYPF7eXZtl\nuvNsgQ2ezsGbSOvu5OtWIeaJBIBkJlkbS/UAh+Hrj1STsZxHCS7dhnePnWOMh/ES\nrGyp0T5Ep04TvhbrVV2sJYG95wehbGdqMtphXPKrX1tdn8hVhz17j6k7s+4z6GMS\nzXd5szk51rd8MMihGwHObiCf/j1wpvPc1JNmjMO2bEJ68lDSUNPSpcDwgJD2zsBN\nBGIyIM8BCADa+yXuWO0Nq1TJC73ATaUQL9U31VAeZe/bxr+Mf/pW1pABAb9rZGGN\nscP9jKUiJZPFfQCK3W3nu2XjRwKI6F7jlCwLGm+sDPhMURw3QI006s6pbeIJq1vo\nFlj94gMzsyIkuEf4tdKkWNtygbltD5g/1ZoO75vIDbf/E8P44G+JuLG6UV4gf40d\noNuQFuLgpOx8bWHy2Ev5Zcs4RhtMCQhQ1KUNZWBmR7zIvXbuJFUww68bznVL4SJY\nvbYTX/8TboeTYBN/Vp+d1NocTfO8h5ikdGxILyiKZiV/wguXd9nIR0KdI+8++sIT\nRnjuqmKYZwG0GMbwnCkdz2HkF/bYgd+JABEBAAHCwF8EGAEIABMFAmIyIM8JEMLX\nr0LgVphNAhsMAADDuggAX6EyWbfc1Ti2GCogyrUIp+2nh6IqVzG0CtqANBGUA9re\n60U+NrgXzffcZ+yrFYL6cT0C2XAutpP0o1wfUnsl19FMIPc6JOej7GOzew2flcuR\nRdxps7nqP00F2tce9hu+BugxW6K7bAnmxlq8K6n7/oZXsS1SJejl3pEFB0l4bIRL\ncp/Ql17hvtYLjb3qBNURS+Iu2GHsLZHJGpG50VQBk2kiVS0RjN17GiOejTs+Hb+4\nLEW3cv+Lk1RHAThlxX3XGQgU6M28ncS8Xs3WrqMk97nNYg8+xDX8YAqUZLa+kkYL\nApar4GBPVjEMVuNjtPfgC9PtIhFhnK3BFX7VZaCs3Q==\n=/EpH\n-----END PGP PUBLIC KEY BLOCK-----',
     pgpPublicKeyProof: '45a32da3eaaf89803af0cf6f13d68518147ca48c170f3d30a7fe38610513115e0bc73a9d6ea4e3d866014478e576baddfb705a0a36367fe11b8732c47f0b9c8f',
   },
@@ -165,7 +199,7 @@ export const contract: Contract = {
   kycConfirmed: false,
   paymentConfirmed: null,
   paymentMade: null,
-  paymentMethod: 'iban',
+  paymentMethod: 'sepa',
   price: 89.04,
   premium: 1.5,
   escrow: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
@@ -174,6 +208,8 @@ export const contract: Contract = {
   canceled: false,
   ratingBuyer: 0,
   ratingSeller: 0,
+
+  disputeDate: null,
 
   messages: 0,
 }

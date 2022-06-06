@@ -23,8 +23,8 @@
   "currency.SEK": "Schwedische Krone",
   "form.required.error": "Dieses Feld ist ein Pflichtfeld.",
   "form.invalid.error": "Bitte gib einen gültigen Wert ein",
-  "form.btcAddress": "Bitcoin Adresse",
-  "form.btcAddress.error": "Adresse ist nicht valide",
+  "form.address.btc": "Bitcoin Adresse",
+  "form.address.error": "Adresse ist nicht valide",
   "form.iban": "IBAN",
   "next": "Weiter",
   "yes": "Ja",
@@ -32,5 +32,6 @@
   "buy": "Kaufen",
   "sell": "Verkaufen",
   "offers": "Angebote",
-  "settings": "Einstellungen"
+  "settings.title": "Einstellungen",
+  "back": "Zurück"
 }

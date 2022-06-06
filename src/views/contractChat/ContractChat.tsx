@@ -1,13 +1,10 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import {
-  Keyboard,
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Fade, Input, Loading, Timer, Title } from '../../components'
+import { Button, Fade, Input, Loading, SatsFormat, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -15,7 +12,6 @@ import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
 import { getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
-import { thousands } from '../../utils/string'
 import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
@@ -25,6 +21,10 @@ import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseCo
 import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
+import { unique } from '../../utils/array'
+import ContractActions from './components/ContractActions'
+import { DisputeDisclaimer } from './components/DisputeDisclaimer'
+import keyboard from '../../effects/keyboard'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
 
@@ -43,13 +43,15 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
+  const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract|null>(getContract(contractId))
+  const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
+  const [page, setPage] = useState(0)
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -68,14 +70,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         date: new Date(message.date),
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
-      setChat(prevChat => {
-        const c = {
-          ...prevChat,
-          messages: [...prevChat.messages, decryptedMessage]
-        }
-        saveChat(contract.id, c)
-        return c
-      })
+      setChat(() => saveChat(contractId, {
+        messages: [decryptedMessage]
+      }))
     }
     const unsubscribe = () => {
       ws.off('message', messageHandler)
@@ -88,15 +85,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     return unsubscribe
   }, [ws.connected]))
 
-  const saveAndUpdateContract = (contractData: Contract) => {
-    if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
-
-    setContract(() => contractData)
-    saveContract(contractData)
-  }
-
   useEffect(() => {
+    setUpdatePending(true)
     setContractId(() => route.params.contractId)
+    setPage(0)
   }, [route])
 
   useEffect(() => {
@@ -109,14 +101,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       // info('Got contract', result)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
-      const [symmetricKey, err] = contract?.symmetricKey
-        ? [contract.symmetricKey, null]
-        : await decryptSymmetricKey(
-          result.symmetricKeyEncrypted,
-          result.symmetricKeySignature,
-          result.buyer.pgpPublicKey,
-        )
+      const [symmetricKey, err] = await decryptSymmetricKey(
+        result.symmetricKeyEncrypted,
+        result.symmetricKeySignature,
+        result.buyer.pgpPublicKey,
+      )
 
       if (err) error(err)
 
@@ -127,17 +118,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
           // canceled: contract.canceled
         }
-        : result
-      )
-
-      setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
-      saveAndUpdateContract(contract
-        ? {
-          ...contract,
+        : {
           ...result,
-          // canceled: contract.canceled
+          symmetricKey,
         }
-        : result
       )
     },
     onError: err => updateMessage({
@@ -146,38 +130,49 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
-  useEffect(ws.connected && contractId ? getMessagesEffect({
-    contractId,
-    onSuccess: async (result) => {
-      if (!contract || !contract.symmetricKey) return
+  useEffect(() => {
+    if (!contract) return
 
-      const decryptedMessages = await Promise.all(result.map(async (message) => {
-        const existingMessage = chat.messages.find(m => m.date === message.date && m.from === message.from)
-        let decryptedMessage = existingMessage?.message
-        try {
-          if (message.message && contract.symmetricKey) {
-            decryptedMessage = decryptedMessage || await decryptSymmetric(message.message || '', contract.symmetricKey)
+    getMessagesEffect({
+      contractId: contract.id,
+      page,
+      onSuccess: async (result) => {
+        if (!contract || !contract.symmetricKey) return
+        const decryptedMessages = await Promise.all(result.map(async (message) => {
+          const existingMessage = chat.messages.find(m =>
+            m.date.getTime() === message.date.getTime() && m.from === message.from
+          )
+          let decryptedMessage = existingMessage?.message
+          try {
+            if (message.message && contract.symmetricKey) {
+              decryptedMessage = decryptedMessage
+                || await decryptSymmetric(message.message || '', contract.symmetricKey)
+            }
+          } catch (e) {
+            error('Could not decrypt message', e)
           }
-        } catch (e) {
-          error('Could not decrypt message', e)
-        }
-        return {
-          ...message,
-          message: decryptedMessage,
-        }
-      }))
+          return {
+            ...message,
+            message: decryptedMessage,
+          }
+        }))
 
-      saveChat(contractId, { messages: decryptedMessages })
-      setChat(c => ({
-        ...c,
-        messages: decryptedMessages
-      }))
-    },
-    onError: err => updateMessage({
-      msg: i18n(err.error || 'error.general'),
-      level: 'ERROR',
-    })
-  }) : () => {}, [ws.connected, contractId])
+        setChat(() => saveChat(contractId, {
+          messages: decryptedMessages.filter(unique('date'))
+        }))
+        setLoadingMessages(false)
+        setUpdatePending(false)
+      },
+      onError: err => {
+        setUpdatePending(false)
+        setLoadingMessages(false)
+        updateMessage({
+          msg: i18n(err.error || 'error.general'),
+          level: 'ERROR',
+        })
+      }
+    })()
+  }, [contract, page])
 
   useEffect(() => {
     (async () => {
@@ -192,7 +187,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         // TODO if err is yielded consider open a dispute directly
         const contractErrors = contract.contractErrors || []
         if (err) contractErrors.push(err.message)
-        saveAndUpdateContract({
+        saveAndUpdate({
           ...contract,
           paymentData,
           contractErrors,
@@ -201,16 +196,9 @@ export default ({ route, navigation }: Props): ReactElement => {
     })()
 
     setRequiredAction(getRequiredAction(contract))
-
-    setUpdatePending(false)
   }, [contract])
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-  }, [])
+  useEffect(keyboard(setKeyboardOpen), [])
 
   const sendMessage = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
@@ -230,6 +218,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     setNewMessage(() => '')
   }
 
+  const loadMore = () => {
+    setLoadingMessages(true)
+    setPage(p => p + 1)
+  }
+
   const returnTrue = () => true
 
   return updatePending
@@ -238,8 +231,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       <Fade show={!keyboardOpen} style={tw`mb-16`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-          subtitle={contract?.amount ? i18n('contract.subtitle', thousands(contract.amount)) : ''}
         />
+        <Text style={tw`text-grey-2 text-center -mt-1`}>
+          {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0}
+            color={tw`text-grey-2`}
+          />
+        </Text>
       </Fade>
       {contract
         ? <View style={tw`h-full flex-col flex-shrink`}>
@@ -256,7 +253,13 @@ export default ({ route, navigation }: Props): ReactElement => {
             !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
           ]}>
             <View style={tw`h-full flex-shrink`}>
-              <ChatBox chat={chat} />
+              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
+                disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
+              <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
+                contract={contract}
+                view={view}
+                navigation={navigation}
+              />
             </View>
             <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
               <Input

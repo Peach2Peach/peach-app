@@ -4,9 +4,11 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { mildShadow } from '../../utils/layout'
 import { Shadow, Text } from '..'
+import Button from '../Button'
 
 interface Item {
   value: string|number|boolean,
+  data?: any,
   display: ReactNode
 }
 
@@ -14,6 +16,8 @@ type RadioButtonsProps = ComponentProps & {
   items: Item[],
   selectedValue?: string|number|boolean,
   onChange?: (value: (string|number|boolean)) => void,
+  ctaLabel?: string,
+  ctaAction?: Function
 }
 
 /**
@@ -38,22 +42,29 @@ type RadioButtonsProps = ComponentProps & {
     selectedValue={kyc}
     onChange={(value) => setKYC(value as boolean)}/>
  */
-export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioButtonsProps): ReactElement =>
+export const RadioButtons = ({
+  items,
+  selectedValue,
+  onChange,
+  style,
+  ctaLabel,
+  ctaAction
+}: RadioButtonsProps): ReactElement =>
   <View style={style}>
     <Shadow shadow={mildShadow} style={tw`w-full`}>
       <View>
         {items.map((item, i) => <View key={i} style={[
-          tw`bg-white-1 rounded`,
+          tw`flex-row items-center`,
           i > 0 ? tw`mt-2` : {}
         ]}>
           <Pressable style={[
-            tw`flex-row items-center p-3 border border-grey-4 rounded`,
+            tw`h-11 flex-grow flex-row items-center p-3 border border-grey-4 bg-white-1 rounded`,
             item.value !== selectedValue ? tw`opacity-50` : {}
           ]}
           onPress={() => onChange ? onChange(item.value) : null}>
-            <View style={tw`w-5 h-5 rounded-full border-2 border-grey-3 flex justify-center items-center`}>
+            <View style={tw`w-4 h-4 rounded-full border-2 border-grey-3 flex justify-center items-center`}>
               {item.value === selectedValue
-                ? <Icon id="circle" style={tw`w-3 h-3`} />
+                ? <Icon id="circle" style={tw`w-2 h-2`} />
                 : null
               }
             </View>
@@ -61,6 +72,16 @@ export const RadioButtons = ({ items, selectedValue, onChange, style }: RadioBut
               {item.display}
             </Text>
           </Pressable>
+          {ctaAction && ctaLabel
+            ? <Button
+              key={i}
+              wide={false}
+              style={tw`w-16 h-10 ml-2 flex-shrink`}
+              onPress={() => ctaAction(item.data)}
+              title={ctaLabel}
+            />
+            : null
+          }
         </View>
         )}
       </View>

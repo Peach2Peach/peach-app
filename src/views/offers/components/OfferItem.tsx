@@ -1,15 +1,16 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Bubble, SatsFormat, Text } from '../../../components'
+import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
 import Icon from '../../../components/Icon'
+import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
-import { getChat } from '../../../utils/chat'
+import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getOfferStatus } from '../../../utils/offer'
+import { mildShadow } from '../../../utils/layout'
+import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { ProfileScreenNavigationProp } from '../Offers'
 
 
@@ -20,13 +21,14 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
-  const navigate = () => navigation.navigate('offers', {})
+  if (!offer) return navigation.replace('offers', {})
 
   if (offer.type === 'ask'
-    && offer.funding.txId
+    && offer.funding?.txIds
     && !offer.refunded
     && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    // return navigation.navigate('refund', { offer })
+    const navigate = () => navigation.replace('offers', {})
+
     return updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,
       showCloseButton: false
@@ -35,43 +37,39 @@ const navigateToOffer = (
 
   if (!/rate/u.test(offerStatus.requiredAction)
     && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
-    return navigation.navigate('offer', { offer })
+    return navigation.replace('offer', { offer })
   }
 
   if (offer.contractId) {
     const contract = getContract(offer.contractId)
-    if (contract) {
-      const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-      if ((view === 'seller' && contract.ratingBuyer)
-        || (view === 'buyer' && contract.ratingSeller)) {
-        return navigation.navigate('tradeComplete', { view, contract })
-      }
+    if (contract && offerStatus.status === 'tradeCompleted') {
+      return navigation.replace('tradeComplete', { contract })
     }
-    return navigation.navigate('contract', { contractId: offer.contractId })
+    return navigation.replace('contract', { contractId: offer.contractId })
   }
 
   if (offer.type === 'ask') {
     if (offer.funding.status === 'FUNDED') {
-      return navigation.navigate('search', { offer })
+      return navigation.replace('search', { offer })
     }
-    return navigation.navigate('sell', { offer })
+    return navigation.replace('sell', { offer })
   }
 
   if (offer.type === 'bid' && offer.online) {
-    return navigation.navigate('search', { offer })
+    return navigation.replace('search', { offer })
   }
 
-  return navigation.navigate('offers', {})
+  return navigation.replace('offers', {})
 }
 
 type OfferItemProps = ComponentProps & {
   offer: BuyOffer | SellOffer,
-  showType?: boolean,
+  extended?: boolean,
   navigation: ProfileScreenNavigationProp,
 }
 
-type IconMap = { [key in OfferStatus['status']]?: string }
-  & { [key in OfferStatus['requiredAction']]?: string }
+type IconMap = { [key in OfferStatus['status']]?: IconType }
+  & { [key in OfferStatus['requiredAction']]?: IconType }
 
 const ICONMAP: IconMap = {
   offerPublished: 'clock',
@@ -88,51 +86,82 @@ const ICONMAP: IconMap = {
   tradeCanceled: 'cross',
 }
 
-export const OfferItem = ({ offer, showType = true, navigation, style }: OfferItemProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function, complexity
+export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const icon = ICONMAP[requiredAction] || ICONMAP[status]
   const contract = offer.contractId ? getContract(offer.contractId) : null
-  const contractChat = offer.contractId ? getChat(offer.contractId) : null
-  const messagesSeen = contractChat
-    ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
-    : 0
+  const notifications = contract ? getContractChatNotification(contract) : 0
 
-  return <Pressable onPress={() => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)}
-    style={[
-      tw`pl-4 pr-2 py-2 rounded`,
-      requiredAction ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
-      style
-    ]}>
-    <View style={tw`flex-row justify-between items-center`}>
-      <View style={tw`flex-row`}>
-        {showType
-          ? <View style={tw`pr-1`}>
-            <Text style={[
-              tw`text-lg font-bold uppercase`,
-              requiredAction ? tw`text-white-1` : tw`text-grey-2`
-            ]}>
-              {i18n(offer.type === 'ask' ? 'sell' : 'buy')}
-            </Text>
+  const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
+  return <Shadow shadow={mildShadow}>
+    <Pressable onPress={navigate}
+      style={[
+        tw`rounded`,
+        contract?.disputeActive
+          ? tw`bg-red`
+          : requiredAction
+            ? tw`bg-peach-1`
+            : tw`bg-white-1 border border-grey-2`,
+        style
+      ]}>
+      {extended
+        ? <View style={tw`px-4 py-2`}>
+          <View style={tw`flex-row items-center`}>
+            <View style={tw`w-full flex-shrink`}>
+              <Headline style={[
+                tw`text-lg font-bold normal-case text-left`,
+                requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`
+              ]}>
+                {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
+              </Headline>
+              <View style={tw`-mt-2`}>
+                <SatsFormat
+                  style={tw`text-lg`}
+                  sats={offer.amount}
+                  color={requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`} />
+              </View>
+            </View>
+            <Icon id={icon || 'help'} style={tw`w-7 h-7`}
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
+            />
           </View>
-          : null
-        }
-        <SatsFormat
-          style={tw`text-lg font-bold`}
-          sats={offer.amount}
-          color={requiredAction ? tw`text-white-1` : tw`text-grey-1`}
-          color2={requiredAction ? tw`text-peach-mild` : tw`text-grey-3`} />
-      </View>
-      <Icon id={icon || 'help'} style={tw`w-5 h-5`}
-        color={(requiredAction ? tw`text-white-1` : tw`text-grey-2`).color as string}
-      />
-    </View>
-    {contract?.messages && contract.messages - messagesSeen > 0
-      ? <Bubble color={tw`text-green`.color as string}
-        style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-sm font-baloo text-white-1 text-center`}>{contract.messages - messagesSeen}</Text>
-      </Bubble>
-      : null
-    }
-  </Pressable>
+          {requiredAction && !contract?.disputeActive
+            ? <View style={tw`flex items-center mt-3 mb-1`}>
+              <Button
+                title={i18n(`offer.requiredAction.${requiredAction}`)}
+                onPress={navigate}
+                secondary={true}
+                wide={false}
+              />
+            </View>
+            : null
+          }
+        </View>
+        : <View style={tw`flex-row justify-between items-center p-2`}>
+          <View style={tw`flex-row items-center`}>
+            <Icon id={offer.type === 'ask' ? 'sell' : 'buy'} style={tw`w-5 h-5 mr-2`}
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}/>
+            <SatsFormat
+              style={tw`text-lg`}
+              sats={offer.amount}
+              color={requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`} />
+          </View>
+          <Icon id={icon || 'help'} style={tw`w-5 h-5`}
+            color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
+          />
+        </View>
+      }
+      {notifications > 0
+        ? <Bubble color={tw`text-green`.color as string}
+          style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
+          <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+            {notifications}
+          </Text>
+        </Bubble>
+        : null
+      }
+    </Pressable>
+  </Shadow>
 }

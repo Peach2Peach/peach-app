@@ -1,7 +1,9 @@
 import { deepStrictEqual, ok, strictEqual, notStrictEqual } from 'assert'
 import Share from 'react-native-share'
+import { APPVERSION } from '../../src/constants'
 import {
   account,
+  addPaymentData,
   backupAccount,
   createAccount,
   defaultAccount,
@@ -108,25 +110,58 @@ describe('updateSettings', () => {
   })
 
   it('updates account settings', () => {
+    const meansOfPayment: MeansOfPayment = {
+      EUR: ['sepa'],
+      CHF: ['sepa', 'twint'],
+    }
     const newSettings = {
       skipTutorial: true,
-      currencies: ['EUR', 'CHF'] as Currency[],
-    }
-
-    updateSettings(newSettings)
-    deepStrictEqual(account.settings, newSettings)
-  })
-
-  it('updates account settings without overwriting untouched settings', () => {
-    const newSettings = {
-      currencies: ['EUR'] as Currency[],
+      meansOfPayment,
     }
 
     updateSettings(newSettings)
     deepStrictEqual(account.settings, {
-      skipTutorial: true,
-      currencies: ['EUR'],
+      ...account.settings,
+      ...newSettings
     })
+  })
+
+  it('updates account settings without overwriting untouched settings', () => {
+    const meansOfPayment: MeansOfPayment = {
+      EUR: ['sepa', 'paypal']
+    }
+
+    updateSettings({ meansOfPayment })
+    deepStrictEqual(account.settings, {
+      appVersion: APPVERSION,
+      skipTutorial: true,
+      displayCurrency: 'EUR',
+      locale: 'en',
+      meansOfPayment: {
+        'EUR': ['sepa', 'paypal']
+      },
+      preferredCurrencies: [],
+      preferredPaymentMethods: {}
+    })
+  })
+})
+
+describe('addPaymentData', () => {
+  beforeAll(async () => {
+    await setAccount(defaultAccount)
+  })
+
+  it('adds new payment data to account', () => {
+    addPaymentData(accountData.paymentData[0])
+    addPaymentData(accountData.paymentData[1])
+    deepStrictEqual(account.paymentData, accountData.paymentData)
+  })
+  it('updates payment data on account', () => {
+    addPaymentData({
+      ...accountData.paymentData[1],
+      beneficiary: 'Hal'
+    })
+    deepStrictEqual(account.paymentData[1].beneficiary, 'Hal')
   })
 })
 
@@ -135,7 +170,7 @@ describe('updatePaymentData', () => {
     await setAccount(defaultAccount)
   })
 
-  it('add a new offer to account', () => {
+  it('updates account payment data', () => {
     updatePaymentData(accountData.paymentData)
     deepStrictEqual(account.paymentData, accountData.paymentData)
   })
@@ -148,7 +183,7 @@ describe('backupAccount', () => {
 
   it('opens share dialog', async () => {
     const openSpy = jest.spyOn(Share, 'open')
-    await backupAccount()
+    await backupAccount({ onSuccess: () => {}, onError: () => {} })
     expect(openSpy).toBeCalled()
   })
 })

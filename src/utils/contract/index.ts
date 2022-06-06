@@ -1,4 +1,6 @@
+export { contractIdToHex } from './contractIdToHex'
 export { getContract } from './getContract'
+export { getContracts } from './getContracts'
 export { contractExists } from './contractExists'
 export { saveContract } from './saveContract'
 export { createUserRating } from './createUserRating'

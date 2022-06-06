@@ -4,7 +4,6 @@ import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
@@ -16,7 +15,7 @@ import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
-import { Loading, Navigation, PeachScrollView } from '../../components'
+import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account, updateTradingLimit } from '../../utils/account'
 
@@ -36,7 +35,7 @@ type Props = {
 
 export type BuyViewProps = {
   offer: BuyOffer,
-  updateOffer: (data: BuyOffer) => void,
+  updateOffer: (data: BuyOffer, shield?: boolean) => void,
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
@@ -47,8 +46,7 @@ const getDefaultBuyOffer = (): BuyOffer => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
-  currencies: account.settings.currencies || [],
-  paymentMethods: account.settings.paymentMethods || [],
+  meansOfPayment: account.settings.meansOfPayment || {},
   kyc: account.settings.kyc || false,
   amount: account.settings.amount || BUCKETS[0],
   matches: [],
@@ -84,11 +82,9 @@ const screens = [
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  useContext(BitcoinContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer())
-  const [offerId, setOfferId] = useState<string|undefined>()
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [page, setPage] = useState(0)
@@ -97,11 +93,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   const CurrentView: Screen = currentScreen.view
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
+  const { daily, dailyAmount } = account.tradingLimit
 
-  const saveAndUpdate = (offerData: BuyOffer) => {
+  const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
     setOffer(() => offerData)
-    setOfferId(() => offerData.id)
-    saveOffer(offerData)
+    if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
   const next = () => {
@@ -121,33 +117,31 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (!route.params?.offer) {
       setOffer(getDefaultBuyOffer())
-      setOfferId(() => undefined)
       setUpdatePending(false)
       setPage(() => 0)
     } else {
       setOffer(() => offr)
-      setOfferId(() => offr.id)
+      getOfferDetailsEffect({
+        offerId: offr.id,
+        onSuccess: result => {
+          saveAndUpdate({
+            ...offr,
+            ...result,
+          } as BuyOffer)
+          setUpdatePending(false)
+        },
+        onError: err => {
+          error('Could not fetch offer information for offer', offr.id)
+          updateMessage({
+            msg: i18n(err.error || 'error.general'),
+            level: 'ERROR',
+          })
+        }
+      })()
       setUpdatePending(true)
     }
   }, [route]))
 
-  useEffect(getOfferDetailsEffect({
-    offerId,
-    onSuccess: result => {
-      saveAndUpdate({
-        ...offer,
-        ...result,
-      } as BuyOffer)
-      setUpdatePending(false)
-    },
-    onError: err => {
-      error('Could not fetch offer information for offer', offer.id)
-      updateMessage({
-        msg: i18n(err.error || 'error.general'),
-        level: 'ERROR',
-      })
-    }
-  }), [offerId])
 
   useEffect(() => {
     (async () => {
@@ -166,7 +160,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             updateTradingLimit(tradingLimit)
           }
           saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.navigate('search', { offer: { ...offer, id: result.offerId } })
+          navigation.replace('search', { offer: { ...offer, id: result.offerId } })
           return
         }
 
@@ -188,9 +182,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
+      {currentScreen.id === 'main'
+        ? <View style={tw`h-0`}><Progress
+          percent={dailyAmount / daily}
+          text={i18n('profile.tradingLimits.daily', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
+        /></View>
+        : null
+      }
       <PeachScrollView scrollRef={scroll}
+        disable={!scrollable}
         contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
-        style={tw`pt-6 overflow-visible`}>
+        style={tw`pt-7 overflow-visible`}>
         <View style={tw`pb-8`}>
           {updatePending
             ? <Loading />
@@ -220,7 +222,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       </PeachScrollView>
     </View>
     {!scrollable && !updatePending
-      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1 `}>
+      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

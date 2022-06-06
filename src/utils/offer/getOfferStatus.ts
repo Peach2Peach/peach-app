@@ -1,49 +1,49 @@
 import { diff } from '../array'
 import { getContract } from '../contract'
 
-const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
+export const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
   offer.type === 'ask'
   && offer.escrow
   && offer.funding.status !== 'FUNDED'
   && offer.funding.status !== 'WRONG_FUNDING_AMOUNT'
   && offer.funding.status !== 'CANCELED'
 
-const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.status === 'NULL'
+export const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.status === 'NULL'
 
-const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
+export const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
 
-const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
+export const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
 
-const isEscrowRefunded = (offer: SellOffer) => offer.refunded
+export const isEscrowRefunded = (offer: SellOffer) => offer.refunded
 
-const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
+export const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
   offer.type === 'bid'
   && contract.kycRequired
   && !contract.kycConfirmed
   && contract.kycResponseDate !== null
 
-const isKYCConfirmationRequired = (offer: SellOffer, contract: Contract) =>
+export const isKYCConfirmationRequired = (offer: SellOffer, contract: Contract) =>
   offer.type === 'ask'
   && contract.kycRequired
   && contract.kycResponseDate === null
 
-const isPaymentRequired = (offer: BuyOffer, contract: Contract) =>
+export const isPaymentRequired = (offer: BuyOffer, contract: Contract) =>
   offer.type === 'bid'
   && !isKYCRequired(offer, contract)
   && contract.paymentMade === null
 
-const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>
+export const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>
   offer.type === 'ask'
   && contract.paymentMade !== null
   && !contract.paymentConfirmed
 
-const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
+export const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
   offer.type === 'bid' && !contract.ratingSeller
   || offer.type === 'ask' && !contract.ratingBuyer
 
-const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
+export const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
 
-const isTradeCanceled = (contract: Contract) => contract.canceled
+export const isTradeCanceled = (contract: Contract) => contract.canceled
 
 /**
  * @description Method to get current status of offer

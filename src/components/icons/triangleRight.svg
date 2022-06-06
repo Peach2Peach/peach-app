@@ -1,10 +1,3 @@
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M6 6.972v10.056c0 .767 1.03 1.233 1.822.815l9.628-5.028c.733-.378.733-1.252 0-1.64L7.822 6.157C7.029 5.739 6 6.205 6 6.972Z" fill="url(#a)"/>
-  <defs>
-    <linearGradient id="a" x1="15.18" y1="6.9" x2="8.88" y2="16.98" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FCB16C"/>
-      <stop offset=".458" stop-color="#EC6A35"/>
-      <stop offset="1" stop-color="#C83B26"/>
-    </linearGradient>
-  </defs>
+<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0.810014V9.18999C0 9.829 0.857565 10.2173 1.51799 9.86944L9.54165 5.67946C10.1528 5.364 10.1528 4.636 9.54165 4.31245L1.51799 0.130556C0.857565 -0.217261 0 0.171 0 0.810014Z"/>
 </svg>

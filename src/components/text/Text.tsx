@@ -1,11 +1,12 @@
 
 import React, { ReactElement } from 'react'
-import { Text } from 'react-native'
+import { Text, GestureResponderEvent } from 'react-native'
 import tw from '../../styles/tailwind'
 
 type TextProps = ComponentProps & {
-  numberOfLines?: number
-  ellipsizeMode?: 'head'|'tail'|'middle'
+  numberOfLines?: number,
+  ellipsizeMode?: 'head'|'tail'|'middle'|'clip',
+  onPress?: (e: GestureResponderEvent) => void
 }
 
 /**
@@ -20,13 +21,14 @@ type TextProps = ComponentProps & {
  *   {i18n('form.save')}
  * </Text>
  */
-export const PeachText = ({ style, children, numberOfLines, ellipsizeMode }: TextProps): ReactElement =>
+export const PeachText = ({ style, children, numberOfLines, ellipsizeMode, onPress }: TextProps): ReactElement =>
   <Text
     style={[
       tw`font-lato text-base text-grey-1`,
-      tw.md`text-lg`,
+      tw.md`text-lg leading-5`,
       style
     ]}
+    onPress={onPress ? (e) => onPress(e) : undefined}
     allowFontScaling={false}
     numberOfLines={numberOfLines}
     ellipsizeMode={ellipsizeMode}>

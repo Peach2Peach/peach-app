@@ -24,7 +24,7 @@ export default ({
       offerId: offer.id,
     })
     if (result) {
-      // info('matches: ', JSON.stringify(result.matches))
+      // info('matches: ', JSON.stringify(result.matches.length))
       onSuccess(result.matches)
     } else if (err) {
       error('Error', err)

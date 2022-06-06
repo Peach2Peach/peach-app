@@ -1,5 +1,6 @@
 import * as bitcoin from 'bitcoinjs-lib'
-import { reverseBuffer } from '../../../utils/crypto'
+import { MAXMININGFEE, PEACHFEE } from '../../../constants'
+import { txIdPartOfPSBT } from '../../../utils/bitcoin'
 
 /**
  * @description Method to verify that a psbt is indeed meant for the current contract
@@ -10,11 +11,23 @@ import { reverseBuffer } from '../../../utils/crypto'
  */
 export const verifyPSBT = (psbt: bitcoin.Psbt, sellOffer: SellOffer, contract: Contract): string[] => {
   const errorMsg = []
-  if (sellOffer.funding.txId !== reverseBuffer(psbt.txInputs[0].hash).toString('hex')) {
-    errorMsg.push('invalidInput')
+  if (!sellOffer || !sellOffer.funding?.txIds) return ['MISSING_DATA']
+
+  const txIds = sellOffer.funding.txIds
+  if (!txIds.every(txId => txIdPartOfPSBT(txId, psbt))) {
+    errorMsg.push('INVALID_INPUT')
   }
-  if (psbt.txOutputs[0].address !== contract.releaseAddress) {
-    errorMsg.push('releaseAddressMismatch')
+
+  if (psbt.txOutputs.every(output => output.address !== contract.releaseAddress)) {
+    errorMsg.push('RETURN_ADDRESS_MISMATCH')
+  }
+
+  // make sure buyer receives agreed amount minus fees
+  const buyerOutput = psbt.txOutputs.find(output => output.address === contract.releaseAddress)
+  const peachFeeOutput = psbt.txOutputs.find(output => output.address !== contract.releaseAddress)
+  if (!peachFeeOutput || peachFeeOutput.value !== contract.amount * PEACHFEE
+    || !buyerOutput || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE) {
+    errorMsg.push('INVALID_OUTPUT')
   }
   return errorMsg
 }

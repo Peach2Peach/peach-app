@@ -2,9 +2,9 @@ import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { unique } from '../../utils/array'
 import { showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
+import { getCurrencies, getPaymentMethods } from '../../utils/paymentMethod'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -16,12 +16,12 @@ type SellOfferSummaryProps = ComponentProps & {
 }
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement =>
   <Card style={[tw`p-5`, style]}>
-    <Headline style={tw`text-grey-1 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
     <Text style={tw`text-center`}>
-      <SatsFormat sats={offer.amount} color={tw`text-black-1`} />
+      <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>
     <Text style={tw`text-center`}>
       {i18n(
         offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount',
@@ -29,26 +29,26 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       )}
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
-    <Selector items={offer.currencies.map(c => ({ value: c, display: c }))}
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
+    <Selector items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
       style={tw`mt-2`}/>
     <HorizontalLine style={tw`mt-4`}/>
-    <Headline style={tw`text-grey-1 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
     <Selector
-      items={offer.paymentMethods.filter(unique('type')).map(p => ({
+      items={getPaymentMethods(offer.meansOfPayment).map(p => ({
         value: p,
         display: i18n(`paymentMethod.${p}`).toLowerCase()
       }))}
       style={tw`mt-2`}
     />
-    {offer.funding.txId
+    {offer.funding?.txIds?.length > 0
       ? <View>
         <HorizontalLine style={tw`mt-4`}/>
-        <Headline style={tw`text-grey-1 normal-case mt-4`}>
+        <Headline style={tw`text-grey-2 normal-case mt-4`}>
           {i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}
         </Headline>
         <Pressable style={tw`flex-row justify-center items-center`}
-          onPress={() => showTransaction(offer.txId || offer.funding.txId as string, NETWORK)}>
+          onPress={() => showTransaction(offer.txId || offer.funding.txIds[0] as string, NETWORK)}>
           <Text>
             {i18n('escrow.viewInExplorer')}
           </Text>

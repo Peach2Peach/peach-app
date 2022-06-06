@@ -1,9 +1,10 @@
 
 import React, { ReactElement } from 'react'
 import { Text } from '.'
-import Icons from './icons'
+import Icons, { IconType } from './icons'
+
 type IconProps = ComponentProps & {
-  id: string,
+  id: IconType,
   color?: string,
 }
 

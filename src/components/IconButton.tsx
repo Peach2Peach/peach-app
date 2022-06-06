@@ -8,9 +8,10 @@ import {
 import tw from '../styles/tailwind'
 import Icon from './Icon'
 import { Text } from '.'
+import { IconType } from './icons'
 
 type IconButtonProps = ComponentProps & {
-  icon: string,
+  icon: IconType,
   title: string,
   onPress: ((event: GestureResponderEvent) => void) | null | undefined
 }

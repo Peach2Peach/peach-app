@@ -1,5 +1,5 @@
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { View } from 'react-native'
 
 import { Text } from '.'
@@ -7,7 +7,8 @@ import tw from '../styles/tailwind'
 import { Level } from '../contexts/message'
 
 type MessageProps = ComponentProps & {
-  msg: string,
+  template?: ReactNode,
+  msg?: string,
   level: Level,
 }
 
@@ -19,7 +20,7 @@ type MessageProps = ComponentProps & {
  * @example
  * <Message msg="Oops something went wrong!" level="ERROR" />
  */
-export const Message = ({ msg, level, style }: MessageProps): ReactElement =>
+export const Message = ({ template, msg, level, style }: MessageProps): ReactElement =>
   <View style={[
     tw`w-full flex items-center justify-center px-3 py-2`,
     level === 'OK'
@@ -31,7 +32,10 @@ export const Message = ({ msg, level, style }: MessageProps): ReactElement =>
           : tw`bg-blue`,
     style
   ]}>
-    <Text style={tw`text-white-2`}>{msg}</Text>
+    {template
+      ? template
+      : <Text style={tw`text-white-2`}>{msg}</Text>
+    }
   </View>
 
 export default Message

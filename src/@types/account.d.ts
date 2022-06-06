@@ -1,13 +1,19 @@
 declare type Settings = {
+  appVersion: string,
   skipTutorial?: boolean,
+  locale: string,
   amount?: number,
-  currencies?: Currency[],
-  paymentMethods?: PaymentMethod[],
+  displayCurrency: Currency,
+  country?: string,
+  meansOfPayment: MeansOfPayment,
+  preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>,
+  preferredCurrencies: Currency[],
   premium?: number,
   kyc?: boolean,
   kycType?: KYCType,
   pgpPublished?: boolean,
   fcmTokenPublished?: boolean,
+  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {
