@@ -17,7 +17,7 @@ export const getTradingLimit = (currency: Currency): TradingLimit => {
   return {
     daily: Math.round(tradingLimit.daily * exchangeRate),
     dailyAmount: Math.round(tradingLimit.dailyAmount * exchangeRate * 100) / 100,
-    yearly: Math.round(tradingLimit.yearly * exchangeRate ),
+    yearly: Math.round(tradingLimit.yearly * exchangeRate),
     yearlyAmount: Math.round(tradingLimit.yearlyAmount * exchangeRate * 100) / 100,
   }
 }
