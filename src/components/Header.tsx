@@ -31,11 +31,12 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const [active, setActive] = useState(true)
 
   useEffect(appStateEffect({
-    callback: isActive => {
+    callback: (isActive, delta) => {
       setActive(isActive)
       if (isActive) {
         session()
         clearTimeout(goHomeTimeout)
+        if (delta > TIMETOGOHOME) navigation.navigate('home', {}) // android
       } else {
         goHomeTimeout = setTimeout(() => navigation.navigate('home', {}), TIMETOGOHOME)
       }
