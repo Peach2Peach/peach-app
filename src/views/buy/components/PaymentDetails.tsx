@@ -49,7 +49,7 @@ const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
 
 type PaymentDetailsProps = {
   paymentData: PaymentData[],
-  setMeansOfPayment: React.Dispatch<React.SetStateAction<SellOffer['meansOfPayment']>>
+  setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
 }
 export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)

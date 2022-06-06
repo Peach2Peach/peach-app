@@ -4,13 +4,18 @@ import { Button, Icon } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import CurrencySelect from '../../../overlays/CurrencySelect'
 import PaymentMethodSelect from '../../../overlays/PaymentMethodSelect'
-import SetPaymentDetails from '../../../overlays/SetPaymentDetails'
 import { session } from '../../../utils/session'
 import tw from '../../../styles/tailwind'
-import RestorePaymentData from '../../../overlays/RestorePaymentData'
 import { dataToMeansOfPayment, getCurrencies, getPaymentMethods } from '../../../utils/paymentMethod'
 import i18n from '../../../utils/i18n'
-import { account, addPaymentData, getPaymentDataByType, saveAccount } from '../../../utils/account'
+import {
+  account,
+  addPaymentData,
+  getPaymentData,
+  getPaymentDataByType,
+  getSelectedPaymentDataIds,
+  saveAccount
+} from '../../../utils/account'
 
 
 const initPaymentData = (meansOfPayment: MeansOfPayment) => {
@@ -31,8 +36,18 @@ const initPaymentData = (meansOfPayment: MeansOfPayment) => {
   })
 }
 
-export default ({ style }: ComponentProps): ReactElement => {
+type AddPaymentMethodProps = ComponentProps & {
+  setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
+}
+
+export default ({ style, setMeansOfPayment }: AddPaymentMethodProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+
+  const update = () => {
+    setMeansOfPayment(getSelectedPaymentDataIds().map(getPaymentData)
+      .filter(data => data)
+      .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
+  }
 
   const onPaymentMethodSelect = async (meansOfPayment: MeansOfPayment) => {
     const paymentData = initPaymentData(meansOfPayment)
@@ -40,6 +55,7 @@ export default ({ style }: ComponentProps): ReactElement => {
       await addPaymentData(newData as PaymentData, false) // eslint-disable-line no-await-in-loop
     }
     await saveAccount(account, session.password!)
+    update()
   }
   const onCurrencySelect = (currencies: Currency[]) => updateOverlay({
     content: <PaymentMethodSelect currencies={currencies} onConfirm={onPaymentMethodSelect} />,
