@@ -33,6 +33,8 @@ import { MessageContext } from '../../contexts/message'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import BitcoinContext from '../../contexts/bitcoin'
+import { isxpub } from '../../utils/bitcoin'
+import { deriveAddress } from '../../utils/bitcoin/deriveAddress'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -61,6 +63,11 @@ const getDefaultSellOffer = (): SellOffer => ({
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
   amount: account.settings.amount || BUCKETS[0],
+  returnAddress: account.settings.returnAddress,
+  // TODO integrate support for xpubs
+  // returnAddress: account.settings.returnAddress && isxpub(account.settings.returnAddress)
+  //   ? deriveAddress(account.settings.returnAddress, account.settings.hdStartIndex || 0)
+  //   : account.settings.returnAddress,
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   funding: {

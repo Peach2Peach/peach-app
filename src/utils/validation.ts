@@ -1,5 +1,6 @@
 import * as bitcoin from 'bitcoinjs-lib'
 import IBAN from 'iban'
+// import { isxpub } from './bitcoin'
 import i18n from './i18n'
 
 // eslint-disable-next-line prefer-named-capture-group, max-len
@@ -19,6 +20,9 @@ export const rules = {
   email: emailRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
+    // try {
+    //   valid = isxpub(value)
+    // } catch (e) { }
     try {
       bitcoin.address.fromBase58Check(value)
       valid = true

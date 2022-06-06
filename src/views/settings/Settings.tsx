@@ -52,10 +52,11 @@ export default ({ navigation }: Props): ReactElement => {
   }, []))
 
   const goToContactUs = () => navigation.navigate('contact', {})
-  const goToLanguageSettings = () => navigation.navigate('language', {})
+  // const goToLanguageSettings = () => navigation.navigate('language', {})
   const goToCurrencySettings = () => navigation.navigate('currency', {})
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
+  const goToEscrow = () => navigation.navigate('escrow', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
   const deleteAccount = () => {
     updateOverlay({
@@ -111,6 +112,11 @@ export default ({ navigation }: Props): ReactElement => {
       <Pressable style={tw`mt-2`} onPress={goToBackups}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
+        </Card>
+      </Pressable>
+      <Pressable style={tw`mt-2`} onPress={goToEscrow}>
+        <Card>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.escrow')}</Text>
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToPaymentMethods}>
