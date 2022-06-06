@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useReducer, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import AppContext, { getAppContext, setAppContext } from '../../contexts/app'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 
 import { Headline, PeachScrollView, Text, Title } from '../../components'
