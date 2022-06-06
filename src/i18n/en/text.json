@@ -274,6 +274,7 @@
   "AUTHENTICATION_FAILURE": "Could not authenticate. You can only register one account on your device.",
   "NETWORK_ERROR": "There has been a problem with your connection to the peach server. Please try again later or contact the peach support-team.",
   "INTERNAL_SERVER_ERROR": "Unfortunately, a technical error has occurred. Please try again if possible. If the problem persists, contact the peach support-team.",
+  "TOO_MANY_REQUESTS": "You made too many requests. Please try again later or contact the peach support-team.",
   "SERVICE_UNAVAILABLE": "Hang in there, peach is currently unter maintenance.",
   "UNAUTHORIZED": "You don't have permission to view this content.",
   "TRADING_LIMIT_REACHED": "Your trading limit has been reached.",
