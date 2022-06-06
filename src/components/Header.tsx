@@ -1,5 +1,6 @@
 
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import RNRestart from 'react-native-restart'
 import { Image, View } from 'react-native'
 
 import { Shadow, Text } from '.'
@@ -11,23 +12,41 @@ import { marketPrices } from '../utils/peachAPI/public/market'
 import BitcoinContext from '../contexts/bitcoin'
 import { account } from '../utils/account'
 import { Fade } from './animation'
+import appStateEffect from '../effects/appStateEffect'
+import session from '../init/session'
+import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
+import { TIMETORESTART } from '../constants'
 
-type HeaderProps = ComponentProps
+let goHomeTimeout: NodeJS.Timer
+
+type HeaderProps = ComponentProps & {
+  navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
+}
 
 /**
  * @description Component to display the Header
- * @param props Component properties
- * @param props.bitcoinContext the current bitcoin context
- * @param props.bitcoinContext.price current bitcoin price
- * @param props.bitcoinContext.currency current currency
- * @param props.bitcoinContext.satsPerUnit sats for one unit of fiat
- * @example
- * <Header bitcoinContext={bitcoinContext} />
+ * @example <Header navigation={navigation} />
  */
-export const Header = ({ style }: HeaderProps): ReactElement => {
+export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
+  const [active, setActive] = useState(true)
+
+  useEffect(appStateEffect({
+    callback: (isActive, delta) => {
+      setActive(isActive)
+      if (isActive) {
+        session()
+        clearTimeout(goHomeTimeout)
+        if (delta > TIMETORESTART) RNRestart.Restart() // android
+      } else {
+        goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
+      }
+    }
+  }), [])
 
   useEffect(() => {
+    if (!active) return () => {}
+
     const checkingFunction = async () => {
       const [prices] = await marketPrices()
 
@@ -40,7 +59,7 @@ export const Header = ({ style }: HeaderProps): ReactElement => {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [active])
 
   return <View style={style}>
     <Shadow shadow={mildShadow}>

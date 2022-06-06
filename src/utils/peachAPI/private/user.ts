@@ -4,7 +4,7 @@ import * as bitcoin from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
 import { accessToken, peachAccount, parseResponse, setAccessToken } from '..'
 import fetch from '../../fetch'
-import { error, info, log } from '../../log'
+import { error, info } from '../../log'
 
 /**
  * @description Method to authenticate with Peach API

@@ -11,6 +11,9 @@ export const setPeachFee = (fee: number) => PEACHFEE = fee
 
 export const MAXMININGFEE = 20000
 
+// time go automatically restart app when calling app from background after this time has passed
+export const TIMETORESTART = 1000 * 60 * 5
+
 export const APPVERSION = version
 export let MINAPPVERSION = version
 export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver
