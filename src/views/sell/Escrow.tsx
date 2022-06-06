@@ -67,7 +67,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
   }) : () => {}, [offer.id])
 
-  useEffect(checkFundingStatusEffect({
+  useFocusEffect(useCallback(checkFundingStatusEffect({
     offer,
     onSuccess: result => {
       info('Checked funding status', result)
@@ -86,7 +86,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
         level: 'ERROR',
       })
     },
-  }), [offer.escrow])
+  }), [offer.escrow]))
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
