@@ -4,6 +4,8 @@ import {
   Pressable,
   View
 } from 'react-native'
+import messaging from '@react-native-firebase/messaging'
+
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -28,6 +30,12 @@ import { unique } from '../../utils/array'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
 
+
+const updaterPNs = [
+  'offer.matchSeller',
+  'contract.contractCreated',
+]
+
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
 type Props = {
@@ -49,6 +57,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
   const [updatePending, setUpdatePending] = useState(true)
   const [matchLoading, setMatchLoading] = useState(false)
+  const [pnReceived, setPNReceived] = useState(0)
 
   const [matches, setMatches] = useState<Match[]>([])
   const [seenMatches, setSeenMatches] = useState<Offer['id'][]>(route.params.offer.seenMatches)
@@ -270,7 +279,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offerId]))
+  }), [offerId, pnReceived]))
 
   useFocusEffect(useCallback(searchForPeersEffect({
     offer,
@@ -293,7 +302,17 @@ export default ({ route, navigation }: Props): ReactElement => {
     onError: err => err.error !== 'UNAUTHORIZED'
       ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
       : null,
-  }), [updatePending]))
+  }), [updatePending, pnReceived]))
+
+  useFocusEffect(useCallback(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
+      if (remoteMessage.data && updaterPNs.indexOf(remoteMessage.data.type)) {
+        setPNReceived(Math.random())
+      }
+    })
+
+    return unsubscribe
+  }, []))
 
   return <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
     <View style={tw`px-6`}>
