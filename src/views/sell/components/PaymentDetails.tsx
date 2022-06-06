@@ -15,11 +15,13 @@ export default ({ paymentData, setPaymentData, setMeansOfPayment }: PaymentDetai
   const selectedPaymentData = getSelectedPaymentDataIds()
 
   const update = () => {
-    setPaymentData(paymentData.reduce((obj, data) => {
-      obj[data.type] = hashPaymentData(data)
+    setPaymentData(getSelectedPaymentDataIds().map(getPaymentData)
+      .reduce((obj, data) => {
+        if (!data) return obj
+        obj[data.type] = hashPaymentData(data)
 
-      return obj
-    }, {} as SellOffer['paymentData']))
+        return obj
+      }, {} as SellOffer['paymentData']))
 
     setMeansOfPayment(getSelectedPaymentDataIds().map(getPaymentData)
       .filter(data => data)

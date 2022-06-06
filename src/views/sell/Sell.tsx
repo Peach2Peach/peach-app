@@ -33,8 +33,6 @@ import { MessageContext } from '../../contexts/message'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import BitcoinContext from '../../contexts/bitcoin'
-import { isxpub } from '../../utils/bitcoin'
-import { deriveAddress } from '../../utils/bitcoin/deriveAddress'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
