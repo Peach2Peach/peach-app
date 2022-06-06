@@ -11,8 +11,8 @@ export const setPeachFee = (fee: number) => PEACHFEE = fee
 
 export const MAXMININGFEE = 20000
 
-// iOS: go automatically to home screen when calling app from background after this time has passed
-export const TIMETOGOHOME = 1000 * 60 * 5
+// time go automatically restart app when calling app from background after this time has passed
+export const TIMETORESTART = 1000 * 60 * 5
 
 export const APPVERSION = version
 export let MINAPPVERSION = version

@@ -1,5 +1,6 @@
 
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import RNRestart from 'react-native-restart'
 import { Image, View } from 'react-native'
 
 import { Shadow, Text } from '.'
@@ -14,7 +15,7 @@ import { Fade } from './animation'
 import appStateEffect from '../effects/appStateEffect'
 import session from '../init/session'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
-import { TIMETOGOHOME } from '../constants'
+import { TIMETORESTART } from '../constants'
 
 let goHomeTimeout: NodeJS.Timer
 
@@ -36,9 +37,9 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
       if (isActive) {
         session()
         clearTimeout(goHomeTimeout)
-        if (delta > TIMETOGOHOME) navigation.navigate('home', {}) // android
+        if (delta > TIMETORESTART) RNRestart.Restart() // android
       } else {
-        goHomeTimeout = setTimeout(() => navigation.navigate('home', {}), TIMETOGOHOME)
+        goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
       }
     }
   }), [])
