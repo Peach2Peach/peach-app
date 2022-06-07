@@ -1,7 +1,6 @@
 
 import React, { ReactElement, useContext, useEffect, useReducer, useState } from 'react'
 import {
-  Keyboard,
   // Image,
   Pressable,
   View
@@ -21,6 +20,7 @@ import AppContext from '../../contexts/app'
 import { saveContract } from '../../utils/contract'
 import { getContract } from '../../utils/peachAPI'
 import { IconType } from '../icons'
+import keyboard from '../../effects/keyboard'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
@@ -94,6 +94,8 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     settings: () => navTo('settings'),
   }
 
+  useEffect(keyboard(setKeyboardOpen), [])
+
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       if (remoteMessage.data && remoteMessage.data.type === 'contract.chat') {
@@ -110,11 +112,6 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     updateAppContext({
       notifications: getChatNotifications()
     })
-
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
 
     return unsubscribe
   }, [])

@@ -5,7 +5,7 @@ import { Text, TextLink } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 type DisputeDisclaimerProps = ComponentProps & {
   navigation: ProfileScreenNavigationProp,
   contract: Contract,

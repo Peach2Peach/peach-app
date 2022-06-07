@@ -158,7 +158,7 @@ export const Match = ({
           selectedValue={selectedPaymentMethod as string}
           items={applicablePaymentMethods.map(p => ({
             value: p,
-            display: i18n(`paymentMethod.${p}`)
+            display: i18n(`paymentMethod.${p}`).toLowerCase()
           }))}
           onChange={c => setPaymentMethod(c as PaymentMethod)}
         />

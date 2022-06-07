@@ -80,12 +80,15 @@ export default ({ navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractsEffect({
     onSuccess: result => {
       if (!result?.length) return
-      result.map(contract => saveContract(contract, true))
-      if (session.password) saveAccount(getAccount(), session.password)
-      setLastUpdate(new Date().getTime())
-      updateAppContext({
-        notifications: getChatNotifications()
-      })
+      setTimeout(() => {
+        // delay to give updating offer data some time
+        result.map(contract => saveContract(contract, true))
+        if (session.password) saveAccount(getAccount(), session.password)
+        setLastUpdate(new Date().getTime())
+        updateAppContext({
+          notifications: getChatNotifications()
+        })
+      }, 3000)
     },
     onError: err => {
       error('Could not fetch contract information')

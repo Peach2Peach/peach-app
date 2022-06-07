@@ -31,7 +31,7 @@ const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => 
 }
 
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 
 type ContractActionsProps = ComponentProps & {
   contract: Contract,

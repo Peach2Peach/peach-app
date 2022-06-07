@@ -8,7 +8,7 @@ import { session } from '../session'
  * @param contract the contract
 */
 export const saveContract = (contract: Contract, disableSave = false): void => {
-  // info('saveContract', contract)
+  info('saveContract', contract.id)
 
   if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
 

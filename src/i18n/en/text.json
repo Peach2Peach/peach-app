@@ -409,6 +409,7 @@
   "settings.website": "Website",
   "settings.peachApp": "Peach App v",
   "contact.title": "Contact peach",
+  "contact.trade": "Trade $0",
   "contact.whyAreYouContactingUs": "Why are you contacting us?",
   "contact.reason.bug": "a bug in the app",
   "contact.reason.userProblem": "a problem with a user",
