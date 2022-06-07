@@ -36,7 +36,7 @@ export const ApplePay: PaymentMethodForm = ({ style, view, data, onSubmit, onCha
     label,
     type: 'applePay',
     phone,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

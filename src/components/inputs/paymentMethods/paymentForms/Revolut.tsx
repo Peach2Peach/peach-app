@@ -43,7 +43,7 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onChan
     phone,
     userName,
     email,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

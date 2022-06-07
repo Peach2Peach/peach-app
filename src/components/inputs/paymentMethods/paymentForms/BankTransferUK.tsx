@@ -45,7 +45,7 @@ export const BankTransferUK: PaymentMethodForm = ({ style, view, data, onSubmit,
     ukSortCode,
     ukBankAccount,
     address,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

@@ -48,7 +48,7 @@ export const SEPA: PaymentMethodForm = ({ style, data, view, onSubmit, onChange,
     bic,
     address,
     reference,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

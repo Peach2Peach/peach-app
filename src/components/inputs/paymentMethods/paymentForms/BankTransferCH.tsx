@@ -42,7 +42,7 @@ export const BankTransferCH: PaymentMethodForm = ({ style, data, view, onSubmit,
     beneficiary,
     iban,
     address,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {
