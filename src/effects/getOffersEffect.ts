@@ -24,7 +24,7 @@ export default ({
     }
   }
 
-  const interval = setInterval(checkingFunction, 30 * 1000)
+  const interval = setInterval(checkingFunction, 60 * 1000)
 
   checkingFunction()
 
