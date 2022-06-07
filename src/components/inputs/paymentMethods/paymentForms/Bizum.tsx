@@ -39,7 +39,7 @@ export const Bizum: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
     type: 'bizum',
     phone,
     beneficiary,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

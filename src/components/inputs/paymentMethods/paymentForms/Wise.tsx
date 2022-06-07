@@ -53,7 +53,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
     bic,
     ukSortCode,
     ukBankAccount,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

@@ -36,7 +36,7 @@ export const Tether: PaymentMethodForm = ({ style, data, view, onSubmit, onChang
     label,
     type: 'tether',
     tetherAddress,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

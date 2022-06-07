@@ -39,7 +39,7 @@ export const SWIFT: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
     type: 'swift',
     bic,
     beneficiary,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {
