@@ -86,7 +86,7 @@ export default ({ chat, page, loadMore, loading, disclaimer, style }: ChatBoxPro
         data={chat.messages.slice(-(page + 1) * PAGE_SIZE)}
         onContentSizeChange={onContentSizeChange}
         onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
-        // onViewableItemsChanged={onViewableItemsChanged}
+        onViewableItemsChanged={onViewableItemsChanged}
         keyExtractor={item => item.date.toString()}
         renderItem={({ item, index }) =>
           <ChatMessage chat={chat} item={item} index={index} />
