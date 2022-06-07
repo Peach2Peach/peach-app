@@ -11,7 +11,7 @@ import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
-import { getContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
 import { confirmPayment } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
@@ -202,22 +202,20 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }
 
-  return updatePending
+  return !contract || updatePending
     ? <Loading />
     : <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
         />
-        {contract?.amount
-          ? <Text style={tw`text-grey-2 text-center -mt-1`}>
-            {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount}
-              color={tw`text-grey-2`}
-            />
-          </Text>
-          : null
-        }
-        {contract && !contract.paymentConfirmed
+        <Text style={tw`text-grey-2 text-center -mt-1`}>
+          {i18n('contract.subtitle')} <SatsFormat sats={contract.amount}
+            color={tw`text-grey-2`}
+          />
+        </Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contact.trade', contractIdToHex(contract.id))}</Text>
+        {!contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>

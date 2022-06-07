@@ -3,14 +3,13 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
-import { Button, Fade, Input, Loading, SatsFormat, Text, Timer, Title } from '../../components'
+import { Button, Fade, Input, Loading, SatsFormat, Text, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
-import { getContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
 import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
@@ -225,7 +224,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const returnTrue = () => true
 
-  return updatePending
+  return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
       <Fade show={!keyboardOpen} style={tw`mb-16`}>
@@ -237,43 +236,35 @@ export default ({ route, navigation }: Props): ReactElement => {
             color={tw`text-grey-2`}
           />
         </Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contact.trade', contractIdToHex(contract.id))}</Text>
       </Fade>
-      {contract
-        ? <View style={tw`h-full flex-col flex-shrink`}>
-          {requiredAction !== 'none'
-            ? <Timer
-              text={i18n(`contract.timer.${requiredAction}`)}
-              start={getTimerStart(contract, requiredAction)}
-              duration={TIMERS[requiredAction]}
+      <View style={tw`h-full flex-col flex-shrink`}>
+        <View style={[
+          tw`w-full h-full flex-col flex-shrink`,
+          !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
+        ]}>
+          <View style={tw`h-full flex-shrink`}>
+            <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
+              disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
+            <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
+              contract={contract}
+              view={view}
+              navigation={navigation}
             />
-            : null
-          }
-          <View style={[
-            tw`w-full h-full flex-col flex-shrink`,
-            !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
-          ]}>
-            <View style={tw`h-full flex-shrink`}>
-              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
-                disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
-              <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
-                contract={contract}
-                view={view}
-                navigation={navigation}
-              />
-            </View>
-            <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
-              <Input
-                onChange={setNewMessage}
-                onSubmit={sendMessage}
-                icon="send"
-                value={newMessage}
-                label={i18n('chat.yourMessage')}
-                isValid={true}
-                autoCorrect={true}
-              />
-            </View>
+          </View>
+          <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
+            <Input
+              onChange={setNewMessage}
+              onSubmit={sendMessage}
+              icon="send"
+              value={newMessage}
+              label={i18n('chat.yourMessage')}
+              isValid={true}
+              autoCorrect={true}
+            />
           </View>
         </View>
+      </View>
         : null
       }
       <Fade show={!keyboardOpen}>
