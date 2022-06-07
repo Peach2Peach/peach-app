@@ -40,6 +40,7 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     : tertiary ? tw`border border-white-2 `
       : grey ? tw`border border-grey-2 `
         : {}
+
   return <Pressable
     onPress={onPressHandler}
     onPressIn={onPressInHandler}
@@ -52,13 +53,17 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
       active ? bgColorActive : bgColor,
     ]}
   >
-    <Text style={[
-      tw`font-baloo text-sm uppercase text-center w-full`,
-      color,
-      active ? tw`text-white-2` : {}
-    ]}>
-      {!loading ? title : ''}
-    </Text>
+    {typeof title === 'string'
+      ? <Text style={[
+        tw`font-baloo text-sm uppercase text-center w-full`,
+        color,
+        active ? tw`text-white-2` : {}
+      ]}>
+        {!loading ? title : ''}
+      </Text>
+      : !loading ? title : null
+    }
+
     {loading
       ? <Loading size="small" style={tw`h-1 absolute`} color={color.color as string} />
       : null
