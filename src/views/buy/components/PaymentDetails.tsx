@@ -48,7 +48,6 @@ export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactE
   }
 
   const onPaymentDataUpdate = (data: PaymentData) => {
-    console.log(data.currencies)
     addPaymentData(data)
     updateOverlay({ content: null, showCloseButton: true })
     update()
