@@ -58,6 +58,12 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useFocusEffect(useCallback(() => {
+    setUpdatePending(true)
+    setPage(0)
+    setChat(getChat(contractId) || {})
+  }, []))
+
+  useFocusEffect(useCallback(() => {
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
@@ -81,12 +87,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     return unsubscribe
   }, [ws.connected]))
-
-  useFocusEffect(useCallback(() => {
-    setUpdatePending(true)
-    setPage(0)
-    setChat(getChat(contractId) || {})
-  }, []))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
