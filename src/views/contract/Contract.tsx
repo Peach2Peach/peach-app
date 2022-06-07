@@ -66,11 +66,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
-      const [symmetricKey, err] = await decryptSymmetricKey(
+      const [symmetricKey, err] = !contract?.symmetricKey ? await decryptSymmetricKey(
         result.symmetricKeyEncrypted,
         result.symmetricKeySignature,
         result.buyer.pgpPublicKey,
-      )
+      ) : [contract?.symmetricKey, null]
 
       if (err) error(err)
 

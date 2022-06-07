@@ -11,21 +11,20 @@ import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
-import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
 import ChatBox from './components/ChatBox'
-import { getTimerStart } from '../contract/helpers/getTimerStart'
 import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseContract'
-import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
 import { unique } from '../../utils/array'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import keyboard from '../../effects/keyboard'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { OverlayContext } from '../../contexts/overlay'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 
 type Props = {
   route: RouteProp<{ params: {
@@ -36,20 +35,19 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
-  const ws = useContext(PeachWSContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
+  const ws = useContext(PeachWSContext)
 
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
-  const [contractId, setContractId] = useState(route.params.contractId)
+  const contractId = route.params.contractId
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
-  const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
   const [page, setPage] = useState(0)
 
   const saveAndUpdate = (contractData: Contract) => {
@@ -84,15 +82,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     return unsubscribe
   }, [ws.connected]))
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     setUpdatePending(true)
-    setContractId(() => route.params.contractId)
     setPage(0)
-  }, [route])
-
-  useEffect(() => {
     setChat(getChat(contractId) || {})
-  }, [contractId])
+  }, []))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
@@ -102,11 +96,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
-      const [symmetricKey, err] = await decryptSymmetricKey(
+      const [symmetricKey, err] = !contract?.symmetricKey ? await decryptSymmetricKey(
         result.symmetricKeyEncrypted,
         result.symmetricKeySignature,
         result.buyer.pgpPublicKey,
-      )
+      ) : [contract?.symmetricKey, null]
 
       if (err) error(err)
 
@@ -122,6 +116,18 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
         }
       )
+
+      if (result.disputeActive
+        && result.disputeInitiator !== account.publicKey
+        && !result.disputeAcknowledgedByCounterParty) {
+        updateOverlay({
+          content: <YouGotADispute
+            contractId={result.id}
+            message={result.disputeClaim as string}
+            navigation={navigation} />,
+          showCloseButton: false
+        })
+      }
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -194,7 +200,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     })()
 
-    setRequiredAction(getRequiredAction(contract))
   }, [contract])
 
   useEffect(keyboard(setKeyboardOpen), [])
@@ -265,8 +270,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           </View>
         </View>
       </View>
-        : null
-      }
       <Fade show={!keyboardOpen}>
         <Button
           secondary={true}
