@@ -23,12 +23,12 @@ module.exports = {
           2: '#FFF'
         },
         peach: {
-          1: '#F57940',
-          2: '#DB6C39',
-          mild: '#F6A884',
-          translucent: '#F57940BB',
-          'translucent-2': '#F57940FA',
-          transparent: '#F5794066',
+          1: '#aec435',
+          2: '#c2db39',
+          mild: '#e5f684',
+          translucent: '#aec435BB',
+          'translucent-2': '#aec435FA',
+          transparent: '#aec43566',
         },
         chat: {
           you: '#40BCF5',
