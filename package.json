@@ -27,7 +27,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@jaredh159/twrn": "^2.0.0-beta.2",
     "@react-native-clipboard/clipboard": "^1.8.5",
     "@react-native-community/cli-platform-android": "^7.0.1",
     "@react-native-firebase/app": "^14.9.3",
