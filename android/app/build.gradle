@@ -155,7 +155,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.peachbitcoin.peach"
+        applicationId "com.peachbitcoin.peach.mainnet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 42

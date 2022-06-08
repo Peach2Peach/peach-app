@@ -19,7 +19,7 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.peachbitcoin.peach.BuildConfig;
+import com.peachbitcoin.peach.mainnet.BuildConfig;
 import com.peachbitcoin.peach.newarchitecture.components.MainComponentsRegistry;
 import com.peachbitcoin.peach.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
