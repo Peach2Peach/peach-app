@@ -16,7 +16,7 @@ describe('tailwind', () => {
   it('returns correct styles', () => {
     deepStrictEqual(tw`mt-4`, { marginTop: 16 })
     deepStrictEqual(tw`text-xl text-red`, {
-      color: 'rgba(228, 59, 95, 1)',
+      color: '#E43B5F',
       fontSize: 20
     })
   })
@@ -45,7 +45,7 @@ describe('tailwind', () => {
       height: 840
     })
     deepStrictEqual(tw.lg`text-xl text-red`, {
-      color: 'rgba(228, 59, 95, 1)',
+      color: '#E43B5F',
       fontSize: 20,
     })
     deepStrictEqual([tw`mt-2`, tw.md`mt-4`], [{ marginTop: 8 }, { marginTop: 16 }])
