@@ -10,7 +10,7 @@ interface Tailwind {
   md: (classes: TemplateStringsArray) => Style,
   lg: (classes: TemplateStringsArray) => Style
 }
-const tailwind = create(require(DEV ? '../../tailwind-dev.config' : '../../tailwind.config'))
+const tailwind = create(require(DEV === 'true' ? '../../tailwind-dev.config' : '../../tailwind.config'))
 
 /**
  * @example [tw`mt-2 text-lg`, tw.md`mt-4 text-xl`, tw.lg`mt-5 text-2xl`]
