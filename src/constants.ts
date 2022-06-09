@@ -56,11 +56,11 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
 }
 
 export let BUCKETS = [
-  250000,
-  500000,
-  1000000,
-  2000000,
-  5000000
+  50000,
+  100000,
+  200000,
+  350000,
+  500000
 ]
 export let DEPRECATED_BUCKETS: number[] = []
 export const setBuckets = (buckets: number[]) => BUCKETS = buckets
