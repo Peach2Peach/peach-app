@@ -1,4 +1,4 @@
-package com.peachbitcoin.peach.mainnet;
+package com.peachbitcoin.peach;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -155,7 +155,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.peachbitcoin.peach.mainnet"
+        applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 42
@@ -193,6 +193,18 @@ android {
                 nativeSymbolUploadEnabled true
                 unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
             }
+        }
+    }
+
+    flavorDimensions ("environment")
+    productFlavors {
+        qa {
+            dimension "environment"
+            applicationIdSuffix ""
+        }
+        prod {
+            dimension "environment"
+            applicationIdSuffix ".mainnet"
         }
     }
 
