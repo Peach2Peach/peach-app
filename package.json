@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "web": "cp -r ./assets ./public/assets/ && react-scripts start",
-    "android": "NODE_ENV=sandbox react-native run-android --port=8081",
+    "android": "NODE_ENV=sandbox react-native run-android --port=8081 --variant=QaDebug",
     "android:testnet": "NODE_ENV=sandbox react-native run-android --port=8081 --variant=QaDebug",
     "android:mainnet": "NODE_ENV=sandbox react-native run-android --port=8081 --variant=ProdDebug --appIdSuffix=mainnet",
     "ios": "NODE_ENV=sandbox react-native run-ios --port=8081",
