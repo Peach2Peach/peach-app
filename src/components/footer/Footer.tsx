@@ -127,7 +127,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
             <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
             <FooterItem
               id="offers"
-              active={active === 'offers'}
+              active={active === 'offers' || /contract/u.test(active as string)}
               onPress={navigate.offers}
               notifications={notifications}
             />

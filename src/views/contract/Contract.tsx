@@ -56,6 +56,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
+    setUpdatePending(true)
     setContractId(() => route.params.contractId)
   }, [route])
 
@@ -106,22 +107,26 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId]))
 
   useEffect(() => {
+    if (!contract || !view || contract.canceled) return
+
+    if (isTradeComplete(contract)) {
+      navigation.replace('tradeComplete', { contract })
+      return
+    }
+
+    if (contract.paymentData || !contract.symmetricKey) {
+      setRequiredAction(getRequiredAction(contract))
+      setUpdatePending(false)
+      return
+    }
+
     (async () => {
-      if (!contract || !view || contract.canceled) return
-
-      if (isTradeComplete(contract)) {
-        navigation.replace('tradeComplete', { contract })
-        return
-      }
-
-      if (contract.paymentData || !contract.symmetricKey) return
-
       const [paymentData, err] = await getPaymentData(contract)
 
       if (err) error(err)
       if (paymentData) {
         // TODO if err is yielded consider open a disput directly
-        const contractErrors = contract.contractErrors || []
+        const contractErrors = contract.contractErrors || []
         if (err) contractErrors.push(err.message)
         saveAndUpdate({
           ...contract,
@@ -129,11 +134,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           contractErrors,
         })
       }
+
+      setRequiredAction(getRequiredAction(contract))
+      setUpdatePending(false)
     })()
-
-    setRequiredAction(getRequiredAction(contract))
-
-    setUpdatePending(false)
   }, [contract])
 
   const postConfirmPaymentBuyer = async () => {
