@@ -52,11 +52,12 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  * @example
  * <FooterItem id="sell" active={true} />
  */
-const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement =>
-  <Pressable onPress={onPress}>
+const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement => {
+  const color = active ? tw`text-peach-1` : tw`text-grey-2`
+  return <Pressable onPress={onPress}>
     <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-      <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1 text-center`}>
+      <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
+      <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
         {i18n(id)}
       </Text>
     </View>
@@ -70,6 +71,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps)
       : null
     }
   </Pressable>
+}
 
 /**
  * @description Component to display the Footer
