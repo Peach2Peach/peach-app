@@ -158,7 +158,7 @@ android {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 42
+        versionCode 43
         versionName "0.1.0-rc.3"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
@@ -193,6 +193,18 @@ android {
                 nativeSymbolUploadEnabled true
                 unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
             }
+        }
+    }
+
+    flavorDimensions ("environment")
+    productFlavors {
+        qa {
+            dimension "environment"
+            applicationIdSuffix ""
+        }
+        prod {
+            dimension "environment"
+            applicationIdSuffix ".mainnet"
         }
     }
 
