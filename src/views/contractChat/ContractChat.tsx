@@ -246,7 +246,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       <View style={tw`h-full flex-col flex-shrink`}>
         <View style={[
           tw`w-full h-full flex-col flex-shrink`,
-          !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
+          !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
         ]}>
           <View style={tw`h-full flex-shrink`}>
             <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
