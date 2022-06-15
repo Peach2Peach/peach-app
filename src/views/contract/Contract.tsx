@@ -218,7 +218,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             color={tw`text-grey-2`}
           />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contact.trade', contractIdToHex(contract.id))}</Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
         {!contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />

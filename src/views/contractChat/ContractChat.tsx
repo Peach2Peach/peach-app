@@ -241,7 +241,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             color={tw`text-grey-2`}
           />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contact.trade', contractIdToHex(contract.id))}</Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
       </Fade>
       <View style={tw`h-full flex-col flex-shrink`}>
         <View style={[
@@ -249,7 +249,9 @@ export default ({ route, navigation }: Props): ReactElement => {
           !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
         ]}>
           <View style={tw`h-full flex-shrink`}>
-            <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
+            <ChatBox chat={chat}
+              tradingPartner={tradingPartner!.id}
+              page={page} loadMore={loadMore} loading={loadingMessages}
               disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
             <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
               contract={contract}

@@ -76,6 +76,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     setContractId(route.params.contractId)
     setContract(getContract(route.params.contractId))
+    setStart(false)
+    setReason(undefined)
+    setMessage(undefined)
+    setLoading(false)
   }, [route])
 
   useEffect(keyboard(setKeyboardOpen), [])
