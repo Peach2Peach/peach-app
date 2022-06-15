@@ -86,7 +86,7 @@ export default ({ returnAddress, update, style }: ReturnAddressProps): ReactElem
     <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
       style={[
         tw`flex-row mt-4`,
-        useDepositAddress ? tw`opacity-50 pointer-events-none` : {}
+        useDepositAddress ? tw`opacity-50` : {}
       ]}>
       <View style={tw`w-full flex-shrink mr-2`}>
         <Input reference={(el: any) => $address = el}

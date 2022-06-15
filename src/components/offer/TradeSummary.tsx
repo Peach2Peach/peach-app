@@ -86,7 +86,7 @@ const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   return <View style={tw`border border-peach-1 rounded`}>
     {contract.paymentMade
-      ? <View style={tw`absolute top-0 left-0 w-full h-full z-20 pointer-events-none`} pointerEvents="none">
+      ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`} pointerEvents="none">
         <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
         <Text style={tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`}>
           {i18n('contract.payment.made')}
