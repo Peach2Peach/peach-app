@@ -96,10 +96,10 @@ const initApp = async (
     requestUserPermission()
   }
   const timeout = setTimeout(() => {
-    // go home anyway after 10 seconds
+    // go home anyway after 30 seconds
     goHome()
     updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
-  }, 15000)
+  }, 30000)
 
 
   events()
