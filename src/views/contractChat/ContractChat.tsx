@@ -205,7 +205,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(keyboard(setKeyboardOpen), [])
 
   const sendMessage = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
@@ -252,7 +252,10 @@ export default ({ route, navigation }: Props): ReactElement => {
             <ChatBox chat={chat}
               tradingPartner={tradingPartner!.id}
               page={page} loadMore={loadMore} loading={loadingMessages}
-              disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
+              disclaimer={!contract.disputeActive
+                ? <DisputeDisclaimer navigation={navigation} contract={contract}/>
+                : undefined
+              } />
             <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
               contract={contract}
               view={view}

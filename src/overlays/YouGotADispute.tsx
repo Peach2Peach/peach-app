@@ -1,20 +1,17 @@
 import React, { ReactElement, useContext, useState } from 'react'
-import { Keyboard, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Input, Loading, Text } from '../components'
+import { Button, Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import { contractIdToHex } from '../utils/contract'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
-import { getMessages, rules } from '../utils/validation'
-import SuccessOverlay from './SuccessOverlay'
 import { MessageContext } from '../contexts/message'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { error } from '../utils/log'
 import { StackNavigationProp } from '@react-navigation/stack'
-const { useValidation } = require('react-native-form-validator')
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'dispute'|'contract'|'contractChat'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
 
 type YouGotADisputeProps = {
@@ -27,42 +24,26 @@ type YouGotADisputeProps = {
 export default ({ message, contractId, navigation }: YouGotADisputeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
-  const [email, setEmail] = useState()
   const [loading, setLoading] = useState(false)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email },
-    rules,
-    messages: getMessages()
-  })
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
     updateOverlay({ content: null, showCloseButton: true })
   }
   const submit = async () => {
-    validate({
-      email: {
-        required: true,
-        email: true
-      }
-    })
-    if (!isFormValid() || !email) return
-
     setLoading(true)
     const [result, err] = await acknowledgeDispute({
       contractId,
-      email
     })
     if (result) {
-      Keyboard.dismiss()
-      updateOverlay({
-        content: <SuccessOverlay />,
-        showCloseButton: false
-      })
-      setTimeout(closeOverlay, 3000)
       setLoading(false)
+      if ('push' in navigation) {
+        navigation.push('contractChat', { contractId })
+      } else {
+        navigation.navigate({ name: 'contractChat', merge: false, params: { contractId } })
+      }
+      closeOverlay()
       return
     }
 
@@ -93,26 +74,24 @@ export default ({ message, contractId, navigation }: YouGotADisputeProps): React
         {i18n('dispute.startedOverlay.description.3')}
       </Text>
     </View>
-    <View style={tw`mt-4`}>
-      <Input
-        onChange={setEmail}
-        onSubmit={submit}
-        value={email}
-        label={i18n('form.userEmail')}
-        isValid={!isFieldInError('email')}
-        autoCorrect={false}
-        errorMessage={getErrorsInField('email')}
-      />
-    </View>
     <View style={tw`flex items-center`}>
       <Button
         style={tw`mt-6`}
-        title={loading ? '' : i18n('close')}
+        title={loading ? '' : i18n('dispute.startedOverlay.goToDispute')}
         disabled={loading}
         loading={loading}
         secondary={true}
         wide={false}
         onPress={submit}
+      />
+      <Button
+        style={tw`mt-2`}
+        title={loading ? '' : i18n('close')}
+        disabled={loading}
+        loading={loading}
+        tertiary={true}
+        wide={false}
+        onPress={closeOverlay}
       />
     </View>
   </View>

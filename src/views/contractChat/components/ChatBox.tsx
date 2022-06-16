@@ -25,6 +25,9 @@ const ChatMessage = ({ chat, tradingPartner, item, index }: ChatMessageProps): R
 
   const previous = chat.messages[index - 1]
   const showName = !previous || previous.from !== message.from
+  const text = isMediator
+    ? tw`text-chat-mediator text-center`
+    : isYou ? tw`text-chat-you text-right` : tw`text-chat-partner`
   const bgColor = !message.message
     ? tw`bg-chat-error-translucent`
     : isMediator
@@ -34,12 +37,12 @@ const ChatMessage = ({ chat, tradingPartner, item, index }: ChatMessageProps): R
   return <View onStartShouldSetResponder={() => true}
     key={message.date.getTime() + message.signature.substring(128, 128 + 32)} style={[
       tw`w-11/12 px-7 bg-transparent`,
-      isYou ? tw`self-end` : {}
+      isMediator ? tw`w-full` : isYou ? tw`self-end` : {}
     ]}>
     {showName
       ? <Text style={[
         tw`px-1 mt-4 -mb-1 font-baloo text-xs`,
-        isYou ? tw`text-chat-you text-right` : tw`text-chat-partner`
+        text,
       ]}>{i18n(isMediator ? 'chat.mediator' : isYou ? 'chat.you' : 'chat.tradePartner')}</Text>
       : null
     }
@@ -59,7 +62,7 @@ type ChatBoxProps = ComponentProps & {
   page: number,
   loadMore: () => void,
   loading: boolean
-  disclaimer: ReactElement
+  disclaimer?: ReactElement
 }
 
 export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, style }: ChatBoxProps): ReactElement => {
