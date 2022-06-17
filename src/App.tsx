@@ -138,6 +138,7 @@ const App: React.FC = () => {
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
+  const getCurrentPage = () => currentPage
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -163,9 +164,9 @@ const App: React.FC = () => {
   useEffect(() => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage' + currentPage)
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
       if (remoteMessage.data && remoteMessage.data.type === 'offer.expired'
-        && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
+        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
         const offer = getOffer(remoteMessage.data.offerId) as SellOffer
         const args = remoteMessage.notification?.bodyLocArgs
 
@@ -175,14 +176,14 @@ const App: React.FC = () => {
         })
       }
       if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
-        && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
+        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
         return updateOverlay({
           content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
           showCloseButton: false
         })
       }
       if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade'
-        && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
+        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
         return updateOverlay({
           content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
           showCloseButton: false
@@ -211,8 +212,13 @@ const App: React.FC = () => {
   useEffect(websocket(updatePeachWS), [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
-    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
+    if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
   }
+
+  useEffect(() => {
+    info('Navigation event', currentPage)
+  }, [currentPage])
+
 
   return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
