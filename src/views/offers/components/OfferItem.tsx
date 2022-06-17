@@ -94,7 +94,6 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const contract = offer.contractId ? getContract(offer.contractId) : null
   const notifications = contract ? getContractChatNotification(contract) : 0
 
-  console.log(contract?.disputeWinner, requiredAction)
   const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
   return <Shadow shadow={mildShadow}>
     <Pressable onPress={navigate}
