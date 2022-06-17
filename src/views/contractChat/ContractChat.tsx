@@ -250,7 +250,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         ]}>
           <View style={tw`h-full flex-shrink`}>
             <ChatBox chat={chat}
-              tradingPartner={tradingPartner!.id}
+              tradingPartner={tradingPartner?.id || ''}
               page={page} loadMore={loadMore} loading={loadingMessages}
               disclaimer={!contract.disputeActive
                 ? <DisputeDisclaimer navigation={navigation} contract={contract}/>

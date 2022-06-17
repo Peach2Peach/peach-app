@@ -39,7 +39,10 @@ export const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contra
 
 export const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
   offer.type === 'bid' && !contract.ratingSeller
-  || offer.type === 'ask' && !contract.ratingBuyer
+  || offer.type === 'ask' && !contract.ratingBuyer
+
+export const refundRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
+  offer.type === 'ask' && contract.disputeWinner === 'seller'
 
 export const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
 
@@ -63,7 +66,7 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
 
     if (isTradeCanceled(contract)) return {
       status: 'tradeCanceled',
-      requiredAction: ''
+      requiredAction: refundRequired(offer, contract) ? 'startRefund' : ''
     }
 
     return {

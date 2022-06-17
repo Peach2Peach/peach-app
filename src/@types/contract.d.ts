@@ -41,6 +41,7 @@ declare type Contract = {
   disputeInitiator?: string,
   disputeClaim?: string,
   disputeAcknowledgedByCounterParty?: boolean,
+  disputeWinner?: 'seller' | 'buyer',
 
   canceled: boolean,
 

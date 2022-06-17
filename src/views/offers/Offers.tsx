@@ -80,6 +80,7 @@ export default ({ navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractsEffect({
     onSuccess: result => {
       if (!result?.length) return
+
       setTimeout(() => {
         // delay to give updating offer data some time
         result.map(contract => saveContract(contract, true))
