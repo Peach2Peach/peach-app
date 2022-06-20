@@ -17,6 +17,7 @@ declare type OfferStatus = {
     | 'sendPayment'
     | 'confirmPayment'
     | 'rate'
+    | 'startRefund'
 }
 
 declare type SellOffer = Omit<Offer, 'id'> & {
