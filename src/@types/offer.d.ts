@@ -7,6 +7,7 @@ declare type OfferStatus = {
     | 'tradeCompleted'
     | 'offerCanceled'
     | 'tradeCanceled'
+    | 'null'
   requiredAction: ''
     | 'fundEscrow'
     | 'refundEscrow'
@@ -16,6 +17,7 @@ declare type OfferStatus = {
     | 'sendPayment'
     | 'confirmPayment'
     | 'rate'
+    | 'startRefund'
 }
 
 declare type SellOffer = Omit<Offer, 'id'> & {

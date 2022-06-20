@@ -23,10 +23,10 @@ const validate = (offer: SellOffer) => {
     .every(d => isValidPaymentdata(d!))
 
   return !!offer.amount
-  && hasMopsConfigured(offer)
-  && selectedPaymentMethods.length > 0
-  && paymentMethods.every(p => offer.paymentData[p])
-  && paymentDataValid
+    && hasMopsConfigured(offer)
+    && selectedPaymentMethods.length > 0
+    && paymentMethods.every(p => offer.paymentData[p])
+    && paymentDataValid
 }
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {

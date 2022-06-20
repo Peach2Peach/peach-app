@@ -1,10 +1,10 @@
 import { API_URL } from '@env'
-import { getUniqueId } from 'react-native-device-info'
 import * as bitcoin from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
 import { accessToken, peachAccount, parseResponse, setAccessToken } from '..'
+import { UNIQUEID } from '../../../constants'
 import fetch from '../../fetch'
-import { error, info, log } from '../../log'
+import { error, info } from '../../log'
 
 /**
  * @description Method to authenticate with Peach API
@@ -24,7 +24,7 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
-        uniqueId: getUniqueId(),
+        uniqueId: UNIQUEID,
         message,
         signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
       })

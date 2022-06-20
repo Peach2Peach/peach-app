@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useReducer, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
-import AppContext, { getAppContext, setAppContext } from '../../contexts/app'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 
 import { Headline, PeachScrollView, Text, Title } from '../../components'
@@ -80,12 +80,16 @@ export default ({ navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractsEffect({
     onSuccess: result => {
       if (!result?.length) return
-      result.map(contract => saveContract(contract, true))
-      if (session.password) saveAccount(getAccount(), session.password)
-      setLastUpdate(new Date().getTime())
-      updateAppContext({
-        notifications: getChatNotifications()
-      })
+
+      setTimeout(() => {
+        // delay to give updating offer data some time
+        result.map(contract => saveContract(contract, true))
+        if (session.password) saveAccount(getAccount(), session.password)
+        setLastUpdate(new Date().getTime())
+        updateAppContext({
+          notifications: getChatNotifications()
+        })
+      }, 3000)
     },
     onError: err => {
       error('Could not fetch contract information')

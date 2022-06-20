@@ -11,7 +11,7 @@ import { offerExists } from './offerExists'
   * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
   */
 export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false, shield = true): void => {
-  info('saveOffer', offer.id, offer)
+  info('saveOffer', offer.id)
   if (!offer.id) throw new Error('offerId is required')
 
   delete offer.user

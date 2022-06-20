@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
   Image,
   Keyboard,
@@ -22,6 +22,8 @@ const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import pgp from '../../init/pgp'
 import fcm from '../../init/fcm'
+import { OverlayContext } from '../../contexts/overlay'
+import NDA from '../../overlays/NDA'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -32,6 +34,7 @@ type Props = {
 
 
 export default ({ navigation }: Props): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
   const [passwordMatch, setPasswordMatch] = useState(true)
@@ -141,6 +144,8 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
+  useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
+
   return <View style={tw`h-full flex px-6`}>
     <View style={[
       tw`h-full flex-shrink p-6 pt-32 flex-col items-center justify-between`,
@@ -176,7 +181,7 @@ export default ({ navigation }: Props): ReactElement => {
         <View>
           <Text style={[
             tw`font-baloo text-2xs text-grey-3 text-center`,
-            !passwordMatch || isFieldInError('password') ? tw`text-red` : {}
+            !passwordMatch || isFieldInError('password') ? tw`text-red` : {}
           ]}>
             {!passwordMatch
               ? i18n('form.password.match.error')

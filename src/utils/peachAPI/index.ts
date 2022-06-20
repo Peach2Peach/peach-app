@@ -30,6 +30,9 @@ export const parseResponse = async <T>(
     if (response.status === 503) {
       return [null, { error: 'SERVICE_UNAVAILABLE' }]
     }
+    if (response.status === 429) {
+      return [null, { error: 'TOO_MANY_REQUESTS' }]
+    }
 
     const data = await response.json()
 

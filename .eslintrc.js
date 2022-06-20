@@ -25,6 +25,7 @@ module.exports = {
     'react-native.config.js',
     'shim.js',
     'tailwind.config.js',
+    'tailwind-dev.config.js',
     '__mocks__/**/*.js',
     'devUtils/**/*.js',
     'build/**/*.js',

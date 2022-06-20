@@ -21,35 +21,20 @@ const dummy = () => {}
 type PaymentDataKeyFactsProps = {
   paymentData: PaymentData,
 }
-const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  const onPaymentDataUpdate = (data: PaymentData) => {
-    addPaymentData(data)
-    updateOverlay({ content: null, showCloseButton: true })
-  }
-  const editPaymentMethod = () => updateOverlay({
-    content: <PaymentMethodView data={paymentData} onSubmit={onPaymentDataUpdate} />,
-    showCloseIcon: false,
-    showCloseButton: false
-  })
-
-  return <Pressable onPress={editPaymentMethod}>
-    <View style={tw`flex-row`}>
-      <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
-      {(paymentData.currencies || []).map(currency => <Item style={tw`h-5 px-1 mx-px`}
-        key={currency}
-        label={currency}
-        isSelected={true}
-        onPress={dummy}
-      />)}
-    </View>
-  </Pressable>
-}
+const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) =>
+  <View style={tw`flex-row`}>
+    <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
+    {(paymentData.currencies || []).map(currency => <Item style={tw`h-5 px-1 mx-px`}
+      key={currency}
+      label={currency}
+      isSelected={true}
+      onPress={dummy}
+    />)}
+  </View>
 
 type PaymentDetailsProps = {
   paymentData: PaymentData[],
-  setMeansOfPayment: React.Dispatch<React.SetStateAction<SellOffer['meansOfPayment']>>
+  setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
 }
 export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
@@ -62,7 +47,8 @@ export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactE
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }
 
-  const onPaymentDataUpdate = () => {
+  const onPaymentDataUpdate = (data: PaymentData) => {
+    addPaymentData(data)
     updateOverlay({ content: null, showCloseButton: true })
     update()
   }

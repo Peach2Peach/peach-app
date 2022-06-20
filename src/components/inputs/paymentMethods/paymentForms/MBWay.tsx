@@ -39,7 +39,7 @@ export const MBWay: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
     type: 'mbWay',
     phone,
     beneficiary,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

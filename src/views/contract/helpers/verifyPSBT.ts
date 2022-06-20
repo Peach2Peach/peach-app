@@ -24,9 +24,13 @@ export const verifyPSBT = (psbt: bitcoin.Psbt, sellOffer: SellOffer, contract: C
 
   // make sure buyer receives agreed amount minus fees
   const buyerOutput = psbt.txOutputs.find(output => output.address === contract.releaseAddress)
-  const peachFeeOutput = psbt.txOutputs.find(output => output.address !== contract.releaseAddress)
-  if (!peachFeeOutput || peachFeeOutput.value !== contract.amount * PEACHFEE
-    || !buyerOutput || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE) {
+  if (PEACHFEE > 0) {
+    const peachFeeOutput = psbt.txOutputs.find(output => output.address !== contract.releaseAddress)
+    if (!peachFeeOutput || peachFeeOutput.value !== contract.amount * PEACHFEE
+      || !buyerOutput || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE) {
+      errorMsg.push('INVALID_OUTPUT')
+    }
+  } else if (!buyerOutput || buyerOutput.value < contract.amount - MAXMININGFEE) {
     errorMsg.push('INVALID_OUTPUT')
   }
   return errorMsg

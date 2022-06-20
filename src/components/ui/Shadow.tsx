@@ -47,9 +47,9 @@ export const Shadow = ({ shadow, children, style }: ShadowProps): ReactElement =
     : {}
 
   const canvasStyle = {
-    width: Math.round(dimensions.width + (shadow.blur || 0) * 2),
-    height: Math.round(dimensions.height + (shadow.blur || 0) * 2),
-    marginLeft: -(shadow.blur || 0) + (shadow.offsetX || 0),
+    width: Math.round(dimensions.width + (shadow.blur || 0) * 2),
+    height: Math.round(dimensions.height + (shadow.blur || 0) * 2),
+    marginLeft: -(shadow.blur || 0) + (shadow.offsetX || 0),
     marginTop: -(shadow.blur || 0) + (shadow.offsetY || 0),
   }
 
@@ -71,12 +71,12 @@ export const Shadow = ({ shadow, children, style }: ShadowProps): ReactElement =
     const ctx = canvas.getContext('2d')
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.globalAlpha = shadow.opacity || 1
+    ctx.globalAlpha = shadow.opacity || 1
     ctx.shadowBlur = shadow.blur * scale
     ctx.shadowColor = shadow.color || 'black'
     ctx.strokeStyle = ctx.shadowColor
     ctx.fillStyle = ctx.shadowColor
-    if (shadow.inset) ctx.lineWidth = Math.max(shadow.offsetX || 0, shadow.offsetY || 0)
+    if (shadow.inset) ctx.lineWidth = Math.max(shadow.offsetX || 0, shadow.offsetY || 0)
 
     if (shadow.inset) {
       ctx.shadowOffsetX = (trickShift.x) * scale

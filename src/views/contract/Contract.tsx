@@ -11,7 +11,7 @@ import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
-import { getContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
 import { confirmPayment } from '../../utils/peachAPI'
 import { getOffer } from '../../utils/offer'
@@ -56,6 +56,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
+    setUpdatePending(true)
     setContractId(() => route.params.contractId)
   }, [route])
 
@@ -66,11 +67,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
-      const [symmetricKey, err] = await decryptSymmetricKey(
+      const [symmetricKey, err] = !contract?.symmetricKey ? await decryptSymmetricKey(
         result.symmetricKeyEncrypted,
         result.symmetricKeySignature,
         result.buyer.pgpPublicKey,
-      )
+      ) : [contract?.symmetricKey, null]
 
       if (err) error(err)
 
@@ -106,22 +107,26 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId]))
 
   useEffect(() => {
+    if (!contract || !view || contract.canceled) return
+
+    if (isTradeComplete(contract)) {
+      navigation.replace('tradeComplete', { contract })
+      return
+    }
+
+    if (contract.paymentData || !contract.symmetricKey) {
+      setRequiredAction(getRequiredAction(contract))
+      setUpdatePending(false)
+      return
+    }
+
     (async () => {
-      if (!contract || !view || contract.canceled) return
-
-      if (isTradeComplete(contract)) {
-        navigation.replace('tradeComplete', { contract })
-        return
-      }
-
-      if (contract.paymentData || !contract.symmetricKey) return
-
       const [paymentData, err] = await getPaymentData(contract)
 
       if (err) error(err)
       if (paymentData) {
         // TODO if err is yielded consider open a disput directly
-        const contractErrors = contract.contractErrors || []
+        const contractErrors = contract.contractErrors || []
         if (err) contractErrors.push(err.message)
         saveAndUpdate({
           ...contract,
@@ -129,11 +134,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           contractErrors,
         })
       }
+
+      setRequiredAction(getRequiredAction(contract))
+      setUpdatePending(false)
     })()
-
-    setRequiredAction(getRequiredAction(contract))
-
-    setUpdatePending(false)
   }, [contract])
 
   const postConfirmPaymentBuyer = async () => {
@@ -202,22 +206,20 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }
 
-  return updatePending
+  return !contract || updatePending
     ? <Loading />
     : <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
         <Title
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
         />
-        {contract?.amount
-          ? <Text style={tw`text-grey-2 text-center -mt-1`}>
-            {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount}
-              color={tw`text-grey-2`}
-            />
-          </Text>
-          : null
-        }
-        {contract && !contract.paymentConfirmed
+        <Text style={tw`text-grey-2 text-center -mt-1`}>
+          {i18n('contract.subtitle')} <SatsFormat sats={contract.amount}
+            color={tw`text-grey-2`}
+          />
+        </Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
+        {!contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>

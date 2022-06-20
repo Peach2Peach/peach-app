@@ -41,6 +41,7 @@ declare type RootStackParamList = {
   },
   backups: {},
   seedWords: {},
+  escrow: {},
   paymentMethods: {},
   deleteAccount: {},
   fees: {},

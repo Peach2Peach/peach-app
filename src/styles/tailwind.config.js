@@ -87,14 +87,13 @@ module.exports = {
     },
     fontFamily: {
       baloo: [
-        '"Baloo2-Bold"',
+        'Baloo2-Bold',
         'sans-serif'
       ],
       lato: [
-        '"Lato"',
-        'sans-serif'
+        'Lato'
       ],
-      mono: ['Monospace']
+      mono: ['B612Mono-Regular']
     },
     screens: {
       'sm': '640px',

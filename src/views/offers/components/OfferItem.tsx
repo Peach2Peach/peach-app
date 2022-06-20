@@ -63,7 +63,7 @@ const navigateToOffer = (
 }
 
 type OfferItemProps = ComponentProps & {
-  offer: BuyOffer | SellOffer,
+  offer: BuyOffer | SellOffer,
   extended?: boolean,
   navigation: ProfileScreenNavigationProp,
 }

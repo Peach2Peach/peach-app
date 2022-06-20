@@ -39,7 +39,7 @@ export const Twint: PaymentMethodForm = ({ style, data, view, onSubmit, onChange
     type: 'twint',
     phone,
     beneficiary,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

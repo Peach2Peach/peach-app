@@ -3,25 +3,25 @@ import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
 
 import { BUCKETS } from '../../constants'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/peachAPI'
 import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { account, updateTradingLimit } from '../../utils/account'
+import { account, getTradingLimit, updateTradingLimit } from '../../utils/account'
 
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import pgp from '../../init/pgp'
+import BitcoinContext from '../../contexts/bitcoin'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
 
@@ -46,7 +46,7 @@ const getDefaultBuyOffer = (): BuyOffer => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
-  meansOfPayment: account.settings.meansOfPayment || {},
+  meansOfPayment: account.settings.meansOfPayment || {},
   kyc: account.settings.kyc || false,
   amount: account.settings.amount || BUCKETS[0],
   matches: [],
@@ -81,7 +81,8 @@ const screens = [
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
+  const [bitcoinContext] = useContext(BitcoinContext)
+
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer())
@@ -93,7 +94,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const CurrentView: Screen = currentScreen.view
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
-  const { daily, dailyAmount } = account.tradingLimit
+  const { daily, dailyAmount } = getTradingLimit(bitcoinContext.currency)
 
   const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
     setOffer(() => offerData)
@@ -111,6 +112,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     setPage(page - 1)
     scroll.current?.scrollTo({ x: 0 })
   }
+
+  useFocusEffect(useCallback(() => () => {
+    // restore default state when leaving flow
+    setOffer(getDefaultBuyOffer())
+    setUpdatePending(false)
+    setPage(() => 0)
+  }, []))
 
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultBuyOffer()
@@ -154,7 +162,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
 
         if (result) {
-          const [tradingLimit] = await getTradingLimit()
+          const [tradingLimit] = await getTradingLimitAPI()
 
           if (tradingLimit) {
             updateTradingLimit(tradingLimit)
@@ -182,10 +190,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},
     ]}>
-      {currentScreen.id === 'main'
+      {currentScreen.id === 'main' && !isNaN(dailyAmount)
         ? <View style={tw`h-0`}><Progress
           percent={dailyAmount / daily}
-          text={i18n('profile.tradingLimits.daily', String(dailyAmount), String(daily === Infinity ? '∞' : daily))}
+          text={i18n(
+            'profile.tradingLimits.daily',
+            bitcoinContext.currency, String(dailyAmount), String(daily === Infinity ? '∞' : daily)
+          )}
         /></View>
         : null
       }

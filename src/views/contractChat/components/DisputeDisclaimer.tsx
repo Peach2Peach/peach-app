@@ -5,7 +5,7 @@ import { Text, TextLink } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 type DisputeDisclaimerProps = ComponentProps & {
   navigation: ProfileScreenNavigationProp,
   contract: Contract,
@@ -21,7 +21,7 @@ export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDiscla
       {i18n('chat.disputeDisclaimer.3')}
     </Text>
     {!contract.disputeActive
-      ? <Text>
+      ? <Text style={tw`text-center`}>
         <Text style={tw`text-center text-sm`}>{i18n('chat.disputeDisclaimer.4')} </Text>
         <TextLink style={tw`text-grey-1 text-sm`} onPress={raiseDispute}>
           {i18n('chat.disputeDisclaimer.5')}

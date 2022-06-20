@@ -48,7 +48,7 @@ const disputeReasonsBuyer: DisputeReason[] = [
   'disputeOther'
 ]
 
-// eslint-disable-next-line max-lines-per-function, max-statements
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -58,17 +58,15 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
   const [reason, setReason] = useState<DisputeReason>()
-  const [email, setEmail] = useState()
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState(false)
-  let $message = useRef<TextInput>(null).current
 
   const view = contract ? account.publicKey === contract.seller.id ? 'seller' : 'buyer' : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { email, message },
+    state: { message },
     rules,
     messages: getMessages()
   })
@@ -76,6 +74,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     setContractId(route.params.contractId)
     setContract(getContract(route.params.contractId))
+    setStart(false)
+    setReason(undefined)
+    setMessage(undefined)
+    setLoading(false)
   }, [route])
 
   useEffect(keyboard(setKeyboardOpen), [])
@@ -95,10 +97,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!contract?.symmetricKey) return
 
     validate({
-      email: {
-        required: true,
-        email: true
-      },
       reason: {
         required: true,
       },
@@ -106,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         required: true,
       }
     })
-    if (!isFormValid() || !email || !reason || !message) return
+    if (!isFormValid() || !reason || !message) return
     setLoading(true)
 
     const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(
@@ -116,7 +114,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const [result, err] = await raiseDispute({
       contractId,
-      email,
       reason,
       message,
       symmetricKeyEncrypted
@@ -203,20 +200,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Text>
           <View style={tw`mt-4`}>
             <Input
-              onChange={setEmail}
-              onSubmit={() => $message?.focus()}
-              value={email}
-              label={i18n('form.userEmail')}
-              isValid={!isFieldInError('email')}
-              autoCorrect={false}
-              errorMessage={getErrorsInField('email')}
-            />
-          </View>
-          <View style={tw`mt-2`}>
-            <Input
               style={tw`h-40`}
               onChange={setMessage}
-              reference={(el: any) => $message = el}
               value={message}
               multiline={true}
               label={i18n('form.message')}

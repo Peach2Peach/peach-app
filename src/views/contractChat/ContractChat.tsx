@@ -3,30 +3,28 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
-import { Button, Fade, Input, Loading, SatsFormat, Text, Timer, Title } from '../../components'
+import { Button, Fade, Input, Loading, SatsFormat, Text, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
 import i18n from '../../utils/i18n'
-import { getContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import { account } from '../../utils/account'
-import { TIMERS } from '../../constants'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
 import ChatBox from './components/ChatBox'
-import { getTimerStart } from '../contract/helpers/getTimerStart'
 import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseContract'
-import { getRequiredAction } from '../contract/helpers/getRequiredAction'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getChat, saveChat } from '../../utils/chat'
 import { unique } from '../../utils/array'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import keyboard from '../../effects/keyboard'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { OverlayContext } from '../../contexts/overlay'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'chat'>
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 
 type Props = {
   route: RouteProp<{ params: {
@@ -37,20 +35,19 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
-  const ws = useContext(PeachWSContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
+  const ws = useContext(PeachWSContext)
 
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
-  const [contractId, setContractId] = useState(route.params.contractId)
+  const contractId = route.params.contractId
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
-  const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
   const [page, setPage] = useState(0)
 
   const saveAndUpdate = (contractData: Contract) => {
@@ -59,6 +56,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     setContract(() => contractData)
     saveContract(contractData)
   }
+
+  useFocusEffect(useCallback(() => {
+    setUpdatePending(true)
+    setPage(0)
+    setChat(getChat(contractId) || {})
+  }, []))
 
   useFocusEffect(useCallback(() => {
     const messageHandler = async (message: Message) => {
@@ -85,16 +88,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     return unsubscribe
   }, [ws.connected]))
 
-  useEffect(() => {
-    setUpdatePending(true)
-    setContractId(() => route.params.contractId)
-    setPage(0)
-  }, [route])
-
-  useEffect(() => {
-    setChat(getChat(contractId) || {})
-  }, [contractId])
-
   useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
@@ -103,11 +96,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
-      const [symmetricKey, err] = await decryptSymmetricKey(
+      const [symmetricKey, err] = !contract?.symmetricKey ? await decryptSymmetricKey(
         result.symmetricKeyEncrypted,
         result.symmetricKeySignature,
         result.buyer.pgpPublicKey,
-      )
+      ) : [contract?.symmetricKey, null]
 
       if (err) error(err)
 
@@ -123,6 +116,18 @@ export default ({ route, navigation }: Props): ReactElement => {
           symmetricKey,
         }
       )
+
+      if (result.disputeActive
+        && result.disputeInitiator !== account.publicKey
+        && !result.disputeAcknowledgedByCounterParty) {
+        updateOverlay({
+          content: <YouGotADispute
+            contractId={result.id}
+            message={result.disputeClaim as string}
+            navigation={navigation} />,
+          showCloseButton: false
+        })
+      }
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -185,7 +190,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (err) error(err)
       if (paymentData) {
         // TODO if err is yielded consider open a dispute directly
-        const contractErrors = contract.contractErrors || []
+        const contractErrors = contract.contractErrors || []
         if (err) contractErrors.push(err.message)
         saveAndUpdate({
           ...contract,
@@ -195,13 +200,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     })()
 
-    setRequiredAction(getRequiredAction(contract))
   }, [contract])
 
   useEffect(keyboard(setKeyboardOpen), [])
 
   const sendMessage = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
@@ -225,7 +229,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const returnTrue = () => true
 
-  return updatePending
+  return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
       <Fade show={!keyboardOpen} style={tw`mb-16`}>
@@ -237,45 +241,40 @@ export default ({ route, navigation }: Props): ReactElement => {
             color={tw`text-grey-2`}
           />
         </Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
       </Fade>
-      {contract
-        ? <View style={tw`h-full flex-col flex-shrink`}>
-          {requiredAction !== 'none'
-            ? <Timer
-              text={i18n(`contract.timer.${requiredAction}`)}
-              start={getTimerStart(contract, requiredAction)}
-              duration={TIMERS[requiredAction]}
+      <View style={tw`h-full flex-col flex-shrink`}>
+        <View style={[
+          tw`w-full h-full flex-col flex-shrink`,
+          !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
+        ]}>
+          <View style={tw`h-full flex-shrink`}>
+            <ChatBox chat={chat}
+              tradingPartner={tradingPartner?.id || ''}
+              page={page} loadMore={loadMore} loading={loadingMessages}
+              disclaimer={!contract.disputeActive
+                ? <DisputeDisclaimer navigation={navigation} contract={contract}/>
+                : undefined
+              } />
+            <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
+              contract={contract}
+              view={view}
+              navigation={navigation}
             />
-            : null
-          }
-          <View style={[
-            tw`w-full h-full flex-col flex-shrink`,
-            !ws.connected || !contract.symmetricKey ? tw`opacity-50 pointer-events-none` : {}
-          ]}>
-            <View style={tw`h-full flex-shrink`}>
-              <ChatBox chat={chat} page={page} loadMore={loadMore} loading={loadingMessages}
-                disclaimer={<DisputeDisclaimer navigation={navigation} contract={contract}/>} />
-              <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
-                contract={contract}
-                view={view}
-                navigation={navigation}
-              />
-            </View>
-            <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
-              <Input
-                onChange={setNewMessage}
-                onSubmit={sendMessage}
-                icon="send"
-                value={newMessage}
-                label={i18n('chat.yourMessage')}
-                isValid={true}
-                autoCorrect={true}
-              />
-            </View>
+          </View>
+          <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
+            <Input
+              onChange={setNewMessage}
+              onSubmit={sendMessage}
+              icon="send"
+              value={newMessage}
+              label={i18n('chat.yourMessage')}
+              isValid={true}
+              autoCorrect={true}
+            />
           </View>
         </View>
-        : null
-      }
+      </View>
       <Fade show={!keyboardOpen}>
         <Button
           secondary={true}
