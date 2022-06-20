@@ -11,7 +11,7 @@ interface Item {
   display: (isOpen: boolean) => ReactNode
 }
 
-interface DropdownProps {
+type DropdownProps = ComponentProps & {
   items: Item[],
   width?: number,
   selectedValue?: string|number,
@@ -57,7 +57,7 @@ interface DropdownProps {
  *   ]}
  * />
  */
-export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownProps): ReactElement => {
+export const Dropdown = ({ items, selectedValue, onChange, onToggle, style }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
   const selectedItem = items.find(item => item.value === selectedValue)
 
@@ -76,7 +76,8 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle }: DropdownP
 
   return <View style={[
     tw`w-full rounded bg-white-1`,
-    !isOpen ? tw`overflow-hidden` : {}
+    !isOpen ? tw`overflow-hidden` : {},
+    style
   ]}>
     <Shadow shadow={isOpen ? mildShadow : innerShadow}>
       <View style={[
