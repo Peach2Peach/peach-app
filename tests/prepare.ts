@@ -54,10 +54,12 @@ jest.mock('@react-native-firebase/messaging', () => () => ({
   onNotificationOpenedApp: jest.fn(),
 }))
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
-  log: jest.fn()
+  log: jest.fn(),
 }))
-jest.mock('react-native-device-info', () => () => ({
-  getUniqueId: jest.fn()
+jest.mock('react-native-device-info', () => ({
+  getVersion: jest.fn(),
+  getBuildNumber: jest.fn(),
+  getUniqueId: jest.fn(),
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
