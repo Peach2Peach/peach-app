@@ -54,8 +54,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           {i18n('sell.subtitle')}
         </Headline>
         <View style={tw`z-10`}>
-          <View style={tw`w-full absolute flex items-center px-12 mt-3`}>
+          <View style={tw`w-full absolute flex items-center justify-center mt-3`}>
             <Dropdown
+              style={tw`max-w-xs`}
               items={dropdownItems}
               selectedValue={amount}
               onChange={onChange} onToggle={onToggle}
