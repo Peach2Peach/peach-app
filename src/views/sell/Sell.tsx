@@ -135,9 +135,16 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { daily, dailyAmount } = getTradingLimit(bitcoinContext.currency)
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
-    setOffer(() => offerData)
+    setOffer(offerData)
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
+
+  useFocusEffect(useCallback(() => () => {
+    // restore default state when leaving flow
+    setOffer(getDefaultSellOffer())
+    setUpdatePending(false)
+    setPage(0)
+  }, []))
 
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultSellOffer()

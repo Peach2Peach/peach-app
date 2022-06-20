@@ -113,6 +113,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
+  useFocusEffect(useCallback(() => () => {
+    // restore default state when leaving flow
+    setOffer(getDefaultBuyOffer())
+    setUpdatePending(false)
+    setPage(() => 0)
+  }, []))
+
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultBuyOffer()
 
