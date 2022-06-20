@@ -1,6 +1,5 @@
 import { unique } from './utils/array'
-import { version } from '../'
-import { getVersion, getBuildNumber, getUniqueId} from 'react-native-device-info'
+import { getVersion, getBuildNumber, getUniqueId } from 'react-native-device-info'
 
 export const SATSINBTC = 100000000
 
