@@ -48,7 +48,7 @@ export const SetPaymentDetails = ({
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [paymentData, setPaymentData] = useState<Partial<PaymentData>[]>(
     restoredPaymentData
-    || initPaymentData(meansOfPayment)
+    || initPaymentData(meansOfPayment)
   )
   const activePaymentMethod = paymentMethods[page]
 

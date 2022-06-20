@@ -1,5 +1,5 @@
 import { unique } from './utils/array'
-import { version } from '../package.json'
+import { getVersion, getBuildNumber, getUniqueId } from 'react-native-device-info'
 
 export const SATSINBTC = 100000000
 
@@ -14,8 +14,11 @@ export const MAXMININGFEE = 20000
 // time go automatically restart app when calling app from background after this time has passed
 export const TIMETORESTART = 1000 * 60 * 5
 
-export const APPVERSION = version
-export let MINAPPVERSION = version
+export const APPVERSION = getVersion()
+export const BUILDNUMBER = getBuildNumber()
+export const UNIQUEID = getUniqueId()
+
+export let MINAPPVERSION = APPVERSION
 export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver
 
 export let CURRENCIES: Currency[] = [

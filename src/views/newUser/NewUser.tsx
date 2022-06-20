@@ -181,7 +181,7 @@ export default ({ navigation }: Props): ReactElement => {
         <View>
           <Text style={[
             tw`font-baloo text-2xs text-grey-3 text-center`,
-            !passwordMatch || isFieldInError('password') ? tw`text-red` : {}
+            !passwordMatch || isFieldInError('password') ? tw`text-red` : {}
           ]}>
             {!passwordMatch
               ? i18n('form.password.match.error')

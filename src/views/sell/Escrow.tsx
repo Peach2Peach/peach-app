@@ -26,7 +26,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [updatePending, setUpdatePending] = useState(true)
-  const [escrow, setEscrow] = useState(offer.escrow || '')
+  const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
   const fundingAmount = Math.round(offer.amount)

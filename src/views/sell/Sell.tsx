@@ -58,13 +58,13 @@ const getDefaultSellOffer = (): SellOffer => ({
   type: 'ask',
   creationDate: new Date(),
   premium: account.settings.premium || 1.5,
-  meansOfPayment: account.settings.meansOfPayment || {},
+  meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
   amount: account.settings.amount || BUCKETS[0],
   returnAddress: account.settings.returnAddress,
   // TODO integrate support for xpubs
   // returnAddress: account.settings.returnAddress && isxpub(account.settings.returnAddress)
-  //   ? deriveAddress(account.settings.returnAddress, account.settings.hdStartIndex || 0)
+  //   ? deriveAddress(account.settings.returnAddress, account.settings.hdStartIndex || 0)
   //   : account.settings.returnAddress,
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
@@ -135,9 +135,16 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { daily, dailyAmount } = getTradingLimit(bitcoinContext.currency)
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
-    setOffer(() => offerData)
+    setOffer(offerData)
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
+
+  useFocusEffect(useCallback(() => () => {
+    // restore default state when leaving flow
+    setOffer(getDefaultSellOffer())
+    setUpdatePending(false)
+    setPage(0)
+  }, []))
 
   useFocusEffect(useCallback(() => {
     const offr = route.params?.offer || getDefaultSellOffer()

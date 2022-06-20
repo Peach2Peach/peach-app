@@ -11,7 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
 import { Card, Headline, Icon, PeachScrollView, Text, Title } from '../../components'
-import { APPVERSION } from '../../constants'
+import { APPVERSION, BUILDNUMBER } from '../../constants'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
 import { useFocusEffect } from '@react-navigation/native'
@@ -151,7 +151,7 @@ export default ({ navigation }: Props): ReactElement => {
       </Pressable>
 
       <Text style={tw`text-center text-sm text-peach-mild mt-10`}>
-        {i18n('settings.peachApp')}{APPVERSION}
+        {i18n('settings.peachApp')}{APPVERSION} ({BUILDNUMBER})
       </Text>
     </PeachScrollView>
   </View>
