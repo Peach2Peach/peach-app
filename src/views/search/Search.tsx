@@ -132,7 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       const paymentDataForMethod = account.paymentData.filter(data =>
         data.type === selectedPaymentMethod
       )
-      const paymentDataHashes = paymentDataForMethod.map(data =>  hashPaymentData(data))
+      const paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
       const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
 
       if (index === -1) {
