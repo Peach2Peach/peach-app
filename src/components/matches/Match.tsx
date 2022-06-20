@@ -74,9 +74,9 @@ export const Match = ({
     match.selectedCurrency = selectedCurrency
     setSelectedCurrency(currency)
     setApplicablePaymentMethods(getPaymentMethods(match.meansOfPayment)
-      .filter(p => paymentMethodAllowedForCurrency(p, currency))
+      .filter(p => match.meansOfPayment[currency]?.indexOf(p) !== -1)
     )
-    if (!paymentMethodAllowedForCurrency(selectedPaymentMethod, currency)) {
+    if (match.meansOfPayment[currency]?.indexOf(selectedPaymentMethod) === -1) {
       setSelectedPaymentMethod((match.meansOfPayment[currency] || [])[0])
     }
   }
@@ -84,6 +84,10 @@ export const Match = ({
     match.selectedPaymentMethod = selectedPaymentMethod
     setSelectedPaymentMethod(paymentMethod)
   }
+
+  useEffect(() => {
+    onChange(null, selectedCurrency, selectedPaymentMethod)
+  }, [selectedCurrency, selectedPaymentMethod])
 
   return <Shadow shadow={shadow}>
     <View style={[
