@@ -70,7 +70,7 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     authenticated: false,
     connected: false,
     queue: oldPeachWS?.queue || [],
-    listeners: oldPeachWS?.listeners || {
+    listeners: oldPeachWS?.listeners || {
       message: [],
       close: [],
     },

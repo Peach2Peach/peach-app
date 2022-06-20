@@ -22,7 +22,7 @@ export const saveChat = (id: string, chat: Partial<Chat>): Chat => {
   account.chats[id] = {
     ...savedChat,
     ...chat,
-    messages: savedChat.messages.concat(chat.messages || [])
+    messages: savedChat.messages.concat(chat.messages || [])
       .filter(m => m.date)
       .filter(unique('date'))
       .sort((a, b) => a.date.getTime() - b.date.getTime())

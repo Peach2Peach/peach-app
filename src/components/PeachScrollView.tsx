@@ -37,7 +37,7 @@ export const PeachScrollView = ({
       scrollEventThrottle={scrollEventThrottle}
       showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
       contentContainerStyle={contentContainerStyle || {}}
-      style={style || {}}>
+      style={style || {}}>
       <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`}>
         {children}
       </View>

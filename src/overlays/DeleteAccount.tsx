@@ -24,7 +24,7 @@ export const DeleteAccount = ({ navigate }: DeleteAccountProps): ReactElement =>
   const ok = async () => {
     await deleteAccount({
       onSuccess: navigate,
-      onError: () => {}
+      onError: () => {}
     })
     updateOverlay({ content: <AccountDeleted />, showCloseButton: false })
     setTimeout(() => {

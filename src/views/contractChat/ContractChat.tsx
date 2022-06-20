@@ -190,7 +190,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (err) error(err)
       if (paymentData) {
         // TODO if err is yielded consider open a dispute directly
-        const contractErrors = contract.contractErrors || []
+        const contractErrors = contract.contractErrors || []
         if (err) contractErrors.push(err.message)
         saveAndUpdate({
           ...contract,

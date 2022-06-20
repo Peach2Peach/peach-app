@@ -46,7 +46,7 @@ const getDefaultBuyOffer = (): BuyOffer => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
-  meansOfPayment: account.settings.meansOfPayment || {},
+  meansOfPayment: account.settings.meansOfPayment || {},
   kyc: account.settings.kyc || false,
   amount: account.settings.amount || BUCKETS[0],
   matches: [],

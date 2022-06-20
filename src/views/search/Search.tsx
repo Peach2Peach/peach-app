@@ -73,7 +73,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (typeof match === 'number') {
       setCurrentMatchIndex(match)
       setSeenMatches(seen => {
-        seen = (offer.seenMatches || []).concat([matches[match].offerId]).filter(unique())
+        seen = (offer.seenMatches || []).concat([matches[match].offerId]).filter(unique())
         saveAndUpdate({
           ...offer,
           seenMatches: seen
