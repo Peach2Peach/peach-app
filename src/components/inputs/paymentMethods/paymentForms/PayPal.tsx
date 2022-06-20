@@ -44,7 +44,7 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onChang
     phone,
     email,
     userName,
-    currencies,
+    currencies: selectedCurrencies,
   })
 
   const onCurrencyToggle = (currency: Currency) => {

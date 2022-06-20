@@ -20,7 +20,7 @@ export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): Re
     ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
     : 0
   const shadow = contract.disputeActive ? mildShadowRed : mildShadowOrange
-  const goToChat = () => navigation.navigate('contractChat', { contractId: contract.id })
+  const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
 
   return <View style={style}>
     <Shadow shadow={shadow}>

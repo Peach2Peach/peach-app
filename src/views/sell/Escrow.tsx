@@ -14,7 +14,6 @@ import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import ReturnAddress from './components/ReturnAddress'
 import Refund from '../../overlays/Refund'
 import { OverlayContext } from '../../contexts/overlay'
 import { useFocusEffect } from '@react-navigation/native'
@@ -27,7 +26,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [updatePending, setUpdatePending] = useState(true)
-  const [escrow, setEscrow] = useState('')
+  const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
   const fundingAmount = Math.round(offer.amount)
@@ -86,7 +85,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
         level: 'ERROR',
       })
     },
-  }), [offer.escrow])
+  }), [offer.id])
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
@@ -110,16 +109,12 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     }
   }, [fundingStatus])
 
-  useEffect(() => { // workaround to update escrow status if offer changes
+  useFocusEffect(useCallback(() => { // workaround to update escrow status if offer changes
     setStepValid(false)
-    setEscrow(() => offer.escrow || '')
+    setEscrow(offer.escrow || '')
     setUpdatePending(!offer.escrow)
-    setFundingStatus(() => offer.funding)
-  }, [offer.id])
-
-  const returnAddressValidation = (isValid: boolean) => {
-    setStepValid((valid: boolean) => valid && isValid)
-  }
+    setFundingStatus(offer.funding)
+  }, []))
 
   return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}
@@ -134,12 +129,6 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
             <Text style={tw`font-baloo text-lg uppercase text-grey-2`}> {i18n('sell.escrow.sendSats.2')}</Text>
           </Text>
           <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
-          {fundingStatus.status === 'NULL'
-            ? <ReturnAddress style={tw`mt-16`}
-              offer={offer} updateOffer={saveAndUpdate} setStepValid={returnAddressValidation}
-            />
-            : null
-          }
         </View>
         : <NoEscrowFound />
     }

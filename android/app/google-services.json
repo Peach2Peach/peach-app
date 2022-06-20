@@ -37,6 +37,49 @@
             {
               "client_id": "901064894090-bg6eaqqg62jm0ee83miarvs3ril999o6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "901064894090-d7un35elp5g0esk9547hofpgn3j9qpuu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.peachbitcoin.peach"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901064894090:android:cb68178201fcce82806f73",
+        "android_client_info": {
+          "package_name": "com.peachbitcoin.peach.mainnet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901064894090-bg6eaqqg62jm0ee83miarvs3ril999o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXXIuHoFPBi-CID5hiKYOQ5xNlSzzZo64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901064894090-bg6eaqqg62jm0ee83miarvs3ril999o6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "901064894090-d7un35elp5g0esk9547hofpgn3j9qpuu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.peachbitcoin.peach"
+              }
             }
           ]
         }

@@ -1,7 +1,6 @@
 
-import React, { ReactElement, useContext, useEffect, useReducer, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import {
-  Keyboard,
   // Image,
   Pressable,
   View
@@ -21,6 +20,7 @@ import AppContext from '../../contexts/app'
 import { saveContract } from '../../utils/contract'
 import { getContract } from '../../utils/peachAPI'
 import { IconType } from '../icons'
+import keyboard from '../../effects/keyboard'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
@@ -52,11 +52,12 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  * @example
  * <FooterItem id="sell" active={true} />
  */
-const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement =>
-  <Pressable onPress={onPress}>
+const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement => {
+  const color = active ? tw`text-peach-1` : tw`text-grey-2`
+  return <Pressable onPress={onPress}>
     <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-      <Icon id={id} style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-      <Text style={tw`text-peach-1 font-baloo text-2xs leading-3 mt-1 text-center`}>
+      <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
+      <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
         {i18n(id)}
       </Text>
     </View>
@@ -70,6 +71,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps)
       : null
     }
   </Pressable>
+}
 
 /**
  * @description Component to display the Footer
@@ -94,6 +96,8 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     settings: () => navTo('settings'),
   }
 
+  useEffect(keyboard(setKeyboardOpen), [])
+
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       if (remoteMessage.data && remoteMessage.data.type === 'contract.chat') {
@@ -111,11 +115,6 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
       notifications: getChatNotifications()
     })
 
-    Keyboard.addListener('keyboardWillShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardDidShow', () => setKeyboardOpen(true))
-    Keyboard.addListener('keyboardWillHide', () => setKeyboardOpen(false))
-    Keyboard.addListener('keyboardDidHide', () => setKeyboardOpen(false))
-
     return unsubscribe
   }, [])
 
@@ -128,7 +127,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
             <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
             <FooterItem
               id="offers"
-              active={active === 'offers'}
+              active={active === 'offers' || /contract/u.test(active as string)}
               onPress={navigate.offers}
               notifications={notifications}
             />

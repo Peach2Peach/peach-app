@@ -11,7 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import LanguageContext from '../../contexts/language'
 import { Card, Headline, Icon, PeachScrollView, Text, Title } from '../../components'
-import { APPVERSION } from '../../constants'
+import { APPVERSION, BUILDNUMBER } from '../../constants'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
 import { useFocusEffect } from '@react-navigation/native'
@@ -52,10 +52,11 @@ export default ({ navigation }: Props): ReactElement => {
   }, []))
 
   const goToContactUs = () => navigation.navigate('contact', {})
-  const goToLanguageSettings = () => navigation.navigate('language', {})
+  // const goToLanguageSettings = () => navigation.navigate('language', {})
   const goToCurrencySettings = () => navigation.navigate('currency', {})
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
+  const goToEscrow = () => navigation.navigate('escrow', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
   const deleteAccount = () => {
     updateOverlay({
@@ -113,6 +114,11 @@ export default ({ navigation }: Props): ReactElement => {
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
         </Card>
       </Pressable>
+      <Pressable style={tw`mt-2`} onPress={goToEscrow}>
+        <Card>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.escrow')}</Text>
+        </Card>
+      </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToPaymentMethods}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.paymentMethods')}</Text>
@@ -145,7 +151,7 @@ export default ({ navigation }: Props): ReactElement => {
       </Pressable>
 
       <Text style={tw`text-center text-sm text-peach-mild mt-10`}>
-        {i18n('settings.peachApp')}{APPVERSION}
+        {i18n('settings.peachApp')}{APPVERSION} ({BUILDNUMBER})
       </Text>
     </PeachScrollView>
   </View>

@@ -2,6 +2,8 @@
 "notification.body.offer.escrowFunded" = "The escrow has been funded and your offer is published.";
 "notification.title.offer.wrongFundingAmount" = "Escrow not funded";
 "notification.body.offer.wrongFundingAmount" = "Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.";
+"notification.title.offer.expired" = "No match";
+"notification.body.offer.expired" = "It’s been %@ days and still no match! As we don’t want to keep your escrow for too long, your offer has been taken offline.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";
 "notification.body.offer.matchBuyer" = "";
 "notification.title.offer.matchSeller" = "Matches are waiting for you!";

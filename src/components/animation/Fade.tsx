@@ -28,7 +28,7 @@ export const Fade = ({
   pointerEvents,
   displayNone = true,
 }: FadeProps): ReactElement => {
-  const fadeAnim = useRef(new Animated.Value(0)).current
+  const fadeAnim = useRef(new Animated.Value(show ? 1 : 0)).current
   const [display, setDisplay] = useState('flex')
 
   useEffect(() => {

@@ -42,6 +42,8 @@ import PaymentMade from './overlays/PaymentMade'
 import { handlePushNotification } from './utils/navigation'
 import views from './views'
 import YouGotADispute from './overlays/YouGotADispute'
+import OfferExpired from './overlays/OfferExpired'
+import { getOffer } from './utils/offer'
 
 enableScreens()
 
@@ -94,10 +96,10 @@ const initApp = async (
     requestUserPermission()
   }
   const timeout = setTimeout(() => {
-    // go home anyway after 10 seconds
+    // go home anyway after 30 seconds
     goHome()
     updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
-  }, 15000)
+  }, 30000)
 
 
   events()
@@ -136,6 +138,7 @@ const App: React.FC = () => {
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
+  const getCurrentPage = () => currentPage
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -161,16 +164,26 @@ const App: React.FC = () => {
   useEffect(() => {
     info('Subscribe to push notifications')
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage))
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
+      if (remoteMessage.data && remoteMessage.data.type === 'offer.expired'
+        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
+        const offer = getOffer(remoteMessage.data.offerId) as SellOffer
+        const args = remoteMessage.notification?.bodyLocArgs
+
+        return updateOverlay({
+          content: <OfferExpired offer={offer} days={args ? args[0] || '15' : '15'} navigation={navigationRef} />,
+          showCloseButton: false
+        })
+      }
       if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
-        && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
+        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
         return updateOverlay({
           content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
           showCloseButton: false
         })
       }
       if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade'
-        && /buy|sell|home|settings|offers/u.test(currentPage as string)) {
+        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
         return updateOverlay({
           content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
           showCloseButton: false
@@ -199,8 +212,13 @@ const App: React.FC = () => {
   useEffect(websocket(updatePeachWS), [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
-    if (state) setCurrentPage(() => state.routes[state.routes.length - 1].name)
+    if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
   }
+
+  useEffect(() => {
+    info('Navigation event', currentPage)
+  }, [currentPage])
+
 
   return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
@@ -214,7 +232,7 @@ const App: React.FC = () => {
               ]}>
                 <View style={tw`h-full flex-col`}>
                   {showHeader(currentPage)
-                    ? <Header style={tw`z-10`} />
+                    ? <Header style={tw`z-10`} navigation={navigationRef} />
                     : null
                   }
                   {content

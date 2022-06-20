@@ -66,11 +66,11 @@ export default ({ navigation }: Props): ReactElement => {
           </Text>
         </Card>
       </Pressable>
-      <Pressable style={tw`mt-2`} onPress={goTo12Words}>
+      {/* <Pressable style={tw`mt-2`} onPress={goTo12Words}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.backups.view12Words')}</Text>
         </Card>
-      </Pressable>
+      </Pressable> */}
     </View>
     <View style={tw`flex items-center mt-16`}>
       <Button

@@ -11,7 +11,6 @@ import cancelOfferEffect from '../effects/cancelOfferEffect'
 
 import { error, info } from '../utils/log'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../utils/wallet'
-import { reverseBuffer } from '../utils/crypto'
 import { postTx } from '../utils/peachAPI'
 import { saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'

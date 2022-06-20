@@ -1,5 +1,5 @@
 import { unique } from './utils/array'
-import { version } from '../package.json'
+import { getVersion, getBuildNumber, getUniqueId } from 'react-native-device-info'
 
 export const SATSINBTC = 100000000
 
@@ -11,8 +11,14 @@ export const setPeachFee = (fee: number) => PEACHFEE = fee
 
 export const MAXMININGFEE = 20000
 
-export const APPVERSION = version
-export let MINAPPVERSION = version
+// time go automatically restart app when calling app from background after this time has passed
+export const TIMETORESTART = 1000 * 60 * 5
+
+export const APPVERSION = getVersion()
+export const BUILDNUMBER = getBuildNumber()
+export const UNIQUEID = getUniqueId()
+
+export let MINAPPVERSION = APPVERSION
 export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver
 
 export let CURRENCIES: Currency[] = [
@@ -53,11 +59,11 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
 }
 
 export let BUCKETS = [
-  250000,
-  500000,
-  1000000,
-  2000000,
-  5000000
+  50000,
+  100000,
+  200000,
+  350000,
+  500000
 ]
 export let DEPRECATED_BUCKETS: number[] = []
 export const setBuckets = (buckets: number[]) => BUCKETS = buckets

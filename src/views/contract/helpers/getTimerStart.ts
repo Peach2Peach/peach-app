@@ -4,7 +4,7 @@
  * @param requiredAction action required
  * @returns start time of timer
  */
-export const getTimerStart = (contract: Contract, requiredAction: ContractAction): number => {
+export const getTimerStart = (contract: Contract, requiredAction: ContractAction): number => {
   let start = contract.creationDate
 
   if (requiredAction === 'kycResponse') {
