@@ -1,5 +1,5 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
-import { NativeScrollEvent, NativeSyntheticEvent, Pressable, View } from 'react-native'
+import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
+import { LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '..'
 import PeachScrollView from '../PeachScrollView'
@@ -41,22 +41,37 @@ type SelectorProps = ComponentProps & {
     onChange={(value) => setCurrencu(value)}/>
  */
 export const Selector = ({ items, selectedValue, onChange, style }: SelectorProps): ReactElement => {
+  const [scrollWidth, setScrollWidth] = useState<number>()
+  const [scrollContentWidth, setScrollContentWidth] = useState<number>()
   const [isAtStart, setIsAtStart] = useState(true)
-  const [isAtEnd, setIsAtEnd] = useState(false)
+  const [isAtEnd, setIsAtEnd] = useState(true)
+  const scroll = useRef<ScrollView>(null)
+
+  useEffect(() => {
+    if (!scrollWidth || !scrollContentWidth) return
+    setIsAtEnd(scrollWidth + 8 > scrollContentWidth)
+  }, [scrollWidth, scrollContentWidth])
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset, contentSize, layoutMeasurement } = e.nativeEvent
     setIsAtStart(contentOffset.x <= 0)
     setIsAtEnd(contentOffset.x + layoutMeasurement.width >= contentSize.width)
   }
+
+  const onContainerLayout = (e: LayoutChangeEvent) => setScrollWidth(e.nativeEvent.layout.width)
+  const onContentLayout = (e: LayoutChangeEvent) => setScrollContentWidth(e.nativeEvent.layout.width)
+
   return <View style={[tw`w-full flex-col items-center h-6`, style]}>
     <Fade show={!isAtStart} duration={200} style={tw`absolute left-0 h-full w-8 z-10`} pointerEvents="none">
       <LinearGradient colorList={whiteGradient} angle={0}/>
     </Fade>
     <PeachScrollView horizontal={true} showsHorizontalScrollIndicator={false}
+      scrollRef={scroll}
       onScroll={onScroll}
       disable={items.length === 1}
       scrollEventThrottle={128}
+      onContainerLayout={onContainerLayout}
+      onContentLayout={onContentLayout}
       style={tw`max-w-full`}
     >
       <View style={tw`flex-row flex-nowrap`}>
