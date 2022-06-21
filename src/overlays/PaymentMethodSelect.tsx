@@ -1,5 +1,5 @@
-import React, { ReactElement, useContext, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import React, { ReactElement, useContext, useEffect, useState, useRef } from 'react'
+import { Pressable, ScrollView, View } from 'react-native'
 import tw from '../styles/tailwind'
 
 import { Button, Headline, HorizontalLine, Icon, PeachScrollView, Text } from '../components'
@@ -28,6 +28,7 @@ export const PaymentMethodSelect = ({
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const [mops, setMeansOfPayment] = useState<MeansOfPayment>(meansOfPayment || currencies.reduce(toMeansOfPayment, {}))
   const stepValid = isValid(mops)
+  const scroll = useRef<ScrollView>(null)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
@@ -68,30 +69,34 @@ export const PaymentMethodSelect = ({
     showCloseButton: false
   })
 
+  useEffect(() => {
+    scroll.current?.flashScrollIndicators()
+  }, [])
+
   return <View style={tw`w-full h-full pt-14 pb-8 flex items-center justify-between`}>
-    <View style={tw`w-full`}>
+    <View style={tw`w-full flex-shrink-0`}>
       <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
         {i18n('paymentMethod.select.title')}
       </Headline>
-      <PeachScrollView style={tw`px-10`}>
-        <Currencies
-          currencies={currencies}
-          onChange={(c) => setSelectedCurrency(c)}
-          selected={selectedCurrency}
-          meansOfPayment={mops}
-          invertColors={true}
-        />
-        <PaymentMethods
-          style={tw`mt-14`}
-          meansOfPayment={mops}
-          currency={selectedCurrency}
-          onChange={(currency, paymentMethod) => togglePaymentMethod(currency, paymentMethod)}
-          onCountrySelect={onCountrySelect}
-          invertColors={true}
-        />
-      </PeachScrollView>
     </View>
-    <View style={tw`w-full`}>
+    <PeachScrollView scrollRef={scroll} style={tw`px-10 h-full flex-shrink`}>
+      <Currencies
+        currencies={currencies}
+        onChange={(c) => setSelectedCurrency(c)}
+        selected={selectedCurrency}
+        meansOfPayment={mops}
+        invertColors={true}
+      />
+      <PaymentMethods
+        style={tw`mt-14`}
+        meansOfPayment={mops}
+        currency={selectedCurrency}
+        onChange={(currency, paymentMethod) => togglePaymentMethod(currency, paymentMethod)}
+        onCountrySelect={onCountrySelect}
+        invertColors={true}
+      />
+    </PeachScrollView>
+    <View style={tw`w-full flex-shrink-0`}>
       <View style={tw`px-10`}>
         <HorizontalLine style={tw`bg-white-1 mt-4`}/>
       </View>
