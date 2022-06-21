@@ -1,6 +1,6 @@
 
 import React, { ReactElement, Ref } from 'react'
-import { ScrollView, ScrollViewProps, View } from 'react-native'
+import { LayoutChangeEvent, ScrollView, ScrollViewProps, View } from 'react-native'
 import tw from '../styles/tailwind'
 
 type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
