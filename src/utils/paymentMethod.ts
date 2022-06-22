@@ -1,5 +1,5 @@
 import { PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../constants'
-import { unique } from './array'
+import { unique, intersect } from './array'
 import { sha256 } from './crypto'
 import { SignAndEncryptResult, signAndEncryptSymmetric } from './pgp'
 
@@ -49,6 +49,19 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
     .reduce((arr, c) => arr.concat((meansOfPayment as Required<MeansOfPayment>)[c as Currency]), [] as PaymentMethod[])
     .filter(unique())
 
+
+/**
+* @description Method to get means of payment both arguments have in common
+* @param mopsA payment methods mapped to currency
+* @param mopsB payment methods mapped to currency
+* @returns means of payment both arguments have in common
+*/
+export const getMoPsInCommon = (mopsA: MeansOfPayment, mopsB: MeansOfPayment): MeansOfPayment =>
+  intersect<Currency>(Object.keys(mopsA) as Currency[], Object.keys(mopsB) as Currency[])
+    .reduce((mops, c: Currency) => ({
+      ...mops,
+      [c]: intersect(mopsA[c]!, mopsB[c]!)
+    }), {} as MeansOfPayment)
 
 /**
  * @description Method to get payment method info of given method id
