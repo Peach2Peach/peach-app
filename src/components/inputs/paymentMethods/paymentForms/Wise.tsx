@@ -23,22 +23,18 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [iban, setIBAN] = useState(data?.IBAN || '')
   const [bic, setBIC] = useState(data?.bic || '')
-  const [ukSortCode, setUKSortCode] = useState(data?.ukSortCode || '')
-  const [ukBankAccount, setUKBankAccount] = useState(data?.ukBankAccount || '')
-  const [currencies, setCurrencies] = useState(data?.currencies || [])
+  const [currencies] = useState(data?.currencies || [])
   const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
 
   let $email = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
   let $bic = useRef<TextInput>(null).current
-  let $ukSortCode = useRef<TextInput>(null).current
-  let $ukBankAccount = useRef<TextInput>(null).current
-  const anyFieldSet = !!(email || (beneficiary && (iban || bic || (ukSortCode && ukBankAccount))))
+  const anyFieldSet = !!(email || (beneficiary && (iban || bic)))
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { label, email, beneficiary, iban, bic, ukSortCode, ukBankAccount },
+    state: { label, email, beneficiary, iban, bic },
     rules,
     messages: getMessages()
   })
@@ -51,8 +47,6 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
     beneficiary,
     iban,
     bic,
-    ukSortCode,
-    ukBankAccount,
     currencies: selectedCurrencies,
   })
 
@@ -67,28 +61,18 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
         duplicate: view === 'new' && getPaymentDataByLabel(label)
       },
       email: {
-        required: !iban && !bic && !(ukSortCode && ukBankAccount),
+        required: !iban && !bic,
         email: true
       },
       beneficiary: {
         required: !email,
-        iban: true
       },
       iban: {
-        required: !email && !bic && !(ukSortCode && ukBankAccount),
+        required: !email,
         iban: true
       },
       bic: {
-        required: !email && !iban && !(ukSortCode && ukBankAccount),
         bic: true
-      },
-      ukSortCode: {
-        required: !email && !iban && !bic,
-        ukSortCode: true
-      },
-      ukBankAccount: {
-        required: !email && !iban && !bic,
-        ukBankAccount: true
       },
     })
     if (!isFormValid()) return
@@ -109,7 +93,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, email, beneficiary, iban, bic, ukSortCode, ukBankAccount, selectedCurrencies])
+  }, [label, email, beneficiary, iban, bic, selectedCurrencies])
 
   return <View style={style}>
     <View>
@@ -132,7 +116,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
           onSubmit={() => $beneficiary?.focus()}
           reference={(el: any) => $email = el}
           value={email}
-          required={!anyFieldSet}
+          required={!iban}
           disabled={view === 'view'}
           label={i18n('form.email')}
           isValid={!isFieldInError('email')}
@@ -160,7 +144,7 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
           onChange={setIBAN}
           onSubmit={() => $bic?.focus()}
           reference={(el: any) => $iban = el}
-          required={!anyFieldSet}
+          required={!email}
           value={iban}
           disabled={view === 'view'}
           label={i18n('form.iban')}
@@ -172,43 +156,14 @@ export const Wise: PaymentMethodForm = ({ style, view, data, onSubmit, onChange,
       <View style={tw`mt-4`}>
         <Input
           onChange={setBIC}
-          onSubmit={() => $bic?.focus()}
+          onSubmit={save}
           reference={(el: any) => $bic = el}
-          required={!anyFieldSet}
           value={bic}
           disabled={view === 'view'}
           label={i18n('form.bic')}
           isValid={!isFieldInError('bic')}
           autoCorrect={false}
           errorMessage={getErrorsInField('bic')}
-        />
-      </View>
-      <View style={tw`mt-4`}>
-        <Input
-          onChange={setUKSortCode}
-          onSubmit={() => $bic?.focus()}
-          reference={(el: any) => $ukSortCode = el}
-          required={!anyFieldSet}
-          value={ukSortCode}
-          disabled={view === 'view'}
-          label={i18n('form.ukSortCode')}
-          isValid={!isFieldInError('ukSortCode')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('ukSortCode')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={setUKBankAccount}
-          onSubmit={save}
-          reference={(el: any) => $ukBankAccount = el}
-          required={!anyFieldSet}
-          value={ukBankAccount}
-          disabled={view === 'view'}
-          label={i18n('form.ukBankAccount')}
-          isValid={!isFieldInError('ukBankAccount')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('ukBankAccount')}
         />
       </View>
       <CurrencySelection style={tw`mt-2`}

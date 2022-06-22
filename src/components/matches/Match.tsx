@@ -1,5 +1,5 @@
 
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Headline, Shadow, Text, HorizontalLine } from '..'
 
@@ -181,8 +181,6 @@ export const Match = ({
           }))}
           onChange={c => setPaymentMethod(c as PaymentMethod)}
         />
-        <Text>{JSON.stringify(offer.meansOfPayment)}</Text>
-        <Text>{JSON.stringify(match.meansOfPayment)}</Text>
         {/* <HorizontalLine style={tw`mt-5`}/>
         {!match.kyc
           ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
