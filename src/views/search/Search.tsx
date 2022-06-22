@@ -29,6 +29,7 @@ import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
+import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 
 
 const updaterPNs = [
@@ -112,6 +113,15 @@ export default ({ route, navigation }: Props): ReactElement => {
         `selectedPaymentMethod: ${selectedPaymentMethod}`
       )
       return
+    }
+
+    if (!offer.meansOfPayment[selectedCurrency]
+      || offer.meansOfPayment[selectedCurrency]!.indexOf(selectedPaymentMethod) === -1) {
+      updateOverlay({
+        content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
+        showCloseButton: false,
+        showCloseIcon: false
+      })
     }
 
     setMatchLoading(true)
