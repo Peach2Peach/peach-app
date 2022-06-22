@@ -146,15 +146,13 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
-  return <View style={tw`h-full flex px-6`}>
-    <View style={[
-      tw`h-full flex-shrink p-6 pt-32 flex-col items-center justify-between`,
-      tw.md`pt-36`
-    ]}>
+  return <View style={tw`h-full flex justify-center px-6`}>
+    <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
+      <View />{/* dummy for layout */}
       <Image source={require('../../../assets/favico/peach-logo.png')}
         style={[tw`flex-shrink max-h-40`, { resizeMode: 'contain', minHeight: 48 }]}
       />
-      <View style={tw`w-full mt-2`}>
+      <View style={tw`w-full`}>
         <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
           {i18n(loading ? 'newUser.title.create' : 'newUser.title.new')}
         </Text>
@@ -172,6 +170,7 @@ export default ({ navigation }: Props): ReactElement => {
           </View>
         }
       </View>
+      <View />{/* dummy for layout */}
     </View>
     {!loading
       ? <View style={tw`pb-8 mt-4 flex items-center w-full bg-white-1`}>
