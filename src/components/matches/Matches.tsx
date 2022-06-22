@@ -6,7 +6,7 @@ import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getPaymentMethods } from '../../utils/paymentMethod'
+import { getCurrencies, getMoPsInCommon, getPaymentMethods } from '../../utils/paymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -36,23 +36,17 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
     <Icon id="sliderNext" style={tw`w-4 h-4`}/>
   </Pressable>
 
-const getMatchCurrency = (match: Match) =>
-  match.selectedCurrency || Object.keys(match.meansOfPayment).shift() as Currency
-
-const getPaymentMethodsByCurrency = (meansOfPayment: MeansOfPayment, currency: Currency) => meansOfPayment[currency]
-
-const getMatchPaymentMethod = (match: Match) => {
-  const fallback = match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment).shift() as PaymentMethod
-
-  if (!match.selectedCurrency) return fallback
-
-  const paymentMethods = getPaymentMethodsByCurrency(match.meansOfPayment, match.selectedCurrency)
-  if (!paymentMethods?.length) return fallback
-
-  const firstMethod = paymentMethods[0]
-
-  return paymentMethods.indexOf(fallback) === -1 ? firstMethod : fallback
+const getMatchCurrency = (offer: BuyOffer|SellOffer, match: Match) => {
+  const mopsInCommon = getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+  const paymentMethodsInCommon = getPaymentMethods(mopsInCommon)
+  const currencies = getCurrencies(paymentMethodsInCommon.length ? mopsInCommon : match.meansOfPayment)
+  return match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1
+    ? match.selectedCurrency
+    : currencies[0]
 }
+
+const getMatchPaymentMethod = (match: Match, currency: Currency) =>
+  match.selectedPaymentMethod || match.meansOfPayment[currency]![0]
 
 /**
  * @description Component to display matches
@@ -63,14 +57,19 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, sty
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
+
   const onBeforeSnapToItem = (i: number) => {
-    onChange(i, getMatchCurrency(matches[i]), getMatchPaymentMethod(matches[i]))
+    const currency = getMatchCurrency(offer, matches[i])
+    const paymentMethod = getMatchPaymentMethod(matches[i], currency)
+    onChange(i, currency, paymentMethod)
     setCurrentIndex(i)
   }
 
   useEffect(() => {
     if (!matches.length) return
-    onChange(0, getMatchCurrency(matches[0]), getMatchPaymentMethod(matches[0]))
+    const currency = getMatchCurrency(offer, matches[0])
+    const paymentMethod = getMatchPaymentMethod(matches[0], currency)
+    onChange(0, currency, paymentMethod)
   }, [])
 
   return <View style={[tw`flex-row items-center justify-center overflow-visible`, style]}>

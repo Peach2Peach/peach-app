@@ -1,5 +1,5 @@
 import { PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../constants'
-import { unique } from './array'
+import { unique, intersect } from './array'
 import { sha256 } from './crypto'
 import { SignAndEncryptResult, signAndEncryptSymmetric } from './pgp'
 
@@ -51,6 +51,19 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
 
 
 /**
+* @description Method to get means of payment both arguments have in common
+* @param mopsA payment methods mapped to currency
+* @param mopsB payment methods mapped to currency
+* @returns means of payment both arguments have in common
+*/
+export const getMoPsInCommon = (mopsA: MeansOfPayment, mopsB: MeansOfPayment): MeansOfPayment =>
+  intersect<Currency>(Object.keys(mopsA) as Currency[], Object.keys(mopsB) as Currency[])
+    .reduce((mops, c: Currency) => ({
+      ...mops,
+      [c]: intersect(mopsA[c]!, mopsB[c]!)
+    }), {} as MeansOfPayment)
+
+/**
  * @description Method to get payment method info of given method id
  * @param id payment method id
  * @returns payment method info
@@ -89,32 +102,6 @@ export const paymentMethodAllowedForCurrencies = (paymentMethod: PaymentMethod, 
   const paymentMethodInfo = PAYMENTMETHODINFOS.find(info => info.id === paymentMethod)
   return paymentMethodInfo?.currencies.some(c => currencies.indexOf(c) !== -1)
 }
-
-/**
- * @description Method to check whether a payment method is a local payment method (e.g Bizum in Spain only)
- * @param paymentMethod payment method
- * @returns true if payment method is local
- * @TODO check if still needed, if yes, fix method
- */
-export const isLocalPaymentMethod = (paymentMethod: PaymentMethod) => true
-
-/**
- * @description Method to check whether a payment method is a local payment method (e.g Bizum in Spain only)
- * @param paymentCategory payment category
- * @param currency currency
- * @returns true if payment category has local payment methods
- * @TODO check if still needed, if yes, fix method
- */
-export const hasLocalPaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean => true
-
-
-/**
- * @description Method to get country of local payment method
- * @param paymentMethod payment method
- * @returns country of local payment method or empty string if it's not local
- * @TODO check if still needed, if yes, fix method
- */
-export const getLocalMoPCountry = (paymentMethod: PaymentMethod): string => 'ES'
 
 /**
  * @description Method to check whether a payment method category has applicable MoPs for given currency

@@ -8,7 +8,6 @@ import { account, updateSettings } from '../../utils/account'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
-import { MeansOfPayment } from '../../components/inputs'
 import { hasMopsConfigured } from '../../utils/offer'
 import PaymentDetails from './components/PaymentDetails'
 import AddPaymentMethods from './components/AddPaymentMethods'
@@ -48,7 +47,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       setMeansOfPayment={setMeansOfPayment}
     />
     <AddPaymentMethods style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} />
-    {/* <MeansOfPayment meansOfPayment={meansOfPayment} setMeansOfPayment={setMeansOfPayment} /> */}
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

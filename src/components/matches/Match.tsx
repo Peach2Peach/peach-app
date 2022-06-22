@@ -10,11 +10,15 @@ import LanguageContext from '../../contexts/language'
 import { Selector } from '../inputs'
 import { padString } from '../../utils/string'
 import { Rating, ExtraMedals } from '../user'
-import { unique } from '../../utils/array'
 import Icon from '../Icon'
 import { interpolate } from '../../utils/math'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getCurrencies, getPaymentMethods, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
+import {
+  getCurrencies,
+  getMoPsInCommon,
+  getPaymentMethods,
+  paymentMethodAllowedForCurrency
+} from '../../utils/paymentMethod'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
@@ -45,15 +49,27 @@ export const Match = ({
 }: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
+  // 1. check which means of payment match has in common
+  const [mopsInCommon] = useState(() => getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment))
+  const [paymentMethodsInCommon] = useState(() => getPaymentMethods(mopsInCommon))
+  const [allPaymentMethods] = useState(() => getPaymentMethods(match.meansOfPayment))
+
+  // 2. if match has mops in common, display only double pairs, if not, display single pairs
+  const [currencies] = useState(() =>
+    getCurrencies(paymentMethodsInCommon.length ? mopsInCommon : match.meansOfPayment)
+  )
   const [selectedCurrency, setSelectedCurrency] = useState(() =>
-    match.selectedCurrency || Object.keys(match.meansOfPayment)[0] as Currency
+    match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1
+      ? match.selectedCurrency
+      : currencies[0]
   )
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(() =>
-    match.selectedPaymentMethod || getPaymentMethods(match.meansOfPayment)[0]
+    match.selectedPaymentMethod || match.meansOfPayment[selectedCurrency]![0]
   )
-  const currencies = getCurrencies(match.meansOfPayment)
+
   const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(() =>
-    getPaymentMethods(match.meansOfPayment).filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
+    (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
+      .filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
   )
 
   const shadow = renderShadow
@@ -73,21 +89,20 @@ export const Match = ({
   const setCurrency = (currency: Currency) => {
     match.selectedCurrency = selectedCurrency
     setSelectedCurrency(currency)
-    setApplicablePaymentMethods(getPaymentMethods(match.meansOfPayment)
-      .filter(p => match.meansOfPayment[currency]?.indexOf(p) !== -1)
+    setApplicablePaymentMethods(
+      (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
+        .filter(p => match.meansOfPayment[currency]?.indexOf(p) !== -1)
     )
     if (match.meansOfPayment[currency]?.indexOf(selectedPaymentMethod) === -1) {
       setSelectedPaymentMethod((match.meansOfPayment[currency] || [])[0])
     }
+    onChange(null, currency, selectedPaymentMethod)
   }
   const setPaymentMethod = (paymentMethod: PaymentMethod) => {
     match.selectedPaymentMethod = selectedPaymentMethod
     setSelectedPaymentMethod(paymentMethod)
+    onChange(null, selectedCurrency, paymentMethod)
   }
-
-  useEffect(() => {
-    onChange(null, selectedCurrency, selectedPaymentMethod)
-  }, [selectedCurrency, selectedPaymentMethod])
 
   return <Shadow shadow={shadow}>
     <View style={[
@@ -166,6 +181,8 @@ export const Match = ({
           }))}
           onChange={c => setPaymentMethod(c as PaymentMethod)}
         />
+        <Text>{JSON.stringify(offer.meansOfPayment)}</Text>
+        <Text>{JSON.stringify(match.meansOfPayment)}</Text>
         {/* <HorizontalLine style={tw`mt-5`}/>
         {!match.kyc
           ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
