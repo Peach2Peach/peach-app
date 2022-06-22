@@ -91,32 +91,6 @@ export const paymentMethodAllowedForCurrencies = (paymentMethod: PaymentMethod, 
 }
 
 /**
- * @description Method to check whether a payment method is a local payment method (e.g Bizum in Spain only)
- * @param paymentMethod payment method
- * @returns true if payment method is local
- * @TODO check if still needed, if yes, fix method
- */
-export const isLocalPaymentMethod = (paymentMethod: PaymentMethod) => true
-
-/**
- * @description Method to check whether a payment method is a local payment method (e.g Bizum in Spain only)
- * @param paymentCategory payment category
- * @param currency currency
- * @returns true if payment category has local payment methods
- * @TODO check if still needed, if yes, fix method
- */
-export const hasLocalPaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean => true
-
-
-/**
- * @description Method to get country of local payment method
- * @param paymentMethod payment method
- * @returns country of local payment method or empty string if it's not local
- * @TODO check if still needed, if yes, fix method
- */
-export const getLocalMoPCountry = (paymentMethod: PaymentMethod): string => 'ES'
-
-/**
  * @description Method to check whether a payment method category has applicable MoPs for given currency
  * @param paymentCategory payment category
  * @param currency currency
