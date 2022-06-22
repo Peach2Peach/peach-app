@@ -79,7 +79,7 @@
   "sell.kyc.id": "Government ID scan",
   "sell.escrow.subtitle": "Fund escrow",
   "sell.escrow.sendSats.1": "Send",
-  "sell.escrow.sendSats.2": "sats to:",
+  "sell.escrow.sendSats.2": "to:",
   "sell.escrow.fundToContinue": "Fund to continue",
   "sell.escrow.waitingForConfirmation": "Waiting for confirmation",
   "escrow.help.title": "Peach escrow",

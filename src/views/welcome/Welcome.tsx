@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import {
   Image,
   Pressable,
@@ -7,7 +7,6 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'
