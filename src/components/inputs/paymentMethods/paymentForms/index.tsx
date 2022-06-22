@@ -10,7 +10,6 @@ import { Twint } from './Twint'
 import { Bizum } from './Bizum'
 import { Swish } from './Swish'
 import { MBWay } from './MBWay'
-import { SWIFT } from './SWIFT'
 // import { Tether } from './Tether'
 
 type PaymentFormProps = ComponentProps & {
