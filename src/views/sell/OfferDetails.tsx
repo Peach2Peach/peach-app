@@ -64,7 +64,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   const onPaymentMethodAdded = () => {
-    alert('oh hi')
     saveAndUpdate({ ...offer })
   }
 
