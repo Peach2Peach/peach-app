@@ -25,7 +25,8 @@ declare type APISuccess = {
 }
 
 declare type APIError = {
-  error: string
+  error: string,
+  details?: unknown
 }
 
 declare type User = {
