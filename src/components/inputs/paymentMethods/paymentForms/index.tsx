@@ -3,7 +3,7 @@ import { SEPA } from './SEPA'
 import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
 import { ApplePay } from './ApplePay'
-// import { Wise } from './Wise'
+import { Wise } from './Wise'
 import { BankTransferCH } from './BankTransferCH'
 import { BankTransferUK } from './BankTransferUK'
 import { Twint } from './Twint'
@@ -27,13 +27,12 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
-  swift: SWIFT,
   bankTransferCH: BankTransferCH,
   bankTransferUK: BankTransferUK,
   paypal: PayPal,
   revolut: Revolut,
   applePay: ApplePay,
-  // wise: Wise,
+  wise: Wise,
   twint: Twint,
   swish: Swish,
   mbWay: MBWay,

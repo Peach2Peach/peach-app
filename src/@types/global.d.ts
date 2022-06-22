@@ -42,10 +42,6 @@ declare type SEPAData = {
   address?: string,
   reference?: string,
 }
-declare type SWIFTData = {
-  beneficiary: string,
-  bic: string,
-}
 declare type BankTransferCHData = {
   beneficiary: string,
   iban: string,
@@ -86,8 +82,6 @@ declare type WiseData = {
   beneficiary: string,
   iban: string,
   bic: string,
-  ukSortCode: string,
-  ukBankAccount: string,
 }
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency'

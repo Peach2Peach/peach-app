@@ -1,11 +1,9 @@
 import { ReactElement } from 'react'
 import GeneralPaymentDetails from './detail/generalPaymentDetails'
 import DetailSEPA from './detail/sepa'
-import DetailPaypal from './detail/paypal'
 import DetailRevolut from './detail/revolut'
-import DetailApplePay from './detail/applePay'
 import DetailBankTransferCH from './detail/bankTransferCH'
-import DetailSWIFT from './detail/swift'
+import DetailWise from './detail/wise'
 
 export type PaymentTemplateProps = { paymentData: PaymentData }
 
@@ -15,13 +13,12 @@ export type PaymentDetailTemplates = {
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
   sepa: DetailSEPA,
-  swift: DetailSWIFT,
   bankTransferCH: DetailBankTransferCH,
   bankTransferUK: GeneralPaymentDetails,
   paypal: GeneralPaymentDetails,
   revolut: DetailRevolut,
   applePay: GeneralPaymentDetails,
-  wise: GeneralPaymentDetails,
+  wise: DetailWise,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,

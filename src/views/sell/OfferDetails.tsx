@@ -63,6 +63,11 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
+  const onPaymentMethodAdded = () => {
+    alert('oh hi')
+    saveAndUpdate({ ...offer })
+  }
+
   return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('sell.title')} />
     <Headline style={tw`mt-16 text-grey-1`}>
@@ -73,7 +78,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       setPaymentData={setPaymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethods style={tw`mt-4`} />
+    <AddPaymentMethods style={tw`mt-4`} onUpdate={onPaymentMethodAdded} />
 
     <Premium
       premium={premium}
