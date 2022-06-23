@@ -64,6 +64,12 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
       <Headline style={tw`text-grey-2 normal-case mt-4`}>
         {i18n('contract.willPayYou')}
       </Headline>
+      <Text style={tw`text-center text-grey-2`}>
+        {i18n(
+          `currency.format.${contract.currency}`,
+          contract.price.toFixed(2)
+        )}
+      </Text>
       {contract.paymentData && PaymentTo
         ? <PaymentTo paymentData={contract.paymentData}/>
         : null
