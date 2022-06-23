@@ -121,7 +121,7 @@ module.exports = {
     'max-lines-per-function': ['error', 70],
     'max-nested-callbacks': 'error',
     'max-params': 'error',
-    'max-statements': ['error', 20],
+    'max-statements': ['error', 21],
     'max-statements-per-line': 'error',
     'multiline-comment-style': 'off',
     'multiline-ternary': 'off',

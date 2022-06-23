@@ -134,7 +134,9 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onChang
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setUserName}
+          onChange={(usr: string) => {
+            setUserName(usr.length && !/@/ug.test(usr) ? `@${usr}` : usr)
+          }}
           onSubmit={() => {
             setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
             save()

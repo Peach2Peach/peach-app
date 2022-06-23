@@ -83,7 +83,10 @@ export const Input = ({
   const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
     onChange ? onChange(e.nativeEvent.text?.trim()) : null
   const onFocusHandler = () => onFocus ? onFocus() : null
-  const onBlurHandler = () => onBlur ? onBlur() : null
+  const onBlurHandler = () => {
+    if (onChange && value) onChange(value.trim())
+    if (onBlur) onBlur()
+  }
 
   return <View>
     <View style={tw`overflow-hidden rounded`}>
@@ -108,10 +111,12 @@ export const Input = ({
           editable={!disabled} autoCorrect={autoCorrect}
           multiline={multiline} textAlignVertical={multiline ? 'top' : 'center'}
           onChangeText={onChangeText}
+          onEndEditing={onEndEditing}
           onSubmitEditing={onSubmitEditing}
           blurOnSubmit={false}
           onFocus={onFocusHandler} onBlur={onBlurHandler}
           secureTextEntry={secureTextEntry}
+          autoCapitalize="none"
         />
         {icon
           ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
