@@ -100,6 +100,7 @@ declare type GetInfoResponse = {
   buckets: number[],
   deprecatedBuckets: number[],
   paymentMethods: PaymentMethodInfo[],
+  latestAppVersion: string,
   minAppVersion: string,
 }
 declare type PeachInfo = GetInfoResponse

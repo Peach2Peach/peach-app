@@ -21,6 +21,9 @@ export const UNIQUEID = getUniqueId()
 export let MINAPPVERSION = APPVERSION
 export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver
 
+export let LATESTAPPVERSION = APPVERSION
+export const setLatestAppVersion = (ver: string) => LATESTAPPVERSION = ver
+
 export let CURRENCIES: Currency[] = [
   'EUR',
   'CHF',

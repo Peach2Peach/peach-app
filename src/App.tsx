@@ -35,7 +35,7 @@ import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
-import { APPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
@@ -44,6 +44,7 @@ import views from './views'
 import YouGotADispute from './overlays/YouGotADispute'
 import OfferExpired from './overlays/OfferExpired'
 import { getOffer } from './utils/offer'
+import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 
 enableScreens()
 
@@ -131,7 +132,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseIcon, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = Dimensions.get('window')
@@ -157,7 +158,9 @@ const App: React.FC = () => {
     (async () => {
       await initApp(navigationRef, updateMessage)
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
-        updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
+        updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
+      } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
+        updateMessage({ template: <NewVersionAvailable />, level: 'WARN' })
       }
     })()
   }, [])
@@ -226,7 +229,7 @@ const App: React.FC = () => {
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-            <MessageContext.Provider value={[{ template, msg, level }, updateMessage]}>
+            <MessageContext.Provider value={[{ template, msg, level, close }, updateMessage]}>
               <OverlayContext.Provider value={[
                 { content, showCloseButton: false, showCloseIcon: false },
                 updateOverlay
@@ -242,7 +245,7 @@ const App: React.FC = () => {
                   }
                   {template || msg
                     ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                      <Message template={template} msg={msg} level={level} style={{ minHeight: 60 }} />
+                      <Message template={template} msg={msg} level={level} close={close} style={{ minHeight: 60 }} />
                     </Animated.View>
                     : null
                   }
