@@ -119,7 +119,9 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onChan
       </View>
       <View style={tw`mt-2`}>
         <Input
-          onChange={setUserName}
+          onChange={(usr: string) => {
+            setUserName(usr.length && !/@/ug.test(usr) ? `@${usr}` : usr)
+          }}
           onSubmit={() => {
             setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
             $email?.focus()
@@ -129,9 +131,9 @@ export const Revolut: PaymentMethodForm = ({ style, view, data, onSubmit, onChan
           required={!anyFieldSet}
           disabled={view === 'view'}
           label={i18n('form.userName')}
-          isValid={!isFieldInError('paymentLink')}
+          isValid={!isFieldInError('userName')}
           autoCorrect={false}
-          errorMessage={getErrorsInField('paymentLink')}
+          errorMessage={getErrorsInField('userName')}
         />
       </View>
       <View style={tw`mt-2`}>
