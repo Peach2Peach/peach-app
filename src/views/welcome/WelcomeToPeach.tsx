@@ -14,7 +14,7 @@ export default (): ReactElement => {
     <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
       {i18n('welcome.welcomeToPeach.title')}
     </Text>
-    <Text style={tw`mt-4 text-center`}>
+    <Text style={tw`mt-4 text-center font-bold`}>
       {i18n('welcome.welcomeToPeach.description.1')}
     </Text>
     <Text style={tw`mt-3 text-center`}>

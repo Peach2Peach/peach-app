@@ -36,10 +36,10 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
   const bgColorActive = grey
     ? tw`bg-grey-2`
     : tw`bg-peach-2`
-  const border = secondary ? tw`border border-peach-1 `
-    : tertiary ? tw`border border-white-2 `
-      : grey ? tw`border border-grey-2 `
-        : {}
+  const border = secondary ? tw`border border-peach-1`
+    : tertiary ? tw`border border-white-2`
+      : grey ? tw`border border-grey-2`
+        : tw`border border-transparent`
 
   return <Pressable
     onPress={onPressHandler}
