@@ -114,6 +114,7 @@ declare type MessageState = {
   template?: ReactNode,
   msg?: string,
   level: Level,
+  close?: boolean,
   time?: number,
 }
 declare type OverlayState = {

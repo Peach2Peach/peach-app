@@ -226,7 +226,7 @@ const App: React.FC = () => {
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-            <MessageContext.Provider value={[{ template, msg, level }, updateMessage]}>
+            <MessageContext.Provider value={[{ template, msg, level, close }, updateMessage]}>
               <OverlayContext.Provider value={[
                 { content, showCloseButton: false, showCloseIcon: false },
                 updateOverlay
@@ -242,7 +242,7 @@ const App: React.FC = () => {
                   }
                   {template || msg
                     ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                      <Message template={template} msg={msg} level={level} style={{ minHeight: 60 }} />
+                      <Message template={template} msg={msg} level={level} close={close} style={{ minHeight: 60 }} />
                     </Animated.View>
                     : null
                   }
