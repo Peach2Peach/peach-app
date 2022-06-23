@@ -142,9 +142,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       const paymentDataForMethod = account.paymentData.filter(data =>
         data.type === selectedPaymentMethod
       )
-      const paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
-      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
+      let paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
+      let index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
 
+      if (index === -1) { // TODO remove legacy support after 18th of July
+        paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data, true))
+        index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
+      }
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
