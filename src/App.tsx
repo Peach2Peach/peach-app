@@ -85,7 +85,17 @@ const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-  const goHome = () => {
+  const goHome = async () => {
+    let waitForNavCounter = 100
+    while (!navigationRef.isReady()) {
+      if (waitForNavCounter === 0) {
+        updateMessage({ msg: i18n('NAVIGATION_INIT_ERROR'), level: 'ERROR' })
+        throw new Error('Failed to initialize navigation')
+      }
+      // eslint-disable-next-line no-await-in-loop
+      await sleep(100)
+      waitForNavCounter--
+    }
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
       if (account?.settings?.skipTutorial) {
         navigationRef.navigate('home', {})
@@ -97,8 +107,8 @@ const initApp = async (
   }
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
-    goHome()
     updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
+    goHome()
   }, 30000)
 
 
@@ -107,22 +117,13 @@ const initApp = async (
   fcm()
 
   try {
-    await pgp()
+    pgp()
   } catch (e) {
     error(e)
   }
-
-  let waitForNavCounter = 100
-  while (!navigationRef.isReady()) {
-    if (waitForNavCounter === 0) {
-      throw new Error('Failed to initialize navigation')
-    }
-    // eslint-disable-next-line no-await-in-loop
-    await sleep(100)
-    waitForNavCounter--
-  }
-  goHome()
   clearTimeout(timeout)
+
+  goHome()
 }
 
 // eslint-disable-next-line max-lines-per-function
