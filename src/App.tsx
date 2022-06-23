@@ -35,7 +35,7 @@ import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
-import { APPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
@@ -44,6 +44,7 @@ import views from './views'
 import YouGotADispute from './overlays/YouGotADispute'
 import OfferExpired from './overlays/OfferExpired'
 import { getOffer } from './utils/offer'
+import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 
 enableScreens()
 
@@ -131,7 +132,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseIcon, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = Dimensions.get('window')
@@ -157,7 +158,9 @@ const App: React.FC = () => {
     (async () => {
       await initApp(navigationRef, updateMessage)
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
-        updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
+        updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
+      } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
+        updateMessage({ template: <NewVersionAvailable />, level: 'WARN' })
       }
     })()
   }, [])
