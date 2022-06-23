@@ -137,12 +137,21 @@ export const paymentMethodSelected = (paymentMethod: PaymentMethod, selectedPaym
  * @param paymentData payment data to hash
  * @returns hashed payment data as hex
  */
-export const hashPaymentData = (paymentData: PaymentData): string => {
+export const hashPaymentData = (paymentData: PaymentData, legacySupport = false): string => {
   const data = JSON.parse(JSON.stringify(paymentData))
+
+  if (legacySupport) { // TODO remove legacy support after 18th of July
+    delete data.id
+    delete data.type
+
+    return sha256(JSON.stringify(data))
+  }
+
   delete data.id
+  delete data.label
   delete data.type
 
-  return sha256(JSON.stringify(data))
+  return sha256(JSON.stringify(data).toLowerCase())
 }
 
 /**
