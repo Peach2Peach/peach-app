@@ -35,7 +35,7 @@ export const Message = ({ template, msg, level, close, style }: MessageProps): R
         ? tw`bg-red`
         : level === 'WARN'
           ? tw`bg-yellow-2`
-          : tw`bg-blue`,
+          : tw`bg-blue-1`,
     style
   ]}>
     {template

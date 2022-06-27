@@ -14,13 +14,23 @@ type ButtonProps = ComponentProps & {
   secondary?: boolean,
   tertiary?: boolean,
   grey?: boolean,
+  help?: boolean,
   wide?: boolean,
   disabled?: boolean,
   loading?: boolean,
   onPress?: Function
 }
 
-const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, onPress }: ButtonProps): ReactElement => {
+const ButtonContent = ({
+  title,
+  secondary,
+  tertiary,
+  grey,
+  help,
+  loading,
+  disabled,
+  onPress
+}: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
   const onPressHandler = (e: GestureResponderEvent) => onPress && !disabled ? onPress(e) : null
@@ -31,15 +41,18 @@ const ButtonContent = ({ title, secondary, tertiary, grey, loading, disabled, on
     ? tw`text-peach-1`
     : grey
       ? tw`text-grey-2`
-      : tw`text-white-2`
-  const bgColor = secondary || grey ? tw`bg-white-2` : tw`bg-peach-1`
+      : help
+        ? tw`text-blue-1`
+        : tw`text-white-2`
+  const bgColor = secondary || grey || help ? tw`bg-white-2` : tw`bg-peach-1`
   const bgColorActive = grey
     ? tw`bg-grey-2`
     : tw`bg-peach-2`
   const border = secondary ? tw`border border-peach-1`
     : tertiary ? tw`border border-white-2`
       : grey ? tw`border border-grey-2`
-        : tw`border border-transparent`
+        : help ? tw`border border-blue-1`
+          : tw`border border-transparent`
 
   return <Pressable
     onPress={onPressHandler}
@@ -95,6 +108,7 @@ export const Button = ({
   secondary,
   tertiary,
   grey,
+  help,
   wide = true,
   style,
   disabled,
@@ -110,13 +124,13 @@ export const Button = ({
   ]
 
 
-  return !secondary && !tertiary && !grey
+  return !secondary && !tertiary && !grey && !help
     ? <Shadow shadow={mildShadowOrange} style={viewStyle}>
-      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} disabled={disabled}
+      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} help={help} disabled={disabled}
         title={title} loading={loading} onPress={onPress} />
     </Shadow>
     : <View style={viewStyle}>
-      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} disabled={disabled}
+      <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} help={help} disabled={disabled}
         title={title} loading={loading} onPress={onPress} />
     </View>
 }

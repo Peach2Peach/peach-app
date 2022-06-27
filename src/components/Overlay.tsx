@@ -14,15 +14,17 @@ import Icon from './Icon'
  * @param props.content the overlay content
  * @param props.showCloseIcon if true show close icon
  * @param props.showCloseButton if true show close button
+ * @param props.help if true show overlay as help
  * @example
  * <Overlay content={<Text>Overlay content</Text>} showCloseButton={true} />
  */
-export const Overlay = ({ content, showCloseIcon, showCloseButton }: OverlayState): ReactElement => {
+export const Overlay = ({ content, showCloseIcon, showCloseButton, help }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   return <View style={[
     tw`absolute z-20 w-full h-full flex items-center justify-center`,
-    tw`p-3 pb-8 bg-peach-translucent-2`,
+    tw`p-3 pb-8`,
+    help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
   ]}>
     {showCloseIcon
       ? <Pressable onPress={closeOverlay} style={tw`absolute z-20 top-5 right-5`}>
@@ -37,7 +39,8 @@ export const Overlay = ({ content, showCloseIcon, showCloseButton }: OverlayStat
       ? <Button
         style={tw`mt-7`}
         title={i18n('close')}
-        secondary={true}
+        secondary={!help}
+        help={help}
         onPress={closeOverlay}
         wide={false}
       />

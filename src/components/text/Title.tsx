@@ -30,7 +30,7 @@ export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElemen
         {help
           ? <Pressable style={tw`absolute -right-7`}
             onPress={() => updateOverlay({ content: help, showCloseButton: true })}>
-            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue`.color as string} />
+            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
           </Pressable>
           : null
         }
