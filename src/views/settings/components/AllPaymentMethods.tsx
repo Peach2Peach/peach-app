@@ -83,7 +83,7 @@ export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactEl
           })
         : <NoPaymentMethods />
       }
-      <AddPaymentMethods style={tw`mt-10`} onUpdate={() => {}} />
+      <AddPaymentMethods style={tw`mt-10`} onUpdate={() => {}} view="buyer" />
     </PeachScrollView>
   </View>
 }
