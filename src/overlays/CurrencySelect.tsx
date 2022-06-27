@@ -6,6 +6,7 @@ import { Button, Headline, HorizontalLine, Icon, PeachScrollView, Text } from '.
 import i18n from '../utils/i18n'
 import { CURRENCIES } from '../constants'
 import { OverlayContext } from '../contexts/overlay'
+import Currency from './info/Currency'
 
 type ToggleProps = ComponentProps & {
   label: string,
@@ -31,11 +32,13 @@ const Toggle = ({ label, value, active, onToggle, style }: ToggleProps) => {
 
 type CurrencySelectProps = {
   currencies?: Currency[],
-  onConfirm: (currencies: Currency[]) => void
+  onConfirm: (currencies: Currency[]) => void,
+  view: 'buyer' | 'seller'
 }
 
 // TODO add search
-export default ({ currencies = [], onConfirm }: CurrencySelectProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export default ({ currencies = [], onConfirm, view }: CurrencySelectProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [selectedCurrencies, setSelectedCurrencies] = useState<Currency[]>(currencies)
@@ -54,11 +57,22 @@ export default ({ currencies = [], onConfirm }: CurrencySelectProps): ReactEleme
     onConfirm(selectedCurrencies)
   }
 
+  const openCurrencyHelp = () => updateOverlay({
+    content: <Currency view={view} />,
+    showCloseButton: true,
+    help: true
+  })
+
   return <View style={tw`w-full h-full pt-14 pb-8 flex items-center justify-between`}>
     <View style={tw`w-full`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-        {i18n('currency.select.title')}
-      </Headline>
+      <View style={tw`flex-row justify-center items-center`}>
+        <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl flex-shrink`}>
+          {i18n('currency.select.title')}
+        </Headline>
+        <Pressable onPress={openCurrencyHelp}>
+          <Icon id="help" style={tw`ml-2 -mt-3 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+        </Pressable>
+      </View>
       <View style={tw`px-10`}>
         <HorizontalLine style={tw`bg-white-1 opacity-50 mt-4`}/>
       </View>

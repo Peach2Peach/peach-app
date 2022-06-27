@@ -15,9 +15,6 @@ export default ({ view }: CurrencyInfoProps): ReactElement => <View>
   </Headline>
   <View style={tw`flex justify-center items-center`}>
     <Text style={tw`text-white-1 text-center`}>
-      {i18n('help.currency.description.1')}
-    </Text>
-    <Text style={tw`text-white-1 text-center mt-2`}>
       {i18n(`help.currency.description.${view}`)}
     </Text>
   </View>
