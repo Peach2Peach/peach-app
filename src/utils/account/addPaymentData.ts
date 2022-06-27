@@ -15,7 +15,7 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
       return data
     })
   } else { // otherwise add
-    account.paymentData.push(data)
+    account.paymentData = account.paymentData.concat([data])
   }
 
   // if preferred payment method doesn't exist for this type, set it

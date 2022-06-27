@@ -35,7 +35,7 @@ import session from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
-import { APPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
 import MatchAccepted from './overlays/MatchAccepted'
 import PaymentMade from './overlays/PaymentMade'
@@ -44,6 +44,7 @@ import views from './views'
 import YouGotADispute from './overlays/YouGotADispute'
 import OfferExpired from './overlays/OfferExpired'
 import { getOffer } from './utils/offer'
+import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 
 enableScreens()
 
@@ -85,7 +86,17 @@ const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-  const goHome = () => {
+  const goHome = async () => {
+    let waitForNavCounter = 100
+    while (!navigationRef.isReady()) {
+      if (waitForNavCounter === 0) {
+        updateMessage({ msg: i18n('NAVIGATION_INIT_ERROR'), level: 'ERROR' })
+        throw new Error('Failed to initialize navigation')
+      }
+      // eslint-disable-next-line no-await-in-loop
+      await sleep(100)
+      waitForNavCounter--
+    }
     if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
       if (account?.settings?.skipTutorial) {
         navigationRef.navigate('home', {})
@@ -97,8 +108,8 @@ const initApp = async (
   }
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
-    goHome()
     updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
+    goHome()
   }, 30000)
 
 
@@ -107,22 +118,13 @@ const initApp = async (
   fcm()
 
   try {
-    await pgp()
+    pgp()
   } catch (e) {
     error(e)
   }
-
-  let waitForNavCounter = 100
-  while (!navigationRef.isReady()) {
-    if (waitForNavCounter === 0) {
-      throw new Error('Failed to initialize navigation')
-    }
-    // eslint-disable-next-line no-await-in-loop
-    await sleep(100)
-    waitForNavCounter--
-  }
-  goHome()
   clearTimeout(timeout)
+
+  goHome()
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -130,7 +132,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msg, level, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const [{ content, showCloseIcon, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = Dimensions.get('window')
@@ -156,7 +158,9 @@ const App: React.FC = () => {
     (async () => {
       await initApp(navigationRef, updateMessage)
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
-        updateMessage({ msg: i18n('app.incompatible'), level: 'WARN' })
+        updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
+      } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
+        updateMessage({ template: <NewVersionAvailable />, level: 'WARN' })
       }
     })()
   }, [])
@@ -225,7 +229,7 @@ const App: React.FC = () => {
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-            <MessageContext.Provider value={[{ template, msg, level }, updateMessage]}>
+            <MessageContext.Provider value={[{ template, msg, level, close }, updateMessage]}>
               <OverlayContext.Provider value={[
                 { content, showCloseButton: false, showCloseIcon: false },
                 updateOverlay
@@ -241,7 +245,7 @@ const App: React.FC = () => {
                   }
                   {template || msg
                     ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                      <Message template={template} msg={msg} level={level} style={{ minHeight: 60 }} />
+                      <Message template={template} msg={msg} level={level} close={close} style={{ minHeight: 60 }} />
                     </Animated.View>
                     : null
                   }

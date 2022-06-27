@@ -3,14 +3,13 @@ import { SEPA } from './SEPA'
 import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
 import { ApplePay } from './ApplePay'
-// import { Wise } from './Wise'
+import { Wise } from './Wise'
 import { BankTransferCH } from './BankTransferCH'
 import { BankTransferUK } from './BankTransferUK'
 import { Twint } from './Twint'
 import { Bizum } from './Bizum'
 import { Swish } from './Swish'
 import { MBWay } from './MBWay'
-import { SWIFT } from './SWIFT'
 // import { Tether } from './Tether'
 
 type PaymentFormProps = ComponentProps & {
@@ -27,13 +26,12 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
-  swift: SWIFT,
   bankTransferCH: BankTransferCH,
   bankTransferUK: BankTransferUK,
   paypal: PayPal,
   revolut: Revolut,
   applePay: ApplePay,
-  // wise: Wise,
+  wise: Wise,
   twint: Twint,
   swish: Swish,
   mbWay: MBWay,

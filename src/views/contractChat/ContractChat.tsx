@@ -109,7 +109,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           ...contract,
           ...result,
           symmetricKey,
-          // canceled: contract.canceled
         }
         : {
           ...result,
@@ -150,8 +149,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           let decryptedMessage = existingMessage?.message
           try {
             if (message.message && contract.symmetricKey) {
-              decryptedMessage = decryptedMessage
-                || await decryptSymmetric(message.message || '', contract.symmetricKey)
+              decryptedMessage = decryptedMessage || await decryptSymmetric(message.message, contract.symmetricKey)
             }
           } catch (e) {
             error('Could not decrypt message', e)

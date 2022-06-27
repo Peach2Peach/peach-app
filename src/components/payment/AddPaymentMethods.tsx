@@ -10,7 +10,11 @@ import tw from '../../styles/tailwind'
 import RestorePaymentData from '../../overlays/RestorePaymentData'
 import { dataToMeansOfPayment } from '../../utils/paymentMethod'
 
-export default ({ style }: ComponentProps): ReactElement => {
+type AddPaymentMethod = ComponentProps & {
+  onUpdate: () => void,
+}
+
+export default ({ style, onUpdate }: AddPaymentMethod): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const onRestore = () => {
@@ -27,7 +31,7 @@ export default ({ style }: ComponentProps): ReactElement => {
     })
   }
   const onPaymentMethodSelect = (meansOfPayment: MeansOfPayment) => updateOverlay({
-    content: <SetPaymentDetails meansOfPayment={meansOfPayment} onConfirm={() => {}} />,
+    content: <SetPaymentDetails meansOfPayment={meansOfPayment} onConfirm={onUpdate} />,
     showCloseIcon: true,
     showCloseButton: false
   })

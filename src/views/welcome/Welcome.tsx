@@ -1,5 +1,6 @@
-import React, { ReactElement, useContext, useReducer, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import {
+  Dimensions,
   Image,
   Pressable,
   View
@@ -7,13 +8,16 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import WelcomeToPeach from './WelcomeToPeach'
+import Swipe from './Swipe'
 import YouOwnYourData from './YouOwnYourData'
 import PeachOfMind from './PeachOfMind'
 import LetsGetStarted from './LetsGetStarted'
+import Carousel from 'react-native-snap-carousel'
+
+const onStartShouldSetResponder = () => true
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
 
@@ -21,72 +25,81 @@ type ScreenProps = {
   navigation: ProfileScreenNavigationProp;
 }
 
-type Screen = (props: ScreenProps) => ReactElement
-
-
 const screens = [
   WelcomeToPeach,
+  Swipe,
   PeachOfMind,
   YouOwnYourData,
   LetsGetStarted,
 ]
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: ScreenProps): ReactElement => {
-  useContext(LanguageContext)
-  // const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: 'en' })
-
+  const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
-  const CurrentScreen: Screen = screens[page]
+  const $carousel = useRef<Carousel<any>>(null)
 
+  const onBeforeSnapToItem = (i: number) => {
+    setPage(i)
+  }
   const next = () => {
-    if (page >= screens.length - 1) return
-    setPage(page + 1)
+    $carousel.current?.snapToNext()
   }
   const goTo = (p: number) => {
-    setPage(p)
+    $carousel.current?.snapToItem(p)
   }
 
-  return <View style={tw`h-full flex px-6`}>
-    {/* <View style={tw`absolute top-10 right-4 z-20`}>
-      <LanguageSelect locale={locale} setLocale={setLocale} />
-    </View> */}
-    <View style={[
-      tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
-      tw.md`pt-40`
-    ]}>
-      <Image source={require('../../../assets/favico/peach-logo.png')}
-        style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
-      />
-      <View style={[tw`mt-11 w-full`, tw.md`mt-16`]}>
-        <CurrentScreen navigation={navigation} />
+  return <View style={tw`h-full flex`}>
+    <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
+      <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
+        <Image source={require('../../../assets/favico/peach-logo.png')}
+          style={[tw`flex-shrink max-h-40`, { resizeMode: 'contain', minHeight: 48 }]}
+        />
+      </View>
+      <View style={tw`w-full flex-shrink`}>
+        <Carousel
+          ref={$carousel}
+          data={screens}
+          enableSnap={true} enableMomentum={false}
+          sliderWidth={width} itemWidth={width}
+          inactiveSlideScale={1} inactiveSlideOpacity={1} inactiveSlideShift={0}
+          onBeforeSnapToItem={onBeforeSnapToItem}
+          shouldOptimizeUpdates={true}
+          renderItem={({ item: Item }) => <View onStartShouldSetResponder={onStartShouldSetResponder}
+            style={tw`h-full px-6`}>
+            <Item />
+          </View>}
+        />
       </View>
     </View>
-    <View style={[
-      tw`mb-10 mt-4 flex items-center w-full`,
-      tw.md`mb-16`
-    ]}>
+    <View style={tw`mb-8 mt-4 flex items-center w-full`}>
       {page !== screens.length - 1
-        ? <Button
-          title={i18n('next')}
-          wide={false}
-          onPress={next}
-        />
+        ? <View>
+          <Button
+            title={i18n('next')}
+            wide={false}
+            onPress={next}
+          />
+          <Button
+            style={tw`opacity-0 mt-4`}
+            title="layout dummy"
+            secondary={true}
+            wide={false}
+          />
+        </View>
         : <View>
-          <View style={tw`flex items-center`}>
-            <Button
-              onPress={() => navigation.navigate('newUser', {})}
-              wide={false}
-              title={i18n('newUser')}
-            />
-          </View>
-          <View style={tw`mt-4`}>
-            <Button
-              onPress={() => navigation.navigate('restoreBackup', {})}
-              wide={false}
-              secondary={true}
-              title={i18n('restoreBackup')}
-            />
-          </View>
+          <Button
+            onPress={() => navigation.navigate('newUser', {})}
+            wide={false}
+            title={i18n('newUser')}
+          />
+          <Button
+            style={tw`mt-4`}
+            onPress={() => navigation.navigate('restoreBackup', {})}
+            wide={false}
+            secondary={true}
+            title={i18n('restoreBackup')}
+          />
         </View>
       }
       <View style={tw`w-full flex-row justify-center mt-11`}>

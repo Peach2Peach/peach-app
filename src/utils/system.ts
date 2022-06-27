@@ -1,6 +1,7 @@
 import { Linking, Platform } from 'react-native'
 import { checkNotifications } from 'react-native-permissions'
 import messaging from '@react-native-firebase/messaging'
+import { getBundleId } from 'react-native-device-info'
 
 /**
  * @description Method to check if app is compiled for web
@@ -69,5 +70,17 @@ export const toggleNotifications = async () => {
     }
   } else {
     Linking.openSettings()
+  }
+}
+
+/**
+ * @description Method to open app page info in appstore
+ */
+export const linkToAppStore = () => {
+  const bundleId = getBundleId()
+  if (isIOS()) {
+    Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
+  } else if (isAndroid()) {
+    Linking.openURL(`market://details?id=${bundleId}`)
   }
 }

@@ -66,8 +66,8 @@ export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactEl
                 tw`flex-row items-center`,
                 index > 0 ? tw`mt-4` : {}
               ]}>
-                <Shadow shadow={mildShadow} style={tw`w-full flex-shrink bg-white-1 p-3`}>
-                  <PaymentDataKeyFacts paymentData={data} />
+                <Shadow shadow={mildShadow} style={tw`w-full flex-shrink`}>
+                  <PaymentDataKeyFacts paymentData={data} style={tw`p-3 bg-white-1`} />
                 </Shadow>
                 <Button
                   key={data.id}
@@ -83,7 +83,7 @@ export const AllPaymentMethods = ({ onChange }: AllPaymentMethodsProps): ReactEl
           })
         : <NoPaymentMethods />
       }
-      <AddPaymentMethods style={tw`mt-10`} />
+      <AddPaymentMethods style={tw`mt-10`} onUpdate={() => {}} />
     </PeachScrollView>
   </View>
 }

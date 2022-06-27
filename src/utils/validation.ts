@@ -66,7 +66,7 @@ export const rules = {
   ukBankAccount: /^\d{8}$/u,
   userName (_: boolean, value: string | null) {
     if (!value) return false
-    return /^@[a-z0-9]*/iu.test(value)
+    return value !== '@' && /^@[a-z0-9]*/iu.test(value)
   },
   url (_: boolean, value: string) {
     if (!value) return false

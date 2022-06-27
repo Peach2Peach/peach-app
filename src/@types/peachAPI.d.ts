@@ -25,7 +25,8 @@ declare type APISuccess = {
 }
 
 declare type APIError = {
-  error: string
+  error: string,
+  details?: unknown
 }
 
 declare type User = {
@@ -99,6 +100,7 @@ declare type GetInfoResponse = {
   buckets: number[],
   deprecatedBuckets: number[],
   paymentMethods: PaymentMethodInfo[],
+  latestAppVersion: string,
   minAppVersion: string,
 }
 declare type PeachInfo = GetInfoResponse

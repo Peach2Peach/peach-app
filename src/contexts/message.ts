@@ -6,12 +6,13 @@ export type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 let template: ReactNode
 let msg: string|undefined
 let level: Level = 'OK'
+let close: boolean = true
 let time: number = 0
 
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([
-  { template, msg, level: level as Level },
+  { template, msg, level: level as Level, close: close as boolean|undefined },
   dispatch
 ] as const)
 
@@ -23,7 +24,8 @@ export const getMessage = (): MessageState => ({
   template,
   msg,
   level,
-  time
+  close,
+  time,
 })
 
 /**
@@ -36,12 +38,14 @@ export const setMessage = (state: ReducerState<any>, newState: MessageState): Me
   template = newState.template
   msg = newState.msg
   level = newState.level
+  close = newState.close ?? true
   time = (new Date()).getTime()
 
   return {
     template,
     msg,
     level,
+    close,
     time
   }
 }
@@ -57,11 +61,13 @@ export const showMessageEffect = (content: ReactNode|string, width: number, slid
       useNativeDriver: false
     }).start()
 
-    slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
-      toValue: -width,
-      duration: 300,
-      useNativeDriver: false
-    }).start(), 1000 * 10)
+    if (close) {
+      slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
+        toValue: -width,
+        duration: 300,
+        useNativeDriver: false
+      }).start(), 1000 * 10)
+    }
   }
 
   return () => clearTimeout(slideOutTimeout)

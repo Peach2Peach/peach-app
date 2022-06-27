@@ -1,6 +1,7 @@
 import {
   setBuckets,
   setDeprecatedBuckets,
+  setLatestAppVersion,
   setMinAppVersion,
   setPaymentMethods,
   setPeachFee,
@@ -44,6 +45,7 @@ export default async () => {
     setBuckets(peachInfo.buckets)
     setDeprecatedBuckets(peachInfo.deprecatedBuckets)
     setPeachFee(peachInfo.fees.escrow)
+    setLatestAppVersion(peachInfo.latestAppVersion)
     setMinAppVersion(peachInfo.minAppVersion)
     setSession({ peachInfo })
   }

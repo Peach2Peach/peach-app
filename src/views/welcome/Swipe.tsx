@@ -12,13 +12,12 @@ export default (): ReactElement => {
 
   return <View>
     <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
-      {i18n('welcome.peachOfMind.title')}
+      {i18n('welcome.swipe.title')}
     </Text>
     <Text style={tw`mt-4 text-center`}>
-      {i18n('welcome.peachOfMind.description.1')}
-    </Text>
-    <Text style={tw`mt-3 text-center`}>
-      {i18n('welcome.peachOfMind.description.2')}
+      {i18n('welcome.swipe.description.1')}
+      {'\n\n'}
+      {i18n('welcome.swipe.description.2')}
     </Text>
   </View>
 }

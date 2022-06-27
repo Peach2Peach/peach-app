@@ -29,6 +29,7 @@ import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
+import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 
 
 const updaterPNs = [
@@ -114,6 +115,15 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
 
+    if (!offer.meansOfPayment[selectedCurrency]
+      || offer.meansOfPayment[selectedCurrency]!.indexOf(selectedPaymentMethod) === -1) {
+      updateOverlay({
+        content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
+        showCloseButton: false,
+        showCloseIcon: false
+      })
+    }
+
     setMatchLoading(true)
 
     if (offer.type === 'bid') {
@@ -132,9 +142,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       const paymentDataForMethod = account.paymentData.filter(data =>
         data.type === selectedPaymentMethod
       )
-      const paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
-      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
+      let paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
+      let index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
 
+      if (index === -1) { // TODO remove legacy support after 18th of July
+        paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data, true))
+        index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
+      }
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
@@ -198,7 +212,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msg: i18n(err?.error || 'error.general', (err?.details as string[] || []).join(', ')),
         level: 'ERROR',
       })
     }
