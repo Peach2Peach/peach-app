@@ -150,6 +150,7 @@ export const hashPaymentData = (paymentData: PaymentData, legacySupport = false)
   delete data.id
   delete data.label
   delete data.type
+  delete data.currencies
 
   return sha256(JSON.stringify(data).toLowerCase())
 }

@@ -57,7 +57,7 @@ export const PaymentMethods = ({
         <View style={tw`flex-row flex-wrap justify-center`}>
           {PAYMENTCATEGORIES[paymentCategory]
             .filter(paymentMethod => paymentMethodAllowedForCurrency(paymentMethod, currency))
-            .map(paymentMethod => <View key={paymentMethod} style={tw`mt-3 mr-2`}>
+            .map(paymentMethod => <View key={paymentMethod} style={tw`mt-3 mx-1`}>
               <Item
                 label={i18n(`paymentMethod.${paymentMethod}`)}
                 isSelected={paymentMethodSelected(paymentMethod, meansOfPayment[currency])}
