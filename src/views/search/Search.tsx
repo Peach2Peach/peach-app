@@ -255,7 +255,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const openMatchHelp = () => updateOverlay({
     content: offer.type === 'bid' ? <Match /> : <DoubleMatch />,
-    showCloseButton: true, help : true
+    showCloseButton: true, help: true
   })
 
   useFocusEffect(useCallback(() => {
