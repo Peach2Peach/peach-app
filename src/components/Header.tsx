@@ -78,7 +78,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
             1 {bitcoinContext.currency}
           </Text>
           <Text style={tw`font-lato leading-5 text-peach-1 text-right`}>
-            {i18n('currency.format.sats', String(Math.round(bitcoinContext.satsPerUnit)))}
+            {i18n('currency.format.sats', thousands(Math.round(bitcoinContext.satsPerUnit)))}
           </Text>
         </Fade>
       </View>
