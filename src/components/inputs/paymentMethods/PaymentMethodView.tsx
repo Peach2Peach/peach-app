@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
 import { OverlayContext } from '../../../contexts/overlay'
-import { PaymentMethodForms } from './paymentForms'
+import { PaymentMethodForm } from './paymentForms'
 import { Headline } from '../../text'
 
 export type PaymentMethodViewProps = {
@@ -14,7 +14,6 @@ export type PaymentMethodViewProps = {
 
 export const PaymentMethodView = ({ data, onSubmit }: PaymentMethodViewProps) => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const PaymentForm = PaymentMethodForms[data.type]
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
@@ -22,10 +21,7 @@ export const PaymentMethodView = ({ data, onSubmit }: PaymentMethodViewProps) =>
     <Headline style={tw`text-white-1 text-3xl leading-5xl`}>
       {i18n('paymentMethod.view')}
     </Headline>
-    {PaymentForm
-      ? <PaymentForm style={tw`h-full flex-shrink flex-col justify-between`}
-        data={data} view="edit" onSubmit={onSubmit} onCancel={closeOverlay} />
-      : null
-    }
+    <PaymentMethodForm paymentMethod={data.type} style={tw`h-full flex-shrink flex-col justify-between`}
+      data={data} view="edit" onSubmit={onSubmit} onCancel={closeOverlay} />
   </View>
 }

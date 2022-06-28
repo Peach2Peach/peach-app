@@ -4,10 +4,9 @@ import { PAYMENTMETHODS } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { OverlayContext } from '../../../contexts/overlay'
-import Button from '../../Button'
 import { MenuItem } from '../../navigation'
 import { Headline } from '../../text'
-import { PaymentMethodForms } from './paymentForms'
+import { PaymentMethodForm } from './paymentForms'
 import PeachScrollView from '../../PeachScrollView'
 
 type AddPaymentMethodProps = {
@@ -19,7 +18,6 @@ export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) =>
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|null>(method || null)
-  const PaymentMethodForm = paymentMethod ? PaymentMethodForms[paymentMethod] : null
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
@@ -31,7 +29,6 @@ export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) =>
       {!paymentMethod
         ? <PeachScrollView style={tw`h-full flex-shrink my-16`}>
           {PAYMENTMETHODS
-            .filter(PAYMENTMETHOD => PaymentMethodForms[PAYMENTMETHOD])
             .map((PAYMENTMETHOD, index) =>
               <MenuItem
                 key={PAYMENTMETHOD}
@@ -44,21 +41,12 @@ export const AddPaymentMethod = ({ method, onSubmit }: AddPaymentMethodProps) =>
         </PeachScrollView>
         : null
       }
-      {PaymentMethodForm
-        ? <PaymentMethodForm style={tw`h-full flex-shrink flex-col justify-between`}
-          view="new"
-          onSubmit={onSubmit}
-          onCancel={() => method ? closeOverlay() : setPaymentMethod(null)}
-        />
-        : <View style={tw`w-full flex items-center`}>
-          <Button
-            title={i18n('close')}
-            secondary={true}
-            wide={false}
-            onPress={closeOverlay}
-          />
-        </View>
-      }
+      <PaymentMethodForm paymentMethod={paymentMethod}
+        style={tw`h-full flex-shrink flex-col justify-between`}
+        view="new"
+        onSubmit={onSubmit}
+        onCancel={() => method ? closeOverlay() : setPaymentMethod(null)}
+      />
     </View>
   </View>
 }
