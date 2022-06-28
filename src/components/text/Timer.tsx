@@ -5,7 +5,7 @@ import { Text } from '..'
 import tw from '../../styles/tailwind'
 import { msToTimer } from '../../utils/string'
 
-type TimerProps = {
+type TimerProps = ComponentProps & {
   text: string,
   start: number
   duration: number
@@ -17,7 +17,7 @@ type TimerProps = {
  * @param start start date as unix timestamp
  * @param duration max time in ms
  */
-export const Timer = ({ text, start, duration }: TimerProps): ReactElement => {
+export const Timer = ({ text, start, duration, style }: TimerProps): ReactElement => {
   const [timer, setTimer] = useState(0)
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const Timer = ({ text, start, duration }: TimerProps): ReactElement => {
     }
   }, [start, duration])
 
-  return <View style={tw`flex-row justify-center`}>
+  return <View style={[tw`flex-row justify-center`, style]}>
     <Text style={tw`font-baloo text-sm`}>{text}</Text>
     <Text style={tw`w-16 pl-1 font-baloo text-sm text-peach-1`}>{msToTimer(timer)}</Text>
   </View>

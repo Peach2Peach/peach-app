@@ -64,7 +64,7 @@ export const PaymentMethodSelect = ({
     showCloseButton: false
   })
   const goBack = () => updateOverlay({
-    content: <CurrencySelect onConfirm={onCurrencySelect} currencies={currencies} />,
+    content: <CurrencySelect onConfirm={onCurrencySelect} currencies={currencies} view="buyer" />,
     showCloseIcon: true,
     showCloseButton: false
   })

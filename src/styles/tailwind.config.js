@@ -45,7 +45,11 @@ module.exports = {
           1: '#F5D440',
           2: '#edc40c',
         },
-        blue: '#40BCF5'
+        blue: {
+          1: '#40BCF5',
+          'translucent': '#40BCF5BB',
+          'translucent-2': '#40BCF5FA',
+        }
       },
       fontSize: {
         '2xs': '10px',

@@ -1,8 +1,11 @@
 import React, { ReactElement, useContext } from 'react'
-import { View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import BitcoinContext from '../../contexts/bitcoin'
+import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import Icon from '../Icon'
+import { default as TradingLimitHelp } from '../../overlays/info/TradingLimit'
 import { Text } from '../text'
 import { Progress } from '../ui'
 
@@ -11,13 +14,23 @@ type TradingLimitProps = ComponentProps & {
 }
 export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactElement => {
   const [bitcoinContext] = useContext(BitcoinContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const { daily, dailyAmount, yearly, yearlyAmount } = tradingLimit
+
+  const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, showCloseButton: true, help: true })
+
   return <View style={style}>
-    <Text style={tw`text-center text-grey-1 font-bold`}>
-      {i18n('profile.tradingLimits')}
-    </Text>
+    <View style={tw`flex-row justify-center items-center`}>
+      <Text style={tw`text-center text-grey-1 font-bold`}>
+        {i18n('profile.tradingLimits')}
+      </Text>
+      <Pressable style={tw`w-0 ml-1 mt-0.5`}
+        onPress={openTradingLimitHelp}>
+        <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+      </Pressable>
+    </View>
     <Progress
-      style={tw`rounded`}
+      style={tw`mt-1 rounded`}
       percent={dailyAmount / daily}
       text={i18n(
         'profile.tradingLimits.daily',

@@ -1,18 +1,22 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import { Dropdown, Headline, SatsFormat, Text, Title } from '../../components'
+import { Dropdown, Headline, Icon, SatsFormat, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
 import { getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
+import Sats from '../../overlays/info/Sats'
+import { OverlayContext } from '../../contexts/overlay'
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
+  const [, updateOverlay] = useContext(OverlayContext)
+
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   const [amount, setAmount] = useState(offer.amount)
 
@@ -46,6 +50,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     </View>
   }))
 
+  const openSatsHelp = () => updateOverlay({ content: <Sats view="seller" />, showCloseButton: true, help: true })
+
   return <View style={tw`h-full flex`}>
     <Title title={i18n('sell.title')} />
     <View style={tw`h-full flex-shrink flex justify-center`}>
@@ -54,13 +60,16 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           {i18n('sell.subtitle')}
         </Headline>
         <View style={tw`z-10`}>
-          <View style={tw`w-full absolute flex items-center justify-center mt-3`}>
+          <View style={tw`w-full absolute flex-row items-center justify-center mt-3`}>
             <Dropdown
-              style={tw`max-w-xs`}
+              style={tw`max-w-xs flex-shrink`}
               items={dropdownItems}
               selectedValue={amount}
               onChange={onChange} onToggle={onToggle}
             />
+            <Pressable onPress={openSatsHelp}>
+              <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+            </Pressable>
           </View>
         </View>
         {satsPerUnit

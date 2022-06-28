@@ -38,9 +38,10 @@ const initPaymentData = (meansOfPayment: MeansOfPayment) => {
 
 type AddPaymentMethodProps = ComponentProps & {
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
+  view: 'buyer' | 'seller'
 }
 
-export default ({ style, setMeansOfPayment }: AddPaymentMethodProps): ReactElement => {
+export default ({ style, setMeansOfPayment, view }: AddPaymentMethodProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const update = () => {
@@ -64,7 +65,7 @@ export default ({ style, setMeansOfPayment }: AddPaymentMethodProps): ReactEleme
   })
 
   const openCurrencySelect = () => updateOverlay({
-    content: <CurrencySelect onConfirm={onCurrencySelect} />,
+    content: <CurrencySelect onConfirm={onCurrencySelect} view={view} />,
     showCloseIcon: true,
     showCloseButton: false
   })

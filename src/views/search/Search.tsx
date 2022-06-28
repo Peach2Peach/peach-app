@@ -14,7 +14,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Matches, SatsFormat, Text, TextLink } from '../../components'
+import { BigTitle, Button, Headline, Icon, Matches, SatsFormat, Text, TextLink } from '../../components'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { saveOffer } from '../../utils/offer'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
@@ -23,13 +23,15 @@ import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
 import { signAndEncrypt } from '../../utils/pgp'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
-import { account } from '../../utils/account'
+import { account, addPaymentData } from '../../utils/account'
 import { getRandom } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
+import Match from '../../overlays/info/Match'
+import DoubleMatch from '../../overlays/info/DoubleMatch'
 
 
 const updaterPNs = [
@@ -88,13 +90,19 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
-  const onPaymentDataUpdate = () => {
+  const onPaymentDataUpdate = async (newData: PaymentData) => {
+    await addPaymentData(newData, false)
     updateOverlay({ content: null, showCloseButton: true })
   }
   const openAddPaymentMethodDialog = () => {
+    if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })
     updateOverlay({
-      content: <AddPaymentMethod method={selectedPaymentMethod} onSubmit={onPaymentDataUpdate} />,
+      content: <AddPaymentMethod
+        paymentMethod={selectedPaymentMethod}
+        currencies={[selectedCurrency]}
+        onSubmit={onPaymentDataUpdate}
+      />,
       showCloseButton: false
     })
   }
@@ -251,6 +259,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     showCloseButton: false
   })
 
+  const openMatchHelp = () => updateOverlay({
+    content: offer.type === 'bid' ? <Match /> : <DoubleMatch />,
+    showCloseButton: true, help: true
+  })
+
   useFocusEffect(useCallback(() => {
     setOffer(route.params.offer)
     setOfferId(route.params.offer.id)
@@ -372,7 +385,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Matches offer={offer} matches={matches} navigation={navigation}
             onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
           {offer.type === 'bid'
-            ? <View style={tw`flex items-center`}>
+            ? <View style={tw`flex-row items-center justify-center`}>
               <Button
                 title={matchLoading
                   ? ' '
@@ -383,8 +396,11 @@ export default ({ route, navigation }: Props): ReactElement => {
                 loading={matchLoading}
                 onPress={_toggleMatch}
               />
+              <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
+                <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+              </Pressable>
             </View>
-            : <View style={tw`flex items-center`}>
+            : <View style={tw`flex-row items-center justify-center`}>
               {/* <Button
                 title={i18n('search.declineMatch')}
                 wide={false}
@@ -399,6 +415,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                 disabled={currentMatch?.matched}
                 onPress={() => _match(currentMatch)}
               />
+              <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
+                <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+              </Pressable>
             </View>
           }
         </View>
