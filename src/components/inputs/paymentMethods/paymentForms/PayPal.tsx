@@ -1,18 +1,11 @@
 import React, { ReactElement, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { Pressable, TextInput, View } from 'react-native'
+import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
 import { OverlayContext } from '../../../../contexts/overlay'
-import keyboard from '../../../../effects/keyboard'
-import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
-import { getPaymentDataByLabel, removePaymentData } from '../../../../utils/account'
+import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { paymentDataChanged } from '../../../../utils/paymentMethod'
 import { getMessages, rules } from '../../../../utils/validation'
-import { Fade } from '../../../animation'
-import Button from '../../../Button'
-import Icon from '../../../Icon'
-import { Text } from '../../../text'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
@@ -75,16 +68,7 @@ export const PayPal = ({ forwardRef, view, data, onSubmit, onChange }: PaymentMe
     })
     if (!isFormValid()) return
 
-    if (onSubmit) {
-      if (data && paymentDataChanged(data as PaymentData, buildPaymentData())) {
-        updateOverlay({
-          content: <PaymentMethodEdit paymentData={buildPaymentData()} onConfirm={onSubmit} />,
-          help: true
-        })
-      } else {
-        onSubmit(buildPaymentData())
-      }
-    }
+    if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({

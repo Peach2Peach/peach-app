@@ -1,4 +1,4 @@
-import React, { RefObject, ReactElement, useEffect, useRef, useState } from 'react'
+import React, { RefObject, ReactElement, useEffect, useRef, useState, useContext } from 'react'
 import { SEPA } from './SEPA'
 import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
@@ -19,6 +19,9 @@ import keyboard from '../../../../effects/keyboard'
 import { removePaymentData } from '../../../../utils/account'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
+import { OverlayContext } from '../../../../contexts/overlay'
+import { paymentDataChanged } from '../../../../utils/paymentMethod'
+import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 // import { Tether } from './Tether'
 
 type FormRef = {
@@ -53,6 +56,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   // tether: Tether,
 }
 
+// eslint-disable-next-line max-lines-per-function
 export const PaymentMethodForm = ({
   paymentMethod,
   data,
@@ -62,9 +66,23 @@ export const PaymentMethodForm = ({
   onCancel,
   style,
 }: PaymentMethodFormProps): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const Form = PaymentMethodForms[paymentMethod]!
   let $formRef = useRef<FormRef>(null).current
+
+  const submit = (newPaymentData: PaymentData) => {
+    if (!$formRef || !onSubmit) return
+
+    if (data && paymentDataChanged(data as PaymentData, newPaymentData)) {
+      updateOverlay({
+        content: <PaymentMethodEdit paymentData={newPaymentData} onConfirm={onSubmit} />,
+        help: true
+      })
+    } else {
+      onSubmit(newPaymentData)
+    }
+  }
 
   const cancel = () => {
     if ($formRef && onCancel) onCancel($formRef.buildPaymentData())
@@ -84,7 +102,7 @@ export const PaymentMethodForm = ({
         paymentMethod={paymentMethod}
         data={data}
         view={view}
-        onSubmit={onSubmit}
+        onSubmit={submit}
         onChange={onChange}
         onCancel={onCancel}
       />
