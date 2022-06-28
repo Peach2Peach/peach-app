@@ -8,6 +8,7 @@ import Icon from '../Icon'
 import { default as TradingLimitHelp } from '../../overlays/info/TradingLimit'
 import { Text } from '../text'
 import { Progress } from '../ui'
+import { thousands } from '../../utils/string'
 
 type TradingLimitProps = ComponentProps & {
   tradingLimit: TradingLimit,
@@ -34,15 +35,15 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
       percent={dailyAmount / daily}
       text={i18n(
         'profile.tradingLimits.daily',
-        bitcoinContext.currency, String(dailyAmount), String(daily === Infinity ? '∞' : daily)
+        bitcoinContext.currency, thousands(dailyAmount), daily === Infinity ? '∞' : thousands(daily)
       )}
     />
     <Progress
       style={tw`mt-1 rounded`}
       percent={yearlyAmount / yearly}
       text={i18n(
-        'profile.tradingLimits.yearly',
-        bitcoinContext.currency, String(yearlyAmount), String(yearly === Infinity ? '∞' : yearly)
+        'profile.tradingLimits.yearly.short',
+        bitcoinContext.currency, thousands(yearlyAmount), yearly === Infinity ? '∞' : thousands(yearly)
       )}
     />
   </View>

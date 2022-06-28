@@ -33,6 +33,7 @@ import { MessageContext } from '../../contexts/message'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import BitcoinContext from '../../contexts/bitcoin'
+import { thousands } from '../../utils/string'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
 
@@ -220,7 +221,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           percent={dailyAmount / daily}
           text={i18n(
             'profile.tradingLimits.daily',
-            bitcoinContext.currency, String(dailyAmount), String(daily === Infinity ? '∞' : daily)
+            bitcoinContext.currency, thousands(dailyAmount), daily === Infinity ? '∞' : thousands(daily)
           )}
         /></View>
         : null
