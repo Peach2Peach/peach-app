@@ -36,11 +36,13 @@ export default ({ contractId, navigation }: Props): ReactElement => {
       </View>
     </View>
     <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('paymentMade.description', contractId)}
+      {i18n('paymentMade.description.1', contractId)}
+      {'\n\n'}
+      {i18n('paymentMade.description.2')}
     </Text>
     <View style={tw`flex justify-center items-center mt-5`}>
       <Button
-        title={i18n('goToMatch')}
+        title={i18n('goToContract')}
         secondary={true}
         wide={false}
         onPress={goToContract}
