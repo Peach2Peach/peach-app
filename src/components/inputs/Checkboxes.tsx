@@ -38,8 +38,8 @@ const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps
       </Pressable>
       : <View style={tw`w-10 h-10`}/>
     }
-    <Shadow shadow={mildShadow} style={tw`w-full`}>
-      <View style={tw`bg-white-1 rounded mx-4 p-3`}>
+    <Shadow shadow={mildShadow} style={tw`w-full flex-shrink ml-4`}>
+      <View style={tw`bg-white-1 rounded p-3`}>
         {item.display}
       </View>
     </Shadow>

@@ -65,7 +65,7 @@ export const PayPal = ({
       },
       email: {
         required: !phone && !userName,
-        email: !phone && !userName
+        email: true
       },
       userName: {
         required: !phone && !email,
@@ -122,9 +122,9 @@ export const PayPal = ({
         value={email}
         disabled={view === 'view'}
         label={i18n('form.email')}
-        isValid={!isFieldInError('userName')}
+        isValid={!isFieldInError('email')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('userName')}
+        errorMessage={getErrorsInField('email')}
       />
     </View>
     <View style={tw`mt-2`}>
