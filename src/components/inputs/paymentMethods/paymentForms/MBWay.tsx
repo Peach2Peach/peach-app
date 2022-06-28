@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
@@ -10,12 +10,18 @@ import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
-export const MBWay = ({ forwardRef, view, data, onSubmit, onChange }: PaymentMethodFormProps) => {
+export const MBWay = ({
+  forwardRef,
+  view,
+  data,
+  currencies = [],
+  onSubmit,
+  onChange
+}: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
-  const [currencies, setCurrencies] = useState(data?.currencies || [])
-  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current

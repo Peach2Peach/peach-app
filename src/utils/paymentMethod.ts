@@ -143,6 +143,7 @@ export const hashPaymentData = (paymentData: PaymentData, legacySupport = false)
   if (legacySupport) { // TODO remove legacy support after 18th of July
     delete data.id
     delete data.type
+    delete data.currencies
 
     return sha256(JSON.stringify(data))
   }
@@ -150,6 +151,7 @@ export const hashPaymentData = (paymentData: PaymentData, legacySupport = false)
   delete data.id
   delete data.label
   delete data.type
+  delete data.currencies
 
   return sha256(JSON.stringify(data).toLowerCase())
 }
@@ -167,7 +169,9 @@ export const encryptPaymentData = async (
   const data = JSON.parse(JSON.stringify(paymentData))
 
   delete data.id
+  delete data.label
   delete data.type
+  delete data.currencies
 
   return await signAndEncryptSymmetric(
     JSON.stringify(data),

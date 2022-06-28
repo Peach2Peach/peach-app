@@ -23,7 +23,7 @@ import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { OverlayContext } from '../../contexts/overlay'
 import { signAndEncrypt } from '../../utils/pgp'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
-import { account } from '../../utils/account'
+import { account, addPaymentData } from '../../utils/account'
 import { getRandom } from '../../utils/crypto'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import { unique } from '../../utils/array'
@@ -90,13 +90,19 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
-  const onPaymentDataUpdate = () => {
+  const onPaymentDataUpdate = async (newData: PaymentData) => {
+    await addPaymentData(newData, false)
     updateOverlay({ content: null, showCloseButton: true })
   }
   const openAddPaymentMethodDialog = () => {
+    if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })
     updateOverlay({
-      content: <AddPaymentMethod method={selectedPaymentMethod} onSubmit={onPaymentDataUpdate} />,
+      content: <AddPaymentMethod
+        paymentMethod={selectedPaymentMethod}
+        currencies={[selectedCurrency]}
+        onSubmit={onPaymentDataUpdate}
+      />,
       showCloseButton: false
     })
   }

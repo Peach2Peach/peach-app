@@ -32,6 +32,7 @@ type FormRef = {
 export type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod,
   data?: Partial<PaymentData>,
+  currencies?: Currency[],
   view: 'new' | 'edit' | 'view',
   onSubmit?: (data: PaymentData) => void,
   onChange?: (data: Partial<PaymentData>) => void,
@@ -60,6 +61,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
 export const PaymentMethodForm = ({
   paymentMethod,
   data,
+  currencies = [],
   view,
   onSubmit,
   onChange,
@@ -101,6 +103,7 @@ export const PaymentMethodForm = ({
         forwardRef={(r: FormRef) => $formRef = r}
         paymentMethod={paymentMethod}
         data={data}
+        currencies={currencies}
         view={view}
         onSubmit={submit}
         onChange={onChange}

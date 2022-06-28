@@ -12,14 +12,20 @@ const { useValidation } = require('react-native-form-validator')
 
 
 // eslint-disable-next-line max-lines-per-function
-export const PayPal = ({ forwardRef, view, data, onSubmit, onChange }: PaymentMethodFormProps): ReactElement => {
+export const PayPal = ({
+  forwardRef,
+  view,
+  data,
+  currencies = [],
+  onSubmit,
+  onChange
+}: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
-  const [currencies] = useState(data?.currencies || [])
-  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
