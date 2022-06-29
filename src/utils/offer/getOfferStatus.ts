@@ -93,7 +93,7 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
     if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        requiredAction: ''
+        requiredAction: !isEscrowRefunded(offer as SellOffer) ? 'refundEscrow' : ''
       }
     }
   }
@@ -101,7 +101,7 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (isOfferCanceled(offer)) {
     return {
       status: 'offerCanceled',
-      requiredAction: !isEscrowRefunded(offer as SellOffer) ? 'refundEscrow' : ''
+      requiredAction: ''
     }
   }
   return {
