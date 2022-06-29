@@ -5,6 +5,7 @@ import Icon from '../Icon'
 import { Shadow } from '..'
 import { innerShadow, mildShadow } from '../../utils/layout'
 import PeachScrollView from '../PeachScrollView'
+import { isAndroid } from '../../utils/system'
 
 interface Item {
   value: string|number,
@@ -92,7 +93,7 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle, style }: Dr
             </Pressable>,
             <PeachScrollView key="scroll" style={[
               tw`pl-4 pr-3`,
-              { height: (tw`h-10`.height as number) * Math.min(5, items.length) }
+              { height: (tw`h-10`.height as number) * (isAndroid() ? items.length : Math.min(5, items.length)) }
             ]}>
               {items.map(item => <Pressable
                 key={item.value}
