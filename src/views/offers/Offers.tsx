@@ -32,7 +32,18 @@ const isPastOffer = (offer: SellOffer|BuyOffer) => {
   return /tradeCompleted|tradeCanceled|offerCanceled/u.test(status)
 }
 const isOpenOffer = (offer: SellOffer|BuyOffer) => !isPastOffer(offer)
-const showOffer = (offer: SellOffer|BuyOffer) => offer.online || offer.contractId || offer.type === 'ask'
+const showOffer = (offer: SellOffer|BuyOffer) => {
+  if (offer.contractId) return true
+  if (offer.type === 'bid') {
+    return offer.online
+  }
+
+  // filter out sell offer which has been canceled before funding escrow
+  if (offer.funding?.status === 'CANCELED' && offer.funding.txIds?.length === 0) return false
+
+  return true
+}
+
 const statusPriority = [
   'escrowWaitingForConfirmation',
   'offerPublished',
