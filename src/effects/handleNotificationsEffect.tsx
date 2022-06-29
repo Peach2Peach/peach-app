@@ -4,6 +4,7 @@ import React, { Dispatch, EffectCallback } from 'react'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
+import OfferNotFunded from '../overlays/OfferNotFunded'
 import PaymentMade from '../overlays/PaymentMade'
 import YouGotADispute from '../overlays/YouGotADispute'
 import { info } from '../utils/log'
@@ -22,44 +23,51 @@ export default ({
   info('Subscribe to push notifications')
   const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
     info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
-    if (remoteMessage.data && remoteMessage.data.type === 'offer.expired'
+    if (!remoteMessage.data) return null
+
+    const type = remoteMessage.data?.type
+    const args = remoteMessage.notification?.bodyLocArgs
+
+    if (type === 'offer.expired'
       && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
       const offer = getOffer(remoteMessage.data.offerId) as SellOffer
-      const args = remoteMessage.notification?.bodyLocArgs
 
       return updateOverlay({
         content: <OfferExpired offer={offer} days={args ? args[0] || '15' : '15'} navigation={navigationRef} />,
-        showCloseButton: false
       })
     }
-    if (remoteMessage.data && remoteMessage.data.type === 'offer.escrowFunded'
+    if (type === 'offer.notFunded'
+      && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
+      const offer = getOffer(remoteMessage.data.offerId) as SellOffer
+
+      return updateOverlay({
+        content: <OfferNotFunded offer={offer} days={args ? args[0] || '7' : '7'} navigation={navigationRef} />,
+      })
+    }
+    if (type === 'offer.escrowFunded'
       && /buy|home|settings|offers/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <EscrowFunded offerId={remoteMessage.data.offerId} navigation={navigationRef} />,
-        showCloseButton: false
       })
     }
-    if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
+    if (type === 'contract.contractCreated'
       && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
-        showCloseButton: false
       })
     }
-    if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade'
+    if (type === 'contract.paymentMade'
       && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
-        showCloseButton: false
       })
     }
-    if (remoteMessage.data && remoteMessage.data.type === 'contract.disputeRaised') {
+    if (type === 'contract.disputeRaised') {
       return updateOverlay({
         content: <YouGotADispute
           contractId={remoteMessage.data.contractId}
           message={remoteMessage.data.message}
           navigation={navigationRef} />,
-        showCloseButton: false
       })
     }
     return null

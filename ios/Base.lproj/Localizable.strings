@@ -2,8 +2,10 @@
 "notification.body.offer.escrowFunded" = "The escrow has been funded and your offer is published.";
 "notification.title.offer.wrongFundingAmount" = "Escrow not funded";
 "notification.body.offer.wrongFundingAmount" = "Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.";
+"notification.title.offer.notFunded" = "Offer canceled";
+"notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days :( We are deleting this offer.";
 "notification.title.offer.expired" = "No match";
-"notification.body.offer.expired" = "It’s been %@ days and still no match! As we don’t want to keep your escrow for too long, your offer has been taken offline.";
+"notification.body.offer.expired" = "It's been %@ days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";
 "notification.body.offer.matchBuyer" = "";
 "notification.title.offer.matchSeller" = "Matches are waiting for you!";
@@ -12,7 +14,7 @@
 "notification.body.contract.contractCreated" = "proceed to payment! The faster you pay, the better your Peach score will be";
 "notification.title.contract.buyer.paymentTimerHasRunOut" = "Timer has expired!";
 "notification.body.contract.buyer.paymentTimerHasRunOut" = "You can cancel this trade or wait for the seller to extend the timer";
-"notification.title.contract.seller.paymentTimerHasRunOut" = "The buyer hasn’t made the payment on time.";
+"notification.title.contract.seller.paymentTimerHasRunOut" = "The buyer hasn't made the payment on time.";
 "notification.body.contract.seller.paymentTimerHasRunOut" = "You can extend the timer or cancel this trade";
 "notification.title.contract.paymentMade" = "The payment has been made!";
 "notification.body.contract.paymentMade" = "Confirm that you received it";
