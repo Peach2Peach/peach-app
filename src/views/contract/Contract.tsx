@@ -234,11 +234,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>
-              {(view === 'buyer' && requiredAction === 'paymentMade')
-              || (view === 'seller' && requiredAction === 'paymentConfirmed')
+              {/paymentMade|paymentConfirmed/u.test(requiredAction)
                 ? <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
                   <Timer
-                    text={i18n(`contract.timer.${requiredAction}`)}
+                    text={i18n(`contract.timer.${requiredAction}.${view}`)}
                     start={getTimerStart(contract, requiredAction)}
                     duration={TIMERS[requiredAction]}
                     style={tw`flex-shrink`}
