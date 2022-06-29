@@ -32,6 +32,8 @@ import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentM
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import Match from '../../overlays/info/Match'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
+import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
+import { OfferTaken } from '../../messageBanners/OfferTaken'
 
 
 const updaterPNs = [
@@ -140,12 +142,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
       )
     } else if (offer.type === 'ask') {
-      const [symmetricKey, decryptErr] = await decryptSymmetricKey(
+      const [symmetricKey] = await decryptSymmetricKey(
         match.symmetricKeyEncrypted, match.symmetricKeySignature,
         match.user.pgpPublicKey
       )
-
-      if (decryptErr) error(decryptErr)
 
       const paymentDataForMethod = account.paymentData.filter(data =>
         data.type === selectedPaymentMethod
@@ -160,21 +160,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
-          template: <View>
-            <Headline style={tw`text-white-1 text-lg`}>{i18n('error.paymentDataMissing.title')}</Headline>
-            <Text style={tw`text-white-1 text-center mt-1`}>
-              {i18n('error.paymentDataMissing.text.1')}
-            </Text>
-            <View style={tw`flex-row items-center justify-center mt-1`}>
-              <Text style={tw`text-white-1 text-center`}>
-                {i18n('error.paymentDataMissing.text.2')}
-              </Text>
-              <TextLink style={tw`text-white-1 ml-1`}
-                onPress={openAddPaymentMethodDialog}>
-                {i18n('error.paymentDataMissing.text.3')}
-              </TextLink>
-            </View>
-          </View>,
+          template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
           level: 'ERROR',
         })
         return
@@ -186,7 +172,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       )
     }
 
-    // TODO handle 404 error (match already taken)
     const [result, err] = await matchOffer({
       offerId: offer.id, matchingOfferId: match.offerId,
       currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
@@ -219,10 +204,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     } else {
       error('Error', err)
-      updateMessage({
-        msg: i18n(err?.error || 'error.general', (err?.details as string[] || []).join(', ')),
-        level: 'ERROR',
-      })
+      if (err?.error === 'NOT_FOUND') {
+        updateMessage({
+          template: <OfferTaken />,
+          level: 'WARN',
+        })
+      } else {
+        updateMessage({
+          msg: i18n(err?.error || 'error.general', (err?.details as string[] || []).join(', ')),
+          level: 'ERROR',
+        })
+      }
     }
     setMatchLoading(false)
   }

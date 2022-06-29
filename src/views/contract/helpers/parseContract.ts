@@ -1,3 +1,4 @@
+import { error } from '../../../utils/log'
 import { decrypt, decryptSymmetric, verify } from '../../../utils/pgp'
 
 export const decryptSymmetricKey = async (
@@ -10,9 +11,11 @@ export const decryptSymmetricKey = async (
     if (!await verify(symmetricKeySignature, symmetricKey, pgpPublicKey)) {
       // TODO at this point we should probably cancel the offer/contract?
       // problem how can buyer app proof that the symmetric is indeed wrong?
+      error(new Error('INVALID_SIGNATURE'))
       return [symmetricKey, new Error('INVALID_SIGNATURE')]
     }
   } catch (err) {
+    error(new Error('INVALID_SIGNATURE'))
     return [symmetricKey, new Error('INVALID_SIGNATURE')]
   }
 
