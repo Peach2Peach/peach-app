@@ -1,39 +1,39 @@
 /* eslint-disable max-lines */
+import messaging from '@react-native-firebase/messaging'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
   View
 } from 'react-native'
-import messaging from '@react-native-firebase/messaging'
 
-import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
+import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Icon, Matches, SatsFormat, Text, TextLink } from '../../components'
-import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { saveOffer } from '../../utils/offer'
-import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
-import { error, info } from '../../utils/log'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { OverlayContext } from '../../contexts/overlay'
-import { signAndEncrypt } from '../../utils/pgp'
-import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
-import { account, addPaymentData } from '../../utils/account'
-import { getRandom } from '../../utils/crypto'
-import { decryptSymmetricKey } from '../contract/helpers/parseContract'
-import { unique } from '../../utils/array'
-import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
+import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
-import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
-import Match from '../../overlays/info/Match'
-import DoubleMatch from '../../overlays/info/DoubleMatch'
-import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
+import { MessageContext } from '../../contexts/message'
+import { OverlayContext } from '../../contexts/overlay'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import searchForPeersEffect from '../../effects/searchForPeersEffect'
 import { OfferTaken } from '../../messageBanners/OfferTaken'
+import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
+import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
+import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
+import DoubleMatch from '../../overlays/info/DoubleMatch'
+import Match from '../../overlays/info/Match'
+import { account, addPaymentData } from '../../utils/account'
+import { unique } from '../../utils/array'
+import { getRandom } from '../../utils/crypto'
+import { error, info } from '../../utils/log'
+import { saveOffer } from '../../utils/offer'
+import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
+import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
+import { signAndEncrypt } from '../../utils/pgp'
+import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
 
 const updaterPNs = [
@@ -65,6 +65,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [pnReceived, setPNReceived] = useState(0)
 
   const [matches, setMatches] = useState<Match[]>([])
+  const [searchingMatches, setSearchingMatches] = useState(true)
+
   const [seenMatches, setSeenMatches] = useState<Offer['id'][]>(route.params.offer.seenMatches)
   const currentMatch = matches[currentMatchIndex]
 
@@ -259,7 +261,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(() => {
     setOffer(route.params.offer)
     setOfferId(route.params.offer.id)
-    setUpdatePending(() => true)
+    setUpdatePending(true)
+    setSearchingMatches(true)
   }, [route]))
 
   useEffect(() => {
@@ -303,6 +306,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(searchForPeersEffect({
     offer,
     onSuccess: result => {
+      setSearchingMatches(false)
       setMatches(matches.concat(result)
         .filter(unique('offerId'))
         .filter((match, i) => {
@@ -336,7 +340,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   return <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
     <View style={tw`px-6`}>
       {!matches.length
-        ? <BigTitle title={i18n('search.searchingForAPeer')} />
+        ? <BigTitle title={i18n(
+          route.params.hasMatches
+            ? 'search.matchesAreWaiting'
+            : 'search.searchingForAPeer'
+        )} />
         : <Headline style={[
           tw`text-center text-2xl leading-2xl uppercase text-peach-1`,
           tw.md`text-3xl leading-3xl`,
@@ -344,7 +352,14 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
         </Headline>
       }
-      {!matches.length
+      {searchingMatches
+        ? <View style={tw`h-12`}>
+          <Loading />
+          <Text style={tw`text-center`}>{i18n('loading')}</Text>
+        </View>
+        : null
+      }
+      {!searchingMatches && !matches.length
         ? <Text style={tw`text-center mt-3`}>
           {i18n('search.weWillNotifyYou')}
         </Text>
