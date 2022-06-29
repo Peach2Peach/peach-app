@@ -29,20 +29,22 @@ export default ({ offer, days, navigation }: Props): ReactElement => {
 
   return <View style={tw`px-6`}>
     <Headline style={tw`text-3xl leading-3xl text-white-1`}>
-      {i18n('offerExpired.title')}
+      {i18n('offerNotFunded.title')}
     </Headline>
     <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('offerExpired.description', days)}
+      {i18n('offerNotFunded.description.1', days)}
+      {'\n'}
+      {i18n('offerNotFunded.description.2')}
     </Text>
     <View style={tw`flex justify-center items-center mt-5`}>
       <Button
-        title={i18n('refund')}
+        title={i18n('goToOffer')}
         secondary={true}
         wide={false}
         onPress={goToOffer}
       />
       <Button
-        title={i18n('later')}
+        title={i18n('close')}
         style={tw`mt-2`}
         tertiary={true}
         wide={false}
