@@ -15,7 +15,7 @@ declare type Settings = {
   kyc?: boolean,
   kycType?: KYCType,
   pgpPublished?: boolean,
-  fcmTokenPublished?: boolean,
+  fcmToken?: string,
   lastBackupDate?: number
 }
 
