@@ -222,7 +222,8 @@ export default ({ navigation }: Props): ReactElement => {
           <Button
             onPress={submit}
             wide={false}
-            disabled={!password || !passwordMatch || isFieldInError('password') || isFieldInError('passwordRepeat')}
+            disabled={!password || !passwordRepeat || !passwordMatch
+              || isFieldInError('password') || isFieldInError('passwordRepeat')}
             title={i18n('createAccount')}
           />
         </View>
