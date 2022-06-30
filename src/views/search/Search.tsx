@@ -46,6 +46,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sear
 type Props = {
   route: RouteProp<{ params: {
     offer: BuyOffer,
+    hasMatches?: boolean,
   } }>,
   navigation: ProfileScreenNavigationProp,
 }
