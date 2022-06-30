@@ -29,7 +29,7 @@ export default ({
     const args = remoteMessage.notification?.bodyLocArgs
 
     if (type === 'offer.expired'
-      && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
+      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
       const offer = getOffer(remoteMessage.data.offerId) as SellOffer
 
       return updateOverlay({
@@ -37,7 +37,7 @@ export default ({
       })
     }
     if (type === 'offer.notFunded'
-      && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
+      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
       const offer = getOffer(remoteMessage.data.offerId) as SellOffer
 
       return updateOverlay({
@@ -45,19 +45,19 @@ export default ({
       })
     }
     if (type === 'offer.escrowFunded'
-      && /buy|home|settings|offers/u.test(getCurrentPage() as string)) {
+      && /buy|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <EscrowFunded offerId={remoteMessage.data.offerId} navigation={navigationRef} />,
       })
     }
     if (type === 'contract.contractCreated'
-      && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
+      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
       })
     }
     if (type === 'contract.paymentMade'
-      && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
+      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
       })

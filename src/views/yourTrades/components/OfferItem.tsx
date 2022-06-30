@@ -11,7 +11,7 @@ import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
-import { ProfileScreenNavigationProp } from '../Offers'
+import { ProfileScreenNavigationProp } from '../YourTrades'
 
 
 const navigateToOffer = (
@@ -21,13 +21,13 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
-  if (!offer) return navigation.replace('offers', {})
+  if (!offer) return navigation.replace('yourTrades', {})
 
   if (offer.type === 'ask'
     && offer.funding?.txIds
     && !offer.refunded
     && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
-    const navigate = () => navigation.replace('offers', {})
+    const navigate = () => navigation.replace('yourTrades', {})
 
     return updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,
@@ -59,7 +59,7 @@ const navigateToOffer = (
     return navigation.replace('search', { offer, hasMatches: offer.matches?.length > 0 })
   }
 
-  return navigation.replace('offers', {})
+  return navigation.replace('yourTrades', {})
 }
 
 type OfferItemProps = ComponentProps & {

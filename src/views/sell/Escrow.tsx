@@ -35,7 +35,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
     updateOffer(offerData)
     saveOffer(offerData, undefined, shield)
   }
-  const navigate = () => navigation.replace('offers', {})
+  const navigate = () => navigation.replace('yourTrades', {})
 
   useFocusEffect(useCallback(!offer.id ? postOfferEffect({
     offer,
