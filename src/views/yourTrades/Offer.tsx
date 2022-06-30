@@ -37,11 +37,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
     ? isTradeComplete(contract)
-      ? i18n('offers.offerCompleted.subtitle',
+      ? i18n('yourTrades.offerCompleted.subtitle',
         contractIdToHex(contract.id),
         finishedDate ? toShortDateFormat(finishedDate) : ''
       )
-      : i18n('offers.tradeCanceled.subtitle')
+      : i18n('yourTrades.tradeCanceled.subtitle')
     : ''
 
   const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
@@ -95,7 +95,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               title={i18n('back')}
               secondary={true}
               wide={false}
-              onPress={() => navigation.replace('offers', {})}
+              onPress={() => navigation.replace('yourTrades', {})}
             />
           </View>
         </View>

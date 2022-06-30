@@ -92,7 +92,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     home: () => navTo('home'),
     buy: () => navTo('buy'),
     sell: () => navTo('sell'),
-    offers: () => navTo('offers'),
+    yourTrades: () => navTo('yourTrades'),
     settings: () => navTo('settings'),
   }
 
@@ -126,9 +126,9 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
             <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
             <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
             <FooterItem
-              id="offers"
-              active={active === 'offers' || /contract/u.test(active as string)}
-              onPress={navigate.offers}
+              id="yourTrades"
+              active={active === 'yourTrades' || /contract/u.test(active as string)}
+              onPress={navigate.yourTrades}
               notifications={notifications}
             />
             <FooterItem id="settings" active={isSettings.test(active as string)} onPress={navigate.settings} />
@@ -153,8 +153,8 @@ export default Footer
 <View style={tw`h-full flex-grow`}>
   <Shadow shadow={footerShadow} stule={tw`w-full`}>
     <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
-      <FooterItem id="offers" active={active === 'offers'}
-        onPress={navigate.offers} />
+      <FooterItem id="yourTrades" active={active === 'yourTrades'}
+        onPress={navigate.yourTrades} />
       <FooterItem id="settings" active={active === 'settings'}
         onPress={navigate.settings} />
     </View>

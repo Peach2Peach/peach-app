@@ -20,7 +20,7 @@ import help from './help.svg'
 import money from './money.svg'
 import link from './link.svg'
 import negative from './negative.svg'
-import offers from './offers.svg'
+import yourTrades from './yourTrades.svg'
 import positive from './positive.svg'
 import plus from './plus.svg'
 import selectClosed from './selectClosed.svg'
@@ -61,7 +61,7 @@ const Icons = {
   money,
   link,
   negative,
-  offers,
+  yourTrades,
   positive,
   plus,
   selectClosed,

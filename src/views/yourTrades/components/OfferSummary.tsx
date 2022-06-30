@@ -16,7 +16,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
   const [, updateOverlay] = useContext(OverlayContext)
   const navigate = () => {}
   const title = status !== 'offerCanceled'
-    ? i18n('offers.search.title')
+    ? i18n('yourTrades.search.title')
     : i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)
 
   const cancelOffer = () => updateOverlay({
@@ -27,12 +27,12 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
     <Title title={title}/>
     {status !== 'offerCanceled'
       ? <Text style={tw`text-grey-2 text-center -mt-1`}>
-        {i18n(`offers.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`)} <SatsFormat sats={offer.amount}
+        {i18n(`yourTrades.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`)} <SatsFormat sats={offer.amount}
           color={tw`text-grey-2`}
         />
       </Text>
       : <Text style={tw`text-grey-2 text-center -mt-1`}>
-        {i18n('offers.offerCanceled.subtitle')}
+        {i18n('yourTrades.offerCanceled.subtitle')}
       </Text>
     }
     {status !== 'offerCanceled'
@@ -52,7 +52,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
         title={i18n('back')}
         secondary={true}
         wide={false}
-        onPress={() => navigation.replace('offers', {})}
+        onPress={() => navigation.replace('yourTrades', {})}
       />
     </View>
     {status !== 'offerCanceled'

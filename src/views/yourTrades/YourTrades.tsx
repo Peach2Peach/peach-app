@@ -20,7 +20,7 @@ import getContractsEffect from '../../effects/getContractsEffect'
 import { useFocusEffect } from '@react-navigation/native'
 import { getChatNotifications } from '../../utils/chat'
 
-export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'offers'>
+export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'yourTrades'>
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
@@ -113,18 +113,18 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <PeachScrollView contentContainerStyle={tw`px-12`}>
     <View style={tw`pt-5 pb-10`}>
-      <Title title={i18n('offers.title')}/>
+      <Title title={i18n('yourTrades.title')}/>
       {allOpenOffers.length + pastOffers.length === 0
         ? <Text style={tw`text-center`}>
-          {i18n('offers.noOffers')}
+          {i18n('yourTrades.noOffers')}
         </Text>
         : null
       }
       {openOffers.buy.length
         ? <Headline style={tw`mt-20 text-grey-1`}>
-          {i18n('offers.open')}
-          <Headline style={tw`text-green`}> {i18n('offers.buy')} </Headline>
-          {i18n('offers.offers')}
+          {i18n('yourTrades.open')}
+          <Headline style={tw`text-green`}> {i18n('yourTrades.buy')} </Headline>
+          {i18n('yourTrades.offers')}
         </Headline>
         : null
       }
@@ -135,9 +135,9 @@ export default ({ navigation }: Props): ReactElement => {
       }
       {openOffers.sell.length
         ? <Headline style={tw`mt-20 text-grey-1`}>
-          {i18n('offers.open')}
-          <Headline style={tw`text-red`}> {i18n('offers.sell')} </Headline>
-          {i18n('offers.offers')}
+          {i18n('yourTrades.open')}
+          <Headline style={tw`text-red`}> {i18n('yourTrades.sell')} </Headline>
+          {i18n('yourTrades.offers')}
         </Headline>
         : null
       }
@@ -148,7 +148,7 @@ export default ({ navigation }: Props): ReactElement => {
       }
       {pastOffers.length
         ? <Headline style={tw`mt-20 text-grey-1`}>
-          {i18n('offers.pastOffers')}
+          {i18n('yourTrades.pastOffers')}
         </Headline>
         : null
       }
