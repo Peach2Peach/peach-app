@@ -104,7 +104,7 @@ const initApp = async (
   }
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
-    updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
+    error(new Error('STARTUP_ERROR'))
     goHome()
   }, 30000)
 
@@ -112,12 +112,8 @@ const initApp = async (
   events()
   await session()
   fcm()
+  pgp()
 
-  try {
-    pgp()
-  } catch (e) {
-    error(e)
-  }
   clearTimeout(timeout)
 
   goHome()
