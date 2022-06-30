@@ -46,7 +46,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       paymentData={account.paymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethods style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} />
+    <AddPaymentMethods style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} view="buyer" />
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

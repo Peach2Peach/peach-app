@@ -36,7 +36,9 @@ export default ({ contractId, navigation }: Props): ReactElement => {
       </View>
     </View>
     <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('matchAccepted.description')}
+      {i18n('matchAccepted.description.1')}
+      {'\n\n'}
+      {i18n('matchAccepted.description.2')}
     </Text>
     <View style={tw`flex justify-center items-center mt-5`}>
       <Button

@@ -50,13 +50,13 @@ const navigateToOffer = (
 
   if (offer.type === 'ask') {
     if (offer.funding.status === 'FUNDED') {
-      return navigation.replace('search', { offer })
+      return navigation.replace('search', { offer, hasMatches: offer.matches?.length > 0 })
     }
     return navigation.replace('sell', { offer })
   }
 
   if (offer.type === 'bid' && offer.online) {
-    return navigation.replace('search', { offer })
+    return navigation.replace('search', { offer, hasMatches: offer.matches?.length > 0 })
   }
 
   return navigation.replace('offers', {})

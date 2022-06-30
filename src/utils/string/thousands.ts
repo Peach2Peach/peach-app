@@ -11,7 +11,7 @@ export const thousands = (number: number): string => {
 
 
   return string.reduce((str, digit, i) => i % 3 === 0 && i >= 3
-    ? `${digit} ${str}`
+    ? `${digit} ${str}`
     : `${digit}${str}`
   , '')
 }

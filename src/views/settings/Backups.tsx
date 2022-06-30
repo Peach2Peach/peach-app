@@ -11,6 +11,7 @@ import { account, backupAccount, updateSettings } from '../../utils/account'
 import { OverlayContext } from '../../contexts/overlay'
 import { toShortDateFormat } from '../../utils/string'
 import { BackupCreated } from '../../overlays/BackupCreated'
+import SaveAccount from '../../overlays/info/SaveAccount'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
 
@@ -51,7 +52,7 @@ export default ({ navigation }: Props): ReactElement => {
   const goTo12Words = () => navigation.navigate('seedWords', {})
 
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-    <Title title={i18n('settings.title')} subtitle={i18n('settings.backups.subtitle')} />
+    <Title title={i18n('settings.title')} subtitle={i18n('settings.backups.subtitle')} help={<SaveAccount />} />
     <View style={tw`h-full flex-shrink mt-12`}>
       {account.settings.lastBackupDate
         ? <Text style={tw`text-center text-grey-1`}>

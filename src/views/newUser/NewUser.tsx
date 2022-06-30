@@ -24,6 +24,7 @@ import pgp from '../../init/pgp'
 import fcm from '../../init/fcm'
 import { OverlayContext } from '../../contexts/overlay'
 import NDA from '../../overlays/NDA'
+import SaveYourPassword from '../../overlays/SaveYourPassword'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -141,6 +142,10 @@ export default ({ navigation }: Props): ReactElement => {
       setTimeout(() => {
         createAccount({ password, onSuccess, onError })
       })
+
+      setTimeout(() => {
+        updateOverlay({ content: <SaveYourPassword />, showCloseButton: false })
+      }, 300)
     }
   }
 

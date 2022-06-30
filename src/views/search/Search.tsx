@@ -1,35 +1,39 @@
 /* eslint-disable max-lines */
+import messaging from '@react-native-firebase/messaging'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import {
   Pressable,
   View
 } from 'react-native'
-import messaging from '@react-native-firebase/messaging'
 
-import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
+import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { MessageContext } from '../../contexts/message'
-import { BigTitle, Button, Headline, Matches, SatsFormat, Text, TextLink } from '../../components'
-import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { saveOffer } from '../../utils/offer'
-import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
-import { error, info } from '../../utils/log'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { OverlayContext } from '../../contexts/overlay'
-import { signAndEncrypt } from '../../utils/pgp'
-import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
-import { account } from '../../utils/account'
-import { getRandom } from '../../utils/crypto'
-import { decryptSymmetricKey } from '../contract/helpers/parseContract'
-import { unique } from '../../utils/array'
-import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
+import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
 import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
+import { MessageContext } from '../../contexts/message'
+import { OverlayContext } from '../../contexts/overlay'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import searchForPeersEffect from '../../effects/searchForPeersEffect'
+import { OfferTaken } from '../../messageBanners/OfferTaken'
+import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
+import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
+import DoubleMatch from '../../overlays/info/DoubleMatch'
+import Match from '../../overlays/info/Match'
+import { account, addPaymentData } from '../../utils/account'
+import { unique } from '../../utils/array'
+import { getRandom } from '../../utils/crypto'
+import { error, info } from '../../utils/log'
+import { saveOffer } from '../../utils/offer'
+import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
+import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
+import { signAndEncrypt } from '../../utils/pgp'
+import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
 
 const updaterPNs = [
@@ -42,6 +46,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sear
 type Props = {
   route: RouteProp<{ params: {
     offer: BuyOffer,
+    hasMatches?: boolean,
   } }>,
   navigation: ProfileScreenNavigationProp,
 }
@@ -61,6 +66,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [pnReceived, setPNReceived] = useState(0)
 
   const [matches, setMatches] = useState<Match[]>([])
+  const [searchingMatches, setSearchingMatches] = useState(true)
+
   const [seenMatches, setSeenMatches] = useState<Offer['id'][]>(route.params.offer.seenMatches)
   const currentMatch = matches[currentMatchIndex]
 
@@ -88,13 +95,19 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
-  const onPaymentDataUpdate = () => {
+  const onPaymentDataUpdate = async (newData: PaymentData) => {
+    await addPaymentData(newData, false)
     updateOverlay({ content: null, showCloseButton: true })
   }
   const openAddPaymentMethodDialog = () => {
+    if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })
     updateOverlay({
-      content: <AddPaymentMethod method={selectedPaymentMethod} onSubmit={onPaymentDataUpdate} />,
+      content: <AddPaymentMethod
+        paymentMethod={selectedPaymentMethod}
+        currencies={[selectedCurrency]}
+        onSubmit={onPaymentDataUpdate}
+      />,
       showCloseButton: false
     })
   }
@@ -132,12 +145,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
       )
     } else if (offer.type === 'ask') {
-      const [symmetricKey, decryptErr] = await decryptSymmetricKey(
+      const [symmetricKey] = await decryptSymmetricKey(
         match.symmetricKeyEncrypted, match.symmetricKeySignature,
         match.user.pgpPublicKey
       )
-
-      if (decryptErr) error(decryptErr)
 
       const paymentDataForMethod = account.paymentData.filter(data =>
         data.type === selectedPaymentMethod
@@ -152,21 +163,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
-          template: <View>
-            <Headline style={tw`text-white-1 text-lg`}>{i18n('error.paymentDataMissing.title')}</Headline>
-            <Text style={tw`text-white-1 text-center mt-1`}>
-              {i18n('error.paymentDataMissing.text.1')}
-            </Text>
-            <View style={tw`flex-row items-center justify-center mt-1`}>
-              <Text style={tw`text-white-1 text-center`}>
-                {i18n('error.paymentDataMissing.text.2')}
-              </Text>
-              <TextLink style={tw`text-white-1 ml-1`}
-                onPress={openAddPaymentMethodDialog}>
-                {i18n('error.paymentDataMissing.text.3')}
-              </TextLink>
-            </View>
-          </View>,
+          template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
           level: 'ERROR',
         })
         return
@@ -178,7 +175,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       )
     }
 
-    // TODO handle 404 error (match already taken)
     const [result, err] = await matchOffer({
       offerId: offer.id, matchingOfferId: match.offerId,
       currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
@@ -211,10 +207,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     } else {
       error('Error', err)
-      updateMessage({
-        msg: i18n(err?.error || 'error.general', (err?.details as string[] || []).join(', ')),
-        level: 'ERROR',
-      })
+      if (err?.error === 'NOT_FOUND') {
+        updateMessage({
+          template: <OfferTaken />,
+          level: 'WARN',
+        })
+      } else {
+        updateMessage({
+          msg: i18n(err?.error || 'error.general', (err?.details as string[] || []).join(', ')),
+          level: 'ERROR',
+        })
+      }
     }
     setMatchLoading(false)
   }
@@ -251,10 +254,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     showCloseButton: false
   })
 
+  const openMatchHelp = () => updateOverlay({
+    content: offer.type === 'bid' ? <Match /> : <DoubleMatch />,
+    showCloseButton: true, help: true
+  })
+
   useFocusEffect(useCallback(() => {
     setOffer(route.params.offer)
     setOfferId(route.params.offer.id)
-    setUpdatePending(() => true)
+    setUpdatePending(true)
+    setSearchingMatches(true)
   }, [route]))
 
   useEffect(() => {
@@ -298,6 +307,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(searchForPeersEffect({
     offer,
     onSuccess: result => {
+      setSearchingMatches(false)
       setMatches(matches.concat(result)
         .filter(unique('offerId'))
         .filter((match, i) => {
@@ -331,7 +341,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   return <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
     <View style={tw`px-6`}>
       {!matches.length
-        ? <BigTitle title={i18n('search.searchingForAPeer')} />
+        ? <BigTitle title={i18n(
+          route.params.hasMatches
+            ? 'search.matchesAreWaiting'
+            : 'search.searchingForAPeer'
+        )} />
         : <Headline style={[
           tw`text-center text-2xl leading-2xl uppercase text-peach-1`,
           tw.md`text-3xl leading-3xl`,
@@ -339,7 +353,14 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
         </Headline>
       }
-      {!matches.length
+      {searchingMatches
+        ? <View style={tw`h-12`}>
+          <Loading />
+          <Text style={tw`text-center`}>{i18n('loading')}</Text>
+        </View>
+        : null
+      }
+      {!searchingMatches && !matches.length
         ? <Text style={tw`text-center mt-3`}>
           {i18n('search.weWillNotifyYou')}
         </Text>
@@ -372,7 +393,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Matches offer={offer} matches={matches} navigation={navigation}
             onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
           {offer.type === 'bid'
-            ? <View style={tw`flex items-center`}>
+            ? <View style={tw`flex-row items-center justify-center`}>
               <Button
                 title={matchLoading
                   ? ' '
@@ -383,8 +404,11 @@ export default ({ route, navigation }: Props): ReactElement => {
                 loading={matchLoading}
                 onPress={_toggleMatch}
               />
+              <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
+                <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+              </Pressable>
             </View>
-            : <View style={tw`flex items-center`}>
+            : <View style={tw`flex-row items-center justify-center`}>
               {/* <Button
                 title={i18n('search.declineMatch')}
                 wide={false}
@@ -399,6 +423,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                 disabled={currentMatch?.matched}
                 onPress={() => _match(currentMatch)}
               />
+              <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
+                <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+              </Pressable>
             </View>
           }
         </View>
