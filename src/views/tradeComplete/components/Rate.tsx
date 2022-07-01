@@ -9,6 +9,7 @@ import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { MessageContext } from '../../../contexts/message'
 import { rateUser } from '../../../utils/peachAPI'
+import { getOffer } from '../../../utils/offer'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'tradeComplete'>
 
@@ -47,7 +48,12 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
       [ratedUser]: true
     })
 
-    navigation.replace('home', {})
+    if (rating.rating === 1) {
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
+      navigation.replace('offer', { offer })
+    } else {
+      navigation.replace('yourTrades', {})
+    }
   }
   return <View style={style}>
     <Card style={tw`p-4`}>
