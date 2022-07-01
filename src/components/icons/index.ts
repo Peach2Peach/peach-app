@@ -30,6 +30,7 @@ import send from './send.svg'
 import settings from './settings.svg'
 import next from './next.svg'
 import prev from './prev.svg'
+import shiftCrypto from './shiftCrypto.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import triangleUp from './triangleUp.svg'
@@ -71,6 +72,7 @@ const Icons = {
   settings,
   next,
   prev,
+  shiftCrypto,
   sliderNext,
   sliderPrev,
   triangleUp,
