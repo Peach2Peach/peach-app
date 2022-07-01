@@ -29,6 +29,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@msml/react-native-notification-badge": "^0.1.4",
     "@react-native-clipboard/clipboard": "^1.8.5",
     "@react-native-community/cli-platform-android": "^7.0.1",
     "@react-native-firebase/app": "^14.9.3",

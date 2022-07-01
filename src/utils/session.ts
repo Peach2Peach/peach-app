@@ -2,6 +2,7 @@ import EncryptedStorage from 'react-native-encrypted-storage'
 
 export let session: Session = {
   initialized: false,
+  notifications: 0,
 }
 
 /**
