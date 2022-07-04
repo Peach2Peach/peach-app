@@ -94,6 +94,8 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
 
 const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
+  const goToUserProfile = () => navigation.navigate('profile', { userId: contract.seller.id, user: contract.seller })
+
   return <View style={tw`border border-peach-1 rounded`}>
     {contract.paymentMade
       ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`} pointerEvents="none">
@@ -106,6 +108,13 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
     }
     <View style={tw`p-5`}>
       <Headline style={tw`text-grey-2 normal-case`}>
+        {i18n('seller')}
+      </Headline>
+      <Text onPress={goToUserProfile} style={tw`text-center text-grey-2`}>
+        Peach{contract.seller.id.substring(0, 8)}
+      </Text>
+      <HorizontalLine style={tw`mt-4`}/>
+      <Headline style={tw`text-grey-2 normal-case mt-4`}>
         {i18n('contract.youShouldPay')}
       </Headline>
       <Text style={tw`text-center text-grey-2`}>
