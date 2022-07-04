@@ -27,7 +27,7 @@ type FooterProps = ComponentProps & {
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>,
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
 }
-interface FooterItemProps {
+type FooterItemProps = ComponentProps & {
   id: IconType,
   active: boolean,
   onPress: () => void,
@@ -52,9 +52,9 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  * @example
  * <FooterItem id="sell" active={true} />
  */
-const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement => {
+const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
   const color = active ? tw`text-peach-1` : tw`text-grey-2`
-  return <Pressable onPress={onPress}>
+  return <Pressable onPress={onPress} style={style}>
     <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
       <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
       <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
@@ -122,16 +122,28 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     ? <View style={[tw`w-full flex-row items-start`, { height }, style]}>
       <View style={tw`h-full flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
-            <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
-            <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+          <View style={tw`h-full flex-row items-center justify-between bg-white-2`}>
             <FooterItem
-              id="yourTrades"
+              id="buy" style={tw`w-1/4`}
+              active={active === 'buy' || active === 'home'}
+              onPress={navigate.buy}
+            />
+            <FooterItem
+              id="sell" style={tw`w-1/4`}
+              active={active === 'sell'}
+              onPress={navigate.sell}
+            />
+            <FooterItem
+              id="yourTrades" style={tw`w-1/4`}
               active={active === 'yourTrades' || /contract/u.test(active as string)}
               onPress={navigate.yourTrades}
               notifications={notifications}
             />
-            <FooterItem id="settings" active={isSettings.test(active as string)} onPress={navigate.settings} />
+            <FooterItem
+              id="settings" style={tw`w-1/4`}
+              active={isSettings.test(active as string)}
+              onPress={navigate.settings}
+            />
           </View>
         </Shadow>
       </View>
