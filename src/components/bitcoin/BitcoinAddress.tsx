@@ -30,7 +30,6 @@ type BitcoinAddressProps = ComponentProps & {
  * <BitcoinAddress address={'1BitcoinEaterAddressDontSendf59kuE'} />
  */
 export const BitcoinAddress = ({ address, showQR, amount, label, style }: BitcoinAddressProps): ReactElement => {
-  const [showCopied, setShowCopied] = useState(false)
   const [showPaymentRequestCopied, setShowPaymentRequestCopied] = useState(false)
   const urn = new URL(`bitcoin:${address}`)
 
@@ -83,7 +82,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
         <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
       </Text>
       <View>
-        <Fade show={showCopied} duration={300} delay={0}>
+        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
           <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
             {i18n('copied')}
           </Text>
