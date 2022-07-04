@@ -9,11 +9,11 @@ export const getTimerStart = (contract: Contract, requiredAction: ContractAction
 
   if (requiredAction === 'kycResponse') {
     start = contract.creationDate
-  } else if (requiredAction === 'paymentMade') {
+  } else if (requiredAction === 'makePayment') {
     start = contract.kycRequired && contract.kycResponseDate
       ? contract.kycResponseDate
       : contract.creationDate
-  } else if (requiredAction === 'paymentConfirmed' && contract.paymentMade) {
+  } else if (requiredAction === 'confirmPayment' && contract.paymentMade) {
     start = contract.paymentMade
   }
 

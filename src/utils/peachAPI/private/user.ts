@@ -5,7 +5,6 @@ import { accessToken, peachAccount, parseResponse, setAccessToken } from '..'
 import { UNIQUEID } from '../../../constants'
 import fetch from '../../fetch'
 import { error, info } from '../../log'
-import { sleep } from '../../performance'
 
 /**
  * @description Method to authenticate with Peach API
@@ -68,9 +67,13 @@ export const getAccessToken = async (): Promise<string> => {
   }
 
   if (fetchingToken) {
+    info('Authentication already in progress, waiting...')
     await fetchingToken
+    info('Background authentication finished')
     if (accessToken) return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
+
+  info('Starting authentication, waiting...')
 
   // eslint-disable-next-line require-atomic-updates
   fetchingToken = new Promise(async (resolve) => {
@@ -85,6 +88,7 @@ export const getAccessToken = async (): Promise<string> => {
   })
 
   const result = await fetchingToken
+  info('Authentication finished')
 
   return 'Basic ' + Buffer.from(result.accessToken)
 }
