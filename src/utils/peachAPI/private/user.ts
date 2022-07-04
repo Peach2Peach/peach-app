@@ -68,9 +68,12 @@ export const getAccessToken = async (): Promise<string> => {
   }
 
   if (fetchingToken) {
+    info('Authentication already in progress, waiting...')
     await fetchingToken
     if (accessToken) return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
+
+  info('Starting authentication, waiting...')
 
   // eslint-disable-next-line require-atomic-updates
   fetchingToken = new Promise(async (resolve) => {

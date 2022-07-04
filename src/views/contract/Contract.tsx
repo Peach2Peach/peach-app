@@ -228,13 +228,14 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount}
             color={tw`text-grey-2`}
           />
+          {requiredAction}
         </Text>
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
         {!contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>
-              {/paymentMade|paymentConfirmed/u.test(requiredAction)
+              {/makePayment|confirmPayment/u.test(requiredAction)
                 ? <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
                   <Timer
                     text={i18n(`contract.timer.${requiredAction}.${view}`)}
@@ -242,7 +243,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                     duration={TIMERS[requiredAction]}
                     style={tw`flex-shrink`}
                   />
-                  {requiredAction === 'paymentMade'
+                  {view === 'buyer' && requiredAction === 'makePayment'
                     ? <Pressable onPress={openPaymentHelp} style={tw`flex-row items-center p-1 -mt-0.5`}>
                       <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
                     </Pressable>
@@ -251,8 +252,8 @@ export default ({ route, navigation }: Props): ReactElement => {
                 </View>
                 : null
               }
-              {!(view === 'buyer' && requiredAction === 'paymentMade')
-              && !(view === 'seller' && requiredAction === 'paymentConfirmed')
+              {!(view === 'buyer' && requiredAction === 'makePayment')
+              && !(view === 'seller' && requiredAction === 'confirmPayment')
                 ? <Button
                   disabled={true}
                   wide={false}
@@ -261,7 +262,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 />
                 : null
               }
-              {view === 'buyer' && requiredAction === 'paymentMade'
+              {view === 'buyer' && requiredAction === 'makePayment'
                 ? <Button
                   disabled={loading}
                   wide={false}
@@ -271,7 +272,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 />
                 : null
               }
-              {view === 'seller' && requiredAction === 'paymentConfirmed'
+              {view === 'seller' && requiredAction === 'confirmPayment'
                 ? <View style={tw`flex-row items-center justify-center`}>
                   <Button
                     disabled={loading}

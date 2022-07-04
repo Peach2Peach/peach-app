@@ -9,9 +9,9 @@ export const getRequiredAction = (contract: Contract|null): ContractAction => {
   if (contract.kycRequired && !contract.kycConfirmed) {
     return 'kycResponse'
   } else if (!contract.paymentMade) {
-    return 'paymentMade'
+    return 'makePayment'
   } else if (contract.paymentMade && !contract.paymentConfirmed) {
-    return 'paymentConfirmed'
+    return 'confirmPayment'
   }
   return 'none'
 }
