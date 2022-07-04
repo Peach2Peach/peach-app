@@ -78,7 +78,11 @@ export const Match = ({
       : mildShadow
     : noShadow
 
-  const userRating = Math.round(interpolate(match.user.rating, [-1, 1], [0, 5]) * 10) / 10
+  // if user is ambassador and has no ratings, give 3/5 peaches by default
+  const rawRating = match.user.ratingCount === 0 && match.user.medals.indexOf('ambassador') !== -1
+    ? 0.2
+    : match.user.rating
+  const userRating = Math.round(interpolate(rawRating, [-1, 1], [0, 5]) * 10) / 10
   let displayPrice = String(match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency])
   displayPrice = `${(displayPrice).split('.')[0]}.${padString({
     string: (displayPrice).split('.')[1],
@@ -133,11 +137,12 @@ export const Match = ({
             <Text style={tw`text-base`}>
               <Text style={tw`font-bold text-base`}>
                 {i18n(offer.type === 'ask' ? 'buyer' : 'seller')}:
+                {match.user.ratingCount}
               </Text>
               <Text style={tw`text-base`}> Peach{match.user.id.substring(0, 8)}</Text>
             </Text>
             <View style={tw`flex-row items-center`}>
-              <Rating rating={match.user.rating} style={tw`h-4`}/>
+              <Rating rating={rawRating} style={tw`h-4`}/>
               <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 mt-2 text-grey-2`}>{userRating} / 5</Text>
             </View>
           </View>
