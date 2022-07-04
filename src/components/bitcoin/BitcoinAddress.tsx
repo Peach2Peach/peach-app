@@ -4,14 +4,14 @@ import 'react-native-url-polyfill/auto'
 
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
 import QRCode from 'react-native-qrcode-svg'
-import peachLogo from '../../../assets/favico/peach-icon-192.png'
 import { Card, Text } from '..'
-import Icon from '../Icon'
-import { splitAt } from '../../utils/string'
+import peachLogo from '../../../assets/favico/peach-icon-192.png'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { splitAt } from '../../utils/string'
 import { Fade } from '../animation'
+import Icon from '../Icon'
 
 type BitcoinAddressProps = ComponentProps & {
   address: string,
@@ -45,11 +45,6 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   }
   addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
 
-  const copy = () => {
-    Clipboard.setString(address)
-    setShowCopied(true)
-    setTimeout(() => setShowCopied(false), 500)
-  }
   const copyPaymentRequest = () => {
     Clipboard.setString(urn.toString())
     setShowPaymentRequestCopied(true)
@@ -77,7 +72,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
       </Pressable>
       : null
     }
-    <Pressable onPress={copy} style={[
+    <Pressable onPress={copyPaymentRequest} style={[
       tw`flex-row items-center`,
       showQR ? tw`mt-4` : {}
     ]}>
