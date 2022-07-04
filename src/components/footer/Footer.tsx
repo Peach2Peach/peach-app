@@ -21,6 +21,7 @@ import { saveContract } from '../../utils/contract'
 import { getContract } from '../../utils/peachAPI'
 import { IconType } from '../icons'
 import keyboard from '../../effects/keyboard'
+import { getRequiredActionCount } from '../../utils/offer'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
@@ -54,22 +55,24 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
   const color = active ? tw`text-peach-1` : tw`text-grey-2`
-  return <Pressable onPress={onPress} style={style}>
-    <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-      <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
-      <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
-        {i18n(id)}
-      </Text>
-    </View>
-    {notifications
-      ? <Bubble color={tw`text-green`.color as string}
-        style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
-          {notifications}
+  return <Pressable onPress={onPress} style={[style, tw`flex-row justify-center`]}>
+    <View>
+      <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
+        <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
+        <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
+          {i18n(id)}
         </Text>
-      </Bubble>
-      : null
-    }
+      </View>
+      {notifications
+        ? <Bubble color={tw`text-green`.color as string}
+          style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
+          <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
+            {notifications}
+          </Text>
+        </Bubble>
+        : null
+      }
+    </View>
   </Pressable>
 }
 
@@ -112,7 +115,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     })
 
     updateAppContext({
-      notifications: getChatNotifications()
+      notifications: getChatNotifications() + getRequiredActionCount()
     })
 
     return unsubscribe

@@ -64,7 +64,10 @@ module.exports = {
       'error',
       'last'
     ],
-    'complexity': 'error',
+    'complexity': [
+      'error',
+      21
+    ],
     'computed-property-spacing': 'error',
     'consistent-return': 'error',
     'consistent-this': 'error',

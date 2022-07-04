@@ -7,6 +7,7 @@ import { account } from '../../../utils/account'
 import { getChatNotifications, saveChat } from '../../../utils/chat'
 import i18n from '../../../utils/i18n'
 import { innerShadow } from '../../../utils/layout'
+import { getRequiredActionCount } from '../../../utils/offer'
 
 const PAGE_SIZE = 21
 
@@ -84,7 +85,7 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
     if (!lastItem || lastItem.date.getTime() <= chat.lastSeen.getTime()) return
 
     updateAppContext({
-      notifications: getChatNotifications()
+      notifications: getChatNotifications() + getRequiredActionCount()
     })
     saveChat(chat.id, { lastSeen: lastItem.date })
   }, [])
