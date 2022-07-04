@@ -8,7 +8,7 @@ export const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
   && offer.funding.status !== 'WRONG_FUNDING_AMOUNT'
   && offer.funding.status !== 'CANCELED'
 
-export const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.status === 'NULL'
+export const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.txIds.length > 0
 
 export const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
 
@@ -86,14 +86,14 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (offer.type === 'ask') {
     if (isEscrowWaitingForConfirmation(offer)) return {
       status: 'escrowWaitingForConfirmation',
-      requiredAction: isEscrowTransactionSent(offer)
+      requiredAction: !isEscrowTransactionSent(offer)
         ? 'fundEscrow'
         : ''
     }
     if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        requiredAction: !isEscrowRefunded(offer) ? 'refundEscrow' : ''
+        requiredAction: isEscrowTransactionSent(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : ''
       }
     }
   }

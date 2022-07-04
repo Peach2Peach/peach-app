@@ -12,7 +12,7 @@ import { getAccount, saveAccount } from '../../utils/account'
 import { error } from '../../utils/log'
 import getOffersEffect from '../../effects/getOffersEffect'
 import i18n from '../../utils/i18n'
-import { getOffers, getOfferStatus, saveOffer } from '../../utils/offer'
+import { getOffers, getOfferStatus, getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
 import { saveContract } from '../../utils/contract'
@@ -98,7 +98,7 @@ export default ({ navigation }: Props): ReactElement => {
         if (session.password) saveAccount(getAccount(), session.password)
         setLastUpdate(new Date().getTime())
         updateAppContext({
-          notifications: getChatNotifications()
+          notifications: getChatNotifications() + getRequiredActionCount()
         })
       }, 3000)
     },

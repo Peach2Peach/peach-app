@@ -1,6 +1,7 @@
 export { getOffer } from './getOffer'
 export { getOffers } from './getOffers'
 export { getOfferStatus } from './getOfferStatus'
+export { getRequiredActionCount } from './getRequiredActionCount'
 export { offerExists } from './offerExists'
 export { saveOffer } from './saveOffer'
 export { hasMopsConfigured } from './hasMopsConfigured'
