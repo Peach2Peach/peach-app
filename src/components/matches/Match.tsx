@@ -137,7 +137,6 @@ export const Match = ({
             <Text style={tw`text-base`}>
               <Text style={tw`font-bold text-base`}>
                 {i18n(offer.type === 'ask' ? 'buyer' : 'seller')}:
-                {match.user.ratingCount}
               </Text>
               <Text style={tw`text-base`}> Peach{match.user.id.substring(0, 8)}</Text>
             </Text>
