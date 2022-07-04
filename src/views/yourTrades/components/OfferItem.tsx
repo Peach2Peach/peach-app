@@ -11,6 +11,7 @@ import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
+import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
 import { ProfileScreenNavigationProp } from '../YourTrades'
 
 
@@ -24,9 +25,10 @@ const navigateToOffer = (
   if (!offer) return navigation.replace('yourTrades', {})
 
   if (offer.type === 'ask'
-    && offer.funding?.txIds
-    && !offer.refunded
-    && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)) {
+    && !offer.online
+    && !offer.contractId
+    && offer.funding?.txIds && offer.funding.status !== 'NULL'
+    && !isEscrowRefunded(offer)) {
     const navigate = () => navigation.replace('yourTrades', {})
 
     return updateOverlay({

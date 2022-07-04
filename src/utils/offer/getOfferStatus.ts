@@ -14,7 +14,7 @@ export const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.match
 
 export const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
 
-export const isEscrowRefunded = (offer: SellOffer) => offer.refunded
+export const isEscrowRefunded = (offer: SellOffer) => offer.txId
 
 export const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
   offer.type === 'bid'
