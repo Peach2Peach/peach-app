@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useContext, useEffect, useState } fro
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { SellViewProps } from './Sell'
-import { saveOffer } from '../../utils/offer'
+import { offerIdToHex, saveOffer } from '../../utils/offer'
 import { MessageContext } from '../../contexts/message'
 import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
@@ -121,14 +121,14 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
       help={<Escrow />} />
     {updatePending
       ? <Loading />
-      : escrow && fundingStatus && !fundingError
+      : offer.id && escrow && fundingStatus && !fundingError
         ? <View>
           <Text style={tw`mt-6 mb-5 text-center`}>
             <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>
             <SatsFormat style={tw`font-baloo text-lg uppercase`} sats={fundingAmount} color={tw`text-grey-2`} />
             <Text style={tw`font-baloo text-lg uppercase text-grey-2`}> {i18n('sell.escrow.sendSats.2')}</Text>
           </Text>
-          <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offer.id}`} />
+          <FundingView escrow={escrow} amount={offer.amount} label={`Peach Escrow - offer ${offerIdToHex(offer.id)}`} />
         </View>
         : <NoEscrowFound />
     }

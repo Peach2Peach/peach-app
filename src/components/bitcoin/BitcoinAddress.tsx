@@ -4,14 +4,14 @@ import 'react-native-url-polyfill/auto'
 
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
 import QRCode from 'react-native-qrcode-svg'
-import peachLogo from '../../../assets/favico/peach-icon-192.png'
 import { Card, Text } from '..'
-import Icon from '../Icon'
-import { splitAt } from '../../utils/string'
+import peachLogo from '../../../assets/favico/peach-icon-192.png'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { splitAt } from '../../utils/string'
 import { Fade } from '../animation'
+import Icon from '../Icon'
 
 type BitcoinAddressProps = ComponentProps & {
   address: string,
@@ -30,7 +30,6 @@ type BitcoinAddressProps = ComponentProps & {
  * <BitcoinAddress address={'1BitcoinEaterAddressDontSendf59kuE'} />
  */
 export const BitcoinAddress = ({ address, showQR, amount, label, style }: BitcoinAddressProps): ReactElement => {
-  const [showCopied, setShowCopied] = useState(false)
   const [showPaymentRequestCopied, setShowPaymentRequestCopied] = useState(false)
   const urn = new URL(`bitcoin:${address}`)
 
@@ -45,11 +44,6 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   }
   addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
 
-  const copy = () => {
-    Clipboard.setString(address)
-    setShowCopied(true)
-    setTimeout(() => setShowCopied(false), 500)
-  }
   const copyPaymentRequest = () => {
     Clipboard.setString(urn.toString())
     setShowPaymentRequestCopied(true)
@@ -77,7 +71,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
       </Pressable>
       : null
     }
-    <Pressable onPress={copy} style={[
+    <Pressable onPress={copyPaymentRequest} style={[
       tw`flex-row items-center`,
       showQR ? tw`mt-4` : {}
     ]}>
@@ -88,7 +82,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
         <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
       </Text>
       <View>
-        <Fade show={showCopied} duration={300} delay={0}>
+        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
           <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
             {i18n('copied')}
           </Text>
