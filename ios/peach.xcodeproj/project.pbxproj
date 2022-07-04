@@ -32,7 +32,6 @@
 		67D471762829472A00C2911E /* B612Mono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67D471752829472A00C2911E /* B612Mono-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9DFB090DB53745F3A28806B0 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14891148335E47A2B5EDB966 /* Lato-Italic.ttf */; };
-		B163EFCFAE0BB518D42A9F60 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		CFBAABEB18364DC2B43C488B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */; };
 		CFD93CA7D9D15A8C3399A71B /* libPods-peach-peach testnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 759828990A510562E7932818 /* libPods-peach-peach testnet.a */; };
 		F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };

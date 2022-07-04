@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Dimensions, SafeAreaView, View, Animated } from 'react-native'
+import NotificationBadge from '@msml/react-native-notification-badge'
 import tw from './styles/tailwind'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
@@ -41,6 +42,7 @@ import views from './views'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
+import { getSession, setSession } from './utils/session'
 
 enableScreens()
 
@@ -67,7 +69,7 @@ const requestUserPermission = async () => {
   info('Requesting notification permissions')
   const authStatus = await messaging().requestPermission({
     alert: true,
-    badge: true,
+    badge: false,
     sound: true,
   })
 
@@ -166,6 +168,12 @@ const App: React.FC = () => {
   useEffect(() => {
     messaging().onNotificationOpenedApp(remoteMessage => {
       info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
+
+      let notifications = Number(getSession().notifications || 0)
+      if (notifications > 0) notifications -= 1
+      NotificationBadge.setNumber(notifications)
+      setSession({ notifications })
+
       if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
     })
   }, [])

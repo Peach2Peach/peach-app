@@ -12,10 +12,12 @@ describe('setSession', () => {
     const session = getSession()
     setSession({
       ...session,
-      password: 'somePassword'
+      password: 'somePassword',
+      notifications: 0,
     })
     strictEqual(getSession().initialized, true)
     strictEqual(getSession().password, 'somePassword')
+    strictEqual(getSession().notifications, 0)
   })
 })
 
@@ -24,11 +26,13 @@ describe('initSession', () => {
     setSession({ 'initialized': true, 'password': 'sessionPassword' })
     deepStrictEqual((await initSession()), {
       initialized: true,
-      password: 'sessionPassword'
+      password: 'sessionPassword',
+      notifications: 0,
     })
     deepStrictEqual(getSession(), {
       initialized: true,
-      password: 'sessionPassword'
+      password: 'sessionPassword',
+      notifications: 0,
     })
   })
 })
