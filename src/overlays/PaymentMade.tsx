@@ -8,6 +8,7 @@ import { Button, Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
+import { contractIdToHex } from '../utils/contract'
 
 type Props = {
   contractId: Contract['id'],
@@ -36,7 +37,7 @@ export default ({ contractId, navigation }: Props): ReactElement => {
       </View>
     </View>
     <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('paymentMade.description.1', contractId)}
+      {i18n('paymentMade.description.1', contractIdToHex(contractId))}
       {'\n\n'}
       {i18n('paymentMade.description.2')}
     </Text>
