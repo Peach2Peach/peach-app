@@ -1,6 +1,6 @@
 
 
-declare type ContractAction = 'none' | 'kycResponse' | 'paymentMade' | 'paymentConfirmed'
+declare type ContractAction = 'none' | 'kycResponse' | 'makePayment' | 'confirmPayment'
 
 declare type Contract = {
   creationDate: Date,

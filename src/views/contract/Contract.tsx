@@ -1,11 +1,11 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { StackNavigationProp } from '@react-navigation/stack'
 import * as bitcoin from 'bitcoinjs-lib'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
+import { Button, Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import getContractEffect from '../../effects/getContractEffect'
 import { error } from '../../utils/log'
@@ -25,6 +25,8 @@ import { ContractSummary } from '../offers/components/ContractSummary'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import YouGotADispute from '../../overlays/YouGotADispute'
 import { OverlayContext } from '../../contexts/overlay'
+import Payment from '../../overlays/info/Payment'
+import ConfirmPayment from '../../overlays/info/ConfirmPayment'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -206,6 +208,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }
 
+  const openPaymentHelp = () => updateOverlay({
+    content: <Payment />,
+    showCloseButton: true, help: true
+  })
+  const openConfirmPaymentHelp = () => updateOverlay({
+    content: <ConfirmPayment />,
+    showCloseButton: true, help: true
+  })
+
   return !contract || updatePending
     ? <Loading />
     : <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
@@ -223,19 +234,25 @@ export default ({ route, navigation }: Props): ReactElement => {
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>
-              {(view === 'buyer' && requiredAction === 'paymentMade')
-              || (view === 'seller' && requiredAction === 'paymentConfirmed')
-                ? <View style={tw`absolute bottom-full mb-1`}>
+              {/makePayment|confirmPayment/u.test(requiredAction)
+                ? <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
                   <Timer
-                    text={i18n(`contract.timer.${requiredAction}`)}
+                    text={i18n(`contract.timer.${requiredAction}.${view}`)}
                     start={getTimerStart(contract, requiredAction)}
                     duration={TIMERS[requiredAction]}
+                    style={tw`flex-shrink`}
                   />
+                  {view === 'buyer' && requiredAction === 'makePayment'
+                    ? <Pressable onPress={openPaymentHelp} style={tw`flex-row items-center p-1 -mt-0.5`}>
+                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+                    </Pressable>
+                    : null
+                  }
                 </View>
                 : null
               }
-              {!(view === 'buyer' && requiredAction === 'paymentMade')
-              && !(view === 'seller' && requiredAction === 'paymentConfirmed')
+              {!(view === 'buyer' && requiredAction === 'makePayment')
+              && !(view === 'seller' && requiredAction === 'confirmPayment')
                 ? <Button
                   disabled={true}
                   wide={false}
@@ -244,7 +261,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 />
                 : null
               }
-              {view === 'buyer' && requiredAction === 'paymentMade'
+              {view === 'buyer' && requiredAction === 'makePayment'
                 ? <Button
                   disabled={loading}
                   wide={false}
@@ -254,14 +271,19 @@ export default ({ route, navigation }: Props): ReactElement => {
                 />
                 : null
               }
-              {view === 'seller' && requiredAction === 'paymentConfirmed'
-                ? <Button
-                  disabled={loading}
-                  wide={false}
-                  onPress={postConfirmPaymentSeller}
-                  style={tw`w-52`}
-                  title={i18n('contract.payment.received')}
-                />
+              {view === 'seller' && requiredAction === 'confirmPayment'
+                ? <View style={tw`flex-row items-center justify-center`}>
+                  <Button
+                    disabled={loading}
+                    wide={false}
+                    onPress={postConfirmPaymentSeller}
+                    style={tw`w-52`}
+                    title={i18n('contract.payment.received')}
+                  />
+                  <Pressable onPress={openConfirmPaymentHelp} style={tw`w-0 h-full flex-row items-center`}>
+                    <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                  </Pressable>
+                </View>
                 : null
               }
             </View>

@@ -12,9 +12,10 @@ import { dataToMeansOfPayment } from '../../utils/paymentMethod'
 
 type AddPaymentMethod = ComponentProps & {
   onUpdate: () => void,
+  view: 'buyer' | 'seller'
 }
 
-export default ({ style, onUpdate }: AddPaymentMethod): ReactElement => {
+export default ({ style, onUpdate, view }: AddPaymentMethod): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const onRestore = () => {
@@ -42,7 +43,7 @@ export default ({ style, onUpdate }: AddPaymentMethod): ReactElement => {
   })
 
   const openCurrencySelect = () => updateOverlay({
-    content: <CurrencySelect onConfirm={onCurrencySelect} />,
+    content: <CurrencySelect onConfirm={onCurrencySelect} view={view} />,
     showCloseIcon: true,
     showCloseButton: false
   })

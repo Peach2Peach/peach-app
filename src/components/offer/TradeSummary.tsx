@@ -1,10 +1,11 @@
 import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
-import { Image, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { OfferScreenNavigationProp } from '../../views/offers/Offer'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -15,7 +16,8 @@ import { HorizontalLine } from '../ui'
 
 type TradeSummaryProps = ComponentProps & {
   contract: Contract
-  view: 'seller' | 'buyer' | ''
+  view: 'seller' | 'buyer' | '',
+  navigation: OfferScreenNavigationProp,
 }
 
 type PaymentMethodProps = {
@@ -50,15 +52,17 @@ const Escrow = ({ contract }: TradeSummaryProps): ReactElement => <View>
   </Pressable>
 </View>
 
-const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
+const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
+  const goToUserProfile = () => navigation.navigate('profile', { userId: contract.buyer.id, user: contract.buyer })
+
   return <View>
     <View style={tw`p-5`}>
       <Headline style={tw`text-grey-2 normal-case`}>
         {i18n('buyer')}
       </Headline>
-      <Text style={tw`text-center text-grey-2`}>
-        {contract.buyer.id.substring(0, 8)}
+      <Text onPress={goToUserProfile} style={tw`text-center text-grey-2`}>
+        Peach{contract.buyer.id.substring(0, 8)}
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       <Headline style={tw`text-grey-2 normal-case mt-4`}>
@@ -80,7 +84,7 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
       {contract.escrow || contract.releaseTxId
         ? <View>
           <HorizontalLine style={tw`mt-4`}/>
-          <Escrow contract={contract} view={''} />
+          <Escrow contract={contract} view={''} navigation={navigation} />
         </View>
         : null
       }
@@ -88,7 +92,7 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
   </View>
 }
 
-const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
+const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   return <View style={tw`border border-peach-1 rounded`}>
     {contract.paymentMade
@@ -121,7 +125,7 @@ const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
       {contract.escrow || contract.releaseTxId
         ? <View>
           <HorizontalLine style={tw`mt-4`}/>
-          <Escrow contract={contract} view={''} />
+          <Escrow contract={contract} view={''} navigation={navigation} />
         </View>
         : null
       }
@@ -129,15 +133,16 @@ const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   </View>
 }
 
-const OpenTrade = ({ contract, view }: TradeSummaryProps): ReactElement =>
+const OpenTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactElement =>
   view === 'seller'
-    ? <OpenTradeSeller contract={contract} view={view} />
-    : <OpenTradeBuyer contract={contract} view={view} />
+    ? <OpenTradeSeller contract={contract} view={view} navigation={navigation} />
+    : <OpenTradeBuyer contract={contract} view={view} navigation={navigation} />
 
 // eslint-disable-next-line max-lines-per-function
-const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
+const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactElement => {
   const ratingTradingPartner = view === 'seller' ? contract.ratingBuyer : contract.ratingSeller
-
+  const tradingPartner = view === 'seller' ? contract.buyer : contract.seller
+  const goToUserProfile = () => navigation.navigate('profile', { userId: tradingPartner.id, user: tradingPartner })
   return <View>
     <View style={tw`p-5`}>
       <Headline style={tw`text-grey-2 normal-case`}>
@@ -156,13 +161,12 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
         <Text> ({contract.premium > 0 ? '+' : '-'}{Math.abs(contract.premium)}%)</Text>
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.from')}</Headline>
+      <Headline style={tw`text-grey-2 normal-case mt-4`}>
+        {i18n(view === 'seller' ? 'contract.payment.to' : 'contract.summary.from')}
+      </Headline>
       <View style={tw`flex-row justify-center items-center`}>
-        <Image source={require('../../../assets/favico/peach-logo.png')}
-          style={[tw`w-4 h-4 mr-1`, { resizeMode: 'contain' }]}
-        />
-        <Text>
-          {(view === 'seller' ? contract.buyer : contract.seller).id.substring(0, 8)}
+        <Text onPress={goToUserProfile}>
+          Peach{tradingPartner.id.substring(0, 8)}
         </Text>
         {ratingTradingPartner === 1
           ? <Icon id="positive" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string}/>
@@ -210,10 +214,10 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
   </View>
 }
 
-export const TradeSummary = ({ contract, view, style }: TradeSummaryProps): ReactElement =>
+export const TradeSummary = ({ contract, view, navigation, style }: TradeSummaryProps): ReactElement =>
   <Card style={style}>
     {!isTradeComplete(contract) && !isTradeCanceled(contract)
-      ? <OpenTrade contract={contract} view={view} />
-      : <ClosedTrade contract={contract} view={view} />
+      ? <OpenTrade contract={contract} view={view} navigation={navigation} />
+      : <ClosedTrade contract={contract} view={view} navigation={navigation} />
     }
   </Card>

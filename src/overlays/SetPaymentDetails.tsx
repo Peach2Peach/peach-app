@@ -5,7 +5,7 @@ import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import PaymentMethodSelect from './PaymentMethodSelect'
 import { getCurrencies, getPaymentMethods } from '../utils/paymentMethod'
-import { PaymentMethodForms } from '../components/inputs/paymentMethods/paymentForms'
+import { PaymentMethodForm } from '../components/inputs/paymentMethods/paymentForms'
 import keyboard from '../effects/keyboard'
 import { account, addPaymentData, getPaymentDataByType, saveAccount } from '../utils/account'
 import { session, setSession } from '../utils/session'
@@ -51,8 +51,6 @@ export const SetPaymentDetails = ({
     || initPaymentData(meansOfPayment)
   )
   const activePaymentMethod = paymentMethods[page]
-
-  const PaymentMethodForm = activePaymentMethod ? PaymentMethodForms[activePaymentMethod] : null
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
@@ -118,8 +116,9 @@ export const SetPaymentDetails = ({
       </Headline>
     </View>
     <View style={tw`h-full flex justify-center flex-shrink`}>
-      {PaymentMethodForm
-        ? <PaymentMethodForm style={tw`h-full flex-shrink flex-col justify-between`}
+      {activePaymentMethod
+        ? <PaymentMethodForm paymentMethod={activePaymentMethod}
+          style={tw`h-full flex-shrink flex-col justify-between`}
           view="new"
           data={paymentData[page]}
           onSubmit={confirm}

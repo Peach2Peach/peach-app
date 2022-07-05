@@ -22,18 +22,11 @@ export const parseResponse = async <T>(
   caller: string,
 ): Promise<[T|null, APIError|null]> => {
   try {
-    if (!response.status) {
-      return [null, { error: 'NETWORK_ERROR' }]
-    }
-    if (response.status === 500) {
-      return [null, { error: 'INTERNAL_SERVER_ERROR' }]
-    }
-    if (response.status === 503) {
-      return [null, { error: 'SERVICE_UNAVAILABLE' }]
-    }
-    if (response.status === 429) {
-      return [null, { error: 'TOO_MANY_REQUESTS' }]
-    }
+    if (response.status === 0) return [null, { error: 'EMPTY_RESPONSE' }]
+    if (response.status === 500) return [null, { error: 'INTERNAL_SERVER_ERROR' }]
+    if (response.status === 503) return [null, { error: 'SERVICE_UNAVAILABLE' }]
+    if (response.status === 429) return [null, { error: 'TOO_MANY_REQUESTS' }]
+    if (!response.status) return [null, { error: 'NETWORK_ERROR' }]
 
     const data = await response.json()
 

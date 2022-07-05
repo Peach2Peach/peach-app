@@ -1,10 +1,10 @@
+import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Icon, Text } from '../components'
+import { Button, Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'

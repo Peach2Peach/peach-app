@@ -8,7 +8,6 @@ import createEscrowEffect from './effects/createEscrowEffect'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
-import EscrowHelp from './components/EscrowHelp'
 import { Loading, SatsFormat, Text, Title } from '../../components'
 import { info } from '../../utils/log'
 import postOfferEffect from '../../effects/postOfferEffect'
@@ -19,6 +18,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import { useFocusEffect } from '@react-navigation/native'
 import { getTradingLimit } from '../../utils/peachAPI'
 import { updateTradingLimit } from '../../utils/account'
+import Escrow from '../../overlays/info/Escrow'
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid, next, back, navigation }: SellViewProps): ReactElement => {
@@ -85,7 +85,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
         level: 'ERROR',
       })
     },
-  }), [offer.id])
+  }), [offer.id, offer.escrow])
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
@@ -118,7 +118,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
 
   return <View style={tw`px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}
-      help={<EscrowHelp />} />
+      help={<Escrow />} />
     {updatePending
       ? <Loading />
       : escrow && fundingStatus && !fundingError

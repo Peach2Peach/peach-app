@@ -1,29 +1,31 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { Pressable, TextInput, View } from 'react-native'
-import { PaymentMethodForm } from '.'
-import keyboard from '../../../../effects/keyboard'
+import React, { ReactElement, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { TextInput, View } from 'react-native'
+import { PaymentMethodFormProps } from '.'
+import { OverlayContext } from '../../../../contexts/overlay'
 import tw from '../../../../styles/tailwind'
-import { getPaymentDataByLabel, removePaymentData } from '../../../../utils/account'
+import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
-import { Fade } from '../../../animation'
-import Button from '../../../Button'
-import Icon from '../../../Icon'
-import { Text } from '../../../text'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 
 // eslint-disable-next-line max-lines-per-function
-export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onChange, onCancel }): ReactElement => {
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+export const PayPal = ({
+  forwardRef,
+  view,
+  data,
+  currencies = [],
+  onSubmit,
+  onChange
+}: PaymentMethodFormProps): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
-  const [currencies] = useState(data?.currencies || [])
-  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
@@ -75,109 +77,79 @@ export const PayPal: PaymentMethodForm = ({ style, view, data, onSubmit, onChang
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
-  const cancel = () => {
-    if (onCancel) onCancel(buildPaymentData())
-  }
-
-  const remove = () => {
-    if (data?.id) removePaymentData(data.id)
-    if (onCancel) onCancel(buildPaymentData())
-  }
-
-  useEffect(keyboard(setKeyboardOpen), [])
+  useImperativeHandle(forwardRef, () => ({
+    buildPaymentData,
+    save
+  }))
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
   }, [label, phone, email, userName, selectedCurrencies])
 
-  return <View style={[tw`flex`, style]}>
-    <View style={tw`h-full flex-shrink flex justify-center`}>
-      <View>
-        <Input
-          onChange={setLabel}
-          onSubmit={() => $phone?.focus()}
-          value={label}
-          disabled={view === 'view'}
-          label={i18n('form.paymentMethodName')}
-          isValid={!isFieldInError('label')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('label')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={setPhone}
-          onSubmit={() => $email?.focus()}
-          reference={(el: any) => $phone = el}
-          value={phone}
-          required={!anyFieldSet}
-          disabled={view === 'view'}
-          label={i18n('form.phone')}
-          isValid={!isFieldInError('phone')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('phone')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={setEmail}
-          onSubmit={() => $userName?.focus()}
-          reference={(el: any) => $email = el}
-          required={!anyFieldSet}
-          value={email}
-          disabled={view === 'view'}
-          label={i18n('form.email')}
-          isValid={!isFieldInError('email')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('email')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={(usr: string) => {
-            setUserName(usr.length && !/@/ug.test(usr) ? `@${usr}` : usr)
-          }}
-          onSubmit={() => {
-            setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
-            save()
-          }}
-          reference={(el: any) => $userName = el}
-          required={!anyFieldSet}
-          value={userName}
-          disabled={view === 'view'}
-          label={i18n('form.userName')}
-          isValid={!isFieldInError('userName')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('userName')}
-        />
-      </View>
-      <CurrencySelection style={tw`mt-2`}
-        paymentMethod="paypal"
-        selectedCurrencies={selectedCurrencies}
-        onToggle={onCurrencyToggle}
+  return <View>
+    <View>
+      <Input
+        onChange={setLabel}
+        onSubmit={() => $phone?.focus()}
+        value={label}
+        disabled={view === 'view'}
+        label={i18n('form.paymentMethodName')}
+        isValid={!isFieldInError('label')}
+        autoCorrect={false}
+        errorMessage={getErrorsInField('label')}
       />
     </View>
-    {view !== 'view'
-      ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>
-        <Pressable style={tw`absolute left-0 z-10`} onPress={cancel}>
-          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
-        </Pressable>
-        <Button
-          title={i18n(view === 'new' ? 'form.paymentMethod.add' : 'form.paymentMethod.update')}
-          secondary={true}
-          wide={false}
-          onPress={save}
-        />
-        {view === 'edit'
-          ? <Pressable onPress={remove} style={tw`mt-6`}>
-            <Text style={tw`font-baloo text-sm text-center underline text-white-1`}>
-              {i18n('form.paymentMethod.remove')}
-            </Text>
-          </Pressable>
-          : null
-        }
-      </Fade>
-      : null
-    }
+    <View style={tw`mt-2`}>
+      <Input
+        onChange={setPhone}
+        onSubmit={() => $email?.focus()}
+        reference={(el: any) => $phone = el}
+        value={phone}
+        required={!anyFieldSet}
+        disabled={view === 'view'}
+        label={i18n('form.phone')}
+        isValid={!isFieldInError('phone')}
+        autoCorrect={false}
+        errorMessage={getErrorsInField('phone')}
+      />
+    </View>
+    <View style={tw`mt-2`}>
+      <Input
+        onChange={setEmail}
+        onSubmit={() => $userName?.focus()}
+        reference={(el: any) => $email = el}
+        required={!anyFieldSet}
+        value={email}
+        disabled={view === 'view'}
+        label={i18n('form.email')}
+        isValid={!isFieldInError('email')}
+        autoCorrect={false}
+        errorMessage={getErrorsInField('email')}
+      />
+    </View>
+    <View style={tw`mt-2`}>
+      <Input
+        onChange={(usr: string) => {
+          setUserName(usr.length && !/@/ug.test(usr) ? `@${usr}` : usr)
+        }}
+        onSubmit={() => {
+          setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
+          save()
+        }}
+        reference={(el: any) => $userName = el}
+        required={!anyFieldSet}
+        value={userName}
+        disabled={view === 'view'}
+        label={i18n('form.userName')}
+        isValid={!isFieldInError('userName')}
+        autoCorrect={false}
+        errorMessage={getErrorsInField('userName')}
+      />
+    </View>
+    <CurrencySelection style={tw`mt-2`}
+      paymentMethod="paypal"
+      selectedCurrencies={selectedCurrencies}
+      onToggle={onCurrencyToggle}
+    />
   </View>
 }

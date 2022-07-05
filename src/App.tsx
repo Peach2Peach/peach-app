@@ -37,14 +37,10 @@ import pgp from './init/pgp'
 import fcm from './init/fcm'
 import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck } from './utils/system'
-import MatchAccepted from './overlays/MatchAccepted'
-import PaymentMade from './overlays/PaymentMade'
-import { handlePushNotification } from './utils/navigation'
 import views from './views'
-import YouGotADispute from './overlays/YouGotADispute'
-import OfferExpired from './overlays/OfferExpired'
-import { getOffer } from './utils/offer'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
+import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { handlePushNotification } from './utils/navigation'
 
 enableScreens()
 
@@ -108,7 +104,7 @@ const initApp = async (
   }
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
-    updateMessage({ msg: i18n('NETWORK_ERROR'), level: 'ERROR' })
+    error(new Error('STARTUP_ERROR'))
     goHome()
   }, 30000)
 
@@ -116,12 +112,8 @@ const initApp = async (
   events()
   await session()
   fcm()
+  pgp()
 
-  try {
-    pgp()
-  } catch (e) {
-    error(e)
-  }
   clearTimeout(timeout)
 
   goHome()
@@ -134,7 +126,7 @@ const App: React.FC = () => {
 
   const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
-  const [{ content, showCloseIcon, showCloseButton }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -165,54 +157,18 @@ const App: React.FC = () => {
     })()
   }, [])
 
+  useEffect(handleNotificationsEffect({
+    getCurrentPage,
+    updateOverlay,
+    navigationRef
+  }), [currentPage])
+
   useEffect(() => {
-    info('Subscribe to push notifications')
-    const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
-      if (remoteMessage.data && remoteMessage.data.type === 'offer.expired'
-        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
-        const offer = getOffer(remoteMessage.data.offerId) as SellOffer
-        const args = remoteMessage.notification?.bodyLocArgs
-
-        return updateOverlay({
-          content: <OfferExpired offer={offer} days={args ? args[0] || '15' : '15'} navigation={navigationRef} />,
-          showCloseButton: false
-        })
-      }
-      if (remoteMessage.data && remoteMessage.data.type === 'contract.contractCreated'
-        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
-        return updateOverlay({
-          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
-          showCloseButton: false
-        })
-      }
-      if (remoteMessage.data && remoteMessage.data.type === 'contract.paymentMade'
-        && /buy|sell|home|settings|offers/u.test(getCurrentPage() as string)) {
-        return updateOverlay({
-          content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
-          showCloseButton: false
-        })
-      }
-      if (remoteMessage.data && remoteMessage.data.type === 'contract.disputeRaised') {
-        return updateOverlay({
-          content: <YouGotADispute
-            contractId={remoteMessage.data.contractId}
-            message={remoteMessage.data.message}
-            navigation={navigationRef} />,
-          showCloseButton: false
-        })
-      }
-      return null
-    })
-
     messaging().onNotificationOpenedApp(remoteMessage => {
       info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
       if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
     })
-
-    return unsubscribe
   }, [])
-
   useEffect(websocket(updatePeachWS), [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
@@ -231,7 +187,7 @@ const App: React.FC = () => {
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
             <MessageContext.Provider value={[{ template, msg, level, close }, updateMessage]}>
               <OverlayContext.Provider value={[
-                { content, showCloseButton: false, showCloseIcon: false },
+                { content, showCloseButton: false, showCloseIcon: false, help: false },
                 updateOverlay
               ]}>
                 <View style={tw`h-full flex-col`}>
@@ -240,7 +196,8 @@ const App: React.FC = () => {
                     : null
                   }
                   {content
-                    ? <Overlay content={content} showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
+                    ? <Overlay content={content} help={help}
+                      showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
                     : null
                   }
                   {template || msg

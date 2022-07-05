@@ -77,7 +77,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       setPaymentData={setPaymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethods style={tw`mt-4`} onUpdate={onPaymentMethodAdded} />
+    <AddPaymentMethods style={tw`mt-4`} onUpdate={onPaymentMethodAdded} view="seller" />
 
     <Premium
       premium={premium}

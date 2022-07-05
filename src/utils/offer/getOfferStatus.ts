@@ -84,16 +84,16 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   }
 
   if (offer.type === 'ask') {
-    if (isEscrowWaitingForConfirmation(offer as SellOffer)) return {
+    if (isEscrowWaitingForConfirmation(offer)) return {
       status: 'escrowWaitingForConfirmation',
-      requiredAction: isEscrowTransactionSent(offer as SellOffer)
+      requiredAction: isEscrowTransactionSent(offer)
         ? 'fundEscrow'
         : ''
     }
     if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        requiredAction: ''
+        requiredAction: !isEscrowRefunded(offer) ? 'refundEscrow' : ''
       }
     }
   }
@@ -101,7 +101,7 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (isOfferCanceled(offer)) {
     return {
       status: 'offerCanceled',
-      requiredAction: !isEscrowRefunded(offer as SellOffer) ? 'refundEscrow' : ''
+      requiredAction: ''
     }
   }
   return {

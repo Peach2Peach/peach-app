@@ -9,6 +9,7 @@ interface Global {
 declare const global: Global
 
 declare type ComponentProps = {
+  forwardRef?: RefObject<unknown>,
   children?: ReactNode,
   style?: ViewStyle|ViewStyle[],
 }
@@ -121,6 +122,7 @@ declare type OverlayState = {
   content: ReactNode,
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
+  help?: boolean,
 }
 declare type BitcoinState = {
   currency: Currency,

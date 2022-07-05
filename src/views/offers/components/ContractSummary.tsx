@@ -14,6 +14,9 @@ type ContractSummaryProps = {
 export const ContractSummary = ({ contract, view, navigation }: ContractSummaryProps): ReactElement => <View>
   <View>
     <ChatButton contract={contract} navigation={navigation} style={tw`absolute top-4 right-0 -mr-4 z-10`}/>
-    <TradeSummary view={view} contract={contract} style={isTradeCanceled(contract) ? tw`opacity-50` : {}}/>
+    <TradeSummary view={view} contract={contract}
+      navigation={navigation}
+      style={isTradeCanceled(contract) ? tw`opacity-50` : {}}
+    />
   </View>
 </View>
