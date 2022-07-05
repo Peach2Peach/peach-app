@@ -228,7 +228,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount}
             color={tw`text-grey-2`}
           />
-          {requiredAction}
         </Text>
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
         {!contract.paymentConfirmed
