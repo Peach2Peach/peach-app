@@ -63,7 +63,7 @@
     "react-native-document-picker": "^5.2.0",
     "react-native-dotenv": "^3.3.1",
     "react-native-encrypted-storage": "^4.0.2",
-    "react-native-fast-openpgp": "^2.2.3",
+    "react-native-fast-openpgp": "^2.4.1",
     "react-native-form-validator": "^0.5.1",
     "react-native-fs": "^2.19.0",
     "react-native-gesture-handler": "~2.3.2",
