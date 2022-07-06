@@ -2,9 +2,9 @@ export {}
 
 import * as accountData from './data/accountData'
 
-jest.mock('../src/utils/peachAPI', () => {
-  const actual = jest.requireActual('../src/utils//peachAPI')
-  const mock = jest.requireActual('../src/utils/__mocks__/peachAPI')
+jest.mock('../../src/utils/peachAPI', () => {
+  const actual = jest.requireActual('../../src/utils//peachAPI')
+  const mock = jest.requireActual('../../src/utils/__mocks__/peachAPI')
   return {
     ...actual,
     ...mock

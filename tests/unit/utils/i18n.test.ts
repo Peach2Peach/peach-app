@@ -1,5 +1,5 @@
 import { ok, strictEqual } from 'assert'
-import i18n from '../../src/utils/i18n'
+import i18n from '../../../src/utils/i18n'
 
 describe('setLocale & getLocale', () => {
   it('sets and returns the current locale', () => {

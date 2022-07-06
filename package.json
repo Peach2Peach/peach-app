@@ -24,8 +24,8 @@
     "build:ios:testnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev true --bundle-output ios/main.jsbundle --assets-dest ios",
     "build:ios:mainnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "bump:version": "react-native-version --never-amend",
-    "test": "jest --coverage",
-    "test:ci": "jest --ci",
+    "test": "jest --coverage ./tests/unit",
+    "test:ci": "jest --ci ./tests/unit",
     "test:e2e:ios:build": "detox build --configuration ios",
     "test:e2e:android:build": "detox build --configuration android",
     "test:e2e:ios": "detox test --configuration ios",
@@ -159,7 +159,7 @@
       "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg)/)"
     ],
     "setupFiles": [
-      "./tests/prepare.ts",
+      "./tests/unit/prepare.ts",
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "moduleNameMapper": {

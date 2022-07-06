@@ -1,5 +1,5 @@
 import { strictEqual, deepStrictEqual } from 'assert'
-import { getSession, setSession, initSession } from '../../src/utils/session'
+import { getSession, setSession, initSession } from '../../../src/utils/session'
 
 describe('getSession', () => {
   it('returns an uninitialized session in the beginning', () => {

@@ -1,6 +1,6 @@
 import { deepStrictEqual, ok, strictEqual, notStrictEqual } from 'assert'
 import Share from 'react-native-share'
-import { APPVERSION } from '../../src/constants'
+import { APPVERSION } from '../../../src/constants'
 import {
   account,
   addPaymentData,
@@ -14,11 +14,11 @@ import {
   setAccount,
   updatePaymentData,
   updateSettings
-} from '../../src/utils/account'
-import * as fileUtils from '../../src/utils/file'
-import { getPeachAccount } from '../../src/utils/peachAPI'
-import { getSession } from '../../src/utils/session'
-import { getWallet } from '../../src/utils/wallet'
+} from '../../../src/utils/account'
+import * as fileUtils from '../../../src/utils/file'
+import { getPeachAccount } from '../../../src/utils/peachAPI'
+import { getSession } from '../../../src/utils/session'
+import { getWallet } from '../../../src/utils/wallet'
 import * as accountData from '../data/accountData'
 
 const password = 'supersecret'

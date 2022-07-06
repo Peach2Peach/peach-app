@@ -10,7 +10,7 @@ import {
   getEscrowWallet,
   getPublicKeyForEscrow,
   // getFinalScript,
-} from '../../src/utils/wallet'
+} from '../../../src/utils/wallet'
 
 
 describe('wallet & getWallet & setWallet', () => {

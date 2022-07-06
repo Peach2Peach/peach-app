@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import tw from '../../src/styles/tailwind'
+import tw from '../../../src/styles/tailwind'
 
 type Dimension = {
   width: number,

@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { getMessage, setMessage } from '../../src/contexts/message'
+import { getMessage, setMessage } from '../../../src/contexts/message'
 
 describe('getMessage & setMessage', () => {
   const newMessage = {
