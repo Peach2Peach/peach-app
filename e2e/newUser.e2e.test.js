@@ -1,5 +1,4 @@
-
-describe('Example', () => {
+describe('New user', () => {
   beforeAll(async () => {
     await device.launchApp({
       permissions: {

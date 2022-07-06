@@ -52,7 +52,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   const openSatsHelp = () => updateOverlay({ content: <Sats view="seller" />, showCloseButton: true, help: true })
 
-  return <View style={tw`h-full flex`}>
+  return <View testID="view-sell" style={tw`h-full flex`}>
     <Title title={i18n('sell.title')} />
     <View style={tw`h-full flex-shrink flex justify-center`}>
       <View>
@@ -62,6 +62,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         <View style={tw`z-10`}>
           <View style={tw`w-full absolute flex-row items-center justify-center mt-3`}>
             <Dropdown
+              testID="sell-amount"
               style={tw`max-w-xs flex-shrink`}
               items={dropdownItems}
               selectedValue={amount}

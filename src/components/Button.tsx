@@ -56,6 +56,7 @@ const ButtonContent = ({
           : tw`border border-transparent`
 
   return <Pressable testID={testID}
+    accessibilityLabel={typeof title === 'string' ? title + (disabled ? ' (disabled)' : '') : ''}
     onPress={onPressHandler}
     onPressIn={onPressInHandler}
     onPressOut={onPressOutHandler}

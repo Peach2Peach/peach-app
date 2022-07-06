@@ -58,7 +58,7 @@ type DropdownProps = ComponentProps & {
  *   ]}
  * />
  */
-export const Dropdown = ({ items, selectedValue, onChange, onToggle, style }: DropdownProps): ReactElement => {
+export const Dropdown = ({ items, selectedValue, onChange, onToggle, style, testID }: DropdownProps): ReactElement => {
   const [isOpen, setOpen] = useState(false)
   const selectedItem = items.find(item => item.value === selectedValue)
 
@@ -87,7 +87,8 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle, style }: Dr
       ]}>
         {isOpen
           ? [
-            <Pressable key={selectedItem?.value} style={tw`h-10 pl-4 pr-3 flex justify-center opacity-30`}
+            <Pressable testID={`${testID}-close`} key={selectedItem?.value}
+              style={tw`h-10 pl-4 pr-3 flex justify-center opacity-30`}
               onPress={toggle}>
               {selectedItem?.display(false)}
             </Pressable>,
@@ -96,6 +97,7 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle, style }: Dr
               { height: (tw`h-10`.height as number) * (isAndroid() ? items.length : Math.min(5, items.length)) }
             ]}>
               {items.map(item => <Pressable
+                testID={`${testID}-item-${item.value}`}
                 key={item.value}
                 style={tw`h-10 flex justify-center`}
                 onPress={() => select(item)}>
@@ -104,12 +106,12 @@ export const Dropdown = ({ items, selectedValue, onChange, onToggle, style }: Dr
               )}
             </PeachScrollView>
           ]
-          : <Pressable style={tw`h-10 pl-4 pr-3 flex justify-center`} onPress={toggle}>
+          : <Pressable testID={`${testID}-open`} style={tw`h-10 pl-4 pr-3 flex justify-center`} onPress={toggle}>
             {selectedItem?.display(isOpen)}
           </Pressable>
         }
       </View>
-      <Pressable style={tw`absolute right-2`} onPress={toggle}>
+      <Pressable testID={`${testID}-toggle`} style={tw`absolute right-2`} onPress={toggle}>
         <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'}
           style={tw`w-6 h-10`}
           color={tw`text-peach-1`.color as string}
