@@ -30,7 +30,7 @@ module.exports = {
     'devUtils/**/*.js',
     'build/**/*.js',
     'coverage/**/*.js',
-    'e2e/**/*.js',
+    'tests/e2e/**/*.js',
     'src/sw.js',
   ],
   'rules': {
