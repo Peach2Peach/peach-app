@@ -192,7 +192,7 @@ export default ({ navigation }: Props): ReactElement => {
               : i18n('form.password.error')
             }
           </Text>
-          <Input
+          <Input testID="newUser-password"
             onChange={onPasswordChange}
             onSubmit={focusToPasswordRepeat}
             secureTextEntry={true}
@@ -202,7 +202,7 @@ export default ({ navigation }: Props): ReactElement => {
           />
         </View>
         <View style={tw`mt-2 h-12`}>
-          <Input
+          <Input testID="newUser-passwordRepeat"
             reference={(el: any) => $passwordRepeat = el}
             onChange={onPasswordRepeatChange}
             onSubmit={(val: string) => {
@@ -219,7 +219,7 @@ export default ({ navigation }: Props): ReactElement => {
           <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>
-          <Button
+          <Button testID="newUser-register"
             onPress={submit}
             wide={false}
             disabled={!password || !passwordRepeat || !passwordMatch

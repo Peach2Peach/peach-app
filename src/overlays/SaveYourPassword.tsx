@@ -13,7 +13,7 @@ export default (): ReactElement => {
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  return <View style={tw`flex items-center`}>
+  return <View testID="saveYourPassword" style={tw`flex items-center`}>
     <Headline style={tw`text-white-1`}>
       {i18n('newUser.saveYourPassword.title')}
     </Headline>
@@ -24,7 +24,7 @@ export default (): ReactElement => {
       <Text style={tw`font-bold text-white-1`}> {i18n('newUser.saveYourPassword.description.3')} </Text>
       {i18n('newUser.saveYourPassword.description.4')}
     </Text>
-    <Button
+    <Button testID="saveYourPassword-confirm"
       style={tw`mt-8`}
       title={i18n('newUser.saveYourPassword.ok')}
       secondary={true}

@@ -37,7 +37,7 @@
   "newUser.title.create": "Creating account",
   "newUser.description.1": "All your account info is stored locally & encrypted.",
   "newUser.description.2": "You just need to make a password:",
-  "newUser.saveYourPassword.title": "save your password!",
+  "newUser.saveYourPassword.title": "Save your password!",
   "newUser.saveYourPassword.description.1": "Peach does not store this password for you. ",
   "newUser.saveYourPassword.description.2": "If you lose it, you can",
   "newUser.saveYourPassword.description.3": "NOT",
@@ -505,5 +505,6 @@
   "report.success.title": "Report sent!",
   "report.success.text.1": "We'll normally be in touch within 24 hours on workdays. ",
   "report.success.text.2": "Speak to you soon!",
-  "report.success.backHome": "Back home"
+  "report.success.backHome": "Back home",
+  "accessibility.bulletPoint": "Bullet point"
 }

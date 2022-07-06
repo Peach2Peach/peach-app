@@ -26,6 +26,10 @@
     "bump:version": "react-native-version --never-amend",
     "test": "jest --coverage",
     "test:ci": "jest --ci",
+    "test:e2e:ios:build": "detox build --configuration ios",
+    "test:e2e:android:build": "detox build --configuration android",
+    "test:e2e:ios": "detox test --configuration ios",
+    "test:e2e:android": "detox test --configuration android",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -114,6 +118,7 @@
     "@types/react-test-renderer": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "babel-jest": "^27.5.1",
+    "detox": "^19.7.1",
     "eslint": "8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",

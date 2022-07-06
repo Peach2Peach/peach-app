@@ -29,7 +29,8 @@ const ButtonContent = ({
   help,
   loading,
   disabled,
-  onPress
+  onPress,
+  testID,
 }: ButtonProps): ReactElement => {
   const [active, setActive] = useState(false)
 
@@ -54,7 +55,7 @@ const ButtonContent = ({
         : help ? tw`border border-blue-1`
           : tw`border border-transparent`
 
-  return <Pressable
+  return <Pressable testID={testID}
     onPress={onPressHandler}
     onPressIn={onPressInHandler}
     onPressOut={onPressOutHandler}
@@ -111,6 +112,7 @@ export const Button = ({
   help,
   wide = true,
   style,
+  testID,
   disabled,
   loading,
   onPress
@@ -127,11 +129,11 @@ export const Button = ({
   return !secondary && !tertiary && !grey && !help
     ? <Shadow shadow={mildShadowOrange} style={viewStyle}>
       <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} help={help} disabled={disabled}
-        title={title} loading={loading} onPress={onPress} />
+        title={title} loading={loading} onPress={onPress} testID={testID} />
     </Shadow>
     : <View style={viewStyle}>
       <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} help={help} disabled={disabled}
-        title={title} loading={loading} onPress={onPress} />
+        title={title} loading={loading} onPress={onPress} testID={testID} />
     </View>
 }
 

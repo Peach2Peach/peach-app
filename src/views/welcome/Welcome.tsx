@@ -49,7 +49,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
     $carousel.current?.snapToItem(p)
   }
 
-  return <View style={tw`h-full flex`}>
+  return <View style={tw`h-full flex`} testID="welcome">
     <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
       <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
         <Image source={require('../../../assets/favico/peach-logo.png')}
@@ -75,7 +75,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
     <View style={tw`mb-8 mt-4 flex items-center w-full`}>
       {page !== screens.length - 1
         ? <View>
-          <Button
+          <Button testID="welcome-next"
             title={i18n('next')}
             wide={false}
             onPress={next}
@@ -88,12 +88,12 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           />
         </View>
         : <View>
-          <Button
+          <Button testID="welcome-newUser"
             onPress={() => navigation.navigate('newUser', {})}
             wide={false}
             title={i18n('newUser')}
           />
-          <Button
+          <Button testID="welcome-restoreBackup"
             style={tw`mt-4`}
             onPress={() => navigation.navigate('restoreBackup', {})}
             wide={false}
@@ -105,6 +105,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
       <View style={tw`w-full flex-row justify-center mt-11`}>
         {screens.map((screen, i) =>
           <Pressable key={i} onPress={() => goTo(i)}
+            accessibilityLabel={i18n('accessibility.bulletPoint')}
             style={[
               tw`w-4 h-4 mx-2 rounded-full bg-peach-1`,
               i !== page ? tw`opacity-30` : {}

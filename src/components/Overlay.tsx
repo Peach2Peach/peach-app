@@ -21,7 +21,7 @@ import Icon from './Icon'
 export const Overlay = ({ content, showCloseIcon, showCloseButton, help }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
-  return <View style={[
+  return <View testID="overlay" style={[
     tw`absolute z-20 w-full h-full flex items-center justify-center`,
     tw`p-3 pb-8`,
     help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
