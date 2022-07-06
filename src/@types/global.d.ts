@@ -9,6 +9,7 @@ interface Global {
 declare const global: Global
 
 declare type ComponentProps = {
+  testID?: string,
   forwardRef?: RefObject<unknown>,
   children?: ReactNode,
   style?: ViewStyle|ViewStyle[],

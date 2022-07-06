@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { diff, intersect, sort, unique } from '../../src/utils/array'
+import { diff, intersect, sort, unique } from '../../../src/utils/array'
 
 describe('sort', () => {
   it('filters duplicated items in an array', () => {

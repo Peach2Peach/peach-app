@@ -15,7 +15,7 @@ export default (): ReactElement => {
     <Text style={tw`text-center text-white-1`}>
       {i18n('overlay.nda')}
     </Text>
-    <Button
+    <Button testID="nda-confirm"
       style={tw`mt-8`}
       title={i18n('overlay.nda.confirm')}
       secondary={true}

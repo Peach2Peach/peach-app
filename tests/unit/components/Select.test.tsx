@@ -4,7 +4,7 @@
 
 import { Pressable } from 'react-native'
 import React from 'react'
-import Select, { Item } from '../../src/components/inputs/Select'
+import Select, { Item } from '../../../src/components/inputs/Select'
 import { strictEqual } from 'assert'
 
 // Note: test renderer must be required after react-native.

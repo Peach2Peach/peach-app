@@ -77,6 +77,7 @@ export default ({ style, setMeansOfPayment, view }: AddPaymentMethodProps): Reac
   return <View style={style}>
     <View style={tw`flex items-center`}>
       <Button
+        testID="buy-add-mop"
         title={<Icon id="plus" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />}
         wide={false}
         onPress={addPaymentMethods}

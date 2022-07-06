@@ -88,7 +88,7 @@ export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactE
   }, [paymentData])
 
   return <View>
-    <Checkboxes items={paymentData.map(mapPaymentDataToCheckboxes)}
+    <Checkboxes testID="buy-mops" items={paymentData.map(mapPaymentDataToCheckboxes)}
       selectedValues={selectedPaymentData}
       onChange={setPreferredPaymentMethods}/>
   </View>

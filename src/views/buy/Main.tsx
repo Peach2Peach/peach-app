@@ -60,6 +60,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         <View style={tw`z-10`}>
           <View style={tw`w-full absolute flex-row items-center justify-center mt-3`}>
             <Dropdown
+              testID="buy-amount"
               style={tw`max-w-xs flex-shrink`}
               items={dropdownItems}
               selectedValue={amount}

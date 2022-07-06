@@ -186,7 +186,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })()
   }, [page])
 
-  return <View style={tw`h-full flex`}>
+  return <View testID="view-buy" style={tw`h-full flex`}>
     <View style={[
       tw`h-full flex-shrink`,
       currentScreen.id === 'main' ? tw`z-20` : {},

@@ -61,7 +61,7 @@ type InputProps = ComponentProps & {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
-// eslint-disable-next-line complexity, max-lines-per-function
+// eslint-disable-next-line max-lines-per-function
 export const Input = ({
   value,
   label, hint, icon,
@@ -75,6 +75,7 @@ export const Input = ({
   onFocus, onBlur,
   secureTextEntry,
   style,
+  testID,
   reference
 }: InputProps): ReactElement => {
   const onChangeText = (val: string) => onChange ? onChange(val) : null
@@ -98,7 +99,7 @@ export const Input = ({
         isValid && value && !disabled ? tw`border-green` : {},
         errorMessage.length > 0 && !disabled ? tw`border-red` : {},
       ]}>
-        <TextInput ref={reference ? reference : null}
+        <TextInput testID={testID} ref={reference ? reference : null}
           style={[
             tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
             tw.md`h-10`,
@@ -120,7 +121,7 @@ export const Input = ({
           autoCapitalize="none"
         />
         {icon
-          ? <Pressable onPress={() => onSubmit ? onSubmit(value) : null}
+          ? <Pressable testID={`${testID}-icon`} onPress={() => onSubmit ? onSubmit(value) : null}
             style={tw`h-full absolute right-3 flex justify-center`}>
             <Icon id={icon} style={tw`w-5 h-5`} />
           </Pressable>

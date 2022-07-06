@@ -55,7 +55,7 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
   const color = active ? tw`text-peach-1` : tw`text-grey-2`
-  return <Pressable onPress={onPress} style={[style, tw`flex-row justify-center`]}>
+  return <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
     <View>
       <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
         <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
