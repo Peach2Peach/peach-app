@@ -27,7 +27,7 @@ const navigateToOffer = (
   if (offer.type === 'ask'
     && !offer.online
     && !offer.contractId
-    && offer.funding?.txIds && offer.funding.status !== 'NULL'
+    && offer.funding?.txIds.length > 0 && offer.funding.status !== 'NULL'
     && !isEscrowRefunded(offer)) {
     const navigate = () => navigation.replace('yourTrades', {})
 
