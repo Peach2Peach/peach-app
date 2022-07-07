@@ -100,8 +100,10 @@ const initApp = async (
         navigationRef.navigate('welcome', {})
       }
     }
-    requestUserPermission()
   }
+
+  await requestUserPermission()
+
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
