@@ -13,6 +13,7 @@ import { applyTradingLimit } from '../../utils/account/tradingLimit'
 import Sats from '../../overlays/info/Sats'
 import { OverlayContext } from '../../contexts/overlay'
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -60,7 +61,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           {i18n('sell.subtitle')}
         </Headline>
         <View style={tw`z-10`}>
-          <View style={tw`w-full absolute flex-row items-center justify-center mt-3`}>
+          <View style={tw`w-full absolute flex-row justify-center mt-3`}>
             <Dropdown
               testID="sell-amount"
               style={tw`max-w-xs flex-shrink`}
@@ -68,8 +69,10 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
               selectedValue={amount}
               onChange={onChange} onToggle={onToggle}
             />
-            <Pressable onPress={openSatsHelp}>
-              <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+            <Pressable onPress={openSatsHelp} style={tw`mt-1`}>
+              <View style={tw`w-8 h-8 flex items-center justify-center`}>
+                <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+              </View>
             </Pressable>
           </View>
         </View>

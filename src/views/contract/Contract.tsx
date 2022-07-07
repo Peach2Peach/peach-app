@@ -244,7 +244,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                   />
                   {view === 'buyer' && requiredAction === 'makePayment'
                     ? <Pressable onPress={openPaymentHelp} style={tw`flex-row items-center p-1 -mt-0.5`}>
-                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+                      <View style={tw`w-6 h-6 -ml-2 flex items-center justify-center`}>
+                        <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+                      </View>
                     </Pressable>
                     : null
                   }
@@ -281,7 +283,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                     title={i18n('contract.payment.received')}
                   />
                   <Pressable onPress={openConfirmPaymentHelp} style={tw`w-0 h-full flex-row items-center`}>
-                    <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                    <View style={tw`w-8 h-8 flex items-center justify-center`}>
+                      <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                    </View>
                   </Pressable>
                 </View>
                 : null

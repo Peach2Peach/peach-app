@@ -405,7 +405,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                 onPress={_toggleMatch}
               />
               <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
-                <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                <View style={tw`w-10 h-10 flex items-center justify-center`}>
+                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                </View>
               </Pressable>
             </View>
             : <View style={tw`flex-row items-center justify-center`}>
@@ -424,7 +426,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                 onPress={() => _match(currentMatch)}
               />
               <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
-                <Icon id="help" style={tw`ml-2 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                <View style={tw`w-10 h-10 flex items-center justify-center`}>
+                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                </View>
               </Pressable>
             </View>
           }

@@ -58,8 +58,7 @@ export default ({ currencies = [], onConfirm, view }: CurrencySelectProps): Reac
   }
 
   const openCurrencyHelp = () => updateOverlay({
-    content: <Currency view={view} />,
-    showCloseButton: true,
+    content: <Currency view={view} selectedCurrencies={selectedCurrencies} onCurrencySelect={onConfirm} />,
     help: true
   })
 
@@ -70,7 +69,9 @@ export default ({ currencies = [], onConfirm, view }: CurrencySelectProps): Reac
           {i18n('currency.select.title')}
         </Headline>
         <Pressable onPress={openCurrencyHelp}>
-          <Icon id="help" style={tw`ml-2 -mt-3 w-5 h-5`} color={tw`text-blue-1`.color as string} />
+          <View style={tw`w-8 h-8 -mt-3 flex items-center justify-center`}>
+            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+          </View>
         </Pressable>
       </View>
       <View style={tw`px-10`}>
