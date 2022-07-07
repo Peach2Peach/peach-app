@@ -8,6 +8,7 @@ export default async () => {
   if (!account) return
   try {
     const fcmToken = await messaging().getToken()
+
     if (account.settings.fcmToken !== fcmToken) {
       const [result, err] = await setFCMToken(fcmToken)
 
@@ -15,7 +16,7 @@ export default async () => {
         info('Set FCM for user', fcmToken)
         updateSettings({
           fcmToken
-        })
+        }, true)
       } else {
         error('FCM could not be set', JSON.stringify(err))
       }
