@@ -12,7 +12,7 @@ const linkToMobileWallet = () => {
     Linking.openURL('market://details?id=io.muun.apollo')
   }
 }
-const linkToBitbox = () => Linking.openURL('https://shiftcrypto.shop/en/products/bitbox02-bitcoin-only-4/')
+const linkToBitbox = () => Linking.openURL('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
 
 export default (): ReactElement => <View style={tw`mb-12`}>
   <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
