@@ -262,7 +262,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(() => {
     setOffer(route.params.offer)
     setOfferId(route.params.offer.id)
-    setUpdatePending(true)
+    if (offerId !== route.params.offer.id) setUpdatePending(true)
     setSearchingMatches(true)
   }, [route]))
 

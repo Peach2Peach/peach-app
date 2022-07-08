@@ -8,6 +8,7 @@ import YourTrades from './yourTrades/YourTrades'
 import SplashScreen from './splashScreen/SplashScreen'
 import Welcome from './welcome/Welcome'
 import NewUser from './newUser/NewUser'
+import Login from './login/Login'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import Search from './search/Search'
 import Contract from './contract/Contract'
@@ -40,6 +41,7 @@ export const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
   { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
   { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
+  { name: 'login', component: Login, showHeader: false, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
   // { name: 'home', component: Home, showHeader: false, showFooter: true },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },

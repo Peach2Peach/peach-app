@@ -43,6 +43,7 @@ import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
 import { getSession, setSession } from './utils/session'
+import { exists } from './utils/file'
 
 enableScreens()
 
@@ -76,6 +77,54 @@ const requestUserPermission = async () => {
   info('Permission status:', authStatus)
 }
 
+const initialNavigation = async (
+  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
+  updateMessage: React.Dispatch<MessageState>,
+  navigateToLogin: boolean,
+) => {
+  let waitForNavCounter = 100
+  while (!navigationRef.isReady()) {
+    if (waitForNavCounter === 0) {
+      updateMessage({ msg: i18n('NAVIGATION_INIT_ERROR'), level: 'ERROR' })
+      throw new Error('Failed to initialize navigation')
+    }
+    // eslint-disable-next-line no-await-in-loop
+    await sleep(100)
+    waitForNavCounter--
+  }
+  const initialNotification = await messaging().getInitialNotification()
+
+  if (navigateToLogin) {
+    navigationRef.navigate('login', {})
+  } else if (initialNotification) {
+    info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
+
+    let notifications = Number(getSession().notifications || 0)
+    if (notifications > 0) notifications -= 1
+    NotificationBadge.setNumber(notifications)
+    setSession({ notifications })
+
+    if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
+  } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
+    if (account?.settings?.skipTutorial) {
+      navigationRef.navigate('home', {})
+    } else {
+      navigationRef.navigate('welcome', {})
+    }
+  }
+
+  messaging().onNotificationOpenedApp(remoteMessage => {
+    info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
+
+    let notifications = Number(getSession().notifications || 0)
+    if (notifications > 0) notifications -= 1
+    NotificationBadge.setNumber(notifications)
+    setSession({ notifications })
+
+    if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
+  })
+}
+
 /**
  * @description Method to initialize app by retrieving app session and user account
  * @param navigationRef reference to navigation
@@ -84,43 +133,26 @@ const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-  const goHome = async () => {
-    let waitForNavCounter = 100
-    while (!navigationRef.isReady()) {
-      if (waitForNavCounter === 0) {
-        updateMessage({ msg: i18n('NAVIGATION_INIT_ERROR'), level: 'ERROR' })
-        throw new Error('Failed to initialize navigation')
-      }
-      // eslint-disable-next-line no-await-in-loop
-      await sleep(100)
-      waitForNavCounter--
-    }
-    if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
-      if (account?.settings?.skipTutorial) {
-        navigationRef.navigate('home', {})
-      } else {
-        navigationRef.navigate('welcome', {})
-      }
-    }
-  }
 
   await requestUserPermission()
 
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
-    goHome()
+    initialNavigation(navigationRef, updateMessage, false)
   }, 30000)
 
 
   events()
-  await session()
-  fcm()
-  pgp()
+  const success = await session()
+  if (account?.publicKey) {
+    fcm()
+    pgp()
+  }
 
   clearTimeout(timeout)
 
-  goHome()
+  initialNavigation(navigationRef, updateMessage, !success && await exists('/peach-account.json'))
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -167,18 +199,6 @@ const App: React.FC = () => {
     navigationRef
   }), [currentPage])
 
-  useEffect(() => {
-    messaging().onNotificationOpenedApp(remoteMessage => {
-      info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
-
-      let notifications = Number(getSession().notifications || 0)
-      if (notifications > 0) notifications -= 1
-      NotificationBadge.setNumber(notifications)
-      setSession({ notifications })
-
-      if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
-    })
-  }, [])
   useEffect(websocket(updatePeachWS), [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
@@ -188,7 +208,6 @@ const App: React.FC = () => {
   useEffect(() => {
     info('Navigation event', currentPage)
   }, [currentPage])
-
 
   return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
     <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
