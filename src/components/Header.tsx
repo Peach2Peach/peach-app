@@ -10,10 +10,10 @@ import { thousands } from '../utils/string'
 import { mildShadow } from '../utils/layout'
 import { marketPrices } from '../utils/peachAPI/public/market'
 import BitcoinContext from '../contexts/bitcoin'
-import { account } from '../utils/account'
+import { account, getAccount } from '../utils/account'
 import { Fade } from './animation'
 import appStateEffect from '../effects/appStateEffect'
-import session from '../init/session'
+import session, { getPeachInfo } from '../init/session'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { TIMETORESTART } from '../constants'
 
@@ -35,7 +35,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
     callback: isActive => {
       setActive(isActive)
       if (isActive) {
-        session()
+        getPeachInfo(getAccount())
         clearTimeout(goHomeTimeout)
       } else {
         goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)

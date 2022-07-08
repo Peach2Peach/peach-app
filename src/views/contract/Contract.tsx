@@ -58,7 +58,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
-    setUpdatePending(true)
+    if (contractId !== route.params.contractId) setUpdatePending(true)
     setContractId(() => route.params.contractId)
   }, [route])
 
