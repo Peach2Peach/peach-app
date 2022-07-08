@@ -6,6 +6,7 @@ export let session: Session = {
 
 /**
  * @description Method to update session with new values
+ * WARNING: do no call this method from background tasks (i.e. phone is locked)
  * @param sess updated session
  * @returns new sessions
  */
@@ -35,7 +36,7 @@ export const initSession = async (): Promise<Session> => {
   const result = await EncryptedStorage.getItem('session') as string
 
   if (result) {
-    await setSession(JSON.parse(result))
+    session = JSON.parse(result)
     return session
   }
 

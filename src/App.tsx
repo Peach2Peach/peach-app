@@ -126,7 +126,7 @@ const initApp = async (
 
 
   events()
-  await session(true)
+  await session()
   fcm()
   pgp()
 

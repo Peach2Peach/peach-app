@@ -12,16 +12,7 @@ import { error } from '../utils/log'
 import { getInfo, getTradingLimit } from '../utils/peachAPI'
 import { getSession, initSession, setSession } from '../utils/session'
 
-export default async () => {
-  let account
-
-  try {
-    const { password } = await initSession()
-    if (password) account = await loadAccount(password)
-  } catch (e) {
-    error(e)
-  }
-
+export const getPeachInfo = async (account?: Account) => {
   const [
     [peachInfoResponse, err],
     [tradingLimit, tradingLimitErr],
@@ -49,4 +40,17 @@ export default async () => {
     setMinAppVersion(peachInfo.minAppVersion)
     setSession({ peachInfo })
   }
+}
+
+export default async () => {
+  let account
+
+  try {
+    const { password } = await initSession()
+    if (password) account = await loadAccount(password)
+  } catch (e) {
+    error(e)
+  }
+
+  await getPeachInfo(account)
 }
