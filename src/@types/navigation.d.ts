@@ -1,6 +1,9 @@
 declare type RootStackParamList = {
   [key: string]: {},
   home: {},
+  newUser: {},
+  login: {},
+  restoreBackup: {},
   sell: {
     offer?: SellOffer,
     page?: number

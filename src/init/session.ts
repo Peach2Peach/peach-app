@@ -50,7 +50,9 @@ export default async () => {
     if (password) account = await loadAccount(password)
   } catch (e) {
     error(e)
+    return false
   }
 
   await getPeachInfo(account)
+  return !!account?.publicKey
 }

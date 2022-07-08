@@ -41,6 +41,7 @@ import views from './views'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
+import { exists } from './utils/file'
 
 enableScreens()
 
@@ -77,6 +78,7 @@ const requestUserPermission = async () => {
 const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
+  navigateToLogin: boolean,
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -90,7 +92,9 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (initialNotification) {
+  if (navigateToLogin) {
+    navigationRef.navigate('login', {})
+  } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
     if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
@@ -121,18 +125,20 @@ const initApp = async (
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
-    initialNavigation(navigationRef, updateMessage)
+    initialNavigation(navigationRef, updateMessage, false)
   }, 30000)
 
 
   events()
-  await session()
-  fcm()
-  pgp()
+  const success = await session()
+  if (account?.publicKey) {
+    fcm()
+    pgp()
+  }
 
   clearTimeout(timeout)
 
-  initialNavigation(navigationRef, updateMessage)
+  initialNavigation(navigationRef, updateMessage, !success && await exists('/peach-account.json'))
 }
 
 // eslint-disable-next-line max-lines-per-function
