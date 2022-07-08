@@ -31,9 +31,9 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
     })
 
 
-    const token = await response.json() as AccessToken|APIError
+    const token = response?.json ? (await response.json() as AccessToken|APIError) : null
 
-    if ('accessToken' in token) {
+    if (token && 'accessToken' in token) {
       setAccessToken(token)
       info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
       return [token, null]
