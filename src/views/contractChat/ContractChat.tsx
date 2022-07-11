@@ -49,6 +49,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [page, setPage] = useState(0)
+  const [random, setRandom] = useState(0)
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -57,17 +58,24 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveContract(contractData)
   }
 
-  useFocusEffect(useCallback(() => {
+  const initChat = () => {
     setUpdatePending(true)
+    setLoadingMessages(true)
     setPage(0)
+    setNewMessage('')
+    setView('')
+    setTradingPartner(null)
     setChat(getChat(contractId) || {})
-  }, []))
-
-  useFocusEffect(useCallback(() => {
     setContract(getContract(contractId))
-  }, [contractId]))
+  }
+
+  useFocusEffect(useCallback(initChat, []))
+
+  useFocusEffect(useCallback(initChat, [contractId]))
 
   useFocusEffect(useCallback(() => {
+    setRandom(Math.random())
+
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
@@ -77,7 +85,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         date: new Date(message.date),
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
-      setChat(() => saveChat(contractId, {
+      setChat(saveChat(contractId, {
         messages: [decryptedMessage]
       }))
     }
@@ -90,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [ws.connected]))
+  }, [contract, ws.connected]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
@@ -157,6 +165,12 @@ export default ({ route, navigation }: Props): ReactElement => {
               decryptedMessage = decryptedMessage || await decryptSymmetric(message.message, contract.symmetricKey)
             }
           } catch (e) {
+            // delete symmetric key to let app refetch and decrypt actual one
+            saveAndUpdate({
+              ...contract,
+              symmetricKey: undefined,
+            })
+
             error('Could not decrypt message', e)
           }
           return {
@@ -165,7 +179,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           }
         }))
 
-        setChat(() => saveChat(contractId, {
+        setChat(saveChat(contractId, {
           messages: decryptedMessages.filter(unique('date'))
         }))
         setLoadingMessages(false)
@@ -200,6 +214,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }))
     saveChat(chat.id, { lastSeen: new Date() })
     setNewMessage(() => '')
+    setRandom(Math.random())
   }
 
   const loadMore = () => {
