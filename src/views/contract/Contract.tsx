@@ -1,32 +1,32 @@
+import { StackNavigationProp } from '@react-navigation/stack'
+import * as bitcoin from 'bitcoinjs-lib'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
-import * as bitcoin from 'bitcoinjs-lib'
 
-import LanguageContext from '../../contexts/language'
-import { Button, Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import getContractEffect from '../../effects/getContractEffect'
-import { error } from '../../utils/log'
-import { MessageContext } from '../../contexts/message'
-import i18n from '../../utils/i18n'
-import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
-import { account } from '../../utils/account'
-import { confirmPayment } from '../../utils/peachAPI'
-import { getOffer } from '../../utils/offer'
+import { Button, Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
-import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
-import { verifyPSBT } from './helpers/verifyPSBT'
-import { getTimerStart } from './helpers/getTimerStart'
-import { decryptSymmetricKey, getPaymentData } from './helpers/parseContract'
-import { getRequiredAction } from './helpers/getRequiredAction'
-import { ContractSummary } from '../yourTrades/components/ContractSummary'
-import { isTradeComplete } from '../../utils/offer/getOfferStatus'
-import YouGotADispute from '../../overlays/YouGotADispute'
+import LanguageContext from '../../contexts/language'
+import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import Payment from '../../overlays/info/Payment'
+import getContractEffect from '../../effects/getContractEffect'
 import ConfirmPayment from '../../overlays/info/ConfirmPayment'
+import Payment from '../../overlays/info/Payment'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { account } from '../../utils/account'
+import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { error } from '../../utils/log'
+import { getOffer } from '../../utils/offer'
+import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { confirmPayment } from '../../utils/peachAPI'
+import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
+import { ContractSummary } from '../yourTrades/components/ContractSummary'
+import { getRequiredAction } from './helpers/getRequiredAction'
+import { getTimerStart } from './helpers/getTimerStart'
+import { parseContract } from './helpers/parseContract'
+import { verifyPSBT } from './helpers/verifyPSBT'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -69,24 +69,24 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
-      const [symmetricKey, err] = !contract?.symmetricKey ? await decryptSymmetricKey(
-        result.symmetricKeyEncrypted,
-        result.symmetricKeySignature,
-        result.buyer.pgpPublicKey,
-      ) : [contract?.symmetricKey, null]
-
-      if (err) error(err)
+      const { symmetricKey, paymentData } = await parseContract({
+        ...result,
+        symmetricKey: contract?.symmetricKey,
+        paymentData: contract?.paymentData,
+      })
 
       saveAndUpdate(contract
         ? {
           ...contract,
           ...result,
           symmetricKey,
-          // canceled: contract.canceled
+          paymentData,
+          // canceled: contract.canceled,
         }
         : {
           ...result,
           symmetricKey,
+          paymentData,
         }
       )
 
@@ -116,27 +116,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
 
-    if (contract.paymentData || !contract.symmetricKey) {
-      setRequiredAction(getRequiredAction(contract))
-      setUpdatePending(false)
-      return
-    }
-
     (async () => {
-      const [paymentData, err] = await getPaymentData(contract)
-
-      if (err) error(err)
-      if (paymentData) {
-        // TODO if err is yielded consider open a disput directly
-        const contractErrors = contract.contractErrors || []
-        if (err) contractErrors.push(err.message)
-        saveAndUpdate({
-          ...contract,
-          paymentData,
-          contractErrors,
-        })
-      }
-
       setRequiredAction(getRequiredAction(contract))
       setUpdatePending(false)
     })()
