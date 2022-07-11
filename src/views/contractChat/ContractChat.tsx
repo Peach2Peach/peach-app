@@ -165,10 +165,14 @@ export default ({ route, navigation }: Props): ReactElement => {
               decryptedMessage = decryptedMessage || await decryptSymmetric(message.message, contract.symmetricKey)
             }
           } catch (e) {
-            // delete symmetric key to let app refetch and decrypt actual one
+            // delete symmetric key to let app decrypt actual one
+            const { symmetricKey } = await parseContract({
+              ...contract,
+              symmetricKey: undefined
+            })
             saveAndUpdate({
               ...contract,
-              symmetricKey: undefined,
+              symmetricKey,
             })
 
             error('Could not decrypt message', e)
