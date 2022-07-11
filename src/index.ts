@@ -22,6 +22,9 @@ LogBox.ignoreLogs([
   /RCTBridge required dispatch_sync/u,
   /Can't perform a React state update on an unmounted component/u,
   /Require cycle/u,
+  // Webview (shadows)
+  /Did not receive response to shouldStartLoad in time/u,
+  /startLoadWithResult invoked with invalid lockIdentifier/u,
 ])
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
