@@ -8,8 +8,6 @@ import { session } from '../session'
  * @param contract the contract
 */
 export const saveContract = (contract: Contract, disableSave = false): void => {
-  info('saveContract', contract.id)
-
   if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
 
   if (contractExists(contract.id)) {
@@ -24,5 +22,18 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
     account.contracts.push(contract)
   }
 
-  if (!disableSave && session.password) saveAccount(account, session.password)
+  if (!disableSave && session.password) {
+    info('saveContract', contract.id)
+    saveAccount(account, session.password)
+  }
+}
+
+/**
+ * @description Method to save multiple contracts
+ * @param contracts the contracts
+*/
+export const saveContracts = (contracts: Contract[]) => {
+  info('saveContracts', contracts.length)
+
+  contracts.map(contract => saveContract(contract, true))
 }

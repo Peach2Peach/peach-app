@@ -1,28 +1,28 @@
+import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import { Button, Fade, Input, Loading, SatsFormat, Text, Title } from '../../components'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import getContractEffect from '../../effects/getContractEffect'
-import { error } from '../../utils/log'
+import { Button, Fade, Input, Loading, SatsFormat, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
-import i18n from '../../utils/i18n'
-import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
-import { account } from '../../utils/account'
-import getMessagesEffect from './effects/getMessagesEffect'
-import { signAndEncryptSymmetric, decryptSymmetric } from '../../utils/pgp'
-import ChatBox from './components/ChatBox'
-import { decryptSymmetricKey, getPaymentData } from '../contract/helpers/parseContract'
-import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { getChat, saveChat } from '../../utils/chat'
-import { unique } from '../../utils/array'
-import ContractActions from './components/ContractActions'
-import { DisputeDisclaimer } from './components/DisputeDisclaimer'
+import { OverlayContext } from '../../contexts/overlay'
+import getContractEffect from '../../effects/getContractEffect'
 import keyboard from '../../effects/keyboard'
 import YouGotADispute from '../../overlays/YouGotADispute'
-import { OverlayContext } from '../../contexts/overlay'
+import { account } from '../../utils/account'
+import { unique } from '../../utils/array'
+import { getChat, saveChat } from '../../utils/chat'
+import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { error, info } from '../../utils/log'
+import { PeachWSContext } from '../../utils/peachAPI/websocket'
+import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
+import { parseContract } from '../contract/helpers/parseContract'
+import ChatBox from './components/ChatBox'
+import ContractActions from './components/ContractActions'
+import { DisputeDisclaimer } from './components/DisputeDisclaimer'
+import getMessagesEffect from './effects/getMessagesEffect'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 
@@ -64,6 +64,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, []))
 
   useFocusEffect(useCallback(() => {
+    setContract(getContract(contractId))
+  }, [contractId]))
+
+  useFocusEffect(useCallback(() => {
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
@@ -91,28 +95,29 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
-      // info('Got contract', result)
+      info('Got contract', result.id)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
-      const [symmetricKey, err] = !contract?.symmetricKey ? await decryptSymmetricKey(
-        result.symmetricKeyEncrypted,
-        result.symmetricKeySignature,
-        result.buyer.pgpPublicKey,
-      ) : [contract?.symmetricKey, null]
-
-      if (err) error(err)
+      const { symmetricKey, paymentData } = await parseContract({
+        ...result,
+        symmetricKey: contract?.symmetricKey,
+        paymentData: contract?.paymentData,
+      })
 
       saveAndUpdate(contract
         ? {
           ...contract,
           ...result,
           symmetricKey,
+          paymentData,
+          // canceled: contract.canceled,
         }
         : {
           ...result,
           symmetricKey,
+          paymentData,
         }
       )
 
@@ -175,30 +180,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
       }
     })()
-  }, [contract, page])
-
-  useEffect(() => {
-    (async () => {
-      if (!contract || !view || contract.canceled) return
-
-      if (contract.paymentData && contract.symmetricKey) return
-
-      const [paymentData, err] = await getPaymentData(contract)
-
-      if (err) error(err)
-      if (paymentData) {
-        // TODO if err is yielded consider open a dispute directly
-        const contractErrors = contract.contractErrors || []
-        if (err) contractErrors.push(err.message)
-        saveAndUpdate({
-          ...contract,
-          paymentData,
-          contractErrors,
-        })
-      }
-    })()
-
-  }, [contract])
+  }, [contractId, page])
 
   useEffect(keyboard(setKeyboardOpen), [])
 
