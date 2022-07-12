@@ -228,6 +228,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const returnTrue = () => true
 
+  const goBack = () => navigation.replace('contract', { contractId })
+
   return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
@@ -278,7 +280,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Button
           secondary={true}
           wide={false}
-          onPress={() => navigation.goBack()}
+          onPress={goBack}
           style={tw`mt-2`}
           title={i18n('back')}
         />
