@@ -84,10 +84,10 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
 
     if (!lastItem || lastItem.date.getTime() <= chat.lastSeen.getTime()) return
 
+    saveChat(chat.id, { lastSeen: lastItem.date })
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount()
     })
-    saveChat(chat.id, { lastSeen: lastItem.date })
   }, [])
 
   return <View style={tw`overflow-hidden rounded`}>
