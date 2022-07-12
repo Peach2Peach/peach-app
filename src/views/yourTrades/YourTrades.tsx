@@ -78,6 +78,9 @@ export default ({ navigation }: Props): ReactElement => {
       saveOffers(result)
       if (session.password) saveAccount(getAccount(), session.password)
       setLastUpdate(new Date().getTime())
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
     },
     onError: err => {
       error('Could not fetch offer information')

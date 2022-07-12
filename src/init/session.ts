@@ -7,11 +7,17 @@ import {
   setPeachFee,
   setPeachPGPPublicKey
 } from '../constants'
-import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
-import { error } from '../utils/log'
-import { getInfo, getTradingLimit } from '../utils/peachAPI'
-import { getSession, initSession, setSession } from '../utils/session'
+import { defaultAccount, getAccount, loadAccount, saveAccount, updateTradingLimit } from '../utils/account'
+import { saveContracts } from '../utils/contract'
+import { error, info } from '../utils/log'
+import { saveOffers } from '../utils/offer'
+import { getContracts, getInfo, getOffers, getTradingLimit } from '../utils/peachAPI'
+import { getSession, initSession, session, setSession } from '../utils/session'
 
+/**
+ * @description Method to fetch peach info and user trading limit and store values in constants
+ * @param account user account
+ */
 export const getPeachInfo = async (account?: Account) => {
   const [
     [peachInfoResponse, err],
@@ -40,6 +46,27 @@ export const getPeachInfo = async (account?: Account) => {
     setMinAppVersion(peachInfo.minAppVersion)
     setSession({ peachInfo })
   }
+}
+
+/**
+ * @description Method to fetch users offers and contracts
+ */
+export const getTrades = async (): Promise<void> => {
+  const [offers, getOffersError] = await getOffers()
+  if (offers) {
+    info(`Got ${offers.length} offers`)
+    saveOffers(offers)
+  } else if (getOffersError) {
+    error('Error', getOffersError)
+  }
+
+  const [contracts, err] = await getContracts()
+  if (contracts) {
+    saveContracts(contracts)
+  } else if (err) {
+    error('Error', err)
+  }
+  if (session.password) saveAccount(getAccount(), session.password)
 }
 
 export default async () => {
