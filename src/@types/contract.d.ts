@@ -21,8 +21,6 @@ declare type Contract = {
   paymentData?: PaymentData,
   paymentDataSignature?: string,
 
-  contractErrors?: string[],
-
   kycRequired: boolean,
   kycType?: KYCType,
 

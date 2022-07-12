@@ -1,24 +1,24 @@
+import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
 import AppContext from '../../contexts/app'
+import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 
+import { useFocusEffect } from '@react-navigation/native'
 import { Headline, PeachScrollView, Text, Title } from '../../components'
-import { getAccount, saveAccount } from '../../utils/account'
-import { error } from '../../utils/log'
+import getContractsEffect from '../../effects/getContractsEffect'
 import getOffersEffect from '../../effects/getOffersEffect'
+import { getAccount, saveAccount } from '../../utils/account'
+import { getChatNotifications } from '../../utils/chat'
+import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getOffers, getOfferStatus, getRequiredActionCount, saveOffer } from '../../utils/offer'
+import { error } from '../../utils/log'
+import { getOffers, getOfferStatus, getRequiredActionCount, saveOffers } from '../../utils/offer'
 import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
-import { saveContract } from '../../utils/contract'
-import getContractsEffect from '../../effects/getContractsEffect'
-import { useFocusEffect } from '@react-navigation/native'
-import { getChatNotifications } from '../../utils/chat'
 
 export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'yourTrades'>
 
@@ -75,7 +75,7 @@ export default ({ navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getOffersEffect({
     onSuccess: result => {
       if (!result?.length) return
-      result.map(offer => saveOffer(offer, true))
+      saveOffers(result)
       if (session.password) saveAccount(getAccount(), session.password)
       setLastUpdate(new Date().getTime())
     },
@@ -94,7 +94,7 @@ export default ({ navigation }: Props): ReactElement => {
 
       setTimeout(() => {
         // delay to give updating offer data some time
-        result.map(contract => saveContract(contract, true))
+        saveContracts(result)
         if (session.password) saveAccount(getAccount(), session.password)
         setLastUpdate(new Date().getTime())
         updateAppContext({
