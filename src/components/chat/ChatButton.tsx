@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Shadow } from '../../components'
 import tw from '../../styles/tailwind'
-import { getChat } from '../../utils/chat'
+import { getContractChatNotification } from '../../utils/chat'
 import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
 import { Text } from '../text'
 import { Bubble } from '../ui'
@@ -15,10 +15,7 @@ type ChatButtonProps = ComponentProps & {
   navigation: NavigationProp,
 }
 export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): ReactElement => {
-  const contractChat = getChat(contract.id)
-  const messagesSeen = contractChat
-    ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
-    : 0
+  const notifications = getContractChatNotification(contract)
   const shadow = contract.disputeActive ? mildShadowRed : mildShadowOrange
   const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
 
@@ -30,11 +27,11 @@ export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): Re
           contract.disputeActive ? tw`bg-red` : tw`bg-peach-1`
         ]}>
         <Icon id="chat" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
-        {contract.messages && contract.messages - messagesSeen > 0
+        {notifications > 0
           ? <Bubble color={tw`text-green`.color as string}
             style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
             <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
-              {contract.messages - messagesSeen}
+              {notifications}
             </Text>
           </Bubble>
           : null
