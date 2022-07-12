@@ -32,7 +32,7 @@ import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-reject
 import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
-import session from './init/session'
+import session, { getTrades } from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
@@ -44,6 +44,8 @@ import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
 import { getSession, setSession } from './utils/session'
 import { exists } from './utils/file'
+import { getChatNotifications } from './utils/chat'
+import { getRequiredActionCount } from './utils/offer'
 
 enableScreens()
 
@@ -145,7 +147,9 @@ const initApp = async (
 
   events()
   const success = await session()
+
   if (account?.publicKey) {
+    getTrades()
     fcm()
     pgp()
   }
@@ -185,6 +189,9 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef, updateMessage)
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {

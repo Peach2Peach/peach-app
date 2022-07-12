@@ -9,14 +9,17 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
+import { getPeachInfo, getTrades } from '../../init/session'
 import tw from '../../styles/tailwind'
 import { loadAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { getMessages, rules } from '../../utils/validation'
-import { getPeachInfo } from '../../init/session'
 import { setSession } from '../../utils/session'
+import { getMessages, rules } from '../../utils/validation'
+import { getChatNotifications } from '../../utils/chat'
+import { getRequiredActionCount } from '../../utils/offer'
 const { LinearGradient } = require('react-native-gradients')
 
 const { useValidation } = require('react-native-form-validator')
@@ -29,6 +32,8 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const [, updateAppContext] = useContext(AppContext)
+
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -53,6 +58,10 @@ export default ({ navigation }: Props): ReactElement => {
       if (loadedAccount?.publicKey) {
         await setSession({ password })
         await getPeachInfo(loadedAccount)
+        await getTrades()
+        updateAppContext({
+          notifications: getChatNotifications() + getRequiredActionCount()
+        })
         navigation.replace('home', {})
       } else {
         updateMessage({ msg: i18n('form.password.invalid'), level: 'ERROR' })

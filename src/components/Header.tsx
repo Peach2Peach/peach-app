@@ -1,21 +1,24 @@
 
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import RNRestart from 'react-native-restart'
 import { Image, Pressable, View } from 'react-native'
+import RNRestart from 'react-native-restart'
 
+import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { Shadow, Text } from '.'
+import { TIMETORESTART } from '../constants'
+import AppContext from '../contexts/app'
+import BitcoinContext from '../contexts/bitcoin'
+import appStateEffect from '../effects/appStateEffect'
+import { getPeachInfo, getTrades } from '../init/session'
 import tw from '../styles/tailwind'
+import { account, getAccount } from '../utils/account'
 import i18n from '../utils/i18n'
-import { thousands } from '../utils/string'
 import { mildShadow } from '../utils/layout'
 import { marketPrices } from '../utils/peachAPI/public/market'
-import BitcoinContext from '../contexts/bitcoin'
-import { account, getAccount } from '../utils/account'
+import { thousands } from '../utils/string'
 import { Fade } from './animation'
-import appStateEffect from '../effects/appStateEffect'
-import session, { getPeachInfo } from '../init/session'
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
-import { TIMETORESTART } from '../constants'
+import { getChatNotifications } from '../utils/chat'
+import { getRequiredActionCount } from '../utils/offer'
 
 let goHomeTimeout: NodeJS.Timer
 
@@ -29,6 +32,8 @@ type HeaderProps = ComponentProps & {
  */
 export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
+  const [, updateAppContext] = useContext(AppContext)
+
   const [active, setActive] = useState(true)
 
   useEffect(appStateEffect({
@@ -36,6 +41,10 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
       setActive(isActive)
       if (isActive) {
         getPeachInfo(getAccount())
+        getTrades()
+        updateAppContext({
+          notifications: getChatNotifications() + getRequiredActionCount()
+        })
         clearTimeout(goHomeTimeout)
       } else {
         goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
