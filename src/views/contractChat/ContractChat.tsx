@@ -271,6 +271,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               onChange={setNewMessage}
               onSubmit={sendMessage}
               icon="send"
+              returnKeyType="send"
               value={newMessage}
               label={i18n('chat.yourMessage')}
               isValid={true}
