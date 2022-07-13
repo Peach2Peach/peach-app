@@ -25,7 +25,7 @@ describe('log', () => {
 })
 
 describe('error', () => {
-  const errorSpy = jest.spyOn(console, 'log')
+  const errorSpy = jest.spyOn(console, 'error')
 
   beforeEach(() => {
     jest.clearAllMocks()
