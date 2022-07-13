@@ -5,7 +5,7 @@
 import { AppRegistry, LogBox } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
 import { name as appName } from './app.json'
-import { isWeb } from './utils/system'
+import { isIOS, isWeb } from './utils/system'
 import * as db from './utils/db'
 import { setFCMToken } from './utils/peachAPI'
 import messaging from '@react-native-firebase/messaging'
@@ -31,8 +31,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   await initSession()
   let notifications = Number(getSession().notifications || 0)
   notifications += 1
-  NotificationBadge.setNumber(notifications)
 
+  if (isIOS()) NotificationBadge.setNumber(notifications)
   setSession({ notifications })
 
   info('Message handled in the background!', remoteMessage)
