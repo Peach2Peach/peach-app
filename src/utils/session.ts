@@ -1,4 +1,10 @@
-import EncryptedStorage from 'react-native-encrypted-storage'
+import EncryptedStorage from 'react-native-encrypted-storage' // TODO can be removed before September
+import { MMKVLoader } from 'react-native-mmkv-storage'
+
+const storage = new MMKVLoader()
+  .withEncryption()
+  .withInstanceID('session')
+  .initialize()
 
 export let session: Session = {
   initialized: false,
@@ -17,10 +23,8 @@ export const setSession = async (sess: object): Promise<Session> => {
     ...sess,
     initialized: true
   }
-  await EncryptedStorage.setItem(
-    'session',
-    JSON.stringify(session)
-  )
+  await storage.setItem('session', JSON.stringify(session))
+
   return session
 }
 
@@ -34,10 +38,15 @@ export const getSession = () => session
  * @description Method to initialise local user session from encrypted storage
  */
 export const initSession = async (): Promise<Session> => {
-  const result = await EncryptedStorage.getItem('session') as string
+  let result = await storage.getItem('session')
+  if (!result) {
+    // TODO remove fallback before September
+    result = await EncryptedStorage.getItem('session') as string
+  }
 
   if (result) {
     session = JSON.parse(result)
+    delete session.peachInfo // TODO remove with EncryptedStorage
     return session
   }
 
