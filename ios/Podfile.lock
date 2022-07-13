@@ -361,7 +361,9 @@ PODS:
     - React-Core
   - react-native-encrypted-storage (4.0.2):
     - React-Core
-  - react-native-fast-openpgp (2.2.3):
+  - react-native-fast-openpgp (2.4.1):
+    - React-Core
+  - react-native-notification-badge (0.1.4):
     - React-Core
   - react-native-randombytes (3.6.1):
     - React-Core
@@ -548,6 +550,7 @@ DEPENDENCIES:
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
+  - "react-native-notification-badge (from `../node_modules/@msml/react-native-notification-badge`)"
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -653,6 +656,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-encrypted-storage"
   react-native-fast-openpgp:
     :path: "../node_modules/react-native-fast-openpgp"
+  react-native-notification-badge:
+    :path: "../node_modules/@msml/react-native-notification-badge"
   react-native-randombytes:
     :path: "../node_modules/react-native-randombytes"
   react-native-restart:
@@ -758,7 +763,8 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
   react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
-  react-native-fast-openpgp: e2c759cd1d4a46519b017c589207cc8dedbfe2ee
+  react-native-fast-openpgp: 3459727741c780372181f8a4bcda8de635cd533c
+  react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
   react-native-safe-area-context: f98b0b16d1546d208fc293b4661e3f81a895afd9

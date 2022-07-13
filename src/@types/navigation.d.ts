@@ -28,7 +28,7 @@ declare type RootStackParamList = {
   tradeComplete: {
     contract: Contract,
   },
-  offers: {},
+  yourTrades: {},
   offer: {
     offer: SellOffer|BuyOffer,
   },

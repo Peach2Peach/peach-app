@@ -11,24 +11,26 @@ type Item = {
   display: ReactNode,
 }
 
-type CheckboxItemProps = {
+type CheckboxItemProps = ComponentProps & {
   item: Item,
   index: number,
   selectedValues: (string|number)[],
   select: (value: string | number) => void,
 }
-const CheckboxItem = ({ item, index, selectedValues, select }: CheckboxItemProps): ReactElement => {
+const CheckboxItem = ({ item, index, selectedValues, select, testID }: CheckboxItemProps): ReactElement => {
   const isSelected = (itm: Item) => selectedValues.indexOf(itm.value) !== -1
   const selectItem = () => !item.disabled ? select(item.value) : () => {}
 
-  return <View style={[
+  return <View testID={testID} style={[
     tw`flex-row items-center`,
     index > 0 ? tw`mt-4` : {},
     !isSelected(item) ? tw`opacity-50` : {},
     item.disabled ? tw`opacity-20` : {},
   ]}>
     {!item.disabled
-      ? <Pressable onPress={selectItem} style={tw`h-10 w-10 flex items-center justify-center`}>
+      ? <Pressable testID={`${testID}-checkbox`}
+        style={tw`h-10 w-10 flex items-center justify-center`}
+        onPress={selectItem}>
         {isSelected(item)
           ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
           : <View style={tw`w-5 h-5 flex justify-center items-center`}>
@@ -71,7 +73,7 @@ type CheckboxesProps = ComponentProps & {
     selectedValues={selectedCurrencies}
     onChange={(values) => setSelectedCurrencies(values)}/>
  */
-export const Checkboxes = ({ items, selectedValues = [], onChange, style }: CheckboxesProps): ReactElement => {
+export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID }: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
     let newValues = Array.from(selectedValues)
     if (newValues.indexOf(value) !== -1) {
@@ -84,8 +86,9 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style }: Chec
   }
 
 
-  return <View style={style}>
+  return <View testID={`checkboxes-${testID}`} style={style}>
     {items.map((item, i) => <CheckboxItem
+      testID={`checkboxes-${testID}-${item.value}`}
       key={i} index={i}
       item={item}
       selectedValues={selectedValues}

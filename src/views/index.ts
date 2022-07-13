@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 // import Home from './home/Home'
 import Buy from './buy/Buy'
 import Sell from './sell/Sell'
-import Offers from './offers/Offers'
+import YourTrades from './yourTrades/YourTrades'
 import SplashScreen from './splashScreen/SplashScreen'
 import Welcome from './welcome/Welcome'
 import NewUser from './newUser/NewUser'
@@ -14,7 +14,7 @@ import Search from './search/Search'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import TradeComplete from './tradeComplete/TradeComplete'
-import Offer from './offers/Offer'
+import Offer from './yourTrades/Offer'
 import Settings from './settings/Settings'
 import Contact from './contact/Contact'
 import Report from './report/Report'
@@ -51,7 +51,7 @@ export const views: ViewType[] = [
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'offers', component: Offers, showHeader: true, showFooter: true },
+  { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },
   { name: 'profile', component: Profile, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },

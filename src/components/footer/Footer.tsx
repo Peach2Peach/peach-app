@@ -21,13 +21,14 @@ import { saveContract } from '../../utils/contract'
 import { getContract } from '../../utils/peachAPI'
 import { IconType } from '../icons'
 import keyboard from '../../effects/keyboard'
+import { getRequiredActionCount } from '../../utils/offer'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>,
   navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
 }
-interface FooterItemProps {
+type FooterItemProps = ComponentProps & {
   id: IconType,
   active: boolean,
   onPress: () => void,
@@ -52,24 +53,26 @@ const isSettings = /settings|contact|report|language|currency|backups|paymentMet
  * @example
  * <FooterItem id="sell" active={true} />
  */
-const FooterItem = ({ id, active, onPress, notifications = 0 }: FooterItemProps): ReactElement => {
+const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
   const color = active ? tw`text-peach-1` : tw`text-grey-2`
-  return <Pressable onPress={onPress}>
-    <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-      <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
-      <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
-        {i18n(id)}
-      </Text>
-    </View>
-    {notifications
-      ? <Bubble color={tw`text-green`.color as string}
-        style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-        <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
-          {notifications}
+  return <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
+    <View>
+      <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
+        <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
+        <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>
+          {i18n(id)}
         </Text>
-      </Bubble>
-      : null
-    }
+      </View>
+      {notifications
+        ? <Bubble color={tw`text-green`.color as string}
+          style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
+          <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
+            {notifications}
+          </Text>
+        </Bubble>
+        : null
+      }
+    </View>
   </Pressable>
 }
 
@@ -92,7 +95,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     home: () => navTo('home'),
     buy: () => navTo('buy'),
     sell: () => navTo('sell'),
-    offers: () => navTo('offers'),
+    yourTrades: () => navTo('yourTrades'),
     settings: () => navTo('settings'),
   }
 
@@ -112,7 +115,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     })
 
     updateAppContext({
-      notifications: getChatNotifications()
+      notifications: getChatNotifications() + getRequiredActionCount()
     })
 
     return unsubscribe
@@ -122,16 +125,28 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     ? <View style={[tw`w-full flex-row items-start`, { height }, style]}>
       <View style={tw`h-full flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`h-full flex-row items-center justify-between px-11 bg-white-2`}>
-            <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
-            <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+          <View style={tw`h-full flex-row items-center justify-between bg-white-2`}>
             <FooterItem
-              id="offers"
-              active={active === 'offers' || /contract/u.test(active as string)}
-              onPress={navigate.offers}
+              id="buy" style={tw`w-1/4`}
+              active={active === 'buy' || active === 'home'}
+              onPress={navigate.buy}
+            />
+            <FooterItem
+              id="sell" style={tw`w-1/4`}
+              active={active === 'sell'}
+              onPress={navigate.sell}
+            />
+            <FooterItem
+              id="yourTrades" style={tw`w-1/4`}
+              active={active === 'yourTrades' || /contract/u.test(active as string)}
+              onPress={navigate.yourTrades}
               notifications={notifications}
             />
-            <FooterItem id="settings" active={isSettings.test(active as string)} onPress={navigate.settings} />
+            <FooterItem
+              id="settings" style={tw`w-1/4`}
+              active={isSettings.test(active as string)}
+              onPress={navigate.settings}
+            />
           </View>
         </Shadow>
       </View>
@@ -153,8 +168,8 @@ export default Footer
 <View style={tw`h-full flex-grow`}>
   <Shadow shadow={footerShadow} stule={tw`w-full`}>
     <View style={tw`h-full flex-row items-center justify-between px-7 bg-white-2`}>
-      <FooterItem id="offers" active={active === 'offers'}
-        onPress={navigate.offers} />
+      <FooterItem id="yourTrades" active={active === 'yourTrades'}
+        onPress={navigate.yourTrades} />
       <FooterItem id="settings" active={active === 'settings'}
         onPress={navigate.settings} />
     </View>

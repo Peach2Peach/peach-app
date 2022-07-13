@@ -5,13 +5,12 @@ import { session } from '../session'
 import { offerExists } from './offerExists'
 
 /**
-  * @description Method to add offer to offer list
-  * @param offer the offer
-  * @param disableSave if true, don't save account (performance)
-  * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
-  */
+ * @description Method to add offer to offer list
+ * @param offer the offer
+ * @param disableSave if true, don't save account (performance)
+ * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
+ */
 export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false, shield = true): void => {
-  info('saveOffer', offer.id)
   if (!offer.id) throw new Error('offerId is required')
 
   delete offer.user
@@ -38,5 +37,18 @@ export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false, shield
   }
 
   account.offers = account.offers.sort(sort('id'))
-  if (session.password && !disableSave) saveAccount(account, session.password)
+  if (session.password && !disableSave) {
+    saveAccount(account, session.password)
+    info('saveOffer', offer.id)
+  }
+}
+
+/**
+ * @description Method to add offers to offer list
+ * @param offers the offers
+ */
+export const saveOffers = (offers: (SellOffer|BuyOffer)[]): void => {
+  info('saveOffers', offers.length)
+
+  offers.map(offer => saveOffer(offer, true))
 }

@@ -9,6 +9,7 @@ interface Global {
 declare const global: Global
 
 declare type ComponentProps = {
+  testID?: string,
   forwardRef?: RefObject<unknown>,
   children?: ReactNode,
   style?: ViewStyle|ViewStyle[],
@@ -134,6 +135,7 @@ declare type BitcoinState = {
 declare type Session = {
   initialized: boolean
   password?: string,
+  notifications: number,
   peachInfo?: PeachInfo,
   unsavedPaymentData?: PaymentData[],
 }

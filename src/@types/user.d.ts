@@ -4,7 +4,7 @@ declare type Rating = {
   ratedBy: string,
   signature: string,
 }
-declare type Medal = 'fastTrader' | 'superTrader'
+declare type Medal = 'fastTrader' | 'superTrader' | 'ambassador'
 
 declare type User = {
   id: string,

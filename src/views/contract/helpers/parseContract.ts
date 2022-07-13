@@ -1,4 +1,4 @@
-import { error } from '../../../utils/log'
+import { error, info } from '../../../utils/log'
 import { decrypt, decryptSymmetric, verify } from '../../../utils/pgp'
 
 export const decryptSymmetricKey = async (
@@ -47,4 +47,53 @@ export const getPaymentData = async (contract: Contract): Promise<[PaymentData|n
 
   // TODO check payment data hash with actual data
   return [decryptedPaymentData, null]
+}
+
+/**
+ * @description Method to parse contract data
+ * @param contract the contract
+ * @returns symmetric key and decrypted payment data
+ */
+export const parseContract = async (contract: Contract,) => {
+  let symmetricKey = contract?.symmetricKey
+  if (!symmetricKey) {
+    info('No symmetric key found, decrypting')
+
+    const [symmetricKeyResult, err] = await decryptSymmetricKey(
+      contract.symmetricKeyEncrypted,
+      contract.symmetricKeySignature,
+      contract.buyer.pgpPublicKey,
+    )
+
+
+    if (err) error(err)
+
+    if (symmetricKeyResult) {
+      info('Symmetric decryption success')
+      symmetricKey = symmetricKeyResult
+    }
+  }
+
+  let paymentData = contract?.paymentData
+  if (!paymentData && symmetricKey) {
+    info('No decrypted payment data found, decrypting')
+
+    const [paymentDataResult, getPaymentDataError] = await getPaymentData({
+      ...contract,
+      symmetricKey,
+    })
+
+    if (getPaymentDataError) error(getPaymentDataError)
+
+    if (paymentDataResult) {
+      info('Payment data decryption, success')
+      // TODO if err is yielded consider open a dispute directly
+      paymentData = paymentDataResult
+    }
+  }
+
+  return {
+    symmetricKey,
+    paymentData
+  }
 }

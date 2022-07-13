@@ -49,19 +49,21 @@ export default ({ style, onUpdate, view }: AddPaymentMethod): ReactElement => {
   })
 
   const addPaymentMethods = () => {
-    if (session.unsavedPaymentData) {
-      updateOverlay({
-        content: <RestorePaymentData
-          paymentData={session.unsavedPaymentData}
-          onConfirm={onRestore}
-          onCancel={openCurrencySelect}
-        />,
-        showCloseIcon: true,
-        showCloseButton: false
-      })
-    } else {
-      openCurrencySelect()
-    }
+    // TODO check if restore payment data will be reimplemented, if not delete logic and templates for good
+    // if (session.unsavedPaymentData) {
+    //   updateOverlay({
+    //     content: <RestorePaymentData
+    //       paymentData={session.unsavedPaymentData}
+    //       onConfirm={onRestore}
+    //       onCancel={openCurrencySelect}
+    //     />,
+    //     showCloseIcon: true,
+    //     showCloseButton: false
+    //   })
+    // } else {
+    //   openCurrencySelect()
+    // }
+    openCurrencySelect()
   }
 
   return <View style={style}>

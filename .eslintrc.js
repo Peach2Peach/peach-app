@@ -30,6 +30,7 @@ module.exports = {
     'devUtils/**/*.js',
     'build/**/*.js',
     'coverage/**/*.js',
+    'tests/e2e/**/*.js',
     'src/sw.js',
   ],
   'rules': {
@@ -64,7 +65,10 @@ module.exports = {
       'error',
       'last'
     ],
-    'complexity': 'error',
+    'complexity': [
+      'error',
+      21
+    ],
     'computed-property-spacing': 'error',
     'consistent-return': 'error',
     'consistent-this': 'error',
