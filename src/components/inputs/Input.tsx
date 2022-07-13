@@ -1,19 +1,17 @@
 import React, { ReactElement, Ref } from 'react'
 import {
   NativeSyntheticEvent,
-  Pressable,
-  TextInput,
+  Pressable, ReturnKeyType, TextInput,
   TextInputEndEditingEventData,
   TextInputSubmitEditingEventData,
-  View,
+  View
 } from 'react-native'
-import tw from '../../styles/tailwind'
-import Icon from '../Icon'
 import { Shadow, Text } from '..'
-import { innerShadow } from '../../utils/layout'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { innerShadow } from '../../utils/layout'
+import Icon from '../Icon'
 import { IconType } from '../icons'
-import { ReturnKeyType } from 'react-native'
 
 type InputProps = ComponentProps & {
   value?: string,
