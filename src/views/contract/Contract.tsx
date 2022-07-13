@@ -57,10 +57,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveContract(contractData)
   }
 
-  useEffect(() => {
-    if (contractId !== route.params.contractId) setUpdatePending(true)
-    setContractId(() => route.params.contractId)
-  }, [route])
+  const initContract = () => {
+    if (contract?.id !== route.params.contractId) {
+      setContractId(() => route.params.contractId)
+      setUpdatePending(true)
+      setView('')
+      setRequiredAction('none')
+      setContract(getContract(contractId))
+    }
+  }
+
+  useFocusEffect(useCallback(initContract, []))
+  useFocusEffect(useCallback(initContract, [contractId]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
@@ -112,7 +120,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!contract || !view || contract.canceled) return
 
     if (isTradeComplete(contract)) {
-      navigation.replace('tradeComplete', { contract })
+      if (contract.disputeActive) {
+        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
+        navigation.replace('offer', { offer })
+      } else {
+        navigation.replace('tradeComplete', { contract })
+      }
       return
     }
 
