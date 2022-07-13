@@ -102,7 +102,7 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
         onContentSizeChange={onContentSizeChange}
         onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
         onViewableItemsChanged={onViewableItemsChanged}
-        keyExtractor={item => item.date.toString()}
+        keyExtractor={item => item.date.getTime().toString()}
         renderItem={({ item, index }) =>
           <ChatMessage chatMessages={visibleChatMessages} tradingPartner={tradingPartner} item={item} index={index} />
         }

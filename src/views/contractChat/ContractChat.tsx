@@ -42,7 +42,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
-  const contractId = route.params.contractId
+  const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
   const [chat, setChat] = useState<Chat>(getChat(contractId))
@@ -59,14 +59,17 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const initChat = () => {
-    setUpdatePending(true)
-    setLoadingMessages(true)
-    setPage(0)
-    setNewMessage('')
-    setView('')
-    setTradingPartner(null)
-    setChat(getChat(contractId) || {})
-    setContract(getContract(contractId))
+    if (contract?.id !== route.params.contractId) {
+      setContractId(route.params.contractId)
+      setUpdatePending(true)
+      setLoadingMessages(true)
+      setPage(0)
+      setNewMessage('')
+      setView('')
+      setTradingPartner(null)
+      setChat(getChat(contractId) || {})
+      setContract(getContract(contractId))
+    }
   }
 
   useFocusEffect(useCallback(initChat, []))
@@ -184,7 +187,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }))
 
         setChat(saveChat(contractId, {
-          messages: decryptedMessages.filter(unique('date'))
+          messages: decryptedMessages
         }))
         setLoadingMessages(false)
         setUpdatePending(false)
