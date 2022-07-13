@@ -29,7 +29,7 @@ type InputProps = ComponentProps & {
   onFocus?: Function,
   onBlur?: Function,
   secureTextEntry?: boolean,
-  returnKeyType: ReturnKeyType,
+  returnKeyType?: ReturnKeyType,
   reference?: Ref<TextInput>,
 }
 
