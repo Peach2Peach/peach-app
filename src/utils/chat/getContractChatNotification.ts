@@ -7,9 +7,9 @@ import { getChat } from './getChat'
  */
 export const getContractChatNotification = (contract: Contract) => {
   const contractChat = getChat(contract.id)
-  const unseenMessages = contractChat
-    ? contractChat.messages.filter(m => m.date.getTime() > contractChat.lastSeen.getTime()).length
+  const seenMessages = contractChat
+    ? contractChat.messages.filter(m => m.date.getTime() <= contractChat.lastSeen.getTime()).length
     : 0
 
-  return unseenMessages
+  return contract.messages - seenMessages
 }

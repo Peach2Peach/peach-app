@@ -2,6 +2,13 @@ import { Linking, Platform } from 'react-native'
 import { checkNotifications } from 'react-native-permissions'
 import messaging from '@react-native-firebase/messaging'
 import { getBundleId } from 'react-native-device-info'
+import { DEV } from '@env'
+
+/**
+ * @description Method to check if app is compiled for production
+ * @returns true if app is compiled for production
+ */
+export const isProduction = () => DEV !== 'true'
 
 /**
  * @description Method to check if app is compiled for web

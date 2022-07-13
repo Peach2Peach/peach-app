@@ -37,7 +37,7 @@ import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
 import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
-import { compatibilityCheck } from './utils/system'
+import { compatibilityCheck, isIOS } from './utils/system'
 import views from './views'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
@@ -103,7 +103,7 @@ const initialNavigation = async (
 
     let notifications = Number(getSession().notifications || 0)
     if (notifications > 0) notifications -= 1
-    NotificationBadge.setNumber(notifications)
+    if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
     if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
@@ -120,7 +120,7 @@ const initialNavigation = async (
 
     let notifications = Number(getSession().notifications || 0)
     if (notifications > 0) notifications -= 1
-    NotificationBadge.setNumber(notifications)
+    if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
     if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)

@@ -9,10 +9,11 @@ import {
 } from '../constants'
 import { defaultAccount, getAccount, loadAccount, saveAccount, updateTradingLimit } from '../utils/account'
 import { saveContracts } from '../utils/contract'
+import { exists, readFile, writeFile } from '../utils/file'
 import { error, info } from '../utils/log'
 import { saveOffers } from '../utils/offer'
 import { getContracts, getInfo, getOffers, getTradingLimit } from '../utils/peachAPI'
-import { getSession, initSession, session, setSession } from '../utils/session'
+import { initSession, session } from '../utils/session'
 
 /**
  * @description Method to fetch peach info and user trading limit and store values in constants
@@ -31,7 +32,11 @@ export const getPeachInfo = async (account?: Account) => {
 
   if (!peachInfo || !tradingLimit) {
     error('Error fetching peach info', JSON.stringify(err || tradingLimitErr))
-    peachInfo = getSession().peachInfo || null
+    try {
+      if (await exists('/peach-info.json')) {
+        peachInfo = JSON.parse(await readFile('/peach-info.json')) as GetInfoResponse
+      }
+    } catch (e) {}
   }
   if (tradingLimit) {
     updateTradingLimit(tradingLimit)
@@ -44,7 +49,7 @@ export const getPeachInfo = async (account?: Account) => {
     setPeachFee(peachInfo.fees.escrow)
     setLatestAppVersion(peachInfo.latestAppVersion)
     setMinAppVersion(peachInfo.minAppVersion)
-    setSession({ peachInfo })
+    await writeFile('/peach-info.json', JSON.stringify(peachInfo))
   }
 }
 

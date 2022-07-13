@@ -133,6 +133,9 @@ PODS:
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - libevent (2.1.12)
+  - MMKV (1.2.10):
+    - MMKVCore (~> 1.2.10)
+  - MMKVCore (1.2.13)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -363,6 +366,9 @@ PODS:
     - React-Core
   - react-native-fast-openpgp (2.4.1):
     - React-Core
+  - react-native-mmkv-storage (0.7.6):
+    - MMKV (= 1.2.10)
+    - React-Core
   - react-native-notification-badge (0.1.4):
     - React-Core
   - react-native-randombytes (3.6.1):
@@ -550,6 +556,7 @@ DEPENDENCIES:
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
+  - react-native-mmkv-storage (from `../node_modules/react-native-mmkv-storage`)
   - "react-native-notification-badge (from `../node_modules/@msml/react-native-notification-badge`)"
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
@@ -603,6 +610,8 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - libevent
+    - MMKV
+    - MMKVCore
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
@@ -656,6 +665,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-encrypted-storage"
   react-native-fast-openpgp:
     :path: "../node_modules/react-native-fast-openpgp"
+  react-native-mmkv-storage:
+    :path: "../node_modules/react-native-mmkv-storage"
   react-native-notification-badge:
     :path: "../node_modules/@msml/react-native-notification-badge"
   react-native-randombytes:
@@ -743,6 +754,8 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  MMKV: 76033b9ace2006623308910a3afcc0e25eba3140
+  MMKVCore: 3388952ded307e41b3ed8a05892736a236ed1b8e
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
@@ -764,6 +777,7 @@ SPEC CHECKSUMS:
   react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
   react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
   react-native-fast-openpgp: 3459727741c780372181f8a4bcda8de635cd533c
+  react-native-mmkv-storage: ba38e5e813ea3d5d37af834a9d867b1ce10aa96d
   react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e

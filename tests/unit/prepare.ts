@@ -79,8 +79,20 @@ type Storage = {
 const storage: Storage = {
 }
 jest.mock('react-native-encrypted-storage', () => ({
-  getItem: async (key: string, val: string) => storage[key] = val,
-  setItem: async (key: string) => storage[key],
+  setItem: async (key: string, val: string) => storage[key] = val,
+  getItem: async (key: string) => storage[key],
+}))
+jest.mock('react-native-mmkv-storage', () => ({
+  MMKVLoader: () => ({
+    withEncryption: () => ({
+      withInstanceID: () => ({
+        initialize: () => ({
+          setItem: async (key: string, val: string) => storage[key] = val,
+          getItem: async (key: string) => storage[key],
+        })
+      })
+    })
+  })
 }))
 
 jest.mock('react-native-snap-carousel', () => jest.fn())
