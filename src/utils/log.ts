@@ -25,7 +25,7 @@ export const log = (...args: any[]) => {
  * @param  {...any} args arguments
  */
 export const error = (...args: any[]) => {
-  console.log([new Date(), 'ERROR', ...args].join(' - '))
+  console.error([new Date(), 'ERROR', ...args].join(' - '))
   if (!DEV) crashlytics().log([new Date(), 'ERROR', ...args].join(' - '))
 
   if (!DEV) args
