@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showTransaction } from '../../utils/bitcoin'
@@ -14,8 +14,17 @@ import { HorizontalLine } from '../ui'
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer
 }
-export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement =>
-  <Card style={[tw`p-5`, style]}>
+export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
+  const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
+  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
+  const [paymentMethods, setPaymentMethods] = useState(offer.meansOfPayment[selectedCurrency]!)
+
+  const setCurrency = (c: string) => {
+    setSelectedCurrency(c as Currency)
+    setPaymentMethods(offer.meansOfPayment[c as Currency]!)
+  }
+
+  return <Card style={[tw`p-5`, style]}>
     <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
     <Text style={tw`text-center`}>
       <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
@@ -30,17 +39,19 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     </Text>
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
-    <Selector items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
-      style={tw`mt-2`}/>
+    <Selector style={tw`mt-2`}
+      selectedValue={selectedCurrency}
+      onChange={setCurrency}
+      items={getCurrencies(offer.meansOfPayment).map(c => ({ value: c, display: c }))}
+    />
     <HorizontalLine style={tw`mt-4`}/>
     <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
     <Selector
-      items={getPaymentMethods(offer.meansOfPayment).map(p => ({
+      items={paymentMethods.map(p => ({
         value: p,
         display: i18n(`paymentMethod.${p}`).toLowerCase()
       }))}
-      style={tw`mt-2`}
-    />
+      style={tw`mt-2`} />
     {offer.funding?.txIds?.length > 0
       ? <View>
         <HorizontalLine style={tw`mt-4`}/>
@@ -58,3 +69,4 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       : null
     }
   </Card>
+}
