@@ -135,6 +135,7 @@
   "sell.kyc.iban": "Name/IBAN",
   "sell.kyc.id": "Government ID scan",
   "sell.escrow.subtitle": "Fund escrow",
+  "sell.escrow.subtitle.mempool": "Transaction has hit the Mempool!",
   "sell.escrow.sendSats.1": "Send",
   "sell.escrow.sendSats.2": "to:",
   "sell.escrow.fundToContinue": "Fund to continue",
