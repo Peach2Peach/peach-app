@@ -31,6 +31,10 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
   const fundingAmount = Math.round(offer.amount)
 
+  const subtitle = fundingStatus.status === 'MEMPOOL'
+    ? i18n('sell.escrow.subtitle.mempool')
+    : i18n('sell.escrow.subtitle')
+
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     updateOffer(offerData)
     saveOffer(offerData, undefined, shield)
@@ -117,7 +121,7 @@ export default ({ offer, updateOffer, setStepValid, next, back, navigation }: Se
   }, []))
 
   return <View style={tw`px-6`}>
-    <Title title={i18n('sell.title')} subtitle={i18n('sell.escrow.subtitle')}
+    <Title title={i18n('sell.title')} subtitle={subtitle}
       help={<Escrow />} />
     {updatePending
       ? <Loading />
