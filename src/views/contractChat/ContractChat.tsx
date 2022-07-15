@@ -11,7 +11,6 @@ import getContractEffect from '../../effects/getContractEffect'
 import keyboard from '../../effects/keyboard'
 import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
-import { unique } from '../../utils/array'
 import { getChat, saveChat } from '../../utils/chat'
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -23,6 +22,8 @@ import ChatBox from './components/ChatBox'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
+
+const returnTrue = () => true
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 
@@ -220,7 +221,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       signature: encryptedResult.signature,
     }))
     saveChat(chat.id, { lastSeen: new Date() })
-    setNewMessage(() => '')
+    setNewMessage('')
     setRandom(Math.random())
   }
 
@@ -228,8 +229,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     setLoadingMessages(true)
     setPage(p => p + 1)
   }
-
-  const returnTrue = () => true
 
   const goBack = () => navigation.replace('contract', { contractId })
 
