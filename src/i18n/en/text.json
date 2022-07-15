@@ -328,7 +328,7 @@
   "contract.timer.kycResponse.seller": "KYC should be reviewed within",
   "contract.timer.makePayment.buyer": "Payment should be made within",
   "contract.timer.makePayment.seller": "Buyer should make payment in",
-  "contract.timer.confirmPayment.buyer": "Seller should be confirm payment in",
+  "contract.timer.confirmPayment.buyer": "Seller should confirm payment in",
   "contract.timer.confirmPayment.seller": "Payment should be confirmed within",
   "contract.willPayYou": "will pay you",
   "contract.youShouldPay": "you should pay",
