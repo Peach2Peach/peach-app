@@ -56,6 +56,9 @@ jest.mock('@react-native-firebase/messaging', () => () => ({
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
   log: jest.fn(),
 }))
+jest.mock('@react-native-firebase/analytics', () => () => ({
+  logAppOpen: jest.fn(),
+}))
 jest.mock('react-native-device-info', () => ({
   getVersion: jest.fn(),
   getBuildNumber: jest.fn(),
