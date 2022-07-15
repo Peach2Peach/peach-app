@@ -14,7 +14,6 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
-import analytics from '@react-native-firebase/analytics'
 
 import LanguageContext from './contexts/language'
 import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
@@ -158,8 +157,6 @@ const initApp = async (
   clearTimeout(timeout)
 
   initialNavigation(navigationRef, updateMessage, !success && await exists('/peach-account.json'))
-
-  analytics().logAppOpen()
 }
 
 // eslint-disable-next-line max-lines-per-function
