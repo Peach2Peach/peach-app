@@ -25,6 +25,7 @@ import fcm from '../../init/fcm'
 import { OverlayContext } from '../../contexts/overlay'
 import NDA from '../../overlays/NDA'
 import SaveYourPassword from '../../overlays/SaveYourPassword'
+import { auth } from '../../utils/peachAPI'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -84,11 +85,36 @@ export default ({ navigation }: Props): ReactElement => {
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
+        updateOverlay({ content: null })
       },
       onError: () => {
         setLoading(false)
+        updateOverlay({ content: null })
       }
     })
+  }
+
+  const onSuccess = async () => {
+    updateSettings({
+      skipTutorial: true
+    })
+
+    try {
+      const [result, authError] = await auth()
+      if (result) {
+        await pgp()
+        saveAccount(account, password)
+
+        setLoading(false)
+        navigation.replace('home', {})
+
+        fcm()
+      } else {
+        onError(new Error(authError?.error))
+      }
+    } catch (e) {
+      onError(e as Error)
+    }
   }
 
   const onPasswordRepeatChange = (value: string) => {
@@ -106,24 +132,6 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
-
-  const onSuccess = async () => {
-    updateSettings({
-      skipTutorial: true
-    })
-
-    try {
-      await pgp()
-      saveAccount(account, password)
-
-      setLoading(false)
-      navigation.replace('home', {})
-
-      fcm()
-    } catch (e) {
-      onError(e as Error)
-    }
-  }
 
   const submit = () => {
     const isValid = validate({
