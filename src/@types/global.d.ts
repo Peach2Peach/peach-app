@@ -98,7 +98,7 @@ declare type Message = {
   roomId: string,
   from: User['id'],
   date: Date,
-  message?: string,
+  message?: string|null,
   signature: string,
 }
 

@@ -63,12 +63,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       setUpdatePending(true)
       setView('')
       setRequiredAction('none')
-      setContract(getContract(contractId))
+      setContract(getContract(route.params.contractId))
     }
   }
 
-  useFocusEffect(useCallback(initContract, []))
-  useFocusEffect(useCallback(initContract, [contractId]))
+  useFocusEffect(useCallback(initContract, [route]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
