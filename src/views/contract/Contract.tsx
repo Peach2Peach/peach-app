@@ -67,8 +67,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  useFocusEffect(useCallback(initContract, []))
-  useFocusEffect(useCallback(initContract, [contractId]))
+  useFocusEffect(useCallback(initContract, [route]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
