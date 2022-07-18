@@ -63,7 +63,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setUpdatePending(true)
       setView('')
       setRequiredAction('none')
-      setContract(getContract(contractId))
+      setContract(getContract(route.params.contractId))
     }
   }
 
