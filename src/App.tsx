@@ -32,7 +32,7 @@ import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-reject
 import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
-import session, { getTrades } from './init/session'
+import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
@@ -82,7 +82,7 @@ const requestUserPermission = async () => {
 const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
-  navigateToLogin: boolean,
+  sessionInitiated: boolean,
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -96,7 +96,7 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (navigateToLogin) {
+  if (!sessionInitiated && await exists('/peach-account.json')) {
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
@@ -141,13 +141,14 @@ const initApp = async (
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
-    initialNavigation(navigationRef, updateMessage, false)
+    initialNavigation(navigationRef, updateMessage, !!account?.publicKey)
   }, 30000)
 
 
   events()
-  const success = await session()
+  const sessionInitiated = await session()
 
+  await getPeachInfo(account)
   if (account?.publicKey) {
     getTrades()
     fcm()
@@ -156,7 +157,7 @@ const initApp = async (
 
   clearTimeout(timeout)
 
-  initialNavigation(navigationRef, updateMessage, !success && await exists('/peach-account.json'))
+  initialNavigation(navigationRef, updateMessage, sessionInitiated)
 }
 
 // eslint-disable-next-line max-lines-per-function
