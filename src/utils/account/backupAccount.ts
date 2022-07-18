@@ -2,7 +2,6 @@ import RNFS from '../fileSystem/RNFS'
 import Share from '../fileSystem/Share'
 import { error, info } from '../log'
 import { isMobile } from '../system'
-import { account } from './account'
 
 type BackupAccountProps = {
   onSuccess: Function,
