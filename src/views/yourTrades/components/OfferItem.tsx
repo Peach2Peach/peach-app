@@ -31,7 +31,7 @@ const navigateToOffer = (
     && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
     if (offer.type === 'ask'
       && !offer.online
-      && (!offer.contractId || contract?.canceled && contract.disputeWinner === 'seller')
+      && (!offer.contractId || (contract?.canceled && contract.disputeWinner === 'seller'))
       && offer.funding?.txIds.length > 0 && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
       && !isEscrowRefunded(offer)) {
       const navigate = () => {}
