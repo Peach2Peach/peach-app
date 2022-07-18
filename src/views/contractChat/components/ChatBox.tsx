@@ -79,8 +79,8 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
     Keyboard.addListener('keyboardDidShow', () => scroll.current?.scrollToEnd)
   }, [])
 
-  const onContentSizeChange = () => page === 0 ?
-    setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50)
+  const onContentSizeChange = () => page === 0
+    ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50)
     : () => {}
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken>}) => {
     const lastItem = viewableItems.pop()?.item as Message
