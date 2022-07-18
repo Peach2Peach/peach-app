@@ -16,9 +16,9 @@ interface DeleteAccountProps {
  */
 export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) => {
   info('Deleting account')
-  
+
   setAccount(defaultAccount, true)
-  
+
   info('Default set')
   if (await exists('/peach-account.json')) {
     info('File exists')
