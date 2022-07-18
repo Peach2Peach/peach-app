@@ -29,7 +29,7 @@ export const Fade = ({
   displayNone = true,
 }: FadeProps): ReactElement => {
   const fadeAnim = useRef(new Animated.Value(show ? 1 : 0)).current
-  const [display, setDisplay] = useState('flex')
+  const [display, setDisplay] = useState(true)
 
   useEffect(() => {
     Animated.timing(
@@ -44,16 +44,15 @@ export const Fade = ({
 
   useEffect(() => {
     fadeAnim.addListener((fade) => {
-      setDisplay(!displayNone || fade.value > 0 ? 'flex' : 'none')
+      setDisplay(!displayNone || fade.value > 0)
     })
   }, [])
 
   return <Animated.View pointerEvents={pointerEvents} style={{
-    ...style,
+    ...(display ? style : {}),
     opacity: fadeAnim,
-    display,
   }}>
-    {children}
+    {display ? children : null}
   </Animated.View>
 }
 
