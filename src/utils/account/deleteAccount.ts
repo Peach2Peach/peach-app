@@ -16,16 +16,23 @@ interface DeleteAccountProps {
  */
 export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) => {
   info('Deleting account')
-
+  
   setAccount(defaultAccount, true)
-
+  
+  info('Default set')
   if (await exists('/peach-account.json')) {
+    info('File exists')
     await deleteFile('/peach-account.json')
+    info('File deleted')
     await setSession({ password: null })
+    info('Session restored')
     deleteAccessToken()
+    info('Token deleted')
     deletePeachAccount()
+    info('Peach account deleted')
     onSuccess()
   } else {
+    info('File does not exist')
     onError()
   }
 }
