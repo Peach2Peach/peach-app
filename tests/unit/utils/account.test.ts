@@ -141,7 +141,8 @@ describe('updateSettings', () => {
         'EUR': ['sepa', 'paypal']
       },
       preferredCurrencies: [],
-      preferredPaymentMethods: {}
+      preferredPaymentMethods: {},
+      showBackupReminder: true,
     })
   })
 })
