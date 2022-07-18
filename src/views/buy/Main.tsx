@@ -8,17 +8,20 @@ import i18n from '../../utils/i18n'
 import { BUCKETS } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import { BuyViewProps } from './Buy'
-import { getTradingLimit, updateSettings } from '../../utils/account'
+import { account, getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
 import Sats from '../../overlays/info/Sats'
 import { OverlayContext } from '../../contexts/overlay'
+import Hint from '../../components/Hint'
 
-export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+// eslint-disable-next-line max-lines-per-function
+export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   const [amount, setAmount] = useState(offer.amount)
+  const [random, setRandom] = useState(0)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -49,16 +52,22 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   }))
 
   const openSatsHelp = () => updateOverlay({ content: <Sats view="buyer" />, showCloseButton: true, help: true })
-
+  const goToBackups = () => navigation.navigate('backups', {})
+  const dismissBackupReminder = () => {
+    updateSettings({
+      showBackupReminder: false
+    })
+    setRandom(Math.random())
+  }
   return <View style={tw`h-full flex`}>
     <Title title={i18n('buy.title')} />
-    <View style={tw`h-full flex-shrink flex justify-center`}>
+    <View style={tw`h-full flex-shrink flex justify-center z-10`}>
       <View>
         <Headline style={tw`mt-16 text-grey-1 px-5`}>
           {i18n('buy.subtitle')}
         </Headline>
         <View style={tw`z-10`}>
-          <View style={tw`w-full absolute flex-row items-center justify-center mt-3`}>
+          <View style={tw`w-full absolute flex-row items-start justify-center mt-3`}>
             <Dropdown
               testID="buy-amount"
               style={tw`max-w-xs flex-shrink`}
@@ -81,5 +90,18 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         }
       </View>
     </View>
+    {account.settings.showBackupReminder !== false
+      ? <View style={tw`flex items-center mt-2`}>
+        <Hint
+          style={tw`max-w-xs`}
+          title={i18n('hint.backup.title')}
+          text={i18n('hint.backup.text')}
+          icon="lock"
+          onPress={goToBackups}
+          onDismiss={dismissBackupReminder}
+        />
+      </View>
+      : null
+    }
   </View>
 }

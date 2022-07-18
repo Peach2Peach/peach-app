@@ -110,8 +110,14 @@ export default ({ navigation }: Props): ReactElement => {
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToBackups}>
-        <Card>
-          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
+        <Card style={account.settings.showBackupReminder !== false ? tw`bg-yellow-1` : {}}>
+          <Text style={tw`w-full flex-shrink text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
+          {account.settings.showBackupReminder !== false
+            ? <View style={tw`absolute right-3 h-full flex justify-center`}>
+              <Icon id="warning" style={tw`w-6 h-6`} color={tw`text-white-1`.color as string}/>
+            </View>
+            : null
+          }
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToEscrow}>

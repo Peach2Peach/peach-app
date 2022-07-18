@@ -28,5 +28,8 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
     })
   }
 
+  updateSettings({
+    showBackupReminder: true,
+  })
   if (save && session.password) await saveAccount(account, session.password)
 }

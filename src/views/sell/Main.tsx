@@ -8,18 +8,20 @@ import i18n from '../../utils/i18n'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import { SellViewProps } from './Sell'
-import { getTradingLimit, updateSettings } from '../../utils/account'
+import { account, getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
 import Sats from '../../overlays/info/Sats'
 import { OverlayContext } from '../../contexts/overlay'
+import Hint from '../../components/Hint'
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   const [amount, setAmount] = useState(offer.amount)
+  const [random, setRandom] = useState(0)
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -52,16 +54,23 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }))
 
   const openSatsHelp = () => updateOverlay({ content: <Sats view="seller" />, showCloseButton: true, help: true })
+  const goToBackups = () => navigation.navigate('backups', {})
+  const dismissBackupReminder = () => {
+    updateSettings({
+      showBackupReminder: false
+    })
+    setRandom(Math.random())
+  }
 
   return <View testID="view-sell" style={tw`h-full flex`}>
     <Title title={i18n('sell.title')} />
-    <View style={tw`h-full flex-shrink flex justify-center`}>
+    <View style={tw`h-full flex-shrink flex justify-center z-10`}>
       <View>
         <Headline style={tw`mt-16 text-grey-1 px-5`}>
           {i18n('sell.subtitle')}
         </Headline>
         <View style={tw`z-10`}>
-          <View style={tw`w-full absolute flex-row justify-center mt-3`}>
+          <View style={tw`w-full absolute flex-row items-start justify-center mt-3`}>
             <Dropdown
               testID="sell-amount"
               style={tw`max-w-xs flex-shrink`}
@@ -84,5 +93,18 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         }
       </View>
     </View>
+    {account.settings.showBackupReminder !== false
+      ? <View style={tw`flex items-center mt-2`}>
+        <Hint
+          style={tw`max-w-xs`}
+          title={i18n('hint.backup.title')}
+          text={i18n('hint.backup.text')}
+          icon="lock"
+          onPress={goToBackups}
+          onDismiss={dismissBackupReminder}
+        />
+      </View>
+      : null
+    }
   </View>
 }
