@@ -1,5 +1,5 @@
+import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
 import { unique } from './utils/array'
-import { getVersion, getBuildNumber, getUniqueId } from 'react-native-device-info'
 
 export const SATSINBTC = 100000000
 
@@ -51,6 +51,12 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     PT: ['mbWay'],
     ES: ['bizum'],
   }
+}
+
+export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: string}>> = {
+  paypal: { appLink: 'paypal://', url: 'https://www.paypal.com/mep/dashboard' },
+  revolut: { url: 'https://revolut.com/app' },
+  wise: { url: 'https://wise.com/user/account' },
 }
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {

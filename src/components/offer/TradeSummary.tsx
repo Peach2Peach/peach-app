@@ -1,6 +1,7 @@
 import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
+import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
@@ -95,6 +96,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
 const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   const goToUserProfile = () => navigation.navigate('profile', { userId: contract.seller.id, user: contract.seller })
+  const appLink = APPLINKS[contract.paymentMethod]
 
   return <View style={tw`border border-peach-1 rounded`}>
     {contract.paymentMade
@@ -125,7 +127,7 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData}/>
+        ? <PaymentTo paymentData={contract.paymentData} appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
