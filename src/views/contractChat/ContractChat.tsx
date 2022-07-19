@@ -11,8 +11,7 @@ import getContractEffect from '../../effects/getContractEffect'
 import keyboard from '../../effects/keyboard'
 import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
-import { unique } from '../../utils/array'
-import { getChat, saveChat } from '../../utils/chat'
+import { decryptMessage, getChat, saveChat } from '../../utils/chat'
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
@@ -23,6 +22,8 @@ import ChatBox from './components/ChatBox'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
+
+const returnTrue = () => true
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 
@@ -42,7 +43,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
-  const contractId = route.params.contractId
+  const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User|null>()
   const [chat, setChat] = useState<Chat>(getChat(contractId))
@@ -59,19 +60,20 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const initChat = () => {
-    setUpdatePending(true)
-    setLoadingMessages(true)
-    setPage(0)
-    setNewMessage('')
-    setView('')
-    setTradingPartner(null)
-    setChat(getChat(contractId) || {})
-    setContract(getContract(contractId))
+    if (contract?.id !== route.params.contractId) {
+      setContractId(route.params.contractId)
+      setUpdatePending(true)
+      setLoadingMessages(true)
+      setPage(0)
+      setNewMessage('')
+      setView('')
+      setTradingPartner(null)
+      setChat(getChat(route.params.contractId) || {})
+      setContract(getContract(route.params.contractId))
+    }
   }
 
-  useFocusEffect(useCallback(initChat, []))
-
-  useFocusEffect(useCallback(initChat, [contractId]))
+  useFocusEffect(useCallback(initChat, [route]))
 
   useFocusEffect(useCallback(() => {
     setRandom(Math.random())
@@ -155,36 +157,27 @@ export default ({ route, navigation }: Props): ReactElement => {
       page,
       onSuccess: async (result) => {
         if (!contract || !contract.symmetricKey) return
-        const decryptedMessages = await Promise.all(result.map(async (message) => {
-          const existingMessage = chat.messages.find(m =>
-            m.date.getTime() === message.date.getTime() && m.from === message.from
-          )
-          let decryptedMessage = existingMessage?.message
-          try {
-            if (message.message && contract.symmetricKey) {
-              decryptedMessage = decryptedMessage || await decryptSymmetric(message.message, contract.symmetricKey)
-            }
-          } catch (e) {
-            // delete symmetric key to let app decrypt actual one
-            const { symmetricKey } = await parseContract({
-              ...contract,
-              symmetricKey: undefined
-            })
-            saveAndUpdate({
-              ...contract,
-              symmetricKey,
-            })
+        let decryptedMessages = await Promise.all(result.map(decryptMessage(chat, contract.symmetricKey)))
 
-            error('Could not decrypt message', e)
-          }
-          return {
-            ...message,
-            message: decryptedMessage,
-          }
-        }))
+        if (decryptedMessages.some(m => m.message === null)) {
+          // delete symmetric key to let app decrypt actual one
+          const { symmetricKey } = await parseContract({
+            ...contract,
+            symmetricKey: undefined
+          })
+          saveAndUpdate({
+            ...contract,
+            symmetricKey,
+          })
+          decryptedMessages = await Promise.all(decryptedMessages.map(decryptMessage(chat, symmetricKey)))
+        }
+
+        if (decryptedMessages.some(m => m.message === null)) {
+          error('Could not decrypt all messages', contract.id)
+        }
 
         setChat(saveChat(contractId, {
-          messages: decryptedMessages.filter(unique('date'))
+          messages: decryptedMessages
         }))
         setLoadingMessages(false)
         setUpdatePending(false)
@@ -198,7 +191,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
       }
     })()
-  }, [contractId, page])
+  }, [contract, page])
 
   useEffect(keyboard(setKeyboardOpen), [])
 
@@ -217,7 +210,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       signature: encryptedResult.signature,
     }))
     saveChat(chat.id, { lastSeen: new Date() })
-    setNewMessage(() => '')
+    setNewMessage('')
     setRandom(Math.random())
   }
 
@@ -225,8 +218,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     setLoadingMessages(true)
     setPage(p => p + 1)
   }
-
-  const returnTrue = () => true
 
   const goBack = () => navigation.replace('contract', { contractId })
 
@@ -268,6 +259,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               onChange={setNewMessage}
               onSubmit={sendMessage}
               icon="send"
+              returnKeyType="send"
               value={newMessage}
               label={i18n('chat.yourMessage')}
               isValid={true}

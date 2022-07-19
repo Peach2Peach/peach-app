@@ -1,17 +1,16 @@
 import React, { ReactElement, Ref } from 'react'
 import {
   NativeSyntheticEvent,
-  Pressable,
-  TextInput,
+  Pressable, ReturnKeyType, TextInput,
   TextInputEndEditingEventData,
   TextInputSubmitEditingEventData,
-  View,
+  View
 } from 'react-native'
-import tw from '../../styles/tailwind'
-import Icon from '../Icon'
 import { Shadow, Text } from '..'
-import { innerShadow } from '../../utils/layout'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { innerShadow } from '../../utils/layout'
+import Icon from '../Icon'
 import { IconType } from '../icons'
 
 type InputProps = ComponentProps & {
@@ -30,6 +29,7 @@ type InputProps = ComponentProps & {
   onFocus?: Function,
   onBlur?: Function,
   secureTextEntry?: boolean,
+  returnKeyType?: ReturnKeyType,
   reference?: Ref<TextInput>,
 }
 
@@ -74,6 +74,7 @@ export const Input = ({
   onChange, onSubmit,
   onFocus, onBlur,
   secureTextEntry,
+  returnKeyType,
   style,
   testID,
   reference
@@ -109,6 +110,8 @@ export const Input = ({
           placeholder={label ? label + (!required ? ` (${i18n('form.optional')})` : '') : ''}
           placeholderTextColor={tw`text-grey-2`.color as string}
           allowFontScaling={false}
+          removeClippedSubviews={false}
+          returnKeyType={returnKeyType}
           value={value}
           editable={!disabled} autoCorrect={autoCorrect}
           multiline={multiline} textAlignVertical={multiline ? 'top' : 'center'}

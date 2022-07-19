@@ -32,18 +32,20 @@ import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-reject
 import { info, error } from './utils/log'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 import events from './init/events'
-import session from './init/session'
+import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import pgp from './init/pgp'
 import fcm from './init/fcm'
 import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
-import { compatibilityCheck } from './utils/system'
+import { compatibilityCheck, isIOS } from './utils/system'
 import views from './views'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
 import { getSession, setSession } from './utils/session'
 import { exists } from './utils/file'
+import { getChatNotifications } from './utils/chat'
+import { getRequiredActionCount } from './utils/offer'
 
 enableScreens()
 
@@ -80,7 +82,7 @@ const requestUserPermission = async () => {
 const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
-  navigateToLogin: boolean,
+  sessionInitiated: boolean,
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -94,14 +96,14 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (navigateToLogin) {
+  if (!sessionInitiated && await exists('/peach-account.json')) {
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
     let notifications = Number(getSession().notifications || 0)
     if (notifications > 0) notifications -= 1
-    NotificationBadge.setNumber(notifications)
+    if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
     if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
@@ -118,7 +120,7 @@ const initialNavigation = async (
 
     let notifications = Number(getSession().notifications || 0)
     if (notifications > 0) notifications -= 1
-    NotificationBadge.setNumber(notifications)
+    if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
     if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
@@ -139,20 +141,23 @@ const initApp = async (
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
-    initialNavigation(navigationRef, updateMessage, false)
+    initialNavigation(navigationRef, updateMessage, !!account?.publicKey)
   }, 30000)
 
 
   events()
-  const success = await session()
+  const sessionInitiated = await session()
+
+  await getPeachInfo(account)
   if (account?.publicKey) {
+    getTrades()
     fcm()
     pgp()
   }
 
   clearTimeout(timeout)
 
-  initialNavigation(navigationRef, updateMessage, !success && await exists('/peach-account.json'))
+  initialNavigation(navigationRef, updateMessage, sessionInitiated)
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -185,6 +190,9 @@ const App: React.FC = () => {
   useEffect(() => {
     (async () => {
       await initApp(navigationRef, updateMessage)
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {

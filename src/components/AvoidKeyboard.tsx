@@ -19,7 +19,7 @@ type AvoidKeyboardProps = ComponentProps
  * </AvoidKeyboard>
  */
 export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement =>
-  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       {children}
     </TouchableWithoutFeedback>

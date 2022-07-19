@@ -34,10 +34,10 @@ export const readFile = async (path: string, password?: string): Promise<string>
  * @description Method to write file
  * @param path path to file
  * @param content content to write
- * @param password secret
+ * @param [password] secret
  * @returns Promise resolving to true if operation was successful
  */
-export const writeFile = async (path: string, content: string, password: string): Promise<boolean> => {
+export const writeFile = async (path: string, content: string, password?: string): Promise<boolean> => {
   try {
     if (password) content = encrypt(content, password)
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + path, content, 'utf8')

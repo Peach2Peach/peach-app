@@ -6,6 +6,7 @@ import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
+import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -24,30 +25,30 @@ const navigateToOffer = (
 ): void => {
   if (!offer) return navigation.replace('yourTrades', {})
 
-  if (offer.type === 'ask'
-    && !offer.online
-    && !offer.contractId
-    && offer.funding?.txIds.length > 0 && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
-    && !isEscrowRefunded(offer)) {
-    const navigate = () => navigation.replace('yourTrades', {})
-
-    return updateOverlay({
-      content: <Refund offer={offer} navigate={navigate} />,
-      showCloseButton: false
-    })
-  }
+  const contract = offer.contractId ? getContract(offer.contractId) : null
 
   if (!/rate/u.test(offerStatus.requiredAction)
     && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
+    if (offer.type === 'ask'
+      && !offer.online
+      && (!offer.contractId || (contract?.canceled && contract.disputeWinner === 'seller'))
+      && offer.funding?.txIds.length > 0 && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
+      && !isEscrowRefunded(offer)) {
+      const navigate = () => {}
+
+      updateOverlay({
+        content: <Refund offer={offer} navigate={navigate} />,
+        showCloseButton: false
+      })
+    }
     return navigation.replace('offer', { offer })
   }
 
-  if (offer.contractId) {
-    const contract = getContract(offer.contractId)
+  if (contract) {
     if (contract && offerStatus.status === 'tradeCompleted') {
       return navigation.replace('tradeComplete', { contract })
     }
-    return navigation.replace('contract', { contractId: offer.contractId })
+    return navigation.replace('contract', { contractId: contract.id })
   }
 
   if (offer.type === 'ask') {

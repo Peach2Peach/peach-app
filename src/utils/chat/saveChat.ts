@@ -1,5 +1,4 @@
 import { account, saveAccount } from '../account'
-import { unique } from '../array'
 import { session } from '../session'
 import { getChat } from './getChat'
 
@@ -19,13 +18,14 @@ export const saveChat = (id: string, chat: Partial<Chat>): Chat => {
   }
 
   const savedChat = getChat(id)
+
   account.chats[id] = {
     ...savedChat,
     ...chat,
     messages: savedChat.messages.concat(chat.messages || [])
       .filter(m => m.date)
       .filter(message => message.roomId.indexOf(id) !== -1)
-      .filter(unique('date'))
+      .filter((m, index, self) => m.date && self.findIndex(s => s.date.getTime() === m.date.getTime()) === index)
       .sort((a, b) => a.date.getTime() - b.date.getTime())
   }
   if (session.password) saveAccount(account, session.password)

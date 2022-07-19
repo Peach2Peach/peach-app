@@ -9,9 +9,6 @@ export const getChat = (id: string): Chat => {
   const chat = account.chats[id]
   let messages = chat?.messages
 
-  // TODO legacy support, remove for version 0.1.0
-  if (!messages && Array.isArray(chat)) messages = chat
-
   if (!chat || !messages || !messages.length) return {
     id,
     lastSeen: new Date(),
@@ -23,8 +20,8 @@ export const getChat = (id: string): Chat => {
     date: new Date(message.date)
   }))
   return {
-    id,
-    lastSeen: messages[messages.length - 1].date,
+    ...chat,
+    lastSeen: new Date(chat.lastSeen || 0),
     messages
   }
 }

@@ -19,6 +19,7 @@ import heart from './heart.svg'
 import help from './help.svg'
 import money from './money.svg'
 import link from './link.svg'
+import lock from './lock.svg'
 import negative from './negative.svg'
 import yourTrades from './yourTrades.svg'
 import positive from './positive.svg'
@@ -38,6 +39,7 @@ import triangleDown from './triangleDown.svg'
 import triangleLeft from './triangleLeft.svg'
 import triangleRight from './triangleRight.svg'
 import undo from './undo.svg'
+import warning from './warning.svg'
 
 const Icons = {
   arrowLeft,
@@ -61,6 +63,7 @@ const Icons = {
   help,
   money,
   link,
+  lock,
   negative,
   yourTrades,
   positive,
@@ -80,6 +83,7 @@ const Icons = {
   triangleLeft,
   triangleRight,
   undo,
+  warning,
 }
 
 export type IconType = keyof typeof Icons
