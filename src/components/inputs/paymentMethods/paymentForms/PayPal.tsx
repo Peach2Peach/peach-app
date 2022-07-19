@@ -101,8 +101,13 @@ export const PayPal = ({
     </View>
     <View style={tw`mt-2`}>
       <Input
-        onChange={setPhone}
-        onSubmit={() => $email?.focus()}
+        onChange={(number: string) => {
+          setPhone((number.length && !/\+/ug.test(number) ? `+${number}` : number).replace(/[a-z ]/ug, ''))
+        }}
+        onSubmit={() => {
+          setPhone((number: string) => (!/\+/ug.test(number) ? `+${number}` : number).replace(/[a-z ]/ug, ''))
+          $email?.focus()
+        }}
         reference={(el: any) => $phone = el}
         value={phone}
         required={!anyFieldSet}
@@ -133,7 +138,7 @@ export const PayPal = ({
           setUserName(usr.length && !/@/ug.test(usr) ? `@${usr}` : usr)
         }}
         onSubmit={() => {
-          setUserName((user: string) => !/@/ug.test(userName) ? `@${userName}` : user)
+          setUserName((usr: string) => !/@/ug.test(usr) ? `@${usr}` : usr)
           save()
         }}
         reference={(el: any) => $userName = el}
