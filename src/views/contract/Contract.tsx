@@ -1,5 +1,4 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import * as bitcoin from 'bitcoinjs-lib'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -7,7 +6,6 @@ import tw from '../../styles/tailwind'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { Button, Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
-import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -15,18 +13,17 @@ import ConfirmPayment from '../../overlays/info/ConfirmPayment'
 import Payment from '../../overlays/info/Payment'
 import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
-import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { getOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
-import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
+import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { parseContract } from './helpers/parseContract'
-import { verifyPSBT } from './helpers/verifyPSBT'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -39,7 +36,8 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
+  const ws = useContext(PeachWSContext)
+
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -68,6 +66,36 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useFocusEffect(useCallback(initContract, [route]))
+
+  useFocusEffect(useCallback(() => {
+    const contractUpdateHandler = async (update: ContractUpdate) => {
+      if (!contract || update.contractId !== contract.id) return
+      setContract({
+        ...contract,
+        [update.event]: new Date(update.data.date)
+      })
+    }
+    const messageHandler = async (message: Message) => {
+      if (!contract) return
+      if (!message.message || message.roomId !== `contract-${contract.id}`) return
+
+      setContract({
+        ...contract,
+        messages: contract.messages + 1
+      })
+    }
+    const unsubscribe = () => {
+      ws.off('message', contractUpdateHandler)
+      ws.off('message', messageHandler)
+    }
+
+    if (!ws.connected) return unsubscribe
+
+    ws.on('message', contractUpdateHandler)
+    ws.on('message', messageHandler)
+
+    return unsubscribe
+  }, [contract, ws.connected]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
@@ -155,33 +183,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!contract) return
     setLoading(true)
 
-    const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
-    if (!sellOffer.id || !sellOffer?.funding) return
+    const [tx, errorMsg] = signReleaseTx(contract)
 
-    const psbt = bitcoin.Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
-
-    // Don't trust the response, verify
-    const errorMsg = verifyPSBT(psbt, sellOffer, contract)
-
-    if (errorMsg.length) {
+    if (!tx) {
       setLoading(false)
       updateMessage({
-        msg: errorMsg.join('\n'),
+        msg: errorMsg!.join('\n'),
         level: 'WARN',
       })
       return
     }
-
-    // Sign psbt
-    psbt.txInputs.forEach((input, i) =>
-      psbt
-        .signInput(i, getEscrowWallet(sellOffer.id!))
-        .finalizeInput(i, getFinalScript)
-    )
-
-    const tx = psbt
-      .extractTransaction()
-      .toHex()
 
     const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
 
@@ -217,9 +228,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
         />
         <Text style={tw`text-grey-2 text-center -mt-1`}>
-          {i18n('contract.subtitle')} <SatsFormat sats={contract.amount}
-            color={tw`text-grey-2`}
-          />
+          {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
         {!contract.paymentConfirmed
