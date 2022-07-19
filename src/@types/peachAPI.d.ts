@@ -15,6 +15,14 @@ declare type PeachWS = {
   onmessage?: WebSocket['onmessage']|(() => {}),
 }
 
+declare type ContractUpdate = {
+  contractId: Contract['id'],
+  event: 'paymentMade' | 'paymentConfirmed'
+  data: {
+    date: number
+  }
+}
+
 declare type AccessToken = {
   expiry: number,
   accessToken: string

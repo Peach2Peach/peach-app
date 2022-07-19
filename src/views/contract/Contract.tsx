@@ -7,7 +7,6 @@ import tw from '../../styles/tailwind'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { Button, Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
-import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -21,6 +20,7 @@ import { error } from '../../utils/log'
 import { getOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
+import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../../utils/wallet'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import { getRequiredAction } from './helpers/getRequiredAction'
@@ -39,7 +39,8 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
+  const ws = useContext(PeachWSContext)
+
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -68,6 +69,36 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useFocusEffect(useCallback(initContract, [route]))
+
+  useFocusEffect(useCallback(() => {
+    const contractUpdateHandler = async (update: ContractUpdate) => {
+      if (!contract || update.contractId !== contract.id) return
+      setContract({
+        ...contract,
+        [update.event]: new Date(update.data.date)
+      })
+    }
+    const messageHandler = async (message: Message) => {
+      if (!contract || !contract.symmetricKey) return
+      if (!message.message || message.roomId !== `contract-${contract.id}`) return
+
+      setContract({
+        ...contract,
+        messages: contract.messages + 1
+      })
+    }
+    const unsubscribe = () => {
+      ws.off('message', contractUpdateHandler)
+      ws.off('message', messageHandler)
+    }
+
+    if (!ws.connected) return unsubscribe
+
+    ws.on('message', contractUpdateHandler)
+    ws.on('message', messageHandler)
+
+    return unsubscribe
+  }, [contract, ws.connected]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
