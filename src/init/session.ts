@@ -85,6 +85,5 @@ export default async () => {
     return false
   }
 
-  await getPeachInfo(account)
   return !!account?.publicKey
 }
