@@ -111,6 +111,18 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
   }, [])
 
   useEffect(() => {
+    const contractUpdateHandler = async (update: ContractUpdate) => {
+      const contract = getContractFromDevice(update.contractId)
+
+      if (!contract) return
+      saveContract({
+        ...contract,
+        [update.event]: new Date(update.data.date)
+      })
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
+    }
     const messageHandler = async (message: Message) => {
       if (!message.message || !message.roomId || message.from === account.publicKey) return
       const contract = getContractFromDevice(message.roomId.replace('contract-', ''))
@@ -125,11 +137,13 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
       })
     }
     const unsubscribe = () => {
+      ws.off('message', contractUpdateHandler)
       ws.off('message', messageHandler)
     }
 
     if (!ws.connected) return unsubscribe
 
+    ws.on('message', contractUpdateHandler)
     ws.on('message', messageHandler)
 
     return unsubscribe
