@@ -1,4 +1,4 @@
-import { Linking } from "react-native"
+import { Linking } from 'react-native'
 
 interface download {
   (filename: string, text:string): void
