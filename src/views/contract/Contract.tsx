@@ -79,7 +79,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       })
     }
     const messageHandler = async (message: Message) => {
-      if (!contract || !contract.symmetricKey) return
+      if (!contract) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
 
       setContract({
