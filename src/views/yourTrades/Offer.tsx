@@ -70,7 +70,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     return unsubscribe
   }, [contract, ws.connected]))
 
-
   useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     interval: 30 * 1000,
