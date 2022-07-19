@@ -100,10 +100,10 @@ export const Revolut = ({
     <View style={tw`mt-2`}>
       <Input
         onChange={(number: string) => {
-          setPhone((number.length && !/\+/ug.test(number) ? `+${number}` : number).replace(/[a-z ]/ug, ''))
+          setPhone((number.length && !/\+/ug.test(number) ? `+${number}` : number).replace(/[^0-9+]/ug, ''))
         }}
         onSubmit={() => {
-          setPhone((number: string) => (!/\+/ug.test(number) ? `+${number}` : number).replace(/[a-z ]/ug, ''))
+          setPhone((number: string) => (!/\+/ug.test(number) ? `+${number}` : number).replace(/[^0-9+]/ug, ''))
           $userName?.focus()
         }}
         reference={(el: any) => $phone = el}
