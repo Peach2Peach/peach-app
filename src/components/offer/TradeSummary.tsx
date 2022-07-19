@@ -127,7 +127,7 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData} appLink={appLink.appLink} fallbackUrl={appLink.url}/>
+        ? <PaymentTo paymentData={contract.paymentData} appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
