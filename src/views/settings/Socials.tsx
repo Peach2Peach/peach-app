@@ -24,6 +24,7 @@ export default ({ navigation }: Props): ReactElement => {
   const goToTwitter = () => Linking.openURL('https://twitter.com/peachBTC')
   const goToInstagram = () => Linking.openURL('https://www.instagram.com/peachbitcoin')
   const goToTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
+  const goToDiscord = () => Linking.openURL('https://discord.gg/PjgTnTFb')
 
   return <View style={tw`h-full pb-10 pt-6 px-12`}>
     <Title title={i18n('settings.title')} subtitle={i18n('settings.socials.subtitle')} />
@@ -43,6 +44,12 @@ export default ({ navigation }: Props): ReactElement => {
       <Pressable style={tw`mt-2`} onPress={goToTelegram}>
         <Card style={tw`flex-row items-center justify-center`}>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('telegram')}</Text>
+          <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color as string} />
+        </Card>
+      </Pressable>
+      <Pressable style={tw`mt-2`} onPress={goToDiscord}>
+        <Card style={tw`flex-row items-center justify-center`}>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('discord')}</Text>
           <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color as string} />
         </Card>
       </Pressable>
