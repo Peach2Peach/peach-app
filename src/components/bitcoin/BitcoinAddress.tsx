@@ -57,7 +57,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
     setTimeout(() => setShowAddressCopied(false), 500)
   }
 
-  const copyPaymentRequest = () =>  {
+  const copyPaymentRequest = () => {
     Clipboard.setString(urn.toString())
     setShowPaymentRequestCopied(true)
     setTimeout(() => setShowPaymentRequestCopied(false), 500)
