@@ -14,6 +14,17 @@ import { Fade } from '../animation'
 import Icon from '../Icon'
 import { openInWallet } from '../../utils/bitcoin'
 
+const getAddressParts = (address: string) => {
+  const addressParts = {
+    one: address.slice(0, 4),
+    two: address.slice(4, 8),
+    three: address.slice(8, -5),
+    four: address.slice(-5),
+  }
+  addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
+  return addressParts
+}
+
 type BitcoinAddressProps = ComponentProps & {
   address: string,
   showQR: boolean,
@@ -38,13 +49,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   if (amount) urn.searchParams.set('amount', String(amount))
   if (label) urn.searchParams.set('message', label)
 
-  const addressParts = {
-    one: address.slice(0, 4),
-    two: address.slice(4, 8),
-    three: address.slice(8, -5),
-    four: address.slice(-5),
-  }
-  addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
+  const addressParts = getAddressParts(address)
 
   const copyAddress = () => {
     Clipboard.setString(address)
@@ -52,17 +57,19 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
     setTimeout(() => setShowAddressCopied(false), 500)
   }
 
+  const copyPaymentRequest = () =>  {
+    Clipboard.setString(urn.toString())
+    setShowPaymentRequestCopied(true)
+    setTimeout(() => setShowPaymentRequestCopied(false), 500)
+  }
+
   const openInWalletOrCopyPaymentRequest = async () => {
-    if (!await openInWallet(urn.toString())) {
-      Clipboard.setString(urn.toString())
-      setShowPaymentRequestCopied(true)
-      setTimeout(() => setShowPaymentRequestCopied(false), 500)
-    }
+    if (!await openInWallet(urn.toString())) copyPaymentRequest()
   }
 
   return <View style={[tw`flex-col items-center`, style]}>
     {showQR && address
-      ? <Pressable onPress={openInWalletOrCopyPaymentRequest}>
+      ? <Pressable onPress={openInWalletOrCopyPaymentRequest} onLongPress={copyPaymentRequest}>
         <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
           <Text style={[
             tw`font-baloo text-grey-1 text-sm text-center`,
