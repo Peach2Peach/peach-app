@@ -58,10 +58,15 @@ export const getPaymentMethods = (meansOfPayment: MeansOfPayment): PaymentMethod
 */
 export const getMoPsInCommon = (mopsA: MeansOfPayment, mopsB: MeansOfPayment): MeansOfPayment =>
   intersect<Currency>(Object.keys(mopsA) as Currency[], Object.keys(mopsB) as Currency[])
-    .reduce((mops, c: Currency) => ({
-      ...mops,
-      [c]: intersect(mopsA[c]!, mopsB[c]!)
-    }), {} as MeansOfPayment)
+    .reduce((mops, c: Currency) => {
+      const intersection = intersect(mopsA[c]!, mopsB[c]!)
+      if (intersection.length === 0) return mops
+
+      return {
+        ...mops,
+        [c]: intersection
+      }
+    }, {} as MeansOfPayment)
 
 /**
  * @description Method to get payment method info of given method id
