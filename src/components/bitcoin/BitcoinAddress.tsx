@@ -12,6 +12,7 @@ import i18n from '../../utils/i18n'
 import { splitAt } from '../../utils/string'
 import { Fade } from '../animation'
 import Icon from '../Icon'
+import { openInWallet } from '../../utils/bitcoin'
 
 type BitcoinAddressProps = ComponentProps & {
   address: string,
@@ -30,6 +31,7 @@ type BitcoinAddressProps = ComponentProps & {
  * <BitcoinAddress address={'1BitcoinEaterAddressDontSendf59kuE'} />
  */
 export const BitcoinAddress = ({ address, showQR, amount, label, style }: BitcoinAddressProps): ReactElement => {
+  const [showAddressCopied, setShowAddressCopied] = useState(false)
   const [showPaymentRequestCopied, setShowPaymentRequestCopied] = useState(false)
   const urn = new URL(`bitcoin:${address}`)
 
@@ -44,15 +46,23 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   }
   addressParts.three = splitAt(addressParts.three, Math.floor(addressParts.three.length / 2) - 1).join('\n')
 
-  const copyPaymentRequest = () => {
-    Clipboard.setString(urn.toString())
-    setShowPaymentRequestCopied(true)
-    setTimeout(() => setShowPaymentRequestCopied(false), 500)
+  const copyAddress = () => {
+    Clipboard.setString(address)
+    setShowAddressCopied(true)
+    setTimeout(() => setShowAddressCopied(false), 500)
+  }
+
+  const openInWalletOrCopyPaymentRequest = async () => {
+    if (!await openInWallet(urn.toString())) {
+      Clipboard.setString(urn.toString())
+      setShowPaymentRequestCopied(true)
+      setTimeout(() => setShowPaymentRequestCopied(false), 500)
+    }
   }
 
   return <View style={[tw`flex-col items-center`, style]}>
     {showQR && address
-      ? <Pressable onPress={copyPaymentRequest}>
+      ? <Pressable onPress={openInWalletOrCopyPaymentRequest}>
         <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
           <Text style={[
             tw`font-baloo text-grey-1 text-sm text-center`,
@@ -71,10 +81,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
       </Pressable>
       : null
     }
-    <Pressable onPress={copyPaymentRequest} style={[
-      tw`flex-row items-center`,
-      showQR ? tw`mt-4` : {}
-    ]}>
+    <Pressable onPress={copyAddress} style={[tw`flex-row items-center`, showQR ? tw`mt-4` : {}]}>
       <Text style={tw`text-lg text-grey-2`}>
         {addressParts.one}
         <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.two}</Text>
@@ -82,7 +89,7 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
         <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
       </Text>
       <View>
-        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
+        <Fade show={showAddressCopied} duration={300} delay={0}>
           <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
             {i18n('copied')}
           </Text>
