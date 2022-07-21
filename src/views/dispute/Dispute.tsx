@@ -122,6 +122,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const [result, err] = await raiseDispute({
       contractId,
+      email,
       reason,
       message,
       symmetricKeyEncrypted

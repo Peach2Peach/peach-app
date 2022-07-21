@@ -188,6 +188,7 @@ export const postChat = async ({
 
 type RaiseDisputeProps = {
   contractId: Contract['id'],
+  email?: string,
   reason: DisputeReason,
   message: string,
   symmetricKeyEncrypted: string
@@ -202,6 +203,7 @@ type RaiseDisputeProps = {
  */
 export const raiseDispute = async ({
   contractId,
+  email,
   reason,
   message,
   symmetricKeyEncrypted,
@@ -214,6 +216,7 @@ export const raiseDispute = async ({
     },
     method: 'POST',
     body: JSON.stringify({
+      email,
       reason,
       message,
       symmetricKeyEncrypted,

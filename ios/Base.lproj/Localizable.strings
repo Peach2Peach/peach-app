@@ -24,3 +24,5 @@
 "notification.body.contract.chat" = "You got a chat message";
 "notification.title.contract.disputeRaised" = "Dispute";
 "notification.body.contract.disputeRaised" = "Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.";
+"notification.title.contract.disputeResolved = "Dispute";
+"notification.body.contract.disputeResolved = "A decision about a dispute has been made!";
