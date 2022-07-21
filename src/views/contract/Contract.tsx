@@ -24,8 +24,9 @@ import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { parseContract } from './helpers/parseContract'
+import { DisputeResult } from '../../overlays/DisputeResult'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
+export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
 type Props = {
   route: RouteProp<{ params: {
@@ -131,9 +132,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateOverlay({
           content: <YouGotADispute
             contractId={result.id}
-            message={result.disputeClaim as string}
+            message={result.disputeClaim!}
+            reason={result.disputeReason!}
             navigation={navigation} />,
           showCloseButton: false
+        })
+      }
+      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+        updateOverlay({
+          content: <DisputeResult
+            contractId={result.id}
+            navigation={navigation} />,
         })
       }
     },

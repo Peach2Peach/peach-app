@@ -16,7 +16,6 @@ export const ContractSummary = ({ contract, view, navigation }: ContractSummaryP
     <ChatButton contract={contract} navigation={navigation} style={tw`absolute top-4 right-0 -mr-4 z-10`}/>
     <TradeSummary view={view} contract={contract}
       navigation={navigation}
-      style={isTradeCanceled(contract) ? tw`opacity-50` : {}}
     />
   </View>
 </View>

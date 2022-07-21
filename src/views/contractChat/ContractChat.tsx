@@ -22,6 +22,7 @@ import ChatBox from './components/ChatBox'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
+import { DisputeResult } from '../../overlays/DisputeResult'
 
 const returnTrue = () => true
 
@@ -137,9 +138,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateOverlay({
           content: <YouGotADispute
             contractId={result.id}
-            message={result.disputeClaim as string}
+            message={result.disputeClaim!}
+            reason={result.disputeReason!}
             navigation={navigation} />,
           showCloseButton: false
+        })
+      }
+      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+        updateOverlay({
+          content: <DisputeResult
+            contractId={result.id}
+            navigation={navigation} />,
         })
       }
     },

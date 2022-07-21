@@ -2,6 +2,10 @@
 
 declare type ContractAction = 'none' | 'kycResponse' | 'makePayment' | 'confirmPayment'
 
+declare type DisputeReason = 'wrongPaymentAmount' | 'noPayment' | 'buyerUnresponsive' | 'buyerBehaviour'
+  | 'satsNotReceived' | 'sellerUnresponsive' | 'sellerBehaviour'
+  | 'disputeOther'
+
 declare type Contract = {
   creationDate: Date,
   id: string,
@@ -38,7 +42,9 @@ declare type Contract = {
   disputeDate: Date|null,
   disputeInitiator?: string,
   disputeClaim?: string,
+  disputeReason?: DisputeReason,
   disputeAcknowledgedByCounterParty?: boolean,
+  disputeResultAcknowledged?: boolean,
   disputeWinner?: 'seller' | 'buyer',
 
   canceled: boolean,

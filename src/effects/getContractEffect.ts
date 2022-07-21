@@ -3,7 +3,7 @@ import { error, info } from '../utils/log'
 import { getContract } from '../utils/peachAPI'
 
 type GetContractEffectProps = {
-  contractId: string,
+  contractId?: string,
   onSuccess: (result: GetContractResponse) => void,
   onError: (err: APIError) => void,
 }
