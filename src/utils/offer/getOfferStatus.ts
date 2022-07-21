@@ -42,8 +42,11 @@ export const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) 
   || offer.type === 'ask' && !contract.ratingBuyer
 
 export const refundRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
-  offer.type === 'ask' && contract.disputeWinner === 'seller'
+  offer.type === 'ask' && contract.disputeWinner === 'seller' && !offer.refunded
 
+export const isDisputeActive = (contract: Contract) => contract.disputeActive
+export const requiresDisputeResultAcknowledgement = (contract: Contract) =>
+  contract.disputeWinner && !contract.disputeResultAcknowledged
 export const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
 
 export const isTradeCanceled = (contract: Contract) => contract.canceled
@@ -53,6 +56,7 @@ export const isTradeCanceled = (contract: Contract) => contract.canceled
  * @param offer offer
  * @returns offer status
  */
+// eslint-disable-next-line complexity
 export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (!offer) return { status: 'null', requiredAction: '' }
 
@@ -61,7 +65,11 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (contract) {
     if (isTradeComplete(contract)) return {
       status: 'tradeCompleted',
-      requiredAction: isRatingRequired(offer, contract) ? 'rate' : ''
+      requiredAction: isDisputeActive(contract)
+        ? 'dispute'
+        : requiresDisputeResultAcknowledgement(contract)
+          ? 'acknowledgeDisputeResult'
+          : isRatingRequired(offer, contract) ? 'rate' : ''
     }
 
     if (isTradeCanceled(contract)) return {
