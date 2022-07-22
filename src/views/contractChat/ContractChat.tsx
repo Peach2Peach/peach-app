@@ -52,7 +52,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [page, setPage] = useState(0)
-  const [random, setRandom] = useState(0)
+  const [disableSend, setDisableSend] = useState(false)
+
+  const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -78,7 +80,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(initChat, [route]))
 
   useFocusEffect(useCallback(() => {
-    setRandom(Math.random())
 
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
@@ -89,9 +90,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         date: new Date(message.date),
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
-      setChat(saveChat(contractId, {
+      setAndSaveChat(contractId, {
         messages: [decryptedMessage]
-      }))
+      })
     }
     const unsubscribe = () => {
       ws.off('message', messageHandler)
@@ -188,9 +189,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         decryptedMessages = decryptedMessages.concat(createDisputeSystemMessages(chat.id, contract))
 
-        setChat(saveChat(contractId, {
+        setAndSaveChat(contractId, {
           messages: decryptedMessages
-        }))
+        })
         setLoadingMessages(false)
         setUpdatePending(false)
       },
@@ -209,6 +210,10 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const sendMessage = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
+    setDisableSend(true)
+    setTimeout(() => setDisableSend(false), 300)
+
+    setNewMessage('')
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
@@ -221,9 +226,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
     }))
-    saveChat(chat.id, { lastSeen: new Date() })
-    setNewMessage('')
-    setRandom(Math.random())
+    setAndSaveChat(chat.id, { lastSeen: new Date() }, false)
   }
 
   const loadMore = () => {
@@ -255,7 +258,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
         ]}>
           <View style={tw`h-full flex-shrink`}>
-            <ChatBox chat={chat}
+            <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
               tradingPartner={tradingPartner?.id || ''}
               page={page} loadMore={loadMore} loading={loadingMessages}
               disclaimer={!contract.disputeActive
@@ -271,9 +274,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
             <Input
               onChange={setNewMessage}
-              onSubmit={sendMessage}
-              icon="send"
-              returnKeyType="send"
+              onSubmit={sendMessage} disableSubmit={disableSend}
+              icon="send" returnKeyType="send"
               value={newMessage}
               label={i18n('chat.yourMessage')}
               isValid={true}
@@ -283,12 +285,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         </View>
       </View>
       <Fade show={!keyboardOpen}>
-        <Button
-          secondary={true}
-          wide={false}
-          onPress={goBack}
-          style={tw`mt-2`}
+        <Button style={tw`mt-2`}
           title={i18n('back')}
+          secondary={true} wide={false}
+          onPress={goBack}
         />
       </Fade>
     </View>

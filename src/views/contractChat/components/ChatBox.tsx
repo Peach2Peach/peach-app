@@ -4,7 +4,7 @@ import { Shadow, Text } from '../../../components'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import { getChatNotifications, saveChat } from '../../../utils/chat'
+import { getChat, getChatNotifications, saveChat } from '../../../utils/chat'
 import i18n from '../../../utils/i18n'
 import { innerShadow } from '../../../utils/layout'
 import { getRequiredActionCount } from '../../../utils/offer'
@@ -67,6 +67,7 @@ const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatMessageP
 
 type ChatBoxProps = ComponentProps & {
   chat: Chat,
+  setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void,
   tradingPartner: User['id'],
   page: number,
   loadMore: () => void,
@@ -74,7 +75,16 @@ type ChatBoxProps = ComponentProps & {
   disclaimer?: ReactElement
 }
 
-export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, style }: ChatBoxProps): ReactElement => {
+export default ({
+  chat,
+  setAndSaveChat,
+  tradingPartner,
+  page,
+  loadMore,
+  loading,
+  disclaimer,
+  style
+}: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
@@ -90,12 +100,13 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
   const onContentSizeChange = () => page === 0
     ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50)
     : () => {}
+
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken>}) => {
     const lastItem = viewableItems.pop()?.item as Message
+    const savedChat = getChat(chat.id)
+    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-    if (!lastItem || lastItem.date.getTime() <= chat.lastSeen.getTime()) return
-
-    saveChat(chat.id, { lastSeen: lastItem.date })
+    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount()
     })

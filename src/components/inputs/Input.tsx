@@ -21,6 +21,7 @@ type InputProps = ComponentProps & {
   required?: boolean
   autoCorrect?: boolean
   disabled?: boolean
+  disableSubmit?: boolean
   isValid?: boolean,
   hint?: string
   errorMessage?: string[]
@@ -61,7 +62,7 @@ type InputProps = ComponentProps & {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, complexity
 export const Input = ({
   value,
   label, hint, icon,
@@ -69,6 +70,7 @@ export const Input = ({
   multiline = false,
   autoCorrect = false,
   disabled = false,
+  disableSubmit = false,
   isValid,
   errorMessage = [],
   onChange, onSubmit,
@@ -81,7 +83,7 @@ export const Input = ({
 }: InputProps): ReactElement => {
   const onChangeText = (val: string) => onChange ? onChange(val) : null
   const onSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) =>
-    onSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null
+    onSubmit && !disableSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null
   const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
     onChange ? onChange(e.nativeEvent.text?.trim()) : null
   const onFocusHandler = () => onFocus ? onFocus() : null
@@ -124,8 +126,8 @@ export const Input = ({
           autoCapitalize="none"
         />
         {icon
-          ? <Pressable testID={`${testID}-icon`} onPress={() => onSubmit ? onSubmit(value) : null}
-            style={tw`h-full absolute right-3 flex justify-center`}>
+          ? <Pressable testID={`${testID}-icon`} onPress={() => onSubmit && !disableSubmit ? onSubmit(value) : null}
+            style={[tw`h-full absolute right-3 flex justify-center`, disableSubmit ? tw`opacity-50` : {}]}>
             <Icon id={icon} style={tw`w-5 h-5`} />
           </Pressable>
           : null
