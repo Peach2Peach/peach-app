@@ -25,7 +25,10 @@ export default ({ navigation }: Props): ReactElement => {
 
   const initAccountBackup = () => {
     const previousDate = account.settings.lastBackupDate
-
+    updateSettings({
+      lastBackupDate: (new Date()).getTime(),
+      showBackupReminder: false,
+    })
     backupAccount({
       onSuccess: () => {
         updateOverlay({
@@ -44,9 +47,9 @@ export default ({ navigation }: Props): ReactElement => {
         }, 3000)
       },
       onError: () => {
-        updateSettings({
-          lastBackupDate: previousDate,
-        })
+        // updateSettings({
+        //   lastBackupDate: previousDate,
+        // })
       }
     })
   }
