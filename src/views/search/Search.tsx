@@ -395,10 +395,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           {offer.type === 'bid'
             ? <View style={tw`flex-row items-center justify-center`}>
               <Button
-                title={matchLoading
-                  ? ' '
-                  : i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')
-                }
+                title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 wide={false}
                 disabled={currentMatch?.matched || matchLoading}
                 loading={matchLoading}
