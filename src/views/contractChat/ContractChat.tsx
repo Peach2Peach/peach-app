@@ -52,7 +52,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [page, setPage] = useState(0)
-  const [random, setRandom] = useState(0)
+  const [disableSend, setDisableSend] = useState(false)
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -78,7 +78,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(initChat, [route]))
 
   useFocusEffect(useCallback(() => {
-    setRandom(Math.random())
 
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
@@ -209,6 +208,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const sendMessage = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
+    setDisableSend(true)
+    setNewMessage('')
 
     const encryptedResult = await signAndEncryptSymmetric(
       newMessage,
@@ -221,9 +222,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
     }))
-    saveChat(chat.id, { lastSeen: new Date() })
-    setNewMessage('')
-    setRandom(Math.random())
+    saveChat(chat.id, { lastSeen: new Date() }, false)
+
+    setTimeout(() => setDisableSend(false), 500)
   }
 
   const loadMore = () => {
@@ -271,9 +272,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
             <Input
               onChange={setNewMessage}
-              onSubmit={sendMessage}
-              icon="send"
-              returnKeyType="send"
+              onSubmit={sendMessage} disableSubmit={disableSend}
+              icon="send" returnKeyType="send"
               value={newMessage}
               label={i18n('chat.yourMessage')}
               isValid={true}
@@ -283,12 +283,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         </View>
       </View>
       <Fade show={!keyboardOpen}>
-        <Button
-          secondary={true}
-          wide={false}
-          onPress={goBack}
-          style={tw`mt-2`}
+        <Button style={tw`mt-2`}
           title={i18n('back')}
+          secondary={true} wide={false}
+          onPress={goBack}
         />
       </Fade>
     </View>
