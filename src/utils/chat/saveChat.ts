@@ -21,7 +21,6 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
       ...chat
     }
   }
-
   const savedChat = getChat(id)
 
   if (savedChat.messages.length === chat.messages?.length) {

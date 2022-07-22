@@ -54,6 +54,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
 
+  const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
+
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
@@ -88,9 +90,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         date: new Date(message.date),
         message: await decryptSymmetric(message.message, contract.symmetricKey)
       }
-      setChat(saveChat(contractId, {
+      setAndSaveChat(contractId, {
         messages: [decryptedMessage]
-      }))
+      })
     }
     const unsubscribe = () => {
       ws.off('message', messageHandler)
@@ -187,9 +189,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         decryptedMessages = decryptedMessages.concat(createDisputeSystemMessages(chat.id, contract))
 
-        setChat(saveChat(contractId, {
+        setAndSaveChat(contractId, {
           messages: decryptedMessages
-        }))
+        })
         setLoadingMessages(false)
         setUpdatePending(false)
       },
@@ -209,6 +211,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const sendMessage = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
     setDisableSend(true)
+    setTimeout(() => setDisableSend(false), 300)
+
     setNewMessage('')
 
     const encryptedResult = await signAndEncryptSymmetric(
@@ -222,9 +226,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
     }))
-    saveChat(chat.id, { lastSeen: new Date() }, false)
-
-    setTimeout(() => setDisableSend(false), 500)
+    setAndSaveChat(chat.id, { lastSeen: new Date() }, false)
   }
 
   const loadMore = () => {
@@ -256,7 +258,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
         ]}>
           <View style={tw`h-full flex-shrink`}>
-            <ChatBox chat={chat}
+            <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
               tradingPartner={tradingPartner?.id || ''}
               page={page} loadMore={loadMore} loading={loadingMessages}
               disclaimer={!contract.disputeActive
