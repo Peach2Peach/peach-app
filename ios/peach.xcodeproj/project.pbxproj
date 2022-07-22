@@ -20,12 +20,11 @@
 		671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		671A56352850E9AE0058434C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		671A56362850E9AE0058434C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
-		671A56372850E9AE0058434C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6728B3EB28352D4A00939769 /* Localizable.strings */; };
 		671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */; };
 		671A563A2850E9AE0058434C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 451E1E2DFB33458E9F7C9EA5 /* Lato-Bold.ttf */; };
 		671A563B2850E9AE0058434C /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CC714957D934E2DB340F792 /* Lato-Regular.ttf */; };
 		671A563C2850E9AE0058434C /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14891148335E47A2B5EDB966 /* Lato-Italic.ttf */; };
-		6728B3ED28352D4A00939769 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6728B3EB28352D4A00939769 /* Localizable.strings */; };
+		672B1302288AF7240089147A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 672B1300288AF7240089147A /* Localizable.strings */; };
 		675514872812BA4E00A17B6C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 675F68002850FEE7009208C5 /* GoogleService-Info.plist */; };
 		6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
@@ -67,7 +66,7 @@
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
 		671A56452850E9AE0058434C /* peach mainnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "peach mainnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		671A56462850E9AE0058434C /* peach mainnet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach mainnet-Info.plist"; path = "/Users/czino/Projects/peach-app/ios/peach mainnet-Info.plist"; sourceTree = "<absolute>"; };
-		6728B3EC28352D4A00939769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
+		672B1301288AF7240089147A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		675514812812AA1D00A17B6C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = peach/main.jsbundle; sourceTree = "<group>"; };
 		675514832812B60700A17B6C /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		675514862812BA4E00A17B6C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -201,7 +200,7 @@
 		67E19EB42835220500717E17 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				6728B3EB28352D4A00939769 /* Localizable.strings */,
+				672B1300288AF7240089147A /* Localizable.strings */,
 			);
 			path = Base.lproj;
 			sourceTree = "<group>";
@@ -386,7 +385,6 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				675514872812BA4E00A17B6C /* assets in Resources */,
-				6728B3ED28352D4A00939769 /* Localizable.strings in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
 				F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */,
 				CFBAABEB18364DC2B43C488B /* Lato-Bold.ttf in Resources */,
@@ -399,11 +397,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				672B1302288AF7240089147A /* Localizable.strings in Resources */,
 				671A56332850E9AE0058434C /* B612Mono-Regular.ttf in Resources */,
 				671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */,
 				671A56352850E9AE0058434C /* Images.xcassets in Resources */,
 				671A56362850E9AE0058434C /* assets in Resources */,
-				671A56372850E9AE0058434C /* Localizable.strings in Resources */,
 				675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */,
 				671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */,
 				671A563A2850E9AE0058434C /* Lato-Bold.ttf in Resources */,
@@ -689,10 +687,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6728B3EB28352D4A00939769 /* Localizable.strings */ = {
+		672B1300288AF7240089147A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6728B3EC28352D4A00939769 /* Base */,
+				672B1301288AF7240089147A /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
