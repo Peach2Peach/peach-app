@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { PaymentTemplateProps } from '..'
-import { Text } from '../..'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { openAppLink } from '../../../utils/web'
 
-import { Headline } from '../../text'
+import { Headline, Text, TextLink } from '../../text'
 import { CopyAble, HorizontalLine } from '../../ui'
 
 const possibleFields = [
@@ -15,8 +15,10 @@ const possibleFields = [
   'phone',
 ]
 
-export const GeneralPaymentDetails = ({ paymentData }: PaymentTemplateProps): ReactElement =>
-  <View>
+export const GeneralPaymentDetails = ({ paymentData, appLink, fallbackUrl }: PaymentTemplateProps): ReactElement => {
+  const openApp = () => fallbackUrl ? openAppLink(fallbackUrl, appLink) : {}
+
+  return <View>
     {possibleFields
       .filter(field => paymentData[field])
       .map((field, i) => <View key={field}>
@@ -25,8 +27,12 @@ export const GeneralPaymentDetails = ({ paymentData }: PaymentTemplateProps): Re
         <Headline style={tw`text-grey-2 normal-case mt-4`}>
           {i18n(i > 0 ? 'or' : 'contract.payment.to')}
         </Headline>
-        <Text style={tw`text-center text-grey-2`}>{paymentData[field]}</Text>
+        {appLink || fallbackUrl
+          ? <TextLink style={tw`text-center text-grey-2`} onPress={openApp}>{paymentData[field]}</TextLink>
+          : <Text style={tw`text-center text-grey-2`}>{paymentData[field]}</Text>
+        }
       </View>)}
   </View>
+}
 
 export default GeneralPaymentDetails

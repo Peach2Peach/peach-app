@@ -6,7 +6,7 @@ import padString from './padString'
  * @param [showTime] if true, append time
  * @returns formatted date as hh:mm
  */
-const toTimeFormat = (date: Date) => [
+export const toTimeFormat = (date: Date) => [
   padString({
     string: String(date.getHours()),
     char: '0',

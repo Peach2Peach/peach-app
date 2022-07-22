@@ -63,8 +63,9 @@ export const Match = ({
       ? match.selectedCurrency
       : currencies[0]
   )
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(() =>
-    match.selectedPaymentMethod || match.meansOfPayment[selectedCurrency]![0]
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
+    match.selectedPaymentMethod || mopsInCommon[selectedCurrency]![0]
   )
 
   const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(() =>
@@ -95,10 +96,10 @@ export const Match = ({
     setSelectedCurrency(currency)
     setApplicablePaymentMethods(
       (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
-        .filter(p => match.meansOfPayment[currency]?.indexOf(p) !== -1)
+        .filter(p => mopsInCommon[currency]?.indexOf(p) !== -1)
     )
-    if (match.meansOfPayment[currency]?.indexOf(selectedPaymentMethod) === -1) {
-      setSelectedPaymentMethod((match.meansOfPayment[currency] || [])[0])
+    if (mopsInCommon[currency]?.indexOf(selectedPaymentMethod) === -1) {
+      setSelectedPaymentMethod((mopsInCommon[currency] || [])[0])
     }
     onChange(null, currency, selectedPaymentMethod)
   }

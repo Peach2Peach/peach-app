@@ -45,8 +45,10 @@ const getMatchCurrency = (offer: BuyOffer|SellOffer, match: Match) => {
     : currencies[0]
 }
 
-const getMatchPaymentMethod = (match: Match, currency: Currency) =>
-  match.selectedPaymentMethod || match.meansOfPayment[currency]![0]
+const getMatchPaymentMethod = (offer: BuyOffer|SellOffer, match: Match, currency: Currency) => {
+  const mopsInCommon = getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+  return match.selectedPaymentMethod || mopsInCommon[currency]![0]
+}
 
 /**
  * @description Component to display matches
@@ -60,7 +62,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, sty
 
   const onBeforeSnapToItem = (i: number) => {
     const currency = getMatchCurrency(offer, matches[i])
-    const paymentMethod = getMatchPaymentMethod(matches[i], currency)
+    const paymentMethod = getMatchPaymentMethod(offer, matches[i], currency)
     onChange(i, currency, paymentMethod)
     setCurrentIndex(i)
   }
@@ -68,7 +70,7 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, sty
   useEffect(() => {
     if (!matches.length) return
     const currency = getMatchCurrency(offer, matches[0])
-    const paymentMethod = getMatchPaymentMethod(matches[0], currency)
+    const paymentMethod = getMatchPaymentMethod(offer, matches[0], currency)
     onChange(0, currency, paymentMethod)
   }, [])
 

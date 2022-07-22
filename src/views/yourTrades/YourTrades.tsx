@@ -57,7 +57,6 @@ const sortByStatus = (a: SellOffer|BuyOffer, b: SellOffer|BuyOffer) =>
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
   const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
   const [lastUpdate, setLastUpdate] = useState(new Date().getTime())

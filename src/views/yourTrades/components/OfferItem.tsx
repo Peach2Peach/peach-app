@@ -6,7 +6,6 @@ import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -87,14 +86,17 @@ const ICONMAP: IconMap = {
   contractCreated: 'money',
   tradeCompleted: 'check',
   tradeCanceled: 'cross',
+  dispute: 'dispute',
 }
 
 // eslint-disable-next-line max-lines-per-function, complexity
 export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
-  const icon = ICONMAP[requiredAction] || ICONMAP[status]
   const contract = offer.contractId ? getContract(offer.contractId) : null
+  const icon = contract?.disputeWinner
+    ? 'dispute'
+    : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
   const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
@@ -145,11 +147,13 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
         : <View style={tw`flex-row justify-between items-center p-2`}>
           <View style={tw`flex-row items-center`}>
             <Icon id={offer.type === 'ask' ? 'sell' : 'buy'} style={tw`w-5 h-5 mr-2`}
-              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}/>
-            <SatsFormat
-              style={tw`text-lg`}
-              sats={offer.amount}
-              color={requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`} />
+              color={(requiredAction || contract?.disputeActive
+                ? tw`text-white-1`
+                : offer.type === 'ask' ? tw`text-red` : tw`text-green`).color as string}/>
+            <Text style={[
+              tw`text-lg`,
+              requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`
+            ]}>{i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}</Text>
           </View>
           <Icon id={icon || 'help'} style={tw`w-5 h-5`}
             color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}

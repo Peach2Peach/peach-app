@@ -1,7 +1,11 @@
+import { NETWORK } from '@env'
+import Share from 'react-native-share'
+import { writeFile } from '../file'
 import RNFS from '../fileSystem/RNFS'
-import Share from '../fileSystem/Share'
 import { error, info } from '../log'
+import { getSession } from '../session'
 import { isMobile } from '../system'
+import { account } from './account'
 
 type BackupAccountProps = {
   onSuccess: Function,
@@ -17,13 +21,23 @@ type BackupAccountProps = {
 export const backupAccount = async ({ onSuccess, onError }: BackupAccountProps) => {
   info('Backing up account')
   try {
-    const result = await Share.open({
-      title: 'peach-account.json',
-      url: isMobile() ? 'file://' + RNFS.DocumentDirectoryPath + '/peach-account.json' : '/peach-account.json',
-      subject: 'peach-account.json',
+    const destinationFileName = NETWORK === 'bitcoin' ? 'peach-account.json' : 'peach-account-testnet.json'
+    if (NETWORK === 'testnet') {
+      await writeFile('/' + destinationFileName, JSON.stringify(account), getSession().password)
+    }
+    Share.open({
+      title: destinationFileName,
+      url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
+      subject: destinationFileName,
     })
-    info(result)
-    onSuccess()
+      .then(result => {
+        info('Backed up account', result)
+        onSuccess()
+      })
+      .catch(e => {
+        error(e)
+        onError()
+      })
   } catch (e) {
     error(e)
     onError()

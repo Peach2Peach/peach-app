@@ -1,5 +1,5 @@
+import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
 import { unique } from './utils/array'
-import { getVersion, getBuildNumber, getUniqueId } from 'react-native-device-info'
 
 export const SATSINBTC = 100000000
 
@@ -53,6 +53,12 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   }
 }
 
+export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: string}>> = {
+  paypal: { appLink: 'paypal://', url: 'https://www.paypal.com/mep/dashboard' },
+  revolut: { url: 'https://revolut.com/app' },
+  wise: { url: 'https://wise.com/user/account' },
+}
+
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos
@@ -80,7 +86,7 @@ type Timers = {
 export const TIMERS: Timers = {
   none: 0,
   kycResponse: 1000 * 60 * 60 * 12,
-  makePayment: 1000 * 60 * 60 * 12,
+  sendPayment: 1000 * 60 * 60 * 12,
   confirmPayment: 1000 * 60 * 60 * 12,
 }
 

@@ -188,6 +188,7 @@ export const postChat = async ({
 
 type RaiseDisputeProps = {
   contractId: Contract['id'],
+  email?: string,
   reason: DisputeReason,
   message: string,
   symmetricKeyEncrypted: string
@@ -202,6 +203,7 @@ type RaiseDisputeProps = {
  */
 export const raiseDispute = async ({
   contractId,
+  email,
   reason,
   message,
   symmetricKeyEncrypted,
@@ -214,6 +216,7 @@ export const raiseDispute = async ({
     },
     method: 'POST',
     body: JSON.stringify({
+      email,
       reason,
       message,
       symmetricKeyEncrypted,
@@ -226,6 +229,7 @@ export const raiseDispute = async ({
 
 type AcknowledgeDisputeProps = {
   contractId: Contract['id'],
+  email?: string,
 }
 
 /**
@@ -234,6 +238,7 @@ type AcknowledgeDisputeProps = {
  */
 export const acknowledgeDispute = async ({
   contractId,
+  email,
 }: AcknowledgeDisputeProps): Promise<[APISuccess|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute/acknowledge`, {
     headers: {
@@ -241,7 +246,10 @@ export const acknowledgeDispute = async ({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    method: 'POST'
+    method: 'POST',
+    body: JSON.stringify({
+      email
+    }),
   })
 
   return await parseResponse<APISuccess>(response, 'acknowledgeDispute')

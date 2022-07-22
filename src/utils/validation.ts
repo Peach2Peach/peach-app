@@ -88,7 +88,7 @@ export const getMessages = () => ({
     email: i18n('form.email.error'),
     account: i18n('form.account.error'),
     password: i18n('form.password.error'),
-    bitcoinAddress: i18n('form.address.error'),
+    bitcoinAddress: i18n('form.address.btc.error'),
     tetherAddress: i18n('form.address.error'),
     duplicate: i18n('form.duplicate.error'),
     iban: i18n('form.iban.error'),

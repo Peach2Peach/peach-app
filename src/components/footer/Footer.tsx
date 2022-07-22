@@ -5,7 +5,6 @@ import {
   Pressable,
   View
 } from 'react-native'
-import messaging from '@react-native-firebase/messaging'
 
 import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
@@ -14,14 +13,15 @@ import { footerShadow } from '../../utils/layout'
 import Icon from '../Icon'
 // import BG from './bg.svg'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
-import { Bubble } from '../ui'
-import { getChatNotifications } from '../../utils/chat'
 import AppContext from '../../contexts/app'
-import { saveContract } from '../../utils/contract'
-import { getContract } from '../../utils/peachAPI'
-import { IconType } from '../icons'
 import keyboard from '../../effects/keyboard'
+import { account } from '../../utils/account'
+import { getChatNotifications } from '../../utils/chat'
+import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import { getRequiredActionCount } from '../../utils/offer'
+import { PeachWSContext } from '../../utils/peachAPI/websocket'
+import { IconType } from '../icons'
+import { Bubble } from '../ui'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
@@ -83,9 +83,12 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
  * @example
  * <Footer active={'home'} />
  */
+// eslint-disable-next-line max-lines-per-function
 export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [{ notifications }, updateAppContext] = useContext(AppContext)
+  const ws = useContext(PeachWSContext)
+
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
 
   const navTo = (page: keyof RootStackParamList) => {
     setCurrentPage(page)
@@ -102,24 +105,50 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
   useEffect(keyboard(setKeyboardOpen), [])
 
   useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      if (remoteMessage.data && remoteMessage.data.type === 'contract.chat') {
-        updateAppContext({
-          notifications: notifications + 1
-        })
-        const [contract] = await getContract({ contractId: remoteMessage.data.contractId })
-        if (contract) {
-          saveContract(contract)
-        }
-      }
-    })
-
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount()
     })
+  }, [])
+
+  useEffect(() => {
+    const contractUpdateHandler = async (update: ContractUpdate) => {
+      const contract = getContractFromDevice(update.contractId)
+
+      if (!contract) return
+      saveContract({
+        ...contract,
+        [update.event]: new Date(update.data.date)
+      })
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
+    }
+    const messageHandler = async (message: Message) => {
+      if (!message.message || !message.roomId || message.from === account.publicKey) return
+      const contract = getContractFromDevice(message.roomId.replace('contract-', ''))
+      if (!contract) return
+
+      saveContract({
+        ...contract,
+        messages: contract.messages + 1
+      })
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
+    }
+    const unsubscribe = () => {
+      ws.off('message', contractUpdateHandler)
+      ws.off('message', messageHandler)
+    }
+
+    if (!ws.connected) return unsubscribe
+
+    ws.on('message', contractUpdateHandler)
+    ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [])
+  }, [ws.connected])
+
 
   return !keyboardOpen
     ? <View style={[tw`w-full flex-row items-start`, { height }, style]}>

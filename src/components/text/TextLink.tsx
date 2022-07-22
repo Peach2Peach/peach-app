@@ -1,15 +1,9 @@
 
 import React, { ReactElement } from 'react'
-import { GestureResponderEvent, Pressable, TouchableWithoutFeedback } from 'react-native'
+import { GestureResponderEvent } from 'react-native'
 import { Text } from '.'
 import tw from '../../styles/tailwind'
 
-const hitSlop = {
-  top: 4,
-  left: 4,
-  bottom: 4,
-  right: 4,
-}
 
 type TextLinkProps = ComponentProps & {
   onPress: (e: GestureResponderEvent) => void,

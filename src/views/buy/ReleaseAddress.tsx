@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
@@ -39,6 +39,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     const clipboard = await Clipboard.getString()
     const request = parseBitcoinRequest(clipboard)
     setAddress(request.address || clipboard)
+    Keyboard.dismiss()
   }
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       return
     }
 
+    Keyboard.dismiss()
     setStepValid(true)
 
     updateOffer({
