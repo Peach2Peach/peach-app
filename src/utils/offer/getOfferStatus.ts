@@ -13,8 +13,9 @@ export const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.txIds
 export const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
 
 export const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
+  && (offer.type !== 'ask' || /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status))
 
-export const isEscrowRefunded = (offer: SellOffer) => offer.txId
+export const isEscrowRefunded = (offer: SellOffer) => offer.refunded || offer.released || offer.txId
 
 export const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
   offer.type === 'bid'
