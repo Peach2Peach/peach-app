@@ -1,6 +1,6 @@
 
 
-declare type ContractAction = 'none' | 'kycResponse' | 'makePayment' | 'confirmPayment'
+declare type ContractAction = 'none' | 'kycResponse' | 'sendPayment' | 'confirmPayment'
 
 declare type DisputeReason = 'wrongPaymentAmount' | 'noPayment' | 'buyerUnresponsive' | 'buyerBehaviour'
   | 'satsNotReceived' | 'sellerUnresponsive' | 'sellerBehaviour'

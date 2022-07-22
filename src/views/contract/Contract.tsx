@@ -25,6 +25,7 @@ import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { parseContract } from './helpers/parseContract'
 import { DisputeResult } from '../../overlays/DisputeResult'
+import ContractCTA from './components/ContractCTA'
 
 export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
@@ -224,18 +225,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     content: <Payment />,
     showCloseButton: true, help: true
   })
-  const openConfirmPaymentHelp = () => updateOverlay({
-    content: <ConfirmPayment />,
-    showCloseButton: true, help: true
-  })
 
   return !contract || updatePending
     ? <Loading />
     : <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
-        <Title
-          title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
-        />
+        <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}/>
         <Text style={tw`text-grey-2 text-center -mt-1`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
@@ -244,7 +239,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>
-              {/makePayment/u.test(requiredAction) || requiredAction === 'confirmPayment' && view === 'seller'
+              {/sendPayment/u.test(requiredAction) || requiredAction === 'confirmPayment' && view === 'seller'
                 ? <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
                   <Timer
                     text={i18n(`contract.timer.${requiredAction}.${view}`)}
@@ -252,7 +247,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                     duration={TIMERS[requiredAction]}
                     style={tw`flex-shrink`}
                   />
-                  {view === 'buyer' && requiredAction === 'makePayment'
+                  {view === 'buyer' && requiredAction === 'sendPayment'
                     ? <Pressable onPress={openPaymentHelp} style={tw`flex-row items-center p-1 -mt-0.5`}>
                       <View style={tw`w-6 h-6 -ml-2 flex items-center justify-center`}>
                         <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
@@ -263,43 +258,13 @@ export default ({ route, navigation }: Props): ReactElement => {
                 </View>
                 : null
               }
-              {!(view === 'buyer' && requiredAction === 'makePayment')
-              && !(view === 'seller' && requiredAction === 'confirmPayment')
-                ? <Button
-                  disabled={true}
-                  wide={false}
-                  style={tw`w-52`}
-                  title={i18n(`contract.waitingFor.${view === 'buyer' ? 'seller' : 'buyer'}`)}
-                />
-                : null
-              }
-              {view === 'buyer' && requiredAction === 'makePayment'
-                ? <Button
-                  disabled={loading}
-                  wide={false}
-                  style={tw`w-52`}
-                  onPress={postConfirmPaymentBuyer}
-                  title={i18n('contract.payment.made')}
-                />
-                : null
-              }
-              {view === 'seller' && requiredAction === 'confirmPayment'
-                ? <View style={tw`flex-row items-center justify-center`}>
-                  <Button
-                    disabled={loading}
-                    wide={false}
-                    onPress={postConfirmPaymentSeller}
-                    style={tw`w-52`}
-                    title={i18n('contract.payment.received')}
-                  />
-                  <Pressable onPress={openConfirmPaymentHelp} style={tw`w-0 h-full flex-row items-center`}>
-                    <View style={tw`w-8 h-8 flex items-center justify-center`}>
-                      <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                    </View>
-                  </Pressable>
-                </View>
-                : null
-              }
+              <ContractCTA
+                view={view}
+                requiredAction={requiredAction}
+                loading={loading}
+                postConfirmPaymentBuyer={postConfirmPaymentBuyer}
+                postConfirmPaymentSeller={postConfirmPaymentSeller}
+              />
             </View>
           </View>
           : null
