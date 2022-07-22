@@ -1,4 +1,5 @@
 import { isEmailRequired } from '../../views/dispute/Dispute'
+import { contractIdToHex } from '../contract'
 import i18n from '../i18n'
 
 /**
@@ -47,7 +48,10 @@ export const createDisputeSystemMessages = (roomId: Chat['id'], contract: Contra
         createSystemMessage(
           roomId,
           contract.disputeDate,
-          i18n('chat.systemMessage.provideMoreInformation')
+          [
+            i18n('chat.systemMessage.provideMoreInformation.1'),
+            i18n('chat.systemMessage.provideMoreInformation.2', contractIdToHex(contract.id)),
+          ].join('\n\n')
         )
       ])
     }
