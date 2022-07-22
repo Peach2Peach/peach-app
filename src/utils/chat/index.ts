@@ -1,3 +1,4 @@
+export { createSystemMessage } from './createSystemMessage'
 export { decryptMessage } from './decryptMessage'
 export { getChat } from './getChat'
 export { getChats } from './getChats'

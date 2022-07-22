@@ -2,6 +2,9 @@ import { account, saveAccount } from '../account'
 import { session } from '../session'
 import { getChat } from './getChat'
 
+const uniqueMessages = (m: Message, index: number, self: Message[]) => self.findIndex(s =>
+  s.date.getTime() === m.date.getTime() && s.message === m.message
+) === index
 
 /**
  * @description Method to add contract to contract list
@@ -24,8 +27,12 @@ export const saveChat = (id: string, chat: Partial<Chat>): Chat => {
     ...chat,
     messages: savedChat.messages.concat(chat.messages || [])
       .filter(m => m.date)
+      .map(m => ({
+        ...m,
+        date: new Date(m.date)
+      }))
       .filter(message => message.roomId.indexOf(id) !== -1)
-      .filter((m, index, self) => m.date && self.findIndex(s => s.date.getTime() === m.date.getTime()) === index)
+      .filter(uniqueMessages)
       .sort((a, b) => a.date.getTime() - b.date.getTime())
   }
   if (session.password) saveAccount(account, session.password)

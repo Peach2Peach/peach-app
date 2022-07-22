@@ -9,9 +9,11 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import keyboard from '../../effects/keyboard'
+import { DisputeResult } from '../../overlays/DisputeResult'
 import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
 import { decryptMessage, getChat, saveChat } from '../../utils/chat'
+import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
@@ -137,9 +139,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateOverlay({
           content: <YouGotADispute
             contractId={result.id}
-            message={result.disputeClaim as string}
+            message={result.disputeClaim!}
+            reason={result.disputeReason!}
             navigation={navigation} />,
           showCloseButton: false
+        })
+      }
+      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+        updateOverlay({
+          content: <DisputeResult
+            contractId={result.id}
+            navigation={navigation} />,
         })
       }
     },
@@ -175,6 +185,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         if (decryptedMessages.some(m => m.message === null)) {
           error('Could not decrypt all messages', contract.id)
         }
+
+        decryptedMessages = decryptedMessages.concat(createDisputeSystemMessages(chat.id, contract))
 
         setChat(saveChat(contractId, {
           messages: decryptedMessages
@@ -224,9 +236,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
-      <Fade show={!keyboardOpen} style={tw`mb-16`}>
+      <Fade show={!keyboardOpen} style={tw`mb-8`}>
         <Title
-          title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}
+          title={i18n(contract.disputeActive
+            ? 'dispute.chat'
+            : view === 'buyer' ? 'buy.title' : 'sell.title')}
         />
         <Text style={tw`text-grey-2 text-center -mt-1`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0}

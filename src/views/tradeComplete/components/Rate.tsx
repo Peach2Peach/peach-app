@@ -9,7 +9,9 @@ import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { MessageContext } from '../../../contexts/message'
 import { rateUser } from '../../../utils/peachAPI'
-import { getOffer } from '../../../utils/offer'
+import { getOffer, getRequiredActionCount } from '../../../utils/offer'
+import AppContext from '../../../contexts/app'
+import { getChatNotifications } from '../../../utils/chat'
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'tradeComplete'>
 
@@ -21,8 +23,10 @@ type RateProps = ComponentProps & {
 }
 
 export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps): ReactElement => {
-  const [vote, setVote] = useState('')
   const [, updateMessage] = useContext(MessageContext)
+  const [, updateAppContext] = useContext(AppContext)
+
+  const [vote, setVote] = useState('')
 
   const rate = async () => {
     if (!view) return
@@ -46,6 +50,9 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     saveAndUpdate({
       ...contract,
       [ratedUser]: true
+    })
+    updateAppContext({
+      notifications: getChatNotifications() + getRequiredActionCount()
     })
 
     if (rating.rating === 1) {

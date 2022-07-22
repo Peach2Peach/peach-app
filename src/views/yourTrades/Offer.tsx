@@ -16,6 +16,12 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
+import getContractEffect from '../../effects/getContractEffect'
+import { account } from '../../utils/account'
+import { parseContract } from '../contract/helpers/parseContract'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { DisputeResult } from '../../overlays/DisputeResult'
+import { OverlayContext } from '../../contexts/overlay'
 
 export type OfferScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
@@ -29,11 +35,14 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
+  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const offerId = route.params.offer.id as string
   const offer = getOffer(offerId) as BuyOffer|SellOffer
   const [contract, setContract] = useState(() => offer?.contractId ? getContract(offer.contractId) : null)
+  const [contractId, setContractId] = useState(offer?.contractId)
+
   const offerStatus = getOfferStatus(offer)
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
@@ -88,6 +97,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
         navigation.replace('contract', { contractId: result.contractId })
+      } else if (result.contractId) {
+        setContractId(contractId)
       }
     },
     onError: err => {
@@ -98,6 +109,36 @@ export default ({ route, navigation }: Props): ReactElement => {
       })
     }
   }), [offer]))
+
+  useFocusEffect(useCallback(getContractEffect({
+    contractId,
+    onSuccess: async (result) => {
+
+      if (result.disputeActive
+        && result.disputeInitiator !== account.publicKey
+        && !result.disputeAcknowledgedByCounterParty) {
+        updateOverlay({
+          content: <YouGotADispute
+            contractId={result.id}
+            message={result.disputeClaim!}
+            reason={result.disputeReason!}
+            navigation={navigation} />,
+          showCloseButton: false
+        })
+      }
+      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+        updateOverlay({
+          content: <DisputeResult
+            contractId={result.id}
+            navigation={navigation} />,
+        })
+      }
+    },
+    onError: err => updateMessage({
+      msg: i18n(err.error || 'error.general'),
+      level: 'ERROR',
+    })
+  }), [contractId]))
 
   return <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
     {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status)

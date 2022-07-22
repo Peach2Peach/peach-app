@@ -1,6 +1,7 @@
 import messaging from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import React, { Dispatch, EffectCallback } from 'react'
+import { DisputeResult } from '../overlays/DisputeResult'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
@@ -67,6 +68,14 @@ export default ({
         content: <YouGotADispute
           contractId={remoteMessage.data.contractId}
           message={remoteMessage.data.message}
+          reason={remoteMessage.data.reason as DisputeReason}
+          navigation={navigationRef} />,
+      })
+    }
+    if (type === 'contract.disputeResolved') {
+      return updateOverlay({
+        content: <DisputeResult
+          contractId={remoteMessage.data.contractId}
           navigation={navigationRef} />,
       })
     }

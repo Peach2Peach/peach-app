@@ -3,7 +3,7 @@ import { error, info } from '../utils/log'
 import { getContract } from '../utils/peachAPI'
 
 type GetContractEffectProps = {
-  contractId: string,
+  contractId?: string,
   onSuccess: (result: GetContractResponse) => void,
   onError: (err: APIError) => void,
 }
@@ -30,6 +30,8 @@ export default ({
       if (result.kycResponseDate) result.kycResponseDate = new Date(result.kycResponseDate)
       if (result.paymentMade) result.paymentMade = new Date(result.paymentMade)
       if (result.paymentConfirmed) result.paymentConfirmed = new Date(result.paymentConfirmed)
+      if (result.disputeDate) result.disputeDate = new Date(result.disputeDate)
+      if (result.disputeResolvedDate) result.disputeResolvedDate = new Date(result.disputeResolvedDate)
 
       onSuccess(result)
     } else if (err) {

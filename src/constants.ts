@@ -86,7 +86,7 @@ type Timers = {
 export const TIMERS: Timers = {
   none: 0,
   kycResponse: 1000 * 60 * 60 * 12,
-  makePayment: 1000 * 60 * 60 * 12,
+  sendPayment: 1000 * 60 * 60 * 12,
   confirmPayment: 1000 * 60 * 60 * 12,
 }
 
