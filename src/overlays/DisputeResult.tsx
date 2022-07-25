@@ -64,7 +64,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
 
   return !view || !contract || !offer
     ? <Loading color={tw`text-white-1`.color as string} />
-    : hasWinner
+    : !hasWinner
       ? <NonDispute contract={contract} navigate={goToOffer} />
       : view === 'seller'
         ? isWinner

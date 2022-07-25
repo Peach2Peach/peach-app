@@ -103,22 +103,22 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
+      const c = getContract(result.id)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
       const { symmetricKey, paymentData } = await parseContract({
         ...result,
-        symmetricKey: contract?.symmetricKey,
-        paymentData: contract?.paymentData,
+        symmetricKey: c?.symmetricKey,
+        paymentData: c?.paymentData,
       })
 
-      saveAndUpdate(contract
+      saveAndUpdate(c
         ? {
-          ...contract,
+          ...c,
           ...result,
           symmetricKey,
           paymentData,
-          // canceled: contract.canceled,
         }
         : {
           ...result,
@@ -139,7 +139,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           showCloseButton: false
         })
       }
-      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+
+      if (result.disputeResolvedDate && !contract?.disputeResultAcknowledged) {
         updateOverlay({
           content: <DisputeResult
             contractId={result.id}
