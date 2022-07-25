@@ -65,12 +65,18 @@ export const createDisputeSystemMessages = (roomId: Chat['id'], contract: Contra
         contract.disputeResolvedDate,
         i18n('chat.systemMessage.disputeResolved', initiator, initiatorId)
       ))
+      messages.push(createSystemMessage(
+        roomId,
+        contract.disputeResolvedDate,
+        i18n('chat.systemMessage.noLongerMediated')
+      ))
+    } else {
+      messages.push(createSystemMessage(
+        roomId,
+        contract.disputeResolvedDate,
+        i18n('chat.systemMessage.disputeResolved.nonDispute')
+      ))
     }
-    messages.push(createSystemMessage(
-      roomId,
-      contract.disputeResolvedDate,
-      i18n('chat.systemMessage.noLongerMediated')
-    ))
   }
 
   return messages
