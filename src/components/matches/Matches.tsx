@@ -1,21 +1,19 @@
 
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
-import { Match } from '.'
 import Carousel from 'react-native-snap-carousel'
+import { Match } from '.'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { Navigation } from '../../utils/navigation'
 import { getCurrencies, getMoPsInCommon, getPaymentMethods } from '../../utils/paymentMethod'
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
+import Icon from '../Icon'
 
 type MatchProps = ComponentProps & {
   matches: Match[],
   offer: BuyOffer|SellOffer,
   onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
   toggleMatch: (match: Match) => void,
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 type SliderArrowProps = {

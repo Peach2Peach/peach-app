@@ -4,12 +4,11 @@ import tw from '../styles/tailwind'
 import { Loading } from '../components'
 import i18n from '../utils/i18n'
 
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import getContractEffect from '../effects/getContractEffect'
 import { account } from '../utils/account'
+import { Navigation } from '../utils/navigation'
 import { getOffer } from '../utils/offer'
 import { DisputeLostBuyer } from './disputeResults/DisputeLostBuyer'
 import { DisputeLostSeller } from './disputeResults/DisputeLostSeller'
@@ -17,12 +16,9 @@ import { DisputeWonBuyer } from './disputeResults/DisputeWonBuyer'
 import { DisputeWonSeller } from './disputeResults/DisputeWonSeller'
 import { NonDispute } from './disputeResults/NonDispute'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
-
-
 type DisputeResultProps = {
   contractId: Contract['id'],
-  navigation: NavigationContainerRefWithCurrent<RootStackParamList>|ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) => {

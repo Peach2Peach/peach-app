@@ -1,4 +1,3 @@
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
@@ -8,11 +7,12 @@ import { Button, Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
+import { Navigation } from '../utils/navigation'
 
 type Props = {
   offer: SellOffer,
   days: string,
-  navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
+  navigation: Navigation,
 }
 
 export default ({ offer, days, navigation }: Props): ReactElement => {

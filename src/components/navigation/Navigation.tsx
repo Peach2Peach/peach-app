@@ -1,23 +1,21 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Keyboard, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { Button } from '..'
-import Icon from '../Icon'
+import { OverlayContext } from '../../contexts/overlay'
+import keyboard from '../../effects/keyboard'
+import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { Text } from '../text'
-import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
-import { OverlayContext } from '../../contexts/overlay'
+import { StackNavigation } from '../../utils/navigation'
 import { Fade, Loading } from '../animation'
-import keyboard from '../../effects/keyboard'
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'|'buy'>
+import Icon from '../Icon'
+import { Text } from '../text'
 
 type NavigationProps = {
   screen: string,
   back: () => void,
   next: () => void,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
   stepValid: boolean,
   offer: BuyOffer|SellOffer,
 }

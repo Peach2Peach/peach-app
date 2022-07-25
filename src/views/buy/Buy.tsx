@@ -1,37 +1,35 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../../utils/i18n'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
 
-import { BUCKETS } from '../../constants'
-import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/peachAPI'
-import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { MessageContext } from '../../contexts/message'
-import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { account, getTradingLimit, updateTradingLimit } from '../../utils/account'
-
-const { LinearGradient } = require('react-native-gradients')
-import { whiteGradient } from '../../utils/layout'
-import pgp from '../../init/pgp'
+import { BUCKETS } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
+import { MessageContext } from '../../contexts/message'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import pgp from '../../init/pgp'
+import { account, getTradingLimit, updateTradingLimit } from '../../utils/account'
+import { whiteGradient } from '../../utils/layout'
+import { error } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
+import { saveOffer } from '../../utils/offer'
+import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'buy'>
+const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
   route: RouteProp<{ params: {
     offer?: BuyOffer,
     page?: number,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 export type BuyViewProps = {
@@ -40,7 +38,7 @@ export type BuyViewProps = {
   setStepValid: (isValid: boolean) => void,
   back: () => void,
   next: () => void,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 const getDefaultBuyOffer = (): BuyOffer => ({

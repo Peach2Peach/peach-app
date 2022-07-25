@@ -1,28 +1,25 @@
+import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, View } from 'react-native'
-import tw from '../styles/tailwind'
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Headline, Input, Text } from '../components'
 import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
+import tw from '../styles/tailwind'
 import { contractIdToHex } from '../utils/contract'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log'
+import { Navigation } from '../utils/navigation'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
 import { getMessages, rules } from '../utils/validation'
-import SuccessOverlay from './SuccessOverlay'
 import { isEmailRequired } from '../views/dispute/Dispute'
+import SuccessOverlay from './SuccessOverlay'
 const { useValidation } = require('react-native-form-validator')
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
-
 
 type YouGotADisputeProps = {
   message: string,
   reason: DisputeReason,
   contractId: Contract['id'],
-  navigation: NavigationContainerRefWithCurrent<RootStackParamList>|ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 // eslint-disable-next-line max-lines-per-function
