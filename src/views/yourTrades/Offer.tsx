@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import messaging from '@react-native-firebase/messaging'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
@@ -21,6 +22,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
+import MatchAccepted from '../../overlays/MatchAccepted'
 
 type Props = {
   route: RouteProp<{ params: {
@@ -39,6 +41,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const offer = getOffer(offerId) as BuyOffer|SellOffer
   const [contract, setContract] = useState(() => offer?.contractId ? getContract(offer.contractId) : null)
   const [contractId, setContractId] = useState(offer?.contractId)
+  const [pnReceived, setPNReceived] = useState(0)
 
   const offerStatus = getOfferStatus(offer)
   const finishedDate = contract?.paymentConfirmed
@@ -87,6 +90,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
+      error(result.matches.length)
       if (result.online && result.matches.length && !result.contractId) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
         navigation.replace('search', { offer })
@@ -105,7 +109,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offer]))
+  }), [pnReceived, offer]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
@@ -136,6 +140,23 @@ export default ({ route, navigation }: Props): ReactElement => {
       level: 'ERROR',
     })
   }), [contractId]))
+
+  useFocusEffect(useCallback(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
+      error(remoteMessage.data.type, remoteMessage.data.offerId, offerId)
+      if (!remoteMessage.data) return
+
+      if (remoteMessage.data.type === 'offer.matchSeller') {
+        setPNReceived(Math.random())
+      } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
+        updateOverlay({
+          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+        })
+      }
+    })
+
+    return unsubscribe
+  }, []))
 
   return <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
     {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status)

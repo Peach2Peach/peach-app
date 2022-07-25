@@ -6,7 +6,6 @@ import {
   View
 } from 'react-native'
 
-import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
@@ -25,30 +24,29 @@ import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
 import Match from '../../overlays/info/Match'
+import MatchAccepted from '../../overlays/MatchAccepted'
 import { account, addPaymentData } from '../../utils/account'
 import { unique } from '../../utils/array'
 import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
-
 const updaterPNs = [
   'offer.matchSeller',
   'contract.contractCreated',
 ]
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
 type Props = {
   route: RouteProp<{ params: {
     offer: BuyOffer,
     hasMatches?: boolean,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 // eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
@@ -330,8 +328,16 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(useCallback(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      if (remoteMessage.data && updaterPNs.indexOf(remoteMessage.data.type)) {
+      if (!remoteMessage.data) return
+
+      if (updaterPNs.indexOf(remoteMessage.data.type)) {
         setPNReceived(Math.random())
+      }
+
+      if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
+        updateOverlay({
+          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+        })
       }
     })
 

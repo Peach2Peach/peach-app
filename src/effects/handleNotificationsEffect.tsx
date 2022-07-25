@@ -52,7 +52,7 @@ export default ({
       })
     }
     if (type === 'contract.contractCreated'
-      && !/contract/u.test(getCurrentPage() as string)) {
+      && !/contract|search/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
       })
