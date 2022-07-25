@@ -144,7 +144,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           showCloseButton: false
         })
       }
-      if (result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
+      if (!result.disputeActive && result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
         updateOverlay({
           content: <DisputeResult
             contractId={result.id}
