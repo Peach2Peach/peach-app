@@ -90,7 +90,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...result,
       })
 
-      error(result.matches.length)
       if (result.online && result.matches.length && !result.contractId) {
         info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
         navigation.replace('search', { offer })
