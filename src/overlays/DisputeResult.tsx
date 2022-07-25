@@ -53,20 +53,20 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
     }
   }), [contractId])
 
-  const goToOffer = () => {
-    navigation.navigate('offer', { offer: offer! })
+  const goToContract = () => {
+    navigation.navigate('contract', { contractId })
     updateOverlay({ content: null, showCloseButton: true })
   }
 
   return !view || !contract || !offer
     ? <Loading color={tw`text-white-1`.color as string} />
     : !hasWinner
-      ? <NonDispute contract={contract} navigate={goToOffer} />
+      ? <NonDispute contract={contract} navigate={goToContract} />
       : view === 'seller'
         ? isWinner
-          ? <DisputeWonSeller contract={contract} offer={offer as SellOffer} navigate={goToOffer} />
-          : <DisputeLostSeller contract={contract} navigate={goToOffer} />
+          ? <DisputeWonSeller contract={contract} offer={offer as SellOffer} navigate={goToContract} />
+          : <DisputeLostSeller contract={contract} navigate={goToContract} />
         : isWinner
-          ? <DisputeWonBuyer contract={contract} navigate={goToOffer} />
-          : <DisputeLostBuyer contract={contract} navigate={goToOffer} />
+          ? <DisputeWonBuyer contract={contract} navigate={goToContract} />
+          : <DisputeLostBuyer contract={contract} navigate={goToContract} />
 }
