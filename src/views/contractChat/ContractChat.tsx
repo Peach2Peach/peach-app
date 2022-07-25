@@ -1,4 +1,3 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -17,6 +16,7 @@ import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessag
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
+import { Navigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { parseContract } from '../contract/helpers/parseContract'
@@ -27,13 +27,11 @@ import getMessagesEffect from './effects/getMessagesEffect'
 
 const returnTrue = () => true
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
-
 type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 // eslint-disable-next-line max-lines-per-function, max-statements

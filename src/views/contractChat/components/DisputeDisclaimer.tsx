@@ -1,13 +1,12 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Text, TextLink } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { Navigation } from '../../../utils/navigation'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
 type DisputeDisclaimerProps = ComponentProps & {
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
   contract: Contract,
 }
 

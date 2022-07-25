@@ -2,16 +2,13 @@ import React, { ReactElement, useContext } from 'react'
 import { Image, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { Button, Text } from '../../components'
+import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { StackNavigationProp } from '@react-navigation/stack'
-
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
+import { StackNavigation } from '../../utils/navigation'
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation;
 }
 
 export default ({ navigation }: Props): ReactElement => {

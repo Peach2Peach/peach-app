@@ -1,20 +1,18 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 
-import { account } from '../../utils/account'
-import { StackNavigationProp } from '@react-navigation/stack'
-import i18n from '../../utils/i18n'
+import { View } from 'react-native'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
+import tw from '../../styles/tailwind'
+import { account } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { StackNavigation } from '../../utils/navigation'
 import AutoScan from './AutoScan'
 import Manual from './Manual'
 import Restored from './Restored'
-import { View } from 'react-native'
-import tw from '../../styles/tailwind'
 
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation;
 }
 
 // TODO

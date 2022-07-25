@@ -1,5 +1,9 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import { getOffer } from './offer'
+
+export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
+export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
 
 type PushNotificationData = {
   offerId?: string,
@@ -10,7 +14,7 @@ type PushNotificationData = {
 
 export const handlePushNotification = (
   data: PushNotificationData,
-  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>
+  navigationRef: Navigation
 ) => {
   const { offerId, contractId, isChat } = data
 

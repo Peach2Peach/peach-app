@@ -1,21 +1,16 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 import { Button, Title } from '../../components'
-import i18n from '../../utils/i18n'
-import ReturnAddress from '../sell/components/ReturnAddress'
 import { account, updateSettings } from '../../utils/account'
-import { isxpub } from '../../utils/bitcoin'
-import { NETWORK } from '@env'
-
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
+import i18n from '../../utils/i18n'
+import { StackNavigation } from '../../utils/navigation'
+import ReturnAddress from '../sell/components/ReturnAddress'
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation;
 }
 
 export default ({ navigation }: Props): ReactElement => {

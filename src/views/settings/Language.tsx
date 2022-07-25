@@ -2,17 +2,14 @@ import React, { ReactElement, useContext, useReducer } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
 import { Button, Title } from '../../components'
+import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
+import { StackNavigation } from '../../utils/navigation'
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {

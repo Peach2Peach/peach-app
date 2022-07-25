@@ -3,13 +3,12 @@ import { View } from 'react-native'
 import { TradeSummary } from '../../../components'
 import { ChatButton } from '../../../components/chat/ChatButton'
 import tw from '../../../styles/tailwind'
-import { isTradeCanceled } from '../../../utils/offer/getOfferStatus'
-import { OfferScreenNavigationProp } from '../Offer'
+import { StackNavigation } from '../../../utils/navigation'
 
 type ContractSummaryProps = {
   contract: Contract,
   view: 'buyer' | 'seller' | '',
-  navigation: OfferScreenNavigationProp,
+  navigation: StackNavigation,
 }
 export const ContractSummary = ({ contract, view, navigation }: ContractSummaryProps): ReactElement => <View>
   <View>

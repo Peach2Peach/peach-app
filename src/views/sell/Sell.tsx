@@ -13,36 +13,34 @@ import {
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 import i18n from '../../utils/i18n'
+import Escrow from './Escrow'
 import Main from './Main'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
-import Escrow from './Escrow'
 
-import { BUCKETS } from '../../constants'
-import { saveOffer } from '../../utils/offer'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { error } from '../../utils/log'
 import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
+import { BUCKETS } from '../../constants'
+import BitcoinContext from '../../contexts/bitcoin'
+import { MessageContext } from '../../contexts/message'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { account, getTradingLimit } from '../../utils/account'
-import { MessageContext } from '../../contexts/message'
-
-const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
-import BitcoinContext from '../../contexts/bitcoin'
+import { error } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
+import { saveOffer } from '../../utils/offer'
 import { thousands } from '../../utils/string'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'sell'>
+const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
   route: RouteProp<{ params: {
     offer?: SellOffer,
     page?: number,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 export type SellViewProps = {
@@ -51,7 +49,7 @@ export type SellViewProps = {
   setStepValid: Dispatch<SetStateAction<boolean>>,
   back: () => void,
   next: () => void,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 const getDefaultSellOffer = (): SellOffer => ({
