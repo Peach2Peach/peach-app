@@ -16,7 +16,7 @@ import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessag
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { Navigation } from '../../utils/navigation'
+import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { parseContract } from '../contract/helpers/parseContract'
@@ -31,7 +31,7 @@ type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: Navigation,
+  navigation: StackNavigation,
 }
 
 // eslint-disable-next-line max-lines-per-function, max-statements

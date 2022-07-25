@@ -15,7 +15,7 @@ import { account } from '../../utils/account'
 import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { Navigation } from '../../utils/navigation'
+import { StackNavigation } from '../../utils/navigation'
 import { getOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
@@ -30,7 +30,7 @@ type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: Navigation,
+  navigation: StackNavigation,
 }
 
 // eslint-disable-next-line max-lines-per-function

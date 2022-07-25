@@ -15,7 +15,7 @@ import { account, getAccount } from '../utils/account'
 import { getChatNotifications } from '../utils/chat'
 import i18n from '../utils/i18n'
 import { mildShadow } from '../utils/layout'
-import { StackNavigation } from '../utils/navigation'
+import { Navigation } from '../utils/navigation'
 import { getRequiredActionCount } from '../utils/offer'
 import { marketPrices } from '../utils/peachAPI/public/market'
 import { thousands } from '../utils/string'
@@ -24,7 +24,7 @@ import { Fade } from './animation'
 let goHomeTimeout: NodeJS.Timer
 
 type HeaderProps = ComponentProps & {
-  navigation: StackNavigation,
+  navigation: Navigation,
 }
 
 /**

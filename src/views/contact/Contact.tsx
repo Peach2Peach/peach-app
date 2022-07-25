@@ -7,10 +7,10 @@ import { Button, PeachScrollView, Shadow, Text, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { innerShadow } from '../../utils/layout'
-import { Navigation } from '../../utils/navigation'
+import { StackNavigation } from '../../utils/navigation'
 
 type Props = {
-  navigation: Navigation
+  navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {

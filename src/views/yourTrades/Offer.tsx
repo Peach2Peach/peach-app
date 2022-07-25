@@ -143,7 +143,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(useCallback(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      error(remoteMessage.data.type, remoteMessage.data.offerId, offerId)
       if (!remoteMessage.data) return
 
       if (remoteMessage.data.type === 'offer.matchSeller') {
