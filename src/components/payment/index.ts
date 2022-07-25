@@ -9,6 +9,7 @@ export type PaymentTemplateProps = {
   paymentData: PaymentData,
   appLink?: string,
   fallbackUrl?: string,
+  userLink?: string,
 }
 
 export type PaymentDetailTemplates = {

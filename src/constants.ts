@@ -53,9 +53,16 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   }
 }
 
-export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: string}>> = {
-  paypal: { appLink: 'paypal://', url: 'https://www.paypal.com/mep/dashboard' },
-  revolut: { url: 'https://revolut.com/app' },
+export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: string, userLink?: string}>> = {
+  paypal: {
+    appLink: 'paypal://',
+    url: 'https://paypal.com/myaccount/transactions',
+    userLink: 'https://paypal.com/paypalme/',
+  },
+  revolut: {
+    url: 'https://revolut.com/app',
+    userLink: 'https://revolut.me/',
+  },
   wise: { url: 'https://wise.com/user/account' },
 }
 
