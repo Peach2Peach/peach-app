@@ -22,12 +22,12 @@ import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../icons'
 import { Bubble } from '../ui'
-import { StackNavigation } from '../../utils/navigation'
+import { Navigation } from '../../utils/navigation'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList,
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>,
-  navigation: StackNavigation,
+  navigation: Navigation,
 }
 type FooterItemProps = ComponentProps & {
   id: IconType,
