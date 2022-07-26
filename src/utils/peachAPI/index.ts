@@ -68,6 +68,7 @@ export {
   getMatches
 } from './private/offer'
 export {
+  cancelContract,
   getContract,
   getContracts,
   confirmPayment,

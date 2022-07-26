@@ -135,6 +135,8 @@
   "contract.cancel.seller.text.2": "If the Buyer agrees to cancel this trade, we'll refund you the escrow.",
   "contract.cancel.buyer.title": "Are you sure you want to cancel this trade?",
   "contract.cancel.buyer.text.1": "Canceling a trade will negatively affect your reputation score.",
+  "contract.cancel.confirm.ok": "Do it",
+  "contract.cancel.confirm.back": "Oops, never mind",
   "contract.cancel.pending": "Pending cancelation",
   "contract.cancel.waiting": "Waiting for buyer to cancel the trade...",
   "contract.cancel.seller.confirmed.title": "Trade canceled",

@@ -40,12 +40,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [updatePending, setUpdatePending] = useState(true)
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
-  const [view, setView] = useState<'seller'|'buyer'|''>('')
-  const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
+  const [updatePending, setUpdatePending] = useState(!contract)
+  const [view, setView] = useState<'seller'|'buyer'|''>(contract
+    ? account.publicKey === contract.seller.id ? 'seller' : 'buyer'
+    : '')
+  const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
 
   const saveAndUpdate = (contractData: Contract) => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -56,11 +58,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const initContract = () => {
     if (contract?.id !== route.params.contractId) {
+      const c = getContract(route.params.contractId)
       setContractId(() => route.params.contractId)
-      setUpdatePending(true)
-      setView('')
-      setRequiredAction('none')
-      setContract(getContract(route.params.contractId))
+      setUpdatePending(!c)
+      setView(c ? account.publicKey === c.seller.id ? 'seller' : 'buyer' : '')
+      setRequiredAction(c ? getRequiredAction(c) : 'none')
+      setContract(c)
     }
   }
 
@@ -164,10 +167,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
 
-    (async () => {
-      setRequiredAction(getRequiredAction(contract))
-      setUpdatePending(false)
-    })()
+    setRequiredAction(getRequiredAction(contract))
+    setUpdatePending(false)
   }, [contract])
 
   const postConfirmPaymentBuyer = async () => {
