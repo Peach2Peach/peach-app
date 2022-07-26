@@ -4,8 +4,8 @@ import { Dimensions, Pressable, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import { Match } from '.'
 import tw from '../../styles/tailwind'
+import { getMatchCurrency, getMatchPaymentMethod } from '../../utils/match'
 import { Navigation } from '../../utils/navigation'
-import { getCurrencies, getMoPsInCommon, getPaymentMethods } from '../../utils/paymentMethod'
 import Icon from '../Icon'
 
 type MatchProps = ComponentProps & {
@@ -33,20 +33,6 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
   <Pressable onPress={(e) => onPress(e)} style={tw`absolute right-2 z-10`}>
     <Icon id="sliderNext" style={tw`w-4 h-4`}/>
   </Pressable>
-
-const getMatchCurrency = (offer: BuyOffer|SellOffer, match: Match) => {
-  const mopsInCommon = getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
-  const paymentMethodsInCommon = getPaymentMethods(mopsInCommon)
-  const currencies = getCurrencies(paymentMethodsInCommon.length ? mopsInCommon : match.meansOfPayment)
-  return match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1
-    ? match.selectedCurrency
-    : currencies[0]
-}
-
-const getMatchPaymentMethod = (offer: BuyOffer|SellOffer, match: Match, currency: Currency) => {
-  const mopsInCommon = getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
-  return match.selectedPaymentMethod || mopsInCommon[currency]![0]
-}
 
 /**
  * @description Component to display matches
