@@ -56,7 +56,7 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
 export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: string, userLink?: string}>> = {
   paypal: {
     appLink: 'paypal://',
-    url: 'https://paypal.com/myaccount/transactions',
+    url: 'https://paypal.com/open_web',
     userLink: 'https://paypal.com/paypalme/',
   },
   revolut: {
