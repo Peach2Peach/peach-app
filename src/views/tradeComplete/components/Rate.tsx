@@ -1,24 +1,22 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Button, Card, Headline, Text } from '../../../components'
+import { Button, Card, Text } from '../../../components'
 import Icon from '../../../components/Icon'
+import AppContext from '../../../contexts/app'
+import { MessageContext } from '../../../contexts/message'
 import tw from '../../../styles/tailwind'
+import { getChatNotifications } from '../../../utils/chat'
 import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { MessageContext } from '../../../contexts/message'
-import { rateUser } from '../../../utils/peachAPI'
+import { StackNavigation } from '../../../utils/navigation'
 import { getOffer, getRequiredActionCount } from '../../../utils/offer'
-import AppContext from '../../../contexts/app'
-import { getChatNotifications } from '../../../utils/chat'
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'tradeComplete'>
+import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
   contract: Contract,
   view: 'seller' | 'buyer' | ''
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
   saveAndUpdate: (contract: Contract) => void
 }
 

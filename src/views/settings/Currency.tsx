@@ -1,21 +1,18 @@
-import React, { ReactElement, useContext, useReducer, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
 import { Button, SelectorBig, Title } from '../../components'
-import i18n from '../../utils/i18n'
 import { CURRENCIES } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
+import LanguageContext from '../../contexts/language'
 import { updateSettings } from '../../utils/account'
-
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
+import i18n from '../../utils/i18n'
+import { StackNavigation } from '../../utils/navigation'
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation;
 }
 
 export default ({ navigation }: Props): ReactElement => {

@@ -7,12 +7,11 @@ import { Button, Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackNavigation } from '../utils/navigation'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'report'>
 
 type Props = {
-  navigation: ProfileScreenNavigationProp
+  navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {

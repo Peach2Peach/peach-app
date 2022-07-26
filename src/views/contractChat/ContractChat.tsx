@@ -1,4 +1,3 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -17,6 +16,7 @@ import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessag
 import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { parseContract } from '../contract/helpers/parseContract'
@@ -27,13 +27,11 @@ import getMessagesEffect from './effects/getMessagesEffect'
 
 const returnTrue = () => true
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
-
 type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 // eslint-disable-next-line max-lines-per-function, max-statements
@@ -109,23 +107,23 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: async (result) => {
       info('Got contract', result.id)
+      const c = getContract(result.id)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
       const { symmetricKey, paymentData } = await parseContract({
         ...result,
-        symmetricKey: contract?.symmetricKey,
-        paymentData: contract?.paymentData,
+        symmetricKey: c?.symmetricKey,
+        paymentData: c?.paymentData,
       })
 
-      saveAndUpdate(contract
+      saveAndUpdate(c
         ? {
-          ...contract,
+          ...c,
           ...result,
           symmetricKey,
           paymentData,
-          // canceled: contract.canceled,
         }
         : {
           ...result,
@@ -146,7 +144,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           showCloseButton: false
         })
       }
-      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+      if (!result.disputeActive && result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
         updateOverlay({
           content: <DisputeResult
             contractId={result.id}

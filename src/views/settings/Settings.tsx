@@ -7,22 +7,20 @@ import {
 } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
+import { useFocusEffect } from '@react-navigation/native'
 import { Card, Headline, Icon, PeachScrollView, Text, Title } from '../../components'
 import { APPVERSION, BUILDNUMBER } from '../../constants'
-import i18n from '../../utils/i18n'
-import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
-import { useFocusEffect } from '@react-navigation/native'
-import { account } from '../../utils/account'
+import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
 import { DeleteAccount } from '../../overlays/DeleteAccount'
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'settings'>
+import { account } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { StackNavigation } from '../../utils/navigation'
+import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 // eslint-disable-next-line max-lines-per-function

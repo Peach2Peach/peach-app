@@ -8,11 +8,11 @@ import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
 import { Text } from '../text'
 import { Bubble } from '../ui'
 
-export type NavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
+export type Navigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
 type ChatButtonProps = ComponentProps & {
   contract: Contract,
-  navigation: NavigationProp,
+  navigation: Navigation,
 }
 export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): ReactElement => {
   const notifications = getContractChatNotification(contract)

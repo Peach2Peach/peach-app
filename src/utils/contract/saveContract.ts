@@ -15,7 +15,13 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
       if (c.id !== contract.id) return c
       return {
         ...c,
-        ...contract
+        ...contract,
+        disputeResultAcknowledged: contract.disputeActive
+          ? false
+          : contract.disputeResultAcknowledged || c.disputeResultAcknowledged,
+        disputeAcknowledgedByCounterParty: contract.disputeActive
+          ? false
+          : contract.disputeAcknowledgedByCounterParty || c.disputeAcknowledgedByCounterParty,
       }
     })
   } else {

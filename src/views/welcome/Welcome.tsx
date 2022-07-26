@@ -5,24 +5,22 @@ import {
   Pressable,
   View
 } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import tw from '../../styles/tailwind'
 
+import Carousel from 'react-native-snap-carousel'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
-import WelcomeToPeach from './WelcomeToPeach'
-import Swipe from './Swipe'
-import YouOwnYourData from './YouOwnYourData'
-import PeachOfMind from './PeachOfMind'
+import { StackNavigation } from '../../utils/navigation'
 import LetsGetStarted from './LetsGetStarted'
-import Carousel from 'react-native-snap-carousel'
+import PeachOfMind from './PeachOfMind'
+import Swipe from './Swipe'
+import WelcomeToPeach from './WelcomeToPeach'
+import YouOwnYourData from './YouOwnYourData'
 
 const onStartShouldSetResponder = () => true
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'welcome'>
-
 type ScreenProps = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 const screens = [
