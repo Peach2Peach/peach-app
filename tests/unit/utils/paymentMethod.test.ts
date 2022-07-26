@@ -22,6 +22,13 @@ const mopsD: MeansOfPayment = {
   'EUR': ['paypal'],
   'CHF': ['paypal'],
 }
+const mopsE: MeansOfPayment = {
+  'EUR': ['wise', 'sepa']
+}
+const mopsF: MeansOfPayment = {
+  'CHF': ['sepa', 'wise'],
+  'EUR': ['sepa'], 'GBP': ['sepa']
+}
 
 describe('getMoPsInCommon', () => {
   it('finds payment methods that both offers have in common', () => {
@@ -42,6 +49,9 @@ describe('getMoPsInCommon', () => {
     })
     deepStrictEqual(getMoPsInCommon(mopsC, mopsD), {
       'EUR': ['paypal'],
+    })
+    deepStrictEqual(getMoPsInCommon(mopsE, mopsF), {
+      'EUR': ['sepa'],
     })
   })
 })
