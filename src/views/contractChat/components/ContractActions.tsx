@@ -1,11 +1,10 @@
-
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useState } from 'react'
 import { GestureResponderEvent, Pressable, View } from 'react-native'
-import { Icon, Shadow, } from '../../../components'
+import { Icon, Shadow } from '../../../components'
 import { IconType } from '../../../components/icons'
 import tw from '../../../styles/tailwind'
 import { mildShadowOrange } from '../../../utils/layout'
+import { Navigation } from '../../../utils/navigation'
 
 type IconButtonProps = ComponentProps & {
   icon: IconType,
@@ -30,13 +29,10 @@ const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => 
   </Shadow>
 }
 
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contractChat'>
-
 type ContractActionsProps = ComponentProps & {
   contract: Contract,
   view: 'buyer' | 'seller' | '',
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 export const ContractActions = ({ contract, view, navigation, style }: ContractActionsProps): ReactElement => {

@@ -1,39 +1,36 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
+import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import ConfirmPayment from '../../overlays/info/ConfirmPayment'
+import { DisputeResult } from '../../overlays/DisputeResult'
 import Payment from '../../overlays/info/Payment'
 import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
 import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
 import { getOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
+import ContractCTA from './components/ContractCTA'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { parseContract } from './helpers/parseContract'
-import { DisputeResult } from '../../overlays/DisputeResult'
-import ContractCTA from './components/ContractCTA'
-
-export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contract'>
 
 type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -103,22 +100,22 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
+      const c = getContract(result.id)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
       const { symmetricKey, paymentData } = await parseContract({
         ...result,
-        symmetricKey: contract?.symmetricKey,
-        paymentData: contract?.paymentData,
+        symmetricKey: c?.symmetricKey,
+        paymentData: c?.paymentData,
       })
 
-      saveAndUpdate(contract
+      saveAndUpdate(c
         ? {
-          ...contract,
+          ...c,
           ...result,
           symmetricKey,
           paymentData,
-          // canceled: contract.canceled,
         }
         : {
           ...result,
@@ -139,7 +136,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           showCloseButton: false
         })
       }
-      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
+
+      if (!result.disputeActive && result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
         updateOverlay({
           content: <DisputeResult
             contractId={result.id}

@@ -5,33 +5,31 @@ import {
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
-import i18n from '../../utils/i18n'
-import { getContract } from '../../utils/contract'
-import { account } from '../../utils/account'
+import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import WhatIsADispute from '../../overlays/WhatIsADispute'
+import { account } from '../../utils/account'
+import { getContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
 
-import { getMessages, rules } from '../../utils/validation'
-import { MessageContext } from '../../contexts/message'
-import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
-import { raiseDispute } from '../../utils/peachAPI'
-import { error } from '../../utils/log'
-import { signAndEncrypt } from '../../utils/pgp'
 import { PEACHPGPPUBLICKEY } from '../../constants'
+import { MessageContext } from '../../contexts/message'
 import keyboard from '../../effects/keyboard'
+import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
+import { error } from '../../utils/log'
+import { Navigation } from '../../utils/navigation'
+import { raiseDispute } from '../../utils/peachAPI'
+import { signAndEncrypt } from '../../utils/pgp'
+import { getMessages, rules } from '../../utils/validation'
 const { useValidation } = require('react-native-form-validator')
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'dispute'>
 
 type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 const disputeReasonsSeller: DisputeReason[] = [

@@ -5,12 +5,12 @@ import { OverlayContext } from '../../../contexts/overlay'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { OfferScreenNavigationProp } from '../Offer'
+import { StackNavigation } from '../../../utils/navigation'
 
 type OfferSummaryProps = {
   offer: BuyOffer|SellOffer,
   status: OfferStatus['status'],
-  navigation: OfferScreenNavigationProp,
+  navigation: StackNavigation,
 }
 export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)

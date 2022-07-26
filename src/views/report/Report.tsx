@@ -2,29 +2,26 @@ import React, { ReactElement, useContext, useEffect, useRef, useState } from 're
 import { TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
-import { Button, Fade, Input, Title } from '../../components'
-import i18n from '../../utils/i18n'
-import { getMessages, rules } from '../../utils/validation'
-import { sendReport } from '../../utils/peachAPI'
 import { RouteProp } from '@react-navigation/native'
+import { Button, Fade, Input, Title } from '../../components'
+import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
-import { error } from '../../utils/log'
 import { OverlayContext } from '../../contexts/overlay'
-import ReportSuccess from '../../overlays/ReportSuccess'
 import keyboard from '../../effects/keyboard'
+import ReportSuccess from '../../overlays/ReportSuccess'
+import i18n from '../../utils/i18n'
+import { error } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
+import { sendReport } from '../../utils/peachAPI'
+import { getMessages, rules } from '../../utils/validation'
 const { useValidation } = require('react-native-form-validator')
-
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'report'>
 
 type Props = {
   route: RouteProp<{ params: {
     reason: ContactReason,
   } }>,
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 // eslint-disable-next-line max-lines-per-function

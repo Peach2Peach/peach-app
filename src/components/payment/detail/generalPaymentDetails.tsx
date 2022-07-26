@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { PaymentTemplateProps } from '..'
+import { APPLINKS } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { openAppLink } from '../../../utils/web'
@@ -15,8 +16,14 @@ const possibleFields = [
   'phone',
 ]
 
-export const GeneralPaymentDetails = ({ paymentData, appLink, fallbackUrl }: PaymentTemplateProps): ReactElement => {
+export const GeneralPaymentDetails = ({
+  paymentData,
+  appLink,
+  fallbackUrl,
+  userLink
+}: PaymentTemplateProps): ReactElement => {
   const openApp = () => fallbackUrl ? openAppLink(fallbackUrl, appLink) : {}
+  const openUserLink = async () => openAppLink(`${APPLINKS.paypal!.userLink}${paymentData.userName.replace('@', '')}`)
 
   return <View>
     {possibleFields
@@ -27,9 +34,11 @@ export const GeneralPaymentDetails = ({ paymentData, appLink, fallbackUrl }: Pay
         <Headline style={tw`text-grey-2 normal-case mt-4`}>
           {i18n(i > 0 ? 'or' : 'contract.payment.to')}
         </Headline>
-        {appLink || fallbackUrl
-          ? <TextLink style={tw`text-center text-grey-2`} onPress={openApp}>{paymentData[field]}</TextLink>
-          : <Text style={tw`text-center text-grey-2`}>{paymentData[field]}</Text>
+        {field === 'userName'
+          ? <TextLink style={tw`text-center text-grey-2`} onPress={openUserLink}>{paymentData[field]}</TextLink>
+          : appLink || fallbackUrl
+            ? <TextLink style={tw`text-center text-grey-2`} onPress={openApp}>{paymentData[field]}</TextLink>
+            : <Text style={tw`text-center text-grey-2`}>{paymentData[field]}</Text>
         }
       </View>)}
   </View>

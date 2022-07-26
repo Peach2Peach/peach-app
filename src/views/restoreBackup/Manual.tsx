@@ -1,22 +1,20 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Image, Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { Button, FileInput, Input, Loading, Text } from '../../components'
-import i18n from '../../utils/i18n'
-import { StackNavigationProp } from '@react-navigation/stack'
 import Icon from '../../components/Icon'
-const { LinearGradient } = require('react-native-gradients')
-import { whiteGradient } from '../../utils/layout'
-import { getMessages, rules } from '../../utils/validation'
+import LanguageContext from '../../contexts/language'
 import { recoverAccount, saveAccount, updateSettings } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { whiteGradient } from '../../utils/layout'
+import { StackNavigation } from '../../utils/navigation'
+import { getMessages, rules } from '../../utils/validation'
+const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'restoreBackup'>
-
 type ManualProps = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation;
   onSuccess: (account: Account) => void,
   onError: (err: Error) => void,
 }

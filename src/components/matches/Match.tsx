@@ -1,33 +1,33 @@
 
 import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { Headline, Shadow, Text, HorizontalLine } from '..'
+import { Headline, HorizontalLine, Shadow, Text } from '..'
 
+import LanguageContext from '../../contexts/language'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { mildShadow, mildShadowOrange, dropShadowRed, noShadow } from '../../utils/layout'
-import LanguageContext from '../../contexts/language'
-import { Selector } from '../inputs'
-import { padString } from '../../utils/string'
-import { Rating, ExtraMedals } from '../user'
-import Icon from '../Icon'
+import { dropShadowRed, mildShadow, mildShadowOrange, noShadow } from '../../utils/layout'
 import { interpolate } from '../../utils/math'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { Navigation } from '../../utils/navigation'
 import {
   getCurrencies,
   getMoPsInCommon,
   getPaymentMethods,
+  hasMoPsInCommon,
   paymentMethodAllowedForCurrency
 } from '../../utils/paymentMethod'
+import { padString } from '../../utils/string'
+import Icon from '../Icon'
+import { Selector } from '../inputs'
+import { ExtraMedals, Rating } from '../user'
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'search'>
 
 type MatchProps = ComponentProps & {
   match: Match,
   offer: BuyOffer|SellOffer,
   toggleMatch: (match: Match) => void,
   onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
   renderShadow?: boolean
 }
 
@@ -49,8 +49,10 @@ export const Match = ({
 }: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
-  // 1. check which means of payment match has in common
-  const [mopsInCommon] = useState(() => getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment))
+  // 1. check which means of payment match has in common, if non in common, use match MoPs
+  const [mopsInCommon] = useState(() => hasMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+    ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+    : match.meansOfPayment)
   const [paymentMethodsInCommon] = useState(() => getPaymentMethods(mopsInCommon))
   const [allPaymentMethods] = useState(() => getPaymentMethods(match.meansOfPayment))
 

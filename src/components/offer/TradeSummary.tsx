@@ -5,8 +5,8 @@ import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
+import { Navigation } from '../../utils/navigation'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
-import { OfferScreenNavigationProp } from '../../views/yourTrades/Offer'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -18,7 +18,7 @@ import { HorizontalLine } from '../ui'
 type TradeSummaryProps = ComponentProps & {
   contract: Contract
   view: 'seller' | 'buyer' | '',
-  navigation: OfferScreenNavigationProp,
+  navigation: Navigation,
 }
 
 type PaymentMethodProps = {

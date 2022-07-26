@@ -8,32 +8,29 @@ import {
   View
 } from 'react-native'
 
-import tw from '../../styles/tailwind'
-import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Loading, Text } from '../../components'
-import i18n from '../../utils/i18n'
-import { getMessages, rules } from '../../utils/validation'
+import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
-import Icon from '../../components/Icon'
-import { error } from '../../utils/log'
-const { LinearGradient } = require('react-native-gradients')
-import { whiteGradient } from '../../utils/layout'
-import pgp from '../../init/pgp'
-import fcm from '../../init/fcm'
 import { OverlayContext } from '../../contexts/overlay'
+import fcm from '../../init/fcm'
+import pgp from '../../init/pgp'
 import NDA from '../../overlays/NDA'
 import SaveYourPassword from '../../overlays/SaveYourPassword'
+import tw from '../../styles/tailwind'
+import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { whiteGradient } from '../../utils/layout'
+import { error } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
-
+import { getMessages, rules } from '../../utils/validation'
+const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'newUser'>
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
-
 
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)

@@ -10,15 +10,14 @@ import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
+import { StackNavigation } from '../../../utils/navigation'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
-import { ProfileScreenNavigationProp } from '../YourTrades'
-
 
 const navigateToOffer = (
   offer: SellOffer|BuyOffer,
   offerStatus: OfferStatus,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
@@ -67,7 +66,7 @@ const navigateToOffer = (
 type OfferItemProps = ComponentProps & {
   offer: BuyOffer | SellOffer,
   extended?: boolean,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 type IconMap = { [key in OfferStatus['status']]?: IconType }

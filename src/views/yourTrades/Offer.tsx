@@ -1,35 +1,34 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import messaging from '@react-native-firebase/messaging'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
 import { Button, PeachScrollView, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
+import { OverlayContext } from '../../contexts/overlay'
+import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { DisputeResult } from '../../overlays/DisputeResult'
+import YouGotADispute from '../../overlays/YouGotADispute'
+import { account } from '../../utils/account'
 import { contractIdToHex, getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
 import { getOffer, getOfferStatus, saveOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
-import getContractEffect from '../../effects/getContractEffect'
-import { account } from '../../utils/account'
-import { parseContract } from '../contract/helpers/parseContract'
-import YouGotADispute from '../../overlays/YouGotADispute'
-import { DisputeResult } from '../../overlays/DisputeResult'
-import { OverlayContext } from '../../contexts/overlay'
-
-export type OfferScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
+import MatchAccepted from '../../overlays/MatchAccepted'
 
 type Props = {
   route: RouteProp<{ params: {
     offer: BuyOffer|SellOffer,
   } }>,
-  navigation: OfferScreenNavigationProp,
+  navigation: StackNavigation,
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -42,6 +41,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const offer = getOffer(offerId) as BuyOffer|SellOffer
   const [contract, setContract] = useState(() => offer?.contractId ? getContract(offer.contractId) : null)
   const [contractId, setContractId] = useState(offer?.contractId)
+  const [pnReceived, setPNReceived] = useState(0)
 
   const offerStatus = getOfferStatus(offer)
   const finishedDate = contract?.paymentConfirmed
@@ -108,7 +108,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         level: 'ERROR',
       })
     }
-  }), [offer]))
+  }), [pnReceived, offer]))
 
   useFocusEffect(useCallback(getContractEffect({
     contractId,
@@ -139,6 +139,22 @@ export default ({ route, navigation }: Props): ReactElement => {
       level: 'ERROR',
     })
   }), [contractId]))
+
+  useFocusEffect(useCallback(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
+      if (!remoteMessage.data) return
+
+      if (remoteMessage.data.type === 'offer.matchSeller') {
+        setPNReceived(Math.random())
+      } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
+        updateOverlay({
+          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+        })
+      }
+    })
+
+    return unsubscribe
+  }, []))
 
   return <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
     {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status)
