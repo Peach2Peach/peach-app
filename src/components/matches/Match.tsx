@@ -13,6 +13,7 @@ import {
   getCurrencies,
   getMoPsInCommon,
   getPaymentMethods,
+  hasMoPsInCommon,
   paymentMethodAllowedForCurrency
 } from '../../utils/paymentMethod'
 import { padString } from '../../utils/string'
@@ -48,8 +49,10 @@ export const Match = ({
 }: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
-  // 1. check which means of payment match has in common
-  const [mopsInCommon] = useState(() => getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment))
+  // 1. check which means of payment match has in common, if non in common, use match MoPs
+  const [mopsInCommon] = useState(() => hasMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+    ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+    : match.meansOfPayment)
   const [paymentMethodsInCommon] = useState(() => getPaymentMethods(mopsInCommon))
   const [allPaymentMethods] = useState(() => getPaymentMethods(match.meansOfPayment))
 
