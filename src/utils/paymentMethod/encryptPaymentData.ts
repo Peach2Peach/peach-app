@@ -6,7 +6,7 @@ import { SignAndEncryptResult, signAndEncryptSymmetric } from '../pgp'
  * @param passphrase passphrase to encrypt with
  * @returns Promise resolving to encrypted payment data and signature
  */
- export const encryptPaymentData = async (
+export const encryptPaymentData = async (
   paymentData: PaymentData,
   symmetricKey: string
 ): Promise<SignAndEncryptResult> => {
