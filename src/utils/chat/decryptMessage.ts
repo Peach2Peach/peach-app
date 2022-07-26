@@ -6,7 +6,10 @@ import { decryptSymmetric } from '../pgp'
  * @param symmetricKey symmetric key to decrypt with
  * @returns decrypted chat messages
  */
-export const decryptMessage = (chat: Chat, symmetricKey: Contract['symmetricKey']) => async (message: Message) => {
+export const decryptMessage = (
+  chat: Chat,
+  symmetricKey: Contract['symmetricKey']
+) => async (message: Message): Promise<Message> => {
   const existingMessage = chat.messages.find(m =>
     m.date.getTime() === message.date.getTime() && m.from === message.from
   )

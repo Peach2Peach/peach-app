@@ -1,10 +1,8 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import AppContext from '../../contexts/app'
-import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 
 import { useFocusEffect } from '@react-navigation/native'
@@ -16,14 +14,13 @@ import { getChatNotifications } from '../../utils/chat'
 import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
+import { StackNavigation } from '../../utils/navigation'
 import { getOffers, getOfferStatus, getRequiredActionCount, saveOffers } from '../../utils/offer'
 import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
 
-export type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'yourTrades'>
-
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 const isPastOffer = (offer: SellOffer|BuyOffer) => {
@@ -57,7 +54,6 @@ const sortByStatus = (a: SellOffer|BuyOffer, b: SellOffer|BuyOffer) =>
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
   const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
   const [lastUpdate, setLastUpdate] = useState(new Date().getTime())

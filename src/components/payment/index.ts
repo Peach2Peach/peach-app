@@ -5,7 +5,12 @@ import DetailRevolut from './detail/revolut'
 import DetailBankTransferCH from './detail/bankTransferCH'
 import DetailWise from './detail/wise'
 
-export type PaymentTemplateProps = { paymentData: PaymentData }
+export type PaymentTemplateProps = {
+  paymentData: PaymentData,
+  appLink?: string,
+  fallbackUrl?: string,
+  userLink?: string,
+}
 
 export type PaymentDetailTemplates = {
   [key in PaymentMethod]?: (props: PaymentTemplateProps) => ReactElement

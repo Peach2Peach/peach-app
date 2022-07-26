@@ -1,10 +1,9 @@
 
+import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Image, Pressable, View } from 'react-native'
 import RNRestart from 'react-native-restart'
-import analytics from '@react-native-firebase/analytics'
 
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { Shadow, Text } from '.'
 import { TIMETORESTART } from '../constants'
 import AppContext from '../contexts/app'
@@ -13,18 +12,19 @@ import appStateEffect from '../effects/appStateEffect'
 import { getPeachInfo, getTrades } from '../init/session'
 import tw from '../styles/tailwind'
 import { account, getAccount } from '../utils/account'
+import { getChatNotifications } from '../utils/chat'
 import i18n from '../utils/i18n'
 import { mildShadow } from '../utils/layout'
+import { Navigation } from '../utils/navigation'
+import { getRequiredActionCount } from '../utils/offer'
 import { marketPrices } from '../utils/peachAPI/public/market'
 import { thousands } from '../utils/string'
 import { Fade } from './animation'
-import { getChatNotifications } from '../utils/chat'
-import { getRequiredActionCount } from '../utils/offer'
 
 let goHomeTimeout: NodeJS.Timer
 
 type HeaderProps = ComponentProps & {
-  navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
+  navigation: Navigation,
 }
 
 /**

@@ -5,7 +5,7 @@
     <string name="notification.title.offer.wrongFundingAmount">Escrow not funded</string>
     <string name="notification.body.offer.wrongFundingAmount">Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.</string>
     <string name="notification.title.offer.notFunded">Offer canceled</string>
-    <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %1$s days :( We are deleting this offer.</string>
+    <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %1$s days &#128542; We are deleting this offer.</string>
     <string name="notification.title.offer.expired">No match</string>
     <string name="notification.body.offer.expired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
@@ -21,9 +21,11 @@
     <string name="notification.title.contract.paymentMade">The payment has been made!</string>
     <string name="notification.body.contract.paymentMade">Confirm that you received it</string>
     <string name="notification.title.contract.tradeCompleted">Trade completed!</string>
-    <string name="notification.body.contract.tradeCompleted">You received %1$s sats in your wallet</string>
+    <string name="notification.body.contract.tradeCompleted">Congratulations! Sats are in your wallet&#127881;</string>
     <string name="notification.title.contract.chat">Chat</string>
     <string name="notification.body.contract.chat">You got a chat message</string>
     <string name="notification.title.contract.disputeRaised">Dispute</string>
     <string name="notification.body.contract.disputeRaised">Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.</string>
+    <string name="notification.title.contract.disputeResolved">Dispute</string>
+    <string name="notification.body.contract.disputeResolved">A decision about a dispute has been made!</string>
 </resources>

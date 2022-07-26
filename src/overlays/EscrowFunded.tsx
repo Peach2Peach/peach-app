@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 
 import tw from '../styles/tailwind'
 
@@ -8,11 +7,12 @@ import { Button, Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
+import { Navigation } from '../utils/navigation'
 import { getOffer } from '../utils/offer'
 
 type Props = {
   offerId: Offer['id'],
-  navigation: NavigationContainerRefWithCurrent<RootStackParamList>,
+  navigation: Navigation,
 }
 
 export default ({ offerId, navigation }: Props): ReactElement => {

@@ -13,8 +13,9 @@ export const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.txIds
 export const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
 
 export const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
+  && (offer.type !== 'ask' || /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status))
 
-export const isEscrowRefunded = (offer: SellOffer) => offer.txId
+export const isEscrowRefunded = (offer: SellOffer) => offer.refunded || offer.released || offer.txId
 
 export const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
   offer.type === 'bid'
@@ -42,8 +43,11 @@ export const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) 
   || offer.type === 'ask' && !contract.ratingBuyer
 
 export const refundRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
-  offer.type === 'ask' && contract.disputeWinner === 'seller'
+  offer.type === 'ask' && contract.disputeWinner === 'seller' && !offer.refunded
 
+export const isDisputeActive = (contract: Contract) => contract.disputeActive
+export const requiresDisputeResultAcknowledgement = (contract: Contract) =>
+  contract.disputeWinner && !contract.disputeResultAcknowledged
 export const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
 
 export const isTradeCanceled = (contract: Contract) => contract.canceled
@@ -53,6 +57,7 @@ export const isTradeCanceled = (contract: Contract) => contract.canceled
  * @param offer offer
  * @returns offer status
  */
+// eslint-disable-next-line complexity
 export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (!offer) return { status: 'null', requiredAction: '' }
 
@@ -61,7 +66,11 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (contract) {
     if (isTradeComplete(contract)) return {
       status: 'tradeCompleted',
-      requiredAction: isRatingRequired(offer, contract) ? 'rate' : ''
+      requiredAction: isDisputeActive(contract)
+        ? 'dispute'
+        : requiresDisputeResultAcknowledgement(contract)
+          ? 'acknowledgeDisputeResult'
+          : isRatingRequired(offer, contract) ? 'rate' : ''
     }
 
     if (isTradeCanceled(contract)) return {

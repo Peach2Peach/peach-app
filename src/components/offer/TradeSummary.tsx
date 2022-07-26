@@ -1,11 +1,12 @@
 import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
+import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
+import { Navigation } from '../../utils/navigation'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
-import { OfferScreenNavigationProp } from '../../views/yourTrades/Offer'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -17,7 +18,7 @@ import { HorizontalLine } from '../ui'
 type TradeSummaryProps = ComponentProps & {
   contract: Contract
   view: 'seller' | 'buyer' | '',
-  navigation: OfferScreenNavigationProp,
+  navigation: Navigation,
 }
 
 type PaymentMethodProps = {
@@ -95,6 +96,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
 const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   const goToUserProfile = () => navigation.navigate('profile', { userId: contract.seller.id, user: contract.seller })
+  const appLink = APPLINKS[contract.paymentMethod]
 
   return <View style={tw`border border-peach-1 rounded`}>
     {contract.paymentMade
@@ -125,7 +127,7 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData}/>
+        ? <PaymentTo paymentData={contract.paymentData} appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
@@ -151,9 +153,28 @@ const OpenTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactElem
 const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactElement => {
   const ratingTradingPartner = view === 'seller' ? contract.ratingBuyer : contract.ratingSeller
   const tradingPartner = view === 'seller' ? contract.buyer : contract.seller
+  const disputeOutcome = contract.disputeWinner && !contract.disputeActive
+    ? contract.disputeWinner === view ? 'won' : 'lost'
+    : null
+
   const goToUserProfile = () => navigation.navigate('profile', { userId: tradingPartner.id, user: tradingPartner })
+
   return <View>
-    <View style={tw`p-5`}>
+    {disputeOutcome
+      ? <View style={[
+        tw`absolute top-0 left-0 w-full h-full z-20 border`,
+        disputeOutcome === 'lost' ? tw`border-red` : tw`border-green`
+      ]} pointerEvents="none">
+        <Text style={[
+          tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`,
+          disputeOutcome === 'lost' ? tw`text-red` : tw`text-green`
+        ]}>
+          {i18n(`dispute.${disputeOutcome}`)}
+        </Text>
+      </View>
+      : null
+    }
+    <View style={tw`p-5 opacity-50`}>
       <Headline style={tw`text-grey-2 normal-case`}>
         {isTradeCanceled(contract)
           ? i18n(`contract.summary.${view === 'seller' ? 'youAreSelling' : 'youAreBuying'}`)

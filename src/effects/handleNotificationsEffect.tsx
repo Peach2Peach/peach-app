@@ -1,6 +1,7 @@
 import messaging from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import React, { Dispatch, EffectCallback } from 'react'
+import { DisputeResult } from '../overlays/DisputeResult'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
@@ -29,7 +30,7 @@ export default ({
     const args = remoteMessage.notification?.bodyLocArgs
 
     if (type === 'offer.expired'
-      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
+      && !/contract/u.test(getCurrentPage() as string)) {
       const offer = getOffer(remoteMessage.data.offerId) as SellOffer
 
       return updateOverlay({
@@ -37,7 +38,7 @@ export default ({
       })
     }
     if (type === 'offer.notFunded'
-      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
+      && !/sell|contract/u.test(getCurrentPage() as string)) {
       const offer = getOffer(remoteMessage.data.offerId) as SellOffer
 
       return updateOverlay({
@@ -45,19 +46,19 @@ export default ({
       })
     }
     if (type === 'offer.escrowFunded'
-      && /buy|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
+      && !/sell|contract/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <EscrowFunded offerId={remoteMessage.data.offerId} navigation={navigationRef} />,
       })
     }
     if (type === 'contract.contractCreated'
-      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
+      && !/contract|search/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
       })
     }
     if (type === 'contract.paymentMade'
-      && /buy|sell|home|settings|yourTrades/u.test(getCurrentPage() as string)) {
+      && !/contract/u.test(getCurrentPage() as string)) {
       return updateOverlay({
         content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
       })
@@ -67,6 +68,14 @@ export default ({
         content: <YouGotADispute
           contractId={remoteMessage.data.contractId}
           message={remoteMessage.data.message}
+          reason={remoteMessage.data.reason as DisputeReason}
+          navigation={navigationRef} />,
+      })
+    }
+    if (type === 'contract.disputeResolved') {
+      return updateOverlay({
+        content: <DisputeResult
+          contractId={remoteMessage.data.contractId}
           navigation={navigationRef} />,
       })
     }

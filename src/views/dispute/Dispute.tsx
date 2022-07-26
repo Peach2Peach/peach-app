@@ -5,33 +5,31 @@ import {
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
 import { RouteProp } from '@react-navigation/native'
-import i18n from '../../utils/i18n'
-import { getContract } from '../../utils/contract'
-import { account } from '../../utils/account'
+import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import WhatIsADispute from '../../overlays/WhatIsADispute'
+import { account } from '../../utils/account'
+import { getContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
 
-import { getMessages, rules } from '../../utils/validation'
-import { MessageContext } from '../../contexts/message'
-import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
-import { raiseDispute } from '../../utils/peachAPI'
-import { error } from '../../utils/log'
-import { signAndEncrypt } from '../../utils/pgp'
 import { PEACHPGPPUBLICKEY } from '../../constants'
+import { MessageContext } from '../../contexts/message'
 import keyboard from '../../effects/keyboard'
+import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
+import { error } from '../../utils/log'
+import { Navigation } from '../../utils/navigation'
+import { raiseDispute } from '../../utils/peachAPI'
+import { signAndEncrypt } from '../../utils/pgp'
+import { getMessages, rules } from '../../utils/validation'
 const { useValidation } = require('react-native-form-validator')
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'dispute'>
 
 type Props = {
   route: RouteProp<{ params: {
     contractId: string,
   } }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: Navigation,
 }
 
 const disputeReasonsSeller: DisputeReason[] = [
@@ -47,6 +45,8 @@ const disputeReasonsBuyer: DisputeReason[] = [
   'sellerBehaviour',
   'disputeOther'
 ]
+export const isEmailRequired = (reason: DisputeReason) =>
+  /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
@@ -57,16 +57,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
+  const [email, setEmail] = useState()
   const [reason, setReason] = useState<DisputeReason>()
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState(false)
+  let $message = useRef<TextInput>(null).current
 
   const view = contract ? account.publicKey === contract.seller.id ? 'seller' : 'buyer' : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
-    state: { message },
+    state: { email, message },
     rules,
     messages: getMessages()
   })
@@ -100,6 +102,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       reason: {
         required: true,
       },
+      email: {
+        email: isEmailRequired(reason!),
+        required: isEmailRequired(reason!),
+      },
       message: {
         required: true,
       }
@@ -114,6 +120,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const [result, err] = await raiseDispute({
       contractId,
+      email,
       reason,
       message,
       symmetricKeyEncrypted
@@ -188,9 +195,9 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Text>
           {availableReasons.map((rsn, i) => <Button
             key={rsn}
-            wide={true}
+            wide={false}
             onPress={() => setReason(rsn)}
-            style={i === 0 ? tw`mt-5` : tw`mt-2`}
+            style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
             title={i18n(`dispute.reason.${rsn}`)}
           />)}
         </View>
@@ -198,9 +205,24 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Text style={tw`text-center px-4`}>
             {i18n('dispute.provideExplanation')}
           </Text>
+          {isEmailRequired(reason!)
+            ? <View style={tw`mt-4`}>
+              <Input
+                onChange={setEmail}
+                onSubmit={() => $message?.focus()}
+                value={email}
+                label={i18n('form.userEmail')}
+                isValid={!isFieldInError('email')}
+                autoCorrect={false}
+                errorMessage={getErrorsInField('email')}
+              />
+            </View>
+            : null
+          }
           <View style={tw`mt-4`}>
             <Input
               style={tw`h-40`}
+              reference={(el: any) => $message = el}
               onChange={setMessage}
               value={message}
               multiline={true}

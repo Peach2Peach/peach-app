@@ -3,21 +3,19 @@ import {
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 import { RouteProp } from '@react-navigation/native'
 import { BigTitle } from '../../components'
-import i18n from '../../utils/i18n'
-import { getTradingLimit } from '../../utils/peachAPI'
 import { account, updateTradingLimit } from '../../utils/account'
 import { saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { StackNavigation } from '../../utils/navigation'
+import { getTradingLimit } from '../../utils/peachAPI'
 import Rate from './components/Rate'
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'tradeComplete'>
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['tradeComplete'] }>,
-  navigation: ProfileScreenNavigationProp,
+  navigation: StackNavigation,
 }
 export default ({ route, navigation }: Props): ReactElement => {
   const [contract, setContract] = useState<Contract>(route.params.contract)

@@ -16,6 +16,8 @@ declare type OfferStatus = {
     | 'confirmKYC'
     | 'sendPayment'
     | 'confirmPayment'
+    | 'dispute'
+    | 'acknowledgeDisputeResult'
     | 'rate'
     | 'startRefund'
 }

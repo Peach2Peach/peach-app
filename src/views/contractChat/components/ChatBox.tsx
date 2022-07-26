@@ -4,10 +4,11 @@ import { Shadow, Text } from '../../../components'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import { getChatNotifications, saveChat } from '../../../utils/chat'
+import { getChat, getChatNotifications, saveChat } from '../../../utils/chat'
 import i18n from '../../../utils/i18n'
 import { innerShadow } from '../../../utils/layout'
 import { getRequiredActionCount } from '../../../utils/offer'
+import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
 
 const PAGE_SIZE = 21
 
@@ -23,15 +24,22 @@ const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatMessageP
   const isYou = message.from === account.publicKey
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
+  const isSystemMessage = message.from === 'system'
 
   const previous = chatMessages[index - 1]
   const showName = !previous || previous.from !== message.from
-  const text = isMediator
+  const name = i18n(isSystemMessage
+    ? 'chat.systemMessage'
+    : isMediator
+      ? 'chat.mediator'
+      : isYou ? 'chat.you' : 'chat.tradePartner'
+  )
+  const text = isMediator || isSystemMessage
     ? tw`text-chat-mediator text-center`
     : isYou ? tw`text-chat-you text-right` : tw`text-chat-partner`
   const bgColor = !message.message
     ? tw`bg-chat-error-translucent`
-    : isMediator
+    : isMediator || isSystemMessage
       ? tw`bg-chat-mediator-translucent`
       : isYou ? tw`bg-chat-you-translucent` : tw`bg-chat-partner-translucent`
 
@@ -44,21 +52,22 @@ const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatMessageP
       ? <Text style={[
         tw`px-1 mt-4 -mb-1 font-baloo text-xs`,
         text,
-      ]}>{i18n(isMediator ? 'chat.mediator' : isYou ? 'chat.you' : 'chat.tradePartner')}</Text>
+      ]}>{name}</Text>
       : null
     }
-    <Text style={[
-      tw`p-3 mt-1 rounded`,
+    <View style={[
+      tw`flex-row flex-wrap justify-between p-3 mt-1 rounded`,
       bgColor
-    ]}
-    >
-      {message.message || i18n('chat.decyptionFailed')}
-    </Text>
+    ]}>
+      <Text style={'flex-shrink-0'}>{message.message || i18n('chat.decyptionFailed')}</Text>
+      <Text style={tw`ml-auto text-right text-xs text-grey-3`}>{toTimeFormat(message.date)}</Text>
+    </View>
   </View>
 }
 
 type ChatBoxProps = ComponentProps & {
   chat: Chat,
+  setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void,
   tradingPartner: User['id'],
   page: number,
   loadMore: () => void,
@@ -66,7 +75,16 @@ type ChatBoxProps = ComponentProps & {
   disclaimer?: ReactElement
 }
 
-export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, style }: ChatBoxProps): ReactElement => {
+export default ({
+  chat,
+  setAndSaveChat,
+  tradingPartner,
+  page,
+  loadMore,
+  loading,
+  disclaimer,
+  style
+}: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
@@ -82,12 +100,13 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
   const onContentSizeChange = () => page === 0
     ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50)
     : () => {}
+
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken>}) => {
     const lastItem = viewableItems.pop()?.item as Message
+    const savedChat = getChat(chat.id)
+    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-    if (!lastItem || lastItem.date.getTime() <= chat.lastSeen.getTime()) return
-
-    saveChat(chat.id, { lastSeen: lastItem.date })
+    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount()
     })
@@ -104,7 +123,9 @@ export default ({ chat, tradingPartner, page, loadMore, loading, disclaimer, sty
         onContentSizeChange={onContentSizeChange}
         onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
         onViewableItemsChanged={onViewableItemsChanged}
-        keyExtractor={item => item.date.getTime().toString()}
+        keyExtractor={item =>
+          item.date.getTime().toString() + (item.message || '')
+        }
         renderItem={({ item, index }) =>
           <ChatMessage chatMessages={visibleChatMessages} tradingPartner={tradingPartner} item={item} index={index} />
         }

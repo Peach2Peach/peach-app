@@ -2,21 +2,19 @@ import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import LanguageContext from '../../contexts/language'
 import { Button, Card, Text, Title } from '../../components'
-import i18n from '../../utils/i18n'
-import { account, backupAccount, updateSettings } from '../../utils/account'
+import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
-import { toShortDateFormat } from '../../utils/string'
 import { BackupCreated } from '../../overlays/BackupCreated'
 import SaveAccount from '../../overlays/info/SaveAccount'
-
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
+import { account, backupAccount, updateSettings } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { StackNavigation } from '../../utils/navigation'
+import { toShortDateFormat } from '../../utils/string'
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation;
 }
 
 export default ({ navigation }: Props): ReactElement => {
@@ -25,7 +23,10 @@ export default ({ navigation }: Props): ReactElement => {
 
   const initAccountBackup = () => {
     const previousDate = account.settings.lastBackupDate
-
+    updateSettings({
+      lastBackupDate: (new Date()).getTime(),
+      showBackupReminder: false,
+    })
     backupAccount({
       onSuccess: () => {
         updateOverlay({
@@ -44,9 +45,9 @@ export default ({ navigation }: Props): ReactElement => {
         }, 3000)
       },
       onError: () => {
-        updateSettings({
-          lastBackupDate: previousDate,
-        })
+        // updateSettings({
+        //   lastBackupDate: previousDate,
+        // })
       }
     })
   }

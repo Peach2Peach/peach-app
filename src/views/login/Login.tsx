@@ -6,7 +6,6 @@ import {
   Pressable, View
 } from 'react-native'
 
-import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
 import AppContext from '../../contexts/app'
@@ -14,19 +13,19 @@ import { MessageContext } from '../../contexts/message'
 import { getPeachInfo, getTrades } from '../../init/session'
 import tw from '../../styles/tailwind'
 import { loadAccount } from '../../utils/account'
+import { getChatNotifications } from '../../utils/chat'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
+import { StackNavigation } from '../../utils/navigation'
+import { getRequiredActionCount } from '../../utils/offer'
 import { setSession } from '../../utils/session'
 import { getMessages, rules } from '../../utils/validation'
-import { getChatNotifications } from '../../utils/chat'
-import { getRequiredActionCount } from '../../utils/offer'
 const { LinearGradient } = require('react-native-gradients')
 
 const { useValidation } = require('react-native-form-validator')
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'login'>
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 

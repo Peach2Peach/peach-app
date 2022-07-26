@@ -2,17 +2,17 @@ import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import { Button, Fade, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
-import i18n from '../../utils/i18n'
-import { account, getTradingLimit } from '../../utils/account'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { splitAt, toShortDateFormat } from '../../utils/string'
-import { Rating, ExtraMedals, TradingLimit } from '../../components/user'
-import { getUser } from '../../utils/peachAPI'
+import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { Button, Fade, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
+import { ExtraMedals, Rating, TradingLimit } from '../../components/user'
 import BitcoinContext from '../../contexts/bitcoin'
+import { account, getTradingLimit } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { Navigation } from '../../utils/navigation'
+import { getUser } from '../../utils/peachAPI'
+import { splitAt, toShortDateFormat } from '../../utils/string'
 
 type UserTradeDetailsProps = {
   user: User,
@@ -41,11 +41,9 @@ const UserTradeDetails = ({ user }: UserTradeDetailsProps): ReactElement => <Vie
 </View>
 
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'profile'>
-
 type Props = {
   route: RouteProp<{ params: RootStackParamList['profile'], }>,
-  navigation: ProfileScreenNavigationProp;
+  navigation: Navigation
 }
 
 // eslint-disable-next-line max-lines-per-function

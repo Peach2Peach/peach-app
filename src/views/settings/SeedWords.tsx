@@ -7,6 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, Card, Headline, Icon, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { account } from '../../utils/account'
+import { StackNavigation } from '../../utils/navigation'
 
 const BackupCreated = () => <View style={tw`flex items-center`}>
   <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
@@ -17,10 +18,8 @@ const BackupCreated = () => <View style={tw`flex items-center`}>
   </View>
 </View>
 
-type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'contact'>
-
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {
