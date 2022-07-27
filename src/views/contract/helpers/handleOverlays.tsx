@@ -1,6 +1,7 @@
 import React from 'react'
-import { CancelTradeRequestConfirmed, ConfirmCancelTradeRequest } from '../../../overlays/ConfirmCancelTrade'
 import { DisputeResult } from '../../../overlays/DisputeResult'
+import { CancelTradeRequestConfirmed } from '../../../overlays/tradeCancelation/CancelTradeRequestConfirmed'
+import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import YouGotADispute from '../../../overlays/YouGotADispute'
 import { account } from '../../../utils/account'
 import { StackNavigation } from '../../../utils/navigation'

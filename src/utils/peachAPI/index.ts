@@ -69,6 +69,8 @@ export {
 } from './private/offer'
 export {
   cancelContract,
+  confirmContractCancelation,
+  rejectContractCancelation,
   getContract,
   getContracts,
   confirmPayment,

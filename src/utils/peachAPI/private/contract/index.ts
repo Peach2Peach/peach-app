@@ -1,5 +1,7 @@
 export { acknowledgeDispute } from './acknowledgeDispute'
 export { cancelContract } from './cancelContract'
+export { confirmContractCancelation } from './confirmContractCancelation'
+export { rejectContractCancelation } from './rejectContractCancelation'
 export { confirmPayment } from './confirmPayment'
 export { getChat } from './getChat'
 export { getContract } from './getContract'
