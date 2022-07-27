@@ -18,6 +18,7 @@ declare type OfferStatus = {
     | 'confirmPayment'
     | 'dispute'
     | 'acknowledgeDisputeResult'
+    | 'confirmCancelation'
     | 'rate'
     | 'startRefund'
 }

@@ -4,6 +4,7 @@ import {
   View,
   Pressable,
   GestureResponderEvent,
+  ViewStyle,
 } from 'react-native'
 import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'
@@ -15,18 +16,21 @@ type ButtonProps = ComponentProps & {
   tertiary?: boolean,
   grey?: boolean,
   help?: boolean,
+  red?: boolean
   wide?: boolean,
   disabled?: boolean,
   loading?: boolean,
-  onPress?: Function
+  onPress?: Function,
 }
 
+// eslint-disable-next-line complexity
 const ButtonContent = ({
   title,
   secondary,
   tertiary,
   grey,
   help,
+  red,
   loading,
   disabled,
   onPress,
@@ -44,8 +48,11 @@ const ButtonContent = ({
       ? tw`text-grey-2`
       : help
         ? tw`text-blue-1`
-        : tw`text-white-2`
-  const bgColor = secondary || grey || help ? tw`bg-white-2` : tw`bg-peach-1`
+        : red
+          ? tw`text-red`
+          : tw`text-white-2`
+
+  const bgColor = secondary || grey || help || red ? tw`bg-white-2` : tw`bg-peach-1`
   const bgColorActive = grey
     ? tw`bg-grey-2`
     : tw`bg-peach-2`
@@ -96,6 +103,7 @@ const ButtonContent = ({
  * @param [props.grey] if true, button is grey
  * @param [props.wide] if true, button is taking on 100% width
  * @param [props.style] css style object
+ * @param [props.textColor] css style object for text color
  * @param [props.disabled] if true disable interactions
  * @param [props.onPress] onPress handler from outside
  * @example
@@ -113,6 +121,7 @@ export const Button = ({
   help,
   wide = true,
   style,
+  red,
   testID,
   disabled,
   loading,
@@ -130,11 +139,11 @@ export const Button = ({
   return !secondary && !tertiary && !grey && !help
     ? <Shadow shadow={mildShadowOrange} style={viewStyle}>
       <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} help={help} disabled={disabled}
-        title={title} loading={loading} onPress={onPress} testID={testID} />
+        title={title} loading={loading} onPress={onPress} red={red} testID={testID} />
     </Shadow>
     : <View style={viewStyle}>
       <ButtonContent secondary={secondary} tertiary={tertiary} grey={grey} help={help} disabled={disabled}
-        title={title} loading={loading} onPress={onPress} testID={testID} />
+        title={title} loading={loading} onPress={onPress} red={red} testID={testID} />
     </View>
 }
 

@@ -98,14 +98,19 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
     : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
+  const isRedStatus = contract?.disputeActive || (offer.type === 'bid' && contract?.cancelationRequested)
+  const isOrangeStatus = requiredAction || (offer.type === 'ask' && contract?.cancelationRequested)
+  const textColor1 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-2`
+  const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
+
   const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
   return <Shadow shadow={mildShadow}>
     <Pressable onPress={navigate}
       style={[
         tw`rounded`,
-        contract?.disputeActive
+        isRedStatus
           ? tw`bg-red`
-          : requiredAction
+          : isOrangeStatus
             ? tw`bg-peach-1`
             : tw`bg-white-1 border border-grey-2`,
         style
@@ -116,27 +121,36 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             <View style={tw`w-full flex-shrink`}>
               <Headline style={[
                 tw`text-lg font-bold normal-case text-left`,
-                requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`
+                textColor1
               ]}>
                 {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
               </Headline>
               <View style={tw`-mt-2`}>
-                <SatsFormat
-                  style={tw`text-lg`}
-                  sats={offer.amount}
-                  color={requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`} />
+                {offer.type === 'ask' && contract?.cancelationRequested
+                  ? <Text style={[
+                    tw`text-lg`,
+                    textColor1
+                  ]}>
+                    {i18n('contract.cancel.pending')}
+                  </Text>
+                  : <SatsFormat
+                    style={tw`text-lg`}
+                    sats={offer.amount}
+                    color={textColor2} />
+                }
               </View>
             </View>
             <Icon id={icon || 'help'} style={tw`w-7 h-7`}
-              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
+              color={(textColor1).color as string}
             />
           </View>
-          {requiredAction && !contract?.disputeActive
+          {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested)
             ? <View style={tw`flex items-center mt-3 mb-1`}>
               <Button
                 title={i18n(`offer.requiredAction.${requiredAction}`)}
                 onPress={navigate}
-                secondary={true}
+                secondary={!isRedStatus}
+                red={isRedStatus}
                 wide={false}
               />
             </View>
