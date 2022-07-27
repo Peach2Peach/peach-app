@@ -5,7 +5,8 @@ import { getAccessToken } from '../user'
 
 type PatchOfferProps = {
   offerId: Offer['id'],
-  returnAddress: string,
+  returnAddress?: string,
+  tx?: string,
 }
 
 /**
@@ -16,7 +17,8 @@ type PatchOfferProps = {
  */
 export const patchOffer = async ({
   offerId,
-  returnAddress
+  returnAddress,
+  tx,
 }: PatchOfferProps): Promise<[APISuccess|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}`, {
     headers: {
@@ -26,7 +28,8 @@ export const patchOffer = async ({
     },
     method: 'PATCH',
     body: JSON.stringify({
-      returnAddress
+      returnAddress,
+      tx,
     })
   })
 

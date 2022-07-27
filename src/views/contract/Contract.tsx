@@ -8,9 +8,7 @@ import { TIMERS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import { DisputeResult } from '../../overlays/DisputeResult'
 import Payment from '../../overlays/info/Payment'
-import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
 import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -24,6 +22,7 @@ import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import ContractCTA from './components/ContractCTA'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
+import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
 
 type Props = {
@@ -49,11 +48,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     : '')
   const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
 
-  const saveAndUpdate = (contractData: Contract) => {
+  const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
     setContract(() => contractData)
     saveContract(contractData)
+    return contractData
   }
 
   const initContract = () => {
@@ -103,7 +103,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: async (result) => {
       // info('Got contract', result)
-      const c = getContract(result.id)
+      let c = getContract(result.id)
 
       setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
 
@@ -113,7 +113,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         paymentData: c?.paymentData,
       })
 
-      saveAndUpdate(c
+      c = saveAndUpdate(c
         ? {
           ...c,
           ...result,
@@ -127,26 +127,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
       )
 
-      if (result.disputeActive
-        && result.disputeInitiator !== account.publicKey
-        && !result.disputeAcknowledgedByCounterParty) {
-        updateOverlay({
-          content: <YouGotADispute
-            contractId={result.id}
-            message={result.disputeClaim!}
-            reason={result.disputeReason!}
-            navigation={navigation} />,
-          showCloseButton: false
-        })
-      }
-
-      if (!result.disputeActive && result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
-        updateOverlay({
-          content: <DisputeResult
-            contractId={result.id}
-            navigation={navigation} />,
-        })
-      }
+      handleOverlays({ contract: c, navigation, updateOverlay, view })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),

@@ -208,3 +208,8 @@ declare type ConfirmPaymentResponse = {
 }
 
 declare type GetChatResponse = Message[]
+
+declare type CancelContractResponse = {
+  success: true,
+  psbt?: string,
+}

@@ -1,3 +1,5 @@
+export { checkRefundPSBT } from './checkRefundPSBT'
+export { checkAndRefund } from './checkAndRefund'
 export { parseBitcoinRequest } from './parseBitcoinRequest'
 export { isxpub } from './isxPub'
 export { openInWallet } from './openInWallet'

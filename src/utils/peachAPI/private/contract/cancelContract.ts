@@ -14,7 +14,7 @@ type CancelContractProps = {
  */
 export const cancelContract = async ({
   contractId,
-}: CancelContractProps): Promise<[APISuccess|null, APIError|null]> => {
+}: CancelContractProps): Promise<[CancelContractResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel`, {
     headers: {
       Authorization: await getAccessToken(),
@@ -24,5 +24,5 @@ export const cancelContract = async ({
     method: 'POST'
   })
 
-  return await parseResponse<APISuccess>(response, 'cancelContract')
+  return await parseResponse<CancelContractResponse>(response, 'cancelContract')
 }
