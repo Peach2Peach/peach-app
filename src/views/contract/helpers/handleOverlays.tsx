@@ -49,7 +49,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     })
   }
 
-  if (contract.cancelationRequested && contract.canceled) {
+  if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed) {
     return updateOverlay({
       content: <CancelTradeRequestConfirmed
         contract={contract}

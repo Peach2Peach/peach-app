@@ -14,7 +14,7 @@ import { ContractCanceled } from './ContractCanceled'
 /**
  * @description Overlay the buyer sees after seller requested the cancelation of the trade
  */
- export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 

@@ -5,6 +5,7 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { checkAndRefund } from '../../utils/bitcoin'
+import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { getOffer, saveOffer } from '../../utils/offer'
@@ -41,6 +42,10 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
             ...offer,
             tx,
             txId,
+          })
+          saveContract({
+            ...contract,
+            cancelConfirmationDismissed: false,
           })
         } else if (patchOfferError) {
           error('Error', patchOfferError)

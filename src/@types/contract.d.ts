@@ -44,7 +44,6 @@ declare type Contract = {
   disputeClaim?: string,
   disputeReason?: DisputeReason,
   disputeAcknowledgedByCounterParty?: boolean,
-  disputeResultAcknowledged?: boolean,
   disputeWinner?: 'seller' | 'buyer',
   disputeResolvedDate?: Date|null,
 
@@ -55,4 +54,8 @@ declare type Contract = {
   ratingSeller: 1|0|-1,
 
   messages: number
+
+  // app specific
+  disputeResultAcknowledged?: boolean,
+  cancelConfirmationDismissed?: boolean
 }
