@@ -27,7 +27,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
 
   useEffect(() => {
     updateOffer({ ...offer, amount })
-    updateSettings({ amount }, true)
+    updateSettings({ amount }, false)
     setStepValid(true)
   }, [amount])
 
