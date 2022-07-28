@@ -11,6 +11,7 @@ type CancelContractProps = {
 /**
  * @description Method to cancel contract
  * @param contractId contract id
+ * @param [satsPerByte] network fees in sats per byte
  * @returns scuess or error
  */
 export const cancelContract = async ({
