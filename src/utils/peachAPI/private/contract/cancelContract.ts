@@ -5,6 +5,7 @@ import { getAccessToken } from '../user'
 
 type CancelContractProps = {
   contractId: Contract['id'],
+  satsPerByte?: number,
 }
 
 /**
@@ -14,6 +15,7 @@ type CancelContractProps = {
  */
 export const cancelContract = async ({
   contractId,
+  satsPerByte,
 }: CancelContractProps): Promise<[CancelContractResponse|null, APIError|null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel`, {
     headers: {
@@ -21,7 +23,10 @@ export const cancelContract = async ({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    method: 'POST'
+    method: 'POST',
+    body: JSON.stringify({
+      satsPerByte
+    })
   })
 
   return await parseResponse<CancelContractResponse>(response, 'cancelContract')
