@@ -145,7 +145,7 @@
   "contract.cancel.seller.confirmed.text.2": "The sats from the escrow have been refunded to your wallet.",
   "contract.cancel.seller.rejected.title": "Trade not canceled",
   "contract.cancel.seller.rejected.text.1": "The Buyer for Trade $0 has not agreed to cancel the trade.",
-  "contract.cancel.seller.rejected.text.2": "The sats remain in the escrow. Please  release them to the Buyer when you have received the payment. ",
+  "contract.cancel.seller.rejected.text.2": "The sats remain in the escrow. Please release them to the Buyer when you have received the payment. ",
   "contract.cancel.buyer.confirmed.title": "Trade cancelation",
   "contract.cancel.buyer.confirmed.text.1": "Your Buyer has canceled Trade $0 for $1.",
   "contract.cancel.buyer.confirmed.text.2": "Your sats from the escrow have been released back to you.",

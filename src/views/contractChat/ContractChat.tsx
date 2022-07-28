@@ -108,8 +108,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     onSuccess: async (result) => {
       info('Got contract', result.id)
       let c = getContract(result.id)
-
-      setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
+      setView(v)
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
       const { symmetricKey, paymentData } = await parseContract({
@@ -132,7 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
       )
 
-      handleOverlays({ contract: c, navigation, updateOverlay, view })
+      handleOverlays({ contract: c, navigation, updateOverlay, view: v })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),

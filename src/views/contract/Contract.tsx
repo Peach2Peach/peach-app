@@ -102,10 +102,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
-      // info('Got contract', result)
       let c = getContract(result.id)
-
-      setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
+      setView(v)
 
       const { symmetricKey, paymentData } = await parseContract({
         ...result,
@@ -127,7 +126,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
       )
 
-      handleOverlays({ contract: c, navigation, updateOverlay, view })
+      handleOverlays({ contract: c, navigation, updateOverlay, view: v })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),

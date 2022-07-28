@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 
 import { account } from '../utils/account'
-import { StackNavigation } from '../utils/navigation'
+import { Navigation } from '../utils/navigation'
 import { ConfirmCancelTradeBuyer } from './tradeCancelation/ConfirmCancelTradeBuyer'
 import { ConfirmCancelTradeSeller } from './tradeCancelation/ConfirmCancelTradeSeller'
 
 export type ConfirmCancelTradeProps = {
   contract: Contract,
-  navigation: StackNavigation
+  navigation: Navigation
 }
 
 export default ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
