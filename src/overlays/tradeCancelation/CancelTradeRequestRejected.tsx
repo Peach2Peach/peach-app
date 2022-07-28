@@ -19,6 +19,7 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
     saveContract({
       ...contract,
       cancelConfirmationDismissed: true,
+      cancelConfirmationPending: false,
     })
   }, [])
 
@@ -34,7 +35,7 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
     </Text>
     <View>
       <Button
-        style={tw`mt-2`}
+        style={tw`mt-8`}
         title={i18n('close')}
         secondary={true}
         wide={false}

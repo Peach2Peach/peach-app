@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import { Button, Headline, Text } from '../../components'
+import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { contractIdToHex, saveContract } from '../../utils/contract'
@@ -14,7 +15,9 @@ import { ContractCanceled } from './ContractCanceled'
 /**
  * @description Overlay the buyer sees after seller requested the cancelation of the trade
  */
+// eslint-disable-next-line max-lines-per-function
 export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+  const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
@@ -33,6 +36,10 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
       navigation.replace('yourTrades', {})
     } else if (err) {
       error('Error', err)
+      updateMessage({
+        msg: i18n(err?.error || 'error.general'),
+        level: 'ERROR',
+      })
     }
     setLoading(false)
   }

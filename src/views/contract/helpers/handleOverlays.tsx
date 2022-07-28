@@ -1,6 +1,7 @@
 import React from 'react'
 import { DisputeResult } from '../../../overlays/DisputeResult'
 import { CancelTradeRequestConfirmed } from '../../../overlays/tradeCancelation/CancelTradeRequestConfirmed'
+import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/CancelTradeRequestRejected'
 import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import YouGotADispute from '../../../overlays/YouGotADispute'
 import { account } from '../../../utils/account'
@@ -49,9 +50,18 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     })
   }
 
-  if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed) {
+  if (contract.canceled && view === 'seller' && !contract.cancelationRequested
+    && contract.cancelConfirmationPending && !contract.cancelConfirmationDismissed) {
     return updateOverlay({
       content: <CancelTradeRequestConfirmed
+        contract={contract}
+        navigation={navigation} />,
+    })
+  }
+  if (!contract.canceled && view === 'seller' && !contract.cancelationRequested
+    && contract.cancelConfirmationPending && !contract.cancelConfirmationDismissed) {
+    return updateOverlay({
+      content: <CancelTradeRequestRejected
         contract={contract}
         navigation={navigation} />,
     })

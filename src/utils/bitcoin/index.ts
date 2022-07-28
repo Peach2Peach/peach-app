@@ -1,4 +1,5 @@
 export { checkRefundPSBT } from './checkRefundPSBT'
+export { signPSBT } from './signPSBT'
 export { checkAndRefund } from './checkAndRefund'
 export { parseBitcoinRequest } from './parseBitcoinRequest'
 export { isxpub } from './isxPub'

@@ -57,5 +57,6 @@ declare type Contract = {
 
   // app specific
   disputeResultAcknowledged?: boolean,
+  cancelConfirmationPending?: boolean,
   cancelConfirmationDismissed?: boolean
 }

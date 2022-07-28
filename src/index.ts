@@ -25,6 +25,7 @@ LogBox.ignoreLogs([
   // Webview (shadows)
   /Did not receive response to shouldStartLoad in time/u,
   /startLoadWithResult invoked with invalid lockIdentifier/u,
+  /ERROR/u,
 ])
 
 LogBox.ignoreAllLogs(isProduction())

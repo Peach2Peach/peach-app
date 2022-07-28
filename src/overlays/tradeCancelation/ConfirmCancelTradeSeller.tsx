@@ -4,7 +4,7 @@ import { Button, Headline, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
-import { checkAndRefund } from '../../utils/bitcoin'
+import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
@@ -32,20 +32,25 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
 
     if (result?.psbt) {
       const offer = getOffer(contract.id.split('-')[0]) as SellOffer
-      const { tx, txId, err: checkAndRefundError } = await checkAndRefund(result.psbt, offer)
-      if (tx && txId) {
-        const [patchOfferResult, patchOfferError] = await patchOffer({ offerId: offer.id!, tx })
+      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, offer)
+      if (isValid && psbt) {
+        const signedPSBT = signPSBT(psbt, offer, false)
+        const [patchOfferResult, patchOfferError] = await patchOffer({
+          offerId: offer.id!,
+          refundTx: signedPSBT.toBase64()
+        })
         if (patchOfferResult) {
           closeOverlay()
           navigation.replace('yourTrades', {})
           saveOffer({
             ...offer,
-            tx,
-            txId,
+            refundTx: psbt.toHex(),
           })
           saveContract({
             ...contract,
             cancelConfirmationDismissed: false,
+            cancelationRequested: true,
+            cancelConfirmationPending: true,
           })
         } else if (patchOfferError) {
           error('Error', patchOfferError)
@@ -54,10 +59,10 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
             level: 'ERROR',
           })
         }
-      } else if (checkAndRefundError) {
-        error('Error', checkAndRefundError)
+      } else if (checkRefundPSBTError) {
+        error('Error', checkRefundPSBTError)
         updateMessage({
-          msg: i18n(checkAndRefundError || 'error.general'),
+          msg: i18n(checkRefundPSBTError || 'error.general'),
           level: 'ERROR',
         })
       }

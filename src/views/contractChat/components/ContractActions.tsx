@@ -51,8 +51,8 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
     : null
 
   return <View style={style}>
-    {!contract.canceled ?
-      <IconButton style={!canCancel ? tw`opacity-50` : {}}
+    {!contract.canceled
+      ? <IconButton style={!canCancel ? tw`opacity-50` : {}}
         onPress={openCancelTrade}
         icon="cross"
       />

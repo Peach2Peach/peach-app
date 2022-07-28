@@ -25,6 +25,7 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
     saveContract({
       ...contract,
       cancelConfirmationDismissed: true,
+      cancelConfirmationPending: false,
     })
   }, [])
 
