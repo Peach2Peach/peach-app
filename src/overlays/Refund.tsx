@@ -6,68 +6,15 @@ import LanguageContext from '../contexts/language'
 import { Button, Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 import { MessageContext } from '../contexts/message'
-import * as bitcoin from 'bitcoinjs-lib'
 import cancelOfferEffect from '../effects/cancelOfferEffect'
 
 import { error, info } from '../utils/log'
-import { getEscrowWallet, getFinalScript, getNetwork } from '../utils/wallet'
-import { postTx } from '../utils/peachAPI'
 import { saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'
 import { OverlayContext } from '../contexts/overlay'
-import { showTransaction, txIdPartOfPSBT } from '../utils/bitcoin'
+import { checkAndRefund, showTransaction } from '../utils/bitcoin'
 import { NETWORK } from '@env'
 import { sum } from '../utils/math'
-
-const checkAndRefund = async (
-  response: CancelOfferResponse,
-  offer: SellOffer
-): Promise<{
-    tx?: string,
-    txId?: string|null,
-    err?: string|null,
-  }> => {
-  if (!offer.id) return { err: 'NOT_FOUND' }
-  const { returnAddress, amount, fees } = response
-  const psbt = bitcoin.Psbt.fromBase64(response.psbt, { network: getNetwork() })
-
-  if (!amount || !fees || !psbt || !offer || !offer.funding?.txIds) return { err: 'NOT_FOUND' }
-
-  // Don't trust the response, verify
-  const txIds = offer.funding.txIds
-  if (!txIds.every(txId => txIdPartOfPSBT(txId, psbt))) {
-    return { err: 'INVALID_INPUT' }
-  }
-
-  // refunds should only have one output and this is the expected returnAddress
-  if (psbt.txOutputs.length > 1) return { err: 'INVALID_OUTPUT' }
-  if (returnAddress !== offer.returnAddress
-    || psbt.txOutputs[0].address !== offer.returnAddress) {
-    return { err: 'RETURN_ADDRESS_MISMATCH' }
-  }
-
-  // Sign psbt
-  psbt.txInputs.forEach((input, i) =>
-    psbt
-      .signInput(i, getEscrowWallet(offer.id!))
-      .finalizeInput(i, getFinalScript)
-  )
-
-  const tx = psbt
-    .extractTransaction()
-    .toHex()
-
-  const [result, err] = await postTx({
-    tx
-  })
-  info('refundEscrow: ', JSON.stringify(result))
-
-  return {
-    tx,
-    txId: result?.txId,
-    err: err?.error,
-  }
-}
 
 type Props = {
   offer: SellOffer,
@@ -94,7 +41,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
       (async () => {
         if (!offer.id) return
         info('Get refunding info', response)
-        const { tx, txId, err } = await checkAndRefund(response, offer)
+        const { tx, txId, err } = await checkAndRefund(response.psbt, offer)
 
         if (tx && txId) {
           saveOffer({

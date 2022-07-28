@@ -1,10 +1,12 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { GestureResponderEvent, Pressable, View } from 'react-native'
 import { Icon, Shadow } from '../../../components'
 import { IconType } from '../../../components/icons'
+import { OverlayContext } from '../../../contexts/overlay'
+import ConfirmCancelTrade from '../../../overlays/ConfirmCancelTrade'
 import tw from '../../../styles/tailwind'
 import { mildShadowOrange } from '../../../utils/layout'
-import { Navigation } from '../../../utils/navigation'
+import { StackNavigation } from '../../../utils/navigation'
 
 type IconButtonProps = ComponentProps & {
   icon: IconType,
@@ -31,19 +33,32 @@ const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => 
 
 type ContractActionsProps = ComponentProps & {
   contract: Contract,
-  view: 'buyer' | 'seller' | '',
-  navigation: Navigation,
+  view: 'buyer' | 'seller' | ''
+  navigation: StackNavigation,
 }
 
 export const ContractActions = ({ contract, view, navigation, style }: ContractActionsProps): ReactElement => {
-  // const cancelTrade = () => alert('todo cancel trade')
+  const [, updateOverlay] = useContext(OverlayContext)
+  const canCancel = !contract.disputeActive && !contract.paymentMade
+    && !contract.canceled && !contract.cancelationRequested
+  const openCancelTrade = () => canCancel
+    ? updateOverlay({
+      content: <ConfirmCancelTrade contract={contract} navigation={navigation} />,
+    })
+    : null
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = () => !contract.disputeActive
     ? navigation.navigate('dispute', { contractId: contract.id })
     : null
 
   return <View style={style}>
-    {/* {view === 'buyer' ? <IconButton onPress={cancelTrade} icon="cross" /> : null} */}
+    {!contract.canceled
+      ? <IconButton style={!canCancel ? tw`opacity-50` : {}}
+        onPress={openCancelTrade}
+        icon="cross"
+      />
+      : null
+    }
     {/* <IconButton style={tw`mt-3`} onPress={extendTime} icon="timer" /> */}
     <IconButton style={[tw`mt-3`, contract.disputeActive ? tw`opacity-50` : {}]}
       onPress={raiseDispute}

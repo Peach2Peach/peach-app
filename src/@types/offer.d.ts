@@ -18,6 +18,7 @@ declare type OfferStatus = {
     | 'confirmPayment'
     | 'dispute'
     | 'acknowledgeDisputeResult'
+    | 'confirmCancelation'
     | 'rate'
     | 'startRefund'
 }
@@ -33,6 +34,7 @@ declare type SellOffer = Omit<Offer, 'id'> & {
   escrow?: string,
   funding: FundingStatus,
   tx?: string,
+  refundTx?: string, // base 64 encoded psbt
   txId?: string,
   released: boolean,
   matched: Offer['id'][],

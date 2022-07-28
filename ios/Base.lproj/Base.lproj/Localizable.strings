@@ -26,3 +26,11 @@
 "notification.body.contract.disputeRaised" = "Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.";
 "notification.title.contract.disputeResolved" = "Dispute";
 "notification.body.contract.disputeResolved" = "A decision about a dispute has been made!";
+"notification.title.contract.canceled" = "Trade cancelation";
+"notification.body.contract.canceled" = "Your Buyer has canceled Trade %@.";
+"notification.title.contract.cancelationRequest" = "Trade cancelation";
+"notification.body.contract.cancelationRequest" = "Your Seller wants to cancel the Trade %@. Accepting the cancelation will release the escrowed sats back to them, so don't do this if you've already sent the payment!";
+"notification.title.contract.cancelationRequestAccepted" = "Trade canceled";
+"notification.body.contract.cancelationRequestAccepted" = "The Buyer for Trade %@ has agreed to cancel the trade.";
+"notification.title.contract.cancelationRequestRejected" = "Trade not canceled";
+"notification.body.contract.cancelationRequestRejected" = "The Buyer for Trade %@ has not agreed to cancel the trade.";
