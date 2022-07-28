@@ -39,7 +39,8 @@ type ContractActionsProps = ComponentProps & {
 
 export const ContractActions = ({ contract, view, navigation, style }: ContractActionsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const canCancel = view === 'buyer' || (view === 'seller' && !contract.cancelationRequested && !contract.paymentMade)
+  const canCancel = !contract.disputeActive && !contract.paymentMade
+    && !contract.canceled && !contract.cancelationRequested
   const openCancelTrade = () => canCancel
     ? updateOverlay({
       content: <ConfirmCancelTrade contract={contract} navigation={navigation} />,
