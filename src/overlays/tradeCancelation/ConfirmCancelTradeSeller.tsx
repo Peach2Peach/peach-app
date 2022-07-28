@@ -44,7 +44,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
           navigation.replace('yourTrades', {})
           saveOffer({
             ...offer,
-            refundTx: psbt.toHex(),
+            refundTx: psbt.toBase64(),
           })
           saveContract({
             ...contract,
