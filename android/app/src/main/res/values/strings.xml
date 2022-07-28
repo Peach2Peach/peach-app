@@ -28,4 +28,12 @@
     <string name="notification.body.contract.disputeRaised">Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.</string>
     <string name="notification.title.contract.disputeResolved">Dispute</string>
     <string name="notification.body.contract.disputeResolved">A decision about a dispute has been made!</string>
+    <string name="notification.title.contract.canceled">Trade cancelation</string>
+    <string name="notification.body.contract.canceled">Your Buyer has canceled Trade %1$s.</string>
+    <string name="notification.title.contract.cancelationRequest">Trade cancelation</string>
+    <string name="notification.body.contract.cancelationRequest">Your Seller wants to cancel the Trade %1$s. Accepting the cancelation will release the escrowed sats back to them, so don\'t do this if you\'ve already sent the payment!</string>
+    <string name="notification.title.contract.cancelationRequestAccepted">Trade canceled</string>
+    <string name="notification.body.contract.cancelationRequestAccepted">The Buyer for Trade %1$s has agreed to cancel the trade.</string>
+    <string name="notification.title.contract.cancelationRequestRejected">Trade not canceled</string>
+    <string name="notification.body.contract.cancelationRequestRejected">The Buyer for Trade %1$s has not agreed to cancel the trade.</string>
 </resources>
