@@ -16,7 +16,7 @@ export const ContractCanceled = ({ contract, navigation }: ConfirmCancelTradePro
   useEffect(() => {
     setTimeout(() => {
       closeOverlay()
-      navigation.replace('contract', { contractId: contract.id })
+      navigation.navigate('contract', { contractId: contract.id })
     }, 3000)
   }, [])
 

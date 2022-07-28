@@ -33,7 +33,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
         cancelationRequested: false
       })
       updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
-      navigation.replace('yourTrades', {})
+      navigation.navigate('yourTrades', {})
     } else if (err) {
       error('Error', err)
       updateMessage({
@@ -54,7 +54,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
         cancelationRequested: false
       })
       closeOverlay()
-      navigation.replace('contract', { contractId: contract.id })
+      navigation.navigate('contract', { contractId: contract.id })
     } else if (err) {
       error('Error', err)
     }

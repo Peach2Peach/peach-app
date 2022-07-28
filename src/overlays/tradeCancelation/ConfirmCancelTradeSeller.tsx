@@ -41,7 +41,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         })
         if (patchOfferResult) {
           closeOverlay()
-          navigation.replace('yourTrades', {})
+          navigation.navigate('yourTrades', {})
           saveOffer({
             ...offer,
             refundTx: psbt.toBase64(),
