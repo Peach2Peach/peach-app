@@ -199,6 +199,7 @@ declare type MatchResponse = {
   success: true,
   matchedPrice?: number,
   contractId?: string,
+  refundTx?: string,
 }
 declare type GetContractResponse = Contract
 declare type GetContractsResponse = Contract[]
