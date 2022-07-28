@@ -168,6 +168,7 @@
   "sell.escrow.fundToContinue": "Fund to continue",
   "sell.escrow.waitingForConfirmation": "Waiting for confirmation",
   "escrow.viewInExplorer": "view escrow in explorer",
+  "escrow.refund": "Refund",
   "sell.escrow.returnAddress.title": "What's your return address?",
   "sell.escrow.returnAddress.subtitle": "(just in case you need a refund)",
   "sell.returnAddress.useDepositAddress": "Use deposit address for returns",
