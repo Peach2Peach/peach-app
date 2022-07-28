@@ -4,7 +4,6 @@ import camera from './camera.svg'
 import chat from './chat.svg'
 import check from './check.svg'
 import checkbox from './checkbox.svg'
-import circle from './circle.svg'
 import clock from './clock.svg'
 import timer from './timer.svg'
 import copy from './copy.svg'
@@ -48,7 +47,6 @@ const Icons = {
   chat,
   check,
   checkbox,
-  circle,
   clock,
   timer,
   copy,
