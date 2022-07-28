@@ -1,6 +1,7 @@
 import { postTx } from '../../utils/peachAPI'
 import { info } from '../log'
 import { checkRefundPSBT } from './checkRefundPSBT'
+import { signPSBT } from './signPSBT'
 
 export const checkAndRefund = async (
   psbtBase64: string,
@@ -10,10 +11,12 @@ export const checkAndRefund = async (
     txId?: string|null,
     err?: string|null,
   }> => {
-  const { tx, err } = await checkRefundPSBT(psbtBase64, offer)
+  const { isValid, psbt, err } = await checkRefundPSBT(psbtBase64, offer)
 
-  if (!tx || err) return { err }
+  if (!isValid || !psbt || err) return { err }
 
+  const signedPSBT = signPSBT(psbt, offer)
+  const tx = signedPSBT.extractTransaction().toHex()
   const [result, postTXError] = await postTx({
     tx
   })
