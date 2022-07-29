@@ -13,16 +13,16 @@ type Item =  {
 }
 
 
-type RadioButtonsItemProp = ComponentProps & {
+type RadioButtonItemProp = ComponentProps & {
   display: ReactNode,
   selected: boolean
 }
-const RadioButtonsItem = ({ display, selected }: RadioButtonsItemProp): ReactElement =>
+const RadioButtonItem = ({ display, selected }: RadioButtonItemProp): ReactElement =>
   <View style={[
     tw`w-full flex-row justify-between items-center px-4 py-3 bg-peach-milder rounded-lg border-2`,
     selected ? tw`border-peach-1` : tw`border-transparent`
   ]}>
-    <Text style={tw`font-baloo text-base ml-4`}>
+    <Text style={tw`font-baloo text-base`}>
       {display}
     </Text>
     {selected
@@ -77,9 +77,9 @@ export const RadioButtons = ({
       <Pressable style={tw`w-full`} onPress={() => onChange ? onChange(item.value) : null}>
         {item.value === selectedValue
           ? <Shadow shadow={mildShadow}>
-            <RadioButtonsItem display={item.display} selected={item.value === selectedValue} />
+            <RadioButtonItem display={item.display} selected={item.value === selectedValue} />
           </Shadow>
-          : <RadioButtonsItem display={item.display} selected={item.value === selectedValue} />
+          : <RadioButtonItem display={item.display} selected={item.value === selectedValue} />
         }
       </Pressable>
     </View>
