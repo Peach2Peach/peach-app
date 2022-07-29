@@ -1,7 +1,7 @@
 
 import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Image, Pressable, View } from 'react-native'
+import { Image, LayoutChangeEvent, Pressable, View } from 'react-native'
 import RNRestart from 'react-native-restart'
 
 import { Shadow, Text } from '.'
@@ -20,6 +20,10 @@ import { getRequiredActionCount } from '../utils/offer'
 import { marketPrices } from '../utils/peachAPI/public/market'
 import { thousands } from '../utils/string'
 import { Fade } from './animation'
+
+let HEADERHEIGHT = 56
+const setHeaderHeight = (event: LayoutChangeEvent) => HEADERHEIGHT = event.nativeEvent.layout.height
+export const getHeaderHeight = () => HEADERHEIGHT
 
 let goHomeTimeout: NodeJS.Timer
 
@@ -76,7 +80,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
 
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
 
-  return <View style={style}>
+  return <View style={style} onLayout={setHeaderHeight}>
     <Shadow shadow={mildShadow}>
       <View style={tw`w-full flex-row items-center justify-between px-4 py-2 bg-white-1`}>
         <Fade show={!!bitcoinContext.price} style={tw`w-1/2`} displayNone={false}>

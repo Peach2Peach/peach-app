@@ -125,6 +125,10 @@ declare type OverlayState = {
   showCloseButton?: boolean,
   help?: boolean,
 }
+declare type DrawerState = {
+  title?: string,
+  content: ReactNode|null,
+}
 declare type BitcoinState = {
   currency: Currency,
   price: number,
