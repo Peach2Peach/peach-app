@@ -166,7 +166,10 @@ const App: React.FC = () => {
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
   const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
-  const [{ title: drawerTitle, content: drawerContent }, updateDrawer] = useReducer(setDrawer, getDrawer())
+  const [{ title: drawerTitle, content: drawerContent, show: showDrawer }, updateDrawer] = useReducer(
+    setDrawer,
+    getDrawer()
+  )
   const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
@@ -224,7 +227,7 @@ const App: React.FC = () => {
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
             <MessageContext.Provider value={[{ template, msg, level, close }, updateMessage]}>
-              <DrawerContext.Provider value={[{ title: drawerTitle, content: drawerContent }, updateDrawer]}>
+              <DrawerContext.Provider value={[{ title: '', content: null, show: false }, updateDrawer]}>
                 <OverlayContext.Provider value={[
                   { content, showCloseButton: false, showCloseIcon: false, help: false },
                   updateOverlay
@@ -234,7 +237,7 @@ const App: React.FC = () => {
                       ? <Header style={tw`z-10`} navigation={navigationRef} />
                       : null
                     }
-                    <Drawer title={drawerTitle} content={drawerContent} />
+                    <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
                         showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
