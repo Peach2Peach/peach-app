@@ -35,6 +35,7 @@ export {
 } from './ui'
 
 export { paymentDetailTemplates } from './payment/'
+export { PaymentLogo } from './payment/PaymentLogo'
 export { ScanQR } from './camera/ScanQR'
 export {
   BigTitle,
