@@ -1,7 +1,7 @@
 
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
-import { Animated, Dimensions, Easing, LayoutChangeEvent, Pressable, View } from 'react-native'
-import { Button, Text, PeachScrollView, HorizontalLine } from '.'
+import { Animated, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
+import { Button, HorizontalLine, PeachScrollView, Text } from '.'
 
 import { DrawerContext } from '../contexts/drawer'
 import tw from '../styles/tailwind'
@@ -13,6 +13,7 @@ const animConfig = {
   easing: Easing.ease,
   useNativeDriver: false
 }
+let touchY = 0
 
 /**
  * @description Component to display the Drawer
@@ -32,12 +33,12 @@ export const Drawer = ({ title, content, show }: DrawerState): ReactElement => {
   const animate = (): any => {
     Animated.timing(slideAnim, {
       toValue: show ? getHeaderHeight() : height,
-      delay: show ? 100 : 0,
+      delay: show ? 50 : 0,
       ...animConfig
     }).start()
     Animated.timing(fadeAnim, {
       toValue: show ? 0.4 : 0,
-      delay: show ? 0 : 100,
+      delay: show ? 0 : 50,
       ...animConfig
     }).start()
   }
@@ -53,6 +54,9 @@ export const Drawer = ({ title, content, show }: DrawerState): ReactElement => {
 
   const closeDrawer = () => updateDrawer({ title, content, show: false })
 
+  const registerTouchStart = (e: GestureResponderEvent) => touchY = e.nativeEvent.pageY
+  const registerTouchMove = (e: GestureResponderEvent) => touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null
+
   return <View style={[
     tw`absolute top-0 left-0 w-full h-full z-20 flex`,
     !display ? tw`hidden` : {},
@@ -64,16 +68,16 @@ export const Drawer = ({ title, content, show }: DrawerState): ReactElement => {
       <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
     </Animated.View>
     <Animated.View testID="drawer" style={tw`w-full flex-shrink-0 bg-white-1 rounded-t-3xl px-8 -mt-7`}>
-      <Text style={tw`mt-6 font-baloo text-base text-center uppercase`}>{title}</Text>
-      <HorizontalLine style={tw`mt-6`} />
+      <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
+        <Text style={tw`font-baloo text-base text-center uppercase`}>{title}</Text>
+      </View>
+      <HorizontalLine />
       <PeachScrollView style={tw`py-6`}>
         {content}
-        <Button
-          style={tw`mt-7`}
-          title={i18n('close')}
-          onPress={closeDrawer}
-          wide={false}
-        />
+        <HorizontalLine style={tw`my-6`}/>
+        <Text onPress={closeDrawer} style={tw`font-baloo text-base text-center uppercase`}>
+          {i18n('close')}
+        </Text>
       </PeachScrollView>
     </Animated.View>
   </View>
