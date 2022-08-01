@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
-import { View } from 'react-native'
-import { Button, Icon } from '../../../components'
+import { Pressable, View } from 'react-native'
+import { Button, Icon, Text } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import CurrencySelect from '../../../overlays/CurrencySelect'
 import PaymentMethodSelect from '../../../overlays/PaymentMethodSelect'
@@ -76,12 +76,10 @@ export default ({ style, setMeansOfPayment, view }: AddPaymentMethodProps): Reac
 
   return <View style={style}>
     <View style={tw`flex items-center`}>
-      <Button
-        testID="buy-add-mop"
-        title={<Icon id="plus" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />}
-        wide={false}
-        onPress={addPaymentMethods}
-      />
+      <Pressable testID="buy-add-mop" onPress={addPaymentMethods} style={tw`flex flex-row items-center`}>
+        <Icon id="plus" style={tw`w-7 h-7 mr-2`} color={tw`text-peach-1`.color as string} />
+        <Text style={tw`text-peach-1 font-baloo text-sm`}>{i18n('paymentMethod.select.title')}</Text>
+      </Pressable>
     </View>
   </View>
 }

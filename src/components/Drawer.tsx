@@ -1,7 +1,7 @@
 
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
-import { Button, HorizontalLine, PeachScrollView, Text } from '.'
+import { HorizontalLine, PeachScrollView, Text } from '.'
 
 import { DrawerContext } from '../contexts/drawer'
 import tw from '../styles/tailwind'
