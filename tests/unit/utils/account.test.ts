@@ -135,7 +135,6 @@ describe('updateSettings', () => {
     deepStrictEqual(account.settings, {
       appVersion: APPVERSION,
       skipTutorial: true,
-      enableAnalytics: false,
       displayCurrency: 'EUR',
       locale: 'en',
       meansOfPayment: {
