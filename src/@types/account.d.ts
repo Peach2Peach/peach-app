@@ -1,6 +1,7 @@
 declare type Settings = {
   appVersion: string,
   skipTutorial?: boolean,
+  enableAnalytics?: boolean,
   locale: string,
   amount?: number,
   returnAddress?: string,
