@@ -64,6 +64,7 @@ export const buyOfferUnpublished: BuyOffer = {
 
 export const recoveredAccount: Account = {
   settings: {
+    enableAnalytics: false,
     locale: 'en',
     displayCurrency: 'EUR',
     appVersion: '0.1.0',
@@ -98,6 +99,7 @@ export const account1: Account = {
   settings: {
     appVersion: '0.1.0',
     skipTutorial: true,
+    enableAnalytics: false,
     locale: 'en',
     amount: 1000000,
     displayCurrency: 'EUR',
