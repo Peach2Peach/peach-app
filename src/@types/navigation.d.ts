@@ -5,13 +5,16 @@ declare type RootStackParamList = {
   login: {},
   restoreBackup: {},
   sell: {
+    amount: number,
     offer?: SellOffer,
     page?: number
   },
   buy: {
+    amount: number,
     offer?: BuyOffer,
     page?: number
   },
+  addPaymentMethod: {},
   search: {
     offer: SellOffer|BuyOffer,
     hasMatches?: boolean,

@@ -28,6 +28,8 @@ import Fees from './settings/Fees'
 import Socials from './settings/Socials'
 import Profile from './profile/Profile'
 import Dispute from './dispute/Dispute'
+import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
+import BuyPreferences from './buy/BuyPreferences'
 
 
 type ViewType = {
@@ -46,7 +48,10 @@ export const views: ViewType[] = [
   // { name: 'home', component: Home, showHeader: false, showFooter: true },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
+  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
+  // { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
+  { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
   { name: 'search', component: Search, showHeader: true, showFooter: true },
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },

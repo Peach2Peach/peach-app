@@ -45,7 +45,7 @@ export const Navigation = ({ screen, back, next, navigation, stepValid, offer }:
   useEffect(keyboard(setKeyboardOpen), [])
 
   return <Fade show={!keyboardOpen} style={tw`w-full flex items-center`} displayNone={false}>
-    {!/main|escrow|search/u.test(screen)
+    {!/escrow|search/u.test(screen)
       ? <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={back}>
         <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
       </Pressable>
