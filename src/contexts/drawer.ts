@@ -3,11 +3,12 @@ import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
 let title = ''
 let content: ReactNode
 let show: boolean = false
+let onClose = () => {}
 
 const dispatch: Dispatch<Partial<DrawerState>> = () => {}
 
 export const DrawerContext = createContext([
-  { title, content, show },
+  { title, content, show, onClose },
   dispatch
 ] as const)
 
@@ -19,6 +20,7 @@ export const getDrawer = (): DrawerState => ({
   title,
   content,
   show,
+  onClose,
 })
 
 /**
@@ -31,10 +33,12 @@ export const setDrawer = (state: ReducerState<any>, newState: Partial<DrawerStat
   title = newState.title || title
   content = newState.content || content
   show = newState.show ?? true
+  onClose = newState.show ? newState.onClose || (() => {}) : () => {}
 
   return {
     title,
     content,
-    show
+    show,
+    onClose,
   }
 }

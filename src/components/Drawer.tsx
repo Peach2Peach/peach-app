@@ -23,7 +23,7 @@ let touchY = 0
  * @example
  * <Drawer title="Title" content={<Text>Drawer content</Text>} />
  */
-export const Drawer = ({ title, content, show }: DrawerState): ReactElement => {
+export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactElement => {
   const [, updateDrawer] = useContext(DrawerContext)
   const [{ height }] = useState(() => Dimensions.get('window'))
   const slideAnim = useRef(new Animated.Value(height)).current
@@ -52,7 +52,10 @@ export const Drawer = ({ title, content, show }: DrawerState): ReactElement => {
     fadeAnim.addListener((fade) => setDisplay(fade.value > 0))
   }, [])
 
-  const closeDrawer = () => updateDrawer({ title, content, show: false })
+  const closeDrawer = () => {
+    onClose()
+    updateDrawer({ title, content, show: false })
+  }
 
   const registerTouchStart = (e: GestureResponderEvent) => touchY = e.nativeEvent.pageY
   const registerTouchMove = (e: GestureResponderEvent) => touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null
@@ -67,7 +70,7 @@ export const Drawer = ({ title, content, show }: DrawerState): ReactElement => {
     ]}>
       <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
     </Animated.View>
-    <Animated.View testID="drawer" style={tw`w-full flex-shrink-0 bg-white-1 rounded-t-3xl px-8 -mt-7`}>
+    <Animated.View testID="drawer" style={tw`w-full flex-shrink-0 bg-white-1 rounded-t-3xl -mt-7`}>
       <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
         <Text style={tw`font-baloo text-base text-center uppercase`}>{title}</Text>
       </View>
