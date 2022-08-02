@@ -7,9 +7,10 @@ import i18n from '../utils/i18n'
 
 type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[],
+  showLogos?: boolean,
   onSelect: (method: PaymentMethod) => void,
 }
-export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => {
+export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: PaymentMethodSelectProps): ReactElement => {
   const [selected, setSelected] = useState<PaymentMethod>()
 
   const select = (method: PaymentMethod) => {
@@ -24,7 +25,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
   return <View>
     {paymentMethods.map((method, i) => <View key={method}>
       <View style={tw`flex flex-row items-center px-8`}>
-        <PaymentLogo id={method as PaymentLogoType} style={tw`w-8 h-8 mr-4`} />
+        {showLogos && <PaymentLogo id={method as PaymentLogoType} style={tw`w-8 h-8 mr-4`} />}
         <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`}
           onPress={() => select(method)}>
           {i18n(`paymentMethod.${method}`)}

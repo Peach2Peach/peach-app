@@ -46,8 +46,10 @@ export default ({
       paymentMethodAllowedForCurrency(method, currency)
     )
     updateDrawer({
-      title: i18n(`paymentCategory.${paymentCategory}`),
-      content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods} onSelect={selectPaymentMethod} />,
+      title: i18n(`paymentCategory.${category}`),
+      content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods}
+        showLogos={category !== 'bankTransfer'}
+        onSelect={selectPaymentMethod} />,
       show: true,
       onClose: () => {
         setPaymentCategory(undefined)
