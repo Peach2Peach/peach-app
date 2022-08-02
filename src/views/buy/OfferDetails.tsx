@@ -16,7 +16,7 @@ const validate = (offer: BuyOffer) =>
   !!offer.amount
   && hasMopsConfigured(offer)
 
-export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment
@@ -46,7 +46,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       paymentData={account.paymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethods style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} view="buyer" />
+    <AddPaymentMethods navigation={navigation} style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} />
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }
