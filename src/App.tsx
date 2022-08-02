@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, Alert } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
@@ -28,10 +28,10 @@ import { OverlayContext, getOverlay, setOverlay } from './contexts/overlay'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
 
 import Message from './components/Message'
+import { account } from './utils/account'
 import Overlay from './components/Overlay'
 import Drawer from './components/Drawer'
 
-import { account } from './utils/account'
 import { sleep } from './utils/performance'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { info, error } from './utils/log'
@@ -49,6 +49,7 @@ import { getSession, setSession } from './utils/session'
 import { exists } from './utils/file'
 import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
+import requestUserPermissions from './init/requestUserPermissions'
 
 enableScreens()
 
@@ -67,17 +68,6 @@ const showHeader = (view: keyof RootStackParamList) => views.find(v => v.name ==
  * @returns true if view should show header
  */
 const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showFooter
-
-const requestUserPermission = async () => {
-  info('Requesting notification permissions')
-  const authStatus = await messaging().requestPermission({
-    alert: true,
-    badge: false,
-    sound: true,
-  })
-
-  info('Permission status:', authStatus)
-}
 
 const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
@@ -136,7 +126,6 @@ const initApp = async (
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
 
-  await requestUserPermission()
 
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
@@ -158,6 +147,8 @@ const initApp = async (
   clearTimeout(timeout)
 
   initialNavigation(navigationRef, updateMessage, sessionInitiated)
+
+  await requestUserPermissions()
 }
 
 // eslint-disable-next-line max-lines-per-function

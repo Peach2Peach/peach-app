@@ -13,7 +13,11 @@ import { error, info } from '../../log'
 export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
-  if (!peachAccount) throw new Error('Peach Account not set')
+  if (!peachAccount) {
+    const authError = new Error('Peach Account not set')
+    error(authError)
+    throw authError
+  }
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
@@ -173,7 +177,11 @@ export const getTradingLimit = async (): Promise<[TradingLimit|null, APIError|nu
 export const authWS = (ws: WebSocket) => {
   const message = 'Peach Registration ' + (new Date()).getTime()
 
-  if (!peachAccount) throw new Error('Peach Account not set')
+  if (!peachAccount) {
+    const authError = new Error('Peach Account not set')
+    error(authError)
+    throw authError
+  }
 
   ws.send(JSON.stringify({
     path: '/v1/user/auth',

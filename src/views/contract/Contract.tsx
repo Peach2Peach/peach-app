@@ -15,7 +15,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getOffer } from '../../utils/offer'
-import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
@@ -135,7 +135,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId]))
 
   useEffect(() => {
-    if (!contract || !view || contract.canceled) return
+    if (!contract || !view) return
 
     if (isTradeComplete(contract)) {
       if (view === 'buyer' && !contract.ratingSeller || view === 'seller' && !contract.ratingBuyer) {
@@ -144,6 +144,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
         navigation.replace('offer', { offer })
       }
+      return
+    } else if (isTradeCanceled(contract)) {
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
+      navigation.replace('offer', { offer })
       return
     }
 
@@ -214,7 +218,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
-        {!contract.paymentConfirmed
+        {!contract.canceled && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>
