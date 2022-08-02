@@ -65,9 +65,12 @@ export {
   postOffer, getOfferDetails, patchOffer,
   createEscrow, getFundingStatus,
   cancelOffer,
-  getMatches
+  getMatches, matchOffer, unmatchOffer,
 } from './private/offer'
 export {
+  cancelContract,
+  confirmContractCancelation,
+  rejectContractCancelation,
   getContract,
   getContracts,
   confirmPayment,

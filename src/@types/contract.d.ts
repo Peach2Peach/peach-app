@@ -44,14 +44,19 @@ declare type Contract = {
   disputeClaim?: string,
   disputeReason?: DisputeReason,
   disputeAcknowledgedByCounterParty?: boolean,
-  disputeResultAcknowledged?: boolean,
   disputeWinner?: 'seller' | 'buyer',
   disputeResolvedDate?: Date|null,
 
+  cancelationRequested: boolean,
   canceled: boolean,
 
   ratingBuyer: 1|0|-1,
   ratingSeller: 1|0|-1,
 
   messages: number
+
+  // app specific
+  disputeResultAcknowledged?: boolean,
+  cancelConfirmationPending?: boolean,
+  cancelConfirmationDismissed?: boolean
 }

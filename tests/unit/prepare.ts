@@ -62,7 +62,7 @@ jest.mock('@react-native-firebase/analytics', () => () => ({
 jest.mock('react-native-device-info', () => ({
   getVersion: jest.fn(),
   getBuildNumber: jest.fn(),
-  getUniqueId: jest.fn(),
+  getUniqueId: () => 'UNIQUE-DEVICE-ID',
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')

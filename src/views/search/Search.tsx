@@ -32,9 +32,10 @@ import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
-import { matchOffer, unmatchOffer } from '../../utils/peachAPI/private/offer'
+import { matchOffer, unmatchOffer, patchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
+import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 
 const updaterPNs = [
   'offer.matchSeller',
@@ -110,7 +111,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }
 
-  // eslint-disable-next-line max-statements, max-lines-per-function
+  // eslint-disable-next-line max-statements, max-lines-per-function, complexity
   const _match = async (match: Match) => {
     let encryptedSymmmetricKey
     let encryptedPaymentData
@@ -187,11 +188,22 @@ export default ({ route, navigation }: Props): ReactElement => {
         return m
       }))
 
-      if (offer.type === 'ask') {
+      if (offer.type === 'ask' && result.refundTx) {
+        let refundTx: string|null = null
+        const { isValid, psbt } = checkRefundPSBT(result.refundTx, offer)
+        if (isValid && psbt) {
+          const signedPSBT = signPSBT(psbt, offer, false)
+          const [patchOfferResult] = await patchOffer({
+            offerId: offer.id!,
+            refundTx: signedPSBT.toBase64()
+          })
+          if (patchOfferResult) refundTx = psbt.toBase64()
+        }
         saveAndUpdate({
           ...offer,
           doubleMatched: true,
-          contractId: result.contractId
+          contractId: result.contractId,
+          refundTx: refundTx || offer.refundTx
         })
 
         if (result.contractId) {

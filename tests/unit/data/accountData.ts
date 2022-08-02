@@ -64,6 +64,7 @@ export const buyOfferUnpublished: BuyOffer = {
 
 export const recoveredAccount: Account = {
   settings: {
+    enableAnalytics: false,
     locale: 'en',
     displayCurrency: 'EUR',
     appVersion: '0.1.0',
@@ -98,6 +99,7 @@ export const account1: Account = {
   settings: {
     appVersion: '0.1.0',
     skipTutorial: true,
+    enableAnalytics: false,
     locale: 'en',
     amount: 1000000,
     displayCurrency: 'EUR',
@@ -207,12 +209,18 @@ export const contract: Contract = {
   escrow: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
   releaseAddress: 'bcrt1qxhkluxqp9u5f4a79vclgdah5vrzjzn2t8yn5rje3cnkvqk6u9fgqe5raag',
   releaseTransaction: 'rawtransaction',
-  canceled: false,
   ratingBuyer: 0,
   ratingSeller: 0,
 
   disputeDate: null,
   disputeResolvedDate: null,
 
+  cancelationRequested: false,
+  canceled: false,
+
   messages: 0,
+
+  disputeResultAcknowledged: false,
+  cancelConfirmationPending: false,
+  cancelConfirmationDismissed: false,
 }

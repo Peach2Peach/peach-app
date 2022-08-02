@@ -51,6 +51,7 @@ export const requiresDisputeResultAcknowledgement = (contract: Contract) =>
 export const isTradeComplete = (contract: Contract) => contract.paymentConfirmed
 
 export const isTradeCanceled = (contract: Contract) => contract.canceled
+export const isContractPendingForCancelation = (contract: Contract) => contract.cancelationRequested
 
 /**
  * @description Method to get current status of offer
@@ -80,15 +81,17 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
 
     return {
       status: 'contractCreated',
-      requiredAction: isKYCRequired(offer as BuyOffer, contract)
-        ? 'sendKYC'
-        : isKYCConfirmationRequired(offer as SellOffer, contract)
-          ? 'confirmKYC'
-          : isPaymentRequired(offer as BuyOffer, contract)
-            ? 'sendPayment'
-            : isPaymentConfirmationRequired(offer as SellOffer, contract)
-              ? 'confirmPayment'
-              : ''
+      requiredAction: isContractPendingForCancelation(contract)
+        ? 'confirmCancelation'
+        : isKYCRequired(offer as BuyOffer, contract)
+          ? 'sendKYC'
+          : isKYCConfirmationRequired(offer as SellOffer, contract)
+            ? 'confirmKYC'
+            : isPaymentRequired(offer as BuyOffer, contract)
+              ? 'sendPayment'
+              : isPaymentConfirmationRequired(offer as SellOffer, contract)
+                ? 'confirmPayment'
+                : ''
     }
   }
 

@@ -1,5 +1,6 @@
 import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
 import { unique } from './utils/array'
+import { sha256 } from './utils/crypto'
 
 export const SATSINBTC = 100000000
 
@@ -16,7 +17,7 @@ export const TIMETORESTART = 1000 * 60 * 5
 
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
-export const UNIQUEID = getUniqueId()
+export const UNIQUEID = sha256(getUniqueId())
 
 export let MINAPPVERSION = APPVERSION
 export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver

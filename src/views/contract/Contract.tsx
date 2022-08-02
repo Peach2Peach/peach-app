@@ -8,22 +8,21 @@ import { TIMERS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import { DisputeResult } from '../../overlays/DisputeResult'
 import Payment from '../../overlays/info/Payment'
-import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
 import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getOffer } from '../../utils/offer'
-import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import ContractCTA from './components/ContractCTA'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
+import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
 
 type Props = {
@@ -40,27 +39,31 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [updatePending, setUpdatePending] = useState(true)
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
-  const [view, setView] = useState<'seller'|'buyer'|''>('')
-  const [requiredAction, setRequiredAction] = useState<ContractAction>('none')
+  const [updatePending, setUpdatePending] = useState(!contract)
+  const [view, setView] = useState<'seller'|'buyer'|''>(contract
+    ? account.publicKey === contract.seller.id ? 'seller' : 'buyer'
+    : '')
+  const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
 
-  const saveAndUpdate = (contractData: Contract) => {
+  const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
     setContract(() => contractData)
     saveContract(contractData)
+    return contractData
   }
 
   const initContract = () => {
     if (contract?.id !== route.params.contractId) {
+      const c = getContract(route.params.contractId)
       setContractId(() => route.params.contractId)
-      setUpdatePending(true)
-      setView('')
-      setRequiredAction('none')
-      setContract(getContract(route.params.contractId))
+      setUpdatePending(!c)
+      setView(c ? account.publicKey === c.seller.id ? 'seller' : 'buyer' : '')
+      setRequiredAction(c ? getRequiredAction(c) : 'none')
+      setContract(c)
     }
   }
 
@@ -99,10 +102,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
-      // info('Got contract', result)
-      const c = getContract(result.id)
-
-      setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      let c = getContract(result.id)
+      const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
+      setView(v)
 
       const { symmetricKey, paymentData } = await parseContract({
         ...result,
@@ -110,7 +112,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         paymentData: c?.paymentData,
       })
 
-      saveAndUpdate(c
+      c = saveAndUpdate(c
         ? {
           ...c,
           ...result,
@@ -124,26 +126,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
       )
 
-      if (result.disputeActive
-        && result.disputeInitiator !== account.publicKey
-        && !result.disputeAcknowledgedByCounterParty) {
-        updateOverlay({
-          content: <YouGotADispute
-            contractId={result.id}
-            message={result.disputeClaim!}
-            reason={result.disputeReason!}
-            navigation={navigation} />,
-          showCloseButton: false
-        })
-      }
-
-      if (!result.disputeActive && result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
-        updateOverlay({
-          content: <DisputeResult
-            contractId={result.id}
-            navigation={navigation} />,
-        })
-      }
+      handleOverlays({ contract: c, navigation, updateOverlay, view: v })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -152,7 +135,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId]))
 
   useEffect(() => {
-    if (!contract || !view || contract.canceled) return
+    if (!contract || !view) return
 
     if (isTradeComplete(contract)) {
       if (view === 'buyer' && !contract.ratingSeller || view === 'seller' && !contract.ratingBuyer) {
@@ -162,12 +145,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         navigation.replace('offer', { offer })
       }
       return
+    } else if (isTradeCanceled(contract)) {
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
+      navigation.replace('offer', { offer })
+      return
     }
 
-    (async () => {
-      setRequiredAction(getRequiredAction(contract))
-      setUpdatePending(false)
-    })()
+    setRequiredAction(getRequiredAction(contract))
+    setUpdatePending(false)
   }, [contract])
 
   const postConfirmPaymentBuyer = async () => {
@@ -233,7 +218,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
-        {!contract.paymentConfirmed
+        {!contract.canceled && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>

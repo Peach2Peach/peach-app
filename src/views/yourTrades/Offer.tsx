@@ -1,5 +1,5 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
@@ -9,9 +9,7 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { DisputeResult } from '../../overlays/DisputeResult'
-import YouGotADispute from '../../overlays/YouGotADispute'
-import { account } from '../../utils/account'
+import MatchAccepted from '../../overlays/MatchAccepted'
 import { contractIdToHex, getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
@@ -20,9 +18,9 @@ import { getOffer, getOfferStatus, saveOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
+import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
-import MatchAccepted from '../../overlays/MatchAccepted'
 
 type Props = {
   route: RouteProp<{ params: {
@@ -39,6 +37,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const offerId = route.params.offer.id as string
   const offer = getOffer(offerId) as BuyOffer|SellOffer
+  const view = offer.type === 'ask' ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => offer?.contractId ? getContract(offer.contractId) : null)
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
@@ -113,26 +112,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(getContractEffect({
     contractId,
     onSuccess: async (result) => {
-
-      if (result.disputeActive
-        && result.disputeInitiator !== account.publicKey
-        && !result.disputeAcknowledgedByCounterParty) {
-        updateOverlay({
-          content: <YouGotADispute
-            contractId={result.id}
-            message={result.disputeClaim!}
-            reason={result.disputeReason!}
-            navigation={navigation} />,
-          showCloseButton: false
-        })
+      const c = {
+        ...getContract(result.id),
+        ...result
       }
-      if (result.disputeWinner && !contract?.disputeResultAcknowledged) {
-        updateOverlay({
-          content: <DisputeResult
-            contractId={result.id}
-            navigation={navigation} />,
-        })
-      }
+      handleOverlays({ contract: c, navigation, updateOverlay, view })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -166,7 +150,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle}/>
         <View style={tw`mt-7`}>
           <ContractSummary
-            contract={contract} view={offer.type === 'ask' ? 'seller' : 'buyer'}
+            contract={contract} view={view}
             navigation={navigation}
           />
           <View style={tw`flex items-center mt-4`}>

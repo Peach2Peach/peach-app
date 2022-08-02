@@ -199,6 +199,7 @@ declare type MatchResponse = {
   success: true,
   matchedPrice?: number,
   contractId?: string,
+  refundTx?: string,
 }
 declare type GetContractResponse = Contract
 declare type GetContractsResponse = Contract[]
@@ -208,3 +209,8 @@ declare type ConfirmPaymentResponse = {
 }
 
 declare type GetChatResponse = Message[]
+
+declare type CancelContractResponse = {
+  success: true,
+  psbt?: string,
+}

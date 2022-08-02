@@ -8,8 +8,6 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import keyboard from '../../effects/keyboard'
-import { DisputeResult } from '../../overlays/DisputeResult'
-import YouGotADispute from '../../overlays/YouGotADispute'
 import { account } from '../../utils/account'
 import { decryptMessage, getChat, saveChat } from '../../utils/chat'
 import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
@@ -19,6 +17,7 @@ import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
+import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import ContractActions from './components/ContractActions'
@@ -54,11 +53,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
 
-  const saveAndUpdate = (contractData: Contract) => {
+  const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
     setContract(() => contractData)
     saveContract(contractData)
+    return contractData
   }
 
   const initChat = () => {
@@ -107,9 +107,9 @@ export default ({ route, navigation }: Props): ReactElement => {
     contractId,
     onSuccess: async (result) => {
       info('Got contract', result.id)
-      const c = getContract(result.id)
-
-      setView(() => account.publicKey === result.seller.id ? 'seller' : 'buyer')
+      let c = getContract(result.id)
+      const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
+      setView(v)
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
       const { symmetricKey, paymentData } = await parseContract({
@@ -118,7 +118,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         paymentData: c?.paymentData,
       })
 
-      saveAndUpdate(c
+      c = saveAndUpdate(c
         ? {
           ...c,
           ...result,
@@ -132,25 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
       )
 
-      if (result.disputeActive
-        && result.disputeInitiator !== account.publicKey
-        && !result.disputeAcknowledgedByCounterParty) {
-        updateOverlay({
-          content: <YouGotADispute
-            contractId={result.id}
-            message={result.disputeClaim!}
-            reason={result.disputeReason!}
-            navigation={navigation} />,
-          showCloseButton: false
-        })
-      }
-      if (!result.disputeActive && result.disputeResolvedDate && !c?.disputeResultAcknowledged) {
-        updateOverlay({
-          content: <DisputeResult
-            contractId={result.id}
-            navigation={navigation} />,
-        })
-      }
+      handleOverlays({ contract: c, navigation, updateOverlay, view: v })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),

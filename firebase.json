@@ -5,7 +5,7 @@
     "crashlytics_ndk_enabled": true,
     "crashlytics_is_error_generation_on_js_crash_enabled": true,
     "crashlytics_javascript_exception_handler_chaining_enabled": true,
-    "analytics_auto_collection_enabled": true,
+    "analytics_auto_collection_enabled": false,
     "messaging_android_notification_color": "@color/orange"
   }
 }
