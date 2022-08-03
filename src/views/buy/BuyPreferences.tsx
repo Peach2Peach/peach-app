@@ -74,13 +74,11 @@ const screens = [
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  const [bitcoinContext] = useContext(BitcoinContext)
-
   const [, updateMessage] = useContext(MessageContext)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
-  const [updatePending, setUpdatePending] = useState(true)
+  const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
@@ -108,43 +106,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  useFocusEffect(useCallback(() => () => {
-    // restore default state when leaving flow
+  useFocusEffect(useCallback(() => {
     setOffer(getDefaultBuyOffer(route.params.amount))
     setUpdatePending(false)
     setPage(() => 0)
-  }, []))
-
-  useFocusEffect(useCallback(() => {
-    const offr = route.params?.offer || getDefaultBuyOffer(route.params.amount)
-
-    if (!route.params?.offer) {
-      setOffer(getDefaultBuyOffer(route.params.amount))
-      setUpdatePending(false)
-      setPage(() => 0)
-    } else {
-      setOffer(() => offr)
-      getOfferDetailsEffect({
-        offerId: offr.id,
-        onSuccess: result => {
-          saveAndUpdate({
-            ...offr,
-            ...result,
-          } as BuyOffer)
-          setUpdatePending(false)
-        },
-        onError: err => {
-          error('Could not fetch offer information for offer', offr.id)
-          updateMessage({
-            msg: i18n(err.error || 'error.general'),
-            level: 'ERROR',
-          })
-        }
-      })()
-      setUpdatePending(true)
-    }
   }, [route]))
-
 
   useEffect(() => {
     (async () => {
