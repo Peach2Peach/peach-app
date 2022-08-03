@@ -1,28 +1,25 @@
-import React, { RefObject, ReactElement, useEffect, useRef, useState, useContext } from 'react'
-import { SEPA } from './SEPA'
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import { Pressable, View } from 'react-native'
+import { OverlayContext } from '../../../../contexts/overlay'
+import keyboard from '../../../../effects/keyboard'
+import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
+import tw from '../../../../styles/tailwind'
+import { removePaymentData } from '../../../../utils/account'
+import i18n from '../../../../utils/i18n'
+import { StackNavigation } from '../../../../utils/navigation'
+import { paymentDataChanged } from '../../../../utils/paymentMethod'
+import { Fade } from '../../../animation'
+import Button from '../../../Button'
+import Icon from '../../../Icon'
+import { Text } from '../../../text'
+import { Bizum } from './Bizum'
+import { MBWay } from './MBWay'
 import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
-import { ApplePay } from './ApplePay'
-import { Wise } from './Wise'
-import { BankTransferCH } from './BankTransferCH'
-import { BankTransferUK } from './BankTransferUK'
-import { Twint } from './Twint'
-import { Bizum } from './Bizum'
+import { SEPA } from './SEPA'
 import { Swish } from './Swish'
-import { MBWay } from './MBWay'
-import { Fade } from '../../../animation'
-import { Pressable, View } from 'react-native'
-import Icon from '../../../Icon'
-import Button from '../../../Button'
-import { Text } from '../../../text'
-import keyboard from '../../../../effects/keyboard'
-import { removePaymentData } from '../../../../utils/account'
-import tw from '../../../../styles/tailwind'
-import i18n from '../../../../utils/i18n'
-import { OverlayContext } from '../../../../contexts/overlay'
-import { paymentDataChanged } from '../../../../utils/paymentMethod'
-import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
-// import { Tether } from './Tether'
+import { Twint } from './Twint'
+import { Wise } from './Wise'
 
 type FormRef = {
   buildPaymentData: () => PaymentData,
@@ -37,6 +34,7 @@ export type PaymentMethodFormProps = ComponentProps & {
   onSubmit?: (data: PaymentData) => void,
   onChange?: (data: Partial<PaymentData>) => void,
   onCancel?: (data: Partial<PaymentData>) => void,
+  navigation: StackNavigation,
 }
 type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
 export type PaymentMethodForms = {
@@ -44,17 +42,13 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
-  bankTransferCH: BankTransferCH,
-  bankTransferUK: BankTransferUK,
   paypal: PayPal,
   revolut: Revolut,
-  applePay: ApplePay,
   wise: Wise,
   twint: Twint,
   swish: Swish,
   mbWay: MBWay,
   bizum: Bizum,
-  // tether: Tether,
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -66,10 +60,14 @@ export const PaymentMethodForm = ({
   onSubmit,
   onChange,
   onCancel,
+  navigation,
   style,
 }: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+
   const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const [stepValid, setStepValid] = useState(false)
+
   const Form = PaymentMethodForms[paymentMethod]!
   let $formRef = useRef<FormRef>(null).current
 
@@ -108,9 +106,22 @@ export const PaymentMethodForm = ({
         onSubmit={submit}
         onChange={onChange}
         onCancel={onCancel}
+        navigation={navigation}
       />
     </View>
-    {view !== 'view'
+    <Fade show={!keyboardOpen} style={tw`w-full flex items-center`} displayNone={false}>
+      <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={navigation.goBack}>
+        <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+      </Pressable>
+      <Button
+        testID="navigation-next"
+        disabled={!stepValid}
+        wide={false}
+        onPress={stepValid ? $formRef?.save : () => {}}
+        title={i18n(view === 'new' ? 'next' : 'form.paymentMethod.update')}
+      />
+    </Fade>
+    {/* {view !== 'view'
       ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>
         <Pressable style={tw`absolute left-0 z-10`} onPress={cancel}>
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
@@ -131,6 +142,6 @@ export const PaymentMethodForm = ({
         }
       </Fade>
       : null
-    }
+    } */}
   </View>
 }

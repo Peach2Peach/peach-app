@@ -2,34 +2,35 @@ import { ReactElement } from 'react'
 
 
 // import Home from './home/Home'
+import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
+import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
-import Sell from './sell/Sell'
-import YourTrades from './yourTrades/YourTrades'
-import SplashScreen from './splashScreen/SplashScreen'
-import Welcome from './welcome/Welcome'
-import NewUser from './newUser/NewUser'
-import Login from './login/Login'
-import RestoreBackup from './restoreBackup/RestoreBackup'
-import Search from './search/Search'
+import BuyPreferences from './buy/BuyPreferences'
+import Contact from './contact/Contact'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
-import TradeComplete from './tradeComplete/TradeComplete'
-import Offer from './yourTrades/Offer'
-import Settings from './settings/Settings'
-import Contact from './contact/Contact'
-import Report from './report/Report'
-import Language from './settings/Language'
-import Currency from './settings/Currency'
-import Backups from './settings/Backups'
-import SeedWords from './settings/SeedWords'
-import Escrow from './settings/Escrow'
-import PaymentMethods from './settings/PaymentMethods'
-import Fees from './settings/Fees'
-import Socials from './settings/Socials'
-import Profile from './profile/Profile'
 import Dispute from './dispute/Dispute'
-import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
-import BuyPreferences from './buy/BuyPreferences'
+import Login from './login/Login'
+import NewUser from './newUser/NewUser'
+import Profile from './profile/Profile'
+import Report from './report/Report'
+import RestoreBackup from './restoreBackup/RestoreBackup'
+import Search from './search/Search'
+import Sell from './sell/Sell'
+import Backups from './settings/Backups'
+import Currency from './settings/Currency'
+import Escrow from './settings/Escrow'
+import Fees from './settings/Fees'
+import Language from './settings/Language'
+import PaymentMethods from './settings/PaymentMethods'
+import SeedWords from './settings/SeedWords'
+import Settings from './settings/Settings'
+import Socials from './settings/Socials'
+import SplashScreen from './splashScreen/SplashScreen'
+import TradeComplete from './tradeComplete/TradeComplete'
+import Welcome from './welcome/Welcome'
+import Offer from './yourTrades/Offer'
+import YourTrades from './yourTrades/YourTrades'
 
 
 type ViewType = {
@@ -52,6 +53,7 @@ export const views: ViewType[] = [
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
   // { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
   { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
+  { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
   { name: 'search', component: Search, showHeader: true, showFooter: true },
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
   { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },

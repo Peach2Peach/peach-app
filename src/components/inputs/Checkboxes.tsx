@@ -84,7 +84,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID
 
   return <View testID={`checkboxes-${testID}`} style={style}>
     {items.map((item, i) =>
-      <CheckboxItem style={i > 0 ? tw`mt-4` : {}} testID={`${testID}-checkbox-${item.value}`}
+      <CheckboxItem style={i > 0 ? tw`mt-2` : {}} testID={`${testID}-checkbox-${item.value}`}
         onPress={() => select(item.value)} key={i} item={item} checked={isSelected(item)} />
     )}
   </View>

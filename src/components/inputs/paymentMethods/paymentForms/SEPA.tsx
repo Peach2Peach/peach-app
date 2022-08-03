@@ -101,6 +101,7 @@ export const SEPA = ({
         value={label}
         disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
+        placeholder={i18n('form.paymentMethodName')}
         isValid={!isFieldInError('label')}
         autoCorrect={false}
         errorMessage={getErrorsInField('label')}
@@ -114,6 +115,7 @@ export const SEPA = ({
         value={beneficiary}
         disabled={view === 'view'}
         label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
         isValid={!isFieldInError('beneficiary')}
         autoCorrect={false}
         errorMessage={getErrorsInField('beneficiary')}
@@ -127,6 +129,7 @@ export const SEPA = ({
         value={iban}
         disabled={view === 'view'}
         label={i18n('form.iban')}
+        placeholder={i18n('form.iban.placeholder')}
         isValid={!isFieldInError('iban')}
         autoCorrect={false}
         errorMessage={getErrorsInField('iban')}
@@ -141,6 +144,7 @@ export const SEPA = ({
         required={false}
         disabled={view === 'view'}
         label={i18n('form.bic')}
+        placeholder={i18n('form.bic.placeholder')}
         isValid={!isFieldInError('bic')}
         autoCorrect={false}
         errorMessage={getErrorsInField('bic')}
@@ -155,6 +159,7 @@ export const SEPA = ({
         required={false}
         disabled={view === 'view'}
         label={i18n('form.address')}
+        placeholder={i18n('form.address')}
         isValid={!isFieldInError('address')}
         autoCorrect={false}
         errorMessage={getErrorsInField('address')}
@@ -169,15 +174,16 @@ export const SEPA = ({
         required={false}
         disabled={view === 'view'}
         label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
         isValid={!isFieldInError('reference')}
         autoCorrect={false}
         errorMessage={getErrorsInField('reference')}
       />
     </View>
-    <CurrencySelection style={tw`mt-2`}
+    {/* <CurrencySelection style={tw`mt-2`}
       paymentMethod="sepa"
       selectedCurrencies={selectedCurrencies}
       onToggle={onCurrencyToggle}
-    />
+    /> */}
   </View>
 }

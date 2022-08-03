@@ -1,10 +1,8 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
-import Icon from '../Icon'
-import { mildShadow } from '../../utils/layout'
 import { Shadow, Text } from '..'
-import Button from '../Button'
+import tw from '../../styles/tailwind'
+import { mildShadow } from '../../utils/layout'
 
 type Item =  {
   value: string|number|boolean,
