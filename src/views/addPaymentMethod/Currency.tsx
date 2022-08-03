@@ -1,18 +1,23 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Headline, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
 import i18n from '../../utils/i18n'
+import { Navigation } from './components/Navigation'
+import { whiteGradient } from '../../utils/layout'
+const { LinearGradient } = require('react-native-gradients')
 
 type CurrencySelectProps = {
   currency?: Currency,
-  setCurrency: React.Dispatch<React.SetStateAction<Currency>>
-  setStepValid: React.Dispatch<React.SetStateAction<boolean>>,
+  setCurrency: React.Dispatch<React.SetStateAction<Currency>>,
+  back: () => void,
+  next: () => void,
 }
 
-export default ({ currency = 'EUR', setCurrency, setStepValid }: CurrencySelectProps): ReactElement => {
+export default ({ currency = 'EUR', setCurrency, back, next }: CurrencySelectProps): ReactElement => {
+  const [stepValid, setStepValid] = useState(false)
   const currencies = CURRENCIES.map(c => ({
     value: c,
     display: i18n(`currency.${c}`)
@@ -31,6 +36,12 @@ export default ({ currency = 'EUR', setCurrency, setStepValid }: CurrencySelectP
         selectedValue={currency}
         onChange={c => setCurrency(c as Currency)}
       />
+    </View>
+    <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+      <View style={tw`w-full h-8 -mt-8`}>
+        <LinearGradient colorList={whiteGradient} angle={90} />
+      </View>
+      <Navigation back={back} next={next} stepValid={stepValid} />
     </View>
   </View>
 }

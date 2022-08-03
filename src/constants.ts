@@ -40,11 +40,14 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   }
 ]
 
+let AMAZONGIFTCARDCOUNTRIES = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
+
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'bankTransferCH', 'bankTransferUK'],
-  onlineWallet: ['paypal', 'revolut', 'applePay', 'wise', 'twint', 'swish'],
-  giftCard: [],
-  cryptoCurrency: ['tether']
+  bankTransfer: ['sepa'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
+  giftCard: ['giftCard.amazon.DE'],
+  localOption: ['mbWay', 'bizum'],
+  cryptoCurrency: []
 }
 
 export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
@@ -73,6 +76,9 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map(method => method.id)
+  AMAZONGIFTCARDCOUNTRIES = paymentMethodInfos
+    .filter(method => /giftCard\.amazon/u.test(method.id))
+    .map(method => method.id.split('.').pop())
 }
 
 export let BUCKETS = [

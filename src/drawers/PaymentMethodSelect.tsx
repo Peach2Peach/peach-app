@@ -10,7 +10,11 @@ type PaymentMethodSelectProps = {
   showLogos?: boolean,
   onSelect: (method: PaymentMethod) => void,
 }
-export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: PaymentMethodSelectProps): ReactElement => {
+export const PaymentMethodSelect = ({
+  paymentMethods,
+  showLogos,
+  onSelect
+}: PaymentMethodSelectProps): ReactElement => {
   const [selected, setSelected] = useState<PaymentMethod>()
 
   const select = (method: PaymentMethod) => {

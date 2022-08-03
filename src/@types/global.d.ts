@@ -86,7 +86,7 @@ declare type WiseData = {
   bic: string,
 }
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency'
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }

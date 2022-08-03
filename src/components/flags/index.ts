@@ -1,15 +1,15 @@
-import es from './es.svg'
-import fr from './fr.svg'
-import gb from './gb.svg'
-import nl from './nl.svg'
-import pt from './pt.svg'
+import ES from './es.svg'
+import FR from './fr.svg'
+import GB from './gb.svg'
+import NL from './nl.svg'
+import PT from './pt.svg'
 
 const Flags = {
-  es,
-  fr,
-  gb,
-  nl,
-  pt,
+  ES,
+  FR,
+  GB,
+  NL,
+  PT,
 }
 
 export type FlagType = keyof typeof Flags

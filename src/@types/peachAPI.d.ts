@@ -73,7 +73,9 @@ declare type Pricebook = {
 }
 declare type PaymentMethod =
   'sepa' | 'swift' | 'bankTransferCH' | 'bankTransferUK'
-  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish' | 'mbWay' | 'bizum'
+  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
+  | 'mbWay' | 'bizum'
+  | 'giftCard.amazon'
   | 'tether'
 
 declare type PaymentMethodInfo = {

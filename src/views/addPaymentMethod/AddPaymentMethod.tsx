@@ -5,12 +5,10 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { PeachScrollView } from '../../components'
-import { whiteGradient } from '../../utils/layout'
+import { CURRENCIES } from '../../constants'
 import { StackNavigation } from '../../utils/navigation'
-import { Navigation } from './components/Navigation'
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
-import { CURRENCIES } from '../../constants'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -25,40 +23,18 @@ type Props = {
 type Screen = null | (({}) => ReactElement)
 
 const screens = [
-  {
-    id: 'currency',
-    scrollable: false
-  },
-  {
-    id: 'paymentMethod',
-    scrollable: false
-  },
-  {
-    id: 'paymentDetails',
-    scrollable: false
-  }
+  { id: 'currency' },
+  { id: 'paymentMethod' },
+  { id: 'paymentDetails' }
 ]
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  const [stepValid, setStepValid] = useState(false)
   const [page, setPage] = useState(0)
   const [currency, setCurrency] = useState<Currency>(CURRENCIES[0])
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>()
 
-  const { id, scrollable } = screens[page]
+  const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
-
-  const getScreen = () => {
-    if (id === 'currency') return <Currency currency={currency} setCurrency={setCurrency} setStepValid={setStepValid} />
-    if (id === 'paymentMethod') return <PaymentMethod currency={currency}
-      setPaymentMethod={setPaymentMethod}
-      setStepValid={setStepValid} next={next}
-    />
-    // if (id === 'paymentDetails') return <Currency currency={currency} setCurrency={setCurrency} setStepValid={setStepValid} />
-
-    return <View />
-  }
 
   const next = () => {
     if (page >= screens.length - 1) return
@@ -75,9 +51,26 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
+
+  const getScreen = () => {
+    if (id === 'currency') return <Currency
+      currency={currency}
+      setCurrency={setCurrency}
+      back={back} next={next}
+    />
+    if (id === 'paymentMethod') return <PaymentMethod currency={currency}
+      paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
+      back={back} next={next}
+    />
+    // if (id === 'paymentDetails') return <Currency currency={currency} setCurrency={setCurrency} setStepValid={setStepValid} />
+
+    return <View />
+  }
+
   const restoreDefaults = () => {
     setPage(0)
     setCurrency(CURRENCIES[0])
+    setPaymentMethod(undefined)
   }
 
   useFocusEffect(useCallback(() => {
@@ -93,22 +86,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View style={tw`pb-8`}>
           {getScreen()}
         </View>
-        {scrollable
-          ? <View style={tw`mb-8 px-6`}>
-            <Navigation back={back} next={next} stepValid={stepValid}/>
-          </View>
-          : null
-        }
       </PeachScrollView>
     </View>
-    {!scrollable
-      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <Navigation back={back} next={next} stepValid={stepValid} />
-      </View>
-      : null
-    }
   </View>
 }
