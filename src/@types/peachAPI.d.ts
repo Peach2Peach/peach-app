@@ -72,15 +72,15 @@ declare type Pricebook = {
   [key in Currency]?: number
 }
 declare type PaymentMethod =
-  'sepa' | 'swift' | 'bankTransferCH' | 'bankTransferUK'
+  'sepa'
   | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
   | 'mbWay' | 'bizum'
   | 'giftCard.amazon'
-  | 'tether'
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
+  countries?: string[],
   exchange: boolean,
 }
 

@@ -5,6 +5,7 @@ import wise from './wise.svg'
 
 const PaymentLogos = {
   amazon,
+  'giftCard.amazon': amazon,
   paypal,
   revolut,
   wise,
