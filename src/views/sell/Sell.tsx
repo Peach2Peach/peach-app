@@ -36,10 +36,7 @@ import { thousands } from '../../utils/string'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
-  route: RouteProp<{ params: {
-    offer?: SellOffer,
-    page?: number,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['sell'] }>,
   navigation: StackNavigation,
 }
 

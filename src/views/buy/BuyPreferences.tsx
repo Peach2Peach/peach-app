@@ -23,11 +23,7 @@ import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/pe
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
-  route: RouteProp<{ params: {
-    amount: number,
-    offer?: BuyOffer,
-    page?: number,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['buyPreferences'] }>,
   navigation: StackNavigation,
 }
 

@@ -26,9 +26,7 @@ import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
 
 type Props = {
-  route: RouteProp<{ params: {
-    contractId: string,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['contract'] }>,
   navigation: StackNavigation,
 }
 

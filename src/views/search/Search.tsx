@@ -43,10 +43,7 @@ const updaterPNs = [
 ]
 
 type Props = {
-  route: RouteProp<{ params: {
-    offer: BuyOffer,
-    hasMatches?: boolean,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['search'] }>,
   navigation: StackNavigation,
 }
 // eslint-disable-next-line max-lines-per-function, max-statements

@@ -27,9 +27,7 @@ import getMessagesEffect from './effects/getMessagesEffect'
 const returnTrue = () => true
 
 type Props = {
-  route: RouteProp<{ params: {
-    contractId: string,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
   navigation: StackNavigation,
 }
 

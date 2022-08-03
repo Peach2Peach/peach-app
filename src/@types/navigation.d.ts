@@ -14,7 +14,17 @@ declare type RootStackParamList = {
     offer?: BuyOffer,
     page?: number
   },
+  buyPreferences: {
+    amount: number,
+    offer?: BuyOffer,
+    page?: number,
+  },
   addPaymentMethod: {},
+  paymentDetails: {
+    paymentMethod: PaymentMethod,
+    currencies: Currency[],
+    paymentData?: PaymentData,
+  },
   search: {
     offer: SellOffer|BuyOffer,
     hasMatches?: boolean,
