@@ -78,15 +78,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [route]))
 
   return <View testID="view-buy" style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <PeachScrollView scrollRef={scroll}
-        disable={!scrollable}
-        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
-        style={tw`pt-7 overflow-visible`}>
-        <View style={tw`pb-8`}>
-          {getScreen()}
-        </View>
-      </PeachScrollView>
+    <View style={tw`h-full flex-shrink pt-7 pb-8`}>
+      {getScreen()}
     </View>
   </View>
 }
