@@ -137,6 +137,7 @@ declare type Offer = {
   premium?: number,
   prices?: Pricebook,
   meansOfPayment: MeansOfPayment,
+  paymentData: Partial<Record<PaymentMethod, string>>,
   kyc: boolean,
   kycType?: KYCType,
   returnAddress?: string,

@@ -89,13 +89,13 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       <Headline style={tw`text-grey-1`}>
         {i18n('buy.releaseAddress')}
       </Headline>
-      <View style={tw`flex-row mt-3`}>
+      <View style={tw`flex flex-row mt-3`}>
         <View style={tw`w-full flex-shrink mr-2`}>
           <Input value={focused ? address : shortAddress}
             style={tw`pl-4 pr-8`}
             onChange={(value: string) => focused ? setAddress(() => value) : null}
             onSubmit={() => setFocused(() => false)}
-            label={i18n('form.address.btc')}
+            placeholder={i18n('form.address.btc')}
             isValid={!isFieldInError('address')}
             onFocus={() => setFocused(() => true)}
             onBlur={() => setFocused(() => false)}

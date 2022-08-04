@@ -1,56 +1,81 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import React, {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
+import {
+  ScrollView,
+  View
+} from 'react-native'
 import tw from '../../styles/tailwind'
 
-import i18n from '../../utils/i18n'
 import OfferDetails from './OfferDetails'
-import ReleaseAddress from './ReleaseAddress'
+import Summary from './Summary'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
-import BitcoinContext from '../../contexts/bitcoin'
 import { MessageContext } from '../../contexts/message'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
+import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { error } from '../../utils/log'
+import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/peachAPI'
+import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['buyPreferences'] }>,
+  route: RouteProp<{ params: RootStackParamList['sell'] }>,
   navigation: StackNavigation,
 }
 
-export type BuyViewProps = {
-  offer: BuyOffer,
-  updateOffer: (data: BuyOffer, shield?: boolean) => void,
-  setStepValid: (isValid: boolean) => void,
+export type SellViewProps = {
+  offer: SellOffer,
+  updateOffer: (offer: SellOffer, shield?: boolean) => void,
+  setStepValid: Dispatch<SetStateAction<boolean>>,
   back: () => void,
   next: () => void,
   navigation: StackNavigation,
 }
 
-const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
+const getDefaultSellOffer = (amount?: number): SellOffer => ({
   online: false,
-  type: 'bid',
+  type: 'ask',
   creationDate: new Date(),
+  premium: account.settings.premium || 1.5,
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
-  kyc: account.settings.kyc || false,
   amount: amount || account.settings.amount || BUCKETS[0],
+  returnAddress: account.settings.returnAddress,
+  // TODO integrate support for xpubs
+  // returnAddress: account.settings.returnAddress && isxpub(account.settings.returnAddress)
+  //   ? deriveAddress(account.settings.returnAddress, account.settings.hdStartIndex || 0)
+  //   : account.settings.returnAddress,
+  kyc: account.settings.kyc || false,
+  kycType: account.settings.kycType || 'iban',
+  funding: {
+    status: 'NULL',
+    txIds: [],
+    amounts: [],
+    vouts: [],
+  },
   matches: [],
   seenMatches: [],
   matched: [],
   doubleMatched: false,
+  refunded: false,
+  released: false,
 })
 
-type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
+type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
 const screens = [
   {
@@ -59,13 +84,9 @@ const screens = [
     scrollable: true
   },
   {
-    id: 'releaseAddress',
-    view: ReleaseAddress,
+    id: 'summary',
+    view: Summary,
     scrollable: false
-  },
-  {
-    id: 'search',
-    view: null
   }
 ]
 
@@ -73,7 +94,7 @@ const screens = [
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
+  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -83,17 +104,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
-    setOffer(() => offerData)
+  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
+    setOffer(offerData)
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
-  const next = () => {
-    if (page >= screens.length - 1) return
-    setPage(page + 1)
+  useFocusEffect(useCallback(() => () => {
+    setOffer(getDefaultSellOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(0)
+  }, [route]))
 
-    scroll.current?.scrollTo({ x: 0 })
-  }
+  useEffect(() => {
+    if (screens[page].id === 'search') {
+      saveAndUpdate({ ...offer })
+      navigation.replace('search', { offer })
+    }
+  }, [page])
+
   const back = () => {
     if (page === 0) {
       navigation.goBack()
@@ -103,47 +131,39 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
 
-  useFocusEffect(useCallback(() => {
-    setOffer(getDefaultBuyOffer(route.params.amount))
-    setUpdatePending(false)
-    setPage(() => 0)
-  }, [route]))
+  const next = async () => {
+    if (page >= screens.length - 1) {
+      setUpdatePending(true)
+      info('Posting offer ', JSON.stringify(offer))
 
-  useEffect(() => {
-    (async () => {
-      if (screens[page].id === 'search' && !offer.id) {
-        setUpdatePending(true)
+      await pgp() // make sure pgp has been sent
 
-        await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer({
-          ...offer,
-        })
+      const [result, err] = await postOffer(offer)
+      if (result) {
+        info('posted offer: ', JSON.stringify(result))
+        const [tradingLimit] = await getTradingLimit()
 
-        if (result) {
-          const [tradingLimit] = await getTradingLimitAPI()
-
-          if (tradingLimit) {
-            updateTradingLimit(tradingLimit)
-          }
-          saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.replace('search', { offer: { ...offer, id: result.offerId } })
-          return
+        if (tradingLimit) {
+          updateTradingLimit(tradingLimit)
         }
+        info('Posted offer', result)
 
-        setUpdatePending(false)
-
+        saveAndUpdate({ ...offer, id: result.offerId })
+        navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } })
+      } else if (err) {
         error('Error', err)
-        updateMessage({
-          msg: i18n(err?.error || 'error.postOffer'),
-          level: 'ERROR',
-        })
-
-        if (err?.error === 'TRADING_LIMIT_REACHED') back()
+        updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+        back()
       }
-    })()
-  }, [page])
+      setUpdatePending(false)
+      return
+    }
+    setPage(page + 1)
 
-  return <View testID="view-buy" style={tw`h-full flex`}>
+    scroll.current?.scrollTo({ x: 0 })
+  }
+
+  return <View style={tw`h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
       <PeachScrollView scrollRef={scroll}
         disable={!scrollable}
@@ -155,11 +175,12 @@ export default ({ route, navigation }: Props): ReactElement => {
             : null
           }
           {!updatePending && CurrentView
-            ? <CurrentView offer={offer}
-              updateOffer={setOffer}
+            ? <CurrentView
+              offer={offer}
+              updateOffer={saveAndUpdate}
               setStepValid={setStepValid}
               back={back} next={next}
-              navigation={navigation}/>
+              navigation={navigation} />
             : null
           }
         </View>

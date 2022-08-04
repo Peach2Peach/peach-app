@@ -85,7 +85,7 @@ export default ({ returnAddress, update, style }: ReturnAddressProps): ReactElem
     </Text>
     <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
       style={[
-        tw`flex-row mt-4`,
+        tw`flex flex-row mt-4`,
         useDepositAddress ? tw`opacity-50` : {}
       ]}>
       <View style={tw`w-full flex-shrink mr-2`}>
