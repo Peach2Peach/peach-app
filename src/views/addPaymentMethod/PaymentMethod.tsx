@@ -111,7 +111,7 @@ export default ({
 
   return <View style={tw`flex h-full`}>
     <Headline>
-      {i18n('paymentMethod.select.title')}
+      {i18n('paymentMethod.select')}
     </Headline>
     <View style={tw`h-full flex-shrink flex justify-center px-10`}>
       {!country
