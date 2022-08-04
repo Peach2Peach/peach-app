@@ -6,11 +6,13 @@ import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
 import { removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { whiteGradient } from '../../../../utils/layout'
 import { StackNavigation } from '../../../../utils/navigation'
 import { paymentDataChanged } from '../../../../utils/paymentMethod'
 import { Fade } from '../../../animation'
 import Button from '../../../Button'
 import Icon from '../../../Icon'
+import PeachScrollView from '../../../PeachScrollView'
 import { Text } from '../../../text'
 import { Bizum } from './Bizum'
 import { MBWay } from './MBWay'
@@ -20,6 +22,7 @@ import { SEPA } from './SEPA'
 import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
+const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
   buildPaymentData: () => PaymentData,
@@ -100,7 +103,7 @@ export const PaymentMethodForm = ({
   useEffect(keyboard(setKeyboardOpen), [])
 
   return <View style={[tw`flex`, style]}>
-    <View style={tw`h-full flex-shrink flex justify-center`}>
+    <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`min-h-full flex justify-center pb-10`}>
       <Form
         forwardRef={(r: FormRef) => $formRef = r}
         paymentMethod={paymentMethod}
@@ -112,8 +115,11 @@ export const PaymentMethodForm = ({
         onCancel={onCancel}
         navigation={navigation}
       />
-    </View>
-    <Fade show={!keyboardOpen} style={tw`w-full flex items-center`} displayNone={false}>
+    </PeachScrollView>
+    <Fade show={!keyboardOpen} style={tw`w-full flex items-center mt-4`} displayNone={false}>
+      <View style={tw`w-full h-10 -mt-10`}>
+        <LinearGradient colorList={whiteGradient} angle={90} />
+      </View>
       <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={navigation.goBack}>
         <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
       </Pressable>

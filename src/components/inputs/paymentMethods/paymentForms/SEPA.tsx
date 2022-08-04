@@ -6,7 +6,6 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
@@ -24,7 +23,6 @@ export const SEPA = ({
   const [bic, setBIC] = useState(data?.bic || '')
   const [address, setAddress] = useState(data?.address || '')
   const [reference, setReference] = useState(data?.reference || '')
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
@@ -32,7 +30,7 @@ export const SEPA = ({
   let $address = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
+  const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
     state: { label, beneficiary, iban, bic, address, reference },
     rules,
@@ -48,50 +46,48 @@ export const SEPA = ({
     bic,
     address,
     reference,
-    currencies: selectedCurrencies,
+    currencies: data?.currencies || currencies,
   })
 
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
+  const validateForm = () => validate({
+    label: {
+      required: true,
+      duplicate: view === 'new' && getPaymentDataByLabel(label)
+    },
+    beneficiary: {
+      required: true,
+    },
+    iban: {
+      required: true,
+      iban: true
+    },
+    bic: {
+      required: false,
+      bic: true
+    },
+    address: {
+      required: false,
+    },
+    reference: {
+      required: false,
+    },
+  })
 
   const save = () => {
-    validate({
-      label: {
-        required: true,
-        duplicate: view === 'new' && getPaymentDataByLabel(label)
-      },
-      beneficiary: {
-        required: true,
-      },
-      iban: {
-        required: true,
-        iban: true
-      },
-      bic: {
-        required: false,
-        bic: true
-      },
-      address: {
-        required: false,
-      },
-      reference: {
-        required: false,
-      },
-    })
-    if (!isFormValid()) return
+    if (!validateForm()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    save
+    validateForm,
+    save,
   }))
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, iban, beneficiary, bic, address, reference, selectedCurrencies])
+  }, [label, iban, beneficiary, bic, address, reference])
 
   return <View>
     <View>
@@ -101,13 +97,13 @@ export const SEPA = ({
         value={label}
         disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName')}
+        placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('label')}
+        errorMessage={label.length && getErrorsInField('label')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setBeneficiary}
         onSubmit={() => $iban?.focus()}
@@ -118,10 +114,10 @@ export const SEPA = ({
         placeholder={i18n('form.beneficiary.placeholder')}
         isValid={!isFieldInError('beneficiary')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('beneficiary')}
+        errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setIBAN}
         onSubmit={() => $bic?.focus()}
@@ -132,10 +128,10 @@ export const SEPA = ({
         placeholder={i18n('form.iban.placeholder')}
         isValid={!isFieldInError('iban')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('iban')}
+        errorMessage={iban.length && getErrorsInField('iban')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setBIC}
         onSubmit={() => $address?.focus()}
@@ -147,10 +143,10 @@ export const SEPA = ({
         placeholder={i18n('form.bic.placeholder')}
         isValid={!isFieldInError('bic')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('bic')}
+        errorMessage={bic.length && getErrorsInField('bic')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setAddress}
         onSubmit={() => $reference?.focus()}
@@ -159,13 +155,13 @@ export const SEPA = ({
         required={false}
         disabled={view === 'view'}
         label={i18n('form.address')}
-        placeholder={i18n('form.address')}
+        placeholder={i18n('form.address.placeholder')}
         isValid={!isFieldInError('address')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('address')}
+        errorMessage={address.length && getErrorsInField('address')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setReference}
         onSubmit={save}
@@ -177,13 +173,8 @@ export const SEPA = ({
         placeholder={i18n('form.reference.placeholder')}
         isValid={!isFieldInError('reference')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('reference')}
+        errorMessage={reference.length && getErrorsInField('reference')}
       />
     </View>
-    {/* <CurrencySelection style={tw`mt-2`}
-      paymentMethod="sepa"
-      selectedCurrencies={selectedCurrencies}
-      onToggle={onCurrencyToggle}
-    /> */}
   </View>
 }

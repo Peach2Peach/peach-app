@@ -10,7 +10,7 @@ import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import PaymentDetails from './components/PaymentDetails'
-import AddPaymentMethods from './components/AddPaymentMethods'
+import AddPaymentMethods from './components/AddPaymentMethodButton'
 
 const validate = (offer: BuyOffer) =>
   !!offer.amount

@@ -27,14 +27,14 @@ export default ({ route, navigation }: Props): ReactElement => {
     navigation.replace(route.params.origin, {})
   }
 
-  return <View style={tw`flex h-full pt-7 pb-8`}>
+  return <View style={tw`flex h-full pt-7 pb-10`}>
     <Headline>
       {i18n(
         'paymentMethod.select.title',
         i18n(`paymentMethod.${paymentMethod}`)
       )}
     </Headline>
-    <View style={tw`h-full flex-shrink flex justify-center px-6`}>
+    <View style={tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
       <PaymentMethodForm paymentMethod={paymentMethod}
         style={tw`h-full flex-shrink flex-col justify-between`}
         currencies={paymentData.currencies}

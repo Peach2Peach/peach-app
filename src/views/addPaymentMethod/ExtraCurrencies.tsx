@@ -66,7 +66,7 @@ export default ({ paymentMethod, selected, setCurrencies, back, next }: Currency
         onChange={cs => setSelectedCurrencies(cs as Currency[])}
       />
     </View>
-    <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+    <View style={tw`mt-4 px-6 flex items-center w-full bg-white-1`}>
       <View style={tw`w-full h-8 -mt-8`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>

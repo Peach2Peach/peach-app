@@ -7,9 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
-
 
 // eslint-disable-next-line max-lines-per-function
 export const PayPal = ({
@@ -25,14 +23,13 @@ export const PayPal = ({
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
   let $userName = useRef<TextInput>(null).current
   const anyFieldSet = !!(phone || userName || email)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
+  const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
     state: { label, phone, userName, email },
     rules,
@@ -46,45 +43,42 @@ export const PayPal = ({
     phone,
     email,
     userName,
-    currencies: selectedCurrencies,
+    currencies: data?.currencies || currencies,
   })
 
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
-
+  const validateForm = () => validate({
+    label: {
+      required: true,
+      duplicate: view === 'new' && getPaymentDataByLabel(label)
+    },
+    phone: {
+      required: !email && !userName,
+      phone: true
+    },
+    email: {
+      required: !phone && !userName,
+      email: true
+    },
+    userName: {
+      required: !phone && !email,
+      userName: true
+    },
+  })
   const save = () => {
-    validate({
-      label: {
-        required: true,
-        duplicate: view === 'new' && getPaymentDataByLabel(label)
-      },
-      phone: {
-        required: !email && !userName,
-        phone: true
-      },
-      email: {
-        required: !phone && !userName,
-        email: true
-      },
-      userName: {
-        required: !phone && !email,
-        userName: true
-      },
-    })
-    if (!isFormValid()) return
+    if (!validateForm()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    save
+    validateForm,
+    save,
   }))
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, phone, email, userName, selectedCurrencies])
+  }, [label, phone, email, userName])
 
   return <View>
     <View>
@@ -94,12 +88,13 @@ export const PayPal = ({
         value={label}
         disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
+        placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('label')}
+        errorMessage={label.length && getErrorsInField('label')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={(number: string) => {
           setPhone((number.length && !/\+/ug.test(number) ? `+${number}` : number).replace(/[^0-9+]/ug, ''))
@@ -113,12 +108,13 @@ export const PayPal = ({
         required={!anyFieldSet}
         disabled={view === 'view'}
         label={i18n('form.phone')}
+        placeholder={i18n('form.phone.placeholder')}
         isValid={!isFieldInError('phone')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('phone')}
+        errorMessage={phone.length && getErrorsInField('phone')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setEmail}
         onSubmit={() => $userName?.focus()}
@@ -127,12 +123,13 @@ export const PayPal = ({
         value={email}
         disabled={view === 'view'}
         label={i18n('form.email')}
+        placeholder={i18n('form.email.placeholder')}
         isValid={!isFieldInError('email')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('email')}
+        errorMessage={email.length && getErrorsInField('email')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={(usr: string) => {
           setUserName(usr.length && !/@/ug.test(usr) ? `@${usr}` : usr)
@@ -146,15 +143,11 @@ export const PayPal = ({
         value={userName}
         disabled={view === 'view'}
         label={i18n('form.userName')}
+        placeholder={i18n('form.userName.placeholder')}
         isValid={!isFieldInError('userName')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('userName')}
+        errorMessage={userName.length && getErrorsInField('userName')}
       />
     </View>
-    <CurrencySelection style={tw`mt-2`}
-      paymentMethod="paypal"
-      selectedCurrencies={selectedCurrencies}
-      onToggle={onCurrencyToggle}
-    />
   </View>
 }

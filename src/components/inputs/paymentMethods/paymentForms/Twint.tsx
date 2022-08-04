@@ -6,7 +6,6 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
@@ -21,12 +20,11 @@ export const Twint = ({
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
+  const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
     state: { label, phone, beneficiary },
     rules,
@@ -39,37 +37,35 @@ export const Twint = ({
     type: 'twint',
     phone,
     beneficiary,
-    currencies: selectedCurrencies,
+    currencies: data?.currencies || currencies,
   })
 
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
+  const validateForm = () => validate({
+    label: {
+      required: true,
+      duplicate: view === 'new' && getPaymentDataByLabel(label)
+    },
+    phone: {
+      required: true,
+      phone: true,
+    }
+  })
 
   const save = () => {
-    validate({
-      label: {
-        required: true,
-        duplicate: view === 'new' && getPaymentDataByLabel(label)
-      },
-      phone: {
-        required: true,
-        phone: true,
-      }
-    })
-    if (!isFormValid()) return
+    if (!validateForm()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    save
+    validateForm,
+    save,
   }))
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, phone, beneficiary, selectedCurrencies])
+  }, [label, phone, beneficiary])
 
   return <View>
     <View>
@@ -79,12 +75,13 @@ export const Twint = ({
         value={label}
         disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
+        placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('label')}
+        errorMessage={label.length && getErrorsInField('label')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={(number: string) => {
           setPhone((number.length && !/\+/ug.test(number) ? `+${number}` : number).replace(/[^0-9+]/ug, ''))
@@ -97,12 +94,13 @@ export const Twint = ({
         value={phone}
         disabled={view === 'view'}
         label={i18n('form.phone')}
+        placeholder={i18n('form.phone.placeholder')}
         isValid={!isFieldInError('phone')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('phone')}
+        errorMessage={phone.length && getErrorsInField('phone')}
       />
     </View>
-    <View style={tw`mt-2`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setBeneficiary}
         onSubmit={save}
@@ -111,15 +109,11 @@ export const Twint = ({
         required={false}
         disabled={view === 'view'}
         label={i18n('form.name')}
+        placeholder={i18n('form.name.placeholder')}
         isValid={!isFieldInError('beneficiary')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('beneficiary')}
+        errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
       />
     </View>
-    <CurrencySelection style={tw`mt-2`}
-      paymentMethod="twint"
-      selectedCurrencies={selectedCurrencies}
-      onToggle={onCurrencyToggle}
-    />
   </View>
 }

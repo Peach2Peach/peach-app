@@ -9,6 +9,7 @@ import ExtraCurrencies from './ExtraCurrencies'
 import PaymentMethod from './PaymentMethod'
 import { getPaymentDataByType } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { getPaymentMethodInfo } from '../../utils/paymentMethod'
 
 type Props = {
   navigation: StackNavigation,
@@ -29,7 +30,12 @@ export default ({ navigation }: Props): ReactElement => {
   const scroll = useRef<ScrollView>(null)
 
   const next = () => {
-    if (page >= screens.length - 1 && paymentMethod) {
+    let paymentMethodInfo
+    if (paymentMethod) {
+      paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
+    }
+    if (paymentMethod
+      && (page >= screens.length - 1 || id === 'paymentMethod' && paymentMethodInfo?.currencies.length === 1)) {
       const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
       const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
       return navigation.push('paymentDetails', {
@@ -59,7 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
   const getScreen = () => {
     if (id === 'currency') return <Currency
       currency={currencies[0]}
-      setCurrency={(c) => setCurrencies([c])}
+      setCurrency={c => setCurrencies([c] as Currency[])}
       back={back} next={next}
     />
     if (id === 'paymentMethod') return <PaymentMethod currency={currencies[0]}
@@ -74,9 +80,7 @@ export default ({ navigation }: Props): ReactElement => {
     return <View />
   }
 
-  return <View testID="view-buy" style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink pt-7 pb-8`}>
-      {getScreen()}
-    </View>
+  return <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
+    {getScreen()}
   </View>
 }
