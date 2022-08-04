@@ -42,7 +42,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
     <Headline style={tw`mt-16 text-grey-1`}>
       {i18n('buy.meansOfPayment')}
     </Headline>
-    <PaymentDetails
+    <PaymentDetails style={tw`mt-4`}
       paymentData={account.paymentData}
       setMeansOfPayment={setMeansOfPayment}
     />

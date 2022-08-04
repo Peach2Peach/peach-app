@@ -5,17 +5,17 @@ import { Text, Icon } from '../'
 import { mildShadow } from '../../utils/layout'
 import { Shadow } from '..'
 
-type Item = {
+export type CheckboxItemType = {
   value: string|number,
   disabled?: boolean,
   display: ReactNode,
 }
 
 type CheckboxItemProps = ComponentProps & PressableProps & {
-  item: Item,
+  item: CheckboxItemType,
   checked: boolean,
 }
-const CheckboxItem = ({ item, checked, onPress, style, testID }: CheckboxItemProps): ReactElement => {
+export const CheckboxItem = ({ item, checked, onPress, style, testID }: CheckboxItemProps): ReactElement => {
   const content = <Pressable testID={testID}
     onPress={onPress}
     style={[

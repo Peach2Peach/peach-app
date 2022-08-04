@@ -10,9 +10,6 @@ import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymen
 import { StackNavigation } from '../../utils/navigation'
 import { addPaymentData } from '../../utils/account'
 
-const { LinearGradient } = require('react-native-gradients')
-
-
 type Props = {
   route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>,
   navigation: StackNavigation,

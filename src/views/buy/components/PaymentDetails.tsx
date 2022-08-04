@@ -1,12 +1,17 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
-import { Pressable, View } from 'react-native'
-import { Checkboxes, Text } from '../../../components'
+import React, { ReactElement, useEffect } from 'react'
+import { View } from 'react-native'
+import { Text } from '../../../components'
 import { Item } from '../../../components/inputs'
-import { PaymentMethodView } from '../../../components/inputs/paymentMethods/PaymentMethodView'
-import { OverlayContext } from '../../../contexts/overlay'
+import { CheckboxItem, CheckboxItemType } from '../../../components/inputs/Checkboxes'
+import { PAYMENTCATEGORIES } from '../../../constants'
 import tw from '../../../styles/tailwind'
-import { account, addPaymentData, getPaymentData, updateSettings } from '../../../utils/account'
+import { account, getPaymentData, updateSettings } from '../../../utils/account'
+import i18n from '../../../utils/i18n'
 import { dataToMeansOfPayment } from '../../../utils/paymentMethod'
+
+const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
+  PAYMENTCATEGORIES[category].indexOf(data.type) !== -1
+
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce(
@@ -18,26 +23,24 @@ const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMeth
 
 const dummy = () => {}
 
-type PaymentDataKeyFactsProps = {
+type PaymentDataKeyFactsProps = ComponentProps & {
   paymentData: PaymentData,
 }
-const PaymentDataKeyFacts = ({ paymentData }: PaymentDataKeyFactsProps) =>
-  <View style={tw`flex-row`}>
-    <Item style={tw`h-5 px-1 mr-2`} label={paymentData.type} isSelected={false} onPress={dummy} />
+const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =>
+  <View style={[tw`flex-row justify-center`, style]}>
     {(paymentData.currencies || []).map(currency => <Item style={tw`h-5 px-1 mx-px`}
       key={currency}
       label={currency}
-      isSelected={true}
+      isSelected={false}
       onPress={dummy}
     />)}
   </View>
 
-type PaymentDetailsProps = {
+type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[],
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
 }
-export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
+export default ({ paymentData, setMeansOfPayment, style }: PaymentDetailsProps): ReactElement => {
   const preferredMoPs = account.settings.preferredPaymentMethods
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
@@ -47,32 +50,14 @@ export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactE
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }
 
-  const onPaymentDataUpdate = (data: PaymentData) => {
-    addPaymentData(data)
-    updateOverlay({ content: null, showCloseButton: true })
-    update()
-  }
-  const editPaymentMethod = (data: PaymentData) => {
-    updateOverlay({
-      content: <PaymentMethodView data={data} onSubmit={onPaymentDataUpdate} />,
-      showCloseButton: false
-    })
-  }
-
-  useEffect(() => {
-    update()
-  }, [paymentData])
-
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
-    display: <Pressable onPress={() => editPaymentMethod(data)}>
-      <PaymentDataKeyFacts paymentData={data} />
-    </Pressable>,
+    display: <Text style={tw`font-baloo text-base`}>{data.label}</Text>,
     disabled: !!preferredMoPs[data.type] && preferredMoPs[data.type] !== data.id,
     data,
   })
 
-  const setPreferredPaymentMethods = (ids: (string|number)[]) => {
+  const setPreferredPaymentMethods = (ids: (string)[]) => {
     updateSettings({
       preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
         const method = paymentData.find(d => d.id === id)!.type
@@ -83,13 +68,41 @@ export default ({ paymentData, setMeansOfPayment }: PaymentDetailsProps): ReactE
     update()
   }
 
+  const select = (value: string) => {
+    let newValues = selectedPaymentData
+    if (newValues.indexOf(value) !== -1) {
+      newValues = newValues.filter(v => v !== value)
+    } else {
+      newValues.push(value)
+    }
+
+    setPreferredPaymentMethods(newValues)
+  }
+
+  const isSelected = (itm: CheckboxItemType) => selectedPaymentData.indexOf(itm.value as string) !== -1
+
   useEffect(() => {
     update()
   }, [paymentData])
 
-  return <View>
-    <Checkboxes testID="buy-mops" items={paymentData.map(mapPaymentDataToCheckboxes)}
-      selectedValues={selectedPaymentData}
-      onChange={setPreferredPaymentMethods}/>
+  return <View style={[tw`px-4`, style]}>
+    <View testID={'checkboxes-buy-mops'}>
+      {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
+        .map(category => ({
+          category,
+          checkboxItems: paymentData.filter(belongsToCategory(category)).map(mapPaymentDataToCheckboxes),
+        }))
+        .filter(({ checkboxItems }) => checkboxItems.length)
+        .map(({ category, checkboxItems }, i) => <View key={category} style={i > 0 ? tw`mt-8` : {}}>
+          <Text style={tw`font-baloo text-lg text-center`}>
+            {i18n(`paymentCategory.${category}`)}
+          </Text>
+          {checkboxItems.map((item, j) => <View style={j > 0 ? tw`mt-4` : {}}>
+            <CheckboxItem testID={`buy-mops-checkbox-${item.value}`}
+              onPress={() => select(item.value)} key={i} item={item} checked={isSelected(item)} />
+            <PaymentDataKeyFacts style={tw`mt-2`} paymentData={item.data}/>
+          </View>)}
+        </View>)}
+    </View>
   </View>
 }
