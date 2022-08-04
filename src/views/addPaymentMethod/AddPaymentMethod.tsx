@@ -1,8 +1,7 @@
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { useFocusEffect } from '@react-navigation/native'
 import { CURRENCIES } from '../../constants'
 import { StackNavigation } from '../../utils/navigation'
 import Currency from './Currency'
@@ -30,7 +29,7 @@ export default ({ navigation }: Props): ReactElement => {
   const next = () => {
     if (page >= screens.length - 1 && paymentMethod) return navigation.navigate('paymentDetails', {
       paymentMethod,
-      currencies
+      currencies,
     })
     setPage(page + 1)
 
@@ -64,16 +63,6 @@ export default ({ navigation }: Props): ReactElement => {
 
     return <View />
   }
-
-  const restoreDefaults = () => {
-    setPage(0)
-    setCurrencies([CURRENCIES[0]])
-    setPaymentMethod(undefined)
-  }
-
-  useFocusEffect(useCallback(() => {
-    restoreDefaults()
-  }, []))
 
   return <View testID="view-buy" style={tw`h-full flex`}>
     <View style={tw`h-full flex-shrink pt-7 pb-8`}>
