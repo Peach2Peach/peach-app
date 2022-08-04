@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 
-
 // import Home from './home/Home'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
@@ -16,7 +15,9 @@ import Profile from './profile/Profile'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import Search from './search/Search'
+import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
+import SellPreferences from './sell/SellPreferences'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
 import Escrow from './settings/Escrow'
@@ -31,7 +32,6 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
-
 
 type ViewType = {
   name: keyof RootStackParamList,
@@ -51,7 +51,8 @@ export const views: ViewType[] = [
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
   { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  // { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
+  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
+  { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
   { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
   { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
   { name: 'search', component: Search, showHeader: true, showFooter: true },

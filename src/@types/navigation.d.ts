@@ -4,11 +4,6 @@ declare type RootStackParamList = {
   newUser: {},
   login: {},
   restoreBackup: {},
-  sell: {
-    amount: number,
-    offer?: SellOffer,
-    page?: number
-  },
   buy: {
     amount: number,
     offer?: BuyOffer,
@@ -19,6 +14,11 @@ declare type RootStackParamList = {
     offer?: BuyOffer,
     page?: number,
   },
+  sell: {
+    amount: number,
+    offer?: SellOffer,
+    page?: number
+  },
   addPaymentMethod: {},
   paymentDetails: {
     paymentData: Partial<PaymentData> & {
@@ -26,6 +26,9 @@ declare type RootStackParamList = {
       currencies: Currency[],
     },
     origin: keyof RootStackParamList
+  },
+  fundEscrow: {
+    offer: SellOffer
   },
   search: {
     offer: SellOffer|BuyOffer,
