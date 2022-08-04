@@ -3,10 +3,12 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, Title } from '../../components'
+import { Button, PeachScrollView, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { AllPaymentMethods } from './components/AllPaymentMethods'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import { account } from '../../utils/account'
 
 type Props = {
   navigation: StackNavigation
@@ -15,11 +17,14 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   const [update, setUpdate] = useState(0)
   const dummy = () => setUpdate(Math.random())
-  return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+  return <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
     <Title title={i18n('settings.title')} subtitle={i18n('settings.paymentMethods.subtitle')} />
-    <View style={tw`h-full flex-shrink mt-12`}>
-      <AllPaymentMethods onChange={dummy} />
-    </View>
+    <PaymentDetails style={tw`mt-4`}
+      paymentData={account.paymentData}
+      setMeansOfPayment={dummy}
+    />
+    <AddPaymentMethodButton navigation={navigation} style={tw`mt-4`} />
+
     <View style={tw`flex items-center mt-16`}>
       <Button
         title={i18n('back')}
@@ -28,6 +33,6 @@ export default ({ navigation }: Props): ReactElement => {
         onPress={navigation.goBack}
       />
     </View>
-  </View>
+  </PeachScrollView>
 }
 

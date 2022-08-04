@@ -61,7 +61,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       paymentData={account.paymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethodButton navigation={navigation} style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} />
+    <AddPaymentMethodButton navigation={navigation} style={tw`mt-4`} />
     {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
   </View>
 }

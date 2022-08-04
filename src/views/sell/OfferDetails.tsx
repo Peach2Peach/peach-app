@@ -78,7 +78,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       paymentData={account.paymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethodButton navigation={navigation} style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} />
+    <AddPaymentMethodButton navigation={navigation} style={tw`mt-4`} />
 
     <Premium
       premium={premium}

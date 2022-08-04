@@ -8,7 +8,6 @@ import { StackNavigation } from '../../utils/navigation'
 
 type AddPaymentMethodProps = ComponentProps & {
   navigation: StackNavigation,
-  setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
 }
 
 export default ({ navigation, style }: AddPaymentMethodProps): ReactElement => {

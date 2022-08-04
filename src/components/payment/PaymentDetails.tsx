@@ -38,12 +38,11 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[],
-  setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>>
+  setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
 // eslint-disable-next-line max-lines-per-function
 export default ({ paymentData, setMeansOfPayment, style }: PaymentDetailsProps): ReactElement => {
   const [random, setRandom] = useState(0)
-  const preferredMoPs = account.settings.preferredPaymentMethods
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {

@@ -115,9 +115,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         setUpdatePending(true)
 
         await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer({
-          ...offer,
-        })
+        const [result, err] = await postOffer(offer)
 
         if (result) {
           const [tradingLimit] = await getTradingLimitAPI()
