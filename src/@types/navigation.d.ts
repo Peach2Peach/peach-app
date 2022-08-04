@@ -21,9 +21,11 @@ declare type RootStackParamList = {
   },
   addPaymentMethod: {},
   paymentDetails: {
-    paymentMethod: PaymentMethod,
-    currencies: Currency[],
-    paymentData?: PaymentData,
+    paymentData: Partial<PaymentData> & {
+      type: PaymentMethod,
+      currencies: Currency[],
+    },
+    origin: keyof RootStackParamList
   },
   search: {
     offer: SellOffer|BuyOffer,

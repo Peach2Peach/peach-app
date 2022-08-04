@@ -24,11 +24,12 @@ import { Wise } from './Wise'
 type FormRef = {
   buildPaymentData: () => PaymentData,
   save: () => void,
+  validateForm: () => boolean,
 }
 
 export type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod,
-  data?: Partial<PaymentData>,
+  data: Partial<PaymentData>,
   currencies?: Currency[],
   view: 'new' | 'edit' | 'view',
   onSubmit?: (data: PaymentData) => void,
@@ -58,7 +59,6 @@ export const PaymentMethodForm = ({
   currencies = [],
   view,
   onSubmit,
-  onChange,
   onCancel,
   navigation,
   style,
@@ -74,7 +74,7 @@ export const PaymentMethodForm = ({
   const submit = (newPaymentData: PaymentData) => {
     if (!$formRef || !onSubmit) return
 
-    if (data && paymentDataChanged(data as PaymentData, newPaymentData)) {
+    if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
         content: <PaymentMethodEdit paymentData={newPaymentData} onConfirm={onSubmit} />,
         help: true
@@ -84,12 +84,16 @@ export const PaymentMethodForm = ({
     }
   }
 
+  const onChange = () => {
+    if ($formRef) setStepValid($formRef.validateForm())
+  }
+
   const cancel = () => {
     if ($formRef && onCancel) onCancel($formRef.buildPaymentData())
   }
 
   const remove = () => {
-    if (data?.id) removePaymentData(data.id)
+    if (data.id) removePaymentData(data.id)
     if ($formRef && onCancel) onCancel($formRef.buildPaymentData())
   }
 
@@ -117,9 +121,17 @@ export const PaymentMethodForm = ({
         testID="navigation-next"
         disabled={!stepValid}
         wide={false}
-        onPress={stepValid ? $formRef?.save : () => {}}
+        onPress={() => $formRef?.save()}
         title={i18n(view === 'new' ? 'next' : 'form.paymentMethod.update')}
       />
+      {view === 'edit'
+        ? <Pressable onPress={remove} style={tw`mt-6`}>
+          <Text style={tw`font-baloo text-sm text-center underline text-white-1`}>
+            {i18n('form.paymentMethod.remove')}
+          </Text>
+        </Pressable>
+        : null
+      }
     </Fade>
     {/* {view !== 'view'
       ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>

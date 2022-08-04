@@ -7,6 +7,8 @@ import { StackNavigation } from '../../utils/navigation'
 import Currency from './Currency'
 import ExtraCurrencies from './ExtraCurrencies'
 import PaymentMethod from './PaymentMethod'
+import { getPaymentDataByType } from '../../utils/account'
+import i18n from '../../utils/i18n'
 
 type Props = {
   navigation: StackNavigation,
@@ -27,10 +29,18 @@ export default ({ navigation }: Props): ReactElement => {
   const scroll = useRef<ScrollView>(null)
 
   const next = () => {
-    if (page >= screens.length - 1 && paymentMethod) return navigation.navigate('paymentDetails', {
-      paymentMethod,
-      currencies,
-    })
+    if (page >= screens.length - 1 && paymentMethod) {
+      const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
+      const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+      return navigation.push('paymentDetails', {
+        paymentData: {
+          type: paymentMethod,
+          label,
+          currencies,
+        },
+        origin: 'buyPreferences'
+      })
+    }
     setPage(page + 1)
 
     scroll.current?.scrollTo({ x: 0 })

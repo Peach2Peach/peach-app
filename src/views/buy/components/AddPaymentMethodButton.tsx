@@ -13,7 +13,7 @@ type AddPaymentMethodProps = ComponentProps & {
 
 export default ({ navigation, style }: AddPaymentMethodProps): ReactElement => {
   const addPaymentMethods = () => {
-    navigation.navigate('addPaymentMethod', {})
+    navigation.push('addPaymentMethod', {})
   }
 
   return <View style={style}>
