@@ -13,7 +13,6 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
-import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
@@ -98,13 +97,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })
-    updateOverlay({
-      content: <AddPaymentMethod
-        paymentMethod={selectedPaymentMethod}
-        currencies={[selectedCurrency]}
-        onSubmit={onPaymentDataUpdate}
-      />,
-      showCloseButton: false
+    navigation.push('addPaymentMethod', {
+      currency: selectedCurrency,
+      paymentMethod: selectedPaymentMethod,
     })
   }
 

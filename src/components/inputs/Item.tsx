@@ -7,24 +7,16 @@ type ItemProps = ComponentProps & {
   label: string,
   isSelected: boolean,
   onPress: () => void,
-  invertColors?: boolean,
 }
 export const Item = ({
   label,
   isSelected,
   onPress,
   style,
-  invertColors
 }: ItemProps): ReactElement => {
-  const bgColor = invertColors
-    ? isSelected ? tw`bg-white-1` : {}
-    : isSelected ? tw`bg-peach-1` : {}
-  const borderColor = invertColors
-    ? tw`border-white-1`
-    : isSelected ? tw`border-peach-1` : tw`border-grey-2`
-  const textColor = invertColors
-    ? isSelected ? tw`text-peach-1` : tw`text-white-1`
-    : isSelected ? tw`text-white-1` : tw`text-grey-2`
+  const bgColor = isSelected ? tw`bg-peach-1` : {}
+  const borderColor = isSelected ? tw`border-peach-1` : tw`border-grey-2`
+  const textColor = isSelected ? tw`text-white-1` : tw`text-grey-2`
 
   return <Pressable
     onPress={onPress}

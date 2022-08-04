@@ -9,9 +9,9 @@ import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import PaymentDetails from './components/PaymentDetails'
-import AddPaymentMethodButton from './components/AddPaymentMethodButton'
 import { hashPaymentData, isValidPaymentdata } from '../../utils/paymentMethod'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 
 const validate = (offer: BuyOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()

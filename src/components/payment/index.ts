@@ -18,15 +18,11 @@ export type PaymentDetailTemplates = {
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
   sepa: DetailSEPA,
-  bankTransferCH: DetailBankTransferCH,
-  bankTransferUK: GeneralPaymentDetails,
   paypal: GeneralPaymentDetails,
   revolut: DetailRevolut,
-  applePay: GeneralPaymentDetails,
   wise: DetailWise,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
-  tether: GeneralPaymentDetails,
 }
