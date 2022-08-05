@@ -29,7 +29,9 @@ export const PaymentMethodSelect = ({
   return <View>
     {paymentMethods.map((method, i) => <View key={method}>
       <View style={tw`flex flex-row items-center px-8`}>
-        {showLogos && <PaymentLogo id={method as PaymentLogoType} style={tw`w-8 h-8 mr-4`} />}
+        {showLogos && <View style={tw`p-1 mr-4 border border-grey-3 rounded-lg`}>
+          <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
+        </View>}
         <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`}
           onPress={() => select(method)}>
           {i18n(`paymentMethod.${method}`)}
