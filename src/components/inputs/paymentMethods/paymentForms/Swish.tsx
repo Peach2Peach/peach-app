@@ -11,7 +11,6 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const Swish = ({
   forwardRef,
-  view,
   data,
   currencies = [],
   onSubmit,
@@ -43,7 +42,7 @@ export const Swish = ({
   const validateForm = () => validate({
     label: {
       required: true,
-      duplicate: view === 'new' && getPaymentDataByLabel(label)
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
     },
     phone: {
       required: true,
@@ -73,7 +72,6 @@ export const Swish = ({
         onChange={setLabel}
         onSubmit={() => $phone?.focus()}
         value={label}
-        disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
         placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
@@ -87,7 +85,6 @@ export const Swish = ({
         onSubmit={() => $beneficiary?.focus()}
         reference={(el: any) => $phone = el}
         value={phone}
-        disabled={view === 'view'}
         label={i18n('form.phone')}
         placeholder={i18n('form.phone.placeholder')}
         isValid={!isFieldInError('phone')}
@@ -102,7 +99,6 @@ export const Swish = ({
         reference={(el: any) => $beneficiary = el}
         value={beneficiary}
         required={false}
-        disabled={view === 'view'}
         label={i18n('form.name')}
         placeholder={i18n('form.name.placeholder')}
         isValid={!isFieldInError('beneficiary')}

@@ -8,6 +8,7 @@ import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, isValidPaymentdata } from '../../utils/paymentMethod'
+import { StackNavigation } from '../../utils/navigation'
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   PAYMENTCATEGORIES[category].indexOf(data.type) !== -1
@@ -38,10 +39,12 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[],
+  editable?: boolean,
+  navigation?: StackNavigation,
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
 // eslint-disable-next-line max-lines-per-function
-export default ({ paymentData, setMeansOfPayment, style }: PaymentDetailsProps): ReactElement => {
+export default ({ paymentData, editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
   const [random, setRandom] = useState(0)
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
@@ -55,6 +58,7 @@ export default ({ paymentData, setMeansOfPayment, style }: PaymentDetailsProps):
     value: data.id,
     display: <Text style={tw`font-baloo text-base`}>{data.label}</Text>,
     isValid: isValidPaymentdata(data),
+    disabled: editable,
     data,
   })
 
@@ -72,6 +76,13 @@ export default ({ paymentData, setMeansOfPayment, style }: PaymentDetailsProps):
   const deletePaymentData = (data: PaymentData) => {
     removePaymentData(data.id)
     setRandom(Math.random())
+  }
+
+  const editItem = (data: PaymentData) => {
+    navigation!.push('paymentDetails', {
+      paymentData: data,
+      origin: 'paymentMethods'
+    })
   }
 
   const select = (value: string) => {
@@ -109,7 +120,8 @@ export default ({ paymentData, setMeansOfPayment, style }: PaymentDetailsProps):
             {item.isValid
               ? <View>
                 <CheckboxItem testID={`buy-mops-checkbox-${item.value}`}
-                  onPress={() => select(item.value)} item={item} checked={isSelected(item)} />
+                  onPress={() => !editable ? select(item.value) : editItem(item.data)}
+                  item={item} checked={isSelected(item)} />
                 <PaymentDataKeyFacts style={tw`mt-2`} paymentData={item.data}/>
               </View>
               : <View style={tw`flex flex-row justify-between`}>

@@ -19,7 +19,10 @@ declare type RootStackParamList = {
     offer?: SellOffer,
     page?: number
   },
-  addPaymentMethod: {},
+  addPaymentMethod: {
+    currency?: Currency,
+    paymentMethod?: PaymentMethod,
+  },
   paymentDetails: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod,

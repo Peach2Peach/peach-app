@@ -11,7 +11,6 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const SEPA = ({
   forwardRef,
-  view,
   data,
   currencies = [],
   onSubmit,
@@ -52,7 +51,7 @@ export const SEPA = ({
   const validateForm = () => validate({
     label: {
       required: true,
-      duplicate: view === 'new' && getPaymentDataByLabel(label)
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
     },
     beneficiary: {
       required: true,
@@ -95,7 +94,6 @@ export const SEPA = ({
         onChange={setLabel}
         onSubmit={() => $beneficiary?.focus()}
         value={label}
-        disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
         placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
@@ -109,7 +107,6 @@ export const SEPA = ({
         onSubmit={() => $iban?.focus()}
         reference={(el: any) => $beneficiary = el}
         value={beneficiary}
-        disabled={view === 'view'}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         isValid={!isFieldInError('beneficiary')}
@@ -123,7 +120,6 @@ export const SEPA = ({
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => $iban = el}
         value={iban}
-        disabled={view === 'view'}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}
         isValid={!isFieldInError('iban')}
@@ -138,7 +134,6 @@ export const SEPA = ({
         reference={(el: any) => $bic = el}
         value={bic}
         required={false}
-        disabled={view === 'view'}
         label={i18n('form.bic')}
         placeholder={i18n('form.bic.placeholder')}
         isValid={!isFieldInError('bic')}
@@ -153,7 +148,6 @@ export const SEPA = ({
         reference={(el: any) => $address = el}
         value={address}
         required={false}
-        disabled={view === 'view'}
         label={i18n('form.address')}
         placeholder={i18n('form.address.placeholder')}
         isValid={!isFieldInError('address')}
@@ -168,7 +162,6 @@ export const SEPA = ({
         reference={(el: any) => $reference = el}
         value={reference}
         required={false}
-        disabled={view === 'view'}
         label={i18n('form.reference')}
         placeholder={i18n('form.reference.placeholder')}
         isValid={!isFieldInError('reference')}

@@ -12,7 +12,6 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const PayPal = ({
   forwardRef,
-  view,
   data,
   currencies = [],
   onSubmit,
@@ -49,7 +48,7 @@ export const PayPal = ({
   const validateForm = () => validate({
     label: {
       required: true,
-      duplicate: view === 'new' && getPaymentDataByLabel(label)
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
     },
     phone: {
       required: !email && !userName,
@@ -86,7 +85,6 @@ export const PayPal = ({
         onChange={setLabel}
         onSubmit={() => $phone?.focus()}
         value={label}
-        disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
         placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
@@ -106,7 +104,6 @@ export const PayPal = ({
         reference={(el: any) => $phone = el}
         value={phone}
         required={!anyFieldSet}
-        disabled={view === 'view'}
         label={i18n('form.phone')}
         placeholder={i18n('form.phone.placeholder')}
         isValid={!isFieldInError('phone')}
@@ -121,7 +118,6 @@ export const PayPal = ({
         reference={(el: any) => $email = el}
         required={!anyFieldSet}
         value={email}
-        disabled={view === 'view'}
         label={i18n('form.email')}
         placeholder={i18n('form.email.placeholder')}
         isValid={!isFieldInError('email')}
@@ -141,7 +137,6 @@ export const PayPal = ({
         reference={(el: any) => $userName = el}
         required={!anyFieldSet}
         value={userName}
-        disabled={view === 'view'}
         label={i18n('form.userName')}
         placeholder={i18n('form.userName.placeholder')}
         isValid={!isFieldInError('userName')}

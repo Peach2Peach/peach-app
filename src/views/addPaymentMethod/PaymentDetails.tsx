@@ -19,8 +19,12 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [paymentData, setPaymentData] = useState(route.params.paymentData)
   const { type: paymentMethod } = paymentData
 
-  const confirm = (d: PaymentData) => {
+  const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
+    navigation.replace(route.params.origin, {})
+  }
+
+  const onDelete = () => {
     navigation.replace(route.params.origin, {})
   }
 
@@ -36,8 +40,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         style={tw`h-full flex-shrink flex-col justify-between`}
         currencies={paymentData.currencies}
         data={paymentData}
-        view="new"
-        onSubmit={confirm}
+        onSubmit={onSubmit}
+        onDelete={onDelete}
         navigation={navigation}
       />
     </View>

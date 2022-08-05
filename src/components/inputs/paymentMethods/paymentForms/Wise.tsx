@@ -12,7 +12,6 @@ const { useValidation } = require('react-native-form-validator')
 // eslint-disable-next-line max-lines-per-function
 export const Wise = ({
   forwardRef,
-  view,
   data,
   currencies = [],
   onSubmit,
@@ -54,7 +53,7 @@ export const Wise = ({
   const validateForm = () => validate({
     label: {
       required: true,
-      duplicate: view === 'new' && getPaymentDataByLabel(label)
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
     },
     email: {
       required: !iban && !bic,
@@ -94,7 +93,6 @@ export const Wise = ({
         onChange={setLabel}
         onSubmit={() => $email?.focus()}
         value={label}
-        disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
         placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
@@ -110,7 +108,6 @@ export const Wise = ({
         reference={(el: any) => $email = el}
         value={email}
         required={!iban}
-        disabled={view === 'view'}
         label={i18n('form.email')}
         placeholder={i18n('form.email.placeholder')}
         isValid={!isFieldInError('email')}
@@ -126,7 +123,6 @@ export const Wise = ({
         reference={(el: any) => $beneficiary = el}
         required={!anyFieldSet}
         value={beneficiary}
-        disabled={view === 'view'}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         isValid={!isFieldInError('beneficiary')}
@@ -141,7 +137,6 @@ export const Wise = ({
         reference={(el: any) => $iban = el}
         required={!email}
         value={iban}
-        disabled={view === 'view'}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}
         isValid={!isFieldInError('iban')}
@@ -155,7 +150,6 @@ export const Wise = ({
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => $bic = el}
         value={bic}
-        disabled={view === 'view'}
         label={i18n('form.bic')}
         placeholder={i18n('form.bic.placeholder')}
         isValid={!isFieldInError('bic')}
@@ -170,7 +164,6 @@ export const Wise = ({
         reference={(el: any) => $reference = el}
         value={reference}
         required={false}
-        disabled={view === 'view'}
         label={i18n('form.reference')}
         placeholder={i18n('form.reference.placeholder')}
         isValid={!isFieldInError('reference')}

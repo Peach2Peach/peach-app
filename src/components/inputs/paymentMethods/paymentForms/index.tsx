@@ -34,10 +34,9 @@ export type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod,
   data: Partial<PaymentData>,
   currencies?: Currency[],
-  view: 'new' | 'edit' | 'view',
   onSubmit?: (data: PaymentData) => void,
   onChange?: (data: Partial<PaymentData>) => void,
-  onCancel?: (data: Partial<PaymentData>) => void,
+  onDelete?: () => void,
   navigation: StackNavigation,
 }
 type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
@@ -60,9 +59,8 @@ export const PaymentMethodForm = ({
   paymentMethod,
   data,
   currencies = [],
-  view,
   onSubmit,
-  onCancel,
+  onDelete,
   navigation,
   style,
 }: PaymentMethodFormProps): ReactElement => {
@@ -91,13 +89,9 @@ export const PaymentMethodForm = ({
     if ($formRef) setStepValid($formRef.validateForm())
   }
 
-  const cancel = () => {
-    if ($formRef && onCancel) onCancel($formRef.buildPaymentData())
-  }
-
   const remove = () => {
     if (data.id) removePaymentData(data.id)
-    if ($formRef && onCancel) onCancel($formRef.buildPaymentData())
+    if ($formRef && onDelete) onDelete($formRef.buildPaymentData())
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
@@ -109,10 +103,8 @@ export const PaymentMethodForm = ({
         paymentMethod={paymentMethod}
         data={data}
         currencies={currencies}
-        view={view}
         onSubmit={submit}
         onChange={onChange}
-        onCancel={onCancel}
         navigation={navigation}
       />
     </PeachScrollView>
@@ -128,38 +120,16 @@ export const PaymentMethodForm = ({
         disabled={!stepValid}
         wide={false}
         onPress={() => $formRef?.save()}
-        title={i18n(view === 'new' ? 'next' : 'form.paymentMethod.update')}
+        title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
       />
-      {view === 'edit'
+      {data.id
         ? <Pressable onPress={remove} style={tw`mt-6`}>
-          <Text style={tw`font-baloo text-sm text-center underline text-white-1`}>
+          <Text style={tw`font-baloo text-sm text-center underline text-peach-1`}>
             {i18n('form.paymentMethod.remove')}
           </Text>
         </Pressable>
         : null
       }
     </Fade>
-    {/* {view !== 'view'
-      ? <Fade show={!keyboardOpen} style={tw`w-full flex items-center`}>
-        <Pressable style={tw`absolute left-0 z-10`} onPress={cancel}>
-          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-white-1`.color as string} />
-        </Pressable>
-        <Button
-          title={i18n(view === 'new' ? 'form.paymentMethod.add' : 'form.paymentMethod.update')}
-          secondary={true}
-          wide={false}
-          onPress={() => $formRef?.save()}
-        />
-        {view === 'edit'
-          ? <Pressable onPress={remove} style={tw`mt-6`}>
-            <Text style={tw`font-baloo text-sm text-center underline text-white-1`}>
-              {i18n('form.paymentMethod.remove')}
-            </Text>
-          </Pressable>
-          : null
-        }
-      </Fade>
-      : null
-    } */}
   </View>
 }

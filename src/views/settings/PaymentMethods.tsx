@@ -20,6 +20,7 @@ export default ({ navigation }: Props): ReactElement => {
   return <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
     <Title title={i18n('settings.title')} subtitle={i18n('settings.paymentMethods.subtitle')} />
     <PaymentDetails style={tw`mt-4`}
+      editable={true} navigation={navigation}
       paymentData={account.paymentData}
       setMeansOfPayment={dummy}
     />

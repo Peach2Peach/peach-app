@@ -20,8 +20,7 @@ export const CheckboxItem = ({ item, checked, onPress, style, testID }: Checkbox
     onPress={onPress}
     style={[
       tw`w-full flex-row justify-between items-center px-4 py-3 bg-peach-milder rounded-lg border-2`,
-      checked ? tw`border-peach-1` : tw`border-transparent`,
-      item.disabled ? tw`opacity-50` : {},
+      checked && !item.disabled ? tw`border-peach-1` : tw`border-transparent`,
       style,
     ]}>
     <Text style={tw`font-baloo text-base`}>
