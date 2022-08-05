@@ -47,7 +47,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           label,
           currencies,
         },
-        origin: 'buyPreferences'
+        origin: route.params.origin
       })
     }
     setPage(page + 1)

@@ -22,13 +22,14 @@ declare type RootStackParamList = {
   addPaymentMethod: {
     currency?: Currency,
     paymentMethod?: PaymentMethod,
+    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   },
   paymentDetails: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod,
       currencies: Currency[],
     },
-    origin: keyof RootStackParamList
+    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   },
   fundEscrow: {
     offer: SellOffer

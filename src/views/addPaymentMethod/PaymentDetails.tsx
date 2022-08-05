@@ -21,11 +21,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
-    navigation.replace(route.params.origin, {})
+    navigation.replace(route.params.origin[0], route.params.origin[1])
   }
 
   const onDelete = () => {
-    navigation.replace(route.params.origin, {})
+    navigation.replace(route.params.origin[0], route.params.origin[1])
   }
 
   return <View style={tw`flex h-full pt-7 pb-10`}>

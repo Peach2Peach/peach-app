@@ -306,6 +306,7 @@
   "form.currency": "Select currency",
   "form.paymentMethod": "Select payment method",
   "form.paymentMethodName": "Payment method name",
+  "form.paymentMethodName.placeholder": "Payment method name",
   "form.required.error": "This field is required",
   "form.duplicate.error": "Already exists",
   "form.password": "Password",

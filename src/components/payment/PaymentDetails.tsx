@@ -81,7 +81,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   const editItem = (data: PaymentData) => {
     navigation!.push('paymentDetails', {
       paymentData: data,
-      origin: 'paymentMethods'
+      origin: ['paymentMethods', {}]
     })
   }
 

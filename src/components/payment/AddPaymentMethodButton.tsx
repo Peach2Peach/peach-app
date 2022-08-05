@@ -8,11 +8,12 @@ import { StackNavigation } from '../../utils/navigation'
 
 type AddPaymentMethodProps = ComponentProps & {
   navigation: StackNavigation,
+  origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]],
 }
 
-export default ({ navigation, style }: AddPaymentMethodProps): ReactElement => {
+export default ({ navigation, origin, style }: AddPaymentMethodProps): ReactElement => {
   const addPaymentMethods = () => {
-    navigation.push('addPaymentMethod', {})
+    navigation.push('addPaymentMethod', { origin })
   }
 
   return <View style={style}>

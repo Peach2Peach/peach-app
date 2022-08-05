@@ -24,7 +24,10 @@ export default ({ navigation }: Props): ReactElement => {
       paymentData={account.paymentData}
       setMeansOfPayment={dummy}
     />
-    <AddPaymentMethodButton navigation={navigation} style={tw`mt-4`} />
+    <AddPaymentMethodButton navigation={navigation}
+      origin={['paymentMethods', {}]}
+      style={tw`mt-4`}
+    />
 
     <View style={tw`flex items-center mt-16`}>
       <Button

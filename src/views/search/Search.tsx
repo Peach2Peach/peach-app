@@ -24,7 +24,7 @@ import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
 import Match from '../../overlays/info/Match'
 import MatchAccepted from '../../overlays/MatchAccepted'
-import { account, addPaymentData } from '../../utils/account'
+import { account, addPaymentData, getPaymentDataByType } from '../../utils/account'
 import { unique } from '../../utils/array'
 import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
@@ -97,9 +97,16 @@ export default ({ route, navigation }: Props): ReactElement => {
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })
-    navigation.push('addPaymentMethod', {
-      currency: selectedCurrency,
-      paymentMethod: selectedPaymentMethod,
+    const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
+    const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
+
+    navigation.push('paymentDetails', {
+      paymentData: {
+        type: selectedPaymentMethod,
+        label,
+        currencies: [selectedCurrency],
+      },
+      origin: ['search', route.params]
     })
   }
 

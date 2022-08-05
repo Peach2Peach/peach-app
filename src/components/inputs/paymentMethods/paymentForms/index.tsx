@@ -91,7 +91,7 @@ export const PaymentMethodForm = ({
 
   const remove = () => {
     if (data.id) removePaymentData(data.id)
-    if ($formRef && onDelete) onDelete($formRef.buildPaymentData())
+    if ($formRef && onDelete) onDelete()
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
