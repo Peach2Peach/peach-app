@@ -24,17 +24,17 @@ import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
 import Match from '../../overlays/info/Match'
 import MatchAccepted from '../../overlays/MatchAccepted'
-import { account, addPaymentData, getPaymentDataByType } from '../../utils/account'
+import { account, getPaymentDataByType } from '../../utils/account'
 import { unique } from '../../utils/array'
+import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
-import { matchOffer, unmatchOffer, patchOffer } from '../../utils/peachAPI'
+import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
-import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 
 const updaterPNs = [
   'offer.matchSeller',
@@ -83,17 +83,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
         return seen
       })
-
     }
 
     if (currency) setSelectedCurrency(currency)
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
-  const onPaymentDataUpdate = async (newData: PaymentData) => {
-    await addPaymentData(newData, false)
-    updateOverlay({ content: null, showCloseButton: true })
-  }
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })

@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { RouteProp } from '@react-navigation/native'
+import { CommonActions, RouteProp } from '@react-navigation/native'
 import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { StackNavigation } from '../../utils/navigation'
@@ -15,17 +15,38 @@ type Props = {
   navigation: StackNavigation,
 }
 
+const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList> = {
+  'buyPreferences': 'buy',
+  'sellPreferences': 'sell',
+  'paymentMethods': 'settings',
+}
+
 export default ({ route, navigation }: Props): ReactElement => {
   const [paymentData, setPaymentData] = useState(route.params.paymentData)
   const { type: paymentMethod } = paymentData
 
+  const goToOrigin = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: 'home' },
+          { name: previousScreen[route.params.origin[0]] as string || 'home' },
+          {
+            name: route.params.origin[0] as string,
+            params: route.params.origin[1],
+          },
+        ],
+      })
+    )
+  }
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
-    navigation.replace(route.params.origin[0], route.params.origin[1])
+    goToOrigin()
   }
 
   const onDelete = () => {
-    navigation.replace(route.params.origin[0], route.params.origin[1])
+    goToOrigin()
   }
 
   return <View style={tw`flex h-full pt-7 pb-10`}>

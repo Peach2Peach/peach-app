@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 
@@ -33,23 +33,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const scroll = useRef<ScrollView>(null)
 
   const next = () => {
-    let paymentMethodInfo
-    if (paymentMethod) {
-      paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
-    }
-    if (paymentMethod
-      && (page >= screens.length - 1 || id === 'paymentMethod' && paymentMethodInfo?.currencies.length === 1)) {
-      const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
-      const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
-      return navigation.push('paymentDetails', {
-        paymentData: {
-          type: paymentMethod,
-          label,
-          currencies,
-        },
-        origin: route.params.origin
-      })
-    }
     setPage(page + 1)
 
     scroll.current?.scrollTo({ x: 0 })
@@ -87,6 +70,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   useFocusEffect(useCallback(initView, [route]))
+
+  useEffect(() => {
+    if (!paymentMethod) return
+    const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
+
+    if (paymentMethodInfo?.currencies.length === 1) {
+      const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
+      const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+      navigation.push('paymentDetails', {
+        paymentData: {
+          type: paymentMethod,
+          label,
+          currencies,
+        },
+        origin: route.params.origin
+      })
+    }
+  }, [paymentMethod])
 
   return <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
     {getScreen()}
