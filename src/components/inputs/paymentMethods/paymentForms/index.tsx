@@ -37,6 +37,7 @@ export type PaymentMethodFormProps = ComponentProps & {
   onSubmit?: (data: PaymentData) => void,
   onChange?: (data: Partial<PaymentData>) => void,
   onDelete?: () => void,
+  back?: () => void,
   navigation: StackNavigation,
 }
 type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
@@ -62,6 +63,7 @@ export const PaymentMethodForm = ({
   onSubmit,
   onDelete,
   navigation,
+  back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
@@ -112,7 +114,7 @@ export const PaymentMethodForm = ({
       <View style={tw`w-full h-10 -mt-10`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>
-      <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={navigation.goBack}>
+      <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={back || navigation.goBack}>
         <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
       </Pressable>
       <Button

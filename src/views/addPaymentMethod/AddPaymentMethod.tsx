@@ -5,7 +5,7 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { CURRENCIES } from '../../constants'
+import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import { getPaymentDataByType } from '../../utils/account'
 import { StackNavigation } from '../../utils/navigation'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod'
@@ -23,21 +23,41 @@ const screens = [
   { id: 'paymentMethod' },
   { id: 'extraCurrencies' }
 ]
+const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
+  if (paymentMethod) return 2
+  if (currencies?.length === 1) return 1
+  return 0
+}
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
-  const [page, setPage] = useState(0)
-  const [currencies, setCurrencies] = useState<Currency[]>([route.params.currency || CURRENCIES[0]])
+  const [page, setPage] = useState(getPage(route.params))
+  const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|undefined>(route.params.paymentMethod)
 
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
+  const goToPaymentDetails = () => {
+    if (!paymentMethod) return
+    const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
+    const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+    navigation.push('paymentDetails', {
+      paymentData: { type: paymentMethod, label, currencies },
+      origin: ['addPaymentMethod', { currencies, paymentMethod }]
+    })
+  }
+
   const next = () => {
+    if (page >= screens.length - 1) {
+      goToPaymentDetails()
+      return
+    }
     setPage(page + 1)
 
     scroll.current?.scrollTo({ x: 0 })
-    return undefined
   }
+
   const back = () => {
     if (page === 0) {
       navigation.goBack()
@@ -60,12 +80,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       paymentMethod={paymentMethod!} setCurrencies={setCurrencies}
       back={back} next={next}
     />
-
     return <View />
   }
 
   const initView = () => {
-    setCurrencies([route.params.currency || CURRENCIES[0]])
+    setPage(getPage(route.params))
+    setCurrencies(route.params.currencies || [CURRENCIES[0]])
     setPaymentMethod(route.params.paymentMethod)
   }
 
@@ -74,20 +94,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (!paymentMethod) return
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
+    if (paymentMethodInfo?.currencies.length !== 1
+      || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraCurrencies')) return
 
-    if (paymentMethodInfo?.currencies.length === 1) {
-      const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
-      const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
-      navigation.push('paymentDetails', {
-        paymentData: {
-          type: paymentMethod,
-          label,
-          currencies,
-        },
-        origin: route.params.origin
-      })
-    }
-  }, [paymentMethod])
+    goToPaymentDetails()
+  }, [paymentMethod, page])
 
   return <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
     {getScreen()}

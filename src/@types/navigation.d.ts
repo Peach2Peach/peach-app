@@ -20,7 +20,7 @@ declare type RootStackParamList = {
     page?: number
   },
   addPaymentMethod: {
-    currency?: Currency,
+    currencies?: Currency[],
     paymentMethod?: PaymentMethod,
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   },

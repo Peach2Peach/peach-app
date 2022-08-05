@@ -26,19 +26,17 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { type: paymentMethod } = paymentData
 
   const goToOrigin = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [
-          { name: 'home' },
-          { name: previousScreen[route.params.origin[0]] as string || 'home' },
-          {
-            name: route.params.origin[0] as string,
-            params: route.params.origin[1],
-          },
-        ],
-      })
-    )
+    navigation.reset({
+      index: 2,
+      routes: [
+        { name: 'home' },
+        { name: previousScreen[route.params.origin[0]] as string || 'home' },
+        {
+          name: route.params.origin[0] as string,
+          params: route.params.origin[1],
+        },
+      ],
+    })
   }
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
@@ -63,6 +61,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         data={paymentData}
         onSubmit={onSubmit}
         onDelete={onDelete}
+        back={goToOrigin}
         navigation={navigation}
       />
     </View>
