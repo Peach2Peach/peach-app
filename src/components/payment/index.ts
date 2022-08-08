@@ -7,6 +7,7 @@ import DetailWise from './detail/wise'
 
 export type PaymentTemplateProps = {
   paymentData: PaymentData,
+  country?: Country,
   appLink?: string,
   fallbackUrl?: string,
   userLink?: string,
@@ -25,4 +26,5 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   swish: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
+  'giftCard.amazon': GeneralPaymentDetails,
 }

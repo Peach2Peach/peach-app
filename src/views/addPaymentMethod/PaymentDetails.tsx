@@ -25,26 +25,29 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [paymentData, setPaymentData] = useState(route.params.paymentData)
   const { type: paymentMethod } = paymentData
 
-  const goToOrigin = () => {
+  const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
     navigation.reset({
       index: 2,
       routes: [
         { name: 'home' },
-        { name: previousScreen[route.params.origin[0]] as string || 'home' },
+        { name: previousScreen[origin[0]] as string || 'home' },
         {
-          name: route.params.origin[0] as string,
-          params: route.params.origin[1],
+          name: origin[0] as string,
+          params: origin[1],
         },
       ],
     })
   }
+
+  const goToOriginOnCancel = () => goToOrigin(route.params.originOnCancel || route.params.origin)
+
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
-    goToOrigin()
+    goToOrigin(route.params.origin)
   }
 
   const onDelete = () => {
-    goToOrigin()
+    goToOrigin(route.params.origin)
   }
 
   return <View style={tw`flex h-full pt-7 pb-10`}>
@@ -61,7 +64,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         data={paymentData}
         onSubmit={onSubmit}
         onDelete={onDelete}
-        back={goToOrigin}
+        back={goToOriginOnCancel}
         navigation={navigation}
       />
     </View>

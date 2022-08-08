@@ -27,6 +27,7 @@ declare type PaymentData = {
   label: string,
   type: PaymentMethod,
   currencies: Currency[],
+  countries: Country[],
 }
 
 declare type PaypalData = {
@@ -34,26 +35,12 @@ declare type PaypalData = {
   email: string,
   userName: string,
 }
-declare type ApplePayData = {
-  phone: string,
-}
 declare type SEPAData = {
   beneficiary: string,
   iban: string,
   bic?: string,
   address?: string,
   reference?: string,
-}
-declare type BankTransferCHData = {
-  beneficiary: string,
-  iban: string,
-  address?: string
-}
-declare type BankTransferUKData = {
-  beneficiary: string,
-  ukSortCode: string,
-  ukBankAccount: string,
-  address?: string,
 }
 declare type BizumData = {
   phone: string,
@@ -72,9 +59,6 @@ declare type SwishData = {
   phone: string,
   beneficiary: string,
 }
-declare type TetherData = {
-  tetherAddress: string,
-}
 declare type TwintData = {
   phone: string,
   beneficiary: string,
@@ -84,6 +68,10 @@ declare type WiseData = {
   beneficiary: string,
   iban: string,
   bic: string,
+}
+declare type AmazonGiftCardData = {
+  email: string,
+  countries: Country[],
 }
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency'

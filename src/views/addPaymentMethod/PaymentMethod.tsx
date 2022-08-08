@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { Flag, Headline, Icon, RadioButtons, Text } from '../../components'
-import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
+import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../../constants'
 import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
 import { CountrySelect } from '../../drawers/CountrySelect'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'

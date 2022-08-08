@@ -21,6 +21,7 @@ declare type RootStackParamList = {
   },
   addPaymentMethod: {
     currencies?: Currency[],
+    countries?: Country[],
     paymentMethod?: PaymentMethod,
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   },
@@ -30,6 +31,7 @@ declare type RootStackParamList = {
       currencies: Currency[],
     },
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+    originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   },
   fundEscrow: {
     offer: SellOffer

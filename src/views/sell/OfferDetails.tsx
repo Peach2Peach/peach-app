@@ -40,7 +40,10 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
   const [kycType, setKYCType] = useState(offer.kycType)
 
   const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer(offr, shield)
+    updateOffer({
+      ...offr,
+      meansOfPayment,
+    }, shield)
     updateSettings({
       meansOfPayment: offr.meansOfPayment,
       premium: offr.premium,
@@ -53,8 +56,10 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
     const paymentData = getSelectedPaymentDataIds().map(getPaymentData)
       .reduce((obj, data) => {
         if (!data) return obj
-        obj[data.type] = hashPaymentData(data)
-
+        obj[data.type] = {
+          hash: hashPaymentData(data),
+          countries: data.countries
+        }
         return obj
       }, {} as Offer['paymentData'])
     saveAndUpdate({

@@ -71,6 +71,7 @@ declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
+declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
 declare type PaymentMethod =
   'sepa'
   | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
@@ -80,7 +81,7 @@ declare type PaymentMethod =
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
-  countries?: string[],
+  countries?: Country[],
   exchange: boolean,
 }
 
@@ -137,7 +138,10 @@ declare type Offer = {
   premium?: number,
   prices?: Pricebook,
   meansOfPayment: MeansOfPayment,
-  paymentData: Partial<Record<PaymentMethod, string>>,
+  paymentData: Partial<Record<PaymentMethod, {
+    hash: string,
+    countries: Country[],
+  }>>,
   kyc: boolean,
   kycType?: KYCType,
   returnAddress?: string,
@@ -186,6 +190,7 @@ declare type Match = {
   matchedPrice: number | null,
   premium: number,
   meansOfPayment: MeansOfPayment,
+  paymentData: Offer['paymentData'],
   selectedCurrency?: Currency,
   selectedPaymentMethod?: PaymentMethod,
   kyc: boolean,

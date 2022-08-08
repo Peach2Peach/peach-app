@@ -22,6 +22,7 @@ import { SEPA } from './SEPA'
 import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
+import { GiftCardAmazon } from './giftCard.amazon'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -34,6 +35,7 @@ export type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod,
   data: Partial<PaymentData>,
   currencies?: Currency[],
+  countries?: Country[],
   onSubmit?: (data: PaymentData) => void,
   onChange?: (data: Partial<PaymentData>) => void,
   onDelete?: () => void,
@@ -53,6 +55,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   swish: Swish,
   mbWay: MBWay,
   bizum: Bizum,
+  'giftCard.amazon': GiftCardAmazon,
 }
 
 // eslint-disable-next-line max-lines-per-function

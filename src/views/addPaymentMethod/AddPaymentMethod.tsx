@@ -12,6 +12,7 @@ import { getPaymentMethodInfo } from '../../utils/paymentMethod'
 import Currency from './Currency'
 import ExtraCurrencies from './ExtraCurrencies'
 import PaymentMethod from './PaymentMethod'
+import Countries from './Countries'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>,
@@ -21,7 +22,7 @@ type Props = {
 const screens = [
   { id: 'currency' },
   { id: 'paymentMethod' },
-  { id: 'extraCurrencies' }
+  { id: 'extraInfo' }
 ]
 const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
   if (paymentMethod) return 2
@@ -33,6 +34,7 @@ const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
 export default ({ route, navigation }: Props): ReactElement => {
   const [page, setPage] = useState(getPage(route.params))
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
+  const [countries, setCountries] = useState<Country[]>(route.params.countries || [])
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|undefined>(route.params.paymentMethod)
 
   const { id } = screens[page]
@@ -43,8 +45,9 @@ export default ({ route, navigation }: Props): ReactElement => {
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
     const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
     navigation.push('paymentDetails', {
-      paymentData: { type: paymentMethod, label, currencies },
-      origin: ['addPaymentMethod', { currencies, paymentMethod }]
+      paymentData: { type: paymentMethod, label, currencies, countries },
+      origin: route.params.origin,
+      originOnCancel: ['addPaymentMethod', { currencies, countries, paymentMethod }]
     })
   }
 
@@ -76,10 +79,15 @@ export default ({ route, navigation }: Props): ReactElement => {
       paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
       back={back} next={next}
     />
-    if (id === 'extraCurrencies') return <ExtraCurrencies selected={currencies}
-      paymentMethod={paymentMethod!} setCurrencies={setCurrencies}
-      back={back} next={next}
-    />
+    if (id === 'extraInfo') return /giftCard/u.test(paymentMethod as string)
+      ? <Countries selected={countries}
+        paymentMethod={paymentMethod!} setCountries={setCountries}
+        back={back} next={next}
+      />
+      : <ExtraCurrencies selected={currencies}
+        paymentMethod={paymentMethod!} setCurrencies={setCurrencies}
+        back={back} next={next}
+      />
     return <View />
   }
 
@@ -95,7 +103,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!paymentMethod) return
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
     if (paymentMethodInfo?.currencies.length !== 1
-      || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraCurrencies')) return
+      || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraInfo')) return
 
     goToPaymentDetails()
   }, [paymentMethod, page])
