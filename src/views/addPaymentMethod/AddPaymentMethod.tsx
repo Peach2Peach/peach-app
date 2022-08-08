@@ -52,7 +52,14 @@ export default ({ route, navigation }: Props): ReactElement => {
     navigation.push('paymentDetails', {
       paymentData: { type: paymentMethod, label, currencies, country },
       origin: route.params.origin,
-      originOnCancel: ['addPaymentMethod', { currencies, country, paymentMethod }]
+      originOnCancel: [
+        'addPaymentMethod',
+        {
+          currencies,
+          country,
+          paymentMethod: !/twint|swish/u.test(paymentMethod) ? paymentMethod : null
+        }
+      ]
     })
   }
 
