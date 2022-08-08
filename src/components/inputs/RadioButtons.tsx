@@ -4,7 +4,7 @@ import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import { mildShadow } from '../../utils/layout'
 
-type Item =  {
+type Item = {
   value: string|number|boolean,
   data?: any,
   display: ReactNode

@@ -157,15 +157,14 @@ const App: React.FC = () => {
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
   const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
-  const [{
-    title: drawerTitle,
-    content: drawerContent,
-    show: showDrawer,
-    onClose: onCloseDrawer
-  }, updateDrawer] = useReducer(
-    setDrawer,
-    getDrawer()
-  )
+  const [
+    {
+      title: drawerTitle,
+      content: drawerContent,
+      show: showDrawer,
+      onClose: onCloseDrawer
+    }, updateDrawer
+  ] = useReducer(setDrawer, getDrawer())
   const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
