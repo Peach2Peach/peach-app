@@ -142,7 +142,7 @@ declare type Offer = {
   meansOfPayment: MeansOfPayment,
   paymentData: Partial<Record<PaymentMethod, {
     hash: string,
-    country: Country,
+    country?: Country,
   }>>,
   kyc: boolean,
   kycType?: KYCType,

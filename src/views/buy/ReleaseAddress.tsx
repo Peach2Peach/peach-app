@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { BuyViewProps } from './Buy'
+import { BuyViewProps } from './BuyPreferences'
 import { Fade, Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
 import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'

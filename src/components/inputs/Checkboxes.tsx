@@ -43,7 +43,7 @@ export const CheckboxItem = ({ item, checked, onPress, style, testID }: Checkbox
 }
 
 type CheckboxesProps = ComponentProps & {
-  items: Item[],
+  items: CheckboxItemType[],
   selectedValues?: (string|number)[],
   onChange?: (values: (string|number)[]) => void,
 }
@@ -79,7 +79,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID
     if (onChange) onChange(newValues)
   }
 
-  const isSelected = (itm: Item) => selectedValues.indexOf(itm.value) !== -1
+  const isSelected = (itm: CheckboxItemType) => selectedValues.indexOf(itm.value) !== -1
 
   return <View testID={`checkboxes-${testID}`} style={style}>
     {items.map((item, i) =>
