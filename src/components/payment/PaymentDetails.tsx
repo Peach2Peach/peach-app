@@ -7,7 +7,7 @@ import { PAYMENTCATEGORIES } from '../../constants'
 import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { dataToMeansOfPayment, isValidPaymentdata } from '../../utils/paymentMethod'
+import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentdata } from '../../utils/paymentMethod'
 import { StackNavigation } from '../../utils/navigation'
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
@@ -108,6 +108,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
           category,
           checkboxItems: paymentData
             .filter(belongsToCategory(category))
+            .filter(data => getPaymentMethodInfo(data.type))
             .sort((a, b) => a.id > b.id ? 1 : -1)
             .map(mapPaymentDataToCheckboxes)
         }))
