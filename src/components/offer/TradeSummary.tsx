@@ -7,11 +7,12 @@ import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { openAppLink } from '../../utils/web'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
 import { paymentDetailTemplates } from '../payment'
-import { Headline, SatsFormat, Text } from '../text'
+import { Headline, SatsFormat, Text, TextLink } from '../text'
 import { HorizontalLine } from '../ui'
 
 
@@ -22,25 +23,42 @@ type TradeSummaryProps = ComponentProps & {
 }
 
 type PaymentMethodProps = {
-  paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethod,
+  country?: Country,
 }
-const PaymentMethod = ({ paymentMethod }: PaymentMethodProps): ReactElement => <View>
-  <Headline style={tw`text-grey-2 normal-case mt-4`}>
-    {i18n(paymentMethod === 'cash'
-      ? 'contract.summary.in'
-      : 'contract.summary.on'
-    )}
-  </Headline>
-  <Selector
-    items={[
-      {
-        value: paymentMethod,
-        display: i18n(`paymentMethod.${paymentMethod}`).toLowerCase()
-      }
-    ]}
-    style={tw`mt-2`}
-  />
-</View>
+const PaymentMethod = ({ paymentMethod, country }: PaymentMethodProps): ReactElement => {
+  const key = country ? `${paymentMethod}.${country}` as PaymentMethod : paymentMethod
+  const url = APPLINKS[key]?.url
+  const appLink = APPLINKS[key]?.appLink
+  const openLink = () => url ? openAppLink(url, appLink) : null
+
+  return <View>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>
+      {i18n(paymentMethod === 'cash'
+        ? 'contract.summary.in'
+        : 'contract.summary.on'
+      )}
+    </Headline>
+    <Selector
+      items={[
+        {
+          value: key,
+          display: i18n(`paymentMethod.${key}`)
+        }
+      ]}
+      style={tw`mt-2`}
+    />
+    {url
+      ? <Pressable style={tw`flex-row justify-center items-center`} onPress={openLink}>
+        <Text style={tw`text-peach-1 underline`}>
+          {i18n(/giftCard/u.test(paymentMethod) ? 'buy' : 'open')}
+        </Text>
+        <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+      </Pressable>
+      : null
+    }
+  </View>
+}
 
 const Escrow = ({ contract }: TradeSummaryProps): ReactElement => <View>
   <Headline style={tw`text-grey-2 normal-case mt-4`}>
@@ -85,7 +103,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
-      <PaymentMethod paymentMethod={contract.paymentMethod} />
+      <PaymentMethod paymentMethod={contract.paymentMethod} country={contract.country} />
 
       {contract.escrow || contract.releaseTxId
         ? <View>
