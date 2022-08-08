@@ -71,10 +71,11 @@ declare type WiseData = {
 }
 declare type AmazonGiftCardData = {
   email: string,
-  countries: Country[],
+}
+declare type CashData = {
 }
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency'
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }

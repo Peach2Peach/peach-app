@@ -77,12 +77,14 @@ declare type PaymentMethod =
   | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
   | 'mbWay' | 'bizum'
   | 'giftCard.amazon'
+  | 'cash'
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
   countries?: Country[],
   exchange: boolean,
+  rounded?: boolean,
 }
 
 declare type KYCType = 'iban' | 'id'
@@ -140,7 +142,7 @@ declare type Offer = {
   meansOfPayment: MeansOfPayment,
   paymentData: Partial<Record<PaymentMethod, {
     hash: string,
-    countries: Country[],
+    country?: Country,
   }>>,
   kyc: boolean,
   kycType?: KYCType,

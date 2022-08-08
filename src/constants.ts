@@ -45,6 +45,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
   giftCard: ['giftCard.amazon'],
   localOption: ['mbWay', 'bizum'],
+  cash: ['cash'],
   cryptoCurrency: []
 }
 

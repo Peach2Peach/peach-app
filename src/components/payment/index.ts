@@ -2,8 +2,8 @@ import { ReactElement } from 'react'
 import GeneralPaymentDetails from './detail/generalPaymentDetails'
 import DetailSEPA from './detail/sepa'
 import DetailRevolut from './detail/revolut'
-import DetailBankTransferCH from './detail/bankTransferCH'
 import DetailWise from './detail/wise'
+import Cash from './detail/cash'
 
 export type PaymentTemplateProps = {
   paymentData: PaymentData,
@@ -27,4 +27,5 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
+  cash: Cash,
 }

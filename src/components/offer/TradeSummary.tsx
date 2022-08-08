@@ -25,7 +25,12 @@ type PaymentMethodProps = {
   paymentMethod: PaymentMethod
 }
 const PaymentMethod = ({ paymentMethod }: PaymentMethodProps): ReactElement => <View>
-  <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.on')}</Headline>
+  <Headline style={tw`text-grey-2 normal-case mt-4`}>
+    {i18n(paymentMethod === 'cash'
+      ? 'contract.summary.in'
+      : 'contract.summary.on'
+    )}
+  </Headline>
   <Selector
     items={[
       {
@@ -76,7 +81,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
         )}
       </Text>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData}/>
+        ? <PaymentTo paymentData={contract.paymentData} country={contract.country}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
@@ -127,7 +132,7 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData} appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
+        ? <PaymentTo paymentData={contract.paymentData} country={contract.country} appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>

@@ -98,6 +98,10 @@ export default ({
 
   useEffect(() => {
     if (!paymentCategory) return
+    if (paymentCategory === 'cash') {
+      selectPaymentMethod('cash')
+      return
+    }
     showDrawer(paymentCategory)
   }, [paymentCategory])
 

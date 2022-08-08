@@ -51,12 +51,12 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   return <View style={tw`flex h-full pt-7 pb-10`}>
-    <Headline>
+    {paymentMethod !== 'cash' && <Headline>
       {i18n(
         'paymentMethod.select.title',
         i18n(`paymentMethod.${paymentMethod}`)
       )}
-    </Headline>
+    </Headline>}
     <View style={tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
       <PaymentMethodForm paymentMethod={paymentMethod}
         style={tw`h-full flex-shrink flex-col justify-between`}

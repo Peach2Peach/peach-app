@@ -5,6 +5,8 @@
  * @TODO check actual fields for validity
  */
 export const isValidPaymentdata = (data: PaymentData) => {
+  if (data.type === 'cash') return true
+
   const dataKeys = Object.keys(data).filter(key => !/id|label|type|currencies/u.test(key))
   return dataKeys.some(key => data[key])
 }
