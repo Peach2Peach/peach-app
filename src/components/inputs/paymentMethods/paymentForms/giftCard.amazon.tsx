@@ -14,7 +14,7 @@ export const GiftCardAmazon = ({
   forwardRef,
   data,
   currencies = [],
-  countries = [],
+  country,
   onSubmit,
   onChange
 }: PaymentMethodFormProps): ReactElement => {
@@ -37,7 +37,7 @@ export const GiftCardAmazon = ({
     type: 'giftCard.amazon',
     email,
     currencies: data?.currencies || currencies,
-    countries: data?.countries || countries,
+    country: data?.country || country,
   })
 
   const validateForm = () => validate({

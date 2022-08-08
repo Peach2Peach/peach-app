@@ -22,7 +22,6 @@ import Icon from '../Icon'
 import { Selector } from '../inputs'
 import { ExtraMedals, Rating } from '../user'
 
-
 type MatchProps = ComponentProps & {
   match: Match,
   offer: BuyOffer|SellOffer,
@@ -188,7 +187,7 @@ export const Match = ({
           selectedValue={selectedPaymentMethod as string}
           items={applicablePaymentMethods.map(p => ({
             value: p,
-            display: i18n(`paymentMethod.${p}`).toLowerCase()
+            display: i18n(`paymentMethod.${p}`)
           }))}
           onChange={c => setPaymentMethod(c as PaymentMethod)}
         />

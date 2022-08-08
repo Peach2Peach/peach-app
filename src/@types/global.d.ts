@@ -27,7 +27,7 @@ declare type PaymentData = {
   label: string,
   type: PaymentMethod,
   currencies: Currency[],
-  countries: Country[],
+  country?: Country,
 }
 
 declare type PaypalData = {

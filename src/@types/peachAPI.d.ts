@@ -76,7 +76,7 @@ declare type PaymentMethod =
   'sepa'
   | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
   | 'mbWay' | 'bizum'
-  | 'giftCard.amazon'
+  | 'giftCard.amazon' | `giftCard.amazon.${Country}`
   | 'cash'
 
 declare type PaymentMethodInfo = {
@@ -142,7 +142,7 @@ declare type Offer = {
   meansOfPayment: MeansOfPayment,
   paymentData: Partial<Record<PaymentMethod, {
     hash: string,
-    country?: Country,
+    country: Country,
   }>>,
   kyc: boolean,
   kycType?: KYCType,

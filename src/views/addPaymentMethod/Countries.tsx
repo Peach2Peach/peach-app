@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Checkboxes, Headline } from '../../components'
+import { Checkboxes, Headline, RadioButtons } from '../../components'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod'
@@ -11,34 +11,34 @@ const { LinearGradient } = require('react-native-gradients')
 
 type CountrySelectProps = {
   paymentMethod: PaymentMethod,
-  selected: Country[],
-  setCountries: React.Dispatch<React.SetStateAction<Country[]>>,
+  selected?: Country,
+  setCountry: React.Dispatch<React.SetStateAction<Country|undefined>>,
   back: () => void,
   next: () => void,
 }
 
-export default ({ paymentMethod, selected, setCountries, back, next }: CountrySelectProps): ReactElement => {
+export default ({ paymentMethod, selected, setCountry, back, next }: CountrySelectProps): ReactElement => {
   const [paymentMethodInfo] = useState(() => getPaymentMethodInfo(paymentMethod))
   const [stepValid, setStepValid] = useState(false)
-  const [selectedCountries, setSelectedCurrencies] = useState(selected)
+  const [selectedCountry, setSelectedCountry] = useState(selected)
   const countries = paymentMethodInfo.countries!.map(c => ({
     value: c,
     display: i18n(`country.${c}`)
   }))
 
   useEffect(() => {
-    setStepValid(selectedCountries.length > 0)
-    setCountries(selectedCountries)
-  }, [selectedCountries])
+    setStepValid(!!selectedCountry)
+    if (selectedCountry) setCountry(selectedCountry)
+  }, [selectedCountry])
 
   return <View style={tw`flex h-full`}>
     <Headline>
       {i18n('paymentMethod.giftCard.countrySelect.title',)}
     </Headline>
     <View style={tw`h-full flex-shrink flex justify-center px-10`}>
-      <Checkboxes items={countries}
-        selectedValues={selectedCountries}
-        onChange={cs => setSelectedCurrencies(cs as Country[])}
+      <RadioButtons items={countries}
+        selectedValue={selectedCountry}
+        onChange={cs => setSelectedCountry(cs as Country)}
       />
     </View>
     <View style={tw`mt-4 px-6 flex items-center w-full bg-white-1`}>

@@ -34,7 +34,7 @@ const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
 export default ({ route, navigation }: Props): ReactElement => {
   const [page, setPage] = useState(getPage(route.params))
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
-  const [countries, setCountries] = useState<Country[]>(route.params.countries || [])
+  const [country, setCountry] = useState(route.params.country)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|undefined>(route.params.paymentMethod)
 
   const { id } = screens[page]
@@ -43,11 +43,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const goToPaymentDetails = () => {
     if (!paymentMethod) return
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
-    const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+    const label = country
+      ? i18n(`paymentMethod.${paymentMethod}.${country}`) + ' #' + existingPaymentMethodsOfType
+      : i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+
     navigation.push('paymentDetails', {
-      paymentData: { type: paymentMethod, label, currencies, countries },
+      paymentData: { type: paymentMethod, label, currencies, country },
       origin: route.params.origin,
-      originOnCancel: ['addPaymentMethod', { currencies, countries, paymentMethod }]
+      originOnCancel: ['addPaymentMethod', { currencies, country, paymentMethod }]
     })
   }
 
@@ -80,8 +83,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       back={back} next={next}
     />
     if (id === 'extraInfo') return /giftCard/u.test(paymentMethod as string)
-      ? <Countries selected={countries}
-        paymentMethod={paymentMethod!} setCountries={setCountries}
+      ? <Countries selected={country}
+        paymentMethod={paymentMethod!} setCountry={setCountry}
         back={back} next={next}
       />
       : <ExtraCurrencies selected={currencies}

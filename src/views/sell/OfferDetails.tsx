@@ -58,7 +58,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         if (!data) return obj
         obj[data.type] = {
           hash: hashPaymentData(data),
-          countries: data.countries
+          country: data.country
         }
         return obj
       }, {} as Offer['paymentData'])

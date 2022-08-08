@@ -21,7 +21,7 @@ declare type RootStackParamList = {
   },
   addPaymentMethod: {
     currencies?: Currency[],
-    countries?: Country[],
+    country?: Country,
     paymentMethod?: PaymentMethod,
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   },
