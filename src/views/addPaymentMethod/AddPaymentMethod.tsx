@@ -42,10 +42,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const goToPaymentDetails = () => {
     if (!paymentMethod) return
-    const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
-    const label = country
-      ? i18n(`paymentMethod.${paymentMethod}.${country}`) + ' #' + existingPaymentMethodsOfType
-      : i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+    const methodType = country
+      ? `${paymentMethod}.${country}` as PaymentMethod
+      : paymentMethod
+    const existingPaymentMethodsOfType = getPaymentDataByType(methodType).length
+    let label = i18n(`paymentMethod.${methodType}`)
+    if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
 
     navigation.push('paymentDetails', {
       paymentData: { type: paymentMethod, label, currencies, country },

@@ -34,7 +34,7 @@ export const GiftCardAmazon = ({
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
     id: data?.id || `giftCard.amazon-${new Date().getTime()}`,
     label,
-    type: 'giftCard.amazon',
+    type: `giftCard.amazon.${data?.country || country}` as PaymentMethod,
     email,
     currencies: data?.currencies || currencies,
     country: data?.country || country,

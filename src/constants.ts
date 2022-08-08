@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto'
+import Countries from './views/addPaymentMethod/Countries'
 
 export const SATSINBTC = 100000000
 
@@ -31,6 +32,9 @@ export let CURRENCIES: Currency[] = [
   'GBP',
   'SEK',
 ]
+
+export let COUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
+
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
@@ -43,7 +47,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer: ['sepa'],
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
-  giftCard: ['giftCard.amazon'],
+  giftCard: ['giftCard.amazon'].concat(COUNTRIES.map(c => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum'],
   cash: ['cash'],
   cryptoCurrency: []
@@ -80,6 +84,9 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
+    .filter(unique())
+  COUNTRIES = paymentMethodInfos
+    .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map(method => method.id)
 }

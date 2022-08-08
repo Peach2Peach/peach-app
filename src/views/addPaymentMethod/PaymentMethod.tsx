@@ -81,9 +81,10 @@ export default ({
       })
     }
 
-    const applicablePaymentMethods = PAYMENTCATEGORIES[category].filter(method =>
-      paymentMethodAllowedForCurrency(method, currency)
-    )
+    const applicablePaymentMethods = PAYMENTCATEGORIES[category]
+      .filter(method => paymentMethodAllowedForCurrency(method, currency))
+      .filter(method => category !== 'giftCard' || method.split('.').pop()!.length !== 2)
+
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),
       content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods}

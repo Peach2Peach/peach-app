@@ -121,15 +121,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
 
-    const paymentMethod = /giftCard/u.test(selectedPaymentMethod)
-      ? selectedPaymentMethod
-        .split('.')
-        .slice(0, 2)
-        .join('.') as PaymentMethod
-      : selectedPaymentMethod
-
     if (!offer.meansOfPayment[selectedCurrency]
-      || offer.meansOfPayment[selectedCurrency]!.indexOf(paymentMethod) === -1) {
+      || offer.meansOfPayment[selectedCurrency]!.indexOf(selectedPaymentMethod) === -1) {
       updateOverlay({
         content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
         showCloseButton: false,
@@ -151,10 +144,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       )
 
       const paymentDataForMethod = account.paymentData.filter(data =>
-        data.type === paymentMethod
+        data.type === selectedPaymentMethod
       )
       const paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
-      const index = paymentDataHashes.indexOf(offer.paymentData[paymentMethod]!.hash || '')
+      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod]!.hash || '')
 
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
@@ -173,12 +166,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const [result, err] = await matchOffer({
       offerId: offer.id, matchingOfferId: match.offerId,
-      currency: selectedCurrency, paymentMethod,
+      currency: selectedCurrency, paymentMethod: selectedPaymentMethod,
       symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
       symmetricKeySignature: encryptedSymmmetricKey?.signature,
       paymentDataEncrypted: encryptedPaymentData?.encrypted,
       paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData: offer.paymentData[paymentMethod]!.hash,
+      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash,
     })
 
     if (result) {

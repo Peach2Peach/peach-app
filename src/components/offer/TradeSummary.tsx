@@ -24,12 +24,11 @@ type TradeSummaryProps = ComponentProps & {
 
 type PaymentMethodProps = {
   paymentMethod: PaymentMethod,
-  country?: Country,
+  showLink: boolean
 }
-const PaymentMethod = ({ paymentMethod, country }: PaymentMethodProps): ReactElement => {
-  const key = country ? `${paymentMethod}.${country}` as PaymentMethod : paymentMethod
-  const url = APPLINKS[key]?.url
-  const appLink = APPLINKS[key]?.appLink
+const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactElement => {
+  const url = APPLINKS[paymentMethod]?.url
+  const appLink = APPLINKS[paymentMethod]?.appLink
   const openLink = () => url ? openAppLink(url, appLink) : null
 
   return <View>
@@ -42,13 +41,13 @@ const PaymentMethod = ({ paymentMethod, country }: PaymentMethodProps): ReactEle
     <Selector
       items={[
         {
-          value: key,
-          display: i18n(`paymentMethod.${key}`)
+          value: paymentMethod,
+          display: i18n(`paymentMethod.${paymentMethod}`)
         }
       ]}
       style={tw`mt-2`}
     />
-    {url
+    {url && showLink
       ? <Pressable style={tw`flex-row justify-center items-center`} onPress={openLink}>
         <Text style={tw`text-peach-1 underline`}>
           {i18n(/giftCard/u.test(paymentMethod) ? 'buy' : 'open')}
@@ -103,7 +102,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
-      <PaymentMethod paymentMethod={contract.paymentMethod} country={contract.country} />
+      <PaymentMethod paymentMethod={contract.paymentMethod} showLink={false} />
 
       {contract.escrow || contract.releaseTxId
         ? <View>
@@ -155,7 +154,7 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
-      <PaymentMethod paymentMethod={contract.paymentMethod} />
+      <PaymentMethod paymentMethod={contract.paymentMethod} showLink={true} />
 
       {contract.escrow || contract.releaseTxId
         ? <View>
