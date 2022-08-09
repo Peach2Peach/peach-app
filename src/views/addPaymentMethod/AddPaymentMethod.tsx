@@ -57,7 +57,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         {
           currencies,
           country,
-          paymentMethod: !/twint|swish/u.test(paymentMethod) ? paymentMethod : null
+          paymentMethod: !/twint|swish|sepa|mbWay|bizum/u.test(paymentMethod) ? paymentMethod : null
         }
       ]
     })
