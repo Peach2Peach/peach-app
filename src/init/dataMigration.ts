@@ -22,7 +22,6 @@ export const dataMigration = () => {
     })
 
   if (buyOffersToUpdate.length) {
-    console.log(buyOffersToUpdate.map(o => [o.id, JSON.stringify(o.paymentData)]))
     saveOffers(buyOffersToUpdate, false)
     if (session.password) saveAccount(getAccount(), session.password)
   }
