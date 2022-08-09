@@ -66,5 +66,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false />
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>bitcoin</string>
+		<string>paypal</string>
+		<string>bitcoin</string>
+		<string>bluewallet</string>
+		<string>muun</string>
+		<string>walletofsatoshi</string>
+	</array>
 </dict>
 </plist>
