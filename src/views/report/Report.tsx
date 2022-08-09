@@ -18,9 +18,7 @@ import { getMessages, rules } from '../../utils/validation'
 const { useValidation } = require('react-native-form-validator')
 
 type Props = {
-  route: RouteProp<{ params: {
-    reason: ContactReason,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['report'] }>,
   navigation: StackNavigation
 }
 

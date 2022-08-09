@@ -16,6 +16,7 @@ import { IconType } from '../icons'
 type InputProps = ComponentProps & {
   value?: string,
   label?: string,
+  placeholder?: string,
   icon?: IconType,
   multiline?: boolean
   required?: boolean
@@ -65,7 +66,7 @@ type InputProps = ComponentProps & {
 // eslint-disable-next-line max-lines-per-function, complexity
 export const Input = ({
   value,
-  label, hint, icon,
+  label, placeholder, hint, icon,
   required = true,
   multiline = false,
   autoCorrect = false,
@@ -93,6 +94,12 @@ export const Input = ({
   }
 
   return <View>
+    {label
+      ? <Text style={tw`font-baloo text-lg`}>
+        {label}{!required ? ` (${i18n('form.optional')})` : ''}
+      </Text>
+      : null
+    }
     <View style={tw`overflow-hidden rounded`}>
       <Shadow shadow={innerShadow} style={[
         tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
@@ -109,7 +116,7 @@ export const Input = ({
             multiline ? tw`h-full pt-2` : {},
             label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {}
           ]}
-          placeholder={label ? label + (!required ? ` (${i18n('form.optional')})` : '') : ''}
+          placeholder={placeholder}
           placeholderTextColor={tw`text-grey-2`.color as string}
           allowFontScaling={false}
           removeClippedSubviews={false}

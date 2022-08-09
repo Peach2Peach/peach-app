@@ -8,6 +8,7 @@ export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
 export { Header } from './Header'
+export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
 export {
@@ -34,6 +35,7 @@ export {
 } from './ui'
 
 export { paymentDetailTemplates } from './payment/'
+export { PaymentLogo } from './payment/PaymentLogo'
 export { ScanQR } from './camera/ScanQR'
 export {
   BigTitle,

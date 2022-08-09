@@ -53,7 +53,7 @@ const navigateToOffer = (
     if (offer.funding.status === 'FUNDED') {
       return navigation.replace('search', { offer, hasMatches: offer.matches?.length > 0 })
     }
-    return navigation.replace('sell', { offer })
+    return navigation.replace('fundEscrow', { offer })
   }
 
   if (offer.type === 'bid' && offer.online) {

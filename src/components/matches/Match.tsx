@@ -12,6 +12,7 @@ import { Navigation } from '../../utils/navigation'
 import {
   getCurrencies,
   getMoPsInCommon,
+  getPaymentMethodInfo,
   getPaymentMethods,
   hasMoPsInCommon,
   paymentMethodAllowedForCurrency
@@ -20,7 +21,6 @@ import { padString } from '../../utils/string'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
 import { ExtraMedals, Rating } from '../user'
-
 
 type MatchProps = ComponentProps & {
   match: Match,
@@ -69,6 +69,7 @@ export const Match = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     match.selectedPaymentMethod || mopsInCommon[selectedCurrency]![0]
   )
+  const paymentInfo = getPaymentMethodInfo(selectedPaymentMethod)
 
   const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(() =>
     (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
@@ -86,7 +87,9 @@ export const Match = ({
     ? 0.2
     : match.user.rating
   const userRating = Math.round(interpolate(rawRating, [-1, 1], [0, 5]) * 10) / 10
-  let displayPrice = String(match.matched && match.matchedPrice ? match.matchedPrice : match.prices[selectedCurrency])
+  let displayPrice = String(match.matched && match.matchedPrice
+    ? match.matchedPrice
+    : paymentInfo.rounded ? Math.round(match.prices[selectedCurrency]!) : match.prices[selectedCurrency])
   displayPrice = `${(displayPrice).split('.')[0]}.${padString({
     string: (displayPrice).split('.')[1],
     length: 2,
@@ -184,7 +187,7 @@ export const Match = ({
           selectedValue={selectedPaymentMethod as string}
           items={applicablePaymentMethods.map(p => ({
             value: p,
-            display: i18n(`paymentMethod.${p}`).toLowerCase()
+            display: i18n(`paymentMethod.${p}`)
           }))}
           onChange={c => setPaymentMethod(c as PaymentMethod)}
         />

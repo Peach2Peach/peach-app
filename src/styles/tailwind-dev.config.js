@@ -26,6 +26,7 @@ module.exports = {
           1: '#aec435',
           2: '#c2db39',
           mild: '#e5f684',
+          milder: '#e8ebda',
           translucent: '#aec435BB',
           'translucent-2': '#aec435FA',
           transparent: '#aec43566',

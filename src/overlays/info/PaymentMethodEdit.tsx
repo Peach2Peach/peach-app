@@ -5,8 +5,6 @@ import tw from '../../styles/tailwind'
 import { Button, Headline, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { OverlayContext } from '../../contexts/overlay'
-import { PaymentMethodView } from '../../components/inputs/paymentMethods/PaymentMethodView'
-import { getPaymentData } from '../../utils/account'
 
 type PaymentMethodEditProps = {
   paymentData: PaymentData,
@@ -15,15 +13,9 @@ type PaymentMethodEditProps = {
 
 export default ({ paymentData, onConfirm }: PaymentMethodEditProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = () => {
-    const originalData = getPaymentData(paymentData.id)
-    updateOverlay({
-      content: <PaymentMethodView data={originalData || paymentData} onSubmit={onConfirm} />,
-      showCloseButton: false
-    })
-  }
+  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   const confirm = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    closeOverlay()
     onConfirm(paymentData)
   }
 

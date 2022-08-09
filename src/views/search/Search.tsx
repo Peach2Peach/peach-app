@@ -13,7 +13,6 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
-import AddPaymentMethod from '../../components/inputs/paymentMethods/AddPaymentMethod'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
@@ -25,17 +24,17 @@ import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
 import Match from '../../overlays/info/Match'
 import MatchAccepted from '../../overlays/MatchAccepted'
-import { account, addPaymentData } from '../../utils/account'
+import { account, getPaymentDataByType } from '../../utils/account'
 import { unique } from '../../utils/array'
+import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
-import { matchOffer, unmatchOffer, patchOffer } from '../../utils/peachAPI'
+import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
-import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 
 const updaterPNs = [
   'offer.matchSeller',
@@ -43,10 +42,7 @@ const updaterPNs = [
 ]
 
 type Props = {
-  route: RouteProp<{ params: {
-    offer: BuyOffer,
-    hasMatches?: boolean,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['search'] }>,
   navigation: StackNavigation,
 }
 // eslint-disable-next-line max-lines-per-function, max-statements
@@ -87,27 +83,25 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
         return seen
       })
-
     }
 
     if (currency) setSelectedCurrency(currency)
     if (paymentMethod) setSelectedPaymentMethod(paymentMethod)
   }
 
-  const onPaymentDataUpdate = async (newData: PaymentData) => {
-    await addPaymentData(newData, false)
-    updateOverlay({ content: null, showCloseButton: true })
-  }
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
     updateMessage({ template: null, level: 'ERROR' })
-    updateOverlay({
-      content: <AddPaymentMethod
-        paymentMethod={selectedPaymentMethod}
-        currencies={[selectedCurrency]}
-        onSubmit={onPaymentDataUpdate}
-      />,
-      showCloseButton: false
+    const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
+    const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
+
+    navigation.push('paymentDetails', {
+      paymentData: {
+        type: selectedPaymentMethod,
+        label,
+        currencies: [selectedCurrency],
+      },
+      origin: ['search', route.params]
     })
   }
 
@@ -153,7 +147,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         data.type === selectedPaymentMethod
       )
       const paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
-      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod] || '')
+      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod]!.hash || '')
 
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
@@ -177,7 +171,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       symmetricKeySignature: encryptedSymmmetricKey?.signature,
       paymentDataEncrypted: encryptedPaymentData?.encrypted,
       paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData: offer.type === 'ask' ? offer.paymentData[selectedPaymentMethod] : undefined,
+      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash,
     })
 
     if (result) {

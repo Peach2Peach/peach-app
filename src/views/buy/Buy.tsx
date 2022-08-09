@@ -1,250 +1,133 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import i18n from '../../utils/i18n'
-import Main from './Main'
-import OfferDetails from './OfferDetails'
-import ReleaseAddress from './ReleaseAddress'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Loading, Navigation, PeachScrollView, Progress } from '../../components'
+import { Button, Dropdown, Headline, Icon, Progress, SatsFormat, Text, Title } from '../../components'
 import { BUCKETS } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
-import { MessageContext } from '../../contexts/message'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import pgp from '../../init/pgp'
-import { account, getTradingLimit, updateTradingLimit } from '../../utils/account'
-import { whiteGradient } from '../../utils/layout'
-import { error } from '../../utils/log'
+import { OverlayContext } from '../../contexts/overlay'
+import Sats from '../../overlays/info/Sats'
+import { account, getTradingLimit, updateSettings } from '../../utils/account'
+import { applyTradingLimit } from '../../utils/account/tradingLimit'
 import { StackNavigation } from '../../utils/navigation'
-import { saveOffer } from '../../utils/offer'
-import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
-
-const { LinearGradient } = require('react-native-gradients')
+import Hint from '../../components/Hint'
 
 type Props = {
-  route: RouteProp<{ params: {
-    offer?: BuyOffer,
-    page?: number,
-  } }>,
   navigation: StackNavigation,
 }
-
-export type BuyViewProps = {
-  offer: BuyOffer,
-  updateOffer: (data: BuyOffer, shield?: boolean) => void,
-  setStepValid: (isValid: boolean) => void,
-  back: () => void,
-  next: () => void,
-  navigation: StackNavigation,
-}
-
-const getDefaultBuyOffer = (): BuyOffer => ({
-  online: false,
-  type: 'bid',
-  creationDate: new Date(),
-  meansOfPayment: account.settings.meansOfPayment || {},
-  kyc: account.settings.kyc || false,
-  amount: account.settings.amount || BUCKETS[0],
-  matches: [],
-  seenMatches: [],
-  matched: [],
-  doubleMatched: false,
-})
-
-type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
-
-const screens = [
-  {
-    id: 'main',
-    view: Main,
-    scrollable: false
-  },
-  {
-    id: 'offerDetails',
-    view: OfferDetails,
-    scrollable: true
-  },
-  {
-    id: 'releaseAddress',
-    view: ReleaseAddress,
-    scrollable: false
-  },
-  {
-    id: 'search',
-    view: null
-  }
-]
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ route, navigation }: Props): ReactElement => {
-  const [bitcoinContext] = useContext(BitcoinContext)
+export default ({ navigation }: Props): ReactElement => {
+  const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
+  const [, updateOverlay] = useContext(OverlayContext)
 
-  const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer())
-  const [stepValid, setStepValid] = useState(false)
-  const [updatePending, setUpdatePending] = useState(true)
-  const [page, setPage] = useState(0)
+  const { daily, dailyAmount } = getTradingLimit(currency)
+  const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
+  const [random, setRandom] = useState(0)
 
-  const currentScreen = screens[page]
-  const CurrentView: Screen = currentScreen.view
-  const { scrollable } = screens[page]
-  const scroll = useRef<ScrollView>(null)
-  const { daily, dailyAmount } = getTradingLimit(bitcoinContext.currency)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
-    setOffer(() => offerData)
-    if (offerData.id) saveOffer(offerData, undefined, shield)
+  const onChange = (value: string|number) => setAmount(value as number)
+  const onToggle = (isOpen: boolean) => setDropdownOpen(isOpen)
+
+  const dropdownItems = applyTradingLimit(BUCKETS, prices.CHF as number, getTradingLimit()).map(value => ({
+    value,
+    display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
+      <SatsFormat sats={value} format="big"/>
+      {isOpen && satsPerUnit
+        ? <Text style={tw`font-mono text-peach-1`}>
+          {i18n(`currency.format.${currency}`, String(Math.round(value / satsPerUnit)))}
+        </Text>
+        : null
+      }
+    </View>
+  }))
+
+  const openSatsHelp = () => updateOverlay({ content: <Sats view="buyer" />, showCloseButton: true, help: true })
+  const goToBackups = () => navigation.navigate('backups', {})
+  const dismissBackupReminder = () => {
+    updateSettings({
+      showBackupReminder: false
+    })
+    setRandom(Math.random())
   }
 
   const next = () => {
-    if (page >= screens.length - 1) return
-    setPage(page + 1)
-
-    scroll.current?.scrollTo({ x: 0 })
+    navigation.navigate('buyPreferences', { amount })
   }
-  const back = () => {
-    if (page === 0) return
-    setPage(page - 1)
-    scroll.current?.scrollTo({ x: 0 })
-  }
-
-  useFocusEffect(useCallback(() => () => {
-    // restore default state when leaving flow
-    setOffer(getDefaultBuyOffer())
-    setUpdatePending(false)
-    setPage(() => 0)
-  }, []))
-
-  useFocusEffect(useCallback(() => {
-    const offr = route.params?.offer || getDefaultBuyOffer()
-
-    if (!route.params?.offer) {
-      setOffer(getDefaultBuyOffer())
-      setUpdatePending(false)
-      setPage(() => 0)
-    } else {
-      setOffer(() => offr)
-      getOfferDetailsEffect({
-        offerId: offr.id,
-        onSuccess: result => {
-          saveAndUpdate({
-            ...offr,
-            ...result,
-          } as BuyOffer)
-          setUpdatePending(false)
-        },
-        onError: err => {
-          error('Could not fetch offer information for offer', offr.id)
-          updateMessage({
-            msg: i18n(err.error || 'error.general'),
-            level: 'ERROR',
-          })
-        }
-      })()
-      setUpdatePending(true)
-    }
-  }, [route]))
-
 
   useEffect(() => {
-    (async () => {
-      if (screens[page].id === 'search' && !offer.id) {
-        setUpdatePending(true)
-
-        await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer({
-          ...offer,
-        })
-
-        if (result) {
-          const [tradingLimit] = await getTradingLimitAPI()
-
-          if (tradingLimit) {
-            updateTradingLimit(tradingLimit)
-          }
-          saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.replace('search', { offer: { ...offer, id: result.offerId } })
-          return
-        }
-
-        setUpdatePending(false)
-
-        error('Error', err)
-        updateMessage({
-          msg: i18n(err?.error || 'error.postOffer'),
-          level: 'ERROR',
-        })
-
-        if (err?.error === 'TRADING_LIMIT_REACHED') back()
-      }
-    })()
-  }, [page])
+    updateSettings({ amount }, false)
+  }, [amount])
 
   return <View testID="view-buy" style={tw`h-full flex`}>
-    <View style={[
-      tw`h-full flex-shrink`,
-      currentScreen.id === 'main' ? tw`z-20` : {},
-    ]}>
-      {currentScreen.id === 'main' && !isNaN(dailyAmount)
+    <View style={tw`h-full flex-shrink z-20`}>
+      {!isNaN(dailyAmount)
         ? <View style={tw`h-0`}><Progress
           percent={dailyAmount / daily}
           text={i18n(
             'profile.tradingLimits.daily',
-            bitcoinContext.currency, thousands(dailyAmount), daily === Infinity ? '∞' : thousands(daily)
+            currency, thousands(dailyAmount), daily === Infinity ? '∞' : thousands(daily)
           )}
         /></View>
         : null
       }
-      <PeachScrollView scrollRef={scroll}
-        disable={!scrollable}
-        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
-        style={tw`pt-7 overflow-visible`}>
-        <View style={tw`pb-8`}>
-          {updatePending
-            ? <Loading />
-            : null
-          }
-          {!updatePending && CurrentView
-            ? <CurrentView offer={offer}
-              updateOffer={setOffer}
-              setStepValid={setStepValid}
-              back={back} next={next}
-              navigation={navigation}/>
-            : null
-          }
+      <View style={tw`h-full pt-7 pb-8 flex`}>
+        <Title title={i18n('buy.title')} />
+        <View style={tw`h-full flex-shrink flex justify-center z-10`}>
+          <View>
+            <Headline style={tw`mt-16 text-grey-1 px-5`}>
+              {i18n('buy.subtitle')}
+            </Headline>
+            <View style={tw`z-10`}>
+              <View style={tw`w-full absolute flex-row items-start justify-center mt-3`}>
+                <Dropdown
+                  testID="buy-amount"
+                  style={tw`max-w-xs flex-shrink`}
+                  items={dropdownItems}
+                  selectedValue={amount}
+                  onChange={onChange} onToggle={onToggle}
+                />
+                <Pressable onPress={openSatsHelp} style={tw`mt-1`}>
+                  <View style={tw`w-8 h-8 flex items-center justify-center`}>
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                  </View>
+                </Pressable>
+              </View>
+            </View>
+            {satsPerUnit
+              ? <Text style={tw`mt-4 mt-16 font-mono text-peach-1 text-center`}>
+                ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
+              </Text>
+              : null
+            }
+          </View>
         </View>
-        {scrollable && !updatePending
-          ? <View style={tw`mb-8 px-6`}>
-            <Navigation
-              screen={currentScreen.id}
-              back={back} next={next}
-              navigation={navigation}
-              stepValid={stepValid}
-              offer={offer}
+        {account.settings.showBackupReminder !== false
+          ? <View style={tw`flex items-center mt-2`}>
+            <Hint
+              style={tw`max-w-xs`}
+              title={i18n('hint.backup.title')}
+              text={i18n('hint.backup.text')}
+              icon="lock"
+              onPress={goToBackups}
+              onDismiss={dismissBackupReminder}
             />
           </View>
           : null
         }
-      </PeachScrollView>
-    </View>
-    {!scrollable && !updatePending
-      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <Navigation
-          screen={currentScreen.id}
-          back={back} next={next}
-          navigation={navigation}
-          stepValid={stepValid}
-          offer={offer}
-        />
       </View>
-      : null
-    }
+    </View>
+    <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+      <Button testID="navigation-next"
+        wide={false}
+        onPress={next}
+        title={i18n('next')}
+      />
+    </View>
   </View>
 }

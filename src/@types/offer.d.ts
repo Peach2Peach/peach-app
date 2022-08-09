@@ -27,7 +27,6 @@ declare type SellOffer = Omit<Offer, 'id'> & {
   id?: string,
   type: 'ask',
   premium: number,
-  paymentData: Partial<Record<PaymentMethod, string>>,
   kycType?: KYCType,
   returnAddress?: string,
   returnAddressSet?: boolean,

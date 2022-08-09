@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../contexts/language'
 import { SellOfferSummary, Title } from '../../components'
 import i18n from '../../utils/i18n'
-import { SellViewProps } from './Sell'
+import { SellViewProps } from './SellPreferences'
 
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
