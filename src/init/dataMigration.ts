@@ -1,6 +1,7 @@
-import { account } from '../utils/account'
+import { account, getAccount, saveAccount } from '../utils/account'
 import { getOffers, saveOffers } from '../utils/offer'
 import { getPaymentMethods, hashPaymentData } from '../utils/paymentMethod'
+import { session } from '../utils/session'
 
 export const dataMigration = () => {
   // TODO remove mid september
@@ -21,6 +22,8 @@ export const dataMigration = () => {
     })
 
   if (buyOffersToUpdate.length) {
-    saveOffers(buyOffersToUpdate)
+    console.log(buyOffersToUpdate.map(o => [o.id, JSON.stringify(o.paymentData)]))
+    saveOffers(buyOffersToUpdate, false)
+    if (session.password) saveAccount(getAccount(), session.password)
   }
 }
