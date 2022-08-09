@@ -255,7 +255,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               onSubmit={sendMessage} disableSubmit={disableSend}
               icon="send" returnKeyType="send"
               value={newMessage}
-              label={i18n('chat.yourMessage')}
+              placeholder={i18n('chat.yourMessage')}
               isValid={true}
               autoCorrect={true}
             />
