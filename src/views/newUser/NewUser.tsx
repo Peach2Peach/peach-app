@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import {
-  Image,
   Keyboard,
   Pressable,
   TextInput,
@@ -25,6 +24,7 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { getMessages, rules } from '../../utils/validation'
+import Logo from '../../assets/logo/peachLogo.svg'
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
@@ -159,9 +159,9 @@ export default ({ navigation }: Props): ReactElement => {
   return <View style={tw`h-full flex justify-center px-6`}>
     <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
       <View />{/* dummy for layout */}
-      <Image source={require('../../../assets/favico/peach-logo.png')}
-        style={[tw`flex-shrink max-h-40`, { resizeMode: 'contain', minHeight: 48 }]}
-      />
+      <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
+        <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
+      </View>
       <View style={tw`w-full`}>
         <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
           {i18n(loading ? 'newUser.title.create' : 'newUser.title.new')}

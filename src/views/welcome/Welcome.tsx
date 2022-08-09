@@ -1,13 +1,12 @@
 import React, { ReactElement, useRef, useState } from 'react'
 import {
-  Dimensions,
-  Image,
-  Pressable,
+  Dimensions, Pressable,
   View
 } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
+import Logo from '../../assets/logo/peachLogo.svg'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
@@ -50,9 +49,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   return <View style={tw`h-full flex`} testID="welcome">
     <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
       <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
-        <Image source={require('../../../assets/favico/peach-logo.png')}
-          style={[tw`flex-shrink max-h-40`, { resizeMode: 'contain', minHeight: 48 }]}
-        />
+        <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
       </View>
       <View style={tw`w-full flex-shrink`}>
         <Carousel

@@ -83,6 +83,9 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
             size={241}
             value={urn.toString()}
             logo={peachLogo}
+            logoSize={40}
+            logoBackgroundColor="#FFF"
+            logoBorderRadius={8}
           />
         </Card>
       </Pressable>
