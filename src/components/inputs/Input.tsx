@@ -94,9 +94,12 @@ export const Input = ({
   }
 
   return <View>
-    {label && <Text style={tw`font-baloo text-lg`}>
-      {label}{!required ? ` (${i18n('form.optional')})` : ''}
-    </Text>}
+    {label
+      ? <Text style={tw`font-baloo text-lg`}>
+        {label}{!required ? ` (${i18n('form.optional')})` : ''}
+      </Text>
+      : null
+    }
     <View style={tw`overflow-hidden rounded`}>
       <Shadow shadow={innerShadow} style={[
         tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
