@@ -1,7 +1,8 @@
 import React, { ReactElement, useContext } from 'react'
-import { Image, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import Logo from '../../assets/logo/peachLogo.svg'
 import { Button, Text } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
@@ -23,9 +24,7 @@ export default ({ navigation }: Props): ReactElement => {
       tw`h-full flex-shrink p-6 pt-32 flex-col items-center`,
       tw.md`pt-36`
     ]}>
-      <Image source={require('../../../assets/favico/peach-logo.png')}
-        style={[tw`h-24`, tw.md`h-32`, { resizeMode: 'contain' }]}
-      />
+      <Logo style={[tw`h-24`, tw.md`h-32`]} />
       <View style={[tw`mt-11 w-full`, tw.md`mt-14`]}>
         <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
           {i18n('backupRestored')}

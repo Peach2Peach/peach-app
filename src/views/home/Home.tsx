@@ -1,10 +1,8 @@
 import React, { ReactElement, useContext } from 'react'
-import {
-  Image,
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import Logo from '../../assets/logo/peachLogo.svg'
 import { Headline, PeachScrollView, Text } from '../../components'
 import BitcoinContext from '../../contexts/bitcoin'
 import LanguageContext from '../../contexts/language'
@@ -22,8 +20,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   return <PeachScrollView>
     <View style={tw`pt-12 pb-32 flex-col justify-center items-center h-full px-6`}>
-      <Image source={require('../../../assets/favico/peach-logo.png')}
-        style={[tw`h-12`, { resizeMode: 'contain' }]}/>
+      <Logo style={tw`h-12`}/>
       <Headline style={tw`text-3xl leading-3xl mt-4`}>
         {i18n('welcome.welcomeToPeach.title')}
       </Headline>
