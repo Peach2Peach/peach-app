@@ -91,7 +91,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
       back={back} next={next}
     />
-    if (id === 'extraInfo') return /giftCard/u.test(paymentMethod as string)
+    if (id === 'extraInfo' && paymentMethod !== 'sepa') return /giftCard/u.test(paymentMethod as string)
       ? <Countries selected={country}
         paymentMethod={paymentMethod!} setCountry={setCountry}
         back={back} next={next}
@@ -113,6 +113,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     if (!paymentMethod) return
+
+    if (paymentMethod === 'sepa') goToPaymentDetails()
+
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
     if (paymentMethodInfo?.currencies.length !== 1
       || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraInfo')) return
