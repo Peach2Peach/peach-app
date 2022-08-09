@@ -24,6 +24,7 @@ import { Twint } from './Twint'
 import { Wise } from './Wise'
 import { GiftCardAmazon } from './giftCard.amazon'
 import { Cash } from './Cash'
+import { COUNTRIES } from '../../../../constants'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -59,6 +60,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   'giftCard.amazon': GiftCardAmazon,
   cash: Cash,
 }
+COUNTRIES.forEach(c => PaymentMethodForms['giftCard.amazon.' + c as PaymentMethod] = GiftCardAmazon)
 
 // eslint-disable-next-line max-lines-per-function
 export const PaymentMethodForm = ({
