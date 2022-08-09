@@ -50,6 +50,7 @@ import { exists } from './utils/file'
 import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
 import requestUserPermissions from './init/requestUserPermissions'
+import { dataMigration } from './init/dataMigration'
 
 enableScreens()
 
@@ -142,6 +143,7 @@ const initApp = async (
     getTrades()
     fcm()
     pgp()
+    dataMigration()
   }
 
   clearTimeout(timeout)
