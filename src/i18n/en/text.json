@@ -64,7 +64,7 @@
   "help.sats.title": "Sats are the standard",
   "help.sats.description.1": "A sat, or satoshi, is the smallest amount of Bitcoin you can have. One sat is 0.00 000 001 Bitcoin.",
   "help.sats.description.2": "We're showing the decimal place here as well, to make it easy to convert between sats and Bitcoin!",
-  "help.sats.description.3": "Peach is compliant with Swiss regulations: you can buy or sell up to CHF 1'000 every 24h without any identity verfication process..",
+  "help.sats.description.3": "Peach is compliant with Swiss regulations: you can buy or sell up to CHF 1'000 every 24h without any identity verification process..",
   "help.sats.fees.buyer": "We charge $0% on your transaction for buying Bitcoin.",
   "help.sats.fees.seller": "Selling Bitcoin on Peach is free of charge.",
   "help.currency.title": "Selecting currencies",
