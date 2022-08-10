@@ -18,6 +18,7 @@ export const DisputeWonBuyer = ({ contract, navigate }: DisputeWonBuyerProps): R
     saveContract({
       ...contract,
       disputeResultAcknowledged: true,
+      cancelConfirmationDismissed: true,
     })
     navigate()
     updateOverlay({ content: null, showCloseButton: true })
