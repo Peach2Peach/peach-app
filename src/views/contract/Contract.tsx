@@ -136,7 +136,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!contract || !view) return
 
     if (isTradeComplete(contract)) {
-      if (view === 'buyer' && !contract.ratingSeller || view === 'seller' && !contract.ratingBuyer) {
+      if (!contract.disputeWinner
+        && view === 'buyer' && !contract.ratingSeller || view === 'seller' && !contract.ratingBuyer) {
         navigation.replace('tradeComplete', { contract })
       } else {
         const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer

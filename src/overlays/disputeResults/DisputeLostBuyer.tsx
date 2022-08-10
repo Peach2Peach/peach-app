@@ -18,6 +18,7 @@ export const DisputeLostBuyer = ({ contract, navigate }: DisputeLostBuyerProps):
     saveContract({
       ...contract,
       disputeResultAcknowledged: true,
+      cancelConfirmationDismissed: true,
     })
     navigate()
     updateOverlay({ content: null, showCloseButton: true })
