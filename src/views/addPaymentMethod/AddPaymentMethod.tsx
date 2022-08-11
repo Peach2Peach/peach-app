@@ -92,7 +92,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       back={back} next={next}
     />
     if (id === 'extraInfo' && paymentMethod !== 'sepa') return /giftCard/u.test(paymentMethod as string)
-      ? <Countries selected={country}
+      ? <Countries selected={country} currency={currencies[0]}
         paymentMethod={paymentMethod!} setCountry={setCountry}
         back={back} next={next}
       />
