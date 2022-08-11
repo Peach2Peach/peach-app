@@ -12,7 +12,7 @@ import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
 import { paymentDetailTemplates } from '../payment'
-import { Headline, SatsFormat, Text, TextLink } from '../text'
+import { Headline, SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 
@@ -97,6 +97,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
           contract.price.toFixed(2)
         )}
       </Text>
+      <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
         ? <PaymentTo paymentData={contract.paymentData} country={contract.country}/>
         : null
