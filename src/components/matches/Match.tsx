@@ -74,6 +74,7 @@ export const Match = ({
   const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(() =>
     (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
       .filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
+      .filter(p => mopsInCommon[selectedCurrency]?.indexOf(p) !== -1)
   )
 
   const shadow = renderShadow
@@ -97,19 +98,23 @@ export const Match = ({
     side: 'right'
   })}`
   const setCurrency = (currency: Currency) => {
+    let selectedMethod = selectedPaymentMethod
     match.selectedCurrency = selectedCurrency
     setSelectedCurrency(currency)
     setApplicablePaymentMethods(
       (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
+        .filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
         .filter(p => mopsInCommon[currency]?.indexOf(p) !== -1)
     )
     if (mopsInCommon[currency]?.indexOf(selectedPaymentMethod) === -1) {
-      setSelectedPaymentMethod((mopsInCommon[currency] || [])[0])
+      selectedMethod = (mopsInCommon[currency] || [])[0]
+      setSelectedPaymentMethod(selectedMethod)
+      match.selectedPaymentMethod = selectedMethod
     }
-    onChange(null, currency, selectedPaymentMethod)
+    onChange(null, currency, selectedMethod)
   }
   const setPaymentMethod = (paymentMethod: PaymentMethod) => {
-    match.selectedPaymentMethod = selectedPaymentMethod
+    match.selectedPaymentMethod = paymentMethod
     setSelectedPaymentMethod(paymentMethod)
     onChange(null, selectedCurrency, paymentMethod)
   }
