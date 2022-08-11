@@ -3,6 +3,7 @@ name: CI - auto merge release branch updates into develop
 on:
   push:
     branches:
+      - 'main'
       - 'release/*'
       - 'hotfix/*'
 
