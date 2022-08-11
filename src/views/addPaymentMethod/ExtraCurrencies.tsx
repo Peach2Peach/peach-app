@@ -63,7 +63,7 @@ export default ({ paymentMethod, selected, setCurrencies, back, next }: Currency
     <View style={tw`h-full flex-shrink flex justify-center px-10`}>
       <Checkboxes items={currencies}
         selectedValues={selectedCurrencies}
-        onChange={cs => setSelectedCurrencies(cs as Currency[])}
+        onChange={cs => cs.length ? setSelectedCurrencies(cs as Currency[]) : null}
       />
     </View>
     <View style={tw`mt-4 px-6 flex items-center w-full bg-white-1`}>
