@@ -294,7 +294,7 @@
   "paymentMethod.tether": "Tether",
   "paymentMethod.cash": "Cash (Riga only)",
   "paymentMethod.cash.riga.1": "You can trade with cash at the conference!",
-  "paymentMethod.cash.riga.2": "Since it's hard to prove a cash transaction happened or not, dispute mediation will not be available.",
+  "paymentMethod.cash.riga.2": "Since it's hard to prove a cash transaction happened or not, dispute mediation will not be available. You'll have to arrange a meeting yourself via the trade chat.",
   "paymentMethod.cash.riga.checkbox": "I accept the risks, and understand that Peach won't be able to help me with disputes",
   "paymentMethod.currency.select.title": "Select $0 currencies",
   "paymentMethod.currency.select.subtitle": "Select more currencies you use with $0",

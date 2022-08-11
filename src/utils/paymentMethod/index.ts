@@ -1,3 +1,4 @@
+export { countrySupportsCurrency } from './countrySupportsCurrency'
 export { dataToMeansOfPayment } from './dataToMeansOfPayment'
 export { encryptPaymentData } from './encryptPaymentData'
 export { getApplicablePaymentCategories } from './getApplicablePaymentCategories'

@@ -41,13 +41,15 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
   const [, updateOverlay] = useContext(OverlayContext)
   const canCancel = !contract.disputeActive && !contract.paymentMade
     && !contract.canceled && !contract.cancelationRequested
+  const canDispute = !contract.disputeActive && contract.paymentMethod !== 'cash'
+
   const openCancelTrade = () => canCancel
     ? updateOverlay({
       content: <ConfirmCancelTrade contract={contract} navigation={navigation} />,
     })
     : null
   // const extendTime = () => alert('todo extend time')
-  const raiseDispute = () => !contract.disputeActive
+  const raiseDispute = () => canDispute
     ? navigation.navigate('dispute', { contractId: contract.id })
     : null
 
@@ -60,7 +62,7 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
       : null
     }
     {/* <IconButton style={tw`mt-3`} onPress={extendTime} icon="timer" /> */}
-    <IconButton style={[tw`mt-3`, contract.disputeActive ? tw`opacity-50` : {}]}
+    <IconButton style={[tw`mt-3`, !canDispute ? tw`opacity-50` : {}]}
       onPress={raiseDispute}
       icon="dispute"
     />

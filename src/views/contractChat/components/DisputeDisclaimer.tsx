@@ -19,7 +19,7 @@ export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDiscla
       <Text style={tw`font-bold text-sm`}> {i18n('chat.disputeDisclaimer.2')} </Text>
       {i18n('chat.disputeDisclaimer.3')}
     </Text>
-    {!contract.disputeActive
+    {!contract.disputeActive && contract.paymentMethod !== 'cash'
       ? <Text style={tw`text-center`}>
         <Text style={tw`text-center text-sm`}>{i18n('chat.disputeDisclaimer.4')} </Text>
         <TextLink style={tw`text-grey-1 text-sm`} onPress={raiseDispute}>

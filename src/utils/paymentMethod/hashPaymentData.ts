@@ -13,6 +13,7 @@ export const hashPaymentData = (paymentData: PaymentData): string => {
   delete data.type
   delete data.currencies
   delete data.country
+  delete data.disclaimerAcknowledged
 
   delete data.reference
 

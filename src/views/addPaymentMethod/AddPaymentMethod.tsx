@@ -57,7 +57,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         {
           currencies,
           country,
-          paymentMethod: !/twint|swish|sepa|mbWay|bizum/u.test(paymentMethod) ? paymentMethod : null
+          paymentMethod: !/twint|swish|sepa|mbWay|bizum/u.test(paymentMethod) ? paymentMethod : null,
+          origin: route.params.origin,
         }
       ]
     })
@@ -92,7 +93,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       back={back} next={next}
     />
     if (id === 'extraInfo' && paymentMethod !== 'sepa') return /giftCard/u.test(paymentMethod as string)
-      ? <Countries selected={country}
+      ? <Countries selected={country} currency={currencies[0]}
         paymentMethod={paymentMethod!} setCountry={setCountry}
         back={back} next={next}
       />
