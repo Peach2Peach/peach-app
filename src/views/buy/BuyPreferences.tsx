@@ -146,7 +146,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       <PeachScrollView scrollRef={scroll}
         disable={!scrollable}
         contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-        style={tw`overflow-visible h-full flex-shrink`}>
+        style={tw`h-full`}>
         <View style={tw`h-full flex`}>
           <View style={tw`h-full flex-shrink`}>
             {updatePending
