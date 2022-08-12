@@ -382,8 +382,6 @@ PODS:
     - React-Core
   - react-native-document-picker (5.2.0):
     - React-Core
-  - react-native-encrypted-storage (4.0.2):
-    - React-Core
   - react-native-fast-openpgp (2.4.1):
     - React-Core
   - react-native-mmkv-storage (0.7.6):
@@ -578,7 +576,6 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
-  - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
   - react-native-mmkv-storage (from `../node_modules/react-native-mmkv-storage`)
   - "react-native-notification-badge (from `../node_modules/@msml/react-native-notification-badge`)"
@@ -688,8 +685,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
-  react-native-encrypted-storage:
-    :path: "../node_modules/react-native-encrypted-storage"
   react-native-fast-openpgp:
     :path: "../node_modules/react-native-fast-openpgp"
   react-native-mmkv-storage:
@@ -806,7 +801,6 @@ SPEC CHECKSUMS:
   React-logger: 8474fefa09d05f573a13c044cb0dfd751d4e52e3
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
-  react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
   react-native-fast-openpgp: 3459727741c780372181f8a4bcda8de635cd533c
   react-native-mmkv-storage: ba38e5e813ea3d5d37af834a9d867b1ce10aa96d
   react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
