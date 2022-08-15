@@ -28,6 +28,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSeller
     saveContract({
       ...contract,
       disputeResultAcknowledged: true,
+      cancelConfirmationDismissed: true,
     })
     updateOverlay({
       content: <Refund offer={offer} navigate={navigate} />,

@@ -20,7 +20,6 @@ export const GeneralPaymentDetails = ({
   paymentData,
   appLink,
   fallbackUrl,
-  userLink
 }: PaymentTemplateProps): ReactElement => {
   const openApp = () => fallbackUrl ? openAppLink(fallbackUrl, appLink) : {}
   const openUserLink = async () => openAppLink(`${APPLINKS.paypal!.userLink}${paymentData.userName.replace('@', '')}`)

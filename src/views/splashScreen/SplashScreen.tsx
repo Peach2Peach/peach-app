@@ -1,10 +1,14 @@
-import React, { ReactElement } from 'react'
-import { Image } from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Fade } from '../../components'
 import tw from '../../styles/tailwind'
+import LogoType from '../../assets/logo/logoAndType.svg'
 
+export default (): ReactElement => {
+  const [show, setShow] = useState(false)
 
-export default (): ReactElement =>
-  <Fade show={true} duration={400} delay={500} style={tw`h-full flex items-center justify-center px-6`}>
-    <Image source={require('../../../assets/favico/peach-logo.png')} style={[tw`max-w-64`, { resizeMode: 'contain' }]}/>
+  useEffect(() => setShow(true), [])
+
+  return <Fade show={show} duration={400} delay={500} style={tw`h-full flex items-center justify-center px-6`}>
+    <LogoType style={tw`w-96 max-w-full h-full max-h-64`}/>
   </Fade>
+}

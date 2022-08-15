@@ -14,6 +14,9 @@ declare type ComponentProps = {
   children?: ReactNode,
   style?: ViewStyle|ViewStyle[],
 }
+declare type PressableProps = {
+  onPress?: () => void,
+}
 
 declare type AnyObject = {
   [key: string]: any
@@ -27,6 +30,7 @@ declare type PaymentData = {
   label: string,
   type: PaymentMethod,
   currencies: Currency[],
+  country?: Country,
 }
 
 declare type PaypalData = {
@@ -34,26 +38,12 @@ declare type PaypalData = {
   email: string,
   userName: string,
 }
-declare type ApplePayData = {
-  phone: string,
-}
 declare type SEPAData = {
   beneficiary: string,
   iban: string,
   bic?: string,
   address?: string,
   reference?: string,
-}
-declare type BankTransferCHData = {
-  beneficiary: string,
-  iban: string,
-  address?: string
-}
-declare type BankTransferUKData = {
-  beneficiary: string,
-  ukSortCode: string,
-  ukBankAccount: string,
-  address?: string,
 }
 declare type BizumData = {
   phone: string,
@@ -72,9 +62,6 @@ declare type SwishData = {
   phone: string,
   beneficiary: string,
 }
-declare type TetherData = {
-  tetherAddress: string,
-}
 declare type TwintData = {
   phone: string,
   beneficiary: string,
@@ -85,8 +72,13 @@ declare type WiseData = {
   iban: string,
   bic: string,
 }
+declare type AmazonGiftCardData = {
+  email: string,
+}
+declare type CashData = {
+}
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'cryptoCurrency'
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
@@ -124,6 +116,12 @@ declare type OverlayState = {
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
   help?: boolean,
+}
+declare type DrawerState = {
+  title: string,
+  content: ReactNode|null,
+  show: boolean,
+  onClose: () => void,
 }
 declare type BitcoinState = {
   currency: Currency,

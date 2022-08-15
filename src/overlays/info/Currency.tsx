@@ -5,21 +5,14 @@ import tw from '../../styles/tailwind'
 import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import i18n from '../../utils/i18n'
-import CurrencySelect from '../CurrencySelect'
 
 type CurrencyInfoProps = {
   view: 'buyer' | 'seller',
-  selectedCurrencies: Currency[],
-  onCurrencySelect: (currencies: Currency[]) => void,
 }
 
-export default ({ view, selectedCurrencies, onCurrencySelect }: CurrencyInfoProps): ReactElement => {
+export default ({ view }: CurrencyInfoProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = () => updateOverlay({
-    content: <CurrencySelect currencies={selectedCurrencies} onConfirm={onCurrencySelect} view={view} />,
-    showCloseIcon: true,
-    showCloseButton: false
-  })
+  const closeOverlay = () => updateOverlay({ content: null })
 
   return <View>
     <Headline style={tw`text-3xl leading-3xl text-white-1`}>

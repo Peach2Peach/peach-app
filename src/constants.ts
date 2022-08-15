@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto'
+import Countries from './views/addPaymentMethod/Countries'
 
 export const SATSINBTC = 100000000
 
@@ -31,6 +32,9 @@ export let CURRENCIES: Currency[] = [
   'GBP',
   'SEK',
 ]
+
+export let COUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
+
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
@@ -41,10 +45,12 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'bankTransferCH', 'bankTransferUK'],
-  onlineWallet: ['paypal', 'revolut', 'applePay', 'wise', 'twint', 'swish'],
-  giftCard: [],
-  cryptoCurrency: ['tether']
+  bankTransfer: ['sepa'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
+  giftCard: ['giftCard.amazon'].concat(COUNTRIES.map(c => `giftCard.amazon.${c}`)) as PaymentMethod[],
+  localOption: ['mbWay', 'bizum'],
+  cash: ['cash'],
+  cryptoCurrency: []
 }
 
 export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
@@ -65,12 +71,22 @@ export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: st
     userLink: 'https://revolut.me/',
   },
   wise: { url: 'https://wise.com/user/account' },
+  'giftCard.amazon.DE': { url: 'https://www.amazon.de/dp/B0B2Q4ZRDW' },
+  'giftCard.amazon.FR': { url: 'https://www.amazon.fr/dp/B004MYH1YI' },
+  'giftCard.amazon.IT': { url: 'https://www.amazon.it/dp/B07DWRCL44' },
+  'giftCard.amazon.ES': { url: 'https://www.amazon.es/dp/B07H8STZ9N' },
+  'giftCard.amazon.NL': { url: 'https://www.amazon.nl/dp/B07W6D728D' },
+  'giftCard.amazon.UK': { url: 'https://www.amazon.co.uk/dp/B07S6C1DZ6' },
+  'giftCard.amazon.SE': { url: 'https://www.amazon.se/dp/B089VNKFM7' },
 }
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
+    .filter(unique())
+  COUNTRIES = paymentMethodInfos
+    .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map(method => method.id)
 }

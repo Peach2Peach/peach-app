@@ -18,6 +18,8 @@ declare type Contract = {
 
   amount: number,
   currency: Currency,
+  country?: Country,
+
   price: number,
   premium: number,
   paymentMethod: PaymentMethod,

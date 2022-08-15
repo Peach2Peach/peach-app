@@ -26,9 +26,7 @@ import { getMessages, rules } from '../../utils/validation'
 const { useValidation } = require('react-native-form-validator')
 
 type Props = {
-  route: RouteProp<{ params: {
-    contractId: string,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['dispute'] }>,
   navigation: Navigation,
 }
 
@@ -212,6 +210,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 onSubmit={() => $message?.focus()}
                 value={email}
                 label={i18n('form.userEmail')}
+                placeholder={i18n('form.userEmail.placeholder')}
                 isValid={!isFieldInError('email')}
                 autoCorrect={false}
                 errorMessage={getErrorsInField('email')}
@@ -227,6 +226,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={message}
               multiline={true}
               label={i18n('form.message')}
+              placeholder={i18n('form.message.placeholder')}
               isValid={!isFieldInError('message')}
               autoCorrect={false}
               errorMessage={getErrorsInField('message')}

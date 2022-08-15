@@ -109,7 +109,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
           onChange={setEmail}
           onSubmit={submit}
           value={email}
-          label={i18n('form.userEmail')}
+          placeholder={i18n('form.userEmail')}
           isValid={!isFieldInError('email')}
           autoCorrect={false}
           errorMessage={getErrorsInField('email')}

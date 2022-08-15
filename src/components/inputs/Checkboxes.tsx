@@ -1,55 +1,49 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
+import { Text, Icon } from '../'
 import { mildShadow } from '../../utils/layout'
 import { Shadow } from '..'
 
-type Item = {
+export type CheckboxItemType = {
   value: string|number,
   disabled?: boolean,
   display: ReactNode,
 }
 
-type CheckboxItemProps = ComponentProps & {
-  item: Item,
-  index: number,
-  selectedValues: (string|number)[],
-  select: (value: string | number) => void,
+type CheckboxItemProps = ComponentProps & PressableProps & {
+  item: CheckboxItemType,
+  checked: boolean,
 }
-const CheckboxItem = ({ item, index, selectedValues, select, testID }: CheckboxItemProps): ReactElement => {
-  const isSelected = (itm: Item) => selectedValues.indexOf(itm.value) !== -1
-  const selectItem = () => !item.disabled ? select(item.value) : () => {}
-
-  return <View testID={testID} style={[
-    tw`flex-row items-center`,
-    index > 0 ? tw`mt-4` : {},
-    !isSelected(item) ? tw`opacity-50` : {},
-    item.disabled ? tw`opacity-20` : {},
-  ]}>
+export const CheckboxItem = ({ item, checked, onPress, style, testID }: CheckboxItemProps): ReactElement => {
+  const content = <Pressable testID={testID}
+    onPress={onPress}
+    style={[
+      tw`w-full flex-row justify-between items-center px-4 py-3 bg-peach-milder rounded-lg border-2`,
+      checked && !item.disabled ? tw`border-peach-1` : tw`border-transparent`,
+      style,
+    ]}>
+    <Text style={tw`font-baloo text-base`}>
+      {item.display}
+    </Text>
     {!item.disabled
-      ? <Pressable testID={`${testID}-checkbox`}
-        style={tw`h-10 w-10 flex items-center justify-center`}
-        onPress={selectItem}>
-        {isSelected(item)
+      ? <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
+        {checked
           ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
-          : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-            <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
-          </View>
+          : <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
         }
-      </Pressable>
-      : <View style={tw`w-10 h-10`}/>
-    }
-    <Shadow shadow={mildShadow} style={tw`w-full flex-shrink ml-4`}>
-      <View style={tw`bg-white-1 rounded p-3`}>
-        {item.display}
       </View>
-    </Shadow>
-  </View>
+      : <View style={tw`w-5 h-5 ml-4`}/>
+    }
+  </Pressable>
+
+  return checked
+    ? <Shadow shadow={mildShadow}>{content}</Shadow>
+    : content
 }
 
 type CheckboxesProps = ComponentProps & {
-  items: Item[],
+  items: CheckboxItemType[],
   selectedValues?: (string|number)[],
   onChange?: (values: (string|number)[]) => void,
 }
@@ -85,15 +79,12 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID
     if (onChange) onChange(newValues)
   }
 
+  const isSelected = (itm: CheckboxItemType) => selectedValues.indexOf(itm.value) !== -1
 
   return <View testID={`checkboxes-${testID}`} style={style}>
-    {items.map((item, i) => <CheckboxItem
-      testID={`checkboxes-${testID}-${item.value}`}
-      key={i} index={i}
-      item={item}
-      selectedValues={selectedValues}
-      select={select}
-    />
+    {items.map((item, i) =>
+      <CheckboxItem style={i > 0 ? tw`mt-2` : {}} testID={`${testID}-checkbox-${item.value}`}
+        onPress={() => select(item.value)} key={i} item={item} checked={isSelected(item)} />
     )}
   </View>
 }

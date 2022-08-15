@@ -1,23 +1,42 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
-import Icon from '../Icon'
-import { mildShadow } from '../../utils/layout'
 import { Shadow, Text } from '..'
-import Button from '../Button'
+import tw from '../../styles/tailwind'
+import { mildShadow } from '../../utils/layout'
 
-interface Item {
+type Item = {
   value: string|number|boolean,
   data?: any,
   display: ReactNode
 }
 
+
+type RadioButtonItemProp = ComponentProps & {
+  display: ReactNode,
+  selected: boolean
+}
+const RadioButtonItem = ({ display, selected }: RadioButtonItemProp): ReactElement =>
+  <View style={[
+    tw`w-full flex-row justify-between items-center px-4 py-3 bg-peach-milder rounded-lg border-2`,
+    selected ? tw`border-peach-1` : tw`border-transparent`
+  ]}>
+    <Text style={tw`font-baloo text-base`}>
+      {display}
+    </Text>
+    {selected
+      ? <View style={tw`p-.5 rounded-full border-2 border-peach-1 flex justify-center items-center`}>
+        <View style={[tw`bg-peach-1 rounded-full`, { width: 10, height: 10 }]} />
+      </View>
+      : <View style={tw`p-.5 rounded-full border-2 border-grey-2`}>
+        <View style={{ width: 10, height: 10 }} />
+      </View>
+    }
+  </View>
+
 type RadioButtonsProps = ComponentProps & {
   items: Item[],
   selectedValue?: string|number|boolean,
   onChange?: (value: (string|number|boolean)) => void,
-  ctaLabel?: string,
-  ctaAction?: Function
 }
 
 /**
@@ -47,45 +66,22 @@ export const RadioButtons = ({
   selectedValue,
   onChange,
   style,
-  ctaLabel,
-  ctaAction
 }: RadioButtonsProps): ReactElement =>
   <View style={style}>
-    <Shadow shadow={mildShadow} style={tw`w-full`}>
-      <View>
-        {items.map((item, i) => <View key={i} style={[
-          tw`flex-row items-center`,
-          i > 0 ? tw`mt-2` : {}
-        ]}>
-          <Pressable style={[
-            tw`h-11 flex-grow flex-row items-center p-3 border border-grey-4 bg-white-1 rounded`,
-            item.value !== selectedValue ? tw`opacity-50` : {}
-          ]}
-          onPress={() => onChange ? onChange(item.value) : null}>
-            <View style={tw`w-4 h-4 rounded-full border-2 border-grey-3 flex justify-center items-center`}>
-              {item.value === selectedValue
-                ? <Icon id="circle" style={tw`w-2 h-2`} />
-                : null
-              }
-            </View>
-            <Text style={tw`ml-4`}>
-              {item.display}
-            </Text>
-          </Pressable>
-          {ctaAction && ctaLabel
-            ? <Button
-              key={i}
-              wide={false}
-              style={tw`w-16 h-10 ml-2 flex-shrink`}
-              onPress={() => ctaAction(item.data)}
-              title={ctaLabel}
-            />
-            : null
-          }
-        </View>
-        )}
-      </View>
-    </Shadow>
+    {items.map((item, i) => <View key={i} style={[
+      tw`flex-row items-center`,
+      i > 0 ? tw`mt-2` : {}
+    ]}>
+      <Pressable style={tw`w-full`} onPress={() => onChange ? onChange(item.value) : null}>
+        {item.value === selectedValue
+          ? <Shadow shadow={mildShadow}>
+            <RadioButtonItem display={item.display} selected={item.value === selectedValue} />
+          </Shadow>
+          : <RadioButtonItem display={item.display} selected={item.value === selectedValue} />
+        }
+      </Pressable>
+    </View>
+    )}
   </View>
 
 export default RadioButtons

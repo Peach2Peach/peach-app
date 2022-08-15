@@ -3,16 +3,16 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import { SellViewProps } from './Sell'
+import { SellViewProps } from './SellPreferences'
 import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import PaymentDetails from './components/PaymentDetails'
 import Premium from './components/Premium'
 import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { getPaymentMethods, isValidPaymentdata } from '../../utils/paymentMethod'
-import AddPaymentMethods from '../../components/payment/AddPaymentMethods'
+import { getPaymentMethods, hashPaymentData, isValidPaymentdata } from '../../utils/paymentMethod'
+import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import PaymentDetails from '../../components/payment/PaymentDetails'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -29,19 +29,21 @@ const validate = (offer: SellOffer) => {
     && paymentDataValid
 }
 
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
 
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment
   )
   const [premium, setPremium] = useState(offer.premium)
-  const [paymentData, setPaymentData] = useState(offer.paymentData)
   const [kyc, setKYC] = useState(offer.kyc)
   const [kycType, setKYCType] = useState(offer.kycType)
 
   const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer(offr, shield)
+    updateOffer({
+      ...offr,
+      meansOfPayment,
+    }, shield)
     updateSettings({
       meansOfPayment: offr.meansOfPayment,
       premium: offr.premium,
@@ -51,6 +53,15 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }
 
   useEffect(() => {
+    const paymentData = getSelectedPaymentDataIds().map(getPaymentData)
+      .reduce((obj, data) => {
+        if (!data) return obj
+        obj[data.type] = {
+          hash: hashPaymentData(data),
+          country: data.country
+        }
+        return obj
+      }, {} as Offer['paymentData'])
     saveAndUpdate({
       ...offer,
       meansOfPayment,
@@ -59,25 +70,23 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       kyc,
       kycType,
     }, false)
-  }, [meansOfPayment, premium, paymentData, kyc, kycType])
+  }, [meansOfPayment, premium, kyc, kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
-
-  const onPaymentMethodAdded = () => {
-    saveAndUpdate({ ...offer })
-  }
 
   return <View style={tw`mb-16 px-6`}>
     <Title title={i18n('sell.title')} />
     <Headline style={tw`mt-16 text-grey-1`}>
       {i18n('sell.meansOfPayment')}
     </Headline>
-    <PaymentDetails
+    <PaymentDetails style={tw`mt-4`}
       paymentData={account.paymentData}
-      setPaymentData={setPaymentData}
       setMeansOfPayment={setMeansOfPayment}
     />
-    <AddPaymentMethods style={tw`mt-4`} onUpdate={onPaymentMethodAdded} view="seller" />
+    <AddPaymentMethodButton navigation={navigation}
+      origin={['sellPreferences', { amount: offer.amount }]}
+      style={tw`mt-4`}
+    />
 
     <Premium
       premium={premium}

@@ -28,7 +28,11 @@ export default ({ currency, paymentMethod }: DifferentCurrencyWarningProps): Rea
     </Text>
     <Button
       style={tw`mt-4`}
-      title={i18n('match.differentCurrency.button', currency, paymentMethod)}
+      title={i18n(
+        'match.differentCurrency.button',
+        currency,
+        i18n(`paymentMethod.${paymentMethod}`)
+      )}
       secondary={true}
       wide={true}
       onPress={closeOverlay}

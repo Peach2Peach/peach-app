@@ -7,6 +7,7 @@ import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { openAppLink } from '../../utils/web'
 import Card from '../Card'
 import Icon from '../Icon'
 import { Selector } from '../inputs'
@@ -22,20 +23,41 @@ type TradeSummaryProps = ComponentProps & {
 }
 
 type PaymentMethodProps = {
-  paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethod,
+  showLink: boolean
 }
-const PaymentMethod = ({ paymentMethod }: PaymentMethodProps): ReactElement => <View>
-  <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.on')}</Headline>
-  <Selector
-    items={[
-      {
-        value: paymentMethod,
-        display: i18n(`paymentMethod.${paymentMethod}`).toLowerCase()
-      }
-    ]}
-    style={tw`mt-2`}
-  />
-</View>
+const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactElement => {
+  const url = APPLINKS[paymentMethod]?.url
+  const appLink = APPLINKS[paymentMethod]?.appLink
+  const openLink = () => url ? openAppLink(url, appLink) : null
+
+  return <View>
+    <Headline style={tw`text-grey-2 normal-case mt-4`}>
+      {i18n(paymentMethod === 'cash'
+        ? 'contract.summary.in'
+        : 'contract.summary.on'
+      )}
+    </Headline>
+    <Selector
+      items={[
+        {
+          value: paymentMethod,
+          display: i18n(`paymentMethod.${paymentMethod}`)
+        }
+      ]}
+      style={tw`mt-2`}
+    />
+    {url && showLink
+      ? <Pressable style={tw`flex-row justify-center items-center`} onPress={openLink}>
+        <Text style={tw`text-peach-1 underline`}>
+          {i18n(/giftCard/u.test(paymentMethod) ? 'buy' : 'open')}
+        </Text>
+        <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+      </Pressable>
+      : null
+    }
+  </View>
+}
 
 const Escrow = ({ contract }: TradeSummaryProps): ReactElement => <View>
   <Headline style={tw`text-grey-2 normal-case mt-4`}>
@@ -75,12 +97,13 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
           contract.price.toFixed(2)
         )}
       </Text>
+      <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData}/>
+        ? <PaymentTo paymentData={contract.paymentData} country={contract.country}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
-      <PaymentMethod paymentMethod={contract.paymentMethod} />
+      <PaymentMethod paymentMethod={contract.paymentMethod} showLink={false} />
 
       {contract.escrow || contract.releaseTxId
         ? <View>
@@ -127,11 +150,12 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
       </Text>
       <HorizontalLine style={tw`mt-4`}/>
       {contract.paymentData && PaymentTo
-        ? <PaymentTo paymentData={contract.paymentData} appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
+        ? <PaymentTo paymentData={contract.paymentData} country={contract.country}
+          appLink={appLink?.appLink} fallbackUrl={appLink?.url}/>
         : null
       }
       <HorizontalLine style={tw`mt-4`}/>
-      <PaymentMethod paymentMethod={contract.paymentMethod} />
+      <PaymentMethod paymentMethod={contract.paymentMethod} showLink={true} />
 
       {contract.escrow || contract.releaseTxId
         ? <View>

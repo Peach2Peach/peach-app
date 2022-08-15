@@ -7,13 +7,11 @@ import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
 export const Wise = ({
   forwardRef,
-  view,
   data,
   currencies = [],
   onSubmit,
@@ -24,15 +22,17 @@ export const Wise = ({
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [iban, setIBAN] = useState(data?.IBAN || '')
   const [bic, setBIC] = useState(data?.bic || '')
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+  const [reference, setReference] = useState(data?.reference || '')
 
   let $email = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
   let $bic = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
+
   const anyFieldSet = !!(email || (beneficiary && (iban || bic)))
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
+  const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
     state: { label, email, beneficiary, iban, bic },
     rules,
@@ -47,47 +47,45 @@ export const Wise = ({
     beneficiary,
     iban,
     bic,
-    currencies: selectedCurrencies,
+    currencies: data?.currencies || currencies,
   })
 
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
+  const validateForm = () => validate({
+    label: {
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
+    },
+    email: {
+      required: !iban && !bic,
+      email: true
+    },
+    beneficiary: {
+      required: !email,
+    },
+    iban: {
+      required: !email,
+      iban: true
+    },
+    bic: {
+      bic: true
+    },
+  })
 
   const save = () => {
-    validate({
-      label: {
-        required: true,
-        duplicate: view === 'new' && getPaymentDataByLabel(label)
-      },
-      email: {
-        required: !iban && !bic,
-        email: true
-      },
-      beneficiary: {
-        required: !email,
-      },
-      iban: {
-        required: !email,
-        iban: true
-      },
-      bic: {
-        bic: true
-      },
-    })
-    if (!isFormValid()) return
+    if (!validateForm()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    save
+    validateForm,
+    save,
   }))
 
   useEffect(() => {
     if (onChange) onChange(buildPaymentData())
-  }, [label, email, beneficiary, iban, bic, selectedCurrencies])
+  }, [label, email, beneficiary, iban, bic])
 
   return <View>
     <View>
@@ -95,74 +93,83 @@ export const Wise = ({
         onChange={setLabel}
         onSubmit={() => $email?.focus()}
         value={label}
-        disabled={view === 'view'}
         label={i18n('form.paymentMethodName')}
+        placeholder={i18n('form.paymentMethodName.placeholder')}
         isValid={!isFieldInError('label')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('label')}
+        errorMessage={label.length && getErrorsInField('label')}
       />
     </View>
-    <HorizontalLine style={tw`mt-4`} />
-    <View style={tw`mt-4`}>
+    <HorizontalLine style={tw`mt-6`} />
+    <View style={tw`mt-6`}>
       <Input
         onChange={setEmail}
         onSubmit={() => $beneficiary?.focus()}
         reference={(el: any) => $email = el}
         value={email}
         required={!iban}
-        disabled={view === 'view'}
         label={i18n('form.email')}
+        placeholder={i18n('form.email.placeholder')}
         isValid={!isFieldInError('email')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('email')}
+        errorMessage={email.length && getErrorsInField('email')}
       />
     </View>
-    <HorizontalLine style={tw`mt-4`} />
-    <View style={tw`mt-4`}>
+    <HorizontalLine style={tw`mt-6`} />
+    <View style={tw`mt-6`}>
       <Input
         onChange={setBeneficiary}
         onSubmit={() => $iban?.focus()}
         reference={(el: any) => $beneficiary = el}
         required={!anyFieldSet}
         value={beneficiary}
-        disabled={view === 'view'}
         label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
         isValid={!isFieldInError('beneficiary')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('beneficiary')}
+        errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
       />
     </View>
-    <View style={tw`mt-4`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setIBAN}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => $iban = el}
         required={!email}
         value={iban}
-        disabled={view === 'view'}
         label={i18n('form.iban')}
+        placeholder={i18n('form.iban.placeholder')}
         isValid={!isFieldInError('iban')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('iban')}
+        errorMessage={iban.length && getErrorsInField('iban')}
       />
     </View>
-    <View style={tw`mt-4`}>
+    <View style={tw`mt-6`}>
       <Input
         onChange={setBIC}
-        onSubmit={save}
+        onSubmit={() => $reference?.focus()}
         reference={(el: any) => $bic = el}
         value={bic}
-        disabled={view === 'view'}
         label={i18n('form.bic')}
+        placeholder={i18n('form.bic.placeholder')}
         isValid={!isFieldInError('bic')}
         autoCorrect={false}
-        errorMessage={getErrorsInField('bic')}
+        errorMessage={bic.length && getErrorsInField('bic')}
       />
     </View>
-    <CurrencySelection style={tw`mt-2`}
-      paymentMethod="wise"
-      selectedCurrencies={selectedCurrencies}
-      onToggle={onCurrencyToggle}
-    />
+    <View style={tw`mt-6`}>
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => $reference = el}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        isValid={!isFieldInError('reference')}
+        autoCorrect={false}
+        errorMessage={reference.length && getErrorsInField('reference')}
+      />
+    </View>
   </View>
 }

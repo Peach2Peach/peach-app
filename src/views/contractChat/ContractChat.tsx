@@ -27,9 +27,7 @@ import getMessagesEffect from './effects/getMessagesEffect'
 const returnTrue = () => true
 
 type Props = {
-  route: RouteProp<{ params: {
-    contractId: string,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
   navigation: StackNavigation,
 }
 
@@ -257,7 +255,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               onSubmit={sendMessage} disableSubmit={disableSend}
               icon="send" returnKeyType="send"
               value={newMessage}
-              label={i18n('chat.yourMessage')}
+              placeholder={i18n('chat.yourMessage')}
               isValid={true}
               autoCorrect={true}
             />

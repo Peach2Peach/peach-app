@@ -71,15 +71,20 @@ declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
+declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
 declare type PaymentMethod =
-  'sepa' | 'swift' | 'bankTransferCH' | 'bankTransferUK'
-  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish' | 'mbWay' | 'bizum'
-  | 'tether'
+  'sepa'
+  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
+  | 'mbWay' | 'bizum'
+  | 'giftCard.amazon' | `giftCard.amazon.${Country}`
+  | 'cash'
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod,
   currencies: Currency[],
+  countries?: Country[],
   exchange: boolean,
+  rounded?: boolean,
 }
 
 declare type KYCType = 'iban' | 'id'
@@ -135,6 +140,10 @@ declare type Offer = {
   premium?: number,
   prices?: Pricebook,
   meansOfPayment: MeansOfPayment,
+  paymentData: Partial<Record<PaymentMethod, {
+    hash: string,
+    country?: Country,
+  }>>,
   kyc: boolean,
   kycType?: KYCType,
   returnAddress?: string,
@@ -183,6 +192,7 @@ declare type Match = {
   matchedPrice: number | null,
   premium: number,
   meansOfPayment: MeansOfPayment,
+  paymentData: Offer['paymentData'],
   selectedCurrency?: Currency,
   selectedPaymentMethod?: PaymentMethod,
   kyc: boolean,

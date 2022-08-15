@@ -23,9 +23,7 @@ import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
 
 type Props = {
-  route: RouteProp<{ params: {
-    offer: BuyOffer|SellOffer,
-  } }>,
+  route: RouteProp<{ params: RootStackParamList['offer'] }>,
   navigation: StackNavigation,
 }
 

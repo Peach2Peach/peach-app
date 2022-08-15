@@ -8,6 +8,11 @@ export const buyOffer: BuyOffer = {
     EUR: ['sepa'],
     CHF: ['sepa'],
   },
+  paymentData: {
+    sepa: {
+      hash: 'TODO add payment hash'
+    },
+  },
   kyc: false,
   amount: 250000,
   matches: [],
@@ -26,7 +31,9 @@ export const sellOffer: SellOffer = {
     EUR: ['sepa']
   },
   paymentData: {
-    'sepa': 'TODO add payment hash',
+    sepa: {
+      hash: 'TODO add payment hash'
+    },
   },
   funding: {
     status: 'NULL',
@@ -52,6 +59,11 @@ export const buyOfferUnpublished: BuyOffer = {
   meansOfPayment: {
     EUR: ['sepa'],
     CHF: ['sepa']
+  },
+  paymentData: {
+    sepa: {
+      hash: 'TODO add payment hash'
+    },
   },
   kyc: false,
   amount: 250000,
@@ -137,20 +149,20 @@ export const account1: Account = {
 
 export const paymentData: PaymentData[] = [
   {
-    'id': 'sepa-1069850495',
-    'beneficiary': 'Melocoton',
-    'iban': 'IE29 AIBK 9311 5212 3456 78',
-    'label': 'Bank Account Ireland',
-    'selected': true,
-    'type': 'sepa',
-    'currencies': ['EUR'],
+    id: 'sepa-1069850495',
+    beneficiary: 'Melocoton',
+    iban: 'IE29 AIBK 9311 5212 3456 78',
+    label: 'Bank Account Ireland',
+    selected: true,
+    type: 'sepa',
+    currencies: ['EUR'],
   }, {
-    'id': 'sepa-1095805944',
-    'beneficiary': 'Test',
-    'iban': 'EE38 2200 2210 2014 5685',
-    'label': 'Bank Account Estonia',
-    'type': 'sepa',
-    'currencies': ['EUR'],
+    id: 'sepa-1095805944',
+    beneficiary: 'Test',
+    iban: 'EE38 2200 2210 2014 5685',
+    label: 'Bank Account Estonia',
+    type: 'sepa',
+    currencies: ['EUR'],
   }
 ]
 

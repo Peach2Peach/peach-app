@@ -1,10 +1,10 @@
 import arrowLeft from './arrowLeft.svg'
 import buy from './buy.svg'
 import camera from './camera.svg'
+import change from './change.svg'
 import chat from './chat.svg'
 import check from './check.svg'
 import checkbox from './checkbox.svg'
-import circle from './circle.svg'
 import clock from './clock.svg'
 import timer from './timer.svg'
 import copy from './copy.svg'
@@ -45,10 +45,10 @@ const Icons = {
   arrowLeft,
   buy,
   camera,
+  change,
   chat,
   check,
   checkbox,
-  circle,
   clock,
   timer,
   copy,

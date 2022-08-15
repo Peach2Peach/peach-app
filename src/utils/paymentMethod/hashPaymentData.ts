@@ -12,6 +12,10 @@ export const hashPaymentData = (paymentData: PaymentData): string => {
   delete data.label
   delete data.type
   delete data.currencies
+  delete data.country
+  delete data.disclaimerAcknowledged
+
+  delete data.reference
 
   return sha256(JSON.stringify(data).toLowerCase())
 }
