@@ -167,29 +167,30 @@ export default ({ route, navigation }: Props): ReactElement => {
     <View style={tw`h-full flex-shrink`}>
       <PeachScrollView scrollRef={scroll}
         disable={!scrollable}
-        contentContainerStyle={!scrollable ? tw`h-full` : tw`pb-10`}
-        style={tw`pt-7 overflow-visible`}>
-        <View style={tw`pb-8`}>
-          {updatePending
-            ? <Loading />
-            : null
-          }
-          {!updatePending && CurrentView
-            ? <CurrentView
-              offer={offer}
-              updateOffer={saveAndUpdate}
-              setStepValid={setStepValid}
-              back={back} next={next}
-              navigation={navigation} />
+        contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
+        style={tw`h-full`}>
+        <View style={tw`h-full flex`}>
+          <View style={tw`h-full flex-shrink`}>
+            {updatePending
+              ? <Loading />
+              : null
+            }
+            {!updatePending && CurrentView
+              ? <CurrentView offer={offer}
+                updateOffer={setOffer}
+                setStepValid={setStepValid}
+                back={back} next={next}
+                navigation={navigation}/>
+              : null
+            }
+          </View>
+          {scrollable && !updatePending
+            ? <View style={tw`pt-8 px-6`}>
+              <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+            </View>
             : null
           }
         </View>
-        {scrollable && !updatePending
-          ? <View style={tw`mb-8 px-6`}>
-            <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
-          </View>
-          : null
-        }
       </PeachScrollView>
     </View>
     {!scrollable && !updatePending

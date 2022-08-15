@@ -114,7 +114,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
               if (file.name) submit()
             }}
             secureTextEntry={true}
-            label={i18n('restoreBackup.decrypt.password')}
+            placeholder={i18n('restoreBackup.decrypt.password')}
             value={password}
             isValid={!isFieldInError('password')}
             errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}

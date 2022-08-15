@@ -7,8 +7,6 @@ import Icon from '../../../Icon'
 import { Text } from '../../../text'
 import CashTitle from './cash-title.svg'
 
-const { useValidation } = require('react-native-form-validator')
-
 export const Cash = ({
   forwardRef,
   data,
@@ -19,9 +17,10 @@ export const Cash = ({
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
 
   const buildPaymentData = (): PaymentData & CashData => ({
-    id: data?.id || `cash-${new Date().getTime()}`,
+    id: data?.id || 'cash-baltic-honeybadger',
     label: 'Cash on the conference!',
     type: 'cash',
+    disclaimerAcknowledged,
     currencies: data?.currencies || currencies,
   })
 

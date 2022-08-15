@@ -10,6 +10,12 @@ const Flags = {
   GB,
   NL,
   PT,
+  DE: null,
+  IT: null,
+  CH: null,
+  UK: null,
+  SE: null,
+  US: null,
 }
 
 export type FlagType = keyof typeof Flags

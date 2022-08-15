@@ -7,10 +7,12 @@ import i18n from '../utils/i18n'
 
 type CountryProps = {
   countries: FlagType[],
+  selectedCountry?: FlagType,
   onSelect: (country: FlagType) => void,
 }
 export const CountrySelect = ({
   countries,
+  selectedCountry,
   onSelect
 }: CountryProps): ReactElement => {
   const [selected, setSelected] = useState<FlagType>()
@@ -21,7 +23,7 @@ export const CountrySelect = ({
   }
 
   useEffect(() => {
-    setSelected(undefined)
+    setSelected(selectedCountry)
   }, [])
 
   return <View>

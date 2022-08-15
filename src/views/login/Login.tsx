@@ -101,6 +101,7 @@ export default ({ navigation }: Props): ReactElement => {
         <View>
           <Input
             label={i18n('form.password')}
+            placeholder={i18n('form.password.placeholder')}
             onChange={setPassword}
             onSubmit={submit}
             secureTextEntry={true}

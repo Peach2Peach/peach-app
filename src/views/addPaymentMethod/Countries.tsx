@@ -2,29 +2,32 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Checkboxes, Headline, RadioButtons } from '../../components'
+import { Headline, RadioButtons } from '../../components'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { Navigation } from './components/Navigation'
 const { LinearGradient } = require('react-native-gradients')
 
 type CountrySelectProps = {
   paymentMethod: PaymentMethod,
+  currency: Currency,
   selected?: Country,
   setCountry: React.Dispatch<React.SetStateAction<Country|undefined>>,
   back: () => void,
   next: () => void,
 }
 
-export default ({ paymentMethod, selected, setCountry, back, next }: CountrySelectProps): ReactElement => {
+export default ({ paymentMethod, currency, selected, setCountry, back, next }: CountrySelectProps): ReactElement => {
   const [paymentMethodInfo] = useState(() => getPaymentMethodInfo(paymentMethod))
   const [stepValid, setStepValid] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState(selected)
-  const countries = paymentMethodInfo.countries!.map(c => ({
-    value: c,
-    display: i18n(`country.${c}`)
-  }))
+  const countries = paymentMethodInfo.countries!
+    .filter(countrySupportsCurrency(currency))
+    .map(c => ({
+      value: c,
+      display: i18n(`country.${c}`)
+    }))
 
   useEffect(() => {
     setStepValid(!!selectedCountry)

@@ -4,6 +4,7 @@ import DetailSEPA from './detail/sepa'
 import DetailRevolut from './detail/revolut'
 import DetailWise from './detail/wise'
 import Cash from './detail/cash'
+import { COUNTRIES } from '../../constants'
 
 export type PaymentTemplateProps = {
   paymentData: PaymentData,
@@ -29,3 +30,5 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   'giftCard.amazon': GeneralPaymentDetails,
   cash: Cash,
 }
+
+COUNTRIES.forEach(c => paymentDetailTemplates['giftCard.amazon.' + c as PaymentMethod] = GeneralPaymentDetails)

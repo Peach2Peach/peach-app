@@ -147,7 +147,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         data.type === selectedPaymentMethod
       )
       const paymentDataHashes = paymentDataForMethod.map(data => hashPaymentData(data))
-      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod]!.hash || '')
+      const index = paymentDataHashes.indexOf(offer.paymentData[selectedPaymentMethod]!.hash
+        || (offer.paymentData[selectedPaymentMethod] as unknown as string) // TODO remove this line mid september
+        || '')
 
       if (index === -1) {
         error('Payment data could not be found for offer', offer.id)
@@ -171,7 +173,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       symmetricKeySignature: encryptedSymmmetricKey?.signature,
       paymentDataEncrypted: encryptedPaymentData?.encrypted,
       paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash,
+      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash
+        || (offer.paymentData[selectedPaymentMethod] as unknown as string) // TODO remove this line mid september
+        || '',
     })
 
     if (result) {

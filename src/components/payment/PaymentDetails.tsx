@@ -51,6 +51,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   const update = () => {
     setMeansOfPayment(getSelectedPaymentDataIds(account.settings.preferredPaymentMethods).map(getPaymentData)
       .filter(data => data)
+      .filter(data => getPaymentMethodInfo(data!.type))
       .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}))
   }
 

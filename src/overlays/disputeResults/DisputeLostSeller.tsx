@@ -22,6 +22,7 @@ export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps
     saveContract({
       ...contract,
       disputeResultAcknowledged: true,
+      cancelConfirmationDismissed: true,
     })
     navigate()
   }

@@ -73,6 +73,7 @@ export default ({
       return updateDrawer({
         title: i18n(`paymentCategory.${category}`),
         content: <CountrySelect countries={applicableCountries}
+          selectedCountry={country}
           onSelect={selectCountry} />,
         show: true,
         onClose: () => {

@@ -49,12 +49,15 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
   }, [show])
 
   useEffect(() => {
-    fadeAnim.addListener((fade) => setDisplay(fade.value > 0))
+    fadeAnim.addListener((fade) => {
+      setDisplay(fade.value > 0)
+      if (fade.value === 0) updateDrawer({ show: false, content: false })
+    })
   }, [])
 
   const closeDrawer = () => {
     onClose()
-    updateDrawer({ title, content, show: false })
+    updateDrawer({ show: false })
   }
 
   const registerTouchStart = (e: GestureResponderEvent) => touchY = e.nativeEvent.pageY

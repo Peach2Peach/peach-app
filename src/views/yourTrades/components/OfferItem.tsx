@@ -43,7 +43,7 @@ const navigateToOffer = (
   }
 
   if (contract) {
-    if (contract && offerStatus.status === 'tradeCompleted') {
+    if (contract && !contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
       return navigation.replace('tradeComplete', { contract })
     }
     return navigation.replace('contract', { contractId: contract.id })
