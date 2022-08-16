@@ -1,4 +1,3 @@
-import { account } from '../account'
 import { getChat } from './getChat'
 
 /**
