@@ -115,7 +115,6 @@ describe('updateSettings', () => {
       CHF: ['sepa', 'twint'],
     }
     const newSettings = {
-      skipTutorial: true,
       meansOfPayment,
     }
 
@@ -134,7 +133,6 @@ describe('updateSettings', () => {
     updateSettings({ meansOfPayment })
     deepStrictEqual(account.settings, {
       appVersion: APPVERSION,
-      skipTutorial: true,
       displayCurrency: 'EUR',
       locale: 'en',
       meansOfPayment: {

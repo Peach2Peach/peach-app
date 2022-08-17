@@ -58,10 +58,6 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     })
 
     if (recoveredAccount) {
-      recoveredAccount.settings.skipTutorial = false
-      await updateSettings({
-        skipTutorial: true
-      })
       await saveAccount(recoveredAccount, password)
       onSuccess(recoveredAccount)
     } else {
