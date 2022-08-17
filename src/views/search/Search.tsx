@@ -293,13 +293,18 @@ export default ({ route, navigation }: Props): ReactElement => {
           match.prices = (update || match).prices
           return match
         })
-  }, [matches])
+      )
+    },
+    onError: err => {
+      setSearchingMatches(false)
+      if (err.error !== 'UNAUTHORIZED') updateMessage({ msg: i18n(err.error), level: 'ERROR' })
+    }
+  }), [pnReceived, page]))
 
   useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
-
       saveAndUpdate({
         ...offer,
         ...result,
@@ -321,29 +326,17 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }), [offerId, pnReceived]))
 
-  useFocusEffect(useCallback(searchForPeersEffect({
-    offer,
-    onSuccess: result => {
-      setSearchingMatches(false)
-      setMatches(matches.concat(result)
-        .filter(unique('offerId'))
-        .filter((match, i) => {
-          // don't mess with the current slide position by removing previous slides
-          if (i < currentMatchIndex + 1) return true
-          // otherwise, remove later slides if they are not present in results
-          return result.some(m => m.offerId === match.offerId)
-        })
-        .map(match => {
-          const update = result.find(m => m.offerId === match.offerId)
-          match.prices = (update || match).prices
-          return match
-        })
-      )
-    },
-    onError: err => err.error !== 'UNAUTHORIZED'
-      ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
-      : null,
-  }), [updatePending, pnReceived]))
+  useEffect(() => {
+    if (!offer.id || !matches.length) return
+
+    const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
+
+    saveAndUpdate({
+      ...offer,
+      seenMatches,
+      matched: matchedOffers
+    })
+  }, [matches])
 
   useFocusEffect(useCallback(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
