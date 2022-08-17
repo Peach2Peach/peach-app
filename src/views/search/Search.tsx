@@ -258,10 +258,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
-  const navigate = () => navigation.replace('yourTrades', {})
+  const goHome = () => navigation.replace('home', {})
+  const goToYourTrades = () => navigation.replace('yourTrades', {})
 
   const cancelOffer = () => updateOverlay({
-    content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
+    content: <ConfirmCancelOffer offer={offer} navigate={goToYourTrades} />,
     showCloseButton: false
   })
 
@@ -459,7 +460,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button
             title={i18n('goBackHome')}
             wide={false}
-            onPress={() => navigation.replace('home', {})}
+            onPress={goHome}
           />
         </View>
       }

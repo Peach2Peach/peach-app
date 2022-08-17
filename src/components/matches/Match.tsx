@@ -76,6 +76,11 @@ export const Match = ({
       .filter(p => paymentMethodAllowedForCurrency(p, selectedCurrency))
       .filter(p => mopsInCommon[selectedCurrency]?.indexOf(p) !== -1)
   )
+  const currencySelectorItems = currencies.map(c => ({ value: c, display: c }))
+  const paymentMethodSelectorItems = applicablePaymentMethods.map(p => ({
+    value: p,
+    display: i18n(`paymentMethod.${p}`)
+  }))
 
   const shadow = renderShadow
     ? match.matched
@@ -118,6 +123,7 @@ export const Match = ({
     setSelectedPaymentMethod(paymentMethod)
     onChange(null, selectedCurrency, paymentMethod)
   }
+  const undoMatch = () => toggleMatch(match)
 
   return <Shadow shadow={shadow}>
     <View style={[
@@ -127,7 +133,7 @@ export const Match = ({
     ]}>
       {match.matched
         ? <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
-          <Pressable onPress={() => toggleMatch(match)} style={tw`absolute top-0 right-0 p-2 z-10`}>
+          <Pressable onPress={undoMatch} style={tw`absolute top-0 right-0 p-2 z-10`}>
             <Shadow shadow={dropShadowRed} style={tw`rounded-full`}>
               <View style={tw`bg-white-1 rounded-full p-0.5`}>
                 <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string}/>
@@ -180,8 +186,8 @@ export const Match = ({
         <Selector
           style={tw`mt-2`}
           selectedValue={selectedCurrency}
-          items={currencies.map(c => ({ value: c, display: c }))}
-          onChange={c => setCurrency(c as Currency)}
+          items={currencySelectorItems}
+          onChange={setCurrency}
         />
         <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]}/>
         <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
@@ -189,12 +195,9 @@ export const Match = ({
         </Headline>
         <Selector
           style={tw`mt-2`}
-          selectedValue={selectedPaymentMethod as string}
-          items={applicablePaymentMethods.map(p => ({
-            value: p,
-            display: i18n(`paymentMethod.${p}`)
-          }))}
-          onChange={c => setPaymentMethod(c as PaymentMethod)}
+          selectedValue={selectedPaymentMethod}
+          items={paymentMethodSelectorItems}
+          onChange={setPaymentMethod}
         />
         {/* <HorizontalLine style={tw`mt-5`}/>
         {!match.kyc
