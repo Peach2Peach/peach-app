@@ -63,8 +63,8 @@ export const Matches = ({
     setCurrentIndex(i)
     if (onEndReached && i === matches.length - 1) onEndReached()
   }
-  const snapToPrev = () => () => $carousel.current?.snapToPrev()
-  const snapToNext = () => () => $carousel.current?.snapToNext()
+  const snapToPrev = () => $carousel.current?.snapToPrev()
+  const snapToNext = () => $carousel.current?.snapToNext()
 
   useEffect(() => {
     if (!matches.length) return
@@ -99,7 +99,7 @@ export const Matches = ({
     {currentIndex < matches.length - 1 && matches.length > 1
       ? <NextButton onPress={snapToNext} />
       : loadingMore
-        ? <Loading style={tw`w-4 h-4 absolute right-2 z-10`} size="small" />
+        ? <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
         : null
     }
   </View>
