@@ -2,18 +2,18 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import i18n from '../../utils/i18n'
-import { BuyViewProps } from './BuyPreferences'
-import { Fade, Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
-import { getMessages, rules } from '../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { cutOffAddress } from '../../utils/string'
-import { OverlayContext } from '../../contexts/overlay'
-import IDontHaveAWallet from './components/IDontHaveAWallet'
-import { parseBitcoinRequest } from '../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
+import { Fade, Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
+import LanguageContext from '../../contexts/language'
+import { OverlayContext } from '../../contexts/overlay'
 import keyboard from '../../effects/keyboard'
+import { parseBitcoinRequest } from '../../utils/bitcoin'
+import i18n from '../../utils/i18n'
+import { cutOffAddress } from '../../utils/string'
+import { getMessages, rules } from '../../utils/validation'
+import { BuyViewProps } from './BuyPreferences'
+import IDontHaveAWallet from './components/IDontHaveAWallet'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -122,9 +122,11 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       : null}
 
     <Fade show={!keyboardOpen} displayNone={false}>
+    <View style={tw`pb-10`}>
       <TextLink style={tw`mt-4 text-center`} onPress={showIDontHaveAWallet}>
         {i18n('iDontHaveAWallet')}
       </TextLink>
+      </View>
     </Fade>
   </View>
 }
