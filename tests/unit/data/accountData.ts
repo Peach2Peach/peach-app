@@ -110,7 +110,6 @@ export const recoveredAccount: Account = {
 export const account1: Account = {
   settings: {
     appVersion: '0.1.0',
-    skipTutorial: true,
     enableAnalytics: false,
     locale: 'en',
     amount: 1000000,

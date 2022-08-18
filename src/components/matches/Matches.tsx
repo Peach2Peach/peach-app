@@ -6,14 +6,17 @@ import { Match } from '.'
 import tw from '../../styles/tailwind'
 import { getMatchCurrency, getMatchPaymentMethod } from '../../utils/match'
 import { Navigation } from '../../utils/navigation'
+import { Loading } from '../animation'
 import Icon from '../Icon'
 
 type MatchProps = ComponentProps & {
-  matches: Match[],
-  offer: BuyOffer|SellOffer,
-  onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void,
-  toggleMatch: (match: Match) => void,
-  navigation: Navigation,
+  matches: Match[]
+  offer: BuyOffer|SellOffer
+  onChange: (i?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => void
+  onEndReached?: () => void
+  loadingMore?: boolean
+  toggleMatch: (match: Match) => void
+  navigation: Navigation
 }
 
 type SliderArrowProps = {
@@ -39,7 +42,16 @@ const NextButton = ({ onPress }: SliderArrowProps) =>
  * @example
  * <Matches matches={matches} />
  */
-export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, style }: MatchProps): ReactElement => {
+export const Matches = ({
+  matches,
+  offer,
+  onChange,
+  onEndReached,
+  loadingMore,
+  toggleMatch,
+  navigation,
+  style
+}: MatchProps): ReactElement => {
   const { width } = Dimensions.get('window')
   const $carousel = useRef<Carousel<any>>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -49,7 +61,10 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, sty
     const paymentMethod = getMatchPaymentMethod(offer, matches[i], currency)
     onChange(i, currency, paymentMethod)
     setCurrentIndex(i)
+    if (onEndReached && i === matches.length - 1) onEndReached()
   }
+  const snapToPrev = () => $carousel.current?.snapToPrev()
+  const snapToNext = () => $carousel.current?.snapToNext()
 
   useEffect(() => {
     if (!matches.length) return
@@ -59,11 +74,11 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, sty
   }, [])
 
   return <View style={[tw`flex-row items-center justify-center overflow-visible`, style]}>
-    {matches.length > 1
-      ? <PrevButton onPress={() => $carousel.current?.snapToPrev()} />
+    {currentIndex !== 0 && matches.length > 1
+      ? <PrevButton onPress={snapToPrev} />
       : null
     }
-    <Carousel loop={true}
+    <Carousel loop={false}
       ref={$carousel}
       data={matches}
       enableSnap={true} enableMomentum={false}
@@ -81,9 +96,11 @@ export const Matches = ({ matches, offer, onChange, toggleMatch, navigation, sty
           renderShadow={shouldRenderShadow(currentIndex, index)} />
       </View>}
     />
-    {matches.length > 1
-      ? <NextButton onPress={() => $carousel.current?.snapToNext()} />
-      : null
+    {currentIndex < matches.length - 1 && matches.length > 1
+      ? <NextButton onPress={snapToNext} />
+      : loadingMore
+        ? <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
+        : null
     }
   </View>
 }
