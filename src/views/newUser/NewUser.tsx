@@ -12,8 +12,6 @@ import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import fcm from '../../init/fcm'
-import pgp from '../../init/pgp'
 import NDA from '../../overlays/NDA'
 import SaveYourPassword from '../../overlays/SaveYourPassword'
 import tw from '../../styles/tailwind'
@@ -25,6 +23,7 @@ import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { getMessages, rules } from '../../utils/validation'
 import Logo from '../../assets/logo/peachLogo.svg'
+import userUpdate from '../../init/userUpdate'
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
@@ -32,11 +31,13 @@ type Props = {
   navigation: StackNavigation
 }
 
+// eslint-disable-next-line complexity
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
   const [passwordMatch, setPasswordMatch] = useState(true)
+  const [referalCode, setReferalCode] = useState('')
   const [isPristine, setIsPristine] = useState(true)
   const [loading, setLoading] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
@@ -44,9 +45,9 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { validate, isFieldInError } = useValidation({
+  const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
-    state: { password },
+    state: { password, referalCode },
     rules,
     messages: getMessages()
   })
@@ -68,6 +69,9 @@ export default ({ navigation }: Props): ReactElement => {
         password: {
           required: true,
           password: true,
+        },
+        referalCode: {
+          referalCode: true
         }
       })
     }
@@ -92,17 +96,14 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const onSuccess = async () => {
-
     try {
       const [result, authError] = await auth()
       if (result) {
-        await pgp()
+        await userUpdate(referalCode)
         saveAccount(account, password)
 
         setLoading(false)
         navigation.replace('home', {})
-
-        fcm()
       } else {
         onError(new Error(authError?.error))
       }
@@ -207,14 +208,24 @@ export default ({ navigation }: Props): ReactElement => {
           <Input testID="newUser-passwordRepeat"
             reference={(el: any) => $passwordRepeat = el}
             onChange={onPasswordRepeatChange}
-            onSubmit={(val: string) => {
-              onPasswordRepeatChange(val)
-              submit()
-            }}
+            onSubmit={(val: string) => onPasswordRepeatChange(val)}
             secureTextEntry={true}
             value={passwordRepeat}
             isValid={!isPristine && !isFieldInError('passwordRepeat') && passwordMatch}
             errorMessage={!passwordMatch || isFieldInError('passwordRepeat') ? [''] : []}
+          />
+        </View>
+        <View style={tw`mt-4 h-12 px-4`}>
+          <Input testID="newUser-referalCode"
+            reference={(el: any) => $referal = el}
+            onChange={setReferalCode}
+            onSubmit={(val: string) => {
+              setReferalCode(val)
+              submit()
+            }}
+            value={referalCode}
+            isValid={!isFieldInError('passwordRepeat')}
+            errorMessage={referalCode.length && getErrorsInField('passwordRepeat')}
           />
         </View>
         <View style={tw`w-full mt-5 flex items-center`}>
