@@ -57,6 +57,9 @@ export const rules = {
   password (_: boolean, value: string) {
     return value && value.length > 7
   },
+  referalCode (_: boolean, value: string) {
+    return !value || value.length === 0 || /PR[0-9A-F]{4,}/u.test(value)
+  },
   iban (_: boolean, value: string | null) {
     if (!value) return false
     return IBAN.isValid(value)

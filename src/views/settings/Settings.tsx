@@ -54,6 +54,7 @@ export default ({ navigation }: Props): ReactElement => {
   const goToCurrencySettings = () => navigation.navigate('currency', {})
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
+  const goToReferrals = () => navigation.navigate('referrals', {})
   const goToEscrow = () => navigation.navigate('escrow', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
   const deleteAccount = () => {
@@ -116,6 +117,11 @@ export default ({ navigation }: Props): ReactElement => {
             </View>
             : null
           }
+        </Card>
+      </Pressable>
+      <Pressable style={tw`mt-2`} onPress={goToReferrals}>
+        <Card>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.referrals')}</Text>
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToEscrow}>
