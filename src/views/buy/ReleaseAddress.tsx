@@ -122,10 +122,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       : null}
 
     <Fade show={!keyboardOpen} displayNone={false}>
-    <View style={tw`pb-10`}>
-      <TextLink style={tw`mt-4 text-center`} onPress={showIDontHaveAWallet}>
-        {i18n('iDontHaveAWallet')}
-      </TextLink>
+      <View style={tw`pb-10`}>
+        <TextLink style={tw`mt-4 text-center`} onPress={showIDontHaveAWallet}>
+          {i18n('iDontHaveAWallet')}
+        </TextLink>
       </View>
     </Fade>
   </View>
