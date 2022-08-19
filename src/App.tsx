@@ -38,8 +38,7 @@ import { info, error } from './utils/log'
 import events from './init/events'
 import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
-import pgp from './init/pgp'
-import fcm from './init/fcm'
+import userUpdate from './init/userUpdate'
 import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck, isIOS } from './utils/system'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
@@ -141,8 +140,7 @@ const initApp = async (
   await getPeachInfo(account)
   if (account?.publicKey) {
     getTrades()
-    fcm()
-    pgp()
+    userUpdate()
     dataMigration()
   }
 
