@@ -5,11 +5,10 @@ import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Button, Loading, PeachScrollView, Text, Title } from '../../components'
-import BitcoinContext from '../../contexts/bitcoin'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
-import { getUser } from '../../utils/peachAPI'
+import { getUserPrivate } from '../../utils/peachAPI'
 
 type Props = {
   navigation: Navigation
@@ -20,7 +19,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   useFocusEffect(useCallback(() => {
     (async () => {
-      const [response, err] = await getUser(account.publicKey)
+      const [response, err] = await getUserPrivate(account.publicKey)
 
       if (response) {
         setUser(response)
@@ -40,7 +39,7 @@ export default ({ navigation }: Props): ReactElement => {
             {i18n('referrals.yourCode')}
           </Text>
           <Text style={tw`text-center text-grey-1`}>
-            {user.referalCode}
+            {user.referralCode}
           </Text>
         </View>
         <View style={tw`flex items-center mt-16`}>

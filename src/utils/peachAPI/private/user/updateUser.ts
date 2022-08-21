@@ -1,6 +1,7 @@
 import { API_URL } from '@env'
 import * as bitcoin from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
+import fetch from '../../../fetch'
 import { parseResponse, peachAccount } from '../..'
 import { getAccessToken } from './getAccessToken'
 
@@ -30,20 +31,20 @@ const getPGPUpdatePayload = async (pgp?: PGPKeychain): Promise<{}|PGPPayload> =>
 export type UpdateUserProps = {
   pgp?: PGPKeychain
   fcmToken?: string
-  referalCode?: string
+  referralCode?: string
 }
 
 /**
  * @description Method to send user update information to server
  * @param pgp pgp keychain
  * @param fcmToken fcm token
- * @param referalCode referal code
+ * @param referralCode referal code
  * @returns APISuccess
  */
 export const updateUser = async ({
   pgp,
   fcmToken,
-  referalCode
+  referralCode
 }: UpdateUserProps): Promise<[APISuccess|null, APIError|null]> => {
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
@@ -57,7 +58,7 @@ export const updateUser = async ({
     body: JSON.stringify({
       ...getPGPUpdatePayload(pgp),
       fcmToken,
-      referalCode
+      referralCode
     })
   })
 
