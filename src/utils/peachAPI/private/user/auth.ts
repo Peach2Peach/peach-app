@@ -1,5 +1,6 @@
 import { API_URL } from '@env'
 import * as bitcoin from 'bitcoinjs-lib'
+import fetch from '../../../fetch'
 import { peachAccount, setAccessToken } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'

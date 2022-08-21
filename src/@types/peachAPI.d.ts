@@ -46,7 +46,8 @@ declare type User = {
   ratingCount: number
   peachRating: number
   medals: Medal[]
-  referalCode?: string
+  referralCode?: string
+  usedReferralCode?: string
   bonusPoints: number
   referredTradingAmount: number
   disputes: {

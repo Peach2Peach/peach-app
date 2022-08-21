@@ -5,7 +5,7 @@ import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 import { UpdateUserProps } from '../utils/peachAPI/private/user/updateUser'
 
-export default async (referalCode?: string) => {
+export default async (referralCode?: string) => {
   if (!account) return
 
   try {
@@ -14,7 +14,7 @@ export default async (referalCode?: string) => {
 
     if (account.pgp.publicKey && !account.settings.pgpPublished) payload.pgp = account.pgp
     if (account.settings.fcmToken !== fcmToken) payload.fcmToken = fcmToken
-    if (referalCode) payload.referalCode = referalCode
+    if (referralCode) payload.referralCode = referralCode
 
     if (Object.keys(payload).length) {
       const [result, err] = await updateUser(payload)

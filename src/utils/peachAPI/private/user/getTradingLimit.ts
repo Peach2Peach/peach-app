@@ -1,4 +1,5 @@
 import { API_URL } from '@env'
+import fetch from '../../../fetch'
 import { parseResponse, peachAccount } from '../..'
 import { getAccessToken } from './getAccessToken'
 
