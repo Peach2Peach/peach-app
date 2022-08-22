@@ -1,9 +1,9 @@
 {
   "email": {
     "valid": [
-      "satoshi@peachtopeach.com",
-      "hal.finney@peachtopeach.com",
-      "hal.finney+postbox@peachtopeach.com"
+      "satoshi@peachbitcoin.com",
+      "hal.finney@peachbitcoin.com",
+      "hal.finney+postbox@peachbitcoin.com"
     ],
     "invalid": [
       "rogerver",
