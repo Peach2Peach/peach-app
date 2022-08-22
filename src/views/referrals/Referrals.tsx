@@ -10,6 +10,7 @@ import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
 import { getUserPrivate } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
+import { BonusPointsBar } from './components/BonusPointsBar'
 
 type Props = {
   navigation: Navigation
@@ -20,19 +21,16 @@ export default ({ navigation }: Props): ReactElement => {
   const [user, setUser] = useState<User>()
 
   const rewards = [
-    {
-      value: 'customCode',
-      display: i18n('referrals.reward.customCode'),
-    },
-    {
-      value: 'noPeachFees',
-      display: i18n('referrals.reward.noPeachFees'),
-    },
-    {
-      value: 'sats',
-      display: i18n('referrals.reward.sats')
-    },
-  ]
+    ['customReferralCode', '100'],
+    ['noPeachFees', '200'],
+    ['sats', '> 300'],
+  ].map(([reward, pointsRequired]) => ({
+    value: reward,
+    disabled: true,
+    display: <Text style={tw`font-baloo text-sm`}>
+      {i18n(`referrals.reward.${reward}`)} <Text style={tw`text-sm text-grey-2`}>({pointsRequired})</Text>
+    </Text>
+  }))
 
   const shareReferralCode = () => {}
   const selectReward = () => {}
@@ -54,11 +52,12 @@ export default ({ navigation }: Props): ReactElement => {
     : <View style={tw`h-full flex items-stretch`}>
       <PeachScrollView contentContainerStyle={tw`pt-6 px-12 pb-10`}>
         <Title title={i18n('referrals.title')} />
-        <View style={tw`mt-12`}>
-          <Text style={tw`text-center font-bold text-grey-1`}>
+        <BonusPointsBar style={tw`mt-2`} points={user?.bonusPoints || 0} />
+        <View style={tw`mt-8`}>
+          <Text style={tw`text-center font-baloo text-grey-2 leading-6`}>
             {i18n('referrals.yourCode')}
           </Text>
-          <Text style={tw`text-center text-grey-1`}>
+          <Text style={tw`text-center text-grey-1 font-baloo text-2xl leading-2xl mt-1`}>
             {user.referralCode}
           </Text>
           <View style={tw`flex items-center mt-1`}>
@@ -68,15 +67,19 @@ export default ({ navigation }: Props): ReactElement => {
               onPress={shareReferralCode}
             />
           </View>
-          <Card style={tw`p-7`}>
+          <Card style={tw`mt-10 p-7`}>
             <Text style={tw`text-center text-grey-1`}>
-              {i18n('referrals.alreadyTraded', i18n('currency.sats', thousands(user.referredTradingAmount)))}
+              {i18n(
+                'referrals.alreadyTraded',
+                i18n('currency.format.sats', thousands(user.referredTradingAmount || 0))
+              )}
+              {'\n\n'}
               {i18n('referrals.selectReward')}
             </Text>
-            <RadioButtons
+            <RadioButtons style={tw`mt-4`}
               items={rewards}
             />
-            <View style={tw`flex items-center mt-1`}>
+            <View style={tw`flex items-center mt-5`}>
               <Button
                 title={i18n('referrals.reward.select')}
                 wide={false}
@@ -84,6 +87,9 @@ export default ({ navigation }: Props): ReactElement => {
                 onPress={selectReward}
               />
             </View>
+            <Text style={tw`text-center text-grey-1 text-sm mt-1`}>
+              {i18n('referrals.reward.comingSoon')}
+            </Text>
           </Card>
         </View>
         <View style={tw`flex items-center mt-16`}>
