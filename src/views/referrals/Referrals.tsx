@@ -4,18 +4,38 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Button, Loading, PeachScrollView, Text, Title } from '../../components'
+import { Button, Card, Loading, PeachScrollView, RadioButtons, Text, Title } from '../../components'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
 import { getUserPrivate } from '../../utils/peachAPI'
+import { thousands } from '../../utils/string'
 
 type Props = {
   navigation: Navigation
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   const [user, setUser] = useState<User>()
+
+  const rewards = [
+    {
+      value: 'customCode',
+      display: i18n('referrals.reward.customCode'),
+    },
+    {
+      value: 'noPeachFees',
+      display: i18n('referrals.reward.noPeachFees'),
+    },
+    {
+      value: 'sats',
+      display: i18n('referrals.reward.sats')
+    },
+  ]
+
+  const shareReferralCode = () => {}
+  const selectReward = () => {}
 
   useFocusEffect(useCallback(() => {
     (async () => {
@@ -41,6 +61,30 @@ export default ({ navigation }: Props): ReactElement => {
           <Text style={tw`text-center text-grey-1`}>
             {user.referralCode}
           </Text>
+          <View style={tw`flex items-center mt-1`}>
+            <Button
+              title={i18n('referrals.shareCode')}
+              wide={true}
+              onPress={shareReferralCode}
+            />
+          </View>
+          <Card style={tw`p-7`}>
+            <Text style={tw`text-center text-grey-1`}>
+              {i18n('referrals.alreadyTraded', i18n('currency.sats', thousands(user.referredTradingAmount)))}
+              {i18n('referrals.selectReward')}
+            </Text>
+            <RadioButtons
+              items={rewards}
+            />
+            <View style={tw`flex items-center mt-1`}>
+              <Button
+                title={i18n('referrals.reward.select')}
+                wide={false}
+                disabled={true}
+                onPress={selectReward}
+              />
+            </View>
+          </Card>
         </View>
         <View style={tw`flex items-center mt-16`}>
           <Button
