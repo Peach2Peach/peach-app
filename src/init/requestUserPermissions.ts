@@ -13,7 +13,7 @@ const openAnalyticsPrompt = (): void => {
       {
         text: i18n('privacyPolicy'),
         onPress: () => {
-          Linking.openURL('https://www.peachtopeach.com/privacy-policy/')
+          Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
           openAnalyticsPrompt()
         },
         style: 'default',

@@ -64,7 +64,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
   const gotoFees = () => navigation.navigate('fees', {})
   const goToSocials = () => navigation.navigate('socials', {})
-  const openPrivacyPolicy = () => Linking.openURL('https://www.peachtopeach.com/privacy-policy/')
+  const openPrivacyPolicy = () => Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
 
   return <View style={tw`h-full pb-10`}>
