@@ -65,6 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
   const gotoFees = () => navigation.navigate('fees', {})
   const goToSocials = () => navigation.navigate('socials', {})
+  const openPrivacyPolicy = () => Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
 
   return <View style={tw`h-full pb-10`}>
@@ -146,6 +147,11 @@ export default ({ navigation }: Props): ReactElement => {
       <Pressable style={tw`mt-2`} onPress={gotoFees}>
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.fees')}</Text>
+        </Card>
+      </Pressable>
+      <Pressable style={tw`mt-2`} onPress={openPrivacyPolicy}>
+        <Card>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('privacyPolicy')}</Text>
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToSocials}>
