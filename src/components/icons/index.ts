@@ -9,6 +9,7 @@ import clock from './clock.svg'
 import timer from './timer.svg'
 import copy from './copy.svg'
 import cross from './cross.svg'
+import crossOutlined from './crossOutlined.svg'
 import dispute from './dispute.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
@@ -53,6 +54,7 @@ const Icons = {
   timer,
   copy,
   cross,
+  crossOutlined,
   dispute,
   dropdownClosed,
   dropdownOpen,

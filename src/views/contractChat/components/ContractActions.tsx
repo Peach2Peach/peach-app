@@ -11,25 +11,23 @@ import { StackNavigation } from '../../../utils/navigation'
 type IconButtonProps = ComponentProps & {
   icon: IconType,
   onPress: (event: GestureResponderEvent) => void,
+  hasShadow? : boolean
 }
 
 const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => {
-  const [active, setActive] = useState(false)
 
-  const onPressInHandler = () => setActive(true)
-  const onPressOutHandler = () => setActive(false)
-  return <Shadow shadow={mildShadowOrange}>
-    <Pressable style={[
-      tw`w-8 h-8 flex items-center justify-center border-2 border-peach-1 rounded`,
-      active ? tw`bg-peach-1` : tw`bg-white-1`,
-      style
-    ]}
-    onPress={onPress} onPressIn={onPressInHandler} onPressOut={onPressOutHandler}>
-      <Icon id={icon} style={tw`w-4 h-4`}
-        color={(active ? tw`text-white-1` : tw`text-peach-1`).color as string} />
-    </Pressable>
-  </Shadow>
+  return <Pressable style={[
+    tw`w-12 h-7 flex items-center justify-center rounded-lg bg-peach-1`,
+    style
+  ]}
+  onPress={onPress} >
+    <Icon id={icon} style={tw`w-3 h-3`}
+      color={(tw`text-white-1`).color as string} />
+  </Pressable>
 }
+
+
+
 
 type ContractActionsProps = ComponentProps & {
   contract: Contract,
@@ -54,18 +52,17 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
     : null
 
   return <View style={style}>
-    {!contract.canceled
-      ? <IconButton style={!canCancel ? tw`opacity-50` : {}}
-        onPress={openCancelTrade}
-        icon="cross"
-      />
-      : null
-    }
-    {/* <IconButton style={tw`mt-3`} onPress={extendTime} icon="timer" /> */}
-    <IconButton style={[tw`mt-3`, !canDispute ? tw`opacity-50` : {}]}
+    <IconButton style={[tw`m-2`, !canDispute ? tw`opacity-50` : {}]}
       onPress={raiseDispute}
       icon="dispute"
     />
+    {!contract.canceled
+      ? <IconButton style={[tw`m-2`,!canCancel ? tw`opacity-50` : {}]}
+        onPress={openCancelTrade}
+        icon="crossOutlined"
+      />
+      : null
+    }
   </View>
 }
 
