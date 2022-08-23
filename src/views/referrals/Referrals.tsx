@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -11,7 +11,9 @@ import { Navigation } from '../../utils/navigation'
 import { getUserPrivate } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
 import { BonusPointsBar } from './components/BonusPointsBar'
+import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 
+type Reward = 'customReferralCode' | 'noPeachFees' | 'sats'
 type Props = {
   navigation: Navigation
 }
@@ -19,21 +21,24 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   const [user, setUser] = useState<User>()
+  const pointsBalance = user?.bonusPoints || 0
+  const [selectedReward, setSelectedReward] = useState<Reward>('')
 
-  const rewards = [
-    ['customReferralCode', '100'],
-    ['noPeachFees', '200'],
-    ['sats', '> 300'],
-  ].map(([reward, pointsRequired]) => ({
+  const rewards: RadioButtonItem<Reward>[] = [
+    ['customReferralCode', 100, '100'],
+    ['noPeachFees', 200, '200'],
+    ['sats', 300, '> 300'],
+  ].map(([reward, pointsRequired, cost]) => ({
     value: reward,
-    disabled: true,
+    disabled: pointsRequired > pointsBalance,
     display: <Text style={tw`font-baloo text-sm`}>
-      {i18n(`referrals.reward.${reward}`)} <Text style={tw`text-sm text-grey-2`}>({pointsRequired})</Text>
+      {i18n(`referrals.reward.${reward}`)} <Text style={tw`text-sm text-grey-2`}>({cost})</Text>
     </Text>
-  }))
+  }) as RadioButtonItem<Reward>)
 
   const shareReferralCode = () => {}
-  const selectReward = () => {}
+
+  const redeemReward = () => {}
 
   useFocusEffect(useCallback(() => {
     (async () => {
@@ -52,7 +57,7 @@ export default ({ navigation }: Props): ReactElement => {
     : <View style={tw`h-full flex items-stretch`}>
       <PeachScrollView contentContainerStyle={tw`pt-6 px-12 pb-10`}>
         <Title title={i18n('referrals.title')} />
-        <BonusPointsBar style={tw`mt-2`} points={user?.bonusPoints || 0} />
+        <BonusPointsBar style={tw`mt-2`} points={pointsBalance} />
         <View style={tw`mt-8`}>
           <Text style={tw`text-center font-baloo text-grey-2 leading-6`}>
             {i18n('referrals.yourCode')}
@@ -77,14 +82,16 @@ export default ({ navigation }: Props): ReactElement => {
               {i18n('referrals.selectReward')}
             </Text>
             <RadioButtons style={tw`mt-4`}
+              selectedValue={selectedReward}
               items={rewards}
+              onChange={setSelectedReward}
             />
             <View style={tw`flex items-center mt-5`}>
               <Button
                 title={i18n('referrals.reward.select')}
                 wide={false}
                 disabled={true}
-                onPress={selectReward}
+                onPress={redeemReward}
               />
             </View>
             <Text style={tw`text-center text-grey-1 text-sm mt-1`}>

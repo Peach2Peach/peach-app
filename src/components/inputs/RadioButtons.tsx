@@ -4,11 +4,11 @@ import { Shadow, Text, Icon } from '..'
 import tw from '../../styles/tailwind'
 import { mildShadow } from '../../utils/layout'
 
-type Item = {
-  value: string|number|boolean
-  data?: any
-  disabled?: boolean
+export type RadioButtonItem<T> = {
+  value: T
   display: ReactNode
+  disabled?: boolean
+  data?: any
 }
 
 type RadioButtonItemProp = ComponentProps & {
@@ -29,10 +29,10 @@ const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): 
       color={(selected ? tw`text-peach-1` : tw`text-grey-1`).color as string}/>
   </View>
 
-type RadioButtonsProps = ComponentProps & {
-  items: Item[],
-  selectedValue?: string|number|boolean,
-  onChange?: (value: (string|number|boolean)) => void,
+type RadioButtonsProps<T> = ComponentProps & {
+  items: RadioButtonItem<T>[]
+  selectedValue?: T
+  onChange?: (value: T) => void
 }
 
 /**
@@ -57,26 +57,26 @@ type RadioButtonsProps = ComponentProps & {
     selectedValue={kyc}
     onChange={(value) => setKYC(value as boolean)}/>
  */
-export const RadioButtons = ({
-  items,
-  selectedValue,
-  onChange,
-  style,
-}: RadioButtonsProps): ReactElement =>
+export const RadioButtons = <T, >({ items, selectedValue, onChange, style, }: RadioButtonsProps<T>): ReactElement =>
   <View style={style}>
-    {items.map((item, i) => <View key={i} style={[
-      tw`flex-row items-center`,
-      i > 0 ? tw`mt-2` : {}
-    ]}>
-      <Pressable style={tw`w-full`} onPress={() => onChange ? onChange(item.value) : null}>
-        {item.value === selectedValue
-          ? <Shadow shadow={mildShadow}>
-            <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
-          </Shadow>
-          : <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
-        }
-      </Pressable>
-    </View>
+    {items.map((item, i) =>
+      <View key={i} style={[
+        tw`flex-row items-center`,
+        i > 0 ? tw`mt-2` : {}
+      ]}>
+        <Pressable style={tw`w-full`} onPress={() => onChange && !item.disabled ? onChange(item.value) : null}>
+          {item.value === selectedValue
+            ? <Shadow shadow={mildShadow}>
+              <RadioButtonItem display={item.display}
+                selected={item.value === selectedValue}
+                disabled={item.disabled} />
+            </Shadow>
+            : <RadioButtonItem display={item.display}
+              selected={item.value === selectedValue}
+              disabled={item.disabled} />
+          }
+        </Pressable>
+      </View>
     )}
   </View>
 
