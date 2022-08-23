@@ -58,7 +58,7 @@ export const rules = {
     return value && value.length > 7
   },
   referralCode (_: boolean, value: string) {
-    return !value || value.length === 0 || /PR[0-9A-F]{4,}/u.test(value)
+    return !value || value.length === 0 || /^PR[0-9A-F]{4,}$/u.test(value)
   },
   iban (_: boolean, value: string | null) {
     if (!value) return false
