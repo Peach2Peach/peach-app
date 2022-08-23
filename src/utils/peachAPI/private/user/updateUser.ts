@@ -56,7 +56,7 @@ export const updateUser = async ({
     },
     method: 'PATCH',
     body: JSON.stringify({
-      ...getPGPUpdatePayload(pgp),
+      ...(await getPGPUpdatePayload(pgp)),
       fcmToken,
       referralCode
     })
