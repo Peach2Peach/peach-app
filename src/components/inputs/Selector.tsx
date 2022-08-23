@@ -7,15 +7,15 @@ const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 import { Fade } from '../animation'
 
-interface Item {
-  value: string,
+type Item<T> = {
+  value: T,
   display: ReactNode
 }
 
-type SelectorProps = ComponentProps & {
-  items: Item[],
-  selectedValue?: string,
-  onChange?: (value: (string)) => void,
+type SelectorProps<T> = ComponentProps & {
+  items: Item<T>[],
+  selectedValue?: T,
+  onChange?: (value: T) => void,
 }
 
 /**
@@ -40,7 +40,7 @@ type SelectorProps = ComponentProps & {
     selectedValue={currency}
     onChange={(value) => setCurrencu(value)}/>
  */
-export const Selector = ({ items, selectedValue, onChange, style }: SelectorProps): ReactElement => {
+export const Selector = <T, >({ items, selectedValue, onChange, style }: SelectorProps<T>): ReactElement => {
   const [scrollWidth, setScrollWidth] = useState<number>()
   const [scrollContentWidth, setScrollContentWidth] = useState<number>()
   const [isAtStart, setIsAtStart] = useState(true)
@@ -77,7 +77,7 @@ export const Selector = ({ items, selectedValue, onChange, style }: SelectorProp
       <View style={tw`flex-row flex-nowrap`}>
         {items.map((item, i) => <Pressable
           onPress={() => onChange ? onChange(item.value) : null}
-          key={item.value}
+          key={item.value as unknown as string}
           style={[
             tw`px-3 h-6 flex justify-center border border-grey-2 rounded-lg`,
             item.value === selectedValue ? tw`border-peach-1 bg-peach-1` : {},

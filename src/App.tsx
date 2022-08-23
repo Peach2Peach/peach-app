@@ -99,7 +99,7 @@ const initialNavigation = async (
 
     if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
-    if (account?.settings?.skipTutorial) {
+    if (account?.publicKey) {
       navigationRef.navigate('home', {})
     } else {
       navigationRef.navigate('welcome', {})

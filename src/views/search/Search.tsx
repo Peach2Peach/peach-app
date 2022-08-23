@@ -36,6 +36,8 @@ import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
+const PAGESIZE = 10
+
 const updaterPNs = [
   'offer.matchSeller',
   'contract.contractCreated',
@@ -56,6 +58,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>()
   const [offer, setOffer] = useState<BuyOffer|SellOffer>(route.params.offer)
   const [offerId, setOfferId] = useState<string|undefined>(route.params.offer.id)
+  const [page, setPage] = useState(0)
   const [updatePending, setUpdatePending] = useState(true)
   const [matchLoading, setMatchLoading] = useState(false)
   const [pnReceived, setPNReceived] = useState(0)
@@ -70,6 +73,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     setOffer(offerData)
     setOfferId(offerData.id)
     saveOffer(offerData)
+  }
+
+  const onEndReached = () => {
+    if (matches.length >= PAGESIZE) setPage(p => p + 1)
   }
 
   const setMatchingOptions = (match?: number|null, currency?: Currency|null, paymentMethod?: PaymentMethod|null) => {
@@ -251,10 +258,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
-  const navigate = () => navigation.replace('yourTrades', {})
+  const goHome = () => navigation.replace('home', {})
+  const goToYourTrades = () => navigation.replace('yourTrades', {})
 
   const cancelOffer = () => updateOverlay({
-    content: <ConfirmCancelOffer offer={offer} navigate={navigate} />,
+    content: <ConfirmCancelOffer offer={offer} navigate={goToYourTrades} />,
     showCloseButton: false
   })
 
@@ -266,27 +274,37 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(() => {
     setOffer(route.params.offer)
     setOfferId(route.params.offer.id)
+    setPage(0)
     if (offerId !== route.params.offer.id) setUpdatePending(true)
     setSearchingMatches(true)
   }, [route]))
 
-  useEffect(() => {
-    if (!offer.id || !matches.length) return
-
-    const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
-
-    saveAndUpdate({
-      ...offer,
-      seenMatches,
-      matched: matchedOffers
-    })
-  }, [matches])
+  useFocusEffect(useCallback(searchForPeersEffect({
+    offer,
+    page,
+    size: PAGESIZE,
+    onBefore: () => setSearchingMatches(true),
+    onSuccess: result => {
+      setSearchingMatches(false)
+      setMatches(ms => ms.concat(result)
+        .filter(unique('offerId'))
+        .map(match => {
+          const update = result.find(m => m.offerId === match.offerId)
+          match.prices = (update || match).prices
+          return match
+        })
+      )
+    },
+    onError: err => {
+      setSearchingMatches(false)
+      if (err.error !== 'UNAUTHORIZED') updateMessage({ msg: i18n(err.error), level: 'ERROR' })
+    }
+  }), [pnReceived, page]))
 
   useFocusEffect(useCallback(getOfferDetailsEffect({
     offerId,
     interval: offer.type === 'bid' ? 30 * 1000 : 0,
     onSuccess: result => {
-
       saveAndUpdate({
         ...offer,
         ...result,
@@ -308,29 +326,17 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }), [offerId, pnReceived]))
 
-  useFocusEffect(useCallback(searchForPeersEffect({
-    offer,
-    onSuccess: result => {
-      setSearchingMatches(false)
-      setMatches(matches.concat(result)
-        .filter(unique('offerId'))
-        .filter((match, i) => {
-          // don't mess with the current slide position by removing previous slides
-          if (i < currentMatchIndex + 1) return true
-          // otherwise, remove later slides if they are not present in results
-          return result.some(m => m.offerId === match.offerId)
-        })
-        .map(match => {
-          const update = result.find(m => m.offerId === match.offerId)
-          match.prices = (update || match).prices
-          return match
-        })
-      )
-    },
-    onError: err => err.error !== 'UNAUTHORIZED'
-      ? updateMessage({ msg: i18n(err.error), level: 'ERROR' })
-      : null,
-  }), [updatePending, pnReceived]))
+  useEffect(() => {
+    if (!offer.id || !matches.length) return
+
+    const matchedOffers = matches.filter(m => m.matched).map(m => m.offerId)
+
+    saveAndUpdate({
+      ...offer,
+      seenMatches,
+      matched: matchedOffers
+    })
+  }, [matches])
 
   useFocusEffect(useCallback(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
@@ -365,7 +371,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
         </Headline>
       }
-      {searchingMatches
+      {searchingMatches && !matches.length
         ? <View style={tw`h-12`}>
           <Loading />
           <Text style={tw`text-center`}>{i18n('loading')}</Text>
@@ -403,7 +409,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       {matches.length
         ? <View style={tw`h-full flex-shrink flex-col justify-end`}>
           <Matches offer={offer} matches={matches} navigation={navigation}
-            onChange={setMatchingOptions} toggleMatch={_toggleMatch}/>
+            onChange={setMatchingOptions} onEndReached={onEndReached}
+            toggleMatch={_toggleMatch} loadingMore={searchingMatches}/>
           {offer.type === 'bid'
             ? <View style={tw`flex-row items-center justify-center`}>
               <Button
@@ -446,7 +453,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button
             title={i18n('goBackHome')}
             wide={false}
-            onPress={() => navigation.replace('home', {})}
+            onPress={goHome}
           />
         </View>
       }

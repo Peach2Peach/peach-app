@@ -7,13 +7,13 @@ import {
   setPeachFee,
   setPeachPGPPublicKey
 } from '../constants'
-import { defaultAccount, getAccount, loadAccount, saveAccount, updateTradingLimit } from '../utils/account'
+import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
 import { saveContracts } from '../utils/contract'
 import { exists, readFile, writeFile } from '../utils/file'
 import { error, info } from '../utils/log'
 import { saveOffers } from '../utils/offer'
 import { getContracts, getInfo, getOffers, getTradingLimit } from '../utils/peachAPI'
-import { initSession, session } from '../utils/session'
+import { initSession } from '../utils/session'
 
 /**
  * @description Method to fetch peach info and user trading limit and store values in constants
@@ -71,7 +71,6 @@ export const getTrades = async (): Promise<void> => {
   } else if (err) {
     error('Error', err)
   }
-  if (session.password) saveAccount(getAccount(), session.password)
 }
 
 export default async () => {

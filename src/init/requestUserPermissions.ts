@@ -2,10 +2,10 @@ import messaging from '@react-native-firebase/messaging'
 import analytics from '@react-native-firebase/analytics'
 import { info } from '../utils/log'
 import { account, updateSettings } from '../utils/account'
-import { Alert } from 'react-native'
+import { Alert, Linking } from 'react-native'
 import i18n from '../utils/i18n'
 
-const openAnalyticsPrompt = () => {
+const openAnalyticsPrompt = (): void => {
   Alert.alert(
     i18n('analytics.requestPermission.title'),
     i18n('analytics.requestPermission.description'),
@@ -13,15 +13,8 @@ const openAnalyticsPrompt = () => {
       {
         text: i18n('privacyPolicy'),
         onPress: () => {
-          Alert.alert('Privacy policy will be added soon!', '',
-            [
-              {
-                text: i18n('close'),
-                onPress: openAnalyticsPrompt,
-                style: 'default',
-              }
-            ]
-          )
+          Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
+          openAnalyticsPrompt()
         },
         style: 'default',
       },

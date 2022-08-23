@@ -81,10 +81,6 @@ type Storage = {
 }
 const storage: Storage = {
 }
-jest.mock('react-native-encrypted-storage', () => ({
-  setItem: async (key: string, val: string) => storage[key] = val,
-  getItem: async (key: string) => storage[key],
-}))
 jest.mock('react-native-mmkv-storage', () => ({
   MMKVLoader: () => ({
     withEncryption: () => ({

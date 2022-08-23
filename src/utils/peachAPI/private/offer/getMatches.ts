@@ -4,7 +4,9 @@ import fetch from '../../../fetch'
 import { getAccessToken } from '../user'
 
 type GetMatchesProps = {
-  offerId: string,
+  offerId: string
+  page?: number
+  size?: number
 }
 
 /**
@@ -12,9 +14,11 @@ type GetMatchesProps = {
  * @returns GetOffersResponse
  */
 export const getMatches = async ({
-  offerId
+  offerId,
+  page = 0,
+  size = 21,
 }: GetMatchesProps): Promise<[GetMatchesResponse|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches`, {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches?page=${page}&size=${size}`, {
     headers: {
       Authorization: await getAccessToken(),
       'Accept': 'application/json',

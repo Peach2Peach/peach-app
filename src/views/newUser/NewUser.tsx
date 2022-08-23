@@ -92,9 +92,6 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const onSuccess = async () => {
-    updateSettings({
-      skipTutorial: true
-    })
 
     try {
       const [result, authError] = await auth()
