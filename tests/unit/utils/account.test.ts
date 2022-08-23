@@ -10,11 +10,11 @@ import {
   deleteAccount,
   loadAccount,
   recoverAccount,
-  saveAccount,
   setAccount,
   updatePaymentData,
   updateSettings
 } from '../../../src/utils/account'
+import { storeAccount } from '../../../src/utils/account/saveAccount'
 import * as fileUtils from '../../../src/utils/file'
 import { getPeachAccount } from '../../../src/utils/peachAPI'
 import { getSession } from '../../../src/utils/session'
@@ -99,7 +99,7 @@ describe('saveAccount', () => {
 
   it('returns already loaded account', async () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await saveAccount(accountData.account1, password)
+    await storeAccount(accountData.account1, password)
     expect(writeFileSpy).toHaveBeenCalled()
   })
 })

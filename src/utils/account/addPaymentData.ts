@@ -1,6 +1,7 @@
-import { account, saveAccount } from '.'
+import { account } from '.'
 import { session } from '../session'
 import { getPaymentData } from './getPaymentData'
+import { storePaymentData } from './storeAccount'
 import { updateSettings } from './updateSettings'
 
 /**
@@ -31,5 +32,5 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
   updateSettings({
     showBackupReminder: true,
   })
-  if (save && session.password) await saveAccount(account, session.password)
+  if (save && session.password) await storePaymentData(account.paymentData, session.password)
 }
