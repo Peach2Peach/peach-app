@@ -1,5 +1,6 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { View } from 'react-native'
+import Share from 'react-native-share'
 
 import tw from '../../styles/tailwind'
 
@@ -36,7 +37,16 @@ export default ({ navigation }: Props): ReactElement => {
     </Text>
   }) as RadioButtonItem<Reward>)
 
-  const shareReferralCode = () => {}
+  const shareReferralCode = () => user?.referralCode
+    ? Share.open({
+      message: [
+        i18n('referrals.shareCode.text.1'),
+        i18n('referrals.shareCode.text.2', user.referralCode),
+        'https://peachbitcoin.com',
+      ].join('\n\n')
+    })
+      .catch(() => {})
+    : null
 
   const redeemReward = () => {}
 

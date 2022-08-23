@@ -552,6 +552,8 @@
   "referrals.title": "Peach referral points",
   "referrals.yourCode": "Your referral code:",
   "referrals.shareCode": "Share referral code",
+  "referrals.shareCode.text.1": "Buying and selling bitcoin on Peach is super easy!",
+  "referrals.shareCode.text.2": "Try it now with my referral code $0",
   "referrals.alreadyTraded": "Your referrals have already traded $0 on Peach!",
   "referrals.selectReward": "Select your reward, or continue saving for cool stuff",
   "referrals.reward.customReferralCode": "custom referral code",
