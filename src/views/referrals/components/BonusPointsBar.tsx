@@ -27,12 +27,14 @@ export const BonusPointsBar = ({ points, style }: BonusPointsBarProps): ReactEle
     </View>
     <View style={tw`flex flex-row justify-between items-center mt-0.5`}>
       <View>{/* layout dummy */}</View>
-      {[BARLIMIT * 0.25, BARLIMIT * 0.5, BARLIMIT * 0.75].map(marker => <View style={tw`w-0 flex items-center`}>
-        <View style={tw`h-2 w-0 border border-grey-1 relative -left-px`} />
-        <View style={tw`w-10`}>
-          <Text style={tw`font-baloo text-grey-1 text-xl leading-xl text-center mt-1`}>{marker}</Text>
+      {[BARLIMIT * 0.25, BARLIMIT * 0.5, BARLIMIT * 0.75].map(marker =>
+        <View key={marker} style={tw`w-0 flex items-center`}>
+          <View style={tw`h-2 w-0 border border-grey-1 relative -left-px`} />
+          <View style={tw`w-10`}>
+            <Text style={tw`font-baloo text-grey-1 text-xl leading-xl text-center mt-1`}>{marker}</Text>
+          </View>
         </View>
-      </View>)}
+      )}
       <View>{/* layout dummy */}</View>
     </View>
   </View>
