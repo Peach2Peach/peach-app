@@ -14,7 +14,7 @@ import { thousands } from '../../utils/string'
 import { BonusPointsBar } from './components/BonusPointsBar'
 import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 
-type Reward = 'customReferralCode' | 'noPeachFees' | 'sats'
+type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
 type Props = {
   navigation: Navigation
 }
