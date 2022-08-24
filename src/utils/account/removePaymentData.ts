@@ -22,7 +22,7 @@ export const removePaymentData = async (id: PaymentData['id']) => {
         ...account.settings.preferredPaymentMethods,
         [dataToBeRemoved.type]: nextInLine?.id || ''
       }
-    })
+    }, true)
   }
 
   if (session.password) await storePaymentData(account.paymentData, session.password)

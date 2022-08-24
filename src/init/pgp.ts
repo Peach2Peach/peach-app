@@ -12,7 +12,7 @@ export default async () => {
         info('Set PGP for user', account.publicKey)
         updateSettings({
           pgpPublished: true
-        })
+        }, true)
       } else {
         error('PGP could not be set', JSON.stringify(err))
       }

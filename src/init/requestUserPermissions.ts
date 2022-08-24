@@ -23,7 +23,7 @@ const openAnalyticsPrompt = (): void => {
         onPress: () => {
           updateSettings({
             enableAnalytics: false
-          })
+          }, true)
         },
         style: 'default',
       },
@@ -33,7 +33,7 @@ const openAnalyticsPrompt = (): void => {
           await analytics().setAnalyticsCollectionEnabled(true)
           updateSettings({
             enableAnalytics: true
-          })
+          }, true)
         },
         style: 'default',
       },

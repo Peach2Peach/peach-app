@@ -26,11 +26,11 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
         ...account.settings.preferredPaymentMethods,
         [data.type]: data.id
       }
-    })
+    }, true)
   }
 
   updateSettings({
     showBackupReminder: true,
-  })
+  }, true)
   if (save && session.password) await storePaymentData(account.paymentData, session.password)
 }

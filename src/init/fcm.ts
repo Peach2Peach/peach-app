@@ -16,7 +16,7 @@ export default async () => {
         info('Set FCM for user', fcmToken)
         updateSettings({
           fcmToken
-        })
+        }, true)
       } else {
         error('FCM could not be set', JSON.stringify(err))
       }
