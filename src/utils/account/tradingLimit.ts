@@ -27,7 +27,7 @@ export const getTradingLimit = (currency?: Currency): TradingLimit => {
  * @description Method to update trading limit of account
  * @param tradingLimit tradingLimit to update
  */
-export const updateTradingLimit = async (tradingLimit: TradingLimit, save?: boolean): Promise<void> => {
+export const updateTradingLimit = async (tradingLimit: TradingLimit, save = true): Promise<void> => {
   account.tradingLimit = {
     daily: tradingLimit.daily || Infinity,
     dailyAmount: tradingLimit.dailyAmount || 0,
