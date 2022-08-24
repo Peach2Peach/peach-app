@@ -9,8 +9,26 @@ import { info } from '../log'
  * @param password secret
  * @returns promise resolving to encrypted settings
  */
+export const storeIdentity = async (acc: Account, password: string): Promise<void> => {
+  if (!acc.publicKey) throw new Error('error.ERROR_SAVE_ACCOUNT')
+
+  info('Saving identity')
+  await writeFile('/peach-account-identity.json', JSON.stringify({
+    publicKey: acc.publicKey,
+    privKey: acc.privKey,
+    mnemonic: acc.mnemonic,
+    pgp: acc.pgp,
+  }), password)
+}
+
+/**
+ * @description Method to save account settings
+ * @param settings settings
+ * @param password secret
+ * @returns promise resolving to encrypted settings
+ */
 export const storeSettings = async (settings: Account['settings'], password: string): Promise<void> => {
-  info('Saving account')
+  info('Saving settings')
 
   settings.appVersion = APPVERSION
   await writeFile('/peach-account-settings.json', JSON.stringify(settings), password)
@@ -23,7 +41,7 @@ export const storeSettings = async (settings: Account['settings'], password: str
  * @returns promise resolving to encrypted trading limit
  */
 export const storeTradingLimit = async (tradingLimit: Account['tradingLimit'], password: string): Promise<void> => {
-  info('Saving account')
+  info('Saving trading limit')
 
   await writeFile('/peach-account-tradingLimit.json', JSON.stringify(tradingLimit), password)
 }
@@ -88,20 +106,15 @@ export const storeChats = async (chats: Account['chats'], password: string): Pro
 export const storeAccount = async (acc: Account, password: string): Promise<void> => {
   info('Saving account')
 
-  account.settings.appVersion = APPVERSION
   if (!acc.publicKey) throw new Error('error.ERROR_SAVE_ACCOUNT')
-  await writeFile('/peach-account.json', JSON.stringify(account), password)
-  await writeFile('/peach-account-identity.json', JSON.stringify({
-    publicKey: account.publicKey,
-    privKey: account.privKey,
-    mnemonic: account.mnemonic,
-    pgp: account.pgp,
-  }), password)
 
-  storeSettings(account.settings, password)
-  storeTradingLimit(account.tradingLimit, password)
-  storePaymentData(account.paymentData, password)
-  storeOffers(account.offers, password)
-  storeContracts(account.contracts, password)
-  storeChats(account.chats, password)
+  await Promise.all([
+    storeIdentity(acc, password),
+    storeSettings(acc.settings, password),
+    storeTradingLimit(acc.tradingLimit, password),
+    storePaymentData(acc.paymentData, password),
+    storeOffers(acc.offers, password),
+    storeContracts(acc.contracts, password),
+    storeChats(acc.chats, password),
+  ])
 }

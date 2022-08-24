@@ -1,6 +1,6 @@
-import { exists } from 'react-native-fs'
 import { account, getAccount } from '../utils/account'
 import { storeAccount } from '../utils/account/storeAccount'
+import { exists } from '../utils/file'
 import { getOffers, saveOffers } from '../utils/offer'
 import { getPaymentMethods, hashPaymentData } from '../utils/paymentMethod'
 import { session } from '../utils/session'
