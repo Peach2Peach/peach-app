@@ -7,10 +7,9 @@ import { OverlayContext } from '../../contexts/overlay'
 import i18n from '../../utils/i18n'
 
 type CurrencyInfoProps = {
-  view: 'buyer' | 'seller',
 }
 
-export default ({ view }: CurrencyInfoProps): ReactElement => {
+export default ({}: CurrencyInfoProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null })
 
@@ -20,7 +19,7 @@ export default ({ view }: CurrencyInfoProps): ReactElement => {
     </Headline>
     <View style={tw`flex justify-center items-center`}>
       <Text style={tw`text-white-1 text-center`}>
-        {i18n(`help.currency.description.${view}`)}
+        {i18n('help.currency.description')}
       </Text>
     </View>
     <View style={tw`flex justify-center items-center`}>
