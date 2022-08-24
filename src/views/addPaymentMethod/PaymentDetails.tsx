@@ -26,7 +26,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { type: paymentMethod } = paymentData
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
-    console.log(origin)
     navigation.reset({
       index: 2,
       routes: [
