@@ -68,7 +68,6 @@ const openCrashReportPrompt = (): void => {
         text: i18n('crashReport.requestPermission.sendReport'),
         onPress: async () => {
           crashlytics().sendUnsentReports()
-
         },
         style: 'default',
       },
