@@ -76,7 +76,11 @@ export default ({
     if (type === 'contract.paymentMade'
       && !/contract/u.test(currentPage)) {
       return updateOverlay({
-        content: <PaymentMade contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
+        content: <PaymentMade
+          contractId={remoteMessage.data.contractId}
+          date={remoteMessage.sentTime || (new Date().getTime())}
+          navigation={navigationRef}
+        />,
       })
     }
     if (type === 'contract.disputeRaised') {

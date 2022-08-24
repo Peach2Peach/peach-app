@@ -7,15 +7,16 @@ import { Button, Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { contractIdToHex } from '../utils/contract'
+import { contractIdToHex, getContract } from '../utils/contract'
 import { Navigation } from '../utils/navigation'
 
 type Props = {
   contractId: Contract['id'],
+  date: number,
   navigation: Navigation,
 }
 
-export default ({ contractId, navigation }: Props): ReactElement => {
+export default ({ contractId, date, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
@@ -23,7 +24,14 @@ export default ({ contractId, navigation }: Props): ReactElement => {
   }
 
   const goToContract = () => {
-    navigation.navigate({ name: 'contract', merge: false, params: { contractId } })
+    const contract = getContract(contractId)
+    navigation.navigate({ name: 'contract', merge: false, params: {
+      contract: contract ? {
+        ...contract,
+        paymentMade: new Date(date)
+      } : undefined,
+      contractId
+    } })
     closeOverlay()
   }
 
