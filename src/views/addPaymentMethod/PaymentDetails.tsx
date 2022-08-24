@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { CommonActions, RouteProp } from '@react-navigation/native'
+import { RouteProp } from '@react-navigation/native'
 import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { StackNavigation } from '../../utils/navigation'
@@ -26,6 +26,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { type: paymentMethod } = paymentData
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
+    console.log(origin)
     navigation.reset({
       index: 2,
       routes: [
