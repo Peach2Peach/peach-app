@@ -320,6 +320,7 @@
   "form.file": "File",
   "form.file.placeholder": "Select file...",
   "form.currency": "Select currency",
+  "form.additionalCurrencies": "Additional currencies",
   "form.paymentMethod": "Select payment method",
   "form.paymentMethodName": "Payment method name",
   "form.paymentMethodName.placeholder": "Payment method name",
