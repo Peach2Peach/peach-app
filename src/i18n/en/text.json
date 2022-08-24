@@ -13,7 +13,7 @@
   "app.incompatible.title": "Critical update available!",
   "app.incompatible.description": "This update has some critical fixes. You cannot continue using your current version.",
   "analytics.requestPermission.title": " ",
-  "analytics.requestPermission.description.1": "Help Peach improve the user experience in P2P-trading by automatically sending usage data.",
+  "analytics.requestPermission.description.1": "elp Peach improve the user experience in P2P-trading by automatically sending usage data to google analytics.",
   "analytics.requestPermission.description.2": "You can toggle sharing usage data on/off in Settings > About Peach > Diagnostics",
   "privacyPolicy": "Privacy policy",
   "language": "Language",
