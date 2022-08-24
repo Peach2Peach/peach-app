@@ -16,7 +16,7 @@ export const rules = {
   account (_: boolean, value: object) {
     return value && typeof value === 'object'
   },
-  phone: /^[0-9-.()+ ]+$/u,
+  phone: /^[0-9-.()+ ]{8,}$/u,
   email: emailRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
