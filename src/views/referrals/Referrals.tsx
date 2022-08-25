@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { View } from 'react-native'
-import Share from 'react-native-share'
+// import Share from 'react-native-share'
 
 import tw from '../../styles/tailwind'
 
@@ -37,16 +37,16 @@ export default ({ navigation }: Props): ReactElement => {
     </Text>
   }) as RadioButtonItem<Reward>)
 
-  const shareReferralCode = () => user?.referralCode
-    ? Share.open({
-      message: [
-        i18n('referrals.shareCode.text.1'),
-        i18n('referrals.shareCode.text.2', user.referralCode),
-        'https://peachbitcoin.com',
-      ].join('\n\n')
-    })
-      .catch(() => {})
-    : null
+  // const shareReferralCode = () => user?.referralCode
+  //   ? Share.open({
+  //     message: [
+  //       i18n('referrals.shareCode.text.1'),
+  //       i18n('referrals.shareCode.text.2', user.referralCode),
+  //       'https://peachbitcoin.com',
+  //     ].join('\n\n')
+  //   })
+  //     .catch(() => {})
+  //   : null
 
   const redeemReward = () => {}
 
@@ -75,13 +75,13 @@ export default ({ navigation }: Props): ReactElement => {
           <Text style={tw`text-center text-grey-1 font-baloo text-2xl leading-2xl mt-1`}>
             {user.referralCode}
           </Text>
-          <View style={tw`flex items-center mt-1`}>
+          {/* <View style={tw`flex items-center mt-1`}>
             <Button
               title={i18n('referrals.shareCode')}
               wide={true}
               onPress={shareReferralCode}
             />
-          </View>
+          </View> */}
           <Card style={tw`mt-10 p-7`}>
             <Text style={tw`text-center text-grey-1`}>
               {i18n(
