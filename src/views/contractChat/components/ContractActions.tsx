@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
-import { GestureResponderEvent, Pressable, View } from 'react-native'
+import { GestureResponderEvent, Pressable, View, ViewStyle } from 'react-native'
 import { Icon } from '../../../components'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
@@ -11,15 +11,17 @@ import { StackNavigation } from '../../../utils/navigation'
 type IconButtonProps = ComponentProps & {
   icon: IconType,
   onPress: (event: GestureResponderEvent) => void,
-  hasShadow? : boolean
+  hasShadow? : boolean,
+  iconStyle: ViewStyle|ViewStyle[]
 }
 
-const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => <Pressable style={[
+const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement =>
+  <Pressable style={[
     tw`w-12 h-7 flex items-center justify-center rounded-lg bg-peach-1`,
     style
   ]}
   onPress={onPress}>
-    <Icon id={icon} style={tw`w-3 h-3`} color={(tw`text-white-1`).color as string}/>
+    <Icon id={icon} style={[tw`w-5 h-5`]} color={(tw`text-white-1`).color as string}/>
   </Pressable>
 
 
