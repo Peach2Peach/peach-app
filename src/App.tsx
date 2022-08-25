@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated, Alert } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
+import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import messaging from '@react-native-firebase/messaging'
 import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
@@ -12,45 +13,45 @@ import {
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
-import messaging from '@react-native-firebase/messaging'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import views from './views'
 
-import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
-import LanguageContext from './contexts/language'
-import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
 import AppContext, { getAppContext, setAppContext } from './contexts/app'
+import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
-import { OverlayContext, getOverlay, setOverlay } from './contexts/overlay'
-import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
+import LanguageContext from './contexts/language'
+import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
+import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
+import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
-import Message from './components/Message'
-import { account } from './utils/account'
-import Overlay from './components/Overlay'
 import Drawer from './components/Drawer'
+import Message from './components/Message'
+import Overlay from './components/Overlay'
+import { account } from './utils/account'
 
-import { sleep } from './utils/performance'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { info, error } from './utils/log'
+import { APPVERSION, DISALLOWAPP, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
+import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { dataMigration } from './init/dataMigration'
 import events from './init/events'
+import fcm from './init/fcm'
+import pgp from './init/pgp'
+import requestUserPermissions from './init/requestUserPermissions'
 import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
-import pgp from './init/pgp'
-import fcm from './init/fcm'
-import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
-import { compatibilityCheck, isIOS } from './utils/system'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
-import handleNotificationsEffect from './effects/handleNotificationsEffect'
-import { handlePushNotification } from './utils/navigation'
-import { getSession, setSession } from './utils/session'
-import { exists } from './utils/file'
 import { getChatNotifications } from './utils/chat'
+import { exists } from './utils/file'
+import { error, info } from './utils/log'
+import { handlePushNotification } from './utils/navigation'
 import { getRequiredActionCount } from './utils/offer'
-import requestUserPermissions from './init/requestUserPermissions'
-import { dataMigration } from './init/dataMigration'
+import { sleep } from './utils/performance'
+import { getSession, setSession } from './utils/session'
+import { compatibilityCheck, isIOS } from './utils/system'
+import { DEV } from '@env'
 
 enableScreens()
 
@@ -126,8 +127,6 @@ const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-
-
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
@@ -189,6 +188,13 @@ const App: React.FC = () => {
   useEffect(showMessageEffect(template || msg, width, slideInAnim), [msg, time])
 
   useEffect(() => {
+    if (DEV !== 'true' && ISEMULATOR) {
+      error(new Error('NO_EMULATOR'))
+      updateMessage({ msg: i18n('NO_EMULATOR'), level: 'ERROR' })
+
+      return
+    }
+
     (async () => {
       await initApp(navigationRef, updateMessage)
       updateAppContext({
