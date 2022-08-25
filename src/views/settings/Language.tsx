@@ -7,6 +7,7 @@ import { Button, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
+import { updateSettings } from '../../utils/account'
 
 type Props = {
   navigation: StackNavigation
@@ -23,7 +24,10 @@ export default ({ navigation }: Props): ReactElement => {
         key={lcl}
         title={i18n(`languageName.${lcl}`)}
         style={tw`mb-3`}
-        onPress={() => setLocale({ locale: lcl })}
+        onPress={() => {
+          setLocale({ locale: lcl })
+          updateSettings({ locale }, true)
+        }}
         wide={true}
         grey={locale !== lcl}
       />)}
