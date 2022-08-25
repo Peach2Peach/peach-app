@@ -1,3 +1,5 @@
+import analytics from '@react-native-firebase/analytics'
+
 import { setAccount, defaultAccount } from '.'
 import { deleteFile, exists } from '../file'
 import { info } from '../log'
@@ -25,6 +27,7 @@ export const deleteAccount = async ({ onSuccess, onError }: DeleteAccountProps) 
     deleteAccessToken()
     deletePeachAccount()
     onSuccess()
+    analytics().logEvent('account_deleted')
   } else {
     onError()
   }
