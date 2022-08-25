@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import crashlytics from '@react-native-firebase/crashlytics'
-import { openCrashReportPrompt } from '../init/requestUserPermissions'
+import { openCrashReportPrompt } from './analytics'
 import { isProduction } from './system'
 
 /**

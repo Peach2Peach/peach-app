@@ -1,7 +1,6 @@
 import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto'
-import Countries from './views/addPaymentMethod/Countries'
 
 export const SATSINBTC = 100000000
 
