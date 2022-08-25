@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Icon, Loading, Text } from '../../components'
+import { Icon, Loading, Shadow, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -25,6 +25,7 @@ import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
 import MessageInput from '../../components/inputs/MessageInput'
 import { sleep } from '../../utils/performance/sleep'
+import { mildShadow } from '../../utils/layout'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
@@ -230,24 +231,26 @@ export default ({ route, navigation }: Props): ReactElement => {
   return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full flex-col`]}>
-      <View style={tw`w-full flex-row items-center p-1`}>
-        <Pressable onPress={goBack}>
-          <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color as string}/>
-        </Pressable>
-        <Text
-          style={tw`items-center text-peach-1 text-xl font-bold`}>
-          {i18n(contract.disputeActive
-            ? 'dispute.chat'
-            : 'trade.chat')}
-        </Text>
-        <ContractActions style={tw`flex-row-reverse content-end flex-grow ml-2`}
-          contract={contract}
-          view={view}
-          navigation={navigation}
-        />
-      </View>
+      <Shadow shadow={mildShadow}>
+        <View style={tw`w-full flex-row items-center p-1 bg-white-1`}>
+          <Pressable onPress={goBack}>
+            <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color as string}/>
+          </Pressable>
+          <Text
+            style={tw`items-center text-peach-1 text-xl font-bold`}>
+            {i18n(contract.disputeActive
+              ? 'dispute.chat'
+              : 'trade.chat')}
+          </Text>
+          <ContractActions style={tw`flex-row-reverse content-end flex-grow ml-2`}
+            contract={contract}
+            view={view}
+            navigation={navigation}
+          />
+        </View>
+      </Shadow>
       <View style={[
-        tw`w-full flex-shrink`,
+        tw`w-full h-full flex-shrink`,
         !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
       ]}>
         <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
@@ -255,7 +258,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           page={page} loadMore={loadMore} loading={loadingMessages}
         />
       </View>
-      <View style={tw`absolute bottom-0 w-full bg-white-1 shadow-lg`}>
+      <View style={tw`absolute bottom-0 w-full bg-white-1`}>
         <MessageInput
           onChange={setNewMessage}
           onSubmit={sendMessage} disableSubmit={disableSend}
