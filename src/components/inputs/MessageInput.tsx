@@ -67,10 +67,7 @@ export const MessageInput = ({
       <Icon id={'clip'} style={tw`w-5 h-5 m-2 flex-1`}/>
     </Pressable>
     <TextInput testID={testID}
-      style={[
-        tw`flex-6 font-lato leading-5 text-black-1 `,
-        tw.md`h-10`,
-      ]}
+      style={tw`w-full h-10 flex-shrink font-lato leading-5 text-black-1`}
       placeholder={placeholder}
       placeholderTextColor={tw`text-black-1`.color as string}
       allowFontScaling={false}
