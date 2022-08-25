@@ -24,6 +24,7 @@ import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
 import MessageInput from '../../components/inputs/MessageInput'
+import { sleep } from '../../utils/performance/sleep'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
@@ -137,15 +138,21 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
+  // Show dispute disclaimer
   useEffect(() => {
-    if (!contract) return
+    showDisclaimer()
+  }, []);
 
-    // Show dispute disclaimer
+  const showDisclaimer = (async ()=>{
+    await sleep(1000);
     updateMessage({
       template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
       level: 'INFO',
     })
+  })
 
+  useEffect(() => {
+    if (!contract) return
     getMessagesEffect({
       contractId: contract.id,
       page,

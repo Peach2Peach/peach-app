@@ -1,18 +1,10 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View, Text } from 'react-native'
 import { Button, Headline } from '../components'
-import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
-import { account } from '../utils/account'
-import { checkRefundPSBT, signPSBT } from '../utils/bitcoin'
-import { saveContract } from '../utils/contract'
 import i18n from '../utils/i18n'
-import { error } from '../utils/log'
 import { Navigation } from '../utils/navigation'
-import { getOffer, saveOffer } from '../utils/offer'
-import { cancelContract, patchOffer } from '../utils/peachAPI'
-import { ContractCanceled } from './tradeCancelation/ContractCanceled'
 
 /**
  * @description Overlay the user sees when requesting cancelation
