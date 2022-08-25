@@ -43,7 +43,7 @@ const openAnalyticsPrompt = (): void => {
 }
 
 
-const openCrashReportPrompt = (): void => {
+export const openCrashReportPrompt = (): void => {
   Alert.alert(
     i18n('crashReport.requestPermission.title'),
     [
