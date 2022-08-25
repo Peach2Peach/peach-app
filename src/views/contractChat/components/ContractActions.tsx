@@ -1,11 +1,10 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { GestureResponderEvent, Pressable, View } from 'react-native'
-import { Icon, Shadow } from '../../../components'
+import { Icon } from '../../../components'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
-import ConfirmCancelTrade from '../../../overlays/ConfirmCancelTrade'
+import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
 import tw from '../../../styles/tailwind'
-import { mildShadowOrange } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
 
 type IconButtonProps = ComponentProps & {
@@ -39,7 +38,8 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
 
   const openCancelTrade = () => canCancel
     ? updateOverlay({
-      content: <ConfirmCancelTrade contract={contract} navigation={navigation} />,
+      content: <ConfirmCancelTrade contract={contract} navigation={navigation}/>,
+      isTransparent: true
     })
     : null
   // const extendTime = () => alert('todo extend time')

@@ -116,6 +116,7 @@ declare type OverlayState = {
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
   help?: boolean,
+  isTransparent? : boolean
 }
 declare type DrawerState = {
   title: string,

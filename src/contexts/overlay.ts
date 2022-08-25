@@ -4,11 +4,12 @@ let content: ReactNode
 let showCloseIcon = false
 let showCloseButton = false
 let help = false
+let isTransparent = false
 
 const dispatch: Dispatch<OverlayState> = () => {}
 
 export const OverlayContext = createContext([
-  { content, showCloseIcon, showCloseButton, help },
+  { content, showCloseIcon, showCloseButton, help, isTransparent },
   dispatch
 ] as const)
 
@@ -21,6 +22,7 @@ export const getOverlay = (): OverlayState => ({
   showCloseIcon,
   showCloseButton,
   help,
+  isTransparent
 })
 
 /**
@@ -34,11 +36,13 @@ export const setOverlay = (state: ReducerState<any>, newState: OverlayState): Ov
   showCloseIcon = newState.showCloseIcon ?? false
   showCloseButton = newState.showCloseButton ?? false
   help = newState.help ?? false
+  isTransparent = newState.isTransparent ?? false
 
   return {
     content,
     showCloseIcon,
     showCloseButton,
     help,
+    isTransparent
   }
 }

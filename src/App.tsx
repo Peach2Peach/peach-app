@@ -167,7 +167,7 @@ const App: React.FC = () => {
       onClose: onCloseDrawer
     }, updateDrawer
   ] = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [{ content, showCloseIcon, showCloseButton, help, isTransparent }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -229,7 +229,7 @@ const App: React.FC = () => {
                 updateDrawer
               ]}>
                 <OverlayContext.Provider value={[
-                  { content, showCloseButton: false, showCloseIcon: false, help: false },
+                  { content, showCloseButton: false, showCloseIcon: false, help: false, isTransparent: false },
                   updateOverlay
                 ]}>
                   <View style={tw`h-full flex-col`}>
@@ -240,7 +240,7 @@ const App: React.FC = () => {
                     <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
+                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} isTransparent={isTransparent} />
                       : null
                     }
                     {template || msg
