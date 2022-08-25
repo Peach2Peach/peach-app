@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Fade, Icon, Input, Loading, SatsFormat, Text, Title } from '../../components'
+import { Icon, Loading, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -11,7 +11,7 @@ import keyboard from '../../effects/keyboard'
 import { account } from '../../utils/account'
 import { decryptMessage, getChat, saveChat } from '../../utils/chat'
 import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
-import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
+import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
@@ -23,9 +23,7 @@ import ChatBox from './components/ChatBox'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
-import Icons from '../../components/icons'
-
-const returnTrue = () => true
+import MessageInput from '../../components/inputs/MessageInput'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
@@ -71,7 +69,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       setTradingPartner(null)
       setChat(getChat(route.params.contractId) || {})
       setContract(getContract(route.params.contractId))
-      
     }
   }
 
@@ -141,11 +138,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   }), [contractId]))
 
   useEffect(() => {
+    if (!contract) return
+
+    // Show dispute disclaimer
     updateMessage({
       template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
-      level: 'WARN',
+      level: 'INFO',
     })
-    if (!contract) return
 
     getMessagesEffect({
       contractId: contract.id,
@@ -223,47 +222,40 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return !contract || updatePending
     ? <Loading />
-    : <View style={[tw`h-full flex-col content-between items-center`, tw`pb-10`]}>
-      <View style={tw`w-full flex-row items-center m-1`}>
+    : <View style={[tw`h-full flex-col`]}>
+      <View style={tw`w-full flex-row items-center p-1`}>
         <Pressable onPress={goBack}>
           <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color as string}/>
         </Pressable>
-        <Title
-        style={tw`items-center`}
-          title={i18n(contract.disputeActive
+        <Text
+          style={tw`items-center text-peach-1 text-xl font-bold`}>
+          {i18n(contract.disputeActive
             ? 'dispute.chat'
-            : 'sell.title')} // TODO : Trade chat translation
-        />
-        <ContractActions style={tw`flex-row-reverse content-end flex-1`}
-              contract={contract}
-              view={view}
-              navigation={navigation}
+            : 'trade.chat')}
+        </Text>
+        <ContractActions style={tw`flex-row-reverse content-end flex-grow ml-2`}
+          contract={contract}
+          view={view}
+          navigation={navigation}
         />
       </View>
-      <View style={tw`h-full flex-col flex-shrink`}>
-        <View style={[
-          tw`w-full h-full flex-col flex-shrink`,
-          !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
-        ]}>
-          <View style={tw`h-full flex-shrink`}>
-            <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
-              tradingPartner={tradingPartner?.id || ''}
-              page={page} loadMore={loadMore} loading={loadingMessages}
-            />
-            
-          </View>
-          <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
-            <Input
-              onChange={setNewMessage}
-              onSubmit={sendMessage} disableSubmit={disableSend}
-              icon="send" returnKeyType="send"
-              value={newMessage}
-              placeholder={i18n('chat.yourMessage')}
-              isValid={true}
-              autoCorrect={true}
-            />
-          </View>
-        </View>
+      <View style={[
+        tw`w-full flex-shrink`,
+        !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
+      ]}>
+        <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
+          tradingPartner={tradingPartner?.id || ''}
+          page={page} loadMore={loadMore} loading={loadingMessages}
+        />
+      </View>
+      <View style={tw`absolute bottom-0 w-full bg-white-1 shadow-lg`}>
+        <MessageInput
+          onChange={setNewMessage}
+          onSubmit={sendMessage} disableSubmit={disableSend}
+          value={newMessage}
+          placeholder={i18n('chat.yourMessage')}
+        />
+
       </View>
     </View>
 }

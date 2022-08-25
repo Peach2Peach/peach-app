@@ -1,12 +1,11 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
-import { Shadow, Text } from '../../../components'
+import { Text } from '../../../components'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import { getChat, getChatNotifications, saveChat } from '../../../utils/chat'
+import { getChat, getChatNotifications } from '../../../utils/chat'
 import i18n from '../../../utils/i18n'
-import { innerShadow } from '../../../utils/layout'
 import { getRequiredActionCount } from '../../../utils/offer'
 import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
 
@@ -45,7 +44,7 @@ const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatMessageP
 
   return <View onStartShouldSetResponder={() => true}
     key={message.date.getTime() + message.signature.substring(128, 128 + 32)} style={[
-      tw`w-11/12 px-7 bg-transparent`,
+      tw`w-11/12 px-3 bg-transparent`,
       isMediator ? tw`w-full` : isYou ? tw`self-end` : {}
     ]}>
     {showName
@@ -72,7 +71,6 @@ type ChatBoxProps = ComponentProps & {
   page: number,
   loadMore: () => void,
   loading: boolean
-  disclaimer?: ReactElement
 }
 
 export default ({
@@ -81,9 +79,7 @@ export default ({
   tradingPartner,
   page,
   loadMore,
-  loading,
-  disclaimer,
-  style
+  loading
 }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
@@ -112,27 +108,20 @@ export default ({
     })
   }, [])
 
-  return <View style={tw`overflow-hidden rounded`}>
-    <Shadow shadow={innerShadow} style={[
-      tw`w-full h-full border border-grey-4 rounded`,
-      style ? style : {},
-    ]}>
-      {disclaimer ? <View style={tw`my-4 px-6`}>{disclaimer}</View> : null}
-      <FlatList ref={scroll} contentContainerStyle={tw`py-4 pb-10`}
-        data={visibleChatMessages}
-        onContentSizeChange={onContentSizeChange}
-        onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
-        onViewableItemsChanged={onViewableItemsChanged}
-        keyExtractor={item =>
-          item.date.getTime().toString() + (item.message || '')
-        }
-        renderItem={({ item, index }) =>
-          <ChatMessage chatMessages={visibleChatMessages} tradingPartner={tradingPartner} item={item} index={index} />
-        }
-        initialNumToRender={10}
-        onRefresh={loadMore}
-        refreshing={loading}
-      />
-    </Shadow>
-  </View>
+  return <FlatList ref={scroll}
+    data={visibleChatMessages}
+    onContentSizeChange={onContentSizeChange}
+    onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
+    onViewableItemsChanged={onViewableItemsChanged}
+    keyExtractor={item =>
+      item.date.getTime().toString() + (item.message || '')
+    }
+    renderItem={({ item, index }) =>
+      <ChatMessage chatMessages={visibleChatMessages} tradingPartner={tradingPartner} item={item} index={index} />
+    }
+    initialNumToRender={10}
+    onRefresh={loadMore}
+    refreshing={loading}
+    contentContainerStyle={tw`pb-20`}
+  />
 }

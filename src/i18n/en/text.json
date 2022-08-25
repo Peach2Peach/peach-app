@@ -496,6 +496,7 @@
   "dispute.startedOverlay.description.3": "This dispute is being mediated by a Peach employee. You should respond as soon as possible.",
   "dispute.startedOverlay.goToDispute": "Go to dispute",
   "dispute.chat": "Dispute chat",
+  "trade.chat": "Trade chat",
   "dispute.nonDispute": "Dispute Resolved!",
   "dispute.won": "Dispute won",
   "dispute.lost": "Dispute lost",
