@@ -33,7 +33,7 @@ import Overlay from './components/Overlay'
 import { account } from './utils/account'
 
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { APPVERSION, DISALLOWAPP, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { dataMigration } from './init/dataMigration'
 import events from './init/events'
