@@ -14,15 +14,13 @@ type IconButtonProps = ComponentProps & {
   hasShadow? : boolean
 }
 
-const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => {
-  return <Pressable style={[
-      tw`w-12 h-7 flex items-center justify-center rounded-lg bg-peach-1`,
-      style
-    ]}
-    onPress={onPress}>
-      <Icon id={icon} style={tw`w-3 h-3`} color={(tw`text-white-1`).color as string}/>
+const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => <Pressable style={[
+    tw`w-12 h-7 flex items-center justify-center rounded-lg bg-peach-1`,
+    style
+  ]}
+  onPress={onPress}>
+    <Icon id={icon} style={tw`w-3 h-3`} color={(tw`text-white-1`).color as string}/>
   </Pressable>
-}
 
 
 type ContractActionsProps = ComponentProps & {

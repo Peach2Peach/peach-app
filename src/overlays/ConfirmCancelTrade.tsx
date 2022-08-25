@@ -18,10 +18,10 @@ import { ContractCanceled } from './tradeCancelation/ContractCanceled'
  * @description Overlay the user sees when requesting cancelation
  */
 
- export type ConfirmCancelTradeProps = {
+export type ConfirmCancelTradeProps = {
   contract: Contract,
   navigation: Navigation
- }
+}
 // eslint-disable-next-line max-lines-per-function
 export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
@@ -31,14 +31,13 @@ export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeP
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
   const ok = async () => {
-
     setLoading(true)
     const [result, err] = await cancelContract({
       contractId: contract.id,
       // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
     })
 
-    if(contract.seller.id === account.publicKey){
+    if (contract.seller.id === account.publicKey) {
       if (result?.psbt) {
         const offer = getOffer(contract.id.split('-')[0]) as SellOffer // TODO check seller or buyer
         const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, offer)
@@ -84,21 +83,17 @@ export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeP
         })
       }
     }
-    else{ // case buyer
-      if (result) {
-        saveContract({
-          ...contract,
-          canceled: true
-        })
-        updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
-      } else if (err) {
-        error('Error', err)
-      }
-      
+    else if(result) { // case buyer
+      saveContract({
+        ...contract,
+        canceled: true
+      })
+      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
+    } else if (err) {
+      error('Error', err)
     }
     setLoading(false)
   }
-
   return <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
     <Headline style={tw`text-center text-white-1 font-baloo text-lg leading-8`}>
       {i18n('contract.cancel.title')}

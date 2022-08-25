@@ -10,20 +10,18 @@ import { Navigation } from '../utils/navigation'
  * @description Overlay the user sees when requesting cancelation
  */
 
- export type ConfirmRaiseDisputeProps = {
+export type ConfirmRaiseDisputeProps = {
   contract: Contract,
   navigation: Navigation
- }
-// eslint-disable-next-line max-lines-per-function
+}
 export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisputeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
-  const ok = async () => {  
+  const ok = async () => {
     closeOverlay()
     navigation.navigate('dispute', { contractId: contract.id })
-    
   }
 
   return <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
@@ -34,7 +32,7 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
       {i18n('dispute.doYouWantToOpenDispute')}
     </Text>
     <View>
-        <Button
+      <Button
         style={tw`mt-8`}
         title={i18n('contract.cancel.confirm.back')}
         secondary={true}

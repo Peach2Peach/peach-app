@@ -45,9 +45,9 @@ export const MessageInput = ({
   placeholder,
   disabled = false,
   disableSubmit = false,
-  onChange, 
+  onChange,
   onSubmit,
-  onFocus, 
+  onFocus,
   onBlur,
   testID,
 }: MessageInputProps): ReactElement => {
@@ -64,7 +64,7 @@ export const MessageInput = ({
   // TODO Attach files
   return <View style={tw`rounded flex-row bg-chat-you-translucent items-center max-h-40`}>
     <Pressable onPress={() => onSubmit}>
-      <Icon id={"clip"} style={tw`w-5 h-5 m-2 flex-1`}/>
+      <Icon id={'clip'} style={tw`w-5 h-5 m-2 flex-1`}/>
     </Pressable>
     <TextInput testID={testID}
       style={[
@@ -75,22 +75,22 @@ export const MessageInput = ({
       placeholderTextColor={tw`text-black-1`.color as string}
       allowFontScaling={false}
       removeClippedSubviews={false}
-      returnKeyType={"send"}
+      returnKeyType={'send'}
       value={value}
-      editable={!disabled} 
-      multiline={true} 
-      textAlignVertical={"top"}
+      editable={!disabled}
+      multiline={true}
+      textAlignVertical={'top'}
       onChangeText={onChangeText}
       onEndEditing={onEndEditing}
       onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
-      onFocus={onFocusHandler} 
+      onFocus={onFocusHandler}
       onBlur={onBlurHandler}
-      autoCapitalize="none"
+      autoCapitalize='none'
 
     />
     <Pressable onPress={() => onSubmit && !disableSubmit ? onSubmit(value) : null}>
-      <Icon id={"send"} style={tw`w-5 h-5 m-2 flex-1`}/>
+      <Icon id={'send'} style={tw`w-5 h-5 m-2 flex-1`}/>
     </Pressable>
   </View>
 }

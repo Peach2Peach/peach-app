@@ -161,60 +161,60 @@ export default ({ route, navigation }: Props): ReactElement => {
       </Text>
     </View>
     {!reason
-        ? <View style={tw`flex items-center`}>
-          <Text style={tw`text-center`}>
-            {i18n('dispute.whatIsTheDisputeAbout') + '\n'}
-          </Text>
+      ? <View style={tw`flex items-center`}>
+        <Text style={tw`text-center`}>
+          {i18n('dispute.whatIsTheDisputeAbout') + '\n'}
+        </Text>
           {availableReasons.map((rsn, i) => <Button
-            key={rsn}
-            wide={false}
-            onPress={() => setReason(rsn)}
-            style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
-            title={i18n(`dispute.reason.${rsn}`)}
-          />)}
-        </View>
-        : <View style={tw`flex items-center`}>
-          <Text style={tw`text-center px-4`}>
-            {i18n('dispute.provideExplanation')}
-          </Text>
-          {isEmailRequired(reason!)
-            ? <View style={tw`mt-4`}>
-              <Input
-                onChange={setEmail}
-                onSubmit={() => $message?.focus()}
-                value={email}
-                label={i18n('form.userEmail')}
-                placeholder={i18n('form.userEmail.placeholder')}
-                isValid={!isFieldInError('email')}
-                autoCorrect={false}
-                errorMessage={getErrorsInField('email')}
-              />
-            </View>
-            : null
-          }
-          <View style={tw`mt-4`}>
+          key={rsn}
+          wide={false}
+          onPress={() => setReason(rsn)}
+          style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
+          title={i18n(`dispute.reason.${rsn}`)}
+        />)}
+       </View>
+      : <View style={tw`flex items-center`}>
+        <Text style={tw`text-center px-4`}>
+          {i18n('dispute.provideExplanation')}
+        </Text>
+        {isEmailRequired(reason!)
+           ? <View style={tw`mt-4`}>
             <Input
-              style={tw`h-40`}
-              reference={(el: any) => $message = el}
-              onChange={setMessage}
-              value={message}
-              multiline={true}
-              label={i18n('form.message')}
-              placeholder={i18n('form.message.placeholder')}
-              isValid={!isFieldInError('message')}
+              onChange={setEmail}
+              onSubmit={() => $message?.focus()}
+              value={email}
+              label={i18n('form.userEmail')}
+              placeholder={i18n('form.userEmail.placeholder')}
+              isValid={!isFieldInError('email')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('message')}
+              errorMessage={getErrorsInField('email')}
             />
           </View>
-          <Button
-            wide={false}
-            onPress={submit}
-            loading={loading}
-            disabled={loading}
-            style={tw`mt-2`}
-            title={i18n('confirm')}
+          : null
+        }
+        <View style={tw`mt-4`}>
+          <Input
+            style={tw`h-40`}
+            reference={(el: any) => $message = el}
+            onChange={setMessage}
+            value={message}
+            multiline={true}
+            label={i18n('form.message')}
+            placeholder={i18n('form.message.placeholder')}
+            isValid={!isFieldInError('message')}
+            autoCorrect={false}
+            errorMessage={getErrorsInField('message')}
           />
         </View>
+        <Button
+          wide={false}
+          onPress={submit}
+          loading={loading}
+          disabled={loading}
+          style={tw`mt-2`}
+          title={i18n('confirm')}
+        />
+      </View>
     }
     <View style={tw`flex-col flex-shrink`}>
       <Fade show={start && !keyboardOpen} pointerEvents={start ? 'auto' : 'none'} displayNone={false}>

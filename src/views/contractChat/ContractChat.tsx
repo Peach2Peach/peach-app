@@ -138,18 +138,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
-  // Show dispute disclaimer
-  useEffect(() => {
-    showDisclaimer()
-  }, []);
-
-  const showDisclaimer = (async ()=>{
-    await sleep(1000);
+  const showDisclaimer = (async () => {
+    await sleep(1000)
     updateMessage({
       template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
       level: 'INFO',
     })
   })
+
+  // Show dispute disclaimer
+  useEffect(() => {
+    showDisclaimer()
+  }, [])
 
   useEffect(() => {
     if (!contract) return

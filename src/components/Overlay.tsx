@@ -19,7 +19,13 @@ import Icon from './Icon'
  * @example
  * <Overlay content={<Text>Overlay content</Text>} showCloseButton={true} />
  */
-export const Overlay = ({ content, showCloseIcon, showCloseButton, help, isTransparent }: OverlayState): ReactElement => {
+export const Overlay = ({ 
+  content, 
+  showCloseIcon, 
+  showCloseButton, 
+  help, 
+  isTransparent 
+}: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   return <View testID="overlay" style={[
