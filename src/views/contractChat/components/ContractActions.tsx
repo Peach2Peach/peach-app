@@ -4,6 +4,7 @@ import { Icon } from '../../../components'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
+import { ConfirmRaiseDispute } from '../../../overlays/ConfirmRaiseDispute'
 import tw from '../../../styles/tailwind'
 import { StackNavigation } from '../../../utils/navigation'
 
@@ -44,7 +45,10 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
     : null
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = () => canDispute
-    ? navigation.navigate('dispute', { contractId: contract.id })
+    ? updateOverlay({
+      content: <ConfirmRaiseDispute contract={contract} navigation={navigation}/>,
+      isTransparent: true
+    })
     : null
 
   return <View style={style}>

@@ -471,7 +471,7 @@
   "chat.systemMessage.disputeResolved": "Peach Mediator has ruled in favour of the $0 $1.",
   "chat.systemMessage.disputeResolved.nonDispute": "This dispute is settled! Peach Mediator is leaving the chat. Happy trade :)",
   "chat.systemMessage.noLongerMediated": "This chat is no longer mediated by a Peach representative.",
-  "dispute.doYouWantToOpenDispute": "Do you really want to open a dispute and talk to a Peach moderator?",
+  "dispute.doYouWantToOpenDispute": "Are you sure you want to open a dispute?",
   "dispute.openDispute": "Open dispute",
   "dispute.whatIsTheDisputeAbout": "What's the dispute about?",
   "dispute.reason.noPayment": "I haven't received the payment",

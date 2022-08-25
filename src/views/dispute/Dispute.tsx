@@ -160,33 +160,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         />
       </Text>
     </View>
-    {!start
-      ? <View style={tw`flex items-center`}>
-        <Text style={tw`text-center`}>
-          {i18n('dispute.doYouWantToOpenDispute')}
-        </Text>
-        <Button
-          wide={false}
-          onPress={startDispute}
-          style={tw`mt-5`}
-          title={i18n('dispute.openDispute')}
-        />
-        <Button
-          secondary={true}
-          wide={false}
-          onPress={navigation.goBack}
-          style={tw`mt-2`}
-          title={i18n('neverMind')}
-        />
-        <Button
-          secondary={true}
-          wide={false}
-          onPress={openExplainer}
-          style={tw`mt-2`}
-          title={i18n('whatIsThis')}
-        />
-      </View>
-      : !reason
+    {!reason
         ? <View style={tw`flex items-center`}>
           <Text style={tw`text-center`}>
             {i18n('dispute.whatIsTheDisputeAbout') + '\n'}
