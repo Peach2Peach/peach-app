@@ -86,11 +86,10 @@ export const MessageInput = ({
       blurOnSubmit={false}
       onFocus={onFocusHandler}
       onBlur={onBlurHandler}
-      autoCapitalize='none'
-
+      autoCapitalize="none"
     />
     <Pressable onPress={() => onSubmit && !disableSubmit ? onSubmit(value) : null}>
-      <Icon id={'send'} style={tw`w-5 h-5 m-2 flex-1`}/>
+      <Icon id="send" style={tw`w-5 h-5 m-2 flex-1`} color={tw`text-blue-1`.color as string}/>
     </Pressable>
   </View>
 }
