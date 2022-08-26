@@ -53,12 +53,12 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
         onPress={ok}
       />
       <Button
-          secondary={true}
-          wide={false}
-          onPress={openExplainer}
-          style={tw`mt-2`}
-          title={i18n('whatIsThis')}
-        />
+        secondary={true}
+        wide={false}
+        onPress={openExplainer}
+        style={tw`mt-2`}
+        title={i18n('whatIsThis')}
+      />
     </View>
   </View>
 }

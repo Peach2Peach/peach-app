@@ -82,8 +82,7 @@ export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeP
           level: 'ERROR',
         })
       }
-    }
-    else if(result) { // case buyer
+    } else if (result) { // case buyer
       saveContract({
         ...contract,
         canceled: true

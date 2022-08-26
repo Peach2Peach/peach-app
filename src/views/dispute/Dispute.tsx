@@ -165,20 +165,20 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Text style={tw`text-center`}>
           {i18n('dispute.whatIsTheDisputeAbout') + '\n'}
         </Text>
-          {availableReasons.map((rsn, i) => <Button
+        {availableReasons.map((rsn, i) => <Button
           key={rsn}
           wide={false}
           onPress={() => setReason(rsn)}
           style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
           title={i18n(`dispute.reason.${rsn}`)}
         />)}
-       </View>
+      </View>
       : <View style={tw`flex items-center`}>
         <Text style={tw`text-center px-4`}>
           {i18n('dispute.provideExplanation')}
         </Text>
         {isEmailRequired(reason!)
-           ? <View style={tw`mt-4`}>
+          ? <View style={tw`mt-4`}>
             <Input
               onChange={setEmail}
               onSubmit={() => $message?.focus()}

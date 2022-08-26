@@ -168,10 +168,10 @@ const App: React.FC = () => {
     }, updateDrawer
   ] = useReducer(setDrawer, getDrawer())
   const [
-    { 
-      content, 
-      showCloseIcon, 
-      showCloseButton, 
+    {
+      content,
+      showCloseIcon,
+      showCloseButton,
       help
     }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
