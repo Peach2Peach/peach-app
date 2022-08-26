@@ -63,6 +63,7 @@ jest.mock('react-native-device-info', () => ({
   getVersion: jest.fn(),
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
+  isEmulatorSync: () => true,
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
