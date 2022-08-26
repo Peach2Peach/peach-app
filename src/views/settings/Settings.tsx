@@ -34,10 +34,10 @@ export default ({ navigation }: Props): ReactElement => {
 
   const toggleAnalytics = () => {
     setAnalyticsOn(!account.settings.enableAnalytics)
+    analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
     updateSettings({
       enableAnalytics: !account.settings.enableAnalytics
     })
-    analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
 
   }
   useEffect(() => {
