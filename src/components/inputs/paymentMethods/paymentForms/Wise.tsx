@@ -7,6 +7,7 @@ import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
+import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
@@ -23,6 +24,7 @@ export const Wise = ({
   const [iban, setIBAN] = useState(data?.IBAN || '')
   const [bic, setBIC] = useState(data?.bic || '')
   const [reference, setReference] = useState(data?.reference || '')
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $email = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
@@ -47,7 +49,7 @@ export const Wise = ({
     beneficiary,
     iban,
     bic,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
 
   const validateForm = () => validate({
@@ -70,6 +72,11 @@ export const Wise = ({
       bic: true
     },
   })
+
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const save = () => {
     if (!validateForm()) return
@@ -171,5 +178,10 @@ export const Wise = ({
         errorMessage={reference.length && getErrorsInField('reference')}
       />
     </View>
+    <CurrencySelection style={tw`mt-6`}
+      paymentMethod="paypal"
+      selectedCurrencies={selectedCurrencies}
+      onToggle={onCurrencyToggle}
+    />
   </View>
 }

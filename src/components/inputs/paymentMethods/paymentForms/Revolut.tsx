@@ -6,6 +6,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
+import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
@@ -20,6 +21,8 @@ export const Revolut = ({
   const [phone, setPhone] = useState(data?.phone || '')
   const [userName, setUserName] = useState(data?.userName || '')
   const [email, setEmail] = useState(data?.email || '')
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+
   const anyFieldSet = !!(phone || userName || email)
 
   let $phone = useRef<TextInput>(null).current
@@ -40,7 +43,7 @@ export const Revolut = ({
     phone,
     userName,
     email,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
 
   const validateForm = () => validate({
@@ -61,6 +64,10 @@ export const Revolut = ({
       email: true
     },
   })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const save = () => {
     if (!validateForm()) return
@@ -144,5 +151,10 @@ export const Revolut = ({
         errorMessage={email.length && getErrorsInField('email')}
       />
     </View>
+    <CurrencySelection style={tw`mt-6`}
+      paymentMethod="paypal"
+      selectedCurrencies={selectedCurrencies}
+      onToggle={onCurrencyToggle}
+    />
   </View>
 }

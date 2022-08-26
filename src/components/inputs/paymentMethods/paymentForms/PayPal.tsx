@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
+import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
@@ -17,11 +18,11 @@ export const PayPal = ({
   onSubmit,
   onChange
 }: PaymentMethodFormProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
@@ -35,6 +36,10 @@ export const PayPal = ({
     messages: getMessages()
   })
 
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
+
   const buildPaymentData = (): PaymentData & PaypalData => ({
     id: data?.id || `paypal-${new Date().getTime()}`,
     label,
@@ -42,7 +47,7 @@ export const PayPal = ({
     phone,
     email,
     userName,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
 
   const validateForm = () => validate({
@@ -144,5 +149,10 @@ export const PayPal = ({
         errorMessage={userName.length && getErrorsInField('userName')}
       />
     </View>
+    <CurrencySelection style={tw`mt-6`}
+      paymentMethod="paypal"
+      selectedCurrencies={selectedCurrencies}
+      onToggle={onCurrencyToggle}
+    />
   </View>
 }

@@ -10,7 +10,6 @@ import { getPaymentDataByType } from '../../utils/account'
 import { StackNavigation } from '../../utils/navigation'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod'
 import Currency from './Currency'
-import ExtraCurrencies from './ExtraCurrencies'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
 
@@ -45,7 +44,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     const methodType = country
       ? `${paymentMethod}.${country}` as PaymentMethod
       : paymentMethod
-    const existingPaymentMethodsOfType = getPaymentDataByType(methodType).length
+    const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
     let label = i18n(`paymentMethod.${methodType}`)
     if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
 
@@ -57,7 +56,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         {
           currencies,
           country,
-          paymentMethod: !/twint|swish|sepa|mbWay|bizum/u.test(paymentMethod) ? paymentMethod : null,
+          paymentMethod: null,
           origin: route.params.origin,
         }
       ]
@@ -92,15 +91,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
       back={back} next={next}
     />
-    if (id === 'extraInfo' && paymentMethod !== 'sepa') return /giftCard/u.test(paymentMethod as string)
-      ? <Countries selected={country} currency={currencies[0]}
-        paymentMethod={paymentMethod!} setCountry={setCountry}
-        back={back} next={next}
-      />
-      : <ExtraCurrencies selected={currencies}
-        paymentMethod={paymentMethod!} setCurrencies={setCurrencies}
-        back={back} next={next}
-      />
+    if (id === 'extraInfo' && /giftCard/u.test(paymentMethod as string)) return <Countries
+      selected={country}
+      currency={currencies[0]}
+      paymentMethod={paymentMethod!} setCountry={setCountry}
+      back={back} next={next}
+    />
     return <View />
   }
 
@@ -115,7 +111,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (!paymentMethod) return
 
-    if (paymentMethod === 'sepa') goToPaymentDetails()
+    if (!/giftCard/u.test(paymentMethod as string)) goToPaymentDetails()
 
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
     if (paymentMethodInfo?.currencies.length !== 1
