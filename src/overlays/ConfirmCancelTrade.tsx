@@ -1,5 +1,4 @@
 import React, { ReactElement, useContext } from 'react'
-import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import { account } from '../utils/account'
 import { Navigation } from '../utils/navigation'
@@ -15,10 +14,7 @@ export type ConfirmCancelTradeProps = {
   navigation: Navigation
 }
 export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
-  const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
-
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
   return contract.seller.id === account.publicKey
     ? <ConfirmCancelTradeSeller contract={contract} navigation={navigation}/>
