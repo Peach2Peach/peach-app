@@ -85,7 +85,7 @@ export default ({ navigation }: Props): ReactElement => {
           <Card style={tw`mt-10 p-5`}>
             <Text style={tw`text-center text-grey-1`}>
               {i18n(
-                'referrals.alreadyTraded',
+                !user.referredTradingAmount ? 'referrals.notTraded' : 'referrals.alreadyTraded',
                 i18n('currency.format.sats', thousands(user.referredTradingAmount || 0))
               )}
               {'\n\n'}
