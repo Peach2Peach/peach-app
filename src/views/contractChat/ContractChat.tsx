@@ -144,12 +144,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     updateMessage({
       template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
       level: 'INFO',
+      close: false
     })
   })
 
   // Show dispute disclaimer
   useEffect(() => {
-    if (contract && contract.disputeActive) {
+    if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
       showDisclaimer()
     }
   }, [])
