@@ -1,3 +1,4 @@
+import { NETWORK } from '@env'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
@@ -14,7 +15,7 @@ import i18n from '../../utils/i18n'
 import { info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { offerIdToHex, saveOffer } from '../../utils/offer'
-import { getTradingLimit } from '../../utils/peachAPI'
+import { fundEscrow, generateBlock, getTradingLimit } from '../../utils/peachAPI'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import createEscrowEffect from './effects/createEscrowEffect'
@@ -32,6 +33,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [offer, setOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
+  const [showRegtestButton, setShowRegtestButton] = useState(NETWORK === 'regtest' && offer.funding.status === 'NULL')
   const [escrow, setEscrow] = useState(offer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
@@ -61,6 +63,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(offerData)
     saveOffer(offerData, undefined, shield)
+  }
+
+  const fundEscrowAddress = async () => {
+    if (!offer.id || NETWORK !== 'regtest' || fundingStatus.status !== 'NULL') return
+    const [fundEscrowResult] = await fundEscrow(offer.id)
+    if (!fundEscrowResult) return
+    const [generateBockResult] = await generateBlock()
+    if (generateBockResult) setShowRegtestButton(false)
   }
 
   useEffect(!offer.escrow ? createEscrowEffect({
@@ -154,6 +164,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         title={buttonText}
         style={offer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`}
       />
+      {showRegtestButton
+        ? <Button testID="escrow-fund" style={tw`mt-1`}
+          onPress={fundEscrowAddress}
+          help={true}
+          wide={false}
+          title={'Fund escrow'}
+        />
+        : null}
       <Pressable style={tw`mt-4`} onPress={cancelOffer}>
         <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
           {i18n('cancelOffer')}
