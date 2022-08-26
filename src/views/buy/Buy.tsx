@@ -52,7 +52,7 @@ export default ({ navigation }: Props): ReactElement => {
   const dismissBackupReminder = () => {
     updateSettings({
       showBackupReminder: false
-    })
+    }, true)
     setRandom(Math.random())
   }
 
@@ -61,7 +61,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
-    updateSettings({ amount }, false)
+    updateSettings({ amount }, true)
   }, [amount])
 
   return <View testID="view-buy" style={tw`h-full flex`}>

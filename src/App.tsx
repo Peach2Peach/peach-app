@@ -87,7 +87,7 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (!sessionInitiated && await exists('/peach-account.json')) {
+  if (!sessionInitiated && (await exists('/peach-account.json') || await exists('/peach-account-identity.json'))) {
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))

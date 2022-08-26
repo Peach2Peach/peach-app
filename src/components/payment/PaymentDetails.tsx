@@ -70,7 +70,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
         obj[method] = id
         return obj
       }, {} as Settings['preferredPaymentMethods'])
-    })
+    }, true)
     update()
   }
 
