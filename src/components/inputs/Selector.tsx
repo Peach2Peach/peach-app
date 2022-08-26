@@ -8,14 +8,14 @@ import { whiteGradient } from '../../utils/layout'
 import { Fade } from '../animation'
 
 type Item<T> = {
-  value: T,
+  value: T
   display: ReactNode
 }
 
 type SelectorProps<T> = ComponentProps & {
-  items: Item<T>[],
-  selectedValue?: T,
-  onChange?: (value: T) => void,
+  items: Item<T>[]
+  selectedValue?: T
+  onChange?: (value: T) => void
 }
 
 /**

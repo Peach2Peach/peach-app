@@ -68,6 +68,7 @@ declare type RootStackParamList = {
     userId: User['id'],
     user?: User,
   },
+  referrals: {},
   backups: {},
   seedWords: {},
   escrow: {},

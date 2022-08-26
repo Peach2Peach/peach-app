@@ -38,10 +38,9 @@ import { info, error } from './utils/log'
 import events from './init/events'
 import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
-import pgp from './init/pgp'
-import fcm from './init/fcm'
-import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck, isIOS } from './utils/system'
+import userUpdate from './init/userUpdate'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
@@ -51,6 +50,7 @@ import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
 import requestUserPermissions from './init/requestUserPermissions'
 import { dataMigration } from './init/dataMigration'
+import { DEV } from '@env'
 
 enableScreens()
 
@@ -87,7 +87,7 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (!sessionInitiated && await exists('/peach-account.json')) {
+  if (!sessionInitiated && (await exists('/peach-account.json') || await exists('/peach-account-identity.json'))) {
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
@@ -130,8 +130,6 @@ const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-
-
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
@@ -145,8 +143,7 @@ const initApp = async (
   await getPeachInfo(account)
   if (account?.publicKey) {
     getTrades()
-    fcm()
-    pgp()
+    userUpdate()
     dataMigration()
   }
 
@@ -193,6 +190,13 @@ const App: React.FC = () => {
   useEffect(showMessageEffect(template || msg, width, slideInAnim), [msg, time])
 
   useEffect(() => {
+    if (DEV !== 'true' && ISEMULATOR) {
+      error(new Error('NO_EMULATOR'))
+      updateMessage({ msg: i18n('NO_EMULATOR'), level: 'ERROR' })
+
+      return
+    }
+
     (async () => {
       await initApp(navigationRef, updateMessage)
       updateAppContext({

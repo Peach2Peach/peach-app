@@ -21,10 +21,12 @@ type BackupAccountProps = {
 export const backupAccount = async ({ onSuccess, onError }: BackupAccountProps) => {
   info('Backing up account')
   try {
-    const destinationFileName = NETWORK === 'bitcoin' ? 'peach-account.json' : 'peach-account-testnet.json'
-    if (NETWORK === 'testnet') {
-      await writeFile('/' + destinationFileName, JSON.stringify(account), getSession().password)
-    }
+    const destinationFileName = NETWORK === 'bitcoin'
+      ? `peach-account-${account.publicKey.substring(0, 8)}.json`
+      : `peach-account-${NETWORK}-${account.publicKey.substring(0, 8)}.json`
+
+    await writeFile('/' + destinationFileName, JSON.stringify(account), getSession().password)
+
     Share.open({
       title: destinationFileName,
       url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
