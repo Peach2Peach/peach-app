@@ -173,7 +173,9 @@ const App: React.FC = () => {
       showCloseIcon,
       showCloseButton,
       help
-    }, updateOverlay] = useReducer(setOverlay, getOverlay())
+    },
+    updateOverlay
+  ] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current

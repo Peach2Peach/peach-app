@@ -30,6 +30,54 @@ export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeP
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
+  const confirmCancelSeller = async (result: CancelContractResponse|null) => {
+    if (result?.psbt) {
+      const offer = getOffer(contract.id.split('-')[0]) as SellOffer // TODO check seller or buyer
+      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, offer)
+      if (isValid && psbt) {
+        const signedPSBT = signPSBT(psbt, offer, false)
+        const [patchOfferResult, patchOfferError] = await patchOffer({
+          offerId: offer.id!,
+          refundTx: signedPSBT.toBase64()
+        })
+        if (patchOfferResult) {
+          closeOverlay()
+          navigation.navigate('yourTrades', {})
+          saveOffer({
+            ...offer,
+            refundTx: psbt.toBase64(),
+          })
+          saveContract({
+            ...contract,
+            cancelConfirmationDismissed: false,
+            cancelationRequested: true,
+            cancelConfirmationPending: true,
+          })
+        } else if (patchOfferError) {
+          error('Error', patchOfferError)
+          updateMessage({
+            msg: i18n(patchOfferError?.error || 'error.general'),
+            level: 'ERROR',
+          })
+        }
+      } else if (checkRefundPSBTError) {
+        error('Error', checkRefundPSBTError)
+        updateMessage({
+          msg: i18n(checkRefundPSBTError || 'error.general'),
+          level: 'ERROR',
+        })
+      }
+    }
+  }
+
+  const confirmCancelBuyer = () => {
+    saveContract({
+      ...contract,
+      canceled: true
+    })
+    updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
+  }
+
   const ok = async () => {
     setLoading(true)
     const [result, err] = await cancelContract({
@@ -37,59 +85,15 @@ export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeP
       // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
     })
 
-    if (contract.seller.id === account.publicKey) {
-      if (result?.psbt) {
-        const offer = getOffer(contract.id.split('-')[0]) as SellOffer // TODO check seller or buyer
-        const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, offer)
-        if (isValid && psbt) {
-          const signedPSBT = signPSBT(psbt, offer, false)
-          const [patchOfferResult, patchOfferError] = await patchOffer({
-            offerId: offer.id!,
-            refundTx: signedPSBT.toBase64()
-          })
-          if (patchOfferResult) {
-            closeOverlay()
-            navigation.navigate('yourTrades', {})
-            saveOffer({
-              ...offer,
-              refundTx: psbt.toBase64(),
-            })
-            saveContract({
-              ...contract,
-              cancelConfirmationDismissed: false,
-              cancelationRequested: true,
-              cancelConfirmationPending: true,
-            })
-          } else if (patchOfferError) {
-            error('Error', patchOfferError)
-            updateMessage({
-              msg: i18n(patchOfferError?.error || 'error.general'),
-              level: 'ERROR',
-            })
-          }
-        } else if (checkRefundPSBTError) {
-          error('Error', checkRefundPSBTError)
-          updateMessage({
-            msg: i18n(checkRefundPSBTError || 'error.general'),
-            level: 'ERROR',
-          })
-        }
-
-      } else if (err) {
-        error('Error', err)
-        updateMessage({
-          msg: i18n(err?.error || 'error.general'),
-          level: 'ERROR',
-        })
-      }
-    } else if (result) { // case buyer
-      saveContract({
-        ...contract,
-        canceled: true
-      })
-      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
-    } else if (err) {
+    if (err) {
       error('Error', err)
+      updateMessage({
+        msg: i18n(err?.error || 'error.general'),
+        level: 'ERROR',
+      })
+    } else {
+      if (contract.seller.id === account.publicKey) await confirmCancelSeller(result)
+      if (contract.buyer.id === account.publicKey) confirmCancelBuyer()
     }
     setLoading(false)
   }
