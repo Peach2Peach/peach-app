@@ -62,10 +62,10 @@ export const MessageInput = ({
     if (onBlur) onBlur()
   }
   // TODO Attach files
-  return <View style={tw`rounded flex-row bg-chat-you-translucent items-center max-h-40`}>
-    <Pressable onPress={() => onSubmit}>
+  return <View style={tw`rounded flex-row bg-chat-you-translucent items-center max-h-40 px-2`}>
+    {/* <Pressable onPress={() => onSubmit}>
       <Icon id={'clip'} style={tw`w-5 h-5 m-2 flex-1`}/>
-    </Pressable>
+    </Pressable> */}
     <TextInput testID={testID}
       style={tw`w-full h-10 flex-shrink font-lato leading-5 text-black-1`}
       placeholder={placeholder}
@@ -86,7 +86,7 @@ export const MessageInput = ({
       autoCapitalize="none"
     />
     <Pressable onPress={() => onSubmit && !disableSubmit ? onSubmit(value) : null}>
-      <Icon id="send" style={tw`w-5 h-5 m-2 flex-1`} color={tw`text-blue-1`.color as string}/>
+      <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color as string}/>
     </Pressable>
   </View>
 }
