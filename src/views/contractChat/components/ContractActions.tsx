@@ -39,15 +39,13 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
 
   const openCancelTrade = () => canCancel
     ? updateOverlay({
-      content: <ConfirmCancelTrade contract={contract} navigation={navigation}/>,
-      isTransparent: true
+      content: <ConfirmCancelTrade contract={contract} navigation={navigation}/>
     })
     : null
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = () => canDispute
     ? updateOverlay({
-      content: <ConfirmRaiseDispute contract={contract} navigation={navigation}/>,
-      isTransparent: true
+      content: <ConfirmRaiseDispute contract={contract} navigation={navigation}/>
     })
     : null
 

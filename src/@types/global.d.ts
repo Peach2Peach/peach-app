@@ -115,8 +115,7 @@ declare type OverlayState = {
   content: ReactNode,
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
-  help?: boolean,
-  isTransparent? : boolean
+  help?: boolean
 }
 declare type DrawerState = {
   title: string,

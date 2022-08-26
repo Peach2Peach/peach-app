@@ -5,6 +5,7 @@ import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { Navigation } from '../utils/navigation'
+import WhatIsADispute from './WhatIsADispute'
 
 /**
  * @description Overlay the user sees when requesting cancelation
@@ -23,6 +24,11 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
     closeOverlay()
     navigation.navigate('dispute', { contractId: contract.id })
   }
+
+  const openExplainer = () => updateOverlay({
+    content: <WhatIsADispute />,
+    showCloseButton: true
+  })
 
   return <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
     <Headline style={tw`text-center text-white-1 font-baloo text-lg leading-8`}>
@@ -46,6 +52,13 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
         wide={false}
         onPress={ok}
       />
+      <Button
+          secondary={true}
+          wide={false}
+          onPress={openExplainer}
+          style={tw`mt-2`}
+          title={i18n('whatIsThis')}
+        />
     </View>
   </View>
 }

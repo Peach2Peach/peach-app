@@ -15,7 +15,6 @@ import Icon from './Icon'
  * @param props.showCloseIcon if true show close icon
  * @param props.showCloseButton if true show close button
  * @param props.help if true show overlay as help
- * @param props.isTransparent if true background is transparent
  * @example
  * <Overlay content={<Text>Overlay content</Text>} showCloseButton={true} />
  */
@@ -23,15 +22,14 @@ export const Overlay = ({
   content, 
   showCloseIcon, 
   showCloseButton, 
-  help, 
-  isTransparent 
+  help
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   return <View testID="overlay" style={[
     tw`absolute z-20 w-full h-full flex items-center justify-center`,
     tw`p-3 pb-8`,
-    isTransparent ? {} : help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
+    help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
   ]}>
     {showCloseIcon
       ? <Pressable onPress={closeOverlay} style={tw`absolute z-20 top-5 right-5`}>

@@ -149,7 +149,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   // Show dispute disclaimer
   useEffect(() => {
-    showDisclaimer()
+    if(contract && contract.disputeActive){
+      showDisclaimer()
+    }
   }, [])
 
   useEffect(() => {
