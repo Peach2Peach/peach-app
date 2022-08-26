@@ -84,3 +84,5 @@ export {
   getChat, postChat,
   raiseDispute,
 } from './private/contract'
+
+export { fundEscrow, generateBlock } from './regtest'

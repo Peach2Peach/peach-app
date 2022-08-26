@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import crashlytics from '@react-native-firebase/crashlytics'
+import { openCrashReportPrompt } from './analytics'
 import { isProduction } from './system'
 
 /**
@@ -30,7 +31,10 @@ export const error = (...args: any[]) => {
 
   if (isProduction()) args
     .filter(arg => arg instanceof Error)
-    .forEach(err => crashlytics().recordError(err))
+    .forEach(err => {
+      crashlytics().recordError(err)
+      openCrashReportPrompt()
+    })
 }
 
 export default {

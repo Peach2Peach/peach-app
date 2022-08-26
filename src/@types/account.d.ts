@@ -17,7 +17,8 @@ declare type Settings = {
   pgpPublished?: boolean,
   fcmToken?: string,
   lastBackupDate?: number,
-  showBackupReminder: boolean
+  showBackupReminder: boolean,
+  showDisputeDisclaimer: boolean
 }
 
 declare type PGPKeychain = {

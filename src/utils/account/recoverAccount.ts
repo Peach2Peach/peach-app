@@ -1,3 +1,5 @@
+import analytics from '@react-native-firebase/analytics'
+
 import { setAccount } from '.'
 import { decrypt } from '../crypto'
 import { error, info } from '../log'
@@ -47,6 +49,8 @@ export const recoverAccount = async ({
     } else if (getTradingLimitErr) {
       error('Error', getTradingLimitErr)
     }
+
+    analytics().logEvent('account_restored')
     return [account, null]
   } catch (e) {
     return [null, e as Error]

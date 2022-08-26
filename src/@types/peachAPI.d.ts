@@ -228,3 +228,11 @@ declare type CancelContractResponse = {
   success: true
   psbt?: string
 }
+
+declare type FundEscrowResponse = {
+  txId: string
+}
+
+declare type GenerateBlockResponse = {
+  txId: string
+}

@@ -2,6 +2,8 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import {
   View
 } from 'react-native'
+import analytics from '@react-native-firebase/analytics'
+
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
@@ -39,6 +41,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateTradingLimit(tradingLimit)
       }
     })()
+    analytics().logEvent('trade_completed', {
+      amount: contract.amount,
+      value: contract.price,
+      currency: contract.currency,
+      payment_method: contract.paymentMethod
+    })
   }, [])
 
   return <View style={tw`h-full flex pb-10 px-6`}>

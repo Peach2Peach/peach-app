@@ -13,6 +13,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
+import analytics from '@react-native-firebase/analytics'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
@@ -97,7 +98,11 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
+    if (initialNotification.data) handlePushNotification(
+      navigationRef,
+      initialNotification.data,
+      initialNotification.sentTime
+    )
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     if (account?.publicKey) {
       navigationRef.navigate('home', {})
@@ -114,7 +119,7 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
+    if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
 }
 
@@ -164,7 +169,15 @@ const App: React.FC = () => {
       onClose: onCloseDrawer
     }, updateDrawer
   ] = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [
+    {
+      content,
+      showCloseIcon,
+      showCloseButton,
+      help
+    },
+    updateOverlay
+  ] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -220,6 +233,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     info('Navigation event', currentPage)
+    analytics().logScreenView({
+      screen_name: currentPage as string
+    })
   }, [currentPage])
 
   return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
@@ -244,7 +260,7 @@ const App: React.FC = () => {
                     <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
+                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}/>
                       : null
                     }
                     {template || msg
