@@ -1,5 +1,6 @@
-import { account, saveAccount } from '.'
+import { account } from '.'
 import { session } from '../session'
+import { storeSettings } from './storeAccount'
 
 /**
  * @description Method to update app settings
@@ -11,5 +12,5 @@ export const updateSettings = async (options: Partial<Settings>, save?: boolean)
     ...account.settings,
     ...options
   }
-  if (save && session.password) await saveAccount(account, session.password)
+  if (save && session.password) await storeSettings(account.settings, session.password)
 }

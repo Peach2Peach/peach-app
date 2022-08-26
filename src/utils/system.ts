@@ -92,6 +92,6 @@ export const linkToAppStore = () => {
   if (isIOS()) {
     Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
   } else if (isAndroid()) {
-    Linking.openURL(`market://details?id=${bundleId}`)
+    Linking.openURL(`https://play.google.com/store/apps/details?id=${bundleId}`)
   }
 }

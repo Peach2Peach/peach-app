@@ -12,6 +12,7 @@ import Dispute from './dispute/Dispute'
 import Login from './login/Login'
 import NewUser from './newUser/NewUser'
 import Profile from './profile/Profile'
+import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import Search from './search/Search'
@@ -65,6 +66,7 @@ export const views: ViewType[] = [
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'language', component: Language, showHeader: true, showFooter: true },
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
+  { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
   { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
   { name: 'escrow', component: Escrow, showHeader: true, showFooter: true },

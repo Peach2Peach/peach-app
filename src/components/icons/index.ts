@@ -26,6 +26,9 @@ import negative from './negative.svg'
 import yourTrades from './yourTrades.svg'
 import positive from './positive.svg'
 import plus from './plus.svg'
+import radioChecked from './radioChecked.svg'
+import radioDisabled from './radioDisabled.svg'
+import radioUnchecked from './radioUnchecked.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
@@ -72,6 +75,9 @@ const Icons = {
   yourTrades,
   positive,
   plus,
+  radioChecked,
+  radioDisabled,
+  radioUnchecked,
   selectClosed,
   selectOpen,
   sell,

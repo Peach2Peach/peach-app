@@ -5,6 +5,7 @@ import {
   Pressable,
   View
 } from 'react-native'
+import analytics from '@react-native-firebase/analytics'
 
 import tw from '../../styles/tailwind'
 
@@ -14,7 +15,7 @@ import { APPVERSION, BUILDNUMBER } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
 import { DeleteAccount } from '../../overlays/DeleteAccount'
-import { account } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
@@ -29,7 +30,16 @@ export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)
+  const [analyticsOn, setAnalyticsOn] = useState(account.settings.enableAnalytics)
 
+  const toggleAnalytics = () => {
+    setAnalyticsOn(!account.settings.enableAnalytics)
+    updateSettings({
+      enableAnalytics: !account.settings.enableAnalytics
+    })
+    analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
+
+  }
   useEffect(() => {
     (async () => {
       setNotificationsOn(await checkNotificationStatus())
@@ -54,6 +64,7 @@ export default ({ navigation }: Props): ReactElement => {
   const goToCurrencySettings = () => navigation.navigate('currency', {})
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
+  const goToReferrals = () => navigation.navigate('referrals', {})
   const goToEscrow = () => navigation.navigate('escrow', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
   const deleteAccount = () => {
@@ -83,9 +94,9 @@ export default ({ navigation }: Props): ReactElement => {
         <Card>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>
             {i18n('settings.notifications')}
-            <Text style={notificationsOn ? tw`text-peach-1 font-bold` : {}}> {i18n('settings.notifications.on')} </Text>
+            <Text style={notificationsOn ? tw`text-peach-1 font-bold` : {}}> {i18n('settings.on')} </Text>
             /
-            <Text style={notificationsOn ? {} : tw`text-peach-1 font-bold`}> {i18n('settings.notifications.off')}</Text>
+            <Text style={notificationsOn ? {} : tw`text-peach-1 font-bold`}> {i18n('settings.off')}</Text>
           </Text>
         </Card>
       </Pressable>
@@ -117,6 +128,11 @@ export default ({ navigation }: Props): ReactElement => {
             </View>
             : null
           }
+        </Card>
+      </Pressable>
+      <Pressable style={tw`mt-2`} onPress={goToReferrals}>
+        <Card>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.referrals')}</Text>
         </Card>
       </Pressable>
       <Pressable style={tw`mt-2`} onPress={goToEscrow}>
@@ -157,6 +173,16 @@ export default ({ navigation }: Props): ReactElement => {
         <Card style={tw`flex-row items-center justify-center`}>
           <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.website')}</Text>
           <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color as string} />
+        </Card>
+      </Pressable>
+      <Pressable style={tw`mt-2`} onPress={toggleAnalytics}>
+        <Card>
+          <Text style={tw`text-center text-lg text-black-1 p-2`}>
+            {i18n('settings.analytics')}
+            <Text style={analyticsOn ? tw`text-peach-1 font-bold` : {}}> {i18n('settings.on')} </Text>
+            /
+            <Text style={analyticsOn ? {} : tw`text-peach-1 font-bold`}> {i18n('settings.off')}</Text>
+          </Text>
         </Card>
       </Pressable>
 

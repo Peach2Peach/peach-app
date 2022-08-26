@@ -1,7 +1,7 @@
 export { defaultAccount, account, getAccount, setAccount } from './account'
 export { createAccount } from './createAccount'
 export { loadAccount } from './loadAccount'
-export { saveAccount } from './saveAccount'
+export { storeAccount } from './storeAccount'
 export { updateSettings } from './updateSettings'
 export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
