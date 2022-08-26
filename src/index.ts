@@ -7,7 +7,7 @@ import NotificationBadge from '@msml/react-native-notification-badge'
 import { name as appName } from './app.json'
 import { isIOS, isProduction, isWeb } from './utils/system'
 import * as db from './utils/db'
-import { setFCMToken } from './utils/peachAPI'
+import { updateUser } from './utils/peachAPI'
 import messaging from '@react-native-firebase/messaging'
 import { info } from './utils/log'
 import App from './App'
@@ -41,7 +41,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   info('Message handled in the background!', remoteMessage)
 })
 
-messaging().onTokenRefresh(setFCMToken)
+messaging().onTokenRefresh(fcmToken => updateUser({ fcmToken }))
 
 
 AppRegistry.registerComponent(appName, () => App)

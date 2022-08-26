@@ -27,7 +27,7 @@ const openAnalyticsPrompt = (): void => {
           analytics().setAnalyticsCollectionEnabled(false)
           updateSettings({
             enableAnalytics: false
-          })
+          }, true)
         },
         style: 'default',
       },
@@ -37,7 +37,7 @@ const openAnalyticsPrompt = (): void => {
           analytics().setAnalyticsCollectionEnabled(true)
           updateSettings({
             enableAnalytics: true
-          })
+          }, true)
         },
         style: 'default',
       },
