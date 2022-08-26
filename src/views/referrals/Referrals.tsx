@@ -65,7 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
   return !user
     ? <Loading />
     : <View style={tw`h-full flex items-stretch`}>
-      <PeachScrollView contentContainerStyle={tw`pt-6 px-12 pb-10`}>
+      <PeachScrollView contentContainerStyle={tw`pt-6 px-7 pb-10`}>
         <Title title={i18n('referrals.title')} />
         <BonusPointsBar style={tw`mt-2`} points={pointsBalance} />
         <View style={tw`mt-8`}>
@@ -82,7 +82,7 @@ export default ({ navigation }: Props): ReactElement => {
               onPress={shareReferralCode}
             />
           </View> */}
-          <Card style={tw`mt-10 p-7`}>
+          <Card style={tw`mt-10 p-5`}>
             <Text style={tw`text-center text-grey-1`}>
               {i18n(
                 'referrals.alreadyTraded',
