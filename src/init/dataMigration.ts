@@ -1,9 +1,15 @@
-import { account, getAccount, saveAccount } from '../utils/account'
+import { account, getAccount } from '../utils/account'
+import { storeAccount } from '../utils/account/storeAccount'
+import { exists } from '../utils/file'
 import { getOffers, saveOffers } from '../utils/offer'
 import { getPaymentMethods, hashPaymentData } from '../utils/paymentMethod'
 import { session } from '../utils/session'
 
-export const dataMigration = () => {
+export const dataMigration = async () => {
+  if (session.password && !(await exists('/peach-account-identity.json'))) {
+    await storeAccount(account, session.password)
+  }
+
   // TODO remove mid september
   // migration to give all legacy buy offers paymentData
   const buyOffersToUpdate = getOffers()
@@ -23,6 +29,6 @@ export const dataMigration = () => {
 
   if (buyOffersToUpdate.length) {
     saveOffers(buyOffersToUpdate, false)
-    if (session.password) saveAccount(getAccount(), session.password)
+    if (session.password) storeAccount(getAccount(), session.password)
   }
 }

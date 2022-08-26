@@ -57,6 +57,9 @@ export const rules = {
   password (_: boolean, value: string) {
     return value && value.length > 7
   },
+  referralCode (_: boolean, value: string) {
+    return !value || value.length === 0 || /^PR[0-9A-F]{4,}$/u.test(value)
+  },
   iban (_: boolean, value: string | null) {
     if (!value) return false
     return IBAN.isValid(value)
@@ -88,6 +91,7 @@ export const getMessages = () => ({
     email: i18n('form.email.error'),
     account: i18n('form.account.error'),
     password: i18n('form.password.error'),
+    referralCode: i18n('form.invalid.error'),
     bitcoinAddress: i18n('form.address.btc.error'),
     tetherAddress: i18n('form.address.error'),
     duplicate: i18n('form.duplicate.error'),
