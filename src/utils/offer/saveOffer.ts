@@ -1,4 +1,5 @@
-import { account, saveAccount } from '../account'
+import { account } from '../account'
+import { storeOffers } from '../account/storeAccount'
 import { sort } from '../array'
 import { info } from '../log'
 import { session } from '../session'
@@ -38,7 +39,7 @@ export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false, shield
 
   account.offers = account.offers.sort(sort('id'))
   if (session.password && !disableSave) {
-    saveAccount(account, session.password)
+    storeOffers(account.offers, session.password)
     info('saveOffer', offer.id)
   }
 }

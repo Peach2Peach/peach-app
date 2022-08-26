@@ -5,12 +5,13 @@ import tw from '../../styles/tailwind'
 import { Button, FileInput, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
-import { recoverAccount, saveAccount, updateSettings } from '../../utils/account'
+import { recoverAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
 import { getMessages, rules } from '../../utils/validation'
 import Logo from '../../assets/logo/peachLogo.svg'
+import { storeAccount } from '../../utils/account/storeAccount'
 
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
@@ -58,7 +59,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     })
 
     if (recoveredAccount) {
-      await saveAccount(recoveredAccount, password)
+      await storeAccount(recoveredAccount, password)
       onSuccess(recoveredAccount)
     } else {
       onError(err as Error)

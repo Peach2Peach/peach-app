@@ -1,10 +1,9 @@
-import NotificationBadge from '@msml/react-native-notification-badge'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, Alert } from 'react-native'
+import NotificationBadge from '@msml/react-native-notification-badge'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import messaging from '@react-native-firebase/messaging'
 import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
@@ -13,44 +12,44 @@ import {
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
+import messaging from '@react-native-firebase/messaging'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import views from './views'
 
-import AppContext, { getAppContext, setAppContext } from './contexts/app'
-import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
-import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
+import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 import LanguageContext from './contexts/language'
-import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
-import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
+import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
+import AppContext, { getAppContext, setAppContext } from './contexts/app'
+import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
+import { OverlayContext, getOverlay, setOverlay } from './contexts/overlay'
+import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
 
-import Drawer from './components/Drawer'
 import Message from './components/Message'
-import Overlay from './components/Overlay'
 import { account } from './utils/account'
+import Overlay from './components/Overlay'
+import Drawer from './components/Drawer'
 
+import { sleep } from './utils/performance'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
-import handleNotificationsEffect from './effects/handleNotificationsEffect'
-import { dataMigration } from './init/dataMigration'
+import { info, error } from './utils/log'
 import events from './init/events'
-import fcm from './init/fcm'
-import pgp from './init/pgp'
-import requestUserPermissions from './init/requestUserPermissions'
 import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
-import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
-import { getChatNotifications } from './utils/chat'
-import { exists } from './utils/file'
-import { error, info } from './utils/log'
-import { handlePushNotification } from './utils/navigation'
-import { getRequiredActionCount } from './utils/offer'
-import { sleep } from './utils/performance'
-import { getSession, setSession } from './utils/session'
+import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck, isIOS } from './utils/system'
+import userUpdate from './init/userUpdate'
+import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
+import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { handlePushNotification } from './utils/navigation'
+import { getSession, setSession } from './utils/session'
+import { exists } from './utils/file'
+import { getChatNotifications } from './utils/chat'
+import { getRequiredActionCount } from './utils/offer'
+import requestUserPermissions from './init/requestUserPermissions'
+import { dataMigration } from './init/dataMigration'
 import { DEV } from '@env'
 
 enableScreens()
@@ -88,7 +87,7 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (!sessionInitiated && await exists('/peach-account.json')) {
+  if (!sessionInitiated && (await exists('/peach-account.json') || await exists('/peach-account-identity.json'))) {
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
@@ -140,8 +139,7 @@ const initApp = async (
   await getPeachInfo(account)
   if (account?.publicKey) {
     getTrades()
-    fcm()
-    pgp()
+    userUpdate()
     dataMigration()
   }
 
