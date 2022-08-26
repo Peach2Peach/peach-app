@@ -58,7 +58,7 @@ export const views: ViewType[] = [
   { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
   { name: 'search', component: Search, showHeader: true, showFooter: true },
   { name: 'contract', component: Contract, showHeader: true, showFooter: true },
-  { name: 'contractChat', component: ContractChat, showHeader: true, showFooter: true },
+  { name: 'contractChat', component: ContractChat, showHeader: false, showFooter: false },
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
   { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },

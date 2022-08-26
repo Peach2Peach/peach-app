@@ -5,10 +5,12 @@ import change from './change.svg'
 import chat from './chat.svg'
 import check from './check.svg'
 import checkbox from './checkbox.svg'
+import clip from './clip.svg'
 import clock from './clock.svg'
 import timer from './timer.svg'
 import copy from './copy.svg'
 import cross from './cross.svg'
+import crossOutlined from './crossOutlined.svg'
 import dispute from './dispute.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
@@ -52,10 +54,12 @@ const Icons = {
   chat,
   check,
   checkbox,
+  clip,
   clock,
   timer,
   copy,
   cross,
+  crossOutlined,
   dispute,
   dropdownClosed,
   dropdownOpen,

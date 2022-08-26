@@ -165,7 +165,15 @@ const App: React.FC = () => {
       onClose: onCloseDrawer
     }, updateDrawer
   ] = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [
+    {
+      content,
+      showCloseIcon,
+      showCloseButton,
+      help
+    },
+    updateOverlay
+  ] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -248,7 +256,7 @@ const App: React.FC = () => {
                     <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
+                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}/>
                       : null
                     }
                     {template || msg

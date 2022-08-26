@@ -20,7 +20,7 @@ export const getOverlay = (): OverlayState => ({
   content,
   showCloseIcon,
   showCloseButton,
-  help,
+  help
 })
 
 /**
@@ -39,6 +39,6 @@ export const setOverlay = (state: ReducerState<any>, newState: OverlayState): Ov
     content,
     showCloseIcon,
     showCloseButton,
-    help,
+    help
   }
 }

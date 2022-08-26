@@ -86,7 +86,8 @@ export const recoveredAccount: Account = {
     },
     preferredCurrencies: [],
     preferredPaymentMethods: {},
-    showBackupReminder: true
+    showBackupReminder: true,
+    showDisputeDisclaimer: true
   },
   paymentData: [],
   offers: [],
@@ -121,7 +122,8 @@ export const account1: Account = {
     preferredCurrencies: [],
     preferredPaymentMethods: {},
     kyc: false,
-    showBackupReminder: true
+    showBackupReminder: true,
+    showDisputeDisclaimer: true
   },
   paymentData: [],
   tradingLimit: {
