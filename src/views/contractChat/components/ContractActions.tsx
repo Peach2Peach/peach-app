@@ -11,7 +11,6 @@ import { StackNavigation } from '../../../utils/navigation'
 type IconButtonProps = ComponentProps & {
   icon: IconType,
   onPress: (event: GestureResponderEvent) => void,
-  hasShadow? : boolean,
   iconStyle?: ViewStyle|ViewStyle[]
 }
 
