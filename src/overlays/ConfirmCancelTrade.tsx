@@ -12,6 +12,8 @@ import { error } from '../utils/log'
 import { Navigation } from '../utils/navigation'
 import { getOffer, saveOffer } from '../utils/offer'
 import { cancelContract, patchOffer } from '../utils/peachAPI'
+import { ConfirmCancelTradeBuyer } from './tradeCancelation/ConfirmCancelTradeBuyer'
+import { ConfirmCancelTradeSeller } from './tradeCancelation/ConfirmCancelTradeSeller'
 import { ContractCanceled } from './tradeCancelation/ContractCanceled'
 
 /**
@@ -97,30 +99,7 @@ export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeP
     }
     setLoading(false)
   }
-  return <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-lg leading-8`}>
-      {i18n('contract.cancel.title')}
-    </Headline>
-    <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('contract.cancel.seller.text')}
-    </Text>
-    <View>
-      <Button
-        style={tw`mt-8`}
-        title={i18n('contract.cancel.confirm.back')}
-        secondary={true}
-        wide={false}
-        loading={loading}
-        onPress={closeOverlay}
-      />
-      <Button
-        style={tw`mt-2`}
-        title={i18n('contract.cancel.confirm.ok')}
-        tertiary={true}
-        wide={false}
-        loading={loading}
-        onPress={ok}
-      />
-    </View>
-  </View>
+  return contract.seller.id === account.publicKey
+    ? <ConfirmCancelTradeSeller contract={contract} navigation={navigation}/>
+    : <ConfirmCancelTradeBuyer contract={contract} navigation={navigation}/>
 }

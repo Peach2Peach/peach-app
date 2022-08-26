@@ -82,7 +82,11 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
       {i18n('contract.cancel.title')}
     </Headline>
     <Text style={tw`text-center text-white-1 mt-8`}>
-      {i18n('contract.cancel.seller.text')}
+      {i18n('contract.cancel.text')}
+      {'\n\n'}
+      {i18n('contract.cancel.seller.text.1')}
+      {'\n\n'}
+      {i18n('contract.cancel.seller.text.2')}
     </Text>
     <View>
       <Button
