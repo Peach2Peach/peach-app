@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import { getPaymentDataByType } from '../../utils/account'
 import { StackNavigation } from '../../utils/navigation'
-import { getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
@@ -39,23 +39,23 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const goToPaymentDetails = () => {
-    if (!paymentMethod) return
-    const methodType = country
-      ? `${paymentMethod}.${country}` as PaymentMethod
-      : paymentMethod
+  const goToPaymentDetails = (data: Partial<PaymentData>) => {
+    if (!data.paymentMethod || !data.currencies) return
+    const methodType = data.country
+      ? `${data.paymentMethod}.${data.country}` as PaymentMethod
+      : data.paymentMethod
     const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
     let label = i18n(`paymentMethod.${methodType}`)
     if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
 
     navigation.push('paymentDetails', {
-      paymentData: { type: paymentMethod, label, currencies, country },
+      paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
       origin: route.params.origin,
       originOnCancel: [
         'addPaymentMethod',
         {
-          currencies,
-          country,
+          currencies: data.currencies,
+          country: null,
           paymentMethod: null,
           origin: route.params.origin,
         }
@@ -65,7 +65,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const next = () => {
     if (page >= screens.length - 1) {
-      goToPaymentDetails()
+      goToPaymentDetails({ paymentMethod, currencies, country })
       return
     }
     setPage(page + 1)
@@ -111,13 +111,23 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (!paymentMethod) return
 
-    if (!/giftCard/u.test(paymentMethod as string)) goToPaymentDetails()
-
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
+
+    if (!/giftCard/u.test(paymentMethod as string)) {
+      goToPaymentDetails({ paymentMethod, currencies, country })
+    } else {
+      const countries = paymentMethodInfo.countries!.filter(countrySupportsCurrency(currencies[0]))
+      if (countries.length === 1) {
+        setCountry(countries[0])
+        goToPaymentDetails({ paymentMethod, currencies, country: countries[0] })
+        return
+      }
+    }
+
     if (paymentMethodInfo?.currencies.length !== 1
       || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraInfo')) return
 
-    goToPaymentDetails()
+    goToPaymentDetails({ paymentMethod, currencies, country })
   }, [paymentMethod, page])
 
   return <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
