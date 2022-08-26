@@ -2,6 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import LanguageContext from '../../contexts/language'
 import tw from '../../styles/tailwind'
+import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import Select from './Select'
 
@@ -31,6 +32,7 @@ export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): Reac
       selectedValue={pristine ? null : locale}
       onChange={value => {
         setLocale({ locale: value as string })
+        updateSettings({ locale }, true)
         setPristine(false)
       }}
     />
