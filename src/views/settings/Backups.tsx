@@ -22,7 +22,6 @@ export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const initAccountBackup = () => {
-    // const previousDate = account.settings.lastBackupDate
     updateSettings({
       lastBackupDate: (new Date()).getTime(),
       showBackupReminder: false,
