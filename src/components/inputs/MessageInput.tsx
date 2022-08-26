@@ -67,7 +67,7 @@ export const MessageInput = ({
       <Icon id={'clip'} style={tw`w-5 h-5 m-2 flex-1`}/>
     </Pressable> */}
     <TextInput testID={testID}
-      style={tw`w-full h-10 flex-shrink font-lato leading-5 text-black-1`}
+      style={tw`w-full flex-shrink font-lato leading-5 text-black-1 p-1`}
       placeholder={placeholder}
       placeholderTextColor={tw`text-black-1`.color as string}
       allowFontScaling={false}
@@ -76,7 +76,7 @@ export const MessageInput = ({
       value={value}
       editable={!disabled}
       multiline={true}
-      textAlignVertical={'top'}
+      textAlignVertical={'center'}
       onChangeText={onChangeText}
       onEndEditing={onEndEditing}
       onSubmitEditing={onSubmitEditing}
