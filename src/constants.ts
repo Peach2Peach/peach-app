@@ -1,7 +1,6 @@
-import { getBuildNumber, getUniqueId, getVersion } from 'react-native-device-info'
+import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto'
-import Countries from './views/addPaymentMethod/Countries'
 
 export const SATSINBTC = 100000000
 
@@ -18,6 +17,9 @@ export const TIMETORESTART = 1000 * 60 * 5
 
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
+
+export const ISEMULATOR = isEmulatorSync()
+
 export const UNIQUEID = sha256(getUniqueId())
 
 export let MINAPPVERSION = APPVERSION

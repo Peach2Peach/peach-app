@@ -19,10 +19,10 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  const goToTwitter = () => Linking.openURL('https://twitter.com/peachBTC')
+  const goToTwitter = () => Linking.openURL('https://twitter.com/peachbitcoin')
   const goToInstagram = () => Linking.openURL('https://www.instagram.com/peachbitcoin')
   const goToTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
-  const goToDiscord = () => Linking.openURL('https://discord.gg/PjgTnTFb')
+  const goToDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return <View style={tw`h-full pb-10 pt-6 px-12`}>
     <Title title={i18n('settings.title')} subtitle={i18n('settings.socials.subtitle')} />

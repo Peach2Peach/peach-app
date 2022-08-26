@@ -8,32 +8,36 @@ import i18n from '../utils/i18n'
 const openAnalyticsPrompt = (): void => {
   Alert.alert(
     i18n('analytics.requestPermission.title'),
-    i18n('analytics.requestPermission.description'),
+    [
+      i18n('analytics.requestPermission.description.1'),
+      i18n('analytics.requestPermission.description.2'),
+    ].join('\n\n'),
     [
       {
         text: i18n('privacyPolicy'),
         onPress: () => {
-          Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
           openAnalyticsPrompt()
+          Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
         },
         style: 'default',
       },
       {
         text: i18n('deny'),
-        onPress: () => {
+        onPress: async () => {
+          analytics().setAnalyticsCollectionEnabled(false)
           updateSettings({
             enableAnalytics: false
-          })
+          }, true)
         },
         style: 'default',
       },
       {
         text: i18n('allow'),
         onPress: async () => {
-          await analytics().setAnalyticsCollectionEnabled(true)
+          analytics().setAnalyticsCollectionEnabled(true)
           updateSettings({
             enableAnalytics: true
-          })
+          }, true)
         },
         style: 'default',
       },

@@ -1,4 +1,5 @@
-import { account, saveAccount } from '../account'
+import { account } from '../account'
+import { storeChats } from '../account/storeAccount'
 import { session } from '../session'
 import { getChat } from './getChat'
 
@@ -44,7 +45,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
         .sort((a, b) => a.date.getTime() - b.date.getTime())
     }
   }
-  if (save && session.password) saveAccount(account, session.password)
+  if (save && session.password) storeChats(account.chats, session.password)
 
   return account.chats[id]
 }

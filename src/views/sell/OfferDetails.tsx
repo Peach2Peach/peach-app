@@ -49,7 +49,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       premium: offr.premium,
       kyc: offr.kyc,
       kycType: offr.kycType,
-    })
+    }, true)
   }
 
   useEffect(() => {
