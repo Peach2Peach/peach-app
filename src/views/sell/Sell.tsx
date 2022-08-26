@@ -56,7 +56,7 @@ export default ({ navigation }: Props): ReactElement => {
   const openSatsHelp = () => updateOverlay({ content: <Sats view="seller" />, showCloseButton: true, help: true })
   const goToBackups = () => navigation.navigate('backups', {})
   const dismissBackupReminder = () => {
-    updateSettings({ showBackupReminder: false })
+    updateSettings({ showBackupReminder: false }, true)
     setRandom(Math.random())
   }
 
@@ -65,7 +65,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   useEffect(() => {
-    updateSettings({ amount }, false)
+    updateSettings({ amount }, true)
   }, [amount])
 
   return <View testID="view-sell" style={tw`h-full flex`}>

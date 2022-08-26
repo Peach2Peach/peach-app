@@ -7,6 +7,7 @@ import {
   View
 } from 'react-native'
 
+import Logo from '../../assets/logo/peachLogo.svg'
 import { Button, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
@@ -15,14 +16,14 @@ import { OverlayContext } from '../../contexts/overlay'
 import NDA from '../../overlays/NDA'
 import SaveYourPassword from '../../overlays/SaveYourPassword'
 import tw from '../../styles/tailwind'
-import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
+import { account, createAccount, deleteAccount } from '../../utils/account'
+import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { getMessages, rules } from '../../utils/validation'
-import Logo from '../../assets/logo/peachLogo.svg'
 import userUpdate from '../../init/userUpdate'
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
@@ -90,10 +91,6 @@ export default ({ navigation }: Props): ReactElement => {
       onSuccess: () => {
         setLoading(false)
         updateOverlay({ content: null })
-      },
-      onError: () => {
-        setLoading(false)
-        updateOverlay({ content: null })
       }
     })
   }
@@ -103,7 +100,7 @@ export default ({ navigation }: Props): ReactElement => {
       const [result, authError] = await auth()
       if (result) {
         await userUpdate(referralCode)
-        saveAccount(account, password)
+        storeAccount(account, password)
 
         setLoading(false)
         navigation.replace('home', {})

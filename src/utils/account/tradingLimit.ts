@@ -1,8 +1,9 @@
-import { account, saveAccount } from '.'
+import { account } from '.'
 import { SATSINBTC } from '../../constants'
 import { getBitcoinContext } from '../../contexts/bitcoin'
 import { session } from '../session'
 import { defaultAccount } from './account'
+import { storeTradingLimit } from './storeAccount'
 
 /**
  * @description Method to get trading limit of account
@@ -26,14 +27,14 @@ export const getTradingLimit = (currency?: Currency): TradingLimit => {
  * @description Method to update trading limit of account
  * @param tradingLimit tradingLimit to update
  */
-export const updateTradingLimit = async (tradingLimit: TradingLimit, save?: boolean): Promise<void> => {
+export const updateTradingLimit = async (tradingLimit: TradingLimit, save = true): Promise<void> => {
   account.tradingLimit = {
     daily: tradingLimit.daily || Infinity,
     dailyAmount: tradingLimit.dailyAmount || 0,
     yearly: tradingLimit.yearly || Infinity,
     yearlyAmount: tradingLimit.yearlyAmount || 0,
   }
-  if (save && session.password && account.publicKey) await saveAccount(account, session.password)
+  if (save && session.password && account.publicKey) await storeTradingLimit(account.tradingLimit, session.password)
 }
 
 /**
