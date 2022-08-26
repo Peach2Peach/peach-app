@@ -34,11 +34,11 @@ export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDiscla
     }
     <View style={tw`w-full flex-row`}>
       <Text onPress={() => {
-          updateSettings({ showDisputeDisclaimer: false }, true)
-          updateMessage({ template: undefined, msg: undefined, level: 'ERROR' }) 
-          }
-        }
-        style={[tw`flex-1 font-baloo text-xs text-white-2 underline`, textShadow]}>
+        updateSettings({ showDisputeDisclaimer: false }, true)
+        updateMessage({ template: undefined, msg: undefined, level: 'ERROR' })
+      }
+      }
+      style={[tw`flex-1 font-baloo text-xs text-white-2 underline`, textShadow]}>
         {i18n('doNotShowAgain').toLocaleUpperCase()}
       </Text>
       <Text onPress={() => updateMessage({ template: undefined, msg: undefined, level: 'ERROR' })}
