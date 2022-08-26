@@ -12,7 +12,7 @@ type IconButtonProps = ComponentProps & {
   icon: IconType,
   onPress: (event: GestureResponderEvent) => void,
   hasShadow? : boolean,
-  iconStyle: ViewStyle|ViewStyle[]
+  iconStyle?: ViewStyle|ViewStyle[]
 }
 
 const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement =>
