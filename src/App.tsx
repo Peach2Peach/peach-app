@@ -137,7 +137,6 @@ const initApp = async (
     initialNavigation(navigationRef, updateMessage, !!account?.publicKey)
   }, 30000)
 
-
   events()
   const sessionInitiated = await session()
 
@@ -149,9 +148,7 @@ const initApp = async (
   }
 
   clearTimeout(timeout)
-
   initialNavigation(navigationRef, updateMessage, sessionInitiated)
-
   await requestUserPermissions()
 }
 
