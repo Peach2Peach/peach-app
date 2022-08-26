@@ -98,7 +98,11 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
+    if (initialNotification.data) handlePushNotification(
+      navigationRef,
+      initialNotification.data,
+      initialNotification.sentTime
+    )
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     if (account?.publicKey) {
       navigationRef.navigate('home', {})
@@ -115,7 +119,7 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
+    if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
 }
 
