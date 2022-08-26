@@ -24,7 +24,7 @@ export default ({ navigation }: Props): ReactElement => {
     // } else {
     updateSettings({
       returnAddress: address
-    })
+    }, true)
   }
 
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>

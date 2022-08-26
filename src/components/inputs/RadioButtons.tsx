@@ -1,21 +1,22 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import { Shadow, Text } from '..'
+import { Shadow, Text, Icon } from '..'
 import tw from '../../styles/tailwind'
 import { mildShadow } from '../../utils/layout'
 
-type Item = {
-  value: string|number|boolean,
-  data?: any,
+export type RadioButtonItem<T> = {
+  value: T
   display: ReactNode
+  disabled?: boolean
+  data?: any
 }
-
 
 type RadioButtonItemProp = ComponentProps & {
-  display: ReactNode,
+  display: ReactNode
   selected: boolean
+  disabled?: boolean
 }
-const RadioButtonItem = ({ display, selected }: RadioButtonItemProp): ReactElement =>
+const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement =>
   <View style={[
     tw`w-full flex-row justify-between items-center px-4 py-3 bg-peach-milder rounded-lg border-2`,
     selected ? tw`border-peach-1` : tw`border-transparent`
@@ -23,20 +24,15 @@ const RadioButtonItem = ({ display, selected }: RadioButtonItemProp): ReactEleme
     <Text style={tw`font-baloo text-base`}>
       {display}
     </Text>
-    {selected
-      ? <View style={tw`p-.5 rounded-full border-2 border-peach-1 flex justify-center items-center`}>
-        <View style={[tw`bg-peach-1 rounded-full`, { width: 10, height: 10 }]} />
-      </View>
-      : <View style={tw`p-.5 rounded-full border-2 border-grey-2`}>
-        <View style={{ width: 10, height: 10 }} />
-      </View>
-    }
+    <Icon id={disabled ? 'radioDisabled' : selected ? 'radioChecked' : 'radioUnchecked'}
+      style={tw`h-5 w-5`}
+      color={(selected ? tw`text-peach-1` : tw`text-grey-1`).color as string}/>
   </View>
 
-type RadioButtonsProps = ComponentProps & {
-  items: Item[],
-  selectedValue?: string|number|boolean,
-  onChange?: (value: (string|number|boolean)) => void,
+type RadioButtonsProps<T> = ComponentProps & {
+  items: RadioButtonItem<T>[]
+  selectedValue?: T
+  onChange?: (value: T) => void
 }
 
 /**
@@ -61,26 +57,26 @@ type RadioButtonsProps = ComponentProps & {
     selectedValue={kyc}
     onChange={(value) => setKYC(value as boolean)}/>
  */
-export const RadioButtons = ({
-  items,
-  selectedValue,
-  onChange,
-  style,
-}: RadioButtonsProps): ReactElement =>
+export const RadioButtons = <T, >({ items, selectedValue, onChange, style, }: RadioButtonsProps<T>): ReactElement =>
   <View style={style}>
-    {items.map((item, i) => <View key={i} style={[
-      tw`flex-row items-center`,
-      i > 0 ? tw`mt-2` : {}
-    ]}>
-      <Pressable style={tw`w-full`} onPress={() => onChange ? onChange(item.value) : null}>
-        {item.value === selectedValue
-          ? <Shadow shadow={mildShadow}>
-            <RadioButtonItem display={item.display} selected={item.value === selectedValue} />
-          </Shadow>
-          : <RadioButtonItem display={item.display} selected={item.value === selectedValue} />
-        }
-      </Pressable>
-    </View>
+    {items.map((item, i) =>
+      <View key={i} style={[
+        tw`flex-row items-center`,
+        i > 0 ? tw`mt-2` : {}
+      ]}>
+        <Pressable style={tw`w-full`} onPress={() => onChange && !item.disabled ? onChange(item.value) : null}>
+          {item.value === selectedValue
+            ? <Shadow shadow={mildShadow}>
+              <RadioButtonItem display={item.display}
+                selected={item.value === selectedValue}
+                disabled={item.disabled} />
+            </Shadow>
+            : <RadioButtonItem display={item.display}
+              selected={item.value === selectedValue}
+              disabled={item.disabled} />
+          }
+        </Pressable>
+      </View>
     )}
   </View>
 

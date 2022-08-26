@@ -1,7 +1,8 @@
-import { account, saveAccount } from '.'
+import { account } from '.'
 import { session } from '../session'
 import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
+import { storePaymentData } from './storeAccount'
 import { updateSettings } from './updateSettings'
 
 /**
@@ -21,8 +22,8 @@ export const removePaymentData = async (id: PaymentData['id']) => {
         ...account.settings.preferredPaymentMethods,
         [dataToBeRemoved.type]: nextInLine?.id || ''
       }
-    })
+    }, true)
   }
 
-  if (session.password) await saveAccount(account, session.password)
+  if (session.password) await storePaymentData(account.paymentData, session.password)
 }

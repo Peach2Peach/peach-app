@@ -12,10 +12,29 @@ export const loadAccount = async (password: string): Promise<Account> => {
 
   info('Loading account from file')
 
-  let acc
+  let acc: Account
 
   try {
-    if (await exists('/peach-account.json')) {
+    if (await exists('/peach-account-identity.json')) {
+      const [identity, settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
+        readFile('/peach-account-identity.json', password),
+        readFile('/peach-account-settings.json', password),
+        readFile('/peach-account-tradingLimit.json', password),
+        readFile('/peach-account-paymentData.json', password),
+        readFile('/peach-account-offers.json', password),
+        readFile('/peach-account-contracts.json', password),
+        readFile('/peach-account-chats.json', password),
+      ])
+      acc = {
+        ...(JSON.parse(identity)),
+        settings: JSON.parse(settings),
+        tradingLimit: JSON.parse(tradingLimit),
+        paymentData: JSON.parse(paymentData),
+        offers: JSON.parse(offers),
+        contracts: JSON.parse(contracts),
+        chats: JSON.parse(chats),
+      }
+    } else if (await exists('/peach-account.json')) { // legacy file structure. Consider safe removal mid 2023
       acc = JSON.parse(await readFile('/peach-account.json', password)) as Account
     } else {
       error('Account File does not exist')
