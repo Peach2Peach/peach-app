@@ -5,8 +5,8 @@ import { setSession } from '../session'
 import { createWallet, getMainAddress } from '../wallet'
 
 interface CreateAccountProps {
-  password: string,
-  onSuccess: Function,
+  password: string
+  onSuccess: Function
   onError: Function
 }
 

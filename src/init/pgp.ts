@@ -1,12 +1,12 @@
 
 import { account, updateSettings } from '../utils/account'
 import { error, info } from '../utils/log'
-import { setPGP } from '../utils/peachAPI'
+import { updateUser } from '../utils/peachAPI'
 
 export default async () => {
   try {
     if (account.pgp.publicKey && !account.settings.pgpPublished) {
-      const [result, err] = await setPGP(account.pgp)
+      const [result, err] = await updateUser({ pgp: account.pgp })
 
       if (result) {
         info('Set PGP for user', account.publicKey)
