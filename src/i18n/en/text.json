@@ -556,6 +556,7 @@
   "referrals.shareCode.text.2": "Try it now with my referral code $0",
   "referrals.notTraded": "Your referrals haven't traded on peach yet.",
   "referrals.alreadyTraded": "Your referrals have already traded $0 on Peach!",
+  "referrals.continueSaving": "Continue saving for cool stuff",
   "referrals.selectReward": "Select your reward, or continue saving for cool stuff",
   "referrals.reward.customReferralCode": "custom referral code",
   "referrals.reward.noPeachFees": "5x no peach fees",

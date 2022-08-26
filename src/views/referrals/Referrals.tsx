@@ -36,6 +36,7 @@ export default ({ navigation }: Props): ReactElement => {
       {i18n(`referrals.reward.${reward}`)} <Text style={tw`text-sm text-grey-2`}>({cost})</Text>
     </Text>
   }) as RadioButtonItem<Reward>)
+  const availableRewards = rewards.filter(reward => !reward.disabled).length
 
   // const shareReferralCode = () => user?.referralCode
   //   ? Share.open({
@@ -89,7 +90,7 @@ export default ({ navigation }: Props): ReactElement => {
                 i18n('currency.format.sats', thousands(user.referredTradingAmount || 0))
               )}
               {'\n\n'}
-              {i18n('referrals.selectReward')}
+              {i18n(availableRewards ? 'referrals.selectReward' : 'referrals.continueSaving')}
             </Text>
             <RadioButtons style={tw`mt-4`}
               selectedValue={selectedReward}
