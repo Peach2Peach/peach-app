@@ -13,6 +13,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
+import analytics from '@react-native-firebase/analytics'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
@@ -220,6 +221,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     info('Navigation event', currentPage)
+    analytics().logScreenView({
+      screen_name: currentPage as string
+    })
   }, [currentPage])
 
   return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
