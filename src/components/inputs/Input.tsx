@@ -1,8 +1,9 @@
 import React, { ReactElement, Ref } from 'react'
 import {
   NativeSyntheticEvent,
-  Pressable, ReturnKeyType, TextInput,
+  Pressable, TextInput,
   TextInputEndEditingEventData,
+  TextInputProps,
   TextInputSubmitEditingEventData,
   View
 } from 'react-native'
@@ -13,26 +14,22 @@ import { innerShadow } from '../../utils/layout'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 
-type InputProps = ComponentProps & {
-  value?: string,
-  label?: string,
-  placeholder?: string,
-  icon?: IconType,
-  multiline?: boolean
+type InputProps = ComponentProps
+  & Omit<TextInputProps, 'onChange' | 'onSubmit' |'onFocus' | 'onBlur'>
+  & {
+  label?: string
+  icon?: IconType
   required?: boolean
-  autoCorrect?: boolean
   disabled?: boolean
   disableSubmit?: boolean
-  isValid?: boolean,
+  isValid?: boolean
   hint?: string
   errorMessage?: string[]
-  onChange?: Function,
-  onSubmit?: Function,
-  onFocus?: Function,
-  onBlur?: Function,
-  secureTextEntry?: boolean,
-  returnKeyType?: ReturnKeyType,
-  reference?: Ref<TextInput>,
+  onChange?: Function
+  onSubmit?: Function
+  onFocus?: Function
+  onBlur?: Function
+  reference?: Ref<TextInput>
 }
 
 /**
@@ -52,6 +49,7 @@ type InputProps = ComponentProps & {
  * @param [props.onFocus] onFocus handler from outside
  * @param [props.onBlur] onBlur handler from outside
  * @param [props.secureTextEntry] if true hide input
+ * @param [props.autoCapitalize] how to capitalize input automatically
  * @param [props.style] css style object
  * @example
  * <Input
@@ -78,6 +76,7 @@ export const Input = ({
   onFocus, onBlur,
   secureTextEntry,
   returnKeyType,
+  autoCapitalize,
   style,
   testID,
   reference
@@ -130,7 +129,7 @@ export const Input = ({
           blurOnSubmit={false}
           onFocus={onFocusHandler} onBlur={onBlurHandler}
           secureTextEntry={secureTextEntry}
-          autoCapitalize="none"
+          autoCapitalize={autoCapitalize || 'none'}
         />
         {icon
           ? <Pressable testID={`${testID}-icon`} onPress={() => onSubmit && !disableSubmit ? onSubmit(value) : null}

@@ -144,6 +144,7 @@ export default ({ navigation }: Props): ReactElement => {
   useEffect(() => {
     validateForm()
   }, [referralCode])
+
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
   return <View style={tw`h-full flex justify-center px-6`}>
@@ -222,6 +223,7 @@ export default ({ navigation }: Props): ReactElement => {
               submit()
             }}
             value={referralCode}
+            autoCapitalize="characters"
             isValid={!isFieldInError('referralCode')}
             errorMessage={referralCode.length && getErrorsInField('referralCode')}
           />
