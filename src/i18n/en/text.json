@@ -13,7 +13,7 @@
   "app.incompatible.title": "Critical update available!",
   "app.incompatible.description": "This update has some critical fixes. You cannot continue using your current version.",
   "analytics.requestPermission.title": " ",
-  "analytics.requestPermission.description.1": "Help Peach improve the user experience in P2P-trading by automatically sending usage data to google analytics.",
+  "analytics.requestPermission.description.1": "Help Peach improve the user experience in P2P-trading by automatically sending usage data to Google Analytics.",
   "analytics.requestPermission.description.2": "You can toggle sharing usage data on/off in Settings > About Peach > Diagnostics",
   "crashReport.requestPermission.title": "Peach has detected that the app has run into an unexpected issue.",
   "crashReport.requestPermission.description.1": "A crash report has been generated. The Peach team can use this crash report to find the root cause and make improvements to avoid this problem occurring in the future.",
