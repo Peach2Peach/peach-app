@@ -8,6 +8,6 @@ export default (url: RequestInfo, init?: RequestInit): Promise<Response> => new 
     })
     .catch(err => {
       resolve(err)
-      error('fetch error', new Error(`${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`), err)
+      error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, err)
     })
 )

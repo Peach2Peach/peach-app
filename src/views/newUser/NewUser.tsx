@@ -82,7 +82,6 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const onError = (e: Error) => {
-    error('Error', e)
     updateMessage({
       msg: i18n(e.message || 'AUTHENTICATION_FAILURE'),
       level: 'ERROR',
