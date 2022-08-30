@@ -27,7 +27,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         cameraStyle={tw`w-full h-full z-0`}
         onRead={onSuccess}
         vibrate={true}
-        showMarker  
+        showMarker
         customMarker={
           <View style={tw`w-full h-full`}>
             <View style={tw`bg-peach-translucent flex-1 items-center`}>
