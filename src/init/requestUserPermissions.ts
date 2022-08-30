@@ -1,45 +1,8 @@
+import crashlytics from '@react-native-firebase/crashlytics'
 import messaging from '@react-native-firebase/messaging'
-import analytics from '@react-native-firebase/analytics'
+import { account } from '../utils/account'
+import { openAnalyticsPrompt, openCrashReportPrompt } from '../utils/analytics'
 import { info } from '../utils/log'
-import { account, updateSettings } from '../utils/account'
-import { Alert, Linking } from 'react-native'
-import i18n from '../utils/i18n'
-
-const openAnalyticsPrompt = (): void => {
-  Alert.alert(
-    i18n('analytics.requestPermission.title'),
-    i18n('analytics.requestPermission.description'),
-    [
-      {
-        text: i18n('privacyPolicy'),
-        onPress: () => {
-          Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
-          openAnalyticsPrompt()
-        },
-        style: 'default',
-      },
-      {
-        text: i18n('deny'),
-        onPress: () => {
-          updateSettings({
-            enableAnalytics: false
-          })
-        },
-        style: 'default',
-      },
-      {
-        text: i18n('allow'),
-        onPress: async () => {
-          await analytics().setAnalyticsCollectionEnabled(true)
-          updateSettings({
-            enableAnalytics: true
-          })
-        },
-        style: 'default',
-      },
-    ]
-  )
-}
 
 export default async () => {
   info('Requesting notification permissions')
@@ -52,4 +15,7 @@ export default async () => {
   info('Permission status:', authStatus)
 
   if (typeof account.settings.enableAnalytics === 'undefined') openAnalyticsPrompt()
+
+  // check if app has crashed and ask for permission to send crash report
+  if (await await crashlytics().didCrashOnPreviousExecution()) openCrashReportPrompt()
 }

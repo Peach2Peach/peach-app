@@ -13,6 +13,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
+import analytics from '@react-native-firebase/analytics'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
@@ -38,10 +39,9 @@ import { info, error } from './utils/log'
 import events from './init/events'
 import session, { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
-import pgp from './init/pgp'
-import fcm from './init/fcm'
-import { APPVERSION, LATESTAPPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import { compatibilityCheck, isIOS } from './utils/system'
+import userUpdate from './init/userUpdate'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { handlePushNotification } from './utils/navigation'
@@ -51,6 +51,7 @@ import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
 import requestUserPermissions from './init/requestUserPermissions'
 import { dataMigration } from './init/dataMigration'
+import { DEV } from '@env'
 
 enableScreens()
 
@@ -87,7 +88,7 @@ const initialNavigation = async (
   }
   const initialNotification = await messaging().getInitialNotification()
 
-  if (!sessionInitiated && await exists('/peach-account.json')) {
+  if (!sessionInitiated && (await exists('/peach-account.json') || await exists('/peach-account-identity.json'))) {
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
@@ -97,7 +98,11 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (initialNotification.data) handlePushNotification(initialNotification.data, navigationRef)
+    if (initialNotification.data) handlePushNotification(
+      navigationRef,
+      initialNotification.data,
+      initialNotification.sentTime
+    )
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     if (account?.publicKey) {
       navigationRef.navigate('home', {})
@@ -114,7 +119,7 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (remoteMessage.data) handlePushNotification(remoteMessage.data, navigationRef)
+    if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
 }
 
@@ -126,14 +131,11 @@ const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-
-
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds
     error(new Error('STARTUP_ERROR'))
     initialNavigation(navigationRef, updateMessage, !!account?.publicKey)
   }, 30000)
-
 
   events()
   const sessionInitiated = await session()
@@ -141,15 +143,12 @@ const initApp = async (
   await getPeachInfo(account)
   if (account?.publicKey) {
     getTrades()
-    fcm()
-    pgp()
+    userUpdate()
     dataMigration()
   }
 
   clearTimeout(timeout)
-
   initialNavigation(navigationRef, updateMessage, sessionInitiated)
-
   await requestUserPermissions()
 }
 
@@ -167,7 +166,15 @@ const App: React.FC = () => {
       onClose: onCloseDrawer
     }, updateDrawer
   ] = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [
+    {
+      content,
+      showCloseIcon,
+      showCloseButton,
+      help
+    },
+    updateOverlay
+  ] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -189,6 +196,13 @@ const App: React.FC = () => {
   useEffect(showMessageEffect(template || msg, width, slideInAnim), [msg, time])
 
   useEffect(() => {
+    if (DEV !== 'true' && ISEMULATOR) {
+      error(new Error('NO_EMULATOR'))
+      updateMessage({ msg: i18n('NO_EMULATOR'), level: 'ERROR' })
+
+      return
+    }
+
     (async () => {
       await initApp(navigationRef, updateMessage)
       updateAppContext({
@@ -216,6 +230,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     info('Navigation event', currentPage)
+    analytics().logScreenView({
+      screen_name: currentPage as string
+    })
   }, [currentPage])
 
   return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
@@ -240,7 +257,7 @@ const App: React.FC = () => {
                     <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton} />
+                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}/>
                       : null
                     }
                     {template || msg

@@ -20,7 +20,7 @@ const initWebSocket = (updatePeachWS: Function): EffectCallback => () => {
   updatePeachWS(ws)
 
   const onMessageHandler = (message: Message) => {
-    info('MESSAGE', message)
+    info('MESSAGE', JSON.stringify(message).length)
   }
 
   const onCloseHandler = () => {

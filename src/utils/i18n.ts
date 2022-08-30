@@ -2,8 +2,6 @@ import en from '../i18n/en/text.json'
 import de from '../i18n/de/text.json'
 import de_CH from '../i18n/de-CH/text.json'
 import { ReducerState } from 'react'
-import { updateSettings } from './account'
-
 interface Properties {
   [key: string]: string
 }
@@ -84,8 +82,6 @@ i18n.setLocale = (state: ReducerState<any>, newState: i18nState): i18nState => {
   locale = newState.locale
 
   if (!properties[locale]) locale = 'en'
-
-  updateSettings({ locale }, true)
 
   return {
     locale

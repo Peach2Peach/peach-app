@@ -1,5 +1,6 @@
 import { contractExists } from '.'
-import { account, saveAccount } from '../account'
+import { account } from '../account'
+import { storeContracts } from '../account/storeAccount'
 import { info } from '../log'
 import { session } from '../session'
 
@@ -30,7 +31,7 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
 
   if (!disableSave && session.password) {
     info('saveContract', contract.id)
-    saveAccount(account, session.password)
+    storeContracts(account.contracts, session.password)
   }
 }
 

@@ -1,9 +1,9 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Fade, Input, Loading, SatsFormat, Text, Title } from '../../components'
+import { Icon, Loading, Shadow, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -11,7 +11,7 @@ import keyboard from '../../effects/keyboard'
 import { account } from '../../utils/account'
 import { decryptMessage, getChat, saveChat } from '../../utils/chat'
 import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
-import { contractIdToHex, getContract, saveContract } from '../../utils/contract'
+import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
@@ -23,8 +23,9 @@ import ChatBox from './components/ChatBox'
 import ContractActions from './components/ContractActions'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
-
-const returnTrue = () => true
+import MessageInput from '../../components/inputs/MessageInput'
+import { sleep } from '../../utils/performance/sleep'
+import { mildShadow } from '../../utils/layout'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
@@ -138,9 +139,24 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
+  const showDisclaimer = (async () => {
+    await sleep(1000)
+    updateMessage({
+      template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
+      level: 'INFO',
+      close: false
+    })
+  })
+
+  // Show dispute disclaimer
+  useEffect(() => {
+    if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
+      showDisclaimer()
+    }
+  }, [])
+
   useEffect(() => {
     if (!contract) return
-
     getMessagesEffect({
       contractId: contract.id,
       page,
@@ -213,61 +229,46 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const goBack = () => navigation.replace('contract', { contractId })
+  // contract.disputeActive
 
   return !contract || updatePending
     ? <Loading />
-    : <View style={[tw`h-full pt-6 px-6 flex-col content-between items-center`, !keyboardOpen ? tw`pb-10` : tw`pb-4`]}>
-      <Fade show={!keyboardOpen} style={tw`mb-8`}>
-        <Title
-          title={i18n(contract.disputeActive
-            ? 'dispute.chat'
-            : view === 'buyer' ? 'buy.title' : 'sell.title')}
-        />
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
-          {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0}
-            color={tw`text-grey-2`}
+    : <View style={[tw`h-full flex-col`]}>
+      <Shadow shadow={mildShadow}>
+        <View style={tw`w-full flex-row items-center p-1 bg-white-1`}>
+          <Pressable onPress={goBack}>
+            <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color as string}/>
+          </Pressable>
+          <Text
+            style={tw`items-center text-peach-1 text-xl font-bold`}>
+            {i18n(contract.disputeActive
+              ? 'dispute.chat'
+              : 'trade.chat')}
+          </Text>
+          <ContractActions style={tw`flex-row-reverse content-end flex-grow ml-2`}
+            contract={contract}
+            view={view}
+            navigation={navigation}
           />
-        </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
-      </Fade>
-      <View style={tw`h-full flex-col flex-shrink`}>
-        <View style={[
-          tw`w-full h-full flex-col flex-shrink`,
-          !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
-        ]}>
-          <View style={tw`h-full flex-shrink`}>
-            <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
-              tradingPartner={tradingPartner?.id || ''}
-              page={page} loadMore={loadMore} loading={loadingMessages}
-              disclaimer={!contract.disputeActive
-                ? <DisputeDisclaimer navigation={navigation} contract={contract}/>
-                : undefined
-              } />
-            <ContractActions style={tw`absolute right-0 top-4 -mr-3`}
-              contract={contract}
-              view={view}
-              navigation={navigation}
-            />
-          </View>
-          <View style={tw`mt-4 flex-shrink-0`} onStartShouldSetResponder={returnTrue}>
-            <Input
-              onChange={setNewMessage}
-              onSubmit={sendMessage} disableSubmit={disableSend}
-              icon="send" returnKeyType="send"
-              value={newMessage}
-              placeholder={i18n('chat.yourMessage')}
-              isValid={true}
-              autoCorrect={true}
-            />
-          </View>
         </View>
-      </View>
-      <Fade show={!keyboardOpen}>
-        <Button style={tw`mt-2`}
-          title={i18n('back')}
-          secondary={true} wide={false}
-          onPress={goBack}
+      </Shadow>
+      <View style={[
+        tw`w-full h-full flex-shrink`,
+        !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
+      ]}>
+        <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
+          tradingPartner={tradingPartner?.id || ''}
+          page={page} loadMore={loadMore} loading={loadingMessages}
         />
-      </Fade>
+      </View>
+      <View style={tw`absolute bottom-0 w-full bg-white-1`}>
+        <MessageInput
+          onChange={setNewMessage}
+          onSubmit={sendMessage} disableSubmit={disableSend}
+          value={newMessage}
+          placeholder={i18n('chat.yourMessage')}
+        />
+
+      </View>
     </View>
 }

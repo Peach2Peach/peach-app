@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { deepStrictEqual, ok, strictEqual, notStrictEqual } from 'assert'
 import Share from 'react-native-share'
 import { APPVERSION } from '../../../src/constants'
@@ -10,11 +11,20 @@ import {
   deleteAccount,
   loadAccount,
   recoverAccount,
-  saveAccount,
   setAccount,
   updatePaymentData,
   updateSettings
 } from '../../../src/utils/account'
+import { storeAccount } from '../../../src/utils/account/'
+import {
+  storeChats,
+  storeContracts,
+  storeIdentity,
+  storeOffers,
+  storePaymentData,
+  storeSettings,
+  storeTradingLimit
+} from '../../../src/utils/account/storeAccount'
 import * as fileUtils from '../../../src/utils/file'
 import { getPeachAccount } from '../../../src/utils/peachAPI'
 import { getSession } from '../../../src/utils/session'
@@ -23,14 +33,24 @@ import * as accountData from '../data/accountData'
 
 const password = 'supersecret'
 
+let fakeFiles: Record<string, string> = {}
 jest.mock('react-native-fs', () => ({
-  exists: async (): Promise<boolean> => true,
-  readFile: async (): Promise<string> => JSON.stringify(accountData.account1),
-  writeFile: async (): Promise<void> => {},
-  unlink: async (): Promise<void> => {}
+  exists: async (path: string): Promise<boolean> => !!fakeFiles[path],
+  readFile: async (path: string): Promise<string> => fakeFiles[path],
+  writeFile: async (path: string, data: string): Promise<void> => {
+    fakeFiles[path] = data
+  },
+  unlink: async (path: string): Promise<void> => {
+    delete fakeFiles[path]
+  }
 }))
 
 describe('setAccount', () => {
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
   it('sets an account, sets wallet and peachAccount', async () => {
     await setAccount(accountData.account1, true)
     deepStrictEqual(account, accountData.account1)
@@ -45,6 +65,10 @@ describe('createAccount', () => {
 
   beforeEach(async () => {
     await setAccount(defaultAccount)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
   })
 
   it('creates a new account each time', async () => {
@@ -73,7 +97,11 @@ describe('createAccount', () => {
 
 describe('loadAccount', () => {
   beforeEach(async () => {
-    await setAccount(defaultAccount)
+    await setAccount(defaultAccount, true)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
   })
 
   it('returns already loaded account', async () => {
@@ -83,30 +111,204 @@ describe('loadAccount', () => {
     deepStrictEqual(account, accountData.account1)
   })
   it('loads account from file', async () => {
+    const existsSpy = jest.spyOn(fileUtils, 'exists')
     const readFileSpy = jest.spyOn(fileUtils, 'readFile')
 
+    await storeAccount(accountData.account1, password)
+
     const acc = await loadAccount(password)
-    expect(readFileSpy).toHaveBeenCalled()
+    expect(existsSpy).toHaveBeenCalledWith('/peach-account-identity.json')
+    expect(readFileSpy).toHaveBeenCalledTimes(7)
+    expect(readFileSpy).toHaveBeenCalledWith(
+      expect.stringContaining('.json'),
+      password,
+    )
+    ok(acc.publicKey)
+    ok(account.publicKey)
     deepStrictEqual(account, acc)
     deepStrictEqual(account, accountData.account1)
   })
 })
 
-describe('saveAccount', () => {
+describe('storeAccount', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
   })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
 
-  it('returns already loaded account', async () => {
+  it('would write file to whole account', async () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await saveAccount(accountData.account1, password)
-    expect(writeFileSpy).toHaveBeenCalled()
+    await storeAccount(accountData.account1, password)
+    expect(writeFileSpy).toHaveBeenCalledTimes(7)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      expect.stringContaining('.json'),
+      expect.stringContaining('{'),
+      password,
+    )
+  })
+})
+
+describe('storeIdentity', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store identity', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storeIdentity(accountData.account1, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-identity.json',
+      JSON.stringify({
+        publicKey: accountData.account1.publicKey,
+        privKey: accountData.account1.privKey,
+        mnemonic: accountData.account1.mnemonic,
+        pgp: accountData.account1.pgp,
+      }),
+      password
+    )
+  })
+})
+
+describe('storeSettings', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+    await storeSettings(defaultAccount.settings, password)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store settings', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storeSettings(accountData.account1.settings, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-settings.json',
+      JSON.stringify(accountData.account1.settings),
+      password
+    )
+  })
+})
+
+describe('storeTradingLimit', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+    await storeTradingLimit(defaultAccount.tradingLimit, password)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store tradingLimit', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storeTradingLimit(accountData.account1.tradingLimit, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-tradingLimit.json',
+      JSON.stringify(accountData.account1.tradingLimit),
+      password
+    )
+  })
+})
+
+describe('storePaymentData', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+    await storePaymentData(defaultAccount.paymentData, password)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store paymentData', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storePaymentData(accountData.account1.paymentData, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-paymentData.json',
+      JSON.stringify(accountData.account1.paymentData),
+      password
+    )
+  })
+})
+
+describe('storeOffers', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+    await storeOffers(defaultAccount.offers, password)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store offers', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storeOffers(accountData.account1.offers, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-offers.json',
+      JSON.stringify(accountData.account1.offers),
+      password
+    )
+  })
+})
+
+describe('storeContracts', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+    await storeContracts(defaultAccount.contracts, password)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store contracts', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storeContracts(accountData.account1.contracts, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-contracts.json',
+      JSON.stringify(accountData.account1.contracts),
+      password
+    )
+  })
+})
+
+describe('storeChats', () => {
+  beforeEach(async () => {
+    await setAccount(defaultAccount)
+    await storeChats(defaultAccount.chats, password)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
+
+  it('would write file to store chats', async () => {
+    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+    await storeChats(accountData.account1.chats, password)
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-chats.json',
+      JSON.stringify(accountData.account1.chats),
+      password
+    )
   })
 })
 
 describe('updateSettings', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
   })
 
   it('updates account settings', () => {
@@ -141,6 +343,7 @@ describe('updateSettings', () => {
       preferredCurrencies: [],
       preferredPaymentMethods: {},
       showBackupReminder: true,
+      showDisputeDisclaimer: true
     })
   })
 })
@@ -148,6 +351,10 @@ describe('updateSettings', () => {
 describe('addPaymentData', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
   })
 
   it('adds new payment data to account', () => {
@@ -168,6 +375,10 @@ describe('updatePaymentData', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
   })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
 
   it('updates account payment data', () => {
     updatePaymentData(accountData.paymentData)
@@ -178,6 +389,10 @@ describe('updatePaymentData', () => {
 describe('backupAccount', () => {
   beforeAll(async () => {
     await setAccount(accountData.account1)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
   })
 
   it('opens share dialog', async () => {
@@ -190,6 +405,10 @@ describe('backupAccount', () => {
 describe('recoverAccount', () => {
   beforeAll(async () => {
     await setAccount(accountData.account1)
+  })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
   })
 
   it('would decrypt recovery account', async () => {
@@ -204,17 +423,17 @@ describe('recoverAccount', () => {
 
 describe('deleteAccount', () => {
   const onSuccess = jest.fn()
-  const onError = jest.fn()
 
   beforeAll(async () => {
     await setAccount(accountData.account1)
   })
+  afterEach(() => {
+    fakeFiles = {}
+    jest.clearAllMocks()
+  })
 
   it('would delete account file', async () => {
-    await deleteAccount({
-      onSuccess,
-      onError
-    })
+    await deleteAccount({ onSuccess })
     expect(onSuccess).toBeCalled()
   })
 })

@@ -9,7 +9,8 @@ import { useFocusEffect } from '@react-navigation/native'
 import { Headline, PeachScrollView, Text, Title } from '../../components'
 import getContractsEffect from '../../effects/getContractsEffect'
 import getOffersEffect from '../../effects/getOffersEffect'
-import { getAccount, saveAccount } from '../../utils/account'
+import { getAccount } from '../../utils/account'
+import { storeContracts, storeOffers } from '../../utils/account/storeAccount'
 import { getChatNotifications } from '../../utils/chat'
 import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -72,7 +73,9 @@ export default ({ navigation }: Props): ReactElement => {
     onSuccess: result => {
       if (!result?.length) return
       saveOffers(result)
-      if (session.password) saveAccount(getAccount(), session.password)
+
+      if (session.password) storeOffers(getAccount().offers, session.password)
+
       setLastUpdate(new Date().getTime())
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount()
@@ -94,7 +97,7 @@ export default ({ navigation }: Props): ReactElement => {
       setTimeout(() => {
         // delay to give updating offer data some time
         saveContracts(result)
-        if (session.password) saveAccount(getAccount(), session.password)
+        if (session.password) storeContracts(getAccount().contracts, session.password)
         setLastUpdate(new Date().getTime())
         updateAppContext({
           notifications: getChatNotifications() + getRequiredActionCount()

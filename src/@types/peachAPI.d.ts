@@ -1,22 +1,22 @@
 declare type WSCallback = (message?: any) => void
 declare type PeachWS = {
-  ws?: WebSocket,
-  authenticated: boolean,
-  connected: boolean,
-  queue: (() => boolean)[],
+  ws?: WebSocket
+  authenticated: boolean
+  connected: boolean
+  queue: (() => boolean)[]
   listeners: {
     message: WSCallback[]
     close: (() => void)[]
-  },
-  on: (listener: 'message'|'close', callback: WSCallback) => void,
-  off: (listener: 'message'|'close', callback: WSCallback) => void,
-  send: (data: string) => boolean,
-  close: WebSocket['close'],
-  onmessage?: WebSocket['onmessage']|(() => {}),
+  }
+  on: (listener: 'message'|'close', callback: WSCallback) => void
+  off: (listener: 'message'|'close', callback: WSCallback) => void
+  send: (data: string) => boolean
+  close: WebSocket['close']
+  onmessage?: WebSocket['onmessage']|(() => {})
 }
 
 declare type ContractUpdate = {
-  contractId: Contract['id'],
+  contractId: Contract['id']
   event: 'paymentMade' | 'paymentConfirmed'
   data: {
     date: number
@@ -24,7 +24,7 @@ declare type ContractUpdate = {
 }
 
 declare type AccessToken = {
-  expiry: number,
+  expiry: number
   accessToken: string
 }
 
@@ -33,33 +33,37 @@ declare type APISuccess = {
 }
 
 declare type APIError = {
-  error: string,
+  error: string
   details?: unknown
 }
 
 declare type User = {
-  id: string,
-  creationDate: Date,
-  trades: number,
-  rating: number,
-  userRating: number,
-  ratingCount: number,
-  peachRating: number,
-  medals: Medal[],
+  id: string
+  creationDate: Date
+  trades: number
+  rating: number
+  userRating: number
+  ratingCount: number
+  peachRating: number
+  medals: Medal[]
+  referralCode?: string
+  usedReferralCode?: string
+  bonusPoints: number
+  referredTradingAmount: number
   disputes: {
-    opened: number,
-    won: number,
-    lost: number,
-  },
+    opened: number
+    won: number
+    lost: number
+  }
   pgpPublicKey: string
   pgpPublicKeyProof: string
 }
 
 declare type TradingLimit = {
-  daily: number,
-  dailyAmount: number,
-  yearly: number,
-  yearlyAmount: number,
+  daily: number
+  dailyAmount: number
+  yearly: number
+  yearlyAmount: number
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
@@ -80,78 +84,78 @@ declare type PaymentMethod =
   | 'cash'
 
 declare type PaymentMethodInfo = {
-  id: PaymentMethod,
-  currencies: Currency[],
-  countries?: Country[],
-  exchange: boolean,
-  rounded?: boolean,
+  id: PaymentMethod
+  currencies: Currency[]
+  countries?: Country[]
+  exchange: boolean
+  rounded?: boolean
 }
 
 declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
-  confirmations?: number,
-  txIds: string[],
-  vouts: number[],
-  amounts: number[],
+  confirmations?: number
+  txIds: string[]
+  vouts: number[]
+  amounts: number[]
   amount?: number // TODO remove for release 0.1.0
 }
 
 declare type GetStatusResponse = {
-  error: null, // TODO there will be error codes,
-  status: 'online', // TODO there will be other stati
-  date: string,
+  error: null // TODO there will be error codes
+  status: 'online' // TODO there will be other stati
+  date: string
 }
 
 declare type GetInfoResponse = {
   peach: {
-    pgpPublicKey: string,
-  },
+    pgpPublicKey: string
+  }
   fees: {
-    escrow: number,
-  },
-  buckets: number[],
-  deprecatedBuckets: number[],
-  paymentMethods: PaymentMethodInfo[],
-  latestAppVersion: string,
-  minAppVersion: string,
+    escrow: number
+  }
+  buckets: number[]
+  deprecatedBuckets: number[]
+  paymentMethods: PaymentMethodInfo[]
+  latestAppVersion: string
+  minAppVersion: string
 }
 declare type PeachInfo = GetInfoResponse
 
 declare type GetTxResponse = Transaction
 declare type PostTxResponse = {
-  txId: string,
+  txId: string
 }
 
 declare type PeachPairInfo = {
-  pair: TradingPair,
-  price: number,
+  pair: TradingPair
+  price: number
 }
 declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 declare type Offer = {
-  id: string,
-  creationDate: Date,
-  online: boolean,
-  user?: User,
-  publicKey?: string,
-  type: 'bid' | 'ask',
-  amount: number,
-  premium?: number,
-  prices?: Pricebook,
-  meansOfPayment: MeansOfPayment,
+  id: string
+  creationDate: Date
+  online: boolean
+  user?: User
+  publicKey?: string
+  type: 'bid' | 'ask'
+  amount: number
+  premium?: number
+  prices?: Pricebook
+  meansOfPayment: MeansOfPayment
   paymentData: Partial<Record<PaymentMethod, {
-    hash: string,
-    country?: Country,
-  }>>,
-  kyc: boolean,
-  kycType?: KYCType,
-  returnAddress?: string,
-  escrow?: string,
-  refunded?: boolean,
-  funding?: FundingStatus,
-  matches: Offer['id'][],
-  doubleMatched: boolean,
+    hash: string
+    country?: Country
+  }>>
+  kyc: boolean
+  kycType?: KYCType
+  returnAddress?: string
+  escrow?: string
+  refunded?: boolean
+  funding?: FundingStatus
+  matches: Offer['id'][]
+  doubleMatched: boolean
   contractId?: string
 }
 
@@ -161,16 +165,16 @@ declare type PostOfferResponse = {
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
-  offerId: string,
-  escrow: string,
+  offerId: string
+  escrow: string
   funding: FundingStatus
 }
 declare type FundingError = '' | 'NOT_FOUND'| 'UNAUTHORIZED'
 declare type FundingStatusResponse = {
-  offerId: string,
-  escrow: string,
-  funding: FundingStatus,
-  error?: FundingError,
+  offerId: string
+  escrow: string
+  funding: FundingStatus
+  error?: FundingError
   returnAddress: string
 }
 
@@ -178,49 +182,57 @@ declare type CancelOfferRequest = {
   satsPerByte?: number
 }
 declare type CancelOfferResponse = {
-  psbt: string,
-  returnAddress: string,
-  amount: number,
-  fees: number,
-  satsPerByte: number,
+  psbt: string
+  returnAddress: string
+  amount: number
+  fees: number
+  satsPerByte: number
 }
 
 declare type Match = {
-  user: User,
-  offerId: string,
-  prices: Pricebook,
-  matchedPrice: number | null,
-  premium: number,
-  meansOfPayment: MeansOfPayment,
-  paymentData: Offer['paymentData'],
-  selectedCurrency?: Currency,
-  selectedPaymentMethod?: PaymentMethod,
-  kyc: boolean,
-  kycType?: KYCType,
-  symmetricKeyEncrypted: string,
-  symmetricKeySignature: string,
+  user: User
+  offerId: string
+  prices: Pricebook
+  matchedPrice: number | null
+  premium: number
+  meansOfPayment: MeansOfPayment
+  paymentData: Offer['paymentData']
+  selectedCurrency?: Currency
+  selectedPaymentMethod?: PaymentMethod
+  kyc: boolean
+  kycType?: KYCType
+  symmetricKeyEncrypted: string
+  symmetricKeySignature: string
   matched: boolean
 }
 declare type GetMatchesResponse = {
-  offerId: string,
-  matches: Match[],
+  offerId: string
+  matches: Match[]
 }
 declare type MatchResponse = {
-  success: true,
-  matchedPrice?: number,
-  contractId?: string,
-  refundTx?: string,
+  success: true
+  matchedPrice?: number
+  contractId?: string
+  refundTx?: string
 }
 declare type GetContractResponse = Contract
 declare type GetContractsResponse = Contract[]
 declare type ConfirmPaymentResponse = {
-  success: true,
-  txId?: string,
+  success: true
+  txId?: string
 }
 
 declare type GetChatResponse = Message[]
 
 declare type CancelContractResponse = {
-  success: true,
-  psbt?: string,
+  success: true
+  psbt?: string
+}
+
+declare type FundEscrowResponse = {
+  txId: string
+}
+
+declare type GenerateBlockResponse = {
+  txId: string
 }

@@ -7,24 +7,24 @@ import {
   View
 } from 'react-native'
 
+import Logo from '../../assets/logo/peachLogo.svg'
 import { Button, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import fcm from '../../init/fcm'
-import pgp from '../../init/pgp'
 import NDA from '../../overlays/NDA'
 import SaveYourPassword from '../../overlays/SaveYourPassword'
 import tw from '../../styles/tailwind'
-import { account, createAccount, deleteAccount, saveAccount, updateSettings } from '../../utils/account'
+import { account, createAccount, deleteAccount } from '../../utils/account'
+import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { getMessages, rules } from '../../utils/validation'
-import Logo from '../../assets/logo/peachLogo.svg'
+import userUpdate from '../../init/userUpdate'
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
@@ -32,23 +32,36 @@ type Props = {
   navigation: StackNavigation
 }
 
+// eslint-disable-next-line max-statements
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
   const [passwordMatch, setPasswordMatch] = useState(true)
+  const [referralCode, setReferralCode] = useState('')
   const [isPristine, setIsPristine] = useState(true)
   const [loading, setLoading] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
+  let $referral = useRef<TextInput>(null).current
 
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { validate, isFieldInError } = useValidation({
+  const { validate, isFieldInError, getErrorsInField } = useValidation({
     deviceLocale: 'default',
-    state: { password },
+    state: { password, referralCode },
     rules,
     messages: getMessages()
+  })
+
+  const validateForm = () => (!password || !passwordRepeat) || validate({
+    password: {
+      required: true,
+      password: true,
+    },
+    referralCode: {
+      referralCode: true
+    }
   })
 
   const checkPasswordMatch = () => {
@@ -64,17 +77,11 @@ export default ({ navigation }: Props): ReactElement => {
 
     if (!isPristine) {
       checkPasswordMatch()
-      validate({
-        password: {
-          required: true,
-          password: true,
-        }
-      })
+      validateForm()
     }
   }
 
   const onError = (e: Error) => {
-    error('Error', e)
     updateMessage({
       msg: i18n(e.message || 'AUTHENTICATION_FAILURE'),
       level: 'ERROR',
@@ -83,26 +90,19 @@ export default ({ navigation }: Props): ReactElement => {
       onSuccess: () => {
         setLoading(false)
         updateOverlay({ content: null })
-      },
-      onError: () => {
-        setLoading(false)
-        updateOverlay({ content: null })
       }
     })
   }
 
   const onSuccess = async () => {
-
     try {
       const [result, authError] = await auth()
       if (result) {
-        await pgp()
-        saveAccount(account, password)
+        await userUpdate(referralCode)
+        storeAccount(account, password)
 
         setLoading(false)
         navigation.replace('home', {})
-
-        fcm()
       } else {
         onError(new Error(authError?.error))
       }
@@ -116,29 +116,18 @@ export default ({ navigation }: Props): ReactElement => {
 
     if (!isPristine) {
       checkPasswordMatch()
-      validate({
-        password: {
-          required: true,
-          password: true,
-        }
-      })
+      validateForm()
     }
   }
 
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
 
   const submit = () => {
-    const isValid = validate({
-      password: {
-        required: true,
-        password: true,
-      }
-    })
     setIsPristine(false)
     const pwMatch = checkPasswordMatch()
-    if (pwMatch && isValid) {
+    if (pwMatch && validateForm()) {
       Keyboard.dismiss()
-      setLoading(isValid)
+      setLoading(true)
 
       // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
       setTimeout(() => {
@@ -150,6 +139,10 @@ export default ({ navigation }: Props): ReactElement => {
       }, 300)
     }
   }
+
+  useEffect(() => {
+    validateForm()
+  }, [referralCode])
 
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
@@ -209,7 +202,7 @@ export default ({ navigation }: Props): ReactElement => {
             onChange={onPasswordRepeatChange}
             onSubmit={(val: string) => {
               onPasswordRepeatChange(val)
-              submit()
+              $referral?.focus()
             }}
             secureTextEntry={true}
             value={passwordRepeat}
@@ -217,7 +210,24 @@ export default ({ navigation }: Props): ReactElement => {
             errorMessage={!passwordMatch || isFieldInError('passwordRepeat') ? [''] : []}
           />
         </View>
-        <View style={tw`w-full mt-5 flex items-center`}>
+        <View style={tw`mt-4 h-12 px-4`}>
+          <Text style={tw`font-baloo text-2xs text-grey-3 text-center`}>
+            {i18n('newUser.referralCode')}
+          </Text>
+          <Input testID="newUser-referralCode"
+            reference={(el: any) => $referral = el}
+            onChange={setReferralCode}
+            onSubmit={(val: string) => {
+              setReferralCode(val)
+              submit()
+            }}
+            value={referralCode}
+            autoCapitalize="characters"
+            isValid={!isFieldInError('referralCode')}
+            errorMessage={referralCode.length && getErrorsInField('referralCode')}
+          />
+        </View>
+        <View style={tw`w-full mt-10 flex items-center`}>
           <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
             <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
           </Pressable>

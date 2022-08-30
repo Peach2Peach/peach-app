@@ -5,10 +5,12 @@ import change from './change.svg'
 import chat from './chat.svg'
 import check from './check.svg'
 import checkbox from './checkbox.svg'
+import clip from './clip.svg'
 import clock from './clock.svg'
 import timer from './timer.svg'
 import copy from './copy.svg'
 import cross from './cross.svg'
+import crossOutlined from './crossOutlined.svg'
 import dispute from './dispute.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
@@ -24,6 +26,9 @@ import negative from './negative.svg'
 import yourTrades from './yourTrades.svg'
 import positive from './positive.svg'
 import plus from './plus.svg'
+import radioChecked from './radioChecked.svg'
+import radioDisabled from './radioDisabled.svg'
+import radioUnchecked from './radioUnchecked.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
@@ -49,10 +54,12 @@ const Icons = {
   chat,
   check,
   checkbox,
+  clip,
   clock,
   timer,
   copy,
   cross,
+  crossOutlined,
   dispute,
   dropdownClosed,
   dropdownOpen,
@@ -68,6 +75,9 @@ const Icons = {
   yourTrades,
   positive,
   plus,
+  radioChecked,
+  radioDisabled,
+  radioUnchecked,
   selectClosed,
   selectOpen,
   sell,

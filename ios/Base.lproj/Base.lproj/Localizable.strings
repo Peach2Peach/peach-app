@@ -3,7 +3,7 @@
 "notification.title.offer.wrongFundingAmount" = "Escrow not funded";
 "notification.body.offer.wrongFundingAmount" = "Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.";
 "notification.title.offer.notFunded" = "Offer canceled";
-"notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days \U0001F61E We are deleting this offer.";
+"notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days 😞 We are deleting this offer.";
 "notification.title.offer.expired" = "No match";
 "notification.body.offer.expired" = "It's been %@ days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";
@@ -19,7 +19,7 @@
 "notification.title.contract.paymentMade" = "The payment has been made!";
 "notification.body.contract.paymentMade" = "Confirm that you received it";
 "notification.title.contract.tradeCompleted" = "Trade completed!";
-"notification.body.contract.tradeCompleted" = "Congratulations! Sats are in your wallet \U0001F389";
+"notification.body.contract.tradeCompleted" = "Congratulations! Sats are in your wallet 🎉";
 "notification.title.contract.chat" = "Chat";
 "notification.body.contract.chat" = "You got a chat message";
 "notification.title.contract.disputeRaised" = "Dispute";

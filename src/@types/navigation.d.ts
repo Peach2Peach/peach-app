@@ -42,6 +42,7 @@ declare type RootStackParamList = {
   },
   contract: {
     contractId: Contract['id'],
+    contract?: Contract,
   },
   contractChat: {
     contractId: Contract['id'],
@@ -67,6 +68,7 @@ declare type RootStackParamList = {
     userId: User['id'],
     user?: User,
   },
+  referrals: {},
   backups: {},
   seedWords: {},
   escrow: {},

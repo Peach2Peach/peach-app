@@ -79,12 +79,13 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
 
   return <View style={tw`flex items-center`}>
     <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
-      {i18n('contract.cancel.seller.title')}
+      {i18n('contract.cancel.title')}
     </Headline>
     <Text style={tw`text-center text-white-1 mt-8`}>
+      {i18n('contract.cancel.text')}
+      {'\n\n'}
       {i18n('contract.cancel.seller.text.1')}
-    </Text>
-    <Text style={tw`text-center text-white-1 mt-2`}>
+      {'\n\n'}
       {i18n('contract.cancel.seller.text.2')}
     </Text>
     <View>
