@@ -48,8 +48,8 @@ export const SatsFormat = ({ sats, format = 'inline', color, style }: SatsFormat
         : 0
   return format === 'inline'
     ? <Text>
-      <Text style={[tw`opacity-50`, color || tw`text-grey-2`, style]}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={[color || tw`text-black-2`, style]}>
+      <Text style={[tw`font-thin`, color || tw`text-grey-2`, style]}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={[color || tw`text-black-2`, tw`font-bold`, style]}>
         {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
       </Text>
     </Text>
