@@ -1,17 +1,19 @@
 import React, { ReactElement } from 'react'
 import {
-  View, ViewStyle,
+  TextStyle,
+  View,
 } from 'react-native'
 import { Text } from '.'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { addOpacityToColor } from '../../utils/layout'
 import { padString } from '../../utils/string'
 
 type SatsFormat = ComponentProps & {
   sats: number,
   format?: 'inline' | 'big',
-  color?: ViewStyle|ViewStyle[],
+  color?: TextStyle,
 }
 
 /**
@@ -48,8 +50,8 @@ export const SatsFormat = ({ sats, format = 'inline', color, style }: SatsFormat
         : 0
   return format === 'inline'
     ? <Text>
-      <Text style={[tw`font-thin`, color || tw`text-grey-2`, style]}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={[color || tw`text-black-2`, tw`font-bold`, style]}>
+      <Text style={[addOpacityToColor(color || tw`text-grey-2`, 0.5), style]}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={[color || tw`text-black-2`, style]}>
         {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
       </Text>
     </Text>

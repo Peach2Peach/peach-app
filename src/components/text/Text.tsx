@@ -26,7 +26,7 @@ export const PeachText = ({ style, children, numberOfLines, ellipsizeMode, onPre
     style={[
       tw`font-lato text-base text-grey-1`,
       tw.md`text-lg leading-5`,
-      style
+      style,
     ]}
     onPress={onPress ? (e) => onPress(e) : undefined}
     allowFontScaling={false}
