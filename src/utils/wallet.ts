@@ -1,11 +1,11 @@
 import { NETWORK } from '@env'
 import { networks, payments, script, opcodes } from 'bitcoinjs-lib'
 import BIP32Factory, { BIP32Interface } from 'bip32'
-import * as ecc from 'tiny-secp256k1'
 import * as bip39 from 'bip39'
 import { PsbtInput } from 'bip174/src/lib/interfaces'
 import { getRandom } from './crypto'
 const varuint = require('varuint-bitcoin')
+const ecc = require('tiny-secp256k1')
 
 const bip32 = BIP32Factory(ecc)
 

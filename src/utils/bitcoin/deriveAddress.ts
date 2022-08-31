@@ -1,8 +1,8 @@
 import { payments } from 'bitcoinjs-lib'
 import BIP32Factory from 'bip32'
-import * as ecc from 'tiny-secp256k1'
 import { account } from '../account'
 import { network } from '../wallet'
+const ecc = require('tiny-secp256k1')
 
 const bip32 = BIP32Factory(ecc)
 
