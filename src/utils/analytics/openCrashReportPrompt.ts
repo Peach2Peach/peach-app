@@ -19,7 +19,7 @@ export const openCrashReportPrompt = (): void => {
         style: 'default',
       },
       {
-        text: i18n('crashReport.requestPermission.deny'),
+        text: i18n('crashReport.requestPermission.deny').toLocaleUpperCase(),
         onPress: () => {},
         style: 'default',
       },
