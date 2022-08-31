@@ -30,8 +30,8 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         showMarker
         customMarker={
           <View style={tw`w-full h-full`}>
-            <View style={tw`bg-peach-translucent flex-1 items-center`}>
-              <Text style={tw`text-white-2 font-baloo text-xl m-auto uppercase`}>
+            <View style={tw`bg-peach-translucent flex-1 items-center justify-end`}>
+              <Text style={tw`text-white-2 font-baloo text-xl mb-4 uppercase h-10`}>
                 {i18n('scanBTCAddress')}
               </Text>
             </View>
