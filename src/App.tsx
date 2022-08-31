@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated, Alert } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, Alert, BackHandler } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
@@ -104,11 +104,10 @@ const initialNavigation = async (
       initialNotification.sentTime
     )
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
-    if (account?.publicKey) {
-      navigationRef.navigate('home', {})
-    } else {
-      navigationRef.navigate('welcome', {})
-    }
+    navigationRef.reset({
+      index: 0,
+      routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
+    })
   }
 
   messaging().onNotificationOpenedApp(remoteMessage => {
@@ -223,6 +222,21 @@ const App: React.FC = () => {
   }), [currentPage])
 
   useEffect(websocket(updatePeachWS), [])
+  useEffect(() => {
+    const listener = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (drawerContent) {
+        updateDrawer({ show: false })
+        return true
+      }
+      if (content) {
+        return true
+      }
+      return false
+    })
+    return () => {
+      listener.remove()
+    }
+  }, [drawerContent, content])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
     if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
@@ -230,6 +244,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     info('Navigation event', currentPage)
+    // Disable OS back button
     analytics().logScreenView({
       screen_name: currentPage as string
     })
