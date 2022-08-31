@@ -67,7 +67,7 @@
   "createAccount": "Create account",
   "home.currentPrice": "Current bitcoin price",
   "hint.backup.title": "Security Suggestion",
-  "hint.backup.text": "Create a backup to never lose access to your wallet.",
+  "hint.backup.text": "Create a back up to never loose access to your account.",
   "help.sats.title": "Sats are the standard",
   "help.sats.description.1": "A sat, or satoshi, is the smallest denomination of Bitcoin. One sat is 0.00 000 001 Bitcoin.",
   "help.sats.description.2": "We're showing the decimal place here as well, to make it easy to convert between sats and Bitcoin!",
