@@ -1,5 +1,5 @@
 
-import * as bitcoin from 'bitcoinjs-lib'
+import { crypto } from 'bitcoinjs-lib'
 import { account } from '../account'
 import { getPeachAccount } from '../peachAPI'
 import { getMainAddress, wallet } from '../wallet'
@@ -12,7 +12,7 @@ import { getMainAddress, wallet } from '../wallet'
  */
 export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
   const keyPair = getPeachAccount() || getMainAddress(wallet)
-  const signature = keyPair.sign(bitcoin.crypto.sha256(Buffer.from(userId))).toString('hex')
+  const signature = keyPair.sign(crypto.sha256(Buffer.from(userId))).toString('hex')
 
   return {
     creationDate: new Date(),

@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import * as bitcoin from 'bitcoinjs-lib'
+import { crypto } from 'bitcoinjs-lib'
 import fetch from '../../../fetch'
 import { peachAccount, setAccessToken } from '../..'
 import { UNIQUEID } from '../../../../constants'
@@ -29,7 +29,7 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
         publicKey: peachAccount.publicKey.toString('hex'),
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
+        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
       })
     })
 

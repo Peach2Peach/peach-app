@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { Psbt } from 'bitcoinjs-lib'
 import { getNetwork } from '../../utils/wallet'
 import { txIdPartOfPSBT } from './txIdPartOfPSBT'
 
@@ -8,11 +8,11 @@ export const checkRefundPSBT = (
   offer: SellOffer
 ): {
     isValid: boolean,
-    psbt?: bitcoin.Psbt,
+    psbt?: Psbt,
     err?: string|null,
   } => {
   if (!offer.id || !psbtBase64) return { isValid: false, err: 'NOT_FOUND' }
-  const psbt = bitcoin.Psbt.fromBase64(psbtBase64, { network: getNetwork() })
+  const psbt = Psbt.fromBase64(psbtBase64, { network: getNetwork() })
 
   if (!psbt || !offer || !offer.funding?.txIds) return { isValid: false, err: 'NOT_FOUND' }
 
