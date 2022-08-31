@@ -35,7 +35,6 @@ export const setDrawer = (state: ReducerState<any>, newState: Partial<DrawerStat
   show = newState.show ?? true
   onClose = newState.onClose || onClose
 
-  console.log('new', onClose.toString())
   return {
     title,
     content,

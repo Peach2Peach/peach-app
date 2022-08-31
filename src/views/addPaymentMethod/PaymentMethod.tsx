@@ -93,7 +93,6 @@ export default ({
         onSelect={selectPaymentMethod} />,
       show: true,
       onClose: () => {
-        console.log('closing!')
         setPaymentCategory(undefined)
       }
     })
