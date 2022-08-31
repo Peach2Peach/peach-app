@@ -258,7 +258,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   // alert('todo')
   // }
 
-  const goHome = () => navigation.replace('home', {})
+  const goHome = () => navigation.navigate('home', {})
   const goToYourTrades = () => navigation.replace('yourTrades', {})
 
   const cancelOffer = () => updateOverlay({

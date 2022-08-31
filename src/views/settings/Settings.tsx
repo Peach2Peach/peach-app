@@ -67,9 +67,15 @@ export default ({ navigation }: Props): ReactElement => {
   const goToReferrals = () => navigation.navigate('referrals', {})
   const goToEscrow = () => navigation.navigate('escrow', {})
   const goToPaymentMethods = () => navigation.navigate('paymentMethods', {})
+  const resetNav = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'welcome' }],
+    })
+  }
   const deleteAccount = () => {
     updateOverlay({
-      content: <DeleteAccount navigate={() => navigation.replace('welcome', {})}/>,
+      content: <DeleteAccount navigate={resetNav}/>,
       showCloseButton: false
     })
   }
