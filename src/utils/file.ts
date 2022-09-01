@@ -23,9 +23,13 @@ export const readFile = async (path: string, password?: string): Promise<string>
 
   try {
     content = await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8') as string
-    if (password) content = decrypt(content, password)
   } catch (e) {
     error('File could not be read', e)
+  }
+  try {
+    if (password) content = decrypt(content, password)
+  } catch (e) {
+    error('File could not be decrypted', e)
   }
   return content
 }
@@ -38,9 +42,15 @@ export const readFile = async (path: string, password?: string): Promise<string>
  * @returns Promise resolving to true if operation was successful
  */
 export const writeFile = async (path: string, content: string, password?: string): Promise<boolean> => {
+  let encrypted
   try {
-    if (password) content = encrypt(content, password)
-    await RNFS.writeFile(RNFS.DocumentDirectoryPath + path, content, 'utf8')
+    if (password) encrypted = encrypt(content, password)
+  } catch (e) {
+    error('Data could not be encrypted', e)
+    return false
+  }
+  try {
+    await RNFS.writeFile(RNFS.DocumentDirectoryPath + path, encrypted, 'utf8')
     return true
   } catch (e) {
     error('File could not be written', e)
