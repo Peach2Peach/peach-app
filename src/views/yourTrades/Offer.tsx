@@ -156,7 +156,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               title={i18n('back')}
               secondary={true}
               wide={false}
-              onPress={() => navigation.replace('yourTrades', {})}
+              onPress={() => navigation.navigate('yourTrades', {})}
             />
           </View>
         </View>

@@ -16,7 +16,7 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
-  const setReason = (reason: ContactReason) => navigation.replace('report', { reason })
+  const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
 
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
     <Title title={i18n('contact.title')} />

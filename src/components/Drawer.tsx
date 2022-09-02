@@ -46,17 +46,22 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
   useEffect(() => {
     if (show) setDisplay(true)
     if (content) animate()
+    if (!show) onClose()
   }, [show])
 
   useEffect(() => {
-    fadeAnim.addListener((fade) => {
+    const listener = fadeAnim.addListener((fade) => {
       setDisplay(fade.value > 0)
-      if (fade.value === 0) updateDrawer({ show: false, content: false })
+      if (fade.value === 0) {
+        updateDrawer({ show: false, content: false, onClose: () => {} })
+      }
     })
-  }, [])
+    return () => {
+      fadeAnim.removeListener(listener)
+    }
+  }, [onClose])
 
   const closeDrawer = () => {
-    onClose()
     updateDrawer({ show: false })
   }
 
