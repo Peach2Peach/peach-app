@@ -27,7 +27,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
       </Text>
       <Pressable style={tw`p-3`}
         onPress={openTradingLimitHelp}>
-          <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+        <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
       </Pressable>
     </View>
     <Progress

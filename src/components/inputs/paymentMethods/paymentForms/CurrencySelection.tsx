@@ -45,7 +45,7 @@ export const CurrencySelection = ({
       </Text>
       <Pressable style={tw`p-3`}
         onPress={openCurrencyHelp}>
-          <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string}/>
+        <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string}/>
       </Pressable>
     </View>
     <View style={tw`flex-row mt-1`}>

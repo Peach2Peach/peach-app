@@ -32,7 +32,7 @@ export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElemen
         {help
           ? <Pressable style={tw`p-2`}
             onPress={openHelp}>
-              <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
           </Pressable>
           : null
         }

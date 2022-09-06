@@ -26,7 +26,7 @@ export default ({ premium, setPremium, offer }: PremiumProps): ReactElement => {
         {i18n('sell.price')}
       </Headline>
       <Pressable onPress={openPremiumHelp} style={tw`p-2`}>
-          <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+        <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
       </Pressable>
     </View>
     <View style={tw`text-center`}>
