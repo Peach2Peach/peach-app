@@ -20,7 +20,7 @@ export const openAnalyticsPrompt = (): void => {
         style: 'default',
       },
       {
-        text: i18n('deny').toLocaleUpperCase(),
+        text: i18n('deny'),
         onPress: () => {
           analytics().setAnalyticsCollectionEnabled(false)
           updateSettings({
