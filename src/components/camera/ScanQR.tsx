@@ -29,13 +29,13 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         vibrate={true}
         showMarker
         customMarker={
-          <View style={tw`w-full h-full`}>
-            <View style={tw`bg-peach-translucent flex-1 items-center justify-end`}>
-              <Text style={tw`text-white-2 font-baloo text-xl mb-4 uppercase h-10`}>
+          <View style={tw`w-full h-full flex flex-col`}>
+            <View style={tw`bg-peach-translucent h-full flex-shrink flex flex-col justify-end pb-2`}>
+              <View><Text style={tw`text-white-2 font-baloo text-xl leading-xl m-auto uppercase`}>
                 {i18n('scanBTCAddress')}
-              </Text>
+              </Text></View>
             </View>
-            <View style={tw`w-full flex-row`}>
+            <View style={tw`w-full flex-row flex-shrink-0`}>
               <View style={[
                 { width: Math.round((windowDimensions.width - viewSize) / 2) },
                 tw`bg-peach-translucent`
@@ -51,7 +51,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
                 tw`bg-peach-translucent`
               ]}/>
             </View>
-            <View style={tw`bg-peach-translucent flex-1`}>
+            <View style={tw`bg-peach-translucent h-full flex-shrink flex-row i`}>
               <Button
                 title={i18n('cancel')}
                 tertiary={true}
