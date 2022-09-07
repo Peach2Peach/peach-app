@@ -48,7 +48,7 @@ export default ({
       : null
     }
     {view === 'seller' && requiredAction === 'confirmPayment'
-      ? <View style={tw`flex-row items-center justify-center`}>
+      ? <View style={tw`flex-row items-center justify-center pl-11`}>
         <Button style={tw`w-52`}
           disabled={loading}
           wide={false}

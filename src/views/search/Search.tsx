@@ -412,7 +412,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             onChange={setMatchingOptions} onEndReached={onEndReached}
             toggleMatch={_toggleMatch} loadingMore={searchingMatches}/>
           {offer.type === 'bid'
-            ? <View style={tw`flex-row items-center justify-center`}>
+            ? <View style={tw`flex-row items-center justify-center pl-11`}>
               <Button
                 title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 wide={false}
@@ -424,7 +424,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
               </Pressable>
             </View>
-            : <View style={tw`flex-row items-center justify-center`}>
+            : <View style={tw`flex-row items-center justify-center pl-11`}>
               {/* <Button
                 title={i18n('search.declineMatch')}
                 wide={false}
