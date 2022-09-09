@@ -9,6 +9,7 @@ import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { StackNavigation } from '../../utils/navigation'
 import { addPaymentData } from '../../utils/account'
+import Ljubljana from './ljubljana.svg'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>,
@@ -50,14 +51,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  return <View style={tw`flex h-full pt-7 pb-10`}>
+  return <View style={paymentMethod === 'cash' ? tw`flex h-full pb-10 bg-[#12172B]` : tw`flex h-full pb-10 pt-7`}>
     {paymentMethod !== 'cash' && <Headline>
-      {i18n(
-        'paymentMethod.select.title',
-        i18n(`paymentMethod.${paymentMethod}`)
-      )}
-    </Headline>}
-    <View style={tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
+        {i18n(
+          'paymentMethod.select.title',
+          i18n(`paymentMethod.${paymentMethod}`)
+        )}
+      </Headline>}
+    {paymentMethod === 'cash' &&
+      <Ljubljana style={tw`w-full`}/>}
+    <View style={paymentMethod === 'cash' 
+    ? tw`h-full flex-shrink flex justify-center px-3` 
+    : tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
       <PaymentMethodForm paymentMethod={paymentMethod}
         style={tw`h-full flex-shrink flex-col justify-between`}
         currencies={paymentData.currencies}
