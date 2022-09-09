@@ -59,9 +59,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       )}
     </Headline>}
     {paymentMethod === 'cash' && <Ljubljana style={tw`w-full`}/>}
-    <View style={paymentMethod === 'cash' 
-    ? tw`h-full flex-shrink flex justify-center px-3` 
-    : tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
+    <View style={paymentMethod === 'cash'
+      ? tw`h-full flex-shrink flex justify-center px-3`
+      : tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
       <PaymentMethodForm paymentMethod={paymentMethod}
         style={tw`h-full flex-shrink flex-col justify-between`}
         currencies={paymentData.currencies}
