@@ -53,13 +53,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View style={paymentMethod === 'cash' ? tw`flex h-full pb-10 bg-[#12172B]` : tw`flex h-full pb-10 pt-7`}>
     {paymentMethod !== 'cash' && <Headline>
-        {i18n(
-          'paymentMethod.select.title',
-          i18n(`paymentMethod.${paymentMethod}`)
-        )}
-      </Headline>}
-    {paymentMethod === 'cash' &&
-      <Ljubljana style={tw`w-full`}/>}
+      {i18n(
+        'paymentMethod.select.title',
+        i18n(`paymentMethod.${paymentMethod}`)
+      )}
+    </Headline>}
+    {paymentMethod === 'cash' && <Ljubljana style={tw`w-full`}/>}
     <View style={paymentMethod === 'cash' 
     ? tw`h-full flex-shrink flex justify-center px-3` 
     : tw`h-full flex-shrink flex justify-center mt-8 px-6`}>

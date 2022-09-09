@@ -305,7 +305,7 @@
   "paymentMethod.cash.ljubljana.1": "This option is only for attendees of Bitcoin Ljubljana.",
   "paymentMethod.cash.ljubljana.2": "You’ll have to arrange a location to meet up in the chat.",
   "paymentMethod.cash.ljubljana.3": "Since it’s hard to prove a cash transaction happened or not, dispute mediation will not be available.",
-  "paymentMethod.cash.ljubljana.checkbox": "Since it’s hard to prove a cash transaction happened or not, dispute mediation will not be available.",
+  "paymentMethod.cash.ljubljana.checkbox": "I accept the risks, and understand that Peach won’t be able to help me with disputes.",
   "paymentMethod.currency.select.title": "Select $0 currencies",
   "medal.fastTrader": "#FastTrader",
   "medal.superTrader": "#SuperTrader",

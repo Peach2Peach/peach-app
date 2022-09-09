@@ -42,7 +42,6 @@ export const Cash = ({
   }, [disclaimerAcknowledged])
 
   return <View style={tw`h-full flex justify-between items-center -mb-16 bg-[#12172B]`}>
-    
     <View>
       <Text style={tw`text-center text-white-1`}>
         {i18n('paymentMethod.cash.ljubljana.1')}
