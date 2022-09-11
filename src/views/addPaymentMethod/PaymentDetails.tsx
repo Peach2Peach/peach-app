@@ -9,7 +9,6 @@ import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { StackNavigation } from '../../utils/navigation'
 import { addPaymentData } from '../../utils/account'
-import Ljubljana from './ljubljana.svg'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>,
@@ -55,7 +54,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     const screenWidth = Dimensions.get('window').width
-    const imageHeight = screenWidth * (1080/1920)
+    const imageHeight = screenWidth * (1080 / 1920)
     setBannerWidth(screenWidth)
     setBannerHeight(imageHeight)
   }, [])
