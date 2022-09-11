@@ -9,8 +9,9 @@ import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import Escrow from '../../overlays/info/Escrow'
 import Refund from '../../overlays/Refund'
+import TaprootWarning from '../../overlays/TaprootWarning'
 import tw from '../../styles/tailwind'
-import { updateTradingLimit } from '../../utils/account'
+import { account, updateSettings, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
@@ -26,7 +27,7 @@ type Props = {
   navigation: StackNavigation,
 }
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -135,6 +136,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     setEscrow(offer.escrow || '')
     setUpdatePending(!offer.escrow)
     setFundingStatus(offer.funding)
+  }, [route]))
+
+  useFocusEffect(useCallback(() => {
+    if (!account.settings.showTaprootDisclaimer) return
+    updateOverlay({ content: <TaprootWarning />, showCloseButton: false })
+    updateSettings({ showTaprootDisclaimer: false }, true)
   }, [route]))
 
   return <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
