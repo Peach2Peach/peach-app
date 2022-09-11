@@ -1,5 +1,5 @@
-import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { Dimensions, Image, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -24,6 +24,8 @@ const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList>
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [paymentData, setPaymentData] = useState(route.params.paymentData)
+  const [bannerWidth, setBannerWidth] = useState(0)
+  const [bannerHeight, setBannerHeight] = useState(0)
   const { type: paymentMethod } = paymentData
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
@@ -51,6 +53,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
+  useEffect(() => {
+    const screenWidth = Dimensions.get('window').width
+    const imageHeight = screenWidth * (1080/1920)
+    setBannerWidth(screenWidth)
+    setBannerHeight(imageHeight)
+  }, [])
+
   return <View style={paymentMethod === 'cash' ? tw`flex h-full pb-10 bg-[#12172B]` : tw`flex h-full pb-10 pt-7`}>
     {paymentMethod !== 'cash' && <Headline>
       {i18n(
@@ -58,7 +67,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         i18n(`paymentMethod.${paymentMethod}`)
       )}
     </Headline>}
-    {paymentMethod === 'cash' && <Ljubljana style={tw`w-full`}/>}
+    {paymentMethod === 'cash' && <Image
+      source={require('../../assets/ljubljana.png')}
+      resizeMode="contain"
+      style={{ width: bannerWidth, height: bannerHeight }} />
+    }
     <View style={paymentMethod === 'cash'
       ? tw`h-full flex-shrink flex justify-center px-3`
       : tw`h-full flex-shrink flex justify-center mt-8 px-6`}>

@@ -17,7 +17,7 @@ export const Cash = ({
 
   const buildPaymentData = (): PaymentData & CashData => ({
     id: data?.id || 'bitcoin-ljubljana',
-    label: 'Cash on the conference!',
+    label: 'Cash in Ljubljana!',
     type: 'cash',
     disclaimerAcknowledged,
     currencies: data?.currencies || currencies,
