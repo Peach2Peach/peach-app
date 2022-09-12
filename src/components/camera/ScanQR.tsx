@@ -16,15 +16,6 @@ interface ScanQRProps {
 export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
   const windowDimensions = Dimensions.get('window')
   const viewSize = windowDimensions.width * 0.75
-  const overlayY = [
-    tw`bg-peach-translucent w-full`,
-    { height: Math.round((windowDimensions.height - viewSize) / 2) }
-  ]
-  const overlayX = [
-    tw`bg-peach-translucent h-full`,
-    { width: Math.round((windowDimensions.width - viewSize) / 2) }
-  ]
-
   return <Modal
     animationType="fade"
     transparent={false}
@@ -36,24 +27,40 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         cameraStyle={tw`w-full h-full z-0`}
         onRead={onSuccess}
         vibrate={true}
-      />
-      <View style={tw`absolute top-0 left-0 w-full h-full z-10`}>
-        <View style={[overlayY, tw`flex justify-end items-center`]}>
-          <Text style={tw`text-white-2 font-baloo text-xl mb-4 uppercase`}>
-            {i18n('scanBTCAddress')}
-          </Text>
-        </View>
-        <View style={tw`flex-row`}>
-          <View style={overlayX} />
-          <View style={[tw`overflow-hidden`, { width: viewSize, height: viewSize }]}>
-            <FocusView style={tw`w-full h-full`} />
+        showMarker
+        customMarker={
+          <View style={tw`w-full h-full flex flex-col`}>
+            <View style={tw`bg-peach-translucent h-full flex-shrink flex flex-col justify-end pb-2`}>
+              <View><Text style={tw`text-white-2 font-baloo text-xl leading-xl m-auto uppercase`}>
+                {i18n('scanBTCAddress')}
+              </Text></View>
+            </View>
+            <View style={tw`w-full flex-row flex-shrink-0`}>
+              <View style={[
+                { width: Math.round((windowDimensions.width - viewSize) / 2) },
+                tw`bg-peach-translucent`
+              ]}/>
+              <View style={{
+                width: viewSize,
+                height: viewSize,
+              }}>
+                <FocusView/>
+              </View>
+              <View style={[
+                { width: Math.round((windowDimensions.width - viewSize) / 2) },
+                tw`bg-peach-translucent`
+              ]}/>
+            </View>
+            <View style={tw`bg-peach-translucent h-full flex-shrink flex-row i`}>
+              <Button
+                title={i18n('cancel')}
+                tertiary={true}
+                onPress={onCancel}
+                wide={false}
+                style={tw`m-auto`}/>
+            </View>
           </View>
-          <View style={overlayX} />
-        </View>
-        <View style={[overlayY, tw`flex justify-center items-center`]}>
-          <Button title={i18n('cancel')} tertiary={true} onPress={onCancel} wide={false} />
-        </View>
-      </View>
+        }/>
     </View>
   </Modal>
 }

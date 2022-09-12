@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { BitcoinAddress } from '../../../components'
 import { SATSINBTC } from '../../../constants'
-import tw from '../../../styles/tailwind'
 
 type FundingViewProps = {
   escrow: string,
