@@ -21,7 +21,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
   const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, showCloseButton: true, help: true })
 
   return <View style={style}>
-    <View style={tw`flex-row justify-center items-center`}>
+    <View style={tw`flex-row justify-center items-center pl-11`}>
       <Text style={tw`text-center text-grey-1 font-bold`}>
         {i18n('profile.tradingLimits')}
       </Text>
