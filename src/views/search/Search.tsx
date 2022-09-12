@@ -412,7 +412,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             onChange={setMatchingOptions} onEndReached={onEndReached}
             toggleMatch={_toggleMatch} loadingMore={searchingMatches}/>
           {offer.type === 'bid'
-            ? <View style={tw`flex-row items-center justify-center`}>
+            ? <View style={tw`flex-row items-center justify-center pl-11`}>
               <Button
                 title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 wide={false}
@@ -420,13 +420,11 @@ export default ({ route, navigation }: Props): ReactElement => {
                 loading={matchLoading}
                 onPress={_toggleMatch}
               />
-              <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
-                <View style={tw`w-10 h-10 flex items-center justify-center`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                </View>
+              <Pressable onPress={openMatchHelp} style={tw`p-3`}>
+                <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
               </Pressable>
             </View>
-            : <View style={tw`flex-row items-center justify-center`}>
+            : <View style={tw`flex-row items-center justify-center pl-11`}>
               {/* <Button
                 title={i18n('search.declineMatch')}
                 wide={false}
@@ -441,10 +439,8 @@ export default ({ route, navigation }: Props): ReactElement => {
                 disabled={currentMatch?.matched}
                 onPress={() => _match(currentMatch)}
               />
-              <Pressable onPress={openMatchHelp} style={tw`w-0 h-full flex-row items-center`}>
-                <View style={tw`w-10 h-10 flex items-center justify-center`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                </View>
+              <Pressable onPress={openMatchHelp} style={tw`p-3`}>
+                <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
               </Pressable>
             </View>
           }

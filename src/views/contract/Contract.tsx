@@ -230,10 +230,8 @@ export default ({ route, navigation }: Props): ReactElement => {
                     style={tw`flex-shrink`}
                   />
                   {view === 'buyer' && requiredAction === 'sendPayment'
-                    ? <Pressable onPress={openPaymentHelp} style={tw`flex-row items-center p-1 -mt-0.5`}>
-                      <View style={tw`w-6 h-6 -ml-2 flex items-center justify-center`}>
-                        <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
-                      </View>
+                    ? <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
+                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
                     </Pressable>
                     : null
                   }
