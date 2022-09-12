@@ -19,6 +19,7 @@ declare type Settings = {
   lastBackupDate?: number,
   showBackupReminder: boolean,
   showDisputeDisclaimer: boolean
+  showTaprootDisclaimer: boolean
 }
 
 declare type PGPKeychain = {
