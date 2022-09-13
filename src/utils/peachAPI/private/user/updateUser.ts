@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import * as bitcoin from 'bitcoinjs-lib'
+import { crypto } from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
 import fetch from '../../../fetch'
 import { parseResponse, peachAccount } from '../..'
@@ -22,7 +22,7 @@ const getPGPUpdatePayload = async (pgp?: PGPKeychain): Promise<{}|PGPPayload> =>
   return {
     publicKey: peachAccount.publicKey.toString('hex'),
     pgpPublicKey: pgp.publicKey,
-    signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(pgp.publicKey))).toString('hex'),
+    signature: peachAccount.sign(crypto.sha256(Buffer.from(pgp.publicKey))).toString('hex'),
     message,
     pgpSignature,
   }

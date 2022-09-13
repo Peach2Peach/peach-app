@@ -1,17 +1,21 @@
 import { NETWORK } from '@env'
-import * as bitcoin from 'bitcoinjs-lib'
+import { networks, payments, script, opcodes } from 'bitcoinjs-lib'
+import BIP32Factory, { BIP32Interface } from 'bip32'
 import * as bip39 from 'bip39'
 import { PsbtInput } from 'bip174/src/lib/interfaces'
 import { getRandom } from './crypto'
 const varuint = require('varuint-bitcoin')
+const ecc = require('tiny-secp256k1')
 
-export let wallet: bitcoin.bip32.BIP32Interface
+const bip32 = BIP32Factory(ecc)
+
+export let wallet: BIP32Interface
 
 export const network = NETWORK === 'testnet'
-  ? bitcoin.networks.testnet
+  ? networks.testnet
   : NETWORK === 'regtest'
-    ? bitcoin.networks.regtest
-    : bitcoin.networks.bitcoin
+    ? networks.regtest
+    : networks.bitcoin
 
 /**
  * @description Method to get current bitcoin network
@@ -29,7 +33,7 @@ export const createWallet = async (mnemonic? :string): Promise<PeachWallet> => {
   const seed = bip39.mnemonicToSeedSync(mnemonic)
 
   return {
-    wallet: bitcoin.bip32.fromSeed(
+    wallet: bip32.fromSeed(
       seed,
       network
     ),
@@ -38,14 +42,14 @@ export const createWallet = async (mnemonic? :string): Promise<PeachWallet> => {
 }
 
 export const getWallet = () => wallet
-export const setWallet = (wllt: bitcoin.bip32.BIP32Interface) => wallet = wllt
+export const setWallet = (wllt: BIP32Interface) => wallet = wllt
 
 /**
  * @description Method to get the first address of account
  * @param wllt the HD wllt
  * @returns main address
  */
-export const getMainAddress = (wllt: bitcoin.bip32.BIP32Interface) =>
+export const getMainAddress = (wllt: BIP32Interface) =>
   wllt.derivePath(`m/48'/${NETWORK === 'bitcoin' ? '0' : '1'}'/0'/0'`)
 
 /**
@@ -105,16 +109,16 @@ const witnessStackToScriptWitness = (witness: Buffer[]): Buffer => {
  * @description Method to to finalize scripts for Peach escrow PSBT
  * @param inputIndex index of input to finalize
  * @param input the input itself
- * @param script the script of given input
+ * @param bitcoinScript the script of given input
  * @returns final script
  */
-export const getFinalScript = (inputIndex: number, input: PsbtInput, script: Buffer): {
+export const getFinalScript = (inputIndex: number, input: PsbtInput, bitcoinScript: Buffer): {
   finalScriptSig: Buffer | undefined
   finalScriptWitness: Buffer | undefined
 } => {
-  const decompiled = bitcoin.script.decompile(script)
+  const decompiled = script.decompile(bitcoinScript)
   const meaningFulSignatures = input.partialSig?.every(sig =>
-    script.toString('hex').indexOf(sig.pubkey.toString('hex')) !== -1
+    bitcoinScript.toString('hex').indexOf(sig.pubkey.toString('hex')) !== -1
   )
   if (!decompiled) {
     throw new Error(`Can not finalize input #${inputIndex}`)
@@ -123,20 +127,20 @@ export const getFinalScript = (inputIndex: number, input: PsbtInput, script: Buf
     throw new Error(`Can not finalize input #${inputIndex}. Signatures do not correspond to public keys`)
   }
 
-  const payment = bitcoin.payments.p2wsh({
+  const payment = payments.p2wsh({
     network,
     redeem: {
       network,
-      output: script,
+      output: bitcoinScript,
       input: input.partialSig!.length === 2
-        ? bitcoin.script.compile([
+        ? script.compile([
           input.partialSig![0].signature,
           input.partialSig![1].signature,
-          bitcoin.opcodes.OP_FALSE
+          opcodes.OP_FALSE
         ])
-        : bitcoin.script.compile([
+        : script.compile([
           input.partialSig![0].signature,
-          bitcoin.opcodes.OP_TRUE,
+          opcodes.OP_TRUE,
         ])
     }
   })
