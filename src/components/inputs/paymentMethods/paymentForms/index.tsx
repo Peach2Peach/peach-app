@@ -106,8 +106,8 @@ export const PaymentMethodForm = ({
   useEffect(keyboard(setKeyboardOpen), [])
 
   return <View style={[tw`flex`, style]}>
-    <PeachScrollView 
-      style={tw`h-full flex-shrink`} 
+    <PeachScrollView
+      style={tw`h-full flex-shrink`}
       contentContainerStyle={tw`min-h-full flex justify-center pb-10 pt-4`}>
       <Form
         forwardRef={(r: FormRef) => $formRef = r}
