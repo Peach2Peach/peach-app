@@ -41,7 +41,7 @@ export const Cash = ({
     if (onChange) onChange(buildPaymentData())
   }, [disclaimerAcknowledged])
 
-  return <View style={tw`h-full flex justify-between items-center -mb-16 bg-[#12172B]`}>
+  return <View style={tw`h-full flex items-center -mb-16 bg-[#12172B]`}>
     <View>
       <Text style={tw`text-center text-white-1`}>
         {i18n('paymentMethod.cash.ljubljana.1')}
@@ -53,7 +53,7 @@ export const Cash = ({
         {i18n('paymentMethod.cash.ljubljana.3')}
       </Text>
     </View>
-    <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center`}>
+    <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10`}>
       <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
         {disclaimerAcknowledged
           ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
