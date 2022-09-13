@@ -15,7 +15,6 @@ export const defaultAccount: Account = {
     meansOfPayment: {},
     showBackupReminder: true,
     showDisputeDisclaimer: true,
-    showTaprootDisclaimer: true,
   },
   paymentData: [],
   tradingLimit: {
