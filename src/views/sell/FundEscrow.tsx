@@ -138,12 +138,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     setFundingStatus(offer.funding)
   }, [route]))
 
-  useFocusEffect(useCallback(() => {
-    if (!account.settings.showTaprootDisclaimer) return
-    updateOverlay({ content: <TaprootWarning />, showCloseButton: false })
-    updateSettings({ showTaprootDisclaimer: false }, true)
-  }, [route]))
-
   return <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
     <View style={tw``}>
       <Title title={i18n('sell.title')} subtitle={subtitle}
