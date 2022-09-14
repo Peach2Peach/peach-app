@@ -48,6 +48,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [page, setPage] = useState(0)
+  const [queue, setQueue] = useState<PostChatProps[]>([])
   const [disableSend, setDisableSend] = useState(false)
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
@@ -77,6 +78,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(useCallback(initChat, [route]))
 
   useFocusEffect(useCallback(() => {
+    if (ws.connected && queue.length) {
+      queue.forEach(payload => ws.send(JSON.stringify({
+        path: '/v1/contract/chat',
+        ...payload,
+      })))
+      setQueue([])
+    }
 
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
@@ -90,6 +98,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       setAndSaveChat(contractId, {
         messages: [decryptedMessage]
       })
+      if (!message.readBy.includes(account.publicKey)) {
+        ws.send(JSON.stringify({
+          path: '/v1/contract/chat/received',
+          contractId: contract.id,
+          start: message.date,
+          end: message.date,
+        }))
+      }
     }
     const unsubscribe = () => {
       ws.off('message', messageHandler)
@@ -213,26 +229,33 @@ export default ({ route, navigation }: Props): ReactElement => {
       newMessage,
       contract.symmetricKey
     )
-    ws.send(JSON.stringify({
-      path: '/v1/contract/chat',
+
+    const payload: PostChatProps = {
       contractId: contract.id,
-      from: account.publicKey,
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
-    }))
+    }
+    if (ws.connected) {
+      ws.send(JSON.stringify({
+        path: '/v1/contract/chat',
+        ...payload,
+      }))
+    } else {
+      setQueue(q => q.concat(payload))
+    }
 
-    setAndSaveChat(chat.id, {
-      messages: [
-        {
-          roomId: `contract-${contract.id}`,
-          from: account.publicKey,
-          date: new Date(),
-          message: newMessage,
-          signature: encryptedResult.signature,
-        }
-      ],
-      lastSeen: new Date()
-    }, false)
+    setAndSaveChat(chat.id, { lastSeen: new Date() }, false)
+    setChat(c => ({
+      ...c,
+      messages: c.messages.concat({
+        roomId: `contract-${contract.id}`,
+        from: account.publicKey,
+        date: new Date(),
+        readBy: [],
+        message: newMessage,
+        signature: encryptedResult.signature,
+      })
+    }))
   }
 
   const loadMore = () => {
@@ -241,7 +264,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const goBack = () => navigation.replace('contract', { contractId })
-  // contract.disputeActive
 
   return !contract || updatePending
     ? <Loading />
@@ -266,7 +288,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       </Shadow>
       <View style={[
         tw`w-full h-full flex-shrink`,
-        !ws.connected || !contract.symmetricKey ? tw`opacity-50` : {}
+        !contract.symmetricKey ? tw`opacity-50` : {}
       ]}>
         <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
           tradingPartner={tradingPartner?.id || ''}
@@ -280,7 +302,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           value={newMessage}
           placeholder={i18n('chat.yourMessage')}
         />
-
       </View>
     </View>
 }

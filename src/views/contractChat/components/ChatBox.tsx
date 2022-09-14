@@ -31,11 +31,11 @@ export default ({
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 
   useEffect(() => {
-    setTimeout(() => scroll.current?.scrollToEnd(), 300)
+    setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
   }, [])
 
   useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', () => scroll.current?.scrollToEnd)
+    Keyboard.addListener('keyboardDidShow', () => () => scroll.current?.scrollToEnd({ animated: false }))
   }, [])
 
   const onContentSizeChange = () => page === 0

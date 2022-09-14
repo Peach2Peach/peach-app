@@ -224,6 +224,12 @@ declare type ConfirmPaymentResponse = {
 
 declare type GetChatResponse = Message[]
 
+declare type PostChatProps = {
+  contractId: Contract['id'],
+  message: string,
+  signature: string,
+}
+
 declare type CancelContractResponse = {
   success: true
   psbt?: string

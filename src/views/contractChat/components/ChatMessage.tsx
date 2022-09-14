@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Text } from '../../../components'
+import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -19,7 +19,15 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatM
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
   const isSystemMessage = message.from === 'system'
-
+  const readByCounterParty = message.readBy?.includes(tradingPartner)
+  const statusIcon = readByCounterParty
+    ? 'checkDouble'
+    : 'check'
+  const statusIconColor = message.readBy?.length === 0
+    ? tw`text-transparent`.color
+    : statusIcon === 'checkDouble'
+      ? tw`text-blue-1`.color
+      : tw`text-grey-3`.color
   const previous = chatMessages[index - 1]
   const showName = !previous || previous.from !== message.from
   const name = i18n(isSystemMessage
@@ -54,7 +62,10 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatM
       bgColor
     ]}>
       <Text style={'flex-shrink-0'}>{message.message || i18n('chat.decyptionFailed')}</Text>
-      <Text style={tw`ml-auto text-right text-xs text-grey-3`}>{toTimeFormat(message.date)}</Text>
+      <Text style={tw`ml-auto text-right text-xs leading-5 text-grey-3`}>
+        {toTimeFormat(message.date)}
+        {isYou && <Icon id={statusIcon} style={tw`w-4 h-4 ml-2`} color={statusIconColor as string} />}
+      </Text>
     </View>
   </View>
 }

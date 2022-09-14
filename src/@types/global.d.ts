@@ -91,6 +91,7 @@ declare type Message = {
   from: User['id'],
   date: Date,
   message?: string|null,
+  readBy: string[],
   signature: string,
 }
 
