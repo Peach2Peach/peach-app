@@ -59,7 +59,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setBannerHeight(imageHeight)
   }, [])
 
-  return <View style={paymentMethod === 'cash' ? tw`flex h-full pb-10 bg-[#12172B]` : tw`flex h-full pb-10 pt-7`}>
+  return <View style={paymentMethod === 'cash' ? tw`flex h-full bg-[#12172B]` : tw`flex h-full mt-8`}>
     {paymentMethod !== 'cash' && <Headline>
       {i18n(
         'paymentMethod.select.title',
@@ -73,7 +73,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
     <View style={paymentMethod === 'cash'
       ? tw`h-full flex-shrink flex justify-center px-3`
-      : tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
+      : tw`h-full flex-shrink flex justify-center px-6`}>
       <PaymentMethodForm paymentMethod={paymentMethod}
         style={tw`h-full flex-shrink flex-col justify-between`}
         currencies={paymentData.currencies}
