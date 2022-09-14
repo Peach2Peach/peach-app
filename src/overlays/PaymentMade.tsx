@@ -7,8 +7,8 @@ import { Button, Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { contractIdToHex, getContract } from '../utils/contract'
 import { Navigation } from '../utils/navigation'
+import { getContract, getOfferIdfromContract } from '../utils/contract'
 
 type Props = {
   contractId: Contract['id'],
@@ -18,13 +18,16 @@ type Props = {
 
 export default ({ contractId, date, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  
+  const contract = getContract(contractId)
+  const offerId = getOfferIdfromContract(contract as Contract)
 
   const closeOverlay = () => {
     updateOverlay({ content: null, showCloseButton: true })
   }
 
   const goToContract = () => {
-    const contract = getContract(contractId)
+    
     navigation.navigate({ name: 'contract', merge: false, params: {
       contract: contract ? {
         ...contract,
@@ -45,7 +48,7 @@ export default ({ contractId, date, navigation }: Props): ReactElement => {
       </View>
     </View>
     <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('paymentMade.description.1', contractIdToHex(contractId))}
+      {i18n('paymentMade.description.1', getOfferIdfromContract(contract!))}
       {'\n\n'}
       {i18n('paymentMade.description.2')}
     </Text>

@@ -10,7 +10,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
-import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
+import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
@@ -216,7 +216,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Text style={tw`text-grey-2 text-center -mt-1`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
         {!contract.canceled && !contract.paymentConfirmed
           ? <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
