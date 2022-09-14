@@ -7,6 +7,6 @@ import { offerIdToHex } from '../offer'
  * @returns hex representation of offer id
  */
 export const getOfferIdfromContract = (contract: Contract) => {
-  let offerId = contract.id.split('-')[account.publicKey === contract.seller.id ? 0 : 1]
+  const offerId = contract.id.split('-')[account.publicKey === contract.seller.id ? 0 : 1]
   return offerIdToHex(offerId)
 }
