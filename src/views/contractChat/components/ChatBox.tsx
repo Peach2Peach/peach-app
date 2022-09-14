@@ -10,12 +10,13 @@ const PAGE_SIZE = 21
 
 
 type ChatBoxProps = ComponentProps & {
-  chat: Chat,
-  setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void,
-  tradingPartner: User['id'],
-  page: number,
-  loadMore: () => void,
+  chat: Chat
+  setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void
+  tradingPartner: User['id']
+  page: number
+  loadMore: () => void
   loading: boolean
+  online: boolean
 }
 
 export default ({
@@ -24,7 +25,8 @@ export default ({
   tradingPartner,
   page,
   loadMore,
-  loading
+  loading,
+  online
 }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
@@ -59,12 +61,15 @@ export default ({
     onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
     onViewableItemsChanged={onViewableItemsChanged}
     keyExtractor={item =>
-      item.date.getTime().toString() + (item.message || '')
+      item.date.getTime() + item.signature.substring(128, 128 + 32)
     }
     renderItem={({ item, index }) =>
-      <ChatMessage chatMessages={visibleChatMessages} tradingPartner={tradingPartner} item={item} index={index} />
+      <ChatMessage item={item} index={index}
+        chatMessages={visibleChatMessages}
+        tradingPartner={tradingPartner}
+        online={online} />
     }
-    initialNumToRender={10}
+    initialNumToRender={PAGE_SIZE}
     onRefresh={loadMore}
     refreshing={loading}
     contentContainerStyle={tw`pb-20`}

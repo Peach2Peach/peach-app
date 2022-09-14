@@ -1,34 +1,30 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import { View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
+import { IconType } from '../../../components/icons'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
 
-type ChatMessageProps = {
-  chatMessages: Message[],
-  tradingPartner: string,
-  item: Message,
-  index: number,
+type MessageMeta = {
+  online: boolean
+  showName: boolean
+  name: string
+  isYou: boolean
+  isTradingPartner: boolean
+  isMediator: boolean
+  isSystemMessage: boolean
+  readByCounterParty: boolean
 }
 
-export const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatMessageProps): ReactElement => {
-  const message = item
+// eslint-disable-next-line max-params
+const getMessageMeta = (message: Message, previous: Message, tradingPartner: string, online: boolean): MessageMeta => {
   const isYou = message.from === account.publicKey
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
   const isSystemMessage = message.from === 'system'
   const readByCounterParty = message.readBy?.includes(tradingPartner)
-  const statusIcon = readByCounterParty
-    ? 'checkDouble'
-    : 'check'
-  const statusIconColor = message.readBy?.length === 0
-    ? tw`text-transparent`.color
-    : statusIcon === 'checkDouble'
-      ? tw`text-blue-1`.color
-      : tw`text-grey-3`.color
-  const previous = chatMessages[index - 1]
   const showName = !previous || previous.from !== message.from
   const name = i18n(isSystemMessage
     ? 'chat.systemMessage'
@@ -36,25 +32,71 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatM
       ? 'chat.mediator'
       : isYou ? 'chat.you' : 'chat.tradePartner'
   )
-  const text = isMediator || isSystemMessage
+  return {
+    online,
+    showName,
+    name,
+    isYou,
+    isTradingPartner,
+    isMediator,
+    isSystemMessage,
+    readByCounterParty,
+  }
+}
+
+type MessageStyling = {
+  text: ViewStyle
+  bgColor: ViewStyle
+  statusIcon: IconType
+  statusIconColor: string
+}
+const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
+  const text = meta.isMediator || meta.isSystemMessage
     ? tw`text-chat-mediator text-center`
-    : isYou ? tw`text-chat-you text-right` : tw`text-chat-partner`
+    : meta.isYou ? tw`text-chat-you text-right` : tw`text-chat-partner`
   const bgColor = !message.message
     ? tw`bg-chat-error-translucent`
-    : isMediator || isSystemMessage
+    : meta.isMediator || meta.isSystemMessage
       ? tw`bg-chat-mediator-translucent`
-      : isYou ? tw`bg-chat-you-translucent` : tw`bg-chat-partner-translucent`
+      : meta.isYou ? tw`bg-chat-you-translucent` : tw`bg-chat-partner-translucent`
+  const statusIcon = message.readBy?.length === 0
+    ? !meta.online ? 'offline' : 'clock'
+    : meta.readByCounterParty ? 'checkDouble' : 'check'
+  const statusIconColor = statusIcon === 'checkDouble'
+    ? tw`text-blue-1`.color
+    : tw`text-grey-3`.color
+  return {
+    text,
+    bgColor,
+    statusIcon,
+    statusIconColor: statusIconColor as string
+  }
+}
+type ChatMessageProps = {
+  chatMessages: Message[]
+  tradingPartner: string
+  item: Message
+  index: number
+  online: boolean
+}
 
+export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online }: ChatMessageProps): ReactElement => {
+  const message = item
+  const meta = getMessageMeta(message, chatMessages[index - 1], tradingPartner, online)
+  const {
+    statusIcon, statusIconColor,
+    text, bgColor,
+  } = getMessageStyling(message, meta)
   return <View onStartShouldSetResponder={() => true}
-    key={message.date.getTime() + message.signature.substring(128, 128 + 32)} style={[
+    style={[
       tw`w-11/12 px-3 bg-transparent`,
-      isMediator ? tw`w-full` : isYou ? tw`self-end` : {}
+      meta.isMediator ? tw`w-full` : meta.isYou ? tw`self-end` : {}
     ]}>
-    {showName
+    {meta.showName
       ? <Text style={[
         tw`px-1 mt-4 -mb-1 font-baloo text-xs`,
         text,
-      ]}>{name}</Text>
+      ]}>{meta.name}</Text>
       : null
     }
     <View style={[
@@ -64,7 +106,7 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index }: ChatM
       <Text style={'flex-shrink-0'}>{message.message || i18n('chat.decyptionFailed')}</Text>
       <Text style={tw`ml-auto text-right text-xs leading-5 text-grey-3`}>
         {toTimeFormat(message.date)}
-        {isYou && <Icon id={statusIcon} style={tw`w-4 h-4 ml-2`} color={statusIconColor as string} />}
+        {meta.isYou && <Icon id={statusIcon} style={tw`w-4 h-4 ml-2`} color={statusIconColor as string} />}
       </Text>
     </View>
   </View>

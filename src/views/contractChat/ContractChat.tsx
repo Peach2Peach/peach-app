@@ -9,7 +9,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import keyboard from '../../effects/keyboard'
 import { account } from '../../utils/account'
-import { decryptMessage, getChat, saveChat } from '../../utils/chat'
+import { decryptMessage, getChat, getUnsentMessages, saveChat } from '../../utils/chat'
 import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -43,12 +43,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract|null>(() => getContract(contractId))
-  const [tradingPartner, setTradingPartner] = useState<User|null>()
+  const [tradingPartner, setTradingPartner] = useState<User|null>(contract
+    ? account.publicKey === contract.seller.id ? contract.buyer : contract.seller
+    : null
+  )
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
   const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [page, setPage] = useState(0)
-  const [queue, setQueue] = useState<PostChatProps[]>([])
   const [disableSend, setDisableSend] = useState(false)
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
@@ -61,29 +63,78 @@ export default ({ route, navigation }: Props): ReactElement => {
     return contractData
   }
 
+  const sendMessage = async (message: string) => {
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !message) return
+
+    const encryptedResult = await signAndEncryptSymmetric(
+      message,
+      contract.symmetricKey
+    )
+
+    if (ws.connected) {
+      ws.send(JSON.stringify({
+        path: '/v1/contract/chat',
+        contractId: contract.id,
+        message: encryptedResult.encrypted,
+        signature: encryptedResult.signature
+      }))
+    }
+
+    setAndSaveChat(chat.id, {
+      messages: [
+        {
+          roomId: `contract-${contract.id}`,
+          from: account.publicKey,
+          date: new Date(),
+          readBy: [],
+          message,
+          signature: encryptedResult.signature,
+        }
+      ],
+      lastSeen: new Date()
+    }, false)
+  }
+
+  const submit = async () => {
+    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
+    setDisableSend(true)
+    setTimeout(() => setDisableSend(false), 300)
+
+    sendMessage(newMessage)
+    setNewMessage('')
+  }
+
+  const loadMore = () => {
+    setLoadingMessages(true)
+    setPage(p => p + 1)
+  }
+
+  const goBack = () => navigation.replace('contract', { contractId })
+
   const initChat = () => {
     if (contract?.id !== route.params.contractId) {
+      const c = getContract(route.params.contractId)
       setContractId(route.params.contractId)
       setUpdatePending(true)
       setLoadingMessages(true)
       setPage(0)
       setNewMessage('')
       setView('')
-      setTradingPartner(null)
+      setTradingPartner(c
+        ? account.publicKey === c.seller.id ? c.buyer : c.seller
+        : null
+      )
       setChat(getChat(route.params.contractId) || {})
-      setContract(getContract(route.params.contractId))
+      setContract(c)
     }
   }
 
   useFocusEffect(useCallback(initChat, [route]))
 
   useFocusEffect(useCallback(() => {
-    if (ws.connected && queue.length) {
-      queue.forEach(payload => ws.send(JSON.stringify({
-        path: '/v1/contract/chat',
-        ...payload,
-      })))
-      setQueue([])
+    const unsentMessages = getUnsentMessages(chat)
+    if (ws.connected && unsentMessages.length) {
+      unsentMessages.forEach(unsent => sendMessage(unsent.message || ''))
     }
 
     const messageHandler = async (message: Message) => {
@@ -218,53 +269,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(keyboard(setKeyboardOpen), [])
 
-  const sendMessage = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
-    setDisableSend(true)
-    setTimeout(() => setDisableSend(false), 300)
-
-    setNewMessage('')
-
-    const encryptedResult = await signAndEncryptSymmetric(
-      newMessage,
-      contract.symmetricKey
-    )
-
-    const payload: PostChatProps = {
-      contractId: contract.id,
-      message: encryptedResult.encrypted,
-      signature: encryptedResult.signature,
-    }
-    if (ws.connected) {
-      ws.send(JSON.stringify({
-        path: '/v1/contract/chat',
-        ...payload,
-      }))
-    } else {
-      setQueue(q => q.concat(payload))
-    }
-
-    setAndSaveChat(chat.id, { lastSeen: new Date() }, false)
-    setChat(c => ({
-      ...c,
-      messages: c.messages.concat({
-        roomId: `contract-${contract.id}`,
-        from: account.publicKey,
-        date: new Date(),
-        readBy: [],
-        message: newMessage,
-        signature: encryptedResult.signature,
-      })
-    }))
-  }
-
-  const loadMore = () => {
-    setLoadingMessages(true)
-    setPage(p => p + 1)
-  }
-
-  const goBack = () => navigation.replace('contract', { contractId })
-
   return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full flex-col`]}>
@@ -292,13 +296,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       ]}>
         <ChatBox chat={chat} setAndSaveChat={setAndSaveChat}
           tradingPartner={tradingPartner?.id || ''}
+          online={ws.connected}
           page={page} loadMore={loadMore} loading={loadingMessages}
         />
       </View>
       <View style={tw`absolute bottom-0 w-full bg-white-1`}>
         <MessageInput
           onChange={setNewMessage}
-          onSubmit={sendMessage} disableSubmit={disableSend}
+          onSubmit={submit} disableSubmit={disableSend}
           value={newMessage}
           placeholder={i18n('chat.yourMessage')}
         />
