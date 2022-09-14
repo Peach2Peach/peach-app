@@ -119,10 +119,7 @@ export const PaymentMethodForm = ({
         navigation={navigation}
       />
     </PeachScrollView>
-    {!keyboardOpen && <Fade
-      show={!keyboardOpen}
-      style={tw`w-full flex items-center mb-16`}
-      displayNone={false}>
+    <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
       {paymentMethod !== 'cash' && <View style={tw`w-full h-10 -mt-10`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>}
@@ -148,6 +145,6 @@ export const PaymentMethodForm = ({
         </Pressable>
         : null
       }
-    </Fade>}
+    </Fade>
   </View>
 }
