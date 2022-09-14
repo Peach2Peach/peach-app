@@ -1,13 +1,13 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Icon, Loading, Shadow, Text } from '../../components'
+import { Loading } from '../../components'
+import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import keyboard from '../../effects/keyboard'
 import { account } from '../../utils/account'
 import { decryptMessage, getChat, getUnsentMessages, saveChat } from '../../utils/chat'
 import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
@@ -16,20 +16,18 @@ import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
+import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
-import ContractActions from './components/ContractActions'
+import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
-import MessageInput from '../../components/inputs/MessageInput'
-import { sleep } from '../../utils/performance/sleep'
-import { mildShadow } from '../../utils/layout'
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['contractChat'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['contractChat'] }>
+  navigation: StackNavigation
 }
 
 // eslint-disable-next-line max-lines-per-function, max-statements
@@ -38,7 +36,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
@@ -49,7 +46,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   )
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
-  const [view, setView] = useState<'seller'|'buyer'|''>('')
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
 
@@ -109,8 +105,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     setPage(p => p + 1)
   }
 
-  const goBack = () => navigation.replace('contract', { contractId })
-
   const initChat = () => {
     if (contract?.id !== route.params.contractId) {
       const c = getContract(route.params.contractId)
@@ -119,7 +113,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       setLoadingMessages(true)
       setPage(0)
       setNewMessage('')
-      setView('')
       setTradingPartner(c
         ? account.publicKey === c.seller.id ? c.buyer : c.seller
         : null
@@ -174,8 +167,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     onSuccess: async (result) => {
       info('Got contract', result.id)
       let c = getContract(result.id)
-      const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
-      setView(v)
+      const view = account.publicKey === result.seller.id ? 'seller' : 'buyer'
       setTradingPartner(() => account.publicKey === result.seller.id ? result.buyer : result.seller)
 
       const { symmetricKey, paymentData } = await parseContract({
@@ -198,7 +190,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         }
       )
 
-      handleOverlays({ contract: c, navigation, updateOverlay, view: v })
+      handleOverlays({ contract: c, navigation, updateOverlay, view })
     },
     onError: err => updateMessage({
       msg: i18n(err.error || 'error.general'),
@@ -267,29 +259,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     })()
   }, [contract, page])
 
-  useEffect(keyboard(setKeyboardOpen), [])
-
   return !contract || updatePending
     ? <Loading />
     : <View style={[tw`h-full flex-col`]}>
-      <Shadow shadow={mildShadow}>
-        <View style={tw`w-full flex-row items-center p-1 bg-white-1`}>
-          <Pressable onPress={goBack}>
-            <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color as string}/>
-          </Pressable>
-          <Text
-            style={tw`items-center text-peach-1 text-xl font-bold`}>
-            {i18n(contract.disputeActive
-              ? 'dispute.chat'
-              : 'trade.chat')}
-          </Text>
-          <ContractActions style={tw`flex-row-reverse content-end flex-grow ml-2`}
-            contract={contract}
-            view={view}
-            navigation={navigation}
-          />
-        </View>
-      </Shadow>
+      <ChatHeader contract={contract} navigation={navigation} />
       <View style={[
         tw`w-full h-full flex-shrink`,
         !contract.symmetricKey ? tw`opacity-50` : {}
