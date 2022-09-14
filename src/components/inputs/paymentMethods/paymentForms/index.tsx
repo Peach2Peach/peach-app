@@ -121,12 +121,12 @@ export const PaymentMethodForm = ({
     </PeachScrollView>
     {!keyboardOpen && <Fade
       show={!keyboardOpen}
-      style={tw`w-full flex items-center mb-20`}
+      style={tw`w-full flex items-center mb-16`}
       displayNone={false}>
       {paymentMethod !== 'cash' && <View style={tw`w-full h-10 -mt-10`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>}
-      <View style={tw`flex-row pr-10 w-full items-stretch`}>
+      <View style={tw`flex-row pr-10 w-full items-stretch mb-2`}>
         <Pressable testID="navigation-back" onPress={back || navigation.goBack}>
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
         </Pressable>
