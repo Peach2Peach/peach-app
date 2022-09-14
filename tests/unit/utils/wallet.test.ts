@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { networks } from 'bitcoinjs-lib'
 import { deepStrictEqual, strictEqual, ok } from 'assert'
 import {
   getNetwork,
@@ -26,7 +26,7 @@ describe('wallet & getWallet & setWallet', () => {
 
 describe('getNetwork', () => {
   it('returns network provided in .env', () => {
-    deepStrictEqual(getNetwork(), bitcoin.networks.regtest)
+    deepStrictEqual(getNetwork(), networks.regtest)
   })
 })
 
@@ -36,7 +36,7 @@ describe('createWallet', () => {
     const wallet2 = await createWallet()
 
     ok(typeof wallet1.mnemonic === 'string', 'Mnemonic is not a string')
-    deepStrictEqual(wallet1.wallet.network, bitcoin.networks.regtest, 'Network is not correct')
+    deepStrictEqual(wallet1.wallet.network, networks.regtest, 'Network is not correct')
     ok(wallet1.mnemonic !== wallet2.mnemonic, 'Mnemonic are not different but should be')
     ok(
       wallet1.wallet.publicKey.toString('hex') !== wallet2.wallet.publicKey.toString('hex'),
@@ -50,7 +50,7 @@ describe('createWallet', () => {
     const recoveredWallet = await createWallet(mnemonic)
 
     strictEqual(recoveredWallet.mnemonic, mnemonic)
-    deepStrictEqual(recoveredWallet.wallet.network, bitcoin.networks.regtest, 'Network is not correct')
+    deepStrictEqual(recoveredWallet.wallet.network, networks.regtest, 'Network is not correct')
     strictEqual(recoveredWallet.wallet.privateKey.toString('hex'), expectedPrivateKey)
     strictEqual(recoveredWallet.wallet.publicKey.toString('hex'), expectedPublicKey)
   })
@@ -66,7 +66,7 @@ describe('getEscrowWallet', () => {
 
     const escrowWallet = getEscrowWallet('1')
 
-    deepStrictEqual(escrowWallet.network, bitcoin.networks.regtest, 'Network is not correct')
+    deepStrictEqual(escrowWallet.network, networks.regtest, 'Network is not correct')
     strictEqual(escrowWallet.privateKey?.toString('hex'), expectedPrivateKey)
     strictEqual(escrowWallet.publicKey.toString('hex'), expectedPublicKey)
   })
@@ -81,7 +81,7 @@ describe('getMainAddress', () => {
 
     const mainAddress = getMainAddress(recoveredWallet.wallet)
 
-    deepStrictEqual(mainAddress.network, bitcoin.networks.regtest, 'Network is not correct')
+    deepStrictEqual(mainAddress.network, networks.regtest, 'Network is not correct')
     strictEqual(mainAddress.privateKey?.toString('hex'), expectedPrivateKey)
     strictEqual(mainAddress.publicKey.toString('hex'), expectedPublicKey)
   })
