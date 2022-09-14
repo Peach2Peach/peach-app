@@ -220,7 +220,19 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: encryptedResult.encrypted,
       signature: encryptedResult.signature,
     }))
-    setAndSaveChat(chat.id, { lastSeen: new Date() }, false)
+
+    setAndSaveChat(chat.id, {
+      messages: [
+        {
+          roomId: `contract-${contract.id}`,
+          from: account.publicKey,
+          date: new Date(),
+          message: newMessage,
+          signature: encryptedResult.signature,
+        }
+      ],
+      lastSeen: new Date()
+    }, false)
   }
 
   const loadMore = () => {
