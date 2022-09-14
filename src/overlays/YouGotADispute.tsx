@@ -94,7 +94,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
     </Headline>
     <View style={tw`flex justify-center items-center`}>
       <Text style={tw`text-white-1 text-center`}>
-        {i18n('dispute.startedOverlay.description.1',  offerId)}
+        {i18n('dispute.startedOverlay.description.1', offerId)}
       </Text>
       <Text style={tw`text-white-1 text-center mt-2`}>
         {i18n('dispute.startedOverlay.description.2')}

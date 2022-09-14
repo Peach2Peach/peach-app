@@ -1,5 +1,5 @@
 import { isEmailRequired } from '../../views/dispute/Dispute'
-import { contractIdToHex, getOfferIdfromContract } from '../contract'
+import { getOfferIdfromContract } from '../contract'
 import i18n from '../i18n'
 
 /**
