@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { crypto } from 'bitcoinjs-lib'
 import { peachAccount } from '../..'
 import { error } from '../../../log'
 
@@ -20,6 +20,6 @@ export const authWS = (ws: WebSocket) => {
     path: '/v1/user/auth',
     publicKey: peachAccount.publicKey.toString('hex'),
     message,
-    signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
+    signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
   }))
 }

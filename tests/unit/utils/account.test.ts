@@ -344,7 +344,6 @@ describe('updateSettings', () => {
       preferredPaymentMethods: {},
       showBackupReminder: true,
       showDisputeDisclaimer: true,
-      showTaprootDisclaimer: true,
     })
   })
 })
