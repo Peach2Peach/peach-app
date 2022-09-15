@@ -1,4 +1,5 @@
 import { isEmailRequired } from '../../views/dispute/Dispute'
+import { account } from '../account'
 import { contractIdToHex } from '../contract'
 import i18n from '../i18n'
 
@@ -13,6 +14,7 @@ export const createSystemMessage = (roomId: Message['roomId'], date: Date, messa
   roomId,
   from: 'system',
   date,
+  readBy: [account.publicKey],
   message,
   signature: ''
 })
