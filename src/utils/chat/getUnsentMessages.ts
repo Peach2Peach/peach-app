@@ -8,4 +8,4 @@ import { account } from '../account'
 */
 export const getUnsentMessages = (chat: Chat): Message[] => chat.messages
   .filter(m => m.from === account.publicKey)
-  .filter(m => m.readBy.length === 0)
+  .filter(m => m.readBy?.length === 0)
