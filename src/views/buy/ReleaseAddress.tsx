@@ -14,6 +14,7 @@ import { cutOffAddress } from '../../utils/string'
 import { getMessages, rules } from '../../utils/validation'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
+import { info } from '../../utils/log'
 
 const { useValidation } = require('react-native-form-validator')
 
@@ -43,12 +44,20 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   }
 
   useEffect(() => {
+    if(address === ''){
+      setShortAddress('')
+      setStepValid(false)
+      return
+    }
     if (!address && !offer.releaseAddress) {
+      info(address)
+      
       setStepValid(false)
       return
     }
 
     setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
+    info('short -> '+shortAddress)
 
     validate({
       address: {
