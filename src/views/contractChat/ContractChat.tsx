@@ -54,7 +54,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
-    setContract(() => contractData)
+    setContract(contractData)
     saveContract(contractData)
     return contractData
   }
@@ -121,6 +121,15 @@ export default ({ route, navigation }: Props): ReactElement => {
       setContract(c)
     }
   }
+
+  const showDisclaimer = (async () => {
+    await sleep(1000)
+    updateMessage({
+      template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
+      level: 'INFO',
+      close: false
+    })
+  })
 
   useFocusEffect(useCallback(initChat, [route]))
 
@@ -198,15 +207,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }), [contractId]))
 
-  const showDisclaimer = (async () => {
-    await sleep(1000)
-    updateMessage({
-      template: <DisputeDisclaimer navigation={navigation} contract={contract!}/>,
-      level: 'INFO',
-      close: false
-    })
-  })
-
   // Show dispute disclaimer
   useEffect(() => {
     if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
@@ -231,8 +231,10 @@ export default ({ route, navigation }: Props): ReactElement => {
           })
           saveAndUpdate({
             ...contract,
+            unreadMessages: 0,
             symmetricKey,
           })
+
           decryptedMessages = await Promise.all(decryptedMessages.map(decryptMessage(chat, symmetricKey)))
         }
 
