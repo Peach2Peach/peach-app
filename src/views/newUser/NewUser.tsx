@@ -146,7 +146,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
-  const goToContactUs = () => navigation.navigate('contact_not_user', { isNotUser: true })
+  const goToContactUs = () => navigation.navigate('report_not_user', {})
 
   return <View style={tw`h-full flex justify-center px-6`}>
     <Pressable style={tw`py-4`} onPress={goToContactUs}>
