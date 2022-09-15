@@ -5,11 +5,11 @@ import * as accountData from '../../data/accountData'
 
 describe('getOfferIdfromContract', () => {
   it('gets offer id for seller', async () => {
-    await setAccount(accountData.contract.seller, true)
-    strictEqual(getOfferIdfromContract(accountData.contract), '14')
+    await setAccount(accountData.seller)
+    strictEqual(getOfferIdfromContract(accountData.contract), 'PE')
   })
   it('gets offer id for buyer', async () => {
-    await setAccount(accountData.contract.buyer, true)
-    strictEqual(getOfferIdfromContract(accountData.contract), '15')
+    await setAccount(accountData.buyer)
+    strictEqual(getOfferIdfromContract(accountData.contract), 'PF')
   })
 })
