@@ -4,6 +4,7 @@ import camera from './camera.svg'
 import change from './change.svg'
 import chat from './chat.svg'
 import check from './check.svg'
+import checkDouble from './checkDouble.svg'
 import checkbox from './checkbox.svg'
 import clip from './clip.svg'
 import clock from './clock.svg'
@@ -24,6 +25,7 @@ import link from './link.svg'
 import lock from './lock.svg'
 import negative from './negative.svg'
 import yourTrades from './yourTrades.svg'
+import offline from './offline.svg'
 import positive from './positive.svg'
 import plus from './plus.svg'
 import radioChecked from './radioChecked.svg'
@@ -53,6 +55,7 @@ const Icons = {
   change,
   chat,
   check,
+  checkDouble,
   checkbox,
   clip,
   clock,
@@ -73,6 +76,7 @@ const Icons = {
   lock,
   negative,
   yourTrades,
+  offline,
   positive,
   plus,
   radioChecked,

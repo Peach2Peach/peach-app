@@ -317,6 +317,7 @@ export const contract: Contract = {
   canceled: false,
 
   messages: 0,
+  unreadMessages: 0,
 
   disputeResultAcknowledged: false,
   cancelConfirmationPending: false,

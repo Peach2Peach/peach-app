@@ -14,7 +14,7 @@ import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getOffer } from '../../utils/offer'
+import { getOffer, getRequiredActionCount } from '../../utils/offer'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
@@ -24,6 +24,8 @@ import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
+import { getChatNotifications } from '../../utils/chat'
+import AppContext from '../../contexts/app'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contract'] }>,
@@ -33,9 +35,9 @@ type Props = {
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
-
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
+  const [, updateAppContext] = useContext(AppContext)
 
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
@@ -49,8 +51,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
-    setContract(() => contractData)
+    setContract(contractData)
     saveContract(contractData)
+    updateAppContext({
+      notifications: getChatNotifications() + getRequiredActionCount()
+    })
     return contractData
   }
 
@@ -69,7 +74,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(useCallback(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
-      if (!contract || update.contractId !== contract.id) return
+      if (!contract || update.contractId !== contract.id || !update.event) return
       setContract({
         ...contract,
         [update.event]: new Date(update.data.date)
@@ -81,7 +86,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       setContract({
         ...contract,
-        messages: contract.messages + 1
+        unreadMessages: contract.unreadMessages + 1
       })
     }
     const unsubscribe = () => {
