@@ -139,7 +139,7 @@ declare type Session = {
 }
 
 declare type PeachWallet = {
-  wallet: bitcoin.bip32.BIP32Interface,
+  wallet: bip32.BIP32Interface,
   mnemonic: string
 }
 

@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { Psbt } from 'bitcoinjs-lib'
 import { verifyPSBT } from '../../views/contract/helpers/verifyPSBT'
 import { getOffer } from '../offer'
 import { getEscrowWallet, getFinalScript, getNetwork } from '../wallet'
@@ -14,7 +14,7 @@ export const signReleaseTx = (
   const sellOffer = getOffer(contract.id.split('-')[0]) as SellOffer
   if (!sellOffer.id || !sellOffer?.funding) return [null, ['SELL_OFFER_NOT_FOUND']]
 
-  const psbt = bitcoin.Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
+  const psbt = Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
 
   // Don't trust the response, verify
   const errorMsg = verifyPSBT(psbt, sellOffer, contract)

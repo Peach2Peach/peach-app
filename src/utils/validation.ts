@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
 // import { isxpub } from './bitcoin'
 import i18n from './i18n'
@@ -24,11 +24,11 @@ export const rules = {
     //   valid = isxpub(value)
     // } catch (e) { }
     try {
-      bitcoin.address.fromBase58Check(value)
+      address.fromBase58Check(value)
       valid = true
     } catch (e) { }
     try {
-      bitcoin.address.fromBech32(value)
+      address.fromBech32(value)
       valid = true
     } catch (e) { }
 
@@ -46,7 +46,7 @@ export const rules = {
     // tether on omni layer
     let valid = false
     try {
-      bitcoin.address.fromBase58Check(value)
+      address.fromBase58Check(value)
       valid = true
     } catch (e) { }
     return valid
