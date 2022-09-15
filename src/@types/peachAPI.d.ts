@@ -34,7 +34,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: unknown
+  details?: string|string[]
 }
 
 declare type User = {
