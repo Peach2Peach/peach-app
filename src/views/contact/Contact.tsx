@@ -8,6 +8,8 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { innerShadow } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { info } from '../../utils/log'
 
 type Props = {
   navigation: StackNavigation
@@ -15,8 +17,14 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const route = useRoute();
 
-  const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
+  const setReason = (reason: ContactReason) => {
+    if(route.name === 'contact_not_user'){
+      return navigation.navigate('report_not_user', { reason })
+    }
+    return navigation.navigate('report', { reason })
+  }
 
   return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
     <Title title={i18n('contact.title')} />

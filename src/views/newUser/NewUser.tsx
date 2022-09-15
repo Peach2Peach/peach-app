@@ -146,10 +146,17 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
+  const goToContactUs = () => navigation.navigate('contact_not_user', { isNotUser: true })
+
   return <View style={tw`h-full flex justify-center px-6`}>
+    <Pressable style={tw`py-4`} onPress={goToContactUs}>
+      <Text style={tw`underline text-xs`}>
+        {i18n('newUser.contact')}
+      </Text>
+    </Pressable>
     <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
       <View />{/* dummy for layout */}
-      <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
+      <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-10 pb-10`}>
         <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
       </View>
       <View style={tw`w-full`}>
