@@ -10,11 +10,11 @@ import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import MatchAccepted from '../../overlays/MatchAccepted'
-import { contractIdToHex, getContract } from '../../utils/contract'
+import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getOffer, getOfferStatus, getRequiredActionCount, saveOffer } from '../../utils/offer'
+import { getOffer, getOfferStatus, offerIdToHex, getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
@@ -48,7 +48,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const subtitle = contract
     ? isTradeComplete(contract)
       ? i18n('yourTrades.offerCompleted.subtitle',
-        contractIdToHex(contract.id),
+        offerIdToHex(offer.id as Offer['id']),
         finishedDate ? toShortDateFormat(finishedDate) : ''
       )
       : i18n('yourTrades.tradeCanceled.subtitle')
