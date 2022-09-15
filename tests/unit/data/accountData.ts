@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-len */
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
