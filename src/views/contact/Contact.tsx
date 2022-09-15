@@ -20,7 +20,7 @@ export default ({ navigation }: Props): ReactElement => {
   const route = useRoute()
 
   const setReason = (reason: ContactReason) => {
-    if (route.name === 'contact_not_user'){
+    if (route.name === 'contact_not_user') {
       return navigation.navigate('report_not_user', { reason })
     }
     return navigation.navigate('report', { reason })
