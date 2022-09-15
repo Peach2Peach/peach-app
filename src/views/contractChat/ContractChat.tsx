@@ -275,7 +275,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           page={page} loadMore={loadMore} loading={loadingMessages}
         />
       </View>
-      <View style={tw`absolute bottom-0 w-full bg-white-1`}>
+      <View style={tw`w-full bg-white-1`}>
         <MessageInput
           onChange={setNewMessage}
           onSubmit={submit} disableSubmit={disableSend}
