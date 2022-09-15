@@ -1,3 +1,4 @@
+import { getPaymentMethodInfo } from '../paymentMethod'
 import { account } from './account'
 
 /**
@@ -5,9 +6,11 @@ import { account } from './account'
  * @returns selected payment data
  */
 export const getSelectedPaymentDataIds = () =>
-  (Object.keys(account.settings.preferredPaymentMethods) as PaymentMethod[]).reduce(
-    (arr: string[], type: PaymentMethod) => {
-      const id = account.settings.preferredPaymentMethods[type]
-      if (!id) return arr
-      return arr.concat(id)
-    }, [])
+  (Object.keys(account.settings.preferredPaymentMethods) as PaymentMethod[])
+    .filter(method => getPaymentMethodInfo(method))
+    .reduce(
+      (arr: string[], type: PaymentMethod) => {
+        const id = account.settings.preferredPaymentMethods[type]
+        if (!id) return arr
+        return arr.concat(id)
+      }, [])
