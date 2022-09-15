@@ -20,7 +20,6 @@ export default ({ contractId, date, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const contract = getContract(contractId)
-  const offerId = getOfferIdfromContract(contract as Contract)
 
   const closeOverlay = () => {
     updateOverlay({ content: null, showCloseButton: true })
