@@ -17,10 +17,10 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  const route = useRoute();
+  const route = useRoute()
 
   const setReason = (reason: ContactReason) => {
-    if(route.name === 'contact_not_user'){
+    if (route.name === 'contact_not_user'){
       return navigation.navigate('report_not_user', { reason })
     }
     return navigation.navigate('report', { reason })
