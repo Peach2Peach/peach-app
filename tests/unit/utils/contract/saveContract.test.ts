@@ -1,7 +1,7 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { account, defaultAccount, setAccount } from '../../../src/utils/account'
-import { saveContract } from '../../../src/utils/contract'
-import * as accountData from '../data/accountData'
+import { account, defaultAccount, setAccount } from '../../../../src/utils/account'
+import { saveContract } from '../../../../src/utils/contract'
+import * as accountData from '../../data/accountData'
 
 jest.mock('react-native-fs', () => ({
   readFile: async (): Promise<string> => JSON.stringify(accountData.account1),
