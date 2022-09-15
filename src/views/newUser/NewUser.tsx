@@ -146,12 +146,12 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
-  const goToContactUs = () => navigation.navigate('report_not_user', {})
+  const goToContactUs = () => navigation.navigate('reportFullScreen', {})
 
   return <View style={tw`h-full flex justify-center px-6`}>
     <Pressable style={tw`py-4`} onPress={goToContactUs}>
       <Text style={tw`underline text-xs`}>
-        {i18n('newUser.contact')}
+        {i18n('newUser.contact').toLocaleUpperCase()}
       </Text>
     </Pressable>
     <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>

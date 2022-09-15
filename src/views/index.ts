@@ -75,7 +75,7 @@ export const views: ViewType[] = [
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
-  { name: 'report_not_user', component: Report, showHeader: false, showFooter: false },
+  { name: 'reportFullScreen', component: Report, showHeader: false, showFooter: false },
   { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
 ]
 
