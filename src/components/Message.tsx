@@ -7,6 +7,7 @@ import tw from '../styles/tailwind'
 import { Level, MessageContext } from '../contexts/message'
 import i18n from '../utils/i18n'
 import { textShadow } from '../utils/layout'
+import { IconType } from './icons'
 
 type MessageProps = ComponentProps & {
   template?: ReactNode
@@ -56,7 +57,10 @@ export const Message = ({ template, msgKey, msg, level, close, style }: MessageP
       ? template
       : <View style={tw`p-2`}>
         <View style={tw`flex-row justify-center items-center`}>
-          {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2 -mt-3`} color={tw`text-white-1`.color as string} />}
+          {!!icon && <Icon id={icon as IconType}
+            style={tw`w-5 h-5 mr-2 -mt-3`}
+            color={tw`text-white-1`.color as string}
+          />}
           {!!title && <Text style={tw`font-baloo text-xl leading-xl text-white-2 text-center mb-1`}>{title}</Text>}
         </View>
         {!!message && <Text style={tw`text-white-2 text-center`}>{message}</Text>}
