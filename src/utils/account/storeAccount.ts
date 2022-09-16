@@ -1,6 +1,6 @@
-import { account } from '.'
+import { exists } from 'react-native-fs'
 import { APPVERSION } from '../../constants'
-import { writeFile } from '../file'
+import { mkdir, writeFile } from '../file'
 import { info } from '../log'
 
 /**
@@ -66,9 +66,12 @@ export const storePaymentData = async (paymentData: Account['paymentData'], pass
  * @returns promise resolving to encrypted offers
  */
 export const storeOffers = async (offers: Account['offers'], password: string): Promise<void> => {
-  info('Saving offers')
+  info('Saving offers', offers.length)
 
-  await writeFile('/peach-account-offers.json', JSON.stringify(offers), password)
+  if (!await exists('/peach-account-offers')) await mkdir('/peach-account-offers')
+  await Promise.all(offers.map(offer =>
+    writeFile(`/peach-account-offers/${offer.id}.json`, JSON.stringify(offer), password)
+  ))
 }
 
 /**
@@ -78,9 +81,12 @@ export const storeOffers = async (offers: Account['offers'], password: string): 
  * @returns promise resolving to encrypted contracts
  */
 export const storeContracts = async (contracts: Account['contracts'], password: string): Promise<void> => {
-  info('Saving contracts')
+  info('Saving contracts', contracts.length)
 
-  await writeFile('/peach-account-contracts.json', JSON.stringify(contracts), password)
+  if (!await exists('/peach-account-contracts')) await mkdir('/peach-account-contracts')
+  await Promise.all(contracts.map(contract =>
+    writeFile(`/peach-account-contracts/${contract.id}.json`, JSON.stringify(contract), password)
+  ))
 }
 
 
