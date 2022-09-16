@@ -152,7 +152,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } })
       } else if (err) {
         error('Error', err)
-        updateMessage({ msg: i18n(err.error || 'error.postOffer'), level: 'ERROR' })
+        updateMessage({
+          msg: i18n(err.error || 'error.postOffer', (err?.details as string[] || []).join(', ')),
+          level: 'ERROR'
+        })
         back()
       }
       setUpdatePending(false)
