@@ -25,6 +25,7 @@ import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { getMessages, rules } from '../../utils/validation'
 import userUpdate from '../../init/userUpdate'
+import { ContactButton } from '../report/components/ContactButton'
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
@@ -146,14 +147,8 @@ export default ({ navigation }: Props): ReactElement => {
 
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
-  const goToContactUs = () => navigation.navigate('reportFullScreen', {})
-
   return <View style={tw`h-full flex justify-center px-6`}>
-    <Pressable style={tw`py-4`} onPress={goToContactUs}>
-      <Text style={tw`underline text-xs`}>
-        {i18n('newUser.contact').toLocaleUpperCase()}
-      </Text>
-    </Pressable>
+    <ContactButton navigation={navigation}/>
     <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
       <View />{/* dummy for layout */}
       <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-10 pb-10`}>

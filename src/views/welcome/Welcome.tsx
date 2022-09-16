@@ -15,6 +15,7 @@ import PeachOfMind from './PeachOfMind'
 import Swipe from './Swipe'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
+import { ContactButton } from '../report/components/ContactButton'
 
 const onStartShouldSetResponder = () => true
 
@@ -47,6 +48,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   }
 
   return <View style={tw`h-full flex`} testID="welcome">
+    <ContactButton navigation={navigation}/>
     <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
       <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
         <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
