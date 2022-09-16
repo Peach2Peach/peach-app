@@ -24,7 +24,7 @@ const initialNavigation = async (
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
     if (waitForNavCounter === 0) {
-      updateMessage({ msg: i18n('NAVIGATION_INIT_ERROR'), level: 'ERROR' })
+      updateMessage({ msgKey: 'NAVIGATION_INIT_ERROR', level: 'ERROR' })
       throw new Error('Failed to initialize navigation')
     }
     // eslint-disable-next-line no-await-in-loop

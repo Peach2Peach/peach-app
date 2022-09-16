@@ -42,7 +42,7 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (err) {
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
       return
     }
     saveAndUpdate({

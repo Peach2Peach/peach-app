@@ -84,7 +84,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   const onError = (e: Error) => {
     updateMessage({
-      msg: i18n(e.message || 'AUTHENTICATION_FAILURE'),
+      msgKey: e.message || 'AUTHENTICATION_FAILURE',
       level: 'ERROR',
     })
     deleteAccount({
