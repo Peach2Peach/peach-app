@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '..'
@@ -45,7 +45,6 @@ export const Selector = <T, >({ items, selectedValue, onChange, style }: Selecto
   const [scrollContentWidth, setScrollContentWidth] = useState<number>()
   const [isAtStart, setIsAtStart] = useState(true)
   const [isAtEnd, setIsAtEnd] = useState(true)
-  const scroll = useRef<ScrollView>(null)
 
   useEffect(() => {
     if (!scrollWidth || !scrollContentWidth) return
@@ -66,7 +65,6 @@ export const Selector = <T, >({ items, selectedValue, onChange, style }: Selecto
       <LinearGradient colorList={whiteGradient} angle={0}/>
     </Fade>
     <PeachScrollView horizontal={true} showsHorizontalScrollIndicator={false}
-      scrollRef={scroll}
       onScroll={onScroll}
       disable={items.length === 1}
       scrollEventThrottle={128}
