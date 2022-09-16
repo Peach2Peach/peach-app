@@ -33,13 +33,10 @@ export const loadAccount = async (password: string): Promise<Account> => {
       }
 
       if (await exists('/peach-account-offers')) {
-        console.log('lets go')
         const offerFiles = await readDir('/peach-account-offers')
         const contractFiles = await readDir('/peach-account-contracts')
-        console.log(offerFiles, contractFiles)
         const offers = await Promise.all(offerFiles.map(file => readFile(file, password)))
         const contracts = await Promise.all(contractFiles.map(file => readFile(file, password)))
-        console.log(offers.length, contracts.length)
 
         acc.offers = offers.map(offer => JSON.parse(offer))
         acc.contracts = contracts.map(contract => JSON.parse(contract))
