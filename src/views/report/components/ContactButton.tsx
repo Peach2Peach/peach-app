@@ -11,10 +11,10 @@ type ContactButtonProps = ComponentProps & {
 export const ContactButton = ({ navigation }: ContactButtonProps): ReactElement => {
   const goToContactUs = () => navigation.navigate('reportFullScreen', {})
   return <Pressable
-      style={tw`p-4 absolute top-0 left-0`}
-      onPress={goToContactUs}>
-      <Text style={tw`underline text-xs text-black-1`}>
-        {i18n('newUser.contact').toLocaleUpperCase()}
-      </Text>
-    </Pressable>
+    style={tw`p-4 absolute top-0 left-0`}
+    onPress={goToContactUs}>
+    <Text style={tw`underline text-xs text-black-1`}>
+      {i18n('newUser.contact').toLocaleUpperCase()}
+    </Text>
+  </Pressable>
 }

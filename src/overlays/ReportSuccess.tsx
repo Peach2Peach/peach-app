@@ -41,8 +41,7 @@ export default ({ navigation, goHome }: Props): ReactElement => {
     <Text style={tw`text-center text-white-1 mt-5`}>
       {i18n('report.success.text.2')}
     </Text>
-    {goHome &&
-      <View style={tw`flex justify-center items-center mt-5`}>
+    {goHome && <View style={tw`flex justify-center items-center mt-5`}>
         <Button
           title={i18n('report.success.backHome')}
           secondary={true}
