@@ -43,8 +43,8 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View>
-      <ContactButton navigation={navigation}/>
-      <View style={tw`px-6`}>
+    <ContactButton navigation={navigation}/>
+    <View style={tw`px-6`}>
       {!autoScanComplete
         ? <AutoScan />
         : !recoveredAccount.publicKey
