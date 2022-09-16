@@ -20,12 +20,14 @@ export const openCrashReportPrompt = (): void => {
       },
       {
         text: i18n('crashReport.requestPermission.deny'),
-        onPress: () => {},
+        onPress: () => {
+          crashlytics().deleteUnsentReports()
+        },
         style: 'default',
       },
       {
         text: i18n('crashReport.requestPermission.sendReport'),
-        onPress: async () => {
+        onPress: () => {
           crashlytics().sendUnsentReports()
         },
         style: 'default',
