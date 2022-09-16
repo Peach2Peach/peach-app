@@ -17,5 +17,6 @@ export default async () => {
   if (typeof account.settings.enableAnalytics === 'undefined') openAnalyticsPrompt()
 
   // check if app has crashed and ask for permission to send crash report
-  if (await await crashlytics().didCrashOnPreviousExecution()) openCrashReportPrompt()
+  if (await await crashlytics().didCrashOnPreviousExecution()
+    || await crashlytics().checkForUnsentReports()) openCrashReportPrompt()
 }

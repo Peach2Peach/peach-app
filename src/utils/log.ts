@@ -29,12 +29,13 @@ export const error = (...args: any[]) => {
   console.error([new Date(), 'ERROR', ...args].join(' - '))
   if (isProduction()) crashlytics().log([new Date(), 'ERROR', ...args].join(' - '))
 
-  if (isProduction()) args
-    .filter(arg => arg instanceof Error)
-    .forEach(err => {
-      crashlytics().recordError(err)
-      openCrashReportPrompt()
-    })
+  if (isProduction()) {
+    args
+      .filter(arg => arg instanceof Error)
+      .forEach((err) => {
+        crashlytics().recordError(err)
+      })
+  }
 }
 
 export default {
