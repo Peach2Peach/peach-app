@@ -7,6 +7,7 @@ import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
+import { ContactButton } from '../report/components/ContactButton'
 import AutoScan from './AutoScan'
 import Manual from './Manual'
 import Restored from './Restored'
@@ -41,16 +42,19 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
 
-  return <View style={tw`px-6`}>
-    {!autoScanComplete
-      ? <AutoScan />
-      : !recoveredAccount.publicKey
-        ? <Manual
-          navigation={navigation}
-          onSuccess={(acc: Account) => setRecoveredAccount(acc)}
-          onError={onError}
-        />
-        : <Restored navigation={navigation} />
-    }
+  return <View>
+    <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
+    <View style={tw`px-6`}>
+      {!autoScanComplete
+        ? <AutoScan />
+        : !recoveredAccount.publicKey
+          ? <Manual
+            navigation={navigation}
+            onSuccess={(acc: Account) => setRecoveredAccount(acc)}
+            onError={onError}
+          />
+          : <Restored navigation={navigation} />
+      }
+    </View>
   </View>
 }
