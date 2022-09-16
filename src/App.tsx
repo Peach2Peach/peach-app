@@ -118,8 +118,8 @@ const App: React.FC = () => {
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount()
       })
-      if (typeof account.settings.enableAnalytics === 'undefined'){
-        updateOverlay({content: <AnalyticsPrompt/>, showCloseButton: true})
+      if (typeof account.settings.enableAnalytics === 'undefined') {
+        updateOverlay({ content: <AnalyticsPrompt/>, showCloseButton: true })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })

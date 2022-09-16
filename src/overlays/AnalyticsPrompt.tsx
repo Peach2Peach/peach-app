@@ -12,9 +12,9 @@ export default (): ReactElement => {
 
   const accept = () => {
     analytics().setAnalyticsCollectionEnabled(true)
-          updateSettings({
-            enableAnalytics: true
-          }, true)
+    updateSettings({
+      enableAnalytics: true
+    }, true)
     updateOverlay({ content: null, showCloseButton: true })
   }
 
@@ -34,9 +34,9 @@ export default (): ReactElement => {
       {i18n('analytics.request.description1')}
       {'\n'}
       {i18n('analytics.request.description2')}
-      <Text 
-      style={tw`text-center text-white-1 mt-2 underline`} 
-      onPress={()=>Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')}>
+      <Text
+        style={tw`text-center text-white-1 mt-2 underline`}
+        onPress={() => Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')}>
         {i18n('privacyPolicy').toLocaleLowerCase()}.</Text>
       {'\n'}
       {i18n('analytics.request.description3')}
