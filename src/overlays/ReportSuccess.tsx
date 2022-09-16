@@ -12,9 +12,10 @@ import { StackNavigation } from '../utils/navigation'
 
 type Props = {
   navigation: StackNavigation
+  goHome: Boolean
 }
 
-export default ({ navigation }: Props): ReactElement => {
+export default ({ navigation, goHome }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
@@ -40,13 +41,13 @@ export default ({ navigation }: Props): ReactElement => {
     <Text style={tw`text-center text-white-1 mt-5`}>
       {i18n('report.success.text.2')}
     </Text>
-    <View style={tw`flex justify-center items-center mt-5`}>
+    {goHome && <View style={tw`flex justify-center items-center mt-5`}>
       <Button
         title={i18n('report.success.backHome')}
         secondary={true}
         wide={false}
         onPress={goToHome}
       />
-    </View>
+    </View>}
   </View>
 }

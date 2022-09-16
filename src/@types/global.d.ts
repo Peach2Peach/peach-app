@@ -91,6 +91,7 @@ declare type Message = {
   from: User['id'],
   date: Date,
   message?: string|null,
+  readBy: string[],
   signature: string,
 }
 
@@ -139,7 +140,7 @@ declare type Session = {
 }
 
 declare type PeachWallet = {
-  wallet: bitcoin.bip32.BIP32Interface,
+  wallet: bip32.BIP32Interface,
   mnemonic: string
 }
 

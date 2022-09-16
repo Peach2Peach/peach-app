@@ -149,7 +149,7 @@ export const PayPal = ({
         errorMessage={userName.length && getErrorsInField('userName')}
       />
     </View>
-    <CurrencySelection style={tw`mt-6`}
+    <CurrencySelection
       paymentMethod="paypal"
       selectedCurrencies={selectedCurrencies}
       onToggle={onCurrencyToggle}

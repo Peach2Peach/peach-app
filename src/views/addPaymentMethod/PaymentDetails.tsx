@@ -1,5 +1,5 @@
-import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { Dimensions, Image, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -23,6 +23,8 @@ const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList>
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [paymentData, setPaymentData] = useState(route.params.paymentData)
+  const [bannerWidth, setBannerWidth] = useState(0)
+  const [bannerHeight, setBannerHeight] = useState(0)
   const { type: paymentMethod } = paymentData
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
@@ -50,14 +52,28 @@ export default ({ route, navigation }: Props): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  return <View style={tw`flex h-full pt-7 pb-10`}>
+  useEffect(() => {
+    const screenWidth = Dimensions.get('window').width
+    const imageHeight = screenWidth * (1080 / 1920)
+    setBannerWidth(screenWidth)
+    setBannerHeight(imageHeight)
+  }, [])
+
+  return <View style={paymentMethod === 'cash' ? tw`flex h-full bg-[#12172B]` : tw`flex h-full mt-8`}>
     {paymentMethod !== 'cash' && <Headline>
       {i18n(
         'paymentMethod.select.title',
         i18n(`paymentMethod.${paymentMethod}`)
       )}
     </Headline>}
-    <View style={tw`h-full flex-shrink flex justify-center mt-8 px-6`}>
+    {paymentMethod === 'cash' && <Image
+      source={require('../../assets/ljubljana.png')}
+      resizeMode="contain"
+      style={{ width: bannerWidth, height: bannerHeight }} />
+    }
+    <View style={paymentMethod === 'cash'
+      ? tw`h-full flex-shrink flex justify-center px-3`
+      : tw`h-full flex-shrink flex justify-center px-6`}>
       <PaymentMethodForm paymentMethod={paymentMethod}
         style={tw`h-full flex-shrink flex-col justify-between`}
         currencies={paymentData.currencies}

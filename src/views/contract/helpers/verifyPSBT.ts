@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { Psbt } from 'bitcoinjs-lib'
 import { MAXMININGFEE, PEACHFEE } from '../../../constants'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
 
@@ -9,7 +9,7 @@ import { txIdPartOfPSBT } from '../../../utils/bitcoin'
  * @param contract contract
  * @returns error message ids
  */
-export const verifyPSBT = (psbt: bitcoin.Psbt, sellOffer: SellOffer, contract: Contract): string[] => {
+export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract): string[] => {
   const errorMsg = []
   if (!sellOffer || !sellOffer.funding?.txIds) return ['MISSING_DATA']
 

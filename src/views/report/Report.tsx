@@ -67,8 +67,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
     if (result) {
       updateOverlay({
-        content: <ReportSuccess navigation={navigation} />,
-        showCloseButton: false
+        content: <ReportSuccess navigation={navigation} goHome={route.name.toString() !== 'reportFullScreen'}/>,
+        showCloseButton: route.name.toString() === 'reportFullScreen'
       })
       return
     }
@@ -133,6 +133,13 @@ export default ({ route, navigation }: Props): ReactElement => {
         wide={false}
         onPress={submit}
       />
+      {route.name.toString() === 'reportFullScreen' && <Button
+        style={tw`mt-5`}
+        title={i18n('cancel')}
+        wide={false}
+        secondary={true}
+        onPress={navigation.goBack}
+      />}
     </Fade>
   </View>
 }

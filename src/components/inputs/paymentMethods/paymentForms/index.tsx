@@ -106,7 +106,9 @@ export const PaymentMethodForm = ({
   useEffect(keyboard(setKeyboardOpen), [])
 
   return <View style={[tw`flex`, style]}>
-    <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`min-h-full flex justify-center pb-10`}>
+    <PeachScrollView
+      style={tw`h-full flex-shrink`}
+      contentContainerStyle={tw`min-h-full flex justify-center pb-10 pt-4`}>
       <Form
         forwardRef={(r: FormRef) => $formRef = r}
         paymentMethod={paymentMethod}
@@ -117,20 +119,24 @@ export const PaymentMethodForm = ({
         navigation={navigation}
       />
     </PeachScrollView>
-    <Fade show={!keyboardOpen} style={tw`w-full flex items-center mt-4`} displayNone={false}>
-      <View style={tw`w-full h-10 -mt-10`}>
+    <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
+      {paymentMethod !== 'cash' && <View style={tw`w-full h-10 -mt-10`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
+      </View>}
+      <View style={tw`flex-row pr-10 w-full items-stretch mb-2`}>
+        <Pressable testID="navigation-back" onPress={back || navigation.goBack}>
+          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+        </Pressable>
+        <View style={tw`flex-grow items-center`}>
+          <Button
+            testID="navigation-next"
+            disabled={!stepValid}
+            wide={false}
+            onPress={() => $formRef?.save()}
+            title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
+          />
+        </View>
       </View>
-      <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={back || navigation.goBack}>
-        <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
-      </Pressable>
-      <Button
-        testID="navigation-next"
-        disabled={!stepValid}
-        wide={false}
-        onPress={() => $formRef?.save()}
-        title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-      />
       {data.id
         ? <Pressable onPress={remove} style={tw`mt-6`}>
           <Text style={tw`font-baloo text-sm text-center underline text-peach-1`}>

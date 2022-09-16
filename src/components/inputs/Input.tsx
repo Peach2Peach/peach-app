@@ -22,6 +22,7 @@ type InputProps = ComponentProps
   required?: boolean
   disabled?: boolean
   disableSubmit?: boolean
+  disableOnEndEditing?: boolean
   isValid?: boolean
   hint?: string
   errorMessage?: string[]
@@ -70,6 +71,7 @@ export const Input = ({
   autoCorrect = false,
   disabled = false,
   disableSubmit = false,
+  disableOnEndEditing = false,
   isValid,
   errorMessage = [],
   onChange, onSubmit,
@@ -85,7 +87,7 @@ export const Input = ({
   const onSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) =>
     onSubmit && !disableSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null
   const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
-    onChange ? onChange(e.nativeEvent.text?.trim()) : null
+    onChange && !disableOnEndEditing ? onChange(e.nativeEvent.text?.trim()) : null
   const onFocusHandler = () => onFocus ? onFocus() : null
   const onBlurHandler = () => {
     if (onChange && value) onChange(value.trim())

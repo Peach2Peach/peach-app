@@ -3,11 +3,11 @@ import { Dimensions } from 'react-native'
 import { NETWORK } from '@env'
 
 type Style = {
-  [key: string]: string[] | string | number | boolean | Style;
+  [key: string]: string[] | string | number | boolean | Style
 }
 interface Tailwind {
-  (classes: TemplateStringsArray): Style,
-  md: (classes: TemplateStringsArray) => Style,
+  (classes: TemplateStringsArray): Style
+  md: (classes: TemplateStringsArray) => Style
   lg: (classes: TemplateStringsArray) => Style
 }
 const tailwind = create(require(NETWORK === 'bitcoin' ? './tailwind.config' : './tailwind-dev.config'))

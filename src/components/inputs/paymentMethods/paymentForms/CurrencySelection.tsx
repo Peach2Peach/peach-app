@@ -39,15 +39,15 @@ export const CurrencySelection = ({
   })
 
   return <View style={style}>
-    <Text style={tw`font-baloo text-lg`}>
-      {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
-      <Pressable style={tw`ml-1`}
+    <View style={tw`items-center flex-row`}>
+      <Text style={tw`font-baloo text-lg`}>
+        {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
+      </Text>
+      <Pressable style={tw`p-3`}
         onPress={openCurrencyHelp}>
-        <View style={tw`w-8 h-8 flex items-center justify-center`}>
-          <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-        </View>
+        <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string}/>
       </Pressable>
-    </Text>
+    </View>
     <View style={tw`flex-row mt-1`}>
       {paymentMethodInfo.currencies
         .map((currency, i) => <Item

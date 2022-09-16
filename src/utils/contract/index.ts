@@ -1,4 +1,4 @@
-export { contractIdToHex } from './contractIdToHex'
+export { getOfferIdfromContract } from './getOfferIdFromContract'
 export { getContract } from './getContract'
 export { getContracts } from './getContracts'
 export { contractExists } from './contractExists'

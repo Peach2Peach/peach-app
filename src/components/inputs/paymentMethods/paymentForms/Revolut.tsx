@@ -151,7 +151,7 @@ export const Revolut = ({
         errorMessage={email.length && getErrorsInField('email')}
       />
     </View>
-    <CurrencySelection style={tw`mt-6`}
+    <CurrencySelection
       paymentMethod="paypal"
       selectedCurrencies={selectedCurrencies}
       onToggle={onCurrencyToggle}

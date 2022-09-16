@@ -1,4 +1,4 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { Psbt } from 'bitcoinjs-lib'
 import { reverseBuffer } from '../crypto'
 
 /**
@@ -7,5 +7,5 @@ import { reverseBuffer } from '../crypto'
  * @param psbt partially signed bitcoin transaction
  * @returns true if txId is present in inputs
  */
-export const txIdPartOfPSBT = (txId: string, psbt: bitcoin.Psbt) =>
+export const txIdPartOfPSBT = (txId: string, psbt: Psbt) =>
   psbt.txInputs.some(input => txId === reverseBuffer(input.hash).toString('hex'))

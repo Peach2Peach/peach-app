@@ -343,7 +343,7 @@ describe('updateSettings', () => {
       preferredCurrencies: [],
       preferredPaymentMethods: {},
       showBackupReminder: true,
-      showDisputeDisclaimer: true
+      showDisputeDisclaimer: true,
     })
   })
 })

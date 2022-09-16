@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
-import CashTitle from './cash-title.svg'
 
 export const Cash = ({
   forwardRef,
@@ -17,8 +16,8 @@ export const Cash = ({
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
 
   const buildPaymentData = (): PaymentData & CashData => ({
-    id: data?.id || 'cash-baltic-honeybadger',
-    label: 'Cash on the conference!',
+    id: data?.id || 'bitcoin-ljubljana',
+    label: 'Cash in Ljubljana!',
     type: 'cash',
     disclaimerAcknowledged,
     currencies: data?.currencies || currencies,
@@ -42,25 +41,27 @@ export const Cash = ({
     if (onChange) onChange(buildPaymentData())
   }, [disclaimerAcknowledged])
 
-  return <View style={tw`h-full flex justify-between items-center -mb-16`}>
-    <CashTitle style={tw`max-w-full max-h-20`}/>
+  return <View style={tw`h-full flex items-center -mb-16 bg-[#12172B]`}>
     <View>
-      <Text style={tw`text-center`}>
-        {i18n('paymentMethod.cash.riga.1')}
+      <Text style={tw`text-center text-white-1`}>
+        {i18n('paymentMethod.cash.ljubljana.1')}
       </Text>
-      <Text style={tw`mt-1 text-center`}>
-        {i18n('paymentMethod.cash.riga.2')}
+      <Text style={tw`mt-1 text-center text-white-1`}>
+        {i18n('paymentMethod.cash.ljubljana.2')}
+      </Text>
+      <Text style={tw`mt-1 text-center text-white-1`}>
+        {i18n('paymentMethod.cash.ljubljana.3')}
       </Text>
     </View>
-    <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center`}>
+    <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10`}>
       <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
         {disclaimerAcknowledged
           ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
           : <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
         }
       </View>
-      <Text style={tw`pl-7 flex-shrink`}>
-        {i18n('paymentMethod.cash.riga.checkbox')}
+      <Text style={tw`pl-7 flex-shrink text-white-1`}>
+        {i18n('paymentMethod.cash.ljubljana.checkbox')}
       </Text>
     </Pressable>
   </View>

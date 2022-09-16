@@ -5,7 +5,7 @@ import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { contractIdToHex, saveContract } from '../../utils/contract'
+import { getOfferIdfromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
 import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
@@ -36,7 +36,7 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
     <Text style={tw`text-center text-white-1 mt-8`}>
       {i18n(
         'contract.cancel.seller.confirmed.text.1',
-        contractIdToHex(contract.id),
+        getOfferIdfromContract(contract),
         i18n('currency.format.sats', thousands(contract.amount))
       )}
     </Text>

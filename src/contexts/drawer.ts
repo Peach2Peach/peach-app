@@ -33,7 +33,7 @@ export const setDrawer = (state: ReducerState<any>, newState: Partial<DrawerStat
   title = newState.title || title
   content = newState.content ?? content
   show = newState.show ?? true
-  onClose = newState.show ? newState.onClose || (() => {}) : () => {}
+  onClose = newState.onClose || onClose
 
   return {
     title,
