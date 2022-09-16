@@ -45,8 +45,8 @@ export const loadAccount = async (password: string): Promise<Account> => {
           readFile('/peach-account-offers.json', password),
           readFile('/peach-account-contracts.json', password),
         ])
-        acc.offers = JSON.parse(offers)
-        acc.contracts = JSON.parse(contracts)
+        acc.offers = offers ? JSON.parse(offers) : []
+        acc.contracts = contracts ? JSON.parse(contracts) : []
       }
     } else if (await exists('/peach-account.json')) { // legacy file structure. Consider safe removal mid 2023
       acc = JSON.parse(await readFile('/peach-account.json', password)) as Account

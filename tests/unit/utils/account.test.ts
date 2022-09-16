@@ -42,7 +42,9 @@ jest.mock('react-native-fs', () => ({
   },
   unlink: async (path: string): Promise<void> => {
     delete fakeFiles[path]
-  }
+  },
+  mkdir: async (): Promise<void> => {},
+  readDir: async (path: string): Promise<string[]> => [],
 }))
 
 describe('setAccount', () => {
@@ -114,7 +116,7 @@ describe('loadAccount', () => {
     const existsSpy = jest.spyOn(fileUtils, 'exists')
     const readFileSpy = jest.spyOn(fileUtils, 'readFile')
 
-    await storeAccount(accountData.account1, password)
+    await storeAccount(accountData.userWithNoTrades, password)
 
     const acc = await loadAccount(password)
     expect(existsSpy).toHaveBeenCalledWith('/peach-account-identity.json')
@@ -126,7 +128,7 @@ describe('loadAccount', () => {
     ok(acc.publicKey)
     ok(account.publicKey)
     deepStrictEqual(account, acc)
-    deepStrictEqual(account, accountData.account1)
+    deepStrictEqual(account, accountData.userWithNoTrades)
   })
 })
 
@@ -142,7 +144,7 @@ describe('storeAccount', () => {
   it('would write file to whole account', async () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
     await storeAccount(accountData.account1, password)
-    expect(writeFileSpy).toHaveBeenCalledTimes(7)
+    expect(writeFileSpy).toHaveBeenCalledTimes(8)
     expect(writeFileSpy).toHaveBeenCalledWith(
       expect.stringContaining('.json'),
       expect.stringContaining('{'),
@@ -253,8 +255,13 @@ describe('storeOffers', () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
     await storeOffers(accountData.account1.offers, password)
     expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-offers.json',
-      JSON.stringify(accountData.account1.offers),
+      '/peach-account-offers/37.json',
+      JSON.stringify(accountData.buyOffer),
+      password
+    )
+    expect(writeFileSpy).toHaveBeenCalledWith(
+      '/peach-account-offers/38.json',
+      JSON.stringify(accountData.sellOffer),
       password
     )
   })
@@ -274,8 +281,8 @@ describe('storeContracts', () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
     await storeContracts(accountData.account1.contracts, password)
     expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-contracts.json',
-      JSON.stringify(accountData.account1.contracts),
+      '/peach-account-contracts/14-15.json',
+      JSON.stringify(accountData.contract),
       password
     )
   })
