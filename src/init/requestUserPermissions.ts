@@ -1,7 +1,6 @@
 import crashlytics from '@react-native-firebase/crashlytics'
 import messaging from '@react-native-firebase/messaging'
-import { account } from '../utils/account'
-import { openAnalyticsPrompt, openCrashReportPrompt } from '../utils/analytics'
+import { openCrashReportPrompt } from '../utils/analytics'
 import { info } from '../utils/log'
 
 export default async () => {
@@ -13,8 +12,6 @@ export default async () => {
   })
 
   info('Permission status:', authStatus)
-
-  if (typeof account.settings.enableAnalytics === 'undefined') openAnalyticsPrompt()
 
   // check if app has crashed and ask for permission to send crash report
   if (await await crashlytics().didCrashOnPreviousExecution()) openCrashReportPrompt()

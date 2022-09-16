@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated, Alert, BackHandler } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, BackHandler } from 'react-native'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -41,6 +41,8 @@ import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
 import { DEV } from '@env'
 import { initApp } from './init'
+import { account } from './utils/account'
+import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 
 enableScreens()
 
@@ -116,6 +118,9 @@ const App: React.FC = () => {
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount()
       })
+      if (typeof account.settings.enableAnalytics === 'undefined'){
+        updateOverlay({content: <AnalyticsPrompt/>, showCloseButton: true})
+      }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
