@@ -102,7 +102,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
   const { scrollable } = screens[page]
-  const scroll = useRef<ScrollView>(null)
+  let scroll = useRef<ScrollView>(null).current
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setOffer(offerData)
@@ -128,7 +128,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
     setPage(page - 1)
-    scroll.current?.scrollTo({ x: 0 })
+    scroll?.scrollTo({ x: 0 })
   }
 
   const next = async () => {
@@ -163,12 +163,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
     setPage(page + 1)
 
-    scroll.current?.scrollTo({ x: 0 })
+    scroll?.scrollTo({ x: 0 })
   }
 
   return <View style={tw`h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <PeachScrollView scrollRef={scroll}
+      <PeachScrollView scrollRef={ref => scroll = ref}
         disable={!scrollable}
         contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
         style={tw`h-full`}>
