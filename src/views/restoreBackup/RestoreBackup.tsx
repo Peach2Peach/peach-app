@@ -43,7 +43,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   return <View>
-    <ContactButton navigation={navigation}/>
+    <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
     <View style={tw`px-6`}>
       {!autoScanComplete
         ? <AutoScan />

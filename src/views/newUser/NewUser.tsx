@@ -148,7 +148,7 @@ export default ({ navigation }: Props): ReactElement => {
   useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
   return <View style={tw`h-full flex justify-center px-6`}>
-    <ContactButton navigation={navigation}/>
+    <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
     <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
       <View />{/* dummy for layout */}
       <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-10 pb-10`}>

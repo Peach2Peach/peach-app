@@ -48,7 +48,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   }
 
   return <View style={tw`h-full flex`} testID="welcome">
-    <ContactButton navigation={navigation}/>
+    <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
     <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
       <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
         <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
