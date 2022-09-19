@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Dimensions, SafeAreaView, View, Animated, Alert, BackHandler } from 'react-native'
+import { Dimensions, SafeAreaView, View, Animated, BackHandler } from 'react-native'
 import 'react-native-gesture-handler'
 // eslint-disable-next-line no-duplicate-imports
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -41,6 +41,8 @@ import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
 import { DEV } from '@env'
 import { initApp } from './init'
+import { account, updateSettings } from './utils/account'
+import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 
 enableScreens()
 
@@ -79,7 +81,8 @@ const App: React.FC = () => {
       content,
       showCloseIcon,
       showCloseButton,
-      help
+      help,
+      onClose: onCloseOverlay
     },
     updateOverlay
   ] = useReducer(setOverlay, getOverlay())
@@ -116,6 +119,18 @@ const App: React.FC = () => {
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount()
       })
+      if (typeof account.settings.enableAnalytics === 'undefined') {
+        updateOverlay({
+          content: <AnalyticsPrompt/>,
+          showCloseIcon: true,
+          onClose: () => {
+            analytics().setAnalyticsCollectionEnabled(false)
+            updateSettings({
+              enableAnalytics: false
+            }, true)
+          }
+        })
+      }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
@@ -168,7 +183,7 @@ const App: React.FC = () => {
                 updateDrawer
               ]}>
                 <OverlayContext.Provider value={[
-                  { content, showCloseButton: false, showCloseIcon: false, help: false },
+                  { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
                   updateOverlay
                 ]}>
                   <View style={tw`h-full flex-col`}>
@@ -179,7 +194,8 @@ const App: React.FC = () => {
                     <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}/>
+                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}
+                        onClose={onCloseOverlay} />
                       : null
                     }
                     {template || msg

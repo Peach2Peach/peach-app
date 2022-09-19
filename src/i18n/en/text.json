@@ -12,9 +12,6 @@
   "downloadNow": "Download now",
   "app.incompatible.title": "Critical update available!",
   "app.incompatible.description": "This update has some critical fixes. You cannot continue using your current version.",
-  "analytics.requestPermission.title": " ",
-  "analytics.requestPermission.description.1": "Help Peach improve the user experience in P2P-trading by automatically sending usage data to Google Analytics.",
-  "analytics.requestPermission.description.2": "You can toggle sharing usage data on/off in Settings > About Peach > Diagnostics",
   "crashReport.requestPermission.title": "Peach has detected that the app has run into an unexpected issue.",
   "crashReport.requestPermission.description.1": "A crash report has been generated. The Peach team can use this crash report to find the root cause and make improvements to avoid this problem occurring in the future.",
   "crashReport.requestPermission.description.2": "More information can be found in our Privacy Policy.",
@@ -632,5 +629,11 @@
   "report.success.text.1": "We'll normally be in touch within 24 hours on workdays. ",
   "report.success.text.2": "Speak to you soon!",
   "report.success.backHome": "Back home",
-  "accessibility.bulletPoint": "Bullet point"
+  "accessibility.bulletPoint": "Bullet point",
+  "analytics.request.title": "Share usage data?",
+  "analytics.request.description1": "You can help us improve Peach by sharing some of your usage data with us.",
+  "analytics.request.description2": "No personally identifiable information is ever collected, see also our ",
+  "analytics.request.description3": "This data will be shared through Google Analytics. You can turn this off again at any time in the Settings.",
+  "analytics.request.no": "No, thanks",
+  "analytics.request.yes": "Sure"
 }
