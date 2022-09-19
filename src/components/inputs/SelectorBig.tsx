@@ -8,14 +8,14 @@ import { whiteGradient } from '../../utils/layout'
 import { Fade } from '../animation'
 
 interface Item {
-  value: string,
+  value: string
   display: ReactNode
 }
 
 type SelectorProps = ComponentProps & {
-  items: Item[],
-  selectedValue?: string,
-  onChange?: (value: (string)) => void,
+  items: Item[]
+  selectedValue?: string
+  onChange?: (value: string) => void
 }
 
 /**
@@ -49,39 +49,41 @@ export const SelectorBig = ({ items, selectedValue, onChange, style }: SelectorP
     setIsAtStart(contentOffset.x <= 0)
     setIsAtEnd(contentOffset.x + layoutMeasurement.width >= contentSize.width)
   }
-  return <View style={[tw`w-full flex-col items-center h-8`, style]}>
-    <Fade show={!isAtStart} duration={200} style={tw`absolute left-0 h-full w-8 z-10`} pointerEvents="none">
-      <LinearGradient colorList={whiteGradient} angle={0}/>
-    </Fade>
-    <PeachScrollView horizontal={true} showsHorizontalScrollIndicator={false}
-      onScroll={onScroll}
-      disable={items.length === 1}
-      scrollEventThrottle={128}
-      style={tw`max-w-full`}
-    >
-      <View style={tw`flex-row flex-nowrap`}>
-        {items.map((item, i) => <Pressable
-          onPress={() => onChange ? onChange(item.value) : null}
-          key={item.value}
-          style={[
-            tw`px-4 h-8 flex justify-center border border-grey-3 rounded`,
-            item.value === selectedValue ? tw`border-peach-1 bg-peach-1` : {},
-            i > 0 ? tw`ml-2` : {}
-          ]}>
-          <Text style={[
-            tw`font-baloo text-xs leading-6 `,
-            item.value === selectedValue ? tw`text-white-1` : tw`text-grey-3`
-          ]}>
-            {item.display}
-          </Text>
-        </Pressable>
-        )}
-      </View>
-    </PeachScrollView>
-    <Fade show={!isAtEnd} duration={200} style={tw`absolute right-0 h-full w-8 z-10`} pointerEvents="none">
-      <LinearGradient colorList={whiteGradient} angle={180} />
-    </Fade>
-  </View>
+  return (
+    <View style={[tw`w-full flex-col items-center h-8`, style]}>
+      <PeachScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        onScroll={onScroll}
+        disable={items.length === 1}
+        scrollEventThrottle={128}
+        style={tw`max-w-full`}
+      >
+        <View style={tw`flex-row flex-nowrap`}>
+          {items.map((item, i) => (
+            <Pressable
+              onPress={() => (onChange ? onChange(item.value) : null)}
+              key={item.value}
+              style={[
+                tw`px-4 h-8 flex justify-center border border-grey-3 rounded`,
+                item.value === selectedValue ? tw`border-peach-1 bg-peach-1` : {},
+                i > 0 ? tw`ml-2` : {}
+              ]}
+            >
+              <Text
+                style={[
+                  tw`font-baloo text-xs leading-6 `,
+                  item.value === selectedValue ? tw`text-white-1` : tw`text-grey-3`
+                ]}
+              >
+                {item.display}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      </PeachScrollView>
+    </View>
+  )
 }
 
 export default SelectorBig
