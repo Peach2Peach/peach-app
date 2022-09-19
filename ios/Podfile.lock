@@ -153,9 +153,9 @@ PODS:
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - libevent (2.1.12)
-  - MMKV (1.2.10):
-    - MMKVCore (~> 1.2.10)
-  - MMKVCore (1.2.13)
+  - MMKV (1.2.13):
+    - MMKVCore (~> 1.2.13)
+  - MMKVCore (1.2.14)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -384,8 +384,8 @@ PODS:
     - React-Core
   - react-native-fast-openpgp (2.4.1):
     - React-Core
-  - react-native-mmkv-storage (0.7.6):
-    - MMKV (= 1.2.10)
+  - react-native-mmkv-storage (0.8.0):
+    - MMKV (= 1.2.13)
     - React-Core
   - react-native-notification-badge (0.1.4):
     - React-Core
@@ -780,8 +780,8 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  MMKV: 76033b9ace2006623308910a3afcc0e25eba3140
-  MMKVCore: 3388952ded307e41b3ed8a05892736a236ed1b8e
+  MMKV: aac95d817a100479445633f2b3ed8961b4ac5043
+  MMKVCore: 89f5c8a66bba2dcd551779dea4d412eeec8ff5bb
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
@@ -802,7 +802,7 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-document-picker: f1b5398801b332c77bc62ae0eae2116f49bdff26
   react-native-fast-openpgp: 3459727741c780372181f8a4bcda8de635cd533c
-  react-native-mmkv-storage: ba38e5e813ea3d5d37af834a9d867b1ce10aa96d
+  react-native-mmkv-storage: 8ba3c0216a6df283ece11205b442a3e435aec4e5
   react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
