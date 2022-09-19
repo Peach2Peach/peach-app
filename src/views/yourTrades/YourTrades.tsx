@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -83,8 +83,9 @@ export default ({ navigation }: Props): ReactElement => {
     },
     onError: err => {
       error('Could not fetch offer information')
+
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     }
@@ -107,7 +108,7 @@ export default ({ navigation }: Props): ReactElement => {
     onError: err => {
       error('Could not fetch contract information')
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     }

@@ -32,7 +32,7 @@ export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps
     const [tx, errorMsg] = signReleaseTx(contract)
     if (!tx) {
       setLoading(false)
-      updateMessage({ msg: errorMsg!.join('\n'), level: 'WARN' })
+      updateMessage({ msgKey: errorMsg!.join('\n'), level: 'WARN' })
       return
     }
 
@@ -42,7 +42,7 @@ export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps
 
     if (err) {
       error(err.error)
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
       return
     }
 

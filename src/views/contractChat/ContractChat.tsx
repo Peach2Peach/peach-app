@@ -202,7 +202,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       handleOverlays({ contract: c, navigation, updateOverlay, view })
     },
     onError: err => updateMessage({
-      msg: i18n(err.error || 'error.general'),
+      msgKey: err.error || 'error.general',
       level: 'ERROR',
     })
   }), [contractId]))
@@ -254,7 +254,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         setUpdatePending(false)
         setLoadingMessages(false)
         updateMessage({
-          msg: i18n(err.error || 'error.general'),
+          msgKey: err.error || 'error.general',
           level: 'ERROR',
         })
       }

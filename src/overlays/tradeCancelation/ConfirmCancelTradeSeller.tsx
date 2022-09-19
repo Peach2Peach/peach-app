@@ -55,14 +55,14 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         } else if (patchOfferError) {
           error('Error', patchOfferError)
           updateMessage({
-            msg: i18n(patchOfferError?.error || 'error.general'),
+            msgKey: patchOfferError?.error || 'error.general',
             level: 'ERROR',
           })
         }
       } else if (checkRefundPSBTError) {
         error('Error', checkRefundPSBTError)
         updateMessage({
-          msg: i18n(checkRefundPSBTError || 'error.general'),
+          msgKey: checkRefundPSBTError || 'error.general',
           level: 'ERROR',
         })
       }
@@ -70,7 +70,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })
     }

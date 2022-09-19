@@ -141,7 +141,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (err) {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })
     }

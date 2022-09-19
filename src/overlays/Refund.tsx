@@ -54,7 +54,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
         } else if (err) {
           error('Error', err)
           updateMessage({
-            msg: i18n(err || 'error.general'),
+            msgKey: err || 'error.general',
             level: 'ERROR',
           })
         }
@@ -62,7 +62,7 @@ export default ({ offer, navigate }: Props): ReactElement => {
     },
     onError: err => {
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     },

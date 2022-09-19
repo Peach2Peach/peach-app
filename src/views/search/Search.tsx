@@ -246,7 +246,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })
     }
@@ -297,7 +297,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     },
     onError: err => {
       setSearchingMatches(false)
-      if (err.error !== 'UNAUTHORIZED') updateMessage({ msg: i18n(err.error), level: 'ERROR' })
+      if (err.error !== 'UNAUTHORIZED') updateMessage({ msgKey: err.error, level: 'ERROR' })
     }
   }), [pnReceived, page]))
 
@@ -320,7 +320,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     onError: err => {
       error('Could not fetch offer information for offer', offer.id)
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     }

@@ -24,6 +24,7 @@ import money from './money.svg'
 import link from './link.svg'
 import lock from './lock.svg'
 import negative from './negative.svg'
+import noNetwork from './noNetwork.svg'
 import yourTrades from './yourTrades.svg'
 import offline from './offline.svg'
 import positive from './positive.svg'
@@ -75,6 +76,7 @@ const Icons = {
   link,
   lock,
   negative,
+  noNetwork,
   yourTrades,
   offline,
   positive,

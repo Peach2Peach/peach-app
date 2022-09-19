@@ -67,7 +67,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [
     {
       title: drawerTitle,
@@ -96,20 +96,20 @@ const App: React.FC = () => {
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
-    updateMessage({ msg: i18n((err as Error).message || 'error.general'), level: 'ERROR' })
+    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
   })
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
-    updateMessage({ msg: i18n((err as Error).message || 'error.general'), level: 'ERROR' })
+    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
   })
 
-  useEffect(showMessageEffect(template || msg, width, slideInAnim), [msg, time])
+  useEffect(showMessageEffect(template || msg || msgKey, width, slideInAnim), [template, msg, msgKey, time])
 
   useEffect(() => {
     if (DEV !== 'true' && ISEMULATOR) {
       error(new Error('NO_EMULATOR'))
-      updateMessage({ msg: i18n('NO_EMULATOR'), level: 'ERROR' })
+      updateMessage({ msgKey: 'NO_EMULATOR', level: 'ERROR' })
 
       return
     }
@@ -177,7 +177,7 @@ const App: React.FC = () => {
       <PeachWSContext.Provider value={peachWS}>
         <AppContext.Provider value={[appContext, updateAppContext]}>
           <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-            <MessageContext.Provider value={[{ template, msg, level, close }, updateMessage]}>
+            <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
               <DrawerContext.Provider value={[
                 { title: '', content: null, show: false, onClose: () => {} },
                 updateDrawer
@@ -198,9 +198,11 @@ const App: React.FC = () => {
                         onClose={onCloseOverlay} />
                       : null
                     }
-                    {template || msg
+                    {template || msg || msgKey
                       ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                        <Message template={template} msg={msg} level={level} close={close} style={{ minHeight: 60 }} />
+                        <Message template={template} msg={msg} msgKey={msgKey} level={level}
+                          close={close} style={{ minHeight: 60 }}
+                        />
                       </Animated.View>
                       : null
                     }

@@ -37,7 +37,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   const onError = (e: Error) => {
     updateMessage({
-      msg: i18n(e.message === 'AUTHENTICATION_FAILURE' ? e.message : 'form.password.invalid'),
+      msgKey: e.message === 'AUTHENTICATION_FAILURE' ? e.message : 'form.password.invalid',
       level: 'ERROR',
     })
   }
