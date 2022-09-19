@@ -40,5 +40,5 @@ export const error = (...args: any[]) => {
 export default {
   info,
   log,
-  error
+  error,
 }

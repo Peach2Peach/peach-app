@@ -7,7 +7,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef
+  useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
@@ -68,24 +68,12 @@ const App: React.FC = () => {
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
   const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
-  const [
-    {
-      title: drawerTitle,
-      content: drawerContent,
-      show: showDrawer,
-      onClose: onCloseDrawer
-    }, updateDrawer
-  ] = useReducer(setDrawer, getDrawer())
-  const [
-    {
-      content,
-      showCloseIcon,
-      showCloseButton,
-      help,
-      onClose: onCloseOverlay
-    },
-    updateOverlay
-  ] = useReducer(setOverlay, getOverlay())
+  const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
+    = useReducer(setDrawer, getDrawer())
+  const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
+    setOverlay,
+    getOverlay(),
+  )
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -114,21 +102,24 @@ const App: React.FC = () => {
       return
     }
 
-    (async () => {
+    ;(async () => {
       await initApp(navigationRef, updateMessage)
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount()
+        notifications: getChatNotifications() + getRequiredActionCount(),
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
         updateOverlay({
-          content: <AnalyticsPrompt/>,
+          content: <AnalyticsPrompt />,
           showCloseIcon: true,
           onClose: () => {
             analytics().setAnalyticsCollectionEnabled(false)
-            updateSettings({
-              enableAnalytics: false
-            }, true)
-          }
+            updateSettings(
+              {
+                enableAnalytics: false,
+              },
+              true,
+            )
+          },
         })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
@@ -139,11 +130,14 @@ const App: React.FC = () => {
     })()
   }, [])
 
-  useEffect(handleNotificationsEffect({
-    getCurrentPage,
-    updateOverlay,
-    navigationRef
-  }), [currentPage])
+  useEffect(
+    handleNotificationsEffect({
+      getCurrentPage,
+      updateOverlay,
+      navigationRef,
+    }),
+    [currentPage],
+  )
 
   useEffect(websocket(updatePeachWS), [])
   useEffect(() => {
@@ -168,72 +162,94 @@ const App: React.FC = () => {
     info('Navigation event', currentPage)
     // Disable OS back button
     analytics().logScreenView({
-      screen_name: currentPage as string
+      screen_name: currentPage as string,
     })
   }, [currentPage])
 
-  return <GestureHandlerRootView style={tw`bg-white-1`}><AvoidKeyboard><SafeAreaView>
-    <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
-      <PeachWSContext.Provider value={peachWS}>
-        <AppContext.Provider value={[appContext, updateAppContext]}>
-          <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-            <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
-              <DrawerContext.Provider value={[
-                { title: '', content: null, show: false, onClose: () => {} },
-                updateDrawer
-              ]}>
-                <OverlayContext.Provider value={[
-                  { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                  updateOverlay
-                ]}>
-                  <View style={tw`h-full flex-col`}>
-                    {showHeader(currentPage)
-                      ? <Header style={tw`z-10`} navigation={navigationRef} />
-                      : null
-                    }
-                    <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
-                    {content
-                      ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}
-                        onClose={onCloseOverlay} />
-                      : null
-                    }
-                    {template || msg || msgKey
-                      ? <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                        <Message template={template} msg={msg} msgKey={msgKey} level={level}
-                          close={close} style={{ minHeight: 60 }}
-                        />
-                      </Animated.View>
-                      : null
-                    }
-                    <View style={tw`h-full flex-shrink`}>
-                      <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
-                        <Stack.Navigator detachInactiveScreens={true} screenOptions={{
-                          gestureEnabled: false,
-                          headerShown: false,
-                          cardStyle: tw`bg-white-1`,
-                        }}>
-                          {views.map(view => <Stack.Screen
-                            name={view.name}
-                            component={view.component} key={view.name}
-                            options={{ animationEnabled: false }}
-                          />)}
-                        </Stack.Navigator>
-                      </NavigationContainer>
-                    </View>
-                    {showFooter(currentPage)
-                      ? <Footer style={tw`z-10`} active={currentPage} navigation={navigationRef}
-                        setCurrentPage={setCurrentPage} />
-                      : null
-                    }
-                  </View>
-                </OverlayContext.Provider>
-              </DrawerContext.Provider>
-            </MessageContext.Provider>
-          </BitcoinContext.Provider>
-        </AppContext.Provider>
-      </PeachWSContext.Provider>
-    </LanguageContext.Provider>
-  </SafeAreaView></AvoidKeyboard></GestureHandlerRootView>
+  return (
+    <GestureHandlerRootView style={tw`bg-white-1`}>
+      <AvoidKeyboard>
+        <SafeAreaView>
+          <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
+            <PeachWSContext.Provider value={peachWS}>
+              <AppContext.Provider value={[appContext, updateAppContext]}>
+                <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
+                  <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
+                    <DrawerContext.Provider
+                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}>
+                      <OverlayContext.Provider
+                        value={[
+                          { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
+                          updateOverlay,
+                        ]}>
+                        <View style={tw`h-full flex-col`}>
+                          {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
+                          <Drawer
+                            title={drawerTitle}
+                            content={drawerContent}
+                            show={showDrawer}
+                            onClose={onCloseDrawer}
+                          />
+                          {content ? (
+                            <Overlay
+                              content={content}
+                              help={help}
+                              showCloseIcon={showCloseIcon}
+                              showCloseButton={showCloseButton}
+                              onClose={onCloseOverlay}
+                            />
+                          ) : null}
+                          {template || msg || msgKey ? (
+                            <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
+                              <Message
+                                template={template}
+                                msg={msg}
+                                msgKey={msgKey}
+                                level={level}
+                                close={close}
+                                style={{ minHeight: 60 }}
+                              />
+                            </Animated.View>
+                          ) : null}
+                          <View style={tw`h-full flex-shrink`}>
+                            <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
+                              <Stack.Navigator
+                                detachInactiveScreens={true}
+                                screenOptions={{
+                                  gestureEnabled: false,
+                                  headerShown: false,
+                                  cardStyle: tw`bg-white-1`,
+                                }}>
+                                {views.map(view => (
+                                  <Stack.Screen
+                                    name={view.name}
+                                    component={view.component}
+                                    key={view.name}
+                                    options={{ animationEnabled: false }}
+                                  />
+                                ))}
+                              </Stack.Navigator>
+                            </NavigationContainer>
+                          </View>
+                          {showFooter(currentPage) ? (
+                            <Footer
+                              style={tw`z-10`}
+                              active={currentPage}
+                              navigation={navigationRef}
+                              setCurrentPage={setCurrentPage}
+                            />
+                          ) : null}
+                        </View>
+                      </OverlayContext.Provider>
+                    </DrawerContext.Provider>
+                  </MessageContext.Provider>
+                </BitcoinContext.Provider>
+              </AppContext.Provider>
+            </PeachWSContext.Provider>
+          </LanguageContext.Provider>
+        </SafeAreaView>
+      </AvoidKeyboard>
+    </GestureHandlerRootView>
+  )
 }
 export default App

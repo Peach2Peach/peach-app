@@ -1,4 +1,3 @@
-
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
 import { HorizontalLine, PeachScrollView, Text } from '.'
@@ -11,7 +10,7 @@ import { getHeaderHeight } from './Header'
 const animConfig = {
   duration: 300,
   easing: Easing.ease,
-  useNativeDriver: false
+  useNativeDriver: false,
 }
 let touchY = 0
 
@@ -34,12 +33,12 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
     Animated.timing(slideAnim, {
       toValue: show ? getHeaderHeight() : height,
       delay: show ? 50 : 0,
-      ...animConfig
+      ...animConfig,
     }).start()
     Animated.timing(fadeAnim, {
       toValue: show ? 0.4 : 0,
       delay: show ? 0 : 50,
-      ...animConfig
+      ...animConfig,
     }).start()
   }
 
@@ -50,7 +49,7 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
   }, [show])
 
   useEffect(() => {
-    const listener = fadeAnim.addListener((fade) => {
+    const listener = fadeAnim.addListener(fade => {
       setDisplay(fade.value > 0)
       if (fade.value === 0) {
         updateDrawer({ show: false, content: false, onClose: () => {} })
@@ -65,33 +64,29 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
     updateDrawer({ show: false })
   }
 
-  const registerTouchStart = (e: GestureResponderEvent) => touchY = e.nativeEvent.pageY
-  const registerTouchMove = (e: GestureResponderEvent) => touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null
+  const registerTouchStart = (e: GestureResponderEvent) => (touchY = e.nativeEvent.pageY)
+  const registerTouchMove = (e: GestureResponderEvent) => (touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null)
 
-  return <View style={[
-    tw`absolute top-0 left-0 w-full h-full z-20 flex`,
-    !display ? tw`hidden` : {},
-  ]}>
-    <Animated.View style={[
-      tw`w-full flex-grow bg-black-1`,
-      { opacity: fadeAnim, height: slideAnim },
-    ]}>
-      <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
-    </Animated.View>
-    <Animated.View testID="drawer" style={tw`w-full flex-shrink-0 bg-white-1 rounded-t-3xl -mt-7`}>
-      <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
-        <Text style={tw`font-baloo text-base text-center uppercase`}>{title}</Text>
-      </View>
-      <HorizontalLine />
-      <PeachScrollView style={tw`py-6`}>
-        {content}
-        <HorizontalLine style={tw`my-6`}/>
-        <Text onPress={closeDrawer} style={tw`font-baloo text-base text-center uppercase`}>
-          {i18n('close')}
-        </Text>
-      </PeachScrollView>
-    </Animated.View>
-  </View>
+  return (
+    <View style={[tw`absolute top-0 left-0 w-full h-full z-20 flex`, !display ? tw`hidden` : {}]}>
+      <Animated.View style={[tw`w-full flex-grow bg-black-1`, { opacity: fadeAnim, height: slideAnim }]}>
+        <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
+      </Animated.View>
+      <Animated.View testID="drawer" style={tw`w-full flex-shrink-0 bg-white-1 rounded-t-3xl -mt-7`}>
+        <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
+          <Text style={tw`font-baloo text-base text-center uppercase`}>{title}</Text>
+        </View>
+        <HorizontalLine />
+        <PeachScrollView style={tw`py-6`}>
+          {content}
+          <HorizontalLine style={tw`my-6`} />
+          <Text onPress={closeDrawer} style={tw`font-baloo text-base text-center uppercase`}>
+            {i18n('close')}
+          </Text>
+        </PeachScrollView>
+      </Animated.View>
+    </View>
+  )
 }
 
 export default Drawer
