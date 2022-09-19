@@ -86,12 +86,15 @@ type Storage = {
 const storage: Storage = {
 }
 jest.mock('react-native-mmkv-storage', () => ({
+  IOSAccessibleStates: {},
   MMKVLoader: () => ({
-    withEncryption: () => ({
-      withInstanceID: () => ({
-        initialize: () => ({
-          setItem: async (key: string, val: string) => storage[key] = val,
-          getItem: async (key: string) => storage[key],
+    setAccessibleIOS: () => ({
+      withEncryption: () => ({
+        withInstanceID: () => ({
+          initialize: () => ({
+            setItem: async (key: string, val: string) => storage[key] = val,
+            getItem: async (key: string) => storage[key],
+          })
         })
       })
     })
