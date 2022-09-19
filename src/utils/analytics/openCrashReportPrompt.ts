@@ -14,7 +14,7 @@ export const openCrashReportPrompt = (): void => {
         text: i18n('privacyPolicy'),
         onPress: () => {
           openCrashReportPrompt()
-          Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')
+          Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')
         },
         style: 'default',
       },

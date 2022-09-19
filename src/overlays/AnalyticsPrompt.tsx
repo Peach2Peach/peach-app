@@ -36,7 +36,7 @@ export default (): ReactElement => {
       {i18n('analytics.request.description2')}
       <Text
         style={tw`text-center text-white-1 mt-2 underline`}
-        onPress={() => Linking.openURL('https://www.peachbitcoin.com/privacy-policy/')}>
+        onPress={() => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')}>
         {i18n('privacyPolicy').toLocaleLowerCase()}.</Text>
       {'\n'}
       {i18n('analytics.request.description3')}
