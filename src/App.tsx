@@ -183,7 +183,7 @@ const App: React.FC = () => {
                 updateDrawer
               ]}>
                 <OverlayContext.Provider value={[
-                  { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: onCloseOverlay },
+                  { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
                   updateOverlay
                 ]}>
                   <View style={tw`h-full flex-col`}>
