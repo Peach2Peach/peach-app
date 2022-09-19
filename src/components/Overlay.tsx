@@ -22,10 +22,14 @@ export const Overlay = ({
   content,
   showCloseIcon,
   showCloseButton,
+  onClose,
   help
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => {
+    if (onClose) onClose()
+    updateOverlay({ content: null, showCloseButton: true })
+  }
   return <View testID="overlay" style={[
     tw`absolute z-20 w-full h-full flex items-center justify-center`,
     tw`p-3 pb-8`,

@@ -116,6 +116,7 @@ declare type OverlayState = {
   content: ReactNode,
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
+  onClose?: () => void,
   help?: boolean
 }
 declare type DrawerState = {

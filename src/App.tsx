@@ -41,7 +41,7 @@ import { getChatNotifications } from './utils/chat'
 import { getRequiredActionCount } from './utils/offer'
 import { DEV } from '@env'
 import { initApp } from './init'
-import { account } from './utils/account'
+import { account, updateSettings } from './utils/account'
 import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 
 enableScreens()
@@ -81,7 +81,8 @@ const App: React.FC = () => {
       content,
       showCloseIcon,
       showCloseButton,
-      help
+      help,
+      onClose: onCloseOverlay
     },
     updateOverlay
   ] = useReducer(setOverlay, getOverlay())
@@ -119,7 +120,16 @@ const App: React.FC = () => {
         notifications: getChatNotifications() + getRequiredActionCount()
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
-        updateOverlay({ content: <AnalyticsPrompt/>, showCloseButton: true })
+        updateOverlay({
+          content: <AnalyticsPrompt/>,
+          showCloseIcon: true,
+          onClose: () => {
+            analytics().setAnalyticsCollectionEnabled(false)
+            updateSettings({
+              enableAnalytics: false
+            }, true)
+          }
+        })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
@@ -173,7 +183,7 @@ const App: React.FC = () => {
                 updateDrawer
               ]}>
                 <OverlayContext.Provider value={[
-                  { content, showCloseButton: false, showCloseIcon: false, help: false },
+                  { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: onCloseOverlay },
                   updateOverlay
                 ]}>
                   <View style={tw`h-full flex-col`}>
@@ -184,7 +194,8 @@ const App: React.FC = () => {
                     <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
                     {content
                       ? <Overlay content={content} help={help}
-                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}/>
+                        showCloseIcon={showCloseIcon} showCloseButton={showCloseButton}
+                        onClose={onCloseOverlay} />
                       : null
                     }
                     {template || msg
