@@ -31,7 +31,7 @@
     "test:e2e:android:build": "detox build --configuration android",
     "test:e2e:ios": "detox test --configuration ios",
     "test:e2e:android": "detox test --configuration android",
-    "lint": "eslint ."
+    "lint": "eslint . --ext .tsx,.ts"
   },
   "dependencies": {
     "@msml/react-native-notification-badge": "^0.1.4",
@@ -121,6 +121,7 @@
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-test-renderer": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.38.0",
     "babel-jest": "^27.5.1",
     "detox": "^19.7.1",
     "eslint": "8.13.0",
