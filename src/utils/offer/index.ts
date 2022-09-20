@@ -1,4 +1,5 @@
 export { getOffer } from './getOffer'
+export { parseOffer } from './parseOffer'
 export { getOffers } from './getOffers'
 export { getOfferStatus } from './getOfferStatus'
 export { getRequiredActionCount } from './getRequiredActionCount'
