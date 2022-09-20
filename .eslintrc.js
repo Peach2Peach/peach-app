@@ -21,6 +21,7 @@ module.exports = {
     'Buffer': true
   },
   'ignorePatterns': [
+    'tests/unit/data/*.ts',
     '.eslintrc.js',
     'index.js',
     'babel.config.js',
