@@ -17,6 +17,23 @@ module.exports = {
     'jest': true,
     'Buffer': true
   },
+  'ignorePatterns': [
+    'tests/unit/data/*.ts',
+    '.eslintrc.js',
+    'index.js',
+    'babel.config.js',
+    'metro.config.js',
+    'react-native.config.js',
+    'shim.js',
+    'tailwind.config.js',
+    'tailwind-dev.config.js',
+    '__mocks__/**/*.js',
+    'devUtils/**/*.js',
+    'build/**/*.js',
+    'coverage/**/*.js',
+    'tests/e2e/**/*.js',
+    'src/sw.js',
+  ],
   'rules': {
     'accessor-pairs': 'error',
     'array-bracket-newline': 'error',
