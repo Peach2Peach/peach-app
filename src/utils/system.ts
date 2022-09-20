@@ -39,8 +39,7 @@ export const isMobile = () => isAndroid() || isIOS()
  * @param version current version number
  * @param minVersion minimum version mumber required
  */
-export const compatibilityCheck = (version: string, minVersion: string) =>
-  version >= minVersion
+export const compatibilityCheck = (version: string, minVersion: string) => version >= minVersion
 
 /**
  * @description Method to check if app is allowed to receive push notifications
@@ -94,4 +93,19 @@ export const linkToAppStore = () => {
   } else if (isAndroid()) {
     Linking.openURL(`https://play.google.com/store/apps/details?id=${bundleId}`)
   }
+}
+
+/**
+ * @description Method to parse errors (e.g. from a try-catch block)
+ * @param e error
+ * @returns parsed error
+ */
+export const parseError = (e: Error | string | unknown) => {
+  let err = 'UNKOWN_ERROR'
+  if (typeof e === 'string') {
+    err = e.toUpperCase()
+  } else if (e instanceof Error) {
+    err = e.message
+  }
+  return err
 }
