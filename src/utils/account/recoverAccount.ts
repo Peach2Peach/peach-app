@@ -1,6 +1,7 @@
 import analytics from '@react-native-firebase/analytics'
 
-import { setAccount } from '.'
+import { setAccount, updateSettings } from '.'
+import userUpdate from '../../init/userUpdate'
 import { decrypt } from '../crypto'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
@@ -10,8 +11,8 @@ import { account } from './account'
 import { updateTradingLimit } from './tradingLimit'
 
 interface RecoverAccountProps {
-  encryptedAccount: string,
-  password: string,
+  encryptedAccount: string
+  password: string
 }
 
 /**
@@ -21,21 +22,21 @@ interface RecoverAccountProps {
  */
 export const recoverAccount = async ({
   encryptedAccount,
-  password = ''
-}: RecoverAccountProps): Promise<[Account|null, Error|null]> => {
+  password = '',
+}: RecoverAccountProps): Promise<[Account | null, Error | null]> => {
   info('Recovering account')
 
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     await setSession({ password })
-
+    updateSettings({
+      fcmToken: '',
+    })
     info('Get offers')
-    const [
-      [getOffersResult, getOffersErr],
-      [getTradingLimitResult, getTradingLimitErr],
-    ] = await Promise.all([
+    const [[getOffersResult, getOffersErr], [getTradingLimitResult, getTradingLimitErr]] = await Promise.all([
       getOffers(),
       getTradingLimit(),
+      userUpdate(),
     ])
     if (getOffersResult?.length) {
       info(`Got ${getOffersResult.length} offers`)
