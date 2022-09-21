@@ -8,16 +8,14 @@ import { decrypt, encrypt } from './crypto'
  * @return Promise resolving true of false
  */
 export const exists = async (path: string): Promise<boolean> =>
-  await RNFS.exists(RNFS.DocumentDirectoryPath + path) as boolean
+  (await RNFS.exists(RNFS.DocumentDirectoryPath + path)) as boolean
 
 /**
  * @description Method to create directory
  * @param path path to directory
  * @return Promise
  */
-export const mkdir = async (path: string): Promise<void> =>
-  await RNFS.mkdir(RNFS.DocumentDirectoryPath + path)
-
+export const mkdir = async (path: string): Promise<void> => await RNFS.mkdir(RNFS.DocumentDirectoryPath + path)
 
 /**
  * @description Method to read directory
@@ -38,9 +36,10 @@ export const readFile = async (path: string, password?: string): Promise<string>
   let content = ''
 
   try {
-    content = await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8') as string
+    content = (await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8')) as string
   } catch (e) {
     error('File could not be read', e)
+    return content
   }
   try {
     if (password) content = decrypt(content, password)
