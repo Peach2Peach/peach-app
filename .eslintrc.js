@@ -120,7 +120,7 @@ module.exports = {
     'max-depth': 'error',
     'max-len': [
       'error',
-      120
+      121
     ],
     'max-lines': 'error',
     'max-lines-per-function': ['error', 70],
@@ -232,7 +232,7 @@ module.exports = {
     'operator-assignment': 'error',
     'operator-linebreak': [
       'error',
-      'before'
+      'none'
     ],
     'padded-blocks': 'off',
     'padding-line-between-statements': 'error',
