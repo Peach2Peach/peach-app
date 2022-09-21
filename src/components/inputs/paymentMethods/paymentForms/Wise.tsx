@@ -113,8 +113,13 @@ export const Wise = ({
       </View>
       <View style={tw`mt-6`}>
         <Input
-          onChange={setPhone}
-          onSubmit={() => $reference?.focus()}
+          onChange={(number: string) => {
+            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
+          }}
+          onSubmit={() => {
+            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
+            $email?.focus()
+          }}
           reference={(el: any) => ($phone = el)}
           value={phone}
           required={!email}
