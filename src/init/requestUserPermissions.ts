@@ -14,6 +14,5 @@ export default async () => {
   info('Permission status:', authStatus)
 
   // check if app has crashed and ask for permission to send crash report
-  if (await await crashlytics().didCrashOnPreviousExecution()
-    || await crashlytics().checkForUnsentReports()) openCrashReportPrompt([])
+  if (await await crashlytics().didCrashOnPreviousExecution()) openCrashReportPrompt([])
 }

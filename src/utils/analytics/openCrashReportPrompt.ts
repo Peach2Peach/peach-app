@@ -1,6 +1,15 @@
 import crashlytics from '@react-native-firebase/crashlytics'
 import { Alert, Linking } from 'react-native'
 import i18n from '../i18n'
+import { info } from '../log'
+
+const sendErrors = async (errors: Error[]) => {
+  info('Crashlytics is enabled, sending crash reports', errors.length)
+
+  errors.forEach(err => {
+    crashlytics().recordError(err)
+  })
+}
 
 export const openCrashReportPrompt = (errors: Error[]): void => {
   Alert.alert(
@@ -26,13 +35,8 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
       },
       {
         text: i18n('crashReport.requestPermission.sendReport'),
-        onPress: async () => {
-          await crashlytics().setCrashlyticsCollectionEnabled(true)
-          errors.forEach(err => {
-            crashlytics().recordError(err)
-          })
-          crashlytics().sendUnsentReports()
-          await crashlytics().setCrashlyticsCollectionEnabled(false)
+        onPress: () => {
+          sendErrors(errors)
         },
         style: 'default',
       },
