@@ -232,7 +232,7 @@ module.exports = {
     'operator-assignment': 'error',
     'operator-linebreak': [
       'error',
-      'none'
+      'before'
     ],
     'padded-blocks': 'off',
     'padding-line-between-statements': 'error',
@@ -300,5 +300,14 @@ module.exports = {
     'jest/expect-expect': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'react-native/no-inline-styles': 'off'
-  }
+  },
+  'overrides': [
+    {
+      'files': [ '*.tsx' ],
+      'rules': {
+        'max-lines-per-function': ['error', 300],
+        'max-statements': ['error', 25],
+      }
+    }
+  ]
 }

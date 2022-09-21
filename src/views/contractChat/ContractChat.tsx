@@ -9,8 +9,7 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import { account } from '../../utils/account'
-import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { createDisputeSystemMessages } from '../../utils/chat/createSystemMessage'
+import { decryptMessage, getChat, popUnsentMessages, saveChat, createDisputeSystemMessages } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
@@ -30,7 +29,6 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -49,7 +47,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [disableSend, setDisableSend] = useState(false)
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
-
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
@@ -169,9 +166,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
 
       if (!ws.connected) return unsubscribe
-
       ws.on('message', messageHandler)
-
       return unsubscribe
     }, [contract, ws.connected]),
   )
