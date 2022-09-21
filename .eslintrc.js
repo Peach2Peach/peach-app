@@ -299,5 +299,24 @@ module.exports = {
     'jest/expect-expect': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'react-native/no-inline-styles': 'off'
+<<<<<<< Updated upstream
   }
+=======
+  },
+  'overrides': [
+    {
+      'files': [ '*.tsx' ],
+      'rules': {
+        'max-lines-per-function': ['error', 300],
+        'max-statements': ['error', 25],
+      }
+    },
+    {
+      'files': [ 'src/utils/log.ts' ],
+      'rules': {
+        'no-console': 'off',
+      }
+    }
+  ]
+>>>>>>> Stashed changes
 }
