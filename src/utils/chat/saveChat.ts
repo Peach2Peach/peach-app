@@ -9,14 +9,14 @@ import { getChat } from './getChat'
  * @param id chat room id
  * @param contract the contract
  * @param [save] if true save account
-*/
+ */
 export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => {
   if (!account.chats[id]) {
     account.chats[id] = {
       lastSeen: new Date(0),
       messages: [],
       id,
-      ...chat
+      ...chat,
     }
   }
   const savedChat = getChat(id)
@@ -24,15 +24,16 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
   account.chats[id] = {
     ...savedChat,
     ...chat,
-    messages: (chat.messages || []).concat(savedChat.messages)
+    messages: (chat.messages || [])
+      .concat(savedChat.messages)
       .filter(m => m.date)
       .map(m => ({
         ...m,
-        date: new Date(m.date)
+        date: new Date(m.date),
       }))
       .filter(message => message.roomId.indexOf(id) !== -1)
       .filter(unique('signature')) // signatures are unique even if the same message is being sent 2x (user intention)
-      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .sort((a, b) => a.date.getTime() - b.date.getTime()),
   }
   if (save && session.password) storeChats(account.chats, session.password)
 

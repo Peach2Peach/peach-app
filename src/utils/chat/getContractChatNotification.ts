@@ -13,9 +13,7 @@ export const getContractChatNotification = (contract: Contract) => {
 
   // legacy
   const contractChat = getChat(contract.id)
-  const seenMessages = contractChat
-    ? contractChat.messages.filter(m => m.readBy?.includes(account.publicKey)).length
-    : 0
+  const seenMessages = contractChat ? contractChat.messages.filter(m => m.readBy?.includes(account.publicKey)).length : 0
 
   return contract.messages - seenMessages
 }

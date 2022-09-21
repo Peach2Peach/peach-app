@@ -8,14 +8,14 @@ import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { StackNavigation } from '../utils/navigation'
+import { account } from '../utils/account'
 
 
 type Props = {
   navigation: StackNavigation
-  goHome: Boolean
 }
 
-export default ({ navigation, goHome }: Props): ReactElement => {
+export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
@@ -23,7 +23,7 @@ export default ({ navigation, goHome }: Props): ReactElement => {
   }
 
   const goToHome = () => {
-    navigation.replace('home', {})
+    navigation.replace(account?.publicKey ? 'home' : 'welcome', {})
     closeOverlay()
   }
   return <View style={tw`px-6`}>
@@ -41,13 +41,13 @@ export default ({ navigation, goHome }: Props): ReactElement => {
     <Text style={tw`text-center text-white-1 mt-5`}>
       {i18n('report.success.text.2')}
     </Text>
-    {goHome && <View style={tw`flex justify-center items-center mt-5`}>
+    <View style={tw`flex justify-center items-center mt-5`}>
       <Button
         title={i18n('report.success.backHome')}
         secondary={true}
         wide={false}
         onPress={goToHome}
       />
-    </View>}
+    </View>
   </View>
 }
