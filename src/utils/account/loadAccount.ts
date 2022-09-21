@@ -155,15 +155,22 @@ export const loadContracts = async (password: string): Promise<Account['contract
  */
 export const loadChats = async (password: string): Promise<Account['chats']> => {
   try {
-    const chats = await readFile('/peach-account-chats.json', password)
-    return JSON.parse(chats).map((chat: Chat) => {
-      chat.lastSeen = new Date(chat.lastSeen)
-      chat.messages = chat.messages.map(message => ({
-        ...message,
-        date: new Date(message.date),
-      }))
-      return chat
-    })
+    const rawChats = await readFile('/peach-account-chats.json', password)
+    const chats = JSON.parse(rawChats || '{}') as Account['chats']
+    return Object.keys(chats)
+      .map(id => chats[id])
+      .map((chat: Chat) => {
+        chat.lastSeen = new Date(chat.lastSeen)
+        chat.messages = chat.messages.map(message => ({
+          ...message,
+          date: new Date(message.date),
+        }))
+        return chat
+      })
+      .reduce((obj, chat) => {
+        obj[chat.id] = chat
+        return obj
+      }, {} as Account['chats'])
   } catch (e) {
     error('Could not load chats', parseError(e))
     return defaultAccount.chats
