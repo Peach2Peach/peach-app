@@ -7,6 +7,12 @@ import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
 
+type GetMessageMetaProps = {
+  message: Message
+  previous: Message
+  tradingPartner: string
+  online: boolean
+}
 type MessageMeta = {
   online: boolean
   showName: boolean
@@ -18,7 +24,7 @@ type MessageMeta = {
   readByCounterParty: boolean
 }
 
-const getMessageMeta = (message: Message, previous: Message, tradingPartner: string, online: boolean): MessageMeta => {
+const getMessageMeta = ({ message, previous, tradingPartner, online }: GetMessageMetaProps): MessageMeta => {
   const isYou = message.from === account.publicKey
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
@@ -86,7 +92,12 @@ type ChatMessageProps = {
 
 export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online }: ChatMessageProps): ReactElement => {
   const message = item
-  const meta = getMessageMeta(message, chatMessages[index - 1], tradingPartner, online)
+  const meta = getMessageMeta({
+    message,
+    previous: chatMessages[index - 1],
+    tradingPartner,
+    online,
+  })
   const { statusIcon, statusIconColor, text, bgColor } = getMessageStyling(message, meta)
   return (
     <View
