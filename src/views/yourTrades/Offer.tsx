@@ -104,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     onError: err => {
       error('Could not fetch offer information for offer', offerId)
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     }
@@ -124,7 +124,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       handleOverlays({ contract: c, navigation, updateOverlay, view })
     },
     onError: err => updateMessage({
-      msg: i18n(err.error || 'error.general'),
+      msgKey: err.error || 'error.general',
       level: 'ERROR',
     })
   }), [contractId]))

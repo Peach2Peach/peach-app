@@ -86,7 +86,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         funding: result.funding,
       })
     },
-    onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
+    onError: err => updateMessage({ msgKey: err.error || 'error.createEscrow', level: 'ERROR' })
   }) : () => {}, [offer.id])
 
   useEffect(checkFundingStatusEffect({
@@ -104,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     },
     onError: err => {
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     },

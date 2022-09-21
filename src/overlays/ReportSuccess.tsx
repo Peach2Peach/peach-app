@@ -8,6 +8,7 @@ import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { StackNavigation } from '../utils/navigation'
+import { account } from '../utils/account'
 
 
 type Props = {
@@ -22,7 +23,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const goToHome = () => {
-    navigation.replace('home', {})
+    navigation.replace(account?.publicKey ? 'home' : 'welcome', {})
     closeOverlay()
   }
   return <View style={tw`px-6`}>

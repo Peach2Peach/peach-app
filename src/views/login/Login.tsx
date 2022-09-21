@@ -63,7 +63,7 @@ export default ({ navigation }: Props): ReactElement => {
         })
         navigation.replace('home', {})
       } else {
-        updateMessage({ msg: i18n('form.password.invalid'), level: 'ERROR' })
+        updateMessage({ msgKey: 'form.password.invalid', level: 'ERROR' })
       }
 
       setLoading(false)

@@ -18,6 +18,7 @@ module.exports = {
     'Buffer': true
   },
   'ignorePatterns': [
+    'tests/unit/data/*.ts',
     '.eslintrc.js',
     'index.js',
     'babel.config.js',
@@ -119,7 +120,7 @@ module.exports = {
     'max-depth': 'error',
     'max-len': [
       'error',
-      120
+      121
     ],
     'max-lines': 'error',
     'max-lines-per-function': ['error', 70],

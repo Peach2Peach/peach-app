@@ -1,6 +1,7 @@
-import { MMKVLoader } from 'react-native-mmkv-storage'
+import { IOSAccessibleStates, MMKVLoader } from 'react-native-mmkv-storage'
 
 const storage = new MMKVLoader()
+  .setAccessibleIOS(IOSAccessibleStates.AFTER_FIRST_UNLOCK)
   .withEncryption()
   .withInstanceID('session')
   .initialize()

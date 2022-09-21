@@ -24,7 +24,6 @@ export default ({ navigation }: Props): ReactElement => {
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
-
   const { daily, dailyAmount } = getTradingLimit(currency)
   const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
   const [random, setRandom] = useState(0)

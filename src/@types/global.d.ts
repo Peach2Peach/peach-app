@@ -106,16 +106,18 @@ declare type AppState = {
   notifications: number,
 }
 declare type MessageState = {
-  template?: ReactNode,
-  msg?: string,
-  level: Level,
-  close?: boolean,
-  time?: number,
+  template?: ReactNode
+  msgKey?: string
+  msg?: string
+  level: Level
+  close?: boolean
+  time?: number
 }
 declare type OverlayState = {
   content: ReactNode,
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
+  onClose?: () => void,
   help?: boolean
 }
 declare type DrawerState = {

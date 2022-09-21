@@ -132,7 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       handleOverlays({ contract: c, navigation, updateOverlay, view: v })
     },
     onError: err => updateMessage({
-      msg: i18n(err.error || 'error.general'),
+      msgKey: err.error || 'error.general',
       level: 'ERROR',
     })
   }), [contractId]))
@@ -166,7 +166,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
       return
     }
 
@@ -185,7 +185,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!tx) {
       setLoading(false)
       updateMessage({
-        msg: errorMsg!.join('\n'),
+        msgKey: errorMsg!.join('\n'),
         level: 'WARN',
       })
       return
@@ -197,7 +197,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msg: i18n(err.error || 'error.general'), level: 'ERROR' })
+      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
       return
     }
 

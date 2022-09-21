@@ -37,7 +37,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })
     }

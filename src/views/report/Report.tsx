@@ -18,11 +18,11 @@ import { getMessages, rules } from '../../utils/validation'
 const { useValidation } = require('react-native-form-validator')
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['report'] }>,
+  route: RouteProp<{ params: RootStackParamList['report'] }>
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-lines-per-function
+
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -51,10 +51,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         email: true
       },
       topic: {
-        required: true,
+        required: true
       },
       message: {
-        required: true,
+        required: true
       }
     })
     if (!isFormValid()) return
@@ -67,8 +67,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
     if (result) {
       updateOverlay({
-        content: <ReportSuccess navigation={navigation} />,
-        showCloseButton: false
+        content: <ReportSuccess navigation={navigation} />
       })
       return
     }
@@ -76,64 +75,64 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (err) {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
-        level: 'ERROR',
+        msgKey: err?.error || 'error.general',
+        level: 'ERROR'
       })
     }
   }
 
   useEffect(keyboard(setKeyboardOpen), [])
 
-  return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-    <Title title={i18n('report.title')} />
-    <View style={tw`h-full flex-shrink mt-12`}>
-      <View>
-        <Input
-          onChange={setEmail}
-          onSubmit={() => $topic?.focus()}
-          value={email}
-          label={i18n('form.userEmail')}
-          placeholder={i18n('form.userEmail.placeholder')}
-          isValid={!isFieldInError('email')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('email')}
-        />
+  return (
+    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+      <Title title={i18n('report.title')} />
+      <View style={tw`h-full flex-shrink mt-12`}>
+        <View>
+          <Input
+            onChange={setEmail}
+            onSubmit={() => $topic?.focus()}
+            value={email}
+            label={i18n('form.userEmail')}
+            placeholder={i18n('form.userEmail.placeholder')}
+            isValid={!isFieldInError('email')}
+            autoCorrect={false}
+            errorMessage={getErrorsInField('email')}
+          />
+        </View>
+        <View style={tw`mt-2`}>
+          <Input
+            onChange={setTopic}
+            onSubmit={() => $message?.focus()}
+            reference={(el: any) => ($topic = el)}
+            value={topic}
+            label={i18n('form.topic')}
+            placeholder={i18n('form.topic.placeholder')}
+            isValid={!isFieldInError('topic')}
+            autoCorrect={false}
+            errorMessage={getErrorsInField('topic')}
+          />
+        </View>
+        <View style={tw`mt-2`}>
+          <Input
+            style={tw`h-40`}
+            onChange={setMessage}
+            reference={(el: any) => ($message = el)}
+            value={message}
+            multiline={true}
+            label={i18n('form.message')}
+            placeholder={i18n('form.message.placeholder')}
+            isValid={!isFieldInError('message')}
+            autoCorrect={false}
+            errorMessage={getErrorsInField('message')}
+          />
+        </View>
       </View>
-      <View style={tw`mt-2`}>
-        <Input
-          onChange={setTopic}
-          onSubmit={() => $message?.focus()}
-          reference={(el: any) => $topic = el}
-          value={topic}
-          label={i18n('form.topic')}
-          placeholder={i18n('form.topic.placeholder')}
-          isValid={!isFieldInError('topic')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('topic')}
-        />
-      </View>
-      <View style={tw`mt-2`}>
-        <Input
-          style={tw`h-40`}
-          onChange={setMessage}
-          reference={(el: any) => $message = el}
-          value={message}
-          multiline={true}
-          label={i18n('form.message')}
-          placeholder={i18n('form.message.placeholder')}
-          isValid={!isFieldInError('message')}
-          autoCorrect={false}
-          errorMessage={getErrorsInField('message')}
-        />
-      </View>
+      <Fade show={!keyboardOpen} style={tw`flex items-center mt-16`}>
+        <Button title={i18n('report.sendReport')} wide={false} onPress={submit} />
+        {route.name.toString() === 'reportFullScreen' && (
+          <Button style={tw`mt-5`} title={i18n('cancel')} wide={false} secondary={true} onPress={navigation.goBack} />
+        )}
+      </Fade>
     </View>
-    <Fade show={!keyboardOpen} style={tw`flex items-center mt-16`}>
-      <Button
-        title={i18n('report.sendReport')}
-        wide={false}
-        onPress={submit}
-      />
-    </Fade>
-  </View>
+  )
 }
-
