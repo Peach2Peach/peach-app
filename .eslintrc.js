@@ -300,9 +300,6 @@ module.exports = {
     'jest/expect-expect': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'react-native/no-inline-styles': 'off'
-<<<<<<< Updated upstream
-  }
-=======
   },
   'overrides': [
     {
@@ -319,5 +316,4 @@ module.exports = {
       }
     }
   ]
->>>>>>> Stashed changes
 }
