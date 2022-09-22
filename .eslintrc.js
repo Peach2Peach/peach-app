@@ -308,6 +308,12 @@ module.exports = {
         'max-lines-per-function': ['error', 300],
         'max-statements': ['error', 25],
       }
+    },
+    {
+      'files': [ 'src/utils/log.ts' ],
+      'rules': {
+        'no-console': 'off',
+      }
     }
   ]
 }
