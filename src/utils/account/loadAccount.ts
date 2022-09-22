@@ -1,26 +1,9 @@
-import { account, setAccount, defaultAccount } from '.'
+import { account, defaultAccount, setAccount } from '.'
 import { parseContract } from '../contract'
 import { exists, readDir, readFile } from '../file'
 import { error, info } from '../log'
 import { parseOffer } from '../offer'
 import { parseError } from '../system'
-
-/**
- * @description Method to determine version of account
- * @returns Promise resolving to account version
- */
-export const getAccountVersion = async (): Promise<string> => {
-  const offersAndContractSplitted = await Promise.all([
-    exists('/peach-account-offers'),
-    exists('/peach-account-contract'),
-  ])
-
-  if (offersAndContractSplitted.every(splitted => splitted)) return '0.1.4'
-
-  if (await exists('/peach-account-identity.json')) return '0.1.3'
-
-  return '0.0.1'
-}
 
 /**
  * @description Method to load legacy account
@@ -113,15 +96,20 @@ export const loadPaymentData = async (password: string): Promise<Account['paymen
  * @param version account version
  * @returns Promise resolving to offers
  */
-export const loadOffers = async (password: string, version: string): Promise<Account['offers']> => {
+export const loadOffers = async (password: string): Promise<Account['offers']> => {
   try {
-    if (version === '0.1.4') {
+    if (await exists('/peach-account-offers')) {
       const offerFiles = await readDir('/peach-account-offers')
       const offers = await Promise.all(offerFiles.map(file => readFile(file, password)))
 
       return offers.map(offer => JSON.parse(offer)).map(parseOffer)
     }
-    const offers = await readFile('/peach-account-offers.json', password)
+
+    // fallback to version 0.1.3
+    let offers = '[]'
+    if (await exists('/peach-account-offers.json')) {
+      offers = await readFile('/peach-account-offers.json', password)
+    }
     const parsedOffers = offers ? (JSON.parse(offers) as Account['offers']) : []
 
     return parsedOffers.map(parseOffer)
@@ -137,14 +125,20 @@ export const loadOffers = async (password: string, version: string): Promise<Acc
  * @param version account version
  * @returns Promise resolving to contracts
  */
-export const loadContracts = async (password: string, version: string): Promise<Account['contracts']> => {
+export const loadContracts = async (password: string): Promise<Account['contracts']> => {
   try {
-    if (version === '0.1.4') {
+    if (await exists('/peach-account-contracts')) {
       const contractFiles = await readDir('/peach-account-contracts')
       const contracts = await Promise.all(contractFiles.map(file => readFile(file, password)))
+
       return contracts.map(contract => JSON.parse(contract)).map(parseContract)
     }
-    const contracts = await readFile('/peach-account-contracts.json', password)
+
+    // fallback to version 0.1.3
+    let contracts = '[]'
+    if (await exists('/peach-account-contracts.json')) {
+      contracts = await readFile('/peach-account-contracts.json', password)
+    }
     const parsedContracts = contracts ? (JSON.parse(contracts) as Account['contracts']) : []
 
     return parsedContracts.map(parseContract)
@@ -161,15 +155,22 @@ export const loadContracts = async (password: string, version: string): Promise<
  */
 export const loadChats = async (password: string): Promise<Account['chats']> => {
   try {
-    const chats = await readFile('/peach-account-chats.json', password)
-    return JSON.parse(chats).map((chat: Chat) => {
-      chat.lastSeen = new Date(chat.lastSeen)
-      chat.messages = chat.messages.map(message => ({
-        ...message,
-        date: new Date(message.date),
-      }))
-      return chat
-    })
+    const rawChats = await readFile('/peach-account-chats.json', password)
+    const chats = JSON.parse(rawChats || '{}') as Account['chats']
+    return Object.keys(chats)
+      .map(id => chats[id])
+      .map((chat: Chat) => {
+        chat.lastSeen = new Date(chat.lastSeen)
+        chat.messages = chat.messages.map(message => ({
+          ...message,
+          date: new Date(message.date),
+        }))
+        return chat
+      })
+      .reduce((obj, chat) => {
+        obj[chat.id] = chat
+        return obj
+      }, {} as Account['chats'])
   } catch (e) {
     error('Could not load chats', parseError(e))
     return defaultAccount.chats
@@ -186,18 +187,16 @@ export const loadAccount = async (password: string): Promise<Account> => {
 
   info('Loading account from file system')
 
-  let acc: Account
-  const version = await getAccountVersion()
-  if (version === '0.0.1') {
-    acc = await loadLegacyAccount(password)
-  } else {
+  let acc = defaultAccount
+
+  try {
     const [identity, settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
       loadIdentity(password),
       loadSettings(password),
       loadTradingLimit(password),
       loadPaymentData(password),
-      loadOffers(password, version),
-      loadContracts(password, version),
+      loadOffers(password),
+      loadContracts(password),
       loadChats(password),
     ])
     acc = {
@@ -208,6 +207,10 @@ export const loadAccount = async (password: string): Promise<Account> => {
       offers,
       contracts,
       chats,
+    }
+  } catch (e) {
+    if (await exists('/peach-account.json')) {
+      acc = await loadLegacyAccount(password)
     }
   }
   if (!acc.publicKey) {

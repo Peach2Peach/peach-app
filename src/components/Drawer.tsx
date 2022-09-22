@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
-import { Animated, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
+import { Animated, BackHandler, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
 import { HorizontalLine, PeachScrollView, Text } from '.'
 
 import { DrawerContext } from '../contexts/drawer'
@@ -59,6 +59,20 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
       fadeAnim.removeListener(listener)
     }
   }, [onClose])
+
+  useEffect(() => {
+    const listener = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (content) {
+        updateDrawer({ show: false })
+        return true
+      }
+      if (content) return true
+      return false
+    })
+    return () => {
+      listener.remove()
+    }
+  }, [content])
 
   const closeDrawer = () => {
     updateDrawer({ show: false })

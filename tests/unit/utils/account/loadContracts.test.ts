@@ -10,9 +10,6 @@ const password = 'supersecret'
 
 describe('loadContracts', () => {
   beforeEach(async () => {
-    const mock = jest.spyOn(file, 'readDir')
-    mock.mockImplementation(async () => ['/peach-account-contracts/14-15.json'])
-
     await setAccount(defaultAccount)
   })
   afterEach(() => {
@@ -21,13 +18,21 @@ describe('loadContracts', () => {
   })
 
   it('loads contracts for version 0.1.4', async () => {
+    const existsMock = jest.spyOn(file, 'exists')
+    const readDirMock = jest.spyOn(file, 'readDir')
+    existsMock.mockImplementation(async path => path === '/peach-account-contracts')
+    readDirMock.mockImplementation(async () => ['/peach-account-contracts/14-15.json'])
+
     await storeContracts(accountData.account1.contracts, password)
-    const contracts = await loadContracts(password, '0.1.4')
+    const contracts = await loadContracts(password)
     deepStrictEqual(contracts, accountData.account1.contracts)
   })
   it('loads contracts for version 0.1.3', async () => {
+    const existsMock = jest.spyOn(file, 'exists')
+    existsMock.mockImplementation(async path => path === '/peach-account-contracts.json')
+
     fakeFiles['/peach-account-contracts.json'] = JSON.stringify(accountData.account1.contracts)
-    const contracts = await loadContracts(password, '0.1.3')
+    const contracts = await loadContracts(password)
     deepStrictEqual(contracts, accountData.account1.contracts)
   })
 })
