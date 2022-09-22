@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:901064894090:ios:7e735c1b6b48a89a806f73</string>
+	<key>DATABASE_URL</key>
+	<string>https://peach-app-dc55c-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>
