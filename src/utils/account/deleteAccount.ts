@@ -3,7 +3,7 @@ import analytics from '@react-native-firebase/analytics'
 import { setAccount, defaultAccount } from '.'
 import { deleteFile, exists } from '../file'
 import { info } from '../log'
-import { deleteAccessToken, deletePeachAccount } from '../peachAPI'
+import { deleteAccessToken, deletePeachAccount, logoutUser } from '../peachAPI'
 import { setSession } from '../session'
 
 interface DeleteAccountProps {
@@ -31,10 +31,11 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   setAccount(defaultAccount, true)
 
-  accountFiles.forEach(async (file) => {
+  accountFiles.forEach(async file => {
     if (await exists(file)) await deleteFile(file)
   })
 
+  logoutUser()
   await setSession({ password: null })
   deleteAccessToken()
   deletePeachAccount()

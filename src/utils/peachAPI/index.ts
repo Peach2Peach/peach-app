@@ -1,15 +1,14 @@
 import { BIP32Interface } from 'bip32'
 import { error } from '../log'
 
+export let accessToken: AccessToken | null
+export let peachAccount: BIP32Interface | null
 
-export let accessToken: AccessToken|null
-export let peachAccount: BIP32Interface|null
-
-export const setAccessToken = (token: AccessToken) => accessToken = token
-export const deleteAccessToken = () => accessToken = null
+export const setAccessToken = (token: AccessToken) => (accessToken = token)
+export const deleteAccessToken = () => (accessToken = null)
 export const getPeachAccount = () => peachAccount
-export const setPeachAccount = (acc: BIP32Interface) => peachAccount = acc
-export const deletePeachAccount = () => peachAccount = null
+export const setPeachAccount = (acc: BIP32Interface) => (peachAccount = acc)
+export const deletePeachAccount = () => (peachAccount = null)
 
 /**
  * @description Method to parse and handle peach response
@@ -17,10 +16,7 @@ export const deletePeachAccount = () => peachAccount = null
  * @param caller calling function name
  * @returns parsed Peach API Response
  */
-export const parseResponse = async <T>(
-  response: Response,
-  caller: string,
-): Promise<[T|null, APIError|null]> => {
+export const parseResponse = async <T>(response: Response, caller: string): Promise<[T | null, APIError | null]> => {
   try {
     if (response.status === 0) return [null, { error: 'EMPTY_RESPONSE' }]
     if (response.status === 500) return [null, { error: 'INTERNAL_SERVER_ERROR' }]
@@ -31,10 +27,13 @@ export const parseResponse = async <T>(
     const data = await response.json()
 
     if (response.status !== 200) {
-      error(`peachAPI - ${caller}`, JSON.stringify({
-        status: response.status,
-        data
-      }))
+      error(
+        `peachAPI - ${caller}`,
+        JSON.stringify({
+          status: response.status,
+          data,
+        }),
+      )
 
       return [null, data]
     }
@@ -49,7 +48,6 @@ export const parseResponse = async <T>(
 
     error(`peachAPI - ${caller}`, e)
 
-
     return [null, { error: err }]
   }
 }
@@ -59,19 +57,18 @@ export { sendReport } from './public/contact'
 export { getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { getUser } from './public/user'
-export {
-  auth,
-  getUserPrivate,
-  getAccessToken,
-  updateUser,
-  getTradingLimit,
-} from './private/user'
+export { auth, getUserPrivate, getAccessToken, updateUser, getTradingLimit, logoutUser } from './private/user'
 export {
   getOffers,
-  postOffer, getOfferDetails, patchOffer,
-  createEscrow, getFundingStatus,
+  postOffer,
+  getOfferDetails,
+  patchOffer,
+  createEscrow,
+  getFundingStatus,
   cancelOffer,
-  getMatches, matchOffer, unmatchOffer,
+  getMatches,
+  matchOffer,
+  unmatchOffer,
 } from './private/offer'
 export {
   cancelContract,
@@ -81,7 +78,8 @@ export {
   getContracts,
   confirmPayment,
   rateUser,
-  getChat, postChat,
+  getChat,
+  postChat,
   raiseDispute,
 } from './private/contract'
 
