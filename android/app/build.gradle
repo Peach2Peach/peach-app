@@ -162,6 +162,8 @@ android {
         versionName "0.1.4"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     splits {
         abi {
@@ -256,6 +258,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
+    androidTestImplementation(project(path: ":detox"))
 }
 
 // Run this once to be able to run the application with BUCK
