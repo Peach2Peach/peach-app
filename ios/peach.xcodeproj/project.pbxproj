@@ -301,6 +301,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				F9F7CF11B298F414A11F5F9C /* [CP] Embed Pods Frameworks */,
 				2CF3DF83D0C356FD663E390E /* [CP] Copy Pods Resources */,
+				6751609028DDE338000EBC52 /* [RNFB] ios_config */,
 			);
 			buildRules = (
 			);
@@ -323,6 +324,8 @@
 				671A563D2850E9AE0058434C /* Bundle React Native code and images */,
 				671A563E2850E9AE0058434C /* [CP] Embed Pods Frameworks */,
 				0EBD2D251CE704449470144B /* [CP] Copy Pods Resources */,
+				6795400828DDE73A00FB600C /* [RNFB] ios_config
+ */,
 			);
 			buildRules = (
 			);
@@ -556,6 +559,44 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6751609028DDE338000EBC52 /* [RNFB] ios_config */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[RNFB] ios_config";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../node_modules/@react-native-firebase/app/ios_config.sh\n";
+		};
+		6795400828DDE73A00FB600C /* [RNFB] ios_config
+ */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[RNFB] ios_config\n";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../node_modules/@react-native-firebase/app/ios_config.sh\n";
 		};
 		99551204B9CED569D9C4AA33 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
