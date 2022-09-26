@@ -71,7 +71,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         }
         return obj
       }, {} as Offer['paymentData'])
-    offer.originalPaymentData = account.paymentData
+    offer.originalPaymentData = getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[]
     saveAndUpdate(
       {
         ...offer,

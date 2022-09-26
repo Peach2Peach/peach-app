@@ -39,7 +39,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
         }
         return obj
       }, {} as Offer['paymentData'])
-    offer.originalPaymentData = account.paymentData
+    offer.originalPaymentData = getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[]
     updateOffer({
       ...offer,
       meansOfPayment,
