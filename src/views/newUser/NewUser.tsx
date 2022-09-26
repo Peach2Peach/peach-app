@@ -122,6 +122,16 @@ export default ({ navigation }: Props): ReactElement => {
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
 
   const submit = () => {
+    if (
+      !password
+      || !passwordRepeat
+      || !passwordMatch
+      || isFieldInError('password')
+      || isFieldInError('passwordRepeat')
+    ) {
+      Keyboard.dismiss()
+      return
+    }
     setIsPristine(false)
     const pwMatch = checkPasswordMatch()
     if (pwMatch && validateForm()) {
@@ -219,17 +229,7 @@ export default ({ navigation }: Props): ReactElement => {
               onChange={setReferralCode}
               onSubmit={(val: string) => {
                 setReferralCode(val)
-                if (
-                  !password
-                  || !passwordRepeat
-                  || !passwordMatch
-                  || isFieldInError('password')
-                  || isFieldInError('passwordRepeat')
-                ) {
-                  Keyboard.dismiss()
-                } else {
-                  submit()
-                }
+                submit()
               }}
               value={referralCode}
               autoCapitalize="characters"
