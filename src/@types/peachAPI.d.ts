@@ -8,11 +8,11 @@ declare type PeachWS = {
     message: WSCallback[]
     close: (() => void)[]
   }
-  on: (listener: 'message'|'close', callback: WSCallback) => void
-  off: (listener: 'message'|'close', callback: WSCallback) => void
+  on: (listener: 'message' | 'close', callback: WSCallback) => void
+  off: (listener: 'message' | 'close', callback: WSCallback) => void
   send: (data: string) => boolean
   close: WebSocket['close']
-  onmessage?: WebSocket['onmessage']|(() => {})
+  onmessage?: WebSocket['onmessage'] | (() => {})
 }
 
 declare type ContractUpdate = {
@@ -34,7 +34,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: string|string[]
+  details?: string | string[]
 }
 
 declare type User = {
@@ -77,10 +77,17 @@ declare type Pricebook = {
 }
 declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
 declare type PaymentMethod =
-  'sepa'
-  | 'paypal' | 'revolut' | 'applePay' | 'wise' | 'twint' | 'swish'
-  | 'mbWay' | 'bizum'
-  | 'giftCard.amazon' | `giftCard.amazon.${Country}`
+  | 'sepa'
+  | 'paypal'
+  | 'revolut'
+  | 'applePay'
+  | 'wise'
+  | 'twint'
+  | 'swish'
+  | 'mbWay'
+  | 'bizum'
+  | 'giftCard.amazon'
+  | `giftCard.amazon.${Country}`
   | 'cash'
 
 declare type PaymentMethodInfo = {
@@ -144,10 +151,15 @@ declare type Offer = {
   premium?: number
   prices?: Pricebook
   meansOfPayment: MeansOfPayment
-  paymentData: Partial<Record<PaymentMethod, {
-    hash: string
-    country?: Country
-  }>>
+  paymentData: Partial<
+    Record<
+      PaymentMethod,
+      {
+        hash: string
+        country?: Country
+      }
+    >
+  >
   kyc: boolean
   kycType?: KYCType
   returnAddress?: string
@@ -157,6 +169,7 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
+  originalPaymentData?: PaymentData[]
 }
 
 declare type PostOfferResponse = {
@@ -169,7 +182,7 @@ declare type CreateEscrowResponse = {
   escrow: string
   funding: FundingStatus
 }
-declare type FundingError = '' | 'NOT_FOUND'| 'UNAUTHORIZED'
+declare type FundingError = '' | 'NOT_FOUND' | 'UNAUTHORIZED'
 declare type FundingStatusResponse = {
   offerId: string
   escrow: string
@@ -225,9 +238,9 @@ declare type ConfirmPaymentResponse = {
 declare type GetChatResponse = Message[]
 
 declare type PostChatProps = {
-  contractId: Contract['id'],
-  message: string,
-  signature: string,
+  contractId: Contract['id']
+  message: string
+  signature: string
 }
 
 declare type CancelContractResponse = {
