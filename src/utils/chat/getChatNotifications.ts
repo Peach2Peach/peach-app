@@ -7,6 +7,5 @@ import { getContractChatNotification } from './getContractChatNotification'
  */
 export const getChatNotifications = (): number => {
   const contracts = getContracts()
-  return contracts
-    .reduce((sum, contract) => sum + getContractChatNotification(contract), 0)
+  return contracts.reduce((sum, contract) => sum + getContractChatNotification(contract), 0)
 }

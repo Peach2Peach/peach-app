@@ -24,7 +24,6 @@ export default ({ navigation }: Props): ReactElement => {
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
-
   const { daily, dailyAmount } = getTradingLimit(currency)
   const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
   const [random, setRandom] = useState(0)
@@ -87,15 +86,13 @@ export default ({ navigation }: Props): ReactElement => {
               <View style={tw`w-full absolute flex-row items-start justify-center mt-3`}>
                 <Dropdown
                   testID="buy-amount"
-                  style={tw`max-w-xs flex-shrink`}
+                  style={tw`max-w-70 flex-shrink`}
                   items={dropdownItems}
                   selectedValue={amount}
                   onChange={onChange} onToggle={onToggle}
                 />
-                <Pressable onPress={openSatsHelp} style={tw`mt-1`}>
-                  <View style={tw`w-8 h-8 flex items-center justify-center`}>
-                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                  </View>
+                <Pressable onPress={openSatsHelp} style={tw`p-3`}>
+                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
                 </Pressable>
               </View>
             </View>

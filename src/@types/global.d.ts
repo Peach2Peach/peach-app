@@ -91,6 +91,7 @@ declare type Message = {
   from: User['id'],
   date: Date,
   message?: string|null,
+  readBy: string[],
   signature: string,
 }
 
@@ -105,16 +106,18 @@ declare type AppState = {
   notifications: number,
 }
 declare type MessageState = {
-  template?: ReactNode,
-  msg?: string,
-  level: Level,
-  close?: boolean,
-  time?: number,
+  template?: ReactNode
+  msgKey?: string
+  msg?: string
+  level: Level
+  close?: boolean
+  time?: number
 }
 declare type OverlayState = {
   content: ReactNode,
   showCloseIcon?: boolean,
   showCloseButton?: boolean,
+  onClose?: () => void,
   help?: boolean
 }
 declare type DrawerState = {
@@ -139,7 +142,7 @@ declare type Session = {
 }
 
 declare type PeachWallet = {
-  wallet: bitcoin.bip32.BIP32Interface,
+  wallet: bip32.BIP32Interface,
   mnemonic: string
 }
 

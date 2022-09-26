@@ -18,6 +18,7 @@ module.exports = {
     'Buffer': true
   },
   'ignorePatterns': [
+    'tests/unit/data/*.ts',
     '.eslintrc.js',
     'index.js',
     'babel.config.js',
@@ -119,7 +120,7 @@ module.exports = {
     'max-depth': 'error',
     'max-len': [
       'error',
-      120
+      121
     ],
     'max-lines': 'error',
     'max-lines-per-function': ['error', 70],
@@ -299,5 +300,20 @@ module.exports = {
     'jest/expect-expect': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'react-native/no-inline-styles': 'off'
-  }
+  },
+  'overrides': [
+    {
+      'files': [ '*.tsx' ],
+      'rules': {
+        'max-lines-per-function': ['error', 300],
+        'max-statements': ['error', 25],
+      }
+    },
+    {
+      'files': [ 'src/utils/log.ts' ],
+      'rules': {
+        'no-console': 'off',
+      }
+    }
+  ]
 }

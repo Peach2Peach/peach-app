@@ -9,9 +9,8 @@ import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import Escrow from '../../overlays/info/Escrow'
 import Refund from '../../overlays/Refund'
-import TaprootWarning from '../../overlays/TaprootWarning'
 import tw from '../../styles/tailwind'
-import { account, updateSettings, updateTradingLimit } from '../../utils/account'
+import { updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
@@ -27,7 +26,7 @@ type Props = {
   navigation: StackNavigation,
 }
 
-// eslint-disable-next-line max-lines-per-function, max-statements
+// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -87,7 +86,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         funding: result.funding,
       })
     },
-    onError: err => updateMessage({ msg: i18n(err.error || 'error.createEscrow'), level: 'ERROR' })
+    onError: err => updateMessage({ msgKey: err.error || 'error.createEscrow', level: 'ERROR' })
   }) : () => {}, [offer.id])
 
   useEffect(checkFundingStatusEffect({
@@ -105,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     },
     onError: err => {
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     },
@@ -136,12 +135,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     setEscrow(offer.escrow || '')
     setUpdatePending(!offer.escrow)
     setFundingStatus(offer.funding)
-  }, [route]))
-
-  useFocusEffect(useCallback(() => {
-    if (!account.settings.showTaprootDisclaimer) return
-    updateOverlay({ content: <TaprootWarning />, showCloseButton: false })
-    updateSettings({ showTaprootDisclaimer: false }, true)
   }, [route]))
 
   return <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>

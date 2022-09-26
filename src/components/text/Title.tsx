@@ -30,11 +30,9 @@ export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElemen
           {i18n(subtitle)}
         </Text>
         {help
-          ? <Pressable style={tw`w-0 ml-1 mt-0.5`}
+          ? <Pressable style={tw`p-2`}
             onPress={openHelp}>
-            <View style={tw`w-8 h-8 flex items-center justify-center`}>
-              <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-            </View>
+            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
           </Pressable>
           : null
         }

@@ -5,7 +5,7 @@ import { Button, Headline, Input, Text } from '../components'
 import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
-import { contractIdToHex } from '../utils/contract'
+import { getContract, getOfferIdfromContract } from '../utils/contract'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log'
 import { Navigation } from '../utils/navigation'
@@ -29,6 +29,9 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
 
   const [email, setEmail] = useState()
   const [loading, setLoading] = useState(false)
+
+  const contract = getContract(contractId)
+  const offerId = getOfferIdfromContract(contract as Contract)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
@@ -79,7 +82,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
     if (err) {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })
     }
@@ -91,7 +94,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
     </Headline>
     <View style={tw`flex justify-center items-center`}>
       <Text style={tw`text-white-1 text-center`}>
-        {i18n('dispute.startedOverlay.description.1', contractIdToHex(contractId))}
+        {i18n('dispute.startedOverlay.description.1', offerId)}
       </Text>
       <Text style={tw`text-white-1 text-center mt-2`}>
         {i18n('dispute.startedOverlay.description.2')}

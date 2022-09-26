@@ -34,7 +34,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: unknown
+  details?: string|string[]
 }
 
 declare type User = {
@@ -223,6 +223,12 @@ declare type ConfirmPaymentResponse = {
 }
 
 declare type GetChatResponse = Message[]
+
+declare type PostChatProps = {
+  contractId: Contract['id'],
+  message: string,
+  signature: string,
+}
 
 declare type CancelContractResponse = {
   success: true

@@ -48,17 +48,15 @@ export default ({
       : null
     }
     {view === 'seller' && requiredAction === 'confirmPayment'
-      ? <View style={tw`flex-row items-center justify-center`}>
+      ? <View style={tw`flex-row items-center justify-center pl-11`}>
         <Button style={tw`w-52`}
           disabled={loading}
           wide={false}
           onPress={postConfirmPaymentSeller}
           title={i18n('contract.payment.received')}
         />
-        <Pressable onPress={openConfirmPaymentHelp} style={tw`w-0 h-full flex-row items-center`}>
-          <View style={tw`w-8 h-8 flex items-center justify-center`}>
-            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-          </View>
+        <Pressable onPress={openConfirmPaymentHelp} style={tw`p-3`}>
+          <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
         </Pressable>
       </View>
       : null

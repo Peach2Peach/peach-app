@@ -56,6 +56,7 @@ declare type Contract = {
   ratingSeller: 1|0|-1,
 
   messages: number
+  unreadMessages: number
 
   // app specific
   disputeResultAcknowledged?: boolean,

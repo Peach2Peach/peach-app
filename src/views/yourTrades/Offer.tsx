@@ -10,17 +10,19 @@ import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import MatchAccepted from '../../overlays/MatchAccepted'
-import { contractIdToHex, getContract } from '../../utils/contract'
+import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getOffer, getOfferStatus, saveOffer } from '../../utils/offer'
+import { getOffer, getOfferStatus, offerIdToHex, getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
+import AppContext from '../../contexts/app'
+import { getChatNotifications } from '../../utils/chat'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['offer'] }>,
@@ -32,6 +34,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
+  const [, updateAppContext] = useContext(AppContext)
 
   const offerId = route.params.offer.id as string
   const offer = getOffer(offerId) as BuyOffer|SellOffer
@@ -45,7 +48,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const subtitle = contract
     ? isTradeComplete(contract)
       ? i18n('yourTrades.offerCompleted.subtitle',
-        contractIdToHex(contract.id),
+        offerIdToHex(offer.id as Offer['id']),
         finishedDate ? toShortDateFormat(finishedDate) : ''
       )
       : i18n('yourTrades.tradeCanceled.subtitle')
@@ -62,7 +65,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       setContract({
         ...contract,
-        messages: contract.messages + 1
+        unreadMessages: contract.unreadMessages + 1
       })
     }
     const unsubscribe = () => {
@@ -101,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     onError: err => {
       error('Could not fetch offer information for offer', offerId)
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
     }
@@ -114,10 +117,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         ...getContract(result.id),
         ...result
       }
+      setContract(c)
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount()
+      })
       handleOverlays({ contract: c, navigation, updateOverlay, view })
     },
     onError: err => updateMessage({
-      msg: i18n(err.error || 'error.general'),
+      msgKey: err.error || 'error.general',
       level: 'ERROR',
     })
   }), [contractId]))
@@ -156,7 +163,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               title={i18n('back')}
               secondary={true}
               wide={false}
-              onPress={() => navigation.replace('yourTrades', {})}
+              onPress={() => navigation.navigate('yourTrades', {})}
             />
           </View>
         </View>

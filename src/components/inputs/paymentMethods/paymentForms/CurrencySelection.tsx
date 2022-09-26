@@ -19,8 +19,8 @@ export const toggleCurrency = (currency: Currency) => (currencies: Currency[]) =
 }
 
 type CurrencySelectionProps = ComponentProps & {
-  paymentMethod: PaymentMethod,
-  selectedCurrencies: Currency[],
+  paymentMethod: PaymentMethod
+  selectedCurrencies: Currency[]
   onToggle: (currencies: Currency) => void
 }
 
@@ -28,41 +28,41 @@ export const CurrencySelection = ({
   paymentMethod,
   selectedCurrencies,
   onToggle,
-  style
+  style,
 }: CurrencySelectionProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [paymentMethodInfo] = useState(getPaymentMethodInfo(paymentMethod))
 
-  const openCurrencyHelp = () => updateOverlay({
-    content: <Currency />,
-    help: true
-  })
+  const openCurrencyHelp = () =>
+    updateOverlay({
+      content: <Currency />,
+      help: true,
+      showCloseIcon: true,
+    })
 
-  return <View style={style}>
-    <Text style={tw`font-baloo text-lg`}>
-      {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
-      <Pressable style={tw`ml-1`}
-        onPress={openCurrencyHelp}>
-        <View style={tw`w-8 h-8 flex items-center justify-center`}>
+  return (
+    <View style={style}>
+      <View style={tw`items-center flex-row`}>
+        <Text style={tw`font-baloo text-lg`}>
+          {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
+        </Text>
+        <Pressable style={tw`p-3`} onPress={openCurrencyHelp}>
           <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-        </View>
-      </Pressable>
-    </Text>
-    <View style={tw`flex-row mt-1`}>
-      {paymentMethodInfo.currencies
-        .map((currency, i) => <Item
-          key={currency}
-          style={[
-            tw`h-6 px-2`,
-            i > 0 ? tw`ml-2` : {},
-          ]}
-          label={currency}
-          isSelected={selectedCurrencies.indexOf(currency) !== -1}
-          onPress={() => selectedCurrencies.indexOf(currency) === -1 || selectedCurrencies.length > 1
-            ? onToggle(currency)
-            : null
-          }
-        />)}
+        </Pressable>
+      </View>
+      <View style={tw`flex-row mt-1`}>
+        {paymentMethodInfo.currencies.map((currency, i) => (
+          <Item
+            key={currency}
+            style={[tw`h-6 px-2`, i > 0 ? tw`ml-2` : {}]}
+            label={currency}
+            isSelected={selectedCurrencies.indexOf(currency) !== -1}
+            onPress={() =>
+              selectedCurrencies.indexOf(currency) === -1 || selectedCurrencies.length > 1 ? onToggle(currency) : null
+            }
+          />
+        ))}
+      </View>
     </View>
-  </View>
+  )
 }

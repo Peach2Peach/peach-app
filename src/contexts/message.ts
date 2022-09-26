@@ -4,6 +4,7 @@ import { Animated } from 'react-native'
 export type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 
 let template: ReactNode
+let msgKey: string|undefined
 let msg: string|undefined
 let level: Level = 'OK'
 let close: boolean = true
@@ -12,7 +13,7 @@ let time: number = 0
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([
-  { template, msg, level: level as Level, close: close as boolean|undefined },
+  { template, msgKey, msg, level: level as Level, close: close as boolean|undefined },
   dispatch
 ] as const)
 
@@ -22,6 +23,7 @@ export const MessageContext = createContext([
  */
 export const getMessage = (): MessageState => ({
   template,
+  msgKey,
   msg,
   level,
   close,
@@ -36,6 +38,7 @@ export const getMessage = (): MessageState => ({
  */
 export const setMessage = (state: ReducerState<any>, newState: MessageState): MessageState => {
   template = newState.template
+  msgKey = newState.msgKey
   msg = newState.msg
   level = newState.level
   close = newState.close ?? true
@@ -43,6 +46,7 @@ export const setMessage = (state: ReducerState<any>, newState: MessageState): Me
 
   return {
     template,
+    msgKey,
     msg,
     level,
     close,

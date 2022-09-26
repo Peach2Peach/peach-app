@@ -5,6 +5,7 @@ import { setPeachAccount } from '../peachAPI'
 import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 
 export const defaultAccount: Account = {
+  version: '0.1.4',
   publicKey: '',
   settings: {
     appVersion: APPVERSION,
@@ -15,7 +16,6 @@ export const defaultAccount: Account = {
     meansOfPayment: {},
     showBackupReminder: true,
     showDisputeDisclaimer: true,
-    showTaprootDisclaimer: true,
   },
   paymentData: [],
   tradingLimit: {

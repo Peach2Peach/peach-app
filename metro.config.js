@@ -26,7 +26,7 @@ module.exports = (async () => {
     },
     resolver: {
       assetExts: assetExts.filter(ext => ext !== 'svg'),
-      sourceExts: [...sourceExts, 'svg'],
+      sourceExts: [...sourceExts, 'svg', 'cjs'],
       extraNodeModules: {
         stream: require.resolve('readable-stream'),
         crypto: require.resolve('react-native-crypto'),

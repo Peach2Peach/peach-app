@@ -4,7 +4,7 @@ import { Button, Headline, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
-import { contractIdToHex, saveContract } from '../../utils/contract'
+import { getOfferIdfromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
@@ -37,7 +37,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msg: i18n(err?.error || 'error.general'),
+        msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })
     }
@@ -68,7 +68,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     <Text style={tw`text-center text-white-1 mt-8`}>
       {i18n(
         'contract.cancel.request.text.1',
-        contractIdToHex(contract.id),
+        getOfferIdfromContract(contract),
         i18n('currency.format.sats', thousands(contract.amount))
       )}
     </Text>

@@ -1,10 +1,10 @@
 
-import React, { ReactElement, Ref } from 'react'
+import React, { ReactElement, Ref, useEffect, useRef } from 'react'
 import { LayoutChangeEvent, ScrollView, ScrollViewProps, View } from 'react-native'
 import tw from '../styles/tailwind'
 
 type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
-  scrollRef?: Ref<ScrollView>,
+  scrollRef?: (ref: ScrollView) => void,
   disable?: boolean,
   onContainerLayout?: (e: LayoutChangeEvent) => void,
   onContentLayout?: (e: LayoutChangeEvent) => void,
@@ -33,13 +33,23 @@ export const PeachScrollView = ({
   style,
 }: PeachScrollViewProps): ReactElement => {
   const onStartShouldSetResponder = () => !disable
+  const $scroll = useRef<ScrollView>(null)
+
+  useEffect(() => {
+    $scroll.current?.flashScrollIndicators()
+  }, [])
+
+  useEffect(() => {
+    if (scrollRef && $scroll.current) scrollRef($scroll.current)
+  }, [$scroll])
 
   return !disable
-    ? <ScrollView ref={scrollRef}
+    ? <ScrollView ref={$scroll}
       horizontal={horizontal}
       onScroll={onScroll}
       scrollEventThrottle={scrollEventThrottle}
       showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+      removeClippedSubviews={false}
       contentContainerStyle={contentContainerStyle || {}}
       onLayout={onContainerLayout}
       style={style || {}}>

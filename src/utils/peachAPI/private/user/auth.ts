@@ -1,16 +1,17 @@
 import { API_URL } from '@env'
-import * as bitcoin from 'bitcoinjs-lib'
+import { crypto } from 'bitcoinjs-lib'
 import fetch from '../../../fetch'
-import { peachAccount, setAccessToken } from '../..'
+import { getResponseError, peachAccount, setAccessToken } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
+import { parseError } from '../../../system'
 
 /**
  * @description Method to authenticate with Peach API
  * @returns AccessToken or APIError
  */
-export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
-  const message = 'Peach Registration ' + (new Date()).getTime()
+export const auth = async (): Promise<[AccessToken | null, APIError | null]> => {
+  const message = 'Peach Registration ' + new Date().getTime()
 
   if (!peachAccount) {
     const authError = new Error('Peach Account not set')
@@ -21,20 +22,22 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(bitcoin.crypto.sha256(Buffer.from(message))).toString('hex')
-      })
+        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
+      }),
     })
 
+    const responseError = getResponseError(response)
+    if (responseError) return [null, { error: responseError }]
 
-    const token = response?.json ? (await response.json() as AccessToken|APIError) : null
+    const token = response?.json ? ((await response.json()) as AccessToken | APIError) : null
 
     if (token && 'accessToken' in token) {
       setAccessToken(token)
@@ -45,14 +48,8 @@ export const auth = async (): Promise<[AccessToken|null, APIError|null]> => {
     error('peachAPI - auth - FAILED', new Error((token as APIError).error))
     return [null, token as APIError]
   } catch (e) {
-    let err = 'UNKOWN_ERROR'
-    if (typeof e === 'string') {
-      err = e.toUpperCase()
-    } else if (e instanceof Error) {
-      err = e.message
-    }
-
-    error('peachAPI - auth', e)
+    const err = parseError(e)
+    error('peachAPI - auth', err)
 
     return [null, { error: err }]
   }

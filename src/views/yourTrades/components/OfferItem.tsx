@@ -21,7 +21,7 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>
 // eslint-disable-next-line max-params
 ): void => {
-  if (!offer) return navigation.replace('yourTrades', {})
+  if (!offer) return navigation.navigate('yourTrades', {})
 
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
@@ -39,28 +39,28 @@ const navigateToOffer = (
         showCloseButton: false
       })
     }
-    return navigation.replace('offer', { offer })
+    return navigation.navigate('offer', { offer })
   }
 
   if (contract) {
     if (contract && !contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
-      return navigation.replace('tradeComplete', { contract })
+      return navigation.navigate('tradeComplete', { contract })
     }
-    return navigation.replace('contract', { contractId: contract.id })
+    return navigation.navigate('contract', { contractId: contract.id })
   }
 
   if (offer.type === 'ask') {
     if (offer.funding.status === 'FUNDED') {
-      return navigation.replace('search', { offer, hasMatches: offer.matches?.length > 0 })
+      return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
     }
-    return navigation.replace('fundEscrow', { offer })
+    return navigation.navigate('fundEscrow', { offer })
   }
 
   if (offer.type === 'bid' && offer.online) {
-    return navigation.replace('search', { offer, hasMatches: offer.matches?.length > 0 })
+    return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
   }
 
-  return navigation.replace('yourTrades', {})
+  return navigation.navigate('yourTrades', {})
 }
 
 type OfferItemProps = ComponentProps & {

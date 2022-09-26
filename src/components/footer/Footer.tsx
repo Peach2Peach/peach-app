@@ -131,7 +131,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
 
       saveContract({
         ...contract,
-        messages: contract.messages + 1
+        unreadMessages: contract.unreadMessages + 1
       })
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount()

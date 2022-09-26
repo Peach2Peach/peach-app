@@ -9,9 +9,7 @@ import ReleaseAddress from './ReleaseAddress'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
-import BitcoinContext from '../../contexts/bitcoin'
 import { MessageContext } from '../../contexts/message'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
 import { whiteGradient } from '../../utils/layout'
@@ -81,7 +79,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
   const { scrollable } = screens[page]
-  const scroll = useRef<ScrollView>(null)
+  let scroll = useRef<ScrollView>(null).current
 
   const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
     setOffer(() => offerData)
@@ -92,7 +90,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
-    scroll.current?.scrollTo({ x: 0 })
+    scroll?.scrollTo({ x: 0 })
   }
   const back = () => {
     if (page === 0) {
@@ -100,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
     setPage(page - 1)
-    scroll.current?.scrollTo({ x: 0 })
+    scroll?.scrollTo({ x: 0 })
   }
 
   useFocusEffect(useCallback(() => {
@@ -132,7 +130,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         error('Error', err)
         updateMessage({
-          msg: i18n(err?.error || 'error.postOffer'),
+          msg: i18n(err?.error || 'error.postOffer', (err?.details as string[] || []).join(', ')),
           level: 'ERROR',
         })
 
@@ -143,7 +141,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return <View testID="view-buy" style={tw`h-full flex`}>
     <View style={tw`h-full flex-shrink`}>
-      <PeachScrollView scrollRef={scroll}
+      <PeachScrollView scrollRef={ref => scroll = ref}
         disable={!scrollable}
         contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
         style={tw`h-full`}>

@@ -42,6 +42,20 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     Keyboard.dismiss()
   }
 
+  const focus = () => setFocused(() => true)
+  const unFocus = () => setFocused(() => false)
+  const showQRScanner = () => setScanQR(true)
+  const closeQRScanner = () => setScanQR(false)
+  const onQRScanSuccess = (e: BarCodeReadEvent) => {
+    const request = parseBitcoinRequest(e.data)
+
+    setAddress(request.address || e.data)
+    setScanQR(false)
+  }
+  const showIDontHaveAWallet = () => updateOverlay({
+    content: <IDontHaveAWallet />, showCloseButton: true
+  })
+
   useEffect(() => {
     if (!address && !offer.releaseAddress) {
       setStepValid(false)
@@ -72,17 +86,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
   useEffect(keyboard(setKeyboardOpen), [])
 
-  const showQRScanner = () => setScanQR(true)
-  const closeQRScanner = () => setScanQR(false)
-  const onQRScanSuccess = (e: BarCodeReadEvent) => {
-    const request = parseBitcoinRequest(e.data)
-
-    setAddress(request.address || e.data)
-    setScanQR(false)
-  }
-  const showIDontHaveAWallet = () => updateOverlay({
-    content: <IDontHaveAWallet />, showCloseButton: true
-  })
   return <View style={tw`h-full flex-col justify-between px-6`}>
     <Title title={i18n('buy.title')} />
     <View>
@@ -94,11 +97,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
           <Input value={focused ? address : shortAddress}
             style={tw`pl-4 pr-8`}
             onChange={(value: string) => focused ? setAddress(() => value) : null}
-            onSubmit={() => setFocused(() => false)}
+            disableOnEndEditing={true}
+            onSubmit={unFocus} onFocus={focus} onBlur={unFocus}
             placeholder={i18n('form.address.btc')}
             isValid={!isFieldInError('address')}
-            onFocus={() => setFocused(() => true)}
-            onBlur={() => setFocused(() => false)}
             errorMessage={getErrorsInField('address')}
           />
         </View>

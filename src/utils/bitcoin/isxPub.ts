@@ -1,5 +1,8 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import BIP32Factory from 'bip32'
 import { network } from '../wallet'
+const ecc = require('tiny-secp256k1')
+
+const bip32 = BIP32Factory(ecc)
 
 /**
  * @description Method to check whether string is an xpub
@@ -12,7 +15,7 @@ export const isxpub = (xpub?: string) => {
 
   try {
     // is xpub
-    bitcoin.bip32.fromBase58(xpub, network)
+    bip32.fromBase58(xpub, network)
     valid = true
   } catch (e) { }
 

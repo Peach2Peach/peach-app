@@ -1,11 +1,11 @@
-import * as bitcoin from 'bitcoinjs-lib'
+import { Psbt } from 'bitcoinjs-lib'
 import { getEscrowWallet, getFinalScript } from '../../utils/wallet'
 
 export const signPSBT = (
-  psbt: bitcoin.Psbt,
+  psbt: Psbt,
   offer: SellOffer,
   finalize = true
-): bitcoin.Psbt => {
+): Psbt => {
   // Sign psbt
   psbt.txInputs.forEach((input, i) => {
     psbt.signInput(i, getEscrowWallet(offer.id!))

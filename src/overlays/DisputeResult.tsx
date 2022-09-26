@@ -45,7 +45,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
     },
     onError: err => {
       updateMessage({
-        msg: i18n(err.error || 'error.general'),
+        msgKey: err.error || 'error.general',
         level: 'ERROR',
       })
       updateOverlay({ content: null, showCloseButton: true })

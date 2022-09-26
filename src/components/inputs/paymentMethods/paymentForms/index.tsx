@@ -28,21 +28,21 @@ import { COUNTRIES } from '../../../../constants'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
-  buildPaymentData: () => PaymentData,
-  save: () => void,
-  validateForm: () => boolean,
+  buildPaymentData: () => PaymentData
+  save: () => void
+  validateForm: () => boolean
 }
 
 export type PaymentMethodFormProps = ComponentProps & {
-  paymentMethod: PaymentMethod,
-  data: Partial<PaymentData>,
-  currencies?: Currency[],
-  country?: Country,
-  onSubmit?: (data: PaymentData) => void,
-  onChange?: (data: Partial<PaymentData>) => void,
-  onDelete?: () => void,
-  back?: () => void,
-  navigation: StackNavigation,
+  paymentMethod: PaymentMethod
+  data: Partial<PaymentData>
+  currencies?: Currency[]
+  country?: Country
+  onSubmit?: (data: PaymentData) => void
+  onChange?: (data: Partial<PaymentData>) => void
+  onDelete?: () => void
+  back?: () => void
+  navigation: StackNavigation
 }
 type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
 export type PaymentMethodForms = {
@@ -58,11 +58,11 @@ export const PaymentMethodForms: PaymentMethodForms = {
   mbWay: MBWay,
   bizum: Bizum,
   'giftCard.amazon': GiftCardAmazon,
-  cash: Cash,
+  cash: Cash
 }
-COUNTRIES.forEach(c => PaymentMethodForms['giftCard.amazon.' + c as PaymentMethod] = GiftCardAmazon)
+COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
 
-// eslint-disable-next-line max-lines-per-function
+
 export const PaymentMethodForm = ({
   paymentMethod,
   data,
@@ -71,7 +71,7 @@ export const PaymentMethodForm = ({
   onDelete,
   navigation,
   back,
-  style,
+  style
 }: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
@@ -105,40 +105,47 @@ export const PaymentMethodForm = ({
 
   useEffect(keyboard(setKeyboardOpen), [])
 
-  return <View style={[tw`flex`, style]}>
-    <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`min-h-full flex justify-center pb-10`}>
-      <Form
-        forwardRef={(r: FormRef) => $formRef = r}
-        paymentMethod={paymentMethod}
-        data={data}
-        currencies={currencies}
-        onSubmit={submit}
-        onChange={onChange}
-        navigation={navigation}
-      />
-    </PeachScrollView>
-    <Fade show={!keyboardOpen} style={tw`w-full flex items-center mt-4`} displayNone={false}>
-      {paymentMethod !== 'cash' && <View style={tw`w-full h-10 -mt-10`}>
-        <LinearGradient colorList={whiteGradient} angle={90} />
-      </View>}
-      <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={back || navigation.goBack}>
-        <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
-      </Pressable>
-      <Button
-        testID="navigation-next"
-        disabled={!stepValid}
-        wide={false}
-        onPress={() => $formRef?.save()}
-        title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-      />
-      {data.id
-        ? <Pressable onPress={remove} style={tw`mt-6`}>
-          <Text style={tw`font-baloo text-sm text-center underline text-peach-1`}>
-            {i18n('form.paymentMethod.remove')}
-          </Text>
-        </Pressable>
-        : null
-      }
-    </Fade>
-  </View>
+  return (
+    <View style={[tw`flex`, style]}>
+      <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`min-h-full flex pb-10 pt-4`}>
+        <Form
+          forwardRef={(r: FormRef) => ($formRef = r)}
+          paymentMethod={paymentMethod}
+          data={data}
+          currencies={currencies}
+          onSubmit={submit}
+          onChange={onChange}
+          navigation={navigation}
+        />
+      </PeachScrollView>
+      <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
+        {paymentMethod !== 'cash' && (
+          <View style={tw`w-full h-10 -mt-10`}>
+            <LinearGradient colorList={whiteGradient} angle={90} />
+          </View>
+        )}
+        <View style={tw`flex-row pr-10 w-full items-stretch mb-2`}>
+          <Pressable testID="navigation-back" onPress={back || navigation.goBack}>
+            <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+          </Pressable>
+          <View style={tw`flex-grow items-center`}>
+            <Button
+              testID="navigation-next"
+              disabled={!stepValid}
+              wide={false}
+              onPress={() => $formRef?.save()}
+              title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
+            />
+          </View>
+        </View>
+        {data.id ? (
+          <Pressable onPress={remove} style={tw`mt-6`}>
+            <Text style={tw`font-baloo text-sm text-center underline text-peach-1`}>
+              {i18n('form.paymentMethod.remove')}
+            </Text>
+          </Pressable>
+        ) : null}
+      </Fade>
+    </View>
+  )
 }

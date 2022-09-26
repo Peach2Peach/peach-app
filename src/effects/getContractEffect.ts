@@ -1,49 +1,37 @@
 import { EffectCallback } from 'react'
+import { parseContract } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getContract } from '../utils/peachAPI'
 
 type GetContractEffectProps = {
-  contractId?: string,
-  onSuccess: (result: GetContractResponse) => void,
-  onError: (err: APIError) => void,
+  contractId?: string
+  onSuccess: (result: GetContractResponse) => void
+  onError: (err: APIError) => void
 }
 
-export default ({
-  contractId,
-  onSuccess,
-  onError
-}: GetContractEffectProps): EffectCallback => () => {
-  const checkingFunction = async () => {
-    if (!contractId) return
+export default ({ contractId, onSuccess, onError }: GetContractEffectProps): EffectCallback =>
+  () => {
+    const checkingFunction = async () => {
+      if (!contractId) return
 
-    info('Get contract info', contractId)
+      info('Get contract info', contractId)
 
-    const [result, err] = await getContract({
-      contractId,
-    })
+      const [result, err] = await getContract({
+        contractId,
+      })
 
-    if (result) {
-      result.creationDate = new Date(result.creationDate)
-      result.buyer.creationDate = new Date(result.buyer.creationDate)
-      result.seller.creationDate = new Date(result.seller.creationDate)
+      if (result) {
+        onSuccess(parseContract(result))
+      } else if (err) {
+        error('Error', err)
+        onError(err)
+      }
+    }
 
-      if (result.kycResponseDate) result.kycResponseDate = new Date(result.kycResponseDate)
-      if (result.paymentMade) result.paymentMade = new Date(result.paymentMade)
-      if (result.paymentConfirmed) result.paymentConfirmed = new Date(result.paymentConfirmed)
-      if (result.disputeDate) result.disputeDate = new Date(result.disputeDate)
-      if (result.disputeResolvedDate) result.disputeResolvedDate = new Date(result.disputeResolvedDate)
+    const interval = setInterval(checkingFunction, 30 * 1000)
+    checkingFunction()
 
-      onSuccess(result)
-    } else if (err) {
-      error('Error', err)
-      onError(err)
+    return () => {
+      clearInterval(interval)
     }
   }
-
-  const interval = setInterval(checkingFunction, 30 * 1000)
-  checkingFunction()
-
-  return () => {
-    clearInterval(interval)
-  }
-}
