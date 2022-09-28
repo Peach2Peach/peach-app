@@ -1,16 +1,22 @@
-
 import messaging from '@react-native-firebase/messaging'
 import { account, updateSettings } from '../utils/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 import { UpdateUserProps } from '../utils/peachAPI/private/user/updateUser'
+import { parseError } from '../utils/system'
 
 export default async (referralCode?: string) => {
   if (!account) return
 
   try {
     const payload: UpdateUserProps = {}
-    const fcmToken = await messaging().getToken()
+
+    let fcmToken = account.settings.fcmToken
+    try {
+      fcmToken = await messaging().getToken()
+    } catch (e) {
+      error('messaging().getToken - Push notifications not supported', parseError(e))
+    }
 
     if (account.pgp.publicKey && !account.settings.pgpPublished) payload.pgp = account.pgp
     if (account.settings.fcmToken !== fcmToken) payload.fcmToken = fcmToken
@@ -24,7 +30,7 @@ export default async (referralCode?: string) => {
 
         updateSettings({
           pgpPublished: account.settings.pgpPublished || !!account.pgp,
-          fcmToken,
+          fcmToken
         })
       } else {
         error('User information could not be set', JSON.stringify(err))
