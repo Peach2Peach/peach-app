@@ -14,10 +14,14 @@ import { sleep } from '../utils/performance'
 import { getSession, setSession } from '../utils/session'
 import { isIOS, parseError } from '../utils/system'
 
-const initialNavigation = async (
+/**
+ * @description Method to wait up to 10 seconds for navigation to initialise.
+ * @param navigationRef reference to navigation
+ * @param updateMessage updateMessage dispatch function
+ */
+const waitForNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>,
-  sessionInitiated: boolean
+  updateMessage: React.Dispatch<MessageState>
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -29,6 +33,20 @@ const initialNavigation = async (
     await sleep(100)
     waitForNavCounter--
   }
+}
+
+/**
+ * @description Method to init navigation and check where to navigate to first after opening the app
+ * @param navigationRef reference to navigation
+ * @param updateMessage updateMessage dispatch function
+ * @param sessionInitiated true if session has properly initialised
+ */
+const initialNavigation = async (
+  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
+  updateMessage: React.Dispatch<MessageState>,
+  sessionInitiated: boolean
+) => {
+  await waitForNavigation(navigationRef, updateMessage)
 
   let initialNotification: FirebaseMessagingTypes.RemoteMessage | null = null
   try {
@@ -47,7 +65,9 @@ const initialNavigation = async (
     if (isIOS()) NotificationBadge.setNumber(notifications)
     setSession({ notifications })
 
-    if (initialNotification.data) handlePushNotification(navigationRef, initialNotification.data, initialNotification.sentTime)
+    if (initialNotification.data) {
+      handlePushNotification(navigationRef, initialNotification.data, initialNotification.sentTime)
+    }
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     navigationRef.reset({
       index: 0,
