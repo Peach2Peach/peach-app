@@ -40,7 +40,7 @@ describe('loadAccount', () => {
     await storeAccount(accountData.userWithNoTrades, password)
 
     const acc = await loadAccount(password)
-    expect(existsSpy).toHaveBeenCalledWith('/peach-account-contracts')
+    expect(existsSpy).toHaveBeenCalledWith('/peach-account-identity')
     expect(readFileSpy).toHaveBeenCalledTimes(8)
     expect(readFileSpy).toHaveBeenCalledWith(expect.stringContaining('.json'), password)
     ok(acc.publicKey)
