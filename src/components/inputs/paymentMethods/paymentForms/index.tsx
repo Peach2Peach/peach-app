@@ -20,6 +20,7 @@ import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
 import { SEPA } from './SEPA'
 import { Swish } from './Swish'
+import { Satispay } from './Satispay'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
 import { GiftCardAmazon } from './giftCard.amazon'
@@ -55,13 +56,13 @@ export const PaymentMethodForms: PaymentMethodForms = {
   wise: Wise,
   twint: Twint,
   swish: Swish,
+  satispay: Satispay,
   mbWay: MBWay,
   bizum: Bizum,
   'giftCard.amazon': GiftCardAmazon,
   cash: Cash
 }
 COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
-
 
 export const PaymentMethodForm = ({
   paymentMethod,

@@ -83,6 +83,7 @@ declare type PaymentMethod =
   | 'applePay'
   | 'wise'
   | 'twint'
+  | 'satispay'
   | 'swish'
   | 'mbWay'
   | 'bizum'
