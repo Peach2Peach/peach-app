@@ -7,7 +7,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef,
+  useNavigationContainerRef
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
@@ -52,14 +52,14 @@ const Stack = createStackNavigator<RootStackParamList>()
  * @param view view id
  * @returns true if view should show header
  */
-const showHeader = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showHeader
+const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showHeader
 
 /**
  * @description Method to determine weather header should be shown
  * @param view view id
  * @returns true if view should show header
  */
-const showFooter = (view: keyof RootStackParamList) => views.find(v => v.name === view)?.showFooter
+const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
 
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
@@ -70,7 +70,7 @@ const App: React.FC = () => {
     = useReducer(setDrawer, getDrawer())
   const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
     setOverlay,
-    getOverlay(),
+    getOverlay()
   )
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
@@ -103,7 +103,7 @@ const App: React.FC = () => {
     ;(async () => {
       await initApp(navigationRef, updateMessage)
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
+        notifications: getChatNotifications() + getRequiredActionCount()
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
         updateOverlay({
@@ -113,11 +113,11 @@ const App: React.FC = () => {
             analytics().setAnalyticsCollectionEnabled(false)
             updateSettings(
               {
-                enableAnalytics: false,
+                enableAnalytics: false
               },
-              true,
+              true
             )
-          },
+          }
         })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
@@ -132,12 +132,12 @@ const App: React.FC = () => {
     handleNotificationsEffect({
       getCurrentPage,
       updateOverlay,
-      navigationRef,
+      navigationRef
     }),
-    [currentPage],
+    [currentPage]
   )
 
-  useEffect(websocket(updatePeachWS), [])
+  useEffect(websocket(updatePeachWS, updateMessage), [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
     if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
@@ -147,7 +147,7 @@ const App: React.FC = () => {
     info('Navigation event', currentPage)
     // Disable OS back button
     analytics().logScreenView({
-      screen_name: currentPage as string,
+      screen_name: currentPage as string
     })
   }, [currentPage])
 
@@ -161,12 +161,14 @@ const App: React.FC = () => {
                 <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
                   <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
                     <DrawerContext.Provider
-                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}>
+                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+                    >
                       <OverlayContext.Provider
                         value={[
                           { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                          updateOverlay,
-                        ]}>
+                          updateOverlay
+                        ]}
+                      >
                         <View style={tw`h-full flex-col`}>
                           {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
                           <Drawer
@@ -203,9 +205,10 @@ const App: React.FC = () => {
                                 screenOptions={{
                                   gestureEnabled: false,
                                   headerShown: false,
-                                  cardStyle: tw`bg-white-1`,
-                                }}>
-                                {views.map(view => (
+                                  cardStyle: tw`bg-white-1`
+                                }}
+                              >
+                                {views.map((view) => (
                                   <Stack.Screen
                                     name={view.name}
                                     component={view.component}
