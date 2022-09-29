@@ -23,15 +23,15 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
-      }),
+        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
+      })
     })
 
     const responseError = getResponseError(response)
@@ -43,10 +43,15 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
       setAccessToken(token)
       info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
       return [token, null]
+    } else if (token) {
+      error('peachAPI - auth - FAILED', new Error((token as APIError).error))
+      return [null, token as APIError]
     }
-
-    error('peachAPI - auth - FAILED', new Error((token as APIError).error))
-    return [null, token as APIError]
+    const tokenError = {
+      error: 'Token not found'
+    }
+    error('peachAPI - auth - FAILED', tokenError)
+    return [null, tokenError as APIError]
   } catch (e) {
     const err = parseError(e)
     error('peachAPI - auth', err)
