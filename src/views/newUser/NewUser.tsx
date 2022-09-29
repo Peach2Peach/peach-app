@@ -85,6 +85,7 @@ export default ({ navigation }: Props): ReactElement => {
       msgKey: e.message || 'AUTHENTICATION_FAILURE',
       level: 'ERROR'
     })
+    if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
