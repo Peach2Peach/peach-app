@@ -6,6 +6,10 @@ import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
 
+const tokenNotFoundError = {
+  error: 'Token not found'
+}
+
 /**
  * @description Method to authenticate with Peach API
  * @returns AccessToken or APIError
@@ -36,21 +40,19 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]
 
-    const token = response?.json ? ((await response.json()) as AccessToken | APIError) : null
+    const result = response?.json ? ((await response.json()) as AccessToken | APIError) : null
 
-    if (token && 'accessToken' in token) {
-      setAccessToken(token)
-      info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), token)
-      return [token, null]
-    } else if (token) {
-      error('peachAPI - auth - FAILED', new Error((token as APIError).error))
-      return [null, token as APIError]
+    if (result && 'accessToken' in result) {
+      setAccessToken(result)
+      info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), result)
+      return [result, null]
+    } else if (result) {
+      error('peachAPI - auth - FAILED', new Error((result as APIError).error))
+      return [null, result as APIError]
     }
-    const tokenError = {
-      error: 'Token not found'
-    }
-    error('peachAPI - auth - FAILED', tokenError)
-    return [null, tokenError as APIError]
+
+    error('peachAPI - auth - FAILED', tokenNotFoundError)
+    return [null, tokenNotFoundError as APIError]
   } catch (e) {
     const err = parseError(e)
     error('peachAPI - auth', err)
