@@ -112,9 +112,9 @@ export const linkToAppStore = () => {
   if (isIOS()) {
     Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
   } else if (isAndroid()) {
-    const isSideLoaded = getInstallerPackageNameSync() === 'unkown'
+    const isInstalledByGooglePlay = getInstallerPackageNameSync() === 'com.android.vending'
     Linking.openURL(
-      isSideLoaded
+      isInstalledByGooglePlay
         ? `https://play.google.com/store/apps/details?id=${bundleId}`
         : 'https://drive.proton.me/urls/KVVQJYW4AR#thRbnPfar0hp'
     )
