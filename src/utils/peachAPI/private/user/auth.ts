@@ -33,7 +33,6 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
         signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
       })
     })
-
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]
 
@@ -55,7 +54,6 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
   } catch (e) {
     const err = parseError(e)
     error('peachAPI - auth', err)
-
     return [null, { error: err }]
   }
 }
