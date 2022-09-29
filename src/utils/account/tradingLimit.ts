@@ -19,7 +19,7 @@ export const getTradingLimit = (currency?: Currency): TradingLimit => {
     daily: Math.round(tradingLimit.daily * exchangeRate),
     dailyAmount: Math.round(tradingLimit.dailyAmount * exchangeRate * 100) / 100,
     yearly: Math.round(tradingLimit.yearly * exchangeRate),
-    yearlyAmount: Math.round(tradingLimit.yearlyAmount * exchangeRate * 100) / 100,
+    yearlyAmount: Math.round(tradingLimit.yearlyAmount * exchangeRate * 100) / 100
   }
 }
 
@@ -28,11 +28,12 @@ export const getTradingLimit = (currency?: Currency): TradingLimit => {
  * @param tradingLimit tradingLimit to update
  */
 export const updateTradingLimit = async (tradingLimit: TradingLimit, save = true): Promise<void> => {
+  console.log(JSON.stringify(tradingLimit))
   account.tradingLimit = {
     daily: tradingLimit.daily || Infinity,
     dailyAmount: tradingLimit.dailyAmount || 0,
     yearly: tradingLimit.yearly || Infinity,
-    yearlyAmount: tradingLimit.yearlyAmount || 0,
+    yearlyAmount: tradingLimit.yearlyAmount || 0
   }
   if (save && session.password && account.publicKey) await storeTradingLimit(account.tradingLimit, session.password)
 }
@@ -45,10 +46,10 @@ export const updateTradingLimit = async (tradingLimit: TradingLimit, save = true
  * @returns filtered buckets
  */
 export const applyTradingLimit = (buckets: number[], price: number, tradingLimit: TradingLimit) =>
-  buckets.filter(bucket => {
+  buckets.filter((bucket) => {
     if (!price) return true
 
-    const amount = bucket * price / SATSINBTC
+    const amount = (bucket * price) / SATSINBTC
 
     return amount < tradingLimit.daily && amount < tradingLimit.yearly
   })

@@ -156,13 +156,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       const [result, err] = await postOffer(offer)
       if (result) {
-        info('posted offer: ', JSON.stringify(result))
-        const [tradingLimit] = await getTradingLimit()
-
-        if (tradingLimit) {
-          updateTradingLimit(tradingLimit)
-        }
         info('Posted offer', result)
+
+        getTradingLimit().then(([tradingLimit]) => {
+          if (tradingLimit) {
+            updateTradingLimit(tradingLimit)
+          }
+        })
 
         saveAndUpdate({ ...offer, id: result.offerId })
         navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } })
