@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { BackHandler, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import i18n from '../../utils/i18n'
@@ -21,17 +21,17 @@ import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/pe
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['buyPreferences'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['buyPreferences'] }>
+  navigation: StackNavigation
 }
 
 export type BuyViewProps = {
-  offer: BuyOffer,
-  updateOffer: (data: BuyOffer, shield?: boolean) => void,
-  setStepValid: (isValid: boolean) => void,
-  back: () => void,
-  next: () => void,
-  navigation: StackNavigation,
+  offer: BuyOffer
+  updateOffer: (data: BuyOffer, shield?: boolean) => void
+  setStepValid: (isValid: boolean) => void
+  back: () => void
+  next: () => void
+  navigation: StackNavigation
 }
 
 const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
@@ -45,7 +45,7 @@ const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
   matches: [],
   seenMatches: [],
   matched: [],
-  doubleMatched: false,
+  doubleMatched: false
 })
 
 type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
@@ -86,6 +86,19 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
+  useEffect(() => {
+    const listener = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (page === 0) {
+        return false
+      }
+      setPage(page - 1)
+      return true
+    })
+    return () => {
+      listener.remove()
+    }
+  })
+
   const next = () => {
     if (page >= screens.length - 1) return
     setPage(page + 1)
@@ -101,14 +114,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll?.scrollTo({ x: 0 })
   }
 
-  useFocusEffect(useCallback(() => {
-    setOffer(getDefaultBuyOffer(route.params.amount))
-    setUpdatePending(false)
-    setPage(() => 0)
-  }, [route]))
+  useFocusEffect(
+    useCallback(() => {
+      setOffer(getDefaultBuyOffer(route.params.amount))
+      setUpdatePending(false)
+      setPage(() => 0)
+    }, [route])
+  )
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (screens[page].id === 'search' && !offer.id) {
         setUpdatePending(true)
 
@@ -130,8 +145,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         error('Error', err)
         updateMessage({
-          msg: i18n(err?.error || 'error.postOffer', (err?.details as string[] || []).join(', ')),
-          level: 'ERROR',
+          msg: i18n(err?.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          level: 'ERROR'
         })
 
         if (err?.error === 'TRADING_LIMIT_REACHED') back()
@@ -139,44 +154,45 @@ export default ({ route, navigation }: Props): ReactElement => {
     })()
   }, [page])
 
-  return <View testID="view-buy" style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <PeachScrollView scrollRef={ref => scroll = ref}
-        disable={!scrollable}
-        contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-        style={tw`h-full`}>
-        <View style={tw`h-full flex`}>
-          <View style={tw`h-full flex-shrink`}>
-            {updatePending
-              ? <Loading />
-              : null
-            }
-            {!updatePending && CurrentView
-              ? <CurrentView offer={offer}
-                updateOffer={setOffer}
-                setStepValid={setStepValid}
-                back={back} next={next}
-                navigation={navigation}/>
-              : null
-            }
-          </View>
-          {scrollable && !updatePending
-            ? <View style={tw`pt-8 px-6`}>
-              <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+  return (
+    <View testID="view-buy" style={tw`h-full flex`}>
+      <View style={tw`h-full flex-shrink`}>
+        <PeachScrollView
+          scrollRef={(ref) => (scroll = ref)}
+          disable={!scrollable}
+          contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
+          style={tw`h-full`}
+        >
+          <View style={tw`h-full flex`}>
+            <View style={tw`h-full flex-shrink`}>
+              {updatePending ? <Loading /> : null}
+              {!updatePending && CurrentView ? (
+                <CurrentView
+                  offer={offer}
+                  updateOffer={setOffer}
+                  setStepValid={setStepValid}
+                  back={back}
+                  next={next}
+                  navigation={navigation}
+                />
+              ) : null}
             </View>
-            : null
-          }
-        </View>
-      </PeachScrollView>
-    </View>
-    {!scrollable && !updatePending
-      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+            {scrollable && !updatePending ? (
+              <View style={tw`pt-8 px-6`}>
+                <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+              </View>
+            ) : null}
+          </View>
+        </PeachScrollView>
       </View>
-      : null
-    }
-  </View>
+      {!scrollable && !updatePending ? (
+        <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+          <View style={tw`w-full h-8 -mt-8`}>
+            <LinearGradient colorList={whiteGradient} angle={90} />
+          </View>
+          <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+        </View>
+      ) : null}
+    </View>
+  )
 }
