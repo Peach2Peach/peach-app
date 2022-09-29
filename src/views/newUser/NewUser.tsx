@@ -98,6 +98,8 @@ export default ({ navigation }: Props): ReactElement => {
     try {
       const [result, authError] = await auth()
       if (result) {
+        updateOverlay({ content: <SaveYourPassword />, showCloseButton: false })
+
         await userUpdate(referralCode)
         storeAccount(account, password)
 
@@ -143,10 +145,6 @@ export default ({ navigation }: Props): ReactElement => {
       setTimeout(() => {
         createAccount({ password, onSuccess, onError })
       })
-
-      setTimeout(() => {
-        updateOverlay({ content: <SaveYourPassword />, showCloseButton: false })
-      }, 300)
     }
   }
 
