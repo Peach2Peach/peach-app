@@ -60,7 +60,6 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
 
 export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string; url: string; userLink?: string }>> = {
   paypal: {
-    appLink: 'paypal://',
     url: 'https://paypal.com/open_web',
     userLink: 'https://paypal.com/paypalme/'
   },
@@ -68,6 +67,7 @@ export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string; url: st
     url: 'https://revolut.com/app',
     userLink: 'https://revolut.me/'
   },
+  satispay: { url: 'https://satispay.com/' },
   wise: { url: 'https://wise.com/user/account' },
   'giftCard.amazon.DE': { url: 'https://www.amazon.de/dp/B0B2Q4ZRDW' },
   'giftCard.amazon.FR': { url: 'https://www.amazon.fr/dp/B004MYH1YI' },
