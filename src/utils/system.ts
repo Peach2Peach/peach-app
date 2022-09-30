@@ -1,7 +1,7 @@
 import { Linking, Platform } from 'react-native'
 import { checkNotifications } from 'react-native-permissions'
 import messaging from '@react-native-firebase/messaging'
-import { getBundleId } from 'react-native-device-info'
+import { getBundleId, getInstallerPackageNameSync } from 'react-native-device-info'
 import { DEV } from '@env'
 import { error } from './log'
 
@@ -89,19 +89,15 @@ export const checkNotificationStatus = async (): Promise<boolean> => {
  */
 export const toggleNotifications = async () => {
   if (isIOS()) {
-    try {
-      const authStatus = await messaging().hasPermission()
-      if (authStatus === messaging.AuthorizationStatus.NOT_DETERMINED) {
-        await messaging().requestPermission({
-          alert: true,
-          badge: false,
-          sound: true
-        })
-      } else {
-        Linking.openURL('app-settings://')
-      }
-    } catch (e) {
-      error('messaging().hasPermission - Push notifications not supported', parseError(e))
+    const authStatus = await messaging().hasPermission()
+    if (authStatus === messaging.AuthorizationStatus.NOT_DETERMINED) {
+      await messaging().requestPermission({
+        alert: true,
+        badge: false,
+        sound: true
+      })
+    } else {
+      Linking.openURL('app-settings://')
     }
   } else {
     Linking.openSettings()
@@ -116,6 +112,11 @@ export const linkToAppStore = () => {
   if (isIOS()) {
     Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
   } else if (isAndroid()) {
-    Linking.openURL(`https://play.google.com/store/apps/details?id=${bundleId}`)
+    const isInstalledByGooglePlay = getInstallerPackageNameSync() === 'com.android.vending'
+    Linking.openURL(
+      isInstalledByGooglePlay
+        ? `https://play.google.com/store/apps/details?id=${bundleId}`
+        : 'https://drive.proton.me/urls/KVVQJYW4AR#thRbnPfar0hp'
+    )
   }
 }
