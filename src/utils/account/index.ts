@@ -1,6 +1,17 @@
 export { defaultAccount, account, getAccount, setAccount } from './account'
 export { createAccount } from './createAccount'
-export { loadAccount } from './loadAccount'
+export {
+  loadLegacyAccount,
+  loadIdentity,
+  loadSettings,
+  loadTradingLimit,
+  loadPaymentData,
+  loadOffers,
+  loadContracts,
+  loadChat,
+  loadChats,
+  loadAccount,
+} from './loadAccount'
 export {
   storeIdentity,
   storeSettings,
