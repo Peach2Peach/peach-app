@@ -201,29 +201,34 @@ export const loadAccount = async (password: string): Promise<Account> => {
   let acc = defaultAccount
 
   try {
-    const [identity, settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
-      loadIdentity(password),
-      loadSettings(password),
-      loadTradingLimit(password),
-      loadPaymentData(password),
-      loadOffers(password),
-      loadContracts(password),
-      loadChats(password),
-    ])
-    acc = {
-      ...identity,
-      settings,
-      tradingLimit,
-      paymentData,
-      offers,
-      contracts,
-      chats,
+    const identity = await loadIdentity(password)
+    if (identity.publicKey) {
+      const [settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
+        loadSettings(password),
+        loadTradingLimit(password),
+        loadPaymentData(password),
+        loadOffers(password),
+        loadContracts(password),
+        loadChats(password),
+      ])
+      acc = {
+        ...identity,
+        settings,
+        tradingLimit,
+        paymentData,
+        offers,
+        contracts,
+        chats,
+      }
     }
   } catch (e) {
     if (await exists('/peach-account.json')) {
       acc = await loadLegacyAccount(password)
+    } else {
+      return account
     }
   }
+
   if (!acc.publicKey) {
     error('Account File does not exist')
   } else {
