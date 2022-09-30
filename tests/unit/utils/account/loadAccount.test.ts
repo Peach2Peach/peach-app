@@ -33,13 +33,20 @@ describe('loadAccount', () => {
     deepStrictEqual(account, acc)
     deepStrictEqual(account, accountData.account1)
   })
-
-  it('tries to load account from file', async () => {
+  it('loads account from file', async () => {
+    const existsSpy = jest.spyOn(file, 'exists')
     const readFileSpy = jest.spyOn(file, 'readFile')
 
     await storeAccount(accountData.userWithNoTrades, password)
 
-    await loadAccount(password)
-    expect(readFileSpy).toHaveBeenCalledWith('/peach-account-identity.json', password)
+    const acc = await loadAccount(password)
+    expect(existsSpy).toHaveBeenCalledWith('/peach-account-offers')
+    expect(existsSpy).toHaveBeenCalledWith('/peach-account-contracts')
+    expect(readFileSpy).toHaveBeenCalledTimes(8)
+    expect(readFileSpy).toHaveBeenCalledWith(expect.stringContaining('.json'), password)
+    ok(acc.publicKey)
+    ok(account.publicKey)
+    deepStrictEqual(account, acc)
+    deepStrictEqual(account, accountData.userWithNoTrades)
   })
 })

@@ -191,7 +191,7 @@ export const loadAccount = async (password: string): Promise<Account> => {
 
   try {
     const identity = await loadIdentity(password)
-    if (acc.publicKey) {
+    if (identity.publicKey) {
       const [settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
         loadSettings(password),
         loadTradingLimit(password),
