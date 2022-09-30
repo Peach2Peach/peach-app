@@ -5,11 +5,11 @@
 import { AppRegistry, LogBox } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
 import { name as appName } from './app.json'
-import { isIOS, isProduction, isWeb } from './utils/system'
+import { isIOS, isProduction, isWeb, parseError } from './utils/system'
 import * as db from './utils/db'
 import { updateUser } from './utils/peachAPI'
 import messaging from '@react-native-firebase/messaging'
-import { info } from './utils/log'
+import { error, info } from './utils/log'
 import App from './App'
 import { getSession, initSession, setSession } from './utils/session'
 
@@ -25,24 +25,26 @@ LogBox.ignoreLogs([
   // Webview (shadows)
   /Did not receive response to shouldStartLoad in time/u,
   /startLoadWithResult invoked with invalid lockIdentifier/u,
-  /ERROR/u,
+  /ERROR/u
 ])
 
 LogBox.ignoreAllLogs(isProduction())
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  await initSession()
-  let notifications = Number(getSession().notifications || 0)
-  notifications += 1
+try {
+  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    await initSession()
+    let notifications = Number(getSession().notifications || 0)
+    notifications += 1
 
-  if (isIOS()) NotificationBadge.setNumber(notifications)
-  setSession({ notifications })
+    if (isIOS()) NotificationBadge.setNumber(notifications)
+    setSession({ notifications })
 
-  info('Message handled in the background!', remoteMessage)
-})
-
-messaging().onTokenRefresh(fcmToken => updateUser({ fcmToken }))
-
+    info('Message handled in the background!', remoteMessage)
+  })
+  messaging().onTokenRefresh((fcmToken) => updateUser({ fcmToken }))
+} catch (e) {
+  error('messaging().setBackgroundMessageHandler/onTokenRefresh - Push notifications not supported', parseError(e))
+}
 
 AppRegistry.registerComponent(appName, () => App)
 

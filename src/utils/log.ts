@@ -29,14 +29,14 @@ export const error = (...args: any[]) => {
   if (isProduction()) crashlytics().log([new Date(), 'ERROR', ...args].join(' - '))
 
   if (isProduction()) {
-    const errors = args.filter(arg => arg instanceof Error)
+    const errors = args.filter((arg) => arg instanceof Error)
 
-    openCrashReportPrompt(errors)
+    if (errors.length) openCrashReportPrompt(errors)
   }
 }
 
 export default {
   info,
   log,
-  error,
+  error
 }
