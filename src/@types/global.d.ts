@@ -62,6 +62,9 @@ declare type SwishData = {
   phone: string
   beneficiary: string
 }
+declare type SatispayData = {
+  phone: string
+}
 declare type TwintData = {
   phone: string
   beneficiary: string
