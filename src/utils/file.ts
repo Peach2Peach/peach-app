@@ -1,6 +1,7 @@
 import { error, info } from './log'
 import RNFS from './fileSystem/RNFS'
 import { decrypt, encrypt } from './crypto'
+import { parseError } from './system'
 
 /**
  * @description Method to check whether file exists
@@ -23,7 +24,9 @@ export const mkdir = async (path: string): Promise<void> => await RNFS.mkdir(RNF
  * @return Promise resolving to paths of files
  */
 export const readDir = async (path: string): Promise<string[]> =>
-  (await RNFS.readDir(RNFS.DocumentDirectoryPath + path)).map(file => file.path.replace(RNFS.DocumentDirectoryPath, ''))
+  (await RNFS.readDir(RNFS.DocumentDirectoryPath + path)).map((file) =>
+    file.path.replace(RNFS.DocumentDirectoryPath, '')
+  )
 
 /**
  * @description Method to read file
@@ -44,7 +47,7 @@ export const readFile = async (path: string, password?: string): Promise<string>
   try {
     if (password) content = decrypt(content, password)
   } catch (e) {
-    error('File could not be decrypted', e)
+    error('File could not be decrypted', parseError(e))
   }
   return content
 }

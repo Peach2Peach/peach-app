@@ -100,9 +100,9 @@ export const loadOffers = async (password: string): Promise<Account['offers']> =
   try {
     if (await exists('/peach-account-offers')) {
       const offerFiles = await readDir('/peach-account-offers')
-      const offers = await Promise.all(offerFiles.map(file => readFile(file, password)))
+      const offers = await Promise.all(offerFiles.map((file) => readFile(file, password)))
 
-      return offers.map(offer => JSON.parse(offer)).map(parseOffer)
+      return offers.map((offer) => JSON.parse(offer)).map(parseOffer)
     }
 
     // fallback to version 0.1.3
@@ -129,9 +129,9 @@ export const loadContracts = async (password: string): Promise<Account['contract
   try {
     if (await exists('/peach-account-contracts')) {
       const contractFiles = await readDir('/peach-account-contracts')
-      const contracts = await Promise.all(contractFiles.map(file => readFile(file, password)))
+      const contracts = await Promise.all(contractFiles.map((file) => readFile(file, password)))
 
-      return contracts.map(contract => JSON.parse(contract)).map(parseContract)
+      return contracts.map((contract) => JSON.parse(contract)).map(parseContract)
     }
 
     // fallback to version 0.1.3
@@ -158,10 +158,10 @@ export const loadChats = async (password: string): Promise<Account['chats']> => 
     const rawChats = await readFile('/peach-account-chats.json', password)
     const chats = JSON.parse(rawChats || '{}') as Account['chats']
     return Object.keys(chats)
-      .map(id => chats[id])
+      .map((id) => chats[id])
       .map((chat: Chat) => {
         chat.lastSeen = new Date(chat.lastSeen)
-        chat.messages = chat.messages.map(message => ({
+        chat.messages = chat.messages.map((message) => ({
           ...message,
           date: new Date(message.date),
         }))
@@ -190,29 +190,34 @@ export const loadAccount = async (password: string): Promise<Account> => {
   let acc = defaultAccount
 
   try {
-    const [identity, settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
-      loadIdentity(password),
-      loadSettings(password),
-      loadTradingLimit(password),
-      loadPaymentData(password),
-      loadOffers(password),
-      loadContracts(password),
-      loadChats(password),
-    ])
-    acc = {
-      ...identity,
-      settings,
-      tradingLimit,
-      paymentData,
-      offers,
-      contracts,
-      chats,
+    const identity = await loadIdentity(password)
+    if (identity.publicKey) {
+      const [settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
+        loadSettings(password),
+        loadTradingLimit(password),
+        loadPaymentData(password),
+        loadOffers(password),
+        loadContracts(password),
+        loadChats(password),
+      ])
+      acc = {
+        ...identity,
+        settings,
+        tradingLimit,
+        paymentData,
+        offers,
+        contracts,
+        chats,
+      }
     }
   } catch (e) {
     if (await exists('/peach-account.json')) {
       acc = await loadLegacyAccount(password)
+    } else {
+      return account
     }
   }
+
   if (!acc.publicKey) {
     error('Account File does not exist')
   } else {
