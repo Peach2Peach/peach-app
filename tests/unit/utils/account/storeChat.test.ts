@@ -1,15 +1,14 @@
 import { defaultAccount, setAccount } from '../../../../src/utils/account'
-import { storeChats } from '../../../../src/utils/account/storeAccount'
+import { storeChat } from '../../../../src/utils/account/storeAccount'
 import * as fileUtils from '../../../../src/utils/file'
 import * as accountData from '../../data/accountData'
 import { resetFakeFiles } from '../../prepare'
 
 const password = 'supersecret'
 
-describe('storeChats', () => {
+describe('storeChat', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
-    await storeChats(defaultAccount.chats, password)
   })
   afterEach(() => {
     resetFakeFiles()
@@ -18,7 +17,7 @@ describe('storeChats', () => {
 
   it('would write file to store chats', async () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await storeChats(accountData.buyer.chats, password)
+    await storeChat(accountData.buyer.chats['313-312'], password)
     expect(writeFileSpy).toHaveBeenCalledWith(
       '/peach-account-chats/313-312.json',
       JSON.stringify(accountData.buyer.chats['313-312']),

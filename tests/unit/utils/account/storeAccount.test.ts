@@ -17,7 +17,7 @@ describe('storeAccount', () => {
 
   it('would write file to whole account', async () => {
     const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await storeAccount(accountData.account1, password)
+    await storeAccount(accountData.buyer, password)
     expect(writeFileSpy).toHaveBeenCalledTimes(8)
     expect(writeFileSpy).toHaveBeenCalledWith(expect.stringContaining('.json'), expect.stringContaining('{'), password)
   })

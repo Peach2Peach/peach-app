@@ -12,9 +12,9 @@ describe('loadAccount', () => {
     const existsMock = jest.spyOn(file, 'exists')
     const readDirMock = jest.spyOn(file, 'readDir')
     existsMock.mockImplementation(
-      async path => path === '/peach-account-contracts' || path === '/peach-account-offers' || !!fakeFiles[path],
+      async (path) => path === '/peach-account-contracts' || path === '/peach-account-offers' || !!fakeFiles[path],
     )
-    readDirMock.mockImplementation(async path =>
+    readDirMock.mockImplementation(async (path) =>
       path === '/peach-account-contracts'
         ? ['/peach-account-contracts/14-15.json']
         : ['/peach-account-offers/37.json', '/peach-account-offers/38.json'],
@@ -42,7 +42,7 @@ describe('loadAccount', () => {
     const acc = await loadAccount(password)
     expect(existsSpy).toHaveBeenCalledWith('/peach-account-offers')
     expect(existsSpy).toHaveBeenCalledWith('/peach-account-contracts')
-    expect(readFileSpy).toHaveBeenCalledTimes(8)
+    expect(readFileSpy).toHaveBeenCalledTimes(7)
     expect(readFileSpy).toHaveBeenCalledWith(expect.stringContaining('.json'), password)
     ok(acc.publicKey)
     ok(account.publicKey)

@@ -100,9 +100,9 @@ export const loadOffers = async (password: string): Promise<Account['offers']> =
   try {
     if (await exists('/peach-account-offers')) {
       const offerFiles = await readDir('/peach-account-offers')
-      const offers = await Promise.all(offerFiles.map(file => readFile(file, password)))
+      const offers = await Promise.all(offerFiles.map((file) => readFile(file, password)))
 
-      return offers.map(offer => JSON.parse(offer)).map(parseOffer)
+      return offers.map((offer) => JSON.parse(offer)).map(parseOffer)
     }
 
     // fallback to version 0.1.3
@@ -129,9 +129,9 @@ export const loadContracts = async (password: string): Promise<Account['contract
   try {
     if (await exists('/peach-account-contracts')) {
       const contractFiles = await readDir('/peach-account-contracts')
-      const contracts = await Promise.all(contractFiles.map(file => readFile(file, password)))
+      const contracts = await Promise.all(contractFiles.map((file) => readFile(file, password)))
 
-      return contracts.map(contract => JSON.parse(contract)).map(parseContract)
+      return contracts.map((contract) => JSON.parse(contract)).map(parseContract)
     }
 
     // fallback to version 0.1.3
@@ -155,13 +155,24 @@ export const loadContracts = async (password: string): Promise<Account['contract
  */
 export const loadChats = async (password: string): Promise<Account['chats']> => {
   try {
-    const rawChats = await readFile('/peach-account-chats.json', password)
-    const chats = JSON.parse(rawChats || '{}') as Account['chats']
-    return Object.keys(chats)
-      .map(id => chats[id])
+    let chats: Chat[] = []
+    if (await exists('/peach-account-chats')) {
+      const chatFiles = await readDir('/peach-account-chats')
+      const rawChats = await Promise.all(chatFiles.map((file) => readFile(file, password)))
+
+      chats = rawChats.map((chat) => JSON.parse(chat) as Chat)
+    }
+
+    // fallback to version 0.1.3
+    if (await exists('/peach-account-chats.json')) {
+      const rawChats = await readFile('/peach-account-chats.json', password)
+      const chatObject = JSON.parse(rawChats || '{}') as Account['chats']
+      chats = Object.keys(chatObject).map((id) => chatObject[id])
+    }
+    return chats
       .map((chat: Chat) => {
         chat.lastSeen = new Date(chat.lastSeen)
-        chat.messages = chat.messages.map(message => ({
+        chat.messages = chat.messages.map((message) => ({
           ...message,
           date: new Date(message.date),
         }))

@@ -13,12 +13,16 @@ export const storeIdentity = async (acc: Account, password: string): Promise<voi
   if (!acc.publicKey) throw new Error('error.ERROR_SAVE_ACCOUNT')
 
   info('Storing identity')
-  await writeFile('/peach-account-identity.json', JSON.stringify({
-    publicKey: acc.publicKey,
-    privKey: acc.privKey,
-    mnemonic: acc.mnemonic,
-    pgp: acc.pgp,
-  }), password)
+  await writeFile(
+    '/peach-account-identity.json',
+    JSON.stringify({
+      publicKey: acc.publicKey,
+      privKey: acc.privKey,
+      mnemonic: acc.mnemonic,
+      pgp: acc.pgp,
+    }),
+    password,
+  )
 }
 
 /**
@@ -64,13 +68,12 @@ export const storePaymentData = async (paymentData: Account['paymentData'], pass
  * @param password secret
  * @returns promise resolving to encrypted offer
  */
-export const storeOffer = async (offer: SellOffer|BuyOffer, password: string): Promise<void> => {
+export const storeOffer = async (offer: SellOffer | BuyOffer, password: string): Promise<void> => {
   info('Storing offer')
 
-  if (!await exists('/peach-account-offers')) await mkdir('/peach-account-offers')
+  if (!(await exists('/peach-account-offers'))) await mkdir('/peach-account-offers')
   await writeFile(`/peach-account-offers/${offer.id}.json`, JSON.stringify(offer), password)
 }
-
 
 /**
  * @description Method to save offers
@@ -81,10 +84,10 @@ export const storeOffer = async (offer: SellOffer|BuyOffer, password: string): P
 export const storeOffers = async (offers: Account['offers'], password: string): Promise<void> => {
   info('Storing offers', offers.length)
 
-  if (!await exists('/peach-account-offers')) await mkdir('/peach-account-offers')
-  await Promise.all(offers.map(offer =>
-    writeFile(`/peach-account-offers/${offer.id}.json`, JSON.stringify(offer), password)
-  ))
+  if (!(await exists('/peach-account-offers'))) await mkdir('/peach-account-offers')
+  await Promise.all(
+    offers.map((offer) => writeFile(`/peach-account-offers/${offer.id}.json`, JSON.stringify(offer), password)),
+  )
 }
 
 /**
@@ -96,7 +99,7 @@ export const storeOffers = async (offers: Account['offers'], password: string): 
 export const storeContract = async (contract: Contract, password: string): Promise<void> => {
   info('Storing contract')
 
-  if (!await exists('/peach-account-contracts')) await mkdir('/peach-account-contracts')
+  if (!(await exists('/peach-account-contracts'))) await mkdir('/peach-account-contracts')
   await writeFile(`/peach-account-contracts/${contract.id}.json`, JSON.stringify(contract), password)
 }
 
@@ -109,12 +112,26 @@ export const storeContract = async (contract: Contract, password: string): Promi
 export const storeContracts = async (contracts: Account['contracts'], password: string): Promise<void> => {
   info('Storing contracts', contracts.length)
 
-  if (!await exists('/peach-account-contracts')) await mkdir('/peach-account-contracts')
-  await Promise.all(contracts.map(contract =>
-    writeFile(`/peach-account-contracts/${contract.id}.json`, JSON.stringify(contract), password)
-  ))
+  if (!(await exists('/peach-account-contracts'))) await mkdir('/peach-account-contracts')
+  await Promise.all(
+    contracts.map((contract) =>
+      writeFile(`/peach-account-contracts/${contract.id}.json`, JSON.stringify(contract), password),
+    ),
+  )
 }
 
+/**
+ * @description Method to save chat
+ * @param chat chat
+ * @param password secret
+ * @returns promise resolving to encrypted chat
+ */
+export const storeChat = async (chat: Chat, password: string): Promise<void> => {
+  info('Storing chat')
+
+  if (!(await exists('/peach-account-chats'))) await mkdir('/peach-account-chats')
+  await writeFile(`/peach-account-chats/${chat.id}.json`, JSON.stringify(chat), password)
+}
 
 /**
  * @description Method to save chats
@@ -123,11 +140,14 @@ export const storeContracts = async (contracts: Account['contracts'], password: 
  * @returns promise resolving to encrypted chats
  */
 export const storeChats = async (chats: Account['chats'], password: string): Promise<void> => {
-  info('Storing chats')
+  info('Storing chats', chats.length)
 
-  await writeFile('/peach-account-chats.json', JSON.stringify(chats), password)
+  if (!(await exists('/peach-account-chats'))) await mkdir('/peach-account-chats')
+  const chatsArray = Object.keys(chats).map((key) => chats[key])
+  await Promise.all(
+    chatsArray.map((chat) => writeFile(`/peach-account-chats/${chat.id}.json`, JSON.stringify(chat), password)),
+  )
 }
-
 
 /**
  * @description Method to save account
