@@ -1,8 +1,8 @@
-import { defaultAccount, setAccount } from '../../../../src/utils/account'
-import { storeAccount } from '../../../../src/utils/account/'
-import * as fileUtils from '../../../../src/utils/file'
-import * as accountData from '../../data/accountData'
-import { resetFakeFiles } from '../../prepare'
+import { defaultAccount, setAccount } from '../../../../../src/utils/account'
+import { storeAccount } from '../../../../../src/utils/account/storeAccount'
+import * as fileUtils from '../../../../../src/utils/file'
+import * as accountData from '../../../data/accountData'
+import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
