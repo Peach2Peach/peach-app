@@ -16,7 +16,7 @@ import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit as getTradingLimitAPI, postOffer } from '../../utils/peachAPI'
+import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -131,11 +131,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         const [result, err] = await postOffer(offer)
 
         if (result) {
-          const [tradingLimit] = await getTradingLimitAPI()
-
-          if (tradingLimit) {
-            updateTradingLimit(tradingLimit)
-          }
+          getTradingLimit().then(([tradingLimit]) => {
+            if (tradingLimit) {
+              updateTradingLimit(tradingLimit)
+            }
+          })
           saveAndUpdate({ ...offer, id: result.offerId })
           navigation.replace('search', { offer: { ...offer, id: result.offerId } })
           return
