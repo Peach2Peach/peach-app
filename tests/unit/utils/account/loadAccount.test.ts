@@ -12,12 +12,12 @@ describe('loadAccount', () => {
     const existsMock = jest.spyOn(file, 'exists')
     const readDirMock = jest.spyOn(file, 'readDir')
     existsMock.mockImplementation(
-      async (path) => path === '/peach-account-contracts' || path === '/peach-account-offers' || !!fakeFiles[path]
+      async (path) => path === '/peach-account-contracts' || path === '/peach-account-offers' || !!fakeFiles[path],
     )
     readDirMock.mockImplementation(async (path) =>
       path === '/peach-account-contracts'
         ? ['/peach-account-contracts/14-15.json']
-        : ['/peach-account-offers/37.json', '/peach-account-offers/38.json']
+        : ['/peach-account-offers/37.json', '/peach-account-offers/38.json'],
     )
 
     await setAccount(defaultAccount, true)

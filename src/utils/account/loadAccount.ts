@@ -39,8 +39,8 @@ export const loadIdentity = async (password: string) => {
       mnemonic: '',
       pgp: {
         publicKey: '',
-        privateKey: ''
-      }
+        privateKey: '',
+      },
     }
   }
 }
@@ -163,7 +163,7 @@ export const loadChats = async (password: string): Promise<Account['chats']> => 
         chat.lastSeen = new Date(chat.lastSeen)
         chat.messages = chat.messages.map((message) => ({
           ...message,
-          date: new Date(message.date)
+          date: new Date(message.date),
         }))
         return chat
       })
@@ -198,7 +198,7 @@ export const loadAccount = async (password: string): Promise<Account> => {
         loadPaymentData(password),
         loadOffers(password),
         loadContracts(password),
-        loadChats(password)
+        loadChats(password),
       ])
       acc = {
         ...identity,
@@ -207,7 +207,7 @@ export const loadAccount = async (password: string): Promise<Account> => {
         paymentData,
         offers,
         contracts,
-        chats
+        chats,
       }
     }
   } catch (e) {
