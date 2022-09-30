@@ -1,7 +1,19 @@
 export { defaultAccount, account, getAccount, setAccount } from './account'
 export { createAccount } from './createAccount'
 export { loadAccount } from './loadAccount'
-export { storeAccount } from './storeAccount'
+export {
+  storeIdentity,
+  storeSettings,
+  storeTradingLimit,
+  storePaymentData,
+  storeOffer,
+  storeOffers,
+  storeContract,
+  storeContracts,
+  storeChat,
+  storeChats,
+  storeAccount,
+} from './storeAccount'
 export { updateSettings } from './updateSettings'
 export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
