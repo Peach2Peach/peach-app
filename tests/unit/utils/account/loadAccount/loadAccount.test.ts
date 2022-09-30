@@ -1,9 +1,8 @@
 import { deepStrictEqual, ok } from 'assert'
-import { account, defaultAccount, loadAccount, setAccount } from '../../../../src/utils/account'
-import { storeAccount } from '../../../../src/utils/account/'
-import * as file from '../../../../src/utils/file'
-import * as accountData from '../../data/accountData'
-import { fakeFiles, resetFakeFiles } from '../../prepare'
+import { account, defaultAccount, loadAccount, setAccount, storeAccount } from '../../../../../src/utils/account'
+import * as file from '../../../../../src/utils/file'
+import * as accountData from '../../../data/accountData'
+import { fakeFiles, resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
