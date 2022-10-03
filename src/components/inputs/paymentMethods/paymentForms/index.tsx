@@ -135,7 +135,7 @@ export const PaymentMethodForm = ({
               style={tw`w-10 h-10`}
               color={
                 specialTemplates[paymentMethod]
-                  ? (specialTemplates[paymentMethod].button.bgColor.backgroundColor as string)
+                  ? (specialTemplates[paymentMethod]!.button.bgColor.backgroundColor as string)
                   : (tw`text-peach-1`.color as string)
               }
             />
@@ -147,8 +147,8 @@ export const PaymentMethodForm = ({
               wide={false}
               onPress={() => $formRef?.save()}
               title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-              textColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod].button.textColor : undefined}
-              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod].button.bgColor : undefined}
+              textColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button.textColor : undefined}
+              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button.bgColor : undefined}
             />
           </View>
         </View>

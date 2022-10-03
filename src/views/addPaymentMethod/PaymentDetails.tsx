@@ -54,7 +54,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   return (
     <View
       style={
-        specialTemplates[paymentMethod] ? [tw`flex h-full`, specialTemplates[paymentMethod].style] : tw`flex h-full mt-8`
+        specialTemplates[paymentMethod]
+          ? [tw`flex h-full`, specialTemplates[paymentMethod]!.style]
+          : tw`flex h-full mt-8`
       }
     >
       {!specialTemplates[paymentMethod] && (
