@@ -9,7 +9,7 @@ type SpecialTemplate = {
     bgColor: Style
   }
 }
-export const specialTemplates: Record<PaymentMethod, SpecialTemplate> = {
+export const specialTemplates: Partial<Record<PaymentMethod, SpecialTemplate>> = {
   'cash.amsterdam': {
     style: {
       backgroundColor: '#FF9500',
