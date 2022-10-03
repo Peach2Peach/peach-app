@@ -37,8 +37,8 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: 'sepa',
     currencies: ['EUR', 'CHF', 'GBP'],
-    exchange: true
-  }
+    exchange: true,
+  },
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
@@ -46,26 +46,26 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay'],
-  cash: ['cash'],
-  cryptoCurrency: []
+  cash: ['cash', 'cash.amsterdam'],
+  cryptoCurrency: [],
 }
 
 export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
-    ES: ['bizum']
-  }
+    ES: ['bizum'],
+  },
 }
 
 export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string; url: string; userLink?: string }>> = {
   paypal: {
     url: 'https://paypal.com/open_web',
-    userLink: 'https://paypal.com/paypalme/'
+    userLink: 'https://paypal.com/paypalme/',
   },
   revolut: {
     url: 'https://revolut.com/app',
-    userLink: 'https://revolut.me/'
+    userLink: 'https://revolut.me/',
   },
   satispay: { url: 'https://satispay.com/app' },
   wise: { url: 'https://wise.com/user/account' },
@@ -75,7 +75,7 @@ export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string; url: st
   'giftCard.amazon.ES': { url: 'https://www.amazon.es/dp/B07H8STZ9N' },
   'giftCard.amazon.NL': { url: 'https://www.amazon.nl/dp/B07W6D728D' },
   'giftCard.amazon.UK': { url: 'https://www.amazon.co.uk/dp/B07S6C1DZ6' },
-  'giftCard.amazon.SE': { url: 'https://www.amazon.se/dp/B089VNKFM7' }
+  'giftCard.amazon.SE': { url: 'https://www.amazon.se/dp/B089VNKFM7' },
 }
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
@@ -101,7 +101,7 @@ export const TIMERS: Timers = {
   none: 0,
   kycResponse: 1000 * 60 * 60 * 12,
   sendPayment: 1000 * 60 * 60 * 12,
-  confirmPayment: 1000 * 60 * 60 * 12
+  confirmPayment: 1000 * 60 * 60 * 12,
 }
 
 // Reputation
