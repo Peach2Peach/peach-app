@@ -1,5 +1,5 @@
 import { account } from '../account'
-import { storeChats } from '../account/storeAccount'
+import { storeChat } from '../account/storeAccount'
 import { unique } from '../array'
 import { session } from '../session'
 import { getChat } from './getChat'
@@ -26,16 +26,16 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
     ...chat,
     messages: (chat.messages || [])
       .concat(savedChat.messages)
-      .filter(m => m.date)
-      .map(m => ({
+      .filter((m) => m.date)
+      .map((m) => ({
         ...m,
         date: new Date(m.date),
       }))
-      .filter(message => message.roomId.indexOf(id) !== -1)
+      .filter((message) => message.roomId.indexOf(id) !== -1)
       .filter(unique('signature')) // signatures are unique even if the same message is being sent 2x (user intention)
       .sort((a, b) => a.date.getTime() - b.date.getTime()),
   }
-  if (save && session.password) storeChats(account.chats, session.password)
+  if (save && session.password) storeChat(account.chats[id], session.password)
 
   return account.chats[id]
 }

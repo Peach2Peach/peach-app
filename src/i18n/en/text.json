@@ -280,6 +280,7 @@
   "paymentMethod.view": "Your payment method",
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.paypal": "PayPal",
+  "paymentMethod.satispay": "Satispay",
   "paymentMethod.giftCard": "Gift Card",
   "paymentMethod.giftCard.amazon": "Amazon Gift Card",
   "paymentMethod.giftCard.amazon.DE": "German Amazon Gift Card",

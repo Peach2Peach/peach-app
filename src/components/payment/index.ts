@@ -7,11 +7,11 @@ import Cash from './detail/cash'
 import { COUNTRIES } from '../../constants'
 
 export type PaymentTemplateProps = {
-  paymentData: PaymentData,
-  country?: Country,
-  appLink?: string,
-  fallbackUrl?: string,
-  userLink?: string,
+  paymentData: PaymentData
+  country?: Country
+  appLink?: string
+  fallbackUrl?: string
+  userLink?: string
 }
 
 export type PaymentDetailTemplates = {
@@ -25,10 +25,11 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   wise: DetailWise,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
+  satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
-  cash: Cash,
+  cash: Cash
 }
 
-COUNTRIES.forEach(c => paymentDetailTemplates['giftCard.amazon.' + c as PaymentMethod] = GeneralPaymentDetails)
+COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))

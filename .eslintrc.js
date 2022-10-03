@@ -57,7 +57,7 @@ module.exports = {
     'brace-style': 'error',
     'capitalized-comments': 'off',
     'class-methods-use-this': 'error',
-    'comma-dangle': 'off',
+    'comma-dangle': ['warn', 'always-multiline'],
     'comma-spacing': [
       'error',
       {

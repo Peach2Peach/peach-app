@@ -1,8 +1,9 @@
 import { Linking, Platform } from 'react-native'
 import { checkNotifications } from 'react-native-permissions'
 import messaging from '@react-native-firebase/messaging'
-import { getBundleId } from 'react-native-device-info'
+import { getBundleId, getInstallerPackageNameSync } from 'react-native-device-info'
 import { DEV } from '@env'
+import { error } from './log'
 
 /**
  * @description Method to check if app is compiled for production
@@ -42,15 +43,35 @@ export const isMobile = () => isAndroid() || isIOS()
 export const compatibilityCheck = (version: string, minVersion: string) => version >= minVersion
 
 /**
+ * @description Method to parse errors (e.g. from a try-catch block)
+ * @param e error
+ * @returns parsed error
+ */
+export const parseError = (e: Error | string | unknown): string => {
+  let err = 'UNKOWN_ERROR'
+  if (typeof e === 'string') {
+    err = e.toUpperCase()
+  } else if (e instanceof Error) {
+    err = e.message
+  }
+  return err
+}
+
+/**
  * @description Method to check if app is allowed to receive push notifications
  * @returns true if notifications are enabled
  */
 export const checkNotificationStatus = async (): Promise<boolean> => {
   if (isIOS()) {
-    const authStatus = await messaging().hasPermission()
-    if (authStatus === messaging.AuthorizationStatus.AUTHORIZED) {
-      return true
+    try {
+      const authStatus = await messaging().hasPermission()
+      if (authStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+        return true
+      }
+    } catch (e) {
+      error('messaging().hasPermission - Push notifications not supported', parseError(e))
     }
+
     return false
   }
 
@@ -73,7 +94,7 @@ export const toggleNotifications = async () => {
       await messaging().requestPermission({
         alert: true,
         badge: false,
-        sound: true,
+        sound: true
       })
     } else {
       Linking.openURL('app-settings://')
@@ -91,21 +112,11 @@ export const linkToAppStore = () => {
   if (isIOS()) {
     Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
   } else if (isAndroid()) {
-    Linking.openURL(`https://play.google.com/store/apps/details?id=${bundleId}`)
+    const isInstalledByGooglePlay = getInstallerPackageNameSync() === 'com.android.vending'
+    Linking.openURL(
+      isInstalledByGooglePlay
+        ? `https://play.google.com/store/apps/details?id=${bundleId}`
+        : 'https://drive.proton.me/urls/KVVQJYW4AR#thRbnPfar0hp'
+    )
   }
-}
-
-/**
- * @description Method to parse errors (e.g. from a try-catch block)
- * @param e error
- * @returns parsed error
- */
-export const parseError = (e: Error | string | unknown) => {
-  let err = 'UNKOWN_ERROR'
-  if (typeof e === 'string') {
-    err = e.toUpperCase()
-  } else if (e instanceof Error) {
-    err = e.message
-  }
-  return err
 }
