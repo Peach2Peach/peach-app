@@ -33,7 +33,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
   const [country, setCountry] = useState<FlagType>()
   const paymentCategories = getApplicablePaymentCategories(currency).map((c) => ({
     value: c,
-    display: i18n(`paymentCategory.${c}`)
+    display: i18n(`paymentCategory.${c}`),
   }))
   const [localMethods, setLocalMethods] = useState<{ value: PaymentMethod; display: string }[]>([])
 
@@ -54,7 +54,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
   const selectCountry = (c: FlagType) => {
     const local = LOCALPAYMENTMETHODS[currency]![c].map((method) => ({
       value: method,
-      display: i18n(`paymentMethod.${method}`)
+      display: i18n(`paymentMethod.${method}`),
     }))
     closeDrawer()
     setCountry(c)
@@ -71,7 +71,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
         show: true,
         onClose: () => {
           if (!country) setPaymentCategory(undefined)
-        }
+        },
       })
     }
 
@@ -84,23 +84,19 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
       content: (
         <PaymentMethodSelect
           paymentMethods={applicablePaymentMethods}
-          showLogos={category !== 'bankTransfer'}
+          showLogos={!/bankTransfer|cash/u.test(category)}
           onSelect={selectPaymentMethod}
         />
       ),
       show: true,
       onClose: () => {
         setPaymentCategory(undefined)
-      }
+      },
     })
   }
 
   useEffect(() => {
     if (!paymentCategory) return
-    if (paymentCategory === 'cash') {
-      selectPaymentMethod('cash')
-      return
-    }
     showDrawer(paymentCategory)
   }, [paymentCategory])
 
