@@ -5,7 +5,7 @@ import {
   setMinAppVersion,
   setPaymentMethods,
   setPeachFee,
-  setPeachPGPPublicKey
+  setPeachPGPPublicKey,
 } from '../constants'
 import { defaultAccount, loadAccount, updateTradingLimit } from '../utils/account'
 import { saveContracts } from '../utils/contract'
@@ -20,12 +20,9 @@ import { initSession } from '../utils/session'
  * @param account user account
  */
 export const getPeachInfo = async (account?: Account) => {
-  const [
-    [peachInfoResponse, err],
-    [tradingLimit, tradingLimitErr],
-  ] = await Promise.all([
+  const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
     getInfo(),
-    account?.publicKey ? getTradingLimit() : [defaultAccount.tradingLimit, null]
+    account?.publicKey ? getTradingLimit() : [defaultAccount.tradingLimit, null],
   ])
 
   let peachInfo = peachInfoResponse
