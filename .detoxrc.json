@@ -8,10 +8,10 @@
       "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/peach.app",
       "build": "xcodebuild -workspace ios/peach.xcworkspace -configuration Debug -scheme peach -sdk iphonesimulator -derivedDataPath ios/build"
     },
-    
-    "android": {
+    "android.debug": {
       "type": "android.apk",
-      "binaryPath": "SPECIFY_PATH_TO_YOUR_APP_BINARY"
+      "binaryPath": "android/app/build/outputs/apk/debug/app-qa-x86-debug.apk",
+      "build": "cd android && ./gradlew assembleBetaDebug assembleBetaDebugAndroidTest -DtestBuildType=debug && cd .."
     }
   },
   "devices": {
@@ -24,7 +24,7 @@
     "emulator": {
       "type": "android.emulator",
       "device": {
-        "avdName": "Pixel_3a_API_30_x86"
+        "avdName": "Pixel_5_API_30"
       }
     }
   },
@@ -33,9 +33,13 @@
       "device": "simulator",
       "app": "ios"
     },
-    "android": {
+    "android.emu.debug": {
       "device": "emulator",
-      "app": "android"
+      "app": "android.debug"
+    },
+    "android.emu.release": {
+      "device": "emulator",
+      "app": "android.release"
     }
   }
 }
