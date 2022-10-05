@@ -40,12 +40,13 @@ const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
   creationDate: new Date(),
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
+  originalPaymentData: [],
   kyc: account.settings.kyc || false,
   amount: amount || account.settings.amount || BUCKETS[0],
   matches: [],
   seenMatches: [],
   matched: [],
-  doubleMatched: false
+  doubleMatched: false,
 })
 
 type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
@@ -54,17 +55,17 @@ const screens = [
   {
     id: 'offerDetails',
     view: OfferDetails,
-    scrollable: true
+    scrollable: true,
   },
   {
     id: 'releaseAddress',
     view: ReleaseAddress,
-    scrollable: false
+    scrollable: false,
   },
   {
     id: 'search',
-    view: null
-  }
+    view: null,
+  },
 ]
 
 // eslint-disable-next-line max-lines-per-function
@@ -119,7 +120,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOffer(getDefaultBuyOffer(route.params.amount))
       setUpdatePending(false)
       setPage(() => 0)
-    }, [route])
+    }, [route]),
   )
 
   useEffect(() => {
@@ -146,7 +147,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         error('Error', err)
         updateMessage({
           msg: i18n(err?.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
-          level: 'ERROR'
+          level: 'ERROR',
         })
 
         if (err?.error === 'TRADING_LIMIT_REACHED') back()

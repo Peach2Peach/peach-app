@@ -111,7 +111,10 @@ export const PaymentMethodForm = ({
 
   return (
     <View style={[tw`flex`, style]}>
-      <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`min-h-full flex pb-10 pt-4`}>
+      <PeachScrollView
+        style={tw`h-full flex-shrink`}
+        contentContainerStyle={[tw`flex`, !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {}]}
+      >
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
           paymentMethod={paymentMethod}
