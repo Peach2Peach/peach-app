@@ -85,7 +85,6 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       false,
     )
   }, [meansOfPayment, premium, kyc, kycType])
-  console.log(offer.originalPaymentData)
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
