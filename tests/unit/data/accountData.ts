@@ -14,6 +14,7 @@ export const buyOffer: BuyOffer = {
       hash: 'TODO add payment hash',
     },
   },
+  originalPaymentData: [],
   kyc: false,
   amount: 250000,
   matches: [],
@@ -36,6 +37,7 @@ export const sellOffer: SellOffer = {
       hash: 'TODO add payment hash',
     },
   },
+  originalPaymentData: [],
   funding: {
     status: 'NULL',
     txIds: [],
@@ -66,6 +68,7 @@ export const buyOfferUnpublished: BuyOffer = {
       hash: 'TODO add payment hash',
     },
   },
+  originalPaymentData: [],
   kyc: false,
   amount: 250000,
   matches: [],

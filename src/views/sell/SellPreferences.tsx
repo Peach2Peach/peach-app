@@ -6,7 +6,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react'
 import { BackHandler, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -50,6 +50,7 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   premium: account.settings.premium || 1.5,
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
+  originalPaymentData: [],
   amount: amount || account.settings.amount || BUCKETS[0],
   returnAddress: account.settings.returnAddress,
   // TODO integrate support for xpubs
@@ -62,14 +63,14 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
     status: 'NULL',
     txIds: [],
     amounts: [],
-    vouts: []
+    vouts: [],
   },
   matches: [],
   seenMatches: [],
   matched: [],
   doubleMatched: false,
   refunded: false,
-  released: false
+  released: false,
 })
 
 type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
@@ -78,13 +79,13 @@ const screens = [
   {
     id: 'offerDetails',
     view: OfferDetails,
-    scrollable: true
+    scrollable: true,
   },
   {
     id: 'summary',
     view: Summary,
-    scrollable: false
-  }
+    scrollable: false,
+  },
 ]
 
 // eslint-disable-next-line max-lines-per-function
@@ -113,8 +114,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         setUpdatePending(false)
         setPage(0)
       },
-      [route]
-    )
+      [route],
+    ),
   )
 
   useEffect(() => {
@@ -170,7 +171,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         error('Error', err)
         updateMessage({
           msg: i18n(err.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
-          level: 'ERROR'
+          level: 'ERROR',
         })
         back()
       }

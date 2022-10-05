@@ -27,7 +27,7 @@ import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { saveOffer } from '../../utils/offer'
+import { getPaymentDataByMethod, saveOffer } from '../../utils/offer'
 import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
 import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
@@ -76,7 +76,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const setMatchingOptions = (
     match?: number | null,
     currency?: Currency | null,
-    paymentMethod?: PaymentMethod | null
+    paymentMethod?: PaymentMethod | null,
   ) => {
     if (typeof match === 'number') {
       setCurrentMatchIndex(match)
@@ -84,7 +84,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         seen = (offer.seenMatches || []).concat([matches[match].offerId]).filter(unique())
         saveAndUpdate({
           ...offer,
-          seenMatches: seen
+          seenMatches: seen,
         })
         return seen
       })
@@ -104,9 +104,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       paymentData: {
         type: selectedPaymentMethod,
         label,
-        currencies: [selectedCurrency]
+        currencies: [selectedCurrency],
       },
-      origin: ['search', route.params]
+      origin: ['search', route.params],
     })
   }
 
@@ -121,7 +121,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       error(
         'Match data missing values.',
         `selectedCurrency: ${selectedCurrency}`,
-        `selectedPaymentMethod: ${selectedPaymentMethod}`
+        `selectedPaymentMethod: ${selectedPaymentMethod}`,
       )
       return
     }
@@ -133,7 +133,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateOverlay({
         content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
         showCloseButton: false,
-        showCloseIcon: false
+        showCloseIcon: false,
       })
     }
 
@@ -142,38 +142,27 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (offer.type === 'bid') {
       encryptedSymmmetricKey = await signAndEncrypt(
         (await getRandom(256)).toString('hex'),
-        [account.pgp.publicKey, match.user.pgpPublicKey].join('\n')
+        [account.pgp.publicKey, match.user.pgpPublicKey].join('\n'),
       )
     } else if (offer.type === 'ask') {
       const [symmetricKey] = await decryptSymmetricKey(
         match.symmetricKeyEncrypted,
         match.symmetricKeySignature,
-        match.user.pgpPublicKey
+        match.user.pgpPublicKey,
       )
 
-      let paymentDataForMethod
-      if (offer.originalPaymentData) {
-        paymentDataForMethod = offer.originalPaymentData.filter((data) => data.type === selectedPaymentMethod)
-      } else {
-        paymentDataForMethod = account.paymentData.filter((data) => data.type === selectedPaymentMethod)
-      }
-      const paymentDataHashes = paymentDataForMethod.map((data) => hashPaymentData(data))
-      const index = paymentDataHashes.indexOf(
-        offer.paymentData[selectedPaymentMethod]!.hash
-          || (offer.paymentData[selectedPaymentMethod] as unknown as string) // TODO remove this line mid september
-          || ''
-      )
+      const paymentDataForMethod = getPaymentDataByMethod(offer, selectedPaymentMethod)
 
-      if (index === -1) {
+      if (!paymentDataForMethod) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
           template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
-          level: 'ERROR'
+          level: 'ERROR',
         })
         return
       }
 
-      encryptedPaymentData = await encryptPaymentData(paymentDataForMethod[index], symmetricKey)
+      encryptedPaymentData = await encryptPaymentData(paymentDataForMethod, symmetricKey)
     }
 
     const [result, err] = await matchOffer({
@@ -188,7 +177,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       hashedPaymentData:
         offer.paymentData[selectedPaymentMethod]!.hash
         || (offer.paymentData[selectedPaymentMethod] as unknown as string) // TODO remove this line mid september
-        || ''
+        || '',
     })
 
     if (result) {
@@ -198,7 +187,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           m.matched = true
           if (result.matchedPrice) m.matchedPrice = result.matchedPrice
           return m
-        })
+        }),
       )
 
       if (offer.type === 'ask' && result.refundTx) {
@@ -208,7 +197,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           const signedPSBT = signPSBT(psbt, offer, false)
           const [patchOfferResult] = await patchOffer({
             offerId: offer.id!,
-            refundTx: signedPSBT.toBase64()
+            refundTx: signedPSBT.toBase64(),
           })
           if (patchOfferResult) refundTx = psbt.toBase64()
         }
@@ -216,7 +205,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ...offer,
           doubleMatched: true,
           contractId: result.contractId,
-          refundTx: refundTx || offer.refundTx
+          refundTx: refundTx || offer.refundTx,
         })
 
         if (result.contractId) {
@@ -229,12 +218,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (err?.error === 'NOT_FOUND') {
         updateMessage({
           template: <OfferTaken />,
-          level: 'WARN'
+          level: 'WARN',
         })
       } else {
         updateMessage({
           msg: i18n(err?.error || 'error.general', ((err?.details as string[]) || []).join(', ')),
-          level: 'ERROR'
+          level: 'ERROR',
         })
       }
     }
@@ -250,14 +239,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       setMatches(
         matches.map((m) => ({
           ...m,
-          matched: m.offerId === match.offerId ? !m.matched : m.matched
-        }))
+          matched: m.offerId === match.offerId ? !m.matched : m.matched,
+        })),
       )
     } else {
       error('Error', err)
       updateMessage({
         msgKey: err?.error || 'error.general',
-        level: 'ERROR'
+        level: 'ERROR',
       })
     }
   }
@@ -274,14 +263,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer offer={offer} navigate={goToYourTrades} />,
-      showCloseButton: false
+      showCloseButton: false,
     })
 
   const openMatchHelp = () =>
     updateOverlay({
       content: offer.type === 'bid' ? <Match /> : <DoubleMatch />,
       showCloseButton: true,
-      help: true
+      help: true,
     })
 
   useFocusEffect(
@@ -291,7 +280,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setPage(0)
       if (offerId !== route.params.offer.id) setUpdatePending(true)
       setSearchingMatches(true)
-    }, [route])
+    }, [route]),
   )
 
   useFocusEffect(
@@ -311,16 +300,16 @@ export default ({ route, navigation }: Props): ReactElement => {
                 const update = result.find((m) => m.offerId === match.offerId)
                 match.prices = (update || match).prices
                 return match
-              })
+              }),
           )
         },
         onError: (err) => {
           setSearchingMatches(false)
           if (err.error !== 'UNAUTHORIZED') updateMessage({ msgKey: err.error, level: 'ERROR' })
-        }
+        },
       }),
-      [pnReceived, page]
-    )
+      [pnReceived, page],
+    ),
   )
 
   useFocusEffect(
@@ -331,7 +320,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         onSuccess: (result) => {
           saveAndUpdate({
             ...offer,
-            ...result
+            ...result,
           })
 
           if (result.contractId) {
@@ -345,12 +334,12 @@ export default ({ route, navigation }: Props): ReactElement => {
           error('Could not fetch offer information for offer', offer.id)
           updateMessage({
             msgKey: err.error || 'error.general',
-            level: 'ERROR'
+            level: 'ERROR',
           })
-        }
+        },
       }),
-      [offerId, pnReceived]
-    )
+      [offerId, pnReceived],
+    ),
   )
 
   useEffect(() => {
@@ -361,7 +350,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveAndUpdate({
       ...offer,
       seenMatches,
-      matched: matchedOffers
+      matched: matchedOffers,
     })
   }, [matches])
 
@@ -376,13 +365,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
           updateOverlay({
-            content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />
+            content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
           })
         }
       })
 
       return unsubscribe
-    }, [])
+    }, []),
   )
 
   return (

@@ -84,7 +84,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
       content: (
         <PaymentMethodSelect
           paymentMethods={applicablePaymentMethods}
-          showLogos={!/bankTransfer|cash/u.test(category)}
+          showLogos={!/bankTransfer/u.test(category)}
           onSelect={selectPaymentMethod}
         />
       ),

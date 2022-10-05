@@ -35,7 +35,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
   useContext(LanguageContext)
 
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment
+    offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [premium, setPremium] = useState(offer.premium)
   const [kyc, setKYC] = useState(offer.kyc)
@@ -45,18 +45,18 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
     updateOffer(
       {
         ...offr,
-        meansOfPayment
+        meansOfPayment,
       },
-      shield
+      shield,
     )
     updateSettings(
       {
         meansOfPayment: offr.meansOfPayment,
         premium: offr.premium,
         kyc: offr.kyc,
-        kycType: offr.kycType
+        kycType: offr.kycType,
       },
-      true
+      true,
     )
   }
 
@@ -67,21 +67,22 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         if (!data) return obj
         obj[data.type] = {
           hash: hashPaymentData(data),
-          country: data.country
+          country: data.country,
         }
         return obj
       }, {} as Offer['paymentData'])
-    offer.originalPaymentData = getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[]
+
     saveAndUpdate(
       {
         ...offer,
         meansOfPayment,
         paymentData,
+        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
         premium,
         kyc,
-        kycType
+        kycType,
       },
-      false
+      false,
     )
   }, [meansOfPayment, premium, kyc, kycType])
 

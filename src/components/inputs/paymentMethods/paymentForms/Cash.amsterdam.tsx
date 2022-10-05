@@ -44,7 +44,7 @@ export const CashAmsterdam = ({
   }, [disclaimerAcknowledged])
 
   return (
-    <View style={tw`h-full flex items-center -mb-16 bg-[#FF9500]`}>
+    <View style={tw`flex items-center bg-[#FF9500] pb-10`}>
       <Headline style={tw`text-white-1 text-3xl leading-3xl mt-14`}>
         {i18n('paymentMethod.cash.amsterdam.title')}
       </Headline>
