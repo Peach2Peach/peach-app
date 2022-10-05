@@ -25,7 +25,7 @@ export const mkdir = async (path: string): Promise<void> => await RNFS.mkdir(RNF
  */
 export const readDir = async (path: string): Promise<string[]> =>
   (await RNFS.readDir(RNFS.DocumentDirectoryPath + path)).map((file) =>
-    file.path.replace(RNFS.DocumentDirectoryPath, '')
+    file.path.replace(RNFS.DocumentDirectoryPath, ''),
   )
 
 /**
@@ -73,6 +73,30 @@ export const writeFile = async (path: string, content: string, password?: string
   }
   try {
     await RNFS.writeFile(RNFS.DocumentDirectoryPath + path, encrypted, 'utf8')
+    return true
+  } catch (e) {
+    error('File could not be written', e)
+    return false
+  }
+}
+
+/**
+ * @description Method to append to file
+ * @param path path to file
+ * @param content content to write
+ * @param [newline] if true append on new line
+ * @returns Promise resolving to true if operation was successful
+ */
+export const appendFile = async (path: string, content: string, newline = false): Promise<boolean> => {
+  let newFile
+
+  if (!(await exists(path))) {
+    newFile = true
+    await writeFile(path, '')
+  }
+
+  try {
+    await RNFS.appendFile(RNFS.DocumentDirectoryPath + path, (!newFile && newline ? '\n' : '') + content, 'utf8')
     return true
   } catch (e) {
     error('File could not be written', e)
