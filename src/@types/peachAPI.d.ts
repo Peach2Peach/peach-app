@@ -163,6 +163,7 @@ declare type Offer = {
       }
     >
   >
+  originalPaymentData: PaymentData[]
   kyc: boolean
   kycType?: KYCType
   returnAddress?: string
@@ -172,7 +173,6 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
-  originalPaymentData?: PaymentData[]
 }
 
 declare type PostOfferResponse = {
