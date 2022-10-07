@@ -24,7 +24,7 @@ const validate = (offer: BuyOffer) => {
 export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment
+    offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [kyc, setKYC] = useState(offer.kyc)
 
@@ -35,23 +35,23 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
         if (!data) return obj
         obj[data.type] = {
           hash: hashPaymentData(data),
-          country: data.country
+          country: data.country,
         }
         return obj
       }, {} as Offer['paymentData'])
-    offer.originalPaymentData = getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[]
     updateOffer({
       ...offer,
       meansOfPayment,
       paymentData,
-      kyc
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
+      kyc,
     })
     updateSettings(
       {
         meansOfPayment,
-        kyc
+        kyc,
       },
-      true
+      true,
     )
   }, [meansOfPayment, kyc])
 

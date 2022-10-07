@@ -76,6 +76,7 @@ declare type Pricebook = {
   [key in Currency]?: number
 }
 declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
+declare type Location = 'amsterdam'
 declare type PaymentMethod =
   | 'sepa'
   | 'paypal'
@@ -90,6 +91,7 @@ declare type PaymentMethod =
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
   | 'cash'
+  | `cash.${Location}`
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
@@ -161,6 +163,7 @@ declare type Offer = {
       }
     >
   >
+  originalPaymentData: PaymentData[]
   kyc: boolean
   kycType?: KYCType
   returnAddress?: string
@@ -170,7 +173,6 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
-  originalPaymentData?: PaymentData[]
 }
 
 declare type PostOfferResponse = {

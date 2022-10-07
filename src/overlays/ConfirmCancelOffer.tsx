@@ -16,7 +16,7 @@ const confirm = async (offer: BuyOffer | SellOffer) => {
   if (!offer.id) return
 
   const [result, err] = await cancelOffer({
-    offerId: offer.id
+    offerId: offer.id,
     // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
   })
   if (result) {
@@ -27,8 +27,8 @@ const confirm = async (offer: BuyOffer | SellOffer) => {
         online: false,
         funding: {
           ...offer.funding,
-          status: 'CANCELED'
-        }
+          status: 'CANCELED',
+        },
       })
     } else {
       saveOffer({ ...offer, online: false })
@@ -73,13 +73,13 @@ export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
     setTimeout(() => {
       closeOverlay()
 
-      if (offer.type === 'bid' || offer.funding.status === 'NULL') {
+      if (offer.type === 'bid' || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
         navigate()
         return
       }
       updateOverlay({
         content: <Refund offer={offer} navigate={navigate} />,
-        showCloseButton: false
+        showCloseButton: false,
       })
     }, 3000)
   }

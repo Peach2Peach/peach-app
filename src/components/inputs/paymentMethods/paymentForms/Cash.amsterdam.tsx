@@ -4,9 +4,10 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
-import { Text } from '../../../text'
+import { Headline, Text } from '../../../text'
+import cashAmsterdam from './assets/cash.amsterdam.svg'
 
-export const Cash = ({
+export const CashAmsterdam = ({
   forwardRef,
   data,
   currencies = [],
@@ -14,11 +15,12 @@ export const Cash = ({
   onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
+  const Banner = cashAmsterdam
 
   const buildPaymentData = (): PaymentData & CashData => ({
-    id: data?.id || 'bitcoin-ljubljana',
-    label: 'Cash in Ljubljana!',
-    type: 'cash',
+    id: data?.id || 'cash.amsterdam',
+    label: 'Cash in Amsterdam!',
+    type: 'cash.amsterdam',
     disclaimerAcknowledged,
     currencies: data?.currencies || currencies,
   })
@@ -42,21 +44,26 @@ export const Cash = ({
   }, [disclaimerAcknowledged])
 
   return (
-    <View style={tw`h-full flex items-center -mb-16 bg-[#12172B]`}>
-      <View>
-        <Text style={tw`text-center text-white-1`}>{i18n('paymentMethod.cash.1')}</Text>
-        <Text style={tw`mt-1 text-center text-white-1`}>{i18n('paymentMethod.cash.2')}</Text>
-        <Text style={tw`mt-1 text-center text-white-1`}>{i18n('paymentMethod.cash.3')}</Text>
+    <View style={tw`flex items-center bg-[#FF9500] pb-10`}>
+      <Headline style={tw`text-white-1 text-3xl leading-3xl mt-14`}>
+        {i18n('paymentMethod.cash.amsterdam.title')}
+      </Headline>
+      {<Banner style={{ marginTop: -43 }} />}
+
+      <View style={tw`mt-20`}>
+        <Text style={tw`text-center text-black-1`}>{i18n('paymentMethod.cash.amsterdam.1')}</Text>
+        <Text style={tw`mt-1 text-center text-black-1`}>{i18n('paymentMethod.cash.2')}</Text>
+        <Text style={tw`mt-1 text-center text-black-1`}>{i18n('paymentMethod.cash.3')}</Text>
       </View>
       <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10`}>
         <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
           {disclaimerAcknowledged ? (
-            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
           ) : (
             <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
           )}
         </View>
-        <Text style={tw`pl-7 flex-shrink text-white-1`}>{i18n('paymentMethod.cash.checkbox')}</Text>
+        <Text style={tw`pl-7 flex-shrink text-black-1`}>{i18n('paymentMethod.cash.checkbox')}</Text>
       </Pressable>
     </View>
   )

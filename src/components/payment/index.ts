@@ -29,7 +29,8 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
-  cash: Cash
+  cash: Cash,
+  'cash.amsterdam': Cash,
 }
 
 COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))
