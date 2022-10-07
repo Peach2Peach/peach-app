@@ -8,38 +8,45 @@
       "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/peach.app",
       "build": "xcodebuild -workspace ios/peach.xcworkspace -configuration Debug -scheme peach -sdk iphonesimulator -derivedDataPath ios/build"
     },
-    "android.debug": {
+    "android": {
       "type": "android.apk",
-      "binaryPath": "android/app/build/outputs/apk/debug/app-qa-x86-debug.apk",
-      "build": "cd android && ./gradlew assembleBetaDebug assembleBetaDebugAndroidTest -DtestBuildType=debug && cd .."
+      "binaryPath": "android/app/build/outputs/apk/qa/debug/app-qa-universal-debug.apk",
+      "testBinaryPath": "android/app/build/outputs/apk/androidTest/qa/debug/app-qa-debug-androidTest.apk",
+      "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd .."
     }
   },
   "devices": {
-    "simulator": {
+    "ios.simulator": {
       "type": "ios.simulator",
       "device": {
         "type": "iPhone 13"
       }
     },
-    "emulator": {
+    "android.emulator": {
       "type": "android.emulator",
       "device": {
-        "avdName": "Pixel_5_API_30"
+        "avdName": "Pixel_3a_XL_API_30"
+      }
+    },
+    "android.attached": {
+      "type": "android.attached",
+      "device": {
+          "adbName": ".*"
       }
     }
   },
   "configurations": {
     "ios": {
-      "device": "simulator",
+      "device": "ios.simulator",
       "app": "ios"
     },
-    "android.emu.debug": {
-      "device": "emulator",
-      "app": "android.debug"
+    "android": {
+      "device": "android.attached",
+      "app": "android"
     },
-    "android.emu.release": {
-      "device": "emulator",
-      "app": "android.release"
+    "android.emulator": {
+      "device": "android.emulator",
+      "app": "android"
     }
   }
 }

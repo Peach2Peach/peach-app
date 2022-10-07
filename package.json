@@ -29,8 +29,10 @@
     "test:ci": "jest --ci ./tests/unit",
     "test:e2e:ios:build": "detox build --configuration ios",
     "test:e2e:android:build": "detox build --configuration android",
+    "test:e2e:android:build:emulator": "detox build --configuration android.emulator",
     "test:e2e:ios": "detox test --configuration ios",
     "test:e2e:android": "detox test --configuration android",
+    "test:e2e:android:emulator": "detox test --configuration android.emulator",
     "lint": "eslint . --ext .tsx,.ts"
   },
   "dependencies": {
@@ -123,7 +125,7 @@
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.38.0",
     "babel-jest": "^27.5.1",
-    "detox": "^19.12.1",
+    "detox": "^19.12.5",
     "eslint": "8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",

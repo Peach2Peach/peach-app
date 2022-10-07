@@ -4,11 +4,11 @@ buildscript {
     ext {
         buildToolsVersion = "31.0.0"
         minSdkVersion = 26
-        compileSdkVersion = 31
-        targetSdkVersion = 31
+        compileSdkVersion = 32
+        targetSdkVersion = 32
         ndkVersion = "21.4.7075529"
     }
-    ext.kotlinVersion = '1.3.0'
+    ext.kotlinVersion = '1.7.20'
     repositories {
         google()
         mavenCentral()
@@ -34,7 +34,6 @@ allprojects {
         maven {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
-            url "$rootDir/../node_modules/detox/Detox-android"
         }
         mavenCentral {
             // We don't want to fetch react-native from Maven Central as there are
@@ -44,6 +43,22 @@ allprojects {
             }
         }
         google()
+        maven {
+            // All of Detox' artifacts are provided via the npm module
+            url "$rootDir/../node_modules/detox/Detox-android"
+        }
         maven { url 'https://www.jitpack.io' }
+    }
+}
+
+allprojects {
+    afterEvaluate {
+        if (it.hasProperty('android')){
+            android {
+                defaultConfig {
+                    minSdkVersion 26
+                }
+            }
+        }
     }
 }
