@@ -113,7 +113,7 @@ jest.mock('react-native-mmkv-storage', () => ({
           initialize: () => ({
             setItem: async (key: string, val: string) => (storage[key] = val),
             getItem: async (key: string) => storage[key],
-            setBoolAsync: async (key: string, val: boolean) => (storage[key] = val),
+            setBool: (key: string, val: boolean) => (storage[key] = val),
             getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
             options: {
               accessibleMode: 'AccessibleAfterFirstUnlock',
@@ -127,7 +127,7 @@ jest.mock('react-native-mmkv-storage', () => ({
         initialize: () => ({
           setItem: async (key: string, val: string) => (storage[key] = val),
           getItem: async (key: string) => storage[key],
-          setBoolAsync: async (key: string, val: boolean) => (storage[key] = val),
+          setBool: (key: string, val: boolean) => (storage[key] = val),
           getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
           options: {
             accessibleMode: 'AccessibleAfterFirstUnlock',

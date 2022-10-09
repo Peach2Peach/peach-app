@@ -9,10 +9,10 @@ describe('getSession', () => {
 })
 
 describe('setSessionItem', () => {
-  it('sets a single session item', () => {
-    setSessionItem('password', 'somePassword')
+  it('sets a single session item', async () => {
+    await setSessionItem('password', 'somePassword')
     strictEqual(getSession().password, 'somePassword')
-    strictEqual(storage, 'somePassword')
+    strictEqual(storage.password, 'somePassword')
   })
 })
 

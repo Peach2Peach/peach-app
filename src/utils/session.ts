@@ -20,14 +20,14 @@ export let session: Session = {
  * @param value value to store
  * @returns new sessions
  */
-export const setSessionItem = async (key: string, value: any): Promise<Session> => {
+export const setSessionItem = async (key: string, value: any): Promise<void> => {
   info(`setSessionItem - ${key}`)
   if (!session.initialized) storage.setBool('initialized', true)
 
   session = {
     ...session,
-    [key]: value,
     initialized: true,
+    [key]: value,
   }
 
   if (value instanceof Object) {
@@ -35,8 +35,6 @@ export const setSessionItem = async (key: string, value: any): Promise<Session> 
   } else {
     await storage.setItem(key, String(value))
   }
-
-  return session
 }
 
 /**
