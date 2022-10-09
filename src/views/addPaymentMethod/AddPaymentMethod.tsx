@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import { getPaymentDataByType } from '../../utils/account'
 import { StackNavigation } from '../../utils/navigation'
-import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
@@ -119,10 +119,10 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
 
-    if (!/giftCard/u.test(paymentMethod as string)) {
+    if (!/giftCard/u.test(paymentMethod as string) && !isLocalOption(paymentMethod)) {
       goToPaymentDetails({ paymentMethod, currencies, country })
-    } else {
-      const countries = paymentMethodInfo.countries!.filter(countrySupportsCurrency(currencies[0]))
+    } else if (paymentMethodInfo.countries) {
+      const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
       if (countries.length === 1) {
         setCountry(countries[0])
         goToPaymentDetails({ paymentMethod, currencies, country: countries[0] })
