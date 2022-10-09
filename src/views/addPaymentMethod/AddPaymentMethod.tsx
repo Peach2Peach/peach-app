@@ -14,15 +14,11 @@ import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>
+  navigation: StackNavigation
 }
 
-const screens = [
-  { id: 'currency' },
-  { id: 'paymentMethod' },
-  { id: 'extraInfo' }
-]
+const screens = [{ id: 'currency' }, { id: 'paymentMethod' }, { id: 'extraInfo' }]
 const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
   if (paymentMethod) return 2
   if (currencies?.length === 1) return 1
@@ -34,16 +30,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [page, setPage] = useState(getPage(route.params))
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [country, setCountry] = useState(route.params.country)
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod|undefined>(route.params.paymentMethod)
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | undefined>(route.params.paymentMethod)
 
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
   const goToPaymentDetails = (data: Partial<PaymentData>) => {
     if (!data.paymentMethod || !data.currencies) return
-    const methodType = data.country
-      ? `${data.paymentMethod}.${data.country}` as PaymentMethod
-      : data.paymentMethod
+    const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
     const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
     let label = i18n(`paymentMethod.${methodType}`)
     if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
@@ -58,8 +52,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           country: null,
           paymentMethod: null,
           origin: route.params.origin,
-        }
-      ]
+        },
+      ],
     })
   }
 
@@ -82,21 +76,33 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
   const getScreen = () => {
-    if (id === 'currency') return <Currency
-      currency={currencies[0]}
-      setCurrency={c => setCurrencies([c] as Currency[])}
-      back={back} next={next}
-    />
-    if (id === 'paymentMethod') return <PaymentMethod currency={currencies[0]}
-      paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
-      back={back} next={next}
-    />
-    if (id === 'extraInfo' && /giftCard/u.test(paymentMethod as string)) return <Countries
-      selected={country}
-      currency={currencies[0]}
-      paymentMethod={paymentMethod!} setCountry={setCountry}
-      back={back} next={next}
-    />
+    if (id === 'currency') return (
+      <Currency
+        currency={currencies[0]}
+        setCurrency={(c) => setCurrencies([c] as Currency[])}
+        back={back}
+        next={next}
+      />
+    )
+    if (id === 'paymentMethod') return (
+      <PaymentMethod
+        currency={currencies[0]}
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+        back={back}
+        next={next}
+      />
+    )
+    if (id === 'extraInfo' && /giftCard/u.test(paymentMethod as string)) return (
+      <Countries
+        selected={country}
+        currency={currencies[0]}
+        paymentMethod={paymentMethod!}
+        setCountry={setCountry}
+        back={back}
+        next={next}
+      />
+    )
     return <View />
   }
 
@@ -124,13 +130,17 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     }
 
-    if (paymentMethodInfo?.currencies.length !== 1
-      || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraInfo')) return
+    if (
+      paymentMethodInfo?.currencies.length !== 1
+      || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraInfo')
+    ) return
 
     goToPaymentDetails({ paymentMethod, currencies, country })
   }, [paymentMethod, page])
 
-  return <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
-    {getScreen()}
-  </View>
+  return (
+    <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
+      {getScreen()}
+    </View>
+  )
 }
