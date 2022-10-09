@@ -2,7 +2,7 @@ import { Linking, Platform } from 'react-native'
 import { checkNotifications } from 'react-native-permissions'
 import messaging from '@react-native-firebase/messaging'
 import { getBundleId, getInstallerPackageNameSync } from 'react-native-device-info'
-import { DEV } from '@env'
+import { DEV, NETWORK } from '@env'
 import { error } from './log'
 
 /**
@@ -94,7 +94,7 @@ export const toggleNotifications = async () => {
       await messaging().requestPermission({
         alert: true,
         badge: false,
-        sound: true
+        sound: true,
       })
     } else {
       Linking.openURL('app-settings://')
@@ -107,16 +107,18 @@ export const toggleNotifications = async () => {
 /**
  * @description Method to open app page info in appstore
  */
-export const linkToAppStore = () => {
+export const linkToAppStore = async () => {
   const bundleId = getBundleId()
-  if (isIOS()) {
-    Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
+  if (isIOS() && (await Linking.canOpenURL('itms-beta://'))) {
+    const appId = NETWORK === 'bitcoin' ? '1628578161' : '1619331312'
+    Linking.openURL(`https://beta.itunes.apple.com/v1/app/${appId}`)
+    // for mainnet: Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${bundleId}?mt=8`)
   } else if (isAndroid()) {
     const isInstalledByGooglePlay = getInstallerPackageNameSync() === 'com.android.vending'
     Linking.openURL(
       isInstalledByGooglePlay
         ? `https://play.google.com/store/apps/details?id=${bundleId}`
-        : 'https://drive.proton.me/urls/KVVQJYW4AR#thRbnPfar0hp'
+        : 'https://drive.proton.me/urls/KVVQJYW4AR#thRbnPfar0hp',
     )
   }
 }
