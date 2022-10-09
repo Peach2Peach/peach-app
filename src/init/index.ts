@@ -11,7 +11,7 @@ import { exists } from '../utils/file'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { getSession, setSession, setSessionItem } from '../utils/session'
+import { getSession, setSessionItem } from '../utils/session'
 import { isIOS, parseError } from '../utils/system'
 
 /**
