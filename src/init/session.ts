@@ -13,7 +13,7 @@ import { exists, readFile, writeFile } from '../utils/file'
 import { error, info } from '../utils/log'
 import { saveOffers } from '../utils/offer'
 import { getContracts, getInfo, getOffers, getTradingLimit } from '../utils/peachAPI'
-import { initSession } from '../utils/session'
+import { initSession, useStorage } from '../utils/session'
 
 /**
  * @description Method to fetch peach info and user trading limit and store values in constants

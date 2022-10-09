@@ -99,9 +99,11 @@ jest.mock('react-native-promise-rejection-utils', () => ({
 }))
 
 type Storage = {
-  [key: string]: string
+  [key: string]: string | boolean
 }
-const storage: Storage = {}
+export let storage: Storage = {}
+export const setStorage = (strg: Storage) => (storage = strg)
+
 jest.mock('react-native-mmkv-storage', () => ({
   IOSAccessibleStates: {},
   MMKVLoader: () => ({
@@ -111,7 +113,25 @@ jest.mock('react-native-mmkv-storage', () => ({
           initialize: () => ({
             setItem: async (key: string, val: string) => (storage[key] = val),
             getItem: async (key: string) => storage[key],
+            setBoolAsync: async (key: string, val: boolean) => (storage[key] = val),
+            getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
+            options: {
+              accessibleMode: 'AccessibleAfterFirstUnlock',
+            },
           }),
+        }),
+      }),
+    }),
+    withEncryption: () => ({
+      withInstanceID: () => ({
+        initialize: () => ({
+          setItem: async (key: string, val: string) => (storage[key] = val),
+          getItem: async (key: string) => storage[key],
+          setBoolAsync: async (key: string, val: boolean) => (storage[key] = val),
+          getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
+          options: {
+            accessibleMode: 'AccessibleAfterFirstUnlock',
+          },
         }),
       }),
     }),

@@ -11,7 +11,7 @@ import { exists } from '../utils/file'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { getSession, setSession } from '../utils/session'
+import { getSession, setSession, setSessionItem } from '../utils/session'
 import { isIOS, parseError } from '../utils/system'
 
 /**
@@ -21,7 +21,7 @@ import { isIOS, parseError } from '../utils/system'
  */
 const waitForNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>
+  updateMessage: React.Dispatch<MessageState>,
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -44,7 +44,7 @@ const waitForNavigation = async (
 const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
-  sessionInitiated: boolean
+  sessionInitiated: boolean,
 ) => {
   await waitForNavigation(navigationRef, updateMessage)
 
@@ -63,7 +63,7 @@ const initialNavigation = async (
     let notifications = Number(getSession().notifications || 0)
     if (notifications > 0) notifications -= 1
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSession({ notifications })
+    setSessionItem('notifications', notifications)
 
     if (initialNotification.data) {
       handlePushNotification(navigationRef, initialNotification.data, initialNotification.sentTime)
@@ -71,7 +71,7 @@ const initialNavigation = async (
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     navigationRef.reset({
       index: 0,
-      routes: [{ name: account?.publicKey ? 'home' : 'welcome' }]
+      routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
     })
   }
 
@@ -81,7 +81,7 @@ const initialNavigation = async (
     let notifications = Number(getSession().notifications || 0)
     if (notifications > 0) notifications -= 1
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSession({ notifications })
+    setSessionItem('notifications', notifications)
 
     if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
@@ -93,7 +93,7 @@ const initialNavigation = async (
  */
 export const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>
+  updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
   const timeout = setTimeout(() => {
     // go home anyway after 30 seconds

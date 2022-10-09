@@ -1,5 +1,6 @@
-import { strictEqual, deepStrictEqual } from 'assert'
-import { getSession, setSession, initSession } from '../../../src/utils/session'
+import { deepStrictEqual, strictEqual } from 'assert'
+import { getSession, initSession, setSessionItem } from '../../../src/utils/session'
+import { setStorage, storage } from '../prepare'
 
 describe('getSession', () => {
   it('returns an uninitialized session in the beginning', () => {
@@ -7,32 +8,30 @@ describe('getSession', () => {
   })
 })
 
-describe('setSession', () => {
-  it('sets new session', () => {
-    const session = getSession()
-    setSession({
-      ...session,
-      password: 'somePassword',
-      notifications: 0,
-    })
-    strictEqual(getSession().initialized, true)
+describe('setSessionItem', () => {
+  it('sets a single session item', () => {
+    setSessionItem('password', 'somePassword')
     strictEqual(getSession().password, 'somePassword')
-    strictEqual(getSession().notifications, 0)
+    strictEqual(storage, 'somePassword')
   })
 })
 
 describe('initSession', () => {
   it('initializes session from encrypted storage', async () => {
-    setSession({ 'initialized': true, 'password': 'sessionPassword' })
-    deepStrictEqual((await initSession()), {
+    setStorage({ initialized: true, password: 'sessionPassword', notifications: '0' })
+    deepStrictEqual(await initSession(), {
       initialized: true,
       password: 'sessionPassword',
       notifications: 0,
+      peachInfo: undefined,
+      unsavedPaymentData: [],
     })
     deepStrictEqual(getSession(), {
       initialized: true,
       password: 'sessionPassword',
       notifications: 0,
+      peachInfo: undefined,
+      unsavedPaymentData: [],
     })
   })
 })

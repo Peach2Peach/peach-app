@@ -1,17 +1,13 @@
-/**
- * @format
- */
-
-import { AppRegistry, LogBox } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
-import { name as appName } from './app.json'
-import { isIOS, isProduction, isWeb, parseError } from './utils/system'
-import * as db from './utils/db'
-import { updateUser } from './utils/peachAPI'
 import messaging from '@react-native-firebase/messaging'
-import { error, info } from './utils/log'
+import { AppRegistry, LogBox } from 'react-native'
 import App from './App'
-import { getSession, initSession, setSession } from './utils/session'
+import { name as appName } from './app.json'
+import * as db from './utils/db'
+import { error, info } from './utils/log'
+import { updateUser } from './utils/peachAPI'
+import { getSession, initSession, setSessionItem } from './utils/session'
+import { isIOS, isProduction, isWeb, parseError } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -25,7 +21,7 @@ LogBox.ignoreLogs([
   // Webview (shadows)
   /Did not receive response to shouldStartLoad in time/u,
   /startLoadWithResult invoked with invalid lockIdentifier/u,
-  /ERROR/u
+  /ERROR/u,
 ])
 
 LogBox.ignoreAllLogs(isProduction())
@@ -37,7 +33,7 @@ try {
     notifications += 1
 
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSession({ notifications })
+    setSessionItem('notifications', notifications)
 
     info('Message handled in the background!', remoteMessage)
   })
@@ -51,7 +47,7 @@ AppRegistry.registerComponent(appName, () => App)
 if (typeof document !== 'undefined') {
   // start webapp if document available
   AppRegistry.runApplication(appName, {
-    rootTag: document.getElementById('root')
+    rootTag: document.getElementById('root'),
   })
 
   if ('serviceWorker' in navigator) {
