@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>85</string>
+	<string>87</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true />
 	<key>NSAppTransportSecurity</key>
@@ -74,6 +74,7 @@
 		<string>bluewallet</string>
 		<string>muun</string>
 		<string>walletofsatoshi</string>
+		<string>itms-beta</string>
 	</array>
 </dict>
 </plist>

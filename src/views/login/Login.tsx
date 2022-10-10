@@ -1,7 +1,8 @@
 /* eslint-disable max-lines-per-function */
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Image, Keyboard, Pressable, View } from 'react-native'
+import { Keyboard, Pressable, View } from 'react-native'
 
+import Logo from '../../assets/logo/peachLogo.svg'
 import { Button, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
 import AppContext from '../../contexts/app'
@@ -12,12 +13,11 @@ import { loadAccount } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
+import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
-import { setSession } from '../../utils/session'
+import { setSessionItem } from '../../utils/session'
 import { getMessages, rules } from '../../utils/validation'
-import Logo from '../../assets/logo/peachLogo.svg'
-import { error } from '../../utils/log'
 const { LinearGradient } = require('react-native-gradients')
 const { useValidation } = require('react-native-form-validator')
 
@@ -51,7 +51,7 @@ export default ({ navigation }: Props): ReactElement => {
 
       const loadedAccount = await loadAccount(password)
       if (loadedAccount?.publicKey) {
-        await setSession({ password })
+        await setSessionItem('password', password)
         await getPeachInfo(loadedAccount)
         await getTrades()
         updateAppContext({

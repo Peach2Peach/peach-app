@@ -1,7 +1,7 @@
 import OpenPGP from 'react-native-fast-openpgp'
 import { defaultAccount, setAccount } from '.'
 import { info } from '../log'
-import { setSession } from '../session'
+import { setSessionItem } from '../session'
 import { createWallet, getMainAddress } from '../wallet'
 
 interface CreateAccountProps {
@@ -17,27 +17,26 @@ interface CreateAccountProps {
  * @param onError callback on error
  * @returns promise resolving to encrypted account
  */
-export const createAccount = async ({
-  password = '',
-  onSuccess,
-  onError
-}: CreateAccountProps): Promise<void> => {
+export const createAccount = async ({ password = '', onSuccess, onError }: CreateAccountProps): Promise<void> => {
   info('Create account')
   const { wallet, mnemonic } = await createWallet()
   const firstAddress = getMainAddress(wallet)
   const recipient = await OpenPGP.generate({})
 
-  await setSession({ password })
-  await setAccount({
-    ...defaultAccount,
-    publicKey: firstAddress.publicKey.toString('hex'),
-    privKey: (wallet.privateKey as Buffer).toString('hex'),
-    mnemonic,
-    pgp: {
-      privateKey: recipient.privateKey,
-      publicKey: recipient.publicKey
-    }
-  }, true)
+  await setSessionItem('password', password)
+  await setAccount(
+    {
+      ...defaultAccount,
+      publicKey: firstAddress.publicKey.toString('hex'),
+      privKey: (wallet.privateKey as Buffer).toString('hex'),
+      mnemonic,
+      pgp: {
+        privateKey: recipient.privateKey,
+        publicKey: recipient.publicKey,
+      },
+    },
+    true,
+  )
 
   onSuccess()
 }
