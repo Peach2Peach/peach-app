@@ -20,11 +20,14 @@ import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
 import { SEPA } from './SEPA'
 import { Swish } from './Swish'
+import { Satispay } from './Satispay'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
 import { GiftCardAmazon } from './giftCard.amazon'
 import { Cash } from './Cash'
 import { COUNTRIES } from '../../../../constants'
+import { CashAmsterdam } from './Cash.amsterdam'
+import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -55,13 +58,14 @@ export const PaymentMethodForms: PaymentMethodForms = {
   wise: Wise,
   twint: Twint,
   swish: Swish,
+  satispay: Satispay,
   mbWay: MBWay,
   bizum: Bizum,
   'giftCard.amazon': GiftCardAmazon,
-  cash: Cash
+  cash: Cash,
+  'cash.amsterdam': CashAmsterdam,
 }
 COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
-
 
 export const PaymentMethodForm = ({
   paymentMethod,
@@ -71,7 +75,7 @@ export const PaymentMethodForm = ({
   onDelete,
   navigation,
   back,
-  style
+  style,
 }: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
@@ -87,7 +91,7 @@ export const PaymentMethodForm = ({
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
         content: <PaymentMethodEdit paymentData={newPaymentData} onConfirm={onSubmit} />,
-        help: true
+        help: true,
       })
     } else {
       onSubmit(newPaymentData)
@@ -107,7 +111,10 @@ export const PaymentMethodForm = ({
 
   return (
     <View style={[tw`flex`, style]}>
-      <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`min-h-full flex pb-10 pt-4`}>
+      <PeachScrollView
+        style={tw`h-full flex-shrink`}
+        contentContainerStyle={[tw`flex`, !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {}]}
+      >
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
           paymentMethod={paymentMethod}
@@ -119,14 +126,22 @@ export const PaymentMethodForm = ({
         />
       </PeachScrollView>
       <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
-        {paymentMethod !== 'cash' && (
+        {!specialTemplates[paymentMethod] && (
           <View style={tw`w-full h-10 -mt-10`}>
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
         )}
         <View style={tw`flex-row pr-10 w-full items-stretch mb-2`}>
           <Pressable testID="navigation-back" onPress={back || navigation.goBack}>
-            <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+            <Icon
+              id="arrowLeft"
+              style={tw`w-10 h-10`}
+              color={
+                specialTemplates[paymentMethod]
+                  ? (specialTemplates[paymentMethod]!.button.bgColor.backgroundColor as string)
+                  : (tw`text-peach-1`.color as string)
+              }
+            />
           </Pressable>
           <View style={tw`flex-grow items-center`}>
             <Button
@@ -135,6 +150,8 @@ export const PaymentMethodForm = ({
               wide={false}
               onPress={() => $formRef?.save()}
               title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
+              textColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button.textColor : undefined}
+              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button.bgColor : undefined}
             />
           </View>
         </View>

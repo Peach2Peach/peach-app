@@ -1,17 +1,13 @@
-/**
- * @format
- */
-
-import { AppRegistry, LogBox } from 'react-native'
 import NotificationBadge from '@msml/react-native-notification-badge'
-import { name as appName } from './app.json'
-import { isIOS, isProduction, isWeb } from './utils/system'
-import * as db from './utils/db'
-import { updateUser } from './utils/peachAPI'
 import messaging from '@react-native-firebase/messaging'
-import { info } from './utils/log'
+import { AppRegistry, LogBox } from 'react-native'
 import App from './App'
-import { getSession, initSession, setSession } from './utils/session'
+import { name as appName } from './app.json'
+import * as db from './utils/db'
+import { error, info } from './utils/log'
+import { updateUser } from './utils/peachAPI'
+import { getSession, initSession, setSessionItem } from './utils/session'
+import { isIOS, isProduction, isWeb, parseError } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -30,26 +26,28 @@ LogBox.ignoreLogs([
 
 LogBox.ignoreAllLogs(isProduction())
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  await initSession()
-  let notifications = Number(getSession().notifications || 0)
-  notifications += 1
+try {
+  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    await initSession()
+    let notifications = Number(getSession().notifications || 0)
+    notifications += 1
 
-  if (isIOS()) NotificationBadge.setNumber(notifications)
-  setSession({ notifications })
+    if (isIOS()) NotificationBadge.setNumber(notifications)
+    setSessionItem('notifications', notifications)
 
-  info('Message handled in the background!', remoteMessage)
-})
-
-messaging().onTokenRefresh(fcmToken => updateUser({ fcmToken }))
-
+    info('Message handled in the background!', remoteMessage)
+  })
+  messaging().onTokenRefresh((fcmToken) => updateUser({ fcmToken }))
+} catch (e) {
+  error('messaging().setBackgroundMessageHandler/onTokenRefresh - Push notifications not supported', parseError(e))
+}
 
 AppRegistry.registerComponent(appName, () => App)
 
 if (typeof document !== 'undefined') {
   // start webapp if document available
   AppRegistry.runApplication(appName, {
-    rootTag: document.getElementById('root')
+    rootTag: document.getElementById('root'),
   })
 
   if ('serviceWorker' in navigator) {

@@ -1,12 +1,15 @@
 module.exports = {
   root: true,
   extends: [
-    '@react-native-community',
     'plugin:jest/recommended'
   ],
   env: {
     'jest/globals': true
   },
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint'
+  ],
   'parserOptions': {
     'ecmaVersion': 12,
     'sourceType': 'module'
@@ -54,7 +57,7 @@ module.exports = {
     'brace-style': 'error',
     'capitalized-comments': 'off',
     'class-methods-use-this': 'error',
-    'comma-dangle': 'off',
+    'comma-dangle': ['warn', 'always-multiline'],
     'comma-spacing': [
       'error',
       {
@@ -220,7 +223,7 @@ module.exports = {
     'no-warning-comments': 'off',
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': 'error',
-    'object-curly-newline': 'error',
+    'object-curly-newline': 'off',
     'object-curly-spacing': [
       'error',
       'always'

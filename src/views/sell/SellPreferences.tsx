@@ -6,12 +6,9 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react'
-import {
-  ScrollView,
-  View
-} from 'react-native'
+import { BackHandler, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
@@ -33,17 +30,17 @@ import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['sell'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['sell'] }>
+  navigation: StackNavigation
 }
 
 export type SellViewProps = {
-  offer: SellOffer,
-  updateOffer: (offer: SellOffer, shield?: boolean) => void,
-  setStepValid: Dispatch<SetStateAction<boolean>>,
-  back: () => void,
-  next: () => void,
-  navigation: StackNavigation,
+  offer: SellOffer
+  updateOffer: (offer: SellOffer, shield?: boolean) => void
+  setStepValid: Dispatch<SetStateAction<boolean>>
+  back: () => void
+  next: () => void
+  navigation: StackNavigation
 }
 
 const getDefaultSellOffer = (amount?: number): SellOffer => ({
@@ -53,6 +50,7 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   premium: account.settings.premium || 1.5,
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
+  originalPaymentData: [],
   amount: amount || account.settings.amount || BUCKETS[0],
   returnAddress: account.settings.returnAddress,
   // TODO integrate support for xpubs
@@ -81,13 +79,13 @@ const screens = [
   {
     id: 'offerDetails',
     view: OfferDetails,
-    scrollable: true
+    scrollable: true,
   },
   {
     id: 'summary',
     view: Summary,
-    scrollable: false
-  }
+    scrollable: false,
+  },
 ]
 
 // eslint-disable-next-line max-lines-per-function
@@ -109,11 +107,29 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
-  useFocusEffect(useCallback(() => () => {
-    setOffer(getDefaultSellOffer(route.params.amount))
-    setUpdatePending(false)
-    setPage(0)
-  }, [route]))
+  useFocusEffect(
+    useCallback(
+      () => () => {
+        setOffer(getDefaultSellOffer(route.params.amount))
+        setUpdatePending(false)
+        setPage(0)
+      },
+      [route],
+    ),
+  )
+
+  useEffect(() => {
+    const listener = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (page === 0) {
+        return false
+      }
+      setPage(page - 1)
+      return true
+    })
+    return () => {
+      listener.remove()
+    }
+  })
 
   useEffect(() => {
     if (screens[page].id === 'search') {
@@ -128,6 +144,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       return
     }
     setPage(page - 1)
+    info('page -> ' + page)
     scroll?.scrollTo({ x: 0 })
   }
 
@@ -140,21 +157,21 @@ export default ({ route, navigation }: Props): ReactElement => {
 
       const [result, err] = await postOffer(offer)
       if (result) {
-        info('posted offer: ', JSON.stringify(result))
-        const [tradingLimit] = await getTradingLimit()
-
-        if (tradingLimit) {
-          updateTradingLimit(tradingLimit)
-        }
         info('Posted offer', result)
+
+        getTradingLimit().then(([tradingLimit]) => {
+          if (tradingLimit) {
+            updateTradingLimit(tradingLimit)
+          }
+        })
 
         saveAndUpdate({ ...offer, id: result.offerId })
         navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } })
       } else if (err) {
         error('Error', err)
         updateMessage({
-          msg: i18n(err.error || 'error.postOffer', (err?.details as string[] || []).join(', ')),
-          level: 'ERROR'
+          msg: i18n(err.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          level: 'ERROR',
         })
         back()
       }
@@ -166,44 +183,45 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll?.scrollTo({ x: 0 })
   }
 
-  return <View style={tw`h-full flex`}>
-    <View style={tw`h-full flex-shrink`}>
-      <PeachScrollView scrollRef={ref => scroll = ref}
-        disable={!scrollable}
-        contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-        style={tw`h-full`}>
-        <View style={tw`h-full flex`}>
-          <View style={tw`h-full flex-shrink`}>
-            {updatePending
-              ? <Loading />
-              : null
-            }
-            {!updatePending && CurrentView
-              ? <CurrentView offer={offer}
-                updateOffer={setOffer}
-                setStepValid={setStepValid}
-                back={back} next={next}
-                navigation={navigation}/>
-              : null
-            }
-          </View>
-          {scrollable && !updatePending
-            ? <View style={tw`pt-8 px-6`}>
-              <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+  return (
+    <View style={tw`h-full flex`}>
+      <View style={tw`h-full flex-shrink`}>
+        <PeachScrollView
+          scrollRef={(ref) => (scroll = ref)}
+          disable={!scrollable}
+          contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
+          style={tw`h-full`}
+        >
+          <View style={tw`h-full flex`}>
+            <View style={tw`h-full flex-shrink`}>
+              {updatePending ? <Loading /> : null}
+              {!updatePending && CurrentView ? (
+                <CurrentView
+                  offer={offer}
+                  updateOffer={setOffer}
+                  setStepValid={setStepValid}
+                  back={back}
+                  next={next}
+                  navigation={navigation}
+                />
+              ) : null}
             </View>
-            : null
-          }
-        </View>
-      </PeachScrollView>
-    </View>
-    {!scrollable && !updatePending
-      ? <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+            {scrollable && !updatePending ? (
+              <View style={tw`pt-8 px-6`}>
+                <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+              </View>
+            ) : null}
+          </View>
+        </PeachScrollView>
       </View>
-      : null
-    }
-  </View>
+      {!scrollable && !updatePending ? (
+        <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+          <View style={tw`w-full h-8 -mt-8`}>
+            <LinearGradient colorList={whiteGradient} angle={90} />
+          </View>
+          <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+        </View>
+      ) : null}
+    </View>
+  )
 }

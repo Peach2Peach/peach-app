@@ -11,7 +11,7 @@ export const Cash = ({
   data,
   currencies = [],
   onSubmit,
-  onChange
+  onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
 
@@ -41,28 +41,23 @@ export const Cash = ({
     if (onChange) onChange(buildPaymentData())
   }, [disclaimerAcknowledged])
 
-  return <View style={tw`h-full flex items-center -mb-16 bg-[#12172B]`}>
-    <View>
-      <Text style={tw`text-center text-white-1`}>
-        {i18n('paymentMethod.cash.ljubljana.1')}
-      </Text>
-      <Text style={tw`mt-1 text-center text-white-1`}>
-        {i18n('paymentMethod.cash.ljubljana.2')}
-      </Text>
-      <Text style={tw`mt-1 text-center text-white-1`}>
-        {i18n('paymentMethod.cash.ljubljana.3')}
-      </Text>
-    </View>
-    <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10`}>
-      <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
-        {disclaimerAcknowledged
-          ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
-          : <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
-        }
+  return (
+    <View style={tw`h-full flex items-center -mb-16 bg-[#12172B]`}>
+      <View>
+        <Text style={tw`text-center text-white-1`}>{i18n('paymentMethod.cash.1')}</Text>
+        <Text style={tw`mt-1 text-center text-white-1`}>{i18n('paymentMethod.cash.2')}</Text>
+        <Text style={tw`mt-1 text-center text-white-1`}>{i18n('paymentMethod.cash.3')}</Text>
       </View>
-      <Text style={tw`pl-7 flex-shrink text-white-1`}>
-        {i18n('paymentMethod.cash.ljubljana.checkbox')}
-      </Text>
-    </Pressable>
-  </View>
+      <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10`}>
+        <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
+          {disclaimerAcknowledged ? (
+            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+          ) : (
+            <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
+          )}
+        </View>
+        <Text style={tw`pl-7 flex-shrink text-white-1`}>{i18n('paymentMethod.cash.checkbox')}</Text>
+      </Pressable>
+    </View>
+  )
 }

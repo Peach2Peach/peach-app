@@ -16,27 +16,26 @@ import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodBut
 const validate = (offer: BuyOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()
     .map(getPaymentData)
-    .filter(d => d)
-    .every(d => isValidPaymentdata(d!))
-  return !!offer.amount
-    && hasMopsConfigured(offer)
-    && paymentDataValid
+    .filter((d) => d)
+    .every((d) => isValidPaymentdata(d!))
+  return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
 }
 
 export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
   useContext(LanguageContext)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment
+    offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [kyc, setKYC] = useState(offer.kyc)
 
   useEffect(() => {
-    const paymentData = getSelectedPaymentDataIds().map(getPaymentData)
+    const paymentData = getSelectedPaymentDataIds()
+      .map(getPaymentData)
       .reduce((obj, data) => {
         if (!data) return obj
         obj[data.type] = {
           hash: hashPaymentData(data),
-          country: data.country
+          country: data.country,
         }
         return obj
       }, {} as Offer['paymentData'])
@@ -44,29 +43,31 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       ...offer,
       meansOfPayment,
       paymentData,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
       kyc,
     })
-    updateSettings({
-      meansOfPayment,
-      kyc
-    }, true)
+    updateSettings(
+      {
+        meansOfPayment,
+        kyc,
+      },
+      true,
+    )
   }, [meansOfPayment, kyc])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
-  return <View style={tw`mb-16 px-6`}>
-    <Title title={i18n('buy.title')} />
-    <Headline style={tw`mt-16 text-grey-1`}>
-      {i18n('buy.meansOfPayment')}
-    </Headline>
-    <PaymentDetails style={tw`mt-4`}
-      paymentData={account.paymentData}
-      setMeansOfPayment={setMeansOfPayment}
-    />
-    <AddPaymentMethodButton navigation={navigation}
-      origin={['buyPreferences', { amount: offer.amount }]}
-      style={tw`mt-4`}
-    />
-    {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
-  </View>
+  return (
+    <View style={tw`mb-16 px-6`}>
+      <Title title={i18n('buy.title')} />
+      <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
+      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
+      <AddPaymentMethodButton
+        navigation={navigation}
+        origin={['buyPreferences', { amount: offer.amount }]}
+        style={tw`mt-4`}
+      />
+      {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
+    </View>
+  )
 }

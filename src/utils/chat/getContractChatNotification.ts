@@ -1,6 +1,3 @@
-import { account } from '../account'
-import { getChat } from './getChat'
-
 /**
  * @description Method to get unread chat notifications from contract
  * @param contract contract
@@ -11,9 +8,5 @@ export const getContractChatNotification = (contract: Contract) => {
     return contract.unreadMessages
   }
 
-  // legacy
-  const contractChat = getChat(contract.id)
-  const seenMessages = contractChat ? contractChat.messages.filter(m => m.readBy?.includes(account.publicKey)).length : 0
-
-  return contract.messages - seenMessages
+  return 0
 }

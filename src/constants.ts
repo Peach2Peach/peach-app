@@ -5,10 +5,10 @@ import { sha256 } from './utils/crypto/sha256'
 export const SATSINBTC = 100000000
 
 export let PEACHPGPPUBLICKEY = ''
-export const setPeachPGPPublicKey = (pgpPublicKey: string) => PEACHPGPPUBLICKEY = pgpPublicKey
+export const setPeachPGPPublicKey = (pgpPublicKey: string) => (PEACHPGPPUBLICKEY = pgpPublicKey)
 
 export let PEACHFEE = 0.015
-export const setPeachFee = (fee: number) => PEACHFEE = fee
+export const setPeachFee = (fee: number) => (PEACHFEE = fee)
 
 export const MAXMININGFEE = 20000
 
@@ -23,17 +23,12 @@ export const ISEMULATOR = isEmulatorSync()
 export const UNIQUEID = sha256(getUniqueId())
 
 export let MINAPPVERSION = APPVERSION
-export const setMinAppVersion = (ver: string) => MINAPPVERSION = ver
+export const setMinAppVersion = (ver: string) => (MINAPPVERSION = ver)
 
 export let LATESTAPPVERSION = APPVERSION
-export const setLatestAppVersion = (ver: string) => LATESTAPPVERSION = ver
+export const setLatestAppVersion = (ver: string) => (LATESTAPPVERSION = ver)
 
-export let CURRENCIES: Currency[] = [
-  'EUR',
-  'CHF',
-  'GBP',
-  'SEK',
-]
+export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK']
 
 export let COUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
 
@@ -42,29 +37,29 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: 'sepa',
     currencies: ['EUR', 'CHF', 'GBP'],
-    exchange: true
-  }
+    exchange: true,
+  },
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer: ['sepa'],
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
-  giftCard: ['giftCard.amazon'].concat(COUNTRIES.map(c => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum'],
-  cash: ['cash'],
-  cryptoCurrency: []
+  giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
+  localOption: ['mbWay', 'bizum', 'satispay'],
+  cash: ['cash', 'cash.amsterdam'],
+  cryptoCurrency: [],
 }
 
 export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   EUR: {
+    IT: ['satispay'],
     PT: ['mbWay'],
     ES: ['bizum'],
-  }
+  },
 }
 
-export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: string, userLink?: string}>> = {
+export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string; url: string; userLink?: string }>> = {
   paypal: {
-    appLink: 'paypal://',
     url: 'https://paypal.com/open_web',
     userLink: 'https://paypal.com/paypalme/',
   },
@@ -72,6 +67,7 @@ export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: st
     url: 'https://revolut.com/app',
     userLink: 'https://revolut.me/',
   },
+  satispay: { url: 'https://satispay.com/app' },
   wise: { url: 'https://wise.com/user/account' },
   'giftCard.amazon.DE': { url: 'https://www.amazon.de/dp/B0B2Q4ZRDW' },
   'giftCard.amazon.FR': { url: 'https://www.amazon.fr/dp/B004MYH1YI' },
@@ -84,25 +80,17 @@ export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string, url: st
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
-  CURRENCIES = paymentMethodInfos
-    .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
-    .filter(unique())
+  CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
   COUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
     .filter(unique())
-  PAYMENTMETHODS = paymentMethodInfos.map(method => method.id)
+  PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
 }
 
-export let BUCKETS = [
-  50000,
-  100000,
-  200000,
-  350000,
-  500000
-]
+export let BUCKETS = [50000, 100000, 200000, 350000, 500000]
 export let DEPRECATED_BUCKETS: number[] = []
-export const setBuckets = (buckets: number[]) => BUCKETS = buckets
-export const setDeprecatedBuckets = (buckets: number[]) => DEPRECATED_BUCKETS = buckets
+export const setBuckets = (buckets: number[]) => (BUCKETS = buckets)
+export const setDeprecatedBuckets = (buckets: number[]) => (DEPRECATED_BUCKETS = buckets)
 
 type Timers = {
   [key in ContractAction]: number

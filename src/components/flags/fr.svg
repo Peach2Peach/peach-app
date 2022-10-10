@@ -1,10 +1,10 @@
-<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="-5.9999" y="0.4" width="44" height="31.2" rx="2.8" fill="white" stroke="#F5F5F5" stroke-width="0.8"/>
-<mask id="mask0_362_10484" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-7" y="0" width="46" height="32">
-<rect x="-5.9999" y="0.4" width="44" height="31.2" rx="2.8" fill="white" stroke="white" stroke-width="0.8"/>
+<svg viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.25" y="0.25" width="27.5" height="19.5" rx="1.75" fill="white" stroke="#F5F5F5" stroke-width="0.5"/>
+<mask id="mask0_402_20345" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="20">
+<rect x="0.25" y="0.25" width="27.5" height="19.5" rx="1.75" fill="white" stroke="white" stroke-width="0.5"/>
 </mask>
-<g mask="url(#mask0_362_10484)">
-<rect x="23.4668" width="14.9333" height="32" fill="#F44653"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M-6.3999 32H8.53343V0H-6.3999V32Z" fill="#1035BB"/>
+<g mask="url(#mask0_402_20345)">
+<rect x="18.6667" width="9.33333" height="20" fill="#F44653"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 20H9.33333V0H0V20Z" fill="#1035BB"/>
 </g>
 </svg>

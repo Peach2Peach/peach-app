@@ -18,6 +18,12 @@ describe('recoverAccount', () => {
       password: 'mockpassword',
     })
     ok(!err, 'Error has been thrown ' + err)
-    deepStrictEqual(recoveredAccount, accountData.recoveredAccount)
+    deepStrictEqual(recoveredAccount, {
+      ...accountData.recoveredAccount,
+      settings: {
+        ...accountData.recoveredAccount.settings,
+        fcmToken: '',
+      },
+    })
   })
 })

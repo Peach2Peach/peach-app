@@ -1,4 +1,3 @@
-
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
@@ -18,14 +17,10 @@ type CardProps = ComponentProps
  *  <Text>This is a card</Text>
  * </Card>
  */
-export const Card = ({ children, style }: CardProps): ReactElement =>
+export const Card = ({ children, style }: CardProps): ReactElement => (
   <Shadow shadow={mildShadow}>
-    <View style={[
-      tw`w-full border border-grey-4 rounded bg-white-1`,
-      style
-    ]}>
-      {children}
-    </View>
+    <View style={[tw`w-full border border-grey-4 rounded bg-white-1`, style]}>{children}</View>
   </Shadow>
+)
 
 export default Card

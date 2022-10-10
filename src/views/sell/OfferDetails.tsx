@@ -19,80 +19,88 @@ const validate = (offer: SellOffer) => {
   const selectedPaymentMethods = Object.keys(offer.paymentData)
   const paymentDataValid = getSelectedPaymentDataIds()
     .map(getPaymentData)
-    .filter(d => d)
-    .every(d => isValidPaymentdata(d!))
+    .filter((d) => d)
+    .every((d) => isValidPaymentdata(d!))
 
-  return !!offer.amount
+  return (
+    !!offer.amount
     && hasMopsConfigured(offer)
     && selectedPaymentMethods.length > 0
-    && paymentMethods.every(p => offer.paymentData[p])
+    && paymentMethods.every((p) => offer.paymentData[p])
     && paymentDataValid
+  )
 }
 
 export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
 
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment
+    offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [premium, setPremium] = useState(offer.premium)
   const [kyc, setKYC] = useState(offer.kyc)
   const [kycType, setKYCType] = useState(offer.kycType)
 
   const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer({
-      ...offr,
-      meansOfPayment,
-    }, shield)
-    updateSettings({
-      meansOfPayment: offr.meansOfPayment,
-      premium: offr.premium,
-      kyc: offr.kyc,
-      kycType: offr.kycType,
-    }, true)
+    updateOffer(
+      {
+        ...offr,
+        meansOfPayment,
+      },
+      shield,
+    )
+    updateSettings(
+      {
+        meansOfPayment: offr.meansOfPayment,
+        premium: offr.premium,
+        kyc: offr.kyc,
+        kycType: offr.kycType,
+      },
+      true,
+    )
   }
 
   useEffect(() => {
-    const paymentData = getSelectedPaymentDataIds().map(getPaymentData)
+    const paymentData = getSelectedPaymentDataIds()
+      .map(getPaymentData)
       .reduce((obj, data) => {
         if (!data) return obj
         obj[data.type] = {
           hash: hashPaymentData(data),
-          country: data.country
+          country: data.country,
         }
         return obj
       }, {} as Offer['paymentData'])
-    saveAndUpdate({
-      ...offer,
-      meansOfPayment,
-      paymentData,
-      premium,
-      kyc,
-      kycType,
-    }, false)
+
+    saveAndUpdate(
+      {
+        ...offer,
+        meansOfPayment,
+        paymentData,
+        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
+        premium,
+        kyc,
+        kycType,
+      },
+      false,
+    )
   }, [meansOfPayment, premium, kyc, kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
-  return <View style={tw`mb-16 px-6`}>
-    <Title title={i18n('sell.title')} />
-    <Headline style={tw`mt-16 text-grey-1`}>
-      {i18n('sell.meansOfPayment')}
-    </Headline>
-    <PaymentDetails style={tw`mt-4`}
-      paymentData={account.paymentData}
-      setMeansOfPayment={setMeansOfPayment}
-    />
-    <AddPaymentMethodButton navigation={navigation}
-      origin={['sellPreferences', { amount: offer.amount }]}
-      style={tw`mt-4`}
-    />
+  return (
+    <View style={tw`mb-16 px-6`}>
+      <Title title={i18n('sell.title')} />
+      <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
+      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
+      <AddPaymentMethodButton
+        navigation={navigation}
+        origin={['sellPreferences', { amount: offer.amount }]}
+        style={tw`mt-4`}
+      />
 
-    <Premium
-      premium={premium}
-      setPremium={setPremium}
-      offer={offer}
-    />
-    {/* <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} /> */}
-  </View>
+      <Premium premium={premium} setPremium={setPremium} offer={offer} />
+      {/* <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} /> */}
+    </View>
+  )
 }
