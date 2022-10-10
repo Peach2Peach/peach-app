@@ -1,10 +1,10 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type GetContractProps = {
-  contractId: Contract['id'],
+type GetContractProps = RequestProps & {
+  contractId: Contract['id']
 }
 
 /**
@@ -14,14 +14,16 @@ type GetContractProps = {
  */
 export const getContract = async ({
   contractId,
-}: GetContractProps): Promise<[GetContractResponse|null, APIError|null]> => {
+  timeout,
+}: GetContractProps): Promise<[GetContractResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    method: 'GET'
+    method: 'GET',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<GetContractResponse>(response, 'getContract')

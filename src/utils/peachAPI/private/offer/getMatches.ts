@@ -1,13 +1,12 @@
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import fetch, { getAbortSignal } from '../../../fetch'
 import { getAccessToken } from '../user'
 
-type GetMatchesProps = {
+type GetMatchesProps = RequestProps & {
   offerId: string
   page?: number
   size?: number
-  timeout?: number
 }
 
 /**

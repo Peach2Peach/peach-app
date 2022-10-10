@@ -10,12 +10,11 @@ import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import Escrow from '../../overlays/info/Escrow'
 import Refund from '../../overlays/Refund'
 import tw from '../../styles/tailwind'
-import { updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { offerIdToHex, saveOffer } from '../../utils/offer'
-import { fundEscrow, generateBlock, getTradingLimit } from '../../utils/peachAPI'
+import { fundEscrow, generateBlock } from '../../utils/peachAPI'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import createEscrowEffect from './effects/createEscrowEffect'
@@ -56,7 +55,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer offer={offer} navigate={navigateToOffer} />,
-      showCloseButton: false
+      showCloseButton: false,
     })
 
   const subtitle
@@ -69,9 +68,9 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const fundEscrowAddress = async () => {
     if (!offer.id || NETWORK !== 'regtest' || fundingStatus.status !== 'NULL') return
-    const [fundEscrowResult] = await fundEscrow(offer.id)
+    const [fundEscrowResult] = await fundEscrow({ offerId: offer.id })
     if (!fundEscrowResult) return
-    const [generateBockResult] = await generateBlock()
+    const [generateBockResult] = await generateBlock({})
     if (generateBockResult) setShowRegtestButton(false)
   }
 
@@ -87,13 +86,13 @@ export default ({ route, navigation }: Props): ReactElement => {
           saveAndUpdate({
             ...offer,
             escrow: result.escrow,
-            funding: result.funding
+            funding: result.funding,
           })
         },
-        onError: (err) => updateMessage({ msgKey: err.error || 'error.createEscrow', level: 'ERROR' })
+        onError: (err) => updateMessage({ msgKey: err.error || 'error.createEscrow', level: 'ERROR' }),
       })
       : () => {},
-    [offer.id]
+    [offer.id],
   )
 
   useEffect(
@@ -105,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         saveAndUpdate({
           ...offer,
           funding: result.funding,
-          returnAddress: result.returnAddress
+          returnAddress: result.returnAddress,
         })
         setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
@@ -113,18 +112,18 @@ export default ({ route, navigation }: Props): ReactElement => {
       onError: (err) => {
         updateMessage({
           msgKey: err.error || 'error.general',
-          level: 'ERROR'
+          level: 'ERROR',
         })
-      }
+      },
     }),
-    [offer.id, offer.escrow]
+    [offer.id, offer.escrow],
   )
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
       updateOverlay({
         content: <Refund offer={offer} navigate={navigateToYourTrades} />,
-        showCloseButton: false
+        showCloseButton: false,
       })
       return
     }
@@ -140,7 +139,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setEscrow(offer.escrow || '')
       setUpdatePending(!offer.escrow)
       setFundingStatus(offer.funding)
-    }, [route])
+    }, [route]),
   )
 
   return (

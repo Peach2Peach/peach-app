@@ -1,13 +1,13 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type RaiseDisputeProps = {
-  contractId: Contract['id'],
-  email?: string,
-  reason: DisputeReason,
-  message: string,
+type RaiseDisputeProps = RequestProps & {
+  contractId: Contract['id']
+  email?: string
+  reason: DisputeReason
+  message: string
   symmetricKeyEncrypted: string
 }
 
@@ -24,12 +24,13 @@ export const raiseDispute = async ({
   reason,
   message,
   symmetricKeyEncrypted,
-}: RaiseDisputeProps): Promise<[APISuccess|null, APIError|null]> => {
+  timeout,
+}: RaiseDisputeProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
@@ -37,7 +38,8 @@ export const raiseDispute = async ({
       reason,
       message,
       symmetricKeyEncrypted,
-    })
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'raiseDispute')

@@ -1,26 +1,31 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
+
+type GetContractsProps = RequestProps
 
 /**
  * @description Method to get contracts
  * @returns Contracts
  */
-export const getContracts = async (): Promise<[GetContractsResponse|null, APIError|null]> => {
+export const getContracts = async ({
+  timeout,
+}: GetContractsProps): Promise<[GetContractsResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contracts`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    method: 'GET'
+    method: 'GET',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   const parsedResponse = await parseResponse<GetContractsResponse>(response, 'getContract')
 
   if (parsedResponse[0]) {
-    parsedResponse[0] = parsedResponse[0].map(contract => {
+    parsedResponse[0] = parsedResponse[0].map((contract) => {
       contract.creationDate = new Date(contract.creationDate)
       contract.buyer.creationDate = new Date(contract.buyer.creationDate)
       contract.seller.creationDate = new Date(contract.seller.creationDate)

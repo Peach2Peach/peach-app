@@ -1,10 +1,10 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type RejectContractCancelationProps = {
-  contractId: Contract['id'],
+type RejectContractCancelationProps = RequestProps & {
+  contractId: Contract['id']
 }
 
 /**
@@ -14,14 +14,16 @@ type RejectContractCancelationProps = {
  */
 export const rejectContractCancelation = async ({
   contractId,
-}: RejectContractCancelationProps): Promise<[APISuccess|null, APIError|null]> => {
+  timeout,
+}: RejectContractCancelationProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel/reject`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    method: 'POST'
+    method: 'POST',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'rejectContractCancelation')

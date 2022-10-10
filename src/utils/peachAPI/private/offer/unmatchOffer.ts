@@ -1,11 +1,11 @@
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
-import fetch from '../../../fetch'
+import { parseResponse, RequestProps } from '../..'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { getAccessToken } from '../user'
 
-type UnmatchProps = {
-  offerId: string,
-  matchingOfferId: string,
+type UnmatchProps = RequestProps & {
+  offerId: string
+  matchingOfferId: string
 }
 
 /**
@@ -14,18 +14,20 @@ type UnmatchProps = {
  */
 export const unmatchOffer = async ({
   offerId,
-  matchingOfferId
-}: UnmatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+  matchingOfferId,
+  timeout,
+}: UnmatchProps): Promise<[MatchResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      matchingOfferId
+      matchingOfferId,
     }),
-    method: 'DELETE'
+    method: 'DELETE',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<MatchResponse>(response, 'unmatchOffer')

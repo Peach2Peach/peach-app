@@ -19,7 +19,7 @@ export default ({
   onError,
 }: SearchForPeersEffectProps): EffectCallback =>
   () => {
-    const checkingPeriod = 15 * 1000
+    const checkingInterval = 15 * 1000
     let interval: NodeJS.Timer
     const checkingFunction = async () => {
       if (!offer?.id) return
@@ -34,7 +34,7 @@ export default ({
         offerId: offer.id,
         page,
         size,
-        timeout: checkingPeriod,
+        timeout: checkingInterval,
       })
 
       if (result) {
@@ -46,7 +46,7 @@ export default ({
       }
     }
     ;(async () => {
-      interval = setInterval(checkingFunction, checkingPeriod)
+      interval = setInterval(checkingFunction, checkingInterval)
       checkingFunction()
     })()
 

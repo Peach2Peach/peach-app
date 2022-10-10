@@ -1,12 +1,12 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type PostChatProps = {
-  contractId: Contract['id'],
-  message: string,
-  signature: string,
+type PostChatProps = RequestProps & {
+  contractId: Contract['id']
+  message: string
+  signature: string
 }
 
 /**
@@ -20,18 +20,20 @@ export const postChat = async ({
   contractId,
   message,
   signature,
-}: PostChatProps): Promise<[APISuccess|null, APIError|null]> => {
+  timeout,
+}: PostChatProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/chat`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
       message,
       signature,
-    })
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'postChat')
