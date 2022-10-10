@@ -10,6 +10,7 @@ import { account } from '../utils/account'
 import { exists } from '../utils/file'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
+import { getOffer } from '../utils/offer'
 import { sleep } from '../utils/performance'
 import { getSession, setSessionItem } from '../utils/session'
 import { isIOS, parseError } from '../utils/system'
@@ -56,6 +57,7 @@ const initialNavigation = async (
   }
 
   if (!sessionInitiated && ((await exists('/peach-account.json')) || (await exists('/peach-account-identity.json')))) {
+    // couldn't retrieve account but account files exist, must have not gotten password so we redirect to Login Screen
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
@@ -66,7 +68,17 @@ const initialNavigation = async (
     setSessionItem('notifications', notifications)
 
     if (initialNotification.data) {
-      handlePushNotification(navigationRef, initialNotification.data, initialNotification.sentTime)
+      const handledNotification = handlePushNotification(
+        navigationRef,
+        initialNotification.data,
+        initialNotification.sentTime,
+      )
+      if (!handledNotification) {
+        navigationRef.reset({
+          index: 0,
+          routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
+        })
+      }
     }
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     navigationRef.reset({
