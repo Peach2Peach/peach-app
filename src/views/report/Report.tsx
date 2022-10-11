@@ -4,7 +4,7 @@ import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
-import { Button, Fade, Input, Title } from '../../components'
+import { Button, Fade, Input, PeachScrollView, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
@@ -21,7 +21,6 @@ type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
   navigation: StackNavigation
 }
-
 
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
@@ -41,21 +40,21 @@ export default ({ route, navigation }: Props): ReactElement => {
     deviceLocale: 'default',
     state: { email, topic, message },
     rules,
-    messages: getMessages()
+    messages: getMessages(),
   })
 
   const submit = async () => {
     validate({
       email: {
         required: true,
-        email: true
+        email: true,
       },
       topic: {
-        required: true
+        required: true,
       },
       message: {
-        required: true
-      }
+        required: true,
+      },
     })
     if (!isFormValid()) return
 
@@ -63,11 +62,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       email,
       reason: i18n(`contact.reason.${reason}`),
       topic,
-      message
+      message,
     })
     if (result) {
       updateOverlay({
-        content: <ReportSuccess navigation={navigation} />
+        content: <ReportSuccess navigation={navigation} />,
       })
       return
     }
@@ -76,7 +75,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       error('Error', err)
       updateMessage({
         msgKey: err?.error || 'error.general',
-        level: 'ERROR'
+        level: 'ERROR',
       })
     }
   }
@@ -84,55 +83,57 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(keyboard(setKeyboardOpen), [])
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-      <Title title={i18n('report.title')} />
-      <View style={tw`h-full flex-shrink mt-12`}>
-        <View>
-          <Input
-            onChange={setEmail}
-            onSubmit={() => $topic?.focus()}
-            value={email}
-            label={i18n('form.userEmail')}
-            placeholder={i18n('form.userEmail.placeholder')}
-            isValid={!isFieldInError('email')}
-            autoCorrect={false}
-            errorMessage={getErrorsInField('email')}
-          />
+    <PeachScrollView>
+      <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+        <Title title={i18n('report.title')} />
+        <View style={tw`h-full flex-shrink mt-12`}>
+          <View>
+            <Input
+              onChange={setEmail}
+              onSubmit={() => $topic?.focus()}
+              value={email}
+              label={i18n('form.userEmail')}
+              placeholder={i18n('form.userEmail.placeholder')}
+              isValid={!isFieldInError('email')}
+              autoCorrect={false}
+              errorMessage={getErrorsInField('email')}
+            />
+          </View>
+          <View style={tw`mt-2`}>
+            <Input
+              onChange={setTopic}
+              onSubmit={() => $message?.focus()}
+              reference={(el: any) => ($topic = el)}
+              value={topic}
+              label={i18n('form.topic')}
+              placeholder={i18n('form.topic.placeholder')}
+              isValid={!isFieldInError('topic')}
+              autoCorrect={false}
+              errorMessage={getErrorsInField('topic')}
+            />
+          </View>
+          <View style={tw`mt-2`}>
+            <Input
+              style={tw`h-40`}
+              onChange={setMessage}
+              reference={(el: any) => ($message = el)}
+              value={message}
+              multiline={true}
+              label={i18n('form.message')}
+              placeholder={i18n('form.message.placeholder')}
+              isValid={!isFieldInError('message')}
+              autoCorrect={false}
+              errorMessage={getErrorsInField('message')}
+            />
+          </View>
         </View>
-        <View style={tw`mt-2`}>
-          <Input
-            onChange={setTopic}
-            onSubmit={() => $message?.focus()}
-            reference={(el: any) => ($topic = el)}
-            value={topic}
-            label={i18n('form.topic')}
-            placeholder={i18n('form.topic.placeholder')}
-            isValid={!isFieldInError('topic')}
-            autoCorrect={false}
-            errorMessage={getErrorsInField('topic')}
-          />
-        </View>
-        <View style={tw`mt-2`}>
-          <Input
-            style={tw`h-40`}
-            onChange={setMessage}
-            reference={(el: any) => ($message = el)}
-            value={message}
-            multiline={true}
-            label={i18n('form.message')}
-            placeholder={i18n('form.message.placeholder')}
-            isValid={!isFieldInError('message')}
-            autoCorrect={false}
-            errorMessage={getErrorsInField('message')}
-          />
-        </View>
+        <Fade show={!keyboardOpen} style={tw`flex items-center mt-16`}>
+          <Button title={i18n('report.sendReport')} wide={false} onPress={submit} />
+          {route.name.toString() === 'reportFullScreen' && (
+            <Button style={tw`mt-5`} title={i18n('cancel')} wide={false} secondary={true} onPress={navigation.goBack} />
+          )}
+        </Fade>
       </View>
-      <Fade show={!keyboardOpen} style={tw`flex items-center mt-16`}>
-        <Button title={i18n('report.sendReport')} wide={false} onPress={submit} />
-        {route.name.toString() === 'reportFullScreen' && (
-          <Button style={tw`mt-5`} title={i18n('cancel')} wide={false} secondary={true} onPress={navigation.goBack} />
-        )}
-      </Fade>
-    </View>
+    </PeachScrollView>
   )
 }
