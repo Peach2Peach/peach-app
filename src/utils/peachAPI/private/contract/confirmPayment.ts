@@ -1,10 +1,10 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type ConfirmPaymentProps = {
-  contractId: Contract['id'],
+type ConfirmPaymentProps = RequestProps & {
+  contractId: Contract['id']
   releaseTransaction?: string
 }
 
@@ -16,17 +16,19 @@ type ConfirmPaymentProps = {
 export const confirmPayment = async ({
   contractId,
   releaseTransaction,
-}: ConfirmPaymentProps): Promise<[ConfirmPaymentResponse|null, APIError|null]> => {
+  timeout,
+}: ConfirmPaymentProps): Promise<[ConfirmPaymentResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment/confirm`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
       releaseTransaction,
-    })
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<ConfirmPaymentResponse>(response, 'confirmPayment')

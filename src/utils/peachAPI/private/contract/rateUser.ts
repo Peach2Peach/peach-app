@@ -1,11 +1,11 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type RateUserProps = {
-  contractId: Contract['id'],
-  rating: 1 | -1,
+type RateUserProps = RequestProps & {
+  contractId: Contract['id']
+  rating: 1 | -1
   signature: string
 }
 
@@ -18,18 +18,20 @@ export const rateUser = async ({
   contractId,
   rating,
   signature,
-}: RateUserProps): Promise<[APISuccess|null, APIError|null]> => {
+  timeout,
+}: RateUserProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/user/rate`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
       rating,
       signature,
-    })
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'rateUser')

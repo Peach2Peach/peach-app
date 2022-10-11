@@ -1,12 +1,12 @@
 import { API_URL } from '@env'
-import { parseResponse } from '..'
-import fetch from '../../fetch'
+import { parseResponse, RequestProps } from '..'
+import fetch, { getAbortSignal } from '../../fetch'
 
-type SendReportProps = {
-  email: string,
-  reason: string,
-  topic: string,
-  message: string,
+type SendReportProps = RequestProps & {
+  email: string
+  reason: string
+  topic: string
+  message: string
 }
 
 /**
@@ -17,17 +17,22 @@ export const sendReport = async ({
   email,
   reason,
   topic,
-  message
-}: SendReportProps): Promise<[APISuccess|null, APIError|null]> => {
+  message,
+  timeout,
+}: SendReportProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contact/report`, {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
-      email, reason, topic, message
-    })
+      email,
+      reason,
+      topic,
+      message,
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'sendReport')

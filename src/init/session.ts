@@ -21,7 +21,7 @@ import { initSession } from '../utils/session'
  */
 export const getPeachInfo = async (account?: Account) => {
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
-    getInfo(),
+    getInfo({}),
     account?.publicKey ? getTradingLimit() : [defaultAccount.tradingLimit, null],
   ])
 
@@ -54,7 +54,7 @@ export const getPeachInfo = async (account?: Account) => {
  * @description Method to fetch users offers and contracts
  */
 export const getTrades = async (): Promise<void> => {
-  const [offers, getOffersError] = await getOffers()
+  const [offers, getOffersError] = await getOffers({})
   if (offers) {
     info(`Got ${offers.length} offers`)
     saveOffers(offers)
@@ -62,7 +62,7 @@ export const getTrades = async (): Promise<void> => {
     error('Error', getOffersError)
   }
 
-  const [contracts, err] = await getContracts()
+  const [contracts, err] = await getContracts({})
   if (contracts) {
     saveContracts(contracts)
   } else if (err) {
