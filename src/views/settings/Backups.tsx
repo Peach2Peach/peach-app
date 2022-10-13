@@ -25,6 +25,7 @@ export default ({ navigation }: Props): ReactElement => {
   const initAccountBackup = () => {
     if (isBackingUp) return
     const previousDate = account.settings.lastBackupDate
+    const previousShowBackupReminder = account.settings.showBackupReminder
     setIsBackingUp(true)
     updateSettings(
       {
@@ -59,12 +60,14 @@ export default ({ navigation }: Props): ReactElement => {
         setIsBackingUp(false)
         updateSettings({
           lastBackupDate: previousDate,
+          showBackupReminder: previousShowBackupReminder,
         })
       },
       onError: () => {
         setIsBackingUp(false)
         updateSettings({
           lastBackupDate: previousDate,
+          showBackupReminder: previousShowBackupReminder,
         })
       },
     })
