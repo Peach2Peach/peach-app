@@ -4,7 +4,7 @@ import { writeFile } from '../file'
 import RNFS from '../fileSystem/RNFS'
 import { error, info } from '../log'
 import { getSession } from '../session'
-import { isMobile } from '../system'
+import { isMobile, parseError } from '../system'
 import { account } from './account'
 
 type BackupAccountProps = {
@@ -37,7 +37,7 @@ export const backupAccount = async ({ onSuccess, onError }: BackupAccountProps) 
         onSuccess()
       })
       .catch(e => {
-        error(e)
+        if (parseError(e) !== 'User did not share') error(e)
         onError()
       })
   } catch (e) {
