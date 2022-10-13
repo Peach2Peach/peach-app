@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -20,10 +20,12 @@ type Props = {
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
+  const [isBackingUp, setIsBackingUp] = useState(false)
 
   const initAccountBackup = () => {
+    if (isBackingUp) return
     const previousDate = account.settings.lastBackupDate
-
+    setIsBackingUp(true)
     updateSettings(
       {
         lastBackupDate: new Date().getTime(),
@@ -44,6 +46,8 @@ export default ({ navigation }: Props): ReactElement => {
           },
           true,
         )
+        setIsBackingUp(false)
+
         setTimeout(() => {
           updateOverlay({
             content: null,
@@ -51,7 +55,14 @@ export default ({ navigation }: Props): ReactElement => {
           })
         }, 3000)
       },
+      onCancel: () => {
+        setIsBackingUp(false)
+        updateSettings({
+          lastBackupDate: previousDate,
+        })
+      },
       onError: () => {
+        setIsBackingUp(false)
         updateSettings({
           lastBackupDate: previousDate,
         })
