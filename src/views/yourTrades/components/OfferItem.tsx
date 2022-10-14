@@ -14,29 +14,35 @@ import { StackNavigation } from '../../../utils/navigation'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
 
+// eslint-disable-next-line complexity
 const navigateToOffer = (
-  offer: SellOffer|BuyOffer,
+  offer: SellOffer | BuyOffer,
   offerStatus: OfferStatus,
   navigation: StackNavigation,
-  updateOverlay: React.Dispatch<OverlayState>
-// eslint-disable-next-line max-params
+  updateOverlay: React.Dispatch<OverlayState>,
+  // eslint-disable-next-line max-params
 ): void => {
   if (!offer) return navigation.navigate('yourTrades', {})
 
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
-  if (!/rate/u.test(offerStatus.requiredAction)
-    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
-    if (offer.type === 'ask'
+  if (
+    !/rate/u.test(offerStatus.requiredAction)
+    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)
+  ) {
+    if (
+      offer.type === 'ask'
       && !offer.online
       && (!offer.contractId || (contract?.canceled && contract.disputeWinner === 'seller'))
-      && offer.funding?.txIds.length > 0 && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
-      && !isEscrowRefunded(offer)) {
+      && offer.funding?.txIds.length > 0
+      && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
+      && !isEscrowRefunded(offer)
+    ) {
       const navigate = () => {}
 
       updateOverlay({
         content: <Refund offer={offer} navigate={navigate} />,
-        showCloseButton: false
+        showCloseButton: false,
       })
     }
     return navigation.navigate('offer', { offer })
@@ -50,6 +56,9 @@ const navigateToOffer = (
   }
 
   if (offer.type === 'ask') {
+    if (offer.returnAddressRequired) {
+      return navigation.navigate('setReturnAddress', { offer })
+    }
     if (offer.funding.status === 'FUNDED') {
       return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
     }
@@ -64,13 +73,12 @@ const navigateToOffer = (
 }
 
 type OfferItemProps = ComponentProps & {
-  offer: BuyOffer | SellOffer,
-  extended?: boolean,
-  navigation: StackNavigation,
+  offer: BuyOffer | SellOffer
+  extended?: boolean
+  navigation: StackNavigation
 }
 
-type IconMap = { [key in OfferStatus['status']]?: IconType }
-  & { [key in OfferStatus['requiredAction']]?: IconType }
+type IconMap = { [key in OfferStatus['status']]?: IconType } & { [key in OfferStatus['requiredAction']]?: IconType }
 
 const ICONMAP: IconMap = {
   offerPublished: 'clock',
@@ -93,9 +101,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
-  const icon = contract?.disputeWinner
-    ? 'dispute'
-    : ICONMAP[requiredAction] || ICONMAP[status]
+  const icon = contract?.disputeWinner ? 'dispute' : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
   const isRedStatus = contract?.disputeActive || (offer.type === 'bid' && contract?.cancelationRequested)
@@ -104,84 +110,84 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
 
   const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
-  return <Shadow shadow={mildShadow}>
-    <Pressable onPress={navigate}
-      style={[
-        tw`rounded`,
-        isRedStatus
-          ? tw`bg-red`
-          : isOrangeStatus
-            ? tw`bg-peach-1`
-            : tw`bg-white-1 border border-grey-2`,
-        style
-      ]}>
-      {extended
-        ? <View style={tw`px-4 py-2`}>
-          <View style={tw`flex-row items-center`}>
-            <View style={tw`w-full flex-shrink`}>
-              <Headline style={[
-                tw`text-lg font-bold normal-case text-left`,
-                textColor1
-              ]}>
-                {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
-              </Headline>
-              <View style={tw`-mt-2`}>
-                {offer.type === 'ask' && contract?.cancelationRequested
-                  ? <Text style={[
-                    tw`text-lg`,
-                    textColor1
-                  ]}>
-                    {i18n('contract.cancel.pending')}
-                  </Text>
-                  : <SatsFormat
-                    style={tw`text-lg`}
-                    sats={offer.amount}
-                    color={textColor2} />
-                }
+  return (
+    <Shadow shadow={mildShadow}>
+      <Pressable
+        onPress={navigate}
+        style={[
+          tw`rounded`,
+          isRedStatus ? tw`bg-red` : isOrangeStatus ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
+          style,
+        ]}
+      >
+        {extended ? (
+          <View style={tw`px-4 py-2`}>
+            <View style={tw`flex-row items-center`}>
+              <View style={tw`w-full flex-shrink`}>
+                <Headline style={[tw`text-lg font-bold normal-case text-left`, textColor1]}>
+                  {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
+                </Headline>
+                <View style={tw`-mt-2`}>
+                  {offer.type === 'ask' && contract?.cancelationRequested ? (
+                    <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
+                  ) : (
+                    <SatsFormat style={tw`text-lg`} sats={offer.amount} color={textColor2} />
+                  )}
+                </View>
               </View>
+              <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
             </View>
-            <Icon id={icon || 'help'} style={tw`w-7 h-7`}
-              color={(textColor1).color as string}
+            {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
+              <View style={tw`flex items-center mt-3 mb-1`}>
+                <Button
+                  title={i18n(`offer.requiredAction.${requiredAction}`)}
+                  onPress={navigate}
+                  secondary={!isRedStatus}
+                  red={isRedStatus}
+                  wide={false}
+                />
+              </View>
+            ) : null}
+          </View>
+        ) : (
+          <View style={tw`flex-row justify-between items-center p-2`}>
+            <View style={tw`flex-row items-center`}>
+              <Icon
+                id={offer.type === 'ask' ? 'sell' : 'buy'}
+                style={tw`w-5 h-5 mr-2`}
+                color={
+                  (requiredAction || contract?.disputeActive
+                    ? tw`text-white-1`
+                    : offer.type === 'ask'
+                      ? tw`text-red`
+                      : tw`text-green`
+                  ).color as string
+                }
+              />
+              <Text
+                style={[tw`text-lg`, requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`]}
+              >
+                {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
+              </Text>
+            </View>
+            <Icon
+              id={icon || 'help'}
+              style={tw`w-5 h-5`}
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
             />
           </View>
-          {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested)
-            ? <View style={tw`flex items-center mt-3 mb-1`}>
-              <Button
-                title={i18n(`offer.requiredAction.${requiredAction}`)}
-                onPress={navigate}
-                secondary={!isRedStatus}
-                red={isRedStatus}
-                wide={false}
-              />
-            </View>
-            : null
-          }
-        </View>
-        : <View style={tw`flex-row justify-between items-center p-2`}>
-          <View style={tw`flex-row items-center`}>
-            <Icon id={offer.type === 'ask' ? 'sell' : 'buy'} style={tw`w-5 h-5 mr-2`}
-              color={(requiredAction || contract?.disputeActive
-                ? tw`text-white-1`
-                : offer.type === 'ask' ? tw`text-red` : tw`text-green`).color as string}/>
-            <Text style={[
-              tw`text-lg`,
-              requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`
-            ]}>{i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}</Text>
-          </View>
-          <Icon id={icon || 'help'} style={tw`w-5 h-5`}
-            color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
-          />
-        </View>
-      }
-      {notifications > 0
-        ? <Bubble color={tw`text-green`.color as string}
-          style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}>
-          <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
-            {notifications}
-          </Text>
-        </Bubble>
-        : null
-      }
-    </Pressable>
-  </Shadow>
+        )}
+        {notifications > 0 ? (
+          <Bubble
+            color={tw`text-green`.color as string}
+            style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
+          >
+            <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+              {notifications}
+            </Text>
+          </Bubble>
+        ) : null}
+      </Pressable>
+    </Shadow>
+  )
 }
