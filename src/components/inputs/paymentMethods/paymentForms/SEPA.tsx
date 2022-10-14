@@ -100,7 +100,7 @@ export const SEPA = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={!isFieldInError('label')}
           autoCorrect={false}
-          errorMessage={label.length && getErrorsInField('label')}
+          errorMessage={getErrorsInField('label')}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -113,7 +113,7 @@ export const SEPA = ({
           placeholder={i18n('form.beneficiary.placeholder')}
           isValid={!isFieldInError('beneficiary')}
           autoCorrect={false}
-          errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
+          errorMessage={getErrorsInField('beneficiary')}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -126,7 +126,7 @@ export const SEPA = ({
           placeholder={i18n('form.iban.placeholder')}
           isValid={!isFieldInError('iban')}
           autoCorrect={false}
-          errorMessage={iban.length && getErrorsInField('iban')}
+          errorMessage={getErrorsInField('iban')}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -135,12 +135,12 @@ export const SEPA = ({
           onSubmit={() => $address?.focus()}
           reference={(el: any) => ($bic = el)}
           value={bic}
-          required={true}
+          required={false}
           label={i18n('form.bic')}
           placeholder={i18n('form.bic.placeholder')}
           isValid={!isFieldInError('bic')}
           autoCorrect={false}
-          errorMessage={bic.length && getErrorsInField('bic')}
+          errorMessage={getErrorsInField('bic')}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -154,7 +154,7 @@ export const SEPA = ({
           placeholder={i18n('form.address.placeholder')}
           isValid={!isFieldInError('address')}
           autoCorrect={false}
-          errorMessage={address.length && getErrorsInField('address')}
+          errorMessage={getErrorsInField('address')}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -168,7 +168,7 @@ export const SEPA = ({
           placeholder={i18n('form.reference.placeholder')}
           isValid={!isFieldInError('reference')}
           autoCorrect={false}
-          errorMessage={reference.length && getErrorsInField('reference')}
+          errorMessage={getErrorsInField('reference')}
         />
       </View>
     </View>

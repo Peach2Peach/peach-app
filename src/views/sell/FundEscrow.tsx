@@ -74,6 +74,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (generateBockResult) setShowRegtestButton(false)
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      setOffer(route.params.offer)
+      setEscrow(route.params.offer.escrow || '')
+      setUpdatePending(!route.params.offer.escrow)
+      setFundingStatus(route.params.offer.funding)
+    }, [route]),
+  )
+
   useEffect(
     !offer.escrow
       ? createEscrowEffect({
@@ -132,15 +141,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       navigation.replace('search', { offer })
     }
   }, [fundingStatus])
-
-  useFocusEffect(
-    useCallback(() => {
-      setOffer(route.params.offer)
-      setEscrow(offer.escrow || '')
-      setUpdatePending(!offer.escrow)
-      setFundingStatus(offer.funding)
-    }, [route]),
-  )
 
   return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
