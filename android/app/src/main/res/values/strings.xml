@@ -11,7 +11,7 @@
     <string name="notification.title.offer.expired">No match</string>
     <string name="notification.body.offer.expired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
-    <string name="notification.body.offer.matchBuyer"></string>
+    <string name="notification.body.offer.matchBuyer">The faster you accept, the better your Peach Reputation score will be.</string>
     <string name="notification.title.offer.matchSeller">Matches are waiting for you!</string>
     <string name="notification.body.offer.matchSeller">The faster you accept, the better your Peach Reputation score will be.</string>
     <string name="notification.title.contract.contractCreated">Your match got accepted:</string>
