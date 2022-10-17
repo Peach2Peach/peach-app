@@ -14,24 +14,25 @@ import { BarCodeReadEvent } from 'react-native-camera'
 const { useValidation } = require('react-native-form-validator')
 
 export type ReturnAddressProps = ComponentProps & {
-  returnAddress?: string,
-  update: (address: string) => void,
+  returnAddress?: string
+  required?: boolean
+  update: (address: string) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default ({ returnAddress, update, style }: ReturnAddressProps): ReactElement => {
+export default ({ returnAddress, required, update, style }: ReturnAddressProps): ReactElement => {
   let $address: any
   const [address, setAddress] = useState(returnAddress)
   const [shortAddress, setShortAddress] = useState(returnAddress ? cutOffAddress(returnAddress) : '')
   const [focused, setFocused] = useState(false)
-  const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress)
+  const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
 
   const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
     deviceLocale: 'default',
     state: { address },
     rules,
-    messages: getMessages()
+    messages: getMessages(),
   })
 
   const pasteAddress = async () => {
@@ -49,8 +50,8 @@ export default ({ returnAddress, update, style }: ReturnAddressProps): ReactElem
       validate({
         address: {
           required: true,
-          bitcoinAddress: true
-        }
+          bitcoinAddress: true,
+        },
       })
 
       if (!isFormValid()) return
@@ -76,59 +77,46 @@ export default ({ returnAddress, update, style }: ReturnAddressProps): ReactElem
     setScanQR(false)
   }
   const toggleUseDepositAddress = () => setUseDepositAddress(!useDepositAddress)
-  return <View style={style}>
-    <Headline style={tw`text-grey-1`}>
-      {i18n('sell.escrow.returnAddress.title')}
-    </Headline>
-    <Text style={tw`text-grey-2 text-center -mt-2`}>
-      {i18n('sell.escrow.returnAddress.subtitle')}
-    </Text>
-    <View pointerEvents={useDepositAddress ? 'none' : 'auto'}
-      style={[
-        tw`flex flex-row mt-4`,
-        useDepositAddress ? tw`opacity-50` : {}
-      ]}>
-      <View style={tw`w-full flex-shrink mr-2`}>
-        <Input reference={(el: any) => $address = el}
-          value={focused ? address : shortAddress}
-          style={tw`pl-4 pr-8`}
-          onChange={(value: string) => focused ? setAddress(() => value) : null}
-          onSubmit={() => setFocused(() => false)}
-          placeholder={i18n('form.address.btc')}
-          isValid={!isFieldInError('address')}
-          onFocus={() => setFocused(() => true)}
-          onBlur={() => setFocused(() => false)}
-          errorMessage={getErrorsInField('address')}
-        />
-      </View>
-      <IconButton
-        icon="camera"
-        title={i18n('scanQR')}
-        style={tw`mr-2`}
-        onPress={showQRScanner}
-      />
-      <IconButton
-        icon="copy"
-        title={i18n('paste')}
-        onPress={pasteAddress}
-      />
-    </View>
-    <Pressable style={tw`flex-row items-center px-5 mt-4`}
-      onPress={toggleUseDepositAddress}>
-      {useDepositAddress
-        ? <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string}/>
-        : <View style={tw`w-5 h-5 flex justify-center items-center`}>
-          <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
+  return (
+    <View style={style}>
+      <View
+        pointerEvents={useDepositAddress ? 'none' : 'auto'}
+        style={[tw`flex flex-row mt-4`, useDepositAddress ? tw`opacity-50` : {}]}
+      >
+        <View style={tw`w-full flex-shrink mr-2`}>
+          <Input
+            reference={(el: any) => ($address = el)}
+            value={focused ? address : shortAddress}
+            style={tw`pl-4 pr-8`}
+            onChange={(value: string) => (focused ? setAddress(() => value) : null)}
+            onSubmit={() => setFocused(() => false)}
+            placeholder={i18n('form.address.btc')}
+            isValid={!isFieldInError('address')}
+            onFocus={() => setFocused(() => true)}
+            onBlur={() => setFocused(() => false)}
+            errorMessage={getErrorsInField('address')}
+          />
         </View>
-      }
-      <Text style={tw`mx-4`}>
-        {i18n('sell.returnAddress.useDepositAddress')}
-      </Text>
-    </Pressable>
-    {scanQR
-      ? <View style={tw`mt-20`}>
-        <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQRScanner}/>
+        <IconButton icon="camera" title={i18n('scanQR')} style={tw`mr-2`} onPress={showQRScanner} />
+        <IconButton icon="copy" title={i18n('paste')} onPress={pasteAddress} />
       </View>
-      : null}
-  </View>
+      {!required ? (
+        <Pressable style={tw`flex-row items-center px-5 mt-4`} onPress={toggleUseDepositAddress}>
+          {useDepositAddress ? (
+            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+          ) : (
+            <View style={tw`w-5 h-5 flex justify-center items-center`}>
+              <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
+            </View>
+          )}
+          <Text style={tw`mx-4`}>{i18n('sell.returnAddress.useDepositAddress')}</Text>
+        </Pressable>
+      ) : null}
+      {scanQR ? (
+        <View style={tw`mt-20`}>
+          <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQRScanner} />
+        </View>
+      ) : null}
+    </View>
+  )
 }

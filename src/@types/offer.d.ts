@@ -1,5 +1,7 @@
 declare type OfferStatus = {
-  status: 'escrowWaitingForConfirmation'
+  status:
+    | 'escrowWaitingForConfirmation'
+    | 'returnAddressRequired'
     | 'offerPublished'
     | 'searchingForPeer'
     | 'match'
@@ -8,8 +10,10 @@ declare type OfferStatus = {
     | 'offerCanceled'
     | 'tradeCanceled'
     | 'null'
-  requiredAction: ''
+  requiredAction:
+    | ''
     | 'fundEscrow'
+    | 'provideReturnAddress'
     | 'refundEscrow'
     | 'checkMatches'
     | 'sendKYC'
@@ -24,26 +28,27 @@ declare type OfferStatus = {
 }
 
 declare type SellOffer = Omit<Offer, 'id'> & {
-  id?: string,
-  type: 'ask',
-  premium: number,
-  kycType?: KYCType,
-  returnAddress?: string,
-  returnAddressSet?: boolean,
-  escrow?: string,
-  funding: FundingStatus,
-  tx?: string,
-  refundTx?: string, // base 64 encoded psbt
-  txId?: string,
-  released: boolean,
-  matched: Offer['id'][],
-  seenMatches: Offer['id'][],
+  id?: string
+  type: 'ask'
+  premium: number
+  kycType?: KYCType
+  returnAddress?: string
+  returnAddressSet?: boolean
+  returnAddressRequired?: boolean
+  escrow?: string
+  funding: FundingStatus
+  tx?: string
+  refundTx?: string // base 64 encoded psbt
+  txId?: string
+  released: boolean
+  matched: Offer['id'][]
+  seenMatches: Offer['id'][]
 }
 
 declare type BuyOffer = Omit<Offer, 'id'> & {
-  id?: string,
+  id?: string
   type: 'bid'
-  releaseAddress?: string,
-  matched: Offer['id'][],
-  seenMatches: Offer['id'][],
+  releaseAddress?: string
+  matched: Offer['id'][]
+  seenMatches: Offer['id'][]
 }

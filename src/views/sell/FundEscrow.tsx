@@ -114,6 +114,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ...offer,
           funding: result.funding,
           returnAddress: result.returnAddress,
+          returnAddressRequired: result.returnAddressRequired,
         })
         setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
@@ -138,7 +139,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
 
     if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
-      navigation.replace('search', { offer })
+      if (offer.returnAddressRequired) {
+        navigation.replace('setReturnAddress', { offer })
+      } else {
+        navigation.replace('search', { offer })
+      }
     }
   }, [fundingStatus])
 

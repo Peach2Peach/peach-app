@@ -192,6 +192,7 @@ declare type FundingStatusResponse = {
   funding: FundingStatus
   error?: FundingError
   returnAddress: string
+  returnAddressRequired: boolean
 }
 
 declare type CancelOfferRequest = {
