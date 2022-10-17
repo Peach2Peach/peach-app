@@ -2,14 +2,14 @@ import { accessToken } from '../..'
 import { error, info } from '../../../log'
 import { auth } from './auth'
 
-let fetchingToken: Promise<AccessToken>|null
+let fetchingToken: Promise<AccessToken> | null
 
 /**
  * @description Method to get and return access token
  * @returns Access Token
  */
 export const getAccessToken = async (): Promise<string> => {
-  if (accessToken && accessToken.expiry > (new Date()).getTime() + 60 * 1000) {
+  if (accessToken && accessToken.expiry > new Date().getTime() + 60 * 1000) {
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
 
@@ -24,7 +24,7 @@ export const getAccessToken = async (): Promise<string> => {
 
   // eslint-disable-next-line require-atomic-updates
   fetchingToken = new Promise(async (resolve) => {
-    const [result, err] = await auth()
+    const [result, err] = await auth({})
 
     if (!result || err) {
       error('peachAPI - getAccessToken', new Error(err?.error))
