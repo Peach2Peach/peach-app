@@ -21,8 +21,8 @@ import { initSession } from '../utils/session'
  */
 export const getPeachInfo = async (account?: Account) => {
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
-    getInfo({}),
-    account?.publicKey ? getTradingLimit() : [defaultAccount.tradingLimit, null],
+    getInfo({ timeout: 10000 }),
+    account?.publicKey ? getTradingLimit({ timeout: 5000 }) : [defaultAccount.tradingLimit, null],
   ])
 
   let peachInfo = peachInfoResponse
@@ -46,7 +46,7 @@ export const getPeachInfo = async (account?: Account) => {
     setPeachFee(peachInfo.fees.escrow)
     setLatestAppVersion(peachInfo.latestAppVersion)
     setMinAppVersion(peachInfo.minAppVersion)
-    await writeFile('/peach-info.json', JSON.stringify(peachInfo))
+    writeFile('/peach-info.json', JSON.stringify(peachInfo))
   }
 }
 
