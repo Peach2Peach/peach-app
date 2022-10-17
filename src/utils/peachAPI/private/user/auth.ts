@@ -7,7 +7,7 @@ import { error, info } from '../../../log'
 import { parseError } from '../../../system'
 
 const tokenNotFoundError = {
-  error: 'Token not found'
+  error: 'Token not found',
 }
 
 /**
@@ -27,15 +27,15 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
-      })
+        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
+      }),
     })
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]

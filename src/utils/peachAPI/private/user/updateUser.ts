@@ -13,10 +13,10 @@ type PGPPayload = {
   pgpSignature: string
 }
 
-const getPGPUpdatePayload = async (pgp?: PGPKeychain): Promise<{}|PGPPayload> => {
+const getPGPUpdatePayload = async (pgp?: PGPKeychain): Promise<{} | PGPPayload> => {
   if (!peachAccount || !pgp) return {}
 
-  const message = 'Peach new PGP key ' + (new Date()).getTime()
+  const message = 'Peach new PGP key ' + new Date().getTime()
   const pgpSignature = await OpenPGP.sign(message, pgp.publicKey, pgp.privateKey, '')
 
   return {
@@ -44,22 +44,22 @@ export type UpdateUserProps = {
 export const updateUser = async ({
   pgp,
   fcmToken,
-  referralCode
-}: UpdateUserProps): Promise<[APISuccess|null, APIError|null]> => {
+  referralCode,
+}: UpdateUserProps): Promise<[APISuccess | null, APIError | null]> => {
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
   const response = await fetch(`${API_URL}/v1/user`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'PATCH',
     body: JSON.stringify({
       ...(await getPGPUpdatePayload(pgp)),
       fcmToken,
-      referralCode
-    })
+      referralCode,
+    }),
   })
 
   return await parseResponse<APISuccess>(response, 'updateUser')
