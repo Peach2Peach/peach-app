@@ -62,7 +62,7 @@ export const SEPA = ({
         iban: true,
       },
       bic: {
-        required: false,
+        required: true,
         bic: true,
       },
       address: {
@@ -135,7 +135,7 @@ export const SEPA = ({
           onSubmit={() => $address?.focus()}
           reference={(el: any) => ($bic = el)}
           value={bic}
-          required={false}
+          required={true}
           label={i18n('form.bic')}
           placeholder={i18n('form.bic.placeholder')}
           isValid={!isFieldInError('bic')}
