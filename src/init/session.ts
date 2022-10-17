@@ -18,11 +18,12 @@ import { initSession } from '../utils/session'
 /**
  * @description Method to fetch peach info and user trading limit and store values in constants
  * @param account user account
+ * @returns Promise resolving to peach info
  */
-export const getPeachInfo = async (account?: Account) => {
+export const getPeachInfo = async (account?: Account): Promise<GetInfoResponse | null> => {
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
     getInfo({ timeout: 10000 }),
-    account?.publicKey ? getTradingLimit({ timeout: 5000 }) : [defaultAccount.tradingLimit, null],
+    account?.publicKey ? getTradingLimit({ timeout: 10000 }) : [defaultAccount.tradingLimit, null],
   ])
 
   let peachInfo = peachInfoResponse
@@ -48,6 +49,8 @@ export const getPeachInfo = async (account?: Account) => {
     setMinAppVersion(peachInfo.minAppVersion)
     writeFile('/peach-info.json', JSON.stringify(peachInfo))
   }
+
+  return peachInfo
 }
 
 /**
@@ -70,6 +73,10 @@ export const getTrades = async (): Promise<void> => {
   }
 }
 
+/**
+ * @description Method to load user session and account
+ * @returns Promise resolving to true if session could be initialized
+ */
 export default async () => {
   let account
 

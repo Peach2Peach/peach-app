@@ -107,12 +107,6 @@ export const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-  const timeout = setTimeout(() => {
-    // go home anyway after 30 seconds
-    error(new Error('STARTUP_ERROR'))
-    initialNavigation(navigationRef, updateMessage, !!account?.publicKey)
-  }, 30000)
-
   events()
   const sessionInitiated = await session()
 
@@ -123,7 +117,6 @@ export const initApp = async (
     dataMigration()
   }
 
-  clearTimeout(timeout)
   initialNavigation(navigationRef, updateMessage, sessionInitiated)
   await requestUserPermissions()
 }
