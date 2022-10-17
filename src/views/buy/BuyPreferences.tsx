@@ -132,7 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         const [result, err] = await postOffer(offer)
 
         if (result) {
-          getTradingLimit().then(([tradingLimit]) => {
+          getTradingLimit({}).then(([tradingLimit]) => {
             if (tradingLimit) {
               updateTradingLimit(tradingLimit)
             }

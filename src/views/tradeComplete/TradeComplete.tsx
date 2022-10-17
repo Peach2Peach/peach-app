@@ -1,7 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import {
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import analytics from '@react-native-firebase/analytics'
 
 import tw from '../../styles/tailwind'
@@ -16,12 +14,12 @@ import { getTradingLimit } from '../../utils/peachAPI'
 import Rate from './components/Rate'
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['tradeComplete'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['tradeComplete'] }>
+  navigation: StackNavigation
 }
 export default ({ route, navigation }: Props): ReactElement => {
   const [contract, setContract] = useState<Contract>(route.params.contract)
-  const [view, setView] = useState<'seller'|'buyer'|''>('')
+  const [view, setView] = useState<'seller' | 'buyer' | ''>('')
 
   const saveAndUpdate = (contractData: Contract) => {
     setContract(() => contractData)
@@ -30,12 +28,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     setContract(() => route.params.contract)
-    setView(() => account.publicKey === route.params.contract.seller.id ? 'seller' : 'buyer')
+    setView(() => (account.publicKey === route.params.contract.seller.id ? 'seller' : 'buyer'))
   }, [route])
 
   useEffect(() => {
-    (async () => {
-      const [tradingLimit] = await getTradingLimit()
+    ;(async () => {
+      const [tradingLimit] = await getTradingLimit({})
 
       if (tradingLimit) {
         updateTradingLimit(tradingLimit)
@@ -45,15 +43,22 @@ export default ({ route, navigation }: Props): ReactElement => {
       amount: contract.amount,
       value: contract.price,
       currency: contract.currency,
-      payment_method: contract.paymentMethod
+      payment_method: contract.paymentMethod,
     })
   }, [])
 
-  return <View style={tw`h-full flex pb-10 px-6`}>
-    <View style={tw`h-full flex-shrink flex justify-center`}>
-      <BigTitle title={i18n(`tradeComplete.title.${view}.default`)}/>
+  return (
+    <View style={tw`h-full flex pb-10 px-6`}>
+      <View style={tw`h-full flex-shrink flex justify-center`}>
+        <BigTitle title={i18n(`tradeComplete.title.${view}.default`)} />
+      </View>
+      <Rate
+        style={tw`flex justify-between h-full flex-shrink`}
+        contract={contract}
+        view={view}
+        navigation={navigation}
+        saveAndUpdate={saveAndUpdate}
+      />
     </View>
-    <Rate style={tw`flex justify-between h-full flex-shrink`}
-      contract={contract} view={view} navigation={navigation} saveAndUpdate={saveAndUpdate} />
-  </View>
+  )
 }

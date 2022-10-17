@@ -63,7 +63,7 @@ export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
     await confirm(offer)
     setLoading(false)
 
-    getTradingLimit().then(([tradingLimit]) => {
+    getTradingLimit({}).then(([tradingLimit]) => {
       if (tradingLimit) {
         updateTradingLimit(tradingLimit)
       }
