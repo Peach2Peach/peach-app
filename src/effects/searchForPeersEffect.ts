@@ -20,7 +20,7 @@ export default ({
 }: SearchForPeersEffectProps): EffectCallback =>
   () => {
     const checkingInterval = 15 * 1000
-    let interval: NodeJS.Timer
+
     const checkingFunction = async () => {
       if (!offer?.id) return
       if (offer.doubleMatched) return
@@ -45,10 +45,8 @@ export default ({
         onError(err)
       }
     }
-    ;(async () => {
-      interval = setInterval(checkingFunction, checkingInterval)
-      checkingFunction()
-    })()
+    const interval = setInterval(checkingFunction, checkingInterval)
+    checkingFunction()
 
     return () => {
       clearInterval(interval)
