@@ -14,7 +14,7 @@ import {
   getPaymentMethodInfo,
   getPaymentMethods,
   hasMoPsInCommon,
-  paymentMethodAllowedForCurrency
+  paymentMethodAllowedForCurrency,
 } from '../../utils/paymentMethod'
 import { padString } from '../../utils/string'
 import Icon from '../Icon'
@@ -44,7 +44,7 @@ export const Match = ({
   onChange,
   navigation,
   renderShadow,
-  style
+  style,
 }: MatchProps): ReactElement => {
   useContext(LanguageContext)
 
@@ -52,33 +52,31 @@ export const Match = ({
   const [mopsInCommon] = useState(() =>
     hasMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
       ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
-      : match.meansOfPayment
+      : match.meansOfPayment,
   )
   const [paymentMethodsInCommon] = useState(() => getPaymentMethods(mopsInCommon))
   const [allPaymentMethods] = useState(() => getPaymentMethods(match.meansOfPayment))
 
   // 2. if match has mops in common, display only double pairs, if not, display single pairs
-  const [currencies] = useState(() =>
-    getCurrencies(paymentMethodsInCommon.length ? mopsInCommon : match.meansOfPayment)
-  )
+  const [currencies] = useState(() => getCurrencies(paymentMethodsInCommon.length ? mopsInCommon : match.meansOfPayment))
   const [selectedCurrency, setSelectedCurrency] = useState(() =>
-    match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1 ? match.selectedCurrency : currencies[0]
+    match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1 ? match.selectedCurrency : currencies[0],
   )
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
-    match.selectedPaymentMethod || mopsInCommon[selectedCurrency]![0]
+    match.selectedPaymentMethod || mopsInCommon[selectedCurrency]![0],
   )
   const paymentInfo = getPaymentMethodInfo(selectedPaymentMethod)
 
   const [applicablePaymentMethods, setApplicablePaymentMethods] = useState(() =>
     (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
       .filter((p) => paymentMethodAllowedForCurrency(p, selectedCurrency))
-      .filter((p) => mopsInCommon[selectedCurrency]?.indexOf(p) !== -1)
+      .filter((p) => mopsInCommon[selectedCurrency]?.indexOf(p) !== -1),
   )
   const currencySelectorItems = currencies.map((c) => ({ value: c, display: c }))
   const paymentMethodSelectorItems = applicablePaymentMethods.map((p) => ({
     value: p,
-    display: i18n(`paymentMethod.${p}`)
+    display: i18n(`paymentMethod.${p}`),
   }))
 
   const shadow = renderShadow ? (match.matched ? mildShadowOrange : mildShadow) : noShadow
@@ -90,15 +88,15 @@ export const Match = ({
   let displayPrice = String(
     match.matched && match.matchedPrice
       ? match.matchedPrice
-      : paymentInfo.rounded
+      : paymentInfo?.rounded
         ? Math.round(match.prices[selectedCurrency]!)
-        : match.prices[selectedCurrency]
+        : match.prices[selectedCurrency],
   )
   displayPrice = `${displayPrice.split('.')[0]}.${padString({
     string: displayPrice.split('.')[1],
     length: 2,
     char: '0',
-    side: 'right'
+    side: 'right',
   })}`
   const setCurrency = (currency: Currency) => {
     let selectedMethod = selectedPaymentMethod
@@ -107,7 +105,7 @@ export const Match = ({
     setApplicablePaymentMethods(
       (paymentMethodsInCommon.length ? paymentMethodsInCommon : allPaymentMethods)
         .filter((p) => paymentMethodAllowedForCurrency(p, selectedCurrency))
-        .filter((p) => mopsInCommon[currency]?.indexOf(p) !== -1)
+        .filter((p) => mopsInCommon[currency]?.indexOf(p) !== -1),
     )
     if (mopsInCommon[currency]?.indexOf(selectedPaymentMethod) === -1) {
       selectedMethod = (mopsInCommon[currency] || [])[0]
@@ -175,7 +173,7 @@ export const Match = ({
               (
               {i18n(
                 match.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount',
-                String(Math.abs(match.premium))
+                String(Math.abs(match.premium)),
               )}
               )
             </Text>
