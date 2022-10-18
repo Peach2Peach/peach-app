@@ -26,7 +26,7 @@
     "build:ios:mainnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "bump:version": "react-native-version --never-amend",
     "test": "jest --coverage ./tests/unit",
-    "test:ci": "jest --ci ./tests/unit",
+    "test:ci": "jest --ci --forceExit --detectOpenHandles ./tests/unit",
     "test:e2e:ios:build": "detox build --configuration ios",
     "test:e2e:android:build": "detox build --configuration android",
     "test:e2e:ios": "detox test --configuration ios",
