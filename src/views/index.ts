@@ -17,6 +17,7 @@ import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import Search from './search/Search'
 import FundEscrow from './sell/FundEscrow'
+import SetReturnAddress from './sell/SetReturnAddress'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import Backups from './settings/Backups'
@@ -35,10 +36,10 @@ import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
-  name: keyof RootStackParamList,
-  component: (props: any) => ReactElement,
-  showHeader: boolean,
-  showFooter: boolean,
+  name: keyof RootStackParamList
+  component: (props: any) => ReactElement
+  showHeader: boolean
+  showFooter: boolean
 }
 
 export const views: ViewType[] = [
@@ -54,6 +55,7 @@ export const views: ViewType[] = [
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
   { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
   { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
+  { name: 'setReturnAddress', component: SetReturnAddress, showHeader: true, showFooter: true },
   { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
   { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
   { name: 'search', component: Search, showHeader: true, showFooter: true },

@@ -47,7 +47,7 @@ export default ({ navigation }: Props): ReactElement => {
     deviceLocale: 'default',
     state: { password, referralCode },
     rules,
-    messages: getMessages()
+    messages: getMessages(),
   })
 
   const validateForm = () =>
@@ -56,11 +56,11 @@ export default ({ navigation }: Props): ReactElement => {
     || validate({
       password: {
         required: true,
-        password: true
+        password: true,
       },
       referralCode: {
-        referralCode: true
-      }
+        referralCode: true,
+      },
     })
 
   const checkPasswordMatch = () => {
@@ -83,20 +83,20 @@ export default ({ navigation }: Props): ReactElement => {
   const onError = (e: Error) => {
     updateMessage({
       msgKey: e.message || 'AUTHENTICATION_FAILURE',
-      level: 'ERROR'
+      level: 'ERROR',
     })
     if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
         updateOverlay({ content: null })
-      }
+      },
     })
   }
 
   const onSuccess = async () => {
     try {
-      const [result, authError] = await auth()
+      const [result, authError] = await auth({})
       if (result) {
         updateOverlay({ content: <SaveYourPassword />, showCloseButton: false })
 
@@ -190,7 +190,7 @@ export default ({ navigation }: Props): ReactElement => {
             <Text
               style={[
                 tw`font-baloo text-2xs text-grey-3 text-center`,
-                !passwordMatch || isFieldInError('password') ? tw`text-red` : {}
+                !passwordMatch || isFieldInError('password') ? tw`text-red` : {},
               ]}
             >
               {!passwordMatch ? i18n('form.password.match.error') : i18n('form.password.error')}

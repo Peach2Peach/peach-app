@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import { View, Pressable, GestureResponderEvent, ViewStyle } from 'react-native'
+import { View, Pressable, GestureResponderEvent } from 'react-native'
 import { Style } from 'twrnc/dist/esm/types'
 import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'

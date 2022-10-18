@@ -76,7 +76,7 @@ declare type Pricebook = {
   [key in Currency]?: number
 }
 declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
-declare type Location = 'amsterdam'
+declare type Location = 'amsterdam' | 'belgianEmbassy'
 declare type PaymentMethod =
   | 'sepa'
   | 'paypal'
@@ -192,6 +192,7 @@ declare type FundingStatusResponse = {
   funding: FundingStatus
   error?: FundingError
   returnAddress: string
+  returnAddressRequired: boolean
 }
 
 declare type CancelOfferRequest = {

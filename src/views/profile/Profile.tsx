@@ -66,7 +66,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           return
         }
         setUpdatePending(true)
-        const [response, err] = await getUser(userId)
+        const [response, err] = await getUser({ userId })
 
         if (response) {
           setUser(response)
@@ -76,7 +76,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         // TODO add error handling if request failed
       })()
-    }, [])
+    }, []),
   )
 
   const copy = () => {
@@ -119,7 +119,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 <Text
                   style={[
                     tw`absolute -top-6 w-20 left-1/2 -ml-10`,
-                    tw`font-baloo text-grey-1 text-sm uppercase text-center`
+                    tw`font-baloo text-grey-1 text-sm uppercase text-center`,
                   ]}
                 >
                   {i18n('copied')}

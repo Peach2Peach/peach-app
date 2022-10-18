@@ -1,22 +1,30 @@
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
-import fetch from '../../../fetch'
+import { parseResponse, RequestProps } from '../..'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { getAccessToken } from '../user'
+
+type GetofferDetailsProps = RequestProps & {
+  offerId: string
+}
 
 /**
  * @description Method to get offer
  * @param offerId offer id
  * @returns GetOffersResponse
  */
-export const getOfferDetails = async (offerId: string): Promise<[BuyOffer|SellOffer|null, APIError|null]> => {
+export const getOfferDetails = async ({
+  offerId,
+  timeout,
+}: GetofferDetailsProps): Promise<[BuyOffer | SellOffer | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/details`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    method: 'GET'
+    method: 'GET',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
-  return await parseResponse<BuyOffer|SellOffer>(response, 'getOffer')
+  return await parseResponse<BuyOffer | SellOffer>(response, 'getOffer')
 }

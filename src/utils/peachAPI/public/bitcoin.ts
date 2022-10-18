@@ -1,9 +1,9 @@
 import { API_URL } from '@env'
-import { parseResponse } from '..'
-import fetch from '../../fetch'
+import { parseResponse, RequestProps } from '..'
+import fetch, { getAbortSignal } from '../../fetch'
 
-type GetTxProps = {
-  txId: string,
+type GetTxProps = RequestProps & {
+  txId: string
 }
 
 /**
@@ -11,22 +11,21 @@ type GetTxProps = {
  * @param txId transaction id
  * @returns GetTxResponse
  */
-export const getTx = async ({
-  txId,
-}: GetTxProps): Promise<[GetTxResponse|null, APIError|null]> => {
+export const getTx = async ({ txId, timeout }: GetTxProps): Promise<[GetTxResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/tx/${txId}`, {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'GET',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<GetTxResponse>(response, 'postTx')
 }
 
-type PostTxProps = {
-  tx: string,
+type PostTxProps = RequestProps & {
+  tx: string
 }
 
 /**
@@ -34,18 +33,17 @@ type PostTxProps = {
  * @param tx offer id
  * @returns PostTxResponse
  */
-export const postTx = async ({
-  tx,
-}: PostTxProps): Promise<[PostTxResponse|null, APIError|null]> => {
+export const postTx = async ({ tx, timeout }: PostTxProps): Promise<[PostTxResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/tx`, {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
-      tx
-    })
+      tx,
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<PostTxResponse>(response, 'postTx')

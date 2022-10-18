@@ -32,10 +32,10 @@ export const readDir = async (path: string): Promise<string[]> =>
  * @description Method to read file
  * @param path path to file
  * @param password secret
- * @return Promise resolving to file fontent
+ * @return Promise resolving to file content
  */
 export const readFile = async (path: string, password?: string): Promise<string> => {
-  info(password ? 'Reading encrypted file' : 'Reading file')
+  info(password ? 'Reading encrypted file' : 'Reading file', path)
   let content = ''
 
   try {
@@ -60,6 +60,7 @@ export const readFile = async (path: string, password?: string): Promise<string>
  * @returns Promise resolving to true if operation was successful
  */
 export const writeFile = async (path: string, content: string, password?: string): Promise<boolean> => {
+  info(password ? 'Writing encrypted file' : 'Writing file', path)
   let encrypted
   try {
     if (password) {

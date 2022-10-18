@@ -1,18 +1,18 @@
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
-import fetch from '../../../fetch'
+import { parseResponse, RequestProps } from '../..'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { getAccessToken } from '../user'
 
-type MatchProps = {
-  offerId: string,
-  matchingOfferId: string,
-  currency: Currency,
-  paymentMethod: PaymentMethod,
-  symmetricKeyEncrypted?: string,
-  symmetricKeySignature?: string,
-  paymentDataEncrypted?: string,
-  paymentDataSignature?: string,
-  hashedPaymentData?: string,
+type MatchProps = RequestProps & {
+  offerId: string
+  matchingOfferId: string
+  currency: Currency
+  paymentMethod: PaymentMethod
+  symmetricKeyEncrypted?: string
+  symmetricKeySignature?: string
+  paymentDataEncrypted?: string
+  paymentDataSignature?: string
+  hashedPaymentData?: string
 }
 
 /**
@@ -30,12 +30,13 @@ export const matchOffer = async ({
   paymentDataEncrypted,
   paymentDataSignature,
   hashedPaymentData,
-}: MatchProps): Promise<[MatchResponse|null, APIError|null]> => {
+  timeout,
+}: MatchProps): Promise<[MatchResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       matchingOfferId,
@@ -47,7 +48,8 @@ export const matchOffer = async ({
       paymentDataSignature,
       hashedPaymentData,
     }),
-    method: 'POST'
+    method: 'POST',
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<MatchResponse>(response, 'matchOffer')

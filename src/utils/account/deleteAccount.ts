@@ -1,10 +1,10 @@
 import analytics from '@react-native-firebase/analytics'
 
-import { setAccount, defaultAccount } from '.'
+import { defaultAccount, setAccount } from '.'
 import { deleteFile, exists, readDir } from '../file'
 import { info } from '../log'
 import { deleteAccessToken, deletePeachAccount, logoutUser } from '../peachAPI'
-import { setSession } from '../session'
+import { setSessionItem } from '../session'
 
 interface DeleteAccountProps {
   onSuccess: Function
@@ -33,19 +33,19 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   setAccount(defaultAccount, true)
 
-  accountFiles.forEach(async file => {
+  accountFiles.forEach(async (file) => {
     if (await exists(file)) await deleteFile(file)
   })
 
-  accountFolders.forEach(async folder => {
+  accountFolders.forEach(async (folder) => {
     if (!(await exists(folder))) return
     const files = await readDir(folder)
-    await Promise.all(files.map(file => deleteFile(file)))
+    await Promise.all(files.map((file) => deleteFile(file)))
   })
 
-  logoutUser()
+  logoutUser({})
 
-  await setSession({ password: null })
+  await setSessionItem('password', null)
   deleteAccessToken()
   deletePeachAccount()
   onSuccess()

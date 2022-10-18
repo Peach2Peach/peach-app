@@ -1,20 +1,22 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import fetch from '../../../fetch'
-import { getResponseError, peachAccount, setAccessToken } from '../..'
+import fetch, { getAbortSignal } from '../../../fetch'
+import { getResponseError, peachAccount, RequestProps, setAccessToken } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
 
 const tokenNotFoundError = {
-  error: 'Token not found'
+  error: 'Token not found',
 }
+
+type AuthProps = RequestProps
 
 /**
  * @description Method to authenticate with Peach API
  * @returns AccessToken or APIError
  */
-export const auth = async (): Promise<[AccessToken | null, APIError | null]> => {
+export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
   const message = 'Peach Registration ' + new Date().getTime()
 
   if (!peachAccount) {
@@ -27,15 +29,16 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
-      })
+        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
+      }),
+      signal: timeout ? getAbortSignal(timeout) : undefined,
     })
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]

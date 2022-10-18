@@ -1,11 +1,11 @@
-import fetch from '../../../fetch'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse } from '../..'
+import { parseResponse, RequestProps } from '../..'
 import { getAccessToken } from '../user'
 
-type CancelContractProps = {
-  contractId: Contract['id'],
-  satsPerByte?: number,
+type CancelContractProps = RequestProps & {
+  contractId: Contract['id']
+  satsPerByte?: number
 }
 
 /**
@@ -17,17 +17,19 @@ type CancelContractProps = {
 export const cancelContract = async ({
   contractId,
   satsPerByte,
-}: CancelContractProps): Promise<[CancelContractResponse|null, APIError|null]> => {
+  timeout,
+}: CancelContractProps): Promise<[CancelContractResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel`, {
     headers: {
       Authorization: await getAccessToken(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
-      satsPerByte
-    })
+      satsPerByte,
+    }),
+    signal: timeout ? getAbortSignal(timeout) : undefined,
   })
 
   return await parseResponse<CancelContractResponse>(response, 'cancelContract')

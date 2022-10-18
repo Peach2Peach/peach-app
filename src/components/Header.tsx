@@ -1,4 +1,3 @@
-
 import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { LayoutChangeEvent, Pressable, View } from 'react-native'
@@ -23,13 +22,13 @@ import { Fade } from './animation'
 import Logo from '../assets/logo/peachLogo.svg'
 
 let HEADERHEIGHT = 56
-const setHeaderHeight = (event: LayoutChangeEvent) => HEADERHEIGHT = event.nativeEvent.layout.height
+const setHeaderHeight = (event: LayoutChangeEvent) => (HEADERHEIGHT = event.nativeEvent.layout.height)
 export const getHeaderHeight = () => HEADERHEIGHT
 
 let goHomeTimeout: NodeJS.Timer
 
 type HeaderProps = ComponentProps & {
-  navigation: Navigation,
+  navigation: Navigation
 }
 
 /**
@@ -45,32 +44,36 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
     analytics().logAppOpen()
   }, [])
 
-  useEffect(appStateEffect({
-    callback: isActive => {
-      setActive(isActive)
-      if (isActive) {
-        getPeachInfo(getAccount())
-        getTrades()
-        updateAppContext({
-          notifications: getChatNotifications() + getRequiredActionCount()
-        })
-        analytics().logAppOpen()
+  useEffect(
+    appStateEffect({
+      callback: (isActive) => {
+        setActive(isActive)
+        if (isActive) {
+          getPeachInfo(getAccount())
+          getTrades()
+          updateAppContext({
+            notifications: getChatNotifications() + getRequiredActionCount(),
+          })
+          analytics().logAppOpen()
 
-        clearTimeout(goHomeTimeout)
-      } else {
-        goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
-      }
-    }
-  }), [])
+          clearTimeout(goHomeTimeout)
+        } else {
+          goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
+        }
+      },
+    }),
+    [],
+  )
 
   useEffect(() => {
     if (!active) return () => {}
 
+    const checkingInterval = 15 * 1000
     const checkingFunction = async () => {
-      const [prices] = await marketPrices()
+      const [prices] = await marketPrices({ timeout: checkingInterval })
       if (prices) updateBitcoinContext({ prices })
     }
-    const interval = setInterval(checkingFunction, 15 * 1000)
+    const interval = setInterval(checkingFunction, checkingInterval)
     updateBitcoinContext({ currency: account.settings.displayCurrency })
     checkingFunction()
 
@@ -81,29 +84,29 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
 
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
 
-  return <View style={style} onLayout={setHeaderHeight}>
-    <Shadow shadow={mildShadow}>
-      <View style={tw`w-full flex-row items-center justify-between px-4 py-2 bg-white-1`}>
-        <Fade show={!!bitcoinContext.price} style={tw`w-1/2`} displayNone={false}>
-          <Text style={tw`font-lato leading-5 text-grey-1`}>1 Bitcoin</Text>
-          <Text style={tw`font-lato leading-5 text-peach-1`}>
-            {i18n(`currency.format.${bitcoinContext.currency}`, thousands(Math.round(bitcoinContext.price)))}
-          </Text>
-        </Fade>
-        <Pressable onPress={goToMyAccount} style={tw`absolute w-10 left-1/2 -ml-2`}>
-          <Logo style={tw`w-12 h-12`} />
-        </Pressable>
-        <Fade show={!!bitcoinContext.price} style={tw`w-1/2`} displayNone={false}>
-          <Text style={tw`font-lato leading-5 text-grey-1 text-right`}>
-            1 {bitcoinContext.currency}
-          </Text>
-          <Text style={tw`font-lato leading-5 text-peach-1 text-right`}>
-            {i18n('currency.format.sats', thousands(Math.round(bitcoinContext.satsPerUnit)))}
-          </Text>
-        </Fade>
-      </View>
-    </Shadow>
-  </View>
+  return (
+    <View style={style} onLayout={setHeaderHeight}>
+      <Shadow shadow={mildShadow}>
+        <View style={tw`w-full flex-row items-center justify-between px-4 py-2 bg-white-1`}>
+          <Fade show={!!bitcoinContext.price} style={tw`w-1/2`} displayNone={false}>
+            <Text style={tw`font-lato leading-5 text-grey-1`}>1 Bitcoin</Text>
+            <Text style={tw`font-lato leading-5 text-peach-1`}>
+              {i18n(`currency.format.${bitcoinContext.currency}`, thousands(Math.round(bitcoinContext.price)))}
+            </Text>
+          </Fade>
+          <Pressable onPress={goToMyAccount} style={tw`absolute w-10 left-1/2 -ml-2`}>
+            <Logo style={tw`w-12 h-12`} />
+          </Pressable>
+          <Fade show={!!bitcoinContext.price} style={tw`w-1/2`} displayNone={false}>
+            <Text style={tw`font-lato leading-5 text-grey-1 text-right`}>1 {bitcoinContext.currency}</Text>
+            <Text style={tw`font-lato leading-5 text-peach-1 text-right`}>
+              {i18n('currency.format.sats', thousands(Math.round(bitcoinContext.satsPerUnit)))}
+            </Text>
+          </Fade>
+        </View>
+      </Shadow>
+    </View>
+  )
 }
 
 export default Header
