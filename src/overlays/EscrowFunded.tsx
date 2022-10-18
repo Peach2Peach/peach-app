@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
@@ -9,6 +9,7 @@ import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import { Navigation } from '../utils/navigation'
 import { getOffer } from '../utils/offer'
+import { getOfferDetails } from '../utils/peachAPI'
 
 type Props = {
   offerId: Offer['id']
@@ -17,17 +18,33 @@ type Props = {
 
 export default ({ offerId, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const [offer, setOffer] = useState(getOffer(offerId))
 
   const closeOverlay = () => {
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  const goToOffer = () => {
-    const offer = getOffer(offerId)
-
-    if (offer) navigation.navigate({ name: 'offer', merge: false, params: { offer } })
-    closeOverlay()
+  const goToOffer = async (): Promise<void> => {
+    if (!offer) return closeOverlay()
+    if (offer.type === 'ask' && offer.returnAddressRequired) {
+      navigation.navigate('setReturnAddress', { offer })
+    } else {
+      navigation.navigate({ name: 'offer', merge: false, params: { offer } })
+    }
+    return closeOverlay()
   }
+
+  useEffect(() => {
+    ;(async () => {
+      const [result] = await getOfferDetails({
+        offerId,
+      })
+
+      if (result) {
+        setOffer(result)
+      }
+    })()
+  }, [])
 
   return (
     <View style={tw`px-6`}>
