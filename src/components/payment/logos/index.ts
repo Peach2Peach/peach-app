@@ -7,6 +7,7 @@ import satispay from './satispay.svg'
 import swish from './swish.svg'
 import twint from './twint.svg'
 import wise from './wise.svg'
+import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 
 const PaymentLogos = {
@@ -21,6 +22,7 @@ const PaymentLogos = {
   twint,
   wise,
   'cash.amsterdam': bitcoinAmsterdam,
+  'cash.belgianEmbassy': bitcoin,
 }
 
 export type PaymentLogoType = keyof typeof PaymentLogos
