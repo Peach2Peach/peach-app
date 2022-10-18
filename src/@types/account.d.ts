@@ -26,12 +26,15 @@ declare type PGPKeychain = {
   publicKey: string
 }
 
-declare type Account = {
-  version: string
+declare type Identity = {
   publicKey: string
   privKey?: string
   mnemonic?: string
   pgp: PGPKeychain
+}
+
+declare type Account = Identity & {
+  version: string
   settings: Settings
   paymentData: PaymentData[]
   tradingLimit: TradingLimit
