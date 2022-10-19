@@ -28,6 +28,7 @@ import { Cash } from './Cash'
 import { COUNTRIES } from '../../../../constants'
 import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
+import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -64,6 +65,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   'giftCard.amazon': GiftCardAmazon,
   cash: Cash,
   'cash.amsterdam': CashAmsterdam,
+  'cash.belgianEmbassy': CashBelgianEmbassy,
 }
 COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
 
@@ -137,8 +139,8 @@ export const PaymentMethodForm = ({
               id="arrowLeft"
               style={tw`w-10 h-10`}
               color={
-                specialTemplates[paymentMethod]
-                  ? (specialTemplates[paymentMethod]!.button.bgColor.backgroundColor as string)
+                specialTemplates[paymentMethod] && specialTemplates[paymentMethod]!.button
+                  ? (specialTemplates[paymentMethod]!.button!.bgColor.backgroundColor as string)
                   : (tw`text-peach-1`.color as string)
               }
             />
@@ -150,8 +152,10 @@ export const PaymentMethodForm = ({
               wide={false}
               onPress={() => $formRef?.save()}
               title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-              textColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button.textColor : undefined}
-              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button.bgColor : undefined}
+              textColor={
+                specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button?.textColor : undefined
+              }
+              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button?.bgColor : undefined}
             />
           </View>
         </View>
