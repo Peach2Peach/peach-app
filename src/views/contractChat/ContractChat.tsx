@@ -23,6 +23,7 @@ import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
+import { endDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>
@@ -39,7 +40,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User | null>(
-    contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null
+    contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null,
   )
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
@@ -66,8 +67,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           path: '/v1/contract/chat',
           contractId: contract.id,
           message: encryptedResult.encrypted,
-          signature: encryptedResult.signature
-        })
+          signature: encryptedResult.signature,
+        }),
       )
     }
 
@@ -81,12 +82,12 @@ export default ({ route, navigation }: Props): ReactElement => {
             date: new Date(),
             readBy: [],
             message,
-            signature: encryptedResult.signature
-          }
+            signature: encryptedResult.signature,
+          },
         ],
-        lastSeen: new Date()
+        lastSeen: new Date(),
       },
-      false
+      false,
     )
   }
 
@@ -123,7 +124,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     updateMessage({
       template: <DisputeDisclaimer navigation={navigation} contract={contract!} />,
       level: 'INFO',
-      close: false
+      close: false,
     })
   }
 
@@ -145,10 +146,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         const decryptedMessage = {
           ...message,
           date: new Date(message.date),
-          message: await decryptSymmetric(message.message, contract.symmetricKey)
+          message: await decryptSymmetric(message.message, contract.symmetricKey),
         }
         setAndSaveChat(contractId, {
-          messages: [decryptedMessage]
+          messages: [decryptedMessage],
         })
         if (!message.readBy.includes(account.publicKey)) {
           ws.send(
@@ -156,8 +157,8 @@ export default ({ route, navigation }: Props): ReactElement => {
               path: '/v1/contract/chat/received',
               contractId: contract.id,
               start: message.date,
-              end: message.date
-            })
+              end: message.date,
+            }),
           )
         }
       }
@@ -168,7 +169,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!ws.connected) return unsubscribe
       ws.on('message', messageHandler)
       return unsubscribe
-    }, [contract, ws.connected])
+    }, [contract, ws.connected]),
   )
 
   useFocusEffect(
@@ -184,7 +185,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           const { symmetricKey, paymentData } = await parseContract({
             ...result,
             symmetricKey: c?.symmetricKey,
-            paymentData: c?.paymentData
+            paymentData: c?.paymentData,
           })
 
           c = saveAndUpdate(
@@ -193,13 +194,13 @@ export default ({ route, navigation }: Props): ReactElement => {
                 ...c,
                 ...result,
                 symmetricKey,
-                paymentData
+                paymentData,
               }
               : {
                 ...result,
                 symmetricKey,
-                paymentData
-              }
+                paymentData,
+              },
           )
 
           handleOverlays({ contract: c, navigation, updateOverlay, view })
@@ -207,11 +208,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         onError: (err) =>
           updateMessage({
             msgKey: err.error || 'error.general',
-            level: 'ERROR'
-          })
+            level: 'ERROR',
+          }),
       }),
-      [contractId]
-    )
+      [contractId],
+    ),
   )
 
   // Show dispute disclaimer
@@ -234,12 +235,12 @@ export default ({ route, navigation }: Props): ReactElement => {
           // delete symmetric key to let app decrypt actual one
           const { symmetricKey } = await parseContract({
             ...contract,
-            symmetricKey: undefined
+            symmetricKey: undefined,
           })
           saveAndUpdate({
             ...contract,
             unreadMessages: 0,
-            symmetricKey
+            symmetricKey,
           })
 
           decryptedMessages = await Promise.all(decryptedMessages.map(decryptMessage(chat, symmetricKey)))
@@ -249,10 +250,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           error('Could not decrypt all messages', contract.id)
         }
 
-        decryptedMessages = decryptedMessages.concat(createDisputeSystemMessages(chat.id, contract))
-
         setAndSaveChat(contractId, {
-          messages: decryptedMessages
+          messages: decryptedMessages,
         })
         setLoadingMessages(false)
         setUpdatePending(false)
@@ -262,9 +261,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         setLoadingMessages(false)
         updateMessage({
           msgKey: err.error || 'error.general',
-          level: 'ERROR'
+          level: 'ERROR',
         })
-      }
+      },
     })()
   }, [contract, page])
 
