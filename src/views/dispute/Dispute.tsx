@@ -8,7 +8,6 @@ import { OverlayContext } from '../../contexts/overlay'
 import WhatIsADispute from '../../overlays/WhatIsADispute'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
-import { getContract as getContractAPI } from '../../utils/peachAPI'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
