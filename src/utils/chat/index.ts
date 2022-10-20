@@ -1,5 +1,4 @@
 export { createSystemMessage } from './createSystemMessage'
-export { createDisputeSystemMessages } from './createDisputeSystemMessages'
 export { decryptMessage } from './decryptMessage'
 export { getChat } from './getChat'
 export { getUnsentMessages } from './getUnsentMessages'
