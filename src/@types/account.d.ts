@@ -34,7 +34,6 @@ declare type Identity = {
 }
 
 declare type Account = Identity & {
-  version: string
   settings: Settings
   paymentData: PaymentData[]
   tradingLimit: TradingLimit
