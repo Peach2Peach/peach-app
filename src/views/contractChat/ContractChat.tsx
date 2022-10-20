@@ -9,7 +9,7 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import { account } from '../../utils/account'
-import { decryptMessage, getChat, popUnsentMessages, saveChat, createDisputeSystemMessages } from '../../utils/chat'
+import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
@@ -23,7 +23,6 @@ import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
-import { endDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>

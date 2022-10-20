@@ -1,5 +1,4 @@
 import { account } from '../account'
-import { info } from '../log'
 
 /**
  * @description Method to get saved chat
