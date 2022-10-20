@@ -13,6 +13,9 @@ import { createSystemMessage } from './createSystemMessage'
  */
 export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract): Message[] => {
   let messages: Message[] = []
+  info('dispute date: ' + contract.disputeDate)
+  info('dispute initiator: ' + contract.disputeInitiator)
+
   if (contract.disputeDate && contract.disputeInitiator) {
     const initiator = i18n(contract.disputeInitiator === contract.seller.id ? 'seller' : 'buyer')
     const initiatorId = `Peach${contract.disputeInitiator.substring(0, 8)}`
@@ -20,11 +23,12 @@ export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract
     messages = messages.concat([
       createSystemMessage(
         roomId,
-        contract.disputeDate,
+        new Date(Date.now()),
         i18n('chat.systemMessage.disputeStarted', initiator, initiatorId, reason),
       ),
       createSystemMessage(roomId, contract.disputeDate, i18n('chat.systemMessage.mediatorWillJoinSoon')),
     ])
+
     if (isEmailRequired(contract.disputeReason!)) {
       messages = messages.concat([
         createSystemMessage(
@@ -52,7 +56,7 @@ export const endDisputeSystemMessages = (roomId: Chat['id'], contract: Contract)
       messages.push(
         createSystemMessage(
           roomId,
-          contract.disputeResolvedDate,
+          new Date(Date.now()),
           i18n('chat.systemMessage.disputeResolved', initiator, initiatorId),
         ),
       )

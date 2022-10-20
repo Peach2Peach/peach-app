@@ -7,8 +7,8 @@ import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/Co
 import YouGotADispute from '../../../overlays/YouGotADispute'
 import { account } from '../../../utils/account'
 import { StackNavigation } from '../../../utils/navigation'
-import { createDisputeSystemMessages, getChat, saveChat } from '../../../utils/chat'
-import { endDisputeSystemMessages, initDisputeSystemMessages } from '../../../utils/chat/createDisputeSystemMessages'
+import { getChat, saveChat } from '../../../utils/chat'
+import { endDisputeSystemMessages } from '../../../utils/chat/createDisputeSystemMessages'
 
 type HandleOverlaysProps = {
   contract: Contract

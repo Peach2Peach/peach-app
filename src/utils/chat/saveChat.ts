@@ -1,6 +1,7 @@
 import { account } from '../account'
 import { storeChat } from '../account/storeAccount'
 import { unique } from '../array'
+import { info } from '../log'
 import { session } from '../session'
 import { getChat } from './getChat'
 
