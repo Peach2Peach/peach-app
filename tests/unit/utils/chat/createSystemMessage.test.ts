@@ -25,7 +25,7 @@ describe('createSystemMessage', () => {
       date: now,
       readBy: [accountData.account1.publicKey],
       message: 'Test',
-      signature: accountData.account1.signature,
+      signature: systemMessage.signature,
     })
   })
 })
