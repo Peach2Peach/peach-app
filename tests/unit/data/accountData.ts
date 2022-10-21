@@ -159,7 +159,6 @@ export const contract: Contract = {
 }
 
 export const recoveredAccount: Account = {
-  version: '0.1.4',
   settings: {
     enableAnalytics: false,
     locale: 'en',
@@ -196,7 +195,6 @@ export const recoveredAccount: Account = {
 }
 
 export const account1: Account = {
-  version: '0.1.4',
   settings: {
     appVersion: '0.1.0',
     enableAnalytics: false,
@@ -235,7 +233,6 @@ export const account1: Account = {
 }
 
 export const seller: Account = {
-  version: '0.1.4',
   settings: {
     appVersion: '0.1.0',
     enableAnalytics: false,
@@ -274,7 +271,6 @@ export const seller: Account = {
 }
 
 export const buyer: Account = {
-  version: '0.1.4',
   settings: {
     appVersion: '0.1.0',
     enableAnalytics: false,
@@ -315,7 +311,6 @@ export const buyer: Account = {
 }
 
 export const userWithNoTrades: Account = {
-  version: '0.1.4',
   settings: {
     appVersion: '0.1.0',
     enableAnalytics: false,

@@ -4,7 +4,7 @@ import { ViewStyle } from 'react-native'
 
 type SpecialTemplate = {
   style: ViewStyle
-  button: {
+  button?: {
     textColor: Style
     bgColor: Style
   }
@@ -17,6 +17,11 @@ export const specialTemplates: Partial<Record<PaymentMethod, SpecialTemplate>> =
     button: {
       textColor: tw`text-[#FF9500]`,
       bgColor: tw`bg-white-1`,
+    },
+  },
+  'cash.belgianEmbassy': {
+    style: {
+      backgroundColor: '#FFF9F6',
     },
   },
 }

@@ -7,7 +7,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef
+  useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
@@ -70,7 +70,7 @@ const App: React.FC = () => {
     = useReducer(setDrawer, getDrawer())
   const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
     setOverlay,
-    getOverlay()
+    getOverlay(),
   )
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
@@ -103,7 +103,7 @@ const App: React.FC = () => {
     ;(async () => {
       await initApp(navigationRef, updateMessage)
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount()
+        notifications: getChatNotifications() + getRequiredActionCount(),
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
         updateOverlay({
@@ -113,11 +113,11 @@ const App: React.FC = () => {
             analytics().setAnalyticsCollectionEnabled(false)
             updateSettings(
               {
-                enableAnalytics: false
+                enableAnalytics: false,
               },
-              true
+              true,
             )
-          }
+          },
         })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
@@ -132,9 +132,9 @@ const App: React.FC = () => {
     handleNotificationsEffect({
       getCurrentPage,
       updateOverlay,
-      navigationRef
+      navigationRef,
     }),
-    [currentPage]
+    [currentPage],
   )
 
   useEffect(websocket(updatePeachWS, updateMessage), [])
@@ -147,7 +147,7 @@ const App: React.FC = () => {
     info('Navigation event', currentPage)
     // Disable OS back button
     analytics().logScreenView({
-      screen_name: currentPage as string
+      screen_name: currentPage as string,
     })
   }, [currentPage])
 
@@ -166,7 +166,7 @@ const App: React.FC = () => {
                       <OverlayContext.Provider
                         value={[
                           { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                          updateOverlay
+                          updateOverlay,
                         ]}
                       >
                         <View style={tw`h-full flex-col`}>
@@ -205,7 +205,7 @@ const App: React.FC = () => {
                                 screenOptions={{
                                   gestureEnabled: false,
                                   headerShown: false,
-                                  cardStyle: tw`bg-white-1`
+                                  cardStyle: tw`bg-white-1`,
                                 }}
                               >
                                 {views.map((view) => (
