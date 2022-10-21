@@ -219,8 +219,9 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else {
       error('Error', err)
       if (err?.error) {
+        const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
         updateMessage({
-          msgKey: err?.error || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
+          msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
           level: messageLevels[err?.error] || 'ERROR',
         })
       }
