@@ -6,7 +6,6 @@ import { parseError } from '../../system'
 /**
  * @description Method to load contracts
  * @param password password
- * @param version account version
  * @returns Promise resolving to contracts
  */
 export const loadContracts = async (password: string): Promise<Account['contracts']> => {
