@@ -447,7 +447,7 @@
   "OFFER_TAKEN.title": "Offer already matched",
   "OFFER_TAKEN.text": "Someone else was faster in matching this offer.\nBetter luck next time!",
   "CANNOT_DOUBLEMATCH.title": "You cannot double match",
-  "CANNOT_DOUBLEMATCH.text": "The offer hasn't match with yours first. The counterparty has likely just retracted their offer.",
+  "CANNOT_DOUBLEMATCH.text": "No double match possible. The counterparty has likely just retracted their match.",
   "addNew": "Add new",
   "next": "next",
   "continue": "Continue",
