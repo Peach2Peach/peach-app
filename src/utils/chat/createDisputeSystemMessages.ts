@@ -10,8 +10,9 @@ import { createSystemMessage } from './createSystemMessage'
  * @param contract contract
  * @returns Messages
  */
-export const createDisputeSystemMessages = (roomId: Chat['id'], contract: Contract): Message[] => {
+export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract): Message[] => {
   let messages: Message[] = []
+
   if (contract.disputeDate && contract.disputeInitiator) {
     const initiator = i18n(contract.disputeInitiator === contract.seller.id ? 'seller' : 'buyer')
     const initiatorId = `Peach${contract.disputeInitiator.substring(0, 8)}`
@@ -24,6 +25,7 @@ export const createDisputeSystemMessages = (roomId: Chat['id'], contract: Contra
       ),
       createSystemMessage(roomId, contract.disputeDate, i18n('chat.systemMessage.mediatorWillJoinSoon')),
     ])
+
     if (isEmailRequired(contract.disputeReason!)) {
       messages = messages.concat([
         createSystemMessage(
@@ -37,6 +39,13 @@ export const createDisputeSystemMessages = (roomId: Chat['id'], contract: Contra
       ])
     }
   }
+
+  return messages
+}
+
+export const endDisputeSystemMessages = (roomId: Chat['id'], contract: Contract): Message[] => {
+  const messages: Message[] = []
+
   if (contract.disputeResolvedDate && contract.disputeInitiator) {
     if (contract.disputeWinner) {
       const initiator = i18n(contract.disputeWinner)
@@ -53,11 +62,7 @@ export const createDisputeSystemMessages = (roomId: Chat['id'], contract: Contra
       )
     } else {
       messages.push(
-        createSystemMessage(
-          roomId,
-          contract.disputeResolvedDate,
-          i18n('chat.systemMessage.disputeResolved.nonDispute'),
-        ),
+        createSystemMessage(roomId, contract.disputeResolvedDate, i18n('chat.systemMessage.disputeResolved.nonDispute')),
       )
     }
   }

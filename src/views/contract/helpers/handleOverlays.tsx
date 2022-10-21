@@ -9,9 +9,9 @@ import { account } from '../../../utils/account'
 import { StackNavigation } from '../../../utils/navigation'
 
 type HandleOverlaysProps = {
-  contract: Contract,
-  navigation: StackNavigation,
-  updateOverlay: React.Dispatch<OverlayState>,
+  contract: Contract
+  navigation: StackNavigation
+  updateOverlay: React.Dispatch<OverlayState>
   view: 'buyer' | 'seller' | ''
 }
 
@@ -23,58 +23,63 @@ type HandleOverlaysProps = {
  */
 // eslint-disable-next-line complexity
 export const handleOverlays = ({ contract, navigation, updateOverlay, view }: HandleOverlaysProps) => {
-  if (contract.disputeActive
+  if (
+    contract.disputeActive
     && contract.disputeInitiator !== account.publicKey
-    && !contract.disputeAcknowledgedByCounterParty) {
+    && !contract.disputeAcknowledgedByCounterParty
+  ) {
     return updateOverlay({
-      content: <YouGotADispute
-        contractId={contract.id}
-        message={contract.disputeClaim!}
-        reason={contract.disputeReason!}
-        navigation={navigation} />,
-      showCloseButton: false
+      content: (
+        <YouGotADispute
+          contractId={contract.id}
+          message={contract.disputeClaim!}
+          reason={contract.disputeReason!}
+          navigation={navigation}
+        />
+      ),
+      showCloseButton: false,
     })
   }
 
   if (!contract.disputeActive && contract.disputeResolvedDate && !contract.disputeResultAcknowledged) {
     return updateOverlay({
-      content: <DisputeResult
-        contractId={contract.id}
-        navigation={navigation} />,
+      content: <DisputeResult contractId={contract.id} navigation={navigation} />,
     })
   }
 
   if (contract.cancelationRequested && view === 'buyer') {
     return updateOverlay({
-      content: <ConfirmCancelTradeRequest
-        contract={contract}
-        navigation={navigation} />,
+      content: <ConfirmCancelTradeRequest contract={contract} navigation={navigation} />,
     })
   }
 
-  if (contract.canceled && view === 'seller' && !contract.cancelationRequested
-    && contract.cancelConfirmationPending && !contract.cancelConfirmationDismissed) {
+  if (
+    contract.canceled
+    && view === 'seller'
+    && !contract.cancelationRequested
+    && contract.cancelConfirmationPending
+    && !contract.cancelConfirmationDismissed
+  ) {
     return updateOverlay({
-      content: <CancelTradeRequestConfirmed
-        contract={contract}
-        navigation={navigation} />,
+      content: <CancelTradeRequestConfirmed contract={contract} navigation={navigation} />,
     })
   }
 
-  if (!contract.canceled && view === 'seller' && !contract.cancelationRequested
-    && contract.cancelConfirmationPending && !contract.cancelConfirmationDismissed) {
+  if (
+    !contract.canceled
+    && view === 'seller'
+    && !contract.cancelationRequested
+    && contract.cancelConfirmationPending
+    && !contract.cancelConfirmationDismissed
+  ) {
     return updateOverlay({
-      content: <CancelTradeRequestRejected
-        contract={contract}
-        navigation={navigation} />,
+      content: <CancelTradeRequestRejected contract={contract} navigation={navigation} />,
     })
   }
 
   if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed) {
     return updateOverlay({
-      content: <BuyerCanceledTrade
-        contract={contract}
-        navigation={navigation} />,
+      content: <BuyerCanceledTrade contract={contract} navigation={navigation} />,
     })
   }
 

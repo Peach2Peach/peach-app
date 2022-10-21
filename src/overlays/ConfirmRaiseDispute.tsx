@@ -12,7 +12,7 @@ import WhatIsADispute from './WhatIsADispute'
  */
 
 export type ConfirmRaiseDisputeProps = {
-  contract: Contract,
+  contract: Contract
   navigation: Navigation
 }
 export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisputeProps): ReactElement => {
@@ -25,40 +25,29 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
     navigation.navigate('dispute', { contractId: contract.id })
   }
 
-  const openExplainer = () => updateOverlay({
-    content: <WhatIsADispute />,
-    showCloseButton: true
-  })
+  const openExplainer = () =>
+    updateOverlay({
+      content: <WhatIsADispute />,
+      showCloseButton: true,
+    })
 
-  return <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-lg leading-8`}>
-      {i18n('dispute.openDispute')}
-    </Headline>
-    <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('dispute.doYouWantToOpenDispute')}
-    </Text>
-    <View>
-      <Button
-        style={tw`mt-8`}
-        title={i18n('contract.cancel.confirm.back')}
-        secondary={true}
-        wide={false}
-        onPress={closeOverlay}
-      />
-      <Button
-        style={tw`mt-2`}
-        title={i18n('dispute.openDispute')}
-        tertiary={true}
-        wide={false}
-        onPress={ok}
-      />
-      <Button
-        secondary={true}
-        wide={false}
-        onPress={openExplainer}
-        style={tw`mt-2`}
-        title={i18n('whatIsThis')}
-      />
+  return (
+    <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
+      <Headline style={tw`text-center text-white-1 font-baloo text-lg leading-8`}>
+        {i18n('dispute.openDispute')}
+      </Headline>
+      <Text style={tw`text-center text-white-1 mt-5`}>{i18n('dispute.doYouWantToOpenDispute')}</Text>
+      <View>
+        <Button
+          style={tw`mt-8`}
+          title={i18n('contract.cancel.confirm.back')}
+          secondary={true}
+          wide={false}
+          onPress={closeOverlay}
+        />
+        <Button style={tw`mt-2`} title={i18n('dispute.openDispute')} tertiary={true} wide={false} onPress={ok} />
+        <Button tertiary={true} wide={false} onPress={openExplainer} style={tw`mt-2`} title={i18n('whatIsThis')} />
+      </View>
     </View>
-  </View>
+  )
 }
