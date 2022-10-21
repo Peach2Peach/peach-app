@@ -9,6 +9,12 @@ session.password = 'supersecret'
 
 describe('createSystemMessage', () => {
   beforeEach(async () => {
+    jest.mock('Date', () => ({
+      now: () => 190000000,
+    }))
+    jest.mock('Math', () => ({
+      random: () => 0.5,
+    }))
     await setAccount(accountData.account1)
   })
   afterEach(() => {
@@ -25,7 +31,7 @@ describe('createSystemMessage', () => {
       date: now,
       readBy: [accountData.account1.publicKey],
       message: 'Test',
-      signature: '',
+      signature: 190000000 * 0.5,
     })
   })
 })
