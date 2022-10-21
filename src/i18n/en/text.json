@@ -388,6 +388,7 @@
   "form.paymentMethod.add": "Add method",
   "form.paymentMethod.update": "Update method",
   "form.paymentMethod.remove": "Remove payment method",
+  "form.includeDeviceIDHash": "Include device ID hash",
   "error.general": "Something went wrong. Please try again later or contact the peach support-team.",
   "error.createAccount": "Something went wrong creating the account. Please try again later or contact the peach support-team.",
   "error.ERROR_SAVE_ACCOUNT": "Something went wrong saving the account. Please try restarting the app or contact the peach support-team.",
