@@ -1,6 +1,7 @@
-import crashlytics from '@react-native-firebase/crashlytics'
 import messaging from '@react-native-firebase/messaging'
+import { isAirplaneModeSync } from 'react-native-device-info'
 import { openCrashReportPrompt } from '../utils/analytics'
+import { appendFile, readFile, deleteFile, exists } from '../utils/file'
 import { error, info } from '../utils/log'
 import { parseError } from '../utils/system'
 
@@ -11,13 +12,17 @@ export default async () => {
     const authStatus = await messaging().requestPermission({
       alert: true,
       badge: false,
-      sound: true
+      sound: true,
     })
     info('Permission status:', authStatus)
   } catch (e) {
     error('messaging().requestPermission - Push notifications not supported', parseError(e))
   }
 
-  // check if app has crashed and ask for permission to send crash report
-  if (await await crashlytics().didCrashOnPreviousExecution()) openCrashReportPrompt([])
+  // check if there are errors in queue to be sent
+  if (!isAirplaneModeSync() && (await exists('/error.log'))) {
+    const errorQueue = await readFile('/error.log')
+    openCrashReportPrompt(errorQueue.split('\n').map((e: string) => new Error(e)))
+    deleteFile('/error.log')
+  }
 }

@@ -13,17 +13,23 @@ const tokenNotFoundError = {
 type AuthProps = RequestProps
 
 /**
+ * @description Method to handle missing peach account.
+ * This method should ideally never be called but serves as messenger if something goes wrong
+ */
+const handleMissingPeachAccount = () => {
+  const authError = new Error('Peach Account not set')
+  error(authError)
+  throw authError
+}
+
+/**
  * @description Method to authenticate with Peach API
  * @returns AccessToken or APIError
  */
 export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
   const message = 'Peach Registration ' + new Date().getTime()
 
-  if (!peachAccount) {
-    const authError = new Error('Peach Account not set')
-    error(authError)
-    throw authError
-  }
+  if (!peachAccount) return handleMissingPeachAccount()
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
@@ -50,7 +56,8 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
       info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), result)
       return [result, null]
     } else if (result) {
-      error('peachAPI - auth - FAILED', new Error((result as APIError).error))
+      const errorMessage = (result as APIError).error
+      error('peachAPI - auth - FAILED', errorMessage === 'NETWORK_ERROR' ? errorMessage : new Error(errorMessage))
       return [null, result as APIError]
     }
 
