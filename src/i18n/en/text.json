@@ -441,6 +441,8 @@
   "TRADING_LIMIT_REACHED": "Your trading limit has been reached.",
   "CANNOT_DOUBLEMATCH": "",
   "FORM_INVALID": "The information you provided is invalid.\n$0",
+  "NOT_FOUND.title": "",
+  "NOT_FOUND.text": "The resource you requested could not be found.",
   "OFFER_TAKEN.title": "Offer already matched",
   "OFFER_TAKEN.text": "Someone else was faster in matching this offer.\nBetter luck next time!",
   "CANNOT_DOUBLEMATCH.title": "You cannot double match",
