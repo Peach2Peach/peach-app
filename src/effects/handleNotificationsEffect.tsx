@@ -42,25 +42,25 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
         return updateOverlay({
           content: (
             <OfferExpired offer={offer as SellOffer} days={args ? args[0] || '15' : '15'} navigation={navigationRef} />
-          )
+          ),
         })
       }
       if (offer && type === 'offer.notFunded' && !/sell|contract/u.test(currentPage)) {
         return updateOverlay({
           content: (
             <OfferNotFunded offer={offer as SellOffer} days={args ? args[0] || '7' : '7'} navigation={navigationRef} />
-          )
+          ),
         })
       }
       if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
         return updateOverlay({
-          content: <EscrowFunded offerId={remoteMessage.data.offerId} navigation={navigationRef} />
+          content: <EscrowFunded offerId={remoteMessage.data.offerId} navigation={navigationRef} />,
         })
       }
 
       if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
         return updateOverlay({
-          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />
+          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
         })
       }
       if (type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
@@ -71,7 +71,7 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
               date={remoteMessage.sentTime || new Date().getTime()}
               navigation={navigationRef}
             />
-          )
+          ),
         })
       }
       if (type === 'contract.disputeRaised') {
@@ -83,12 +83,12 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
               reason={remoteMessage.data.reason as DisputeReason}
               navigation={navigationRef}
             />
-          )
+          ),
         })
       }
       if (type === 'contract.disputeResolved') {
         return updateOverlay({
-          content: <DisputeResult contractId={remoteMessage.data.contractId} navigation={navigationRef} />
+          content: <DisputeResult contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
         })
       }
 
@@ -96,22 +96,22 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
         const [result] = await getContractAPI({ contractId: contract.id })
         if (result) contract = { ...result, ...contract }
         return updateOverlay({
-          content: <BuyerCanceledTrade contract={contract!} navigation={navigationRef} />
+          content: <BuyerCanceledTrade contract={contract!} navigation={navigationRef} />,
         })
       }
       if (contract && type === 'contract.cancelationRequest') {
         return updateOverlay({
-          content: <ConfirmCancelTradeRequest contract={contract} navigation={navigationRef} />
+          content: <ConfirmCancelTradeRequest contract={contract} navigation={navigationRef} />,
         })
       }
       if (contract && type === 'contract.cancelationRequestAccepted') {
         return updateOverlay({
-          content: <CancelTradeRequestConfirmed contract={contract} navigation={navigationRef} />
+          content: <CancelTradeRequestConfirmed contract={contract} navigation={navigationRef} />,
         })
       }
       if (contract && type === 'contract.cancelationRequestRejected') {
         return updateOverlay({
-          content: <CancelTradeRequestRejected contract={contract} navigation={navigationRef} />
+          content: <CancelTradeRequestRejected contract={contract} navigation={navigationRef} />,
         })
       }
       return null
