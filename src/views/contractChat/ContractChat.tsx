@@ -34,8 +34,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
 
-  const { chatDraft, setChatDraft } = route.params
-
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
@@ -99,7 +97,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     sendMessage(newMessage)
     setNewMessage('')
-    setChatDraft('')
+    route.params.setChatDraft('')
   }
 
   const loadMore = () => {
@@ -108,7 +106,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const initChat = () => {
-    setNewMessage(chatDraft!)
+    setNewMessage(route.params.chatDraft!)
     if (contract?.id !== route.params.contractId) {
       const c = getContract(route.params.contractId)
       setContractId(route.params.contractId)
@@ -116,7 +114,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setLoadingMessages(true)
       setPage(0)
       setNewMessage('')
-      setChatDraft('')
+      route.params.setChatDraft('')
       setTradingPartner(c ? (account.publicKey === c.seller.id ? c.buyer : c.seller) : null)
       setChat(getChat(route.params.contractId) || {})
       setContract(c)
@@ -292,7 +290,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <MessageInput
             onChange={(message: string) => {
               setNewMessage(message)
-              setChatDraft(message)
+              route.params.setChatDraft(message)
             }}
             onSubmit={submit}
             disableSubmit={disableSend}
