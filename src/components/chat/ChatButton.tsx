@@ -1,5 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Shadow } from '../../components'
 import tw from '../../styles/tailwind'

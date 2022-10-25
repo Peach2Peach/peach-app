@@ -100,6 +100,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     chat.draftMessage = ''
   }
 
+  const onChangeMessage = (message: string) => {
+    setNewMessage(message)
+    chat.draftMessage = message
+  }
+
   const loadMore = () => {
     setLoadingMessages(true)
     setPage((p) => p + 1)
@@ -287,10 +292,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       {!contract.canceled || contract.disputeActive ? (
         <View style={tw`w-full bg-white-1`}>
           <MessageInput
-            onChange={(message: string) => {
-              setNewMessage(message)
-              chat.draftMessage = message
-            }}
+            onChange={onChangeMessage}
             onSubmit={submit}
             disableSubmit={disableSend}
             value={newMessage}
