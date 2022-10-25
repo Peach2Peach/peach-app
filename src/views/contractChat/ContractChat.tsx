@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
