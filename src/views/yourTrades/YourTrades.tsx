@@ -52,7 +52,7 @@ export default ({ navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
-  console.log(JSON.stringify(offers))
+
   const allOpenOffers = offers.filter(isOpenOffer).filter(showOffer)
     .sort(sortByStatus)
   const openOffers = {
