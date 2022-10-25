@@ -49,8 +49,6 @@ declare type RootStackParamList = {
   }
   contractChat: {
     contractId: Contract['id']
-    chatDraft?: string
-    setChatDraft?: Dispatch<SetStateAction<string>>
   }
   dispute: {
     contractId: Contract['id']

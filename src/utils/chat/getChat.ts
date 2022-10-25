@@ -13,6 +13,7 @@ export const getChat = (id: string): Chat => {
     id,
     lastSeen: new Date(),
     messages: [],
+    draftMessage: '',
   }
 
   messages = messages.map((message: Message) => ({

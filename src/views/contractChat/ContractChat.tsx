@@ -97,7 +97,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     sendMessage(newMessage)
     setNewMessage('')
-    route.params.setChatDraft('')
+    chat.draftMessage = ''
   }
 
   const loadMore = () => {
@@ -106,7 +106,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const initChat = () => {
-    setNewMessage(route.params.chatDraft!)
+    setNewMessage(chat.draftMessage)
     if (contract?.id !== route.params.contractId) {
       const c = getContract(route.params.contractId)
       setContractId(route.params.contractId)
@@ -114,7 +114,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       setLoadingMessages(true)
       setPage(0)
       setNewMessage('')
-      route.params.setChatDraft('')
       setTradingPartner(c ? (account.publicKey === c.seller.id ? c.buyer : c.seller) : null)
       setChat(getChat(route.params.contractId) || {})
       setContract(c)
@@ -290,7 +289,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <MessageInput
             onChange={(message: string) => {
               setNewMessage(message)
-              route.params.setChatDraft(message)
+              chat.draftMessage = message
             }}
             onSubmit={submit}
             disableSubmit={disableSend}

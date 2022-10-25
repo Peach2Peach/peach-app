@@ -16,9 +16,8 @@ type ChatButtonProps = ComponentProps & {
 }
 export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): ReactElement => {
   const notifications = getContractChatNotification(contract)
-  const [chatDraft, setChatDraft] = useState('')
   const shadow = contract.disputeActive ? mildShadowRed : mildShadowOrange
-  const goToChat = () => navigation.push('contractChat', { contractId: contract.id, chatDraft, setChatDraft })
+  const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
 
   return (
     <View style={style}>
