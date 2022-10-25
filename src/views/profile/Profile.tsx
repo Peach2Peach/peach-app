@@ -92,7 +92,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View style={tw`mt-12`}>
           <Headline style={tw`text-center text-grey-1 font-bold`}>Peach{userId.substring(0, 8)}</Headline>
           {user ? (
-            user.ratingCount < 3 ? (
+            user.trades < 3 ? (
               <View style={tw`flex items-center`}>
                 <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 mt-2 text-grey-2`}>
                   {i18n('rating.newUser')}
