@@ -5,7 +5,6 @@ import { setPeachAccount } from '../peachAPI'
 import { createWallet, getMainAddress, setWallet, wallet } from '../wallet'
 
 export const defaultAccount: Account = {
-  version: '0.1.4',
   publicKey: '',
   settings: {
     appVersion: APPVERSION,
@@ -30,28 +29,29 @@ export const defaultAccount: Account = {
   pgp: {
     privateKey: '',
     publicKey: '',
-  }
+  },
 }
 
 export let account = defaultAccount
 
 export const getAccount = () => account
 
-
 /**
  * @description Method to set account for app session
  * @param acc account
  */
 export const setAccount = async (acc: Account, overwrite?: boolean) => {
-  account = overwrite ? acc : {
-    ...defaultAccount,
-    ...acc,
-    settings: {
-      ...defaultAccount.settings,
-      ...acc.settings,
-    },
-    tradingLimit: defaultAccount.tradingLimit,
-  }
+  account = overwrite
+    ? acc
+    : {
+      ...defaultAccount,
+      ...acc,
+      settings: {
+        ...defaultAccount.settings,
+        ...acc.settings,
+      },
+      tradingLimit: defaultAccount.tradingLimit,
+    }
 
   setDisplayCurrencyQuiet(account.settings.displayCurrency || 'EUR')
   setLocaleQuiet(account.settings.locale || 'en')

@@ -56,6 +56,7 @@ const initialNavigation = async (
   }
 
   if (!sessionInitiated && ((await exists('/peach-account.json')) || (await exists('/peach-account-identity.json')))) {
+    // couldn't retrieve account but account files exist, must have not gotten password so we redirect to Login Screen
     navigationRef.navigate('login', {})
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
@@ -66,7 +67,17 @@ const initialNavigation = async (
     setSessionItem('notifications', notifications)
 
     if (initialNotification.data) {
-      handlePushNotification(navigationRef, initialNotification.data, initialNotification.sentTime)
+      const handledNotification = handlePushNotification(
+        navigationRef,
+        initialNotification.data,
+        initialNotification.sentTime,
+      )
+      if (!handledNotification) {
+        navigationRef.reset({
+          index: 0,
+          routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
+        })
+      }
     }
   } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
     navigationRef.reset({
@@ -95,12 +106,6 @@ export const initApp = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
-  const timeout = setTimeout(() => {
-    // go home anyway after 30 seconds
-    error(new Error('STARTUP_ERROR'))
-    initialNavigation(navigationRef, updateMessage, !!account?.publicKey)
-  }, 30000)
-
   events()
   const sessionInitiated = await session()
 
@@ -111,7 +116,6 @@ export const initApp = async (
     dataMigration()
   }
 
-  clearTimeout(timeout)
   initialNavigation(navigationRef, updateMessage, sessionInitiated)
   await requestUserPermissions()
 }

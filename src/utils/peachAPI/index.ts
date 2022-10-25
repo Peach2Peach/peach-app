@@ -11,6 +11,10 @@ export const getPeachAccount = () => peachAccount
 export const setPeachAccount = (acc: BIP32Interface) => (peachAccount = acc)
 export const deletePeachAccount = () => (peachAccount = null)
 
+export type RequestProps = {
+  timeout?: number
+}
+
 /**
  * @description Method to check response for error codes
  * @param response response

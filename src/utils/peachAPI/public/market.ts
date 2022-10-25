@@ -1,14 +1,22 @@
 import { API_URL } from '@env'
-import { parseResponse } from '..'
-import fetch from '../../fetch'
+import { parseResponse, RequestProps } from '..'
+import fetch, { getAbortSignal } from '../../fetch'
+
+type GetMarketPricesProps = RequestProps
 
 /**
  * @description Method to get market prices
  * @returns Pricebook
  */
-export const marketPrices = async (): Promise<[Pricebook|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/market/prices`, {})
+export const marketPrices = async ({ timeout }: GetMarketPricesProps): Promise<[Pricebook | null, APIError | null]> => {
+  const response = await fetch(`${API_URL}/v1/market/prices`, {
+    signal: timeout ? getAbortSignal(timeout) : undefined,
+  })
   return await parseResponse<Pricebook>(response, 'marketPrices')
+}
+
+type GetMarketPriceProps = RequestProps & {
+  currency: Currency
 }
 
 /**
@@ -16,7 +24,12 @@ export const marketPrices = async (): Promise<[Pricebook|null, APIError|null]> =
  * @param cyrrency currency to price bitcoin in
  * @returns PeachPairInfo
  */
-export const marketPrice = async (currency: Currency): Promise<[PeachPairInfo|null, APIError|null]> => {
-  const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {})
+export const marketPrice = async ({
+  currency,
+  timeout,
+}: GetMarketPriceProps): Promise<[PeachPairInfo | null, APIError | null]> => {
+  const response = await fetch(`${API_URL}/v1/market/price/BTC${currency}`, {
+    signal: timeout ? getAbortSignal(timeout) : undefined,
+  })
   return await parseResponse<PeachPairInfo>(response, 'marketPrice')
 }

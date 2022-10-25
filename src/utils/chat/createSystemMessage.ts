@@ -1,7 +1,4 @@
-import { isEmailRequired } from '../../views/dispute/Dispute'
 import { account } from '../account'
-import { getOfferIdfromContract } from '../contract'
-import i18n from '../i18n'
 
 /**
  * @description Method to create a system message for chat
@@ -16,5 +13,5 @@ export const createSystemMessage = (roomId: Message['roomId'], date: Date, messa
   date,
   readBy: [account.publicKey],
   message,
-  signature: '',
+  signature: (Date.now() * Math.random()).toString(),
 })

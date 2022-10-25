@@ -43,7 +43,7 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
     await Promise.all(files.map((file) => deleteFile(file)))
   })
 
-  logoutUser()
+  logoutUser({})
 
   await setSessionItem('password', null)
   deleteAccessToken()

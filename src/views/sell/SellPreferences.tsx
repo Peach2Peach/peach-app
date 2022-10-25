@@ -159,7 +159,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (result) {
         info('Posted offer', result)
 
-        getTradingLimit().then(([tradingLimit]) => {
+        getTradingLimit({}).then(([tradingLimit]) => {
           if (tradingLimit) {
             updateTradingLimit(tradingLimit)
           }

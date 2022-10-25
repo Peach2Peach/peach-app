@@ -1,41 +1,50 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import fetch from '../../../fetch'
-import { getResponseError, peachAccount, setAccessToken } from '../..'
+import fetch, { getAbortSignal } from '../../../fetch'
+import { getResponseError, peachAccount, RequestProps, setAccessToken } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
 
 const tokenNotFoundError = {
-  error: 'Token not found'
+  error: 'Token not found',
+}
+
+type AuthProps = RequestProps
+
+/**
+ * @description Method to handle missing peach account.
+ * This method should ideally never be called but serves as messenger if something goes wrong
+ */
+const handleMissingPeachAccount = () => {
+  const authError = new Error('Peach Account not set')
+  error(authError)
+  throw authError
 }
 
 /**
  * @description Method to authenticate with Peach API
  * @returns AccessToken or APIError
  */
-export const auth = async (): Promise<[AccessToken | null, APIError | null]> => {
+export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
   const message = 'Peach Registration ' + new Date().getTime()
 
-  if (!peachAccount) {
-    const authError = new Error('Peach Account not set')
-    error(authError)
-    throw authError
-  }
+  if (!peachAccount) return handleMissingPeachAccount()
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex')
-      })
+        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
+      }),
+      signal: timeout ? getAbortSignal(timeout) : undefined,
     })
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]
@@ -47,7 +56,8 @@ export const auth = async (): Promise<[AccessToken | null, APIError | null]> => 
       info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), result)
       return [result, null]
     } else if (result) {
-      error('peachAPI - auth - FAILED', new Error((result as APIError).error))
+      const errorMessage = (result as APIError).error
+      error('peachAPI - auth - FAILED', errorMessage === 'NETWORK_ERROR' ? errorMessage : new Error(errorMessage))
       return [null, result as APIError]
     }
 

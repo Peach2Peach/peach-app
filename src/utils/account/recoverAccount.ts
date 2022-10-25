@@ -34,8 +34,8 @@ export const recoverAccount = async ({
     })
     info('Get offers')
     const [[getOffersResult, getOffersErr], [getTradingLimitResult, getTradingLimitErr]] = await Promise.all([
-      getOffers(),
-      getTradingLimit(),
+      getOffers({}),
+      getTradingLimit({}),
       userUpdate(),
     ])
     if (getOffersResult?.length) {

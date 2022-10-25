@@ -1,7 +1,10 @@
 import { setAccount } from '../../../../src/utils/account'
-import { createDisputeSystemMessages } from '../../../../src/utils/chat'
 import * as accountData from '../../data/accountData'
 import { resetFakeFiles } from '../../prepare'
+import {
+  initDisputeSystemMessages,
+  endDisputeSystemMessages,
+} from '../../../../src/utils/chat/createDisputeSystemMessages'
 
 describe.skip('createDisputeSystemMessages', () => {
   beforeEach(async () => {
@@ -12,7 +15,10 @@ describe.skip('createDisputeSystemMessages', () => {
     jest.clearAllMocks()
   })
 
-  it('creates a dispute system message', () => {
-    const systemMessages = createDisputeSystemMessages('room-id', accountData.contract)
+  it('creates a starting dispute system message', () => {
+    const systemMessages = initDisputeSystemMessages('room-id', accountData.contract)
+  })
+  it('creates an ending dispute system message', () => {
+    const systemMessages = endDisputeSystemMessages('room-id', accountData.contract)
   })
 })

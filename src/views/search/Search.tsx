@@ -10,11 +10,10 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
-import { MessageContext } from '../../contexts/message'
+import { Level, MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { OfferTaken } from '../../messageBanners/OfferTaken'
 import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
@@ -28,10 +27,15 @@ import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getPaymentDataByMethod, saveOffer } from '../../utils/offer'
-import { encryptPaymentData, hashPaymentData } from '../../utils/paymentMethod'
+import { encryptPaymentData } from '../../utils/paymentMethod'
 import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
+
+const messageLevels: Record<string, Level> = {
+  NOT_FOUND: 'WARN',
+  CANNOT_DOUBLEMATCH: 'WARN',
+}
 
 const PAGESIZE = 10
 
@@ -53,7 +57,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [offer, setOffer] = useState<BuyOffer | SellOffer>(route.params.offer)
   const [offerId, setOfferId] = useState<string | undefined>(route.params.offer.id)
   const [page, setPage] = useState(0)
-  const [updatePending, setUpdatePending] = useState(true)
   const [matchLoading, setMatchLoading] = useState(false)
   const [pnReceived, setPNReceived] = useState(0)
 
@@ -215,15 +218,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
     } else {
       error('Error', err)
-      if (err?.error === 'NOT_FOUND') {
+      if (err?.error) {
+        const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
         updateMessage({
-          template: <OfferTaken />,
-          level: 'WARN',
-        })
-      } else {
-        updateMessage({
-          msg: i18n(err?.error || 'error.general', ((err?.details as string[]) || []).join(', ')),
-          level: 'ERROR',
+          msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
+          level: messageLevels[err?.error] || 'ERROR',
         })
       }
     }
@@ -278,7 +277,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       setOffer(route.params.offer)
       setOfferId(route.params.offer.id)
       setPage(0)
-      if (offerId !== route.params.offer.id) setUpdatePending(true)
       setSearchingMatches(true)
     }, [route]),
   )
@@ -308,7 +306,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           if (err.error !== 'UNAUTHORIZED') updateMessage({ msgKey: err.error, level: 'ERROR' })
         },
       }),
-      [pnReceived, page],
+      [offer.id, pnReceived, page],
     ),
   )
 
@@ -327,8 +325,6 @@ export default ({ route, navigation }: Props): ReactElement => {
             info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
             navigation.replace('contract', { contractId: result.contractId })
           }
-
-          setUpdatePending(() => false)
         },
         onError: (err) => {
           error('Could not fetch offer information for offer', offer.id)
@@ -359,7 +355,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null | void> => {
         if (!remoteMessage.data) return
 
-        if (updaterPNs.indexOf(remoteMessage.data.type)) {
+        if (updaterPNs.includes(remoteMessage.data.type)) {
           setPNReceived(Math.random())
         }
 

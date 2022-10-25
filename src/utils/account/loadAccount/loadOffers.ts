@@ -6,7 +6,6 @@ import { parseError } from '../../system'
 /**
  * @description Method to load offers
  * @param password password
- * @param version account version
  * @returns Promise resolving to offers
  */
 export const loadOffers = async (password: string): Promise<Account['offers']> => {

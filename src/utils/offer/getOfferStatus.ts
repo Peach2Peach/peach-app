@@ -10,39 +10,31 @@ export const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
 
 export const isEscrowTransactionSent = (offer: SellOffer) => offer.funding.txIds.length > 0
 
-export const hasSeenAllMatches = (offer: BuyOffer|SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
+export const hasSeenAllMatches = (offer: BuyOffer | SellOffer) => diff(offer.matches, offer.seenMatches).length > 0
 
-export const isOfferCanceled = (offer: BuyOffer|SellOffer) => !offer.online && !offer.contractId
+export const isOfferCanceled = (offer: BuyOffer | SellOffer) =>
+  !offer.online
+  && !offer.contractId
   && (offer.type !== 'ask' || /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status))
 
 export const isEscrowRefunded = (offer: SellOffer) => offer.refunded || offer.released || offer.txId
 
 export const isKYCRequired = (offer: BuyOffer, contract: Contract) =>
-  offer.type === 'bid'
-  && contract.kycRequired
-  && !contract.kycConfirmed
-  && contract.kycResponseDate !== null
+  offer.type === 'bid' && contract.kycRequired && !contract.kycConfirmed && contract.kycResponseDate !== null
 
 export const isKYCConfirmationRequired = (offer: SellOffer, contract: Contract) =>
-  offer.type === 'ask'
-  && contract.kycRequired
-  && contract.kycResponseDate === null
+  offer.type === 'ask' && contract.kycRequired && contract.kycResponseDate === null
 
 export const isPaymentRequired = (offer: BuyOffer, contract: Contract) =>
-  offer.type === 'bid'
-  && !isKYCRequired(offer, contract)
-  && contract.paymentMade === null
+  offer.type === 'bid' && !isKYCRequired(offer, contract) && contract.paymentMade === null
 
 export const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>
-  offer.type === 'ask'
-  && contract.paymentMade !== null
-  && !contract.paymentConfirmed
+  offer.type === 'ask' && contract.paymentMade !== null && !contract.paymentConfirmed
 
-export const isRatingRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
-  offer.type === 'bid' && !contract.ratingSeller
-  || offer.type === 'ask' && !contract.ratingBuyer
+export const isRatingRequired = (offer: SellOffer | BuyOffer, contract: Contract) =>
+  (offer.type === 'bid' && !contract.ratingSeller) || (offer.type === 'ask' && !contract.ratingBuyer)
 
-export const refundRequired = (offer: SellOffer|BuyOffer, contract: Contract) =>
+export const refundRequired = (offer: SellOffer | BuyOffer, contract: Contract) =>
   offer.type === 'ask' && contract.disputeWinner === 'seller' && !offer.refunded
 
 export const isDisputeActive = (contract: Contract) => contract.disputeActive
@@ -59,7 +51,7 @@ export const isContractPendingForCancelation = (contract: Contract) => contract.
  * @returns offer status
  */
 // eslint-disable-next-line complexity
-export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
+export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
   if (!offer) return { status: 'null', requiredAction: '' }
 
   const contract = offer.contractId ? getContract(offer.contractId) : null
@@ -71,12 +63,14 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
         ? 'dispute'
         : requiresDisputeResultAcknowledgement(contract)
           ? 'acknowledgeDisputeResult'
-          : isRatingRequired(offer, contract) ? 'rate' : ''
+          : isRatingRequired(offer, contract)
+            ? 'rate'
+            : '',
     }
 
     if (isTradeCanceled(contract)) return {
       status: 'tradeCanceled',
-      requiredAction: refundRequired(offer, contract) ? 'startRefund' : ''
+      requiredAction: refundRequired(offer, contract) ? 'startRefund' : '',
     }
 
     return {
@@ -91,21 +85,23 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
               ? 'sendPayment'
               : isPaymentConfirmationRequired(offer as SellOffer, contract)
                 ? 'confirmPayment'
-                : ''
+                : '',
     }
   }
 
   if (offer.type === 'ask') {
     if (isEscrowWaitingForConfirmation(offer)) return {
       status: 'escrowWaitingForConfirmation',
-      requiredAction: !isEscrowTransactionSent(offer)
-        ? 'fundEscrow'
-        : ''
+      requiredAction: !isEscrowTransactionSent(offer) ? 'fundEscrow' : '',
+    }
+    if (offer.returnAddressRequired) return {
+      status: 'returnAddressRequired',
+      requiredAction: 'provideReturnAddress',
     }
     if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        requiredAction: isEscrowTransactionSent(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : ''
+        requiredAction: isEscrowTransactionSent(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : '',
       }
     }
   }
@@ -113,13 +109,11 @@ export const getOfferStatus = (offer: SellOffer|BuyOffer): OfferStatus => {
   if (isOfferCanceled(offer)) {
     return {
       status: 'offerCanceled',
-      requiredAction: ''
+      requiredAction: '',
     }
   }
   return {
     status: offer.matches.length === 0 ? 'searchingForPeer' : 'match',
-    requiredAction: hasSeenAllMatches(offer)
-      ? 'checkMatches'
-      : ''
+    requiredAction: hasSeenAllMatches(offer) ? 'checkMatches' : '',
   }
 }
