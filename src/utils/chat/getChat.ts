@@ -8,12 +8,13 @@ import { account } from '../account'
 export const getChat = (id: string): Chat => {
   const chat = account.chats[id]
   let messages = chat?.messages
+  const draftMessage = chat?.draftMessage
 
   if (!chat || !messages || !messages.length) return {
     id,
     lastSeen: new Date(),
     messages: [],
-    draftMessage: '',
+    draftMessage,
   }
 
   messages = messages.map((message: Message) => ({

@@ -24,6 +24,7 @@ import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
+import { debounce } from '../../utils/performance'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>
@@ -56,6 +57,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveContract(contractData)
     return contractData
   }
+
+  const saveDraft = debounce(() => {
+    setAndSaveChat(contractId, {
+      draftMessage: newMessage,
+    })
+  }, 2000)
+
+  useEffect(() => {
+    saveDraft()
+  }, [newMessage])
 
   const sendMessage = async (message: string) => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !message) return
@@ -99,12 +110,10 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     sendMessage(newMessage)
     setNewMessage('')
-    chat.draftMessage = ''
   }
 
   const onChangeMessage = (message: string) => {
     setNewMessage(message)
-    chat.draftMessage = message
   }
 
   const loadMore = () => {
@@ -120,7 +129,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       setUpdatePending(true)
       setLoadingMessages(true)
       setPage(0)
-      setNewMessage('')
       setTradingPartner(c ? (account.publicKey === c.seller.id ? c.buyer : c.seller) : null)
       setChat(getChat(route.params.contractId) || {})
       setContract(c)
