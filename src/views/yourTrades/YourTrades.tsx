@@ -37,7 +37,7 @@ const showOffer = (offer: SellOffer | BuyOffer) => {
   }
 
   // filter out sell offer which has been canceled before funding escrow
-  if (offer.funding?.status === 'CANCELED' && offer.funding.txIds?.length === 0) return false
+  if (offer.funding?.status === 'CANCELED' && offer.funding.txIds?.length === 0 && !offer.txId) return false
 
   return true
 }
@@ -47,24 +47,24 @@ const statusPriority = ['escrowWaitingForConfirmation', 'offerPublished', 'searc
 const sortByStatus = (a: SellOffer | BuyOffer, b: SellOffer | BuyOffer) =>
   statusPriority.indexOf(getOfferStatus(a).status) - statusPriority.indexOf(getOfferStatus(b).status)
 
-
 export default ({ navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
   const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
+
   const allOpenOffers = offers.filter(isOpenOffer).filter(showOffer)
     .sort(sortByStatus)
   const openOffers = {
-    buy: allOpenOffers.filter(o => o.type === 'bid'),
-    sell: allOpenOffers.filter(o => o.type === 'ask'),
+    buy: allOpenOffers.filter((o) => o.type === 'bid'),
+    sell: allOpenOffers.filter((o) => o.type === 'ask'),
   }
   const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
   useFocusEffect(
     useCallback(
       getOffersEffect({
-        onSuccess: result => {
+        onSuccess: (result) => {
           if (!result?.length) return
           saveOffers(result)
 
@@ -75,7 +75,7 @@ export default ({ navigation }: Props): ReactElement => {
             notifications: getChatNotifications() + getRequiredActionCount(),
           })
         },
-        onError: err => {
+        onError: (err) => {
           error('Could not fetch offer information')
 
           updateMessage({
@@ -91,7 +91,7 @@ export default ({ navigation }: Props): ReactElement => {
   useFocusEffect(
     useCallback(
       getContractsEffect({
-        onSuccess: result => {
+        onSuccess: (result) => {
           if (!result?.length) return
 
           saveContracts(result)
@@ -101,7 +101,7 @@ export default ({ navigation }: Props): ReactElement => {
             notifications: getChatNotifications() + getRequiredActionCount(),
           })
         },
-        onError: err => {
+        onError: (err) => {
           error('Could not fetch contract information')
           updateMessage({
             msgKey: err.error || 'error.general',
@@ -127,7 +127,7 @@ export default ({ navigation }: Props): ReactElement => {
             {i18n('yourTrades.offers')}
           </Headline>
         ) : null}
-        {openOffers.buy.map(offer => (
+        {openOffers.buy.map((offer) => (
           <OfferItem key={offer.id} style={tw`mt-3`} extended={true} offer={offer} navigation={navigation} />
         ))}
         {openOffers.sell.length ? (
@@ -137,11 +137,11 @@ export default ({ navigation }: Props): ReactElement => {
             {i18n('yourTrades.offers')}
           </Headline>
         ) : null}
-        {openOffers.sell.map(offer => (
+        {openOffers.sell.map((offer) => (
           <OfferItem key={offer.id} style={tw`mt-3`} extended={true} offer={offer} navigation={navigation} />
         ))}
         {pastOffers.length ? <Headline style={tw`mt-20 text-grey-1`}>{i18n('yourTrades.pastOffers')}</Headline> : null}
-        {pastOffers.map(offer => (
+        {pastOffers.map((offer) => (
           <OfferItem key={offer.id} extended={false} style={tw`mt-3`} offer={offer} navigation={navigation} />
         ))}
       </View>
