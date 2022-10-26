@@ -30,7 +30,9 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
   const [, updateOverlay] = useContext(OverlayContext)
   const canCancel
     = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
-  const canDispute = !contract.disputeActive && contract.paymentMethod !== 'cash'
+  const canDispute
+    = (!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
+    || (view === 'seller' && contract.cancelationRequested)
 
   const openCancelTrade = () =>
     canCancel
