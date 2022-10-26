@@ -16,6 +16,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
       lastSeen: new Date(0),
       messages: [],
       id,
+      draftMessage: '',
       ...chat,
     }
   }

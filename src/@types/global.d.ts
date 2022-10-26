@@ -99,6 +99,7 @@ declare type Chat = {
   id: string
   lastSeen: Date
   messages: Message[]
+  draftMessage: string
 }
 
 declare type AppState = {

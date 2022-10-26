@@ -1,5 +1,6 @@
 export const chat1: Chat = {
   lastSeen: new Date('2022-09-15T07:53:14.346Z'),
+  draftMessage: '',
   messages: [
     {
       roomId: 'contract-313-312',
@@ -271,6 +272,7 @@ export const chat1: Chat = {
 
 export const chatWithDuplicate: Chat = {
   lastSeen: new Date('2022-09-15T07:53:14.346Z'),
+  draftMessage: '',
   messages: [
     {
       roomId: 'contract-400-401',
@@ -314,6 +316,7 @@ export const chatWithDuplicate: Chat = {
 
 export const chatUnsorted: Chat = {
   lastSeen: new Date('2022-09-15T07:53:14.346Z'),
+  draftMessage: '',
   messages: [
     {
       roomId: 'contract-500-501',
@@ -357,6 +360,7 @@ export const chatUnsorted: Chat = {
 
 export const chatWithUnsentMessages: Chat = {
   lastSeen: new Date('2022-09-15T07:53:14.346Z'),
+  draftMessage: '',
   messages: [
     {
       roomId: 'contract-600-601',

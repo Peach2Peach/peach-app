@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -23,12 +24,14 @@ import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
+import { debounce } from '../../utils/performance'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>
   navigation: StackNavigation
 }
 
+// eslint-disable-next-line max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -54,6 +57,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveContract(contractData)
     return contractData
   }
+
+  const saveDraft = debounce(() => {
+    setAndSaveChat(contractId, {
+      draftMessage: newMessage,
+    })
+  }, 2000)
+
+  useEffect(() => {
+    saveDraft()
+  }, [newMessage])
 
   const sendMessage = async (message: string) => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !message) return
@@ -99,19 +112,23 @@ export default ({ route, navigation }: Props): ReactElement => {
     setNewMessage('')
   }
 
+  const onChangeMessage = (message: string) => {
+    setNewMessage(message)
+  }
+
   const loadMore = () => {
     setLoadingMessages(true)
     setPage((p) => p + 1)
   }
 
   const initChat = () => {
+    setNewMessage(chat.draftMessage)
     if (contract?.id !== route.params.contractId) {
       const c = getContract(route.params.contractId)
       setContractId(route.params.contractId)
       setUpdatePending(true)
       setLoadingMessages(true)
       setPage(0)
-      setNewMessage('')
       setTradingPartner(c ? (account.publicKey === c.seller.id ? c.buyer : c.seller) : null)
       setChat(getChat(route.params.contractId) || {})
       setContract(c)
@@ -285,7 +302,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       {!contract.canceled || contract.disputeActive ? (
         <View style={tw`w-full bg-white-1`}>
           <MessageInput
-            onChange={setNewMessage}
+            onChange={onChangeMessage}
             onSubmit={submit}
             disableSubmit={disableSend}
             value={newMessage}
