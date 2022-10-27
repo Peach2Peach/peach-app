@@ -103,12 +103,9 @@ export default ({ route, navigation }: Props): ReactElement => {
     const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
     const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
-    navigation.push('paymentDetails', {
-      paymentData: {
-        type: selectedPaymentMethod,
-        label,
-        currencies: [selectedCurrency],
-      },
+    navigation.push('addPaymentMethod', {
+      currencies: [selectedCurrency],
+      paymentMethod: selectedPaymentMethod,
       origin: ['search', route.params],
     })
   }
