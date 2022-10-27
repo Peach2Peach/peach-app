@@ -46,7 +46,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay'],
-  cash: ['cash', 'cash.amsterdam', 'cash.belgianEmbassy'],
+  cash: ['cash', 'cash.amsterdam', 'cash.belgianEmbassy', 'cash.lugano'],
   cryptoCurrency: [],
 }
 

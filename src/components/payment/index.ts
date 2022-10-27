@@ -31,6 +31,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   'giftCard.amazon': GeneralPaymentDetails,
   cash: Cash,
   'cash.amsterdam': Cash,
+  'cash.lugano': Cash,
 }
 
 COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))
