@@ -1,12 +1,5 @@
 import React, { ReactElement } from 'react'
-import {
-  NativeSyntheticEvent,
-  Pressable,
-  TextInput,
-  TextInputEndEditingEventData,
-  TextInputSubmitEditingEventData,
-  View,
-} from 'react-native'
+import { NativeSyntheticEvent, Pressable, TextInput, TextInputEndEditingEventData, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 
@@ -53,8 +46,6 @@ export const MessageInput = ({
   testID,
 }: MessageInputProps): ReactElement => {
   const onChangeText = (val: string) => (onChange ? onChange(val) : null)
-  const onSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) =>
-    onSubmit && !disableSubmit ? onSubmit(e.nativeEvent.text?.trim()) : null
   const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
     onChange ? onChange(e.nativeEvent.text?.trim()) : null
   const onFocusHandler = () => (onFocus ? onFocus() : null)
