@@ -108,6 +108,9 @@ export default ({ route, navigation }: Props): ReactElement => {
         type: selectedPaymentMethod,
         label,
         currencies: [selectedCurrency],
+        country: /giftCard/u.test(selectedPaymentMethod)
+          ? (selectedPaymentMethod.split('.').pop() as Country)
+          : undefined,
       },
       origin: ['search', route.params],
     })
