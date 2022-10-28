@@ -24,4 +24,9 @@ export const specialTemplates: Partial<Record<PaymentMethod, SpecialTemplate>> =
       backgroundColor: '#FFF9F6',
     },
   },
+  'cash.lugano': {
+    style: {
+      backgroundColor: '#041E69',
+    },
+  },
 }

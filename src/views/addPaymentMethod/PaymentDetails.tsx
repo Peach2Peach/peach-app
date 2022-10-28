@@ -62,7 +62,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       {!specialTemplates[paymentMethod] && (
         <Headline>{i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`))}</Headline>
       )}
-      <View style={tw`h-full flex-shrink flex justify-center px-6`}>
+      <View style={[tw`h-full flex-shrink flex justify-center`, !specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
         <PaymentMethodForm
           paymentMethod={paymentMethod}
           style={tw`h-full flex-shrink flex-col justify-between`}
