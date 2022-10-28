@@ -29,6 +29,7 @@ import { COUNTRIES } from '../../../../constants'
 import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
+import { CashLugano } from './Cash.lugano'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -66,6 +67,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   cash: Cash,
   'cash.amsterdam': CashAmsterdam,
   'cash.belgianEmbassy': CashBelgianEmbassy,
+  'cash.lugano': CashLugano,
 }
 COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
 
