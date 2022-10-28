@@ -23,6 +23,7 @@ const PaymentLogos = {
   wise,
   'cash.amsterdam': bitcoinAmsterdam,
   'cash.belgianEmbassy': bitcoin,
+  'cash.lugano': bitcoin,
 }
 
 export type PaymentLogoType = keyof typeof PaymentLogos
