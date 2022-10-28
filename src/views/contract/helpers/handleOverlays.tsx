@@ -47,7 +47,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     })
   }
 
-  if (contract.cancelationRequested && view === 'buyer') {
+  if (contract.cancelationRequested && view === 'buyer' && !contract.disputeActive && !contract.paymentConfirmed) {
     return updateOverlay({
       content: <ConfirmCancelTradeRequest contract={contract} navigation={navigation} />,
     })
@@ -56,6 +56,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
   if (
     contract.canceled
     && view === 'seller'
+    && !contract.paymentConfirmed
     && !contract.cancelationRequested
     && contract.cancelConfirmationPending
     && !contract.cancelConfirmationDismissed
@@ -68,6 +69,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
   if (
     !contract.canceled
     && view === 'seller'
+    && !contract.paymentConfirmed
     && !contract.cancelationRequested
     && contract.cancelConfirmationPending
     && !contract.cancelConfirmationDismissed
@@ -77,7 +79,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     })
   }
 
-  if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed) {
+  if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed && !contract.paymentConfirmed) {
     return updateOverlay({
       content: <BuyerCanceledTrade contract={contract} navigation={navigation} />,
     })

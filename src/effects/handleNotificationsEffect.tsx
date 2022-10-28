@@ -99,7 +99,7 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
           content: <BuyerCanceledTrade contract={contract!} navigation={navigationRef} />,
         })
       }
-      if (contract && type === 'contract.cancelationRequest') {
+      if (contract && type === 'contract.cancelationRequest' && !contract.disputeActive) {
         return updateOverlay({
           content: <ConfirmCancelTradeRequest contract={contract} navigation={navigationRef} />,
         })
