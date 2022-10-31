@@ -1,5 +1,5 @@
 import { BIP32Interface } from 'bip32'
-import { error } from '../log'
+import { error, info } from '../log'
 import { parseError } from '../system'
 
 export let accessToken: AccessToken | null
