@@ -29,7 +29,9 @@ export const error = (...args: any[]) => {
   if (isProduction()) crashlytics().log([new Date(), 'ERROR', ...args].join(' - '))
 
   if (isProduction()) {
-    const errors = args.filter((arg) => arg instanceof Error)
+    const errors = args
+      .filter((arg) => arg instanceof Error)
+      .filter((arg) => arg.message !== 'NETWORK_ERROR' && arg.message !== 'Network request failed')
 
     if (errors.length) openCrashReportPrompt(errors)
   }
@@ -38,5 +40,5 @@ export const error = (...args: any[]) => {
 export default {
   info,
   log,
-  error
+  error,
 }
