@@ -180,10 +180,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       symmetricKeySignature: encryptedSymmmetricKey?.signature,
       paymentDataEncrypted: encryptedPaymentData?.encrypted,
       paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData:
-        offer.paymentData[selectedPaymentMethod]!.hash
-        || (offer.paymentData[selectedPaymentMethod] as unknown as string) // TODO remove this line mid september
-        || '',
+      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash || '',
     })
 
     if (result) {
