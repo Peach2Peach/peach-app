@@ -178,13 +178,7 @@ const App: React.FC = () => {
                             onClose={onCloseDrawer}
                           />
                           {content ? (
-                            <Overlay
-                              content={content}
-                              help={help}
-                              showCloseIcon={showCloseIcon}
-                              showCloseButton={showCloseButton}
-                              onClose={onCloseOverlay}
-                            />
+                            <Overlay {...{ content, help, showCloseButton, showCloseIcon }} onClose={onCloseOverlay} />
                           ) : null}
                           {template || msg || msgKey ? (
                             <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
