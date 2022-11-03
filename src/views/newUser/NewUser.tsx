@@ -8,7 +8,6 @@ import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import NDA from '../../overlays/NDA'
 import SaveYourPassword from '../../overlays/SaveYourPassword'
 import tw from '../../styles/tailwind'
 import { account, createAccount, deleteAccount } from '../../utils/account'
@@ -151,8 +150,6 @@ export default ({ navigation }: Props): ReactElement => {
   useEffect(() => {
     validateForm()
   }, [referralCode])
-
-  useEffect(() => updateOverlay({ content: <NDA />, showCloseButton: false }), [])
 
   return (
     <View style={tw`h-full flex justify-center px-6`}>
