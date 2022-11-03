@@ -5,12 +5,12 @@ import { signPSBT } from './signPSBT'
 
 export const checkAndRefund = async (
   psbtBase64: string,
-  offer: SellOffer
+  offer: SellOffer,
 ): Promise<{
-    tx?: string,
-    txId?: string|null,
-    err?: string|null,
-  }> => {
+  tx?: string
+  txId?: string | null
+  err?: string | null
+}> => {
   const { isValid, psbt, err } = await checkRefundPSBT(psbtBase64, offer)
 
   if (!isValid || !psbt || err) return { err }
@@ -18,7 +18,7 @@ export const checkAndRefund = async (
   const signedPSBT = signPSBT(psbt, offer)
   const tx = signedPSBT.extractTransaction().toHex()
   const [result, postTXError] = await postTx({
-    tx
+    tx,
   })
   info('refundEscrow: ', JSON.stringify(result))
 
