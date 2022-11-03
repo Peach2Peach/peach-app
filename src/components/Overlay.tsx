@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
-import { BackHandler, Pressable, View } from 'react-native'
+import { BackHandler, Modal, Pressable, View } from 'react-native'
 import { Button } from '.'
 
 import tw from '../styles/tailwind'
@@ -36,32 +36,35 @@ export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help
   }, [content, showCloseIcon, showCloseButton])
 
   return (
-    <View
-      testID="overlay"
-      style={[
-        tw`absolute z-20 w-full h-full flex items-center justify-center`,
-        tw`p-3 pb-8`,
-        help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
-      ]}>
-      {showCloseIcon ? (
-        <Pressable onPress={closeOverlay} style={tw`absolute z-20 top-5 right-5`}>
-          <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color as string} />
-        </Pressable>
-      ) : null}
+    <Modal>
+      <View
+        testID="overlay"
+        style={[
+          tw`absolute z-20 w-full h-full flex items-center justify-center`,
+          tw`p-3 pb-8`,
+          help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
+        ]}
+      >
+        {showCloseIcon ? (
+          <Pressable onPress={closeOverlay} style={tw`absolute z-20 top-5 right-5`}>
+            <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color as string} />
+          </Pressable>
+        ) : null}
 
-      {content}
+        {content}
 
-      {showCloseButton ? (
-        <Button
-          style={tw`mt-7`}
-          title={i18n('close')}
-          secondary={!help}
-          help={help}
-          onPress={closeOverlay}
-          wide={false}
-        />
-      ) : null}
-    </View>
+        {showCloseButton ? (
+          <Button
+            style={tw`mt-7`}
+            title={i18n('close')}
+            secondary={!help}
+            help={help}
+            onPress={closeOverlay}
+            wide={false}
+          />
+        ) : null}
+      </View>
+    </Modal>
   )
 }
 
