@@ -73,7 +73,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const onEndReached = () => {
-    if (matches.length >= PAGESIZE) setPage((p) => p + 1)
+    if (matches.length >= PAGESIZE * page) setPage((p) => p + 1)
   }
 
   const setMatchingOptions = (
