@@ -154,82 +154,75 @@ const App: React.FC = () => {
   return (
     <GestureHandlerRootView style={tw`bg-white-1`}>
       <AvoidKeyboard>
-        <SafeAreaView>
-          <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
-            <PeachWSContext.Provider value={peachWS}>
-              <AppContext.Provider value={[appContext, updateAppContext]}>
-                <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                  <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
-                    <DrawerContext.Provider
-                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+        <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
+          <PeachWSContext.Provider value={peachWS}>
+            <AppContext.Provider value={[appContext, updateAppContext]}>
+              <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
+                <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
+                  <DrawerContext.Provider
+                    value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+                  >
+                    <OverlayContext.Provider
+                      value={[
+                        { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
+                        updateOverlay,
+                      ]}
                     >
-                      <OverlayContext.Provider
-                        value={[
-                          { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                          updateOverlay,
-                        ]}
-                      >
-                        <View style={tw`h-full flex-col`}>
-                          {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
-                          <Drawer
-                            title={drawerTitle}
-                            content={drawerContent}
-                            show={showDrawer}
-                            onClose={onCloseDrawer}
-                          />
-                          {content ? (
-                            <Overlay {...{ content, help, showCloseButton, showCloseIcon }} onClose={onCloseOverlay} />
-                          ) : null}
-                          {template || msg || msgKey ? (
-                            <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                              <Message
-                                template={template}
-                                msg={msg}
-                                msgKey={msgKey}
-                                level={level}
-                                close={close}
-                                style={{ minHeight: 60 }}
-                              />
-                            </Animated.View>
-                          ) : null}
-                          <View style={tw`h-full flex-shrink`}>
-                            <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
-                              <Stack.Navigator
-                                detachInactiveScreens={true}
-                                screenOptions={{
-                                  gestureEnabled: false,
-                                  headerShown: false,
-                                  cardStyle: tw`bg-white-1`,
-                                }}
-                              >
-                                {views.map((view) => (
-                                  <Stack.Screen
-                                    name={view.name}
-                                    component={view.component}
-                                    key={view.name}
-                                    options={{ animationEnabled: false }}
-                                  />
-                                ))}
-                              </Stack.Navigator>
-                            </NavigationContainer>
-                          </View>
-                          {showFooter(currentPage) ? (
-                            <Footer
-                              style={tw`z-10`}
-                              active={currentPage}
-                              navigation={navigationRef}
-                              setCurrentPage={setCurrentPage}
+                      <View style={tw`h-full flex-col`}>
+                        {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
+                        <Drawer title={drawerTitle} content={drawerContent} show={showDrawer} onClose={onCloseDrawer} />
+                        {content ? (
+                          <Overlay {...{ content, help, showCloseButton, showCloseIcon }} onClose={onCloseOverlay} />
+                        ) : null}
+                        {template || msg || msgKey ? (
+                          <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
+                            <Message
+                              template={template}
+                              msg={msg}
+                              msgKey={msgKey}
+                              level={level}
+                              close={close}
+                              style={{ minHeight: 60 }}
                             />
-                          ) : null}
-                        </View>
-                      </OverlayContext.Provider>
-                    </DrawerContext.Provider>
-                  </MessageContext.Provider>
-                </BitcoinContext.Provider>
-              </AppContext.Provider>
-            </PeachWSContext.Provider>
-          </LanguageContext.Provider>
-        </SafeAreaView>
+                          </Animated.View>
+                        ) : null}
+                        <SafeAreaView style={tw`h-full flex-shrink`}>
+                          <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
+                            <Stack.Navigator
+                              detachInactiveScreens={true}
+                              screenOptions={{
+                                gestureEnabled: false,
+                                headerShown: false,
+                                cardStyle: tw`bg-white-1`,
+                              }}
+                            >
+                              {views.map((view) => (
+                                <Stack.Screen
+                                  name={view.name}
+                                  component={view.component}
+                                  key={view.name}
+                                  options={{ animationEnabled: false }}
+                                />
+                              ))}
+                            </Stack.Navigator>
+                          </NavigationContainer>
+                        </SafeAreaView>
+                        {showFooter(currentPage) ? (
+                          <Footer
+                            style={tw`z-10`}
+                            active={currentPage}
+                            navigation={navigationRef}
+                            setCurrentPage={setCurrentPage}
+                          />
+                        ) : null}
+                      </View>
+                    </OverlayContext.Provider>
+                  </DrawerContext.Provider>
+                </MessageContext.Provider>
+              </BitcoinContext.Provider>
+            </AppContext.Provider>
+          </PeachWSContext.Provider>
+        </LanguageContext.Provider>
       </AvoidKeyboard>
     </GestureHandlerRootView>
   )

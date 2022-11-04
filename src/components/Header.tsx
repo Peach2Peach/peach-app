@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { LayoutChangeEvent, Pressable, View } from 'react-native'
+import { LayoutChangeEvent, Pressable, SafeAreaView, View } from 'react-native'
 import RNRestart from 'react-native-restart'
 
 import { Shadow, Text } from '.'
@@ -85,7 +85,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
 
   return (
-    <View style={style} onLayout={setHeaderHeight}>
+    <SafeAreaView style={style} onLayout={setHeaderHeight}>
       <Shadow shadow={mildShadow}>
         <View style={tw`w-full flex-row items-center justify-between px-4 py-2 bg-white-1`}>
           <Fade show={!!bitcoinContext.price} style={tw`w-1/2`} displayNone={false}>
@@ -105,7 +105,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
           </Fade>
         </View>
       </Shadow>
-    </View>
+    </SafeAreaView>
   )
 }
 
