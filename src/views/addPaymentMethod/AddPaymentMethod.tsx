@@ -28,9 +28,9 @@ const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
 // eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [page, setPage] = useState(getPage(route.params))
-  const [currencies, setCurrencies] = useState(route.params.currencies || [CURRENCIES[0]])
+  const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [country, setCountry] = useState(route.params.country)
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>()
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | undefined>(route.params.paymentMethod)
 
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
