@@ -73,7 +73,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const onEndReached = () => {
-    if (matches.length >= PAGESIZE) setPage((p) => p + 1)
+    if (matches.length >= PAGESIZE * page) setPage((p) => p + 1)
   }
 
   const setMatchingOptions = (
@@ -180,10 +180,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       symmetricKeySignature: encryptedSymmmetricKey?.signature,
       paymentDataEncrypted: encryptedPaymentData?.encrypted,
       paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData:
-        offer.paymentData[selectedPaymentMethod]!.hash
-        || (offer.paymentData[selectedPaymentMethod] as unknown as string) // TODO remove this line mid september
-        || '',
+      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash || '',
     })
 
     if (result) {
@@ -293,23 +290,25 @@ export default ({ route, navigation }: Props): ReactElement => {
         onBefore: () => setSearchingMatches(true),
         onSuccess: (result) => {
           setSearchingMatches(false)
-          setMatches((ms) =>
-            ms
-              .concat(result)
-              .filter(unique('offerId'))
-              .map((match) => {
-                const update = result.find((m) => m.offerId === match.offerId)
-                match.prices = (update || match).prices
-                return match
-              }),
-          )
+          if (offerId === route.params.offer.id) {
+            setMatches((ms) =>
+              ms
+                .concat(result)
+                .filter(unique('offerId'))
+                .map((match) => {
+                  const update = result.find((m) => m.offerId === match.offerId)
+                  match.prices = (update || match).prices
+                  return match
+                }),
+            )
+          }
         },
         onError: (err) => {
           setSearchingMatches(false)
           if (err.error !== 'UNAUTHORIZED') updateMessage({ msgKey: err.error, level: 'ERROR' })
         },
       }),
-      [offer.id, pnReceived, page],
+      [offerId, pnReceived, page],
     ),
   )
 
