@@ -41,7 +41,7 @@ const navigateToOffer = (
       const navigate = () => {}
 
       updateOverlay({
-        content: <Refund offer={offer} navigate={navigate} />,
+        content: <Refund {...{ offer, navigate, navigation }} />,
         showCloseButton: false,
       })
     }

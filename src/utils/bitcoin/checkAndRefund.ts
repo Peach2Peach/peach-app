@@ -10,7 +10,8 @@ import { refundSellOffer } from './refundSellOffer'
 export const checkAndRefund = async (psbtBase64: string, offer: SellOffer): Promise<RefundingStatus> => {
   const { isValid, psbt, err } = await checkRefundPSBT(psbtBase64, offer)
 
-  if (!isValid || !psbt || err) return { err }
+  return { psbt, err: 'RETURN_ADDRESS_MISMATCH' }
+  if (!isValid || !psbt || err) return { psbt, err }
 
   return await refundSellOffer(psbt, offer)
 }

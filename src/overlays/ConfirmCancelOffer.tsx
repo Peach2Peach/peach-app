@@ -11,6 +11,7 @@ import { error, info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import Refund from './Refund'
 import { updateTradingLimit } from '../utils/account'
+import { StackNavigation } from '../utils/navigation'
 
 const confirm = async (offer: BuyOffer | SellOffer) => {
   if (!offer.id) return
@@ -51,9 +52,10 @@ const TradeCanceled = () => (
 type ConfirmCancelOfferProps = {
   offer: BuyOffer | SellOffer
   navigate: () => void
+  navigation: StackNavigation
 }
 
-export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
+export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
@@ -78,7 +80,7 @@ export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
         return
       }
       updateOverlay({
-        content: <Refund offer={offer} navigate={navigate} />,
+        content: <Refund {...{ offer, navigate, navigation }} />,
         showCloseButton: false,
       })
     }, 3000)

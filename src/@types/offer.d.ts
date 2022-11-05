@@ -54,6 +54,7 @@ declare type BuyOffer = Omit<Offer, 'id'> & {
 }
 
 declare type RefundingStatus = {
+  psbt?: Psbt
   tx?: string
   txId?: string | null
   err?: string | null

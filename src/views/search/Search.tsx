@@ -261,7 +261,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const cancelOffer = () =>
     updateOverlay({
-      content: <ConfirmCancelOffer offer={offer} navigate={goToYourTrades} />,
+      content: <ConfirmCancelOffer {...{ offer, navigate: goToYourTrades, navigation }} />,
       showCloseButton: false,
     })
 

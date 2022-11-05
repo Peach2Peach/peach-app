@@ -18,6 +18,7 @@ export const refundSellOffer = async (psbt: Psbt, offer: SellOffer): Promise<Ref
   info('refundEscrow: ', JSON.stringify(result))
 
   return {
+    psbt,
     tx,
     txId: result?.txId,
     err: postTXError?.error,
