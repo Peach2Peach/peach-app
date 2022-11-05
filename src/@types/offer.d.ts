@@ -52,3 +52,9 @@ declare type BuyOffer = Omit<Offer, 'id'> & {
   matched: Offer['id'][]
   seenMatches: Offer['id'][]
 }
+
+declare type RefundingStatus = {
+  tx?: string
+  txId?: string | null
+  err?: string | null
+}

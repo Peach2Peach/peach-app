@@ -1,30 +1,16 @@
-import { postTx } from '../../utils/peachAPI'
-import { info } from '../log'
 import { checkRefundPSBT } from './checkRefundPSBT'
-import { signPSBT } from './signPSBT'
+import { refundSellOffer } from './refundSellOffer'
 
-export const checkAndRefund = async (
-  psbtBase64: string,
-  offer: SellOffer,
-): Promise<{
-  tx?: string
-  txId?: string | null
-  err?: string | null
-}> => {
+/**
+ * @description Method to check psbt for validity and if ok, refund
+ * @param psbtBase64 base64 encoded psbt
+ * @param offer sell offer to refund
+ * @returns refunding status
+ */
+export const checkAndRefund = async (psbtBase64: string, offer: SellOffer): Promise<RefundingStatus> => {
   const { isValid, psbt, err } = await checkRefundPSBT(psbtBase64, offer)
 
   if (!isValid || !psbt || err) return { err }
 
-  const signedPSBT = signPSBT(psbt, offer)
-  const tx = signedPSBT.extractTransaction().toHex()
-  const [result, postTXError] = await postTx({
-    tx,
-  })
-  info('refundEscrow: ', JSON.stringify(result))
-
-  return {
-    tx,
-    txId: result?.txId,
-    err: postTXError?.error,
-  }
+  return await refundSellOffer(psbt, offer)
 }
