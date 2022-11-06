@@ -11,7 +11,7 @@ import { error, info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import Refund from './Refund'
 import { updateTradingLimit } from '../utils/account'
-import { StackNavigation } from '../utils/navigation'
+import { Navigation } from '../utils/navigation'
 
 const confirm = async (offer: BuyOffer | SellOffer) => {
   if (!offer.id) return
@@ -52,7 +52,7 @@ const TradeCanceled = () => (
 type ConfirmCancelOfferProps = {
   offer: BuyOffer | SellOffer
   navigate: () => void
-  navigation: StackNavigation
+  navigation: Navigation
 }
 
 export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): ReactElement => {
