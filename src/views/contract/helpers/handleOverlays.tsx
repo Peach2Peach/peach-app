@@ -23,6 +23,7 @@ type HandleOverlaysProps = {
  */
 // eslint-disable-next-line complexity
 export const handleOverlays = ({ contract, navigation, updateOverlay, view }: HandleOverlaysProps) => {
+  const contractId = contract.id
   if (
     contract.disputeActive
     && contract.disputeInitiator !== account.publicKey
@@ -31,10 +32,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     return updateOverlay({
       content: (
         <YouGotADispute
-          contractId={contract.id}
-          message={contract.disputeClaim!}
-          reason={contract.disputeReason!}
-          navigation={navigation}
+          {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason!, navigation }}
         />
       ),
       showCloseButton: false,
@@ -43,7 +41,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
 
   if (!contract.disputeActive && contract.disputeResolvedDate && !contract.disputeResultAcknowledged) {
     return updateOverlay({
-      content: <DisputeResult contractId={contract.id} navigation={navigation} />,
+      content: <DisputeResult {...{ contractId, navigation }} />,
     })
   }
 
