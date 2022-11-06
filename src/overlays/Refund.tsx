@@ -14,7 +14,7 @@ import { OverlayContext } from '../contexts/overlay'
 import { checkAndRefund, showTransaction } from '../utils/bitcoin'
 import { error, info } from '../utils/log'
 import { sum } from '../utils/math'
-import { Navigation, StackNavigation } from '../utils/navigation'
+import { Navigation } from '../utils/navigation'
 import { offerIdToHex, saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'
 
@@ -41,7 +41,7 @@ const WrongFundingAmountMessage = ({ offer, fundingStatus }: WrongFundingAmountM
 type ReturnAddressMismatchMessageProps = {
   offer: SellOffer
   refundPSBT: Psbt
-  navigation: Navigation | StackNavigation
+  navigation: Navigation
 }
 
 const ReturnAddressMismatchMessage = ({
@@ -91,7 +91,7 @@ const ReturnAddressMismatchMessage = ({
 type Props = {
   offer: SellOffer
   navigate: () => void
-  navigation: Navigation | StackNavigation
+  navigation: Navigation
 }
 
 // eslint-disable-next-line max-lines-per-function
