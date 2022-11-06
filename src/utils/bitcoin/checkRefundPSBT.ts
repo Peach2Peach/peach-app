@@ -2,15 +2,14 @@ import { Psbt } from 'bitcoinjs-lib'
 import { getNetwork } from '../../utils/wallet'
 import { txIdPartOfPSBT } from './txIdPartOfPSBT'
 
-
 export const checkRefundPSBT = (
   psbtBase64: string,
-  offer: SellOffer
+  offer: SellOffer,
 ): {
-    isValid: boolean,
-    psbt?: Psbt,
-    err?: string|null,
-  } => {
+  isValid: boolean
+  psbt?: Psbt
+  err?: string | null
+} => {
   if (!offer.id || !psbtBase64) return { isValid: false, err: 'NOT_FOUND' }
   const psbt = Psbt.fromBase64(psbtBase64, { network: getNetwork() })
 
@@ -18,7 +17,7 @@ export const checkRefundPSBT = (
 
   // Don't trust the response, verify
   const txIds = offer.funding.txIds
-  if (!txIds.every(txId => txIdPartOfPSBT(txId, psbt))) {
+  if (!txIds.every((txId) => txIdPartOfPSBT(txId, psbt))) {
     return { isValid: false, err: 'INVALID_INPUT' }
   }
 
@@ -29,6 +28,6 @@ export const checkRefundPSBT = (
   }
   return {
     isValid: true,
-    psbt
+    psbt,
   }
 }
