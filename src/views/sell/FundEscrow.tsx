@@ -54,7 +54,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const cancelOffer = () =>
     updateOverlay({
-      content: <ConfirmCancelOffer offer={offer} navigate={navigateToOffer} />,
+      content: <ConfirmCancelOffer {...{ offer, navigate: navigateToOffer, navigation }} />,
       showCloseButton: false,
     })
 
@@ -132,7 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
       updateOverlay({
-        content: <Refund offer={offer} navigate={navigateToYourTrades} />,
+        content: <Refund {...{ offer, navigate: navigateToYourTrades, navigation }} />,
         showCloseButton: false,
       })
       return

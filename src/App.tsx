@@ -132,7 +132,7 @@ const App: React.FC = () => {
     handleNotificationsEffect({
       getCurrentPage,
       updateOverlay,
-      navigationRef,
+      navigation: navigationRef,
     }),
     [currentPage],
   )
