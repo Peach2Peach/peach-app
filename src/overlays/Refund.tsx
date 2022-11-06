@@ -102,7 +102,7 @@ export default ({ offer, navigate, navigation }: Props): ReactElement => {
 
   const [transactionId, setTransactionId] = useState<string>(offer.txId || '')
   const [refundPSBT, setRefundPSBT] = useState<Psbt>()
-  const [returnAddressMismatch, setReturnAddressMismatch] = useState(true)
+  const [returnAddressMismatch, setReturnAddressMismatch] = useState(false)
   const fundingStatus = offer.funding.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
 
   const closeOverlay = () => {
