@@ -70,16 +70,16 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
   return !view || !contract || !offer ? (
     <Loading color={tw`text-white-1`.color as string} />
   ) : !hasWinner ? (
-    <NonDispute contract={contract} navigate={goToContract} />
+    <NonDispute {...{ contract, navigate: goToContract }} />
   ) : view === 'seller' ? (
     isWinner ? (
-      <DisputeWonSeller contract={contract} offer={offer as SellOffer} navigate={goToContract} />
+      <DisputeWonSeller {...{ contract, offer: offer as SellOffer, navigate: goToContract, navigation }} />
     ) : (
-      <DisputeLostSeller contract={contract} navigate={goToContract} />
+      <DisputeLostSeller {...{ contract, navigate: goToContract }} />
     )
   ) : isWinner ? (
-    <DisputeWonBuyer contract={contract} navigate={goToContract} />
+    <DisputeWonBuyer {...{ contract, navigate: goToContract }} />
   ) : (
-    <DisputeLostBuyer contract={contract} navigate={goToContract} />
+    <DisputeLostBuyer {...{ contract, navigate: goToContract }} />
   )
 }

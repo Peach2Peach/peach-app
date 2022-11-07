@@ -1,6 +1,5 @@
 /* eslint-disable max-lines-per-function */
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import React, { Dispatch, EffectCallback } from 'react'
 import { DisputeResult } from '../overlays/DisputeResult'
 import EscrowFunded from '../overlays/EscrowFunded'
@@ -18,14 +17,15 @@ import { getContract as getContractAPI } from '../utils/peachAPI'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
 import { parseError } from '../utils/system'
+import { Navigation } from '../utils/navigation'
 
 type HandleNotificationsEffectProps = {
   getCurrentPage: () => keyof RootStackParamList
   updateOverlay: Dispatch<OverlayState>
-  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>
+  navigation: Navigation
 }
 
-export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotificationsEffectProps): EffectCallback =>
+export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificationsEffectProps): EffectCallback =>
   () => {
     // eslint-disable-next-line max-statements, complexity
     const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
@@ -39,56 +39,46 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
       let contract = remoteMessage.data.contractId ? getContract(remoteMessage.data.contractId) : null
 
       if (offer && type === 'offer.expired' && !/contract/u.test(currentPage)) {
+        const days = args ? args[0] || '15' : '15'
         return updateOverlay({
-          content: (
-            <OfferExpired offer={offer as SellOffer} days={args ? args[0] || '15' : '15'} navigation={navigationRef} />
-          ),
+          content: <OfferExpired {...{ offer, days, navigation }} />,
         })
       }
       if (offer && type === 'offer.notFunded' && !/sell|contract/u.test(currentPage)) {
+        const days = args ? args[0] || '7' : '7'
         return updateOverlay({
-          content: (
-            <OfferNotFunded offer={offer as SellOffer} days={args ? args[0] || '7' : '7'} navigation={navigationRef} />
-          ),
+          content: <OfferNotFunded {...{ offer, days, navigation }} />,
         })
       }
       if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
         return updateOverlay({
-          content: <EscrowFunded offerId={remoteMessage.data.offerId} navigation={navigationRef} />,
+          content: <EscrowFunded {...{ offerId: remoteMessage.data.offerId, navigation }} />,
         })
       }
 
       if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
         return updateOverlay({
-          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
+          content: <MatchAccepted {...{ contractId: remoteMessage.data.contractId, navigation }} />,
         })
       }
       if (type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
+        const { contractId } = remoteMessage.data
+        const date = remoteMessage.sentTime || Date.now()
         return updateOverlay({
-          content: (
-            <PaymentMade
-              contractId={remoteMessage.data.contractId}
-              date={remoteMessage.sentTime || new Date().getTime()}
-              navigation={navigationRef}
-            />
-          ),
+          content: <PaymentMade {...{ contractId, date, navigation }} />,
         })
       }
       if (type === 'contract.disputeRaised') {
+        const { contractId, message, reason } = remoteMessage.data
         return updateOverlay({
-          content: (
-            <YouGotADispute
-              contractId={remoteMessage.data.contractId}
-              message={remoteMessage.data.message}
-              reason={remoteMessage.data.reason as DisputeReason}
-              navigation={navigationRef}
-            />
-          ),
+          content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
         })
       }
       if (type === 'contract.disputeResolved') {
+        const { contractId } = remoteMessage.data
+
         return updateOverlay({
-          content: <DisputeResult contractId={remoteMessage.data.contractId} navigation={navigationRef} />,
+          content: <DisputeResult {...{ contractId, navigation }} />,
         })
       }
 
@@ -96,22 +86,22 @@ export default ({ getCurrentPage, updateOverlay, navigationRef }: HandleNotifica
         const [result] = await getContractAPI({ contractId: contract.id })
         if (result) contract = { ...result, ...contract }
         return updateOverlay({
-          content: <BuyerCanceledTrade contract={contract!} navigation={navigationRef} />,
+          content: <BuyerCanceledTrade {...{ contract, navigation }} />,
         })
       }
-      if (contract && type === 'contract.cancelationRequest') {
+      if (contract && type === 'contract.cancelationRequest' && !contract.disputeActive) {
         return updateOverlay({
-          content: <ConfirmCancelTradeRequest contract={contract} navigation={navigationRef} />,
+          content: <ConfirmCancelTradeRequest {...{ contract, navigation }} />,
         })
       }
       if (contract && type === 'contract.cancelationRequestAccepted') {
         return updateOverlay({
-          content: <CancelTradeRequestConfirmed contract={contract} navigation={navigationRef} />,
+          content: <CancelTradeRequestConfirmed {...{ contract, navigation }} />,
         })
       }
       if (contract && type === 'contract.cancelationRequestRejected') {
         return updateOverlay({
-          content: <CancelTradeRequestRejected contract={contract} navigation={navigationRef} />,
+          content: <CancelTradeRequestRejected {...{ contract, navigation }} />,
         })
       }
       return null

@@ -151,7 +151,7 @@ export const Match = ({
                 <Text style={tw`font-bold text-base`}>{i18n(offer.type === 'ask' ? 'buyer' : 'seller')}:</Text>
                 <Text style={tw`text-base`}> Peach{match.user.id.substring(0, 8)}</Text>
               </Text>
-              {match.user.ratingCount < 3 ? (
+              {match.user.trades < 3 ? (
                 <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 mt-2 text-grey-2`}>
                   {i18n('rating.newUser')}
                 </Text>

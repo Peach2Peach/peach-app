@@ -28,8 +28,8 @@ import { getChatNotifications } from '../../utils/chat'
 import AppContext from '../../contexts/app'
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['contract'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['contract'] }>
+  navigation: StackNavigation
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -41,11 +41,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract|null>(() => route.params.contract || getContract(contractId))
+  const [contract, setContract] = useState<Contract | null>(() => route.params.contract || getContract(contractId))
   const [updatePending, setUpdatePending] = useState(!contract)
-  const [view, setView] = useState<'seller'|'buyer'|''>(contract
-    ? account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-    : '')
+  const [view, setView] = useState<'seller' | 'buyer' | ''>(
+    contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
+  )
   const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
 
   const saveAndUpdate = (contractData: Contract): Contract => {
@@ -54,7 +54,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setContract(contractData)
     saveContract(contractData)
     updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount()
+      notifications: getChatNotifications() + getRequiredActionCount(),
     })
     return contractData
   }
@@ -64,7 +64,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       const c = route.params.contract || getContract(route.params.contractId)
       setContractId(() => route.params.contractId)
       setUpdatePending(!c)
-      setView(c ? account.publicKey === c.seller.id ? 'seller' : 'buyer' : '')
+      setView(c ? (account.publicKey === c.seller.id ? 'seller' : 'buyer') : '')
       setRequiredAction(c ? getRequiredAction(c) : 'none')
       setContract(c)
     }
@@ -72,85 +72,96 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(useCallback(initContract, [route]))
 
-  useFocusEffect(useCallback(() => {
-    const contractUpdateHandler = async (update: ContractUpdate) => {
-      if (!contract || update.contractId !== contract.id || !update.event) return
-      setContract({
-        ...contract,
-        [update.event]: new Date(update.data.date)
-      })
-    }
-    const messageHandler = async (message: Message) => {
-      if (!contract) return
-      if (!message.message || message.roomId !== `contract-${contract.id}`) return
+  useFocusEffect(
+    useCallback(() => {
+      const contractUpdateHandler = async (update: ContractUpdate) => {
+        if (!contract || update.contractId !== contract.id || !update.event) return
+        setContract({
+          ...contract,
+          [update.event]: new Date(update.data.date),
+        })
+      }
+      const messageHandler = async (message: Message) => {
+        if (!contract) return
+        if (!message.message || message.roomId !== `contract-${contract.id}`) return
 
-      setContract({
-        ...contract,
-        unreadMessages: contract.unreadMessages + 1
-      })
-    }
-    const unsubscribe = () => {
-      ws.off('message', contractUpdateHandler)
-      ws.off('message', messageHandler)
-    }
+        setContract({
+          ...contract,
+          unreadMessages: contract.unreadMessages + 1,
+        })
+      }
+      const unsubscribe = () => {
+        ws.off('message', contractUpdateHandler)
+        ws.off('message', messageHandler)
+      }
 
-    if (!ws.connected) return unsubscribe
+      if (!ws.connected) return unsubscribe
 
-    ws.on('message', contractUpdateHandler)
-    ws.on('message', messageHandler)
+      ws.on('message', contractUpdateHandler)
+      ws.on('message', messageHandler)
 
-    return unsubscribe
-  }, [contract, ws.connected]))
+      return unsubscribe
+    }, [contract, ws.connected]),
+  )
 
-  useFocusEffect(useCallback(getContractEffect({
-    contractId,
-    onSuccess: async (result) => {
-      let c = getContract(result.id)
-      const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
-      setView(v)
+  useFocusEffect(
+    useCallback(
+      getContractEffect({
+        contractId,
+        onSuccess: async (result) => {
+          let c = getContract(result.id)
+          const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
+          setView(v)
 
-      const { symmetricKey, paymentData } = await parseContract({
-        ...result,
-        symmetricKey: c?.symmetricKey,
-        paymentData: c?.paymentData,
-      })
+          const { symmetricKey, paymentData } = await parseContract({
+            ...result,
+            symmetricKey: c?.symmetricKey,
+            paymentData: c?.paymentData,
+          })
 
-      c = saveAndUpdate(c
-        ? {
-          ...c,
-          ...result,
-          symmetricKey,
-          paymentData,
-        }
-        : {
-          ...result,
-          symmetricKey,
-          paymentData,
-        }
-      )
+          c = saveAndUpdate(
+            c
+              ? {
+                ...c,
+                ...result,
+                symmetricKey,
+                paymentData,
+              }
+              : {
+                ...result,
+                symmetricKey,
+                paymentData,
+              },
+          )
 
-      handleOverlays({ contract: c, navigation, updateOverlay, view: v })
-    },
-    onError: err => updateMessage({
-      msgKey: err.error || 'error.general',
-      level: 'ERROR',
-    })
-  }), [contractId]))
+          handleOverlays({ contract: c, navigation, updateOverlay, view: v })
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'error.general',
+            level: 'ERROR',
+          }),
+      }),
+      [contractId],
+    ),
+  )
 
   useEffect(() => {
     if (!contract || !view) return
 
     if (isTradeComplete(contract)) {
-      if (!contract.disputeWinner
-        && view === 'buyer' && !contract.ratingSeller || view === 'seller' && !contract.ratingBuyer) {
+      if (
+        (!contract.disputeWinner && view === 'buyer' && !contract.ratingSeller && !contract.canceled)
+        || (view === 'seller' && !contract.ratingBuyer)
+      ) {
         navigation.replace('tradeComplete', { contract })
       } else {
-        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
+        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
         navigation.replace('offer', { offer })
       }
       return
     } else if (isTradeCanceled(contract)) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer|SellOffer
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
       navigation.replace('offer', { offer })
       return
     }
@@ -172,7 +183,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     saveAndUpdate({
       ...contract,
-      paymentMade: new Date()
+      paymentMade: new Date(),
     })
   }
 
@@ -204,45 +215,46 @@ export default ({ route, navigation }: Props): ReactElement => {
     saveAndUpdate({
       ...contract,
       paymentConfirmed: new Date(),
-      releaseTxId: result?.txId || ''
+      releaseTxId: result?.txId || '',
     })
   }
 
-  const openPaymentHelp = () => updateOverlay({
-    content: <Payment />,
-    showCloseButton: true, help: true
-  })
+  const openPaymentHelp = () =>
+    updateOverlay({
+      content: <Payment />,
+      showCloseButton: true,
+      help: true,
+    })
 
-  return !contract || updatePending
-    ? <Loading />
-    : <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
+  return !contract || updatePending ? (
+    <Loading />
+  ) : (
+    <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
-        <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')}/>
+        <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
         <Text style={tw`text-grey-2 text-center -mt-1`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
-        {!contract.canceled && !contract.paymentConfirmed
-          ? <View style={tw`mt-16`}>
+        {!contract.canceled && !contract.paymentConfirmed ? (
+          <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`mt-16 flex-row justify-center`}>
-              {/sendPayment/u.test(requiredAction)
-                ? <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
+              {/sendPayment/u.test(requiredAction) ? (
+                <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
                   <Timer
                     text={i18n(`contract.timer.${requiredAction}.${view}`)}
                     start={getTimerStart(contract, requiredAction)}
                     duration={TIMERS[requiredAction]}
                     style={tw`flex-shrink`}
                   />
-                  {view === 'buyer' && requiredAction === 'sendPayment'
-                    ? <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
+                  {view === 'buyer' && requiredAction === 'sendPayment' ? (
+                    <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
                       <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
                     </Pressable>
-                    : null
-                  }
+                  ) : null}
                 </View>
-                : null
-              }
+              ) : null}
               <ContractCTA
                 view={view}
                 requiredAction={requiredAction}
@@ -252,8 +264,8 @@ export default ({ route, navigation }: Props): ReactElement => {
               />
             </View>
           </View>
-          : null
-        }
+        ) : null}
       </View>
     </PeachScrollView>
+  )
 }
