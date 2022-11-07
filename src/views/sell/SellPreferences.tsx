@@ -64,6 +64,7 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
     txIds: [],
     amounts: [],
     vouts: [],
+    expiry: 4320,
   },
   matches: [],
   seenMatches: [],
