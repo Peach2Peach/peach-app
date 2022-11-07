@@ -9,7 +9,7 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
+import { BigTitle, Button, Headline, Icon, Loading, Matches, PeachScrollView, SatsFormat, Text } from '../../components'
 import { Level, MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
@@ -371,99 +371,103 @@ export default ({ route, navigation }: Props): ReactElement => {
   )
 
   return (
-    <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
-      <View style={tw`px-6`}>
-        {!matches.length ? (
-          <BigTitle title={i18n(route.params.hasMatches ? 'search.matchesAreWaiting' : 'search.searchingForAPeer')} />
-        ) : (
-          <Headline style={[tw`text-center text-2xl leading-2xl uppercase text-peach-1`, tw.md`text-3xl leading-3xl`]}>
-            {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
-          </Headline>
-        )}
-        {searchingMatches && !matches.length ? (
-          <View style={tw`h-12`}>
-            <Loading />
-            <Text style={tw`text-center`}>{i18n('loading')}</Text>
-          </View>
-        ) : null}
-        {!searchingMatches && !matches.length ? (
-          <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
-        ) : null}
-        {matches.length ? (
-          offer.type === 'bid' ? (
-            <View>
-              <Text style={tw`text-grey-2 text-center -mt-1`}>
-                {i18n('search.buyOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
-              </Text>
-            </View>
+    <PeachScrollView>
+      <View style={tw`h-full flex-col pb-6 pt-5`}>
+        <View style={tw`px-6`}>
+          {!matches.length ? (
+            <BigTitle title={i18n(route.params.hasMatches ? 'search.matchesAreWaiting' : 'search.searchingForAPeer')} />
           ) : (
-            <View>
-              <Text style={tw`text-grey-2 text-center -mt-1`}>
-                {i18n('search.sellOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
-              </Text>
-              <Text style={tw`text-grey-2 text-center`}>
-                {i18n(offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount', String(Math.abs(offer.premium)))}
-              </Text>
+            <Headline style={[tw`text-center text-2xl leading-2xl uppercase text-peach-1`, tw.md`text-3xl leading-3xl`]}>
+              {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
+            </Headline>
+          )}
+          {searchingMatches && !matches.length ? (
+            <View style={tw`h-12`}>
+              <Loading />
+              <Text style={tw`text-center`}>{i18n('loading')}</Text>
             </View>
-          )
-        ) : null}
-      </View>
-      <View style={tw`h-full flex-shrink flex-col justify-end`}>
-        {matches.length ? (
-          <View style={tw`h-full flex-shrink flex-col justify-end`}>
-            <Matches
-              offer={offer}
-              matches={matches}
-              navigation={navigation}
-              onChange={setMatchingOptions}
-              onEndReached={onEndReached}
-              toggleMatch={_toggleMatch}
-              loadingMore={searchingMatches}
-            />
-            {offer.type === 'bid' ? (
-              <View style={tw`flex-row items-center justify-center pl-11`}>
-                <Button
-                  title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
-                  wide={false}
-                  disabled={currentMatch?.matched || matchLoading}
-                  loading={matchLoading}
-                  onPress={_toggleMatch}
-                />
-                <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                </Pressable>
+          ) : null}
+          {!searchingMatches && !matches.length ? (
+            <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
+          ) : null}
+          {matches.length ? (
+            offer.type === 'bid' ? (
+              <View>
+                <Text style={tw`text-grey-2 text-center -mt-1`}>
+                  {i18n('search.buyOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
+                </Text>
               </View>
             ) : (
-              <View style={tw`flex-row items-center justify-center pl-11`}>
-                {/* <Button
+              <View>
+                <Text style={tw`text-grey-2 text-center -mt-1`}>
+                  {i18n('search.sellOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
+                </Text>
+                <Text style={tw`text-grey-2 text-center`}>
+                  {i18n(offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount', String(Math.abs(offer.premium)))}
+                </Text>
+              </View>
+            )
+          ) : null}
+        </View>
+        <View style={tw`h-full flex-shrink flex-col justify-end`}>
+          {matches.length ? (
+            <View style={tw`h-full flex-shrink flex-col justify-end`}>
+              <Matches
+                offer={offer}
+                matches={matches}
+                navigation={navigation}
+                onChange={setMatchingOptions}
+                onEndReached={onEndReached}
+                toggleMatch={_toggleMatch}
+                loadingMore={searchingMatches}
+              />
+              {offer.type === 'bid' ? (
+                <View style={tw`flex-row items-center justify-center pl-11`}>
+                  <Button
+                    title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
+                    wide={false}
+                    disabled={currentMatch?.matched || matchLoading}
+                    loading={matchLoading}
+                    onPress={_toggleMatch}
+                  />
+                  <Pressable onPress={openMatchHelp} style={tw`p-3`}>
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                  </Pressable>
+                </View>
+              ) : (
+                <View style={tw`flex-row items-center justify-center pl-11`}>
+                  {/* <Button
                 title={i18n('search.declineMatch')}
                 wide={false}
                 secondary={true}
                 disabled={currentMatch?.matched}
                 onPress={_decline}
               /> */}
-                <Button
-                  // style={tw`ml-6`}
-                  title={i18n('search.acceptMatch')}
-                  wide={false}
-                  disabled={currentMatch?.matched}
-                  onPress={() => _match(currentMatch)}
-                />
-                <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                </Pressable>
-              </View>
-            )}
-          </View>
-        ) : (
-          <View style={tw`flex items-center mt-6`}>
-            <Button title={i18n('goBackHome')} wide={false} onPress={goHome} />
-          </View>
-        )}
-        <Pressable style={tw`mt-3`} onPress={cancelOffer}>
-          <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>{i18n('cancelOffer')}</Text>
-        </Pressable>
+                  <Button
+                    // style={tw`ml-6`}
+                    title={i18n('search.acceptMatch')}
+                    wide={false}
+                    disabled={currentMatch?.matched}
+                    onPress={() => _match(currentMatch)}
+                  />
+                  <Pressable onPress={openMatchHelp} style={tw`p-3`}>
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                  </Pressable>
+                </View>
+              )}
+            </View>
+          ) : (
+            <View style={tw`flex items-center mt-6`}>
+              <Button title={i18n('goBackHome')} wide={false} onPress={goHome} />
+            </View>
+          )}
+          <Pressable style={tw`mt-3`} onPress={cancelOffer}>
+            <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>
+              {i18n('cancelOffer')}
+            </Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </PeachScrollView>
   )
 }
