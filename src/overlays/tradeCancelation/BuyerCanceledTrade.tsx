@@ -5,9 +5,8 @@ import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getOfferIdfromContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getOffer } from '../../utils/offer'
 import { thousands } from '../../utils/string'
 import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 import Refund from '../Refund'
@@ -22,9 +21,9 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
   const showEscrow = () =>
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
   const refund = () => {
-    const offer = getOffer(contract.id.split('-')[0]) as SellOffer
+    const sellOffer = getSellOfferFromContract(contract)
     updateOverlay({
-      content: <Refund {...{ offer, navigate: closeOverlay, navigation }} />,
+      content: <Refund {...{ sellOffer, navigate: closeOverlay, navigation }} />,
       showCloseButton: false,
     })
   }
