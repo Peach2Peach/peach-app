@@ -23,7 +23,7 @@ export const checkRefundPSBT = (
 
   // refunds should only have one output and this is the expected returnAddress
   if (psbt.txOutputs.length > 1) return { isValid: false, err: 'INVALID_OUTPUT' }
-  if (psbt.txOutputs[0].address !== offer.returnAddress) {
+  if (psbt.txOutputs[0].address?.toLowerCase() !== offer.returnAddress?.toLowerCase()) {
     return { isValid: false, psbt, err: 'RETURN_ADDRESS_MISMATCH' }
   }
   return {
