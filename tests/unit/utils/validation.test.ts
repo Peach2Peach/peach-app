@@ -1,9 +1,15 @@
 /* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
+import { networks } from 'bitcoinjs-lib'
 import { getMessages, rules } from '../../../src/utils/validation'
+import * as wallet from '../../../src/utils/wallet'
 import paymentData from '../data/paymentData.json'
 
 describe('rules', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('validates required fields correctly', () => {
     ok(rules.required(true, 'hello'))
     ok(rules.required(true, 21000))
@@ -39,7 +45,9 @@ describe('rules', () => {
     }
   })
 
-  it('validates btc addresses correctly', () => {
+  it('validates btc addresses correctly for mainnet', () => {
+    const getNetworSpy = jest.spyOn(wallet, 'getNetwork')
+    getNetworSpy.mockReturnValue(networks.bitcoin)
     for (const address of paymentData.bitcoin.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }
@@ -53,6 +61,13 @@ describe('rules', () => {
       ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
     }
 
+    // general invalid input
+    ok(!rules.bitcoinAddress(true, 'invalid'))
+  })
+
+  it('validates btc addresses correctly for testnet', () => {
+    const getNetworSpy = jest.spyOn(wallet, 'getNetwork')
+    getNetworSpy.mockReturnValue(networks.testnet)
     for (const address of paymentData.bitcoinTestnet.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }

@@ -2,10 +2,11 @@ import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
 // import { isxpub } from './bitcoin'
 import i18n from './i18n'
-import { network } from './wallet'
+import { getNetwork } from './wallet'
 
 // eslint-disable-next-line prefer-named-capture-group, max-len
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u
+const emailRegex
+  = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
 
@@ -25,7 +26,7 @@ export const rules = {
     //   valid = isxpub(value)
     // } catch (e) { }
     try {
-      address.toOutputScript(value, network)
+      address.toOutputScript(value, getNetwork())
       valid = true
     } catch (e) {}
 
@@ -45,7 +46,7 @@ export const rules = {
     try {
       address.fromBase58Check(value)
       valid = true
-    } catch (e) { }
+    } catch (e) {}
     return valid
   },
   duplicate (existingValue: any) {
@@ -77,7 +78,7 @@ export const rules = {
     } catch (e) {
       return false
     }
-  }
+  },
 }
 
 export const getMessages = () => ({
@@ -98,5 +99,5 @@ export const getMessages = () => ({
     ukBankAccount: i18n('form.invalid.error'),
     userName: i18n('form.invalid.error'),
     url: i18n('form.invalid.error'),
-  }
+  },
 })

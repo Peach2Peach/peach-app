@@ -41,6 +41,7 @@
         "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"
       ],
       "invalid": [
+        "2MsHgTuivhWjeCkFctzWsCPGnq5xVb43nJy",
         "12dRugNcdxK39288NjcDV4GX7rMsKCGn6C"
       ]
     },
@@ -49,17 +50,19 @@
         "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z"
       ],
       "invalid": [
-        "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7e"
+        "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7e",
+        "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgk7"
       ]
     }
   },
   "bitcoinTestnet": {
     "base58Check": {
       "valid": [
-        "2MsftWdaS4y847oVwfcD7m5MbRaYaLcfYSQ"
+        "2MsHgTuivhWjeCkFctzWsCPGnq5xVb43nJy"
       ],
       "invalid": [
-        "2MsftWdaS4y847oVwfcD7m5MbRaYaLcfAA"
+        "2MsHgTuivhWjeCkFctzWsCPGnq5xVb43n",
+        "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"
       ]
     },
     "bech32": {
@@ -67,7 +70,8 @@
         "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgk7"
       ],
       "invalid": [
-        "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgaa"
+        "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgaa",
+        "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z"
       ]
     }
   },
