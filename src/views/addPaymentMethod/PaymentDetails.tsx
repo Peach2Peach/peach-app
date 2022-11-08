@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -23,8 +23,8 @@ const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList>
 }
 
 export default ({ route, navigation }: Props): ReactElement => {
-  const [paymentData, setPaymentData] = useState(route.params.paymentData)
-  const { type: paymentMethod } = paymentData
+  const { paymentData: data } = route.params
+  const { type: paymentMethod, currencies } = data
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
     navigation.reset({
@@ -64,14 +64,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       )}
       <View style={[tw`h-full flex-shrink flex justify-center`, !specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
         <PaymentMethodForm
-          paymentMethod={paymentMethod}
           style={tw`h-full flex-shrink flex-col justify-between`}
-          currencies={paymentData.currencies}
-          data={paymentData}
-          onSubmit={onSubmit}
-          onDelete={onDelete}
           back={goToOriginOnCancel}
-          navigation={navigation}
+          {...{ paymentMethod, onSubmit, onDelete, navigation, currencies, data }}
         />
       </View>
     </View>
