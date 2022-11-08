@@ -1,6 +1,5 @@
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
-// import { isxpub } from './bitcoin'
 import i18n from './i18n'
 import { getNetwork } from './wallet'
 
@@ -22,9 +21,6 @@ export const rules = {
   email: emailRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
-    // try {
-    //   valid = isxpub(value)
-    // } catch (e) { }
     try {
       address.toOutputScript(value, getNetwork())
       valid = true

@@ -15,13 +15,6 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   const setReturnAddress = (address: string) => {
-    // if (isxpub(address)) {
-    //   updateSettings({
-    //     returnAddress: address,
-    //     derivationPath: `m/84'/${NETWORK === 'bitcoin' ? '0' : '1'}'/0'`,
-    //     hdStartIndex: 0
-    //   })
-    // } else {
     updateSettings(
       {
         returnAddress: address,
