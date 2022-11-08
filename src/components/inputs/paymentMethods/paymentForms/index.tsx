@@ -43,7 +43,7 @@ export type PaymentMethodFormProps = ComponentProps & {
   data: Partial<PaymentData>
   currencies?: Currency[]
   country?: Country
-  onSubmit?: (data: PaymentData) => void
+  onSubmit: (data: PaymentData) => void
   onChange?: (data: Partial<PaymentData>) => void
   onDelete?: () => void
   back?: () => void
@@ -90,7 +90,7 @@ export const PaymentMethodForm = ({
   let $formRef = useRef<FormRef>(null).current
 
   const submit = (newPaymentData: PaymentData) => {
-    if (!$formRef || !onSubmit) return
+    if (!$formRef) return
 
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
@@ -121,12 +121,8 @@ export const PaymentMethodForm = ({
       >
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
-          paymentMethod={paymentMethod}
-          data={data}
-          currencies={currencies}
           onSubmit={submit}
-          onChange={onChange}
-          navigation={navigation}
+          {...{ paymentMethod, data, currencies, onChange, navigation }}
         />
       </PeachScrollView>
       <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
@@ -141,9 +137,7 @@ export const PaymentMethodForm = ({
               id="arrowLeft"
               style={tw`w-10 h-10`}
               color={
-                specialTemplates[paymentMethod] && specialTemplates[paymentMethod]!.button
-                  ? (specialTemplates[paymentMethod]!.button!.bgColor.backgroundColor as string)
-                  : (tw`text-peach-1`.color as string)
+                (specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color) as string
               }
             />
           </Pressable>
@@ -154,10 +148,8 @@ export const PaymentMethodForm = ({
               wide={false}
               onPress={() => $formRef?.save()}
               title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-              textColor={
-                specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button?.textColor : undefined
-              }
-              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button?.bgColor : undefined}
+              textColor={specialTemplates[paymentMethod]?.button?.textColor}
+              bgColor={specialTemplates[paymentMethod]?.button?.bgColor}
             />
           </View>
         </View>
