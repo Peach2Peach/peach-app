@@ -46,8 +46,8 @@ describe('rules', () => {
   })
 
   it('validates btc addresses correctly for mainnet', () => {
-    const getNetworSpy = jest.spyOn(wallet, 'getNetwork')
-    getNetworSpy.mockReturnValue(networks.bitcoin)
+    const getNetworkSpy = jest.spyOn(wallet, 'getNetwork')
+    getNetworkSpy.mockReturnValue(networks.bitcoin)
     for (const address of paymentData.bitcoin.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }
@@ -66,8 +66,8 @@ describe('rules', () => {
   })
 
   it('validates btc addresses correctly for testnet', () => {
-    const getNetworSpy = jest.spyOn(wallet, 'getNetwork')
-    getNetworSpy.mockReturnValue(networks.testnet)
+    const getNetworkSpy = jest.spyOn(wallet, 'getNetwork')
+    getNetworkSpy.mockReturnValue(networks.testnet)
     for (const address of paymentData.bitcoinTestnet.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }
