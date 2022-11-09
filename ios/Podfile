@@ -21,10 +21,6 @@ abstract_target 'peach' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  # pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
-
-  # pod 'RNFS', :path => '../node_modules/react-native-fs'
-
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
   pod 'react-native-fast-openpgp', :path => '../node_modules/react-native-fast-openpgp'
