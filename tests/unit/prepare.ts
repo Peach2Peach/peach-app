@@ -83,7 +83,7 @@ jest.mock('@react-native-firebase/analytics', () => () => ({
 jest.mock('react-native-device-info', () => ({
   getVersion: () => version,
   getBuildNumber: jest.fn(),
-  getUniqueId: () => 'UNIQUE-DEVICE-ID',
+  getUniqueIdSync: () => 'UNIQUE-DEVICE-ID',
   isEmulatorSync: () => true,
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')

@@ -1,4 +1,4 @@
-import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
+import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 
@@ -20,7 +20,7 @@ export const BUILDNUMBER = getBuildNumber()
 
 export const ISEMULATOR = isEmulatorSync()
 
-export const UNIQUEID = sha256(getUniqueId())
+export const UNIQUEID = sha256(getUniqueIdSync())
 
 export let MINAPPVERSION = APPVERSION
 export const setMinAppVersion = (ver: string) => (MINAPPVERSION = ver)
