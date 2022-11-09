@@ -5,14 +5,12 @@ import tw from '../../styles/tailwind'
 import { RouteProp } from '@react-navigation/native'
 import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
-import WhatIsADispute from '../../overlays/WhatIsADispute'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
-import keyboard from '../../effects/keyboard'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
 import { error } from '../../utils/log'
 import { Navigation } from '../../utils/navigation'
@@ -21,6 +19,7 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { getMessages, rules } from '../../utils/validation'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
+import { useKeyboard } from '../../hooks/useKeyboard'
 const { useValidation } = require('react-native-form-validator')
 
 type Props = {
@@ -43,7 +42,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const keyboardOpen = useKeyboard()
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
@@ -72,14 +71,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     setLoading(false)
   }, [route])
 
-  useEffect(keyboard(setKeyboardOpen), [])
-
-  const startDispute = () => setStart(true)
-  const openExplainer = () =>
-    updateOverlay({
-      content: <WhatIsADispute />,
-      showCloseButton: true,
-    })
   const goBack = () => {
     if (reason) return setReason(undefined)
     return setStart(false)
