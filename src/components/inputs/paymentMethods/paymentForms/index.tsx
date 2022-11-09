@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { OverlayContext } from '../../../../contexts/overlay'
-import keyboard from '../../../../effects/keyboard'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
 import { removePaymentData } from '../../../../utils/account'
@@ -30,6 +29,7 @@ import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
+import { useKeyboard } from '../../../../hooks/useKeyboard'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -83,7 +83,7 @@ export const PaymentMethodForm = ({
 }: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const keyboardOpen = useKeyboard()
   const [stepValid, setStepValid] = useState(false)
 
   const Form = PaymentMethodForms[paymentMethod]!
@@ -110,8 +110,6 @@ export const PaymentMethodForm = ({
     if (data.id) removePaymentData(data.id)
     if ($formRef && onDelete) onDelete()
   }
-
-  useEffect(keyboard(setKeyboardOpen), [])
 
   return (
     <View style={[tw`flex`, style]}>

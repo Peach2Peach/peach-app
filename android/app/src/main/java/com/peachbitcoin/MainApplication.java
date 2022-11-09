@@ -9,7 +9,6 @@ import org.reactnative.camera.RNCameraPackage;
 import com.reactnativefastopenpgp.FastOpenpgpPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.rnfs.RNFSPackage;
-import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
