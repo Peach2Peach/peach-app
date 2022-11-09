@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -15,7 +15,7 @@ import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
 import { useValidation } from '../../utils/validation/useValidation'
-import { validateForm } from '../../utils/validation'
+import { getErrorsInField, validateForm } from '../../utils/validation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
@@ -36,7 +36,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const { isFieldInError, getErrorsInField } = useValidation({ email, topic, message })
+  const { isFieldInError } = useValidation({ email, topic, message })
+  const emailRules = { required: true, email: true }
+  const required = { required: true }
+
+  const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
+  const topicErrors = useMemo(() => getErrorsInField(topic, required), [topic, required])
+  const messageErrors = useMemo(() => getErrorsInField(message, required), [message, required])
 
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
@@ -44,22 +50,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     const isFormValid = validateForm([
       {
         value: email,
-        rulesToCheck: {
-          required: true,
-          email: true,
-        },
+        rulesToCheck: emailRules,
       },
       {
         value: topic,
-        rulesToCheck: {
-          required: true,
-        },
+        rulesToCheck: required,
       },
       {
         value: message,
-        rulesToCheck: {
-          required: true,
-        },
+        rulesToCheck: required,
       },
     ])
     if (!isFormValid) return
@@ -103,7 +102,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.userEmail.placeholder')}
               isValid={!isFieldInError('email')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('email')}
+              errorMessage={emailErrors}
             />
           </View>
           <View style={tw`mt-2`}>
@@ -116,7 +115,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.topic.placeholder')}
               isValid={!isFieldInError('topic')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('topic')}
+              errorMessage={topicErrors}
             />
           </View>
           <View style={tw`mt-2`}>
@@ -130,7 +129,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.message.placeholder')}
               isValid={!isFieldInError('message')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('message')}
+              errorMessage={messageErrors}
             />
           </View>
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row justify-center items-center mt-5`}>

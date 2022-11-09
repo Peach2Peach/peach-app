@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -14,7 +14,7 @@ import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidation } from '../../utils/validation/useValidation'
-import { validateForm } from '../../utils/validation'
+import { getErrorsInField, validateForm } from '../../utils/validation'
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
@@ -27,7 +27,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
 
-  const { isFieldInError, getErrorsInField } = useValidation({ address })
+  const { isFieldInError } = useValidation({ address })
+
+  const addressRules = { required: true, bitcoinAddress: true }
+  const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -60,7 +63,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
     setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
 
-    if (!validateForm([{ value: address || '', rulesToCheck: { required: true, bitcoinAddress: true } }])) {
+    if (!validateForm([{ value: address || '', rulesToCheck: addressRules }])) {
       setStepValid(false)
       return
     }
@@ -96,7 +99,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
               isValid={!isFieldInError('address')}
-              errorMessage={getErrorsInField('address')}
+              errorMessage={addressErrors}
             />
           </View>
           <IconButton icon="camera" title={i18n('scanQR')} style={tw`mr-2`} onPress={showQRScanner} />

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -21,7 +21,7 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { useValidation } from '../../utils/validation/useValidation'
-import { validateForm } from '../../utils/validation'
+import { getErrorsInField, validateForm } from '../../utils/validation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['dispute'] }>
@@ -38,7 +38,7 @@ const disputeReasonsSeller: DisputeReason[] = [
 const disputeReasonsBuyer: DisputeReason[] = ['satsNotReceived', 'sellerUnresponsive', 'sellerBehaviour', 'disputeOther']
 export const isEmailRequired = (reason: DisputeReason) => /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -56,7 +56,12 @@ export default ({ route, navigation }: Props): ReactElement => {
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  const { isFieldInError, getErrorsInField } = useValidation({ email, message })
+  const { isFieldInError } = useValidation({ email, message })
+
+  const emailRules = { email: isEmailRequired(reason!), required: isEmailRequired(reason!) }
+  const required = { required: true }
+  const emailErrors = useMemo(() => getErrorsInField(email || '', emailRules), [email, emailRules])
+  const messageErrors = useMemo(() => getErrorsInField(message || '', required), [message, required])
 
   useEffect(() => {
     setContractId(route.params.contractId)
@@ -86,22 +91,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     const isFormValid = validateForm([
       {
         value: reason || '',
-        rulesToCheck: {
-          required: true,
-        },
+        rulesToCheck: required,
       },
       {
         value: email || '',
-        rulesToCheck: {
-          email: isEmailRequired(reason!),
-          required: isEmailRequired(reason!),
-        },
+        rulesToCheck: emailRules,
       },
       {
         value: message || '',
-        rulesToCheck: {
-          required: true,
-        },
+        rulesToCheck: required,
       },
     ])
     if (!isFormValid || !reason || !message) return
@@ -187,7 +185,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 placeholder={i18n('form.userEmail.placeholder')}
                 isValid={!isFieldInError('email')}
                 autoCorrect={false}
-                errorMessage={getErrorsInField('email')}
+                errorMessage={emailErrors}
               />
             </View>
           ) : null}
@@ -202,7 +200,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.message.placeholder')}
               isValid={!isFieldInError('message')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('message')}
+              errorMessage={messageErrors}
             />
           </View>
           <Button

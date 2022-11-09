@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
@@ -10,7 +10,7 @@ import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { useValidation } from '../../../utils/validation/useValidation'
-import { validateForm } from '../../../utils/validation'
+import { getErrorsInField, validateForm } from '../../../utils/validation'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string
@@ -27,7 +27,9 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
   const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
 
-  const { isFieldInError, getErrorsInField } = useValidation({ address })
+  const { isFieldInError } = useValidation({ address })
+  const addressRules = { required: true, bitcoinAddress: true }
+  const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -44,10 +46,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
       const isFormValid = validateForm([
         {
           value: address,
-          rulesToCheck: {
-            required: true,
-            bitcoinAddress: true,
-          },
+          rulesToCheck: addressRules,
         },
       ])
 
@@ -91,7 +90,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
             isValid={!isFieldInError('address')}
             onFocus={() => setFocused(() => true)}
             onBlur={() => setFocused(() => false)}
-            errorMessage={getErrorsInField('address')}
+            errorMessage={addressErrors}
           />
         </View>
         <IconButton icon="camera" title={i18n('scanQR')} style={tw`mr-2`} onPress={showQRScanner} />

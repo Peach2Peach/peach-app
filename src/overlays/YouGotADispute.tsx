@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import { Button, Headline, Input, Text } from '../components'
 import { MessageContext } from '../contexts/message'
@@ -16,7 +16,7 @@ import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
 import { useValidation } from '../utils/validation/useValidation'
-import { validateForm } from '../utils/validation'
+import { getErrorsInField, validateForm } from '../utils/validation'
 
 type YouGotADisputeProps = {
   message: string
@@ -36,23 +36,23 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
 
-  const { isFieldInError, getErrorsInField, isFormValid } = useValidation({ email })
+  const { isFieldInError } = useValidation({ email })
+
+  const emailRules = { required: isEmailRequired(reason), email: isEmailRequired(reason) }
+  const emailErrors = useMemo(() => getErrorsInField(email || '', emailRules), [email, emailRules])
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
     updateOverlay({ content: null, showCloseButton: true })
   }
   const submit = async () => {
-    validateForm([
+    const isFormValid = validateForm([
       {
         value: email || '',
-        rulesToCheck: {
-          required: isEmailRequired(reason),
-          email: isEmailRequired(reason),
-        },
+        rulesToCheck: emailRules,
       },
     ])
-    if (!isFormValid()) return
+    if (!isFormValid) return
 
     setLoading(true)
     const [acknowledgeDisputeResult, getContractResult] = await Promise.all([
@@ -120,7 +120,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             placeholder={i18n('form.userEmail')}
             isValid={!isFieldInError('email')}
             autoCorrect={false}
-            errorMessage={getErrorsInField('email')}
+            errorMessage={emailErrors}
           />
         </View>
       ) : null}

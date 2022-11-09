@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 
 import Logo from '../../assets/logo/peachLogo.svg'
@@ -19,7 +19,7 @@ import { auth } from '../../utils/peachAPI'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
 import { useValidation } from '../../utils/validation/useValidation'
-import { validateForm } from '../../utils/validation'
+import { getErrorsInField, validateForm } from '../../utils/validation'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
@@ -41,7 +41,13 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { isFieldInError, getErrorsInField } = useValidation({ password, referralCode })
+  const { isFieldInError } = useValidation({ password, referralCode })
+  const passwordRules = { required: true, password: true }
+  const referralCodeRules = { referralCode: true }
+  const referralCodeErrors = useMemo(
+    () => getErrorsInField(referralCode, referralCodeRules),
+    [referralCode, referralCodeRules],
+  )
 
   const validate = () =>
     !password
@@ -49,16 +55,11 @@ export default ({ navigation }: Props): ReactElement => {
     || validateForm([
       {
         value: password,
-        rulesToCheck: {
-          required: true,
-          password: true,
-        },
+        rulesToCheck: passwordRules,
       },
       {
         value: referralCode,
-        rulesToCheck: {
-          referralCode: true,
-        },
+        rulesToCheck: referralCodeRules,
       },
     ])
 
@@ -231,7 +232,7 @@ export default ({ navigation }: Props): ReactElement => {
               value={referralCode}
               autoCapitalize="characters"
               isValid={!isFieldInError('referralCode')}
-              errorMessage={referralCode.length && getErrorsInField('referralCode')}
+              errorMessage={referralCodeErrors}
             />
           </View>
           <View style={tw`w-full mt-10 flex items-center`}>
