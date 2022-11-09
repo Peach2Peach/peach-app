@@ -4,11 +4,10 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getMessages, rules } from '../../../../utils/validation'
+import { useValidation } from '../../../../utils/validation/useValidation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
-const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
 export const Wise = ({
@@ -16,7 +15,7 @@ export const Wise = ({
   data,
   currencies = [],
   onSubmit,
-  onChange
+  onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
@@ -30,12 +29,7 @@ export const Wise = ({
 
   const anyFieldSet = !!(email || phone)
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { label, email, phone },
-    rules,
-    messages: getMessages()
-  })
+  const { validate, isFieldInError, getErrorsInField } = useValidation({ label, email, phone })
 
   const buildPaymentData = (): PaymentData & WiseData => ({
     id: data?.id || `wise-${new Date().getTime()}`,
@@ -43,23 +37,23 @@ export const Wise = ({
     type: 'wise',
     email,
     phone,
-    currencies: selectedCurrencies
+    currencies: selectedCurrencies,
   })
 
   const validateForm = () =>
     validate({
       label: {
         required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
+        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
       },
       email: {
         required: !phone,
-        email: true
+        email: true,
       },
       phone: {
         required: !email,
-        phone: true
-      }
+        phone: true,
+      },
     })
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -75,7 +69,7 @@ export const Wise = ({
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
     validateForm,
-    save
+    save,
   }))
 
   useEffect(() => {

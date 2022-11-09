@@ -17,9 +17,8 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { setSessionItem } from '../../utils/session'
-import { getMessages, rules } from '../../utils/validation'
+import { useValidation } from '../../utils/validation/useValidation'
 const { LinearGradient } = require('react-native-gradients')
-const { useValidation } = require('react-native-form-validator')
 
 type Props = {
   navigation: StackNavigation
@@ -32,12 +31,7 @@ export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { validate, isFieldInError } = useValidation({
-    deviceLocale: 'default',
-    state: { password },
-    rules,
-    messages: getMessages(),
-  })
+  const { validate, isFieldInError } = useValidation({ password })
 
   const submit = async () => {
     const isValid = validate({

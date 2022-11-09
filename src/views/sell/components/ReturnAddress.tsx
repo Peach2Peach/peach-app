@@ -3,15 +3,13 @@ import { Pressable, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
 import i18n from '../../../utils/i18n'
-import { Headline, IconButton, Input, ScanQR, Text } from '../../../components'
-import { getMessages, rules } from '../../../utils/validation'
+import { IconButton, Input, ScanQR, Text } from '../../../components'
 import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
-
-const { useValidation } = require('react-native-form-validator')
+import { useValidation } from '../../../utils/validation/useValidation'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string
@@ -28,12 +26,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
   const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { address },
-    rules,
-    messages: getMessages(),
-  })
+  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ address })
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()

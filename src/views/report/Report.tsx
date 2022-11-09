@@ -13,9 +13,8 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
-import { getMessages, rules } from '../../utils/validation'
 import { UNIQUEID } from '../../constants'
-const { useValidation } = require('react-native-form-validator')
+import { useValidation } from '../../utils/validation/useValidation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
@@ -36,12 +35,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email, topic, message },
-    rules,
-    messages: getMessages(),
-  })
+  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ email, topic, message })
 
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 

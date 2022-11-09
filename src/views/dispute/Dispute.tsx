@@ -18,10 +18,9 @@ import { error } from '../../utils/log'
 import { Navigation } from '../../utils/navigation'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
-import { getMessages, rules } from '../../utils/validation'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-const { useValidation } = require('react-native-form-validator')
+import { useValidation } from '../../utils/validation/useValidation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['dispute'] }>
@@ -56,12 +55,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email, message },
-    rules,
-    messages: getMessages(),
-  })
+  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ email, message })
 
   useEffect(() => {
     setContractId(route.params.contractId)

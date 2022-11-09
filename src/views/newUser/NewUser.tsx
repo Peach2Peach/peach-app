@@ -14,14 +14,12 @@ import { account, createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
-import { getMessages, rules } from '../../utils/validation'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
+import { useValidation } from '../../utils/validation/useValidation'
 const { LinearGradient } = require('react-native-gradients')
-const { useValidation } = require('react-native-form-validator')
 
 type Props = {
   navigation: StackNavigation
@@ -42,12 +40,7 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { password, referralCode },
-    rules,
-    messages: getMessages(),
-  })
+  const { validate, isFieldInError, getErrorsInField } = useValidation({ password, referralCode })
 
   const validateForm = () =>
     !password

@@ -4,9 +4,8 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getMessages, rules } from '../../../../utils/validation'
+import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
-const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
 export const Satispay = ({
@@ -14,38 +13,33 @@ export const Satispay = ({
   data,
   currencies = [],
   onSubmit,
-  onChange
+  onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
 
   let $phone = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { label, phone },
-    rules,
-    messages: getMessages()
-  })
+  const { validate, isFieldInError, getErrorsInField } = useValidation({ label, phone })
 
   const buildPaymentData = (): PaymentData & SatispayData => ({
     id: data?.id || `satispay-${new Date().getTime()}`,
     label,
     type: 'satispay',
     phone,
-    currencies: data?.currencies || currencies
+    currencies: data?.currencies || currencies,
   })
 
   const validateForm = () =>
     validate({
       label: {
         required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
+        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
       },
       phone: {
         required: true,
-        phone: true
-      }
+        phone: true,
+      },
     })
 
   const save = () => {
@@ -57,7 +51,7 @@ export const Satispay = ({
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
     validateForm,
-    save
+    save,
   }))
 
   useEffect(() => {

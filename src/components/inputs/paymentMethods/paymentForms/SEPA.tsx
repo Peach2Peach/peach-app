@@ -4,9 +4,8 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getMessages, rules } from '../../../../utils/validation'
+import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
-const { useValidation } = require('react-native-form-validator')
 
 // eslint-disable-next-line max-lines-per-function
 export const SEPA = ({
@@ -30,10 +29,12 @@ export const SEPA = ({
   let $reference = useRef<TextInput>(null).current
 
   const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { label, beneficiary, iban, bic, address, reference },
-    rules,
-    messages: getMessages(),
+    label,
+    beneficiary,
+    iban,
+    bic,
+    address,
+    reference,
   })
 
   const buildPaymentData = (): PaymentData & SEPAData => ({

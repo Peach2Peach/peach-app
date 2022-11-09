@@ -12,11 +12,10 @@ import i18n from '../utils/i18n'
 import { error } from '../utils/log'
 import { Navigation } from '../utils/navigation'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
-import { getMessages, rules } from '../utils/validation'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
-const { useValidation } = require('react-native-form-validator')
+import { useValidation } from '../utils/validation/useValidation'
 
 type YouGotADisputeProps = {
   message: string
@@ -36,12 +35,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email },
-    rules,
-    messages: getMessages(),
-  })
+  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ email })
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
