@@ -1,10 +1,9 @@
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
-// import { isxpub } from './bitcoin'
-import i18n from './i18n'
 
-// eslint-disable-next-line prefer-named-capture-group, max-len
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u
+const emailRegex
+  = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
+
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
 
@@ -26,11 +25,11 @@ export const rules = {
     try {
       address.fromBase58Check(value)
       valid = true
-    } catch (e) { }
+    } catch (e) {}
     try {
       address.fromBech32(value)
       valid = true
-    } catch (e) { }
+    } catch (e) {}
 
     return valid
   },
@@ -48,7 +47,7 @@ export const rules = {
     try {
       address.fromBase58Check(value)
       valid = true
-    } catch (e) { }
+    } catch (e) {}
     return valid
   },
   duplicate (existingValue: any) {
@@ -80,26 +79,5 @@ export const rules = {
     } catch (e) {
       return false
     }
-  }
+  },
 }
-
-export const getMessages = () => ({
-  default: {
-    required: i18n('form.required.error'),
-    number: i18n('form.invalid.error'),
-    phone: i18n('form.invalid.error'),
-    email: i18n('form.email.error'),
-    account: i18n('form.account.error'),
-    password: i18n('form.password.error'),
-    referralCode: i18n('form.invalid.error'),
-    bitcoinAddress: i18n('form.address.btc.error'),
-    tetherAddress: i18n('form.address.error'),
-    duplicate: i18n('form.duplicate.error'),
-    iban: i18n('form.iban.error'),
-    bic: i18n('form.bic.error'),
-    ukSortCode: i18n('form.invalid.error'),
-    ukBankAccount: i18n('form.invalid.error'),
-    userName: i18n('form.invalid.error'),
-    url: i18n('form.invalid.error'),
-  }
-})
