@@ -63,14 +63,12 @@ buck-out/
 
 # Ruby / CocoaPods
 /ios/Pods/
+/vendor/bundle/
 
 .DS_Store
 
 
 /public/assets/
-
-/vendor/bundle/
-
 
 .env
 .env.*
