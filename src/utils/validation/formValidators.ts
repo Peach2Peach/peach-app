@@ -2,31 +2,6 @@ import { messages } from './messages'
 import { Rule, rules } from './rules'
 
 /**
- * A function to validate a value against rules
- * @param value the value to be checked
- * @param rulesToCheck the rules to validate this value agains
- * @returns wether or not there are any errors
- *
- * @example
- * getErrorsInField(bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true })
- */
-export const isFieldInError = (value: string, rulesToCheck: Partial<Record<Rule, boolean | undefined>>) => {
-  const hasErrors = (Object.keys(rulesToCheck) as Rule[]).some((key) => {
-    if (rulesToCheck[key]) {
-      const ruleToCheck = rules[key] as RegExp | ((x: unknown, y: unknown) => boolean)
-      const isRuleFn = typeof ruleToCheck === 'function'
-      const isRegExp = ruleToCheck instanceof RegExp
-      if ((isRuleFn && !ruleToCheck(rulesToCheck[key], value)) || (isRegExp && !ruleToCheck.test(value))) {
-        return true
-      }
-    }
-    return false
-  })
-
-  return hasErrors
-}
-
-/**
  * A simple function to retrieve all error messages that apply to a value
  *
  * @param value the value to be checked
@@ -61,4 +36,4 @@ export const getErrorsInField = (value: string, rulesToCheck: Partial<Record<Rul
  * validateForm([{ value: bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true }}])
  */
 export const validateForm = (config: { value: string; rulesToCheck: Partial<Record<Rule, boolean | undefined>> }[]) =>
-  config.some(({ value, rulesToCheck }) => !isFieldInError(value, rulesToCheck))
+  config.some(({ value, rulesToCheck }) => !(getErrorsInField(value, rulesToCheck).length === 0))

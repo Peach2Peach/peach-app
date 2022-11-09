@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
 // eslint-disable-next-line max-lines-per-function, max-statements
@@ -29,14 +28,6 @@ export const SEPA = ({
   let $address = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const { isFieldInError } = useValidation({
-    label,
-    beneficiary,
-    iban,
-    bic,
-    address,
-    reference,
-  })
   const labelRules = {
     required: true,
     duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
@@ -121,7 +112,7 @@ export const SEPA = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -134,7 +125,7 @@ export const SEPA = ({
           value={beneficiary}
           label={i18n('form.beneficiary')}
           placeholder={i18n('form.beneficiary.placeholder')}
-          isValid={!isFieldInError('beneficiary')}
+          isValid={beneficiaryErrors.length === 0}
           autoCorrect={false}
           errorMessage={beneficiaryErrors}
         />
@@ -147,7 +138,7 @@ export const SEPA = ({
           value={iban}
           label={i18n('form.iban')}
           placeholder={i18n('form.iban.placeholder')}
-          isValid={!isFieldInError('iban')}
+          isValid={ibanErrors.length === 0}
           autoCorrect={false}
           errorMessage={ibanErrors}
         />
@@ -161,7 +152,7 @@ export const SEPA = ({
           required={true}
           label={i18n('form.bic')}
           placeholder={i18n('form.bic.placeholder')}
-          isValid={!isFieldInError('bic')}
+          isValid={bicErrors.length === 0}
           autoCorrect={false}
           errorMessage={bicErrors}
         />
@@ -175,7 +166,7 @@ export const SEPA = ({
           required={false}
           label={i18n('form.address')}
           placeholder={i18n('form.address.placeholder')}
-          isValid={!isFieldInError('address')}
+          isValid={addressErrors.length === 0}
           autoCorrect={false}
           errorMessage={addressErrors}
         />
@@ -189,7 +180,7 @@ export const SEPA = ({
           required={false}
           label={i18n('form.reference')}
           placeholder={i18n('form.reference.placeholder')}
-          isValid={!isFieldInError('reference')}
+          isValid={referenceErrors.length === 0}
           autoCorrect={false}
           errorMessage={referenceErrors}
         />

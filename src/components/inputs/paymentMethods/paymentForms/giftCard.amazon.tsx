@@ -6,7 +6,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
 // eslint-disable-next-line max-lines-per-function
@@ -35,8 +34,6 @@ export const GiftCardAmazon = ({
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
-
-  const { isFieldInError } = useValidation({ label, email })
 
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
     id: data?.id || `giftCard.amazon-${new Date().getTime()}`,
@@ -83,7 +80,7 @@ export const GiftCardAmazon = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -97,7 +94,7 @@ export const GiftCardAmazon = ({
           value={email}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={!isFieldInError('email')}
+          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={emailErrors}
         />

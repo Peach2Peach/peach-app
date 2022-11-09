@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
@@ -29,7 +28,6 @@ export const Revolut = ({
   let $userName = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
 
-  const { isFieldInError } = useValidation({ label, phone, userName, email })
   const labelRules = {
     required: true,
     duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
@@ -102,7 +100,7 @@ export const Revolut = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -121,7 +119,7 @@ export const Revolut = ({
           required={!anyFieldSet}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={!isFieldInError('phone')}
+          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={phoneErrors}
         />
@@ -140,7 +138,7 @@ export const Revolut = ({
           required={!anyFieldSet}
           label={i18n('form.userName')}
           placeholder={i18n('form.userName.placeholder')}
-          isValid={!isFieldInError('userName')}
+          isValid={userNameErrors.length === 0}
           autoCorrect={false}
           errorMessage={userNameErrors}
         />
@@ -154,7 +152,7 @@ export const Revolut = ({
           required={!anyFieldSet}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={!isFieldInError('email')}
+          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={emailErrors}
         />

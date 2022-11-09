@@ -20,7 +20,6 @@ import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidation } from '../../utils/validation/useValidation'
 import { getErrorsInField, validateForm } from '../../utils/validation'
 
 type Props = {
@@ -55,8 +54,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
-
-  const { isFieldInError } = useValidation({ email, message })
 
   const emailRules = { email: isEmailRequired(reason!), required: isEmailRequired(reason!) }
   const required = { required: true }
@@ -183,7 +180,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 value={email}
                 label={i18n('form.userEmail')}
                 placeholder={i18n('form.userEmail.placeholder')}
-                isValid={!isFieldInError('email')}
+                isValid={emailErrors.length === 0}
                 autoCorrect={false}
                 errorMessage={emailErrors}
               />
@@ -198,7 +195,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={!isFieldInError('message')}
+              isValid={messageErrors.length === 0}
               autoCorrect={false}
               errorMessage={messageErrors}
             />

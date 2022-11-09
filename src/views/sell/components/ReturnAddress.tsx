@@ -9,7 +9,6 @@ import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { useValidation } from '../../../utils/validation/useValidation'
 import { getErrorsInField, validateForm } from '../../../utils/validation'
 
 export type ReturnAddressProps = ComponentProps & {
@@ -27,7 +26,6 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
   const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
 
-  const { isFieldInError } = useValidation({ address })
   const addressRules = { required: true, bitcoinAddress: true }
   const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
 
@@ -87,7 +85,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
             onChange={(value: string) => (focused ? setAddress(() => value) : null)}
             onSubmit={() => setFocused(() => false)}
             placeholder={i18n('form.address.btc')}
-            isValid={!isFieldInError('address')}
+            isValid={addressErrors.length === 0}
             onFocus={() => setFocused(() => true)}
             onBlur={() => setFocused(() => false)}
             errorMessage={addressErrors}

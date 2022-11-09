@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
@@ -27,8 +26,6 @@ export const PayPal = ({
   let $email = useRef<TextInput>(null).current
   let $userName = useRef<TextInput>(null).current
   const anyFieldSet = !!(phone || userName || email)
-
-  const { isFieldInError } = useValidation({ label, phone, userName, email })
 
   const labelRules = {
     required: true,
@@ -101,7 +98,7 @@ export const PayPal = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -120,7 +117,7 @@ export const PayPal = ({
           required={!anyFieldSet}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={!isFieldInError('phone')}
+          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={phoneErrors}
         />
@@ -134,7 +131,7 @@ export const PayPal = ({
           value={email}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={!isFieldInError('email')}
+          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={emailErrors}
         />
@@ -153,7 +150,7 @@ export const PayPal = ({
           value={userName}
           label={i18n('form.userName')}
           placeholder={i18n('form.userName.placeholder')}
-          isValid={!isFieldInError('userName')}
+          isValid={userNameErrors.length === 0}
           autoCorrect={false}
           errorMessage={userNameErrors}
         />

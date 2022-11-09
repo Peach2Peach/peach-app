@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
 // eslint-disable-next-line max-lines-per-function
@@ -21,7 +20,6 @@ export const Satispay = ({
 
   let $phone = useRef<TextInput>(null).current
 
-  const { isFieldInError } = useValidation({ label, phone })
   const labelRules = {
     required: true,
     duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
@@ -76,7 +74,7 @@ export const Satispay = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -94,7 +92,7 @@ export const Satispay = ({
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={!isFieldInError('phone')}
+          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={phoneErrors}
         />

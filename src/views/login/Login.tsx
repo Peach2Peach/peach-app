@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 
 import Logo from '../../assets/logo/peachLogo.svg'
@@ -17,8 +17,7 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { setSessionItem } from '../../utils/session'
-import { validateForm } from '../../utils/validation'
-import { useValidation } from '../../utils/validation/useValidation'
+import { getErrorsInField, validateForm } from '../../utils/validation'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
@@ -32,15 +31,17 @@ export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { isFieldInError } = useValidation({ password })
+  const passwordRules = { required: true }
+  const passwordIsValid = useMemo(
+    () => getErrorsInField(password, passwordRules).length === 0,
+    [password, passwordRules],
+  )
 
   const submit = async () => {
     const isValid = validateForm([
       {
         value: password,
-        rulesToCheck: {
-          required: true,
-        },
+        rulesToCheck: passwordRules,
       },
     ])
     if (isValid) {
@@ -104,8 +105,8 @@ export default ({ navigation }: Props): ReactElement => {
               onSubmit={submit}
               secureTextEntry={true}
               value={password}
-              isValid={!isFieldInError('password')}
-              errorMessage={isFieldInError('password') ? [''] : []}
+              isValid={passwordIsValid}
+              errorMessage={!passwordIsValid ? [''] : []}
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>

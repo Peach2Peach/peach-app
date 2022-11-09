@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
@@ -29,8 +28,6 @@ export const Wise = ({
   let $reference = useRef<TextInput>(null).current
 
   const anyFieldSet = !!(email || phone)
-
-  const { isFieldInError } = useValidation({ label, email, phone })
 
   const labelRules = {
     required: true,
@@ -98,7 +95,7 @@ export const Wise = ({
           required={!anyFieldSet}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -112,7 +109,7 @@ export const Wise = ({
           required={!phone}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={!isFieldInError('email')}
+          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={emailErrors}
         />
@@ -131,7 +128,7 @@ export const Wise = ({
           required={!email}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={!isFieldInError('phone')}
+          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={phoneErrors}
         />
@@ -146,7 +143,6 @@ export const Wise = ({
           required={false}
           label={i18n('form.reference')}
           placeholder={i18n('form.reference.placeholder')}
-          isValid={!isFieldInError('reference')}
           autoCorrect={false}
         />
       </View>

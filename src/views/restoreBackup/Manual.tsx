@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -11,7 +11,7 @@ import { whiteGradient } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { storeAccount } from '../../utils/account/storeAccount'
-import { useValidation } from '../../utils/validation/useValidation'
+import { getErrorsInField } from '../../utils/validation'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -30,18 +30,14 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { isFieldInError } = useValidation({ password })
+  const passwordRules = { required: true, password: true }
+  const passwordIsValid = useMemo(
+    () => getErrorsInField(password, passwordRules).length === 0,
+    [password, passwordRules],
+  )
 
   const onPasswordChange = (value: string) => {
     setPassword(value)
-
-    // TODO: check purpose of this
-    /* validate({
-      password: {
-        required: true,
-        password: true,
-      },
-    }) */
   }
 
   const submit = async () => {
@@ -99,8 +95,8 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              isValid={!isFieldInError('password')}
-              errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}
+              isValid={passwordIsValid}
+              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>

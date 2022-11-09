@@ -15,7 +15,6 @@ import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
-import { useValidation } from '../utils/validation/useValidation'
 import { getErrorsInField, validateForm } from '../utils/validation'
 
 type YouGotADisputeProps = {
@@ -35,8 +34,6 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
 
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
-
-  const { isFieldInError } = useValidation({ email })
 
   const emailRules = { required: isEmailRequired(reason), email: isEmailRequired(reason) }
   const emailErrors = useMemo(() => getErrorsInField(email || '', emailRules), [email, emailRules])
@@ -118,7 +115,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             onSubmit={submit}
             value={email}
             placeholder={i18n('form.userEmail')}
-            isValid={!isFieldInError('email')}
+            isValid={emailErrors.length === 0}
             autoCorrect={false}
             errorMessage={emailErrors}
           />

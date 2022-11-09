@@ -13,7 +13,6 @@ import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
-import { useValidation } from '../../utils/validation/useValidation'
 import { getErrorsInField, validateForm } from '../../utils/validation'
 
 // eslint-disable-next-line max-lines-per-function
@@ -26,8 +25,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [focused, setFocused] = useState(false)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
-
-  const { isFieldInError } = useValidation({ address })
 
   const addressRules = { required: true, bitcoinAddress: true }
   const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
@@ -98,7 +95,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onFocus={focus}
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
-              isValid={!isFieldInError('address')}
+              isValid={addressErrors.length === 0}
               errorMessage={addressErrors}
             />
           </View>

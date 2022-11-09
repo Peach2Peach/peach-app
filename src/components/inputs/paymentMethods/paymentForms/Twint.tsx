@@ -5,7 +5,6 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField, validateForm } from '../../../../utils/validation'
-import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
 // eslint-disable-next-line max-lines-per-function
@@ -22,8 +21,6 @@ export const Twint = ({
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
-
-  const { isFieldInError } = useValidation({ label, phone, beneficiary })
 
   const labelRules = {
     required: true,
@@ -80,7 +77,7 @@ export const Twint = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={labelErrors}
         />
@@ -98,7 +95,7 @@ export const Twint = ({
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={!isFieldInError('phone')}
+          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={phoneErrors}
         />
@@ -112,7 +109,6 @@ export const Twint = ({
           required={false}
           label={i18n('form.name')}
           placeholder={i18n('form.name.placeholder')}
-          isValid={!isFieldInError('beneficiary')}
           autoCorrect={false}
         />
       </View>

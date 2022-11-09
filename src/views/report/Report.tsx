@@ -14,7 +14,6 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
-import { useValidation } from '../../utils/validation/useValidation'
 import { getErrorsInField, validateForm } from '../../utils/validation'
 
 type Props = {
@@ -36,7 +35,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const { isFieldInError } = useValidation({ email, topic, message })
   const emailRules = { required: true, email: true }
   const required = { required: true }
 
@@ -100,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={email}
               label={i18n('form.userEmail')}
               placeholder={i18n('form.userEmail.placeholder')}
-              isValid={!isFieldInError('email')}
+              isValid={emailErrors.length === 0}
               autoCorrect={false}
               errorMessage={emailErrors}
             />
@@ -113,7 +111,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={topic}
               label={i18n('form.topic')}
               placeholder={i18n('form.topic.placeholder')}
-              isValid={!isFieldInError('topic')}
+              isValid={topicErrors.length === 0}
               autoCorrect={false}
               errorMessage={topicErrors}
             />
@@ -127,7 +125,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={!isFieldInError('message')}
+              isValid={messageErrors.length === 0}
               autoCorrect={false}
               errorMessage={messageErrors}
             />
