@@ -20,6 +20,7 @@ export const GiftCardAmazon = ({
   const [, updateOverlay] = useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $email = useRef<TextInput>(null).current
 
@@ -44,8 +45,9 @@ export const GiftCardAmazon = ({
     country: data?.country || country,
   })
 
-  const isFormValid = () =>
-    validateForm([
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return validateForm([
       {
         value: label,
         rulesToCheck: labelRules,
@@ -55,6 +57,7 @@ export const GiftCardAmazon = ({
         rulesToCheck: emailRules,
       },
     ])
+  }
   const save = () => {
     if (!isFormValid()) return
 
@@ -82,7 +85,7 @@ export const GiftCardAmazon = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={labelErrors}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -96,7 +99,7 @@ export const GiftCardAmazon = ({
           placeholder={i18n('form.email.placeholder')}
           isValid={emailErrors.length === 0}
           autoCorrect={false}
-          errorMessage={emailErrors}
+          errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
     </View>

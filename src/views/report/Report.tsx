@@ -30,6 +30,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [topic, setTopic] = useState(route.params.topic || '')
   const [message, setMessage] = useState(route.params.message || '')
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   const reason = route.params.reason
 
   let $topic = useRef<TextInput>(null).current
@@ -45,6 +46,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
+    setDisplayErrors(true)
     const isFormValid = validateForm([
       {
         value: email,
@@ -100,7 +102,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.userEmail.placeholder')}
               isValid={emailErrors.length === 0}
               autoCorrect={false}
-              errorMessage={emailErrors}
+              errorMessage={displayErrors ? emailErrors : undefined}
             />
           </View>
           <View style={tw`mt-2`}>
@@ -113,7 +115,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.topic.placeholder')}
               isValid={topicErrors.length === 0}
               autoCorrect={false}
-              errorMessage={topicErrors}
+              errorMessage={displayErrors ? topicErrors : undefined}
             />
           </View>
           <View style={tw`mt-2`}>
@@ -127,7 +129,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.message.placeholder')}
               isValid={messageErrors.length === 0}
               autoCorrect={false}
-              errorMessage={messageErrors}
+              errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row justify-center items-center mt-5`}>

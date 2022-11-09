@@ -30,6 +30,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const passwordRules = { required: true }
   const passwordIsValid = useMemo(
@@ -38,6 +39,7 @@ export default ({ navigation }: Props): ReactElement => {
   )
 
   const submit = async () => {
+    setDisplayErrors(true)
     const isValid = validateForm([
       {
         value: password,
@@ -106,7 +108,7 @@ export default ({ navigation }: Props): ReactElement => {
               secureTextEntry={true}
               value={password}
               isValid={passwordIsValid}
-              errorMessage={!passwordIsValid ? [''] : []}
+              errorMessage={displayErrors ? (!passwordIsValid ? [''] : []) : undefined}
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>

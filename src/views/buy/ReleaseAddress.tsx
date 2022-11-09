@@ -25,6 +25,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [focused, setFocused] = useState(false)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const addressRules = { required: true, bitcoinAddress: true }
   const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
@@ -62,6 +63,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
     if (!validateForm([{ value: address || '', rulesToCheck: addressRules }])) {
       setStepValid(false)
+      setDisplayErrors(true)
       return
     }
 
@@ -96,7 +98,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
               isValid={addressErrors.length === 0}
-              errorMessage={addressErrors}
+              errorMessage={displayErrors ? addressErrors : undefined}
             />
           </View>
           <IconButton icon="camera" title={i18n('scanQR')} style={tw`mr-2`} onPress={showQRScanner} />

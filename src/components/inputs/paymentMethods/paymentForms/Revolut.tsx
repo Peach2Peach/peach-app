@@ -40,6 +40,7 @@ export const Revolut = ({
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const buildPaymentData = (): PaymentData & RevolutData => ({
     id: data?.id || `revolut-${new Date().getTime()}`,
@@ -51,8 +52,9 @@ export const Revolut = ({
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () =>
-    validateForm([
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return validateForm([
       {
         value: label,
         rulesToCheck: labelRules,
@@ -70,6 +72,7 @@ export const Revolut = ({
         rulesToCheck: emailRules,
       },
     ])
+  }
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
@@ -102,7 +105,7 @@ export const Revolut = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={labelErrors}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -121,7 +124,7 @@ export const Revolut = ({
           placeholder={i18n('form.phone.placeholder')}
           isValid={phoneErrors.length === 0}
           autoCorrect={false}
-          errorMessage={phoneErrors}
+          errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -140,7 +143,7 @@ export const Revolut = ({
           placeholder={i18n('form.userName.placeholder')}
           isValid={userNameErrors.length === 0}
           autoCorrect={false}
-          errorMessage={userNameErrors}
+          errorMessage={displayErrors ? userNameErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -154,7 +157,7 @@ export const Revolut = ({
           placeholder={i18n('form.email.placeholder')}
           isValid={emailErrors.length === 0}
           autoCorrect={false}
-          errorMessage={emailErrors}
+          errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
       <CurrencySelection paymentMethod="paypal" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />

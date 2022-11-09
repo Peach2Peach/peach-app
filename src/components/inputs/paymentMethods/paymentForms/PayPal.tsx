@@ -21,6 +21,7 @@ export const PayPal = ({
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
@@ -54,8 +55,9 @@ export const PayPal = ({
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () =>
-    validateForm([
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return validateForm([
       {
         value: label,
         rulesToCheck: labelRules,
@@ -73,6 +75,7 @@ export const PayPal = ({
         rulesToCheck: userNameRules,
       },
     ])
+  }
   const save = () => {
     if (!isFormValid()) return
 
@@ -100,7 +103,7 @@ export const PayPal = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={labelErrors}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -119,7 +122,7 @@ export const PayPal = ({
           placeholder={i18n('form.phone.placeholder')}
           isValid={phoneErrors.length === 0}
           autoCorrect={false}
-          errorMessage={phoneErrors}
+          errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -133,7 +136,7 @@ export const PayPal = ({
           placeholder={i18n('form.email.placeholder')}
           isValid={emailErrors.length === 0}
           autoCorrect={false}
-          errorMessage={emailErrors}
+          errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -152,7 +155,7 @@ export const PayPal = ({
           placeholder={i18n('form.userName.placeholder')}
           isValid={userNameErrors.length === 0}
           autoCorrect={false}
-          errorMessage={userNameErrors}
+          errorMessage={displayErrors ? userNameErrors : undefined}
         />
       </View>
       <CurrencySelection paymentMethod="paypal" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />

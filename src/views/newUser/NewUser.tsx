@@ -25,7 +25,7 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements, complexity
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [password, setPassword] = useState('')
@@ -34,6 +34,7 @@ export default ({ navigation }: Props): ReactElement => {
   const [referralCode, setReferralCode] = useState('')
   const [isPristine, setIsPristine] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
   let $referral = useRef<TextInput>(null).current
 
@@ -55,19 +56,23 @@ export default ({ navigation }: Props): ReactElement => {
     [passwordRepeat, passwordRules],
   )
 
-  const validate = () =>
-    !password
-    || !passwordRepeat
-    || validateForm([
-      {
-        value: password,
-        rulesToCheck: passwordRules,
-      },
-      {
-        value: referralCode,
-        rulesToCheck: referralCodeRules,
-      },
-    ])
+  const validate = () => {
+    setDisplayErrors(true)
+    return (
+      !password
+      || !passwordRepeat
+      || validateForm([
+        {
+          value: password,
+          rulesToCheck: passwordRules,
+        },
+        {
+          value: referralCode,
+          rulesToCheck: referralCodeRules,
+        },
+      ])
+    )
+  }
 
   const checkPasswordMatch = () => {
     if (password && passwordRepeat) {
@@ -196,7 +201,7 @@ export default ({ navigation }: Props): ReactElement => {
               secureTextEntry={true}
               value={password}
               isValid={!isPristine && passwordIsValid && passwordMatch}
-              errorMessage={!passwordMatch || !passwordIsValid ? [''] : []}
+              errorMessage={displayErrors ? (!passwordMatch || !passwordIsValid ? [''] : []) : undefined}
             />
           </View>
           <View style={tw`mt-2 h-12`}>
@@ -211,7 +216,7 @@ export default ({ navigation }: Props): ReactElement => {
               secureTextEntry={true}
               value={passwordRepeat}
               isValid={!isPristine && passwordRepeatIsValid && passwordMatch}
-              errorMessage={!passwordMatch || !passwordRepeatIsValid ? [''] : []}
+              errorMessage={displayErrors ? (!passwordMatch || !passwordRepeatIsValid ? [''] : []) : undefined}
             />
           </View>
           <View style={tw`mt-4 h-12 px-4`}>
@@ -227,7 +232,7 @@ export default ({ navigation }: Props): ReactElement => {
               value={referralCode}
               autoCapitalize="characters"
               isValid={referralCodeErrors.length === 0}
-              errorMessage={referralCodeErrors}
+              errorMessage={displayErrors ? referralCodeErrors : undefined}
             />
           </View>
           <View style={tw`w-full mt-10 flex items-center`}>

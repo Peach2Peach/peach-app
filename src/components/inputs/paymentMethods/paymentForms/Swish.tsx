@@ -18,6 +18,7 @@ export const Swish = ({
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
@@ -40,8 +41,9 @@ export const Swish = ({
     currencies: data?.currencies || currencies,
   })
 
-  const isFormValid = () =>
-    validateForm([
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return validateForm([
       {
         value: label,
         rulesToCheck: labelRules,
@@ -54,6 +56,7 @@ export const Swish = ({
         },
       },
     ])
+  }
 
   const save = () => {
     if (!isFormValid()) return
@@ -82,7 +85,7 @@ export const Swish = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={labelErrors}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -95,7 +98,7 @@ export const Swish = ({
           placeholder={i18n('form.phone.placeholder')}
           isValid={phoneErrors.length === 0}
           autoCorrect={false}
-          errorMessage={phoneErrors}
+          errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>

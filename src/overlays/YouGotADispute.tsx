@@ -31,6 +31,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
 
   const [email, setEmail] = useState()
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
@@ -43,6 +44,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
     updateOverlay({ content: null, showCloseButton: true })
   }
   const submit = async () => {
+    setDisplayErrors(true)
     const isFormValid = validateForm([
       {
         value: email || '',
@@ -117,7 +119,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             placeholder={i18n('form.userEmail')}
             isValid={emailErrors.length === 0}
             autoCorrect={false}
-            errorMessage={emailErrors}
+            errorMessage={displayErrors ? emailErrors : undefined}
           />
         </View>
       ) : null}

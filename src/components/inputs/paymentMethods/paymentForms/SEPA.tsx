@@ -21,6 +21,7 @@ export const SEPA = ({
   const [bic, setBIC] = useState(data?.bic || '')
   const [address, setAddress] = useState(data?.address || '')
   const [reference, setReference] = useState(data?.reference || '')
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
@@ -59,8 +60,9 @@ export const SEPA = ({
     currencies: data?.currencies || currencies,
   })
 
-  const isFormValid = () =>
-    validateForm([
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return validateForm([
       {
         value: label,
         rulesToCheck: labelRules,
@@ -86,6 +88,7 @@ export const SEPA = ({
         rulesToCheck: notRequired,
       },
     ])
+  }
 
   const save = () => {
     if (!isFormValid()) return
@@ -114,7 +117,7 @@ export const SEPA = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={labelErrors}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -127,7 +130,7 @@ export const SEPA = ({
           placeholder={i18n('form.beneficiary.placeholder')}
           isValid={beneficiaryErrors.length === 0}
           autoCorrect={false}
-          errorMessage={beneficiaryErrors}
+          errorMessage={displayErrors ? beneficiaryErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -140,7 +143,7 @@ export const SEPA = ({
           placeholder={i18n('form.iban.placeholder')}
           isValid={ibanErrors.length === 0}
           autoCorrect={false}
-          errorMessage={ibanErrors}
+          errorMessage={displayErrors ? ibanErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -154,7 +157,7 @@ export const SEPA = ({
           placeholder={i18n('form.bic.placeholder')}
           isValid={bicErrors.length === 0}
           autoCorrect={false}
-          errorMessage={bicErrors}
+          errorMessage={displayErrors ? bicErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -168,7 +171,7 @@ export const SEPA = ({
           placeholder={i18n('form.address.placeholder')}
           isValid={addressErrors.length === 0}
           autoCorrect={false}
-          errorMessage={addressErrors}
+          errorMessage={displayErrors ? addressErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -182,7 +185,7 @@ export const SEPA = ({
           placeholder={i18n('form.reference.placeholder')}
           isValid={referenceErrors.length === 0}
           autoCorrect={false}
-          errorMessage={referenceErrors}
+          errorMessage={displayErrors ? referenceErrors : undefined}
         />
       </View>
     </View>

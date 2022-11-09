@@ -22,6 +22,7 @@ export const Wise = ({
   const [phone, setPhone] = useState(data?.phone || '')
   const [reference, setReference] = useState(data?.reference || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $email = useRef<TextInput>(null).current
   let $phone = useRef<TextInput>(null).current
@@ -49,8 +50,9 @@ export const Wise = ({
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () =>
-    validateForm([
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return validateForm([
       {
         value: label,
         rulesToCheck: labelRules,
@@ -64,6 +66,7 @@ export const Wise = ({
         rulesToCheck: phoneRules,
       },
     ])
+  }
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
@@ -97,7 +100,7 @@ export const Wise = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={labelErrors}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -111,7 +114,7 @@ export const Wise = ({
           placeholder={i18n('form.email.placeholder')}
           isValid={emailErrors.length === 0}
           autoCorrect={false}
-          errorMessage={emailErrors}
+          errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -130,7 +133,7 @@ export const Wise = ({
           placeholder={i18n('form.phone.placeholder')}
           isValid={phoneErrors.length === 0}
           autoCorrect={false}
-          errorMessage={phoneErrors}
+          errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
       <HorizontalLine style={tw`mt-6`} />

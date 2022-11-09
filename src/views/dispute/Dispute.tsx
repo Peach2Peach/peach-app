@@ -50,6 +50,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [reason, setReason] = useState<DisputeReason>()
   const [message, setMessage] = useState()
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
@@ -84,7 +85,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const submit = async () => {
     if (!contract?.symmetricKey) return
-
+    setDisplayErrors(true)
     const isFormValid = validateForm([
       {
         value: reason || '',
@@ -182,7 +183,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 placeholder={i18n('form.userEmail.placeholder')}
                 isValid={emailErrors.length === 0}
                 autoCorrect={false}
-                errorMessage={emailErrors}
+                errorMessage={displayErrors ? emailErrors : undefined}
               />
             </View>
           ) : null}
@@ -197,7 +198,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               placeholder={i18n('form.message.placeholder')}
               isValid={messageErrors.length === 0}
               autoCorrect={false}
-              errorMessage={messageErrors}
+              errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
           <Button
