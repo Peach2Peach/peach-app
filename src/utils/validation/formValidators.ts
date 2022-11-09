@@ -6,6 +6,9 @@ import { Rule, rules } from './rules'
  * @param value the value to be checked
  * @param rulesToCheck the rules to validate this value agains
  * @returns wether or not there are any errors
+ *
+ * @example
+ * getErrorsInField(bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true })
  */
 export const isFieldInError = (value: string, rulesToCheck: Partial<Record<Rule, boolean | undefined>>) => {
   const hasErrors = (Object.keys(rulesToCheck) as Rule[]).some((key) => {
@@ -29,6 +32,9 @@ export const isFieldInError = (value: string, rulesToCheck: Partial<Record<Rule,
  * @param value the value to be checked
  * @param rulesToCheck the rules to apply to this value
  * @returns an array of error messages, or an empty array if none exists
+ *
+ * @example
+ * getErrorsInField(bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true })
  */
 export const getErrorsInField = (value: string, rulesToCheck: Partial<Record<Rule, boolean | undefined>>) => [
   ...(Object.keys(rulesToCheck) as Rule[])
