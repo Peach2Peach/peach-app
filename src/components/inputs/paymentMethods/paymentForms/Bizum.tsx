@@ -1,10 +1,10 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { validateForm } from '../../../../utils/validation'
+import { getErrorsInField, validateForm } from '../../../../utils/validation'
 import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
@@ -23,7 +23,18 @@ export const Bizum = ({
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
 
-  const { isFieldInError, getErrorsInField } = useValidation({ label, phone, beneficiary })
+  const labelRules = {
+    required: true,
+    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  }
+  const phoneRules = {
+    required: true,
+    phone: true,
+  }
+
+  const { isFieldInError } = useValidation({ label, phone, beneficiary })
+  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
 
   const buildPaymentData = (): PaymentData & BizumData => ({
     id: data?.id || `bizum-${new Date().getTime()}`,
@@ -38,17 +49,11 @@ export const Bizum = ({
     validateForm([
       {
         value: label,
-        rulesToCheck: {
-          required: true,
-          duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-        },
+        rulesToCheck: labelRules,
       },
       {
         value: phone,
-        rulesToCheck: {
-          required: true,
-          phone: true,
-        },
+        rulesToCheck: phoneRules,
       },
     ])
 
@@ -79,7 +84,7 @@ export const Bizum = ({
           placeholder={i18n('form.paymentMethodName.placeholder')}
           isValid={!isFieldInError('label')}
           autoCorrect={false}
-          errorMessage={label.length && getErrorsInField('label')}
+          errorMessage={labelErrors}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -92,7 +97,7 @@ export const Bizum = ({
           placeholder={i18n('form.phone.placeholder')}
           isValid={!isFieldInError('phone')}
           autoCorrect={false}
-          errorMessage={phone.length && getErrorsInField('phone')}
+          errorMessage={phoneErrors}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -106,7 +111,6 @@ export const Bizum = ({
           placeholder={i18n('form.name.placeholder')}
           isValid={!isFieldInError('beneficiary')}
           autoCorrect={false}
-          errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
         />
       </View>
     </View>
