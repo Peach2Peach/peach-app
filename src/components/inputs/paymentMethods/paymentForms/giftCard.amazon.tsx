@@ -5,6 +5,7 @@ import { OverlayContext } from '../../../../contexts/overlay'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { validateForm } from '../../../../utils/validation'
 import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
@@ -23,7 +24,7 @@ export const GiftCardAmazon = ({
 
   let $email = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({ label, email })
+  const { isFieldInError, getErrorsInField } = useValidation({ label, email })
 
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
     id: data?.id || `giftCard.amazon-${new Date().getTime()}`,
@@ -34,26 +35,32 @@ export const GiftCardAmazon = ({
     country: data?.country || country,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  const isFormValid = () =>
+    validateForm([
+      {
+        value: label,
+        rulesToCheck: {
+          required: true,
+          duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+        },
       },
-      email: {
-        required: true,
-        email: true,
+      {
+        value: email,
+        rulesToCheck: {
+          required: true,
+          email: true,
+        },
       },
-    })
+    ])
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    validateForm,
+    isFormValid,
     save,
   }))
 

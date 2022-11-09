@@ -17,6 +17,7 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { setSessionItem } from '../../utils/session'
+import { validateForm } from '../../utils/validation'
 import { useValidation } from '../../utils/validation/useValidation'
 const { LinearGradient } = require('react-native-gradients')
 
@@ -31,14 +32,17 @@ export default ({ navigation }: Props): ReactElement => {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { validate, isFieldInError } = useValidation({ password })
+  const { isFieldInError } = useValidation({ password })
 
   const submit = async () => {
-    const isValid = validate({
-      password: {
-        required: true,
+    const isValid = validateForm([
+      {
+        value: password,
+        rulesToCheck: {
+          required: true,
+        },
       },
-    })
+    ])
     if (isValid) {
       Keyboard.dismiss()
       setLoading(isValid)

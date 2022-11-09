@@ -4,6 +4,7 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { validateForm } from '../../../../utils/validation'
 import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
@@ -49,40 +50,58 @@ export const SEPA = ({
     currencies: data?.currencies || currencies,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  const isFormValid = () =>
+    validateForm([
+      {
+        value: label,
+        rulesToCheck: {
+          required: true,
+          duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+        },
       },
-      beneficiary: {
-        required: true,
+      {
+        value: beneficiary,
+        rulesToCheck: {
+          required: true,
+        },
       },
-      iban: {
-        required: true,
-        iban: true,
+      {
+        value: iban,
+        rulesToCheck: {
+          required: true,
+          iban: true,
+        },
       },
-      bic: {
-        required: true,
-        bic: true,
+      {
+        value: bic,
+        rulesToCheck: {
+          required: true,
+          bic: true,
+        },
       },
-      address: {
-        required: false,
+      {
+        value: address,
+        rulesToCheck: {
+          required: false,
+        },
       },
-      reference: {
-        required: false,
+      {
+        value: reference,
+        rulesToCheck: {
+          required: false,
+        },
       },
-    })
+    ])
 
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    validateForm,
+    isFormValid,
     save,
   }))
 

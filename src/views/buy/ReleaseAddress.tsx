@@ -14,6 +14,7 @@ import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidation } from '../../utils/validation/useValidation'
+import { validateForm } from '../../utils/validation'
 
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
@@ -26,7 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ address })
+  const { isFieldInError, getErrorsInField } = useValidation({ address })
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -59,13 +60,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
     setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
 
-    validate({
-      address: {
-        required: true,
-        bitcoinAddress: true,
-      },
-    })
-    if (!isFormValid()) {
+    if (!validateForm([{ value: address || '', rulesToCheck: { required: true, bitcoinAddress: true } }])) {
       setStepValid(false)
       return
     }

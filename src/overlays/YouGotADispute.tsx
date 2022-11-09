@@ -16,6 +16,7 @@ import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
 import { useValidation } from '../utils/validation/useValidation'
+import { validateForm } from '../utils/validation'
 
 type YouGotADisputeProps = {
   message: string
@@ -35,19 +36,22 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ email })
+  const { isFieldInError, getErrorsInField, isFormValid } = useValidation({ email })
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
     updateOverlay({ content: null, showCloseButton: true })
   }
   const submit = async () => {
-    validate({
-      email: {
-        required: isEmailRequired(reason),
-        email: isEmailRequired(reason),
+    validateForm([
+      {
+        value: email || '',
+        rulesToCheck: {
+          required: isEmailRequired(reason),
+          email: isEmailRequired(reason),
+        },
       },
-    })
+    ])
     if (!isFormValid()) return
 
     setLoading(true)

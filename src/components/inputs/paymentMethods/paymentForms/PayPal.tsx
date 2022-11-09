@@ -4,6 +4,7 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { validateForm } from '../../../../utils/validation'
 import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
@@ -27,7 +28,7 @@ export const PayPal = ({
   let $userName = useRef<TextInput>(null).current
   const anyFieldSet = !!(phone || userName || email)
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({ label, phone, userName, email })
+  const { isFieldInError, getErrorsInField } = useValidation({ label, phone, userName, email })
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
@@ -43,34 +44,46 @@ export const PayPal = ({
     currencies: selectedCurrencies,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  const isFormValid = () =>
+    validateForm([
+      {
+        value: label,
+        rulesToCheck: {
+          required: true,
+          duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+        },
       },
-      phone: {
-        required: !email && !userName,
-        phone: true,
+      {
+        value: phone,
+        rulesToCheck: {
+          required: !email && !userName,
+          phone: true,
+        },
       },
-      email: {
-        required: !phone && !userName,
-        email: true,
+      {
+        value: email,
+        rulesToCheck: {
+          required: !phone && !userName,
+          email: true,
+        },
       },
-      userName: {
-        required: !phone && !email,
-        userName: true,
+      {
+        value: userName,
+        rulesToCheck: {
+          required: !phone && !email,
+          userName: true,
+        },
       },
-    })
+    ])
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    validateForm,
+    isFormValid,
     save,
   }))
 

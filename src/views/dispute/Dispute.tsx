@@ -21,6 +21,7 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { useValidation } from '../../utils/validation/useValidation'
+import { validateForm } from '../../utils/validation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['dispute'] }>
@@ -55,7 +56,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ email, message })
+  const { isFieldInError, getErrorsInField } = useValidation({ email, message })
 
   useEffect(() => {
     setContractId(route.params.contractId)
@@ -82,19 +83,28 @@ export default ({ route, navigation }: Props): ReactElement => {
   const submit = async () => {
     if (!contract?.symmetricKey) return
 
-    validate({
-      reason: {
-        required: true,
+    const isFormValid = validateForm([
+      {
+        value: reason || '',
+        rulesToCheck: {
+          required: true,
+        },
       },
-      email: {
-        email: isEmailRequired(reason!),
-        required: isEmailRequired(reason!),
+      {
+        value: email || '',
+        rulesToCheck: {
+          email: isEmailRequired(reason!),
+          required: isEmailRequired(reason!),
+        },
       },
-      message: {
-        required: true,
+      {
+        value: message || '',
+        rulesToCheck: {
+          required: true,
+        },
       },
-    })
-    if (!isFormValid() || !reason || !message) return
+    ])
+    if (!isFormValid || !reason || !message) return
     setLoading(true)
 
     const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(contract.symmetricKey, PEACHPGPPUBLICKEY)

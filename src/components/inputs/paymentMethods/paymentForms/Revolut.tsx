@@ -4,6 +4,7 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { validateForm } from '../../../../utils/validation'
 import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
@@ -28,7 +29,7 @@ export const Revolut = ({
   let $userName = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({ label, phone, userName, email })
+  const { isFieldInError, getErrorsInField } = useValidation({ label, phone, userName, email })
 
   const buildPaymentData = (): PaymentData & RevolutData => ({
     id: data?.id || `revolut-${new Date().getTime()}`,
@@ -40,39 +41,51 @@ export const Revolut = ({
     currencies: selectedCurrencies,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  const isFormValid = () =>
+    validateForm([
+      {
+        value: label,
+        rulesToCheck: {
+          required: true,
+          duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+        },
       },
-      phone: {
-        required: !userName && !email,
-        phone: true,
+      {
+        value: phone,
+        rulesToCheck: {
+          required: !userName && !email,
+          phone: true,
+        },
       },
-      userName: {
-        required: !phone && !email,
-        userName: true,
+      {
+        value: userName,
+        rulesToCheck: {
+          required: !phone && !email,
+          userName: true,
+        },
       },
-      email: {
-        required: !userName && !phone,
-        email: true,
+      {
+        value: email,
+        rulesToCheck: {
+          required: !userName && !phone,
+          email: true,
+        },
       },
-    })
+    ])
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
 
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    validateForm,
+    isFormValid,
     save,
   }))
 

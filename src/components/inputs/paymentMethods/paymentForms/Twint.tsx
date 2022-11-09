@@ -4,6 +4,7 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { validateForm } from '../../../../utils/validation'
 import { useValidation } from '../../../../utils/validation/useValidation'
 import Input from '../../Input'
 
@@ -22,7 +23,7 @@ export const Twint = ({
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({ label, phone, beneficiary })
+  const { isFieldInError, getErrorsInField } = useValidation({ label, phone, beneficiary })
 
   const buildPaymentData = (): PaymentData & TwintData => ({
     id: data?.id || `twint-${new Date().getTime()}`,
@@ -33,27 +34,33 @@ export const Twint = ({
     currencies: data?.currencies || currencies,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  const isFormValid = () =>
+    validateForm([
+      {
+        value: label,
+        rulesToCheck: {
+          required: true,
+          duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+        },
       },
-      phone: {
-        required: true,
-        phone: true,
+      {
+        value: phone,
+        rulesToCheck: {
+          required: true,
+          phone: true,
+        },
       },
-    })
+    ])
 
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    validateForm,
+    isFormValid,
     save,
   }))
 

@@ -30,17 +30,18 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { validate, isFieldInError } = useValidation({ password })
+  const { isFieldInError } = useValidation({ password })
 
   const onPasswordChange = (value: string) => {
     setPassword(value)
 
-    validate({
+    // TODO: check purpose of this
+    /* validate({
       password: {
         required: true,
         password: true,
       },
-    })
+    }) */
   }
 
   const submit = async () => {

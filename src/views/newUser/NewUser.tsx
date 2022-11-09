@@ -19,6 +19,7 @@ import { auth } from '../../utils/peachAPI'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
 import { useValidation } from '../../utils/validation/useValidation'
+import { validateForm } from '../../utils/validation'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
@@ -40,20 +41,26 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({ password, referralCode })
+  const { isFieldInError, getErrorsInField } = useValidation({ password, referralCode })
 
-  const validateForm = () =>
+  const validate = () =>
     !password
     || !passwordRepeat
-    || validate({
-      password: {
-        required: true,
-        password: true,
+    || validateForm([
+      {
+        value: password,
+        rulesToCheck: {
+          required: true,
+          password: true,
+        },
       },
-      referralCode: {
-        referralCode: true,
+      {
+        value: referralCode,
+        rulesToCheck: {
+          referralCode: true,
+        },
       },
-    })
+    ])
 
   const checkPasswordMatch = () => {
     if (password && passwordRepeat) {
@@ -68,7 +75,7 @@ export default ({ navigation }: Props): ReactElement => {
 
     if (!isPristine) {
       checkPasswordMatch()
-      validateForm()
+      validate()
     }
   }
 
@@ -110,7 +117,7 @@ export default ({ navigation }: Props): ReactElement => {
 
     if (!isPristine) {
       checkPasswordMatch()
-      validateForm()
+      validate()
     }
   }
 
@@ -129,7 +136,7 @@ export default ({ navigation }: Props): ReactElement => {
     }
     setIsPristine(false)
     const pwMatch = checkPasswordMatch()
-    if (pwMatch && validateForm()) {
+    if (pwMatch && validate()) {
       Keyboard.dismiss()
       setLoading(true)
 
@@ -140,9 +147,10 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
-  useEffect(() => {
-    validateForm()
-  }, [referralCode])
+  // TODO check the purpose of this
+  /* useEffect(() => {
+    validate()
+  }, [referralCode]) */
 
   return (
     <View style={tw`h-full flex justify-center px-6`}>

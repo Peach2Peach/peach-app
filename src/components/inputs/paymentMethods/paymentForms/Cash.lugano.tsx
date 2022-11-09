@@ -26,16 +26,16 @@ export const CashLugano = ({
   })
 
   const acknowledge = () => setDisclaimerAcknowledged(true)
-  const validateForm = () => disclaimerAcknowledged
+  const isFormValid = () => disclaimerAcknowledged
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     if (onSubmit) onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
-    validateForm,
+    isFormValid,
     save,
   }))
 

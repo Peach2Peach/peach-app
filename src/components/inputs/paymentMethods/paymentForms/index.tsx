@@ -35,7 +35,7 @@ const { LinearGradient } = require('react-native-gradients')
 type FormRef = {
   buildPaymentData: () => PaymentData
   save: () => void
-  validateForm: () => boolean
+  isFormValid: () => boolean
 }
 
 export type PaymentMethodFormProps = ComponentProps & {
@@ -103,7 +103,7 @@ export const PaymentMethodForm = ({
   }
 
   const onChange = () => {
-    if ($formRef) setStepValid($formRef.validateForm())
+    if ($formRef) setStepValid($formRef.isFormValid())
   }
 
   const remove = () => {

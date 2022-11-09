@@ -10,6 +10,7 @@ import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { useValidation } from '../../../utils/validation/useValidation'
+import { validateForm } from '../../../utils/validation'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string
@@ -26,7 +27,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
   const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ address })
+  const { isFieldInError, getErrorsInField } = useValidation({ address })
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -40,14 +41,17 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
 
       setShortAddress(cutOffAddress(address || ''))
 
-      validate({
-        address: {
-          required: true,
-          bitcoinAddress: true,
+      const isFormValid = validateForm([
+        {
+          value: address,
+          rulesToCheck: {
+            required: true,
+            bitcoinAddress: true,
+          },
         },
-      })
+      ])
 
-      if (!isFormValid()) return
+      if (!isFormValid) return
       update(address)
     } else {
       update('')

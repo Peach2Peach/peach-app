@@ -15,6 +15,7 @@ import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
 import { useValidation } from '../../utils/validation/useValidation'
+import { validateForm } from '../../utils/validation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
@@ -35,24 +36,33 @@ export default ({ route, navigation }: Props): ReactElement => {
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({ email, topic, message })
+  const { isFieldInError, getErrorsInField } = useValidation({ email, topic, message })
 
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
-    validate({
-      email: {
-        required: true,
-        email: true,
+    const isFormValid = validateForm([
+      {
+        value: email,
+        rulesToCheck: {
+          required: true,
+          email: true,
+        },
       },
-      topic: {
-        required: true,
+      {
+        value: topic,
+        rulesToCheck: {
+          required: true,
+        },
       },
-      message: {
-        required: true,
+      {
+        value: message,
+        rulesToCheck: {
+          required: true,
+        },
       },
-    })
-    if (!isFormValid()) return
+    ])
+    if (!isFormValid) return
 
     let messageToSend = message
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
