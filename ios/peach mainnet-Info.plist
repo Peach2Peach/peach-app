@@ -41,11 +41,10 @@
 	<string />
 	<key>UIAppFonts</key>
 	<array>
-		<string>B612Mono-Regular.ttf</string>
-		<string>Lato-Bold.ttf</string>
-		<string>Lato-Regular.ttf</string>
+		<string>Baloo2-Medium.ttf</string>
+		<string>Baloo2-Regular.ttf</string>
+		<string>Baloo2-SemiBold.ttf</string>
 		<string>Baloo2-Bold.ttf</string>
-		<string>Lato-Italic.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
