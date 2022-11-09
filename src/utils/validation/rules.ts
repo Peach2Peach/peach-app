@@ -81,3 +81,5 @@ export const rules = {
     }
   },
 }
+
+export type Rule = keyof typeof rules

@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
-import { getMessages, rules } from '../../../src/utils/validation'
+import { messages, rules } from '../../../src/utils/validation'
 import paymentData from '../data/paymentData.json'
 
 describe('rules', () => {
@@ -90,7 +90,6 @@ describe('rules', () => {
 
 describe('getMessages', () => {
   it('has all messages defined', () => {
-    const messages = getMessages().default
     for (const message in messages) {
       ok(message)
     }
