@@ -7,6 +7,9 @@ import { Rule } from './rules'
  * @param input the default value of the state
  * @param rulesToCheck
  * @returns an array containing, in that order, the value & setValue, wether the value is valid and its error messages
+ *
+ * @example
+ * const [value, setValue, isValueValid, valueErrors] = useValidatedState('defaultValue')
  */
 export const useValidatedState = (
   input: string,
