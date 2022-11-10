@@ -23,6 +23,7 @@ type HandleOverlaysProps = {
  */
 // eslint-disable-next-line complexity
 export const handleOverlays = ({ contract, navigation, updateOverlay, view }: HandleOverlaysProps) => {
+  const contractId = contract.id
   if (
     contract.disputeActive
     && contract.disputeInitiator !== account.publicKey
@@ -31,10 +32,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     return updateOverlay({
       content: (
         <YouGotADispute
-          contractId={contract.id}
-          message={contract.disputeClaim!}
-          reason={contract.disputeReason!}
-          navigation={navigation}
+          {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason!, navigation }}
         />
       ),
       showCloseButton: false,
@@ -43,13 +41,13 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
 
   if (!contract.disputeActive && contract.disputeResolvedDate && !contract.disputeResultAcknowledged) {
     return updateOverlay({
-      content: <DisputeResult contractId={contract.id} navigation={navigation} />,
+      content: <DisputeResult {...{ contractId, navigation }} />,
     })
   }
 
   if (contract.cancelationRequested && view === 'buyer' && !contract.disputeActive && !contract.paymentConfirmed) {
     return updateOverlay({
-      content: <ConfirmCancelTradeRequest contract={contract} navigation={navigation} />,
+      content: <ConfirmCancelTradeRequest {...{ contract, navigation }} />,
     })
   }
 
@@ -62,7 +60,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     && !contract.cancelConfirmationDismissed
   ) {
     return updateOverlay({
-      content: <CancelTradeRequestConfirmed contract={contract} navigation={navigation} />,
+      content: <CancelTradeRequestConfirmed {...{ contract, navigation }} />,
     })
   }
 
@@ -75,13 +73,13 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
     && !contract.cancelConfirmationDismissed
   ) {
     return updateOverlay({
-      content: <CancelTradeRequestRejected contract={contract} navigation={navigation} />,
+      content: <CancelTradeRequestRejected {...{ contract, navigation }} />,
     })
   }
 
   if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed && !contract.paymentConfirmed) {
     return updateOverlay({
-      content: <BuyerCanceledTrade contract={contract} navigation={navigation} />,
+      content: <BuyerCanceledTrade {...{ contract, navigation }} />,
     })
   }
 

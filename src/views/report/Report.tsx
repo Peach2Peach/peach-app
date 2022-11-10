@@ -28,9 +28,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [email, setEmail] = useState('')
-  const [topic, setTopic] = useState('')
-  const [message, setMessage] = useState('')
-  const [shareDeviceID, setShareDeviceID] = useState(false)
+  const [topic, setTopic] = useState(route.params.topic || '')
+  const [message, setMessage] = useState(route.params.message || '')
+  const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
   const reason = route.params.reason
 
   let $topic = useRef<TextInput>(null).current

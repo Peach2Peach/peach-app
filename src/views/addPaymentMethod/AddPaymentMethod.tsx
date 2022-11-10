@@ -76,34 +76,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     scroll.current?.scrollTo({ x: 0 })
   }
   const getScreen = () => {
-    if (id === 'currency') return (
-      <Currency
-        currency={currencies[0]}
-        setCurrency={(c) => setCurrencies([c] as Currency[])}
-        back={back}
-        next={next}
-      />
+    const commonProps = { ...{ currency: currencies[0], back, next } }
+    return id === 'currency' ? (
+      <Currency setCurrency={(c: Currency) => setCurrencies([c])} {...commonProps} />
+    ) : id === 'paymentMethod' ? (
+      <PaymentMethod {...{ paymentMethod, setPaymentMethod, ...commonProps }} />
+    ) : id === 'extraInfo' && paymentMethod && /giftCard/u.test(paymentMethod) ? (
+      <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
+    ) : (
+      <View />
     )
-    if (id === 'paymentMethod') return (
-      <PaymentMethod
-        currency={currencies[0]}
-        paymentMethod={paymentMethod}
-        setPaymentMethod={setPaymentMethod}
-        back={back}
-        next={next}
-      />
-    )
-    if (id === 'extraInfo' && /giftCard/u.test(paymentMethod as string)) return (
-      <Countries
-        selected={country}
-        currency={currencies[0]}
-        paymentMethod={paymentMethod!}
-        setCountry={setCountry}
-        back={back}
-        next={next}
-      />
-    )
-    return <View />
   }
 
   const initView = () => {

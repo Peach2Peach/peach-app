@@ -64,6 +64,9 @@ declare type RootStackParamList = {
   contact: {}
   report: {
     reason: ContactReason
+    topic?: string
+    message?: string
+    shareDeviceID?: boolean
   }
   language: {}
   currency: {}
