@@ -15,7 +15,7 @@ import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
-import { getErrorsInField, validateForm } from '../utils/validation'
+import { useValidatedState } from '../utils/validation'
 
 type YouGotADisputeProps = {
   message: string
@@ -29,15 +29,13 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [email, setEmail] = useState()
+  const emailRules = { required: isEmailRequired(reason), email: isEmailRequired(reason) }
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
   const [loading, setLoading] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
-
-  const emailRules = { required: isEmailRequired(reason), email: isEmailRequired(reason) }
-  const emailErrors = useMemo(() => getErrorsInField(email || '', emailRules), [email, emailRules])
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
@@ -45,12 +43,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   }
   const submit = async () => {
     setDisplayErrors(true)
-    const isFormValid = validateForm([
-      {
-        value: email || '',
-        rulesToCheck: emailRules,
-      },
-    ])
+    const isFormValid = isEmailValid
     if (!isFormValid) return
 
     setLoading(true)
@@ -117,7 +110,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             onSubmit={submit}
             value={email}
             placeholder={i18n('form.userEmail')}
-            isValid={emailErrors.length === 0}
+            isValid={isEmailValid}
             autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />

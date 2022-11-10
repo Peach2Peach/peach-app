@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -14,21 +14,24 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
-import { getErrorsInField, validateForm } from '../../utils/validation'
+import { useValidatedState } from '../../utils/validation'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
   navigation: StackNavigation
 }
 
+const emailRules = { required: true, email: true }
+const required = { required: true }
+
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [email, setEmail] = useState('')
-  const [topic, setTopic] = useState(route.params.topic || '')
-  const [message, setMessage] = useState(route.params.message || '')
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
+  const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
+  const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
   const [displayErrors, setDisplayErrors] = useState(false)
   const reason = route.params.reason
@@ -36,31 +39,11 @@ export default ({ route, navigation }: Props): ReactElement => {
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const emailRules = { required: true, email: true }
-  const required = { required: true }
-
-  const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
-  const topicErrors = useMemo(() => getErrorsInField(topic, required), [topic, required])
-  const messageErrors = useMemo(() => getErrorsInField(message, required), [message, required])
-
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
     setDisplayErrors(true)
-    const isFormValid = validateForm([
-      {
-        value: email,
-        rulesToCheck: emailRules,
-      },
-      {
-        value: topic,
-        rulesToCheck: required,
-      },
-      {
-        value: message,
-        rulesToCheck: required,
-      },
-    ])
+    const isFormValid = isEmailValid && isTopicValid && isMessageValid
     if (!isFormValid) return
 
     let messageToSend = message
@@ -100,7 +83,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={email}
               label={i18n('form.userEmail')}
               placeholder={i18n('form.userEmail.placeholder')}
-              isValid={emailErrors.length === 0}
+              isValid={isEmailValid}
               autoCorrect={false}
               errorMessage={displayErrors ? emailErrors : undefined}
             />
@@ -113,7 +96,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={topic}
               label={i18n('form.topic')}
               placeholder={i18n('form.topic.placeholder')}
-              isValid={topicErrors.length === 0}
+              isValid={isTopicValid}
               autoCorrect={false}
               errorMessage={displayErrors ? topicErrors : undefined}
             />
@@ -127,7 +110,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={messageErrors.length === 0}
+              isValid={isMessageValid}
               autoCorrect={false}
               errorMessage={displayErrors ? messageErrors : undefined}
             />

@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 
 import Logo from '../../assets/logo/peachLogo.svg'
@@ -18,20 +18,26 @@ import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
-import { getErrorsInField, validateForm } from '../../utils/validation'
+import { useValidatedState } from '../../utils/validation'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
   navigation: StackNavigation
 }
 
+const passwordRules = { required: true, password: true }
+const referralCodeRules = { referralCode: true }
+
 // eslint-disable-next-line max-statements, complexity
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [password, setPassword, passwordIsValid] = useValidatedState('', passwordRules)
+  const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState('', passwordRules)
   const [passwordMatch, setPasswordMatch] = useState(true)
-  const [referralCode, setReferralCode] = useState('')
+  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState(
+    '',
+    referralCodeRules,
+  )
   const [isPristine, setIsPristine] = useState(true)
   const [loading, setLoading] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
@@ -41,37 +47,9 @@ export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const passwordRules = { required: true, password: true }
-  const referralCodeRules = { referralCode: true }
-  const referralCodeErrors = useMemo(
-    () => getErrorsInField(referralCode, referralCodeRules),
-    [referralCode, referralCodeRules],
-  )
-  const passwordIsValid = useMemo(
-    () => getErrorsInField(password, passwordRules).length === 0,
-    [password, passwordRules],
-  )
-  const passwordRepeatIsValid = useMemo(
-    () => getErrorsInField(passwordRepeat, passwordRules).length === 0,
-    [passwordRepeat, passwordRules],
-  )
-
   const validate = () => {
     setDisplayErrors(true)
-    return (
-      !password
-      || !passwordRepeat
-      || validateForm([
-        {
-          value: password,
-          rulesToCheck: passwordRules,
-        },
-        {
-          value: referralCode,
-          rulesToCheck: referralCodeRules,
-        },
-      ])
-    )
+    return !password || !passwordRepeat || (passwordIsValid && referralCodeIsValid)
   }
 
   const checkPasswordMatch = () => {
@@ -231,7 +209,7 @@ export default ({ navigation }: Props): ReactElement => {
               }}
               value={referralCode}
               autoCapitalize="characters"
-              isValid={referralCodeErrors.length === 0}
+              isValid={referralCodeIsValid}
               errorMessage={displayErrors ? referralCodeErrors : undefined}
             />
           </View>

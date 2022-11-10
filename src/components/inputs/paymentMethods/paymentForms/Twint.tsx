@@ -4,8 +4,10 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getErrorsInField, validateForm } from '../../../../utils/validation'
+import { getErrorsInField, useValidatedState } from '../../../../utils/validation'
 import Input from '../../Input'
+
+const phoneRules = { required: true, phone: true }
 
 // eslint-disable-next-line max-lines-per-function
 export const Twint = ({
@@ -16,7 +18,7 @@ export const Twint = ({
   onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
-  const [phone, setPhone] = useState(data?.phone || '')
+  const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [displayErrors, setDisplayErrors] = useState(false)
 
@@ -27,10 +29,8 @@ export const Twint = ({
     required: true,
     duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
   }
-  const phoneRules = { required: true, phone: true }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
 
   const buildPaymentData = (): PaymentData & TwintData => ({
     id: data?.id || `twint-${new Date().getTime()}`,
@@ -43,16 +43,7 @@ export const Twint = ({
 
   const isFormValid = () => {
     setDisplayErrors(true)
-    return validateForm([
-      {
-        value: label,
-        rulesToCheck: labelRules,
-      },
-      {
-        value: phone,
-        rulesToCheck: phoneRules,
-      },
-    ])
+    return phoneIsValid && labelErrors.length === 0
   }
 
   const save = () => {
@@ -98,7 +89,7 @@ export const Twint = ({
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
+          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />

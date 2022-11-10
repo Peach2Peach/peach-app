@@ -9,7 +9,7 @@ import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { getErrorsInField, validateForm } from '../../../utils/validation'
+import { getErrorsInField, useValidatedState, validateForm } from '../../../utils/validation'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string
@@ -17,17 +17,16 @@ export type ReturnAddressProps = ComponentProps & {
   update: (address: string) => void
 }
 
+const addressRules = { required: true, bitcoinAddress: true }
+
 // eslint-disable-next-line max-lines-per-function
 export default ({ returnAddress, required, update, style }: ReturnAddressProps): ReactElement => {
   let $address: any
-  const [address, setAddress] = useState(returnAddress)
+  const [address, setAddress, isAddressValid, addressErrors] = useValidatedState(returnAddress || '', addressRules)
   const [shortAddress, setShortAddress] = useState(returnAddress ? cutOffAddress(returnAddress) : '')
   const [focused, setFocused] = useState(false)
   const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
-
-  const addressRules = { required: true, bitcoinAddress: true }
-  const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -41,12 +40,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
 
       setShortAddress(cutOffAddress(address || ''))
 
-      const isFormValid = validateForm([
-        {
-          value: address,
-          rulesToCheck: addressRules,
-        },
-      ])
+      const isFormValid = isAddressValid
 
       if (!isFormValid) return
       update(address)
@@ -85,7 +79,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
             onChange={(value: string) => (focused ? setAddress(() => value) : null)}
             onSubmit={() => setFocused(() => false)}
             placeholder={i18n('form.address.btc')}
-            isValid={addressErrors.length === 0}
+            isValid={isAddressValid}
             onFocus={() => setFocused(() => true)}
             onBlur={() => setFocused(() => false)}
             errorMessage={addressErrors}

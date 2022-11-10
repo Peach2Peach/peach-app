@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'

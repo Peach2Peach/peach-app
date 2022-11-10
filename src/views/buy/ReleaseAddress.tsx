@@ -13,22 +13,23 @@ import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
-import { getErrorsInField, validateForm } from '../../utils/validation'
+import { useValidatedState } from '../../utils/validation'
 
+const addressRules = { required: true, bitcoinAddress: true }
 // eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   useContext(LanguageContext)
 
-  const [address, setAddress] = useState(offer.releaseAddress)
+  const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
+    offer.releaseAddress || '',
+    addressRules,
+  )
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
   const [focused, setFocused] = useState(false)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   const [scanQR, setScanQR] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
-
-  const addressRules = { required: true, bitcoinAddress: true }
-  const addressErrors = useMemo(() => getErrorsInField(address || '', addressRules), [address, addressRules])
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -61,7 +62,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
     setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
 
-    if (!validateForm([{ value: address || '', rulesToCheck: addressRules }])) {
+    if (!addressIsValid) {
       setStepValid(false)
       setDisplayErrors(true)
       return
@@ -97,7 +98,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onFocus={focus}
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
-              isValid={addressErrors.length === 0}
+              isValid={addressIsValid}
               errorMessage={displayErrors ? addressErrors : undefined}
             />
           </View>

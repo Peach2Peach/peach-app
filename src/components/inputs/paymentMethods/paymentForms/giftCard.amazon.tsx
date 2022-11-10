@@ -5,8 +5,13 @@ import { OverlayContext } from '../../../../contexts/overlay'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getErrorsInField, validateForm } from '../../../../utils/validation'
+import { getErrorsInField, useValidatedState } from '../../../../utils/validation'
 import Input from '../../Input'
+
+const emailRules = {
+  required: true,
+  email: true,
+}
 
 // eslint-disable-next-line max-lines-per-function
 export const GiftCardAmazon = ({
@@ -17,9 +22,9 @@ export const GiftCardAmazon = ({
   onSubmit,
   onChange,
 }: PaymentMethodFormProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
-  const [email, setEmail] = useState(data?.email || '')
+  const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
   const [displayErrors, setDisplayErrors] = useState(false)
 
   let $email = useRef<TextInput>(null).current
@@ -28,13 +33,8 @@ export const GiftCardAmazon = ({
     required: true,
     duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
   }
-  const emailRules = {
-    required: true,
-    email: true,
-  }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
 
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
     id: data?.id || `giftCard.amazon-${new Date().getTime()}`,
@@ -47,16 +47,7 @@ export const GiftCardAmazon = ({
 
   const isFormValid = () => {
     setDisplayErrors(true)
-    return validateForm([
-      {
-        value: label,
-        rulesToCheck: labelRules,
-      },
-      {
-        value: email,
-        rulesToCheck: emailRules,
-      },
-    ])
+    return emailIsValid && labelErrors.length === 0
   }
   const save = () => {
     if (!isFormValid()) return
@@ -97,7 +88,7 @@ export const GiftCardAmazon = ({
           value={email}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
+          isValid={emailIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? emailErrors : undefined}
         />
