@@ -1,5 +1,5 @@
 import { error, info } from './log'
-import RNFS from './fileSystem/RNFS'
+import RNFS from 'react-native-fs'
 import { decrypt, encrypt } from './crypto'
 import { parseError } from './system'
 

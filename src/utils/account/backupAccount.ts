@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import Share from 'react-native-share'
 import { writeFile } from '../file'
-import RNFS from '../fileSystem/RNFS'
+import RNFS from 'react-native-fs'
 import { error, info } from '../log'
 import { getSession } from '../session'
 import { parseError } from '../system'
