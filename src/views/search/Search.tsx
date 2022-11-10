@@ -10,32 +10,21 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
-import { Level, MessageContext } from '../../contexts/message'
+import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
-import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
 import Match from '../../overlays/info/Match'
 import MatchAccepted from '../../overlays/MatchAccepted'
-import { account, getPaymentDataByType } from '../../utils/account'
+import { getPaymentDataByType } from '../../utils/account'
 import { unique } from '../../utils/array'
-import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getRandom } from '../../utils/crypto'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getPaymentDataByMethod, saveOffer } from '../../utils/offer'
-import { encryptPaymentData } from '../../utils/paymentMethod'
-import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
-import { signAndEncrypt } from '../../utils/pgp'
-import { decryptSymmetricKey } from '../contract/helpers/parseContract'
-
-const messageLevels: Record<string, Level> = {
-  NOT_FOUND: 'WARN',
-  CANNOT_DOUBLEMATCH: 'WARN',
-}
+import { saveOffer } from '../../utils/offer'
+import { unmatchOffer } from '../../utils/peachAPI'
+import { matchFn } from './match'
 
 const PAGESIZE = 10
 
@@ -117,117 +106,20 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   // eslint-disable-next-line max-statements, max-lines-per-function, complexity
-  const _match = async (match: Match) => {
-    let encryptedSymmmetricKey
-    let encryptedPaymentData
-
-    if (!offer || !offer.id) return
-
-    if (!selectedCurrency || !selectedPaymentMethod) {
-      error(
-        'Match data missing values.',
-        `selectedCurrency: ${selectedCurrency}`,
-        `selectedPaymentMethod: ${selectedPaymentMethod}`,
-      )
-      return
-    }
-
-    if (
-      !offer.meansOfPayment[selectedCurrency]
-      || offer.meansOfPayment[selectedCurrency]!.indexOf(selectedPaymentMethod) === -1
-    ) {
-      updateOverlay({
-        content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
-        showCloseButton: false,
-        showCloseIcon: false,
-      })
-    }
-
-    setMatchLoading(true)
-
-    if (offer.type === 'bid') {
-      encryptedSymmmetricKey = await signAndEncrypt(
-        (await getRandom(256)).toString('hex'),
-        [account.pgp.publicKey, match.user.pgpPublicKey].join('\n'),
-      )
-    } else if (offer.type === 'ask') {
-      const [symmetricKey] = await decryptSymmetricKey(
-        match.symmetricKeyEncrypted,
-        match.symmetricKeySignature,
-        match.user.pgpPublicKey,
-      )
-
-      const paymentDataForMethod = getPaymentDataByMethod(offer, selectedPaymentMethod)
-
-      if (!paymentDataForMethod) {
-        error('Payment data could not be found for offer', offer.id)
-        updateMessage({
-          template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
-          level: 'ERROR',
-        })
-        return
-      }
-
-      encryptedPaymentData = await encryptPaymentData(paymentDataForMethod, symmetricKey)
-    }
-
-    const [result, err] = await matchOffer({
-      offerId: offer.id,
-      matchingOfferId: match.offerId,
-      currency: selectedCurrency,
-      paymentMethod: selectedPaymentMethod,
-      symmetricKeyEncrypted: encryptedSymmmetricKey?.encrypted,
-      symmetricKeySignature: encryptedSymmmetricKey?.signature,
-      paymentDataEncrypted: encryptedPaymentData?.encrypted,
-      paymentDataSignature: encryptedPaymentData?.signature,
-      hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash || '',
-    })
-
-    if (result) {
-      setMatches(
-        matches.map((m) => {
-          if (m.offerId !== match.offerId) return m
-          m.matched = true
-          if (result.matchedPrice) m.matchedPrice = result.matchedPrice
-          return m
-        }),
-      )
-
-      if (offer.type === 'ask' && result.refundTx) {
-        let refundTx: string | null = null
-        const { isValid, psbt } = checkRefundPSBT(result.refundTx, offer)
-        if (isValid && psbt) {
-          const signedPSBT = signPSBT(psbt, offer, false)
-          const [patchOfferResult] = await patchOffer({
-            offerId: offer.id!,
-            refundTx: signedPSBT.toBase64(),
-          })
-          if (patchOfferResult) refundTx = psbt.toBase64()
-        }
-        saveAndUpdate({
-          ...offer,
-          doubleMatched: true,
-          contractId: result.contractId,
-          refundTx: refundTx || offer.refundTx,
-        })
-
-        if (result.contractId) {
-          info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
-          navigation.replace('contract', { contractId: result.contractId })
-        }
-      }
-    } else {
-      error('Error', err)
-      if (err?.error) {
-        const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
-        updateMessage({
-          msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-          level: messageLevels[err?.error] || 'ERROR',
-        })
-      }
-    }
-    setMatchLoading(false)
-  }
+  const _match = async (input: Match) =>
+    matchFn(
+      input,
+      offer,
+      selectedCurrency,
+      selectedPaymentMethod,
+      updateOverlay,
+      setMatchLoading,
+      setMatches,
+      updateMessage,
+      saveAndUpdate,
+      navigation,
+      openAddPaymentMethodDialog,
+    )
 
   const _unmatch = async (match: Match) => {
     if (!offer || !offer.id) return
@@ -251,10 +143,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   const _toggleMatch = () => (currentMatch.matched ? _unmatch(currentMatch) : _match(currentMatch))
-
-  // const _decline = () => {
-  // alert('todo')
-  // }
 
   const goHome = () => navigation.navigate('home', {})
   const goToYourTrades = () => navigation.replace('yourTrades', {})
@@ -437,15 +325,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               </View>
             ) : (
               <View style={tw`flex-row items-center justify-center pl-11`}>
-                {/* <Button
-                title={i18n('search.declineMatch')}
-                wide={false}
-                secondary={true}
-                disabled={currentMatch?.matched}
-                onPress={_decline}
-              /> */}
                 <Button
-                  // style={tw`ml-6`}
                   title={i18n('search.acceptMatch')}
                   wide={false}
                   disabled={currentMatch?.matched}
