@@ -11,7 +11,7 @@ export const CashLugano = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
+  setStepValid,
 }: PaymentMethodFormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
   const [bannerWidth, setBannerWidth] = useState(0)
@@ -30,18 +30,16 @@ export const CashLugano = ({
   const save = () => {
     if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    isFormValid,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [disclaimerAcknowledged])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   useEffect(() => {
     const screenWidth = Dimensions.get('window').width

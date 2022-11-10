@@ -12,7 +12,7 @@ export const CashAmsterdam = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
+  setStepValid,
 }: PaymentMethodFormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
   const Banner = cashAmsterdam
@@ -30,18 +30,16 @@ export const CashAmsterdam = ({
   const save = () => {
     if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    isFormValid,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [disclaimerAcknowledged])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View style={tw`flex items-center bg-[#FF9500] pb-10`}>

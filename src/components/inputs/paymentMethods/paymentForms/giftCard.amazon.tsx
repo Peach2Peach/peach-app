@@ -19,7 +19,7 @@ export const GiftCardAmazon = ({
   currencies = [],
   country,
   onSubmit,
-  onChange,
+  setStepValid,
 }: PaymentMethodFormProps): ReactElement => {
   useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
@@ -51,18 +51,16 @@ export const GiftCardAmazon = ({
   const save = () => {
     if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    isFormValid,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, email])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View>

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
@@ -17,7 +17,7 @@ export const SEPA = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
+  setStepValid,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
@@ -72,14 +72,12 @@ export const SEPA = ({
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    isFormValid,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, iban, beneficiary, bic, address, reference])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View>

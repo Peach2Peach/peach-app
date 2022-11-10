@@ -14,7 +14,7 @@ export const Wise = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
+  setStepValid,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
@@ -61,18 +61,16 @@ export const Wise = ({
   const save = () => {
     if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    isFormValid,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, email, phone])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View>

@@ -14,7 +14,7 @@ export const Swish = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
+  setStepValid,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
@@ -44,22 +44,19 @@ export const Swish = ({
     setDisplayErrors(true)
     return phoneIsValid && labelErrors.length === 0
   }
-
   const save = () => {
     if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    isFormValid,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, phone, beneficiary])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View>

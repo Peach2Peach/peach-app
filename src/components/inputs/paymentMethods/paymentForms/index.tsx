@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { OverlayContext } from '../../../../contexts/overlay'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
@@ -33,9 +33,7 @@ import { useKeyboard } from '../../../../hooks/useKeyboard'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
-  buildPaymentData: () => PaymentData
   save: () => void
-  isFormValid: () => boolean
 }
 
 export type PaymentMethodFormProps = ComponentProps & {
@@ -44,10 +42,10 @@ export type PaymentMethodFormProps = ComponentProps & {
   currencies?: Currency[]
   country?: Country
   onSubmit: (data: PaymentData) => void
-  onChange?: (data: Partial<PaymentData>) => void
   onDelete?: () => void
   back?: () => void
   navigation: StackNavigation
+  setStepValid: React.Dispatch<React.SetStateAction<boolean>>
 }
 type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
 export type PaymentMethodForms = {
@@ -90,7 +88,7 @@ export const PaymentMethodForm = ({
   let $formRef = useRef<FormRef>(null).current
 
   const submit = (newPaymentData: PaymentData) => {
-    if (!$formRef) return
+    if (!$formRef || !stepValid) return
 
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
@@ -100,10 +98,6 @@ export const PaymentMethodForm = ({
     } else {
       onSubmit(newPaymentData)
     }
-  }
-
-  const onChange = () => {
-    if ($formRef) setStepValid($formRef.isFormValid())
   }
 
   const remove = () => {
@@ -120,7 +114,7 @@ export const PaymentMethodForm = ({
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
           onSubmit={submit}
-          {...{ paymentMethod, data, currencies, onChange, navigation }}
+          {...{ paymentMethod, data, currencies, setStepValid, navigation }}
         />
       </PeachScrollView>
       <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
