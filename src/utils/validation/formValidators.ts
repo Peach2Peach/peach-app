@@ -11,18 +11,21 @@ import { Rule, rules } from './rules'
  * @example
  * getErrorsInField(bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true })
  */
-export const getErrorsInField = (value: string, rulesToCheck: Partial<Record<Rule, boolean | undefined>>) => [
-  ...(Object.keys(rulesToCheck) as Rule[])
-    .filter((key) => {
-      if (rulesToCheck[key]) {
-        const ruleToCheck = rules[key] as RegExp | ((x: unknown, y: unknown) => boolean)
-        const isRuleFn = typeof ruleToCheck === 'function'
-        const isRegExp = ruleToCheck instanceof RegExp
-        if ((isRuleFn && !ruleToCheck(rulesToCheck[key], value)) || (isRegExp && !ruleToCheck.test(value))) {
-          return true
-        }
-      }
-      return false
-    })
-    .map((key) => messages[key]),
-]
+export const getErrorsInField = (value: string, rulesToCheck: Partial<Record<Rule, boolean | undefined>>) =>
+  !value && rulesToCheck.required === false
+    ? []
+    : [
+      ...(Object.keys(rulesToCheck) as Rule[])
+        .filter((key) => {
+          if (rulesToCheck[key]) {
+            const ruleToCheck = rules[key] as RegExp | ((x: unknown, y: unknown) => boolean)
+            const isRuleFn = typeof ruleToCheck === 'function'
+            const isRegExp = ruleToCheck instanceof RegExp
+            if ((isRuleFn && !ruleToCheck(rulesToCheck[key], value)) || (isRegExp && !ruleToCheck.test(value))) {
+              return true
+            }
+          }
+          return false
+        })
+        .map((key) => messages[key]),
+    ]
