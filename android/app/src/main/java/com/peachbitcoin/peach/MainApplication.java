@@ -9,13 +9,12 @@ import org.reactnative.camera.RNCameraPackage;
 import com.reactnativefastopenpgp.FastOpenpgpPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.rnfs.RNFSPackage;
-import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import com.peachbitcoin.newarchitecture.MainApplicationReactNativeHost;
+import com.peachbitcoin.peach.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -42,6 +41,9 @@ public class MainApplication extends Application implements ReactApplication {
           return "index";
         }
       };
+
+  private final ReactNativeHost mNewArchitectureNativeHost =	
+      new MainApplicationReactNativeHost(this);
 
   @Override
   public ReactNativeHost getReactNativeHost() {
