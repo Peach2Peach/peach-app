@@ -302,9 +302,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         {matches.length ? (
           <View style={tw`h-full flex-shrink flex-col justify-end`}>
             <Matches
-              offer={offer}
-              matches={matches}
-              navigation={navigation}
+              {...{ offer, matches, navigation }}
               onChange={setMatchingOptions}
               onEndReached={onEndReached}
               toggleMatch={_toggleMatch}
