@@ -170,7 +170,7 @@ export const recoveredAccount: Account = {
     },
     preferredCurrencies: [],
     preferredPaymentMethods: {},
-    showBackupReminder: true,
+    showBackupReminder: false,
     showDisputeDisclaimer: true,
   },
   paymentData: [],
