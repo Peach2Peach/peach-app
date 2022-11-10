@@ -11,11 +11,11 @@ import { Rule } from './rules'
  * @example
  * const [value, setValue, isValueValid, valueErrors] = useValidatedState('defaultValue')
  */
-export const useValidatedState = (
-  input: string,
+export const useValidatedState = <S extends string>(
+  input: S,
   rulesToCheck: Partial<Record<Rule, boolean | undefined>>,
-): [string, React.Dispatch<React.SetStateAction<string>>, boolean, string[] | undefined] => {
-  const [value, setValue] = useState<string>(input)
+): [S, React.Dispatch<React.SetStateAction<S>>, boolean, string[] | undefined] => {
+  const [value, setValue] = useState<S>(input)
   const [isValid, setIsValid] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string[]>()
   useEffect(() => {

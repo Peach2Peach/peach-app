@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -11,30 +11,25 @@ import { whiteGradient } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { storeAccount } from '../../utils/account/storeAccount'
-import { getErrorsInField } from '../../utils/validation'
+import { useValidatedState } from '../../utils/validation'
 
 const { LinearGradient } = require('react-native-gradients')
+
+const passwordRules = { required: true, password: true }
 
 type ManualProps = {
   navigation: StackNavigation
   onSuccess: (account: Account) => void
   onError: (err: Error) => void
 }
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement => {
   useContext(LanguageContext)
   const [file, setFile] = useState({
     name: '',
     content: '',
   })
-  const [password, setPassword] = useState('')
+  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [loading, setLoading] = useState(false)
-
-  const passwordRules = { required: true, password: true }
-  const passwordIsValid = useMemo(
-    () => getErrorsInField(password, passwordRules).length === 0,
-    [password, passwordRules],
-  )
 
   const onPasswordChange = (value: string) => {
     setPassword(value)

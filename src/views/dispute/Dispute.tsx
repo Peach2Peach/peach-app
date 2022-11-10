@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -18,7 +18,7 @@ import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { getErrorsInField, validateForm } from '../../utils/validation'
+import { useValidatedState } from '../../utils/validation'
 import { useKeyboard } from '../../hooks/useKeyboard'
 
 type Props = {
@@ -34,9 +34,11 @@ const disputeReasonsSeller: DisputeReason[] = [
   'disputeOther',
 ]
 const disputeReasonsBuyer: DisputeReason[] = ['satsNotReceived', 'sellerUnresponsive', 'sellerBehaviour', 'disputeOther']
-export const isEmailRequired = (reason: DisputeReason) => /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
+export const isEmailRequired = (reason: DisputeReason | '') =>
+  /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
-// eslint-disable-next-line max-lines-per-function, max-statements
+const required = { required: true }
+
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -45,9 +47,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
-  const [email, setEmail] = useState()
-  const [reason, setReason] = useState<DisputeReason>()
-  const [message, setMessage] = useState()
+  const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
+  const emailRules = { email: isEmailRequired(reason!), required: isEmailRequired(reason!) }
+  const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
+  const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
@@ -55,42 +58,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  const emailRules = { email: isEmailRequired(reason!), required: isEmailRequired(reason!) }
-  const required = { required: true }
-  const emailErrors = useMemo(() => getErrorsInField(email || '', emailRules), [email, emailRules])
-  const messageErrors = useMemo(() => getErrorsInField(message || '', required), [message, required])
-
   useEffect(() => {
     setContractId(route.params.contractId)
     setContract(getContract(route.params.contractId))
     setStart(false)
-    setReason(undefined)
-    setMessage(undefined)
+    setReason('')
+    setMessage('')
     setLoading(false)
   }, [route])
 
   const goBack = () => {
-    if (reason) return setReason(undefined)
+    if (reason) return setReason('')
     return setStart(false)
   }
 
   const submit = async () => {
     if (!contract?.symmetricKey) return
     setDisplayErrors(true)
-    const isFormValid = validateForm([
-      {
-        value: reason || '',
-        rulesToCheck: required,
-      },
-      {
-        value: email || '',
-        rulesToCheck: emailRules,
-      },
-      {
-        value: message || '',
-        rulesToCheck: required,
-      },
-    ])
+    const isFormValid = reasonIsValid && emailIsValid && messageIsValid
     if (!isFormValid || !reason || !message) return
     setLoading(true)
 
@@ -172,7 +157,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 value={email}
                 label={i18n('form.userEmail')}
                 placeholder={i18n('form.userEmail.placeholder')}
-                isValid={emailErrors.length === 0}
+                isValid={emailIsValid}
                 autoCorrect={false}
                 errorMessage={displayErrors ? emailErrors : undefined}
               />
@@ -187,7 +172,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={messageErrors.length === 0}
+              isValid={messageIsValid}
               autoCorrect={false}
               errorMessage={displayErrors ? messageErrors : undefined}
             />

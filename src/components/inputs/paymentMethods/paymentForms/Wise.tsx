@@ -4,12 +4,11 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getErrorsInField, validateForm } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
-// eslint-disable-next-line max-lines-per-function
 export const Wise = ({
   forwardRef,
   data,
@@ -52,20 +51,7 @@ export const Wise = ({
 
   const isFormValid = () => {
     setDisplayErrors(true)
-    return validateForm([
-      {
-        value: label,
-        rulesToCheck: labelRules,
-      },
-      {
-        value: email,
-        rulesToCheck: emailRules,
-      },
-      {
-        value: phone,
-        rulesToCheck: phoneRules,
-      },
-    ])
+    return [...labelErrors, ...phoneErrors, ...emailErrors].length === 0
   }
 
   const onCurrencyToggle = (currency: Currency) => {

@@ -4,11 +4,10 @@ import { PaymentMethodFormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getErrorsInField, validateForm } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
-// eslint-disable-next-line max-lines-per-function
 export const PayPal = ({
   forwardRef,
   data,
@@ -57,24 +56,7 @@ export const PayPal = ({
 
   const isFormValid = () => {
     setDisplayErrors(true)
-    return validateForm([
-      {
-        value: label,
-        rulesToCheck: labelRules,
-      },
-      {
-        value: phone,
-        rulesToCheck: phoneRules,
-      },
-      {
-        value: email,
-        rulesToCheck: emailRules,
-      },
-      {
-        value: userName,
-        rulesToCheck: userNameRules,
-      },
-    ])
+    return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
   }
   const save = () => {
     if (!isFormValid()) return

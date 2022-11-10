@@ -16,7 +16,6 @@ import { useValidatedState } from '../../utils/validation'
 import { useKeyboard } from '../../hooks/useKeyboard'
 
 const addressRules = { required: true, bitcoinAddress: true }
-// eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   useContext(LanguageContext)

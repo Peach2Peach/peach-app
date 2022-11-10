@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 

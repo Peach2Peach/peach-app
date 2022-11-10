@@ -9,7 +9,6 @@ import Input from '../../Input'
 
 const phoneRules = { required: true, phone: true }
 
-// eslint-disable-next-line max-lines-per-function
 export const Swish = ({
   forwardRef,
   data,

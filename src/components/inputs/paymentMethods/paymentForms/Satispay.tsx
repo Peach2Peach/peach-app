@@ -8,7 +8,6 @@ import { getErrorsInField, useValidatedState } from '../../../../utils/validatio
 import Input from '../../Input'
 
 const phoneRules = { required: true, phone: true }
-// eslint-disable-next-line max-lines-per-function
 export const Satispay = ({
   forwardRef,
   data,

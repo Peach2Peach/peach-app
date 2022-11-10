@@ -26,14 +26,3 @@ export const getErrorsInField = (value: string, rulesToCheck: Partial<Record<Rul
     })
     .map((key) => messages[key]),
 ]
-
-/**
- *
- * @param config an array of objects each consisting of both the value to check and the rules to apply to this value
- * @returns wether the form is valid or not
- *
- * @example
- * validateForm([{ value: bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true }}])
- */
-export const validateForm = (config: { value: string; rulesToCheck: Partial<Record<Rule, boolean | undefined>> }[]) =>
-  config.some(({ value, rulesToCheck }) => !(getErrorsInField(value, rulesToCheck).length === 0))

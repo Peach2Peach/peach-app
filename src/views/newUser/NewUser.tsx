@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 
@@ -28,13 +27,13 @@ type Props = {
 const passwordRules = { required: true, password: true }
 const referralCodeRules = { referralCode: true }
 
-// eslint-disable-next-line max-statements, complexity
+// eslint-disable-next-line complexity
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const [password, setPassword, passwordIsValid] = useValidatedState('', passwordRules)
-  const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState('', passwordRules)
+  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
+  const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
   const [passwordMatch, setPasswordMatch] = useState(true)
-  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState(
+  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState<string>(
     '',
     referralCodeRules,
   )

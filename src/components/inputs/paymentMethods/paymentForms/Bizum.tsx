@@ -11,7 +11,6 @@ const phoneRules = {
   phone: true,
 }
 
-// eslint-disable-next-line max-lines-per-function
 export const Bizum = ({
   forwardRef,
   data,

@@ -13,7 +13,6 @@ const emailRules = {
   email: true,
 }
 
-// eslint-disable-next-line max-lines-per-function
 export const GiftCardAmazon = ({
   forwardRef,
   data,

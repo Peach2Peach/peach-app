@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
@@ -9,7 +9,7 @@ import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { getErrorsInField, useValidatedState, validateForm } from '../../../utils/validation'
+import { useValidatedState } from '../../../utils/validation'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string
@@ -19,7 +19,6 @@ export type ReturnAddressProps = ComponentProps & {
 
 const addressRules = { required: true, bitcoinAddress: true }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ returnAddress, required, update, style }: ReturnAddressProps): ReactElement => {
   let $address: any
   const [address, setAddress, isAddressValid, addressErrors] = useValidatedState(returnAddress || '', addressRules)
