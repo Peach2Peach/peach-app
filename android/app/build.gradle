@@ -4,6 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 import com.android.build.OutputFile
+import org.apache.tools.ant.taskdefs.condition.Os
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -164,7 +165,7 @@ android {
         versionCode 96
         versionName "0.1.7"
         missingDimensionStrategy 'react-native-camera', 'general'
-        // multiDexEnabled true
+        multiDexEnabled true
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -350,3 +351,11 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+def isNewArchitectureEnabled() {
+    // To opt-in for the New Architecture, you can either:
+    // - Set `newArchEnabled` to true inside the `gradle.properties` file
+    // - Invoke gradle with `-newArchEnabled=true`
+    // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
