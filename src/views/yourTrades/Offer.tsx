@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
-import { Button, PeachScrollView, Title } from '../../components'
+import { Button, PeachScrollView, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -57,6 +57,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
+  }
+
+  const goToOffer = () => {
+    if (!offer.newOfferId) return
+    const offr = getOffer(offer.newOfferId)
+    if (offr) navigation.replace('offer', { offer: offr })
   }
 
   useFocusEffect(
@@ -169,6 +175,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) ? (
         <View>
           <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
+          {offer.newOfferId ? (
+            <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+              {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
+            </Text>
+          ) : null}
           <View style={tw`mt-7`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <View style={tw`flex items-center mt-4`}>

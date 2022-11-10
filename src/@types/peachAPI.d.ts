@@ -145,6 +145,8 @@ declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 declare type Offer = {
   id: string
+  oldOfferId?: string
+  newOfferId?: string
   creationDate: Date
   publishingDate?: Date
   online: boolean

@@ -20,7 +20,9 @@ export const signReleaseTx = (contract: Contract): [string | null, string[] | nu
   if (errorMsg.length) return [null, errorMsg]
 
   // Sign psbt
-  psbt.txInputs.forEach((input, i) => psbt.signInput(i, getEscrowWallet(sellOffer.id!)).finalizeInput(i, getFinalScript))
+  psbt.txInputs.forEach((input, i) =>
+    psbt.signInput(i, getEscrowWallet(sellOffer.oldOfferId || sellOffer.id!)).finalizeInput(i, getFinalScript),
+  )
 
   const tx = psbt.extractTransaction().toHex()
 
