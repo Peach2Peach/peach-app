@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -7,13 +7,13 @@ import { BarCodeReadEvent } from 'react-native-camera'
 import { Fade, Headline, IconButton, Input, ScanQR, TextLink, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
-import keyboard from '../../effects/keyboard'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidatedState } from '../../utils/validation'
+import { useKeyboard } from '../../hooks/useKeyboard'
 
 const addressRules = { required: true, bitcoinAddress: true }
 // eslint-disable-next-line max-lines-per-function
@@ -27,7 +27,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   )
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
   const [focused, setFocused] = useState(false)
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const keyboardOpen = useKeyboard()
   const [scanQR, setScanQR] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
 
@@ -79,8 +79,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       false,
     )
   }, [address])
-
-  useEffect(keyboard(setKeyboardOpen), [])
 
   return (
     <View style={tw`h-full flex-col justify-between px-6`}>

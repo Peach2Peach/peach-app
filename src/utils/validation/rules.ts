@@ -1,9 +1,9 @@
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
+import { getNetwork } from '../wallet'
 
 const emailRegex
   = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
-
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
 
@@ -19,15 +19,8 @@ export const rules = {
   email: emailRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
-    // try {
-    //   valid = isxpub(value)
-    // } catch (e) { }
     try {
-      address.fromBase58Check(value)
-      valid = true
-    } catch (e) {}
-    try {
-      address.fromBech32(value)
+      address.toOutputScript(value, getNetwork())
       valid = true
     } catch (e) {}
 
