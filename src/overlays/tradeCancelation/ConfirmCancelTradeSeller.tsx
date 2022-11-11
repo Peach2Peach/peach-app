@@ -86,7 +86,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         {'\n\n'}
         {i18n('contract.cancel.seller.text.paymentMightBeDone')}
         {'\n\n'}
-        {i18n(`contract.cancel.seller.text.${expiry.isExpired ? 'refundEscrow' : 'putBackOnline'}`)}
+        {i18n(`contract.cancel.seller.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
       <View>
         <Button

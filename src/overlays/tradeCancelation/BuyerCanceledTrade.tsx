@@ -50,11 +50,9 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>
-      {contract.releaseTxId ? (
-        <Text style={tw`text-center text-white-1 mt-2`}>
-          {i18n(`contract.cancel.buyer.confirmed.text.${expiry.isExpired ? 'backOnline' : 'refunded'}`)}
-        </Text>
-      ) : null}
+      <Text style={tw`text-center text-white-1 mt-2`}>
+        {i18n(`contract.cancel.buyer.confirmed.text.${contract.releaseTxId ? 'refunded' : 'backOnline'}`)}
+      </Text>
       <View>
         {expiry.isExpired ? (
           contract.releaseTxId ? (
