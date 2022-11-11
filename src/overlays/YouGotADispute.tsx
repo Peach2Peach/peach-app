@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import { Button, Headline, Input, Text } from '../components'
 import { MessageContext } from '../contexts/message'

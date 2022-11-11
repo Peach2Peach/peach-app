@@ -6,7 +6,7 @@ import { Rule, rules } from './rules'
  *
  * @param value the value to be checked
  * @param rulesToCheck the rules to apply to this value
- * @returns an array of error messages, or an empty array if none exists
+ * @returns an array of error messages, or an empty array if none exist
  *
  * @example
  * getErrorsInField(bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true })
