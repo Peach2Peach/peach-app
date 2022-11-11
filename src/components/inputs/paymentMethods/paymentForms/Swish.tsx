@@ -74,8 +74,13 @@ export const Swish = ({
       </View>
       <View style={tw`mt-6`}>
         <Input
-          onChange={setPhone}
-          onSubmit={() => $beneficiary?.focus()}
+          onChange={(number: string) => {
+            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
+          }}
+          onSubmit={() => {
+            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
+            $beneficiary?.focus()
+          }}
           reference={(el: any) => ($phone = el)}
           value={phone}
           label={i18n('form.phone')}
