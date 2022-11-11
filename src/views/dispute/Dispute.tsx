@@ -18,8 +18,7 @@ import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState } from '../../hooks'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useValidatedState, useKeyboard } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['dispute'] }>

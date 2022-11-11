@@ -29,7 +29,7 @@ import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
-import { useKeyboard } from '../../../../hooks/useKeyboard'
+import { useKeyboard } from '../../../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Pressable } from 'react-native'
 import { Button, Fade, Icon } from '../../../components'
-import { useKeyboard } from '../../../hooks/useKeyboard'
+import { useKeyboard } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 

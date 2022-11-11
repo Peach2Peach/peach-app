@@ -12,8 +12,7 @@ import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
-import { useValidatedState } from '../../hooks'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useValidatedState, useKeyboard } from '../../hooks'
 
 const addressRules = { required: true, bitcoinAddress: true }
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
