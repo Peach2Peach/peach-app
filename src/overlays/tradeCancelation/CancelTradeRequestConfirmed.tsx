@@ -17,9 +17,8 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
-  const showEscrow = () => contract.releaseTxId
-    ? showTransaction(contract.releaseTxId, NETWORK)
-    : showAddress(contract.escrow, NETWORK)
+  const showEscrow = () =>
+    contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
 
   useEffect(() => {
     saveContract({
@@ -29,35 +28,23 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
     })
   }, [])
 
-  return <View style={tw`flex items-center`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
-      {i18n('contract.cancel.seller.confirmed.title')}
-    </Headline>
-    <Text style={tw`text-center text-white-1 mt-8`}>
-      {i18n(
-        'contract.cancel.seller.confirmed.text.1',
-        getOfferIdfromContract(contract),
-        i18n('currency.format.sats', thousands(contract.amount))
-      )}
-    </Text>
-    <Text style={tw`text-center text-white-1 mt-2`}>
-      {i18n('contract.cancel.seller.confirmed.text.2')}
-    </Text>
-    <View>
-      <Button
-        style={tw`mt-8`}
-        title={i18n('showEscrow')}
-        tertiary={true}
-        wide={false}
-        onPress={showEscrow}
-      />
-      <Button
-        style={tw`mt-2`}
-        title={i18n('close')}
-        secondary={true}
-        wide={false}
-        onPress={closeOverlay}
-      />
+  return (
+    <View style={tw`flex items-center`}>
+      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+        {i18n('contract.cancel.seller.confirmed.title')}
+      </Headline>
+      <Text style={tw`text-center text-white-1 mt-8`}>
+        {i18n(
+          'contract.cancel.seller.confirmed.text.1',
+          getOfferIdfromContract(contract),
+          i18n('currency.format.sats', thousands(contract.amount)),
+        )}
+      </Text>
+      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.seller.confirmed.text.2')}</Text>
+      <View>
+        <Button style={tw`mt-8`} title={i18n('showEscrow')} tertiary={true} wide={false} onPress={showEscrow} />
+        <Button style={tw`mt-2`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
+      </View>
     </View>
-  </View>
+  )
 }
