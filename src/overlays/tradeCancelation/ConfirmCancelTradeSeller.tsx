@@ -20,7 +20,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
-  const [sellOffer] = useState(() => getSellOfferFromContract(contract))
+  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 

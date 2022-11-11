@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
@@ -17,7 +17,7 @@ import Refund from '../Refund'
  */
 export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const [sellOffer] = useState(() => getSellOfferFromContract(contract))
+  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
