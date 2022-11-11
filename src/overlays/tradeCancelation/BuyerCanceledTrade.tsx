@@ -17,7 +17,7 @@ import Refund from '../Refund'
  */
 export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [])
+  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })

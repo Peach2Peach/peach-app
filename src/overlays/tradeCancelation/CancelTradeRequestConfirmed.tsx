@@ -17,7 +17,7 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
  */
 export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [])
+  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
