@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
-import { BackHandler, Modal, Pressable, View } from 'react-native'
+import { BackHandler, Modal, Pressable, SafeAreaView, View } from 'react-native'
 import { Button } from '.'
 
 import tw from '../styles/tailwind'
@@ -46,9 +46,11 @@ export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help
         ]}
       >
         {showCloseIcon ? (
-          <Pressable onPress={closeOverlay} style={tw`absolute z-20 top-5 right-5`}>
-            <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color as string} />
-          </Pressable>
+          <SafeAreaView style={tw`absolute z-20 top-5 right-5`}>
+            <Pressable onPress={closeOverlay}>
+              <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color as string} />
+            </Pressable>
+          </SafeAreaView>
         ) : null}
 
         {content}
