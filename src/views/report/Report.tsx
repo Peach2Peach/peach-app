@@ -14,7 +14,7 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
-import { useValidatedState } from '../../utils/validation'
+import { useValidatedState } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>

@@ -11,7 +11,7 @@ import { whiteGradient } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { storeAccount } from '../../utils/account/storeAccount'
-import { useValidatedState } from '../../utils/validation'
+import { useValidatedState } from '../../hooks'
 
 const { LinearGradient } = require('react-native-gradients')
 

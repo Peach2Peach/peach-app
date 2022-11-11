@@ -15,7 +15,7 @@ import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
-import { useValidatedState } from '../utils/validation'
+import { useValidatedState } from '../hooks'
 
 type YouGotADisputeProps = {
   message: string

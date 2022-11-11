@@ -16,7 +16,7 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { setSessionItem } from '../../utils/session'
-import { useValidatedState } from '../../utils/validation'
+import { useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {

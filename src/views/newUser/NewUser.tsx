@@ -17,7 +17,7 @@ import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
-import { useValidatedState } from '../../utils/validation'
+import { useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {

@@ -2,10 +2,11 @@ import React, { ReactElement, useContext, useEffect, useImperativeHandle, useMem
 import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
 import { OverlayContext } from '../../../../contexts/overlay'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getErrorsInField, useValidatedState } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 
 const emailRules = {

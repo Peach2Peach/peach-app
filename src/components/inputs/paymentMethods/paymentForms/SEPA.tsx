@@ -1,10 +1,11 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { PaymentMethodFormProps } from '.'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getErrorsInField, useValidatedState } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 
 const beneficiaryRules = { required: true }

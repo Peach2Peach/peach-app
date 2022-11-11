@@ -9,7 +9,7 @@ import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { useValidatedState } from '../../../utils/validation'
+import { useValidatedState } from '../../../hooks'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string

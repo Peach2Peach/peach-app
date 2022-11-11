@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
-import { useValidatedState } from '../../utils/validation'
+import { useValidatedState } from '../../hooks'
 import { useKeyboard } from '../../hooks/useKeyboard'
 
 const addressRules = { required: true, bitcoinAddress: true }
