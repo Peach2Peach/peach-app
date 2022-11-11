@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getErrorsInField } from '../utils/validation/formValidators'
+import { getErrorsInField } from '../utils/validation/getErrorsInField'
 import { Rule } from '../utils/validation/rules'
 
 /**
