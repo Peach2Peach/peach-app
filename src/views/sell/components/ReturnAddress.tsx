@@ -46,7 +46,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
     } else {
       update('')
     }
-  }, [address, useDepositAddress])
+  }, [address, isAddressValid, useDepositAddress])
 
   useEffect(() => {
     if (useDepositAddress) {

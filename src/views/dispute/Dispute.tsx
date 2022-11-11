@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -47,7 +47,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
   const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
-  const emailRules = { email: isEmailRequired(reason!), required: isEmailRequired(reason!) }
+  const emailRules = useMemo(() => ({ email: isEmailRequired(reason!), required: isEmailRequired(reason!) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
@@ -64,7 +64,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     setReason('')
     setMessage('')
     setLoading(false)
-  }, [route])
+  }, [route, setMessage, setReason])
 
   const goBack = () => {
     if (reason) return setReason('')
