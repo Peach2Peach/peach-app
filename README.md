@@ -9,6 +9,14 @@ npm install
 npx react-native link
 ```
 
+**Android**
+
+## Environment Setup
+
+### Generating Signed APK
+
+https://s-pace.github.io/react-native/docs/signed-apk-android.html
+
 **iOS**
 
 Install dependencies
@@ -44,8 +52,6 @@ To choose speicifc target
 
 `npm run web`
 
-
-
 ## Test
 
 ### Unit testing
@@ -66,9 +72,11 @@ Follow their guides or this is the quick setup:
 #### Mac OS X
 
 ##### Install `detox-cli`
+
 `npm install -g detox-cli`
 
 ##### Install `applesimutils`
+
 ```
 brew upgrade
 brew tap wix/brew
@@ -78,14 +86,14 @@ brew install applesimutils
 ### Running E2E Tests
 
 1. Build the app for testing
-`test:e2e:ios:build`
-or
-`test:e2e:android:build`
+   `test:e2e:ios:build`
+   or
+   `test:e2e:android:build`
 
 1. Running tests
-`test:e2e:ios`
-or
-`test:e2e:android`
+   `test:e2e:ios`
+   or
+   `test:e2e:android`
 
 ## Troubleshooting
 
@@ -106,8 +114,6 @@ or
 1. Run `rm -rf android/app/src/main/res/drawable-*`
 2. Then open folder android in Android Studio and build project
 3. Select Build/Generate signed APK to build release
-
-
 
 ### Can't build iOS
 

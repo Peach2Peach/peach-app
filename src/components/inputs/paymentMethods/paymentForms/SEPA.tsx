@@ -76,7 +76,7 @@ export const SEPA = ({
   const save = () => {
     if (!validateForm()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({

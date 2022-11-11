@@ -53,10 +53,6 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   originalPaymentData: [],
   amount: amount || account.settings.amount || BUCKETS[0],
   returnAddress: account.settings.returnAddress,
-  // TODO integrate support for xpubs
-  // returnAddress: account.settings.returnAddress && isxpub(account.settings.returnAddress)
-  //   ? deriveAddress(account.settings.returnAddress, account.settings.hdStartIndex || 0)
-  //   : account.settings.returnAddress,
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   funding: {

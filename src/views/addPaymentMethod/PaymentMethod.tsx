@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { Flag, Headline, Icon, RadioButtons, Text } from '../../components'
-import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES, PAYMENTMETHODINFOS } from '../../constants'
+import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
 import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
 import { CountrySelect } from '../../drawers/CountrySelect'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
@@ -104,20 +104,12 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
     setStepValid(!!paymentMethod)
   }, [paymentMethod])
 
-  useEffect(() => {
-    setStepValid(false)
-  }, [])
-
   return (
     <View style={tw`flex h-full`}>
       <Headline>{i18n('paymentMethod.select')}</Headline>
       <View style={tw`h-full flex-shrink flex justify-center px-10`}>
         {!country ? (
-          <RadioButtons
-            items={paymentCategories}
-            selectedValue={paymentCategory}
-            onChange={(cat) => setPaymentCategory(cat as PaymentCategory)}
-          />
+          <RadioButtons items={paymentCategories} selectedValue={paymentCategory} onChange={setPaymentCategory} />
         ) : (
           <View>
             <Pressable style={tw`flex flex-row items-center px-8`} onPress={() => showDrawer('localOption')}>
@@ -129,7 +121,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
               style={tw`mt-16`}
               items={localMethods}
               selectedValue={paymentMethod}
-              onChange={(method) => setPaymentMethod(method as PaymentMethod)}
+              onChange={setPaymentMethod}
             />
           </View>
         )}
