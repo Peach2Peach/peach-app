@@ -1,18 +1,12 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useState } from 'react'
 import { Dimensions, Image, Pressable, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 
-export const CashLugano = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+export const CashLugano = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
   const [bannerWidth, setBannerWidth] = useState(0)
   const [bannerHeight, setBannerHeight] = useState(0)

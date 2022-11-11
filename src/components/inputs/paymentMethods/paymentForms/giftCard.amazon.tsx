@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
@@ -18,10 +18,9 @@ export const GiftCardAmazon = ({
   forwardRef,
   data,
   currencies = [],
-  country,
   onSubmit,
   setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+}: FormProps): ReactElement => {
   useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
@@ -39,10 +38,10 @@ export const GiftCardAmazon = ({
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
     id: data?.id || `giftCard.amazon-${new Date().getTime()}`,
     label,
-    type: `giftCard.amazon.${data?.country || country}` as PaymentMethod,
+    type: `giftCard.amazon.${data?.country}` as PaymentMethod,
     email,
     currencies: data?.currencies || currencies,
-    country: data?.country || country,
+    country: data?.country,
   })
 
   const isFormValid = () => {

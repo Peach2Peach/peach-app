@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
@@ -13,7 +13,7 @@ export const CashBelgianEmbassy = ({
   currencies = [],
   onSubmit,
   setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+}: FormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
 
   const buildPaymentData = (): PaymentData & CashData => ({

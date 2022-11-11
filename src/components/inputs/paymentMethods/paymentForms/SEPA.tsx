@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -13,13 +13,7 @@ const notRequired = { required: false }
 const ibanRules = { required: true, iban: true }
 const bicRules = { required: true, bic: true }
 
-export const SEPA = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',

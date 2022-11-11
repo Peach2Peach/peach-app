@@ -40,14 +40,14 @@ export type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod
   data: Partial<PaymentData>
   currencies?: Currency[]
-  country?: Country
   onSubmit: (data: PaymentData) => void
   onDelete?: () => void
   back?: () => void
   navigation: StackNavigation
-  setStepValid: React.Dispatch<React.SetStateAction<boolean>>
 }
-type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
+export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
+
+type PaymentMethodFormType = (props: FormProps) => ReactElement
 export type PaymentMethodForms = {
   [key in PaymentMethod]?: PaymentMethodFormType
 }

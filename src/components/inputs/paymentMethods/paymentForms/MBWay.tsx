@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -12,13 +12,7 @@ const phoneRules = {
   phone: true,
 }
 
-export const MBWay = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')

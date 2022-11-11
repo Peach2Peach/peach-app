@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -8,13 +8,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
-export const Revolut = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [userName, setUserName] = useState(data?.userName || '')

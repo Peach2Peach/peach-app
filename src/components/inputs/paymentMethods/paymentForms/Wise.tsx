@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -9,13 +9,7 @@ import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
-export const Wise = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-}: PaymentMethodFormProps): ReactElement => {
+export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
   const [phone, setPhone] = useState(data?.phone || '')
