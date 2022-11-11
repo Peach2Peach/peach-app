@@ -1,6 +1,8 @@
 export { getOffer } from './getOffer'
 export { parseOffer } from './parseOffer'
 export { getOffers } from './getOffers'
+export { getEscrowExpiry } from './getEscrowExpiry'
+export { getOfferExpiry } from './getOfferExpiry'
 export { getOfferStatus } from './getOfferStatus'
 export { getRequiredActionCount } from './getRequiredActionCount'
 export { offerExists } from './offerExists'

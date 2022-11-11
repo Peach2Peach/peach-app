@@ -147,3 +147,9 @@ declare type PeachWallet = {
 }
 
 declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other' | 'newMethod'
+
+declare type Expiry = {
+  date: Date
+  ttl: number
+  isExpired: boolean
+}

@@ -29,16 +29,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(route.params.offer)
+  const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
-  const [showRegtestButton, setShowRegtestButton] = useState(NETWORK === 'regtest' && offer.funding.status === 'NULL')
-  const [escrow, setEscrow] = useState(offer.escrow || '')
+  const [showRegtestButton, setShowRegtestButton] = useState(
+    NETWORK === 'regtest' && sellOffer.funding.status === 'NULL',
+  )
+  const [escrow, setEscrow] = useState(sellOffer.escrow || '')
   const [fundingError, setFundingError] = useState<FundingError>('')
-  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(offer.funding)
-  const fundingAmount = Math.round(offer.amount)
+  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(sellOffer.funding)
+  const fundingAmount = Math.round(sellOffer.amount)
 
   const buttonText: string | JSX.Element
-    = offer.funding.status === 'MEMPOOL' ? (
+    = sellOffer.funding.status === 'MEMPOOL' ? (
       i18n('sell.escrow.waitingForConfirmation')
     ) : (
       <Text style={tw`font-baloo text-sm uppercase text-white-1`}>
@@ -49,12 +51,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       </Text>
     )
 
-  const navigateToOffer = () => navigation.replace('offer', { offer })
+  const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
   const navigateToYourTrades = () => navigation.replace('yourTrades', {})
 
   const cancelOffer = () =>
     updateOverlay({
-      content: <ConfirmCancelOffer {...{ offer, navigate: navigateToOffer, navigation }} />,
+      content: <ConfirmCancelOffer {...{ offer: sellOffer, navigate: navigateToOffer, navigation }} />,
       showCloseButton: false,
     })
 
@@ -62,13 +64,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     = fundingStatus.status === 'MEMPOOL' ? i18n('sell.escrow.subtitle.mempool') : i18n('sell.escrow.subtitle')
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
-    setOffer(offerData)
+    setSellOffer(offerData)
     saveOffer(offerData, undefined, shield)
   }
 
   const fundEscrowAddress = async () => {
-    if (!offer.id || NETWORK !== 'regtest' || fundingStatus.status !== 'NULL') return
-    const [fundEscrowResult] = await fundEscrow({ offerId: offer.id })
+    if (!sellOffer.id || NETWORK !== 'regtest' || fundingStatus.status !== 'NULL') return
+    const [fundEscrowResult] = await fundEscrow({ offerId: sellOffer.id })
     if (!fundEscrowResult) return
     const [generateBockResult] = await generateBlock({})
     if (generateBockResult) setShowRegtestButton(false)
@@ -76,7 +78,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(
     useCallback(() => {
-      setOffer(route.params.offer)
+      setSellOffer(route.params.offer)
       setEscrow(route.params.offer.escrow || '')
       setUpdatePending(!route.params.offer.escrow)
       setFundingStatus(route.params.offer.funding)
@@ -84,16 +86,16 @@ export default ({ route, navigation }: Props): ReactElement => {
   )
 
   useEffect(
-    !offer.escrow
+    !sellOffer.escrow
       ? createEscrowEffect({
-        offer,
+        sellOffer,
         onSuccess: (result) => {
           info('Created escrow', result)
           setEscrow(() => result.escrow)
           setFundingStatus(() => result.funding)
           setUpdatePending(false)
           saveAndUpdate({
-            ...offer,
+            ...sellOffer,
             escrow: result.escrow,
             funding: result.funding,
           })
@@ -101,17 +103,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         onError: (err) => updateMessage({ msgKey: err.error || 'error.createEscrow', level: 'ERROR' }),
       })
       : () => {},
-    [offer.id],
+    [sellOffer.id],
   )
 
   useEffect(
     checkFundingStatusEffect({
-      offer,
+      sellOffer,
       onSuccess: (result) => {
         info('Checked funding status', result)
 
         saveAndUpdate({
-          ...offer,
+          ...sellOffer,
           funding: result.funding,
           returnAddress: result.returnAddress,
           returnAddressRequired: result.returnAddressRequired,
@@ -126,23 +128,23 @@ export default ({ route, navigation }: Props): ReactElement => {
         })
       },
     }),
-    [offer.id, offer.escrow],
+    [sellOffer.id, sellOffer.escrow],
   )
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
       updateOverlay({
-        content: <Refund {...{ offer, navigate: navigateToYourTrades, navigation }} />,
+        content: <Refund {...{ sellOffer, navigate: navigateToYourTrades, navigation }} />,
         showCloseButton: false,
       })
       return
     }
 
     if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
-      if (offer.returnAddressRequired) {
-        navigation.replace('setReturnAddress', { offer })
+      if (sellOffer.returnAddressRequired) {
+        navigation.replace('setReturnAddress', { offer: sellOffer })
       } else {
-        navigation.replace('search', { offer })
+        navigation.replace('search', { offer: sellOffer })
       }
     }
   }, [fundingStatus])
@@ -153,7 +155,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Title title={i18n('sell.title')} subtitle={subtitle} help={<Escrow />} />
         {updatePending ? (
           <Loading />
-        ) : offer.id && escrow && fundingStatus && !fundingError ? (
+        ) : sellOffer.id && escrow && fundingStatus && !fundingError ? (
           <View>
             <Text style={tw`mt-6 mb-5 text-center`}>
               <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>
@@ -162,8 +164,8 @@ export default ({ route, navigation }: Props): ReactElement => {
             </Text>
             <FundingView
               escrow={escrow}
-              amount={offer.amount}
-              label={`Peach Escrow - offer ${offerIdToHex(offer.id)}`}
+              amount={sellOffer.amount}
+              label={`Peach Escrow - offer ${offerIdToHex(sellOffer.id)}`}
             />
           </View>
         ) : (
@@ -176,7 +178,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           disabled={true}
           wide={false}
           title={buttonText}
-          style={offer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`}
+          style={sellOffer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`}
         />
         {showRegtestButton ? (
           <Button

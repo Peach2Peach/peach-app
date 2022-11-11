@@ -3,18 +3,24 @@ import { error, info } from '../utils/log'
 import { getFundingStatus } from '../utils/peachAPI'
 
 type CheckFundingStatusEffectProps = {
-  offer: SellOffer
+  sellOffer: SellOffer
   onSuccess: (result: FundingStatusResponse) => void
   onError: (err: APIError) => void
 }
-export default ({ offer, onSuccess, onError }: CheckFundingStatusEffectProps): EffectCallback =>
+export default ({ sellOffer, onSuccess, onError }: CheckFundingStatusEffectProps): EffectCallback =>
   () => {
     const checkingFunction = async () => {
-      if (!offer.id || !offer.escrow || offer.refunded || offer.released || offer.funding.status === 'FUNDED') return
-      info('Checking funding status of', offer.id, offer.escrow)
+      if (
+        !sellOffer.id
+        || !sellOffer.escrow
+        || sellOffer.refunded
+        || sellOffer.released
+        || sellOffer.funding.status === 'FUNDED'
+      ) return
+      info('Checking funding status of', sellOffer.id, sellOffer.escrow)
 
       const [result, err] = await getFundingStatus({
-        offerId: offer.id,
+        offerId: sellOffer.id,
       })
       if (result) {
         onSuccess(result)
