@@ -76,7 +76,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       },
       false,
     )
-  }, [address])
+  }, [address, addressIsValid])
 
   return (
     <View style={tw`h-full flex-col justify-between px-6`}>
