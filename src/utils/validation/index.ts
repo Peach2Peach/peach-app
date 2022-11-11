@@ -1,4 +1,4 @@
 export { rules } from './rules'
-export { messages } from './messages'
+export { getMessages } from './messages'
 export { getErrorsInField } from './formValidators'
-export { useValidatedState } from './useValidatedState'
+export { useValidatedState } from '../../hooks/useValidatedState'

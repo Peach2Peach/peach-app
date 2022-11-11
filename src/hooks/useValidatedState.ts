@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getErrorsInField } from './formValidators'
-import { Rule } from './rules'
+import { getErrorsInField } from '../utils/validation/formValidators'
+import { Rule } from '../utils/validation/rules'
 
 /**
  * A convenient hook for validated states.

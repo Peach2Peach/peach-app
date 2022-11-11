@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
-import { messages, rules } from '../../../src/utils/validation'
+import { getMessages, rules } from '../../../src/utils/validation'
 import * as wallet from '../../../src/utils/wallet'
 import paymentData from '../data/paymentData.json'
 
@@ -105,6 +105,7 @@ describe('rules', () => {
 
 describe('getMessages', () => {
   it('has all messages defined', () => {
+    const messages = getMessages()
     for (const message in messages) {
       ok(message)
     }

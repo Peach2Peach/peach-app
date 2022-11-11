@@ -1,6 +1,6 @@
 import i18n from '../i18n'
 
-export const messages = {
+export const getMessages = () => ({
   required: i18n('form.required.error'),
   number: i18n('form.invalid.error'),
   phone: i18n('form.invalid.error'),
@@ -17,6 +17,4 @@ export const messages = {
   ukBankAccount: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
   url: i18n('form.invalid.error'),
-}
-
-export type Message = keyof typeof messages
+})

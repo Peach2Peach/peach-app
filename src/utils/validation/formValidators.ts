@@ -1,4 +1,4 @@
-import { messages } from './messages'
+import { getMessages } from './messages'
 import { Rule, rules } from './rules'
 
 /**
@@ -27,5 +27,5 @@ export const getErrorsInField = (value: string, rulesToCheck: Partial<Record<Rul
           }
           return false
         })
-        .map((key) => messages[key]),
+        .map((key) => getMessages()[key]),
     ]
