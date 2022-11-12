@@ -1,4 +1,3 @@
-
 import React, { ReactElement, useState } from 'react'
 import 'react-native-url-polyfill/auto'
 
@@ -26,10 +25,10 @@ const getAddressParts = (address: string) => {
 }
 
 type BitcoinAddressProps = ComponentProps & {
-  address: string,
-  showQR: boolean,
-  amount?: number,
-  label?: string,
+  address: string
+  showQR: boolean
+  amount?: number
+  label?: string
 }
 
 /**
@@ -64,50 +63,53 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
   }
 
   const openInWalletOrCopyPaymentRequest = async () => {
-    if (!await openInWallet(urn.toString())) copyPaymentRequest()
+    if (!(await openInWallet(urn.toString()))) copyPaymentRequest()
   }
 
-  return <View style={[tw`flex-col items-center`, style]}>
-    {showQR && address
-      ? <Pressable onPress={openInWalletOrCopyPaymentRequest} onLongPress={copyPaymentRequest}>
-        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
-          <Text style={[
-            tw`font-baloo text-grey-1 text-sm text-center`,
-            tw`uppercase absolute bottom-full w-20 left-1/2 -ml-10`
-          ]}>
-            {i18n('copied')}
-          </Text>
-        </Fade>
-        <Card style={tw`p-4`}>
-          <QRCode
-            size={241}
-            value={urn.toString()}
-            logo={peachLogo}
-            logoSize={40}
-            logoBackgroundColor="#FFF"
-            logoBorderRadius={8}
-          />
-        </Card>
+  return (
+    <View style={[tw`flex-col items-center`, style]}>
+      {showQR && address ? (
+        <Pressable onPress={openInWalletOrCopyPaymentRequest} onLongPress={copyPaymentRequest}>
+          <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
+            <Text
+              style={[
+                tw`font-baloo text-grey-1 text-sm text-center`,
+                tw`uppercase absolute bottom-full w-20 left-1/2 -ml-10`,
+              ]}
+            >
+              {i18n('copied')}
+            </Text>
+          </Fade>
+          <Card style={tw`p-4`}>
+            <QRCode
+              size={241}
+              value={urn.toString()}
+              logo={peachLogo}
+              logoSize={40}
+              logoBackgroundColor="#FFF"
+              logoBorderRadius={8}
+            />
+          </Card>
+        </Pressable>
+      ) : null}
+      <Pressable onPress={copyAddress} style={[tw`flex-row items-center`, showQR ? tw`mt-4` : {}]}>
+        <Text style={tw`font-lato text-lg text-grey-2`}>
+          {addressParts.one}
+          <Text style={tw`font-lato text-lg text-black-1 leading-6`}>{addressParts.two}</Text>
+          {addressParts.three}
+          <Text style={tw`font-lato text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
+        </Text>
+        <View>
+          <Fade show={showAddressCopied} duration={300} delay={0}>
+            <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
+              {i18n('copied')}
+            </Text>
+          </Fade>
+          <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string} />
+        </View>
       </Pressable>
-      : null
-    }
-    <Pressable onPress={copyAddress} style={[tw`flex-row items-center`, showQR ? tw`mt-4` : {}]}>
-      <Text style={tw`text-lg text-grey-2`}>
-        {addressParts.one}
-        <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.two}</Text>
-        {addressParts.three}
-        <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
-      </Text>
-      <View>
-        <Fade show={showAddressCopied} duration={300} delay={0}>
-          <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
-            {i18n('copied')}
-          </Text>
-        </Fade>
-        <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string}/>
-      </View>
-    </Pressable>
-  </View>
+    </View>
+  )
 }
 
 export default BitcoinAddress
