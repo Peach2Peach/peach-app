@@ -21,31 +21,31 @@ import { thousands } from '../utils/string'
 const textStyle = tw`text-white-1 text-center leading-5`
 
 type WrongFundingAmountMessageProps = {
-  offer: SellOffer
+  sellOffer: SellOffer
   fundingStatus: FundingStatus['status']
 }
 
-const WrongFundingAmountMessage = ({ offer, fundingStatus }: WrongFundingAmountMessageProps): ReactElement => (
+const WrongFundingAmountMessage = ({ sellOffer, fundingStatus }: WrongFundingAmountMessageProps): ReactElement => (
   <View style={tw`flex justify-center items-center`}>
     <Text style={textStyle}>{i18n(`refund.${fundingStatus}.description`)}</Text>
     <Text style={[textStyle, tw`mt-2`]}>
-      {i18n(`refund.${fundingStatus}.youSent`)}: {thousands(offer.funding.amounts.reduce(sum, 0))}
+      {i18n(`refund.${fundingStatus}.youSent`)}: {thousands(sellOffer.funding.amounts.reduce(sum, 0))}
     </Text>
     <Text style={[textStyle, tw`mt-2`]}>
-      {i18n(`refund.${fundingStatus}.correctAmount`)}: {thousands(offer.amount)}
+      {i18n(`refund.${fundingStatus}.correctAmount`)}: {thousands(sellOffer.amount)}
     </Text>
     <Text style={[textStyle, tw`mt-2`]}>{i18n(`refund.${fundingStatus}.refund`)}</Text>
   </View>
 )
 
 type ReturnAddressMismatchMessageProps = {
-  offer: SellOffer
+  sellOffer: SellOffer
   refundPSBT: Psbt
   navigation: Navigation
 }
 
 const ReturnAddressMismatchMessage = ({
-  offer,
+  sellOffer,
   refundPSBT,
   navigation,
 }: ReturnAddressMismatchMessageProps): ReactElement => {
@@ -57,9 +57,9 @@ const ReturnAddressMismatchMessage = ({
       topic: i18n('RETURN_ADDRESS_MISMATCH.text'),
       shareDeviceID: true,
       message: [
-        `${i18n('trade')} ${offerIdToHex(offer.id!)}`,
+        `${i18n('trade')} ${offerIdToHex(sellOffer.id!)}`,
         i18n('refund.RETURN_ADDRESS_MISMATCH.doesNotMatch'),
-        i18n('refund.RETURN_ADDRESS_MISMATCH.expected', offer.returnAddress || 'null'),
+        i18n('refund.RETURN_ADDRESS_MISMATCH.expected', sellOffer.returnAddress || 'null'),
         i18n('refund.RETURN_ADDRESS_MISMATCH.actual', refundPSBT?.txOutputs[0]?.address || 'null'),
       ].join('\n\n'),
     })
@@ -70,7 +70,7 @@ const ReturnAddressMismatchMessage = ({
       <Text style={textStyle}>
         {i18n('refund.RETURN_ADDRESS_MISMATCH.doesNotMatch')}
         {'\n\n'}
-        {i18n('refund.RETURN_ADDRESS_MISMATCH.expected', offer.returnAddress || 'null')}
+        {i18n('refund.RETURN_ADDRESS_MISMATCH.expected', sellOffer.returnAddress || 'null')}
         {'\n\n'}
         {i18n('refund.RETURN_ADDRESS_MISMATCH.actual', refundPSBT?.txOutputs[0]?.address || 'null')}
         {'\n\n'}
@@ -89,20 +89,20 @@ const ReturnAddressMismatchMessage = ({
 }
 
 type Props = {
-  offer: SellOffer
+  sellOffer: SellOffer
   navigate: () => void
   navigation: Navigation
 }
 
-export default ({ offer, navigate, navigation }: Props): ReactElement => {
+export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [transactionId, setTransactionId] = useState<string>(offer.txId || '')
+  const [transactionId, setTransactionId] = useState<string>(sellOffer.txId || '')
   const [refundPSBT, setRefundPSBT] = useState<Psbt>()
   const [returnAddressMismatch, setReturnAddressMismatch] = useState(false)
-  const fundingStatus = offer.funding.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
+  const fundingStatus = sellOffer.funding.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
 
   const closeOverlay = () => {
     navigate()
@@ -111,17 +111,17 @@ export default ({ offer, navigate, navigation }: Props): ReactElement => {
 
   useEffect(
     cancelOfferEffect({
-      offer,
+      offer: sellOffer,
       onSuccess: (response) => {
         ;(async () => {
-          if (!offer.id) return
+          if (!sellOffer.id) return
           info('Get refunding info', response)
-          const { psbt, tx, txId, err } = await checkAndRefund(response.psbt, offer)
+          const { psbt, tx, txId, err } = await checkAndRefund(response.psbt, sellOffer)
 
           setRefundPSBT(psbt)
           if (tx && txId) {
             saveOffer({
-              ...offer,
+              ...sellOffer,
               tx,
               txId,
               refunded: true,
@@ -154,9 +154,9 @@ export default ({ offer, navigate, navigation }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n(`refund.${fundingStatus}.title`)}</Headline>
       <View style={tw`flex justify-center items-center`}>
         {returnAddressMismatch ? (
-          !!refundPSBT && <ReturnAddressMismatchMessage {...{ offer, refundPSBT, navigation }} />
-        ) : fundingStatus === 'WRONG_FUNDING_AMOUNT' && offer.funding ? (
-          <WrongFundingAmountMessage {...{ offer, fundingStatus }} />
+          !!refundPSBT && <ReturnAddressMismatchMessage {...{ sellOffer, refundPSBT, navigation }} />
+        ) : fundingStatus === 'WRONG_FUNDING_AMOUNT' && sellOffer.funding ? (
+          <WrongFundingAmountMessage {...{ sellOffer, fundingStatus }} />
         ) : (
           <View style={tw`flex justify-center items-center`}>
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.description`)}</Text>

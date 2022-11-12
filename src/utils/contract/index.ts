@@ -1,5 +1,7 @@
 export { getOfferIdfromContract } from './getOfferIdFromContract'
 export { getContract } from './getContract'
+export { getBuyOfferFromContract } from './getBuyOfferFromContract'
+export { getSellOfferFromContract } from './getSellOfferFromContract'
 export { parseContract } from './parseContract'
 export { getContracts } from './getContracts'
 export { contractExists } from './contractExists'

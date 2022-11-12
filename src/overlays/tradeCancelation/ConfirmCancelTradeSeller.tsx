@@ -1,14 +1,14 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { Button, Headline, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { getOffer, saveOffer } from '../../utils/offer'
+import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
 import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 
@@ -19,7 +19,8 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
-
+  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
+  const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
   const ok = async () => {
@@ -30,19 +31,18 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
     })
 
     if (result?.psbt) {
-      const offer = getOffer(contract.id.split('-')[0]) as SellOffer
-      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, offer)
+      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, sellOffer)
       if (isValid && psbt) {
-        const signedPSBT = signPSBT(psbt, offer, false)
+        const signedPSBT = signPSBT(psbt, sellOffer, false)
         const [patchOfferResult, patchOfferError] = await patchOffer({
-          offerId: offer.id!,
+          offerId: sellOffer.id!,
           refundTx: signedPSBT.toBase64(),
         })
         if (patchOfferResult) {
           closeOverlay()
           navigation.navigate('yourTrades', {})
           saveOffer({
-            ...offer,
+            ...sellOffer,
             refundTx: psbt.toBase64(),
           })
           saveContract({
@@ -83,9 +83,9 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
       <Text style={tw`text-center text-white-1 mt-8`}>
         {i18n('contract.cancel.text')}
         {'\n\n'}
-        {i18n('contract.cancel.seller.text.1')}
+        {i18n('contract.cancel.seller.text.paymentMightBeDone')}
         {'\n\n'}
-        {i18n('contract.cancel.seller.text.2')}
+        {i18n(`contract.cancel.seller.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
       <View>
         <Button
