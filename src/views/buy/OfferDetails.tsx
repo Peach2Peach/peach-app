@@ -50,7 +50,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       },
       true,
     )
-  }, [meansOfPayment, offer.kyc])
+  }, [meansOfPayment])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
