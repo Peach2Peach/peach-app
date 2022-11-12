@@ -8,13 +8,12 @@ import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
 export const Twint = ({
   forwardRef,
   data,
   currencies = [],
   onSubmit,
-  onChange
+  onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
@@ -27,7 +26,7 @@ export const Twint = ({
     deviceLocale: 'default',
     state: { label, phone, beneficiary },
     rules,
-    messages: getMessages()
+    messages: getMessages(),
   })
 
   const buildPaymentData = (): PaymentData & TwintData => ({
@@ -39,16 +38,17 @@ export const Twint = ({
     currencies: data?.currencies || currencies,
   })
 
-  const validateForm = () => validate({
-    label: {
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
-    },
-    phone: {
-      required: true,
-      phone: true,
-    }
-  })
+  const validateForm = () =>
+    validate({
+      label: {
+        required: true,
+        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      },
+      phone: {
+        required: true,
+        phone: true,
+      },
+    })
 
   const save = () => {
     if (!validateForm()) return
@@ -66,50 +66,52 @@ export const Twint = ({
     if (onChange) onChange(buildPaymentData())
   }, [label, phone, beneficiary])
 
-  return <View>
+  return (
     <View>
-      <Input
-        onChange={setLabel}
-        onSubmit={() => $phone?.focus()}
-        value={label}
-        label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName.placeholder')}
-        isValid={!isFieldInError('label')}
-        autoCorrect={false}
-        errorMessage={label.length && getErrorsInField('label')}
-      />
+      <View>
+        <Input
+          onChange={setLabel}
+          onSubmit={() => $phone?.focus()}
+          value={label}
+          label={i18n('form.paymentMethodName')}
+          placeholder={i18n('form.paymentMethodName.placeholder')}
+          isValid={!isFieldInError('label')}
+          autoCorrect={false}
+          errorMessage={label.length && getErrorsInField('label')}
+        />
+      </View>
+      <View style={tw`mt-6`}>
+        <Input
+          onChange={(number: string) => {
+            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
+          }}
+          onSubmit={() => {
+            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
+            $beneficiary?.focus()
+          }}
+          reference={(el: any) => ($phone = el)}
+          value={phone}
+          label={i18n('form.phone')}
+          placeholder={i18n('form.phone.placeholder')}
+          isValid={!isFieldInError('phone')}
+          autoCorrect={false}
+          errorMessage={phone.length && getErrorsInField('phone')}
+        />
+      </View>
+      <View style={tw`mt-6`}>
+        <Input
+          onChange={setBeneficiary}
+          onSubmit={save}
+          reference={(el: any) => ($beneficiary = el)}
+          value={beneficiary}
+          required={false}
+          label={i18n('form.name')}
+          placeholder={i18n('form.name.placeholder')}
+          isValid={!isFieldInError('beneficiary')}
+          autoCorrect={false}
+          errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
+        />
+      </View>
     </View>
-    <View style={tw`mt-6`}>
-      <Input
-        onChange={(number: string) => {
-          setPhone((number.length && !/\+/ug.test(number) ? `+${number}` : number).replace(/[^0-9+]/ug, ''))
-        }}
-        onSubmit={() => {
-          setPhone((number: string) => (!/\+/ug.test(number) ? `+${number}` : number).replace(/[^0-9+]/ug, ''))
-          $beneficiary?.focus()
-        }}
-        reference={(el: any) => $phone = el}
-        value={phone}
-        label={i18n('form.phone')}
-        placeholder={i18n('form.phone.placeholder')}
-        isValid={!isFieldInError('phone')}
-        autoCorrect={false}
-        errorMessage={phone.length && getErrorsInField('phone')}
-      />
-    </View>
-    <View style={tw`mt-6`}>
-      <Input
-        onChange={setBeneficiary}
-        onSubmit={save}
-        reference={(el: any) => $beneficiary = el}
-        value={beneficiary}
-        required={false}
-        label={i18n('form.name')}
-        placeholder={i18n('form.name.placeholder')}
-        isValid={!isFieldInError('beneficiary')}
-        autoCorrect={false}
-        errorMessage={beneficiary.length && getErrorsInField('beneficiary')}
-      />
-    </View>
-  </View>
+  )
 }

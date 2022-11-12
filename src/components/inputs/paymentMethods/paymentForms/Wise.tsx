@@ -10,13 +10,12 @@ import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
 export const Wise = ({
   forwardRef,
   data,
   currencies = [],
   onSubmit,
-  onChange
+  onChange,
 }: PaymentMethodFormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
@@ -34,7 +33,7 @@ export const Wise = ({
     deviceLocale: 'default',
     state: { label, email, phone },
     rules,
-    messages: getMessages()
+    messages: getMessages(),
   })
 
   const buildPaymentData = (): PaymentData & WiseData => ({
@@ -43,23 +42,23 @@ export const Wise = ({
     type: 'wise',
     email,
     phone,
-    currencies: selectedCurrencies
+    currencies: selectedCurrencies,
   })
 
   const validateForm = () =>
     validate({
       label: {
         required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
+        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
       },
       email: {
         required: !phone,
-        email: true
+        email: true,
       },
       phone: {
         required: !email,
-        phone: true
-      }
+        phone: true,
+      },
     })
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -75,7 +74,7 @@ export const Wise = ({
   useImperativeHandle(forwardRef, () => ({
     buildPaymentData,
     validateForm,
-    save
+    save,
   }))
 
   useEffect(() => {
@@ -118,7 +117,7 @@ export const Wise = ({
           }}
           onSubmit={() => {
             setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            $email?.focus()
+            $reference?.focus()
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}

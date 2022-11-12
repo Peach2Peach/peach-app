@@ -37,7 +37,6 @@ const disputeReasonsSeller: DisputeReason[] = [
 const disputeReasonsBuyer: DisputeReason[] = ['satsNotReceived', 'sellerUnresponsive', 'sellerBehaviour', 'disputeOther']
 export const isEmailRequired = (reason: DisputeReason) => /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)

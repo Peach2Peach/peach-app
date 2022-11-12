@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 
@@ -14,7 +13,6 @@ import { account, createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { getMessages, rules } from '../../utils/validation'
@@ -27,7 +25,6 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-statements
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [password, setPassword] = useState('')

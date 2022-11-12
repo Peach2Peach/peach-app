@@ -36,7 +36,6 @@ type MatchProps = ComponentProps & {
  * @example
  * <Match match={match} />
  */
-// eslint-disable-next-line max-lines-per-function
 export const Match = ({
   match,
   offer,
@@ -202,11 +201,6 @@ export const Match = ({
             items={paymentMethodSelectorItems}
             onChange={setPaymentMethod}
           />
-          {/* <HorizontalLine style={tw`mt-5`}/>
-        {!match.kyc
-          ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
-          : null
-        } */}
         </View>
       </View>
     </Shadow>

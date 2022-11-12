@@ -9,9 +9,7 @@ import {
   getMainAddress,
   getEscrowWallet,
   getPublicKeyForEscrow,
-  // getFinalScript,
 } from '../../../src/utils/wallet'
-
 
 describe('wallet & getWallet & setWallet', () => {
   it('returns wallet for escrow depending on offer id', async () => {
@@ -40,7 +38,7 @@ describe('createWallet', () => {
     ok(wallet1.mnemonic !== wallet2.mnemonic, 'Mnemonic are not different but should be')
     ok(
       wallet1.wallet.publicKey.toString('hex') !== wallet2.wallet.publicKey.toString('hex'),
-      'Public keys are not different but should be'
+      'Public keys are not different but should be',
     )
   })
   it('recovers a wallet from mnemonic', async () => {

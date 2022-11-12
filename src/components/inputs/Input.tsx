@@ -12,7 +12,6 @@ import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { innerShadow } from '../../utils/layout'
-import { info } from '../../utils/log'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 
@@ -97,14 +96,14 @@ export const Input = ({
         onSubmit(e.nativeEvent.text?.trim())
         setTouched(true)
       }
-      : (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => null
+      : () => null
   const onEndEditing
     = onChange && !disableOnEndEditing
       ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
         onChange(e.nativeEvent.text?.trim())
         setTouched(true)
       }
-      : (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => null
+      : () => null
   const onFocusHandler = () => (onFocus ? onFocus() : null)
   const onBlurHandler = () => {
     if (onChange && value) onChange(value.trim())

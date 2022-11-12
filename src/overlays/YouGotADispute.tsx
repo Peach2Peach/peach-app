@@ -25,7 +25,6 @@ type YouGotADisputeProps = {
   navigation: Navigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ message, reason, contractId, navigation }: YouGotADisputeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)

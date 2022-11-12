@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
 import i18n from '../../../utils/i18n'
-import { Headline, IconButton, Input, ScanQR, Text } from '../../../components'
+import { IconButton, Input, ScanQR, Text } from '../../../components'
 import { getMessages, rules } from '../../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../../components/Icon'
@@ -19,7 +19,6 @@ export type ReturnAddressProps = ComponentProps & {
   update: (address: string) => void
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ returnAddress, required, update, style }: ReturnAddressProps): ReactElement => {
   let $address: any
   const [address, setAddress] = useState(returnAddress)

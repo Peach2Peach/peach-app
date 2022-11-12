@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { OverlayContext } from '../../../../contexts/overlay'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'

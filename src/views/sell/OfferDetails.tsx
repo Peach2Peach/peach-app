@@ -6,7 +6,6 @@ import LanguageContext from '../../contexts/language'
 import { SellViewProps } from './SellPreferences'
 import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
 import Premium from './components/Premium'
-import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
@@ -38,8 +37,6 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [premium, setPremium] = useState(offer.premium)
-  const [kyc, setKYC] = useState(offer.kyc)
-  const [kycType, setKYCType] = useState(offer.kycType)
 
   const saveAndUpdate = (offr: SellOffer, shield = true) => {
     updateOffer(
@@ -79,12 +76,10 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         paymentData,
         originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
         premium,
-        kyc,
-        kycType,
       },
       false,
     )
-  }, [meansOfPayment, premium, kyc, kycType])
+  }, [meansOfPayment, premium, offer.kyc, offer.kycType])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
@@ -100,7 +95,6 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       />
 
       <Premium premium={premium} setPremium={setPremium} offer={offer} />
-      {/* <KYC kyc={kyc} setKYC={setKYC} kycType={kycType} setKYCType={setKYCType} /> */}
     </View>
   )
 }

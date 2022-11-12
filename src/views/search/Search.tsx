@@ -252,10 +252,6 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const _toggleMatch = () => (currentMatch.matched ? _unmatch(currentMatch) : _match(currentMatch))
 
-  // const _decline = () => {
-  // alert('todo')
-  // }
-
   const goHome = () => navigation.navigate('home', {})
   const goToYourTrades = () => navigation.replace('yourTrades', {})
 
@@ -438,15 +434,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                 </View>
               ) : (
                 <View style={tw`flex-row items-center justify-center pl-11`}>
-                  {/* <Button
-                title={i18n('search.declineMatch')}
-                wide={false}
-                secondary={true}
-                disabled={currentMatch?.matched}
-                onPress={_decline}
-              /> */}
                   <Button
-                    // style={tw`ml-6`}
                     title={i18n('search.acceptMatch')}
                     wide={false}
                     disabled={currentMatch?.matched}

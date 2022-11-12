@@ -94,7 +94,6 @@ type Props = {
   navigation: Navigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ offer, navigate, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)

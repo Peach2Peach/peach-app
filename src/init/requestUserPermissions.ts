@@ -1,7 +1,7 @@
 import messaging from '@react-native-firebase/messaging'
 import { isAirplaneModeSync } from 'react-native-device-info'
 import { openCrashReportPrompt } from '../utils/analytics'
-import { appendFile, readFile, deleteFile, exists } from '../utils/file'
+import { readFile, deleteFile, exists } from '../utils/file'
 import { error, info } from '../utils/log'
 import { parseError } from '../utils/system'
 

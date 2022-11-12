@@ -9,16 +9,15 @@ import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
 export const GiftCardAmazon = ({
   forwardRef,
   data,
   currencies = [],
   country,
   onSubmit,
-  onChange
+  onChange,
 }: PaymentMethodFormProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
 
@@ -28,7 +27,7 @@ export const GiftCardAmazon = ({
     deviceLocale: 'default',
     state: { label, email },
     rules,
-    messages: getMessages()
+    messages: getMessages(),
   })
 
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
@@ -40,16 +39,17 @@ export const GiftCardAmazon = ({
     country: data?.country || country,
   })
 
-  const validateForm = () => validate({
-    label: {
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
-    },
-    email: {
-      required: true,
-      email: true
-    },
-  })
+  const validateForm = () =>
+    validate({
+      label: {
+        required: true,
+        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      },
+      email: {
+        required: true,
+        email: true,
+      },
+    })
   const save = () => {
     if (!validateForm()) return
 
@@ -66,32 +66,34 @@ export const GiftCardAmazon = ({
     if (onChange) onChange(buildPaymentData())
   }, [label, email])
 
-  return <View>
+  return (
     <View>
-      <Input
-        onChange={setLabel}
-        onSubmit={() => $email?.focus()}
-        value={label}
-        label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName.placeholder')}
-        isValid={!isFieldInError('label')}
-        autoCorrect={false}
-        errorMessage={label.length && getErrorsInField('label')}
-      />
+      <View>
+        <Input
+          onChange={setLabel}
+          onSubmit={() => $email?.focus()}
+          value={label}
+          label={i18n('form.paymentMethodName')}
+          placeholder={i18n('form.paymentMethodName.placeholder')}
+          isValid={!isFieldInError('label')}
+          autoCorrect={false}
+          errorMessage={label.length && getErrorsInField('label')}
+        />
+      </View>
+      <View style={tw`mt-6`}>
+        <Input
+          onChange={setEmail}
+          onSubmit={save}
+          reference={(el: any) => ($email = el)}
+          required={true}
+          value={email}
+          label={i18n('form.email')}
+          placeholder={i18n('form.email.placeholder')}
+          isValid={!isFieldInError('email')}
+          autoCorrect={false}
+          errorMessage={email.length && getErrorsInField('email')}
+        />
+      </View>
     </View>
-    <View style={tw`mt-6`}>
-      <Input
-        onChange={setEmail}
-        onSubmit={save}
-        reference={(el: any) => $email = el}
-        required={true}
-        value={email}
-        label={i18n('form.email')}
-        placeholder={i18n('form.email.placeholder')}
-        isValid={!isFieldInError('email')}
-        autoCorrect={false}
-        errorMessage={email.length && getErrorsInField('email')}
-      />
-    </View>
-  </View>
+  )
 }

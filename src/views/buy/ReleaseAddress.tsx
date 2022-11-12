@@ -17,7 +17,6 @@ import { useKeyboard } from '../../hooks/useKeyboard'
 
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   useContext(LanguageContext)

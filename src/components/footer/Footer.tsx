@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Shadow, Text } from '..'
@@ -75,7 +75,6 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
  * @example
  * <Footer active={'home'} />
  */
-// eslint-disable-next-line max-lines-per-function
 export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)

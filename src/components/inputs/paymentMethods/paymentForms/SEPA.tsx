@@ -8,7 +8,6 @@ import { getMessages, rules } from '../../../../utils/validation'
 import Input from '../../Input'
 const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
 export const SEPA = ({
   forwardRef,
   data,
