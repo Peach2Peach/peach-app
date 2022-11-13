@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import { StackNavigation } from '../../utils/navigation'
-import TradingView from '../TradingView'
+import CreateOffer from '../CreateOffer'
 type Props = {
   navigation: StackNavigation
 }
 
-export default ({ navigation }: Props): ReactElement => <TradingView {...{ navigation, page: 'sell' }} />
+export default ({ navigation }: Props): ReactElement => <CreateOffer {...{ navigation, page: 'sell' }} />
