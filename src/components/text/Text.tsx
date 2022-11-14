@@ -20,16 +20,12 @@ type TextProps = ComponentProps & {
  *   {i18n('form.save')}
  * </Text>
  */
-export const PeachText = ({ style, children, numberOfLines, ellipsizeMode, onPress }: TextProps): ReactElement => (
+export const PeachText = ({ style, ...props }: TextProps): ReactElement => (
   <Text
     style={[tw`body-1 text-base text-grey-1`, tw.md`text-lg leading-5`, style]}
-    onPress={onPress ? (e) => onPress(e) : undefined}
     allowFontScaling={false}
-    numberOfLines={numberOfLines}
-    ellipsizeMode={ellipsizeMode}
-  >
-    {children}
-  </Text>
+    {...props}
+  />
 )
 
 export default PeachText
