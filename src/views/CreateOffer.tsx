@@ -27,7 +27,7 @@ export default ({ navigation, page }: Props): ReactElement => {
   const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
-  const allowedBuckets = BUCKETS.filter((b) => DEPRECATED_BUCKETS.indexOf(b) === -1)
+  const allowedBuckets = page === 'sell' ? BUCKETS.filter((b) => DEPRECATED_BUCKETS.indexOf(b) === -1) : BUCKETS
   const dropdownItems = applyTradingLimit(allowedBuckets, prices.CHF as number, getTradingLimit()).map((value) => ({
     value,
     display: (isOpen: boolean) => (
