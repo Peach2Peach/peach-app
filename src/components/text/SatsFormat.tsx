@@ -4,7 +4,6 @@ import { Text } from '.'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import {} from '../../utils/layout'
 import { padString } from '../../utils/string'
 
 type SatsFormat = ComponentProps & {
