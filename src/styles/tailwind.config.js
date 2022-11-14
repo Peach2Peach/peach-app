@@ -1,3 +1,5 @@
+const { plugin } = require("twrnc");
+
 module.exports = {
   theme: {
     extend: {
@@ -9,72 +11,81 @@ module.exports = {
         transparent: 'transparent',
         current: 'currentColor',
         black: {
-          1: '#000',
-          2: '#16161D'
+          1: '#2B1911',
+          2: '#3E2C25',
+          3: '#5C4539',
+          4: '#9F8C82',
+          5: '#BAADA7',
+          6: '#D4CECB',
+          7: '#ECECEC',
         },
-        grey: {
-          1: '#5B5B5B',
-          2: '#888888',
-          3: '#B8B8B8',
-          4: '#EBEBEB'
+        primary: {
+          dark: '#963600',
+          main: '#C45104',
+          light: '#F56522',
+          'mild-2': '#FCCCB6',
+          background: '#FFF9F6',
+          'background-light': '#FFFCFA',
         },
-        white: {
-          1: '#FCFCFD',
-          2: '#FFF'
+        success: {
+          dark: '#016736',
+          main: '#008847',
+          light: '#05A85A',
+          background: '#C9FFE5',
         },
-        peach: {
-          1: '#F57940',
-          2: '#DB6C39',
-          mild: '#F6A884',
-          milder: '#FFF4EF',
-          translucent: '#F57940BB',
-          'translucent-2': '#F57940FA',
-          transparent: '#F5794066',
+        warning: {
+          dark: '#917201',
+          main: '#B6900B',
+          light: '#EAB703',
+          background: '#FFF1CA',
         },
-        chat: {
-          you: '#40BCF5',
-          partner: '#888888',
-          mediator: '#F57940',
-          'you-translucent': '#40BCF519',
-          'partner-translucent': '#88888819',
-          'mediator-translucent': '#F5794019',
-          'error-translucent': '#E43B5FA0',
+        error: {
+          dark: '#B01807',
+          main: '#DF321F',
+          light: '#FE5A48',
+          background: '#FFD2CC',
         },
-        green: '#0AE557',
-        red: '#E43B5F',
-        yellow: {
-          1: '#F5D440',
-          2: '#edc40c',
-        },
-        blue: {
-          1: '#40BCF5',
-          'translucent': '#40BCF5BB',
-          'translucent-2': '#40BCF5FA',
+        info: {
+          dark: '#005E89',
+          main: '#037DB5',
+          light: '#099DE2',
+          background: '#D7F2FE',
+          'background-light': 'rgba(215, 242, 254, 0.1)',
         }
       },
       fontSize: {
-        '2xs': '10px',
-        'xl': '1.25rem',
-        '2xl': '1.5rem',
-        '3xl': '1.875rem',
-        '4xl': '2.25rem',
-        '5xl': '3rem',
-        '6xl': '3.75rem',
-        '7xl': '4.5rem',
-        '8xl': '6rem',
-        '9xl': '8rem'
+        '6xl': '96px',
+        '5xl': '60px',
+        '4xl': '48px',
+        '3xl': '34px',
+        '2xl': '24px',
+        'xl': '20px',
+        'lg': '18px',
+        'base': '16px',
+        'sm': '15px',
+        'xs': '14px',
+        '2xs': '13px',
+        '3xs': '12px',
       },
       lineHeight: {
-        'lg': '1.125rem',
-        'xl': '1.5rem',
-        '2xl': '2rem',
-        '3xl': '2.25rem',
-        '4xl': '2.5rem',
-        '5xl': '3.25rem',
-        '6xl': '4rem',
-        '7xl': '5rem',
-        '8xl': '7rem',
-        '9xl': '9rem'
+        '6xl': '112px',
+        '5xl': '72px',
+        '4xl': '56px',
+        '3xl': '42px',
+        '2xl': '32px',
+        'xl': '28px',
+        'lg': '26px',
+        'base': '24px',
+        'sm': '22px',
+        'xs': '20px',
+      },
+      letterSpacing: {
+        tighter: '-1.5px',
+        tight: '0px',
+        normal: '0.15px',
+        wide: '0.25px',
+        wider: '0.5px',
+        widest: '1px',
       },
       minHeight: {
         '10': '40px'
@@ -92,13 +103,12 @@ module.exports = {
     },
     fontFamily: {
       baloo: [
+        'Baloo2-Regular',
         'Baloo2-Bold',
+        'Baloo2-SemiBold',
+        'Baloo2-Medium',
         'sans-serif'
-      ],
-      lato: [
-        'Lato'
-      ],
-      mono: ['B612Mono-Regular']
+      ]
     },
     screens: {
       'sm': '640px',
@@ -110,5 +120,29 @@ module.exports = {
   },
   variants: {},
   corePlugins: {},
-  plugins: []
-}
+  plugins: [
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        'h1': `font-baloo-bold font-bold text-6xl leading-6xl tracking-tigther`,
+        'h2': `font-baloo-bold font-bold text-5xl leading-5xl tracking-wider`,
+        'h3': `font-baloo-bold font-bold text-4xl leading-4xl tracking-tight`,
+        'h4': `font-baloo-bold font-bold text-3xl leading-3xl tracking-wide`,
+        'h5': `font-baloo-bold font-bold text-2xl leading-2xl tracking-tight`,
+        'h6': `font-baloo-bold font-bold text-xl leading-2xl tracking-normal`,
+        'subtitle-1': `font-baloo-semibold font-semibold text-base leading-xl tracking-normal`,
+        'subtitle-2': `font-baloo-semibold font-semibold text-xs leading-sm tracking-normal`,
+        'body-1': `font-baloo text-base leading-base tracking-normal`,
+        'body-2': `font-baloo text-xs leading-xs tracking-normal`,
+        'button-large': `font-baloo-semibold font-semibold text-sm leading-lg tracking-wider`,
+        'button-medium': `font-baloo-semibold font-semibold text-xs leading-base tracking-wider`,
+        'button-small': `font-baloo-semibold font-semibold text-2xs leading-sm tracking-wider`,
+        'caption': `font-baloo text-xs leading-xs tracking-normal`,
+        'overline': `font-baloo text-xs leading-xs tracking-widest`,
+        'avatar': `font-baloo text-xs leading-xs tracking-normal`,
+        'input-label': `font-baloo text-xs leading-xs tracking-normal`,
+        'input-text': `font-baloo text-lg leading-sm tracking-normal`,
+        'helper-text': `font-baloo text-xs leading-xs tracking-normal`,
+        'tooltip': `font-baloo-medium font-medium text-xs leading-xs tracking-normal`,
+      });
+    }),
+  ]}
