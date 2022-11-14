@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import { Button, Headline, Input, Text } from '../components'
 import { MessageContext } from '../contexts/message'
@@ -28,7 +28,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const emailRules = { required: isEmailRequired(reason), email: isEmailRequired(reason) }
+  const emailRules = useMemo(() => ({ required: isEmailRequired(reason), email: isEmailRequired(reason) }), [reason])
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
   const [loading, setLoading] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
