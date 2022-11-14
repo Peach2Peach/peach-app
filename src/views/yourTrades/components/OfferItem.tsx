@@ -104,10 +104,12 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
-  const currency = account.settings.meansOfPayment
-    ? Object.keys(account.settings.meansOfPayment)[0]
-    : Object.keys(offer.meansOfPayment)[0]
-  const price = Object(offer.prices)[currency]
+  const currency = contract
+    ? contract.currency
+    : offer.prices && offer.prices[account.settings.displayCurrency]
+      ? account.settings.displayCurrency
+      : Object.keys(offer.meansOfPayment)[0]
+  const price = contract?.price || Object(offer.prices)[currency]
 
   const icon = contract?.disputeWinner ? 'dispute' : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
@@ -139,9 +141,12 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                   {offer.type === 'ask' && contract?.cancelationRequested ? (
                     <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
                   ) : (
-                    <SatsFormat sats={offer.amount} color={textColor2} />
+                    <Text style={textColor2}>
+                      <SatsFormat sats={offer.amount} color={textColor2} />
+                      {' - '}
+                      {i18n(`currency.format.${currency}`, price)}
+                    </Text>
                   )}
-                  <Text style={textColor2}>{i18n(`currency.format.${currency}`, price)}</Text>
                 </View>
               </View>
               <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
