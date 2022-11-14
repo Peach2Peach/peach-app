@@ -15,7 +15,6 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 /**
  * @description Overlay the seller sees when requesting cancelation
  */
-// eslint-disable-next-line max-lines-per-function
 export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)

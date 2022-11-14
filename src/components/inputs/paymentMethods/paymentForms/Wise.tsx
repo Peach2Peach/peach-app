@@ -102,7 +102,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           }}
           onSubmit={() => {
             setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            $email?.focus()
+            $reference?.focus()
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}

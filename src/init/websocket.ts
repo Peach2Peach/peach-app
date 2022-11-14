@@ -1,6 +1,6 @@
 import { EffectCallback } from 'react'
 import { account } from '../utils/account'
-import { error, info } from '../utils/log'
+import { info } from '../utils/log'
 import { createWebsocket } from '../utils/peachAPI/websocket'
 
 /**
@@ -25,7 +25,7 @@ const initWebSocket
         info('MESSAGE', JSON.stringify(message).length)
         if (message?.error) updateMessage({
           msgKey: message.error,
-          level: 'ERROR'
+          level: 'ERROR',
         })
       }
 
@@ -46,7 +46,7 @@ const initWebSocket
       return () => {
         ws.listeners = {
           message: [],
-          close: []
+          close: [],
         }
         ws.close()
       }

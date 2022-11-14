@@ -1,5 +1,5 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
-import { LayoutChangeEvent, Pressable, View } from 'react-native'
+import React, { ReactElement, ReactNode } from 'react'
+import { Pressable, View } from 'react-native'
 import { Text } from '..'
 import tw from '../../styles/tailwind'
 import PeachScrollView from '../PeachScrollView'

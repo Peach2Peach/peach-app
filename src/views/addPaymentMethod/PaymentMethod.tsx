@@ -24,7 +24,6 @@ type PaymentCategorySelectProps = {
   next: () => void
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ currency, paymentMethod, setPaymentMethod, back, next }: PaymentCategorySelectProps): ReactElement => {
   const [, updateDrawer] = useContext(DrawerContext)
 
