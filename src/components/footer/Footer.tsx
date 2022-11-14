@@ -84,7 +84,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
 
   const navTo = (page: keyof RootStackParamList) => {
     setCurrentPage(page)
-    navigation.navigate({ name: page, merge: false, params: {} })
+    navigation.navigate(page as string, {})
   }
   const navigate = {
     home: () => navTo('home'),
