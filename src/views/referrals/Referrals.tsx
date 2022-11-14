@@ -41,6 +41,17 @@ export default ({ navigation }: Props): ReactElement => {
   )
   const availableRewards = rewards.filter((reward) => !reward.disabled).length
 
+  // const shareReferralCode = () => user?.referralCode
+  //   ? Share.open({
+  //     message: [
+  //       i18n('referrals.shareCode.text.1'),
+  //       i18n('referrals.shareCode.text.2', user.referralCode),
+  //       'https://peachbitcoin.com',
+  //     ].join('\n\n')
+  //   })
+  //     .catch(() => {})
+  //   : null
+
   const redeemReward = () => {}
 
   useFocusEffect(
@@ -66,6 +77,13 @@ export default ({ navigation }: Props): ReactElement => {
         <View style={tw`mt-8`}>
           <Text style={tw`text-center font-baloo text-grey-2 leading-6`}>{i18n('referrals.yourCode')}</Text>
           <Text style={tw`text-center text-grey-1 font-baloo text-2xl leading-2xl mt-1`}>{user.referralCode}</Text>
+          {/* <View style={tw`flex items-center mt-1`}>
+            <Button
+              title={i18n('referrals.shareCode')}
+              wide={true}
+              onPress={shareReferralCode}
+            />
+          </View> */}
           <Card style={tw`mt-10 p-5`}>
             <Text style={tw`text-center text-grey-1`}>
               {i18n(
