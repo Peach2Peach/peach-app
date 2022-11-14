@@ -11,6 +11,7 @@ export { Header } from './Header'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
+export { Hint } from './Hint'
 export {
   Checkboxes,
   Dropdown,
@@ -26,25 +27,11 @@ export {
 
 export { Match, Matches } from './matches'
 export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
-export {
-  Bubble,
-  CopyAble,
-  HorizontalLine,
-  Progress,
-  Shadow,
-} from './ui'
+export { Bubble, CopyAble, HorizontalLine, Progress, Shadow } from './ui'
 
 export { paymentDetailTemplates } from './payment/'
 export { PaymentLogo } from './payment/PaymentLogo'
 export { ScanQR } from './camera/ScanQR'
-export {
-  BigTitle,
-  Headline,
-  SatsFormat,
-  Text,
-  TextLink,
-  Timer,
-  Title,
-} from './text'
+export { BigTitle, Headline, SatsFormat, Text, TextLink, Timer, Title } from './text'
 
 export type { FileData } from './types'

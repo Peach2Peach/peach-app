@@ -1,21 +1,14 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getMessages, rules } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
-const { useValidation } = require('react-native-form-validator')
 
-export const Revolut = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  onChange,
-}: PaymentMethodFormProps): ReactElement => {
+export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [userName, setUserName] = useState(data?.userName || '')
@@ -28,12 +21,19 @@ export const Revolut = ({
   let $userName = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { label, phone, userName, email },
-    rules,
-    messages: getMessages(),
-  })
+  const labelRules = {
+    required: true,
+    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  }
+  const phoneRules = { required: !email && !userName, phone: true }
+  const emailRules = { required: !phone && !userName, email: true }
+  const userNameRules = { required: !phone && !email, userName: true }
+
+  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
+  const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
+  const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const buildPaymentData = (): PaymentData & RevolutData => ({
     id: data?.id || `revolut-${new Date().getTime()}`,
@@ -45,45 +45,28 @@ export const Revolut = ({
     currencies: selectedCurrencies,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-      },
-      phone: {
-        required: !userName && !email,
-        phone: true,
-      },
-      userName: {
-        required: !phone && !email,
-        userName: true,
-      },
-      email: {
-        required: !userName && !phone,
-        email: true,
-      },
-    })
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
+  }
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
 
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    validateForm,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, phone, userName, email])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View>
@@ -94,9 +77,9 @@ export const Revolut = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={label.length && getErrorsInField('label')}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -113,9 +96,9 @@ export const Revolut = ({
           required={!anyFieldSet}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={!isFieldInError('phone')}
+          isValid={phoneErrors.length === 0}
           autoCorrect={false}
-          errorMessage={phone.length && getErrorsInField('phone')}
+          errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -132,9 +115,9 @@ export const Revolut = ({
           required={!anyFieldSet}
           label={i18n('form.userName')}
           placeholder={i18n('form.userName.placeholder')}
-          isValid={!isFieldInError('userName')}
+          isValid={userNameErrors.length === 0}
           autoCorrect={false}
-          errorMessage={userName.length && getErrorsInField('userName')}
+          errorMessage={displayErrors ? userNameErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -146,9 +129,9 @@ export const Revolut = ({
           required={!anyFieldSet}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={!isFieldInError('email')}
+          isValid={emailErrors.length === 0}
           autoCorrect={false}
-          errorMessage={email.length && getErrorsInField('email')}
+          errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
       <CurrencySelection paymentMethod="paypal" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />

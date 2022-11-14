@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import { Button, Headline, Input, Text } from '../components'
 import { MessageContext } from '../contexts/message'
@@ -12,11 +12,10 @@ import i18n from '../utils/i18n'
 import { error } from '../utils/log'
 import { Navigation } from '../utils/navigation'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
-import { getMessages, rules } from '../utils/validation'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
-const { useValidation } = require('react-native-form-validator')
+import { useValidatedState } from '../hooks'
 
 type YouGotADisputeProps = {
   message: string
@@ -29,31 +28,22 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [email, setEmail] = useState()
+  const emailRules = useMemo(() => ({ required: isEmailRequired(reason), email: isEmailRequired(reason) }), [reason])
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const contract = getContract(contractId)
   const offerId = getOfferIdfromContract(contract as Contract)
-
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email },
-    rules,
-    messages: getMessages(),
-  })
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
     updateOverlay({ content: null, showCloseButton: true })
   }
   const submit = async () => {
-    validate({
-      email: {
-        required: isEmailRequired(reason),
-        email: isEmailRequired(reason),
-      },
-    })
-    if (!isFormValid()) return
+    setDisplayErrors(true)
+    const isFormValid = isEmailValid
+    if (!isFormValid) return
 
     setLoading(true)
     const [acknowledgeDisputeResult, getContractResult] = await Promise.all([
@@ -119,9 +109,9 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             onSubmit={submit}
             value={email}
             placeholder={i18n('form.userEmail')}
-            isValid={!isFieldInError('email')}
+            isValid={isEmailValid}
             autoCorrect={false}
-            errorMessage={getErrorsInField('email')}
+            errorMessage={displayErrors ? emailErrors : undefined}
           />
         </View>
       ) : null}

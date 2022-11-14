@@ -15,7 +15,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../icons'
 import { Bubble } from '../ui'
 import { Navigation } from '../../utils/navigation'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList

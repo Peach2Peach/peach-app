@@ -4,14 +4,12 @@ import tw from '../../../styles/tailwind'
 
 import i18n from '../../../utils/i18n'
 import { IconButton, Input, ScanQR, Text } from '../../../components'
-import { getMessages, rules } from '../../../utils/validation'
 import Clipboard from '@react-native-clipboard/clipboard'
 import Icon from '../../../components/Icon'
 import { cutOffAddress } from '../../../utils/string'
 import { parseBitcoinRequest } from '../../../utils/bitcoin'
 import { BarCodeReadEvent } from 'react-native-camera'
-
-const { useValidation } = require('react-native-form-validator')
+import { useValidatedState } from '../../../hooks'
 
 export type ReturnAddressProps = ComponentProps & {
   returnAddress?: string
@@ -19,20 +17,15 @@ export type ReturnAddressProps = ComponentProps & {
   update: (address: string) => void
 }
 
+const addressRules = { required: true, bitcoinAddress: true }
+
 export default ({ returnAddress, required, update, style }: ReturnAddressProps): ReactElement => {
   let $address: any
-  const [address, setAddress] = useState(returnAddress)
+  const [address, setAddress, isAddressValid, addressErrors] = useValidatedState(returnAddress || '', addressRules)
   const [shortAddress, setShortAddress] = useState(returnAddress ? cutOffAddress(returnAddress) : '')
   const [focused, setFocused] = useState(false)
   const [useDepositAddress, setUseDepositAddress] = useState(!returnAddress && !required)
   const [scanQR, setScanQR] = useState(false)
-
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { address },
-    rules,
-    messages: getMessages(),
-  })
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -46,19 +39,14 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
 
       setShortAddress(cutOffAddress(address || ''))
 
-      validate({
-        address: {
-          required: true,
-          bitcoinAddress: true,
-        },
-      })
+      const isFormValid = isAddressValid
 
-      if (!isFormValid()) return
+      if (!isFormValid) return
       update(address)
     } else {
       update('')
     }
-  }, [address, useDepositAddress])
+  }, [address, isAddressValid, useDepositAddress])
 
   useEffect(() => {
     if (useDepositAddress) {
@@ -90,10 +78,10 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
             onChange={(value: string) => (focused ? setAddress(() => value) : null)}
             onSubmit={() => setFocused(() => false)}
             placeholder={i18n('form.address.btc')}
-            isValid={!isFieldInError('address')}
+            isValid={isAddressValid}
             onFocus={() => setFocused(() => true)}
             onBlur={() => setFocused(() => false)}
-            errorMessage={getErrorsInField('address')}
+            errorMessage={addressErrors}
           />
         </View>
         <IconButton icon="camera" title={i18n('scanQR')} style={tw`mr-2`} onPress={showQRScanner} />

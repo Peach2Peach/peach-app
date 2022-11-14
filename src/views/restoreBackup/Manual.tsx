@@ -9,12 +9,13 @@ import { recoverAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
-import { getMessages, rules } from '../../utils/validation'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { storeAccount } from '../../utils/account/storeAccount'
+import { useValidatedState } from '../../hooks'
 
 const { LinearGradient } = require('react-native-gradients')
-const { useValidation } = require('react-native-form-validator')
+
+const passwordRules = { required: true, password: true }
 
 type ManualProps = {
   navigation: StackNavigation
@@ -27,25 +28,11 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
     name: '',
     content: '',
   })
-  const [password, setPassword] = useState('')
+  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [loading, setLoading] = useState(false)
-
-  const { validate, isFieldInError } = useValidation({
-    deviceLocale: 'default',
-    state: { password },
-    rules,
-    messages: getMessages(),
-  })
 
   const onPasswordChange = (value: string) => {
     setPassword(value)
-
-    validate({
-      password: {
-        required: true,
-        password: true,
-      },
-    })
   }
 
   const submit = async () => {
@@ -103,8 +90,8 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              isValid={!isFieldInError('password')}
-              errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}
+              isValid={passwordIsValid}
+              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
