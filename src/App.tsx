@@ -82,12 +82,24 @@ const App: React.FC = () => {
   StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
-    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
+    updateMessage({
+      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: () => navigationRef.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
+    })
   })
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
-    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
+    updateMessage({
+      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: () => navigationRef.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
+    })
   })
 
   useEffect(showMessageEffect(messageState.template || messageState.msgKey, width, slideInAnim), [

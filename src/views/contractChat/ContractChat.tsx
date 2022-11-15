@@ -224,8 +224,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           }),
       }),
       [contractId],
@@ -277,8 +280,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         setUpdatePending(false)
         setLoadingMessages(false)
         updateMessage({
-          msgKey: err.error || 'error.general',
+          msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
       },
     })()

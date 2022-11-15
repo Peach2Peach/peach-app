@@ -79,8 +79,11 @@ export default ({ navigation }: Props): ReactElement => {
           error('Could not fetch offer information')
 
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),
@@ -104,8 +107,11 @@ export default ({ navigation }: Props): ReactElement => {
         onError: (err) => {
           error('Could not fetch contract information')
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),

@@ -145,8 +145,11 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         error('Error', err)
         updateMessage({
-          msgKey: i18n(err?.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
 
         if (err?.error === 'TRADING_LIMIT_REACHED') back()

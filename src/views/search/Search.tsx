@@ -222,10 +222,20 @@ export default ({ route, navigation }: Props): ReactElement => {
       error('Error', err)
       if (err?.error) {
         const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
-        updateMessage({
-          msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-          level: messageLevels[err?.error] || 'ERROR',
-        })
+        if (msgKey) {
+          updateMessage({
+            msgKey,
+            level: messageLevels[err?.error] || 'ERROR',
+          })
+        } else {
+          updateMessage({
+            msgKey: i18n('GENERAL_ERROR', ((err?.details as string[]) || []).join(', ')),
+            level: messageLevels[err?.error] || 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
+          })
+        }
       }
     }
     setMatchLoading(false)
@@ -246,8 +256,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
   }
@@ -329,8 +342,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         onError: (err) => {
           error('Could not fetch offer information for offer', offer.id)
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),

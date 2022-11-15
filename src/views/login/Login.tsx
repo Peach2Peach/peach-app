@@ -50,7 +50,7 @@ export default ({ navigation }: Props): ReactElement => {
         })
         navigation.replace('home', {})
       } else {
-        updateMessage({ msgKey: 'form.password.invalid', level: 'ERROR' })
+        updateMessage({ msgKey: 'WRONG_PASSWORD', level: 'ERROR' })
       }
 
       setLoading(false)

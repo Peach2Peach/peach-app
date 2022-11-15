@@ -36,8 +36,11 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
     setLoading(false)

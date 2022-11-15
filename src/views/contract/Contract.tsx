@@ -137,8 +137,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           }),
       }),
       [contractId],
@@ -176,7 +179,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
 
@@ -207,7 +216,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
 

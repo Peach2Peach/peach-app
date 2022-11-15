@@ -72,6 +72,9 @@ export default ({ navigation }: Props): ReactElement => {
     updateMessage({
       msgKey: e.message || 'AUTHENTICATION_FAILURE',
       level: 'ERROR',
+      action: () => navigation.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
     })
     if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
     deleteAccount({

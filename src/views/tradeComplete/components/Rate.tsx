@@ -42,7 +42,13 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (err) {
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
     saveAndUpdate({

@@ -54,22 +54,31 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         } else if (patchOfferError) {
           error('Error', patchOfferError)
           updateMessage({
-            msgKey: patchOfferError?.error || 'error.general',
+            msgKey: patchOfferError?.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         }
       } else if (checkRefundPSBTError) {
         error('Error', checkRefundPSBTError)
         updateMessage({
-          msgKey: checkRefundPSBTError || 'error.general',
+          msgKey: checkRefundPSBTError || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
       }
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
     setLoading(false)
