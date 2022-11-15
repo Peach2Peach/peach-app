@@ -105,13 +105,18 @@ declare type Chat = {
 declare type AppState = {
   notifications: number
 }
+
+declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type MessageState = {
+  level: Level
   template?: ReactNode
   msgKey?: string
   msg?: string
-  level: Level
-  close?: boolean
+  action?: () => {}
+  actionLabel?: string
+  actionIcon?: IconType
   time?: number
+  keepAlive?: boolean
 }
 declare type OverlayState = {
   content: ReactNode

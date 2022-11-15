@@ -1,11 +1,11 @@
-
 import React, { ReactElement } from 'react'
+import { FillProps } from 'react-native-svg'
 import { Text } from '.'
 import Icons, { IconType } from './icons'
 
 type IconProps = ComponentProps & {
-  id: IconType,
-  color?: string,
+  id: IconType
+  color?: FillProps['fill']
 }
 
 /**
@@ -24,9 +24,7 @@ type IconProps = ComponentProps & {
 export const Icon = ({ id, style, color }: IconProps): ReactElement => {
   const SVG = Icons[id]
 
-  return SVG
-    ? <SVG style={style} fill={color || '#888' }/>
-    : <Text>❌</Text>
+  return SVG ? <SVG style={style} fill={color || '#888'} /> : <Text>❌</Text>
 }
 
 export default Icon

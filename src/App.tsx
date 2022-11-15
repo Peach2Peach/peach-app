@@ -65,7 +65,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
   const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
@@ -91,7 +91,11 @@ const App: React.FC = () => {
     updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
   })
 
-  useEffect(showMessageEffect(template || msg || msgKey, width, slideInAnim), [template, msg, msgKey, time])
+  useEffect(showMessageEffect(messageState.template || messageState.msgKey, width, slideInAnim), [
+    messageState.template,
+    messageState.msgKey,
+    messageState.time,
+  ])
 
   useEffect(() => {
     if (DEV !== 'true' && ISEMULATOR) {
@@ -160,7 +164,7 @@ const App: React.FC = () => {
             <PeachWSContext.Provider value={peachWS}>
               <AppContext.Provider value={[appContext, updateAppContext]}>
                 <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                  <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
+                  <MessageContext.Provider value={[messageState, updateMessage]}>
                     <DrawerContext.Provider
                       value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                     >
@@ -187,16 +191,9 @@ const App: React.FC = () => {
                               onClose={onCloseOverlay}
                             />
                           ) : null}
-                          {template || msg || msgKey ? (
-                            <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                              <Message
-                                template={template}
-                                msg={msg}
-                                msgKey={msgKey}
-                                level={level}
-                                close={close}
-                                style={{ minHeight: 60 }}
-                              />
+                          {messageState.template || messageState.msgKey ? (
+                            <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                              <Message {...messageState} />
                             </Animated.View>
                           ) : null}
                           <View style={tw`h-full flex-shrink`}>

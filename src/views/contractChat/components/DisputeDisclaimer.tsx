@@ -39,14 +39,14 @@ export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDiscla
         <Text
           onPress={() => {
             updateSettings({ showDisputeDisclaimer: false }, true)
-            updateMessage({ template: undefined, msg: undefined, level: 'ERROR' })
+            updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })
           }}
           style={[tw`flex-1 font-baloo text-xs text-white-2 underline`, textShadow]}
         >
           {i18n('doNotShowAgain').toLocaleUpperCase()}
         </Text>
         <Text
-          onPress={() => updateMessage({ template: undefined, msg: undefined, level: 'ERROR' })}
+          onPress={() => updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })}
           style={[tw`flex-1 font-baloo underline text-xs text-white-2 text-right`, textShadow]}
         >
           {i18n('close').toLocaleUpperCase()}

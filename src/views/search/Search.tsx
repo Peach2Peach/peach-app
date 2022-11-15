@@ -164,6 +164,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateMessage({
           template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
           level: 'ERROR',
+          keepAlive: true,
         })
         return
       }
