@@ -109,7 +109,6 @@ declare type AppState = {
 declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type MessageState = {
   level: Level
-  template?: ReactNode
   msgKey?: string
   msg?: string
   action?: Function

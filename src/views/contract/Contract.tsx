@@ -204,8 +204,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!tx) {
       setLoading(false)
       updateMessage({
-        msgKey: errorMsg!.join('\n'),
+        msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
       return
     }

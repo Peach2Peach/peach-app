@@ -36,7 +36,6 @@ type MessageProps = ComponentProps & MessageState
  * @param props Component properties
  * @param props.level level of message
  * @param [props.msgKey] key for error message
- * @param [props.template] custom template to use
  * @param [props.action] custom action to appear on bottom right corner
  * @param [props.actionLabel] label for action
  * @param [props.actionIcon] optional icon for action
@@ -48,7 +47,6 @@ type MessageProps = ComponentProps & MessageState
 export const Message = ({
   level,
   msgKey,
-  template,
   action,
   actionLabel,
   actionIcon,
@@ -68,7 +66,7 @@ export const Message = ({
   }
 
   const closeMessage = () => {
-    updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })
+    updateMessage({ msgKey: undefined, level: 'ERROR' })
     if (onClose) onClose()
   }
 
@@ -77,19 +75,15 @@ export const Message = ({
       <View
         style={[tw`m-6 flex items-center justify-center px-2 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
       >
-        {template ? (
-          template
-        ) : (
-          <View style={tw`p-2`}>
-            <View style={tw`flex-row justify-center items-center`}>
-              {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2 -mt-1`} color={levelColorMap.text[level].color} />}
-              {!!title && <Text style={[tw`h6 text-center`, levelColorMap.text[level]]}>{title}</Text>}
-            </View>
-            {!!message && (
-              <Text style={[tw`body-1 text-center`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
-            )}
+        <View style={tw`p-2`}>
+          <View style={tw`flex-row justify-center items-center`}>
+            {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2 -mt-1`} color={levelColorMap.text[level].color} />}
+            {!!title && <Text style={[tw`h6 text-center`, levelColorMap.text[level]]}>{title}</Text>}
           </View>
-        )}
+          {!!message && (
+            <Text style={[tw`body-1 text-center`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
+          )}
+        </View>
         <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>
           {!!action ? (
             <Text onPress={action as TextProps['onPress']} style={[tw`text-right flex flex-row items-center pl-1`]}>

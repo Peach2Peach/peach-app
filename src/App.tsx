@@ -102,11 +102,7 @@ const App: React.FC = () => {
     })
   })
 
-  useEffect(showMessageEffect(messageState.template || messageState.msgKey, width, slideInAnim), [
-    messageState.template,
-    messageState.msgKey,
-    messageState.time,
-  ])
+  useEffect(showMessageEffect(messageState.msgKey, width, slideInAnim), [messageState.msgKey, messageState.time])
 
   useEffect(() => {
     if (DEV !== 'true' && ISEMULATOR) {
@@ -216,7 +212,7 @@ const App: React.FC = () => {
                               onClose={onCloseOverlay}
                             />
                           ) : null}
-                          {messageState.template || messageState.msgKey ? (
+                          {messageState.msgKey ? (
                             <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                               <Message {...messageState} />
                             </Animated.View>

@@ -7,9 +7,9 @@ import { txIdPartOfPSBT } from '../../../utils/bitcoin'
  * @param psbt partially signed bitcoin transaction
  * @param sellOffer sell offer
  * @param contract contract
- * @returns error message ids
+ * @returns error message id or null if all valid
  */
-export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract): string => {
+export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract): string|null => {
   if (!sellOffer || !sellOffer.funding?.txIds) return 'MISSING_DATA'
 
   const txIds = sellOffer.funding.txIds
@@ -36,5 +36,5 @@ export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract)
   } else if (!buyerOutput || buyerOutput.value < contract.amount - MAXMININGFEE) {
     return 'INVALID_OUTPUT'
   }
-  return errorMsg
+  return ''
 }

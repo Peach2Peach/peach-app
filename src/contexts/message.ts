@@ -24,7 +24,6 @@ export const getMessage = (): MessageState => state
  * @returns message state
  */
 export const setMessage = (oldState: ReducerState<any>, newState: MessageState): MessageState => {
-  state.template = newState.template
   state.msgKey = newState.msgKey
   state.msg = newState.msg
   state.level = newState.level

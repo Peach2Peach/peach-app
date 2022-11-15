@@ -98,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
-    updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })
+    updateMessage({ msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
     const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
