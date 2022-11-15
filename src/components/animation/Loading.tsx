@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, View, ColorValue, Animated, Easing } from 'react-native'
+import { Style } from 'twrnc/dist/esm/types'
 import tw from '../../styles/tailwind'
 import Spinner from '../icons/spinner.svg'
 
 type Props = ComponentProps & {
-  color?: ColorValue
+  color?: string
 }
 
 const startRotationAnimation = (durationMs: number, rotationDegree: Animated.Value): void => {
@@ -42,7 +43,7 @@ export const Loading = ({ color }: Props): JSX.Element => {
         },
       ]}
     >
-      <Spinner style={tw`w-8 h-8 `} />
+      <Spinner style={tw`w-8 h-8 `} fill={color ? color : (tw`text-peach-1`.color as string)} />
     </Animated.View>
   )
 }
