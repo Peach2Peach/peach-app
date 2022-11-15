@@ -6,7 +6,7 @@ import tw from '../styles/tailwind'
 import { MessageContext } from '../contexts/message'
 import i18n from '../utils/i18n'
 import { IconType } from './icons'
-import { dropShadowMild, mildShadow } from '../utils/layout'
+import { dropShadowMild } from '../utils/layout'
 
 type LevelColorMap = {
   bg: Record<Level, ViewStyle>
@@ -22,7 +22,7 @@ const levelColorMap: LevelColorMap = {
   },
   text: {
     OK: tw`text-black-1`,
-    WARN: tw`text-white-1`,
+    WARN: tw`text-black-1`,
     ERROR: tw`text-primary-background-light`,
     INFO: tw`text-black-1`,
     DEBUG: tw`text-black-1`,
@@ -70,7 +70,7 @@ export const Message = ({
   return (
     <Shadow shadow={dropShadowMild}>
       <View
-        style={[tw`m-6 flex items-center justify-center px-5 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
+        style={[tw`m-6 flex items-center justify-center px-4 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
       >
         {template ? (
           template
@@ -85,13 +85,11 @@ export const Message = ({
             )}
           </View>
         )}
-        <View style={tw`w-full flex flex-row justify-between`}>
+        <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>
           {!!action ? (
-            <Text onPress={action} style={[tw`button-small text-right`, levelColorMap.text[level]]}>
-              {!!actionIcon && (
-                <Icon id={actionIcon} style={tw`w-4 h-4 ml-1 `} color={levelColorMap.text[level].color} />
-              )}
-              {actionLabel}
+            <Text onPress={action} style={[tw`text-right flex flex-row items-center pl-1`]}>
+              {!!actionIcon && <Icon id={actionIcon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
+              <Text style={[tw`button-small`, levelColorMap.text[level]]}>{actionLabel}</Text>
             </Text>
           ) : (
             <View>{/* placeholder for layout */}</View>

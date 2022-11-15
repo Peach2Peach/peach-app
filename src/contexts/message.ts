@@ -31,7 +31,7 @@ export const setMessage = (oldState: ReducerState<any>, newState: MessageState):
   state.action = newState.action
   state.actionLabel = newState.actionLabel
   state.actionIcon = newState.actionIcon
-  state.keepAlive = newState.keepAlive ?? false
+  state.keepAlive = newState.keepAlive || false
   state.time = Date.now()
 
   return { ...state }
@@ -47,7 +47,7 @@ export const showMessageEffect = (content: ReactNode | string, width: number, sl
       useNativeDriver: false,
     }).start()
 
-    if (state.keepAlive) {
+    if (!state.keepAlive) {
       slideOutTimeout = setTimeout(
         () =>
           Animated.timing(slideInAnim, {
