@@ -40,6 +40,7 @@ type MessageProps = ComponentProps & MessageState
  * @param [props.action] custom action to appear on bottom right corner
  * @param [props.actionLabel] label for action
  * @param [props.actionIcon] optional icon for action
+ * @param [props.onClose] callback when closing the message
  * @param [props.style] additional styles to apply to the component
  * @example
  * <Message msg="Oops something went wrong!" level="ERROR" />
@@ -51,6 +52,7 @@ export const Message = ({
   action,
   actionLabel,
   actionIcon,
+  onClose,
   style,
 }: MessageProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
@@ -65,12 +67,15 @@ export const Message = ({
     message = i18n(msgKey)
   }
 
-  const closeMessage = () => updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })
+  const closeMessage = () => {
+    updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })
+    if (onClose) onClose()
+  }
 
   return (
     <Shadow shadow={dropShadowMild}>
       <View
-        style={[tw`m-6 flex items-center justify-center px-4 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
+        style={[tw`m-6 flex items-center justify-center px-2 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
       >
         {template ? (
           template
@@ -89,12 +94,12 @@ export const Message = ({
           {!!action ? (
             <Text onPress={action} style={[tw`text-right flex flex-row items-center pl-1`]}>
               {!!actionIcon && <Icon id={actionIcon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-              <Text style={[tw`button-small`, levelColorMap.text[level]]}>{actionLabel}</Text>
+              <Text style={[tw`button-small uppercase`, levelColorMap.text[level]]}>{actionLabel}</Text>
             </Text>
           ) : (
             <View>{/* placeholder for layout */}</View>
           )}
-          <Text onPress={closeMessage} style={[tw`button-small text-right`, levelColorMap.text[level]]}>
+          <Text onPress={closeMessage} style={[tw`button-small text-right uppercase`, levelColorMap.text[level]]}>
             {i18n('close')} x
           </Text>
         </View>

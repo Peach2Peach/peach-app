@@ -112,9 +112,10 @@ declare type MessageState = {
   template?: ReactNode
   msgKey?: string
   msg?: string
-  action?: () => {}
+  action?: Function
   actionLabel?: string
   actionIcon?: IconType
+  onClose?: Function
   time?: number
   keepAlive?: boolean
 }

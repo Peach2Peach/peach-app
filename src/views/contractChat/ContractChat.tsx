@@ -9,7 +9,7 @@ import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import { account } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -137,10 +137,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const showDisclaimer = async () => {
     await sleep(1000)
+    // <DisputeDisclaimer navigation={navigation} contract={contract!} />
     updateMessage({
-      template: <DisputeDisclaimer navigation={navigation} contract={contract!} />,
-      level: 'INFO',
-      close: false,
+      msgKey: 'DISPUTE_DISCLAIMER',
+      level: 'WARN',
+      keepAlive: true,
+      onClose: () => updateSettings({ showDisputeDisclaimer: false }, true),
     })
   }
 

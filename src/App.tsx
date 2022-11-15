@@ -35,13 +35,12 @@ import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './const
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { initApp } from './init'
 import websocket from './init/websocket'
-import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 import { account, updateSettings } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
-import { compatibilityCheck } from './utils/system'
+import { compatibilityCheck, linkToAppStore } from './utils/system'
 
 enableScreens()
 
@@ -126,9 +125,23 @@ const App: React.FC = () => {
         })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
-        updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
+        updateMessage({
+          msgKey: 'CRITICAL_UPDATE_AVAILABLE',
+          level: 'ERROR',
+          keepAlive: true,
+          action: linkToAppStore,
+          actionLabel: i18n('download'),
+          actionIcon: 'download',
+        })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
-        updateMessage({ template: <NewVersionAvailable />, level: 'WARN' })
+        updateMessage({
+          msgKey: 'UPDATE_AVAILABLE',
+          level: 'WARN',
+          keepAlive: true,
+          action: linkToAppStore,
+          actionLabel: i18n('download'),
+          actionIcon: 'download',
+        })
       }
     })()
   }, [])

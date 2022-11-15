@@ -14,7 +14,6 @@ import { Level, MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
@@ -99,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
-    updateMessage({ template: null, level: 'ERROR' })
+    updateMessage({ template: undefined, msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
     const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
@@ -162,8 +161,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!paymentDataForMethod) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
-          template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
+          msgKey: 'PAYMENT_DATA_MISSING',
           level: 'ERROR',
+          action: openAddPaymentMethodDialog,
+          actionLabel: i18n('PAYMENT_DATA_MISSING.action'),
           keepAlive: true,
         })
         return
