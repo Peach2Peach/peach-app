@@ -106,7 +106,7 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
     >
       {meta.showName ? <Text style={[tw`px-1 mt-4 -mb-1 font-baloo text-xs`, text]}>{meta.name}</Text> : null}
       <View style={[tw`flex-row flex-wrap justify-between p-3 mt-1 rounded`, bgColor]}>
-        <Text style={'flex-shrink-0'}>{message.message || i18n('chat.decyptionFailed')}</Text>
+        <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
         <Text style={tw`ml-auto text-right leading-5 pt-1`}>
           <Text style={tw`text-xs text-grey-3`}>{toTimeFormat(message.date)}</Text>
           {meta.isYou && (
