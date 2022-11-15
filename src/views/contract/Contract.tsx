@@ -249,7 +249,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   />
                   {view === 'buyer' && requiredAction === 'sendPayment' ? (
                     <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
-                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
                     </Pressable>
                   ) : null}
                 </View>

@@ -10,7 +10,7 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, PeachScrollView, SatsFormat, Text } from '../../components'
-import { Level, MessageContext } from '../../contexts/message'
+import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
@@ -431,7 +431,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                     onPress={_toggleMatch}
                   />
                   <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
                   </Pressable>
                 </View>
               ) : (
@@ -443,7 +443,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                     onPress={() => _match(currentMatch)}
                   />
                   <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
                   </Pressable>
                 </View>
               )}

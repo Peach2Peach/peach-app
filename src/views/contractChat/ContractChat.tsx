@@ -22,7 +22,6 @@ import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
-import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { debounce } from '../../utils/performance'
 

@@ -1,9 +1,9 @@
+import { ColorValue, Dimensions, ViewStyle } from 'react-native'
 import { create } from 'twrnc'
-import { Dimensions, ViewStyle } from 'react-native'
 interface Tailwind {
-  (classes: TemplateStringsArray): ViewStyle
-  md: (classes: TemplateStringsArray) => ViewStyle
-  lg: (classes: TemplateStringsArray) => ViewStyle
+  (classes: TemplateStringsArray): ViewStyle & { color?: ColorValue | undefined }
+  md: (classes: TemplateStringsArray) => ViewStyle & { color?: ColorValue | undefined }
+  lg: (classes: TemplateStringsArray) => ViewStyle & { color?: ColorValue | undefined }
 }
 const tailwind = create(require('./tailwind.config'))
 

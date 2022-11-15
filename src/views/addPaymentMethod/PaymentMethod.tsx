@@ -114,7 +114,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
             <Pressable style={tw`flex flex-row items-center px-8`} onPress={() => showDrawer('localOption')}>
               <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
               <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`}>{i18n(`country.${country}`)}</Text>
-              <Icon id="change" style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
+              <Icon id="change" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} />
             </Pressable>
             <RadioButtons
               style={tw`mt-16`}

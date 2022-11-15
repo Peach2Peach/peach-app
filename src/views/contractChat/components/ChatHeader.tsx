@@ -22,7 +22,7 @@ export const ChatHeader = ({ contract, navigation }: ChatHeaderProps): ReactElem
     <Shadow shadow={mildShadow}>
       <View style={tw`w-full flex-row items-center p-1 bg-white-1`}>
         <Pressable onPress={goBack}>
-          <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color as string} />
+          <Icon id={'arrowLeft'} style={tw`w-10 h-10 flex-shrink-0`} color={tw`text-peach-1`.color} />
         </Pressable>
         <Text style={tw`items-center text-peach-1 text-xl font-bold`}>
           {i18n(contract.disputeActive ? 'dispute.chat' : 'trade.chat')}

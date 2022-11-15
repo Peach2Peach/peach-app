@@ -45,7 +45,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       <Text style={tw`font-baloo text-sm uppercase text-white-1`}>
         {i18n('sell.escrow.fundToContinue')}
         <View style={tw`w-8 h-0 bg-red absolute -mt-10`}>
-          <Loading size="small" style={tw`-mt-2`} color={tw`text-white-1`.color as string} />
+          <Loading size="small" style={tw`-mt-2`} color={tw`text-white-1`.color} />
         </View>
       </Text>
     )

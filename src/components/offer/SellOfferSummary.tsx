@@ -63,7 +63,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
             onPress={() => showTransaction(offer.txId || (offer.funding.txIds[0] as string), NETWORK)}
           >
             <Text>{i18n('escrow.viewInExplorer')}</Text>
-            <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+            <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
           </Pressable>
         </View>
       ) : null}

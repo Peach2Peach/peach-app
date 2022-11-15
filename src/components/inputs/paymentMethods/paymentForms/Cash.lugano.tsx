@@ -60,7 +60,7 @@ export const CashLugano = ({ forwardRef, data, currencies = [], onSubmit, setSte
       <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10 px-6`}>
         <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
           {disclaimerAcknowledged ? (
-            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
           ) : (
             <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
           )}

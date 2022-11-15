@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
-import { TextStyle, View, ViewStyle } from 'react-native'
+import { TextProps, TextStyle, View, ViewStyle } from 'react-native'
 
 import { Text, Icon, Shadow } from '.'
 import tw from '../styles/tailwind'
@@ -92,14 +92,14 @@ export const Message = ({
         )}
         <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>
           {!!action ? (
-            <Text onPress={action} style={[tw`text-right flex flex-row items-center pl-1`]}>
+            <Text onPress={action as TextProps['onPress']} style={[tw`text-right flex flex-row items-center pl-1`]}>
               {!!actionIcon && <Icon id={actionIcon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-              <Text style={[tw`button-small uppercase`, levelColorMap.text[level]]}>{actionLabel}</Text>
+              <Text style={[tw`button-small`, levelColorMap.text[level]]}>{actionLabel}</Text>
             </Text>
           ) : (
             <View>{/* placeholder for layout */}</View>
           )}
-          <Text onPress={closeMessage} style={[tw`button-small text-right uppercase`, levelColorMap.text[level]]}>
+          <Text onPress={closeMessage} style={[tw`button-small text-right`, levelColorMap.text[level]]}>
             {i18n('close')} x
           </Text>
         </View>

@@ -18,7 +18,7 @@ type IconProps = ComponentProps & {
  * <Icon
  *   id={'save'}
  *   style={tw`mt-4`}
- *   color={tw`text-white-1`.color as string}
+ *   color={tw`text-white-1`.color}
  * />
  */
 export const Icon = ({ id, style, color }: IconProps): ReactElement => {
