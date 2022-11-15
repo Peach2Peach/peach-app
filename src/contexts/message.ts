@@ -4,8 +4,8 @@ import { Animated } from 'react-native'
 export type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 
 let template: ReactNode
-let msgKey: string|undefined
-let msg: string|undefined
+let msgKey: string | undefined
+let msg: string | undefined
 let level: Level = 'OK'
 let close: boolean = true
 let time: number = 0
@@ -13,8 +13,8 @@ let time: number = 0
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([
-  { template, msgKey, msg, level: level as Level, close: close as boolean|undefined },
-  dispatch
+  { template, msgKey, msg, level: level as Level, close: close as boolean | undefined },
+  dispatch,
 ] as const)
 
 /**
@@ -42,7 +42,7 @@ export const setMessage = (state: ReducerState<any>, newState: MessageState): Me
   msg = newState.msg
   level = newState.level
   close = newState.close ?? true
-  time = (new Date()).getTime()
+  time = Date.now()
 
   return {
     template,
@@ -50,27 +50,30 @@ export const setMessage = (state: ReducerState<any>, newState: MessageState): Me
     msg,
     level,
     close,
-    time
+    time,
   }
 }
 
-
-export const showMessageEffect = (content: ReactNode|string, width: number, slideInAnim: Animated.Value) => () => {
+export const showMessageEffect = (content: ReactNode | string, width: number, slideInAnim: Animated.Value) => () => {
   let slideOutTimeout: NodeJS.Timer
 
   if (content) {
     Animated.timing(slideInAnim, {
       toValue: 0,
       duration: 300,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start()
 
     if (close) {
-      slideOutTimeout = setTimeout(() => Animated.timing(slideInAnim, {
-        toValue: -width,
-        duration: 300,
-        useNativeDriver: false
-      }).start(), 1000 * 10)
+      slideOutTimeout = setTimeout(
+        () =>
+          Animated.timing(slideInAnim, {
+            toValue: -width,
+            duration: 300,
+            useNativeDriver: false,
+          }).start(),
+        1000 * 10,
+      )
     }
   }
 
