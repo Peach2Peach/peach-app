@@ -19,7 +19,6 @@ type Props = {
   navigation: StackNavigation
 }
 
-
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -35,7 +34,7 @@ export default ({ navigation }: Props): ReactElement => {
     })
   }
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       setNotificationsOn(await checkNotificationStatus())
     })()
   })
@@ -56,7 +55,6 @@ export default ({ navigation }: Props): ReactElement => {
   )
 
   const goToContactUs = () => navigation.navigate('contact', {})
-  // const goToLanguageSettings = () => navigation.navigate('language', {})
   const goToCurrencySettings = () => navigation.navigate('currency', {})
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
@@ -100,11 +98,6 @@ export default ({ navigation }: Props): ReactElement => {
             </Text>
           </Card>
         </Pressable>
-        {/* <Pressable style={tw`mt-2`} onPress={goToLanguageSettings}>
-        <Card>
-          <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.language')}</Text>
-        </Card>
-      </Pressable> */}
         <Pressable style={tw`mt-2`} onPress={goToCurrencySettings}>
           <Card>
             <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.displayCurrency')}</Text>

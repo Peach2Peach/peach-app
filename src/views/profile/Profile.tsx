@@ -41,7 +41,6 @@ type Props = {
   navigation: Navigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [bitcoinContext] = useContext(BitcoinContext)
 
@@ -66,7 +65,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           return
         }
         setUpdatePending(true)
-        const [response, err] = await getUser({ userId })
+        const [response] = await getUser({ userId })
 
         if (response) {
           setUser(response)

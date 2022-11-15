@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReducerState } from 'react'
+import { createContext, ReducerState } from 'react'
 import { API_URL } from '@env'
 import { info } from '../log'
 import { authWS } from './private/user'
@@ -12,16 +12,16 @@ let peachWS: PeachWS = {
     message: [],
     close: [],
   },
-  send: (data: string) => true,
-  on: (listener: 'message'|'close', callback: WSCallback) => {
+  send: () => true,
+  on: (listener: 'message' | 'close', callback: WSCallback) => {
     peachWS.listeners[listener].push(callback)
-    peachWS.listeners[listener] = peachWS.listeners[listener].filter((cllbck, index, self) =>
-      self.findIndex(c => c.toString() === cllbck.toString()) === index
+    peachWS.listeners[listener] = peachWS.listeners[listener].filter(
+      (cllbck, index, self) => self.findIndex((c) => c.toString() === cllbck.toString()) === index,
     )
   },
-  off: (listener: 'message'|'close', callback: WSCallback) => {
-    peachWS.listeners[listener] = peachWS.listeners[listener].filter(cllbck =>
-      cllbck.toString() !== callback.toString()
+  off: (listener: 'message' | 'close', callback: WSCallback) => {
+    peachWS.listeners[listener] = peachWS.listeners[listener].filter(
+      (cllbck) => cllbck.toString() !== callback.toString(),
     ) as WSCallback[]
   },
   close: () => {},
@@ -32,7 +32,7 @@ const onOpenHandler = () => {
   authWS(ws)
 
   // if a queue built up while offline, now send what has queued up
-  peachWS.queue = peachWS.queue.filter(callback => !callback())
+  peachWS.queue = peachWS.queue.filter((callback) => !callback())
 }
 
 const onMessageHandler = (msg: WebSocketMessageEvent) => {
@@ -45,13 +45,13 @@ const onMessageHandler = (msg: WebSocketMessageEvent) => {
   }
   if (!peachWS.authenticated) return
 
-  peachWS.listeners.message.forEach(listener => listener(message))
+  peachWS.listeners.message.forEach((listener) => listener(message))
 }
 
 const onCloseHandler = () => {
   info('Peach WS API - connection closed.')
   peachWS.connected = false
-  peachWS.listeners.close.forEach(listener => listener())
+  peachWS.listeners.close.forEach((listener) => listener())
   peachWS.listeners.close = []
   ws.removeEventListener('message', onMessageHandler)
 }
@@ -102,7 +102,6 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
 }
 
 export const getWebSocket = () => peachWS
-
 
 export const PeachWSContext = createContext(peachWS)
 

@@ -1,5 +1,6 @@
 import { setAccount } from '../../../../src/utils/account'
 import * as accountData from '../../data/accountData'
+import * as contractData from '../../data/contractData'
 import { resetFakeFiles } from '../../prepare'
 import {
   initDisputeSystemMessages,
@@ -16,9 +17,9 @@ describe.skip('createDisputeSystemMessages', () => {
   })
 
   it('creates a starting dispute system message', () => {
-    const systemMessages = initDisputeSystemMessages('room-id', accountData.contract)
+    const systemMessages = initDisputeSystemMessages('room-id', contractData.contract)
   })
   it('creates an ending dispute system message', () => {
-    const systemMessages = endDisputeSystemMessages('room-id', accountData.contract)
+    const systemMessages = endDisputeSystemMessages('room-id', contractData.contract)
   })
 })
