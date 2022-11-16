@@ -8,12 +8,12 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import searchForPeersEffect from '../../effects/searchForPeersEffect'
+import getOfferDetailsEffect, { useOfferDetails } from '../../effects/getOfferDetailsEffect'
+import useSearchForPeers from '../../hooks/useSearchForPeers'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
 import Match from '../../overlays/info/Match'
@@ -30,12 +30,10 @@ const PAGESIZE = 10
 
 const updaterPNs = ['offer.matchSeller', 'contract.contractCreated']
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['search'] }>
-  navigation: StackNavigation
-}
 // eslint-disable-next-line max-lines-per-function, max-statements
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>()
+  const navigation = useNavigation<StackNavigation>()
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -105,7 +103,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }
 
-  // eslint-disable-next-line max-statements, max-lines-per-function, complexity
   const _match = async (input: Match) =>
     matchFn(
       input,
@@ -127,10 +124,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     const [result, err] = await unmatchOffer({ offerId: offer.id, matchingOfferId: match.offerId })
 
     if (result) {
-      setMatches(
-        matches.map((m) => ({
+      setMatches((prev) =>
+        prev.map((m) => ({
           ...m,
-          matched: m.offerId === match.offerId ? !m.matched : m.matched,
+          matched: m.offerId === match.offerId ? false : m.matched,
         })),
       )
     } else {
@@ -169,36 +166,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     }, [route]),
   )
 
-  useFocusEffect(
-    useCallback(
-      searchForPeersEffect({
-        offer,
-        page,
-        size: PAGESIZE,
-        onBefore: () => setSearchingMatches(true),
-        onSuccess: (result) => {
-          setSearchingMatches(false)
-          if (offerId === route.params.offer.id) {
-            setMatches((ms) =>
-              ms
-                .concat(result)
-                .filter(unique('offerId'))
-                .map((match) => {
-                  const update = result.find((m) => m.offerId === match.offerId)
-                  match.prices = (update || match).prices
-                  return match
-                }),
-            )
-          }
-        },
-        onError: (err) => {
-          setSearchingMatches(false)
-          if (err.error !== 'UNAUTHORIZED') updateMessage({ msgKey: err.error, level: 'ERROR' })
-        },
-      }),
-      [offerId, pnReceived, page],
-    ),
-  )
+  useSearchForPeers(offer, page, setSearchingMatches, offerId, route, setMatches, updateMessage, pnReceived)
 
   useFocusEffect(
     useCallback(
@@ -270,33 +238,28 @@ export default ({ route, navigation }: Props): ReactElement => {
             {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
           </Headline>
         )}
-        {searchingMatches && !matches.length ? (
-          <View style={tw`h-12`}>
-            <Loading />
-            <Text style={tw`text-center`}>{i18n('loading')}</Text>
-          </View>
-        ) : null}
-        {!searchingMatches && !matches.length ? (
-          <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
-        ) : null}
-        {matches.length ? (
-          offer.type === 'bid' ? (
-            <View>
-              <Text style={tw`text-grey-2 text-center -mt-1`}>
-                {i18n('search.buyOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
-              </Text>
+        {!matches.length ? (
+          searchingMatches ? (
+            <View style={tw`h-12`}>
+              <Loading />
+              <Text style={tw`text-center`}>{i18n('loading')}</Text>
             </View>
           ) : (
-            <View>
-              <Text style={tw`text-grey-2 text-center -mt-1`}>
-                {i18n('search.sellOffer')} <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
-              </Text>
+            <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
+          )
+        ) : (
+          <View>
+            <Text style={tw`text-grey-2 text-center -mt-1`}>
+              {i18n(`search.${offer.type === 'bid' ? 'buyOffer' : 'sellOffer'}`)}{' '}
+              <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
+            </Text>
+            {offer.type !== 'bid' && (
               <Text style={tw`text-grey-2 text-center`}>
                 {i18n(offer.premium > 0 ? 'search.atPremium' : 'search.atDiscount', String(Math.abs(offer.premium)))}
               </Text>
-            </View>
-          )
-        ) : null}
+            )}
+          </View>
+        )}
       </View>
       <View style={tw`h-full flex-shrink flex-col justify-end`}>
         {matches.length ? (
@@ -308,8 +271,8 @@ export default ({ route, navigation }: Props): ReactElement => {
               toggleMatch={_toggleMatch}
               loadingMore={searchingMatches}
             />
-            {offer.type === 'bid' ? (
-              <View style={tw`flex-row items-center justify-center pl-11`}>
+            <View style={tw`flex-row items-center justify-center pl-11`}>
+              {offer.type === 'bid' ? (
                 <Button
                   title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                   wide={false}
@@ -317,23 +280,18 @@ export default ({ route, navigation }: Props): ReactElement => {
                   loading={matchLoading}
                   onPress={_toggleMatch}
                 />
-                <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                </Pressable>
-              </View>
-            ) : (
-              <View style={tw`flex-row items-center justify-center pl-11`}>
+              ) : (
                 <Button
                   title={i18n('search.acceptMatch')}
                   wide={false}
                   disabled={currentMatch?.matched}
                   onPress={() => _match(currentMatch)}
                 />
-                <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                </Pressable>
-              </View>
-            )}
+              )}
+              <Pressable onPress={openMatchHelp} style={tw`p-3`}>
+                <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+              </Pressable>
+            </View>
           </View>
         ) : (
           <View style={tw`flex items-center mt-6`}>
