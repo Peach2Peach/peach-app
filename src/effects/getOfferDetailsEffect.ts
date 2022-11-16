@@ -1,4 +1,5 @@
-import { EffectCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import { EffectCallback, useCallback } from 'react'
 import { error, info } from '../utils/log'
 import { getOfferDetails } from '../utils/peachAPI'
 
@@ -39,3 +40,37 @@ export default ({ offerId, interval, onSuccess, onError }: GetOfferEffectProps):
       if (intrvl) clearInterval(intrvl)
     }
   }
+
+export const useOfferDetails = ({ offerId, interval, onSuccess, onError }: GetOfferEffectProps) =>
+  useFocusEffect(
+    useCallback(() => {
+      let intrvl: NodeJS.Timer
+
+      const checkingFunction = async () => {
+        if (!offerId) return
+
+        info('Get offer details for', offerId)
+        const [result, err] = await getOfferDetails({
+          offerId,
+          timeout: interval,
+        })
+        if (result) {
+          // info('Got offer details: ', JSON.stringify(result))
+          onSuccess(result)
+        } else if (err) {
+          error('Error', err)
+          onError(err)
+        }
+      }
+
+      checkingFunction()
+
+      if (interval) {
+        intrvl = setInterval(checkingFunction, interval)
+      }
+
+      return () => {
+        if (intrvl) clearInterval(intrvl)
+      }
+    }, []),
+  )
