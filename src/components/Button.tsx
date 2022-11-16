@@ -114,7 +114,7 @@ const ButtonContent = ({
  *   onPress={save}
  * />
  */
-export const Button = ({
+export const OldButton = ({
   title,
   secondary,
   tertiary,
@@ -169,6 +169,87 @@ export const Button = ({
         onPress={onPress}
       />
     </View>
+  )
+}
+
+type DefaultButton = {
+  title?: string
+  info?: true
+  border?: boolean
+  disabled?: boolean
+  wide?: true
+  narrow?: true
+  option?: boolean
+  children: React.ReactNode
+  noBackground?: true
+  icon?: true
+}
+type newButtonProps = DefaultButton
+
+/**
+ *  type:
+ *    -primary
+ *    -info
+ *    -option
+ *
+ *  icon
+ *  border
+ *  backgroundcolor
+ *
+ *  width:
+ *    -fixed
+ *      --small
+ *      --wide
+ *    -relative
+ */
+/**
+ * Abstractions:
+ *  Option button will always have an icon on the left
+ *  will always have a border with white background
+ *
+ * only buttons that can be disabled are primary ones
+ * only buttons that can have icon left are option
+ */
+
+type IconButton = { title: string; icon?: true } | { icon: true; title?: string }
+type BorderButton = { border: true }
+type PrimaryButton = { title?: string; width: 'fixed' | 'relative'; wide?: boolean }
+
+// eslint-disable-next-line complexity
+export const Button = ({ title, info, disabled, wide, option, children, border, icon, narrow }: DefaultButton) => {
+  const color
+    = border || option
+      ? tw`bg-primary-background-light`
+      : info
+        ? tw`bg-info-light`
+        : disabled
+          ? tw`bg-primary-mild-2`
+          : tw`bg-primary-light`
+  const width = icon && !title && !children ? tw`w-12` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
+  const textColor = border
+    ? info
+      ? tw`text-info-light`
+      : tw`text-primary-light`
+    : option
+      ? tw`text-[#7D675E]`
+      : tw`text-primary-background-light`
+
+  const borderColor = option ? tw`border-[#7D675E]` : info ? tw`border-info-light` : tw`border-primary-light`
+  const iconSize = !title && !children ? tw`w-6 h-6` : tw`w-4 h-4`
+
+  return (
+    <Pressable
+      style={[
+        color,
+        width,
+        tw`flex-row items-center justify-center h-10 rounded-full px-4`,
+        (option || border) && [tw`border-2`, borderColor],
+      ]}
+    >
+      {!!option && <View style={tw`w-4 h-4 border-2 border-[#7D675E]`} />}
+      {(title || children) && <Text style={[textColor, tw`button-medium px-2`]}>{title ?? children}</Text>}
+      {!!icon && <View style={[tw`border-[#7D675E] border-[1px]`, iconSize]} />}
+    </Pressable>
   )
 }
 
