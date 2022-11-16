@@ -12,12 +12,11 @@ module.exports = {
         current: 'currentColor',
         black: {
           1: '#2B1911',
-          2: '#3E2C25',
-          3: '#5C4539',
-          4: '#9F8C82',
-          5: '#BAADA7',
-          6: '#D4CECB',
-          7: '#ECECEC',
+          2: '#7D675E',
+          3: '#9F8C82',
+          4: '#BAADA7',
+          5: '#D4CECB',
+          6: '#ECECEC',
         },
         primary: {
           dark: '#963600',
