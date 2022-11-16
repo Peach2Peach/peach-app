@@ -73,7 +73,7 @@ export const Message = ({
   return (
     <Shadow shadow={dropShadowMild}>
       <View
-        style={[tw`m-6 flex items-center justify-center px-2 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
+        style={[tw`m-6 flex items-center justify-center px-4 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}
       >
         <View style={tw`p-2`}>
           <View style={tw`flex-row justify-center items-center`}>
@@ -86,15 +86,16 @@ export const Message = ({
         </View>
         <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>
           {!!action ? (
-            <Text onPress={action as TextProps['onPress']} style={[tw`text-right flex flex-row items-center pl-1`]}>
+            <Text onPress={action as TextProps['onPress']} style={tw`flex flex-row items-center`}>
               {!!actionIcon && <Icon id={actionIcon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-              <Text style={[tw`button-small`, levelColorMap.text[level]]}>{actionLabel}</Text>
+              <Text style={[tw`button-small leading-relaxed`, levelColorMap.text[level]]}> {actionLabel}</Text>
             </Text>
           ) : (
             <View>{/* placeholder for layout */}</View>
           )}
-          <Text onPress={closeMessage} style={[tw`button-small text-right`, levelColorMap.text[level]]}>
-            {i18n('close')} x
+          <Text onPress={closeMessage} style={tw`text-right flex flex-row items-center`}>
+            <Text style={[tw`button-small leading-relaxed`, levelColorMap.text[level]]}>{i18n('close')} </Text>
+            <Icon id="xSquare" style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />
           </Text>
         </View>
       </View>

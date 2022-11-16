@@ -79,6 +79,16 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
   const getCurrentPage = () => currentPage
 
+  useEffect(() => {
+    updateMessage({
+      msgKey: 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: () => navigationRef.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
+      keepAlive: true,
+    })
+  }, [])
   StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)

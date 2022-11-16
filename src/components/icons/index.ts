@@ -63,6 +63,7 @@ import undo from './undo.svg'
 import userX from './userX.svg'
 import warning from './warning.svg'
 import xCircle from './xCircle.svg'
+import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
 
 const Icons = {
@@ -131,6 +132,7 @@ const Icons = {
   userX,
   warning,
   xCircle,
+  xSquare,
   yourTrades,
 }
 
