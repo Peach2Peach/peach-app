@@ -32,9 +32,9 @@ export default ({ navigation }: Props): ReactElement => {
       <View style={tw`h-full flex-shrink overflow-hidden rounded mt-12`}>
         <Shadow shadow={innerShadow} style={tw`w-full h-full border border-grey-4 rounded`}>
           <PeachScrollView contentContainerStyle={[tw`p-10 flex items-center justify-center`, tw.md`p-12`]}>
-            <Text style={tw`text-center mb-10`}>{i18n('contact.whyAreYouContactingUs')}</Text>
+            <Text style={tw`text-center mb-8`}>{i18n('contact.whyAreYouContactingUs')}</Text>
             {contactReasons.map((name) => (
-              <ContactButton {...{ name, setReason }} />
+              <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
             ))}
           </PeachScrollView>
         </Shadow>
