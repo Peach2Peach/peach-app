@@ -76,7 +76,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={!anyFieldSet}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
@@ -90,7 +89,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={!phone}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? emailErrors : undefined}
         />
@@ -109,7 +107,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={!email}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />

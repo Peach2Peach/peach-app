@@ -67,7 +67,6 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           placeholder={i18n('form.paymentMethodName.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
-          isValid={labelErrors.length === 0}
         />
       </View>
       <View style={tw`mt-1`}>
@@ -83,7 +82,6 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />

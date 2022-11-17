@@ -83,7 +83,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
@@ -96,7 +95,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           value={beneficiary}
           label={i18n('form.beneficiary')}
           placeholder={i18n('form.beneficiary.placeholder')}
-          isValid={beneficiaryIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? beneficiaryErrors : undefined}
         />
@@ -109,7 +107,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           value={iban}
           label={i18n('form.iban')}
           placeholder={i18n('form.iban.placeholder')}
-          isValid={ibanIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? ibanErrors : undefined}
         />
@@ -123,7 +120,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={true}
           label={i18n('form.bic')}
           placeholder={i18n('form.bic.placeholder')}
-          isValid={bicIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? bicErrors : undefined}
         />
@@ -137,7 +133,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={false}
           label={i18n('form.address')}
           placeholder={i18n('form.address.placeholder')}
-          isValid={addressIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? addressErrors : undefined}
         />
@@ -151,7 +146,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={false}
           label={i18n('form.reference')}
           placeholder={i18n('form.reference.placeholder')}
-          isValid={referenceIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? referenceErrors : undefined}
         />

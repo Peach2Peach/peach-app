@@ -77,7 +77,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
@@ -96,7 +95,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           required={!anyFieldSet}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
@@ -115,7 +113,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           required={!anyFieldSet}
           label={i18n('form.userName')}
           placeholder={i18n('form.userName.placeholder')}
-          isValid={userNameErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? userNameErrors : undefined}
         />
@@ -129,7 +126,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           required={!anyFieldSet}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? emailErrors : undefined}
         />

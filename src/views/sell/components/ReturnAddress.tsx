@@ -78,7 +78,6 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
             onChange={(value: string) => (focused ? setAddress(() => value) : null)}
             onSubmit={() => setFocused(() => false)}
             placeholder={i18n('form.address.btc')}
-            isValid={isAddressValid}
             onFocus={() => setFocused(() => true)}
             onBlur={() => setFocused(() => false)}
             errorMessage={addressErrors}

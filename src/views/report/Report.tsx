@@ -86,7 +86,6 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={email}
               label={i18n('form.userEmail')}
               placeholder={i18n('form.userEmail.placeholder')}
-              isValid={isEmailValid}
               autoCorrect={false}
               errorMessage={displayErrors ? emailErrors : undefined}
             />
@@ -99,7 +98,6 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={topic}
               label={i18n('form.topic')}
               placeholder={i18n('form.topic.placeholder')}
-              isValid={isTopicValid}
               autoCorrect={false}
               errorMessage={displayErrors ? topicErrors : undefined}
             />
@@ -113,7 +111,6 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={isMessageValid}
               autoCorrect={false}
               errorMessage={displayErrors ? messageErrors : undefined}
             />

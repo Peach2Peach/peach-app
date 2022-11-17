@@ -90,7 +90,6 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              isValid={passwordIsValid}
               errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
             />
           </View>

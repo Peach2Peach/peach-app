@@ -63,7 +63,6 @@ export const Twint = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
@@ -81,7 +80,6 @@ export const Twint = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />

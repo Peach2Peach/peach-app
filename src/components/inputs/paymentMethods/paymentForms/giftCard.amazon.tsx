@@ -71,7 +71,6 @@ export const GiftCardAmazon = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
@@ -85,7 +84,6 @@ export const GiftCardAmazon = ({
           value={email}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={emailIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? emailErrors : undefined}
         />
