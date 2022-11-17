@@ -67,6 +67,7 @@ type FileInputProps = ComponentProps & {
   errorMessage?: string[]
   onChange?: Function
   secureTextEntry?: boolean
+  invertColors?: boolean
 }
 
 /**
@@ -74,6 +75,7 @@ type FileInputProps = ComponentProps & {
  * @param props Component properties
  * @param [props.fileName] file name
  * @param [props.style] css style object
+ * @param [props.invertColors] if true invert color
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @example
@@ -84,13 +86,20 @@ type FileInputProps = ComponentProps & {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
-export const FileInput = ({ fileName, style, errorMessage = [], onChange }: FileInputProps): ReactElement => {
+export const FileInput = ({
+  fileName,
+  style,
+  invertColors,
+  errorMessage = [],
+  onChange,
+}: FileInputProps): ReactElement => {
   const onPress = async () => (onChange ? onChange(await selectFile()) : null)
 
   return (
     <Input
       {...{
         style,
+        invertColors,
         value: fileName,
         disabled: true,
         onPressIn: onPress,
