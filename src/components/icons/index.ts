@@ -20,7 +20,7 @@ import creditCard from './creditCard.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
 import eyeOff from './eyeOff.svg'
-import file from './file.svg'
+import clipboard from './clipboard.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
@@ -83,7 +83,7 @@ const Icons = {
   dollarSign,
   download,
   eyeOff,
-  file,
+  clipboard,
   fire,
   fundEscrow,
   heart,
