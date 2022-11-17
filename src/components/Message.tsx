@@ -88,13 +88,13 @@ export const Message = ({
           {!!action ? (
             <Text onPress={action as TextProps['onPress']} style={tw`flex flex-row items-center`}>
               {!!actionIcon && <Icon id={actionIcon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-              <Text style={[tw`button-small leading-relaxed`, levelColorMap.text[level]]}> {actionLabel}</Text>
+              <Text style={[tw`subtitle-2 leading-xs`, levelColorMap.text[level]]}> {actionLabel}</Text>
             </Text>
           ) : (
             <View>{/* placeholder for layout */}</View>
           )}
           <Text onPress={closeMessage} style={tw`text-right flex flex-row items-center`}>
-            <Text style={[tw`button-small leading-relaxed`, levelColorMap.text[level]]}>{i18n('close')} </Text>
+            <Text style={[tw`subtitle-2 leading-xs`, levelColorMap.text[level]]}>{i18n('close')} </Text>
             <Icon id="xSquare" style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />
           </Text>
         </View>
