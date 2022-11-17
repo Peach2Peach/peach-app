@@ -38,11 +38,13 @@ const invertedTheme = {
   placeholder: tw`text-primary-mild-4`,
   optional: tw`text-black-4`,
 }
+
+type IconActionPair = [IconType, () => void]
 type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
     invertColors?: boolean
     label?: string
-    icons?: [IconType, () => void][]
+    icons?: IconActionPair[]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
@@ -114,7 +116,7 @@ export const Input = ({
   const [showSecret, setShowSecret] = useState(false)
   const showError = errorMessage.length > 0 && !disabled && touched
   const toggleShowSecret = () => setShowSecret((b) => !b)
-  const inputIcons = useMemo(
+  const inputIcons: IconActionPair[] = useMemo(
     () => (secureTextEntry ? [...icons, [showSecret ? 'eyeOff' : 'eye', toggleShowSecret]] : icons),
     [icons, secureTextEntry, showSecret],
   )
