@@ -111,7 +111,14 @@ export const Input = ({
 }: InputProps): ReactElement => {
   const colors = useMemo(() => (invertColors ? invertedTheme : regularTheme), [invertColors])
   const [touched, setTouched] = useState(true)
+  const [showSecret, setShowSecret] = useState(false)
   const showError = errorMessage.length > 0 && !disabled && touched
+  const toggleShowSecret = () => setShowSecret((b) => !b)
+  const inputIcons = useMemo(
+    () => (secureTextEntry ? [...icons, [showSecret ? 'eyeOff' : 'eye', toggleShowSecret]] : icons),
+    [icons, secureTextEntry, showSecret],
+  )
+
   const onChangeText = (val: string) => (onChange ? onChange(val) : null)
   const onSubmitEditing
     = onSubmit && !disableSubmit
@@ -182,13 +189,13 @@ export const Input = ({
             onFocus: onFocusHandler,
             onBlur: onBlurHandler,
             onPressIn,
-            secureTextEntry,
+            secureTextEntry: secureTextEntry && !showSecret,
             autoCorrect,
             autoCapitalize: autoCapitalize || 'none',
           }}
         />
         <View style={tw`flex flex-row`}>
-          {icons.map(([icon, action]) => (
+          {inputIcons.map(([icon, action]) => (
             <Pressable onPress={action}>
               <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
             </Pressable>

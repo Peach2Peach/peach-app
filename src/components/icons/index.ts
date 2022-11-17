@@ -21,6 +21,7 @@ import dispute from './dispute.svg'
 import download from './download.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
+import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import clipboard from './clipboard.svg'
 import fire from './fire.svg'
@@ -90,6 +91,7 @@ const Icons = {
   download,
   dropdownClosed,
   dropdownOpen,
+  eye,
   eyeOff,
   clipboard,
   fire,
