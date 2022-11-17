@@ -1,4 +1,4 @@
-import React, { ReactElement, Ref, useState } from 'react'
+import React, { ReactElement, Ref, useMemo, useState } from 'react'
 import {
   NativeSyntheticEvent,
   Pressable,
@@ -14,8 +14,33 @@ import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 
+const regularTheme = {
+  label: tw`text-black-1`,
+  text: tw`text-black-1`,
+  textError: tw`text-black-1`,
+  border: tw`border-black-1`,
+  borderError: tw`border-error-main`,
+  bg: tw`bg-primary-background-light`,
+  bgError: tw`bg-primary-background-light`,
+  error: tw`text-error-main`,
+  placeholder: tw`text-black-4`,
+  optional: tw`text-black-4`,
+}
+const invertedTheme = {
+  label: tw`text-primary-background-light`,
+  text: tw`text-primary-background-light`,
+  textError: tw`text-error-main`,
+  border: tw`border-primary-background-light`,
+  borderError: tw`border-primary-background-light`,
+  bg: tw`bg-transparent`,
+  bgError: tw`bg-primary-background-light`,
+  error: tw`text-primary-background-light`,
+  placeholder: tw`text-primary-mild-4`,
+  optional: tw`text-black-4`,
+}
 type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
+    invertColors?: boolean
     label?: string
     icons?: [IconType, () => void][]
     required?: boolean
@@ -36,6 +61,7 @@ type InputProps = ComponentProps &
  * @param [props.value] current value
  * @param [props.label] input label
  * @param [props.icons] array of icon components
+ * @param [props.required] if true, field shows as required
  * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
@@ -47,6 +73,7 @@ type InputProps = ComponentProps &
  * @param [props.secureTextEntry] if true hide input
  * @param [props.autoCapitalize] how to capitalize input automatically
  * @param [props.style] css style object
+ * @param [props.invertColors] if true invert color
  * @example
  * <Input
  *   onChange={setAddress}
@@ -78,10 +105,12 @@ export const Input = ({
   returnKeyType,
   autoCapitalize,
   style,
+  invertColors,
   testID,
   reference,
 }: InputProps): ReactElement => {
-  const [touched, setTouched] = useState(false)
+  const colors = useMemo(() => (invertColors ? invertedTheme : regularTheme), [invertColors])
+  const [touched, setTouched] = useState(true)
   const showError = errorMessage.length > 0 && !disabled && touched
   const onChangeText = (val: string) => (onChange ? onChange(val) : null)
   const onSubmitEditing
@@ -107,31 +136,38 @@ export const Input = ({
   return (
     <View>
       {label ? (
-        <Text style={tw`input-label`}>
+        <Text style={[tw`input-label`, colors.text]}>
           {label}
-          <Text style={tw`input-label font-medium text-black-2`}>{!required ? ` (${i18n('form.optional')})` : ''}</Text>
+          <Text style={[tw`input-label font-medium`, colors.placeholder]}>
+            {!required ? ` (${i18n('form.optional')})` : ''}
+          </Text>
         </Text>
       ) : null}
       <View
         style={[
           tw`w-full flex flex-row items-center justify-between px-4 py-2`,
-          tw`bg-primary-background-light overflow-hidden rounded-xl border border-grey-4`,
-          showError ? tw`border-2 border-error-main` : {},
+          tw`overflow-hidden rounded-xl border`,
+          colors.bg,
+          showError ? colors.bgError : {},
+          colors.border,
+          showError ? colors.borderError : {},
+          showError ? tw`border-2` : {},
           style ? style : {},
         ]}
       >
         <TextInput
           style={[
-            tw`w-full h-full flex-shrink text-black-1 input-text`,
+            tw`w-full h-full flex-shrink input-text`,
+            value ? colors.text : colors.placeholder,
+            showError ? colors.textError : {},
             !showError ? tw`border border-transparent` : {},
             multiline ? tw`pt-2` : {},
-            !value ? tw`text-black-4` : {},
           ]}
           {...{
             testID,
             ref: reference ? reference : null,
             placeholder,
-            placeholderTextColor: tw`text-black-4`.color,
+            placeholderTextColor: colors.placeholder.color,
             allowFontScaling: false,
             removeClippedSubviews: false,
             returnKeyType,
@@ -154,13 +190,13 @@ export const Input = ({
         <View style={tw`flex flex-row`}>
           {icons.map(([icon, action]) => (
             <Pressable onPress={action}>
-              <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={tw`text-black-1`.color} />
+              <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
             </Pressable>
           ))}
         </View>
       </View>
 
-      <Text style={tw`tooltip text-error-main mt-1 ml-3`}>{showError ? errorMessage[0] : ' '}</Text>
+      <Text style={[tw`tooltip mt-1 ml-3`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )
 }
