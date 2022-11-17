@@ -111,7 +111,7 @@ export const Dropdown = ({ items, selectedValue, onChange, style, testID }: Drop
           )}
         </View>
         <Pressable testID={`${testID}-toggle`} style={tw`absolute right-2`} onPress={toggle}>
-          <Icon id={isOpen ? 'dropdownOpen' : 'dropdownClosed'} style={tw`w-6 h-10`} color={tw`text-peach-1`.color} />
+          <Icon id={isOpen ? 'chevronUp' : 'chevronDown'} style={tw`w-6 h-10`} color={tw`text-peach-1`.color} />
         </Pressable>
       </Shadow>
     </View>
