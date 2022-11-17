@@ -64,7 +64,7 @@ export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepV
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(number: string) => {
             setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))

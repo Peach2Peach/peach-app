@@ -76,7 +76,7 @@ export const GiftCardAmazon = ({
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setEmail}
           onSubmit={save}

@@ -81,7 +81,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setEmail}
           onSubmit={() => $phone?.focus()}
@@ -95,7 +95,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(number: string) => {
             setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
@@ -115,7 +115,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         />
       </View>
       <HorizontalLine style={tw`mt-6`} />
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setReference}
           onSubmit={save}

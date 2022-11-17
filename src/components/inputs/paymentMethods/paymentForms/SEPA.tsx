@@ -88,7 +88,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
           onSubmit={() => $iban?.focus()}
@@ -101,7 +101,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? beneficiaryErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setIBAN}
           onSubmit={() => $bic?.focus()}
@@ -114,7 +114,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? ibanErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBIC}
           onSubmit={() => $address?.focus()}
@@ -128,7 +128,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? bicErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setAddress}
           onSubmit={() => $reference?.focus()}
@@ -142,7 +142,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? addressErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setReference}
           onSubmit={save}

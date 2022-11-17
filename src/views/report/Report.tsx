@@ -91,7 +91,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               errorMessage={displayErrors ? emailErrors : undefined}
             />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               onChange={setTopic}
               onSubmit={() => $message?.focus()}
@@ -104,7 +104,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               errorMessage={displayErrors ? topicErrors : undefined}
             />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               style={tw`h-40`}
               onChange={setMessage}

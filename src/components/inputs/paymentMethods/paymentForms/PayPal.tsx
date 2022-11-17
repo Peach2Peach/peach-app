@@ -81,7 +81,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(number: string) => {
             setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
@@ -100,7 +100,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setEmail}
           onSubmit={() => $userName?.focus()}
@@ -114,7 +114,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(usr: string) => {
             setUserName(usr.length && !/@/gu.test(usr) ? `@${usr}` : usr)

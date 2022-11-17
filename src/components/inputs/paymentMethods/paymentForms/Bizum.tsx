@@ -70,7 +70,7 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           isValid={labelErrors.length === 0}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(number: string) => {
             setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
@@ -88,7 +88,7 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
           onSubmit={save}
