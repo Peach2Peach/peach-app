@@ -12,7 +12,7 @@ import chevronsDown from './chevronsDown.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
-import clip from './clip.svg'
+import paperclip from './paperclip.svg'
 import clock from './clock.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
@@ -75,7 +75,7 @@ const Icons = {
   chevronsUp,
   chevronUp,
   circle,
-  clip,
+  paperclip,
   clock,
   copy,
   cpu,
