@@ -20,12 +20,14 @@ export const ContractCanceled = ({ contract, navigation }: ConfirmCancelTradePro
     }, 3000)
   }, [])
 
-  return <View style={tw`flex items-center`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-      {i18n('yourTrades.tradeCanceled.subtitle')}
-    </Headline>
-    <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-      <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+  return (
+    <View style={tw`flex items-center`}>
+      <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
+        {i18n('yourTrades.tradeCanceled.subtitle')}
+      </Headline>
+      <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
+        <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
+      </View>
     </View>
-  </View>
+  )
 }

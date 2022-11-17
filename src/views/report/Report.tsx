@@ -65,8 +65,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
   }
@@ -118,7 +121,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row justify-center items-center mt-5`}>
             <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
               {shareDeviceID ? (
-                <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+                <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
               ) : (
                 <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
               )}

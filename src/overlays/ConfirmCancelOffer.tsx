@@ -44,7 +44,7 @@ const TradeCanceled = () => (
       {i18n('cancelOffer.confirm.success')}
     </Headline>
     <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-      <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+      <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
     </View>
   </View>
 )
@@ -100,7 +100,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         />
         <Button style={tw`mt-2`} title={i18n('cancelOffer.confirm.ok')} tertiary={true} wide={false} onPress={ok} />
       </View>
-      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color as string} /> : null}
+      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} /> : null}
     </View>
   )
 }

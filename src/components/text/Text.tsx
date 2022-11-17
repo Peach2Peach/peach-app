@@ -1,12 +1,8 @@
 import React, { ReactElement } from 'react'
-import { Text, GestureResponderEvent } from 'react-native'
+import { Text, TextProps } from 'react-native'
 import tw from '../../styles/tailwind'
 
-type TextProps = ComponentProps & {
-  numberOfLines?: number
-  ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
-  onPress?: (e: GestureResponderEvent) => void
-}
+export type PeachTextProps = ComponentProps & TextProps
 
 /**
  * @description Component to display text with predefined text style

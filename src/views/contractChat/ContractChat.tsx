@@ -9,7 +9,7 @@ import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import { account } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -22,7 +22,6 @@ import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
-import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { debounce } from '../../utils/performance'
 
@@ -137,10 +136,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const showDisclaimer = async () => {
     await sleep(1000)
+    // <DisputeDisclaimer navigation={navigation} contract={contract!} />
     updateMessage({
-      template: <DisputeDisclaimer navigation={navigation} contract={contract!} />,
-      level: 'INFO',
-      close: false,
+      msgKey: 'DISPUTE_DISCLAIMER',
+      level: 'WARN',
+      keepAlive: true,
+      onClose: () => updateSettings({ showDisputeDisclaimer: false }, true),
     })
   }
 
@@ -223,8 +224,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           }),
       }),
       [contractId],
@@ -276,8 +280,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         setUpdatePending(false)
         setLoadingMessages(false)
         updateMessage({
-          msgKey: err.error || 'error.general',
+          msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
       },
     })()

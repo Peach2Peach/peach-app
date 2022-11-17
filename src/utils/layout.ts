@@ -1,6 +1,4 @@
-import { TextStyle } from 'react-native'
 import { ShadowType } from '../components/ui/Shadow'
-import { padString } from './string'
 
 export const noShadow: ShadowType = {
   blur: 0,
@@ -20,6 +18,14 @@ export const dropShadow: ShadowType = {
   color: '#000000',
   offsetX: 0,
   offsetY: 6,
+}
+
+export const dropShadowMild: ShadowType = {
+  blur: 16,
+  color: '#2B1911',
+  opacity: 0.24,
+  offsetX: 0,
+  offsetY: 0,
 }
 
 export const mildShadowOrange = {

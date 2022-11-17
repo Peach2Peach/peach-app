@@ -45,8 +45,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else if (patchOfferError) {
       error('Error', patchOfferError)
       updateMessage({
-        msgKey: patchOfferError?.error || 'error.general',
+        msgKey: patchOfferError?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
   }

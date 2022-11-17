@@ -42,7 +42,13 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (err) {
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
     saveAndUpdate({
@@ -70,14 +76,14 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
             <Icon
               id="negative"
               style={[tw`w-6 h-6 mx-2`, vote !== 'negative' ? tw`opacity-30` : {}]}
-              color={tw`text-peach-1`.color as string}
+              color={tw`text-peach-1`.color}
             />
           </Pressable>
           <Pressable onPress={() => setVote('positive')}>
             <Icon
               id="positive"
               style={[tw`w-6 h-6 mx-2`, vote !== 'positive' ? tw`opacity-30` : {}]}
-              color={tw`text-peach-1`.color as string}
+              color={tw`text-peach-1`.color}
             />
           </Pressable>
         </View>
