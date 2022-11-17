@@ -8,10 +8,9 @@ import {
   TextInputSubmitEditingEventData,
   View,
 } from 'react-native'
-import { Shadow, Text } from '..'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { innerShadow } from '../../utils/layout'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 
@@ -23,8 +22,6 @@ type InputProps = ComponentProps &
     disabled?: boolean
     disableSubmit?: boolean
     disableOnEndEditing?: boolean
-    isValid?: boolean
-    hint?: string
     errorMessage?: string[]
     onChange?: Function
     onSubmit?: Function
@@ -42,8 +39,6 @@ type InputProps = ComponentProps &
  * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
- * @param [props.isValid] if true show valid state
- * @param [props.hint] hint
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
@@ -67,7 +62,6 @@ export const Input = ({
   value,
   label,
   placeholder,
-  hint,
   icon,
   required = true,
   multiline = false,
@@ -75,7 +69,6 @@ export const Input = ({
   disabled = false,
   disableSubmit = false,
   disableOnEndEditing = false,
-  isValid,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -89,6 +82,7 @@ export const Input = ({
   reference,
 }: InputProps): ReactElement => {
   const [touched, setTouched] = useState(false)
+  const showError = errorMessage.length > 0 && !disabled && touched
   const onChangeText = (val: string) => (onChange ? onChange(val) : null)
   const onSubmitEditing
     = onSubmit && !disableSubmit
@@ -113,69 +107,61 @@ export const Input = ({
   return (
     <View>
       {label ? (
-        <Text style={tw`font-baloo text-lg`}>
+        <Text style={tw`input-label`}>
           {label}
-          {!required ? ` (${i18n('form.optional')})` : ''}
+          <Text style={tw`input-label font-medium text-black-2`}>{!required ? ` (${i18n('form.optional')})` : ''}</Text>
         </Text>
       ) : null}
-      <View style={tw`overflow-hidden rounded`}>
-        <Shadow
-          shadow={innerShadow}
+      <View
+        style={[
+          tw`w-full flex flex-row items-center px-4 py-2 bg-primary-background-light overflow-hidden rounded-xl`,
+          tw`border border-grey-4`,
+          showError ? tw`border-2 border-error-main` : {},
+          style ? style : {},
+        ]}
+      >
+        <TextInput
           style={[
-            tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
-            tw.md`h-10`,
-            icon ? tw`pr-12` : {},
-            style ? style : {},
-            isValid && value && !disabled ? tw`border-green` : {},
-            errorMessage.length > 0 && !disabled && touched ? tw`border-red` : {},
+            tw`w-full h-full flex-shrink p-0 text-black-1 input-text`,
+            !showError ? tw`border border-transparent` : {},
+            multiline ? tw`pt-2` : {},
+            !value ? tw`text-black-4` : {},
           ]}
-        >
-          <TextInput
-            testID={testID}
-            ref={reference ? reference : null}
-            style={[
-              tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
-              tw.md`h-10`,
-              multiline ? tw`h-full pt-2` : {},
-              label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {},
-            ]}
-            placeholder={placeholder}
-            placeholderTextColor={tw`text-grey-2`.color}
-            allowFontScaling={false}
-            removeClippedSubviews={false}
-            returnKeyType={returnKeyType}
-            value={value}
-            editable={!disabled}
-            autoCorrect={autoCorrect}
-            multiline={multiline}
-            textAlignVertical={multiline ? 'top' : 'center'}
-            onChangeText={onChangeText}
-            onEndEditing={onEndEditing}
-            onSubmitEditing={onSubmitEditing}
-            blurOnSubmit={false}
-            onFocus={onFocusHandler}
-            onBlur={onBlurHandler}
-            secureTextEntry={secureTextEntry}
-            autoCapitalize={autoCapitalize || 'none'}
-          />
-          {icon ? (
-            <Pressable
-              testID={`${testID}-icon`}
-              onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}
-              style={[tw`h-full absolute right-3 flex justify-center`, disableSubmit ? tw`opacity-50` : {}]}
-            >
-              <Icon id={icon} style={tw`w-5 h-5`} />
-            </Pressable>
-          ) : null}
-        </Shadow>
+          {...{
+            testID,
+            ref: reference ? reference : null,
+            placeholder,
+            placeholderTextColor: tw`text-black-4`.color,
+            allowFontScaling: false,
+            removeClippedSubviews: false,
+            returnKeyType,
+            value,
+            editable: !disabled,
+            multiline,
+            textAlignVertical: 'top',
+            onChangeText,
+            onEndEditing,
+            onSubmitEditing,
+            blurOnSubmit: false,
+            onFocus: onFocusHandler,
+            onBlur: onBlurHandler,
+            secureTextEntry,
+            autoCorrect,
+            autoCapitalize: autoCapitalize || 'none',
+          }}
+        />
+        {icon ? (
+          <Pressable
+            testID={`${testID}-icon`}
+            onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}
+            style={[tw`h-full absolute right-3 flex justify-center`, disableSubmit ? tw`opacity-50` : {}]}
+          >
+            <Icon id={icon} style={tw`w-5 h-5`} />
+          </Pressable>
+        ) : null}
       </View>
 
-      {errorMessage.length > 0 && errorMessage[0] && touched ? (
-        <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
-      ) : null}
-      {hint && errorMessage.length === 0 && errorMessage[0] && touched ? (
-        <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
-      ) : null}
+      <Text style={tw`tooltip text-error-main mt-1 ml-3`}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )
 }
