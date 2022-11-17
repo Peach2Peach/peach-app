@@ -81,7 +81,7 @@ export const Message = ({
             {!!title && <Text style={[tw`h6 text-center`, levelColorMap.text[level]]}>{title}</Text>}
           </View>
           {!!message && (
-            <Text style={[tw`body-1 text-center`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
+            <Text style={[tw`body-m text-center`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
           )}
         </View>
         <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>

@@ -17,7 +17,7 @@ export type PeachTextProps = ComponentProps & TextProps
  * </Text>
  */
 export const PeachText = ({ style, ...props }: TextProps): ReactElement => (
-  <Text style={[tw`body-1 text-grey-1`, style]} allowFontScaling={false} {...props} />
+  <Text style={[tw`body-m text-grey-1`, style]} allowFontScaling={false} {...props} />
 )
 
 export default PeachText
