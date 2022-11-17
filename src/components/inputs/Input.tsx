@@ -17,7 +17,7 @@ import { IconType } from '../icons'
 type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
     label?: string
-    icon?: IconType
+    icons?: [IconType, () => void][]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
@@ -35,7 +35,7 @@ type InputProps = ComponentProps &
  * @param props Component properties
  * @param [props.value] current value
  * @param [props.label] input label
- * @param [props.icon] icon id
+ * @param [props.icons] array of icon components
  * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
@@ -61,7 +61,7 @@ export const Input = ({
   value,
   label,
   placeholder,
-  icon,
+  icons = [],
   required = true,
   multiline = false,
   autoCorrect = false,
@@ -73,6 +73,7 @@ export const Input = ({
   onSubmit,
   onFocus,
   onBlur,
+  onPressIn,
   secureTextEntry,
   returnKeyType,
   autoCapitalize,
@@ -113,15 +114,15 @@ export const Input = ({
       ) : null}
       <View
         style={[
-          tw`w-full flex flex-row items-center px-4 py-2 bg-primary-background-light overflow-hidden rounded-xl`,
-          tw`border border-grey-4`,
+          tw`w-full flex flex-row items-center justify-between px-4 py-2`,
+          tw`bg-primary-background-light overflow-hidden rounded-xl border border-grey-4`,
           showError ? tw`border-2 border-error-main` : {},
           style ? style : {},
         ]}
       >
         <TextInput
           style={[
-            tw`w-full h-full flex-shrink p-0 text-black-1 input-text`,
+            tw`w-full h-full flex-shrink text-black-1 input-text`,
             !showError ? tw`border border-transparent` : {},
             multiline ? tw`pt-2` : {},
             !value ? tw`text-black-4` : {},
@@ -144,20 +145,19 @@ export const Input = ({
             blurOnSubmit: false,
             onFocus: onFocusHandler,
             onBlur: onBlurHandler,
+            onPressIn,
             secureTextEntry,
             autoCorrect,
             autoCapitalize: autoCapitalize || 'none',
           }}
         />
-        {icon ? (
-          <Pressable
-            testID={`${testID}-icon`}
-            onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}
-            style={[tw`h-full absolute right-3 flex justify-center`, disableSubmit ? tw`opacity-50` : {}]}
-          >
-            <Icon id={icon} style={tw`w-5 h-5`} />
-          </Pressable>
-        ) : null}
+        <View style={tw`flex flex-row`}>
+          {icons.map(([icon, action]) => (
+            <Pressable onPress={action}>
+              <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={tw`text-black-1`.color} />
+            </Pressable>
+          ))}
+        </View>
       </View>
 
       <Text style={tw`tooltip text-error-main mt-1 ml-3`}>{showError ? errorMessage[0] : ' '}</Text>

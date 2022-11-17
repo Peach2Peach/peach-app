@@ -22,7 +22,7 @@ import download from './download.svg'
 import dropdownClosed from './dropdownClosed.svg'
 import dropdownOpen from './dropdownOpen.svg'
 import eyeOff from './eyeOff.svg'
-import file from './file.svg'
+import clipboard from './clipboard.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
@@ -91,7 +91,7 @@ const Icons = {
   dropdownClosed,
   dropdownOpen,
   eyeOff,
-  file,
+  clipboard,
   fire,
   fundEscrow,
   heart,
