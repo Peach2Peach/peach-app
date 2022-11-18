@@ -27,21 +27,21 @@ export default ({ navigation }: Props): ReactElement => {
   const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+    <PeachScrollView contentContainerStyle={tw`px-6 pt-6 pb-10`}>
       <Title title={i18n('contact.title')} />
-      <View style={tw`h-full flex-shrink overflow-hidden rounded mt-12`}>
-        <Shadow shadow={innerShadow} style={tw`w-full h-full border border-grey-4 rounded`}>
-          <PeachScrollView contentContainerStyle={[tw`p-10 flex items-center justify-center`, tw.md`p-12`]}>
+      <View style={tw`overflow-hidden rounded mt-12`}>
+        <Shadow shadow={innerShadow} style={tw`border border-grey-4 rounded`}>
+          <View style={[tw`p-10 flex items-center justify-center`]}>
             <Text style={tw`text-center mb-8`}>{i18n('contact.whyAreYouContactingUs')}</Text>
             {contactReasons.map((name) => (
               <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
             ))}
-          </PeachScrollView>
+          </View>
         </Shadow>
       </View>
       <View style={tw`flex items-center mt-12`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <Button title={i18n('back')} wide={false} secondary onPress={navigation.goBack} />
       </View>
-    </View>
+    </PeachScrollView>
   )
 }
