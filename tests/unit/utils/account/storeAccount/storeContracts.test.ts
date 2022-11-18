@@ -2,6 +2,7 @@ import { defaultAccount, setAccount } from '../../../../../src/utils/account'
 import { storeContracts } from '../../../../../src/utils/account/storeAccount'
 import * as fileUtils from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
+import * as contractData from '../../../data/contractData'
 import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
@@ -21,7 +22,7 @@ describe('storeContracts', () => {
     await storeContracts(accountData.account1.contracts, password)
     expect(writeFileSpy).toHaveBeenCalledWith(
       '/peach-account-contracts/14-15.json',
-      JSON.stringify(accountData.contract),
+      JSON.stringify(contractData.contract),
       password,
     )
   })

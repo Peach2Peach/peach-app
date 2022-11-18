@@ -1,18 +1,12 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useState } from 'react'
 import { Dimensions, Image, Pressable, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 
-export const CashLugano = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  onChange,
-}: PaymentMethodFormProps): ReactElement => {
+export const CashLugano = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
   const [bannerWidth, setBannerWidth] = useState(0)
   const [bannerHeight, setBannerHeight] = useState(0)
@@ -26,22 +20,20 @@ export const CashLugano = ({
   })
 
   const acknowledge = () => setDisclaimerAcknowledged(true)
-  const validateForm = () => disclaimerAcknowledged
+  const isFormValid = () => disclaimerAcknowledged
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    validateForm,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [disclaimerAcknowledged])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   useEffect(() => {
     const screenWidth = Dimensions.get('window').width

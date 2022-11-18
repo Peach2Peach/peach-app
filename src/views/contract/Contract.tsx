@@ -32,7 +32,6 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -173,7 +172,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const postConfirmPaymentBuyer = async () => {
     if (!contract) return
 
-    const [result, err] = await confirmPayment({ contractId: contract.id })
+    const [, err] = await confirmPayment({ contractId: contract.id })
 
     if (err) {
       error(err.error)

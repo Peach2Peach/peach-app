@@ -36,7 +36,6 @@ type MatchProps = ComponentProps & {
  * @example
  * <Match match={match} />
  */
-// eslint-disable-next-line max-lines-per-function
 export const Match = ({
   match,
   offer,
@@ -124,7 +123,11 @@ export const Match = ({
   return (
     <Shadow shadow={shadow}>
       <View
-        style={[tw`w-full border border-grey-4 bg-white-1 rounded-md`, match.matched ? tw`border-peach-1` : {}, style]}
+        style={[
+          tw`w-full border border-grey-4 bg-white-1 rounded-md my-5`,
+          match.matched ? tw`border-peach-1` : {},
+          style,
+        ]}
       >
         {match.matched ? (
           <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
@@ -198,11 +201,6 @@ export const Match = ({
             items={paymentMethodSelectorItems}
             onChange={setPaymentMethod}
           />
-          {/* <HorizontalLine style={tw`mt-5`}/>
-        {!match.kyc
-          ? <Headline style={tw`text-lg text-left`}>{i18n('kycFree')}</Headline>
-          : null
-        } */}
         </View>
       </View>
     </Shadow>

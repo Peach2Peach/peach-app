@@ -13,52 +13,38 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
-import { getMessages, rules } from '../../utils/validation'
 import { UNIQUEID } from '../../constants'
-const { useValidation } = require('react-native-form-validator')
+import { useValidatedState } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
   navigation: StackNavigation
 }
 
+const emailRules = { required: true, email: true }
+const required = { required: true }
+
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [email, setEmail] = useState('')
-  const [topic, setTopic] = useState(route.params.topic || '')
-  const [message, setMessage] = useState(route.params.message || '')
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
+  const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
+  const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   const reason = route.params.reason
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email, topic, message },
-    rules,
-    messages: getMessages(),
-  })
-
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
-    validate({
-      email: {
-        required: true,
-        email: true,
-      },
-      topic: {
-        required: true,
-      },
-      message: {
-        required: true,
-      },
-    })
-    if (!isFormValid()) return
+    setDisplayErrors(true)
+    const isFormValid = isEmailValid && isTopicValid && isMessageValid
+    if (!isFormValid) return
 
     let messageToSend = message
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
@@ -97,9 +83,9 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={email}
               label={i18n('form.userEmail')}
               placeholder={i18n('form.userEmail.placeholder')}
-              isValid={!isFieldInError('email')}
+              isValid={isEmailValid}
               autoCorrect={false}
-              errorMessage={getErrorsInField('email')}
+              errorMessage={displayErrors ? emailErrors : undefined}
             />
           </View>
           <View style={tw`mt-2`}>
@@ -110,9 +96,9 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={topic}
               label={i18n('form.topic')}
               placeholder={i18n('form.topic.placeholder')}
-              isValid={!isFieldInError('topic')}
+              isValid={isTopicValid}
               autoCorrect={false}
-              errorMessage={getErrorsInField('topic')}
+              errorMessage={displayErrors ? topicErrors : undefined}
             />
           </View>
           <View style={tw`mt-2`}>
@@ -124,9 +110,9 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={!isFieldInError('message')}
+              isValid={isMessageValid}
               autoCorrect={false}
-              errorMessage={getErrorsInField('message')}
+              errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row justify-center items-center mt-5`}>

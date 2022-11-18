@@ -5,7 +5,7 @@ import analytics from '@react-native-firebase/analytics'
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
-import { BigTitle } from '../../components'
+import { BigTitle, PeachScrollView } from '../../components'
 import { account, updateTradingLimit } from '../../utils/account'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -48,17 +48,17 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [])
 
   return (
-    <View style={tw`h-full flex pb-10 px-6`}>
-      <View style={tw`h-full flex-shrink flex justify-center`}>
+    <PeachScrollView style={tw`h-full flex pb-10 px-6`}>
+      <View style={tw`flex-shrink flex justify-center`}>
         <BigTitle title={i18n(`tradeComplete.title.${view}.default`)} />
       </View>
       <Rate
-        style={tw`flex justify-between h-full flex-shrink`}
+        style={tw`flex flex-shrink pb-10`}
         contract={contract}
         view={view}
         navigation={navigation}
         saveAndUpdate={saveAndUpdate}
       />
-    </View>
+    </PeachScrollView>
   )
 }

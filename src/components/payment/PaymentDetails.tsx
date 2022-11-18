@@ -39,9 +39,8 @@ type PaymentDetailsProps = ComponentProps & {
   navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
-// eslint-disable-next-line max-lines-per-function
 export default ({ paymentData, editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
-  const [random, setRandom] = useState(0)
+  const [, setRandom] = useState(0)
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {

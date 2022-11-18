@@ -1,14 +1,14 @@
-
-import React, { ReactElement, Ref, useEffect, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { LayoutChangeEvent, ScrollView, ScrollViewProps, View } from 'react-native'
 import tw from '../styles/tailwind'
 
-type PeachScrollViewProps = ComponentProps & ScrollViewProps & {
-  scrollRef?: (ref: ScrollView) => void,
-  disable?: boolean,
-  onContainerLayout?: (e: LayoutChangeEvent) => void,
-  onContentLayout?: (e: LayoutChangeEvent) => void,
-}
+type PeachScrollViewProps = ComponentProps &
+  ScrollViewProps & {
+    scrollRef?: (ref: ScrollView) => void
+    disable?: boolean
+    onContainerLayout?: (e: LayoutChangeEvent) => void
+    onContentLayout?: (e: LayoutChangeEvent) => void
+  }
 
 /**
  * @description Component to add scroll functionality withing AvoidKeyboard
@@ -43,8 +43,9 @@ export const PeachScrollView = ({
     if (scrollRef && $scroll.current) scrollRef($scroll.current)
   }, [$scroll])
 
-  return !disable
-    ? <ScrollView ref={$scroll}
+  return !disable ? (
+    <ScrollView
+      ref={$scroll}
       horizontal={horizontal}
       onScroll={onScroll}
       scrollEventThrottle={scrollEventThrottle}
@@ -52,15 +53,15 @@ export const PeachScrollView = ({
       removeClippedSubviews={false}
       contentContainerStyle={contentContainerStyle || {}}
       onLayout={onContainerLayout}
-      style={style || {}}>
-      <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`}
-        onLayout={onContentLayout}>
+      style={style || {}}
+    >
+      <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`} onLayout={onContentLayout}>
         {children}
       </View>
     </ScrollView>
-    : <View style={style}>
-      {children}
-    </View>
+  ) : (
+    <View style={style}>{children}</View>
+  )
 }
 
 export default PeachScrollView

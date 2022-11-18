@@ -80,7 +80,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         return
       }
       updateOverlay({
-        content: <Refund {...{ offer, navigate, navigation }} />,
+        content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
         showCloseButton: false,
       })
     }, 3000)

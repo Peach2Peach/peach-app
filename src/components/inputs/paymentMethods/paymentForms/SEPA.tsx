@@ -1,27 +1,32 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getMessages, rules } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
-const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
-export const SEPA = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  onChange,
-}: PaymentMethodFormProps): ReactElement => {
+const beneficiaryRules = { required: true }
+const notRequired = { required: false }
+const ibanRules = { required: true, iban: true }
+const bicRules = { required: true, bic: true }
+
+export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
-  const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
-  const [iban, setIBAN] = useState(data?.iban || '')
-  const [bic, setBIC] = useState(data?.bic || '')
-  const [address, setAddress] = useState(data?.address || '')
-  const [reference, setReference] = useState(data?.reference || '')
+  const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
+    data?.beneficiary || '',
+    beneficiaryRules,
+  )
+  const [iban, setIBAN, ibanIsValid, ibanErrors] = useValidatedState(data?.iban || '', ibanRules)
+  const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
+  const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(data?.address || '', notRequired)
+  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
+    data?.reference || '',
+    notRequired,
+  )
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
@@ -29,12 +34,12 @@ export const SEPA = ({
   let $address = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { label, beneficiary, iban, bic, address, reference },
-    rules,
-    messages: getMessages(),
-  })
+  const labelRules = {
+    required: true,
+    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  }
+
+  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & SEPAData => ({
     id: data?.id || `sepa-${new Date().getTime()}`,
@@ -48,46 +53,26 @@ export const SEPA = ({
     currencies: data?.currencies || currencies,
   })
 
-  const validateForm = () =>
-    validate({
-      label: {
-        required: true,
-        duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-      },
-      beneficiary: {
-        required: true,
-      },
-      iban: {
-        required: true,
-        iban: true,
-      },
-      bic: {
-        required: true,
-        bic: true,
-      },
-      address: {
-        required: false,
-      },
-      reference: {
-        required: false,
-      },
-    })
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return (
+      labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && addressIsValid && referenceIsValid
+    )
+  }
 
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
     onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    validateForm,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, iban, beneficiary, bic, address, reference])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View>
@@ -98,9 +83,9 @@ export const SEPA = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={!isFieldInError('label')}
+          isValid={labelErrors.length === 0}
           autoCorrect={false}
-          errorMessage={getErrorsInField('label')}
+          errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -111,9 +96,9 @@ export const SEPA = ({
           value={beneficiary}
           label={i18n('form.beneficiary')}
           placeholder={i18n('form.beneficiary.placeholder')}
-          isValid={!isFieldInError('beneficiary')}
+          isValid={beneficiaryIsValid}
           autoCorrect={false}
-          errorMessage={getErrorsInField('beneficiary')}
+          errorMessage={displayErrors ? beneficiaryErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -124,9 +109,9 @@ export const SEPA = ({
           value={iban}
           label={i18n('form.iban')}
           placeholder={i18n('form.iban.placeholder')}
-          isValid={!isFieldInError('iban')}
+          isValid={ibanIsValid}
           autoCorrect={false}
-          errorMessage={getErrorsInField('iban')}
+          errorMessage={displayErrors ? ibanErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -138,9 +123,9 @@ export const SEPA = ({
           required={true}
           label={i18n('form.bic')}
           placeholder={i18n('form.bic.placeholder')}
-          isValid={!isFieldInError('bic')}
+          isValid={bicIsValid}
           autoCorrect={false}
-          errorMessage={getErrorsInField('bic')}
+          errorMessage={displayErrors ? bicErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -152,9 +137,9 @@ export const SEPA = ({
           required={false}
           label={i18n('form.address')}
           placeholder={i18n('form.address.placeholder')}
-          isValid={!isFieldInError('address')}
+          isValid={addressIsValid}
           autoCorrect={false}
-          errorMessage={getErrorsInField('address')}
+          errorMessage={displayErrors ? addressErrors : undefined}
         />
       </View>
       <View style={tw`mt-6`}>
@@ -166,9 +151,9 @@ export const SEPA = ({
           required={false}
           label={i18n('form.reference')}
           placeholder={i18n('form.reference.placeholder')}
-          isValid={!isFieldInError('reference')}
+          isValid={referenceIsValid}
           autoCorrect={false}
-          errorMessage={getErrorsInField('reference')}
+          errorMessage={displayErrors ? referenceErrors : undefined}
         />
       </View>
     </View>
