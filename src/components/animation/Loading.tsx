@@ -19,14 +19,12 @@ type Props = ComponentProps & {
  *   color={tw`text-white-1`.color as string}
  * />
  */
+
 export const Loading = ({ style, color }: Props): JSX.Element => (
   <Lottie
-    style={[tw`w-20 `, style]}
+    style={[tw`w-20`, style]}
     source={require('../animation/lotties/loading.json')}
     autoPlay
-    colorFilters={[
-      // TODO : Change default color to peach primary light
-      { keypath: 'Composição 1', color: color ?? (tw`text-black-1`.color as string) },
-    ]}
+    colorFilters={[{ keypath: 'LFCamada de forma 1', color: color ?? (tw`text-primary-light`.color as string) }]}
   />
 )
