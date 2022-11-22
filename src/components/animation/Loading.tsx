@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import Lottie from 'lottie-react-native'
 import tw from '../../styles/tailwind'
-import { View } from 'react-native'
 
 type Props = ComponentProps & {
   color?: string

@@ -11,7 +11,7 @@ import { Progress } from '../ui'
 import { thousands } from '../../utils/string'
 
 type TradingLimitProps = ComponentProps & {
-  tradingLimit: TradingLimit,
+  tradingLimit: TradingLimit
 }
 export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactElement => {
   const [bitcoinContext] = useContext(BitcoinContext)
@@ -20,33 +20,36 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
 
   const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, showCloseButton: true, help: true })
 
-  return <View style={style}>
-    <View style={tw`flex-row justify-center items-center pl-11`}>
-      <Text style={tw`text-center text-grey-1 font-bold`}>
-        {i18n('profile.tradingLimits')}
-      </Text>
-      <Pressable style={tw`p-3`}
-        onPress={openTradingLimitHelp}>
-        <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
-      </Pressable>
+  return (
+    <View style={style}>
+      <View style={tw`flex-row justify-center items-center pl-11`}>
+        <Text style={tw`text-center text-grey-1 font-bold`}>{i18n('profile.tradingLimits')}</Text>
+        <Pressable style={tw`p-3`} onPress={openTradingLimitHelp}>
+          <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
+        </Pressable>
+      </View>
+      <Progress
+        style={tw`mt-1 rounded`}
+        percent={dailyAmount / daily}
+        text={i18n(
+          'profile.tradingLimits.daily',
+          bitcoinContext.currency,
+          thousands(dailyAmount),
+          daily === Infinity ? '∞' : thousands(daily),
+        )}
+      />
+      <Progress
+        style={tw`mt-1 rounded`}
+        percent={yearlyAmount / yearly}
+        text={i18n(
+          'profile.tradingLimits.yearly.short',
+          bitcoinContext.currency,
+          thousands(yearlyAmount),
+          yearly === Infinity ? '∞' : thousands(yearly),
+        )}
+      />
     </View>
-    <Progress
-      style={tw`mt-1 rounded`}
-      percent={dailyAmount / daily}
-      text={i18n(
-        'profile.tradingLimits.daily',
-        bitcoinContext.currency, thousands(dailyAmount), daily === Infinity ? '∞' : thousands(daily)
-      )}
-    />
-    <Progress
-      style={tw`mt-1 rounded`}
-      percent={yearlyAmount / yearly}
-      text={i18n(
-        'profile.tradingLimits.yearly.short',
-        bitcoinContext.currency, thousands(yearlyAmount), yearly === Infinity ? '∞' : thousands(yearly)
-      )}
-    />
-  </View>
+  )
 }
 
 export default TradingLimit

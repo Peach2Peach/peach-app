@@ -87,8 +87,11 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
     if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
     setLoading(false)

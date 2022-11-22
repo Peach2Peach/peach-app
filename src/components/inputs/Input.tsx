@@ -140,7 +140,7 @@ export const Input = ({
               label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {},
             ]}
             placeholder={placeholder}
-            placeholderTextColor={tw`text-grey-2`.color as string}
+            placeholderTextColor={tw`text-grey-2`.color}
             allowFontScaling={false}
             removeClippedSubviews={false}
             returnKeyType={returnKeyType}

@@ -117,7 +117,7 @@ export const FileInput = ({ fileName, isValid, style, errorMessage = [], onChang
         >
           {fileName || i18n('form.file')}
         </Text>
-        <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} color={tw`text-peach-1`.color as string} />
+        <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} color={tw`text-peach-1`.color} />
       </Shadow>
     </Pressable>
 

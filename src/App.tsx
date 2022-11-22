@@ -35,13 +35,12 @@ import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './const
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { initApp } from './init'
 import websocket from './init/websocket'
-import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 import { account, updateSettings } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
-import { compatibilityCheck } from './utils/system'
+import { compatibilityCheck, linkToAppStore } from './utils/system'
 
 enableScreens()
 
@@ -65,7 +64,7 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
   const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
@@ -83,15 +82,27 @@ const App: React.FC = () => {
   StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
-    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
+    updateMessage({
+      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: () => navigationRef.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
+    })
   })
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
-    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
+    updateMessage({
+      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: () => navigationRef.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
+    })
   })
 
-  useEffect(showMessageEffect(template || msg || msgKey, width, slideInAnim), [template, msg, msgKey, time])
+  useEffect(showMessageEffect(messageState.msgKey, width, slideInAnim), [messageState.msgKey, messageState.time])
 
   useEffect(() => {
     if (DEV !== 'true' && ISEMULATOR) {
@@ -122,9 +133,23 @@ const App: React.FC = () => {
         })
       }
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
-        updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
+        updateMessage({
+          msgKey: 'CRITICAL_UPDATE_AVAILABLE',
+          level: 'ERROR',
+          keepAlive: true,
+          action: linkToAppStore,
+          actionLabel: i18n('download'),
+          actionIcon: 'download',
+        })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
-        updateMessage({ template: <NewVersionAvailable />, level: 'WARN' })
+        updateMessage({
+          msgKey: 'UPDATE_AVAILABLE',
+          level: 'WARN',
+          keepAlive: true,
+          action: linkToAppStore,
+          actionLabel: i18n('download'),
+          actionIcon: 'download',
+        })
       }
     })()
   }, [])
@@ -160,7 +185,7 @@ const App: React.FC = () => {
             <PeachWSContext.Provider value={peachWS}>
               <AppContext.Provider value={[appContext, updateAppContext]}>
                 <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                  <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
+                  <MessageContext.Provider value={[messageState, updateMessage]}>
                     <DrawerContext.Provider
                       value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                     >
@@ -187,16 +212,9 @@ const App: React.FC = () => {
                               onClose={onCloseOverlay}
                             />
                           ) : null}
-                          {template || msg || msgKey ? (
-                            <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                              <Message
-                                template={template}
-                                msg={msg}
-                                msgKey={msgKey}
-                                level={level}
-                                close={close}
-                                style={{ minHeight: 60 }}
-                              />
+                          {messageState.msgKey ? (
+                            <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                              <Message {...messageState} />
                             </Animated.View>
                           ) : null}
                           <View style={tw`h-full flex-shrink`}>

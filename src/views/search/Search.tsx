@@ -10,11 +10,10 @@ import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { BigTitle, Button, Headline, Icon, Loading, Matches, PeachScrollView, SatsFormat, Text } from '../../components'
-import { Level, MessageContext } from '../../contexts/message'
+import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
@@ -99,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
-    updateMessage({ template: null, level: 'ERROR' })
+    updateMessage({ msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
     const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
@@ -162,8 +161,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!paymentDataForMethod) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
-          template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
+          msgKey: 'PAYMENT_DATA_MISSING',
           level: 'ERROR',
+          action: openAddPaymentMethodDialog,
+          actionLabel: i18n('PAYMENT_DATA_MISSING.action'),
+          keepAlive: true,
         })
         return
       }
@@ -220,10 +222,20 @@ export default ({ route, navigation }: Props): ReactElement => {
       error('Error', err)
       if (err?.error) {
         const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
-        updateMessage({
-          msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-          level: messageLevels[err?.error] || 'ERROR',
-        })
+        if (msgKey) {
+          updateMessage({
+            msgKey,
+            level: messageLevels[err?.error] || 'ERROR',
+          })
+        } else {
+          updateMessage({
+            msgKey: i18n('GENERAL_ERROR', ((err?.details as string[]) || []).join(', ')),
+            level: messageLevels[err?.error] || 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
+          })
+        }
       }
     }
     setMatchLoading(false)
@@ -244,8 +256,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
   }
@@ -327,8 +342,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         onError: (err) => {
           error('Could not fetch offer information for offer', offer.id)
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),
@@ -429,7 +447,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                     onPress={_toggleMatch}
                   />
                   <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
                   </Pressable>
                 </View>
               ) : (
@@ -441,7 +459,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                     onPress={() => _match(currentMatch)}
                   />
                   <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
                   </Pressable>
                 </View>
               )}

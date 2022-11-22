@@ -14,40 +14,43 @@ const linkToMobileWallet = () => {
 }
 const linkToBitbox = () => Linking.openURL('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
 
-export default (): ReactElement => <View style={tw`mb-12`}>
-  <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-    {i18n('iDontHaveAWallet.title')}
-  </Headline>
-  <Text style={tw`text-center text-white-1 mt-3`}>
-    {i18n('iDontHaveAWallet.mobileWallet')}
-  </Text>
-  <View style={tw`flex items-center mt-8`}>
-    <Button
-      style={tw`w-60`}
-      title={i18n(`iDontHaveAWallet.mobileWallet.${isIOS() ? 'iOS' : 'android'}`)}
-      secondary={true}
-      wide={false}
-      onPress={linkToMobileWallet}
-    />
-  </View>
-  <View style={tw`mt-10`}>
-    <Icon id="shiftCrypto" style={tw`w-64 h-64 opacity-40 absolute -top-6 left-1/2 -ml-32`}
-      color={tw`text-white-1`.color as string} />
+export default (): ReactElement => (
+  <View style={tw`mb-12`}>
     <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-      {i18n('iDontHaveAWallet.signingDevice.title')}
+      {i18n('iDontHaveAWallet.title')}
     </Headline>
-    <Text style={tw`text-center text-white-1 mt-3`}>
-      {i18n('iDontHaveAWallet.signingDevice.1')}
-      <Text style={tw`font-bold text-white-1`}> {i18n('iDontHaveAWallet.signingDevice.2')}</Text>
-    </Text>
+    <Text style={tw`text-center text-white-1 mt-3`}>{i18n('iDontHaveAWallet.mobileWallet')}</Text>
     <View style={tw`flex items-center mt-8`}>
       <Button
         style={tw`w-60`}
-        title={i18n('iDontHaveAWallet.signingDevice.cta')}
+        title={i18n(`iDontHaveAWallet.mobileWallet.${isIOS() ? 'iOS' : 'android'}`)}
         secondary={true}
         wide={false}
-        onPress={linkToBitbox}
+        onPress={linkToMobileWallet}
       />
     </View>
+    <View style={tw`mt-10`}>
+      <Icon
+        id="shiftCrypto"
+        style={tw`w-64 h-64 opacity-40 absolute -top-6 left-1/2 -ml-32`}
+        color={tw`text-white-1`.color}
+      />
+      <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
+        {i18n('iDontHaveAWallet.signingDevice.title')}
+      </Headline>
+      <Text style={tw`text-center text-white-1 mt-3`}>
+        {i18n('iDontHaveAWallet.signingDevice.1')}
+        <Text style={tw`font-bold text-white-1`}> {i18n('iDontHaveAWallet.signingDevice.2')}</Text>
+      </Text>
+      <View style={tw`flex items-center mt-8`}>
+        <Button
+          style={tw`w-60`}
+          title={i18n('iDontHaveAWallet.signingDevice.cta')}
+          secondary={true}
+          wide={false}
+          onPress={linkToBitbox}
+        />
+      </View>
+    </View>
   </View>
-</View>
+)

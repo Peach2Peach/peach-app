@@ -97,7 +97,14 @@ export default ({ route, navigation }: Props): ReactElement => {
             funding: result.funding,
           })
         },
-        onError: (err) => updateMessage({ msgKey: err.error || 'error.createEscrow', level: 'ERROR' }),
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'CREATE_ESCROW_ERROR',
+            level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
+          }),
       })
       : () => {},
     [sellOffer.id],
@@ -120,8 +127,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       },
       onError: (err) => {
         updateMessage({
-          msgKey: err.error || 'error.general',
+          msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
       },
     }),

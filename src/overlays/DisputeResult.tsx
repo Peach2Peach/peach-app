@@ -16,6 +16,7 @@ import { DisputeWonSeller } from './disputeResults/DisputeWonSeller'
 import { NonDispute } from './disputeResults/NonDispute'
 import { getChat, saveChat } from '../utils/chat'
 import { endDisputeSystemMessages } from '../utils/chat/createDisputeSystemMessages'
+import i18n from '../utils/i18n'
 
 type DisputeResultProps = {
   contractId: Contract['id']
@@ -52,8 +53,11 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
       },
       onError: (err) => {
         updateMessage({
-          msgKey: err.error || 'error.general',
+          msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
         updateOverlay({ content: null, showCloseButton: true })
         return navigation.navigate('contract', { contractId })
@@ -67,5 +71,19 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  return <Loading color={tw`text-white-1`.color as string} />
+  return !view || !contract || !offer ? (
+    <Loading color={tw`text-white-1`.color as string} />
+  ) : !hasWinner ? (
+    <NonDispute {...{ contract, navigate: goToContract }} />
+  ) : view === 'seller' ? (
+    isWinner ? (
+      <DisputeWonSeller {...{ contract, offer: offer as SellOffer, navigate: goToContract, navigation }} />
+    ) : (
+      <DisputeLostSeller {...{ contract, navigation, navigate: goToContract }} />
+    )
+  ) : isWinner ? (
+    <DisputeWonBuyer {...{ contract, navigate: goToContract }} />
+  ) : (
+    <DisputeLostBuyer {...{ contract, navigate: goToContract }} />
+  )
 }
