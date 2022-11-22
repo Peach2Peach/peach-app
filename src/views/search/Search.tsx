@@ -379,12 +379,12 @@ export default ({ route, navigation }: Props): ReactElement => {
               {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
             </Headline>
           )}
-          {searchingMatches && !matches.length ? (
-            <View style={tw`h-12`}>
+          {searchingMatches && !matches.length && (
+            <View style={tw`w-full items-center`}>
               <Loading />
               <Text style={tw`text-center`}>{i18n('loading')}</Text>
             </View>
-          ) : null}
+          )}
           {!searchingMatches && !matches.length ? (
             <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
           ) : null}

@@ -68,7 +68,9 @@ export default ({ navigation }: Props): ReactElement => {
   )
 
   return !user ? (
-    <Loading />
+    <View style={tw`w-full h-full items-center justify-center absolute`}>
+      <Loading />
+    </View>
   ) : (
     <View style={tw`h-full flex items-stretch`}>
       <PeachScrollView contentContainerStyle={tw`pt-6 px-7 pb-10`}>

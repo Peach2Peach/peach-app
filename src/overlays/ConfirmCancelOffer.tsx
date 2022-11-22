@@ -100,7 +100,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         />
         <Button style={tw`mt-2`} title={i18n('cancelOffer.confirm.ok')} tertiary={true} wide={false} onPress={ok} />
       </View>
-      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color as string} /> : null}
+      {loading && <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color as string} />}
     </View>
   )
 }

@@ -67,19 +67,5 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
     updateOverlay({ content: null, showCloseButton: true })
   }
 
-  return !view || !contract || !offer ? (
-    <Loading color={tw`text-white-1`.color as string} />
-  ) : !hasWinner ? (
-    <NonDispute {...{ contract, navigate: goToContract }} />
-  ) : view === 'seller' ? (
-    isWinner ? (
-      <DisputeWonSeller {...{ contract, offer: offer as SellOffer, navigate: goToContract, navigation }} />
-    ) : (
-      <DisputeLostSeller {...{ contract, navigate: goToContract }} />
-    )
-  ) : isWinner ? (
-    <DisputeWonBuyer {...{ contract, navigate: goToContract }} />
-  ) : (
-    <DisputeLostBuyer {...{ contract, navigate: goToContract }} />
-  )
+  return <Loading color={tw`text-white-1`.color as string} />
 }

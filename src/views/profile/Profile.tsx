@@ -127,11 +127,6 @@ export default ({ route, navigation }: Props): ReactElement => {
               <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string} />
             </View>
           </Pressable>
-          {updatePending ? (
-            <View style={tw`mt-4 h-10`}>
-              <Loading />
-            </View>
-          ) : null}
           {isMyAccount ? (
             <TradingLimit tradingLimit={getTradingLimit(bitcoinContext.currency)} style={tw`mt-4 px-2`} />
           ) : null}
@@ -141,6 +136,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
         </View>
       </PeachScrollView>
+      {updatePending && (
+        <View style={tw`w-full h-full items-center justify-center absolute`}>
+          <Loading />
+        </View>
+      )}
     </View>
   )
 }

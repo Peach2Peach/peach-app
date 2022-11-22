@@ -144,7 +144,7 @@ export default ({ navigation }: Props): ReactElement => {
             {i18n(loading ? 'newUser.title.create' : 'newUser.title.new')}
           </Text>
           {loading ? (
-            <View style={tw`h-1/2`}>
+            <View style={tw`w-full items-center`}>
               <Loading />
             </View>
           ) : (

@@ -72,7 +72,7 @@ export default ({ navigation }: Props): ReactElement => {
         <View style={tw`w-full`}>
           <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>{i18n('login.title')}</Text>
           {loading ? (
-            <View style={tw`h-1/2`}>
+            <View style={tw`w-full items-center`}>
               <Loading />
             </View>
           ) : (

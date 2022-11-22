@@ -190,7 +190,6 @@ export default ({ route, navigation }: Props): ReactElement => {
         >
           <View style={tw`h-full flex`}>
             <View style={tw`h-full flex-shrink`}>
-              {updatePending ? <Loading /> : null}
               {!updatePending && CurrentView ? (
                 <CurrentView
                   offer={offer}
@@ -218,6 +217,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
         </View>
       ) : null}
+      {updatePending && (
+        <View style={tw`w-full h-full items-center justify-center absolute`}>
+          <Loading />
+        </View>
+      )}
     </View>
   )
 }
