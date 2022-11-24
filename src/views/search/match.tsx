@@ -11,9 +11,8 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import React, { useContext } from 'react'
-import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
 import { StackNavigation } from '../../utils/navigation'
-import { Level, MessageContext } from '../../contexts/message'
+import { MessageContext } from '../../contexts/message'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '../../hooks/useNavigation'
 import { OverlayContext } from '../../contexts/overlay'
@@ -44,7 +43,7 @@ const handleMissingPaymentData = (
 ) => {
   error('Payment data could not be found for offer', offer.id)
   const openAddPaymentMethodDialog = () => {
-    updateMessage({ template: null, level: 'ERROR' })
+    updateMessage({ msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
     const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
@@ -59,8 +58,11 @@ const handleMissingPaymentData = (
     })
   }
   updateMessage({
-    template: <PaymentDataMissing {...{ openAddPaymentMethodDialog }} />,
+    msgKey: 'PAYMENT_DATA_MISSING',
     level: 'ERROR',
+    action: openAddPaymentMethodDialog,
+    actionLabel: i18n('PAYMENT_DATA_MISSING.action'),
+    keepAlive: true,
   })
 }
 
