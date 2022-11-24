@@ -149,7 +149,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                   )}
                 </View>
               </View>
-              <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
+              <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color} />
             </View>
             {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
               <View style={tw`flex items-center mt-3 mb-1`}>
@@ -175,7 +175,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                     : offer.type === 'ask'
                       ? tw`text-red`
                       : tw`text-green`
-                  ).color as string
+                  ).color
                 }
               />
               <Text
@@ -187,13 +187,13 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             <Icon
               id={icon || 'help'}
               style={tw`w-5 h-5`}
-              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color}
             />
           </View>
         )}
         {notifications > 0 ? (
           <Bubble
-            color={tw`text-green`.color as string}
+            color={tw`text-green`.color}
             style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
           >
             <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>

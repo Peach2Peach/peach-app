@@ -72,6 +72,9 @@ export default ({ navigation }: Props): ReactElement => {
     updateMessage({
       msgKey: e.message || 'AUTHENTICATION_FAILURE',
       level: 'ERROR',
+      action: () => navigation.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
     })
     if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
     deleteAccount({
@@ -214,7 +217,7 @@ export default ({ navigation }: Props): ReactElement => {
           </View>
           <View style={tw`w-full mt-10 flex items-center`}>
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <Button
               testID="newUser-register"

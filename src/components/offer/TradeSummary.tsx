@@ -47,7 +47,7 @@ const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactEl
       {url && showLink ? (
         <Pressable style={tw`flex-row justify-center items-center`} onPress={openLink}>
           <Text style={tw`text-peach-1 underline`}>{i18n(/giftCard/u.test(paymentMethod) ? 'buy' : 'open')}</Text>
-          <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+          <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
         </Pressable>
       ) : null}
     </View>
@@ -68,7 +68,7 @@ const Escrow = ({ contract }: TradeSummaryProps): ReactElement => (
       }
     >
       <Text style={tw`text-grey-2 underline`}>{i18n('escrow.viewInExplorer')}</Text>
-      <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+      <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
     </Pressable>
   </View>
 )
@@ -216,9 +216,9 @@ const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactEl
         <View style={tw`flex-row justify-center items-center`}>
           <Text onPress={goToUserProfile}>Peach{tradingPartner.id.substring(0, 8)}</Text>
           {ratingTradingPartner === 1 ? (
-            <Icon id="positive" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+            <Icon id="positive" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
           ) : ratingTradingPartner === -1 ? (
-            <Icon id="negative" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+            <Icon id="negative" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
           ) : null}
         </View>
         <HorizontalLine style={tw`mt-4`} />
@@ -251,7 +251,7 @@ const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactEl
               }
             >
               <Text>{i18n('escrow.viewInExplorer')}</Text>
-              <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
+              <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
             </Pressable>
           </View>
         ) : null}

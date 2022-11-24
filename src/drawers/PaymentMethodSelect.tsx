@@ -35,9 +35,7 @@ export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: Pay
             <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`} onPress={() => select(method)}>
               {i18n(`paymentMethod.${method}`)}
             </Text>
-            {method === selected ? (
-              <Icon id="check" style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-            ) : null}
+            {method === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} /> : null}
           </View>
           {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
         </View>

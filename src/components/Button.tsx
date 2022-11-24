@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import { View, Pressable, GestureResponderEvent } from 'react-native'
-import { Style } from 'twrnc/dist/esm/types'
+import { View, Pressable, GestureResponderEvent, TextStyle, ViewStyle } from 'react-native'
 import { Loading, Shadow, Text } from '.'
 import tw from '../styles/tailwind'
 import { mildShadowOrange } from '../utils/layout'
@@ -12,9 +11,9 @@ type ButtonProps = ComponentProps & {
   grey?: boolean
   help?: boolean
   red?: boolean
-  textColor?: Style
-  bgColor?: Style
-  activeBgColor?: Style
+  textColor?: TextStyle
+  bgColor?: ViewStyle
+  activeBgColor?: ViewStyle
   wide?: boolean
   disabled?: boolean
   loading?: boolean
@@ -43,7 +42,7 @@ const ButtonContent = ({
 
   const onPressInHandler = () => setActive(true)
   const onPressOutHandler = () => setActive(false)
-  const color = textColor
+  const color: TextStyle = textColor
     ? textColor
     : secondary
       ? tw`text-peach-1`
@@ -90,7 +89,7 @@ const ButtonContent = ({
         title
       ) : null}
 
-      {loading ? <Loading size="small" style={tw`h-1 absolute`} color={color.color as string} /> : null}
+      {loading ? <Loading size="small" style={tw`h-1 absolute`} color={color.color} /> : null}
     </Pressable>
   )
 }

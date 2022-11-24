@@ -48,7 +48,7 @@ export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help
         {showCloseIcon ? (
           <SafeAreaView style={tw`absolute z-20 top-5 right-5`}>
             <Pressable onPress={closeOverlay}>
-              <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color as string} />
+              <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color} />
             </Pressable>
           </SafeAreaView>
         ) : null}

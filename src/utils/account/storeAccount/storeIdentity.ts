@@ -8,7 +8,7 @@ import { info } from '../../log'
  * @returns promise resolving to encrypted settings
  */
 export const storeIdentity = async (acc: Account, password: string): Promise<void> => {
-  if (!acc.publicKey) throw new Error('error.ERROR_SAVE_ACCOUNT')
+  if (!acc.publicKey) throw new Error('ERROR_SAVE_ACCOUNT')
 
   info('Storing identity')
   await writeFile(
