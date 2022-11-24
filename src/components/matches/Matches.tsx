@@ -8,6 +8,7 @@ import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { MatchOfferButton, MatchHelpButton } from './buttons'
 import { useMatchStore } from './store'
+import shallow from 'zustand/shallow'
 
 /**
  * @description Component to display matches to the offer of the current route
@@ -21,10 +22,13 @@ export const Matches = (): ReactElement => {
     refetchOnEnd,
   } = useOfferMatches()
 
-  const { currentIndex, setCurrentIndex } = useMatchStore((state) => ({
-    currentIndex: state.currentIndex,
-    setCurrentIndex: state.setCurrentIndex,
-  }))
+  const { currentIndex, setCurrentIndex } = useMatchStore(
+    (state) => ({
+      currentIndex: state.currentIndex,
+      setCurrentIndex: state.setCurrentIndex,
+    }),
+    shallow,
+  )
 
   useEffect(() => {
     setCurrentIndex(0)
