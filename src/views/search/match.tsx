@@ -160,7 +160,7 @@ export const matchFn = async (
   if (result) {
     return result
   }
-  throw new Error(err)
+  throw new Error(err?.error)
 }
 
 export const updateMatchedStatus = (

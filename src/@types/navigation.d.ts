@@ -3,21 +3,13 @@ declare type RootStackParamList = {
   newUser: {}
   login: {}
   restoreBackup: {}
-  buy: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
-  }
+  buy: {}
   buyPreferences: {
     amount: number
     offer?: BuyOffer
     page?: number
   }
-  sell: {
-    amount: number
-    offer?: SellOffer
-    page?: number
-  }
+  sell: {}
   addPaymentMethod: {
     currencies?: Currency[]
     country?: Country
@@ -80,7 +72,9 @@ declare type RootStackParamList = {
   deleteAccount: {}
   fees: {}
   socials: {}
-  sellPreferences: {}
+  sellPreferences: {
+    amount: number
+  }
   reportFullScreen: {}
   splashScreen: {}
   welcome: {}

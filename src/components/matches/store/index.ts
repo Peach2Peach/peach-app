@@ -17,7 +17,7 @@ type MatchStore = {
 
 export const useMatchStore = create<MatchStore>()((set, get) => ({
   selectedCurrency: 'EUR',
-  selectedPaymentMethod: 'PayPal',
+  selectedPaymentMethod: 'paypal',
   currentIndex: 0,
   availableCurrencies: [],
   availablePaymentMethods: [],

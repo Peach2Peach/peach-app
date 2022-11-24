@@ -144,7 +144,7 @@ const App: React.FC = () => {
   useEffect(websocket(updatePeachWS, updateMessage), [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
-    if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
+    if (state) setCurrentPage(state.routes[state.routes.length - 1].name as keyof RootStackParamList)
   }
 
   useEffect(() => {

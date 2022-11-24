@@ -1,4 +1,8 @@
-export const getAvailableCurrencies = (offer: SellOffer | BuyOffer, match: Match, paymentMethod: string): Currency[] => {
+export const getAvailableCurrencies = (
+  offer: SellOffer | BuyOffer,
+  match: Match,
+  paymentMethod: PaymentMethod,
+): Currency[] => {
   const offerCurrencies = (Object.keys(offer.meansOfPayment) as Currency[]).filter((currency) =>
     offer.meansOfPayment[currency]?.includes(paymentMethod),
   )

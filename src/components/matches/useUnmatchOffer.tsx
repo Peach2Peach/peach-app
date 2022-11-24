@@ -24,7 +24,7 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
       !!offer?.id
         ? unmatchOffer({ offerId: offer.id, matchingOfferId })
         : Promise.reject(new Error('Offer Id not present')),
-    onError: (_error, _hero, context) => {
+    onError: (_error: { error: string }, _hero, context) => {
       queryClient.setQueryData(['matches', offer.id, currentPage], context?.previousData)
 
       error('Error', _error)

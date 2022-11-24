@@ -51,20 +51,22 @@ export const useOfferMatches = () => {
       }
     },
     onSuccess: (result) => {
-      if (result?.contractId) {
+
+      /* if (result?.contractId) {
         info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
         navigation.replace('contract', { contractId: result.contractId })
-      }
+      } */
     },
     keepPreviousData: true,
   })
 
   const refetchOnEnd = useCallback(() => {
-    if (!!data?.shouldRefetch) {
+
+    /* if (!!data?.shouldRefetch) {
       setPage((prev) => prev++)
       refetch()
-    }
-  }, [data?.shouldRefetch, refetch])
+    } */
+  }, [refetch])
 
   useRefetchOnNotification(refetch, offer.id)
 

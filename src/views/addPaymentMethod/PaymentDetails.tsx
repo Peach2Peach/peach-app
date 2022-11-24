@@ -16,7 +16,7 @@ type Props = {
   navigation: StackNavigation
 }
 
-const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList> = {
+const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
   sellPreferences: 'sell',
   paymentMethods: 'settings',
@@ -31,9 +31,9 @@ export default ({ route, navigation }: Props): ReactElement => {
       index: 2,
       routes: [
         { name: 'home' },
-        { name: (previousScreen[origin[0]] as string) || 'home' },
+        { name: previousScreen[origin[0]] || 'home' },
         {
-          name: origin[0] as string,
+          name: origin[0],
           params: origin[1],
         },
       ],

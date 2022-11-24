@@ -3,7 +3,7 @@ import { getPaymentMethods, paymentMethodAllowedForCurrency } from '../../utils/
 export const getAvailableMethods = (
   match: Match,
   currency: Currency,
-  mopsInCommon: Partial<Record<Currency, string[]>>,
+  mopsInCommon: Partial<Record<Currency, PaymentMethod[]>>,
 ) => {
   const paymentMethodsInCommon = getPaymentMethods(mopsInCommon)
   const allPaymentMethods = getPaymentMethods(match.meansOfPayment)

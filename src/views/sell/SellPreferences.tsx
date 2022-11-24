@@ -30,7 +30,7 @@ import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['sell'] }>
+  route: RouteProp<{ params: RootStackParamList['sellPreferences'] }>
   navigation: StackNavigation
 }
 

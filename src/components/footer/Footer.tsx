@@ -81,9 +81,9 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
 
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: keyof RootStackParamList) => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
-    navigation.navigate(page as string, {})
+    navigation.navigate(page, {})
   }
   const navigate = {
     home: () => navTo('home'),
