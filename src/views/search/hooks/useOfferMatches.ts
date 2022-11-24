@@ -1,0 +1,72 @@
+import { useCallback, useContext, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { error, info } from '../../../utils/log'
+import { getMatches } from '../../../utils/peachAPI'
+import { MessageContext } from '../../../contexts/message'
+import useRefetchOnNotification from './useRefetchOnNotification'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { useNavigation } from '../../../hooks/useNavigation'
+
+const PAGESIZE = 10
+const FIFTEEN_SECONDS = 15 * 1000
+
+const getMatchesFn = async ({ queryKey }: { queryKey: [string, string, number] }) => {
+  const [, offerId, page] = queryKey
+
+  info('Checking matches for', offerId)
+  const [result, err] = await getMatches({
+    offerId,
+    page,
+    size: PAGESIZE,
+    timeout: 30 * 1000,
+  })
+
+  if (result) {
+    info('matches: ', result.matches.length)
+    return result
+  } else if (err) {
+    error('Error', err)
+    throw new Error(err.error)
+  }
+  throw new Error()
+}
+
+export const useOfferMatches = () => {
+  const [, updateMessage] = useContext(MessageContext)
+  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const navigation = useNavigation()
+  const [page, setPage] = useState(0)
+
+  const { isLoading, data, refetch } = useQuery(['matches', offer.id || '', page], getMatchesFn, {
+    refetchInterval: FIFTEEN_SECONDS,
+    initialData: { matches: [], offerId: '' },
+    enabled: !!offer.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
+    onError: (requestError) => {
+      if (requestError === 'OFFER EXPIRED' || requestError === 'OFFER CANCELLED') {
+        navigation.navigate('yourTrades', {})
+        return
+      }
+      if (requestError !== 'UNAUTHORIZED' && typeof requestError === 'string') {
+        updateMessage({ msgKey: requestError, level: 'ERROR' })
+      }
+    },
+    onSuccess: (result) => {
+      if (result?.contractId) {
+        info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
+        navigation.replace('contract', { contractId: result.contractId })
+      }
+    },
+    keepPreviousData: true,
+  })
+
+  const refetchOnEnd = useCallback(() => {
+    if (!!data?.shouldRefetch) {
+      setPage((prev) => prev++)
+      refetch()
+    }
+  }, [data?.shouldRefetch, refetch])
+
+  useRefetchOnNotification(refetch, offer.id)
+
+  return { isLoading, data, refetchOnEnd }
+}

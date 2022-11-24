@@ -82,9 +82,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   let scroll = useRef<ScrollView>(null).current
 
-  const saveAndUpdate = (offerData: BuyOffer, shield = true) => {
+  const saveAndUpdate = (offerData: BuyOffer) => {
     setOffer(() => offerData)
-    if (offerData.id) saveOffer(offerData, undefined, shield)
+    if (offerData.id) saveOffer(offerData, undefined)
   }
 
   useEffect(() => {

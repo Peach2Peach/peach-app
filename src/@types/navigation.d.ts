@@ -1,5 +1,4 @@
 declare type RootStackParamList = {
-  [key: string]: {}
   home: {}
   newUser: {}
   login: {}
@@ -41,7 +40,6 @@ declare type RootStackParamList = {
   }
   search: {
     offer: SellOffer | BuyOffer
-    hasMatches?: boolean
   }
   contract: {
     contractId: Contract['id']
@@ -79,4 +77,8 @@ declare type RootStackParamList = {
   deleteAccount: {}
   fees: {}
   socials: {}
+  sellPreferences: {}
+  reportFullScreen: {}
+  splashScreen: {}
+  welcome: {}
 }

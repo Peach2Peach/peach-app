@@ -11,26 +11,24 @@ import { offerExists } from './offerExists'
  * @param disableSave if true, don't save account (performance)
  * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
  */
-export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false, shield = true): void => {
+export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false): void => {
   if (!offer.id) throw new Error('offerId is required')
 
   delete offer.user
 
   if (offerExists(offer.id)) {
-    account.offers = account.offers.map(o => {
+    account.offers = account.offers.map((o) => {
       if (o.id !== offer.id) return o
 
-      if (shield) {
-        if (o.paymentData) offer.paymentData = o.paymentData
-        if (offer.type === 'ask') {
-          if ((o as SellOffer).returnAddress) offer.returnAddress = (o as SellOffer).returnAddress
-        } else if ((o as BuyOffer).releaseAddress) {
-          offer.releaseAddress = (o as BuyOffer).releaseAddress
-        }
+      if (o.paymentData) offer.paymentData = o.paymentData
+      if (offer.type === 'ask') {
+        if (o.returnAddress) offer.returnAddress = o.returnAddress
+      } else if ((o as BuyOffer).releaseAddress) {
+        offer.releaseAddress = (o as BuyOffer).releaseAddress
       }
       return {
         ...o,
-        ...offer
+        ...offer,
       }
     })
   } else {
@@ -47,10 +45,9 @@ export const saveOffer = (offer: SellOffer|BuyOffer, disableSave = false, shield
 /**
  * @description Method to add offers to offer list
  * @param offers the offers
- * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
  */
-export const saveOffers = (offers: (SellOffer|BuyOffer)[], shield = true): void => {
+export const saveOffers = (offers: (SellOffer | BuyOffer)[]): void => {
   info('saveOffers', offers.length)
 
-  offers.map(offer => saveOffer(offer, true, shield))
+  offers.map((offer) => saveOffer(offer, true))
 }

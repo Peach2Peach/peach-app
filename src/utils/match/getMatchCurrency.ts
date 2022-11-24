@@ -6,14 +6,12 @@ import { getCurrencies, getMoPsInCommon, getPaymentMethods, hasMoPsInCommon } fr
  * @param match matched offer
  * @returns currency to select by default
  */
-export const getMatchCurrency = (offer: BuyOffer|SellOffer, match: Match) => {
+export const getMatchCurrency = (offer: BuyOffer | SellOffer, match: Match) => {
   const mops = hasMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
     ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
     : match.meansOfPayment
   const paymentMethodsInCommon = getPaymentMethods(mops)
   const currencies = getCurrencies(paymentMethodsInCommon.length ? mops : match.meansOfPayment)
 
-  return match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1
-    ? match.selectedCurrency
-    : currencies[0]
+  return currencies[0]
 }

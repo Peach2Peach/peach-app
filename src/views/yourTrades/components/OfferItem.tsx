@@ -49,7 +49,7 @@ const navigateToOffer = (
   }
 
   if (contract) {
-    if (contract && !contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
+    if (!contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
       return navigation.navigate('tradeComplete', { contract })
     }
     return navigation.navigate('contract', { contractId: contract.id })
@@ -60,13 +60,13 @@ const navigateToOffer = (
       return navigation.navigate('setReturnAddress', { offer })
     }
     if (offer.funding.status === 'FUNDED') {
-      return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
+      return navigation.navigate('search', { offer })
     }
     return navigation.navigate('fundEscrow', { offer })
   }
 
   if (offer.type === 'bid' && offer.online) {
-    return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
+    return navigation.navigate('search', { offer })
   }
 
   return navigation.navigate('yourTrades', {})

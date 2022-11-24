@@ -102,9 +102,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const { scrollable } = screens[page]
   let scroll = useRef<ScrollView>(null).current
 
-  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
+  const saveAndUpdate = (offerData: SellOffer) => {
     setOffer(offerData)
-    if (offerData.id) saveOffer(offerData, undefined, shield)
+    if (offerData.id) saveOffer(offerData, undefined)
   }
 
   useFocusEffect(

@@ -61,9 +61,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const subtitle
     = fundingStatus.status === 'MEMPOOL' ? i18n('sell.escrow.subtitle.mempool') : i18n('sell.escrow.subtitle')
 
-  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
+  const saveAndUpdate = (offerData: SellOffer) => {
     setOffer(offerData)
-    saveOffer(offerData, undefined, shield)
+    saveOffer(offerData, undefined)
   }
 
   const fundEscrowAddress = async () => {
