@@ -21,7 +21,15 @@ export const Matches = (): ReactElement => {
     refetchOnEnd,
   } = useOfferMatches()
 
-  const currentIndex = useMatchStore((state) => state.currentIndex)
+  const { currentIndex, setCurrentIndex } = useMatchStore((state) => ({
+    currentIndex: state.currentIndex,
+    setCurrentIndex: state.setCurrentIndex,
+  }))
+
+  useEffect(() => {
+    setCurrentIndex(0)
+  }, [setCurrentIndex])
+
   useEffect(() => {
     const seenMatches = (offer.seenMatches || []).concat([matches[currentIndex]?.offerId]).filter(unique())
     saveOffer({
