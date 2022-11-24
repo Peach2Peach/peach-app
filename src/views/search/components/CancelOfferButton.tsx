@@ -16,7 +16,7 @@ export default () => {
   const navigate = () => navigation.replace('yourTrades', {})
   const cancelOffer = () =>
     updateOverlay({
-      content: <ConfirmCancelOffer {...{ offer, navigate }} />,
+      content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
       showCloseButton: false,
     })
   return (
