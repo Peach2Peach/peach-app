@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
@@ -12,8 +12,8 @@ export const CashAmsterdam = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
-}: PaymentMethodFormProps): ReactElement => {
+  setStepValid,
+}: FormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
   const Banner = cashAmsterdam
 
@@ -26,22 +26,20 @@ export const CashAmsterdam = ({
   })
 
   const acknowledge = () => setDisclaimerAcknowledged(true)
-  const validateForm = () => disclaimerAcknowledged
+  const isFormValid = () => disclaimerAcknowledged
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    validateForm,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [disclaimerAcknowledged])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View style={tw`flex items-center bg-[#FF9500] pb-10`}>

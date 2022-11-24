@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
+import { Animated, Dimensions, SafeAreaView, StatusBar, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
@@ -83,6 +83,7 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
   const getCurrentPage = () => currentPage
 
+  StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
     updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
@@ -135,7 +136,7 @@ const App: React.FC = () => {
     handleNotificationsEffect({
       getCurrentPage,
       updateOverlay,
-      navigationRef,
+      navigation: navigationRef,
     }),
     [currentPage],
   )

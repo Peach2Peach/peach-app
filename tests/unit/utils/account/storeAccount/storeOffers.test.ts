@@ -2,6 +2,7 @@ import { defaultAccount, setAccount } from '../../../../../src/utils/account'
 import { storeOffers } from '../../../../../src/utils/account/storeAccount'
 import * as fileUtils from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
+import * as offerData from '../../../data/offerData'
 import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
@@ -21,12 +22,12 @@ describe('storeOffers', () => {
     await storeOffers(accountData.account1.offers, password)
     expect(writeFileSpy).toHaveBeenCalledWith(
       '/peach-account-offers/37.json',
-      JSON.stringify(accountData.buyOffer),
+      JSON.stringify(offerData.buyOffer),
       password,
     )
     expect(writeFileSpy).toHaveBeenCalledWith(
       '/peach-account-offers/38.json',
-      JSON.stringify(accountData.sellOffer),
+      JSON.stringify(offerData.sellOffer),
       password,
     )
   })

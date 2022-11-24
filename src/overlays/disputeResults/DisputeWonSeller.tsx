@@ -5,15 +5,17 @@ import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { Navigation } from '../../utils/navigation'
 import Refund from '../Refund'
 
 type DisputeWonSellerProps = {
-  contract: Contract,
-  offer: SellOffer,
-  navigate: () => void,
+  contract: Contract
+  offer: SellOffer
+  navigate: () => void
+  navigation: Navigation
 }
 
-export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSellerProps): ReactElement => {
+export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: DisputeWonSellerProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
@@ -31,34 +33,29 @@ export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSeller
       cancelConfirmationDismissed: true,
     })
     updateOverlay({
-      content: <Refund offer={offer} navigate={navigate} />,
-      showCloseButton: false
+      content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
+      showCloseButton: false,
     })
   }
 
-  return <View style={tw`px-6`}>
-    <Headline style={tw`text-3xl leading-3xl text-white-1`}>
-      {i18n('dispute.won')}
-    </Headline>
-    <View style={tw`flex justify-center items-center`}>
+  return (
+    <View style={tw`px-6`}>
+      <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('dispute.won')}</Headline>
       <View style={tw`flex justify-center items-center`}>
-        <Text style={tw`text-white-1 text-center`}>
-          {i18n('dispute.seller.won.text.1')}
-        </Text>
-        {!offer.refunded
-          ? <Text style={tw`text-white-1 text-center mt-2`}>
-            {i18n('dispute.seller.won.text.2')}
-          </Text>
-          : null
-        }
+        <View style={tw`flex justify-center items-center`}>
+          <Text style={tw`text-white-1 text-center`}>{i18n('dispute.seller.won.text.1')}</Text>
+          {!offer.refunded ? (
+            <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.won.text.2')}</Text>
+          ) : null}
+        </View>
+        <Button
+          style={tw`mt-5`}
+          title={i18n(offer.refunded ? 'close' : 'dispute.seller.won.button')}
+          secondary={true}
+          wide={false}
+          onPress={offer.refunded ? closeOverlay : refund}
+        />
       </View>
-      <Button
-        style={tw`mt-5`}
-        title={i18n(offer.refunded ? 'close' : 'dispute.seller.won.button')}
-        secondary={true}
-        wide={false}
-        onPress={offer.refunded ? closeOverlay : refund}
-      />
     </View>
-  </View>
+  )
 }

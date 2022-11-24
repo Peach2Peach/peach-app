@@ -14,6 +14,7 @@ type ButtonProps = ComponentProps & {
   red?: boolean
   textColor?: Style
   bgColor?: Style
+  activeBgColor?: Style
   wide?: boolean
   disabled?: boolean
   loading?: boolean
@@ -30,6 +31,7 @@ const ButtonContent = ({
   red,
   textColor,
   bgColor,
+  activeBgColor,
   loading,
   disabled,
   onPress,
@@ -54,7 +56,7 @@ const ButtonContent = ({
             : tw`text-white-2`
 
   const backgroundColor = bgColor ? bgColor : secondary || grey || help || red ? tw`bg-white-2` : tw`bg-peach-1`
-  const bgColorActive = grey ? tw`bg-grey-2` : tw`bg-peach-2`
+  const bgColorActive = activeBgColor ? activeBgColor : grey ? tw`bg-grey-2` : tw`bg-peach-2`
   const border = secondary
     ? tw`border border-peach-1`
     : tertiary
@@ -122,6 +124,7 @@ export const Button = ({
   textColor,
   bgColor,
   wide = true,
+  activeBgColor,
   style,
   testID,
   disabled,
@@ -139,6 +142,7 @@ export const Button = ({
         grey={grey}
         help={help}
         red={red}
+        activeBgColor={activeBgColor}
         textColor={textColor}
         bgColor={bgColor}
         disabled={disabled}
@@ -159,6 +163,7 @@ export const Button = ({
         textColor={textColor}
         bgColor={bgColor}
         disabled={disabled}
+        activeBgColor={activeBgColor}
         title={title}
         loading={loading}
         onPress={onPress}

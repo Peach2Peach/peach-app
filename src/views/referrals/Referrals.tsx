@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { View } from 'react-native'
-// import Share from 'react-native-share'
 
 import tw from '../../styles/tailwind'
 
@@ -19,7 +18,6 @@ type Props = {
   navigation: Navigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: Props): ReactElement => {
   const [user, setUser] = useState<User>()
   const pointsBalance = user?.bonusPoints || 0
@@ -59,7 +57,7 @@ export default ({ navigation }: Props): ReactElement => {
   useFocusEffect(
     useCallback(() => {
       ;(async () => {
-        const [response, err] = await getUserPrivate({ userId: account.publicKey })
+        const [response] = await getUserPrivate({ userId: account.publicKey })
 
         if (response) {
           setUser(response)

@@ -1,27 +1,24 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
 import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
-import WhatIsADispute from '../../overlays/WhatIsADispute'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
-import keyboard from '../../effects/keyboard'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
 import { error } from '../../utils/log'
 import { Navigation } from '../../utils/navigation'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
-import { getMessages, rules } from '../../utils/validation'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-const { useValidation } = require('react-native-form-validator')
+import { useValidatedState, useKeyboard } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['dispute'] }>
@@ -36,71 +33,49 @@ const disputeReasonsSeller: DisputeReason[] = [
   'disputeOther',
 ]
 const disputeReasonsBuyer: DisputeReason[] = ['satsNotReceived', 'sellerUnresponsive', 'sellerBehaviour', 'disputeOther']
-export const isEmailRequired = (reason: DisputeReason) => /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
+export const isEmailRequired = (reason: DisputeReason | '') =>
+  /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
-// eslint-disable-next-line max-lines-per-function
+const required = { required: true }
+
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const keyboardOpen = useKeyboard()
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
   const [start, setStart] = useState(false)
-  const [email, setEmail] = useState()
-  const [reason, setReason] = useState<DisputeReason>()
-  const [message, setMessage] = useState()
+  const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
+  const emailRules = useMemo(() => ({ email: isEmailRequired(reason!), required: isEmailRequired(reason!) }), [reason])
+  const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
+  const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email, message },
-    rules,
-    messages: getMessages(),
-  })
-
   useEffect(() => {
     setContractId(route.params.contractId)
     setContract(getContract(route.params.contractId))
     setStart(false)
-    setReason(undefined)
-    setMessage(undefined)
+    setReason('')
+    setMessage('')
     setLoading(false)
-  }, [route])
+  }, [route, setMessage, setReason])
 
-  useEffect(keyboard(setKeyboardOpen), [])
-
-  const startDispute = () => setStart(true)
-  const openExplainer = () =>
-    updateOverlay({
-      content: <WhatIsADispute />,
-      showCloseButton: true,
-    })
   const goBack = () => {
-    if (reason) return setReason(undefined)
+    if (reason) return setReason('')
     return setStart(false)
   }
 
   const submit = async () => {
     if (!contract?.symmetricKey) return
-
-    validate({
-      reason: {
-        required: true,
-      },
-      email: {
-        email: isEmailRequired(reason!),
-        required: isEmailRequired(reason!),
-      },
-      message: {
-        required: true,
-      },
-    })
-    if (!isFormValid() || !reason || !message) return
+    setDisplayErrors(true)
+    const isFormValid = reasonIsValid && emailIsValid && messageIsValid
+    if (!isFormValid || !reason || !message) return
     setLoading(true)
 
     const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(contract.symmetricKey, PEACHPGPPUBLICKEY)
@@ -181,9 +156,9 @@ export default ({ route, navigation }: Props): ReactElement => {
                 value={email}
                 label={i18n('form.userEmail')}
                 placeholder={i18n('form.userEmail.placeholder')}
-                isValid={!isFieldInError('email')}
+                isValid={emailIsValid}
                 autoCorrect={false}
-                errorMessage={getErrorsInField('email')}
+                errorMessage={displayErrors ? emailErrors : undefined}
               />
             </View>
           ) : null}
@@ -196,9 +171,9 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={!isFieldInError('message')}
+              isValid={messageIsValid}
               autoCorrect={false}
-              errorMessage={getErrorsInField('message')}
+              errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
           <Button

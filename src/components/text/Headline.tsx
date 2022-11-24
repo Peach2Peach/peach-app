@@ -1,8 +1,5 @@
-
 import React, { ReactElement } from 'react'
-import {
-  ViewStyle
-} from 'react-native'
+import { ViewStyle } from 'react-native'
 import { Text } from '.'
 import tw from '../../styles/tailwind'
 
@@ -18,13 +15,8 @@ type HeadlineProps = ComponentProps
  *   {i18n('form.save')}
  * </Headline>
  */
-export const Headline = ({ style, children }: HeadlineProps): ReactElement =>
-  <Text style={[
-    tw`font-baloo text-lg uppercase text-center text-peach-1`,
-    tw.md`text-xl`,
-    style as ViewStyle
-  ]}>
-    {children}
-  </Text>
+export const Headline = ({ style, children }: HeadlineProps): ReactElement => (
+  <Text style={[tw`h5 text-lg uppercase text-center text-peach-1`, style as ViewStyle]}>{children}</Text>
+)
 
 export default Headline

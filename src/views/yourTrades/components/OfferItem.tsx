@@ -6,10 +6,12 @@ import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
+import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
+import { info } from '../../../utils/log'
 import { StackNavigation } from '../../../utils/navigation'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
@@ -41,7 +43,7 @@ const navigateToOffer = (
       const navigate = () => {}
 
       updateOverlay({
-        content: <Refund offer={offer} navigate={navigate} />,
+        content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
         showCloseButton: false,
       })
     }
@@ -101,6 +103,14 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
+
+  const currency = contract
+    ? contract.currency
+    : offer.prices && offer.prices[account.settings.displayCurrency]
+      ? account.settings.displayCurrency
+      : Object.keys(offer.meansOfPayment)[0]
+  const price = contract?.price || Object(offer.prices)[currency]
+
   const icon = contract?.disputeWinner ? 'dispute' : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
@@ -131,7 +141,11 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                   {offer.type === 'ask' && contract?.cancelationRequested ? (
                     <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
                   ) : (
-                    <SatsFormat style={tw`text-lg`} sats={offer.amount} color={textColor2} />
+                    <Text style={textColor2}>
+                      <SatsFormat sats={offer.amount} color={textColor2} />
+                      {' - '}
+                      {i18n(`currency.format.${currency}`, price)}
+                    </Text>
                   )}
                 </View>
               </View>

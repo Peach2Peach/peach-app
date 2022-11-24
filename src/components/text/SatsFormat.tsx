@@ -1,19 +1,15 @@
 import React, { ReactElement } from 'react'
-import {
-  TextStyle,
-  View,
-} from 'react-native'
+import { TextStyle, View } from 'react-native'
 import { Text } from '.'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { addOpacityToColor } from '../../utils/layout'
 import { padString } from '../../utils/string'
 
 type SatsFormat = ComponentProps & {
-  sats: number,
-  format?: 'inline' | 'big',
-  color?: TextStyle,
+  sats: number
+  format?: 'inline' | 'big'
+  color?: TextStyle
 }
 
 /**
@@ -37,30 +33,33 @@ export const SatsFormat = ({ sats, format = 'inline', color, style }: SatsFormat
     string: sat,
     length: 8,
     char: '0',
-    side: 'left'
+    side: 'left',
   })
 
   const finalString = `${btc}.${sat.slice(-8, -6)} ${sat.slice(-6, -3)} ${sat.slice(-3, sat.length)}`
-  const cutIndex = satsString.length < 3
-    ? finalString.length - satsString.length
-    : satsString.length < 6
-      ? finalString.length - satsString.length - 1
-      : satsString.length < 9
-        ? finalString.length - satsString.length - 2
-        : 0
-  return format === 'inline'
-    ? <Text>
-      <Text style={[addOpacityToColor(color || tw`text-grey-2`, 0.5), style]}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={[color || tw`text-black-2`, style]}>
+  const cutIndex
+    = satsString.length < 3
+      ? finalString.length - satsString.length
+      : satsString.length < 6
+        ? finalString.length - satsString.length - 1
+        : satsString.length < 9
+          ? finalString.length - satsString.length - 2
+          : 0
+  return format === 'inline' ? (
+    <Text>
+      <Text style={[tw`text-black-6`, style]}>{finalString.slice(0, cutIndex)}</Text>
+      <Text style={[color || tw`text-black-1`, style]}>
         {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
       </Text>
     </Text>
-    : <View style={[tw`flex-row justify-start items-center`, style]}>
+  ) : (
+    <View style={[tw`flex-row justify-start items-center`, style]}>
       <Text style={tw`font-mono text-grey-3`}>{finalString.slice(0, cutIndex)}</Text>
       <Text style={tw`font-mono text-black-1`}>
         {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
       </Text>
     </View>
+  )
 }
 
 export default SatsFormat

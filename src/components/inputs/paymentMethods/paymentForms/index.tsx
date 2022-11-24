@@ -1,7 +1,6 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { OverlayContext } from '../../../../contexts/overlay'
-import keyboard from '../../../../effects/keyboard'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
 import { removePaymentData } from '../../../../utils/account'
@@ -30,26 +29,25 @@ import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
+import { useKeyboard } from '../../../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
-  buildPaymentData: () => PaymentData
   save: () => void
-  validateForm: () => boolean
 }
 
 export type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod
   data: Partial<PaymentData>
   currencies?: Currency[]
-  country?: Country
-  onSubmit?: (data: PaymentData) => void
-  onChange?: (data: Partial<PaymentData>) => void
+  onSubmit: (data: PaymentData) => void
   onDelete?: () => void
   back?: () => void
   navigation: StackNavigation
 }
-type PaymentMethodFormType = (props: PaymentMethodFormProps) => ReactElement
+export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
+
+type PaymentMethodFormType = (props: FormProps) => ReactElement
 export type PaymentMethodForms = {
   [key in PaymentMethod]?: PaymentMethodFormType
 }
@@ -83,14 +81,14 @@ export const PaymentMethodForm = ({
 }: PaymentMethodFormProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const keyboardOpen = useKeyboard()
   const [stepValid, setStepValid] = useState(false)
 
   const Form = PaymentMethodForms[paymentMethod]!
   let $formRef = useRef<FormRef>(null).current
 
   const submit = (newPaymentData: PaymentData) => {
-    if (!$formRef || !onSubmit) return
+    if (!$formRef || !stepValid) return
 
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
@@ -102,16 +100,10 @@ export const PaymentMethodForm = ({
     }
   }
 
-  const onChange = () => {
-    if ($formRef) setStepValid($formRef.validateForm())
-  }
-
   const remove = () => {
     if (data.id) removePaymentData(data.id)
     if ($formRef && onDelete) onDelete()
   }
-
-  useEffect(keyboard(setKeyboardOpen), [])
 
   return (
     <View style={[tw`flex`, style]}>
@@ -121,12 +113,8 @@ export const PaymentMethodForm = ({
       >
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
-          paymentMethod={paymentMethod}
-          data={data}
-          currencies={currencies}
           onSubmit={submit}
-          onChange={onChange}
-          navigation={navigation}
+          {...{ paymentMethod, data, currencies, setStepValid, navigation }}
         />
       </PeachScrollView>
       <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
@@ -141,9 +129,7 @@ export const PaymentMethodForm = ({
               id="arrowLeft"
               style={tw`w-10 h-10`}
               color={
-                specialTemplates[paymentMethod] && specialTemplates[paymentMethod]!.button
-                  ? (specialTemplates[paymentMethod]!.button!.bgColor.backgroundColor as string)
-                  : (tw`text-peach-1`.color as string)
+                (specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color) as string
               }
             />
           </Pressable>
@@ -154,10 +140,8 @@ export const PaymentMethodForm = ({
               wide={false}
               onPress={() => $formRef?.save()}
               title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-              textColor={
-                specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button?.textColor : undefined
-              }
-              bgColor={specialTemplates[paymentMethod] ? specialTemplates[paymentMethod]!.button?.bgColor : undefined}
+              textColor={specialTemplates[paymentMethod]?.button?.textColor}
+              bgColor={specialTemplates[paymentMethod]?.button?.bgColor}
             />
           </View>
         </View>
