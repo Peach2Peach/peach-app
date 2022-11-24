@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { error, info } from '../../../utils/log'
 import { getMatches } from '../../../utils/peachAPI'
@@ -6,6 +6,7 @@ import { MessageContext } from '../../../contexts/message'
 import useRefetchOnNotification from './useRefetchOnNotification'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { useNavigation } from '../../../hooks/useNavigation'
+import { useMatchStore } from '../../../components/matches/store'
 
 const PAGESIZE = 10
 const FIFTEEN_SECONDS = 15 * 1000
@@ -35,9 +36,9 @@ export const useOfferMatches = () => {
   const [, updateMessage] = useContext(MessageContext)
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
   const navigation = useNavigation()
-  const [page, setPage] = useState(0)
+  const currentPage = useMatchStore((state) => state.currentPage)
 
-  const { isLoading, data, refetch } = useQuery(['matches', offer.id || '', page], getMatchesFn, {
+  const { isLoading, data, refetch } = useQuery(['matches', offer.id || '', currentPage], getMatchesFn, {
     refetchInterval: FIFTEEN_SECONDS,
     initialData: { matches: [], offerId: '' },
     enabled: !!offer.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
@@ -66,7 +67,7 @@ export const useOfferMatches = () => {
       setPage((prev) => prev++)
       refetch()
     } */
-  }, [refetch])
+  }, [])
 
   useRefetchOnNotification(refetch, offer.id)
 
