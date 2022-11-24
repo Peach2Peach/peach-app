@@ -1,5 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
+import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Selector } from '../inputs'
@@ -9,7 +10,14 @@ import { useMatchStore } from './store'
 
 export default () => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
-  const { selectedPaymentMethod, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore()
+  const { selectedPaymentMethod, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
+    (state) => ({
+      selectedPaymentMethod: state.selectedPaymentMethod,
+      setSelectedPaymentMethod: state.setSelectedPaymentMethod,
+      availablePaymentMethods: state.availablePaymentMethods,
+    }),
+    shallow,
+  )
   const paymentMethodSelectorItems = availablePaymentMethods.map((p) => ({
     value: p,
     display: i18n(`paymentMethod.${p}`),

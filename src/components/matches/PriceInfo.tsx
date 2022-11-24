@@ -1,5 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod'
@@ -32,7 +33,10 @@ type PriceInfoProps = {
 }
 
 export default ({ match }: PriceInfoProps) => {
-  const { selectedCurrency, selectedPaymentMethod } = useMatchStore()
+  const { selectedCurrency, selectedPaymentMethod } = useMatchStore(
+    (state) => ({ selectedCurrency: state.selectedCurrency, selectedPaymentMethod: state.selectedPaymentMethod }),
+    shallow,
+  )
   const displayPrice = getDisplayPrice(match, selectedPaymentMethod, selectedCurrency)
   return (
     <>

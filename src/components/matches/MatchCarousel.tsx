@@ -7,6 +7,7 @@ import { Loading } from '../animation'
 import { PrevButton, NextButton } from './buttons'
 import Match from './Match'
 import { useMatchStore } from './store'
+import shallow from 'zustand/shallow'
 
 const { width } = Dimensions.get('window')
 const carouselConfig = {
@@ -37,7 +38,10 @@ export default () => {
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
-  const { currentIndex, setCurrentIndex: onBeforeSnapToItem } = useMatchStore()
+  const { currentIndex, onBeforeSnapToItem } = useMatchStore(
+    (state) => ({ currentIndex: state.currentIndex, onBeforeSnapToItem: state.setCurrentIndex }),
+    shallow,
+  )
 
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>

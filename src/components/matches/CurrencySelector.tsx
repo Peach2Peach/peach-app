@@ -6,10 +6,18 @@ import { Selector } from '../inputs'
 import { Headline } from '../text'
 import { HorizontalLine } from '../ui'
 import { useMatchStore } from './store'
+import shallow from 'zustand/shallow'
 
 export default () => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
-  const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useMatchStore()
+  const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useMatchStore(
+    (state) => ({
+      selectedCurrency: state.selectedCurrency,
+      setSelectedCurrency: state.setSelectedCurrency,
+      availableCurrencies: state.availableCurrencies,
+    }),
+    shallow,
+  )
   const currencySelectorItems = availableCurrencies.map((c) => ({ value: c, display: c }))
   return (
     <>

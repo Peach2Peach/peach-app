@@ -1,5 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { useEffect, useMemo } from 'react'
+import shallow from 'zustand/shallow'
 
 import { getAvailableCurrencies, getAvailableMethods, getMatchCurrency, getMatchPaymentMethod } from '../../utils/match'
 import { getMoPsInCommon, hasMoPsInCommon } from '../../utils/paymentMethod'
@@ -23,7 +24,17 @@ export const useMatchSetup = (match: Match) => {
     setSelectedPaymentMethod,
     setAvailableCurrencies,
     setAvailablePaymentMethods,
-  } = useMatchStore()
+  } = useMatchStore(
+    (state) => ({
+      selectedCurrency: state.selectedCurrency,
+      setSelectedCurrency: state.setSelectedCurrency,
+      selectedPaymentMethod: state.selectedPaymentMethod,
+      setSelectedPaymentMethod: state.setSelectedPaymentMethod,
+      setAvailableCurrencies: state.setAvailableCurrencies,
+      setAvailablePaymentMethods: state.setAvailablePaymentMethods,
+    }),
+    shallow,
+  )
 
   const defaultCurrency = useMemo(() => getMatchCurrency(offer, match), [offer, match])
   const defaultPaymentMethod = useMemo(() => getMatchPaymentMethod(offer, match), [offer, match])

@@ -9,7 +9,7 @@ import { useMatchStore } from './store'
 export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: string) => {
   const queryClient = useQueryClient()
   const [, updateMessage] = useContext(MessageContext)
-  const currentPage = useMatchStore().currentPage
+  const currentPage = useMatchStore((state) => state.currentPage)
 
   return useMutation({
     onMutate: async () => {

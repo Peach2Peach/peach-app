@@ -12,7 +12,7 @@ export const MatchOfferButton = () => {
   const {
     data: { matches },
   } = useOfferMatches()
-  const currentIndex = useMatchStore().currentIndex
+  const currentIndex = useMatchStore((state) => state.currentIndex)
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)

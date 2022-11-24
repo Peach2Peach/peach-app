@@ -20,6 +20,7 @@ import { OverlayContext } from '../../contexts/overlay'
 
 import { useMatchStore } from '../../components/matches/store'
 import { useRoute } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 
 const messageLevels: Record<string, Level> = {
   NOT_FOUND: 'WARN',
@@ -193,7 +194,14 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const { selectedCurrency, selectedPaymentMethod, currentPage } = useMatchStore()
+  const { selectedCurrency, selectedPaymentMethod, currentPage } = useMatchStore(
+    (state) => ({
+      selectedCurrency: state.selectedCurrency,
+      selectedPaymentMethod: state.selectedPaymentMethod,
+      currentPage: state.currentPage,
+    }),
+    shallow,
+  )
 
   return useMutation({
     onMutate: async () => {
