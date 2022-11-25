@@ -1,10 +1,10 @@
 import { useQueryClient, useMutation, InfiniteData } from '@tanstack/react-query'
 import { useContext } from 'react'
-import { MessageContext } from '../../contexts/message'
-import { error } from '../../utils/log'
-import { unmatchOffer } from '../../utils/peachAPI'
-import { updateMatchedStatus } from '../../views/search/match'
-import { useMatchStore } from './store'
+import { MessageContext } from '../../../contexts/message'
+import { error } from '../../../utils/log'
+import { unmatchOffer } from '../../../utils/peachAPI'
+import { updateMatchedStatus } from '../../../views/search/match'
+import { useMatchStore } from '../store'
 
 export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: string) => {
   const queryClient = useQueryClient()

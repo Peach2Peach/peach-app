@@ -9,7 +9,7 @@ import { UnmatchButton } from './buttons'
 import CurrencySelector from './CurrencySelector'
 import PaymentMethodSelector from './PaymentMethodSelector'
 import PriceInfo from './PriceInfo'
-import { useMatchSetup } from './useMatchSetup'
+import { useMatchSetup } from './hooks'
 import UserInfo from './UserInfo'
 
 type MatchProps = ComponentProps & {

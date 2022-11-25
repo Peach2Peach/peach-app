@@ -5,7 +5,7 @@ import tw from '../../../styles/tailwind'
 import { dropShadowRed } from '../../../utils/layout'
 import Icon from '../../Icon'
 import { Shadow } from '../../ui'
-import { useUnmatchOffer } from '../useUnmatchOffer'
+import { useUnmatchOffer } from '../hooks'
 
 export const UnmatchButton = ({ match }: { match: Match }) => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params

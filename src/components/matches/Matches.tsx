@@ -3,7 +3,7 @@ import MatchCarousel from './MatchCarousel'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { MatchOfferButton, MatchHelpButton } from './buttons'
-import { useMatchesSetup } from './useMatchesSetup'
+import { useMatchesSetup } from './hooks'
 
 /**
  * @description Component to display matches to the offer of the current route

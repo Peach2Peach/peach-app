@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { unique } from '../../utils/array'
-import { saveOffer } from '../../utils/offer'
-import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
+import { unique } from '../../../utils/array'
+import { saveOffer } from '../../../utils/offer'
+import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { useMatchStore } from './store'
+import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
 
 export const useMatchesSetup = () => {

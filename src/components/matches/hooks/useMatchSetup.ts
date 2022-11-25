@@ -2,9 +2,14 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import { useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 
-import { getAvailableCurrencies, getAvailableMethods, getMatchCurrency, getMatchPaymentMethod } from '../../utils/match'
-import { getMoPsInCommon, hasMoPsInCommon } from '../../utils/paymentMethod'
-import { useMatchStore } from './store'
+import {
+  getAvailableCurrencies,
+  getAvailableMethods,
+  getMatchCurrency,
+  getMatchPaymentMethod,
+} from '../../../utils/match'
+import { getMoPsInCommon, hasMoPsInCommon } from '../../../utils/paymentMethod'
+import { useMatchStore } from '../store'
 
 export const useMatchSetup = (match: Match) => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
