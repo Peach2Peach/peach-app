@@ -13,5 +13,5 @@ export const getMatchCurrency = (offer: BuyOffer | SellOffer, match: Match) => {
   const paymentMethodsInCommon = getPaymentMethods(mops)
   const currencies = getCurrencies(paymentMethodsInCommon.length ? mops : match.meansOfPayment)
 
-  return currencies[0]
+  return match.selectedCurrency && currencies.includes(match.selectedCurrency) ? match.selectedCurrency : currencies[0]
 }

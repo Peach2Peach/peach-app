@@ -13,5 +13,5 @@ export const getMatchPaymentMethod = (offer: BuyOffer | SellOffer, match: Match)
     ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
     : match.meansOfPayment
 
-  return mops[currency]![0]
+  return match.selectedPaymentMethod || mops[currency]![0]
 }
