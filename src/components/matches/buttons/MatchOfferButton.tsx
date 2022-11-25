@@ -1,10 +1,10 @@
 import React from 'react'
 import i18n from '../../../utils/i18n'
 import Button from '../../Button'
-import { useMatchOffer } from '../../../views/search/match'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
+import { useMatchOffer } from '../hooks/useMatchOffer'
 
 export const MatchOfferButton = () => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params

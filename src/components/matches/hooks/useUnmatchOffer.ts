@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
 import { error } from '../../../utils/log'
 import { unmatchOffer } from '../../../utils/peachAPI'
-import { updateMatchedStatus } from '../../../views/search/match'
+import { updateMatchedStatus } from '../utils/updateMatchedStatus'
 import { useMatchStore } from '../store'
 
 export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: string) => {
