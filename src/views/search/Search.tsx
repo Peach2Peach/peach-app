@@ -11,9 +11,7 @@ import MatchInformation from './components/MatchInformation'
 import NoMatchesYet from './components/NoMatchesYet'
 
 export default (): ReactElement => {
-  const {
-    data: { matches },
-  } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches()
 
   return (
     <PeachScrollView>

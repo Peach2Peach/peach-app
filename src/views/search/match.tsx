@@ -13,7 +13,7 @@ import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import React, { useContext } from 'react'
 import { StackNavigation } from '../../utils/navigation'
 import { MessageContext } from '../../contexts/message'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient, InfiniteData } from '@tanstack/react-query'
 import { useNavigation } from '../../hooks/useNavigation'
 import { OverlayContext } from '../../contexts/overlay'
 
@@ -168,13 +168,15 @@ export const matchFn = async (
 
 export const updateMatchedStatus = (
   isMatched: boolean,
-  oldQueryData: GetMatchesResponse | undefined,
+  oldQueryData: InfiniteData<GetMatchesResponse> | undefined,
   matchingOfferId: string,
   offer: BuyOffer | SellOffer,
+  currentPage: number,
   // eslint-disable-next-line max-params
 ) => {
   if (oldQueryData) {
-    const newMatches = oldQueryData.matches.map((m) => ({
+    const matches = oldQueryData.pages[currentPage]?.matches || []
+    const newMatches = matches.map((m) => ({
       ...m,
       matched: m.offerId === matchingOfferId ? isMatched : m.matched,
     }))
@@ -183,7 +185,11 @@ export const updateMatchedStatus = (
       ...offer,
       matched: matchedOffers,
     })
-    return { ...oldQueryData, matches: newMatches }
+
+    return {
+      ...oldQueryData,
+      pages: oldQueryData.pages.map((page, i) => (i === currentPage ? { ...page, matches: newMatches } : page)),
+    }
   }
   return oldQueryData
 }
@@ -207,10 +213,10 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries(['matches', offer.id, currentPage])
-      const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id, currentPage])
-      queryClient.setQueryData(['matches', offer.id, currentPage], (oldQueryData: GetMatchesResponse | undefined) =>
-        updateMatchedStatus(true, oldQueryData, matchingOfferId, offer),
+      await queryClient.cancelQueries(['matches', offer.id])
+      const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id])
+      queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
+        updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage),
       )
       if (!offer.meansOfPayment[selectedCurrency]?.includes(selectedPaymentMethod)) {
         updateOverlay({
@@ -235,7 +241,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       } else if (err !== 'No offer id' && err !== 'Missing paymentdata') {
         handleError(err, updateMessage)
       }
-      queryClient.setQueryData(['matches', offer.id, currentPage], context?.previousData)
+      queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },
     onSuccess: async (result: MatchResponse) => {
       const contractId = await handleRefundTx(offer, result)
@@ -245,7 +251,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['matches', offer.id, currentPage])
+      queryClient.invalidateQueries(['matches', offer.id])
     },
   })
 }

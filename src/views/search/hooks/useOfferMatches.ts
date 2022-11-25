@@ -1,5 +1,5 @@
-import { useCallback, useContext } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useContext, useMemo } from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { error, info } from '../../../utils/log'
 import { getMatches } from '../../../utils/peachAPI'
 import { MessageContext } from '../../../contexts/message'
@@ -11,13 +11,13 @@ import { useMatchStore } from '../../../components/matches/store'
 const PAGESIZE = 10
 const FIFTEEN_SECONDS = 15 * 1000
 
-const getMatchesFn = async ({ queryKey }: { queryKey: [string, string, number] }) => {
-  const [, offerId, page] = queryKey
+const getMatchesFn = async ({ queryKey, pageParam = 0 }: { queryKey: [string, string]; pageParam?: number }) => {
+  const [, offerId] = queryKey
 
   info('Checking matches for', offerId)
   const [result, err] = await getMatches({
     offerId,
-    page,
+    page: pageParam,
     size: PAGESIZE,
     timeout: 30 * 1000,
   })
@@ -38,38 +38,36 @@ export const useOfferMatches = () => {
   const navigation = useNavigation()
   const currentPage = useMatchStore((state) => state.currentPage)
 
-  const { isLoading, data, refetch } = useQuery(['matches', offer.id || '', currentPage], getMatchesFn, {
-    refetchInterval: FIFTEEN_SECONDS,
-    initialData: { matches: [], offerId: '' },
-    enabled: !!offer.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
-    onError: (requestError) => {
-      if (requestError === 'OFFER EXPIRED' || requestError === 'OFFER CANCELLED') {
-        navigation.navigate('yourTrades', {})
-        return
-      }
-      if (requestError !== 'UNAUTHORIZED' && typeof requestError === 'string') {
-        updateMessage({ msgKey: requestError, level: 'ERROR' })
-      }
-    },
-    onSuccess: (result) => {
+  const { isLoading, data, refetch, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
+    ['matches', offer.id || ''],
+    getMatchesFn,
+    {
+      refetchInterval: FIFTEEN_SECONDS,
+      enabled: !!offer.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
+      onError: (requestError) => {
+        if (requestError === 'OFFER EXPIRED' || requestError === 'OFFER CANCELLED') {
+          navigation.navigate('yourTrades', {})
+          return
+        }
+        if (requestError !== 'UNAUTHORIZED' && typeof requestError === 'string') {
+          updateMessage({ msgKey: requestError, level: 'ERROR' })
+        }
+      },
+      onSuccess: (result) => {
 
-      /* if (result?.contractId) {
+        /* if (result?.contractId) {
         info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
         navigation.replace('contract', { contractId: result.contractId })
       } */
+      },
+      getNextPageParam: (lastPage) => (lastPage?.hasMoreMatches ? currentPage + 1 : undefined),
+      keepPreviousData: true,
     },
-    keepPreviousData: true,
-  })
-
-  const refetchOnEnd = useCallback(() => {
-
-    /* if (!!data?.shouldRefetch) {
-      setPage((prev) => prev++)
-      refetch()
-    } */
-  }, [])
+  )
 
   useRefetchOnNotification(refetch, offer.id)
 
-  return { isLoading, data, refetchOnEnd }
+  const allMatches = useMemo(() => [...(data?.pages || [])].flatMap((page) => page.matches), [data?.pages])
+
+  return { isLoading, allMatches, fetchNextPage, hasNextPage, isFetchingNextPage }
 }

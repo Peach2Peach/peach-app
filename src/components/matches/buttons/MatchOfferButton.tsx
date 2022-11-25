@@ -9,9 +9,7 @@ import { useMatchStore } from '../store'
 export const MatchOfferButton = () => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
 
-  const {
-    data: { matches },
-  } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches()
   const currentIndex = useMatchStore((state) => state.currentIndex)
   const currentMatch = matches[currentIndex]
 

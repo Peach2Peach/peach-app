@@ -17,10 +17,7 @@ import shallow from 'zustand/shallow'
  */
 export const Matches = (): ReactElement => {
   const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
-  const {
-    data: { matches },
-    refetchOnEnd,
-  } = useOfferMatches()
+  const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches()
 
   const { currentIndex, setCurrentIndex } = useMatchStore(
     (state) => ({
@@ -40,8 +37,8 @@ export const Matches = (): ReactElement => {
       ...offer,
       seenMatches,
     })
-    refetchOnEnd()
-  }, [currentIndex, matches, offer, refetchOnEnd])
+    if (currentIndex === matches.length - 1 && hasNextPage) fetchNextPage()
+  }, [currentIndex, fetchNextPage, hasNextPage, matches, offer])
 
   return (
     <View style={tw`h-full flex-shrink flex-col justify-end`}>

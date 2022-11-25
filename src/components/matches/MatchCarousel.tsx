@@ -31,10 +31,7 @@ const shouldRenderShadow = (currentIndex: number, index: number) =>
 
 export default () => {
   const $carousel = useRef<Carousel<any>>(null)
-  const {
-    data: { matches },
-    isLoading,
-  } = useOfferMatches()
+  const { allMatches: matches, isLoading, isFetchingNextPage } = useOfferMatches()
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
@@ -45,7 +42,7 @@ export default () => {
 
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>
-      {currentIndex !== 0 && <PrevButton onPress={snapToPrev} />}
+      {matches[currentIndex - 1] !== undefined && <PrevButton onPress={snapToPrev} />}
       <Carousel
         ref={$carousel}
         data={matches}
@@ -56,10 +53,10 @@ export default () => {
           </View>
         )}
       />
-      {currentIndex < matches.length - 1 && matches.length > 1 ? (
+      {matches[currentIndex + 1] !== undefined ? (
         <NextButton onPress={snapToNext} />
       ) : (
-        !!isLoading && <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
+        (isLoading || isFetchingNextPage) && <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
       )}
     </View>
   )

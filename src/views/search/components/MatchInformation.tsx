@@ -8,9 +8,7 @@ import { useOfferMatches } from '../hooks/useOfferMatches'
 
 export default () => {
   const { type, amount, premium } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params.offer
-  const {
-    data: { matches },
-  } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches()
   return (
     <>
       <Headline style={[tw`text-center text-2xl leading-2xl uppercase text-peach-1`, tw.md`text-3xl leading-3xl`]}>

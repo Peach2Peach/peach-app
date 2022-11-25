@@ -1,4 +1,4 @@
-import { useQueryClient, useMutation } from '@tanstack/react-query'
+import { useQueryClient, useMutation, InfiniteData } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { MessageContext } from '../../contexts/message'
 import { error } from '../../utils/log'
@@ -13,10 +13,10 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries(['matches', offer.id, currentPage])
-      const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id, currentPage])
-      queryClient.setQueryData(['matches', offer.id, currentPage], (oldQueryData: GetMatchesResponse | undefined) =>
-        updateMatchedStatus(false, oldQueryData, matchingOfferId, offer),
+      await queryClient.cancelQueries(['matches', offer.id])
+      const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id])
+      queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
+        updateMatchedStatus(false, oldQueryData, matchingOfferId, offer, currentPage),
       )
       return { previousData }
     },
@@ -25,7 +25,7 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
         ? unmatchOffer({ offerId: offer.id, matchingOfferId })
         : Promise.reject(new Error('Offer Id not present')),
     onError: (_error: { error: string }, _hero, context) => {
-      queryClient.setQueryData(['matches', offer.id, currentPage], context?.previousData)
+      queryClient.setQueryData(['matches', offer.id], context?.previousData)
 
       error('Error', _error)
       updateMessage({
@@ -34,7 +34,7 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
       })
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['matches', offer.id, currentPage])
+      queryClient.invalidateQueries(['matches', offer.id])
     },
   })
 }
