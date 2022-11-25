@@ -20,6 +20,7 @@ export const useMatchesSetup = () => {
 
   useEffect(() => {
     setCurrentIndex(0)
+    return () => setCurrentIndex(0)
   }, [setCurrentIndex])
 
   useEffect(() => {
