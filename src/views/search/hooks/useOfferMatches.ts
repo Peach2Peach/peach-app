@@ -7,6 +7,7 @@ import useRefetchOnNotification from './useRefetchOnNotification'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useMatchStore } from '../../../components/matches/store'
+import { useSearchRoute } from '../../../components/matches/hooks'
 
 const PAGESIZE = 10
 const FIFTEEN_SECONDS = 15 * 1000
@@ -34,7 +35,7 @@ const getMatchesFn = async ({ queryKey, pageParam = 0 }: { queryKey: [string, st
 
 export const useOfferMatches = () => {
   const [, updateMessage] = useContext(MessageContext)
-  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const { offer } = useSearchRoute().params
   const navigation = useNavigation()
   const currentPage = useMatchStore((state) => state.currentPage)
 

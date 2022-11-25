@@ -1,13 +1,13 @@
-import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { View } from 'react-native'
 import { Headline, SatsFormat, Text } from '../../../components'
+import { useSearchRoute } from '../../../components/matches/hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../hooks/useOfferMatches'
 
 export default () => {
-  const { type, amount, premium } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params.offer
+  const { type, amount, premium } = useSearchRoute().params.offer
   const { allMatches: matches } = useOfferMatches()
   return (
     <>

@@ -1,4 +1,3 @@
-import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -7,9 +6,10 @@ import { Headline } from '../text'
 import { HorizontalLine } from '../ui'
 import { useMatchStore } from './store'
 import shallow from 'zustand/shallow'
+import { useSearchRoute } from './hooks'
 
 export default () => {
-  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const { offer } = useSearchRoute().params
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useMatchStore(
     (state) => ({
       selectedCurrency: state.selectedCurrency,

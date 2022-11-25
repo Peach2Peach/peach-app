@@ -1,4 +1,3 @@
-import { RouteProp, useRoute } from '@react-navigation/native'
 import { useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 
@@ -10,9 +9,10 @@ import {
 } from '../../../utils/match'
 import { getMoPsInCommon, hasMoPsInCommon } from '../../../utils/paymentMethod'
 import { useMatchStore } from '../store'
+import { useSearchRoute } from './useSearchRoute'
 
 export const useMatchSetup = (match: Match) => {
-  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const { offer } = useSearchRoute().params
 
   const mopsInCommon = useMemo(
     () =>

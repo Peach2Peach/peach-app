@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { unique } from '../../../utils/array'
 import { saveOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
-import { RouteProp, useRoute } from '@react-navigation/native'
 import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
+import { useSearchRoute } from './useSearchRoute'
 
 export const useMatchesSetup = () => {
-  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const { offer } = useSearchRoute().params
   const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches()
 
   const { currentIndex, setCurrentIndex } = useMatchStore(

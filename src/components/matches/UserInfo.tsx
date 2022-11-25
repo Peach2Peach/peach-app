@@ -1,4 +1,3 @@
-import { RouteProp, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Pressable, View } from 'react-native'
 import { useNavigation } from '../../hooks/useNavigation'
@@ -7,6 +6,7 @@ import i18n from '../../utils/i18n'
 import { interpolate } from '../../utils/math'
 import { Text } from '../text'
 import { Rating, ExtraMedals } from '../user'
+import { useSearchRoute } from './hooks'
 
 type UserInfoProps = {
   match: Match
@@ -14,7 +14,7 @@ type UserInfoProps = {
 
 export default ({ match }: UserInfoProps) => {
   const navigation = useNavigation()
-  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const { offer } = useSearchRoute().params
   const rawRating = match.user.ratingCount === 0 && match.user.medals.includes('ambassador') ? 0.2 : match.user.rating
   const userRating = Math.round(interpolate(rawRating, [-1, 1], [0, 5]) * 10) / 10
 

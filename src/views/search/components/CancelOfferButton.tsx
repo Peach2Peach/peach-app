@@ -1,7 +1,7 @@
-import { RouteProp, useRoute } from '@react-navigation/native'
 import React, { useContext } from 'react'
 import { Pressable } from 'react-native'
 import { Text } from '../../../components'
+import { useSearchRoute } from '../../../components/matches/hooks'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks/useNavigation'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
@@ -10,7 +10,7 @@ import i18n from '../../../utils/i18n'
 
 export default () => {
   const navigation = useNavigation()
-  const { offer } = useRoute<RouteProp<{ params: RootStackParamList['search'] }>>().params
+  const { offer } = useSearchRoute().params
   const [, updateOverlay] = useContext(OverlayContext)
 
   const navigate = () => navigation.replace('yourTrades', {})
