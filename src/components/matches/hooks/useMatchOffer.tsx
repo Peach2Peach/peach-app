@@ -45,18 +45,16 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
 
       return { previousData }
     },
-    mutationFn: () => matchFn(match, offer, selectedCurrency, selectedPaymentMethod),
-    onError: (err: APIError | null | 'Missing values' | 'Missing paymentdata' | 'No offer id', _hero, context) => {
+    mutationFn: () => matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage),
+    onError: (err: 'Missing values' | 'Missing paymentdata' | undefined, _variables, context) => {
       if (err === 'Missing values') {
         error(
           'Match data missing values.',
           `selectedCurrency: ${selectedCurrency}`,
           `selectedPaymentMethod: ${selectedPaymentMethod}`,
         )
-      } else if (err === 'Missing paymentdata' && selectedCurrency && selectedPaymentMethod) {
+      } else if (err === 'Missing paymentdata') {
         handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
-      } else if (err !== 'No offer id' && err !== 'Missing paymentdata') {
-        handleError(err, updateMessage)
       }
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },

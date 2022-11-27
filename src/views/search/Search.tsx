@@ -6,12 +6,12 @@ import tw from '../../styles/tailwind'
 import { Matches, PeachScrollView } from '../../components'
 import CancelOfferButton from './components/CancelOfferButton'
 import GoHomeButton from './components/GoHomeButton'
-import { useOfferMatches } from './hooks/useOfferMatches'
 import MatchInformation from './components/MatchInformation'
 import NoMatchesYet from './components/NoMatchesYet'
+import { useSearchSetup } from './hooks/useSearchSetup'
 
 export default (): ReactElement => {
-  const { allMatches: matches } = useOfferMatches()
+  const matches = useSearchSetup()
 
   return (
     <PeachScrollView>

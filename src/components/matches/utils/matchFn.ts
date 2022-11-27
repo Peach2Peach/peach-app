@@ -1,19 +1,18 @@
+import { error } from '../../../utils/log'
 import { matchOffer } from '../../../utils/peachAPI'
 import { generateMatchOfferData } from './generateMatchOfferData'
+import { handleError } from './handleError'
 
 export const matchFn = async (
   match: Match,
   offer: BuyOffer | SellOffer,
-  selectedCurrency?: Currency,
-  selectedPaymentMethod?: PaymentMethod,
+  selectedCurrency: Currency | undefined,
+  selectedPaymentMethod: PaymentMethod | undefined,
+  updateMessage: (value: MessageState) => void,
   // eslint-disable-next-line max-params
 ) => {
-  if (!offer?.id) {
-    throw new Error('No offer id')
-  }
-  if (!selectedCurrency || !selectedPaymentMethod) {
-    throw new Error('Missing values')
-  }
+  if (!offer?.id) throw new Error()
+  if (!selectedCurrency || !selectedPaymentMethod) throw new Error('Missing values')
 
   const matchOfferData = await generateMatchOfferData(offer, match, selectedCurrency, selectedPaymentMethod)
   if (!matchOfferData) throw new Error('Missing paymentdata')
@@ -23,5 +22,7 @@ export const matchFn = async (
   if (result) {
     return result
   }
-  throw new Error(err?.error)
+  error('Error', err)
+  handleError(err, updateMessage)
+  throw new Error()
 }
