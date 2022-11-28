@@ -3,30 +3,10 @@ import { View } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { getPaymentMethodInfo } from '../../utils/paymentMethod'
-import { padString } from '../../utils/string'
 import { Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { useMatchStore } from './store'
-
-const getDisplayPrice = (match: Match, selectedPaymentMethod: PaymentMethod, selectedCurrency: Currency) => {
-  const paymentInfo = getPaymentMethodInfo(selectedPaymentMethod)
-  let displayPrice = String(
-    match.matched && match.matchedPrice
-      ? match.matchedPrice
-      : paymentInfo?.rounded
-        ? Math.round(match.prices[selectedCurrency]!)
-        : match.prices[selectedCurrency],
-  )
-  displayPrice = `${displayPrice.split('.')[0]}.${padString({
-    string: displayPrice.split('.')[1],
-    length: 2,
-    char: '0',
-    side: 'right',
-  })}`
-
-  return displayPrice
-}
+import { getDisplayPrice } from './utils'
 
 type PriceInfoProps = {
   match: Match
