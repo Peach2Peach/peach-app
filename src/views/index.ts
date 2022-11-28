@@ -28,7 +28,6 @@ import PaymentMethods from './settings/PaymentMethods'
 import SeedWords from './settings/SeedWords'
 import Settings from './settings/Settings'
 import Socials from './settings/Socials'
-import SplashScreen from './splashScreen/SplashScreen'
 import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
@@ -42,7 +41,6 @@ type ViewType = {
 }
 
 export const views: ViewType[] = [
-  { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
   { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
   { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
   { name: 'login', component: Login, showHeader: false, showFooter: false },

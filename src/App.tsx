@@ -76,7 +76,7 @@ const App: React.FC = () => {
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
-  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
+  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>(account?.publicKey ? 'home' : 'welcome')
   const getCurrentPage = () => currentPage
 
   StatusBar.setBarStyle('dark-content', true)

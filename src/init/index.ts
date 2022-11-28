@@ -1,6 +1,7 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
+import SplashScreen from 'react-native-splash-screen'
 import { dataMigration } from '../init/dataMigration'
 import events from '../init/events'
 import requestUserPermissions from '../init/requestUserPermissions'
@@ -79,11 +80,6 @@ const initialNavigation = async (
         })
       }
     }
-  } else if (navigationRef.getCurrentRoute()?.name === 'splashScreen') {
-    navigationRef.reset({
-      index: 0,
-      routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
-    })
   }
 
   messaging().onNotificationOpenedApp((remoteMessage) => {
@@ -116,6 +112,12 @@ export const initApp = async (
     dataMigration()
   }
 
+  navigationRef.reset({
+    index: 0,
+    routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
+  })
+
   initialNavigation(navigationRef, updateMessage, sessionInitiated)
+  SplashScreen.hide()
   await requestUserPermissions()
 }
