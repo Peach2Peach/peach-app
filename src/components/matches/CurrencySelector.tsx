@@ -6,10 +6,10 @@ import { Headline } from '../text'
 import { HorizontalLine } from '../ui'
 import { useMatchStore } from './store'
 import shallow from 'zustand/shallow'
-import { useSearchRoute } from './hooks'
+import { useRoute } from '../../hooks'
 
 export default () => {
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useMatchStore(
     (state) => ({
       selectedCurrency: state.selectedCurrency,
