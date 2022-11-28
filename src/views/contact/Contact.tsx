@@ -13,61 +13,35 @@ type Props = {
   navigation: StackNavigation
 }
 
+const contactReasons = ['bug', 'userProblem', 'question', 'newMethod', 'other'] as const
+type ContactReason = typeof contactReasons[number]
+type ContactButtonProps = { name: ContactReason; setReason: Function }
+
+const ContactButton = ({ name, setReason }: ContactButtonProps) => (
+  <Button title={i18n(`contact.reason.${name}`)} onPress={() => setReason(name)} style={tw`mt-2`} wide secondary />
+)
+
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
 
   const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
 
-  return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-    <Title title={i18n('contact.title')} />
-    <View style={tw`h-full flex-shrink overflow-hidden rounded mt-12`}>
-      <Shadow shadow={innerShadow}
-        style={tw`w-full h-full border border-grey-4 rounded`}>
-        <PeachScrollView contentContainerStyle={[
-          tw`p-10 flex items-center justify-center`,
-          tw.md`p-12`,
-        ]}>
-          <Text style={tw`text-center mb-10`}>
-            {i18n('contact.whyAreYouContactingUs')}
-          </Text>
-          <Button
-            title={i18n('contact.reason.bug')}
-            onPress={() => setReason('bug')}
-            wide={true}
-            secondary={true}
-          />
-          <Button
-            title={i18n('contact.reason.userProblem')}
-            onPress={() => setReason('userProblem')}
-            style={tw`mt-2`}
-            wide={true}
-            secondary={true}
-          />
-          <Button
-            title={i18n('contact.reason.question')}
-            onPress={() => setReason('question')}
-            style={tw`mt-2`}
-            wide={true}
-            secondary={true}
-          />
-          <Button
-            title={i18n('contact.reason.other')}
-            onPress={() => setReason('other')}
-            style={tw`mt-2`}
-            wide={true}
-            secondary={true}
-          />
-        </PeachScrollView>
-      </Shadow>
-    </View>
-    <View style={tw`flex items-center mt-12`}>
-      <Button
-        title={i18n('back')}
-        wide={false}
-        secondary={true}
-        onPress={navigation.goBack}
-      />
-    </View>
-  </View>
+  return (
+    <PeachScrollView contentContainerStyle={tw`px-6 pt-6 pb-10`}>
+      <Title title={i18n('contact.title')} />
+      <View style={tw`overflow-hidden rounded mt-12`}>
+        <Shadow shadow={innerShadow} style={tw`border border-grey-4 rounded`}>
+          <View style={[tw`p-10 flex items-center justify-center`]}>
+            <Text style={tw`text-center mb-8`}>{i18n('contact.whyAreYouContactingUs')}</Text>
+            {contactReasons.map((name) => (
+              <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
+            ))}
+          </View>
+        </Shadow>
+      </View>
+      <View style={tw`flex items-center mt-12`}>
+        <Button title={i18n('back')} wide={false} secondary onPress={navigation.goBack} />
+      </View>
+    </PeachScrollView>
+  )
 }
-

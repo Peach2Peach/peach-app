@@ -1,7 +1,6 @@
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
-import i18n from './i18n'
-import { getNetwork } from './wallet'
+import { getNetwork } from '../wallet'
 
 const emailRegex
   = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
@@ -16,7 +15,7 @@ export const rules = {
   account (_: boolean, value: object) {
     return value && typeof value === 'object'
   },
-  phone: /^\+[0-9]{8,}$/u,
+  phone: /^\+[1-9][0-9]{7,}$/u,
   email: emailRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
@@ -76,23 +75,4 @@ export const rules = {
   },
 }
 
-export const getMessages = () => ({
-  default: {
-    required: i18n('form.required.error'),
-    number: i18n('form.invalid.error'),
-    phone: i18n('form.invalid.error'),
-    email: i18n('form.email.error'),
-    account: i18n('form.account.error'),
-    password: i18n('form.password.error'),
-    referralCode: i18n('form.invalid.error'),
-    bitcoinAddress: i18n('form.address.btc.error'),
-    tetherAddress: i18n('form.address.error'),
-    duplicate: i18n('form.duplicate.error'),
-    iban: i18n('form.iban.error'),
-    bic: i18n('form.bic.error'),
-    ukSortCode: i18n('form.invalid.error'),
-    ukBankAccount: i18n('form.invalid.error'),
-    userName: i18n('form.invalid.error'),
-    url: i18n('form.invalid.error'),
-  },
-})
+export type Rule = keyof typeof rules

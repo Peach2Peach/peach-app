@@ -10,30 +10,24 @@ import { OverlayContext } from '../../contexts/overlay'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
-import { getMessages, rules } from '../../utils/validation'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useValidatedState, useKeyboard } from '../../hooks'
 
-const { useValidation } = require('react-native-form-validator')
-
-// eslint-disable-next-line max-lines-per-function
+const addressRules = { required: true, bitcoinAddress: true }
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   useContext(LanguageContext)
 
-  const [address, setAddress] = useState(offer.releaseAddress)
+  const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
+    offer.releaseAddress || '',
+    addressRules,
+  )
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
   const [focused, setFocused] = useState(false)
   const keyboardOpen = useKeyboard()
   const [scanQR, setScanQR] = useState(false)
-
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { address },
-    rules,
-    messages: getMessages(),
-  })
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
@@ -66,14 +60,9 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
     setShortAddress(cutOffAddress(address || offer.releaseAddress || ''))
 
-    validate({
-      address: {
-        required: true,
-        bitcoinAddress: true,
-      },
-    })
-    if (!isFormValid()) {
+    if (!addressIsValid) {
       setStepValid(false)
+      setDisplayErrors(true)
       return
     }
 
@@ -87,7 +76,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       },
       false,
     )
-  }, [address])
+  }, [address, addressIsValid])
 
   return (
     <View style={tw`h-full flex-col justify-between px-6`}>
@@ -105,8 +94,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onFocus={focus}
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
-              isValid={!isFieldInError('address')}
-              errorMessage={getErrorsInField('address')}
+              isValid={addressIsValid}
+              errorMessage={displayErrors ? addressErrors : undefined}
             />
           </View>
           <IconButton icon="camera" title={i18n('scanQR')} style={tw`mr-2`} onPress={showQRScanner} />

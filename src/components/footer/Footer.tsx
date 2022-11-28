@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Shadow, Text } from '..'
@@ -15,7 +15,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../icons'
 import { Bubble } from '../ui'
 import { Navigation } from '../../utils/navigation'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -75,7 +75,6 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
  * @example
  * <Footer active={'home'} />
  */
-// eslint-disable-next-line max-lines-per-function
 export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
@@ -84,7 +83,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
 
   const navTo = (page: keyof RootStackParamList) => {
     setCurrentPage(page)
-    navigation.navigate({ name: page, merge: false, params: {} })
+    navigation.navigate(page as string, {})
   }
   const navigate = {
     home: () => navTo('home'),

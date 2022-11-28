@@ -6,6 +6,7 @@ import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { StackNavigation } from '../../../utils/navigation'
+import { getOffer, offerIdToHex } from '../../../utils/offer'
 
 const sellOrBuy = (offer: SellOffer | BuyOffer) => (offer.type === 'ask' ? 'sell' : 'buy')
 
@@ -24,6 +25,13 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
       showCloseButton: false,
     })
+
+  const goToOffer = () => {
+    if (!offer.newOfferId) return
+    const offr = getOffer(offer.newOfferId)
+    if (offr) navigation.replace('offer', { offer: offr })
+  }
+
   return (
     <View>
       <Title title={title} />
@@ -35,6 +43,11 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       ) : (
         <Text style={tw`text-grey-2 text-center -mt-1`}>{i18n('yourTrades.offerCanceled.subtitle')}</Text>
       )}
+      {offer.newOfferId ? (
+        <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+          {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
+        </Text>
+      ) : null}
       {status !== 'offerCanceled' ? (
         <Text style={tw`text-black-1 mt-5 text-center`}>{i18n('search.weWillNotifyYou')}</Text>
       ) : null}

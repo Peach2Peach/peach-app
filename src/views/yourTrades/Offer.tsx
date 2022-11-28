@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
-import { Button, PeachScrollView, Title } from '../../components'
+import { Button, PeachScrollView, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -25,11 +25,10 @@ import AppContext from '../../contexts/app'
 import { getChatNotifications } from '../../utils/chat'
 
 type Props = {
-  route: RouteProp<{ params: RootStackParamList['offer'] }>,
-  navigation: StackNavigation,
+  route: RouteProp<{ params: RootStackParamList['offer'] }>
+  navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -37,9 +36,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
 
   const offerId = route.params.offer.id as string
-  const offer = getOffer(offerId) as BuyOffer|SellOffer
+  const offer = getOffer(offerId) as BuyOffer | SellOffer
   const view = offer.type === 'ask' ? 'seller' : 'buyer'
-  const [contract, setContract] = useState(() => offer?.contractId ? getContract(offer.contractId) : null)
+  const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
 
@@ -47,128 +46,152 @@ export default ({ route, navigation }: Props): ReactElement => {
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
     ? isTradeComplete(contract)
-      ? i18n('yourTrades.offerCompleted.subtitle',
+      ? i18n(
+        'yourTrades.offerCompleted.subtitle',
         offerIdToHex(offer.id as Offer['id']),
-        finishedDate ? toShortDateFormat(finishedDate) : ''
+        finishedDate ? toShortDateFormat(finishedDate) : '',
       )
       : i18n('yourTrades.tradeCanceled.subtitle')
     : ''
 
-  const saveAndUpdate = (offerData: BuyOffer|SellOffer) => {
+  const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
   }
 
-  useFocusEffect(useCallback(() => {
-    const messageHandler = async (message: Message) => {
-      if (!contract) return
-      if (!message.message || message.roomId !== `contract-${contract.id}`) return
+  const goToOffer = () => {
+    if (!offer.newOfferId) return
+    const offr = getOffer(offer.newOfferId)
+    if (offr) navigation.replace('offer', { offer: offr })
+  }
 
-      setContract({
-        ...contract,
-        unreadMessages: contract.unreadMessages + 1
-      })
-    }
-    const unsubscribe = () => {
-      ws.off('message', messageHandler)
-    }
+  useFocusEffect(
+    useCallback(() => {
+      const messageHandler = async (message: Message) => {
+        if (!contract) return
+        if (!message.message || message.roomId !== `contract-${contract.id}`) return
 
-    if (!ws.connected) return unsubscribe
-
-    ws.on('message', messageHandler)
-
-    return unsubscribe
-  }, [contract, ws.connected]))
-
-  useFocusEffect(useCallback(getOfferDetailsEffect({
-    offerId,
-    interval: 30 * 1000,
-    onSuccess: result => {
-      if (!offer) return
-
-      saveAndUpdate({
-        ...offer,
-        ...result,
-      })
-
-      if (result.online && result.matches.length && !result.contractId) {
-        info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
-        navigation.replace('search', { offer })
-      }
-      if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
-        info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
-        navigation.replace('contract', { contractId: result.contractId })
-      } else if (result.contractId) {
-        setContractId(contractId)
-      }
-    },
-    onError: err => {
-      error('Could not fetch offer information for offer', offerId)
-      updateMessage({
-        msgKey: err.error || 'error.general',
-        level: 'ERROR',
-      })
-    }
-  }), [pnReceived, offer]))
-
-  useFocusEffect(useCallback(getContractEffect({
-    contractId,
-    onSuccess: async (result) => {
-      const c = {
-        ...getContract(result.id),
-        ...result
-      }
-      setContract(c)
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount()
-      })
-      handleOverlays({ contract: c, navigation, updateOverlay, view })
-    },
-    onError: err => updateMessage({
-      msgKey: err.error || 'error.general',
-      level: 'ERROR',
-    })
-  }), [contractId]))
-
-  useFocusEffect(useCallback(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null|void> => {
-      if (!remoteMessage.data) return
-
-      if (remoteMessage.data.type === 'offer.matchSeller') {
-        setPNReceived(Math.random())
-      } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
-        updateOverlay({
-          content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+        setContract({
+          ...contract,
+          unreadMessages: contract.unreadMessages + 1,
         })
       }
-    })
+      const unsubscribe = () => {
+        ws.off('message', messageHandler)
+      }
 
-    return unsubscribe
-  }, []))
+      if (!ws.connected) return unsubscribe
 
-  return <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
-    {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status)
-      ? <OfferSummary offer={offer} status={offerStatus.status} navigation={navigation} />
-      : null
-    }
-    {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status)
-      ? <View>
-        <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle}/>
-        <View style={tw`mt-7`}>
-          <ContractSummary
-            contract={contract} view={view}
-            navigation={navigation}
-          />
-          <View style={tw`flex items-center mt-4`}>
-            <Button
-              title={i18n('back')}
-              secondary={true}
-              wide={false}
-              onPress={() => navigation.navigate('yourTrades', {})}
-            />
+      ws.on('message', messageHandler)
+
+      return unsubscribe
+    }, [contract, ws.connected]),
+  )
+
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId,
+        interval: 30 * 1000,
+        onSuccess: (result) => {
+          if (!offer) return
+
+          saveAndUpdate({
+            ...offer,
+            ...result,
+          })
+
+          if (result.online && result.matches.length && !result.contractId) {
+            info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
+            navigation.replace('search', { offer })
+          }
+          if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
+            info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
+            navigation.replace('contract', { contractId: result.contractId })
+          } else if (result.contractId) {
+            setContractId(contractId)
+          }
+        },
+        onError: (err) => {
+          error('Could not fetch offer information for offer', offerId)
+          updateMessage({
+            msgKey: err.error || 'error.general',
+            level: 'ERROR',
+          })
+        },
+      }),
+      [pnReceived, offer],
+    ),
+  )
+
+  useFocusEffect(
+    useCallback(
+      getContractEffect({
+        contractId,
+        onSuccess: async (result) => {
+          const c = {
+            ...getContract(result.id),
+            ...result,
+          }
+          setContract(c)
+          updateAppContext({
+            notifications: getChatNotifications() + getRequiredActionCount(),
+          })
+          handleOverlays({ contract: c, navigation, updateOverlay, view })
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'error.general',
+            level: 'ERROR',
+          }),
+      }),
+      [contractId],
+    ),
+  )
+
+  useFocusEffect(
+    useCallback(() => {
+      const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null | void> => {
+        if (!remoteMessage.data) return
+
+        if (remoteMessage.data.type === 'offer.matchSeller') {
+          setPNReceived(Math.random())
+        } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
+          updateOverlay({
+            content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+          })
+        }
+      })
+
+      return unsubscribe
+    }, []),
+  )
+
+  return (
+    <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
+      {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status) ? (
+        <OfferSummary offer={offer} status={offerStatus.status} navigation={navigation} />
+      ) : null}
+      {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) ? (
+        <View>
+          <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
+          {offer.newOfferId ? (
+            <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+              {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
+            </Text>
+          ) : null}
+          <View style={tw`mt-7`}>
+            <ContractSummary contract={contract} view={view} navigation={navigation} />
+            <View style={tw`flex items-center mt-4`}>
+              <Button
+                title={i18n('back')}
+                secondary={true}
+                wide={false}
+                onPress={() => navigation.navigate('yourTrades', {})}
+              />
+            </View>
           </View>
         </View>
-      </View>
-      : null
-    }
-  </PeachScrollView>
+      ) : null}
+    </PeachScrollView>
+  )
 }

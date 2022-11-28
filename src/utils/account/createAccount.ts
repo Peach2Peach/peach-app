@@ -17,7 +17,7 @@ interface CreateAccountProps {
  * @param onError callback on error
  * @returns promise resolving to encrypted account
  */
-export const createAccount = async ({ password = '', onSuccess, onError }: CreateAccountProps): Promise<void> => {
+export const createAccount = async ({ password = '', onSuccess }: CreateAccountProps): Promise<void> => {
   info('Create account')
   const { wallet, mnemonic } = await createWallet()
   const firstAddress = getMainAddress(wallet)
