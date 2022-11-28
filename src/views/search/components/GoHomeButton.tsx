@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Button } from '../../../components'
-import { useNavigation } from '../../../hooks/useNavigation'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 

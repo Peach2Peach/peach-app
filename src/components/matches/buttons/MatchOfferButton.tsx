@@ -3,10 +3,11 @@ import i18n from '../../../utils/i18n'
 import Button from '../../Button'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
-import { useMatchOffer, useSearchRoute } from '../hooks'
+import { useMatchOffer } from '../hooks'
+import { useRoute } from '../../../hooks'
 
 export const MatchOfferButton = () => {
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
 
   const { allMatches: matches } = useOfferMatches()
   const currentIndex = useMatchStore((state) => state.currentIndex)
@@ -21,7 +22,7 @@ export const MatchOfferButton = () => {
       )}
       wide={false}
       disabled={currentMatch.matched || isLoading}
-      loading={isLoading} /** NOTE: We did not indicate a loading state for 'ask' offers previously. Is this fine? */
+      loading={isLoading}
       onPress={matchOffer}
     />
   )

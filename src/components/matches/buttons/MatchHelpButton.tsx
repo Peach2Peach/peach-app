@@ -5,11 +5,11 @@ import tw from '../../../styles/tailwind'
 import Icon from '../../Icon'
 import MatchOverlay from '../../../overlays/info/Match'
 import DoubleMatch from '../../../overlays/info/DoubleMatch'
-import { useSearchRoute } from '../hooks'
+import { useRoute } from '../../../hooks'
 
 export const MatchHelpButton = () => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
   const openMatchHelp = () =>
     updateOverlay({
       content: offer.type === 'bid' ? <MatchOverlay /> : <DoubleMatch />,

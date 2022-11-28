@@ -1,15 +1,15 @@
 import React from 'react'
 import shallow from 'zustand/shallow'
+import { useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Selector } from '../inputs'
 import { Headline } from '../text'
 import { HorizontalLine } from '../ui'
-import { useSearchRoute } from './hooks'
 import { useMatchStore } from './store'
 
 export default () => {
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
   const { selectedPaymentMethod, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
     (state) => ({
       selectedPaymentMethod: state.selectedPaymentMethod,

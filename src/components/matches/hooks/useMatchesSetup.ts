@@ -4,10 +4,10 @@ import { saveOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
-import { useSearchRoute } from './useSearchRoute'
+import { useRoute } from '../../../hooks'
 
 export const useMatchesSetup = () => {
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
   const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches()
 
   const { currentIndex, setCurrentIndex } = useMatchStore(

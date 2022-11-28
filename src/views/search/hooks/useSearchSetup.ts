@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react'
-import { useSearchRoute } from '../../../components/matches/hooks'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation } from '../../../hooks/useNavigation'
+import { useNavigation, useRoute } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -9,7 +8,7 @@ import useRefetchOnNotification from './useRefetchOnNotification'
 export const useSearchSetup = () => {
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
   const { allMatches: matches, data, error, refetch } = useOfferMatches()
 
   useEffect(() => {

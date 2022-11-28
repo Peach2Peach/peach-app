@@ -3,19 +3,18 @@ import DifferentCurrencyWarning from '../../../overlays/DifferentCurrencyWarning
 import React, { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
 import { useMutation, useQueryClient, InfiniteData } from '@tanstack/react-query'
-import { useNavigation } from '../../../hooks/useNavigation'
+import { useNavigation, useRoute } from '../../../hooks'
 import { OverlayContext } from '../../../contexts/overlay'
 
 import { useMatchStore } from '../store'
-import { useRoute } from '@react-navigation/native'
 import shallow from 'zustand/shallow'
-import { updateMatchedStatus, matchFn, handleMissingPaymentData, handleError, handleRefundTx } from '../utils'
+import { updateMatchedStatus, matchFn, handleMissingPaymentData, handleRefundTx } from '../utils'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const routeParams = useRoute().params as Readonly<{ offer: BuyOffer | SellOffer; hasMatches?: boolean }>
+  const routeParams = useRoute<'search'>().params
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 

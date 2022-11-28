@@ -18,9 +18,9 @@ export const useMatchStore = create<MatchStore>()((set) => ({
   selectedCurrency: 'EUR',
   selectedPaymentMethod: 'paypal',
   currentIndex: 0,
+  currentPage: 0,
   availableCurrencies: [],
   availablePaymentMethods: [],
-  currentPage: 0,
   setSelectedCurrency: (currency) => set((state) => ({ ...state, selectedCurrency: currency })),
   setSelectedPaymentMethod: (paymentMethod) => set((state) => ({ ...state, selectedPaymentMethod: paymentMethod })),
   setCurrentIndex: (newIndex) =>

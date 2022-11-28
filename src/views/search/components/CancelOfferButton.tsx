@@ -1,16 +1,15 @@
 import React, { useContext } from 'react'
 import { Pressable } from 'react-native'
 import { Text } from '../../../components'
-import { useSearchRoute } from '../../../components/matches/hooks'
 import { OverlayContext } from '../../../contexts/overlay'
-import { useNavigation } from '../../../hooks/useNavigation'
+import { useNavigation, useRoute } from '../../../hooks'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
 export default () => {
   const navigation = useNavigation()
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
   const [, updateOverlay] = useContext(OverlayContext)
 
   const navigate = () => navigation.replace('yourTrades', {})

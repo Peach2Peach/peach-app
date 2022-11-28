@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
+import { useRoute } from '../../../hooks'
 
 import {
   getAvailableCurrencies,
@@ -9,10 +10,9 @@ import {
 } from '../../../utils/match'
 import { getMoPsInCommon, hasMoPsInCommon } from '../../../utils/paymentMethod'
 import { useMatchStore } from '../store'
-import { useSearchRoute } from './useSearchRoute'
 
 export const useMatchSetup = (match: Match) => {
-  const { offer } = useSearchRoute().params
+  const { offer } = useRoute<'search'>().params
 
   const mopsInCommon = useMemo(
     () =>
