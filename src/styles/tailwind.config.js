@@ -80,7 +80,7 @@ module.exports = {
       },
       letterSpacing: {
         tightest: '-0.016em',
-        tighter: '-0.008em',
+        tighter: '-0.01em',
         tight: '0m',
         normal: '0.01em',
         wide: '0.028em',
