@@ -54,10 +54,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       : i18n('yourTrades.tradeCanceled.subtitle')
     : ''
 
-  const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
-    saveOffer(offerData)
-  }
-
   const goToOffer = () => {
     if (!offer.newOfferId) return
     const offr = getOffer(offer.newOfferId)
@@ -95,7 +91,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         onSuccess: (result) => {
           if (!offer) return
 
-          saveAndUpdate({
+          saveOffer({
             ...offer,
             ...result,
           })
