@@ -36,12 +36,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       returnAddress,
     })
     if (patchOfferResult) {
-      navigation.navigate('search', { offer })
-      saveOffer({
+      const patchedOffer = {
         ...offer,
         returnAddress,
         returnAddressRequired: false,
-      })
+      }
+      saveOffer(patchedOffer)
+      navigation.navigate(offer.online ? 'search' : 'fundEscrow', { offer: patchedOffer })
     } else if (patchOfferError) {
       error('Error', patchOfferError)
       updateMessage({
