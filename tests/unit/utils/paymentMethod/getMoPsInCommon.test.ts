@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { getMoPsInCommon } from '../../../../src/utils/paymentMethod'
-import { mopsA, mopsB, mopsC, mopsD, mopsE, mopsF } from './paymentMethodData'
+import { mopsA, mopsB, mopsC, mopsD, mopsE, mopsF } from '../../data/meansOfPaymentData'
 
 describe('getMoPsInCommon', () => {
   it('finds payment methods that both offers have in common', () => {

@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { getCurrencies } from '../../../../src/utils/paymentMethod'
-import { mopsA, mopsB, mopsC, mopsD } from './paymentMethodData'
+import { mopsA, mopsB, mopsC, mopsD } from '../../data/meansOfPaymentData'
 
 describe('getCurrencies', () => {
   it('gets all currencies defined in means of payment', () => {

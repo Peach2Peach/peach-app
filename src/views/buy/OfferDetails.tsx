@@ -8,7 +8,7 @@ import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } fr
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { hashPaymentData, isValidPaymentdata } from '../../utils/paymentMethod'
+import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 
@@ -16,7 +16,7 @@ const validate = (offer: BuyOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()
     .map(getPaymentData)
     .filter((d) => d)
-    .every((d) => isValidPaymentdata(d!))
+    .every((d) => isValidPaymentData(d!))
   return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
 }
 
