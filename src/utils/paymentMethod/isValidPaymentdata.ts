@@ -1,3 +1,5 @@
+import { paymentMethodAllowedForCurrencies } from '.'
+
 /**
  * @description Method to determine whether payment data is valid
  * @param data payment data
@@ -6,7 +8,9 @@
  */
 export const isValidPaymentdata = (data: PaymentData) => {
   if (data.type === 'cash') return true
+  if (!paymentMethodAllowedForCurrencies(data.type, data.currencies)) return false
 
-  const dataKeys = Object.keys(data).filter(key => !/id|label|type|currencies/u.test(key))
-  return dataKeys.some(key => data[key])
+  const dataKeys = Object.keys(data).filter((key) => !/id|label|type|currencies/u.test(key))
+
+  return dataKeys.some((key) => data[key])
 }
