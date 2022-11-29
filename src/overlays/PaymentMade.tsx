@@ -11,9 +11,9 @@ import { Navigation } from '../utils/navigation'
 import { getContract, getOfferIdfromContract } from '../utils/contract'
 
 type Props = {
-  contractId: Contract['id'],
-  date: number,
-  navigation: Navigation,
+  contractId: Contract['id']
+  date: number
+  navigation: Navigation
 }
 
 export default ({ contractId, date, navigation }: Props): ReactElement => {
@@ -26,44 +26,39 @@ export default ({ contractId, date, navigation }: Props): ReactElement => {
   }
 
   const goToContract = () => {
-    navigation.navigate({ name: 'contract', merge: false, params: {
-      contract: contract ? {
-        ...contract,
-        paymentMade: new Date(date)
-      } : undefined,
-      contractId
-    } })
+    navigation.navigate({
+      name: 'contract',
+      merge: false,
+      params: {
+        contract: contract
+          ? {
+            ...contract,
+            paymentMade: new Date(date),
+          }
+          : undefined,
+        contractId,
+      },
+    })
     closeOverlay()
   }
 
-  return <View style={tw`px-6`}>
-    <Headline style={tw`text-3xl leading-3xl text-white-1`}>
-      {i18n('paymentMade.title')}
-    </Headline>
-    <View style={tw`flex items-center mt-3`}>
-      <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-        <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+  return (
+    <View style={tw`px-6`}>
+      <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('paymentMade.title')}</Headline>
+      <View style={tw`flex items-center mt-3`}>
+        <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
+          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+        </View>
+      </View>
+      <Text style={tw`text-center text-white-1 mt-5`}>
+        {i18n('paymentMade.description.1', contract ? getOfferIdfromContract(contract) : 'unavailable')}
+        {'\n\n'}
+        {i18n('paymentMade.description.2')}
+      </Text>
+      <View style={tw`flex justify-center items-center mt-5`}>
+        <Button title={i18n('goToContract')} secondary={true} wide={false} onPress={goToContract} />
+        <Button title={i18n('later')} style={tw`mt-2`} tertiary={true} wide={false} onPress={closeOverlay} />
       </View>
     </View>
-    <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('paymentMade.description.1', getOfferIdfromContract(contract!))}
-      {'\n\n'}
-      {i18n('paymentMade.description.2')}
-    </Text>
-    <View style={tw`flex justify-center items-center mt-5`}>
-      <Button
-        title={i18n('goToContract')}
-        secondary={true}
-        wide={false}
-        onPress={goToContract}
-      />
-      <Button
-        title={i18n('later')}
-        style={tw`mt-2`}
-        tertiary={true}
-        wide={false}
-        onPress={closeOverlay}
-      />
-    </View>
-  </View>
+  )
 }
