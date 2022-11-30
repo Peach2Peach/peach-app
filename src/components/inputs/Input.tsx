@@ -159,7 +159,7 @@ export const Input = ({
       ) : null}
       <View
         style={[
-          tw`w-full flex flex-row items-center justify-between px-4 py-2`,
+          tw`w-full flex flex-row items-center justify-between px-3`,
           tw`overflow-hidden rounded-xl border`,
           colors.bg,
           showError ? colors.bgError : {},
@@ -172,11 +172,11 @@ export const Input = ({
       >
         <TextInput
           style={[
-            tw`w-full h-full flex-shrink input-text`,
+            tw`w-full h-10 flex-shrink input-text py-0 `,
             value ? colors.text : colors.placeholder,
             showError ? colors.textError : {},
             !showError ? tw`border border-transparent` : {},
-            multiline ? tw`pt-2` : {},
+            multiline ? tw`pt-2 h-full` : {},
           ]}
           {...{
             testID,
@@ -189,8 +189,8 @@ export const Input = ({
             value,
             editable: !disabled,
             multiline,
-            textAlignVertical: 'top',
             onChangeText,
+            textAlignVertical: multiline ? 'top' : 'center',
             onEndEditing,
             onSubmitEditing,
             blurOnSubmit: false,
