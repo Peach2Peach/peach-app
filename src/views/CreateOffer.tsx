@@ -25,7 +25,7 @@ export default ({ navigation, page }: Props): ReactElement => {
 
   const { daily, dailyAmount } = getTradingLimit(currency)
   const [amount, setAmount] = useState(
-    BUCKETS.includes(account.settings.amount || 0) ? account.settings.amount : BUCKETS[0],
+    account.settings.amount && BUCKETS.includes(account.settings.amount) ? account.settings.amount : BUCKETS[0],
   )
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
