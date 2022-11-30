@@ -24,7 +24,9 @@ export default ({ navigation, page }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
-  const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
+  const [amount, setAmount] = useState(
+    BUCKETS.includes(account.settings.amount || 0) ? account.settings.amount : BUCKETS[0],
+  )
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
   const allowedBuckets = page === 'sell' ? BUCKETS.filter((b) => DEPRECATED_BUCKETS.indexOf(b) === -1) : BUCKETS
