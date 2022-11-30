@@ -50,22 +50,21 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
         <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-          <Icon id={id} style={tw`w-7 h-7`} color={color.color} />
-          <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>{i18n(id)}</Text>
+          <Icon id={id} style={tw`w-7 h-7 mt-1`} color={color.color} />
+          <Text style={[color, tw`font-baloo text-3xs text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
-          <Bubble
-            color={tw`text-success-light`.color}
-            style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
-          >
-            <Text
-              style={tw`text-xs font-baloo text-primary-background text-center mt-0.5`}
-              ellipsizeMode="head"
-              numberOfLines={1}
-            >
-              {notifications}
-            </Text>
-          </Bubble>
+          <View style={tw`absolute top-0 left-1/2 -mt-1 ml-2 `}>
+            <Bubble color={tw`text-success-light`.color} style={tw`flex justify-center items-center`}>
+              <Text
+                style={tw`text-xs font-baloo text-primary-background text-center p-0.7`}
+                ellipsizeMode="head"
+                numberOfLines={1}
+              >
+                {notifications}
+              </Text>
+            </Bubble>
+          </View>
         ) : null}
       </View>
     </Pressable>
