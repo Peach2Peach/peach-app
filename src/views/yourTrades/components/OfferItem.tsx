@@ -137,7 +137,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                 <Headline style={[tw`text-lg font-bold normal-case text-left`, textColor1]}>
                   {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
                 </Headline>
-                <View style={tw`-mt-2`}>
+                <View>
                   {offer.type === 'ask' && contract?.cancelationRequested ? (
                     <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
                   ) : (
