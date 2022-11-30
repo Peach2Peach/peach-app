@@ -21,7 +21,9 @@ export default ({ navigation, page }: Props): ReactElement => {
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
-  const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
+  const [amount, setAmount] = useState(
+    account.settings.amount && BUCKETS.includes(account.settings.amount) ? account.settings.amount : BUCKETS[0],
+  )
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
   const allowedBuckets = page === 'sell' ? BUCKETS.filter((b) => DEPRECATED_BUCKETS.indexOf(b) === -1) : BUCKETS
