@@ -21,16 +21,15 @@ export const useSearchSetup = () => {
 
   useEffect(() => {
     if (error) {
-      // below error not yet implemented
-      if (error === 'OFFER EXPIRED' || error === 'OFFER CANCELLED') {
-        navigation.navigate('yourTrades', {})
+      if (error === 'OFFER CANCELLED') {
+        navigation.navigate('offer', { offer })
         return
       }
       if (error !== 'UNAUTHORIZED' && typeof error === 'string') {
         updateMessage({ msgKey: error, level: 'ERROR' })
       }
     }
-  }, [error, navigation, updateMessage])
+  }, [error, navigation, offer, updateMessage])
 
   useRefetchOnNotification(refetch, offer.id)
 
