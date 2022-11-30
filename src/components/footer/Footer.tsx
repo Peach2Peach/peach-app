@@ -29,8 +29,6 @@ type FooterItemProps = ComponentProps & {
   notifications?: number
 }
 
-const height = 52
-
 // eslint-disable-next-line max-len
 const isSettings
   = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
@@ -45,13 +43,13 @@ const isSettings
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? tw`text-peach-1` : tw`text-grey-2`
+  const color = active ? tw`text-black-1` : tw`text-black-3`
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
         <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
           <Icon id={id} style={tw`w-7 h-7 mt-1`} color={color.color} />
-          <Text style={[color, tw`font-baloo text-3xs text-center`]}>{i18n(id)}</Text>
+          <Text style={[color, tw`text-3xs text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
           <View style={tw`absolute top-0 left-1/2 -mt-1 ml-2 `}>
@@ -142,10 +140,10 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
   }, [ws.connected])
 
   return !keyboardOpen ? (
-    <View style={[tw`w-full flex-row items-start`, { height }, style]}>
-      <View style={tw`h-full flex-grow relative`}>
+    <View style={[tw`w-full flex-row items-start`, style]}>
+      <View style={tw`flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`h-full flex-row items-center justify-between bg-white-2`}>
+          <View style={tw`flex-row items-center justify-between bg-primary-background`}>
             <FooterItem
               id="buy"
               style={tw`w-1/4`}
