@@ -49,6 +49,7 @@ type InputProps = ComponentProps &
     disabled?: boolean
     disableSubmit?: boolean
     disableOnEndEditing?: boolean
+    isValid?: boolean
     errorMessage?: string[]
     onChange?: Function
     onSubmit?: Function
@@ -67,6 +68,7 @@ type InputProps = ComponentProps &
  * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
+ * @param [props.isValid] if true show valid state
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
@@ -97,6 +99,7 @@ export const Input = ({
   disabled = false,
   disableSubmit = false,
   disableOnEndEditing = false,
+  isValid,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -161,6 +164,7 @@ export const Input = ({
           colors.border,
           showError ? colors.borderError : {},
           showError ? tw`border-2` : {},
+          isValid && value && !disabled ? tw`border-green` : {},
           style ? style : {},
         ]}
       >
