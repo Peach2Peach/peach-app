@@ -25,6 +25,7 @@ const regularTheme = {
   error: tw`text-error-main`,
   placeholder: tw`text-black-4`,
   optional: tw`text-black-4`,
+  isValid: tw`border-green`,
 }
 const invertedTheme = {
   label: tw`text-primary-background-light`,
@@ -37,6 +38,7 @@ const invertedTheme = {
   error: tw`text-primary-background-light`,
   placeholder: tw`text-primary-mild-4`,
   optional: tw`text-black-4`,
+  isValid: tw`border-green`,
 }
 
 type IconActionPair = [IconType, () => void]
@@ -164,7 +166,7 @@ export const Input = ({
           colors.border,
           showError ? colors.borderError : {},
           showError ? tw`border-2` : {},
-          isValid && value && !disabled ? tw`border-green` : {},
+          isValid && value && !disabled ? colors.isValid : {},
           style ? style : {},
         ]}
       >
