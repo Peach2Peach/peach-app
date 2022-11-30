@@ -156,15 +156,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }, [fundingStatus])
 
-  return updatePending ? (
-    <View style={tw`w-full h-full items-center justify-center absolute`}>
-      <Loading />
-    </View>
-  ) : (
+  return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
       <View style={tw``}>
         <Title title={i18n('sell.title')} subtitle={subtitle} help={<Escrow />} />
-
+        {updatePending && (
+          <View style={tw` items-center justify-center items-center`}>
+            <Loading />
+          </View>
+        )}
         {sellOffer.id && escrow && fundingStatus && !fundingError ? (
           <View>
             <Text style={tw`mt-6 mb-5 text-center`}>
