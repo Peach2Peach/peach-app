@@ -85,12 +85,18 @@ export const Dropdown = ({ items, selectedValue, onChange, style, testID }: Drop
               >
                 {selectedItem?.display(false)}
               </Pressable>,
-              <PeachScrollView key="scroll" style={[tw`pl-4 pr-3`]}>
+              <PeachScrollView
+                key="scroll"
+                style={[
+                  tw`pl-4 pr-3`,
+                  { height: (tw`h-10`.height as number) * (isAndroid() ? items.length : Math.min(5, items.length)) },
+                ]}
+              >
                 {items.map(({ value, display }) => (
                   <Pressable
                     testID={`${testID}-item-${value}`}
                     key={value}
-                    style={tw`py-2 justify-center`}
+                    style={tw`h-10 flex justify-center`}
                     onPress={() => select(value)}
                   >
                     {display(isOpen)}
