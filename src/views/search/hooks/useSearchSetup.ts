@@ -9,19 +9,11 @@ export const useSearchSetup = () => {
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const { offer } = useRoute<'search'>().params
-  const { allMatches: matches, data, error, refetch } = useOfferMatches()
-
-  useEffect(() => {
-    // below functionality not yet implemented
-    if (data?.contractId) {
-      info('Search.tsx - getOfferDetailsEffect', `navigate to contract ${data.contractId}`)
-      navigation.replace('contract', { contractId: data.contractId })
-    }
-  }, [data?.contractId, navigation])
+  const { allMatches: matches, error, refetch } = useOfferMatches()
 
   useEffect(() => {
     if (error) {
-      if (error === 'OFFER CANCELLED') {
+      if (error === 'CANCELED' || error === 'CONTRACT_EXISTS') {
         navigation.navigate('offer', { offer })
         return
       }
