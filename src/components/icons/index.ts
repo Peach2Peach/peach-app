@@ -58,6 +58,7 @@ import userX from './userX.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
+import yourTrades from './yourTrades.svg'
 
 const Icons = {
   activity,
@@ -122,7 +123,7 @@ const Icons = {
   x,
   xCircle,
   xSquare,
-  yourTrades: list,
+  yourTrades,
 }
 
 export type IconType = keyof typeof Icons
