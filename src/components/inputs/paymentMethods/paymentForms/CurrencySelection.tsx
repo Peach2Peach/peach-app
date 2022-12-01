@@ -47,7 +47,7 @@ export const CurrencySelection = ({
           {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
         </Text>
         <Pressable style={tw`p-3`} onPress={openCurrencyHelp}>
-          <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
+          <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
         </Pressable>
       </View>
       <View style={tw`flex-row mt-1`}>

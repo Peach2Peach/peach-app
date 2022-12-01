@@ -74,14 +74,14 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
         <View style={tw`mt-4 flex-row justify-center`}>
           <Pressable onPress={() => setVote('negative')}>
             <Icon
-              id="negative"
+              id="thumbsDown"
               style={[tw`w-6 h-6 mx-2`, vote !== 'negative' ? tw`opacity-30` : {}]}
               color={tw`text-peach-1`.color}
             />
           </Pressable>
           <Pressable onPress={() => setVote('positive')}>
             <Icon
-              id="positive"
+              id="thumbsUp"
               style={[tw`w-6 h-6 mx-2`, vote !== 'positive' ? tw`opacity-30` : {}]}
               color={tw`text-peach-1`.color}
             />
