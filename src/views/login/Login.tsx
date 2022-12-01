@@ -97,7 +97,6 @@ export default ({ navigation }: Props): ReactElement => {
               onSubmit={submit}
               secureTextEntry={true}
               value={password}
-              isValid={passwordIsValid}
               errorMessage={displayErrors ? (!passwordIsValid ? [''] : []) : undefined}
             />
           </View>

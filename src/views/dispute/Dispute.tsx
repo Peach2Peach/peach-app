@@ -159,7 +159,6 @@ export default ({ route, navigation }: Props): ReactElement => {
                 value={email}
                 label={i18n('form.userEmail')}
                 placeholder={i18n('form.userEmail.placeholder')}
-                isValid={emailIsValid}
                 autoCorrect={false}
                 errorMessage={displayErrors ? emailErrors : undefined}
               />
@@ -174,7 +173,6 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={messageIsValid}
               autoCorrect={false}
               errorMessage={displayErrors ? messageErrors : undefined}
             />

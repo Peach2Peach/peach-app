@@ -77,12 +77,11 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(number: string) => {
             setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
@@ -96,12 +95,11 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           required={!anyFieldSet}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(usr: string) => {
             setUserName(usr.length && !/@/gu.test(usr) ? `@${usr}` : usr)
@@ -115,12 +113,11 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           required={!anyFieldSet}
           label={i18n('form.userName')}
           placeholder={i18n('form.userName.placeholder')}
-          isValid={userNameErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? userNameErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setEmail}
           onSubmit={save}
@@ -129,7 +126,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           required={!anyFieldSet}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? emailErrors : undefined}
         />

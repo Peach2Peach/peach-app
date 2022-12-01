@@ -83,12 +83,11 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
           onSubmit={() => $iban?.focus()}
@@ -96,12 +95,11 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           value={beneficiary}
           label={i18n('form.beneficiary')}
           placeholder={i18n('form.beneficiary.placeholder')}
-          isValid={beneficiaryIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? beneficiaryErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setIBAN}
           onSubmit={() => $bic?.focus()}
@@ -109,12 +107,11 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           value={iban}
           label={i18n('form.iban')}
           placeholder={i18n('form.iban.placeholder')}
-          isValid={ibanIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? ibanErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBIC}
           onSubmit={() => $address?.focus()}
@@ -123,12 +120,11 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={true}
           label={i18n('form.bic')}
           placeholder={i18n('form.bic.placeholder')}
-          isValid={bicIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? bicErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setAddress}
           onSubmit={() => $reference?.focus()}
@@ -137,12 +133,11 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={false}
           label={i18n('form.address')}
           placeholder={i18n('form.address.placeholder')}
-          isValid={addressIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? addressErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setReference}
           onSubmit={save}
@@ -151,7 +146,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           required={false}
           label={i18n('form.reference')}
           placeholder={i18n('form.reference.placeholder')}
-          isValid={referenceIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? referenceErrors : undefined}
         />

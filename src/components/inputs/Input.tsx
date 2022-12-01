@@ -1,4 +1,4 @@
-import React, { ReactElement, Ref, useState } from 'react'
+import React, { ReactElement, Ref, useMemo, useState } from 'react'
 import {
   NativeSyntheticEvent,
   Pressable,
@@ -8,23 +8,50 @@ import {
   TextInputSubmitEditingEventData,
   View,
 } from 'react-native'
-import { Shadow, Text } from '..'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { innerShadow } from '../../utils/layout'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 
+const regularTheme = {
+  label: tw`text-black-1`,
+  text: tw`text-black-1`,
+  textError: tw`text-black-1`,
+  border: tw`border-black-1`,
+  borderError: tw`border-error-main`,
+  bg: tw`bg-primary-background-light`,
+  bgError: tw`bg-primary-background-light`,
+  error: tw`text-error-main`,
+  placeholder: tw`text-black-4`,
+  optional: tw`text-black-4`,
+  isValid: tw`border-green`,
+}
+const invertedTheme = {
+  label: tw`text-primary-background-light`,
+  text: tw`text-primary-background-light`,
+  textError: tw`text-error-main`,
+  border: tw`border-primary-background-light`,
+  borderError: tw`border-primary-background-light`,
+  bg: tw`bg-transparent`,
+  bgError: tw`bg-primary-background-light`,
+  error: tw`text-primary-background-light`,
+  placeholder: tw`text-primary-mild-4`,
+  optional: tw`text-black-4`,
+  isValid: tw`border-green`,
+}
+
+type IconActionPair = [IconType, () => void]
 type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
+    invertColors?: boolean
     label?: string
-    icon?: IconType
+    icons?: IconActionPair[]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
     disableOnEndEditing?: boolean
     isValid?: boolean
-    hint?: string
     errorMessage?: string[]
     onChange?: Function
     onSubmit?: Function
@@ -38,12 +65,12 @@ type InputProps = ComponentProps &
  * @param props Component properties
  * @param [props.value] current value
  * @param [props.label] input label
- * @param [props.icon] icon id
+ * @param [props.icons] array of icon components
+ * @param [props.required] if true, field shows as required
  * @param [props.multiline] if true, turns field into a text field
  * @param [props.autoCorrect] if true, enable autocorrect on input field
  * @param [props.disabled] if true, disable input field
  * @param [props.isValid] if true show valid state
- * @param [props.hint] hint
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @param [props.onSubmit] onsubmit handler from outside
@@ -52,12 +79,12 @@ type InputProps = ComponentProps &
  * @param [props.secureTextEntry] if true hide input
  * @param [props.autoCapitalize] how to capitalize input automatically
  * @param [props.style] css style object
+ * @param [props.invertColors] if true invert color
  * @example
  * <Input
  *   onChange={setAddress}
  *   value={address}
  *   label={i18n('form.address.btc')}
- *   isValid={!isFieldInError('address')}
  *   autoCorrect={false}
  *   errorMessage={getErrorsInField('address')}
  * />
@@ -67,8 +94,7 @@ export const Input = ({
   value,
   label,
   placeholder,
-  hint,
-  icon,
+  icons = [],
   required = true,
   multiline = false,
   autoCorrect = false,
@@ -81,14 +107,25 @@ export const Input = ({
   onSubmit,
   onFocus,
   onBlur,
+  onPressIn,
   secureTextEntry,
   returnKeyType,
   autoCapitalize,
   style,
+  invertColors,
   testID,
   reference,
 }: InputProps): ReactElement => {
+  const colors = useMemo(() => (invertColors ? invertedTheme : regularTheme), [invertColors])
   const [touched, setTouched] = useState(false)
+  const [showSecret, setShowSecret] = useState(false)
+  const showError = errorMessage.length > 0 && !disabled && touched
+  const toggleShowSecret = () => setShowSecret((b) => !b)
+  const inputIcons: IconActionPair[] = useMemo(
+    () => (secureTextEntry ? [...icons, [showSecret ? 'eyeOff' : 'eye', toggleShowSecret]] : icons),
+    [icons, secureTextEntry, showSecret],
+  )
+
   const onChangeText = (val: string) => (onChange ? onChange(val) : null)
   const onSubmitEditing
     = onSubmit && !disableSubmit
@@ -113,69 +150,68 @@ export const Input = ({
   return (
     <View>
       {label ? (
-        <Text style={tw`font-baloo text-lg`}>
+        <Text style={[tw`input-label`, colors.text]}>
           {label}
-          {!required ? ` (${i18n('form.optional')})` : ''}
+          <Text style={[tw`input-label font-medium`, colors.placeholder]}>
+            {!required ? ` (${i18n('form.optional')})` : ''}
+          </Text>
         </Text>
       ) : null}
-      <View style={tw`overflow-hidden rounded`}>
-        <Shadow
-          shadow={innerShadow}
+      <View
+        style={[
+          tw`w-full flex flex-row items-center justify-between px-3`,
+          tw`overflow-hidden rounded-xl border`,
+          colors.bg,
+          showError ? colors.bgError : {},
+          colors.border,
+          showError ? colors.borderError : {},
+          showError ? tw`border-2` : {},
+          isValid && value && !disabled ? colors.isValid : {},
+          style ? style : {},
+        ]}
+      >
+        <TextInput
           style={[
-            tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
-            tw.md`h-10`,
-            icon ? tw`pr-12` : {},
-            style ? style : {},
-            isValid && value && !disabled ? tw`border-green` : {},
-            errorMessage.length > 0 && !disabled && touched ? tw`border-red` : {},
+            tw`w-full h-10 flex-shrink input-text py-0 `,
+            value ? colors.text : colors.placeholder,
+            showError ? colors.textError : {},
+            !showError ? tw`border border-transparent` : {},
+            multiline ? tw`pt-2 h-full` : {},
           ]}
-        >
-          <TextInput
-            testID={testID}
-            ref={reference ? reference : null}
-            style={[
-              tw`w-full flex-shrink h-8 p-0 text-grey-1 font-lato text-lg leading-5`,
-              tw.md`h-10`,
-              multiline ? tw`h-full pt-2` : {},
-              label && !value ? tw`font-baloo text-xs leading-5 uppercase text-grey-1` : {},
-            ]}
-            placeholder={placeholder}
-            placeholderTextColor={tw`text-grey-2`.color}
-            allowFontScaling={false}
-            removeClippedSubviews={false}
-            returnKeyType={returnKeyType}
-            value={value}
-            editable={!disabled}
-            autoCorrect={autoCorrect}
-            multiline={multiline}
-            textAlignVertical={multiline ? 'top' : 'center'}
-            onChangeText={onChangeText}
-            onEndEditing={onEndEditing}
-            onSubmitEditing={onSubmitEditing}
-            blurOnSubmit={false}
-            onFocus={onFocusHandler}
-            onBlur={onBlurHandler}
-            secureTextEntry={secureTextEntry}
-            autoCapitalize={autoCapitalize || 'none'}
-          />
-          {icon ? (
-            <Pressable
-              testID={`${testID}-icon`}
-              onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}
-              style={[tw`h-full absolute right-3 flex justify-center`, disableSubmit ? tw`opacity-50` : {}]}
-            >
-              <Icon id={icon} style={tw`w-5 h-5`} />
+          {...{
+            testID,
+            ref: reference ? reference : null,
+            placeholder,
+            placeholderTextColor: colors.placeholder.color,
+            allowFontScaling: false,
+            removeClippedSubviews: false,
+            returnKeyType,
+            value,
+            editable: !disabled,
+            multiline,
+            onChangeText,
+            textAlignVertical: multiline ? 'top' : 'center',
+            onEndEditing,
+            onSubmitEditing,
+            blurOnSubmit: false,
+            onFocus: onFocusHandler,
+            onBlur: onBlurHandler,
+            onPressIn,
+            secureTextEntry: secureTextEntry && !showSecret,
+            autoCorrect,
+            autoCapitalize: autoCapitalize || 'none',
+          }}
+        />
+        <View style={tw`flex flex-row`}>
+          {inputIcons.map(([icon, action]) => (
+            <Pressable onPress={action}>
+              <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
             </Pressable>
-          ) : null}
-        </Shadow>
+          ))}
+        </View>
       </View>
 
-      {errorMessage.length > 0 && errorMessage[0] && touched ? (
-        <Text style={tw`font-baloo text-xs text-red text-center mt-1`}>{errorMessage[0]}</Text>
-      ) : null}
-      {hint && errorMessage.length === 0 && errorMessage[0] && touched ? (
-        <Text style={tw`font-baloo text-xs text-grey-3 text-center mt-1`}>{hint}</Text>
-      ) : null}
+      <Text style={[tw`tooltip mt-1 ml-3`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )
 }

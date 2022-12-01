@@ -86,12 +86,11 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={email}
               label={i18n('form.userEmail')}
               placeholder={i18n('form.userEmail.placeholder')}
-              isValid={isEmailValid}
               autoCorrect={false}
               errorMessage={displayErrors ? emailErrors : undefined}
             />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               onChange={setTopic}
               onSubmit={() => $message?.focus()}
@@ -99,12 +98,11 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={topic}
               label={i18n('form.topic')}
               placeholder={i18n('form.topic.placeholder')}
-              isValid={isTopicValid}
               autoCorrect={false}
               errorMessage={displayErrors ? topicErrors : undefined}
             />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               style={tw`h-40`}
               onChange={setMessage}
@@ -113,7 +111,6 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={isMessageValid}
               autoCorrect={false}
               errorMessage={displayErrors ? messageErrors : undefined}
             />

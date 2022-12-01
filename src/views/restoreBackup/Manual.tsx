@@ -78,9 +78,9 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
           <View style={tw`w-full`}>
-            <FileInput fileName={file.name} style={tw`w-full`} onChange={setFile} />
+            <FileInput fileName={file.name} onChange={setFile} />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               onChange={setPassword}
               onSubmit={(val: string) => {
@@ -90,7 +90,6 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              isValid={passwordIsValid}
               errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
             />
           </View>
