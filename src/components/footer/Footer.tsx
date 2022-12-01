@@ -43,7 +43,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
       <View>
         <View style={tw`flex items-center`}>
           <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
-          <Text style={[color, tw`subtitle-1 text-3xs text-center`]}>{i18n(id)}</Text>
+          <Text style={[color, tw`subtitle-1 text-3xs leading-relaxed text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
           <Icon
