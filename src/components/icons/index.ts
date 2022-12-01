@@ -122,6 +122,7 @@ const Icons = {
   x,
   xCircle,
   xSquare,
+  yourTrades: list,
 }
 
 export type IconType = keyof typeof Icons
