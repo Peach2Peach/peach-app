@@ -15,8 +15,8 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
 
   const select = (country: FlagType) => {
     setSelected(country)
-    onSelect(country)
   }
+  const confirm = () => onSelect(selected)
 
   useEffect(() => {
     setSelected(selectedCountry)
@@ -28,7 +28,7 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
         <View key={country}>
           <View style={tw`flex flex-row items-center px-8`}>
             <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
-            <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`} onPress={() => select(country)}>
+            <Text style={tw`subtitle-1 w-full flex-shrink`} onPress={() => select(country)}>
               {i18n(`country.${country}`)}
             </Text>
             {country === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} /> : null}
@@ -36,6 +36,10 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
           {i < countries.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
         </View>
       ))}
+      <HorizontalLine style={tw`my-6`} />
+      <Text onPress={confirm} style={tw`drawer-title text-primary-light text-center`}>
+        {i18n('confirm')}
+      </Text>
     </View>
   )
 }

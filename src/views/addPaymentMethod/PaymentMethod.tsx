@@ -80,13 +80,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
 
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),
-      content: (
-        <PaymentMethodSelect
-          paymentMethods={applicablePaymentMethods}
-          showLogos={!/bankTransfer/u.test(category)}
-          onSelect={selectPaymentMethod}
-        />
-      ),
+      content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods} onSelect={selectPaymentMethod} />,
       show: true,
       onClose: () => {
         setPaymentCategory(undefined)

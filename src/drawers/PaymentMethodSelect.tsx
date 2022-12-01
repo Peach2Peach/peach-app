@@ -7,7 +7,6 @@ import i18n from '../utils/i18n'
 
 type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[]
-  showLogos?: boolean
   onSelect: (method: PaymentMethod) => void
 }
 export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: PaymentMethodSelectProps): ReactElement => {
@@ -15,8 +14,8 @@ export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: Pay
 
   const select = (method: PaymentMethod) => {
     setSelected(method)
-    onSelect(method)
   }
+  const confirm = () => onSelect(selected)
 
   useEffect(() => {
     setSelected(undefined)
@@ -27,19 +26,21 @@ export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: Pay
       {paymentMethods.map((method, i) => (
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
-            {showLogos && (
-              <View style={tw`p-1 mr-4 border border-grey-3 rounded-lg`}>
-                <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
-              </View>
-            )}
-            <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`} onPress={() => select(method)}>
+            <View style={tw`p-1 mr-4 border border-black-6 rounded-lg`}>
+              <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
+            </View>
+            <Text style={tw`subtitle-1 w-full flex-shrink`} onPress={() => select(method)}>
               {i18n(`paymentMethod.${method}`)}
             </Text>
-            {method === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} /> : null}
+            {method === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-light`.color} /> : null}
           </View>
           {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
         </View>
       ))}
+      <HorizontalLine style={tw`my-6`} />
+      <Text onPress={confirm} style={tw`drawer-title text-primary-light text-center`}>
+        {i18n('confirm')}
+      </Text>
     </View>
   )
 }
