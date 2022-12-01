@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import { Platform, Pressable, View } from 'react-native'
 import { error } from '../../utils/log'
-import RNFS from 'react-native-fs'
 import DocumentPicker from 'react-native-document-picker'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { Shadow, Text } from '..'
 import { innerShadow } from '../../utils/layout'
+import { readFileInChunks } from '../../utils/file'
 
 export type FileData = {
   name: string
@@ -22,8 +22,6 @@ export type FileData = {
  */
 const selectFile = (): Promise<FileData> =>
   new Promise(async (resolve) => {
-    let timeout: NodeJS.Timer
-
     try {
       const file = await DocumentPicker.pickSingle()
       try {
@@ -36,21 +34,11 @@ const selectFile = (): Promise<FileData> =>
           ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
         }) as string
 
-        RNFS.readFile(uri, 'utf8').then((content) => {
-          clearTimeout(timeout)
-          resolve({
-            name: file.name || '',
-            content,
-          })
+        const content = await readFileInChunks(uri)
+        resolve({
+          name: file.name || '',
+          content,
         })
-
-        // RNFS.readFile might not be able to read data if no network is available, stop after 10 seconds
-        timeout = setTimeout(() => {
-          resolve({
-            name: '',
-            content: '',
-          })
-        }, 10000)
       } catch (e) {
         error('File could not be read', e)
         resolve({
