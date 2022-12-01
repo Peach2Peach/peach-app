@@ -152,7 +152,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
             />
             <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
             <FooterItem
-              id="yourTrades"
+              id="list"
               style={tw`w-1/4`}
               active={active === 'yourTrades' || /contract/u.test(active as string)}
               onPress={navigate.yourTrades}

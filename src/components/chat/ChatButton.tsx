@@ -29,7 +29,7 @@ export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): Re
             contract.disputeActive ? tw`bg-red` : tw`bg-peach-1`,
           ]}
         >
-          <Icon id="chat" style={tw`w-5 h-5`} color={tw`text-white-1`.color} />
+          <Icon id="messageCircle" style={tw`w-5 h-5`} color={tw`text-white-1`.color} />
           {notifications > 0 ? (
             <Bubble
               color={tw`text-green`.color}
