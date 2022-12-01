@@ -117,7 +117,7 @@ export const Input = ({
   reference,
 }: InputProps): ReactElement => {
   const colors = useMemo(() => (invertColors ? invertedTheme : regularTheme), [invertColors])
-  const [touched, setTouched] = useState(true)
+  const [touched, setTouched] = useState(false)
   const [showSecret, setShowSecret] = useState(false)
   const showError = errorMessage.length > 0 && !disabled && touched
   const toggleShowSecret = () => setShowSecret((b) => !b)
