@@ -4,7 +4,6 @@ import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
 
 import { DrawerContext } from '../contexts/drawer'
 import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
 import { getHeaderHeight } from './Header'
 
 const animConfig = {

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import { Flag, HorizontalLine, Icon, Text } from '../components'
 import { FlagType } from '../components/flags'

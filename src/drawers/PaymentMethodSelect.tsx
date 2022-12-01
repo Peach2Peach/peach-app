@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import { HorizontalLine, Icon, PaymentLogo, Text } from '../components'
 import { PaymentLogoType } from '../components/payment/logos'
