@@ -50,7 +50,7 @@ export const views: ViewType[] = [
   { name: 'login', component: Login, showHeader: false, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
   // { name: 'home', component: Home, showHeader: false, showFooter: true },
-  { name: 'home', component: TestView, showHeader: true, showFooter: true },
+  { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
   { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
@@ -80,6 +80,7 @@ export const views: ViewType[] = [
   { name: 'report', component: Report, showHeader: true, showFooter: true },
   { name: 'reportFullScreen', component: Report, showHeader: false, showFooter: false },
   { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
+  { name: 'testView', component: TestView, showHeader: true, showFooter: true },
 ]
 
 export default views
