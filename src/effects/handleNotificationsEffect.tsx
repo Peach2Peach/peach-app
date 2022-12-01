@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { Dispatch, EffectCallback } from 'react'
 import { DisputeResult } from '../overlays/DisputeResult'
@@ -61,11 +60,10 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
           content: <MatchAccepted {...{ contractId: remoteMessage.data.contractId, navigation }} />,
         })
       }
-      if (type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-        const { contractId } = remoteMessage.data
+      if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
         const date = remoteMessage.sentTime || Date.now()
         return updateOverlay({
-          content: <PaymentMade {...{ contractId, date, navigation }} />,
+          content: <PaymentMade {...{ contract, date, navigation }} />,
         })
       }
       if (type === 'contract.disputeRaised') {

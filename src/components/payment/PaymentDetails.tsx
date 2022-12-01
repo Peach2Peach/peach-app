@@ -135,7 +135,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
                     <View style={tw`flex flex-row justify-between`}>
                       <Text style={tw`font-baloo text-red`}>{item.data.label}</Text>
                       <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                        <Icon id="cross" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
+                        <Icon id="x" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
                       </Pressable>
                     </View>
                   )}

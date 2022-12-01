@@ -115,7 +115,7 @@ export default ({ navigation }: Props): ReactElement => {
             <Text style={tw`w-full flex-shrink text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
             {account.settings.showBackupReminder !== false ? (
               <View style={tw`absolute right-3 h-full flex justify-center`}>
-                <Icon id="warning" style={tw`w-6 h-6`} color={tw`text-white-1`.color} />
+                <Icon id="alertTriangle" style={tw`w-6 h-6`} color={tw`text-white-1`.color} />
               </View>
             ) : null}
           </Card>
