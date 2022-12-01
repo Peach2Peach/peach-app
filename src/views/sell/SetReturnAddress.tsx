@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Title } from '../../components'
+import { GoBackButton, PrimaryButton, Title } from '../../components'
 import ProvideRefundAddress from '../../overlays/info/ProvideRefundAddress'
 import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
@@ -59,17 +59,13 @@ export default ({ route, navigation }: Props): ReactElement => {
         help={<ProvideRefundAddress />}
       />
       <View style={tw`h-full flex-shrink mt-12`}>
-        <ReturnAddress style={tw`mt-16`} returnAddress={returnAddress} required={true} update={setReturnAddress} />
+        <ReturnAddress style={tw`mt-16`} returnAddress={returnAddress} required update={setReturnAddress} />
       </View>
       <View style={tw`flex items-center mt-16`}>
-        <Button
-          title={i18n(!returnAddress ? 'sell.setReturnAddress.provideFirst' : 'confirm')}
-          style={tw`w-52`}
-          disabled={!returnAddress}
-          wide={false}
-          onPress={submit}
-        />
-        <Button style={tw`w-52 mt-2`} title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <PrimaryButton style={tw`w-52`} disabled={!returnAddress} onPress={submit}>
+          {i18n(!returnAddress ? 'sell.setReturnAddress.provideFirst' : 'confirm')}
+        </PrimaryButton>
+        <GoBackButton style={tw`w-52 mt-2`} />
       </View>
     </View>
   )

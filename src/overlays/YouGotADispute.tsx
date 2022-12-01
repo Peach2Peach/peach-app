@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, View } from 'react-native'
-import { Button, Headline, Input, Text } from '../components'
+import { Headline, Input, PrimaryButton, Text } from '../components'
 import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
@@ -127,26 +127,14 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
         </View>
       ) : null}
       <View style={tw`flex items-center`}>
-        <Button
-          style={tw`mt-6`}
-          title={loading ? '' : i18n('dispute.startedOverlay.goToDispute')}
-          disabled={loading}
-          loading={loading}
-          secondary={true}
-          wide={false}
-          onPress={submit}
-        />
-        {!isEmailRequired(reason) ? (
-          <Button
-            style={tw`mt-2`}
-            title={loading ? '' : i18n('close')}
-            disabled={loading}
-            loading={loading}
-            tertiary={true}
-            wide={false}
-            onPress={closeOverlay}
-          />
-        ) : null}
+        <PrimaryButton style={tw`mt-6`} disabled={loading} /* loading={loading}  */ onPress={submit}>
+          {loading ? '' : i18n('dispute.startedOverlay.goToDispute')}
+        </PrimaryButton>
+        {!isEmailRequired(reason) && (
+          <PrimaryButton style={tw`mt-2`} disabled={loading} /* loading={loading} */ onPress={closeOverlay}>
+            {loading ? '' : i18n('close')}
+          </PrimaryButton>
+        )}
       </View>
     </View>
   )

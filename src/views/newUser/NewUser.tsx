@@ -3,7 +3,7 @@ import React, { ReactElement, useContext, useEffect, useRef, useState } from 're
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 
 import Logo from '../../assets/logo/peachLogo.svg'
-import { Button, Input, Loading, Text } from '../../components'
+import { Input, Loading, PrimaryButton, Text } from '../../components'
 import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
@@ -237,10 +237,9 @@ export default ({ navigation }: Props): ReactElement => {
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
             </Pressable>
-            <Button
+            <PrimaryButton
               testID="newUser-register"
               onPress={submit}
-              wide={false}
               disabled={
                 !password
                 || !passwordRepeat
@@ -248,8 +247,9 @@ export default ({ navigation }: Props): ReactElement => {
                 || isFieldInError('password')
                 || isFieldInError('passwordRepeat')
               }
-              title={i18n('createAccount')}
-            />
+            >
+              {i18n('createAccount')}
+            </PrimaryButton>
           </View>
         </View>
       ) : null}

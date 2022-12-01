@@ -9,7 +9,7 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { BigTitle, Button, Headline, Icon, Loading, Matches, SatsFormat, Text } from '../../components'
+import { BigTitle, Headline, Icon, Loading, Matches, PrimaryButton, SatsFormat, Text } from '../../components'
 import { Level, MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
@@ -424,33 +424,23 @@ export default ({ route, navigation }: Props): ReactElement => {
             />
             {offer.type === 'bid' ? (
               <View style={tw`flex-row items-center justify-center pl-11`}>
-                <Button
-                  title={i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
-                  wide={false}
+                <PrimaryButton
                   disabled={currentMatch?.matched || matchLoading}
-                  loading={matchLoading}
+
+                  /* loading={matchLoading} */
                   onPress={_toggleMatch}
-                />
+                >
+                  {i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
+                </PrimaryButton>
                 <Pressable onPress={openMatchHelp} style={tw`p-3`}>
                   <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
                 </Pressable>
               </View>
             ) : (
               <View style={tw`flex-row items-center justify-center pl-11`}>
-                {/* <Button
-                title={i18n('search.declineMatch')}
-                wide={false}
-                secondary={true}
-                disabled={currentMatch?.matched}
-                onPress={_decline}
-              /> */}
-                <Button
-                  // style={tw`ml-6`}
-                  title={i18n('search.acceptMatch')}
-                  wide={false}
-                  disabled={currentMatch?.matched}
-                  onPress={() => _match(currentMatch)}
-                />
+                <PrimaryButton disabled={currentMatch?.matched} onPress={() => _match(currentMatch)}>
+                  {i18n('search.acceptMatch')}
+                </PrimaryButton>
                 <Pressable onPress={openMatchHelp} style={tw`p-3`}>
                   <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
                 </Pressable>
@@ -458,9 +448,9 @@ export default ({ route, navigation }: Props): ReactElement => {
             )}
           </View>
         ) : (
-          <View style={tw`flex items-center mt-6`}>
-            <Button title={i18n('goBackHome')} wide={false} onPress={goHome} />
-          </View>
+          <PrimaryButton style={tw`flex items-center mt-6`} onPress={goHome}>
+            {i18n('goBackHome')}
+          </PrimaryButton>
         )}
         <Pressable style={tw`mt-3`} onPress={cancelOffer}>
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>{i18n('cancelOffer')}</Text>

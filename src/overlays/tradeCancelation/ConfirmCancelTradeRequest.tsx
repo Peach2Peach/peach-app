@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
@@ -30,7 +30,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
       saveContract({
         ...contract,
         canceled: true,
-        cancelationRequested: false
+        cancelationRequested: false,
       })
       updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
       navigation.navigate('yourTrades', {})
@@ -51,7 +51,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     if (result) {
       saveContract({
         ...contract,
-        cancelationRequested: false
+        cancelationRequested: false,
       })
       closeOverlay()
       navigation.navigate('contract', { contractId: contract.id })
@@ -61,33 +61,27 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     setLoading(false)
   }
 
-  return <View style={tw`flex items-center`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
-      {i18n('contract.cancel.request.title')}
-    </Headline>
-    <Text style={tw`text-center text-white-1 mt-8`}>
-      {i18n(
-        'contract.cancel.request.text.1',
-        getOfferIdfromContract(contract),
-        i18n('currency.format.sats', thousands(contract.amount))
-      )}
-    </Text>
-    <Text style={tw`text-center text-white-1 mt-2`}>
-      {i18n('contract.cancel.request.text.2')}
-    </Text>
-    <View>
-      <Button style={tw`mt-8`}
-        title={i18n('contract.cancel.request.ok')}
-        tertiary={true} wide={false}
-        loading={loading}
-        onPress={confirm}
-      />
-      <Button style={tw`mt-2`}
-        title={i18n('contract.cancel.request.back')}
-        secondary={true} wide={false}
-        loading={loading}
-        onPress={reject}
-      />
+  return (
+    <View style={tw`flex items-center`}>
+      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+        {i18n('contract.cancel.request.title')}
+      </Headline>
+      <Text style={tw`text-center text-white-1 mt-8`}>
+        {i18n(
+          'contract.cancel.request.text.1',
+          getOfferIdfromContract(contract),
+          i18n('currency.format.sats', thousands(contract.amount)),
+        )}
+      </Text>
+      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.request.text.2')}</Text>
+      <View>
+        <PrimaryButton style={tw`mt-8`} /* loading={loading} */ onPress={confirm}>
+          {i18n('contract.cancel.request.ok')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} /* loading={loading} */ onPress={reject}>
+          {i18n('contract.cancel.request.back')}
+        </PrimaryButton>
+      </View>
     </View>
-  </View>
+  )
 }

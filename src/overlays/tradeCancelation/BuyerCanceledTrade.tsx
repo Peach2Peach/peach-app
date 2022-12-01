@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
@@ -54,11 +54,17 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
       ) : null}
       <View>
         {contract.releaseTxId ? (
-          <Button style={tw`mt-8`} title={i18n('showEscrow')} tertiary={true} wide={false} onPress={showEscrow} />
+          <PrimaryButton style={tw`mt-8`} onPress={showEscrow}>
+            {i18n('showEscrow')}
+          </PrimaryButton>
         ) : (
-          <Button style={tw`mt-8`} title={i18n('escrow.refund')} tertiary={true} wide={false} onPress={refund} />
+          <PrimaryButton style={tw`mt-8`} onPress={refund}>
+            {i18n('escrow.refund')}
+          </PrimaryButton>
         )}
-        <Button style={tw`mt-2`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+          {i18n('close')}
+        </PrimaryButton>
       </View>
     </View>
   )

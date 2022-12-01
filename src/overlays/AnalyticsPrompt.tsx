@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { Linking, View } from 'react-native'
-import { Button, Headline, Text } from '../components'
+import { Headline, PrimaryButton, Text } from '../components'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -14,9 +14,9 @@ export default (): ReactElement => {
     analytics().setAnalyticsCollectionEnabled(true)
     updateSettings(
       {
-        enableAnalytics: true
+        enableAnalytics: true,
       },
-      true
+      true,
     )
     updateOverlay({ content: null, showCloseButton: true })
   }
@@ -25,9 +25,9 @@ export default (): ReactElement => {
     analytics().setAnalyticsCollectionEnabled(false)
     updateSettings(
       {
-        enableAnalytics: false
+        enableAnalytics: false,
       },
-      true
+      true,
     )
     updateOverlay({ content: null, showCloseButton: true })
   }
@@ -48,8 +48,12 @@ export default (): ReactElement => {
         {'\n\n'}
         {i18n('analytics.request.description3')}
       </Text>
-      <Button style={tw`mt-8`} title={i18n('analytics.request.yes')} secondary={true} wide={false} onPress={accept} />
-      <Button style={tw`mt-2`} title={i18n('analytics.request.no')} secondary={true} wide={false} onPress={deny} />
+      <PrimaryButton style={tw`mt-8`} onPress={accept}>
+        {i18n('analytics.request.yes')}
+      </PrimaryButton>
+      <PrimaryButton style={tw`mt-2`} onPress={deny}>
+        {i18n('analytics.request.no')}
+      </PrimaryButton>
     </View>
   )
 }

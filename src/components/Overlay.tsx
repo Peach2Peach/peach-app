@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { BackHandler, Pressable, View } from 'react-native'
-import { Button } from '.'
+import { PrimaryButton } from '.'
 
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -53,15 +53,9 @@ export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help
       {content}
 
       {showCloseButton ? (
-        <Button
-          style={tw`mt-7`}
-          title={i18n('close')}
-          secondary={!help}
-          activeBgColor={help ? tw`bg-blue-1` : tw`bg-peach-1`}
-          help={help}
-          onPress={closeOverlay}
-          wide={false}
-        />
+        <PrimaryButton style={tw`mt-7`} onPress={closeOverlay}>
+          {i18n('close')}
+        </PrimaryButton>
       ) : null}
     </View>
   )

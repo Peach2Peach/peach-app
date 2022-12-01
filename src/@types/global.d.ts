@@ -14,9 +14,6 @@ declare type ComponentProps = {
   children?: ReactNode
   style?: ViewStyle | ViewStyle[]
 }
-declare type PressableProps = {
-  onPress?: () => void
-}
 
 declare type AnyObject = {
   [key: string]: any

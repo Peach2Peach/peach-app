@@ -3,15 +3,15 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Icon, Text } from '../components'
+import { Headline, Icon, PrimaryButton, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { Navigation } from '../utils/navigation'
 
 type Props = {
-  contractId: Contract['id'],
-  navigation: Navigation,
+  contractId: Contract['id']
+  navigation: Navigation
 }
 
 export default ({ contractId, navigation }: Props): ReactElement => {
@@ -26,34 +26,25 @@ export default ({ contractId, navigation }: Props): ReactElement => {
     closeOverlay()
   }
 
-  return <View style={tw`px-6`}>
-    <Headline style={tw`text-3xl leading-3xl text-white-1`}>
-      {i18n('matchAccepted.title')}
-    </Headline>
-    <View style={tw`flex items-center mt-3`}>
-      <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-        <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+  return (
+    <View style={tw`px-6`}>
+      <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('matchAccepted.title')}</Headline>
+      <View style={tw`flex items-center mt-3`}>
+        <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
+          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+        </View>
+      </View>
+      <Text style={tw`text-center text-white-1 mt-5`}>
+        {i18n('matchAccepted.description.1')}
+        {'\n\n'}
+        {i18n('matchAccepted.description.2')}
+      </Text>
+      <View style={tw`flex justify-center items-center mt-5`}>
+        <PrimaryButton onPress={goToContract}>{i18n('goToMatch')}</PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+          {i18n('later')}
+        </PrimaryButton>
       </View>
     </View>
-    <Text style={tw`text-center text-white-1 mt-5`}>
-      {i18n('matchAccepted.description.1')}
-      {'\n\n'}
-      {i18n('matchAccepted.description.2')}
-    </Text>
-    <View style={tw`flex justify-center items-center mt-5`}>
-      <Button
-        title={i18n('goToMatch')}
-        secondary={true}
-        wide={false}
-        onPress={goToContract}
-      />
-      <Button
-        title={i18n('later')}
-        style={tw`mt-2`}
-        tertiary={true}
-        wide={false}
-        onPress={closeOverlay}
-      />
-    </View>
-  </View>
+  )
 }

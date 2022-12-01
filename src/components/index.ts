@@ -2,7 +2,7 @@ export { AvoidKeyboard } from './AvoidKeyboard'
 export { PeachScrollView } from './PeachScrollView'
 export { BitcoinAddress } from './bitcoin'
 
-export { Button } from './Button'
+export { PrimaryButton, InfoButton, ContactOptionButton, GoBackButton } from './buttons'
 export { Card } from './Card'
 export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
@@ -26,25 +26,11 @@ export {
 
 export { Match, Matches } from './matches'
 export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
-export {
-  Bubble,
-  CopyAble,
-  HorizontalLine,
-  Progress,
-  Shadow,
-} from './ui'
+export { Bubble, CopyAble, HorizontalLine, Progress, Shadow } from './ui'
 
 export { paymentDetailTemplates } from './payment/'
 export { PaymentLogo } from './payment/PaymentLogo'
 export { ScanQR } from './camera/ScanQR'
-export {
-  BigTitle,
-  Headline,
-  SatsFormat,
-  Text,
-  TextLink,
-  Timer,
-  Title,
-} from './text'
+export { BigTitle, Headline, SatsFormat, Text, TextLink, Timer, Title } from './text'
 
 export type { FileData } from './types'

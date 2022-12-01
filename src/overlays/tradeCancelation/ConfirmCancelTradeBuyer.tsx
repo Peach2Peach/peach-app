@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { saveContract } from '../../utils/contract'
@@ -28,7 +28,7 @@ export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelT
     if (result) {
       saveContract({
         ...contract,
-        canceled: true
+        canceled: true,
       })
       updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
     } else if (err) {
@@ -37,30 +37,20 @@ export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelT
     setLoading(false)
   }
 
-  return <View style={tw`flex items-center`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
-      {i18n('contract.cancel.title')}
-    </Headline>
-    <Text style={tw`text-center text-white-1 mt-8`}>
-      {i18n('contract.cancel.text')}
-    </Text>
-    <View>
-      <Button
-        style={tw`mt-8`}
-        title={i18n('contract.cancel.confirm.back')}
-        secondary={true}
-        wide={false}
-        loading={loading}
-        onPress={closeOverlay}
-      />
-      <Button
-        style={tw`mt-2`}
-        title={i18n('contract.cancel.confirm.ok')}
-        tertiary={true}
-        wide={false}
-        loading={loading}
-        onPress={ok}
-      />
+  return (
+    <View style={tw`flex items-center`}>
+      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+        {i18n('contract.cancel.title')}
+      </Headline>
+      <Text style={tw`text-center text-white-1 mt-8`}>{i18n('contract.cancel.text')}</Text>
+      <View>
+        <PrimaryButton style={tw`mt-8`} /*  loading={loading}  */ onPress={closeOverlay}>
+          {i18n('contract.cancel.confirm.back')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} /*  loading={loading}  */ onPress={ok}>
+          {i18n('contract.cancel.confirm.ok')}
+        </PrimaryButton>
+      </View>
     </View>
-  </View>
+  )
 }

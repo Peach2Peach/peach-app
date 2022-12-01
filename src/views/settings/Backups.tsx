@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, Card, Text, Title } from '../../components'
+import { Card, GoBackButton, Text, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
 import { BackupCreated } from '../../overlays/BackupCreated'
@@ -95,9 +95,7 @@ export default ({ navigation }: Props): ReactElement => {
         </Card>
       </Pressable> */}
       </View>
-      <View style={tw`flex items-center mt-16`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-      </View>
+      <GoBackButton style={tw`flex items-center mt-16`} />
     </View>
   )
 }

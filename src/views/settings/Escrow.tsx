@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, Headline, Text, Title } from '../../components'
+import { GoBackButton, Headline, Text, Title } from '../../components'
 import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
@@ -31,9 +31,7 @@ export default ({ navigation }: Props): ReactElement => {
         <Text style={tw`text-grey-2 text-center -mt-2`}>{i18n('sell.escrow.returnAddress.subtitle')}</Text>
         <ReturnAddress returnAddress={account.settings.returnAddress} update={setReturnAddress} />
       </View>
-      <View style={tw`flex items-center mt-16`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-      </View>
+      <GoBackButton style={tw`flex items-center mt-16`} />
     </View>
   )
 }

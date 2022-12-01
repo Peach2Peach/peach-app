@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import tw from '../../styles/tailwind'
 import { saveContract, signReleaseTx } from '../../utils/contract'
@@ -9,8 +9,8 @@ import { error } from '../../utils/log'
 import { confirmPayment } from '../../utils/peachAPI'
 
 type DisputeLostSellerProps = {
-  contract: Contract,
-  navigate: () => void,
+  contract: Contract
+  navigate: () => void
 }
 
 export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps): ReactElement => {
@@ -55,28 +55,23 @@ export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps
     navigate()
   }
 
-  return <View style={tw`px-6`}>
-    <Headline style={tw`text-3xl leading-3xl text-white-1`}>
-      {i18n('dispute.lost')}
-    </Headline>
-    <View style={tw`flex justify-center items-center`}>
+  return (
+    <View style={tw`px-6`}>
+      <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('dispute.lost')}</Headline>
       <View style={tw`flex justify-center items-center`}>
-        <Text style={tw`text-white-1 text-center`}>
-          {i18n('dispute.seller.lost.text.1')}
-        </Text>
-        {!contract.paymentConfirmed
-          ? <Text style={tw`text-white-1 text-center mt-2`}>
-            {i18n('dispute.seller.lost.text.2')}
-          </Text>
-          : null
-        }
+        <View style={tw`flex justify-center items-center`}>
+          <Text style={tw`text-white-1 text-center`}>{i18n('dispute.seller.lost.text.1')}</Text>
+          {!contract.paymentConfirmed ? (
+            <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.lost.text.2')}</Text>
+          ) : null}
+        </View>
+        <PrimaryButton
+          style={tw`mt-5`}
+          onPress={contract.paymentConfirmed ? closeOverlay : release} /* loading={loading} */
+        >
+          {i18n(contract.paymentConfirmed ? 'close' : 'dispute.seller.lost.button')}
+        </PrimaryButton>
       </View>
-      <Button style={tw`mt-5`}
-        title={i18n(contract.paymentConfirmed ? 'close' : 'dispute.seller.lost.button')}
-        secondary={true} wide={false}
-        onPress={contract.paymentConfirmed ? closeOverlay : release}
-        loading={loading}
-      />
     </View>
-  </View>
+  )
 }
