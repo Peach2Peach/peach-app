@@ -11,16 +11,12 @@ type CountryProps = {
   onSelect: (country: FlagType) => void
 }
 export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryProps): ReactElement => {
-  const [selected, setSelected] = useState<FlagType>()
+  const [selected, setSelected] = useState<FlagType>(selectedCountry || countries[0])
 
   const select = (country: FlagType) => {
     setSelected(country)
   }
-  const confirm = () => onSelect(selected)
-
-  useEffect(() => {
-    setSelected(selectedCountry)
-  }, [])
+  const confirm = () => (selected ? onSelect(selected) : null)
 
   return (
     <View>
@@ -31,7 +27,7 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
             <Text style={tw`subtitle-1 w-full flex-shrink`} onPress={() => select(country)}>
               {i18n(`country.${country}`)}
             </Text>
-            {country === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} /> : null}
+            {country === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-light`.color} /> : null}
           </View>
           {i < countries.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
         </View>
