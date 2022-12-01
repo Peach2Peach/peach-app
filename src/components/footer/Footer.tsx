@@ -1,21 +1,19 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Shadow, Text } from '..'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { footerShadow } from '../../utils/layout'
-import Icon from '../Icon'
+import { Icon, Shadow, Text } from '..'
 import AppContext from '../../contexts/app'
+import { useKeyboard } from '../../hooks'
+import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { footerShadow } from '../../utils/layout'
+import { Navigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../icons'
-import { Bubble } from '../ui'
-import { Navigation } from '../../utils/navigation'
-import { useKeyboard } from '../../hooks'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -35,34 +33,24 @@ const isSettings
 
 /**
  * @description Component to display the Footer Item
- * @param props Component properties
- * @param props.id item id
- * @param props.active active menu item
- * @param props.onPress on press handler
  * @example
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? tw`text-black-1` : tw`text-black-3`
+  const color = active ? tw`text-black-1` : tw`text-black-5`
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
-        <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-          <Icon id={id} style={tw`w-7 h-7 mt-1`} color={color.color} />
-          <Text style={[color, tw`text-3xs text-center`]}>{i18n(id)}</Text>
+        <View style={tw`flex items-center`}>
+          <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
+          <Text style={[color, tw`subtitle-1 text-3xs text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
-          <View style={tw`absolute top-0 left-1/2 -mt-1 ml-2 `}>
-            <Bubble color={tw`text-success-light`.color} style={tw`flex justify-center items-center`}>
-              <Text
-                style={tw`text-xs font-baloo text-primary-background text-center p-0.7`}
-                ellipsizeMode="head"
-                numberOfLines={1}
-              >
-                {notifications}
-              </Text>
-            </Bubble>
-          </View>
+          <Icon
+            id="notification"
+            style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
+            color={tw`text-success-light`.color}
+          />
         ) : null}
       </View>
     </Pressable>
@@ -71,8 +59,6 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
 
 /**
  * @description Component to display the Footer
- * @param props Component properties
- * @param props.active active menu item
  * @example
  * <Footer active={'home'} />
  */
@@ -98,7 +84,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount(),
     })
-  }, [])
+  }, [updateAppContext])
 
   useEffect(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
@@ -137,13 +123,13 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [ws.connected])
+  }, [updateAppContext, ws, ws.connected])
 
   return !keyboardOpen ? (
     <View style={[tw`w-full flex-row items-start`, style]}>
       <View style={tw`flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`flex-row items-center justify-between bg-primary-background`}>
+          <View style={tw`flex-row items-center justify-between bg-primary-background py-4`}>
             <FooterItem
               id="buy"
               style={tw`w-1/4`}

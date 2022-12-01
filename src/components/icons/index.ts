@@ -34,6 +34,7 @@ import messageCircle from './messageCircle.svg'
 import minusCircle from './minusCircle.svg'
 import minusSquare from './minusSquare.svg'
 import noNetwork from './noNetwork.svg'
+import notification from './notification.svg'
 import offline from './offline.svg'
 import plusCircle from './plusCircle.svg'
 import prev from './prev.svg'
@@ -98,6 +99,7 @@ const Icons = {
   minusCircle,
   minusSquare,
   noNetwork,
+  notification,
   offline,
   plusCircle,
   prev,
