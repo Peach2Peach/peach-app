@@ -2,24 +2,15 @@ import OpenPGP from 'react-native-fast-openpgp'
 import { defaultAccount, setAccount } from '.'
 import { info } from '../log'
 import { setSessionItem } from '../session'
-import { createWallet, getMainAddress } from '../wallet'
-
-interface CreateAccountProps {
-  password: string
-  onSuccess: Function
-  onError: Function
-}
+import { createWalletFromEntropy, getMainAddress } from '../wallet'
 
 /**
  * @description Method to create a new or existing account
- * @param [password] secret
- * @param onSuccess callback on success
- * @param onError callback on error
  * @returns promise resolving to encrypted account
  */
-export const createAccount = async ({ password = '', onSuccess }: CreateAccountProps): Promise<void> => {
+export const createAccount = async (password: string): Promise<boolean> => {
   info('Create account')
-  const { wallet, mnemonic } = await createWallet()
+  const { wallet, mnemonic } = await createWalletFromEntropy()
   const firstAddress = getMainAddress(wallet)
   const recipient = await OpenPGP.generate({})
 
@@ -38,5 +29,5 @@ export const createAccount = async ({ password = '', onSuccess }: CreateAccountP
     true,
   )
 
-  onSuccess()
+  return true
 }

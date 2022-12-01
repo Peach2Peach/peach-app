@@ -1,7 +1,7 @@
 import { EffectCallback } from 'react'
 import { error, info } from '../../../utils/log'
 import { createEscrow } from '../../../utils/peachAPI'
-import { getPublicKeyForEscrow } from '../../../utils/wallet'
+import { getPublicKeyForEscrow, getWallet } from '../../../utils/wallet'
 
 type CreateEscrowIfNewProps = {
   sellOffer: SellOffer
@@ -15,7 +15,7 @@ export default ({ sellOffer, onSuccess, onError }: CreateEscrowIfNewProps): Effe
 
       info('Creating escrow for', sellOffer.id)
 
-      const publicKey = getPublicKeyForEscrow(sellOffer.id)
+      const publicKey = getPublicKeyForEscrow(getWallet(), sellOffer.id)
       const [result, err] = await createEscrow({
         offerId: sellOffer.id,
         publicKey,
