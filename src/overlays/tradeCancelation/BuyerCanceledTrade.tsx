@@ -54,7 +54,7 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
         {i18n(`contract.cancel.buyer.confirmed.text.${contract.releaseTxId ? 'refunded' : 'backOnline'}`)}
       </Text>
       <View>
-        {expiry.isExipred
+        {expiry.isExpired
           && (contract.releaseTxId ? (
             <PrimaryButton style={tw`mt-8`} onPress={showEscrow}>
               {i18n('showEscrow')}
