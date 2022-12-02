@@ -70,7 +70,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     saveDraft()
-  }, [saveDraft])
+  }, [newMessage, saveDraft])
 
   const sendMessage = useCallback(
     async (message: string) => {
