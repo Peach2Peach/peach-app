@@ -15,9 +15,12 @@ export default () => (
       White Border
     </PrimaryButton>
     <PrimaryButton disabled>Disabled</PrimaryButton>
-    <PrimaryButton border iconId="help">
+    <PrimaryButton border iconId="helpCircle">
       With Icon
     </PrimaryButton>
-    <PrimaryButton iconId="help" />
+    <PrimaryButton border iconId="helpCircle" loading>
+      Loading
+    </PrimaryButton>
+    <PrimaryButton iconId="helpCircle" />
   </View>
 )

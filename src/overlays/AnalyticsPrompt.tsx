@@ -48,10 +48,10 @@ export default (): ReactElement => {
         {'\n\n'}
         {i18n('analytics.request.description3')}
       </Text>
-      <PrimaryButton style={tw`mt-8`} onPress={accept}>
+      <PrimaryButton style={tw`mt-8`} onPress={accept} narrow>
         {i18n('analytics.request.yes')}
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-2`} onPress={deny}>
+      <PrimaryButton style={tw`mt-2`} onPress={deny} narrow>
         {i18n('analytics.request.no')}
       </PrimaryButton>
     </View>

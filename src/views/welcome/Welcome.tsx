@@ -13,6 +13,7 @@ import Swipe from './Swipe'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import { ContactButton } from '../report/components/ContactButton'
+import { Button } from '../../components/buttons'
 
 const onStartShouldSetResponder = () => true
 
@@ -27,9 +28,6 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
 
-  const onBeforeSnapToItem = (i: number) => {
-    setPage(i)
-  }
   const next = () => {
     $carousel.current?.snapToNext()
   }
@@ -55,7 +53,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
             inactiveSlideScale={1}
             inactiveSlideOpacity={1}
             inactiveSlideShift={0}
-            onBeforeSnapToItem={onBeforeSnapToItem}
+            onBeforeSnapToItem={setPage}
             shouldOptimizeUpdates={true}
             renderItem={({ item: Item }) => (
               <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`h-full px-6`}>
@@ -71,7 +69,9 @@ export default ({ navigation }: ScreenProps): ReactElement => {
             <PrimaryButton testID="welcome-next" onPress={next}>
               {i18n('next')}
             </PrimaryButton>
-            <PrimaryButton style={tw`opacity-0 mt-4`}>{i18n('restoreBackup')}</PrimaryButton>
+            <View style={tw`opacity-0`}>
+              <PrimaryButton style={tw` mt-4`}>{i18n('restoreBackup')}</PrimaryButton>
+            </View>
           </View>
         ) : (
           <View>
@@ -82,6 +82,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
               testID="welcome-restoreBackup"
               style={tw`mt-4`}
               onPress={() => navigation.navigate('restoreBackup', {})}
+              border
             >
               {i18n('restoreBackup')}
             </PrimaryButton>

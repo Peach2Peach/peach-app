@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Logo from '../../assets/logo/peachLogo.svg'
-import { PrimaryButton, Text } from '../../components'
+import { Text, PrimaryButton } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
@@ -28,7 +28,8 @@ export default ({ navigation }: Props): ReactElement => {
           <Text style={tw`mt-4 text-center`}>{i18n('restoreBackup.restored.description.1')}</Text>
         </View>
       </View>
-      <PrimaryButton style={tw`pb-8 mt-4 flex items-center w-full bg-white-1`} onPress={finish}>
+
+      <PrimaryButton style={tw`mb-8 mt-4 self-center bg-white-1`} onPress={finish} narrow>
         {i18n('continue')}
       </PrimaryButton>
     </View>

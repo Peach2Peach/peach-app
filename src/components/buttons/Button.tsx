@@ -40,9 +40,9 @@ export const Button = (props: ButtonProps) => {
     >
       {children && <Text style={[textColor, tw`button-medium px-2`]}>{children}</Text>}
       {loading ? (
-        <Loading size="small" style={iconSize} color={textColor.color} />
+        <Loading size="small" style={iconSize} color={textColor?.color} />
       ) : (
-        !!iconId && <Icon id={iconId} style={iconSize} color={textColor.color} />
+        !!iconId && <Icon id={iconId} style={iconSize} color={textColor?.color} />
       )}
     </TouchableOpacity>
   )

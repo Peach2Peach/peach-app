@@ -127,11 +127,11 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Pressable>
         </View>
         <View style={tw`flex items-center mt-16`}>
-          <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>
+          <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)} narrow>
             {i18n('report.sendReport')}
           </PrimaryButton>
           {route.name.toString() === 'reportFullScreen' && (
-            <PrimaryButton style={tw`mt-5`} onPress={navigation.goBack}>
+            <PrimaryButton style={tw`mt-5`} onPress={navigation.goBack} narrow>
               {i18n('cancel')}
             </PrimaryButton>
           )}

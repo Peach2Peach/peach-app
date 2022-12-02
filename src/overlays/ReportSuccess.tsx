@@ -35,7 +35,7 @@ export default ({ navigation }: Props): ReactElement => {
       </View>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('report.success.text.1')}</Text>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('report.success.text.2')}</Text>
-      <PrimaryButton style={tw`flex justify-center items-center mt-5`} onPress={goToHome}>
+      <PrimaryButton style={tw`self-center mt-5`} onPress={goToHome} narrow>
         {i18n('report.success.backHome')}
       </PrimaryButton>
     </View>
