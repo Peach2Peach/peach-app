@@ -6,10 +6,12 @@ import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
+import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
+import { info } from '../../../utils/log'
 import { StackNavigation } from '../../../utils/navigation'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
@@ -41,7 +43,7 @@ const navigateToOffer = (
       const navigate = () => {}
 
       updateOverlay({
-        content: <Refund {...{ offer, navigate, navigation }} />,
+        content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
         showCloseButton: false,
       })
     }
@@ -86,14 +88,14 @@ const ICONMAP: IconMap = {
   escrowWaitingForConfirmation: 'fundEscrow',
   fundEscrow: 'fundEscrow',
   match: 'heart',
-  offerCanceled: 'cross',
-  sendPayment: 'money',
-  confirmPayment: 'money',
+  offerCanceled: 'x',
+  sendPayment: 'dollarSign',
+  confirmPayment: 'dollarSign',
   rate: 'check',
-  contractCreated: 'money',
+  contractCreated: 'dollarSign',
   tradeCompleted: 'check',
-  tradeCanceled: 'cross',
-  dispute: 'dispute',
+  tradeCanceled: 'x',
+  dispute: 'alertTriangle',
 }
 
 // eslint-disable-next-line max-lines-per-function, complexity
@@ -101,7 +103,15 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
-  const icon = contract?.disputeWinner ? 'dispute' : ICONMAP[requiredAction] || ICONMAP[status]
+
+  const currency = contract
+    ? contract.currency
+    : offer.prices && offer.prices[account.settings.displayCurrency]
+      ? account.settings.displayCurrency
+      : Object.keys(offer.meansOfPayment)[0]
+  const price = contract?.price || Object(offer.prices)[currency]
+
+  const icon = contract?.disputeWinner ? 'alertTriangle' : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
   const isRedStatus = contract?.disputeActive || (offer.type === 'bid' && contract?.cancelationRequested)
@@ -127,15 +137,19 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                 <Headline style={[tw`text-lg font-bold normal-case text-left`, textColor1]}>
                   {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
                 </Headline>
-                <View style={tw`-mt-2`}>
+                <View>
                   {offer.type === 'ask' && contract?.cancelationRequested ? (
                     <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
                   ) : (
-                    <SatsFormat style={tw`text-lg`} sats={offer.amount} color={textColor2} />
+                    <Text style={textColor2}>
+                      <SatsFormat sats={offer.amount} color={textColor2} />
+                      {' - '}
+                      {i18n(`currency.format.${currency}`, price)}
+                    </Text>
                   )}
                 </View>
               </View>
-              <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
+              <Icon id={icon || 'helpCircle'} style={tw`w-7 h-7`} color={textColor1.color} />
             </View>
             {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
               <View style={tw`flex items-center mt-3 mb-1`}>
@@ -155,7 +169,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                     : offer.type === 'ask'
                       ? tw`text-red`
                       : tw`text-green`
-                  ).color as string
+                  ).color
                 }
               />
               <Text
@@ -165,15 +179,15 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
               </Text>
             </View>
             <Icon
-              id={icon || 'help'}
+              id={icon || 'helpCircle'}
               style={tw`w-5 h-5`}
-              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
+              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color}
             />
           </View>
         )}
         {notifications > 0 ? (
           <Bubble
-            color={tw`text-green`.color as string}
+            color={tw`text-green`.color}
             style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
           >
             <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>

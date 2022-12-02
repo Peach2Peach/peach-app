@@ -1,105 +1,129 @@
+import activity from './activity.svg'
+import alertCircle from './alertCircle.svg'
+import alertOctagon from './alertOctagon.svg'
+import alertTriangle from './alertTriangle.svg'
 import arrowLeft from './arrowLeft.svg'
-import buy from './buy.svg'
 import camera from './camera.svg'
-import change from './change.svg'
-import chat from './chat.svg'
+import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
-import checkDouble from './checkDouble.svg'
-import checkbox from './checkbox.svg'
-import clip from './clip.svg'
+import checkboxMark from './checkboxMark.svg'
+import chevronDown from './chevronDown.svg'
+import chevronsDown from './chevronsDown.svg'
+import chevronsUp from './chevronsUp.svg'
+import chevronUp from './chevronUp.svg'
+import circle from './circle.svg'
+import paperclip from './paperclip.svg'
 import clock from './clock.svg'
-import timer from './timer.svg'
 import copy from './copy.svg'
-import cross from './cross.svg'
-import crossOutlined from './crossOutlined.svg'
-import dispute from './dispute.svg'
-import dropdownClosed from './dropdownClosed.svg'
-import dropdownOpen from './dropdownOpen.svg'
-import file from './file.svg'
+import cpu from './cpu.svg'
+import creditCard from './creditCard.svg'
+import dollarSign from './dollarSign.svg'
+import download from './download.svg'
+import eye from './eye.svg'
+import eyeOff from './eyeOff.svg'
+import clipboard from './clipboard.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
-import help from './help.svg'
-import money from './money.svg'
+import helpCircle from './helpCircle.svg'
 import link from './link.svg'
+import list from './list.svg'
 import lock from './lock.svg'
-import negative from './negative.svg'
+import mail from './mail.svg'
+import map from './map.svg'
+import messageCircle from './messageCircle.svg'
+import minusCircle from './minusCircle.svg'
+import minusSquare from './minusSquare.svg'
 import noNetwork from './noNetwork.svg'
-import yourTrades from './yourTrades.svg'
 import offline from './offline.svg'
-import positive from './positive.svg'
-import plus from './plus.svg'
-import radioChecked from './radioChecked.svg'
-import radioDisabled from './radioDisabled.svg'
-import radioUnchecked from './radioUnchecked.svg'
+import plusCircle from './plusCircle.svg'
+import prev from './prev.svg'
+import radioSelected from './radioSelected.svg'
+import refreshCcw from './refreshCcw.svg'
+import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
-import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
-import next from './next.svg'
-import prev from './prev.svg'
+import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
+import shuffle from './shuffle.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
-import triangleUp from './triangleUp.svg'
-import triangleDown from './triangleDown.svg'
-import triangleLeft from './triangleLeft.svg'
-import triangleRight from './triangleRight.svg'
-import undo from './undo.svg'
-import warning from './warning.svg'
+import thumbsDown from './thumbsDown.svg'
+import thumbsUp from './thumbsUp.svg'
+import timer from './timer.svg'
+import trendingUp from './trendingUp.svg'
+import upload from './upload.svg'
+import userX from './userX.svg'
+import x from './x.svg'
+import xCircle from './xCircle.svg'
+import xSquare from './xSquare.svg'
 
 const Icons = {
+  activity,
+  alertCircle,
+  alertOctagon,
+  alertTriangle,
   arrowLeft,
-  buy,
+  buy: download,
   camera,
-  change,
-  chat,
+  chatDoubleCheck,
   check,
-  checkDouble,
-  checkbox,
-  clip,
+  checkboxMark,
+  chevronDown,
+  chevronsDown,
+  chevronsUp,
+  chevronUp,
+  circle,
+  paperclip,
   clock,
-  timer,
   copy,
-  cross,
-  crossOutlined,
-  dispute,
-  dropdownClosed,
-  dropdownOpen,
-  file,
+  cpu,
+  creditCard,
+  dollarSign,
+  download,
+  eye,
+  eyeOff,
+  clipboard,
   fire,
   fundEscrow,
   heart,
-  help,
-  money,
+  helpCircle,
   link,
+  list,
   lock,
-  negative,
+  mail,
+  map,
+  messageCircle,
+  minusCircle,
+  minusSquare,
   noNetwork,
-  yourTrades,
   offline,
-  positive,
-  plus,
-  radioChecked,
-  radioDisabled,
-  radioUnchecked,
+  plusCircle,
+  prev,
+  radioSelected,
+  refreshCcw,
+  rotateCounterClockwise,
   selectClosed,
   selectOpen,
-  sell,
+  sell: upload,
   send,
   settings,
-  next,
-  prev,
+  shield,
   shiftCrypto,
+  shuffle,
   sliderNext,
   sliderPrev,
-  triangleUp,
-  triangleDown,
-  triangleLeft,
-  triangleRight,
-  undo,
-  warning,
+  thumbsDown,
+  thumbsUp,
+  timer,
+  trendingUp,
+  upload,
+  userX,
+  x,
+  xCircle,
+  xSquare,
 }
 
 export type IconType = keyof typeof Icons

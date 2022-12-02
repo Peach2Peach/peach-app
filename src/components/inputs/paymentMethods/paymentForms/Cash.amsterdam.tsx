@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
@@ -12,8 +12,8 @@ export const CashAmsterdam = ({
   data,
   currencies = [],
   onSubmit,
-  onChange,
-}: PaymentMethodFormProps): ReactElement => {
+  setStepValid,
+}: FormProps): ReactElement => {
   const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(data?.disclaimerAcknowledged || false)
   const Banner = cashAmsterdam
 
@@ -26,22 +26,20 @@ export const CashAmsterdam = ({
   })
 
   const acknowledge = () => setDisclaimerAcknowledged(true)
-  const validateForm = () => disclaimerAcknowledged
+  const isFormValid = () => disclaimerAcknowledged
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    validateForm,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [disclaimerAcknowledged])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
   return (
     <View style={tw`flex items-center bg-[#FF9500] pb-10`}>
@@ -58,7 +56,7 @@ export const CashAmsterdam = ({
       <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10`}>
         <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
           {disclaimerAcknowledged ? (
-            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
+            <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-white-1`.color} />
           ) : (
             <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
           )}

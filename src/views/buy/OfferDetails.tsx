@@ -5,11 +5,10 @@ import tw from '../../styles/tailwind'
 import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './BuyPreferences'
 import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import KYC from './components/KYC'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { hashPaymentData, isValidPaymentdata } from '../../utils/paymentMethod'
+import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 
@@ -17,7 +16,7 @@ const validate = (offer: BuyOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()
     .map(getPaymentData)
     .filter((d) => d)
-    .every((d) => isValidPaymentdata(d!))
+    .every((d) => isValidPaymentData(d!))
   return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
 }
 
@@ -26,7 +25,6 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
-  const [kyc, setKYC] = useState(offer.kyc)
 
   useEffect(() => {
     const paymentData = getSelectedPaymentDataIds()
@@ -44,16 +42,15 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       meansOfPayment,
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-      kyc,
     })
     updateSettings(
       {
         meansOfPayment,
-        kyc,
+        kyc: offer.kyc,
       },
       true,
     )
-  }, [meansOfPayment, kyc])
+  }, [meansOfPayment])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
@@ -67,7 +64,6 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
         origin={['buyPreferences', { amount: offer.amount }]}
         style={tw`mt-4`}
       />
-      {/* <KYC kyc={kyc} setKYC={setKYC} /> */}
     </View>
   )
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -50,7 +50,7 @@ const sortByStatus = (a: SellOffer | BuyOffer, b: SellOffer | BuyOffer) =>
 export default ({ navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
-  const [lastUpdate, setLastUpdate] = useState(new Date().getTime())
+  const [, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
 
   const allOpenOffers = offers.filter(isOpenOffer).filter(showOffer)
@@ -79,8 +79,11 @@ export default ({ navigation }: Props): ReactElement => {
           error('Could not fetch offer information')
 
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),
@@ -104,8 +107,11 @@ export default ({ navigation }: Props): ReactElement => {
         onError: (err) => {
           error('Could not fetch contract information')
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),

@@ -44,7 +44,7 @@ const TradeCanceled = () => (
       {i18n('cancelOffer.confirm.success')}
     </Headline>
     <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-      <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+      <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
     </View>
   </View>
 )
@@ -80,7 +80,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         return
       }
       updateOverlay({
-        content: <Refund {...{ offer, navigate, navigation }} />,
+        content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
         showCloseButton: false,
       })
     }, 3000)
@@ -98,7 +98,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
           {i18n('cancelOffer.confirm.ok')}
         </PrimaryButton>
       </View>
-      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color as string} /> : null}
+      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} /> : null}
     </View>
   )
 }

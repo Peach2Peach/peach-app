@@ -9,12 +9,11 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { BigTitle, Headline, Icon, Loading, Matches, PrimaryButton, SatsFormat, Text } from '../../components'
+import { BigTitle, Headline, Icon, Loading, Matches, PrimaryButton, PeachScrollView, SatsFormat, Text } from '../../components'
 import { Level, MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
-import { PaymentDataMissing } from '../../messageBanners/PaymentDataMissing'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import DifferentCurrencyWarning from '../../overlays/DifferentCurrencyWarning'
 import DoubleMatch from '../../overlays/info/DoubleMatch'
@@ -99,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const openAddPaymentMethodDialog = () => {
     if (!selectedPaymentMethod || !selectedCurrency) return
-    updateMessage({ template: null, level: 'ERROR' })
+    updateMessage({ msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(selectedPaymentMethod).length + 1
     const label = i18n(`paymentMethod.${selectedPaymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
@@ -162,8 +161,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!paymentDataForMethod) {
         error('Payment data could not be found for offer', offer.id)
         updateMessage({
-          template: <PaymentDataMissing openAddPaymentMethodDialog={openAddPaymentMethodDialog} />,
+          msgKey: 'PAYMENT_DATA_MISSING',
           level: 'ERROR',
+          action: openAddPaymentMethodDialog,
+          actionLabel: i18n('PAYMENT_DATA_MISSING.action'),
+          keepAlive: true,
         })
         return
       }
@@ -220,10 +222,20 @@ export default ({ route, navigation }: Props): ReactElement => {
       error('Error', err)
       if (err?.error) {
         const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
-        updateMessage({
-          msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-          level: messageLevels[err?.error] || 'ERROR',
-        })
+        if (msgKey) {
+          updateMessage({
+            msgKey,
+            level: messageLevels[err?.error] || 'ERROR',
+          })
+        } else {
+          updateMessage({
+            msgKey: i18n('GENERAL_ERROR', ((err?.details as string[]) || []).join(', ')),
+            level: messageLevels[err?.error] || 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
+          })
+        }
       }
     }
     setMatchLoading(false)
@@ -244,17 +256,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
   }
 
   const _toggleMatch = () => (currentMatch.matched ? _unmatch(currentMatch) : _match(currentMatch))
-
-  // const _decline = () => {
-  // alert('todo')
-  // }
 
   const goHome = () => navigation.navigate('home', {})
   const goToYourTrades = () => navigation.replace('yourTrades', {})
@@ -331,8 +342,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         onError: (err) => {
           error('Could not fetch offer information for offer', offer.id)
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),
@@ -373,6 +387,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   )
 
   return (
+    <PeachScrollView>
     <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
       <View style={tw`px-6`}>
         {!matches.length ? (
@@ -433,7 +448,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   {i18n(currentMatch?.matched ? 'search.waitingForSeller' : 'search.matchOffer')}
                 </PrimaryButton>
                 <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                  <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
                 </Pressable>
               </View>
             ) : (
@@ -442,7 +457,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   {i18n('search.acceptMatch')}
                 </PrimaryButton>
                 <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-                  <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+                  <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
                 </Pressable>
               </View>
             )}
@@ -456,6 +471,6 @@ export default ({ route, navigation }: Props): ReactElement => {
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>{i18n('cancelOffer')}</Text>
         </Pressable>
       </View>
-    </View>
+    </PeachScrollView>
   )
 }

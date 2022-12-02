@@ -33,7 +33,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: Disp
       cancelConfirmationDismissed: true,
     })
     updateOverlay({
-      content: <Refund {...{ offer, navigate, navigation }} />,
+      content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
       showCloseButton: false,
     })
   }

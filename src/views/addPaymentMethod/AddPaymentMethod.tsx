@@ -25,7 +25,6 @@ const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
   return 0
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [page, setPage] = useState(getPage(route.params))
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])

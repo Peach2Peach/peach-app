@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View, Text } from 'react-native'
 import { Headline, PrimaryButton } from '../components'
 import { OverlayContext } from '../contexts/overlay'

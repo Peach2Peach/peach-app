@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentdata } from '../../utils/paymentMethod'
+import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
@@ -39,9 +39,8 @@ type PaymentDetailsProps = ComponentProps & {
   navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
-// eslint-disable-next-line max-lines-per-function
 export default ({ paymentData, editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
-  const [random, setRandom] = useState(0)
+  const [, setRandom] = useState(0)
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {
@@ -57,7 +56,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
     display: <Text style={tw`font-baloo text-base`}>{data.label}</Text>,
-    isValid: isValidPaymentdata(data),
+    isValid: isValidPaymentData(data),
     disabled: editable,
     data,
   })
@@ -136,7 +135,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
                     <View style={tw`flex flex-row justify-between`}>
                       <Text style={tw`font-baloo text-red`}>{item.data.label}</Text>
                       <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                        <Icon id="cross" style={tw`w-6 h-6`} color={tw`text-peach-1`.color as string} />
+                        <Icon id="x" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
                       </Pressable>
                     </View>
                   )}

@@ -3,17 +3,12 @@ import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, PrimaryButton, Title } from '../../components'
+import { GoBackButton, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import SocialsItem from './components/SocialsItem'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   useContext(LanguageContext)
 
   const goToTwitter = () => Linking.openURL('https://twitter.com/peachbitcoin')

@@ -1,97 +1,93 @@
-import React, { ReactElement, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { PaymentMethodFormProps } from '.'
+import { FormProps } from '.'
 import { OverlayContext } from '../../../../contexts/overlay'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { getMessages, rules } from '../../../../utils/validation'
+import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
-const { useValidation } = require('react-native-form-validator')
 
-// eslint-disable-next-line max-lines-per-function
+const emailRules = {
+  required: true,
+  email: true,
+}
+
 export const GiftCardAmazon = ({
   forwardRef,
   data,
   currencies = [],
-  country,
   onSubmit,
-  onChange
-}: PaymentMethodFormProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  setStepValid,
+}: FormProps): ReactElement => {
+  useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
-  const [email, setEmail] = useState(data?.email || '')
+  const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   let $email = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { label, email },
-    rules,
-    messages: getMessages()
-  })
+  const labelRules = {
+    required: true,
+    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+  }
+
+  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & AmazonGiftCardData => ({
     id: data?.id || `giftCard.amazon-${new Date().getTime()}`,
     label,
-    type: `giftCard.amazon.${data?.country || country}` as PaymentMethod,
+    type: `giftCard.amazon.${data?.country}` as PaymentMethod,
     email,
     currencies: data?.currencies || currencies,
-    country: data?.country || country,
+    country: data?.country,
   })
 
-  const validateForm = () => validate({
-    label: {
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id
-    },
-    email: {
-      required: true,
-      email: true
-    },
-  })
+  const isFormValid = () => {
+    setDisplayErrors(true)
+    return emailIsValid && labelErrors.length === 0
+  }
   const save = () => {
-    if (!validateForm()) return
+    if (!isFormValid()) return
 
-    if (onSubmit) onSubmit(buildPaymentData())
+    onSubmit(buildPaymentData())
   }
 
   useImperativeHandle(forwardRef, () => ({
-    buildPaymentData,
-    validateForm,
     save,
   }))
 
   useEffect(() => {
-    if (onChange) onChange(buildPaymentData())
-  }, [label, email])
+    setStepValid(isFormValid())
+  }, [isFormValid, setStepValid])
 
-  return <View>
+  return (
     <View>
-      <Input
-        onChange={setLabel}
-        onSubmit={() => $email?.focus()}
-        value={label}
-        label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName.placeholder')}
-        isValid={!isFieldInError('label')}
-        autoCorrect={false}
-        errorMessage={label.length && getErrorsInField('label')}
-      />
+      <View>
+        <Input
+          onChange={setLabel}
+          onSubmit={() => $email?.focus()}
+          value={label}
+          label={i18n('form.paymentMethodName')}
+          placeholder={i18n('form.paymentMethodName.placeholder')}
+          autoCorrect={false}
+          errorMessage={displayErrors ? labelErrors : undefined}
+        />
+      </View>
+      <View style={tw`mt-1`}>
+        <Input
+          onChange={setEmail}
+          onSubmit={save}
+          reference={(el: any) => ($email = el)}
+          required={true}
+          value={email}
+          label={i18n('form.email')}
+          placeholder={i18n('form.email.placeholder')}
+          autoCorrect={false}
+          errorMessage={displayErrors ? emailErrors : undefined}
+        />
+      </View>
     </View>
-    <View style={tw`mt-6`}>
-      <Input
-        onChange={setEmail}
-        onSubmit={save}
-        reference={(el: any) => $email = el}
-        required={true}
-        value={email}
-        label={i18n('form.email')}
-        placeholder={i18n('form.email.placeholder')}
-        isValid={!isFieldInError('email')}
-        autoCorrect={false}
-        errorMessage={email.length && getErrorsInField('email')}
-      />
-    </View>
-  </View>
+  )
 }

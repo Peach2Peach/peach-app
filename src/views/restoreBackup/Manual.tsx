@@ -9,44 +9,30 @@ import { recoverAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { StackNavigation } from '../../utils/navigation'
-import { getMessages, rules } from '../../utils/validation'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { storeAccount } from '../../utils/account/storeAccount'
+import { useValidatedState } from '../../hooks'
 
 const { LinearGradient } = require('react-native-gradients')
-const { useValidation } = require('react-native-form-validator')
+
+const passwordRules = { required: true, password: true }
 
 type ManualProps = {
   navigation: StackNavigation
   onSuccess: (account: Account) => void
   onError: (err: Error) => void
 }
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement => {
   useContext(LanguageContext)
   const [file, setFile] = useState({
     name: '',
     content: '',
   })
-  const [password, setPassword] = useState('')
+  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [loading, setLoading] = useState(false)
-
-  const { validate, isFieldInError } = useValidation({
-    deviceLocale: 'default',
-    state: { password },
-    rules,
-    messages: getMessages(),
-  })
 
   const onPasswordChange = (value: string) => {
     setPassword(value)
-
-    validate({
-      password: {
-        required: true,
-        password: true,
-      },
-    })
   }
 
   const submit = async () => {
@@ -92,9 +78,9 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
           <View style={tw`w-full`}>
-            <FileInput fileName={file.name} style={tw`w-full`} onChange={setFile} />
+            <FileInput fileName={file.name} onChange={setFile} />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               onChange={setPassword}
               onSubmit={(val: string) => {
@@ -104,13 +90,12 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              isValid={!isFieldInError('password')}
-              errorMessage={isFieldInError('password') ? [i18n('form.password.error')] : []}
+              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <PrimaryButton onPress={submit} disabled={!file.content || !password}>
               {i18n('restoreBackup')}

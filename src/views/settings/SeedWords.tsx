@@ -2,29 +2,12 @@ import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
-import { StackNavigationProp } from '@react-navigation/stack'
 
-import { Card, GoBackButton, Headline, Icon, PrimaryButton, Text, Title } from '../../components'
+import { Card, GoBackButton, Headline, PrimaryButton, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { account } from '../../utils/account'
-import { StackNavigation } from '../../utils/navigation'
 
-const BackupCreated = () => (
-  <View style={tw`flex items-center`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-      {i18n('settings.backups.created')}
-    </Headline>
-    <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-      <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
-    </View>
-  </View>
-)
-
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   const [showWords, setShowWords] = useState(false)
 
   const iUnderstand = () => setShowWords(true)

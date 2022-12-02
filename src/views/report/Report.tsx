@@ -13,52 +13,38 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
-import { getMessages, rules } from '../../utils/validation'
 import { UNIQUEID } from '../../constants'
-const { useValidation } = require('react-native-form-validator')
+import { useValidatedState } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
   navigation: StackNavigation
 }
 
+const emailRules = { required: true, email: true }
+const required = { required: true }
+
 export default ({ route, navigation }: Props): ReactElement => {
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [email, setEmail] = useState('')
-  const [topic, setTopic] = useState(route.params.topic || '')
-  const [message, setMessage] = useState(route.params.message || '')
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
+  const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
+  const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   const reason = route.params.reason
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const { validate, isFieldInError, getErrorsInField, isFormValid } = useValidation({
-    deviceLocale: 'default',
-    state: { email, topic, message },
-    rules,
-    messages: getMessages(),
-  })
-
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
-    validate({
-      email: {
-        required: true,
-        email: true,
-      },
-      topic: {
-        required: true,
-      },
-      message: {
-        required: true,
-      },
-    })
-    if (!isFormValid()) return
+    setDisplayErrors(true)
+    const isFormValid = isEmailValid && isTopicValid && isMessageValid
+    if (!isFormValid) return
 
     let messageToSend = message
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
@@ -79,8 +65,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
   }
@@ -97,12 +86,11 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={email}
               label={i18n('form.userEmail')}
               placeholder={i18n('form.userEmail.placeholder')}
-              isValid={!isFieldInError('email')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('email')}
+              errorMessage={displayErrors ? emailErrors : undefined}
             />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               onChange={setTopic}
               onSubmit={() => $message?.focus()}
@@ -110,12 +98,11 @@ export default ({ route, navigation }: Props): ReactElement => {
               value={topic}
               label={i18n('form.topic')}
               placeholder={i18n('form.topic.placeholder')}
-              isValid={!isFieldInError('topic')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('topic')}
+              errorMessage={displayErrors ? topicErrors : undefined}
             />
           </View>
-          <View style={tw`mt-2`}>
+          <View style={tw`mt-1`}>
             <Input
               style={tw`h-40`}
               onChange={setMessage}
@@ -124,15 +111,14 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={!isFieldInError('message')}
               autoCorrect={false}
-              errorMessage={getErrorsInField('message')}
+              errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row justify-center items-center mt-5`}>
             <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
               {shareDeviceID ? (
-                <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+                <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
               ) : (
                 <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
               )}
@@ -141,7 +127,9 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Pressable>
         </View>
         <View style={tw`flex items-center mt-16`}>
-          <PrimaryButton onPress={submit}>{i18n('report.sendReport')}</PrimaryButton>
+          <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>
+            {i18n('report.sendReport')}
+          </PrimaryButton>
           {route.name.toString() === 'reportFullScreen' && (
             <PrimaryButton style={tw`mt-5`} onPress={navigation.goBack}>
               {i18n('cancel')}

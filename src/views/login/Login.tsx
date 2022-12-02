@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 
@@ -17,34 +16,26 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { setSessionItem } from '../../utils/session'
-import { getMessages, rules } from '../../utils/validation'
+import { useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
-const { useValidation } = require('react-native-form-validator')
 
 type Props = {
   navigation: StackNavigation
 }
 
+const passwordRules = { required: true }
+
 export default ({ navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
-  const [password, setPassword] = useState('')
+  const [password, setPassword, passwordIsValid] = useValidatedState('', passwordRules)
   const [loading, setLoading] = useState(false)
-
-  const { validate, isFieldInError } = useValidation({
-    deviceLocale: 'default',
-    state: { password },
-    rules,
-    messages: getMessages(),
-  })
+  const [displayErrors, setDisplayErrors] = useState(false)
 
   const submit = async () => {
-    const isValid = validate({
-      password: {
-        required: true,
-      },
-    })
+    setDisplayErrors(true)
+    const isValid = passwordIsValid
     if (isValid) {
       Keyboard.dismiss()
       setLoading(isValid)
@@ -59,7 +50,7 @@ export default ({ navigation }: Props): ReactElement => {
         })
         navigation.replace('home', {})
       } else {
-        updateMessage({ msgKey: 'form.password.invalid', level: 'ERROR' })
+        updateMessage({ msgKey: 'WRONG_PASSWORD', level: 'ERROR' })
       }
 
       setLoading(false)
@@ -106,13 +97,12 @@ export default ({ navigation }: Props): ReactElement => {
               onSubmit={submit}
               secureTextEntry={true}
               value={password}
-              isValid={!isFieldInError('password')}
-              errorMessage={isFieldInError('password') ? [''] : []}
+              errorMessage={displayErrors ? (!passwordIsValid ? [''] : []) : undefined}
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <PrimaryButton onPress={submit} disabled={!password}>
               {i18n('login')}

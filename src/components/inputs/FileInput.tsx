@@ -1,13 +1,9 @@
 import React, { ReactElement } from 'react'
-import { Platform, Pressable, View } from 'react-native'
-import { error } from '../../utils/log'
-import RNFS from 'react-native-fs'
+import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import Icon from '../Icon'
-import { Shadow, Text } from '..'
-import { innerShadow } from '../../utils/layout'
+import { readFileInChunks } from '../../utils/file'
+import { error } from '../../utils/log'
+import Input from './Input'
 
 export type FileData = {
   name: string
@@ -22,8 +18,6 @@ export type FileData = {
  */
 const selectFile = (): Promise<FileData> =>
   new Promise(async (resolve) => {
-    let timeout: NodeJS.Timer
-
     try {
       const file = await DocumentPicker.pickSingle()
       try {
@@ -36,21 +30,11 @@ const selectFile = (): Promise<FileData> =>
           ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
         }) as string
 
-        RNFS.readFile(uri, 'utf8').then((content) => {
-          clearTimeout(timeout)
-          resolve({
-            name: file.name || '',
-            content,
-          })
+        const content = await readFileInChunks(uri)
+        resolve({
+          name: file.name || '',
+          content,
         })
-
-        // RNFS.readFile might not be able to read data if no network is available, stop after 10 seconds
-        timeout = setTimeout(() => {
-          resolve({
-            name: '',
-            content: '',
-          })
-        }, 10000)
       } catch (e) {
         error('File could not be read', e)
         resolve({
@@ -68,19 +52,18 @@ const selectFile = (): Promise<FileData> =>
 
 type FileInputProps = ComponentProps & {
   fileName?: string
-  autoCorrect?: boolean
-  isValid?: boolean
   errorMessage?: string[]
   onChange?: Function
   secureTextEntry?: boolean
+  invertColors?: boolean
 }
 
 /**
  * @description Component to display the language select
  * @param props Component properties
  * @param [props.fileName] file name
- * @param [props.isValid] if true show valid state
  * @param [props.style] css style object
+ * @param [props.invertColors] if true invert color
  * @param [props.errorMessage] error message for invalid field
  * @param [props.onChange] onchange handler from outside
  * @example
@@ -91,40 +74,28 @@ type FileInputProps = ComponentProps & {
  *   errorMessage={getErrorsInField('address')}
  * />
  */
-export const FileInput = ({ fileName, isValid, style, errorMessage = [], onChange }: FileInputProps): ReactElement => (
-  <View>
-    <Pressable
-      style={[
-        tw`flex h-8 border border-grey-4 rounded overflow-hidden bg-white-1`,
-        tw.md`h-10`,
-        isValid && fileName ? tw`border-green` : {},
-        errorMessage.length > 0 ? tw`border-red` : {},
-        style || {},
-      ]}
-      onPress={async () => (onChange ? onChange(await selectFile()) : null)}
-    >
-      <Shadow
-        shadow={innerShadow}
-        style={[tw`w-full flex flex-row items-center justify-between h-8 pl-4 pr-3 py-2 rounded`, tw.md`h-10`]}
-      >
-        <Text
-          style={[
-            tw`flex-grow-0 flex-shrink font-baloo text-xs uppercase`,
-            fileName ? tw`text-peach-1` : tw`text-grey-1`,
-          ]}
-          numberOfLines={1}
-          ellipsizeMode="middle"
-        >
-          {fileName || i18n('form.file')}
-        </Text>
-        <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} color={tw`text-peach-1`.color as string} />
-      </Shadow>
-    </Pressable>
+export const FileInput = ({
+  fileName,
+  style,
+  invertColors,
+  errorMessage = [],
+  onChange,
+}: FileInputProps): ReactElement => {
+  const onPress = async () => (onChange ? onChange(await selectFile()) : null)
 
-    {errorMessage.length > 0 ? (
-      <Text style={tw`font-baloo text-xs text-red text-center mt-2`}>{errorMessage[0]}</Text>
-    ) : null}
-  </View>
-)
+  return (
+    <Input
+      {...{
+        style,
+        invertColors,
+        value: fileName,
+        disabled: true,
+        onPressIn: onPress,
+        icons: [['clipboard', onPress]],
+        errorMessage,
+      }}
+    />
+  )
+}
 
 export default FileInput

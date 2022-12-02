@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Shadow, Text } from '..'
@@ -15,7 +15,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../icons'
 import { Bubble } from '../ui'
 import { Navigation } from '../../utils/navigation'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -50,12 +50,12 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
         <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-          <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
+          <Icon id={id} style={tw`w-7 h-7`} color={color.color} />
           <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
           <Bubble
-            color={tw`text-green`.color as string}
+            color={tw`text-green`.color}
             style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
           >
             <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
@@ -75,7 +75,6 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
  * @example
  * <Footer active={'home'} />
  */
-// eslint-disable-next-line max-lines-per-function
 export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
@@ -84,7 +83,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
 
   const navTo = (page: keyof RootStackParamList) => {
     setCurrentPage(page)
-    navigation.navigate({ name: page, merge: false, params: {} })
+    navigation.navigate(page as string, {})
   }
   const navigate = {
     home: () => navTo('home'),
@@ -152,7 +151,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
             />
             <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
             <FooterItem
-              id="yourTrades"
+              id="list"
               style={tw`w-1/4`}
               active={active === 'yourTrades' || /contract/u.test(active as string)}
               onPress={navigate.yourTrades}

@@ -1,5 +1,4 @@
-/* eslint-disable max-lines-per-function */
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
 
 import Logo from '../../assets/logo/peachLogo.svg'
@@ -14,53 +13,43 @@ import { account, createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
-import { getMessages, rules } from '../../utils/validation'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
+import { useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
-const { useValidation } = require('react-native-form-validator')
 
 type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-statements
+const passwordRules = { required: true, password: true }
+const referralCodeRules = { referralCode: true }
+
+// eslint-disable-next-line complexity
 export default ({ navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
+  const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
   const [passwordMatch, setPasswordMatch] = useState(true)
-  const [referralCode, setReferralCode] = useState('')
+  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState<string>(
+    '',
+    referralCodeRules,
+  )
   const [isPristine, setIsPristine] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [displayErrors, setDisplayErrors] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
   let $referral = useRef<TextInput>(null).current
 
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const { validate, isFieldInError, getErrorsInField } = useValidation({
-    deviceLocale: 'default',
-    state: { password, referralCode },
-    rules,
-    messages: getMessages(),
-  })
-
-  const validateForm = () =>
-    !password
-    || !passwordRepeat
-    || validate({
-      password: {
-        required: true,
-        password: true,
-      },
-      referralCode: {
-        referralCode: true,
-      },
-    })
+  const validate = () => {
+    setDisplayErrors(true)
+    return !password || !passwordRepeat || (passwordIsValid && referralCodeIsValid)
+  }
 
   const checkPasswordMatch = () => {
     if (password && passwordRepeat) {
@@ -75,7 +64,7 @@ export default ({ navigation }: Props): ReactElement => {
 
     if (!isPristine) {
       checkPasswordMatch()
-      validateForm()
+      validate()
     }
   }
 
@@ -83,6 +72,9 @@ export default ({ navigation }: Props): ReactElement => {
     updateMessage({
       msgKey: e.message || 'AUTHENTICATION_FAILURE',
       level: 'ERROR',
+      action: () => navigation.navigate('contact', {}),
+      actionLabel: i18n('contactUs'),
+      actionIcon: 'mail',
     })
     if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
     deleteAccount({
@@ -117,26 +109,20 @@ export default ({ navigation }: Props): ReactElement => {
 
     if (!isPristine) {
       checkPasswordMatch()
-      validateForm()
+      validate()
     }
   }
 
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
 
   const submit = () => {
-    if (
-      !password
-      || !passwordRepeat
-      || !passwordMatch
-      || isFieldInError('password')
-      || isFieldInError('passwordRepeat')
-    ) {
+    if (!password || !passwordRepeat || !passwordMatch || !passwordIsValid || !passwordRepeatIsValid) {
       Keyboard.dismiss()
       return
     }
     setIsPristine(false)
     const pwMatch = checkPasswordMatch()
-    if (pwMatch && validateForm()) {
+    if (pwMatch && validate()) {
       Keyboard.dismiss()
       setLoading(true)
 
@@ -146,10 +132,6 @@ export default ({ navigation }: Props): ReactElement => {
       })
     }
   }
-
-  useEffect(() => {
-    validateForm()
-  }, [referralCode])
 
   return (
     <View style={tw`h-full flex justify-center px-6`}>
@@ -187,7 +169,7 @@ export default ({ navigation }: Props): ReactElement => {
             <Text
               style={[
                 tw`font-baloo text-2xs text-grey-3 text-center`,
-                !passwordMatch || isFieldInError('password') ? tw`text-red` : {},
+                displayErrors && (!passwordMatch || !passwordIsValid) ? tw`text-red` : {},
               ]}
             >
               {!passwordMatch ? i18n('form.password.match.error') : i18n('form.password.error')}
@@ -198,8 +180,7 @@ export default ({ navigation }: Props): ReactElement => {
               onSubmit={focusToPasswordRepeat}
               secureTextEntry={true}
               value={password}
-              isValid={!isPristine && !isFieldInError('password') && passwordMatch}
-              errorMessage={!passwordMatch || isFieldInError('password') ? [''] : []}
+              errorMessage={displayErrors ? (!passwordMatch || !passwordIsValid ? [''] : []) : undefined}
             />
           </View>
           <View style={tw`mt-2 h-12`}>
@@ -213,8 +194,7 @@ export default ({ navigation }: Props): ReactElement => {
               }}
               secureTextEntry={true}
               value={passwordRepeat}
-              isValid={!isPristine && !isFieldInError('passwordRepeat') && passwordMatch}
-              errorMessage={!passwordMatch || isFieldInError('passwordRepeat') ? [''] : []}
+              errorMessage={displayErrors ? (!passwordMatch || !passwordRepeatIsValid ? [''] : []) : undefined}
             />
           </View>
           <View style={tw`mt-4 h-12 px-4`}>
@@ -229,24 +209,17 @@ export default ({ navigation }: Props): ReactElement => {
               }}
               value={referralCode}
               autoCapitalize="characters"
-              isValid={!isFieldInError('referralCode')}
-              errorMessage={referralCode.length && getErrorsInField('referralCode')}
+              errorMessage={displayErrors ? referralCodeErrors : undefined}
             />
           </View>
           <View style={tw`w-full mt-10 flex items-center`}>
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <PrimaryButton
               testID="newUser-register"
               onPress={submit}
-              disabled={
-                !password
-                || !passwordRepeat
-                || !passwordMatch
-                || isFieldInError('password')
-                || isFieldInError('passwordRepeat')
-              }
+              disabled={!password || !passwordRepeat || !passwordMatch || !passwordIsValid || !passwordRepeatIsValid}
             >
               {i18n('createAccount')}
             </PrimaryButton>

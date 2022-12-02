@@ -56,14 +56,11 @@ export const MessageInput = ({
   // TODO Attach files
   return (
     <View style={tw`rounded flex-row bg-chat-you-translucent items-center max-h-40 px-2 py-2`}>
-      {/* <Pressable onPress={() => onSubmit}>
-      <Icon id={'clip'} style={tw`w-5 h-5 m-2 flex-1`}/>
-    </Pressable> */}
       <TextInput
         testID={testID}
         style={tw`w-full flex-shrink font-lato leading-5 text-black-1 p-1`}
         placeholder={placeholder}
-        placeholderTextColor={tw`text-black-1`.color as string}
+        placeholderTextColor={tw`text-black-1`.color}
         allowFontScaling={false}
         removeClippedSubviews={false}
         returnKeyType={'send'}
@@ -79,7 +76,7 @@ export const MessageInput = ({
         autoCapitalize="sentences"
       />
       <Pressable onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}>
-        <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color as string} />
+        <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color} />
       </Pressable>
     </View>
   )

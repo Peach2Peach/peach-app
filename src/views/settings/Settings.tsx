@@ -56,7 +56,6 @@ export default ({ navigation }: Props): ReactElement => {
   )
 
   const goToContactUs = () => navigation.navigate('contact', {})
-  // const goToLanguageSettings = () => navigation.navigate('language', {})
   const goToCurrencySettings = () => navigation.navigate('currency', {})
   const goToMyAccount = () => navigation.navigate('profile', { userId: account.publicKey })
   const goToBackups = () => navigation.navigate('backups', {})
@@ -97,7 +96,6 @@ export default ({ navigation }: Props): ReactElement => {
             </Text>
           </Card>
         </Pressable>
-        {/* <SettingsItem onPress={goToLanguageSettings} title="language" /> */}
         <SettingsItem onPress={goToCurrencySettings} title="displayCurrency" />
 
         <Headline style={tw`text-center text-lg text-peach-mild mt-8`}>{i18n('settings.accountSettings')}</Headline>
@@ -107,7 +105,7 @@ export default ({ navigation }: Props): ReactElement => {
             <Text style={tw`w-full flex-shrink text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
             {account.settings.showBackupReminder !== false ? (
               <View style={tw`absolute right-3 h-full flex justify-center`}>
-                <Icon id="warning" style={tw`w-6 h-6`} color={tw`text-white-1`.color as string} />
+                <Icon id="alertTriangle" style={tw`w-6 h-6`} color={tw`text-white-1`.color} />
               </View>
             ) : null}
           </Card>
@@ -124,7 +122,7 @@ export default ({ navigation }: Props): ReactElement => {
         <Pressable style={tw`mt-2`} onPress={goToWebsite}>
           <Card style={tw`flex-row items-center justify-center`}>
             <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.website')}</Text>
-            <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color as string} />
+            <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color} />
           </Card>
         </Pressable>
         <Pressable style={tw`mt-2`} onPress={toggleAnalytics}>

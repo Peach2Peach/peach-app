@@ -8,7 +8,8 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'react-hooks'
   ],
   'parserOptions': {
     'ecmaVersion': 12,
@@ -299,9 +300,10 @@ module.exports = {
     'wrap-regex': 'off',
     'yield-star-spacing': 'error',
     'yoda': 'error',
-    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'warn',
     'jest/expect-expect': 'off',
-    'react-hooks/exhaustive-deps': 'off',
+    'react-hooks/exhaustive-deps': 'warn',
     'react-native/no-inline-styles': 'off'
   },
   'overrides': [

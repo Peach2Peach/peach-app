@@ -22,7 +22,6 @@ type ScreenProps = {
 
 const screens = [WelcomeToPeach, Swipe, PeachOfMind, YouOwnYourData, LetsGetStarted]
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ navigation }: ScreenProps): ReactElement => {
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
@@ -72,7 +71,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
             <PrimaryButton testID="welcome-next" onPress={next}>
               {i18n('next')}
             </PrimaryButton>
-            <PrimaryButton style={tw`mt-4 opacity-0`}>{i18n('restoreBackup')}</PrimaryButton>
+            <PrimaryButton style={tw`opacity-0 mt-4`}>{i18n('restoreBackup')}</PrimaryButton>
           </View>
         ) : (
           <View>

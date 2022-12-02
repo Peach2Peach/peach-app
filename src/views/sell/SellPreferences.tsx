@@ -60,6 +60,7 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
     txIds: [],
     amounts: [],
     vouts: [],
+    expiry: 4320,
   },
   matches: [],
   seenMatches: [],
@@ -84,7 +85,6 @@ const screens = [
   },
 ]
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
 
@@ -166,8 +166,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       } else if (err) {
         error('Error', err)
         updateMessage({
-          msg: i18n(err.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
+          action: () => navigation.navigate('contact', {}),
+          actionLabel: i18n('contactUs'),
+          actionIcon: 'mail',
         })
         back()
       }

@@ -32,7 +32,6 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -138,8 +137,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           }),
       }),
       [contractId],
@@ -173,11 +175,17 @@ export default ({ route, navigation }: Props): ReactElement => {
   const postConfirmPaymentBuyer = async () => {
     if (!contract) return
 
-    const [result, err] = await confirmPayment({ contractId: contract.id })
+    const [, err] = await confirmPayment({ contractId: contract.id })
 
     if (err) {
       error(err.error)
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
 
@@ -196,8 +204,11 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!tx) {
       setLoading(false)
       updateMessage({
-        msgKey: errorMsg!.join('\n'),
+        msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
       return
     }
@@ -208,7 +219,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
 
@@ -250,7 +267,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   />
                   {view === 'buyer' && requiredAction === 'sendPayment' ? (
                     <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
-                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+                      <Icon id="helpCircle" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
                     </Pressable>
                   ) : null}
                 </View>

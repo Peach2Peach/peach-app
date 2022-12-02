@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 
-// import Home from './home/Home'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
@@ -49,7 +48,6 @@ export const views: ViewType[] = [
   { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
   { name: 'login', component: Login, showHeader: false, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
-  // { name: 'home', component: Home, showHeader: false, showFooter: true },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
   { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },

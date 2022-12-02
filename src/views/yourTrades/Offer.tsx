@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
-import { PeachScrollView, PrimaryButton, Title } from '../../components'
+import { PeachScrollView, PrimaryButton, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -29,7 +29,6 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -57,6 +56,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
+  }
+
+  const goToOffer = () => {
+    if (!offer.newOfferId) return
+    const offr = getOffer(offer.newOfferId)
+    if (offr) navigation.replace('offer', { offer: offr })
   }
 
   useFocusEffect(
@@ -109,8 +114,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         onError: (err) => {
           error('Could not fetch offer information for offer', offerId)
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           })
         },
       }),
@@ -135,8 +143,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: () => navigation.navigate('contact', {}),
+            actionLabel: i18n('contactUs'),
+            actionIcon: 'mail',
           }),
       }),
       [contractId],
@@ -169,6 +180,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) ? (
         <View>
           <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
+          {offer.newOfferId ? (
+            <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+              {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
+            </Text>
+          ) : null}
           <View style={tw`mt-7`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
             <PrimaryButton style={tw`flex items-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})}>

@@ -40,6 +40,7 @@ export const Button = ({ wide, children, iconId, narrow, color, textColor, borde
       {!!iconId && (
         <Icon id={iconId} style={iconSize} color={typeof textColor.color === 'string' ? textColor.color : undefined} />
       )}
+      {/* loading && <Loading size="small" style={tw`h-1 absolute`} color={color.color} /> */}
     </Pressable>
   )
 }

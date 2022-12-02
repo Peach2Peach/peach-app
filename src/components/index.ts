@@ -11,6 +11,7 @@ export { Header } from './Header'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
+export { Hint } from './Hint'
 export {
   Checkboxes,
   Dropdown,

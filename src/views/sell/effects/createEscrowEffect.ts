@@ -4,20 +4,20 @@ import { createEscrow } from '../../../utils/peachAPI'
 import { getPublicKeyForEscrow } from '../../../utils/wallet'
 
 type CreateEscrowIfNewProps = {
-  offer: SellOffer
+  sellOffer: SellOffer
   onSuccess: (result: CreateEscrowResponse) => void
   onError: (err: APIError) => void
 }
-export default ({ offer, onSuccess, onError }: CreateEscrowIfNewProps): EffectCallback =>
+export default ({ sellOffer, onSuccess, onError }: CreateEscrowIfNewProps): EffectCallback =>
   () => {
     ;(async () => {
-      if (!offer.id || offer.escrow) return
+      if (!sellOffer.id || sellOffer.escrow) return
 
-      info('Creating escrow for', offer.id)
+      info('Creating escrow for', sellOffer.id)
 
-      const publicKey = getPublicKeyForEscrow(offer.id)
+      const publicKey = getPublicKeyForEscrow(sellOffer.id)
       const [result, err] = await createEscrow({
-        offerId: offer.id,
+        offerId: sellOffer.id,
         publicKey,
       })
 

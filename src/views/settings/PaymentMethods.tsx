@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, PeachScrollView, PrimaryButton, Title } from '../../components'
+import { GoBackButton, PeachScrollView, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import PaymentDetails from '../../components/payment/PaymentDetails'
@@ -15,7 +14,7 @@ type Props = {
 }
 
 export default ({ navigation }: Props): ReactElement => {
-  const [update, setUpdate] = useState(0)
+  const [, setUpdate] = useState(0)
   const dummy = () => setUpdate(Math.random())
   return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>

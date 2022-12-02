@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Pressable } from 'react-native'
 import { PrimaryButton } from '..'
-import { useKeyboard } from '../../hooks/useKeyboard'
+import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Fade } from '../animation'
@@ -24,7 +24,7 @@ export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): 
     <Fade show={!keyboardOpen} style={tw`w-full flex items-center`} displayNone={false}>
       {!/search/u.test(screen) ? (
         <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={back}>
-          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
+          <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
         </Pressable>
       ) : null}
       <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next}>

@@ -15,7 +15,6 @@ import { ContractCanceled } from './ContractCanceled'
 /**
  * @description Overlay the buyer sees after seller requested the cancelation of the trade
  */
-// eslint-disable-next-line max-lines-per-function
 export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -37,8 +36,11 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
       })
     }
     setLoading(false)

@@ -108,7 +108,7 @@ declare type FundingStatus = {
   txIds: string[]
   vouts: number[]
   amounts: number[]
-  amount?: number // TODO remove for release 0.1.0
+  expiry: number
 }
 
 declare type GetStatusResponse = {
@@ -145,7 +145,10 @@ declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 declare type Offer = {
   id: string
+  oldOfferId?: string
+  newOfferId?: string
   creationDate: Date
+  publishingDate?: Date
   online: boolean
   user?: User
   publicKey?: string

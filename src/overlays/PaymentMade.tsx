@@ -8,18 +8,16 @@ import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { Navigation } from '../utils/navigation'
-import { getContract, getOfferIdfromContract } from '../utils/contract'
+import { getOfferIdfromContract } from '../utils/contract'
 
 type Props = {
-  contractId: Contract['id']
+  contract: Contract
   date: number
   navigation: Navigation
 }
 
-export default ({ contractId, date, navigation }: Props): ReactElement => {
+export default ({ contract, date, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-
-  const contract = getContract(contractId)
 
   const closeOverlay = () => {
     updateOverlay({ content: null, showCloseButton: true })
@@ -30,13 +28,11 @@ export default ({ contractId, date, navigation }: Props): ReactElement => {
       name: 'contract',
       merge: false,
       params: {
-        contract: contract
-          ? {
-            ...contract,
-            paymentMade: new Date(date),
-          }
-          : undefined,
-        contractId,
+        contract: {
+          ...contract,
+          paymentMade: new Date(date),
+        },
+        contractId: contract.id,
       },
     })
     closeOverlay()
@@ -47,11 +43,11 @@ export default ({ contractId, date, navigation }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('paymentMade.title')}</Headline>
       <View style={tw`flex items-center mt-3`}>
         <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
         </View>
       </View>
       <Text style={tw`text-center text-white-1 mt-5`}>
-        {i18n('paymentMade.description.1', getOfferIdfromContract(contract!))}
+        {i18n('paymentMade.description.1', getOfferIdfromContract(contract))}
         {'\n\n'}
         {i18n('paymentMade.description.2')}
       </Text>

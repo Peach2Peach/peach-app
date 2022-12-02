@@ -41,7 +41,6 @@ type Props = {
   navigation: Navigation
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [bitcoinContext] = useContext(BitcoinContext)
 
@@ -66,7 +65,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           return
         }
         setUpdatePending(true)
-        const [response, err] = await getUser({ userId })
+        const [response] = await getUser({ userId })
 
         if (response) {
           setUser(response)
@@ -125,7 +124,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   {i18n('copied')}
                 </Text>
               </Fade>
-              <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color as string} />
+              <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color} />
             </View>
           </Pressable>
           {updatePending ? (

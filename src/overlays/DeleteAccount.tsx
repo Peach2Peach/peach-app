@@ -11,7 +11,7 @@ const AccountDeleted = (): ReactElement => (
     <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
       {i18n('settings.deleteAccount.deleted.title')}
     </Headline>
-    <Icon id="fire" style={tw`w-12 h-12 mt-5`} color={tw`text-white-1`.color as string} />
+    <Icon id="fire" style={tw`w-12 h-12 mt-5`} color={tw`text-white-1`.color} />
   </View>
 )
 

@@ -35,14 +35,20 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     )
     const ratedUser = view === 'seller' ? 'ratingBuyer' : 'ratingSeller'
 
-    const [result, err] = await rateUser({
+    const [, err] = await rateUser({
       contractId: contract.id,
       rating: rating.rating,
       signature: rating.signature,
     })
 
     if (err) {
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
       return
     }
     saveAndUpdate({
@@ -68,16 +74,16 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
         <View style={tw`mt-4 flex-row justify-center`}>
           <Pressable onPress={() => setVote('negative')}>
             <Icon
-              id="negative"
+              id="thumbsDown"
               style={[tw`w-6 h-6 mx-2`, vote !== 'negative' ? tw`opacity-30` : {}]}
-              color={tw`text-peach-1`.color as string}
+              color={tw`text-peach-1`.color}
             />
           </Pressable>
           <Pressable onPress={() => setVote('positive')}>
             <Icon
-              id="positive"
+              id="thumbsUp"
               style={[tw`w-6 h-6 mx-2`, vote !== 'positive' ? tw`opacity-30` : {}]}
-              color={tw`text-peach-1`.color as string}
+              color={tw`text-peach-1`.color}
             />
           </Pressable>
         </View>

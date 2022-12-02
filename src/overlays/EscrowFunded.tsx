@@ -51,7 +51,7 @@ export default ({ offerId, navigation }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('escrowFunded.title')}</Headline>
       <View style={tw`flex items-center mt-3`}>
         <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
-          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
         </View>
       </View>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('escrowFunded.description.1')}</Text>
