@@ -26,11 +26,11 @@ export default async (referralCode?: string) => {
       const [result, err] = await updateUser(payload)
 
       if (result) {
-        info('Updated user information', fcmToken)
+        info('Updated user information', 'fcmToken', !!payload.fcmToken, 'pgp', !!payload.pgp)
 
         updateSettings({
-          pgpPublished: account.settings.pgpPublished || !!account.pgp,
-          fcmToken
+          pgpPublished: account.settings.pgpPublished || !!payload.pgp,
+          fcmToken,
         })
       } else {
         error('User information could not be set', JSON.stringify(err))

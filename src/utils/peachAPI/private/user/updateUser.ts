@@ -50,6 +50,7 @@ export const updateUser = async ({
   referralCode,
   timeout,
 }: UpdateUserProps): Promise<[APISuccess | null, APIError | null]> => {
+  const peachAccount = getPeachAccount()
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
   const response = await fetch(`${API_URL}/v1/user`, {

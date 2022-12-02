@@ -6,18 +6,26 @@ import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('storeTradingLimit', () => {
+  let writeFileSpy: jest.SpyInstance
+
   beforeEach(async () => {
+    writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
+
     await setAccount(defaultAccount)
     await storeTradingLimit(defaultAccount.tradingLimit, password)
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    writeFileSpy.mockClear()
   })
 
   it('would write file to store tradingLimit', async () => {
-    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
     await storeTradingLimit(accountData.account1.tradingLimit, password)
     expect(writeFileSpy).toHaveBeenCalledWith(
       '/peach-account-tradingLimit.json',

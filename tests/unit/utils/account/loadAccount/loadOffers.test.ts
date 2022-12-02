@@ -7,18 +7,27 @@ import { fakeFiles, resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('loadOffers', () => {
+  let existsMock: jest.SpyInstance
+  let readDirMock: jest.SpyInstance
+
   beforeEach(async () => {
+    existsMock = jest.spyOn(file, 'exists')
+    readDirMock = jest.spyOn(file, 'readDir')
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    existsMock.mockClear()
+    readDirMock.mockClear()
   })
 
   it('loads offers from files', async () => {
-    const existsMock = jest.spyOn(file, 'exists')
-    const readDirMock = jest.spyOn(file, 'readDir')
     existsMock.mockImplementation(async (path) => path === '/peach-account-offers' || !!fakeFiles[path])
     readDirMock.mockImplementation(async (path) =>
       path === '/peach-account-offers' ? ['/peach-account-offers/37.json', '/peach-account-offers/38.json'] : [],
@@ -35,7 +44,6 @@ describe('loadOffers', () => {
     deepStrictEqual(offers, accountData.account1.offers)
   })
   it('loads offers for version 0.1.3', async () => {
-    const existsMock = jest.spyOn(file, 'exists')
     existsMock.mockImplementation(async (path) => path === '/peach-account-offers.json')
 
     fakeFiles['/peach-account-offers.json'] = JSON.stringify(accountData.account1.offers)

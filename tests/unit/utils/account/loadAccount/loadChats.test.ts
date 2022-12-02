@@ -7,10 +7,18 @@ import { fakeFiles, resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('loadChats', () => {
+  let existsMock: jest.SpyInstance
+  let readDirMock: jest.SpyInstance
+
   beforeEach(async () => {
-    const existsMock = jest.spyOn(file, 'exists')
-    const readDirMock = jest.spyOn(file, 'readDir')
+    existsMock = jest.spyOn(file, 'exists')
+    readDirMock = jest.spyOn(file, 'readDir')
     existsMock.mockImplementation(async (path) => path === '/peach-account-chats' || !!fakeFiles[path])
     readDirMock.mockImplementation(async (path) =>
       path === '/peach-account-chats' ? ['/peach-account-chats/313-312.json'] : [],
@@ -20,7 +28,8 @@ describe('loadChats', () => {
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    existsMock.mockClear()
+    readDirMock.mockClear()
   })
 
   it('loads chats from files', async () => {
