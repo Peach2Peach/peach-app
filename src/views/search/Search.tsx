@@ -9,8 +9,18 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { BigTitle, Headline, Icon, Loading, Matches, PrimaryButton, PeachScrollView, SatsFormat, Text } from '../../components'
-import { Level, MessageContext } from '../../contexts/message'
+import {
+  BigTitle,
+  Headline,
+  Icon,
+  Loading,
+  Matches,
+  PrimaryButton,
+  PeachScrollView,
+  SatsFormat,
+  Text,
+} from '../../components'
+import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import searchForPeersEffect from '../../effects/searchForPeersEffect'
@@ -31,7 +41,7 @@ import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
-const messageLevels: Record<string, Level> = {
+const messageLevels: Record<string, 'WARN'> = {
   NOT_FOUND: 'WARN',
   CANNOT_DOUBLEMATCH: 'WARN',
 }
@@ -388,7 +398,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return (
     <PeachScrollView>
-    <View style={tw`h-full flex-col justify-between pb-6 pt-5`}>
+      {/** <View style={tw`h-full flex-col justify-between pb-6 pt-5`}> */}
       <View style={tw`px-6`}>
         {!matches.length ? (
           <BigTitle title={i18n(route.params.hasMatches ? 'search.matchesAreWaiting' : 'search.searchingForAPeer')} />
