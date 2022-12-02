@@ -7,18 +7,24 @@ import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('loadPaymentData', () => {
+  let readFileSpy: jest.SpyInstance
+
   beforeEach(async () => {
+    readFileSpy = jest.spyOn(file, 'readFile')
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    readFileSpy.mockClear()
   })
 
   it('loads payment data from files', async () => {
-    const readFileSpy = jest.spyOn(file, 'readFile')
-
     await storeAccount(accountData.account1, password)
 
     const paymentData = await loadPaymentData(password)

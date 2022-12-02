@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { account, defaultAccount, setAccount } from '../../../../src/utils/account'
+import { defaultAccount, setAccount } from '../../../../src/utils/account'
 import { decryptMessage } from '../../../../src/utils/chat'
 import { session } from '../../../../src/utils/session'
 import * as chatData from '../../data/chatData'

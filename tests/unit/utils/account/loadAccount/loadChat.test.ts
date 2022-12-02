@@ -7,19 +7,27 @@ import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('loadChat', () => {
+  let existsSpy: jest.SpyInstance
+  let readFileSpy: jest.SpyInstance
+
   beforeEach(async () => {
+    existsSpy = jest.spyOn(file, 'exists')
+    readFileSpy = jest.spyOn(file, 'readFile')
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    existsSpy.mockClear()
+    readFileSpy.mockClear()
   })
 
   it('load chat from file', async () => {
-    const existsSpy = jest.spyOn(file, 'exists')
-    const readFileSpy = jest.spyOn(file, 'readFile')
-
     await storeAccount(accountData.buyer, password)
 
     const chat = await loadChat('313-312', password)

@@ -6,10 +6,18 @@ import { fakeFiles, resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('loadAccount', () => {
+  let existsMock: jest.SpyInstance
+  let readDirMock: jest.SpyInstance
+
   beforeEach(async () => {
-    const existsMock = jest.spyOn(file, 'exists')
-    const readDirMock = jest.spyOn(file, 'readDir')
+    existsMock = jest.spyOn(file, 'exists')
+    readDirMock = jest.spyOn(file, 'readDir')
     existsMock.mockImplementation(
       async (path) => path === '/peach-account-contracts' || path === '/peach-account-offers' || !!fakeFiles[path],
     )
@@ -23,7 +31,8 @@ describe('loadAccount', () => {
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    existsMock.mockClear()
+    readDirMock.mockClear()
   })
 
   it('returns already loaded account', async () => {
