@@ -11,7 +11,7 @@ export const PrimaryButton = (props: PrimaryButtonProps) => {
       ? tw`bg-primary-background-light`
       : !border
         ? disabled
-          ? tw`bg-primary-mild-2`
+          ? tw`bg-primary-mild`
           : tw`bg-primary-light`
         : undefined
   const textColor = (!border && white) || (border && !white) ? tw`text-primary-light` : tw`text-primary-background-light`
