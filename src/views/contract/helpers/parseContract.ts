@@ -5,10 +5,11 @@ export const decryptSymmetricKey = async (
   symmetricKeyEncrypted: string,
   symmetricKeySignature: string,
   pgpPublicKey: string,
-): Promise<[string, Error|null]> => {
-  const symmetricKey = await decrypt(symmetricKeyEncrypted)
+): Promise<[string | null, Error | null]> => {
+  let symmetricKey
   try {
-    if (!await verify(symmetricKeySignature, symmetricKey, pgpPublicKey)) {
+    symmetricKey = await decrypt(symmetricKeyEncrypted)
+    if (!(await verify(symmetricKeySignature, symmetricKey, pgpPublicKey))) {
       // TODO at this point we should probably cancel the offer/contract?
       // problem how can buyer app proof that the symmetric is indeed wrong?
       error(new Error('INVALID_SIGNATURE'))
@@ -16,27 +17,28 @@ export const decryptSymmetricKey = async (
     }
   } catch (err) {
     error(new Error('INVALID_SIGNATURE'))
-    return [symmetricKey, new Error('INVALID_SIGNATURE')]
+    return [null, new Error('INVALID_SIGNATURE')]
   }
 
   return [symmetricKey, null]
 }
 
-export const getPaymentData = async (contract: Contract): Promise<[PaymentData|null, Error|null]> => {
-  let decryptedPaymentData: PaymentData|null = null
+export const getPaymentData = async (contract: Contract): Promise<[PaymentData | null, Error | null]> => {
+  let decryptedPaymentData: PaymentData | null = null
 
   if (!contract.symmetricKey) return [null, new Error('NO_SYMMETRIC_KEY')]
   if (contract.paymentData) return [contract.paymentData, null]
   if (!contract.paymentDataEncrypted || !contract.paymentDataSignature) return [null, new Error('MISSING_PAYMENTDATA')]
 
-  const decryptedPaymentDataString = await decryptSymmetric(contract.paymentDataEncrypted, contract.symmetricKey)
+  let decryptedPaymentDataString = contract.paymentDataEncrypted
   try {
+    decryptedPaymentDataString = await decryptSymmetric(contract.paymentDataEncrypted, contract.symmetricKey)
     decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
   } catch (e) {
     return [decryptedPaymentData, new Error('INVALID_PAYMENTDATA')]
   }
   try {
-    if (!await verify(contract.paymentDataSignature, decryptedPaymentDataString, contract.seller.pgpPublicKey)) {
+    if (!(await verify(contract.paymentDataSignature, decryptedPaymentDataString, contract.seller.pgpPublicKey))) {
       // TODO at this point we should probably cancel the order?
       // problem how can buyer app proof that the payment data is indeed wrong?
       return [decryptedPaymentData, new Error('INVALID_SIGNATURE')]
@@ -54,7 +56,7 @@ export const getPaymentData = async (contract: Contract): Promise<[PaymentData|n
  * @param contract the contract
  * @returns symmetric key and decrypted payment data
  */
-export const parseContract = async (contract: Contract,) => {
+export const parseContract = async (contract: Contract) => {
   let symmetricKey = contract?.symmetricKey
   if (!symmetricKey) {
     info('No symmetric key found, decrypting')
@@ -64,7 +66,6 @@ export const parseContract = async (contract: Contract,) => {
       contract.symmetricKeySignature,
       contract.buyer.pgpPublicKey,
     )
-
 
     if (err) error(err)
 
@@ -94,6 +95,6 @@ export const parseContract = async (contract: Contract,) => {
 
   return {
     symmetricKey,
-    paymentData
+    paymentData,
   }
 }
