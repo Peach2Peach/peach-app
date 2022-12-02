@@ -13,7 +13,6 @@ import Swipe from './Swipe'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import { ContactButton } from '../report/components/ContactButton'
-import { Button } from '../../components/buttons'
 
 const onStartShouldSetResponder = () => true
 
