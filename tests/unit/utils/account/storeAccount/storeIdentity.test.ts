@@ -6,17 +6,24 @@ import { resetFakeFiles } from '../../../prepare'
 
 const password = 'supersecret'
 
+jest.mock('../../../../../src/utils/file', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../../../../src/utils/file'),
+}))
+
 describe('storeIdentity', () => {
+  let writeFileSpy: jest.SpyInstance
+
   beforeEach(async () => {
+    writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
     await setAccount(defaultAccount)
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    writeFileSpy.mockClear()
   })
 
   it('would write file to store identity', async () => {
-    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
     await storeIdentity(accountData.account1, password)
     expect(writeFileSpy).toHaveBeenCalledWith(
       '/peach-account-identity.json',

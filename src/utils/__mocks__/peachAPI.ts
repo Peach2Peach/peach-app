@@ -3,16 +3,19 @@ const accessToken: AccessToken = {
   accessToken: 'token',
 }
 
-/**
- * @description Mock to authenticate with Peach API
- * @param keyPair key pair needed for authentication
- * @returns AccessToken or APIError
- */
 export const auth = jest.fn(async (): Promise<[AccessToken | null, APIError | null]> => [accessToken, null])
 
-/**
- * @description Mock to authenticate with Peach API
- * @param keyPair key pair needed for authentication
- * @returns AccessToken or APIError
- */
 export const getOffers = jest.fn(async (): Promise<[(SellOffer | BuyOffer)[] | null, APIError | null]> => [[], null])
+export const getTradingLimit = jest.fn(
+  async (): Promise<[TradingLimit | null, APIError | null]> => [
+    {
+      daily: 1000,
+      dailyAmount: 0,
+      yearly: 100000,
+      yearlyAmount: 0,
+    },
+    null,
+  ],
+)
+export const updateUser = jest.fn(async (): Promise<[APISuccess | null, APIError | null]> => [{ success: true }, null])
+export const logoutUser = jest.fn(async (): Promise<[APISuccess | null, APIError | null]> => [{ success: true }, null])
