@@ -157,6 +157,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         match.user.pgpPublicKey,
       )
 
+      if (!symmetricKey) {
+        error(new Error(`symmetric key could not be decrypted for ${match.offerId}`))
+        return
+      }
       const paymentDataForMethod = getPaymentDataByMethod(offer, selectedPaymentMethod)
 
       if (!paymentDataForMethod) {
