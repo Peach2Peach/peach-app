@@ -2,7 +2,7 @@ import OpenPGP from 'react-native-fast-openpgp'
 import { defaultAccount, setAccount } from '.'
 import { info } from '../log'
 import { setSessionItem } from '../session'
-import { createWalletFromEntropy, getMainAddress } from '../wallet'
+import { createRandomWallet, getMainAddress, getNetwork } from '../wallet'
 
 /**
  * @description Method to create a new or existing account
@@ -10,7 +10,7 @@ import { createWalletFromEntropy, getMainAddress } from '../wallet'
  */
 export const createAccount = async (password: string): Promise<boolean> => {
   info('Create account')
-  const { wallet, mnemonic } = await createWalletFromEntropy()
+  const { wallet, mnemonic } = await createRandomWallet(getNetwork())
   const firstAddress = getMainAddress(wallet)
   const recipient = await OpenPGP.generate({})
 
