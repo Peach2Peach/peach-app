@@ -1,7 +1,7 @@
 import React from 'react'
-import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native'
-import { Style } from 'twrnc/dist/esm/types'
+import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
+import { Loading } from '../animation'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 import { Text } from '../text'
@@ -13,34 +13,37 @@ export type ButtonProps = {
   children?: React.ReactNode
   noBackground?: true
   iconId?: IconType
-  color?: Style | undefined
-  textColor: Style
-  borderColor?: Style | undefined
+  color?: ViewStyle | undefined
+  textColor: TextStyle
+  borderColor?: ViewStyle | undefined
   style?: StyleProp<ViewStyle>
-} & PressableProps
+  loading?: boolean
+} & TouchableOpacityProps
 
-export const Button = ({ wide, children, iconId, narrow, color, textColor, borderColor, ...props }: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+  const { wide, children, iconId, narrow, color, textColor, borderColor, loading, ...pressableProps } = props
   const width = iconId && !children ? tw`w-12` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
   const iconSize = !children ? tw`w-6 h-6` : tw`w-4 h-4`
   const borderRadius = !!iconId && !children ? tw`rounded-[16px]` : tw`rounded-full`
 
   return (
-    <Pressable
-      {...props}
+    <TouchableOpacity
+      {...pressableProps}
       style={[
         color,
         width,
         tw`flex-row items-center justify-center h-10 px-4`,
         borderRadius,
         borderColor && [tw`border-2`, borderColor],
-        props.style,
+        pressableProps.style,
       ]}
     >
       {children && <Text style={[textColor, tw`button-medium px-2`]}>{children}</Text>}
-      {!!iconId && (
-        <Icon id={iconId} style={iconSize} color={typeof textColor.color === 'string' ? textColor.color : undefined} />
+      {loading ? (
+        <Loading size="small" style={iconSize} color={textColor.color} />
+      ) : (
+        !!iconId && <Icon id={iconId} style={iconSize} color={textColor.color} />
       )}
-      {/* loading && <Loading size="small" style={tw`h-1 absolute`} color={color.color} /> */}
-    </Pressable>
+    </TouchableOpacity>
   )
 }
