@@ -1,7 +1,8 @@
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '../..'
+import { RequestProps } from '../..'
 import fetch, { getAbortSignal } from '../../../fetch'
-import { getAccessToken } from '../user'
+import { parseResponse } from '../../parseResponse'
+import { fetchAccessToken } from '../user'
 
 type GetOfferProps = RequestProps
 
@@ -14,7 +15,7 @@ export const getOffers = async ({
 }: GetOfferProps): Promise<[(SellOffer | BuyOffer)[] | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offers`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },

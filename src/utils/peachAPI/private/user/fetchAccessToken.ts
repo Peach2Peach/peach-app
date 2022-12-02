@@ -1,5 +1,5 @@
-import { accessToken } from '../..'
 import { error, info } from '../../../log'
+import { getAccessToken } from '../../accessToken'
 import { auth } from './auth'
 
 let fetchingToken: Promise<AccessToken> | null
@@ -8,7 +8,8 @@ let fetchingToken: Promise<AccessToken> | null
  * @description Method to get and return access token
  * @returns Access Token
  */
-export const getAccessToken = async (): Promise<string> => {
+export const fetchAccessToken = async (): Promise<string> => {
+  const accessToken = getAccessToken()
   if (accessToken && accessToken.expiry > new Date().getTime() + 60 * 1000) {
     return 'Basic ' + Buffer.from(accessToken.accessToken)
   }
@@ -27,7 +28,7 @@ export const getAccessToken = async (): Promise<string> => {
     const [result, err] = await auth({})
 
     if (!result || err) {
-      error('peachAPI - getAccessToken', new Error(err?.error))
+      error('peachAPI - fetchAccessToken', new Error(err?.error))
       throw Error(err?.error || 'AUTHENTICATION_FAILURE')
     }
     resolve(result)

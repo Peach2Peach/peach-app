@@ -3,7 +3,9 @@ import analytics from '@react-native-firebase/analytics'
 import { defaultAccount, setAccount } from '.'
 import { deleteFile, exists, readDir } from '../file'
 import { info } from '../log'
-import { deleteAccessToken, deletePeachAccount, logoutUser } from '../peachAPI'
+import { logoutUser } from '../peachAPI'
+import { deleteAccessToken } from '../peachAPI/accessToken'
+import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { setSessionItem } from '../session'
 
 interface DeleteAccountProps {

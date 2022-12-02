@@ -1,7 +1,7 @@
 import { APPVERSION } from '../../constants'
 import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
-import { setPeachAccount } from '../peachAPI'
+import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createWalletFromEntropy, createWalletFromSeedPhrase, getMainAddress, setWallet } from '../wallet'
 
 export const defaultAccount: Account = {
@@ -38,7 +38,6 @@ export const getAccount = () => account
 
 /**
  * @description Method to set account for app session
- * @param acc account
  */
 export const setAccount = async (acc: Account, overwrite?: boolean) => {
   account = overwrite
