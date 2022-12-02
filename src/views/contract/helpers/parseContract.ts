@@ -30,7 +30,7 @@ export const getPaymentData = async (contract: Contract): Promise<[PaymentData |
   if (contract.paymentData) return [contract.paymentData, null]
   if (!contract.paymentDataEncrypted || !contract.paymentDataSignature) return [null, new Error('MISSING_PAYMENTDATA')]
 
-  let decryptedPaymentDataString = contract.paymentDataEncrypted
+  let decryptedPaymentDataString
   try {
     decryptedPaymentDataString = await decryptSymmetric(contract.paymentDataEncrypted, contract.symmetricKey)
     decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
