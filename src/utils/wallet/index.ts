@@ -1,5 +1,4 @@
-export { createWalletFromEntropy } from './createWalletFromEntropy'
-export { createWalletFromSeed } from './createWalletFromSeed'
+export { createRandomWallet } from './createRandomWallet'
 export { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 export { getEscrowWallet } from './getEscrowWallet'
 export { getFinalScript } from './getFinalScript'

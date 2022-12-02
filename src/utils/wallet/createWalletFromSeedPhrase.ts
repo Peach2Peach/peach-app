@@ -1,12 +1,10 @@
-import BIP32Factory, { BIP32Interface } from 'bip32'
+import BIP32Factory from 'bip32'
 import * as bip39 from 'bip39'
-import { getNetwork } from './getNetwork'
+import { Network } from 'bitcoinjs-lib'
 const ecc = require('tiny-secp256k1')
 const bip32 = BIP32Factory(ecc)
 
-export let wallet: BIP32Interface
-
-export const createWalletFromSeedPhrase = (mnemonic: string): PeachWallet => ({
-  wallet: bip32.fromSeed(bip39.mnemonicToSeedSync(mnemonic), getNetwork()),
+export const createWalletFromSeedPhrase = (mnemonic: string, network: Network): PeachWallet => ({
+  wallet: bip32.fromSeed(bip39.mnemonicToSeedSync(mnemonic), network),
   mnemonic,
 })

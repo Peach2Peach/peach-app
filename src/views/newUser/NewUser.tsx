@@ -18,6 +18,7 @@ import { auth } from '../../utils/peachAPI'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
 import { useValidatedState } from '../../hooks'
+import { parseError } from '../../utils/system'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
@@ -68,12 +69,12 @@ export default ({ navigation }: Props): ReactElement => {
     }
   }
 
-  const onError = (e: Error) => {
+  const onError = (err?: string) => {
     updateMessage({
-      msgKey: e.message || 'AUTHENTICATION_FAILURE',
+      msgKey: err || 'AUTHENTICATION_FAILURE',
       level: 'ERROR',
     })
-    if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
+    if (err === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
@@ -94,10 +95,10 @@ export default ({ navigation }: Props): ReactElement => {
         setLoading(false)
         navigation.replace('home', {})
       } else {
-        onError(new Error(authError?.error))
+        onError(authError?.error)
       }
     } catch (e) {
-      onError(e as Error)
+      onError(parseError(e))
     }
   }
 
@@ -124,8 +125,13 @@ export default ({ navigation }: Props): ReactElement => {
       setLoading(true)
 
       // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
-      setTimeout(() => {
-        createAccount({ password, onSuccess, onError })
+      setTimeout(async () => {
+        try {
+          await createAccount(password)
+          onSuccess()
+        } catch (e) {
+          onError(parseError(e))
+        }
       })
     }
   }
