@@ -1,6 +1,7 @@
 import { exists } from 'react-native-fs'
 import { mkdir, writeFile } from '../../file'
 import { info } from '../../log'
+import { chatStorage } from '../accountStorage'
 
 /**
  * @description Method to save chat
@@ -8,9 +9,8 @@ import { info } from '../../log'
  * @param password secret
  * @returns promise resolving to encrypted chat
  */
-export const storeChat = async (chat: Chat, password: string): Promise<void> => {
+export const storeChat = (chat: Chat) => {
   info('Storing chat')
 
-  if (!(await exists('/peach-account-chats'))) await mkdir('/peach-account-chats')
-  await writeFile(`/peach-account-chats/${chat.id}.json`, JSON.stringify(chat), password)
+  chatStorage.setMap(`chat-${chat.id}`, chat)
 }

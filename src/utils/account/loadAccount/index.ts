@@ -1,4 +1,4 @@
-export { loadLegacyAccount } from './loadLegacyAccount'
+export { loadAccountFromFileSystem } from './loadAccountFromFileSystem'
 export { loadIdentity } from './loadIdentity'
 export { loadSettings } from './loadSettings'
 export { loadTradingLimit } from './loadTradingLimit'
