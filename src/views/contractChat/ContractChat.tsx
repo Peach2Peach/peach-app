@@ -65,12 +65,12 @@ export default ({ route, navigation }: Props): ReactElement => {
           draftMessage: newMessage,
         })
       }, 2000),
-    [],
+    [contractId, newMessage],
   )
 
   useEffect(() => {
     saveDraft()
-  }, [newMessage, saveDraft])
+  }, [saveDraft])
 
   const sendMessage = useCallback(
     async (message: string) => {
