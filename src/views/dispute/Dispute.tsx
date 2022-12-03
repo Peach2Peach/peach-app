@@ -173,13 +173,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
-          <PrimaryButton
-            onPress={submit}
-
-            /* loading={loading} */
-            disabled={loading}
-            style={tw`mt-2`}
-          >
+          <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`}>
             {i18n('confirm')}
           </PrimaryButton>
         </View>

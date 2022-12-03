@@ -118,11 +118,11 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
         </View>
       ) : null}
       <View style={tw`flex items-center`}>
-        <PrimaryButton style={tw`mt-6`} disabled={loading} /* loading={loading}  */ onPress={submit}>
+        <PrimaryButton style={tw`mt-6`} disabled={loading} loading={loading} onPress={submit}>
           {loading ? '' : i18n('dispute.startedOverlay.goToDispute')}
         </PrimaryButton>
         {!isEmailRequired(reason) && (
-          <PrimaryButton style={tw`mt-2`} disabled={loading} /* loading={loading} */ onPress={closeOverlay}>
+          <PrimaryButton style={tw`mt-2`} disabled={loading} loading={loading} onPress={closeOverlay}>
             {loading ? '' : i18n('close')}
           </PrimaryButton>
         )}

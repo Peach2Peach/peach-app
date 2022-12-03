@@ -79,10 +79,7 @@ export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLos
             <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.lost.text.2')}</Text>
           ) : null}
         </View>
-        <PrimaryButton
-          style={tw`mt-5`}
-          onPress={contract.paymentConfirmed ? closeOverlay : release} /* loading={loading} */
-        >
+        <PrimaryButton style={tw`mt-5`} onPress={contract.paymentConfirmed ? closeOverlay : release} loading={loading}>
           {i18n(contract.paymentConfirmed ? 'close' : 'dispute.seller.lost.button')}
         </PrimaryButton>
       </View>
