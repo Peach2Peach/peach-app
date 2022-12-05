@@ -97,7 +97,6 @@ declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
   countries?: Country[]
-  exchange: boolean
   rounded?: boolean
 }
 
