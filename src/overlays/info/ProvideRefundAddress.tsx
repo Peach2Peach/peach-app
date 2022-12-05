@@ -15,8 +15,7 @@ export default (): ReactElement => (
         {i18n('help.provideRefundAddress.description.1')}
       </Text>
     </View>
-    {/** what is this craziness? */}
-    <PrimaryButton style={tw`flex justify-center items-center mt-7`}>
+    <PrimaryButton style={tw`flex justify-center items-center mt-7`} narrow>
       {i18n('help.provideRefundAddress.close')}
     </PrimaryButton>
   </View>

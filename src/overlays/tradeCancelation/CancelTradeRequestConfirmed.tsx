@@ -48,10 +48,10 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
         {i18n(`contract.cancel.seller.confirmed.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
       <View>
-        <PrimaryButton style={tw`mt-8`} onPress={showEscrow}>
+        <PrimaryButton style={tw`mt-8`} onPress={showEscrow} narrow>
           {i18n('showEscrow')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
           {i18n('close')}
         </PrimaryButton>
       </View>

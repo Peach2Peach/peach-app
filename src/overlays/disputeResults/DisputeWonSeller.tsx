@@ -46,7 +46,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: Disp
           <Text style={tw`text-white-1 text-center`}>{i18n('dispute.seller.won.text.1')}</Text>
           {!offer.refunded && <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.won.text.2')}</Text>}
         </View>
-        <PrimaryButton style={tw`mt-5`} onPress={offer.refunded ? closeOverlay : refund}>
+        <PrimaryButton style={tw`mt-5`} onPress={offer.refunded ? closeOverlay : refund} narrow>
           {i18n(offer.refunded ? 'close' : 'dispute.seller.won.button')}
         </PrimaryButton>
       </View>

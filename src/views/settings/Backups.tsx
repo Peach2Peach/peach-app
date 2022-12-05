@@ -10,14 +10,9 @@ import { BackupCreated } from '../../overlays/BackupCreated'
 import SaveAccount from '../../overlays/info/SaveAccount'
 import { account, backupAccount, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import { toShortDateFormat } from '../../utils/string'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [isBackingUp, setIsBackingUp] = useState(false)

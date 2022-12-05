@@ -57,7 +57,9 @@ export default (): ReactElement => {
         {showWords ? (
           <GoBackButton />
         ) : (
-          <PrimaryButton onPress={iUnderstand}>{i18n('settings.seedWords.iUnderstand')}</PrimaryButton>
+          <PrimaryButton onPress={iUnderstand} narrow>
+            {i18n('settings.seedWords.iUnderstand')}
+          </PrimaryButton>
         )}
       </View>
     </View>

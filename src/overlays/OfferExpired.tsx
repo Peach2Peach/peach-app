@@ -32,8 +32,10 @@ export default ({ offer, days, navigation }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('offerExpired.title')}</Headline>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('offerExpired.description', days)}</Text>
       <View style={tw`flex justify-center items-center mt-5`}>
-        <PrimaryButton onPress={goToOffer}>{i18n('refund')}</PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+        <PrimaryButton onPress={goToOffer} narrow>
+          {i18n('refund')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
           {i18n('later')}
         </PrimaryButton>
       </View>

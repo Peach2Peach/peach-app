@@ -22,7 +22,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         <QRCodeScanner
           cameraStyle={tw`w-full h-full z-0`}
           onRead={onSuccess}
-          vibrate={true}
+          vibrate
           showMarker
           customMarker={
             <View style={tw`w-full h-full flex flex-col`}>
@@ -49,7 +49,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
                   style={[{ width: Math.round((windowDimensions.width - viewSize) / 2) }, tw`bg-peach-translucent`]}
                 />
               </View>
-              <View style={tw`bg-peach-translucent h-full flex-shrink flex-row i`}>
+              <View style={tw`bg-peach-translucent h-full flex-shrink flex-row`}>
                 <PrimaryButton onPress={onCancel} style={tw`m-auto`}>
                   {i18n('cancel')}
                 </PrimaryButton>

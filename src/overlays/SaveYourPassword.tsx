@@ -23,7 +23,7 @@ export default (): ReactElement => {
         <Text style={tw`font-bold text-white-1`}> {i18n('newUser.saveYourPassword.description.3')} </Text>
         {i18n('newUser.saveYourPassword.description.4')}
       </Text>
-      <PrimaryButton testID="saveYourPassword-confirm" style={tw`mt-8`} onPress={confirm}>
+      <PrimaryButton testID="saveYourPassword-confirm" style={tw`mt-8`} onPress={confirm} narrow>
         {i18n('newUser.saveYourPassword.ok')}
       </PrimaryButton>
     </View>

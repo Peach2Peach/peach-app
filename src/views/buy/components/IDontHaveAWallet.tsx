@@ -27,23 +27,6 @@ export default (): ReactElement => (
       <Icon
         id="shiftCrypto"
         style={tw`w-64 h-64 opacity-40 absolute -top-6 left-1/2 -ml-32`}
-        color={tw`text-white-1`.color as string}
-      />
-      <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
-        {i18n('iDontHaveAWallet.signingDevice.title')}
-      </Headline>
-      <Text style={tw`text-center text-white-1 mt-3`}>
-        {i18n('iDontHaveAWallet.signingDevice.1')}
-        <Text style={tw`font-bold text-white-1`}> {i18n('iDontHaveAWallet.signingDevice.2')}</Text>
-      </Text>
-      <PrimaryButton style={tw`flex items-center mt-8 w-60`} onPress={linkToBitbox}>
-        {i18n('iDontHaveAWallet.signingDevice.cta')}
-      </PrimaryButton>
-    </View>
-    <View style={tw`mt-10`}>
-      <Icon
-        id="shiftCrypto"
-        style={tw`w-64 h-64 opacity-40 absolute -top-6 left-1/2 -ml-32`}
         color={tw`text-white-1`.color}
       />
       <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>

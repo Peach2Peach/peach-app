@@ -6,14 +6,9 @@ import tw from '../../styles/tailwind'
 import { GoBackButton, Headline, Text, Title } from '../../components'
 import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import ReturnAddress from '../sell/components/ReturnAddress'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   const setReturnAddress = (address: string) => {
     updateSettings(
       {

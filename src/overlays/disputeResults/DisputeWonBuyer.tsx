@@ -30,11 +30,11 @@ export const DisputeWonBuyer = ({ contract, navigate }: DisputeWonBuyerProps): R
       <View style={tw`flex justify-center items-center`}>
         <View style={tw`flex justify-center items-center`}>
           <Text style={tw`text-white-1 text-center`}>{i18n('dispute.buyer.won.text.1')}</Text>
-          {!contract.paymentConfirmed ? (
+          {!contract.paymentConfirmed && (
             <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.buyer.won.text.2')}</Text>
-          ) : null}
+          )}
         </View>
-        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay} narrow>
           {i18n('close')}
         </PrimaryButton>
       </View>

@@ -34,7 +34,7 @@ export const DisputeLostBuyer = ({ contract, navigate }: DisputeLostBuyerProps):
             <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.buyer.lost.text.2')}</Text>
           )}
         </View>
-        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay} narrow>
           {i18n('close')}
         </PrimaryButton>
       </View>

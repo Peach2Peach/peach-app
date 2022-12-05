@@ -6,14 +6,9 @@ import tw from '../../styles/tailwind'
 import { GoBackButton, PrimaryButton, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import { updateSettings } from '../../utils/account'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   useContext(LanguageContext)
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: i18n.getLocale() })
 

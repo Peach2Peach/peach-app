@@ -77,10 +77,10 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
       </Text>
       <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.request.text.2')}</Text>
       <View>
-        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={confirm}>
+        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={confirm} narrow>
           {i18n('contract.cancel.request.ok')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={reject}>
+        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={reject} narrow>
           {i18n('contract.cancel.request.back')}
         </PrimaryButton>
       </View>

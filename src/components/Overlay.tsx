@@ -56,7 +56,7 @@ export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help
         {content}
 
         {!!showCloseButton && (
-          <PrimaryButton style={tw`mt-7`} onPress={closeOverlay}>
+          <PrimaryButton style={tw`mt-7`} onPress={closeOverlay} narrow>
             {i18n('close')}
           </PrimaryButton>
         )}

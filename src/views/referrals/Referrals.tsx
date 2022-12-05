@@ -88,7 +88,7 @@ export default ({ navigation }: Props): ReactElement => {
             </Text>
             <RadioButtons style={tw`mt-4`} selectedValue={selectedReward} items={rewards} onChange={setSelectedReward} />
             <View style={tw`flex items-center mt-5`}>
-              <PrimaryButton disabled={true} onPress={redeemReward}>
+              <PrimaryButton narrow disabled onPress={redeemReward}>
                 {i18n('referrals.reward.select')}
               </PrimaryButton>
             </View>

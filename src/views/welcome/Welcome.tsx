@@ -65,16 +65,18 @@ export default ({ navigation }: ScreenProps): ReactElement => {
       <View style={tw`mb-8 mt-4 flex items-center w-full`}>
         {page !== screens.length - 1 ? (
           <View>
-            <PrimaryButton testID="welcome-next" onPress={next}>
+            <PrimaryButton testID="welcome-next" onPress={next} narrow>
               {i18n('next')}
             </PrimaryButton>
             <View style={tw`opacity-0`}>
-              <PrimaryButton style={tw` mt-4`}>{i18n('restoreBackup')}</PrimaryButton>
+              <PrimaryButton style={tw` mt-4`} narrow>
+                {i18n('restoreBackup')}
+              </PrimaryButton>
             </View>
           </View>
         ) : (
           <View>
-            <PrimaryButton testID="welcome-newUser" onPress={() => navigation.navigate('newUser', {})}>
+            <PrimaryButton testID="welcome-newUser" onPress={() => navigation.navigate('newUser', {})} narrow>
               {i18n('newUser')}
             </PrimaryButton>
             <PrimaryButton
@@ -82,6 +84,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
               style={tw`mt-4`}
               onPress={() => navigation.navigate('restoreBackup', {})}
               border
+              narrow
             >
               {i18n('restoreBackup')}
             </PrimaryButton>

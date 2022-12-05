@@ -32,18 +32,18 @@ export default ({
     <View>
       {!(view === 'buyer' && requiredAction === 'sendPayment')
         && !(view === 'seller' && requiredAction === 'confirmPayment') && (
-        <PrimaryButton disabled={true} style={tw`w-52`}>
+        <PrimaryButton disabled={true} style={tw`w-52`} narrow>
           {i18n(`contract.waitingFor.${view === 'buyer' ? 'seller' : 'buyer'}`)}
         </PrimaryButton>
       )}
       {view === 'buyer' && requiredAction === 'sendPayment' && (
-        <PrimaryButton disabled={loading} style={tw`w-52`} onPress={postConfirmPaymentBuyer}>
+        <PrimaryButton disabled={loading} style={tw`w-52`} onPress={postConfirmPaymentBuyer} narrow>
           {i18n('contract.payment.made')}
         </PrimaryButton>
       )}
       {view === 'seller' && requiredAction === 'confirmPayment' && (
         <View style={tw`flex-row items-center justify-center pl-11`}>
-          <PrimaryButton style={tw`w-52`} disabled={loading} onPress={postConfirmPaymentSeller}>
+          <PrimaryButton style={tw`w-52`} disabled={loading} onPress={postConfirmPaymentSeller} narrow>
             {i18n('contract.payment.received')}
           </PrimaryButton>
           <Pressable onPress={openConfirmPaymentHelp} style={tw`p-3`}>

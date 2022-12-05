@@ -184,13 +184,14 @@ export default ({ route, navigation }: Props): ReactElement => {
       <View style={tw`w-full flex items-center mt-4`}>
         <PrimaryButton
           testID="navigation-next"
-          disabled={true}
-          style={offer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`}
+          disabled
+          narrow
+          style={sellOffer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`}
         >
           {buttonText}
         </PrimaryButton>
         {showRegtestButton && (
-          <PrimaryButton testID="escrow-fund" style={tw`mt-1`} onPress={fundEscrowAddress}>
+          <PrimaryButton testID="escrow-fund" style={tw`mt-1`} onPress={fundEscrowAddress} narrow>
             {'Fund escrow'}
           </PrimaryButton>
         )}

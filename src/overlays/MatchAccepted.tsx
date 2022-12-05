@@ -40,8 +40,10 @@ export default ({ contractId, navigation }: Props): ReactElement => {
         {i18n('matchAccepted.description.2')}
       </Text>
       <View style={tw`flex justify-center items-center mt-5`}>
-        <PrimaryButton onPress={goToContract}>{i18n('goToMatch')}</PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+        <PrimaryButton onPress={goToContract} narrow>
+          {i18n('goToMatch')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
           {i18n('later')}
         </PrimaryButton>
       </View>

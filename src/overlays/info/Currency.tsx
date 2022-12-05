@@ -6,9 +6,7 @@ import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import i18n from '../../utils/i18n'
 
-type CurrencyInfoProps = {}
-
-export default ({}: CurrencyInfoProps): ReactElement => {
+export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ content: null })
 

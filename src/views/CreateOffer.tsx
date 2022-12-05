@@ -112,6 +112,7 @@ export default ({ navigation, page }: Props): ReactElement => {
         testID="navigation-next"
         style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}
         onPress={next}
+        narrow
       >
         {i18n('next')}
       </PrimaryButton>

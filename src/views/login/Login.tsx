@@ -104,7 +104,7 @@ export default ({ navigation }: Props): ReactElement => {
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
-            <PrimaryButton onPress={submit} disabled={!password}>
+            <PrimaryButton onPress={submit} disabled={!password} narrow>
               {i18n('login')}
             </PrimaryButton>
           </View>

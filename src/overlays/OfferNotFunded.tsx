@@ -36,8 +36,10 @@ export default ({ offer, days, navigation }: Props): ReactElement => {
         {i18n('offerNotFunded.description.2')}
       </Text>
       <View style={tw`flex justify-center items-center mt-5`}>
-        <PrimaryButton onPress={goToOffer}>{i18n('goToOffer')}</PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+        <PrimaryButton onPress={goToOffer} narrow>
+          {i18n('goToOffer')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
           {i18n('close')}
         </PrimaryButton>
       </View>

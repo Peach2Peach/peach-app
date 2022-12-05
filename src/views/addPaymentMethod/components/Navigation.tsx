@@ -19,7 +19,7 @@ export const Navigation = ({ back, next, stepValid }: NavigationProps): ReactEle
       <Pressable testID="navigation-back" style={tw`absolute left-0 z-10`} onPress={back}>
         <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
       </Pressable>
-      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next}>
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
         {i18n('next')}
       </PrimaryButton>
     </Fade>

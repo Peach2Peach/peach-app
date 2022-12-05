@@ -219,6 +219,7 @@ export default ({ navigation }: Props): ReactElement => {
             <PrimaryButton
               testID="newUser-register"
               onPress={submit}
+              narrow
               disabled={!password || !passwordRepeat || !passwordMatch || !passwordIsValid || !passwordRepeatIsValid}
             >
               {i18n('createAccount')}

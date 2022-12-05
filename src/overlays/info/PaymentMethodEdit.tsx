@@ -27,11 +27,10 @@ export default ({ paymentData, onConfirm }: PaymentMethodEditProps): ReactElemen
         <Text style={tw`text-white-1 text-center mt-2`}>{i18n('help.paymentMethodEdit.description.2')}</Text>
       </View>
       <View style={tw`flex-col items-center mt-8`}>
-        {/** what is this crazy style?? */}
-        <PrimaryButton style={tw``} onPress={closeOverlay}>
+        <PrimaryButton onPress={closeOverlay} narrow>
           {i18n('neverMind')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={confirm}>
+        <PrimaryButton style={tw`mt-2`} onPress={confirm} narrow>
           {i18n('continue')}
         </PrimaryButton>
       </View>

@@ -91,10 +91,10 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         {i18n('cancelOffer.confirm.title')}
       </Headline>
       <View style={loading ? tw`opacity-0` : {}} pointerEvents={loading ? 'none' : 'auto'}>
-        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
           {i18n('cancelOffer.confirm.back')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={ok}>
+        <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
           {i18n('cancelOffer.confirm.ok')}
         </PrimaryButton>
       </View>

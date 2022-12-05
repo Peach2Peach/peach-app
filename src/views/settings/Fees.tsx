@@ -3,17 +3,12 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, PrimaryButton, Text, Title } from '../../components'
+import { GoBackButton, Text, Title } from '../../components'
 import { PEACHFEE } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   useContext(LanguageContext)
 
   return (

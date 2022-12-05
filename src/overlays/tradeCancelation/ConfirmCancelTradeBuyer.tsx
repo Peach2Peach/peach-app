@@ -44,10 +44,10 @@ export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelT
       </Headline>
       <Text style={tw`text-center text-white-1 mt-8`}>{i18n('contract.cancel.text')}</Text>
       <View>
-        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay} narrow>
           {i18n('contract.cancel.confirm.back')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={ok}>
+        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={ok} narrow>
           {i18n('contract.cancel.confirm.ok')}
         </PrimaryButton>
       </View>

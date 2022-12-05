@@ -35,10 +35,10 @@ export const DeleteAccount = ({ navigate }: DeleteAccountProps): ReactElement =>
       <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
         {i18n('settings.deleteAccount.title')}
       </Headline>
-      <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+      <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
         {i18n('settings.deleteAccount.back')}
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-2`} onPress={ok}>
+      <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
         {i18n('settings.deleteAccount.ok')}
       </PrimaryButton>
     </View>

@@ -4,7 +4,6 @@ import tw from '../../styles/tailwind'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { GoBackButton, PrimaryButton, Title } from '../../components'
 import ProvideRefundAddress from '../../overlays/info/ProvideRefundAddress'
-import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import ReturnAddress from './components/ReturnAddress'
@@ -66,7 +65,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <ReturnAddress style={tw`mt-16`} returnAddress={returnAddress} required update={setReturnAddress} />
       </View>
       <View style={tw`flex items-center mt-16`}>
-        <PrimaryButton style={tw`w-52`} disabled={!returnAddress} onPress={submit}>
+        <PrimaryButton style={tw`w-52`} disabled={!returnAddress} onPress={submit} narrow>
           {i18n(!returnAddress ? 'sell.setReturnAddress.provideFirst' : 'confirm')}
         </PrimaryButton>
         <GoBackButton style={tw`w-52 mt-2`} />

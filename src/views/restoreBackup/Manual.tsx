@@ -97,7 +97,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
-            <PrimaryButton onPress={submit} disabled={!file.content || !password}>
+            <PrimaryButton onPress={submit} disabled={!file.content || !password} narrow>
               {i18n('restoreBackup')}
             </PrimaryButton>
           </View>

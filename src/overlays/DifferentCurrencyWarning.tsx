@@ -23,7 +23,7 @@ export default ({ currency, paymentMethod }: DifferentCurrencyWarningProps): Rea
       </Headline>
       <Text style={tw`text-center text-white-1 mt-3`}>{i18n('match.differentCurrency.text.1')}</Text>
       <Text style={tw`text-center text-white-1 mt-2`}>{i18n('match.differentCurrency.text.2')}</Text>
-      <PrimaryButton style={tw`mt-4`} onPress={closeOverlay}>
+      <PrimaryButton style={tw`mt-4`} onPress={closeOverlay} wide>
         {i18n('match.differentCurrency.button', currency, i18n(`paymentMethod.${paymentMethod}`))}
       </PrimaryButton>
     </View>

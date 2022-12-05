@@ -139,7 +139,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View style={tw`flex items-center`}>
           <Text style={tw`text-center`}>{i18n('dispute.whatIsTheDisputeAbout') + '\n'}</Text>
           {availableReasons.map((rsn, i) => (
-            <PrimaryButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}>
+            <PrimaryButton
+              key={rsn}
+              onPress={() => setReason(rsn)}
+              style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
+              narrow
+            >
               {i18n(`dispute.reason.${rsn}`)}
             </PrimaryButton>
           ))}
@@ -173,14 +178,14 @@ export default ({ route, navigation }: Props): ReactElement => {
               errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
-          <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`}>
+          <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
             {i18n('confirm')}
           </PrimaryButton>
         </View>
       )}
       <View style={tw`flex-col flex-shrink`}>
         <Fade show={start && !keyboardOpen} pointerEvents={start ? 'auto' : 'none'} displayNone={false}>
-          <PrimaryButton onPress={goBack} style={tw`mt-2`}>
+          <PrimaryButton onPress={goBack} style={tw`mt-2`} narrow>
             {i18n('back')}
           </PrimaryButton>
         </Fade>

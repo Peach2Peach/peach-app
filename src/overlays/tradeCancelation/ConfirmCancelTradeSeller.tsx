@@ -97,10 +97,10 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         {i18n(`contract.cancel.seller.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
       <View>
-        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay} narrow>
           {i18n('contract.cancel.confirm.back')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={ok}>
+        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={ok} narrow>
           {i18n('contract.cancel.confirm.ok')}
         </PrimaryButton>
       </View>

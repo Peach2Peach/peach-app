@@ -56,15 +56,15 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
       <View>
         {expiry.isExpired
           && (contract.releaseTxId ? (
-            <PrimaryButton style={tw`mt-8`} onPress={showEscrow}>
+            <PrimaryButton style={tw`mt-8`} onPress={showEscrow} narrow>
               {i18n('showEscrow')}
             </PrimaryButton>
           ) : (
-            <PrimaryButton style={tw`mt-8`} onPress={refund}>
+            <PrimaryButton style={tw`mt-8`} onPress={refund} narrow>
               {i18n('escrow.refund')}
             </PrimaryButton>
           ))}
-        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
           {i18n('close')}
         </PrimaryButton>
       </View>

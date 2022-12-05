@@ -27,7 +27,7 @@ export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): 
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
         </Pressable>
       ) : null}
-      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next}>
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
         {buttonText}
       </PrimaryButton>
     </Fade>

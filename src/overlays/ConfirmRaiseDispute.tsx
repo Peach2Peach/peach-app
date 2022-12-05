@@ -38,13 +38,13 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
       </Headline>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('dispute.doYouWantToOpenDispute')}</Text>
       <View>
-        <PrimaryButton style={tw`mt-8`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
           {i18n('contract.cancel.confirm.back')}
         </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} onPress={ok}>
+        <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
           {i18n('dispute.openDispute')}
         </PrimaryButton>
-        <PrimaryButton onPress={openExplainer} style={tw`mt-2`}>
+        <PrimaryButton onPress={openExplainer} style={tw`mt-2`} narrow>
           {i18n('whatIsThis')}
         </PrimaryButton>
       </View>

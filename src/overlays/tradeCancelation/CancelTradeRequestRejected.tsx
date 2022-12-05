@@ -32,7 +32,7 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
         {i18n('contract.cancel.seller.rejected.text.1', getOfferIdfromContract(contract))}
       </Text>
       <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
-      <PrimaryButton style={tw`mt-8`} onPress={closeOverlay}>
+      <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
         {i18n('close')}
       </PrimaryButton>
     </View>

@@ -153,7 +153,9 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             </View>
             {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
               <View style={tw`flex items-center mt-3 mb-1`}>
-                <PrimaryButton onPress={navigate}>{i18n(`offer.requiredAction.${requiredAction}`)}</PrimaryButton>
+                <PrimaryButton onPress={navigate} narrow>
+                  {i18n(`offer.requiredAction.${requiredAction}`)}
+                </PrimaryButton>
               </View>
             ) : null}
           </View>
