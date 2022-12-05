@@ -1,18 +1,16 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 
-import { Button, Dropdown, Headline, Icon, Progress, Text, Title, Hint, SatsFormat } from '../components'
+import { Button, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../components'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../constants'
 import BitcoinContext from '../contexts/bitcoin'
-import { OverlayContext } from '../contexts/overlay'
-import Sats from '../overlays/info/Sats'
 import { account, getTradingLimit, updateSettings } from '../utils/account'
+import { applyTradingLimit } from '../utils/account/tradingLimit'
 import { StackNavigation } from '../utils/navigation'
 import { thousands } from '../utils/string'
-import { applyTradingLimit } from '../utils/account/tradingLimit'
 
 type Props = {
   navigation: StackNavigation
@@ -21,10 +19,11 @@ type Props = {
 
 export default ({ navigation, page }: Props): ReactElement => {
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
-  const [, updateOverlay] = useContext(OverlayContext)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
-  const [amount, setAmount] = useState(account.settings.amount || BUCKETS[0])
+  const [amount, setAmount] = useState(
+    account.settings.amount && BUCKETS.includes(account.settings.amount) ? account.settings.amount : BUCKETS[0],
+  )
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
   const allowedBuckets = page === 'sell' ? BUCKETS.filter((b) => DEPRECATED_BUCKETS.indexOf(b) === -1) : BUCKETS
@@ -42,7 +41,6 @@ export default ({ navigation, page }: Props): ReactElement => {
     ),
   }))
 
-  const openSatsHelp = () => updateOverlay({ content: <Sats view={`${page}er`} />, showCloseButton: true, help: true })
   const goToBackups = () => navigation.navigate('backups', {})
   const dismissBackupReminder = () => {
     updateSettings({ showBackupReminder: false }, true)
@@ -79,17 +77,14 @@ export default ({ navigation, page }: Props): ReactElement => {
             <View>
               <Headline style={tw`mt-16 text-grey-1 px-5`}>{i18n(`${page}.subtitle`)}</Headline>
               <View style={tw`z-10`}>
-                <View style={tw`w-full absolute flex-row items-start justify-center mt-3`}>
+                <View style={tw`w-full absolute px-6 flex-row items-start justify-center mt-3`}>
                   <Dropdown
                     testID={`${page}-amount`}
-                    style={tw`max-w-70 flex-shrink`}
+                    style={tw`flex-shrink`}
                     items={dropdownItems}
                     selectedValue={amount}
                     onChange={setAmount}
                   />
-                  <Pressable onPress={openSatsHelp} style={tw`p-3`}>
-                    <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-                  </Pressable>
                 </View>
               </View>
               {satsPerUnit ? (

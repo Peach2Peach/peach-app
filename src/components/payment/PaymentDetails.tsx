@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentdata } from '../../utils/paymentMethod'
+import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
@@ -56,7 +56,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
     display: <Text style={tw`font-baloo text-base`}>{data.label}</Text>,
-    isValid: isValidPaymentdata(data),
+    isValid: isValidPaymentData(data),
     disabled: editable,
     data,
   })
