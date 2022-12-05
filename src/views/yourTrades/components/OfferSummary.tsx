@@ -55,8 +55,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
         {offer.type === 'ask' ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
       </View>
-
-      <PrimaryButton style={tw`flex items-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})}>
+      <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})} narrow>
         {i18n('back')}
       </PrimaryButton>
       {status !== 'offerCanceled' ? (

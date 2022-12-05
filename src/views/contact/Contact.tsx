@@ -41,7 +41,7 @@ export default ({ navigation }: Props): ReactElement => {
           </View>
         </Shadow>
       </View>
-      <GoBackButton style={tw`flex items-center mt-12`} />
+      <GoBackButton style={tw`self-center mt-12`} />
     </PeachScrollView>
   )
 }

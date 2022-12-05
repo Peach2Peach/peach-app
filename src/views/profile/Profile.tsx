@@ -137,7 +137,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ) : null}
           {user ? <UserTradeDetails user={user} /> : null}
         </View>
-        <GoBackButton style={tw`flex items-center mt-16`} />
+        <GoBackButton style={tw`self-center mt-16`} />
       </PeachScrollView>
     </View>
   )

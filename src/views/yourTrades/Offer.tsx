@@ -187,7 +187,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ) : null}
           <View style={tw`mt-7`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
-            <PrimaryButton style={tw`flex items-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})}>
+            <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})} narrow>
               {i18n('back')}
             </PrimaryButton>
           </View>

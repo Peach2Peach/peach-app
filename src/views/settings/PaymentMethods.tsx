@@ -28,7 +28,7 @@ export default ({ navigation }: Props): ReactElement => {
       />
       <AddPaymentMethodButton navigation={navigation} origin={['paymentMethods', {}]} style={tw`mt-4`} />
 
-      <GoBackButton style={tw`flex items-center mt-16`} />
+      <GoBackButton style={tw`self-center mt-16`} />
     </PeachScrollView>
   )
 }

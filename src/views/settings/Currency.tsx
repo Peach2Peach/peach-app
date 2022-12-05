@@ -31,7 +31,7 @@ export default (): ReactElement => {
           onChange={(c) => setCurrency(c as Currency)}
         />
       </View>
-      <GoBackButton style={tw`flex items-center mt-16`} />
+      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }

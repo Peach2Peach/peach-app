@@ -22,7 +22,7 @@ export default (): ReactElement => {
         </Text>
         <Text style={tw`text-grey-1 mt-1`}>{i18n('settings.fees.text.4')}</Text>
       </View>
-      <GoBackButton style={tw`flex items-center mt-16`} />
+      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }

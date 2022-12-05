@@ -473,7 +473,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               )}
             </View>
           ) : (
-            <PrimaryButton style={tw`flex items-center mt-6`} onPress={goHome} narrow>
+            <PrimaryButton style={tw`self-center mt-6`} onPress={goHome} narrow>
               {i18n('goBackHome')}
             </PrimaryButton>
           )}

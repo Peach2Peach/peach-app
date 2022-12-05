@@ -88,7 +88,7 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
           </Pressable>
         </View>
       </Card>
-      <PrimaryButton style={tw`mt-4 flex items-center`} disabled={!vote} onPress={rate}>
+      <PrimaryButton style={tw`mt-4 self-center`} disabled={!vote} onPress={rate} narrow>
         title={i18n('rate.rateAndFinish')}
       </PrimaryButton>
     </View>

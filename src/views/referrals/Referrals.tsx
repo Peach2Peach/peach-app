@@ -95,7 +95,7 @@ export default ({ navigation }: Props): ReactElement => {
             <Text style={tw`text-center text-grey-1 text-sm mt-1`}>{i18n('referrals.reward.comingSoon')}</Text>
           </Card>
         </View>
-        <GoBackButton style={tw`flex items-center mt-16`} />
+        <GoBackButton style={tw`self-center mt-16`} />
       </PeachScrollView>
     </View>
   )

@@ -16,7 +16,7 @@ export default (): ReactElement => {
       <View style={tw`flex justify-center items-center`}>
         <Text style={tw`text-white-1 text-center`}>{i18n('help.currency.description')}</Text>
       </View>
-      <PrimaryButton style={tw`flex justify-center items-center mt-7`} onPress={closeOverlay}>
+      <PrimaryButton style={tw`self-center mt-7`} onPress={closeOverlay} narrow>
         {i18n('close')}
       </PrimaryButton>
     </View>

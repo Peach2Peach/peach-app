@@ -30,7 +30,7 @@ export default (): ReactElement => {
           </PrimaryButton>
         ))}
       </View>
-      <GoBackButton style={tw`flex items-center mt-16`} />
+      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }

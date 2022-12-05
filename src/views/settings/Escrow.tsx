@@ -26,7 +26,7 @@ export default (): ReactElement => {
         <Text style={tw`text-grey-2 text-center -mt-2`}>{i18n('sell.escrow.returnAddress.subtitle')}</Text>
         <ReturnAddress returnAddress={account.settings.returnAddress} update={setReturnAddress} />
       </View>
-      <GoBackButton style={tw`flex items-center mt-16`} />
+      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }

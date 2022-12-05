@@ -20,7 +20,7 @@ export default (): ReactElement => (
       {i18n('iDontHaveAWallet.title')}
     </Headline>
     <Text style={tw`text-center text-white-1 mt-3`}>{i18n('iDontHaveAWallet.mobileWallet')}</Text>
-    <PrimaryButton style={tw`flex items-center mt-8 w-60`} onPress={linkToMobileWallet}>
+    <PrimaryButton style={tw`self-center mt-8 w-60`} onPress={linkToMobileWallet}>
       {i18n(`iDontHaveAWallet.mobileWallet.${isIOS() ? 'iOS' : 'android'}`)}
     </PrimaryButton>
     <View style={tw`mt-10`}>
@@ -36,7 +36,7 @@ export default (): ReactElement => (
         {i18n('iDontHaveAWallet.signingDevice.1')}
         <Text style={tw`font-bold text-white-1`}> {i18n('iDontHaveAWallet.signingDevice.2')}</Text>
       </Text>
-      <PrimaryButton style={tw`flex items-center mt-8 w-60`} onPress={linkToBitbox}>
+      <PrimaryButton style={tw`self-center mt-8 w-60`} onPress={linkToBitbox}>
         {i18n('iDontHaveAWallet.signingDevice.cta')}
       </PrimaryButton>
     </View>

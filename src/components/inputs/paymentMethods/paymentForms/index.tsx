@@ -134,7 +134,7 @@ export const PaymentMethodForm = ({
             />
           </Pressable>
           <View style={tw`flex-grow items-center`}>
-            <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()}>
+            <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
               {i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
             </PrimaryButton>
           </View>

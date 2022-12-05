@@ -25,7 +25,7 @@ export default (): ReactElement => {
         <SocialsItem onPress={goToTelegram} title="telegram" />
         <SocialsItem onPress={goToDiscord} title="discord" />
       </View>
-      <GoBackButton style={tw`flex items-center mt-16`} />
+      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }

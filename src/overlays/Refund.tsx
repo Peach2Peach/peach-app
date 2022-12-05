@@ -76,7 +76,7 @@ const ReturnAddressMismatchMessage = ({
         {'\n\n'}
         {i18n('refund.RETURN_ADDRESS_MISMATCH.pleaseCheck')}
       </Text>
-      <PrimaryButton style={tw`flex justify-center items-center mt-2`} onPress={goToContact}>
+      <PrimaryButton style={tw`self-center mt-2`} onPress={goToContact} narrow>
         {i18n('refund.RETURN_ADDRESS_MISMATCH.contactSupport')}
       </PrimaryButton>
     </View>
@@ -164,13 +164,14 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.refund`)}</Text>
           </View>
         )}
-        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay}>
+        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay} narrow>
           {i18n('close')}
         </PrimaryButton>
         <PrimaryButton
           style={tw`mt-2`}
           disabled={!transactionId}
           onPress={() => showTransaction(transactionId, NETWORK)}
+          narrow
         >
           {i18n('showTransaction')}
         </PrimaryButton>
