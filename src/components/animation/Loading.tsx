@@ -2,6 +2,7 @@ import React from 'react'
 import Lottie from 'lottie-react-native'
 import tw from '../../styles/tailwind'
 import { ColorValue } from 'react-native'
+const loading = require('../animation/lotties/loading.json')
 
 type Props = ComponentProps & {
   color?: ColorValue
@@ -9,10 +10,6 @@ type Props = ComponentProps & {
 
 /**
  * @description Component to show loader animation
- * @param props Component properties
- * @param props.color loader color (peach color by default)
- * @param [props.style] css style object
- * @param [props.color] icon color
  * @example
  * <Loading
  *   style={tw`mt-4`}
@@ -23,8 +20,8 @@ type Props = ComponentProps & {
 export const Loading = ({ style, color }: Props): JSX.Element => (
   <Lottie
     style={[tw`w-20`, style]}
-    source={require('../animation/lotties/loading.json')}
+    source={loading}
     autoPlay
-    colorFilters={[{ keypath: 'LFCamada de forma 1', color: color ?? tw`text-primary-light`.color }]}
+    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw`text-primary-light`.color) as string }]}
   />
 )
