@@ -33,7 +33,7 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
-import TestView from './TestView'
+import TestView from './TestView/TestView'
 
 type ViewType = {
   name: keyof RootStackParamList
