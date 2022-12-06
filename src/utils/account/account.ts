@@ -2,7 +2,7 @@ import { APPVERSION } from '../../constants'
 import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
-import { createWalletFromEntropy, createWalletFromSeedPhrase, getMainAddress, setWallet } from '../wallet'
+import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
 
 export const defaultAccount: Account = {
   publicKey: '',
@@ -55,7 +55,9 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   setDisplayCurrencyQuiet(account.settings.displayCurrency || 'EUR')
   setLocaleQuiet(account.settings.locale || 'en')
 
-  const { wallet } = account.mnemonic ? createWalletFromSeedPhrase(account.mnemonic) : await createWalletFromEntropy()
+  const { wallet } = account.mnemonic
+    ? createWalletFromSeedPhrase(account.mnemonic)
+    : await createRandomWallet(getNetwork())
   setWallet(wallet)
 
   const firstAddress = getMainAddress(wallet)
