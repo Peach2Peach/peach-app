@@ -2,9 +2,10 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Button, Headline, Text } from '../../components'
+import { Headline, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { OverlayContext } from '../../contexts/overlay'
+import { PrimaryButton } from '../../components/buttons'
 
 type PaymentMethodEditProps = {
   paymentData: PaymentData
@@ -27,8 +28,12 @@ export default ({ paymentData, onConfirm }: PaymentMethodEditProps): ReactElemen
         <Text style={tw`text-white-1 text-center mt-2`}>{i18n('help.paymentMethodEdit.description.2')}</Text>
       </View>
       <View style={tw`flex-col items-center mt-8`}>
-        <Button style={tw``} title={i18n('neverMind')} secondary={true} wide={false} onPress={closeOverlay} />
-        <Button style={tw`mt-2`} title={i18n('continue')} help={true} wide={false} onPress={confirm} />
+        <PrimaryButton onPress={closeOverlay} narrow>
+          {i18n('neverMind')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={confirm} narrow>
+          {i18n('continue')}
+        </PrimaryButton>
       </View>
     </View>
   )

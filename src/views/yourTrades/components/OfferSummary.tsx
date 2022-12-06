@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Button, BuyOfferSummary, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
+import { BuyOfferSummary, PrimaryButton, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
@@ -55,15 +55,9 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
         {offer.type === 'ask' ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
       </View>
-
-      <View style={tw`flex items-center mt-4`}>
-        <Button
-          title={i18n('back')}
-          secondary={true}
-          wide={false}
-          onPress={() => navigation.navigate('yourTrades', {})}
-        />
-      </View>
+      <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})} narrow>
+        {i18n('back')}
+      </PrimaryButton>
       {status !== 'offerCanceled' ? (
         <Pressable style={tw`mt-3`} onPress={cancelOffer}>
           {/* TODO use TextLink component and add bold mode */}

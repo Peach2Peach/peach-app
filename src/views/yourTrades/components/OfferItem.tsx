@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
+import { Bubble, Headline, SatsFormat, Shadow, Text, PrimaryButton } from '../../../components'
 import Icon from '../../../components/Icon'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
@@ -153,13 +153,9 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             </View>
             {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
               <View style={tw`flex items-center mt-3 mb-1`}>
-                <Button
-                  title={i18n(`offer.requiredAction.${requiredAction}`)}
-                  onPress={navigate}
-                  secondary={!isRedStatus}
-                  red={isRedStatus}
-                  wide={false}
-                />
+                <PrimaryButton onPress={navigate} narrow>
+                  {i18n(`offer.requiredAction.${requiredAction}`)}
+                </PrimaryButton>
               </View>
             ) : null}
           </View>

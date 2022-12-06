@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
 import Logo from '../../assets/logo/peachLogo.svg'
-import { Button } from '../../components'
+import { PrimaryButton } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import LetsGetStarted from './LetsGetStarted'
@@ -27,9 +27,6 @@ export default ({ navigation }: ScreenProps): ReactElement => {
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
 
-  const onBeforeSnapToItem = (i: number) => {
-    setPage(i)
-  }
   const next = () => {
     $carousel.current?.snapToNext()
   }
@@ -55,7 +52,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
             inactiveSlideScale={1}
             inactiveSlideOpacity={1}
             inactiveSlideShift={0}
-            onBeforeSnapToItem={onBeforeSnapToItem}
+            onBeforeSnapToItem={setPage}
             shouldOptimizeUpdates={true}
             renderItem={({ item: Item }) => (
               <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`h-full px-6`}>
@@ -68,25 +65,29 @@ export default ({ navigation }: ScreenProps): ReactElement => {
       <View style={tw`mb-8 mt-4 flex items-center w-full`}>
         {page !== screens.length - 1 ? (
           <View>
-            <Button testID="welcome-next" title={i18n('next')} wide={false} onPress={next} />
-            <Button style={tw`opacity-0 mt-4`} title="layout dummy" secondary={true} wide={false} />
+            <PrimaryButton testID="welcome-next" onPress={next} narrow>
+              {i18n('next')}
+            </PrimaryButton>
+            <View style={tw`opacity-0`}>
+              <PrimaryButton style={tw` mt-4`} narrow>
+                {i18n('restoreBackup')}
+              </PrimaryButton>
+            </View>
           </View>
         ) : (
           <View>
-            <Button
-              testID="welcome-newUser"
-              onPress={() => navigation.navigate('newUser', {})}
-              wide={false}
-              title={i18n('newUser')}
-            />
-            <Button
+            <PrimaryButton testID="welcome-newUser" onPress={() => navigation.navigate('newUser', {})} narrow>
+              {i18n('newUser')}
+            </PrimaryButton>
+            <PrimaryButton
               testID="welcome-restoreBackup"
               style={tw`mt-4`}
               onPress={() => navigation.navigate('restoreBackup', {})}
-              wide={false}
-              secondary={true}
-              title={i18n('restoreBackup')}
-            />
+              border
+              narrow
+            >
+              {i18n('restoreBackup')}
+            </PrimaryButton>
           </View>
         )}
         <View style={tw`w-full flex-row justify-center mt-11`}>

@@ -79,5 +79,7 @@ index.android.bundle
 android/app/src/main/res/raw
 
 
+.swc
+
 # E2E Testing
 artifacts

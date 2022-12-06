@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { saveContract } from '../../utils/contract'
@@ -30,11 +31,13 @@ export const DisputeLostBuyer = ({ contract, navigate }: DisputeLostBuyerProps):
       <View style={tw`flex justify-center items-center`}>
         <View style={tw`flex justify-center items-center`}>
           <Text style={tw`text-white-1 text-center`}>{i18n('dispute.buyer.lost.text.1')}</Text>
-          {!contract.paymentConfirmed ? (
+          {!contract.paymentConfirmed && (
             <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.buyer.lost.text.2')}</Text>
-          ) : null}
+          )}
         </View>
-        <Button style={tw`mt-5`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay} narrow>
+          {i18n('close')}
+        </PrimaryButton>
       </View>
     </View>
   )

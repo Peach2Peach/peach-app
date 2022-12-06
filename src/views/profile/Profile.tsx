@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 
 import Clipboard from '@react-native-clipboard/clipboard'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Fade, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
+import { Fade, GoBackButton, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
 import { ExtraMedals, Rating, TradingLimit } from '../../components/user'
 import BitcoinContext from '../../contexts/bitcoin'
 import { account, getTradingLimit } from '../../utils/account'
@@ -137,9 +137,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           ) : null}
           {user ? <UserTradeDetails user={user} /> : null}
         </View>
-        <View style={tw`flex items-center mt-16`}>
-          <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-        </View>
+        <GoBackButton style={tw`self-center mt-16`} />
       </PeachScrollView>
     </View>
   )

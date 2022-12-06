@@ -3,14 +3,12 @@ export {}
 import * as accountData from './data/accountData'
 const { version } = require('../../package.json')
 
-jest.mock('../../src/utils/peachAPI', () => {
-  const actual = jest.requireActual('../../src/utils/peachAPI')
-  const mock = jest.requireActual('../../src/utils/__mocks__/peachAPI')
-  return {
-    ...actual,
-    ...mock,
-  }
-})
+export const resetMocks = (...mocks: any) => mocks.forEach((mock: jest.Mock) => (<jest.Mock>mock).mockReset())
+
+jest.mock('../../src/utils/peachAPI', () => ({
+  ...jest.requireActual('../../src/utils/peachAPI'),
+  ...jest.requireActual('../../src/utils/__mocks__/peachAPI'),
+}))
 
 export let fakeFiles: Record<string, string> = {}
 export const resetFakeFiles = () => (fakeFiles = {})
@@ -25,25 +23,19 @@ jest.mock('react-native-fs', () => ({
     delete fakeFiles[path]
   },
   mkdir: async (): Promise<void> => {},
-  readDir: async (path: string): Promise<string[]> => [],
+  readDir: async (): Promise<string[]> => [],
   DocumentDirectoryPath: '',
 }))
 
-jest.mock('react-native-screens', () => {
-  const actual = jest.requireActual('react-native-screens')
-  return {
-    ...actual,
-    enableScreens: jest.fn(),
-  }
-})
+jest.mock('react-native-screens', () => ({
+  ...jest.requireActual('react-native-screens'),
+  enableScreens: jest.fn(),
+}))
 
-jest.mock('react-native-fast-openpgp', () => {
-  const actual = jest.requireActual('react-native-fast-openpgp')
-  return {
-    ...actual,
-    generate: () => accountData.account1.pgp,
-  }
-})
+jest.mock('react-native-fast-openpgp', () => ({
+  ...jest.requireActual('react-native-fast-openpgp'),
+  generate: () => accountData.account1.pgp,
+}))
 
 jest.mock('react-native-share', () => ({
   open: jest.fn(),
@@ -106,7 +98,7 @@ export const setStorage = (strg: Storage) => (storage = strg)
 
 jest.mock('react-native-mmkv-storage', () => ({
   IOSAccessibleStates: {},
-  MMKVLoader: () => ({
+  MMKVLoader: jest.fn(() => ({
     setAccessibleIOS: () => ({
       withEncryption: () => ({
         withInstanceID: () => ({
@@ -135,7 +127,7 @@ jest.mock('react-native-mmkv-storage', () => ({
         }),
       }),
     }),
-  }),
+  })),
 }))
 
 jest.mock('react-native-snap-carousel', () => jest.fn())

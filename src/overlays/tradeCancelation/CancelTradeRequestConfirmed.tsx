@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
@@ -47,10 +47,13 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
       <Text style={tw`text-center text-white-1 mt-2`}>
         {i18n(`contract.cancel.seller.confirmed.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
-
       <View>
-        <Button style={tw`mt-8`} title={i18n('showEscrow')} tertiary={true} wide={false} onPress={showEscrow} />
-        <Button style={tw`mt-2`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton style={tw`mt-8`} onPress={showEscrow} narrow>
+          {i18n('showEscrow')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('close')}
+        </PrimaryButton>
       </View>
     </View>
   )

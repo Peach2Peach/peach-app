@@ -3,11 +3,12 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Text } from '../components'
+import { Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { Navigation } from '../utils/navigation'
+import { PrimaryButton } from '../components/buttons'
 
 type Props = {
   offer: SellOffer
@@ -36,8 +37,12 @@ export default ({ offer, days, navigation }: Props): ReactElement => {
         {i18n('offerNotFunded.description.2')}
       </Text>
       <View style={tw`flex justify-center items-center mt-5`}>
-        <Button title={i18n('goToOffer')} secondary={true} wide={false} onPress={goToOffer} />
-        <Button title={i18n('close')} style={tw`mt-2`} tertiary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton onPress={goToOffer} narrow>
+          {i18n('goToOffer')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('close')}
+        </PrimaryButton>
       </View>
     </View>
   )

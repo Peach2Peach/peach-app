@@ -1,10 +1,13 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
 import fetch, { getAbortSignal } from '../../../fetch'
-import { getResponseError, peachAccount, RequestProps, setAccessToken } from '../..'
+import { RequestProps } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
+import { getPeachAccount } from '../../peachAccount'
+import { getResponseError } from '../../getResponseError'
+import { setAccessToken } from '../../accessToken'
 
 const tokenNotFoundError = {
   error: 'Token not found',
@@ -28,7 +31,7 @@ const handleMissingPeachAccount = () => {
  */
 export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
   const message = 'Peach Registration ' + new Date().getTime()
-
+  const peachAccount = getPeachAccount()
   if (!peachAccount) return handleMissingPeachAccount()
 
   try {

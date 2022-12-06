@@ -82,4 +82,5 @@ declare type RootStackParamList = {
   deleteAccount: {}
   fees: {}
   socials: {}
+  testView: undefined
 }

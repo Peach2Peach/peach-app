@@ -1,10 +1,11 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
-import { Button, Headline, Text } from '../components'
+import { Headline, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
+import { PrimaryButton } from '../components/buttons'
 
 export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
@@ -23,14 +24,9 @@ export default (): ReactElement => {
         <Text style={tw`font-bold text-white-1`}> {i18n('newUser.saveYourPassword.description.3')} </Text>
         {i18n('newUser.saveYourPassword.description.4')}
       </Text>
-      <Button
-        testID="saveYourPassword-confirm"
-        style={tw`mt-8`}
-        title={i18n('newUser.saveYourPassword.ok')}
-        secondary={true}
-        wide={false}
-        onPress={confirm}
-      />
+      <PrimaryButton testID="saveYourPassword-confirm" style={tw`mt-8`} onPress={confirm} narrow>
+        {i18n('newUser.saveYourPassword.ok')}
+      </PrimaryButton>
     </View>
   )
 }

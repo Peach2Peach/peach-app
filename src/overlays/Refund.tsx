@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Text } from '../components'
+import { Headline, PrimaryButton, Text } from '../components'
 import LanguageContext from '../contexts/language'
 import { MessageContext } from '../contexts/message'
 import cancelOfferEffect from '../effects/cancelOfferEffect'
@@ -76,14 +76,9 @@ const ReturnAddressMismatchMessage = ({
         {'\n\n'}
         {i18n('refund.RETURN_ADDRESS_MISMATCH.pleaseCheck')}
       </Text>
-      <View style={tw`flex justify-center items-center mt-2`}>
-        <Button
-          title={i18n('refund.RETURN_ADDRESS_MISMATCH.contactSupport')}
-          secondary={true}
-          wide={false}
-          onPress={goToContact}
-        />
-      </View>
+      <PrimaryButton style={tw`self-center mt-2`} onPress={goToContact} narrow>
+        {i18n('refund.RETURN_ADDRESS_MISMATCH.contactSupport')}
+      </PrimaryButton>
     </View>
   )
 }
@@ -169,15 +164,17 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.refund`)}</Text>
           </View>
         )}
-        <Button style={tw`mt-5`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
-        <Button
+        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay} narrow>
+          {i18n('close')}
+        </PrimaryButton>
+        <PrimaryButton
           style={tw`mt-2`}
-          tertiary={true}
-          wide={false}
           disabled={!transactionId}
           onPress={() => showTransaction(transactionId, NETWORK)}
-          title={i18n('showTransaction')}
-        />
+          narrow
+        >
+          {i18n('showTransaction')}
+        </PrimaryButton>
       </View>
     </View>
   )

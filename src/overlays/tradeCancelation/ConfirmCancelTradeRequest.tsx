@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
@@ -77,22 +77,12 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
       </Text>
       <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.request.text.2')}</Text>
       <View>
-        <Button
-          style={tw`mt-8`}
-          title={i18n('contract.cancel.request.ok')}
-          tertiary={true}
-          wide={false}
-          loading={loading}
-          onPress={confirm}
-        />
-        <Button
-          style={tw`mt-2`}
-          title={i18n('contract.cancel.request.back')}
-          secondary={true}
-          wide={false}
-          loading={loading}
-          onPress={reject}
-        />
+        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={confirm} narrow>
+          {i18n('contract.cancel.request.ok')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={reject} narrow>
+          {i18n('contract.cancel.request.back')}
+        </PrimaryButton>
       </View>
     </View>
   )

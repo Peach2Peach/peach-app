@@ -29,6 +29,7 @@ export const recoverAccount = async ({
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     await setSessionItem('password', password)
+
     updateSettings({
       fcmToken: '',
     })
@@ -38,6 +39,7 @@ export const recoverAccount = async ({
       getTradingLimit({}),
       userUpdate(),
     ])
+
     if (getOffersResult?.length) {
       info(`Got ${getOffersResult.length} offers`)
       getOffersResult.map((offer) => saveOffer(offer, true))

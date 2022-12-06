@@ -1,9 +1,11 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
+import { RequestProps } from '../..'
 import fetch, { getAbortSignal } from '../../../fetch'
-import { parseResponse, peachAccount, RequestProps } from '../..'
-import { getAccessToken } from './getAccessToken'
+import { parseResponse } from '../../parseResponse'
+import { getPeachAccount } from '../../peachAccount'
+import { fetchAccessToken } from './fetchAccessToken'
 
 type PGPPayload = {
   publicKey: string
@@ -14,6 +16,7 @@ type PGPPayload = {
 }
 
 const getPGPUpdatePayload = async (pgp?: PGPKeychain): Promise<{} | PGPPayload> => {
+  const peachAccount = getPeachAccount()
   if (!peachAccount || !pgp) return {}
 
   const message = 'Peach new PGP key ' + new Date().getTime()
@@ -47,11 +50,12 @@ export const updateUser = async ({
   referralCode,
   timeout,
 }: UpdateUserProps): Promise<[APISuccess | null, APIError | null]> => {
+  const peachAccount = getPeachAccount()
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
   const response = await fetch(`${API_URL}/v1/user`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },

@@ -4,7 +4,7 @@ import { Pressable, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
-import { Button, Icon, Input, PeachScrollView, Text, Title } from '../../components'
+import { Icon, Input, PeachScrollView, PrimaryButton, Text, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
@@ -128,14 +128,13 @@ export default ({ route, navigation }: Props): ReactElement => {
           </Pressable>
         </View>
         <View style={tw`flex items-center mt-16`}>
-          <Button
-            title={i18n('report.sendReport')}
-            disabled={!(isEmailValid && isTopicValid && isMessageValid)}
-            wide={false}
-            onPress={submit}
-          />
+          <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)} narrow>
+            {i18n('report.sendReport')}
+          </PrimaryButton>
           {route.name.toString() === 'reportFullScreen' && (
-            <Button style={tw`mt-5`} title={i18n('cancel')} wide={false} secondary={true} onPress={navigation.goBack} />
+            <PrimaryButton style={tw`mt-5`} onPress={navigation.goBack} narrow>
+              {i18n('cancel')}
+            </PrimaryButton>
           )}
         </View>
       </View>
