@@ -85,7 +85,7 @@ export const Overlay = ({
             {!!title && <Text style={tw`h6 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
             {content}
           </View>
-          <View style={tw`px-4 py-1 flex-row justify-between`}>
+          <View style={[tw`px-4 py-1 flex-row`, !!action2Label ? tw`justify-between` : tw`justify-center`]}>
             {!!action2 && !!action2Label && (
               <Pressable
                 onPress={() => {
