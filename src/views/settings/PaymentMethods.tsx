@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, PeachScrollView, Title } from '../../components'
+import { GoBackButton, PeachScrollView, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import PaymentDetails from '../../components/payment/PaymentDetails'
@@ -29,9 +28,7 @@ export default ({ navigation }: Props): ReactElement => {
       />
       <AddPaymentMethodButton navigation={navigation} origin={['paymentMethods', {}]} style={tw`mt-4`} />
 
-      <View style={tw`flex items-center mt-16`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-      </View>
+      <GoBackButton style={tw`self-center mt-16`} />
     </PeachScrollView>
   )
 }

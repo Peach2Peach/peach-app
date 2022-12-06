@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 
-import { Button, Headline, Loading } from '../components'
+import { Headline, Loading, PrimaryButton } from '../components'
 import Icon from '../components/Icon'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -91,14 +91,12 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         {i18n('cancelOffer.confirm.title')}
       </Headline>
       <View style={loading ? tw`opacity-0` : {}} pointerEvents={loading ? 'none' : 'auto'}>
-        <Button
-          style={tw`mt-2`}
-          title={i18n('cancelOffer.confirm.back')}
-          secondary={true}
-          wide={false}
-          onPress={closeOverlay}
-        />
-        <Button style={tw`mt-2`} title={i18n('cancelOffer.confirm.ok')} tertiary={true} wide={false} onPress={ok} />
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('cancelOffer.confirm.back')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
+          {i18n('cancelOffer.confirm.ok')}
+        </PrimaryButton>
       </View>
       {loading && <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} />}
     </View>

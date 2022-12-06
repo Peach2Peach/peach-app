@@ -2,7 +2,7 @@ import { NETWORK } from '@env'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { Button, Loading, PeachScrollView, SatsFormat, Text, Title } from '../../components'
+import { Loading, PeachScrollView, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
@@ -183,23 +183,19 @@ export default ({ route, navigation }: Props): ReactElement => {
         )}
       </View>
       <View style={tw`w-full flex items-center mt-4`}>
-        <Button
+        <PrimaryButton
           testID="navigation-next"
-          disabled={true}
-          wide={false}
-          title={buttonText}
+          disabled
+          narrow
           style={sellOffer.funding.status === 'MEMPOOL' ? tw`w-72` : tw`w-48`}
-        />
-        {showRegtestButton ? (
-          <Button
-            testID="escrow-fund"
-            style={tw`mt-1`}
-            onPress={fundEscrowAddress}
-            help={true}
-            wide={false}
-            title={'Fund escrow'}
-          />
-        ) : null}
+        >
+          {buttonText}
+        </PrimaryButton>
+        {showRegtestButton && (
+          <PrimaryButton testID="escrow-fund" style={tw`mt-1`} onPress={fundEscrowAddress} narrow>
+            {'Fund escrow'}
+          </PrimaryButton>
+        )}
         <Pressable style={tw`mt-4`} onPress={cancelOffer}>
           <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>{i18n('cancelOffer')}</Text>
         </Pressable>

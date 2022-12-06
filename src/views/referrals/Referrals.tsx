@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Button, Card, Loading, PeachScrollView, RadioButtons, Text, Title } from '../../components'
+import { Card, GoBackButton, Loading, PeachScrollView, PrimaryButton, RadioButtons, Text, Title } from '../../components'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
@@ -79,13 +79,6 @@ export default ({ navigation }: Props): ReactElement => {
         <View style={tw`mt-8`}>
           <Text style={tw`text-center font-baloo text-grey-2 leading-6`}>{i18n('referrals.yourCode')}</Text>
           <Text style={tw`text-center text-grey-1 font-baloo text-2xl leading-2xl mt-1`}>{user.referralCode}</Text>
-          {/* <View style={tw`flex items-center mt-1`}>
-            <Button
-              title={i18n('referrals.shareCode')}
-              wide={true}
-              onPress={shareReferralCode}
-            />
-          </View> */}
           <Card style={tw`mt-10 p-5`}>
             <Text style={tw`text-center text-grey-1`}>
               {i18n(
@@ -97,14 +90,14 @@ export default ({ navigation }: Props): ReactElement => {
             </Text>
             <RadioButtons style={tw`mt-4`} selectedValue={selectedReward} items={rewards} onChange={setSelectedReward} />
             <View style={tw`flex items-center mt-5`}>
-              <Button title={i18n('referrals.reward.select')} wide={false} disabled={true} onPress={redeemReward} />
+              <PrimaryButton narrow disabled onPress={redeemReward}>
+                {i18n('referrals.reward.select')}
+              </PrimaryButton>
             </View>
             <Text style={tw`text-center text-grey-1 text-sm mt-1`}>{i18n('referrals.reward.comingSoon')}</Text>
           </Card>
         </View>
-        <View style={tw`flex items-center mt-16`}>
-          <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-        </View>
+        <GoBackButton style={tw`self-center mt-16`} />
       </PeachScrollView>
     </View>
   )

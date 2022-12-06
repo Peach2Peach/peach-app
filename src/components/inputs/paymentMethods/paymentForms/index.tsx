@@ -9,7 +9,7 @@ import { whiteGradient } from '../../../../utils/layout'
 import { StackNavigation } from '../../../../utils/navigation'
 import { paymentDataChanged } from '../../../../utils/paymentMethod'
 import { Fade } from '../../../animation'
-import Button from '../../../Button'
+import { PrimaryButton } from '../../../buttons'
 import Icon from '../../../Icon'
 import PeachScrollView from '../../../PeachScrollView'
 import { Text } from '../../../text'
@@ -132,15 +132,9 @@ export const PaymentMethodForm = ({
             />
           </Pressable>
           <View style={tw`flex-grow items-center`}>
-            <Button
-              testID="navigation-next"
-              disabled={!stepValid}
-              wide={false}
-              onPress={() => $formRef?.save()}
-              title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-              textColor={specialTemplates[paymentMethod]?.button?.textColor}
-              bgColor={specialTemplates[paymentMethod]?.button?.bgColor}
-            />
+            <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
+              {i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
+            </PrimaryButton>
           </View>
         </View>
         {data.id ? (

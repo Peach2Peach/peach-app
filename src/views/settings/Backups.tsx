@@ -3,21 +3,16 @@ import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, Card, Text, Title } from '../../components'
+import { Card, GoBackButton, Text, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
 import { BackupCreated } from '../../overlays/BackupCreated'
 import SaveAccount from '../../overlays/info/SaveAccount'
 import { account, backupAccount, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import { toShortDateFormat } from '../../utils/string'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [isBackingUp, setIsBackingUp] = useState(false)
@@ -88,9 +83,7 @@ export default ({ navigation }: Props): ReactElement => {
           </Card>
         </Pressable>
       </View>
-      <View style={tw`flex items-center mt-16`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-      </View>
+      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }
