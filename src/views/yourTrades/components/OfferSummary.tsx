@@ -23,7 +23,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
 
   const goToOffer = () => {

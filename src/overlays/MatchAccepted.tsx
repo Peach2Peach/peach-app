@@ -18,7 +18,7 @@ export default ({ contractId, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToContract = () => {

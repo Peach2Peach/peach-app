@@ -58,6 +58,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (result) {
       updateOverlay({
         content: <ReportSuccess navigation={navigation} />,
+        visible: true,
       })
       return
     }

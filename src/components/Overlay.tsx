@@ -3,12 +3,8 @@ import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 
 import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import Icon from './Icon'
-import { info } from '../utils/log'
-import { IconType } from './icons'
-import { dropShadowMild, footerShadow } from '../utils/layout'
 
 type LevelColorMap = {
   bg1: Record<OverlayLevel, ViewStyle>

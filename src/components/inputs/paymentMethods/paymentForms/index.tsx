@@ -93,7 +93,7 @@ export const PaymentMethodForm = ({
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
         content: <PaymentMethodEdit paymentData={newPaymentData} onConfirm={onSubmit} />,
-        help: true,
+        visible: false,
       })
     } else {
       onSubmit(newPaymentData)

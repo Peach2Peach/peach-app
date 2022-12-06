@@ -70,7 +70,7 @@ export default ({ navigation }: Props): ReactElement => {
   const deleteAccount = () => {
     updateOverlay({
       content: <DeleteAccount navigate={resetNav} />,
-      showCloseIcon: true,
+      visible: true,
     })
   }
   const gotoFees = () => navigation.navigate('fees', {})

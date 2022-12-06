@@ -31,7 +31,7 @@ import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
-const messageLevels: Record<string, Level> = {
+const messageLevels: Record<string, MessageLevel> = {
   NOT_FOUND: 'WARN',
   CANNOT_DOUBLEMATCH: 'WARN',
 }
@@ -137,8 +137,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     ) {
       updateOverlay({
         content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
-        showCloseButton: false,
-        showCloseIcon: false,
+        visible: true,
       })
     }
 
@@ -273,14 +272,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer {...{ offer, navigate: goToYourTrades, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
 
   const openMatchHelp = () =>
     updateOverlay({
       content: offer.type === 'bid' ? <Match /> : <DoubleMatch />,
-      showCloseButton: true,
-      help: true,
+      visible: true,
     })
 
   useFocusEffect(
@@ -378,6 +376,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
           updateOverlay({
             content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+            visible: true,
           })
         }
       })

@@ -80,7 +80,7 @@ export default ({ navigation }: Props): ReactElement => {
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
-        updateOverlay({ content: null })
+        updateOverlay({ visible: false })
       },
     })
   }
@@ -89,7 +89,7 @@ export default ({ navigation }: Props): ReactElement => {
     try {
       const [result, authError] = await auth({})
       if (result) {
-        updateOverlay({ content: <SaveYourPassword />, showCloseButton: false })
+        updateOverlay({ content: <SaveYourPassword />, visible: true })
 
         await userUpdate(referralCode)
         storeAccount(account, password)

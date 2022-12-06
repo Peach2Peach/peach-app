@@ -38,6 +38,7 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
     canCancel
       ? updateOverlay({
         content: <ConfirmCancelTrade contract={contract} navigation={navigation} />,
+        visible: true,
       })
       : null
   // const extendTime = () => alert('todo extend time')
@@ -45,6 +46,7 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
     canDispute
       ? updateOverlay({
         content: <ConfirmRaiseDispute contract={contract} navigation={navigation} />,
+        visible: true,
       })
       : null
 

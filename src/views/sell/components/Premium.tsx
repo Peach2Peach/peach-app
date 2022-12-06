@@ -18,8 +18,7 @@ export default ({ premium, setPremium, offer }: PremiumProps): ReactElement => {
   const openPremiumHelp = () =>
     updateOverlay({
       content: <Premium />,
-      showCloseButton: true,
-      help: true,
+      visible: true,
     })
 
   return (

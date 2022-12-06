@@ -21,7 +21,7 @@ export default ({ offerId, navigation }: Props): ReactElement => {
   const [offer, setOffer] = useState(getOffer(offerId))
 
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToOffer = async (): Promise<void> => {

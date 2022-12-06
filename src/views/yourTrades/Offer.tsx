@@ -164,6 +164,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
           updateOverlay({
             content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+            visible: true,
           })
         }
       })

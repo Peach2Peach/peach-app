@@ -59,7 +59,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
           actionLabel: i18n('contactUs'),
           actionIcon: 'mail',
         })
-        updateOverlay({ content: null, showCloseButton: true })
+        updateOverlay({ visible: false })
         return navigation.navigate('contract', { contractId })
       },
     }),
@@ -68,7 +68,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
 
   const goToContract = () => {
     navigation.navigate('contract', { contractId })
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   return !view || !contract || !offer ? (

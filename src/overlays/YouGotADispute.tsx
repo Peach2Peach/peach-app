@@ -38,7 +38,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
   const submit = async () => {
     setDisplayErrors(true)
@@ -70,7 +70,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
         Keyboard.dismiss()
         updateOverlay({
           content: <SuccessOverlay />,
-          showCloseButton: false,
+          visible: true,
         })
         setTimeout(closeOverlay, 3000)
       } else {

@@ -1,7 +1,6 @@
-import React, { ReactElement, useContext, useReducer } from 'react'
+import React, { ReactElement } from 'react'
 import { Linking, View } from 'react-native'
 import { Text } from '../components'
-import { getOverlay, OverlayContext, setOverlay } from '../contexts/overlay'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import analytics from '@react-native-firebase/analytics'
