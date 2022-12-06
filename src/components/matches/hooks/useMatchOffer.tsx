@@ -24,7 +24,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       selectedPaymentMethod: state.selectedPaymentMethod,
       currentPage: state.currentPage,
     }),
-    shallow
+    shallow,
   )
 
   return useMutation({
@@ -32,7 +32,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       await queryClient.cancelQueries(['matches', offer.id])
       const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id])
       queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
-        updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage)
+        updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage),
       )
       if (!offer.meansOfPayment[selectedCurrency]?.includes(selectedPaymentMethod)) {
         updateOverlay({
@@ -50,7 +50,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
         error(
           'Match data missing values.',
           `selectedCurrency: ${selectedCurrency}`,
-          `selectedPaymentMethod: ${selectedPaymentMethod}`
+          `selectedPaymentMethod: ${selectedPaymentMethod}`,
         )
       } else if (err === 'Missing paymentdata') {
         handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
