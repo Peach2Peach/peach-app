@@ -44,7 +44,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     ) : (
       <View style={tw`flex-row items-center`}>
         <Text style={tw`font-baloo text-sm uppercase text-white-1`}>{i18n('sell.escrow.fundToContinue')}</Text>
-        <Loading style={tw`w-10 `} color={tw`text-white-1`.color as string} />
+        <Loading style={tw`w-10 `} color={tw`text-white-1`.color} />
       </View>
     )
 

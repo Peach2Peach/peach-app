@@ -89,7 +89,7 @@ const ButtonContent = ({
         title
       ) : null}
 
-      {loading && <Loading color={color.color as string} style={tw`w-10`} />}
+      {loading && <Loading color={color.color} style={tw`w-10`} />}
     </Pressable>
   )
 }

@@ -128,9 +128,7 @@ export const PaymentMethodForm = ({
             <Icon
               id="arrowLeft"
               style={tw`w-10 h-10`}
-              color={
-                (specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color) as string
-              }
+              color={specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color}
             />
           </Pressable>
           <View style={tw`flex-grow items-center`}>
