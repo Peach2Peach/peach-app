@@ -22,7 +22,6 @@ export const matchFn = async (
   if (result) {
     return result
   }
-  error('Error', err)
   handleError(err, updateMessage)
   throw new Error()
 }

@@ -14,15 +14,5 @@ export const handleError = (err: APIError | null, updateMessage: (value: Message
       msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
       level: messageLevels[err?.error] || 'ERROR',
     })
-  } /*
-  Should this still exist?
-  else {
-    updateMessage({
-      msgKey: i18n('GENERAL_ERROR', ((err?.details as string[]) || []).join(', ')),
-      level: messageLevels[err?.error] || 'ERROR',
-      action: () => navigation.navigate('contact', {}),
-      actionLabel: i18n('contactUs'),
-      actionIcon: 'mail',
-    })
-  } */
+  }
 }
