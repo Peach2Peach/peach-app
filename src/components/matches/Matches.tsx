@@ -109,8 +109,8 @@ export const Matches = ({
       {currentIndex < matches.length - 1 && matches.length > 1 ? (
         <NextButton onPress={snapToNext} />
       ) : loadingMore ? (
-        <View style={tw`w-full h-full items-end justify-center absolute`}>
-          <Loading />
+        <View style={tw`w-4 h-full items-end justify-center absolute z-10`}>
+          <Loading style={tw`w-4 h-4`} />
         </View>
       ) : null}
     </View>
