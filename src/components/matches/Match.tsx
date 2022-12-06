@@ -56,8 +56,7 @@ export const Match = ({
   const [paymentMethodsInCommon] = useState(() => getPaymentMethods(mopsInCommon))
   const [allPaymentMethods] = useState(() => getPaymentMethods(match.meansOfPayment))
 
-  // 2. if match has mops in common, display only double pairs, if not, display single pairs
-  const [currencies] = useState(() => getCurrencies(paymentMethodsInCommon.length ? mopsInCommon : match.meansOfPayment))
+  const [currencies] = useState(() => getCurrencies(mopsInCommon))
   const [selectedCurrency, setSelectedCurrency] = useState(() =>
     match.selectedCurrency && currencies.indexOf(match.selectedCurrency) !== -1 ? match.selectedCurrency : currencies[0],
   )
