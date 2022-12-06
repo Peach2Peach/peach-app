@@ -41,7 +41,7 @@ import { matchOffer, patchOffer, unmatchOffer } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers/parseContract'
 
-const messageLevels: Record<string, 'WARN'> = {
+const messageLevels: Record<string, Level> = {
   NOT_FOUND: 'WARN',
   CANNOT_DOUBLEMATCH: 'WARN',
 }
