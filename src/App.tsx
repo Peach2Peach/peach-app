@@ -40,7 +40,7 @@ import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import { showAnalyticsPrompt, AnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 
 enableScreens()
 

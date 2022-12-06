@@ -28,6 +28,25 @@ export const showAnalyticsPrompt = (updateOverlay: Function) => {
     )
     updateOverlay({ visible: false })
   }
+
+  const AnalyticsPrompt = (): ReactElement => (
+    <View testID="saveYourPassword" style={tw`flex items-center`}>
+      <Text style={tw` text-white-1 mt-2`}>
+        {i18n('analytics.request.description1')}
+        {'\n\n'}
+        {i18n('analytics.request.description2')}
+        <Text
+          style={tw`text-center text-white-1 mt-2 underline`}
+          onPress={() => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')}
+        >
+          {i18n('privacyPolicy').toLocaleLowerCase()}.
+        </Text>
+        {'\n\n'}
+        {i18n('analytics.request.description3')}
+      </Text>
+    </View>
+  )
+
   updateOverlay({
     title: i18n('analytics.request.title'),
     content: <AnalyticsPrompt />,
@@ -41,21 +60,3 @@ export const showAnalyticsPrompt = (updateOverlay: Function) => {
     level: 'APP',
   })
 }
-
-export const AnalyticsPrompt = (): ReactElement => (
-  <View testID="saveYourPassword" style={tw`flex items-center`}>
-    <Text style={tw` text-white-1 mt-2`}>
-      {i18n('analytics.request.description1')}
-      {'\n\n'}
-      {i18n('analytics.request.description2')}
-      <Text
-        style={tw`text-center text-white-1 mt-2 underline`}
-        onPress={() => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')}
-      >
-        {i18n('privacyPolicy').toLocaleLowerCase()}.
-      </Text>
-      {'\n\n'}
-      {i18n('analytics.request.description3')}
-    </Text>
-  </View>
-)
