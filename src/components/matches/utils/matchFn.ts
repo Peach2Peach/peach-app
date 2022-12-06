@@ -1,4 +1,3 @@
-import { error } from '../../../utils/log'
 import { matchOffer } from '../../../utils/peachAPI'
 import { generateMatchOfferData } from './generateMatchOfferData'
 import { handleError } from './handleError'
@@ -22,7 +21,6 @@ export const matchFn = async (
   if (result) {
     return result
   }
-  error('Error', err)
   handleError(err, updateMessage)
   throw new Error()
 }
