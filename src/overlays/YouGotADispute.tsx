@@ -112,7 +112,6 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             onSubmit={submit}
             value={email}
             placeholder={i18n('form.userEmail')}
-            isValid={isEmailValid}
             autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />

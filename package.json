@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -25,7 +25,8 @@
     "build:ios:testnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev true --bundle-output ios/main.jsbundle --assets-dest ios",
     "build:ios:mainnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "bump:version": "react-native-version --never-amend",
-    "test": "jest --coverage ./tests/unit",
+    "test": "jest ./tests/unit",
+    "test:coverage": "jest --coverage ./tests/unit",
     "test:ci": "jest --ci --forceExit --detectOpenHandles ./tests/unit",
     "test:e2e:ios:build": "detox build --configuration ios",
     "test:e2e:android:build": "detox build --configuration android",
@@ -67,7 +68,7 @@
     "react-native-document-picker": "^8.1.2",
     "react-native-dotenv": "^3.3.1",
     "react-native-fast-openpgp": "^2.4.1",
-    "react-native-fs": "^2.19.0",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-gradients": "^1.2.0",
     "react-native-level-fs": "^3.0.1",
@@ -94,7 +95,7 @@
     "stream-browserify": "^3.0.0",
     "tiny-secp256k1": "^1.1.6",
     "twrnc": "^3.4.1",
-    "typescript": "^4.6.3",
+    "typescript": "^4.9.3",
     "util": "^0.10.4",
     "varuint-bitcoin": "^1.1.2"
   },
@@ -113,6 +114,7 @@
     "@babel/core": "^7.17.9",
     "@babel/runtime": "^7.17.9",
     "@react-native-community/eslint-config": "^3.0.1",
+    "@swc/jest": "^0.2.23",
     "@types/iban": "^0.0.32",
     "@types/jest": "^27.4.1",
     "@types/react": "^18.0.0",
@@ -139,39 +141,12 @@
     "react-native-version": "^4.0.0",
     "react-test-renderer": "17.0.2",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.7",
-    "ts-jest": "^27.1.4"
+    "tailwindcss": "^2.2.7"
   },
   "rnpm": {
     "assets": [
       "./assets/fonts/"
     ]
-  },
-  "jest": {
-    "rootDir": "./",
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
-    ],
-    "transform": {
-      "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "ts-jest"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg)/)"
-    ],
-    "setupFiles": [
-      "./tests/unit/prepare.ts",
-      "./node_modules/react-native-gesture-handler/jestSetup.js"
-    ],
-    "moduleNameMapper": {
-      "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
-      "\\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "^@env(.*)$": "<rootDir>/.env.dist$1"
-    }
   },
   "browserslist": {
     "production": [

@@ -31,7 +31,7 @@ export const CheckboxItem = ({ item, checked, onPress, style, testID }: Checkbox
       {!item.disabled ? (
         <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
           {checked ? (
-            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
+            <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
           ) : (
             <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
           )}

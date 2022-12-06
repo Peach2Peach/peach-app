@@ -1,6 +1,7 @@
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '..'
+import { RequestProps } from '..'
 import fetch, { getAbortSignal } from '../../fetch'
+import { parseResponse } from '../parseResponse'
 
 type GetUserProps = RequestProps & {
   userId: User['id']

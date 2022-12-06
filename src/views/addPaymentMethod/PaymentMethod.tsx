@@ -80,13 +80,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
 
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),
-      content: (
-        <PaymentMethodSelect
-          paymentMethods={applicablePaymentMethods}
-          showLogos={!/bankTransfer/u.test(category)}
-          onSelect={selectPaymentMethod}
-        />
-      ),
+      content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods} onSelect={selectPaymentMethod} />,
       show: true,
       onClose: () => {
         setPaymentCategory(undefined)
@@ -114,7 +108,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
             <Pressable style={tw`flex flex-row items-center px-8`} onPress={() => showDrawer('localOption')}>
               <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
               <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`}>{i18n(`country.${country}`)}</Text>
-              <Icon id="change" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} />
+              <Icon id="refreshCcw" style={tw`w-7 h-7`} color={tw`text-peach-1`.color} />
             </Pressable>
             <RadioButtons
               style={tw`mt-16`}

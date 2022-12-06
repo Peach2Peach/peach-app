@@ -1,7 +1,8 @@
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '../..'
+import { RequestProps } from '../..'
 import fetch, { getAbortSignal } from '../../../fetch'
-import { getAccessToken } from './getAccessToken'
+import { parseResponse } from '../../parseResponse'
+import { fetchAccessToken } from './fetchAccessToken'
 
 type GetUserPrivateProps = RequestProps & { userId: User['id'] }
 
@@ -15,7 +16,7 @@ export const getUserPrivate = async ({
 }: GetUserPrivateProps): Promise<[User | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/user/${userId}`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },

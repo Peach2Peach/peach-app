@@ -58,7 +58,7 @@ export default ({
             title={i18n('contract.payment.received')}
           />
           <Pressable onPress={openConfirmPaymentHelp} style={tw`p-3`}>
-            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
+            <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
           </Pressable>
         </View>
       ) : null}

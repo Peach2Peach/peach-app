@@ -72,9 +72,9 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
         ? 'offline'
         : 'clock'
       : meta.readByCounterParty
-        ? 'checkDouble'
+        ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'checkDouble' ? tw`text-blue-1`.color : tw`text-grey-3`.color
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-blue-1`.color : tw`text-grey-3`.color
   return {
     text,
     bgColor,

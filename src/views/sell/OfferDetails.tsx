@@ -9,7 +9,7 @@ import Premium from './components/Premium'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { getPaymentMethods, hashPaymentData, isValidPaymentdata } from '../../utils/paymentMethod'
+import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 
@@ -19,7 +19,7 @@ const validate = (offer: SellOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()
     .map(getPaymentData)
     .filter((d) => d)
-    .every((d) => isValidPaymentdata(d!))
+    .every((d) => isValidPaymentData(d!))
 
   return (
     !!offer.amount

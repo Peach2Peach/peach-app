@@ -25,7 +25,7 @@ export const Hint = ({ title, text, icon, onPress, onDismiss, style }: HintProps
     </Pressable>
     {onDismiss ? (
       <Pressable onPress={onDismiss} style={tw`w-7 flex-shrink-0`}>
-        <Icon id="cross" style={tw`w-7 h-7`} color={tw`text-grey-3`.color} />
+        <Icon id="x" style={tw`w-7 h-7`} color={tw`text-grey-3`.color} />
       </Pressable>
     ) : null}
   </View>

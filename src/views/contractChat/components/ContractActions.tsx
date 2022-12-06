@@ -50,9 +50,9 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
 
   return (
     <View style={style}>
-      <IconButton style={[tw`m-2`, !canDispute ? tw`opacity-50` : {}]} onPress={raiseDispute} icon="dispute" />
+      <IconButton style={[tw`m-2`, !canDispute ? tw`opacity-50` : {}]} onPress={raiseDispute} icon="alertOctagon" />
       {!contract.canceled ? (
-        <IconButton style={[tw`m-2`, !canCancel ? tw`opacity-50` : {}]} onPress={openCancelTrade} icon="crossOutlined" />
+        <IconButton style={[tw`m-2`, !canCancel ? tw`opacity-50` : {}]} onPress={openCancelTrade} icon="xCircle" />
       ) : null}
     </View>
   )

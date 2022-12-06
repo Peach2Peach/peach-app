@@ -88,14 +88,14 @@ const ICONMAP: IconMap = {
   escrowWaitingForConfirmation: 'fundEscrow',
   fundEscrow: 'fundEscrow',
   match: 'heart',
-  offerCanceled: 'cross',
-  sendPayment: 'money',
-  confirmPayment: 'money',
+  offerCanceled: 'x',
+  sendPayment: 'dollarSign',
+  confirmPayment: 'dollarSign',
   rate: 'check',
-  contractCreated: 'money',
+  contractCreated: 'dollarSign',
   tradeCompleted: 'check',
-  tradeCanceled: 'cross',
-  dispute: 'dispute',
+  tradeCanceled: 'x',
+  dispute: 'alertTriangle',
 }
 
 // eslint-disable-next-line max-lines-per-function, complexity
@@ -111,7 +111,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
       : Object.keys(offer.meansOfPayment)[0]
   const price = contract?.price || Object(offer.prices)[currency]
 
-  const icon = contract?.disputeWinner ? 'dispute' : ICONMAP[requiredAction] || ICONMAP[status]
+  const icon = contract?.disputeWinner ? 'alertTriangle' : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
   const isRedStatus = contract?.disputeActive || (offer.type === 'bid' && contract?.cancelationRequested)
@@ -137,7 +137,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                 <Headline style={[tw`text-lg font-bold normal-case text-left`, textColor1]}>
                   {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
                 </Headline>
-                <View style={tw`-mt-2`}>
+                <View>
                   {offer.type === 'ask' && contract?.cancelationRequested ? (
                     <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
                   ) : (
@@ -149,7 +149,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                   )}
                 </View>
               </View>
-              <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color} />
+              <Icon id={icon || 'helpCircle'} style={tw`w-7 h-7`} color={textColor1.color} />
             </View>
             {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
               <View style={tw`flex items-center mt-3 mb-1`}>
@@ -185,7 +185,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
               </Text>
             </View>
             <Icon
-              id={icon || 'help'}
+              id={icon || 'helpCircle'}
               style={tw`w-5 h-5`}
               color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color}
             />

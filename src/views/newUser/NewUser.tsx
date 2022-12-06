@@ -180,7 +180,6 @@ export default ({ navigation }: Props): ReactElement => {
               onSubmit={focusToPasswordRepeat}
               secureTextEntry={true}
               value={password}
-              isValid={!isPristine && passwordIsValid && passwordMatch}
               errorMessage={displayErrors ? (!passwordMatch || !passwordIsValid ? [''] : []) : undefined}
             />
           </View>
@@ -195,7 +194,6 @@ export default ({ navigation }: Props): ReactElement => {
               }}
               secureTextEntry={true}
               value={passwordRepeat}
-              isValid={!isPristine && passwordRepeatIsValid && passwordMatch}
               errorMessage={displayErrors ? (!passwordMatch || !passwordRepeatIsValid ? [''] : []) : undefined}
             />
           </View>
@@ -211,7 +209,6 @@ export default ({ navigation }: Props): ReactElement => {
               }}
               value={referralCode}
               autoCapitalize="characters"
-              isValid={referralCodeIsValid}
               errorMessage={displayErrors ? referralCodeErrors : undefined}
             />
           </View>
