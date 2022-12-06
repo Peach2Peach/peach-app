@@ -1,5 +1,5 @@
 export { Button } from './Button'
-export { ContactOptionButton } from './ContactOptionButton'
+export { OptionButton } from './OptionButton'
 export { InfoButton } from './InfoButton'
 export { PrimaryButton } from './PrimaryButton'
 export { GoBackButton } from './GoBackButton'
