@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useRoute } from '../../../hooks'
-import { info } from '../../../utils/log'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 

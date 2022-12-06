@@ -1,10 +1,10 @@
 import React from 'react'
 import i18n from '../../../utils/i18n'
-import Button from '../../Button'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
 import { useMatchOffer } from '../hooks'
 import { useRoute } from '../../../hooks'
+import { PrimaryButton } from '../../buttons'
 
 export const MatchOfferButton = () => {
   const { offer } = useRoute<'search'>().params
@@ -16,14 +16,10 @@ export const MatchOfferButton = () => {
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
 
   return (
-    <Button
-      title={i18n(
+    <PrimaryButton narrow disabled={currentMatch.matched || isLoading} loading={isLoading} onPress={() => matchOffer()}>
+      {i18n(
         `search.${offer.type === 'bid' ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
       )}
-      wide={false}
-      disabled={currentMatch.matched || isLoading}
-      loading={isLoading}
-      onPress={matchOffer}
-    />
+    </PrimaryButton>
   )
 }

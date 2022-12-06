@@ -9,7 +9,6 @@ describe('recoverAccount', () => {
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
   })
 
   it('would decrypt recovery account', async () => {
@@ -23,6 +22,7 @@ describe('recoverAccount', () => {
       settings: {
         ...accountData.recoveredAccount.settings,
         fcmToken: '',
+        pgpPublished: true,
       },
     })
   })

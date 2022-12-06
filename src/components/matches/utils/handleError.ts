@@ -1,18 +1,33 @@
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
+import { StackNavigation } from '../../../utils/navigation'
 
 const messageLevels: Record<string, Level> = {
   NOT_FOUND: 'WARN',
   CANNOT_DOUBLEMATCH: 'WARN',
 }
 
-export const handleError = (err: APIError | null, updateMessage: (value: MessageState) => void) => {
+export const handleError = (
+  err: APIError | null,
+  updateMessage: (value: MessageState) => void,
+  navigation: StackNavigation,
+) => {
   error('Error', err)
   if (err?.error) {
     const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
-    updateMessage({
-      msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-      level: messageLevels[err?.error] || 'ERROR',
-    })
+    if (msgKey) {
+      updateMessage({
+        msgKey,
+        level: messageLevels[err?.error] || 'ERROR',
+      })
+    } else {
+      updateMessage({
+        msgKey: i18n('GENERAL_ERROR', ((err?.details as string[]) || []).join(', ')),
+        level: messageLevels[err?.error] || 'ERROR',
+        action: () => navigation.navigate('contact', {}),
+        actionLabel: i18n('contactUs'),
+        actionIcon: 'mail',
+      })
+    }
   }
 }

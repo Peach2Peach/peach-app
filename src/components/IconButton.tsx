@@ -19,7 +19,7 @@ type IconButtonProps = ComponentProps & {
  * @param [props.style] css style object
  * @param [props.onPress] onPress handler from outside
  * @example
- * <Button
+ * <IconButton
  *   title={i18n('form.save')}
  *   style={tw`mt-4`}
  *   onPress={save}

@@ -65,12 +65,11 @@ export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={(number: string) => {
             setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
@@ -83,12 +82,11 @@ export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
           onSubmit={save}

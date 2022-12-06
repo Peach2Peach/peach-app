@@ -13,7 +13,8 @@ import { DeleteAccount } from '../../overlays/DeleteAccount'
 import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
+import { checkNotificationStatus, isProduction, toggleNotifications } from '../../utils/system'
+import SettingsItem from './components/SettingsItem'
 
 type Props = {
   navigation: StackNavigation
@@ -82,11 +83,8 @@ export default ({ navigation }: Props): ReactElement => {
     <View style={tw`h-full pb-10`}>
       <PeachScrollView contentContainerStyle={tw`pt-6 px-12`}>
         <Title title={i18n('settings.title')} />
-        <Pressable style={tw`mt-20`} onPress={goToContactUs}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.contactUs')}</Text>
-          </Card>
-        </Pressable>
+        {!isProduction() && <SettingsItem onPress={() => navigation.navigate('testView')} title="testView" />}
+        <SettingsItem onPress={goToContactUs} title="contactUs" />
 
         <Headline style={tw`text-center text-lg text-peach-mild mt-8`}>{i18n('settings.appSettings')}</Headline>
         <Pressable style={tw`mt-2`} onPress={toggleNotifications}>
@@ -98,65 +96,29 @@ export default ({ navigation }: Props): ReactElement => {
             </Text>
           </Card>
         </Pressable>
-        <Pressable style={tw`mt-2`} onPress={goToCurrencySettings}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.displayCurrency')}</Text>
-          </Card>
-        </Pressable>
+        <SettingsItem onPress={goToCurrencySettings} title="displayCurrency" />
 
         <Headline style={tw`text-center text-lg text-peach-mild mt-8`}>{i18n('settings.accountSettings')}</Headline>
-        <Pressable style={tw`mt-2`} onPress={goToMyAccount}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.myAccount')}</Text>
-          </Card>
-        </Pressable>
+        <SettingsItem onPress={goToMyAccount} title="myAccount" />
         <Pressable style={tw`mt-2`} onPress={goToBackups}>
           <Card style={account.settings.showBackupReminder !== false ? tw`bg-yellow-1` : {}}>
             <Text style={tw`w-full flex-shrink text-center text-lg text-black-1 p-2`}>{i18n('settings.backups')}</Text>
             {account.settings.showBackupReminder !== false ? (
               <View style={tw`absolute right-3 h-full flex justify-center`}>
-                <Icon id="warning" style={tw`w-6 h-6`} color={tw`text-white-1`.color} />
+                <Icon id="alertTriangle" style={tw`w-6 h-6`} color={tw`text-white-1`.color} />
               </View>
             ) : null}
           </Card>
         </Pressable>
-        <Pressable style={tw`mt-2`} onPress={goToReferrals}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.referrals')}</Text>
-          </Card>
-        </Pressable>
-        <Pressable style={tw`mt-2`} onPress={goToEscrow}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.escrow')}</Text>
-          </Card>
-        </Pressable>
-        <Pressable style={tw`mt-2`} onPress={goToPaymentMethods}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.paymentMethods')}</Text>
-          </Card>
-        </Pressable>
-        <Pressable style={tw`mt-2`} onPress={deleteAccount}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.deleteAccount')}</Text>
-          </Card>
-        </Pressable>
+        <SettingsItem onPress={goToReferrals} title="referrals" />
+        <SettingsItem onPress={goToEscrow} title="escrow" />
+        <SettingsItem onPress={goToPaymentMethods} title="paymentMethods" />
+        <SettingsItem onPress={deleteAccount} title="deleteAccount" />
 
         <Headline style={tw`text-center text-lg text-peach-mild mt-8`}>{i18n('settings.aboutPeach')}</Headline>
-        <Pressable style={tw`mt-2`} onPress={gotoFees}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.fees')}</Text>
-          </Card>
-        </Pressable>
-        <Pressable style={tw`mt-2`} onPress={openPrivacyPolicy}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('privacyPolicy')}</Text>
-          </Card>
-        </Pressable>
-        <Pressable style={tw`mt-2`} onPress={goToSocials}>
-          <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.socials')}</Text>
-          </Card>
-        </Pressable>
+        <SettingsItem onPress={gotoFees} title="fees" />
+        <SettingsItem onPress={openPrivacyPolicy} title="privacyPolicy" />
+        <SettingsItem onPress={goToSocials} title="socials" />
         <Pressable style={tw`mt-2`} onPress={goToWebsite}>
           <Card style={tw`flex-row items-center justify-center`}>
             <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.website')}</Text>

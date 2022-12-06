@@ -78,4 +78,5 @@ declare type RootStackParamList = {
   reportFullScreen: {}
   splashScreen: {}
   welcome: {}
+  testView: undefined
 }

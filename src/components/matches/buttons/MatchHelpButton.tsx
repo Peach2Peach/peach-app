@@ -18,7 +18,7 @@ export const MatchHelpButton = () => {
     })
   return (
     <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-      <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
+      <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
     </Pressable>
   )
 }

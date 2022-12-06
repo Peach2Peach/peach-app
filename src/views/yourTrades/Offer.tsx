@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
-import { Button, PeachScrollView, Text, Title } from '../../components'
+import { PeachScrollView, PrimaryButton, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -183,14 +183,9 @@ export default ({ route, navigation }: Props): ReactElement => {
           ) : null}
           <View style={tw`mt-7`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
-            <View style={tw`flex items-center mt-4`}>
-              <Button
-                title={i18n('back')}
-                secondary={true}
-                wide={false}
-                onPress={() => navigation.navigate('yourTrades', {})}
-              />
-            </View>
+            <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})} narrow>
+              {i18n('back')}
+            </PrimaryButton>
           </View>
         </View>
       ) : null}

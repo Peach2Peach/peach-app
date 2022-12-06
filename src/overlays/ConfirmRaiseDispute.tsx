@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { View, Text } from 'react-native'
-import { Button, Headline } from '../components'
+import { Headline, PrimaryButton } from '../components'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -38,15 +38,15 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
       </Headline>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('dispute.doYouWantToOpenDispute')}</Text>
       <View>
-        <Button
-          style={tw`mt-8`}
-          title={i18n('contract.cancel.confirm.back')}
-          secondary={true}
-          wide={false}
-          onPress={closeOverlay}
-        />
-        <Button style={tw`mt-2`} title={i18n('dispute.openDispute')} tertiary={true} wide={false} onPress={ok} />
-        <Button tertiary={true} wide={false} onPress={openExplainer} style={tw`mt-2`} title={i18n('whatIsThis')} />
+        <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
+          {i18n('contract.cancel.confirm.back')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
+          {i18n('dispute.openDispute')}
+        </PrimaryButton>
+        <PrimaryButton onPress={openExplainer} style={tw`mt-2`} narrow>
+          {i18n('whatIsThis')}
+        </PrimaryButton>
       </View>
     </View>
   )

@@ -25,7 +25,7 @@ const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): 
   >
     <Text style={tw`font-baloo text-base`}>{display}</Text>
     <Icon
-      id={disabled ? 'radioDisabled' : selected ? 'radioChecked' : 'radioUnchecked'}
+      id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
       style={tw`h-5 w-5`}
       color={(selected ? tw`text-peach-1` : tw`text-grey-1`).color}
     />

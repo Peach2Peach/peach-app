@@ -1,5 +1,5 @@
 export { auth } from './auth'
-export { getAccessToken } from './getAccessToken'
+export { fetchAccessToken } from './fetchAccessToken'
 export { getUserPrivate } from './getUserPrivate'
 export { logoutUser } from './logoutUser'
 export { updateUser } from './updateUser'

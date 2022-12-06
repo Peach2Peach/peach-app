@@ -1,3 +1,4 @@
+import { StackNavigation } from '../../../utils/navigation'
 import { matchOffer } from '../../../utils/peachAPI'
 import { generateMatchOfferData } from './generateMatchOfferData'
 import { handleError } from './handleError'
@@ -8,6 +9,7 @@ export const matchFn = async (
   selectedCurrency: Currency | undefined,
   selectedPaymentMethod: PaymentMethod | undefined,
   updateMessage: (value: MessageState) => void,
+  navigation: StackNavigation,
   // eslint-disable-next-line max-params
 ) => {
   if (!offer?.id) throw new Error()
@@ -21,6 +23,6 @@ export const matchFn = async (
   if (result) {
     return result
   }
-  handleError(err, updateMessage)
+  handleError(err, updateMessage, navigation)
   throw new Error()
 }

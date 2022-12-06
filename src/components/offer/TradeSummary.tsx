@@ -216,9 +216,9 @@ const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactEl
         <View style={tw`flex-row justify-center items-center`}>
           <Text onPress={goToUserProfile}>Peach{tradingPartner.id.substring(0, 8)}</Text>
           {ratingTradingPartner === 1 ? (
-            <Icon id="positive" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
+            <Icon id="thumbsUp" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
           ) : ratingTradingPartner === -1 ? (
-            <Icon id="negative" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
+            <Icon id="thumbsDown" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
           ) : null}
         </View>
         <HorizontalLine style={tw`mt-4`} />

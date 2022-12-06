@@ -423,127 +423,98 @@
   "rate.rateAndFinish": "Rate & finish",
   "tradeComplete.title.buyer.default": "Trade complete, stacked some sats!",
   "tradeComplete.title.seller.default": "Made some money just like that",
-
   "NETWORK_ERROR.icon": "noNetwork",
   "NETWORK_ERROR.title": "Network error",
   "NETWORK_ERROR.text": "Peach was unable to connect to the Peach server. Please check your network connection or try again later.",
-
   "EMPTY_RESPONSE.icon": "noNetwork",
   "EMPTY_RESPONSE.title": "Network error",
   "EMPTY_RESPONSE.text": "The peach server returned an empty response. Please try again later or contact the peach support-team.",
-
   "CRITICAL_UPDATE_AVAILABLE.icon": "alertOctagon",
   "CRITICAL_UPDATE_AVAILABLE.title": "Critical update available!",
   "CRITICAL_UPDATE_AVAILABLE.text": "This update has some critical fixes. You cannot continue using your current version.",
-
   "UPDATE_AVAILABLE.icon": "chevronsUp",
   "UPDATE_AVAILABLE.title": "Update available",
   "UPDATE_AVAILABLE.text": "Peach just got even better! You can continue using this version if you want to.",
-
   "PAYMENT_DATA_MISSING.icon": "creditCard",
   "PAYMENT_DATA_MISSING.title": "Missing payment data",
   "PAYMENT_DATA_MISSING.text": "Something went wrong, and this offer is missing your payment data.",
   "PAYMENT_DATA_MISSING.action": "Re-enter your details",
-
   "DISPUTE_DISCLAIMER.icon": "",
   "DISPUTE_DISCLAIMER.title": "",
   "DISPUTE_DISCLAIMER.text": "This is your private & unmediated trade chat.\n\nIf you feel something is going wrong, you can open the chat to a mediator by clicking the exclamation mark in the top right.",
-
   "CANNOT_DOUBLEMATCH.icon": "shuffle",
   "CANNOT_DOUBLEMATCH.title": "Match failed",
   "CANNOT_DOUBLEMATCH.text": "We couldn't make this match. The buyer probably just retracted their match with you, or another seller was faster.",
-
   "OFFER_TAKEN.icon": "shuffle",
   "OFFER_TAKEN.title": "Match failed",
   "OFFER_TAKEN.text": "Another user matched the offer faster than you did. Better luck next time!",
-
   "ERROR_SAVE_ACCOUNT.icon": "userX",
   "ERROR_SAVE_ACCOUNT.title": "Can't save account",
   "ERROR_SAVE_ACCOUNT.text": "Something went wrong saving the account. Please try restarting the app or contact the peach support-team.",
-
   "REGISTRATION_DENIED.icon": "userX",
   "REGISTRATION_DENIED.title": "One is enough",
   "REGISTRATION_DENIED.text": "You've already registered an account. Please restore it with the backup file or have your old account removed by contacting us.",
-
   "error.general": "Something went wrong. Please try again later or contact the peach support-team.",
   "GENERAL_ERROR.icon": "settings",
   "GENERAL_ERROR.title": "Technical error",
   "GENERAL_ERROR.text": "Oops, something went wrong! Please try again later, or contact us if the error persists.",
-
   "INTERNAL_SERVER_ERROR": "Unfortunately, a technical error has occurred. Please try again if possible. If the problem persists, contact the peach support-team.",
   "INTERNAL_SERVER_ERROR.icon": "settings",
   "INTERNAL_SERVER_ERROR.title": "Technical error",
   "INTERNAL_SERVER_ERROR.text": "Oops, something went wrong! Please try again later, or contact us if the error persists.",
-
   "POST_OFFER_ERROR.icon": "noNetwork",
   "POST_OFFER_ERROR.title": "Offer not published",
   "POST_OFFER_ERROR.text": "Oops, something went wrong while posting your offer! Please try again later, or contact us if the error persists.",
-  
   "CREATE_ESCROW_ERROR.icon": "xCircle",
   "CREATE_ESCROW_ERROR.title": "Escrow not created",
   "CREATE_ESCROW_ERROR.text": "Oops, something went wrong while creating the escrow for your offer! Please try again later, or contact us if the error persists.",
-
   "INVALID_INPUT.icon": "xCircle",
   "INVALID_INPUT.title": "Transaction invalid",
   "INVALID_INPUT.text": "The input of your transaction is invalid. Please contact peach support.",
-
   "INVALID_OUTPUT.icon": "xCircle",
   "INVALID_OUTPUT.title": "Transaction invalid",
   "INVALID_OUTPUT.text": "The output of your transaction is invalid. Please contact peach support.",
-
   "RETURN_ADDRESS_MISMATCH.icon": "rotateCounterClockwise",
   "RETURN_ADDRESS_MISMATCH.title": "return address invalid",
   "RETURN_ADDRESS_MISMATCH.text": "The output of your transaction is invalid. Please contact peach support.",
-  
   "NO_EMULATOR": "You are not allowed to run this app in an emulator.",
   "NO_EMULATOR.icon": "cpu",
   "NO_EMULATOR.title": "Return address invalid",
   "NO_EMULATOR.text": "You are not allowed to run this app in an emulator due to risk of abuse.",
-
   "TRADING_LIMIT_REACHED": "Your trading limit has been reached.",
   "DAILY_TRADING_LIMIT_REACHED.icon": "trendingUp",
   "DAILY_TRADING_LIMIT_REACHED.title": "Push it to the limit",
   "DAILY_TRADING_LIMIT_REACHED.text": "You've hit the daily trading limit. Check back tomorrow!",
-
   "MONTHLY_TRADING_LIMIT_REACHED.icon": "trendingUp",
   "MONTHLY_TRADING_LIMIT_REACHED.title": "Push it to the limit",
   "MONTHLY_TRADING_LIMIT_REACHED.text": "You've hit the monthly trading limit. That's impressive!",
-
   "YEARLY_TRADING_LIMIT_REACHED.icon": "trendingUp",
   "YEARLY_TRADING_LIMIT_REACHED.title": "Push it to the limit",
   "YEARLY_TRADING_LIMIT_REACHED.text": "You've hit the yearly trading limit. That's impressive!",
-
   "TOO_MANY_REQUESTS": "You made too many requests. Please try again later or contact the peach support-team.",
   "TOO_MANY_REQUESTS.icon": "trendingUp",
   "TOO_MANY_REQUESTS.title": "Too many requests",
   "TOO_MANY_REQUESTS.text": "We like you a lot too, but maybe it's better if we take a break for a bit.\n\nPlease try again later, or contact us if the issue persists.",
-
   "WRONG_PASSWORD.icon": "shield",
   "WRONG_PASSWORD.title": "Wrong password",
   "WRONG_PASSWORD.text": "We can't decrypt the backup file because you entered a wrong password. Please try again.",
-
   "UNAUTHORIZED.icon": "eyeOff",
   "UNAUTHORIZED.title": "My eyes are up here",
   "UNAUTHORIZED.text": "You don't have permission to view this content.",
-
   "NAVIGATION_INIT_ERROR": "Failed to initialize navigation",
   "NAVIGATION_INIT_ERROR.icon": "map",
   "NAVIGATION_INIT_ERROR.title": "Where are we?",
   "NAVIGATION_INIT_ERROR.text": "Failed to initialize navigation",
-
   "FORM_INVALID.icon": "alertCirlce",
   "FORM_INVALID.title": "That's not right",
   "FORM_INVALID.text": "The information you provided is invalid.\n$0",
-
   "SERVICE_UNAVAILABLE": "Hang in there, peach is currently unter maintenance.",
   "SERVICE_UNAVAILABLE.icon": "activity",
   "SERVICE_UNAVAILABLE.title": "Maintenance",
   "SERVICE_UNAVAILABLE.text": "We're currently working on improving our infrastructure. Please check back later!",
-
   "NOT_FOUND.icon": "map",
   "NOT_FOUND.title": "",
   "NOT_FOUND.text": "The resource you requested could not be found.",
-
   "addNew": "Add new",
   "next": "next",
   "continue": "Continue",
@@ -634,13 +605,13 @@
   "dispute.seller.lost.text.3": "If you have any issues, please contact dispute@peachbitcoin.com",
   "dispute.seller.won.button": "Get refund",
   "dispute.seller.lost.button": "Release funds",
-  "buy": "Buy",
-  "sell": "Sell",
+  "buy": "buy btc",
+  "sell": "sell btc",
   "buyer": "Buyer",
   "seller": "Seller",
-  "yourTrades": "Your trades",
+  "yourTrades": "trades",
   "trade": "Trade",
-  "settings": "Settings",
+  "settings": "settings",
   "default": "default",
   "amount": "Amount",
   "fees": "Fees",
@@ -705,6 +676,7 @@
   "settings.escrow.subtitle": "Escrow",
   "settings.paymentMethods": "Payment methods",
   "settings.paymentMethods.subtitle": "Payment methods",
+  "settings.privacyPolicy": "Privacy policy",
   "settings.deleteAccount": "Delete account",
   "settings.deleteAccount.title": "All your data will be wiped! Make sure you have a backup.",
   "settings.deleteAccount.back": "Oops, never mind",
@@ -717,6 +689,7 @@
   "settings.fees.text.2": "$0% of the total trade volume",
   "settings.fees.text.3": "will go to Peach, paid for by the buyer.",
   "settings.fees.text.4": "There will also be Bitcoin on-chain transaction costs. These are variable and depend on the state of the network. You can check a block explorer like mempool.space for current rates.",
+  "settings.testView": "Open TestView",
   "settings.socials": "Socials",
   "settings.socials.subtitle": "Socials",
   "twitter": "Twitter",

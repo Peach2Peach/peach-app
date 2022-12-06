@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation, InfiniteData } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
+import { useNavigation } from '../../../hooks'
 import { useMatchStore } from '../store'
 import { unmatchFn, updateMatchedStatus } from '../utils'
 
@@ -8,6 +9,7 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
   const queryClient = useQueryClient()
   const [, updateMessage] = useContext(MessageContext)
   const currentPage = useMatchStore((state) => state.currentPage)
+  const navigation = useNavigation()
 
   return useMutation({
     onMutate: async () => {
@@ -18,7 +20,7 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
       )
       return { previousData }
     },
-    mutationFn: () => unmatchFn(offer?.id, matchingOfferId, updateMessage),
+    mutationFn: () => unmatchFn(offer?.id, matchingOfferId, updateMessage, navigation),
     onError: (_error, _variables, context) => {
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },

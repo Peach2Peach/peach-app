@@ -44,7 +44,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
 
       return { previousData }
     },
-    mutationFn: () => matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage),
+    mutationFn: () => matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation),
     onError: (err: 'Missing values' | 'Missing paymentdata' | undefined, _variables, context) => {
       if (err === 'Missing values') {
         error(
