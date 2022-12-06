@@ -60,11 +60,12 @@ export const Overlay = ({
   level,
   visible,
 }: OverlayState): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
+
   const closeOverlay = () => {
     updateOverlay({ visible: false })
   }
 
-  const [, updateOverlay] = useContext(OverlayContext)
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       closeOverlay()
