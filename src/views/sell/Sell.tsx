@@ -5,4 +5,4 @@ type Props = {
   navigation: StackNavigation
 }
 
-export default ({ navigation }: Props): ReactElement => <CreateOffer {...{ navigation, page: 'sell' }} />
+export default (props: Props): ReactElement => <CreateOffer page="sell" {...props} />

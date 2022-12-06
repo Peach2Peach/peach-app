@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Icon, Text } from '../components'
+import { Headline, Icon, PrimaryButton, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
@@ -40,8 +40,12 @@ export default ({ contractId, navigation }: Props): ReactElement => {
         {i18n('matchAccepted.description.2')}
       </Text>
       <View style={tw`flex justify-center items-center mt-5`}>
-        <Button title={i18n('goToMatch')} secondary={true} wide={false} onPress={goToContract} />
-        <Button title={i18n('later')} style={tw`mt-2`} tertiary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton onPress={goToContract} narrow>
+          {i18n('goToMatch')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('later')}
+        </PrimaryButton>
       </View>
     </View>
   )

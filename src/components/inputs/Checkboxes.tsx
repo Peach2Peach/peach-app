@@ -11,11 +11,11 @@ export type CheckboxItemType = {
   display: ReactNode
 }
 
-type CheckboxItemProps = ComponentProps &
-  PressableProps & {
-    item: CheckboxItemType
-    checked: boolean
-  }
+type CheckboxItemProps = ComponentProps & {
+  onPress: () => void
+  item: CheckboxItemType
+  checked: boolean
+}
 export const CheckboxItem = ({ item, checked, onPress, style, testID }: CheckboxItemProps): ReactElement => {
   const content = (
     <Pressable

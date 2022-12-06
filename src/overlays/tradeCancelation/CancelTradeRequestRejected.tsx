@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { getOfferIdfromContract, saveContract } from '../../utils/contract'
@@ -23,24 +23,18 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
     })
   }, [])
 
-  return <View style={tw`flex items-center`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
-      {i18n('contract.cancel.seller.rejected.title')}
-    </Headline>
-    <Text style={tw`text-center text-white-1 mt-8`}>
-      {i18n('contract.cancel.seller.rejected.text.1', getOfferIdfromContract(contract))}
-    </Text>
-    <Text style={tw`text-center text-white-1 mt-2`}>
-      {i18n('contract.cancel.seller.rejected.text.2')}
-    </Text>
-    <View>
-      <Button
-        style={tw`mt-8`}
-        title={i18n('close')}
-        secondary={true}
-        wide={false}
-        onPress={closeOverlay}
-      />
+  return (
+    <View style={tw`flex items-center`}>
+      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+        {i18n('contract.cancel.seller.rejected.title')}
+      </Headline>
+      <Text style={tw`text-center text-white-1 mt-8`}>
+        {i18n('contract.cancel.seller.rejected.text.1', getOfferIdfromContract(contract))}
+      </Text>
+      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
+      <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
+        {i18n('close')}
+      </PrimaryButton>
     </View>
-  </View>
+  )
 }

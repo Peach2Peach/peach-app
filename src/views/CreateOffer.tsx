@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 
-import { Button, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../components'
+import { PrimaryButton, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../components'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../constants'
 import BitcoinContext from '../contexts/bitcoin'
 import { account, getTradingLimit, updateSettings } from '../utils/account'
@@ -108,9 +108,9 @@ export default ({ navigation, page }: Props): ReactElement => {
           )}
         </View>
       </View>
-      <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-        <Button testID="navigation-next" wide={false} onPress={next} title={i18n('next')} />
-      </View>
+      <PrimaryButton testID="navigation-next" style={tw`mt-4 mx-6 mb-10 self-center bg-white-1`} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

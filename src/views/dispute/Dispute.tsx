@@ -3,7 +3,7 @@ import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
-import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
+import { Fade, Input, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
@@ -139,13 +139,14 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View style={tw`flex items-center`}>
           <Text style={tw`text-center`}>{i18n('dispute.whatIsTheDisputeAbout') + '\n'}</Text>
           {availableReasons.map((rsn, i) => (
-            <Button
+            <PrimaryButton
               key={rsn}
-              wide={false}
               onPress={() => setReason(rsn)}
               style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
-              title={i18n(`dispute.reason.${rsn}`)}
-            />
+              narrow
+            >
+              {i18n(`dispute.reason.${rsn}`)}
+            </PrimaryButton>
           ))}
         </View>
       ) : (
@@ -177,19 +178,16 @@ export default ({ route, navigation }: Props): ReactElement => {
               errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
-          <Button
-            wide={false}
-            onPress={submit}
-            loading={loading}
-            disabled={loading}
-            style={tw`mt-2`}
-            title={i18n('confirm')}
-          />
+          <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
+            {i18n('confirm')}
+          </PrimaryButton>
         </View>
       )}
       <View style={tw`flex-col flex-shrink`}>
         <Fade show={start && !keyboardOpen} pointerEvents={start ? 'auto' : 'none'} displayNone={false}>
-          <Button secondary={true} wide={false} onPress={goBack} style={tw`mt-2`} title={i18n('back')} />
+          <PrimaryButton onPress={goBack} style={tw`mt-2`} narrow>
+            {i18n('back')}
+          </PrimaryButton>
         </Fade>
       </View>
     </View>

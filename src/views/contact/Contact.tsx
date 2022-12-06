@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, PeachScrollView, Shadow, Text, Title } from '../../components'
+import { GoBackButton, PeachScrollView, PrimaryButton, Shadow, Text, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { innerShadow } from '../../utils/layout'
@@ -18,7 +18,9 @@ type ContactReason = typeof contactReasons[number]
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
-  <Button title={i18n(`contact.reason.${name}`)} onPress={() => setReason(name)} style={tw`mt-2`} wide secondary />
+  <PrimaryButton onPress={() => setReason(name)} style={tw`mt-2`} wide>
+    {i18n(`contact.reason.${name}`)}
+  </PrimaryButton>
 )
 
 export default ({ navigation }: Props): ReactElement => {
@@ -39,9 +41,7 @@ export default ({ navigation }: Props): ReactElement => {
           </View>
         </Shadow>
       </View>
-      <View style={tw`flex items-center mt-12`}>
-        <Button title={i18n('back')} wide={false} secondary onPress={navigation.goBack} />
-      </View>
+      <GoBackButton style={tw`self-center mt-12`} />
     </PeachScrollView>
   )
 }

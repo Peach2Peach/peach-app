@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Button, FileInput, Input, Loading, Text } from '../../components'
+import { FileInput, Input, Loading, PrimaryButton, Text } from '../../components'
 import Icon from '../../components/Icon'
 import LanguageContext from '../../contexts/language'
 import { recoverAccount } from '../../utils/account'
@@ -97,7 +97,9 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
-            <Button onPress={submit} disabled={!file.content || !password} wide={false} title={i18n('restoreBackup')} />
+            <PrimaryButton onPress={submit} disabled={!file.content || !password} narrow>
+              {i18n('restoreBackup')}
+            </PrimaryButton>
           </View>
         </View>
       ) : null}

@@ -3,16 +3,11 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, Card, Headline, Text, Title } from '../../components'
+import { Card, GoBackButton, Headline, PrimaryButton, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { account } from '../../utils/account'
-import { StackNavigation } from '../../utils/navigation'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   const [showWords, setShowWords] = useState(false)
 
   const iUnderstand = () => setShowWords(true)
@@ -60,9 +55,11 @@ export default ({ navigation }: Props): ReactElement => {
       )}
       <View style={tw`flex items-center mt-16`}>
         {showWords ? (
-          <Button title={i18n('back')} wide={false} onPress={navigation.goBack} />
+          <GoBackButton />
         ) : (
-          <Button title={i18n('settings.seedWords.iUnderstand')} wide={false} onPress={iUnderstand} />
+          <PrimaryButton onPress={iUnderstand} narrow>
+            {i18n('settings.seedWords.iUnderstand')}
+          </PrimaryButton>
         )}
       </View>
     </View>
