@@ -1,4 +1,3 @@
-
 import { crypto } from 'bitcoinjs-lib'
 import { account } from '../account'
 import { getPeachAccount } from '../peachAPI'

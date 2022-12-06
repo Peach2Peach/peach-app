@@ -35,6 +35,7 @@ import messageCircle from './messageCircle.svg'
 import minusCircle from './minusCircle.svg'
 import minusSquare from './minusSquare.svg'
 import noNetwork from './noNetwork.svg'
+import notification from './notification.svg'
 import offline from './offline.svg'
 import plusCircle from './plusCircle.svg'
 import prev from './prev.svg'
@@ -59,6 +60,7 @@ import userX from './userX.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
+import yourTrades from './yourTrades.svg'
 
 const Icons = {
   activity,
@@ -99,6 +101,7 @@ const Icons = {
   minusCircle,
   minusSquare,
   noNetwork,
+  notification,
   offline,
   plusCircle,
   prev,
@@ -124,6 +127,7 @@ const Icons = {
   x,
   xCircle,
   xSquare,
+  yourTrades,
 }
 
 export type IconType = keyof typeof Icons

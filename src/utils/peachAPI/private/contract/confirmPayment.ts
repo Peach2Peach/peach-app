@@ -1,7 +1,8 @@
-import fetch, { getAbortSignal } from '../../../fetch'
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '../..'
-import { getAccessToken } from '../user'
+import { RequestProps } from '../..'
+import fetch, { getAbortSignal } from '../../../fetch'
+import { parseResponse } from '../../parseResponse'
+import { fetchAccessToken } from '../user'
 
 type ConfirmPaymentProps = RequestProps & {
   contractId: Contract['id']
@@ -20,7 +21,7 @@ export const confirmPayment = async ({
 }: ConfirmPaymentProps): Promise<[ConfirmPaymentResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment/confirm`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
