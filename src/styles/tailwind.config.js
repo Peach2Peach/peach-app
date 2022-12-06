@@ -125,7 +125,7 @@ module.exports = {
       addUtilities({
         'h1': `font-baloo-bold font-bold text-6xl leading-6xl tracking-tightest`,
         'h2': `font-baloo-bold font-bold text-5xl leading-5xl tracking-tighter`,
-        'h3': `font-baloo-bold font-bold text-4xl leading-4xl tracking-tight`,
+        'h3': `font-baloo-bold font-bold text-4xl leading-5xl tracking-tight`,
         'h4': `font-baloo-bold font-bold text-3xl leading-3xl tracking-normal`,
         'h5': `font-baloo-bold font-bold text-2xl leading-2xl tracking-normal`,
         'h6': `font-baloo-bold font-bold text-xl leading-2xl tracking-normal`,
