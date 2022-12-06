@@ -9,8 +9,8 @@ import { IconType } from './icons'
 import { dropShadowMild } from '../utils/layout'
 
 type LevelColorMap = {
-  bg: Record<Level, ViewStyle>
-  text: Record<Level, TextStyle>
+  bg: Record<MessageLevel, ViewStyle>
+  text: Record<MessageLevel, TextStyle>
 }
 const levelColorMap: LevelColorMap = {
   bg: {

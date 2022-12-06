@@ -1,71 +1,126 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
-import { BackHandler, Modal, Pressable, SafeAreaView, View } from 'react-native'
-import { Button } from '.'
+import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
+import { Text } from '.'
 
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import Icon from './Icon'
+import { info } from '../utils/log'
+import { IconType } from './icons'
+import { dropShadowMild, footerShadow } from '../utils/layout'
+
+type LevelColorMap = {
+  bg1: Record<OverlayLevel, ViewStyle>
+  bg2: Record<OverlayLevel, ViewStyle>
+}
+
+const levelColorMap: LevelColorMap = {
+  bg1: {
+    DEFAULT: tw`bg-black-3`,
+    APP: tw`bg-primary-light`,
+    SUCCESS: tw`bg-success-light`,
+    WARN: tw`bg-warning-light`,
+    ERROR: tw`bg-error-main`,
+    INFO: tw`bg-info-light`,
+  },
+  bg2: {
+    DEFAULT: tw`bg-primary-background-light`,
+    APP: tw`bg-primary-background2`,
+    SUCCESS: tw`bg-success-background`,
+    WARN: tw`bg-warning-background`,
+    ERROR: tw`bg-error-background`,
+    INFO: tw`bg-info-background`,
+  },
+}
 
 /**
  * @description Component to display the Overlay
  * @param props Component properties
- * @param props.content the overlay content
- * @param props.showCloseIcon if true show close icon
- * @param props.showCloseButton if true show close button
- * @param props.help if true show overlay as help
+ * @param props.level level of overlay
+ * @param props.title title of the overlay
+ * @param props.content content of the overlay
+ * @param [props.action1] custom action to appear on bottom right corner
+ * @param [props.action1Label] label for action1
+ * @param [props.action1Icon] optional icon for action1
+ * @param [props.action2] custom action to appear on bottom left corner
+ * @param [props.action2Label] label for action2
+ * @param [props.action2Icon] optional icon for action2
+ * @param [props.style] additional styles to apply to the component
+ * @param [props.visible] check whether the modal is visible or not
  * @example
- * <Overlay content={<Text>Overlay content</Text>} showCloseButton={true} />
+ * <Overlay title="popup title" level="ERROR" />
  */
-export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help }: OverlayState): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
+
+export const Overlay = ({
+  title,
+  content,
+  action1,
+  action1Label,
+  action1Icon,
+  action2,
+  action2Icon,
+  action2Label,
+  level,
+  visible,
+}: OverlayState): ReactElement => {
   const closeOverlay = () => {
-    if (onClose) onClose()
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
+  const [, updateOverlay] = useContext(OverlayContext)
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (!(showCloseIcon || showCloseButton)) return true
       closeOverlay()
       return true
     })
     return () => {
       backHandler.remove()
     }
-  }, [content, showCloseIcon, showCloseButton])
+  }, [content])
+
+  const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
 
   return (
-    <Modal>
-      <View
-        testID="overlay"
-        style={[
-          tw`absolute z-20 w-full h-full flex items-center justify-center`,
-          tw`p-3 pb-8`,
-          help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
-        ]}
-      >
-        {showCloseIcon ? (
-          <SafeAreaView style={tw`absolute z-20 top-5 right-5`}>
-            <Pressable onPress={closeOverlay}>
-              <Icon id="x" style={tw`w-8 h-8`} color={tw`text-white-1`.color} />
-            </Pressable>
-          </SafeAreaView>
-        ) : null}
-
-        {content}
-
-        {showCloseButton ? (
-          <Button
-            style={tw`mt-7`}
-            title={i18n('close')}
-            secondary={!help}
-            activeBgColor={help ? tw`bg-blue-1` : tw`bg-peach-1`}
-            help={help}
-            onPress={closeOverlay}
-            wide={false}
-          />
-        ) : null}
+    <Modal transparent={true} visible={visible}>
+      <View style={tw`flex-1 items-center justify-center`}>
+        <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level ?? 'DEFAULT'], tw`rounded-2xl shadow`]}>
+          <View style={[tw`p-4`, levelColorMap.bg2[level ?? 'DEFAULT'], tw`rounded-t-2xl`]}>
+            {!!title && <Text style={tw`h6 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
+            {content}
+          </View>
+          <View style={tw`px-4 py-1 flex-row justify-between`}>
+            {!!action2 && !!action2Label && (
+              <Pressable
+                onPress={() => {
+                  action2()
+                }}
+              >
+                <View
+                  style={[
+                    tw`flex-row flex-shrink `,
+                    level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`,
+                  ]}
+                >
+                  <Icon id={action2Icon} color={actionColor.color} style={tw`w-5 mr-1`} />
+                  <Text style={actionColor}>{action2Label}</Text>
+                </View>
+              </Pressable>
+            )}
+            {!!action1 && !!action1Label && (
+              <Pressable
+                onPress={() => {
+                  action1()
+                }}
+              >
+                <View style={[tw`flex-row flex-shrink `]}>
+                  <Text style={actionColor}>{action1Label}</Text>
+                  <Icon id={action1Icon} color={actionColor.color} style={tw`w-5 ml-1`} />
+                </View>
+              </Pressable>
+            )}
+          </View>
+        </View>
       </View>
     </Modal>
   )

@@ -35,12 +35,12 @@ import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './const
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { initApp } from './init'
 import websocket from './init/websocket'
-import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 import { account, updateSettings } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import { showAnalyticsPrompt, AnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 
 enableScreens()
 
@@ -67,10 +67,10 @@ const App: React.FC = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
-    setOverlay,
-    getOverlay(),
-  )
+  const [
+    { title, content, action1, action1Label, action1Icon, action2, action2Icon, action2Label, level, visible },
+    updateOverlay,
+  ] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -118,20 +118,9 @@ const App: React.FC = () => {
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
-        updateOverlay({
-          content: <AnalyticsPrompt />,
-          showCloseIcon: true,
-          onClose: () => {
-            analytics().setAnalyticsCollectionEnabled(false)
-            updateSettings(
-              {
-                enableAnalytics: false,
-              },
-              true,
-            )
-          },
-        })
+        showAnalyticsPrompt(updateOverlay)
       }
+
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({
           msgKey: 'CRITICAL_UPDATE_AVAILABLE',
@@ -191,7 +180,18 @@ const App: React.FC = () => {
                     >
                       <OverlayContext.Provider
                         value={[
-                          { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
+                          {
+                            content,
+                            title: '',
+                            action1: () => {},
+                            action1Icon: 'alertTriangle',
+                            action1Label: '',
+                            action2: () => {},
+                            action2Icon: 'alertTriangle',
+                            action2Label: '',
+                            visible: false,
+                            level: 'DEFAULT',
+                          },
                           updateOverlay,
                         ]}
                       >
@@ -203,15 +203,19 @@ const App: React.FC = () => {
                             show={showDrawer}
                             onClose={onCloseDrawer}
                           />
-                          {content ? (
-                            <Overlay
-                              content={content}
-                              help={help}
-                              showCloseIcon={showCloseIcon}
-                              showCloseButton={showCloseButton}
-                              onClose={onCloseOverlay}
-                            />
-                          ) : null}
+                          <Overlay
+                            content={content}
+                            title={title}
+                            action1={action1}
+                            action1Label={action1Label}
+                            action1Icon={action1Icon}
+                            action2={action2}
+                            action2Icon={action2Icon}
+                            action2Label={action2Label}
+                            level={level}
+                            visible={visible}
+                          />
+
                           {messageState.msgKey ? (
                             <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                               <Message {...messageState} />

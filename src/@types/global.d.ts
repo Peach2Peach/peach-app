@@ -106,9 +106,11 @@ declare type AppState = {
   notifications: number
 }
 
-declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
+declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
+declare type OverlayLevel = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+
 declare type MessageState = {
-  level: Level
+  level: MessageLevel
   msgKey?: string
   msg?: string
   action?: Function
@@ -119,11 +121,16 @@ declare type MessageState = {
   keepAlive?: boolean
 }
 declare type OverlayState = {
-  content: ReactNode
-  showCloseIcon?: boolean
-  showCloseButton?: boolean
-  onClose?: () => void
-  help?: boolean
+  level?: OverlayLevel
+  title?: string
+  content?: ReactNode
+  action1?: () => void
+  action1Label?: string
+  action1Icon?: IconType
+  action2?: () => void
+  action2Label?: string
+  action2Icon?: IconType
+  visible: boolean
 }
 declare type DrawerState = {
   title: string
