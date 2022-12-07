@@ -67,10 +67,7 @@ const App: React.FC = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
-  const [
-    { title, content, action1, action1Label, action1Icon, action2, action2Icon, action2Label, level, visible },
-    updateOverlay,
-  ] = useReducer(setOverlay, getOverlay())
+  const [{ content, ...overlayProps }, updateOverlay] = useReducer(setOverlay, getOverlay())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -203,20 +200,7 @@ const App: React.FC = () => {
                             show={showDrawer}
                             onClose={onCloseDrawer}
                           />
-                          <Overlay
-                            {...{
-                              content,
-                              title,
-                              action1,
-                              action1Label,
-                              action1Icon,
-                              action2,
-                              action2Icon,
-                              action2Label,
-                              level,
-                              visible,
-                            }}
-                          />
+                          <Overlay {...{ content, ...overlayProps }} />
 
                           {messageState.msgKey ? (
                             <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
