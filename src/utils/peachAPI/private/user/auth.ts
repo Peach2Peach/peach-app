@@ -5,6 +5,7 @@ import { getResponseError, peachAccount, RequestProps, setAccessToken } from '..
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
+import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 
 const tokenNotFoundError = {
   error: 'Token not found',
@@ -27,7 +28,7 @@ const handleMissingPeachAccount = () => {
  * @returns AccessToken or APIError
  */
 export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
-  const message = 'Peach Registration ' + new Date().getTime()
+  const message = getAuthenticationChallenge()
 
   if (!peachAccount) return handleMissingPeachAccount()
 
