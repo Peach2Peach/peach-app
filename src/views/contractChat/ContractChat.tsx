@@ -291,7 +291,9 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [contract, page])
 
   return !contract || updatePending ? (
-    <Loading />
+    <View style={tw`w-full h-full items-center justify-center`}>
+      <Loading />
+    </View>
   ) : (
     <View style={[tw`h-full flex-col`]}>
       <ChatHeader contract={contract} navigation={navigation} />

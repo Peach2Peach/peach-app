@@ -98,7 +98,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
           {i18n('cancelOffer.confirm.ok')}
         </PrimaryButton>
       </View>
-      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} /> : null}
+      {loading && <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} />}
     </View>
   )
 }
