@@ -1,11 +1,4 @@
-import { IOSAccessibleStates, MMKVLoader } from 'react-native-mmkv-storage'
-
-const createStorage = (instanceId: string) =>
-  new MMKVLoader()
-    .setAccessibleIOS(IOSAccessibleStates.AFTER_FIRST_UNLOCK)
-    .withEncryption()
-    .withInstanceID(instanceId)
-    .initialize()
+import { createStorage } from '../storage'
 
 export const accountStorage = createStorage('account')
 export const offerStorage = createStorage('offers')
