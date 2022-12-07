@@ -1,7 +1,9 @@
 declare type RootStackParamList = {
   [key: string]: {}
   home: {}
-  newUser: {}
+  newUser: {
+    referralCode?: string
+  }
   login: {}
   restoreBackup: {}
   buy: {
