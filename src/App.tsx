@@ -204,16 +204,18 @@ const App: React.FC = () => {
                             onClose={onCloseDrawer}
                           />
                           <Overlay
-                            content={content}
-                            title={title}
-                            action1={action1}
-                            action1Label={action1Label}
-                            action1Icon={action1Icon}
-                            action2={action2}
-                            action2Icon={action2Icon}
-                            action2Label={action2Label}
-                            level={level}
-                            visible={visible}
+                            {...{
+                              content,
+                              title,
+                              action1,
+                              action1Label,
+                              action1Icon,
+                              action2,
+                              action2Icon,
+                              action2Label,
+                              level,
+                              visible,
+                            }}
                           />
 
                           {messageState.msgKey ? (
