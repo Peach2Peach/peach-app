@@ -8,7 +8,6 @@ import Contact from './contact/Contact'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
-import Login from './login/Login'
 import NewUser from './newUser/NewUser'
 import Profile from './profile/Profile'
 import Referrals from './referrals/Referrals'
@@ -45,7 +44,6 @@ export const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
   { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
   { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'login', component: Login, showHeader: false, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },

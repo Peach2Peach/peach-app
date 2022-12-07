@@ -47,8 +47,6 @@
   "newUser.saveYourPassword.ok": "I understand",
   "newUser.referralCode": "and do you have a referral code?",
   "newUser.contact": "Contact",
-  "login.title": "Login",
-  "login.description.1": "Enter your password to access your peach account.",
   "restoreBackup": "Restore backup",
   "backupRestored": "Backup restored",
   "decrypt": "Decrypt",
