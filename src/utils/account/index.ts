@@ -24,6 +24,7 @@ export {
   storeChats,
   storeAccount,
 } from './storeAccount'
+export { getAccountBackup } from './getAccountBackup'
 export { updateSettings } from './updateSettings'
 export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
