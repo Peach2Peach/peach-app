@@ -19,15 +19,15 @@ type RadioButtonItemProp = ComponentProps & {
 const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement => (
   <View
     style={[
-      tw`w-full flex-row justify-between items-center px-4 py-3 bg-peach-milder rounded-lg border-2`,
-      selected ? tw`border-peach-1` : tw`border-transparent`,
+      tw`w-full flex-row justify-between items-center px-4 py-3 bg-primary-background rounded-lg border-2`,
+      selected ? tw`border-primary-light` : tw`border-transparent`,
     ]}
   >
-    <Text style={tw`font-baloo text-base`}>{display}</Text>
+    <Text style={tw`subtitle-1`}>{display}</Text>
     <Icon
       id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
       style={tw`h-5 w-5`}
-      color={(selected ? tw`text-peach-1` : tw`text-grey-1`).color}
+      color={(selected ? tw`text-primary-light` : tw`text-black-3`).color}
     />
   </View>
 )
@@ -40,11 +40,6 @@ type RadioButtonsProps<T> = ComponentProps & {
 
 /**
  * @description Component to display radio buttons
- * @param props Component properties
- * @param props.items the items in the dropdown
- * @param [props.selectedValue] selected value
- * @param [props.onChange] on change handler
- * @param [props.style] css style object
  * @example
  * <RadioButtons
     items={[
