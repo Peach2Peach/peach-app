@@ -11,12 +11,6 @@ describe('loadAccount', () => {
     resetStorage()
   })
 
-  it('returns already loaded account', async () => {
-    await setAccount(accountData.account1)
-    const acc = await loadAccount()
-    deepStrictEqual(account, acc)
-    deepStrictEqual(account, accountData.account1)
-  })
   it('loads account', async () => {
     await storeAccount(accountData.buyer)
 
@@ -25,5 +19,12 @@ describe('loadAccount', () => {
     ok(account.publicKey)
     deepStrictEqual(account, acc)
     deepStrictEqual(account, accountData.buyer)
+  })
+
+  it('returns already loaded account', async () => {
+    await setAccount(accountData.account1)
+    const acc = await loadAccount()
+    deepStrictEqual(account, acc)
+    deepStrictEqual(account, accountData.account1)
   })
 })
