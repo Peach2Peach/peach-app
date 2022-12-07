@@ -56,7 +56,7 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   setLocaleQuiet(account.settings.locale || 'en')
 
   const { wallet } = account.mnemonic
-    ? createWalletFromSeedPhrase(account.mnemonic)
+    ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
     : await createRandomWallet(getNetwork())
   setWallet(wallet)
 

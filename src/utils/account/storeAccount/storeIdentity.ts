@@ -4,7 +4,7 @@ import { accountStorage } from '../accountStorage'
 export const storeIdentity = async (acc: Account) => {
   if (!acc.publicKey) throw new Error('ERROR_SAVE_ACCOUNT')
 
-  info('Storing identity')
+  info('storeIdentity - Storing identity')
   await Promise.all([
     accountStorage.setMapAsync('identity', {
       publicKey: acc.publicKey,

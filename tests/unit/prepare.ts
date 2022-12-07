@@ -91,38 +91,50 @@ jest.mock('react-native-promise-rejection-utils', () => ({
 }))
 
 type Storage = {
-  [key: string]: string | boolean
+  [key: string]: any
 }
-export let storage: Storage = {}
+export let storage: Record<string, Storage> = {}
 export const setStorage = (strg: Storage) => (storage = strg)
+export const resetStorage = () => (storage = {})
 
 jest.mock('react-native-mmkv-storage', () => ({
   IOSAccessibleStates: {},
   MMKVLoader: jest.fn(() => ({
     setAccessibleIOS: () => ({
       withEncryption: () => ({
-        withInstanceID: () => ({
-          initialize: () => ({
-            setItem: async (key: string, val: string) => (storage[key] = val),
-            getItem: async (key: string) => storage[key],
-            setBool: (key: string, val: boolean) => (storage[key] = val),
-            getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
-            options: {
-              accessibleMode: 'AccessibleAfterFirstUnlock',
-            },
-          }),
-        }),
-      }),
-    }),
-    withEncryption: () => ({
-      withInstanceID: () => ({
-        initialize: () => ({
-          setItem: async (key: string, val: string) => (storage[key] = val),
-          getItem: async (key: string) => storage[key],
-          setBool: (key: string, val: boolean) => (storage[key] = val),
-          getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
-          options: {
-            accessibleMode: 'AccessibleAfterFirstUnlock',
+        withInstanceID: (instanceId: string) => ({
+          initialize: () => {
+            storage[instanceId] = {}
+
+            const get = (key: string) => storage[instanceId][key]
+            const getAsync = async (key: string) => storage[instanceId][key]
+            const store = (key: string, val: any) => (storage[instanceId][key] = val)
+            const storeAsync = async (key: string, val: any) => (storage[instanceId][key] = val)
+
+            return {
+              setItem: jest.fn().mockImplementation(storeAsync),
+              getItem: jest.fn().mockImplementation(getAsync),
+              getString: jest.fn().mockImplementation(get),
+              setString: jest.fn().mockImplementation(store),
+              setStringAsync: jest.fn().mockImplementation(storeAsync),
+              getArray: jest.fn().mockImplementation(get),
+              setArray: jest.fn().mockImplementation(store),
+              setArrayAsync: jest.fn().mockImplementation(storeAsync),
+              setMap: jest.fn().mockImplementation(store),
+              setMapAsync: jest.fn().mockImplementation(storeAsync),
+              getMap: jest.fn().mockImplementation(get),
+              getBool: jest.fn().mockImplementation(get),
+              setBool: jest.fn().mockImplementation(store),
+              getBoolAsync: jest.fn().mockImplementation(getAsync),
+              indexer: {
+                maps: {
+                  getAll: jest.fn().mockImplementation(async () => storage[instanceId]),
+                },
+              },
+              options: {
+                accessibleMode: 'AccessibleAfterFirstUnlock',
+              },
+            }
           },
         }),
       }),

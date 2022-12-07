@@ -1,7 +1,6 @@
 export { defaultAccount, account, getAccount, setAccount } from './account'
 export { createAccount } from './createAccount'
 export {
-  loadLegacyAccount,
   loadIdentity,
   loadSettings,
   loadTradingLimit,

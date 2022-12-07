@@ -11,7 +11,7 @@ import { storeChats } from './storeChats'
  * @description Method to save whole account
  */
 export const storeAccount = async (acc: Account): Promise<void> => {
-  info('Storing account')
+  info('storeAccount - Storing account')
 
   if (!acc.publicKey) throw new Error('error.ERROR_SAVE_ACCOUNT')
 

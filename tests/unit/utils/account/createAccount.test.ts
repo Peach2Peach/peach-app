@@ -15,7 +15,7 @@ describe('createAccount', () => {
   })
 
   it('creates a new account each time', async () => {
-    ok(await createAccount(password))
+    ok(await createAccount())
     const firstPublicKey = JSON.parse(JSON.stringify(account.publicKey))
 
     ok(account.publicKey)
@@ -23,7 +23,7 @@ describe('createAccount', () => {
     ok(account.mnemonic)
     strictEqual(getSession().password, password)
 
-    ok(await createAccount(password))
+    ok(await createAccount())
 
     notStrictEqual(firstPublicKey, account.publicKey)
   })

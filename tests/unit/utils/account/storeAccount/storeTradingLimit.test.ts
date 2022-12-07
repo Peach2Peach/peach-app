@@ -1,36 +1,15 @@
-import { defaultAccount, setAccount } from '../../../../../src/utils/account'
+import { accountStorage } from '../../../../../src/utils/account/accountStorage'
 import { storeTradingLimit } from '../../../../../src/utils/account/storeAccount'
-import * as fileUtils from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
-
-jest.mock('../../../../../src/utils/file', () => ({
-  __esModule: true,
-  ...jest.requireActual('../../../../../src/utils/file'),
-}))
+import { resetStorage } from '../../../prepare'
 
 describe('storeTradingLimit', () => {
-  let writeFileSpy: jest.SpyInstance
-
-  beforeEach(async () => {
-    writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-
-    await setAccount(defaultAccount)
-    await storeTradingLimit(defaultAccount.tradingLimit, password)
-  })
   afterEach(() => {
-    resetFakeFiles()
-    writeFileSpy.mockClear()
+    resetStorage()
   })
 
   it('would write file to store tradingLimit', async () => {
-    await storeTradingLimit(accountData.account1.tradingLimit, password)
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-tradingLimit.json',
-      JSON.stringify(accountData.account1.tradingLimit),
-      password,
-    )
+    await storeTradingLimit(accountData.account1.tradingLimit)
+    expect(accountStorage.setMap).toHaveBeenCalledWith('tradingLimit', accountData.account1.tradingLimit)
   })
 })
