@@ -1,25 +1,28 @@
 import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { LayoutChangeEvent, Pressable, View } from 'react-native'
+import { LayoutChangeEvent, Pressable, TouchableOpacity, View } from 'react-native'
 import RNRestart from 'react-native-restart'
 
-import { Shadow, Text } from '.'
-import { TIMETORESTART } from '../constants'
-import AppContext from '../contexts/app'
-import BitcoinContext from '../contexts/bitcoin'
-import appStateEffect from '../effects/appStateEffect'
-import { getPeachInfo, getTrades } from '../init/session'
-import tw from '../styles/tailwind'
-import { account, getAccount } from '../utils/account'
-import { getChatNotifications } from '../utils/chat'
-import i18n from '../utils/i18n'
-import { mildShadow } from '../utils/layout'
-import { Navigation } from '../utils/navigation'
-import { getRequiredActionCount } from '../utils/offer'
-import { marketPrices } from '../utils/peachAPI/public/market'
-import { thousands } from '../utils/string'
-import { Fade } from './animation'
-import Logo from '../assets/logo/peachLogo.svg'
+import { Icon, Shadow, Text } from '..'
+import { TIMETORESTART } from '../../constants'
+import AppContext from '../../contexts/app'
+import BitcoinContext from '../../contexts/bitcoin'
+import appStateEffect from '../../effects/appStateEffect'
+import { getPeachInfo, getTrades } from '../../init/session'
+import tw from '../../styles/tailwind'
+import { account, getAccount } from '../../utils/account'
+import { getChatNotifications } from '../../utils/chat'
+import i18n from '../../utils/i18n'
+import { mildShadow } from '../../utils/layout'
+import { Navigation } from '../../utils/navigation'
+import { getRequiredActionCount } from '../../utils/offer'
+import { marketPrices } from '../../utils/peachAPI/public/market'
+import { thousands } from '../../utils/string'
+import { Fade } from '../animation'
+import Logo from '../../assets/logo/peachLogo.svg'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { StackHeaderProps } from '@react-navigation/stack'
+import { useHeaderState } from './store'
 
 let HEADERHEIGHT = 56
 const setHeaderHeight = (event: LayoutChangeEvent) => (HEADERHEIGHT = event.nativeEvent.layout.height)
@@ -35,7 +38,7 @@ type HeaderProps = ComponentProps & {
  * @description Component to display the Header
  * @example <Header navigation={navigation} />
  */
-export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
+export const OldHeader = ({ style, navigation }: HeaderProps): ReactElement => {
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
   const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
@@ -109,4 +112,30 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   )
 }
 
-export default Header
+export const Header = () => {
+  const { title, icons, titleComponent, showGoBackButton } = useHeaderState()
+
+  const { goBack, canGoBack } = useNavigation()
+  const handleBackPress = canGoBack() ? goBack : () => undefined
+
+  return (
+    <View style={tw`flex-row h-9 bg-primary-background justify-between mx-4 px-8`}>
+      <View style={tw`items-center flex-row`}>
+        {showGoBackButton && (
+          <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-2`} onPress={handleBackPress}>
+            <Icon id="chevronLeft" />
+          </TouchableOpacity>
+        )}
+        {title ? <Text style={tw`h6`}>{title}</Text> : titleComponent}
+      </View>
+
+      <View style={tw`items-center flex-row`}>
+        {icons.map(({ iconId, onPress }) => (
+          <TouchableOpacity style={tw`w-6 h-6 mx-2`} onPress={onPress}>
+            <Icon id={iconId} />
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
+  )
+}

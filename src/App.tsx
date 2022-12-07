@@ -51,7 +51,7 @@ const Stack = createStackNavigator<RootStackParamList>()
  * @param view view id
  * @returns true if view should show header
  */
-const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showHeader
+const showHeader = (view: keyof RootStackParamList) => !!views.find((v) => v.name === view)?.showHeader
 
 /**
  * @description Method to determine weather header should be shown
@@ -196,14 +196,13 @@ const App: React.FC = () => {
                         ]}
                       >
                         <View style={tw`h-full flex-col`}>
-                          {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
                           <Drawer
                             title={drawerTitle}
                             content={drawerContent}
                             show={showDrawer}
                             onClose={onCloseDrawer}
                           />
-                          {content ? (
+                          {!!content && (
                             <Overlay
                               content={content}
                               help={help}
@@ -211,12 +210,12 @@ const App: React.FC = () => {
                               showCloseButton={showCloseButton}
                               onClose={onCloseOverlay}
                             />
-                          ) : null}
-                          {messageState.msgKey ? (
+                          )}
+                          {!!messageState.msgKey && (
                             <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                               <Message {...messageState} />
                             </Animated.View>
-                          ) : null}
+                          )}
                           <View style={tw`h-full flex-shrink`}>
                             <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
                               <Stack.Navigator
@@ -227,12 +226,15 @@ const App: React.FC = () => {
                                   cardStyle: tw`bg-white-1`,
                                 }}
                               >
-                                {views.map((view) => (
+                                {views.map(({ name, component }) => (
                                   <Stack.Screen
-                                    name={view.name}
-                                    component={view.component}
-                                    key={view.name}
-                                    options={{ animationEnabled: false }}
+                                    {...{ name, component }}
+                                    key={name}
+                                    options={{
+                                      animationEnabled: false,
+                                      headerShown: showHeader(name),
+                                      header: () => <Header />,
+                                    }}
                                   />
                                 ))}
                               </Stack.Navigator>

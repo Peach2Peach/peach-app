@@ -8,6 +8,7 @@ import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
 import chevronDown from './chevronDown.svg'
+import chevronLeft from './chevronLeft.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
@@ -77,6 +78,7 @@ const Icons = {
   chevronsDown,
   chevronsUp,
   chevronUp,
+  chevronLeft,
   circle,
   paperclip,
   clock,
