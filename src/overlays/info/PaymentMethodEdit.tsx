@@ -2,10 +2,9 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Headline, Text } from '../../components'
+import { Headline, Text, PrimaryButton } from '../../components'
 import i18n from '../../utils/i18n'
 import { OverlayContext } from '../../contexts/overlay'
-import { PrimaryButton } from '../../components/buttons'
 
 type PaymentMethodEditProps = {
   paymentData: PaymentData

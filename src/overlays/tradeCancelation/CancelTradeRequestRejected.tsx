@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import { Headline, Text } from '../../components'
-import { PrimaryButton } from '../../components/buttons'
+import { Headline, Text, PrimaryButton } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { getOfferIdfromContract, saveContract } from '../../utils/contract'
