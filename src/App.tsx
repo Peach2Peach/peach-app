@@ -22,7 +22,7 @@ import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
+import { defaultOverlay, OverlayContext, useOverlay } from './contexts/overlay'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import Drawer from './components/Drawer'
@@ -35,7 +35,7 @@ import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './const
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { initApp } from './init'
 import websocket from './init/websocket'
-import { account, updateSettings } from './utils/account'
+import { account } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
@@ -67,7 +67,7 @@ const App: React.FC = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
-  const [{ content, ...overlayProps }, updateOverlay] = useReducer(setOverlay, getOverlay())
+  const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -175,23 +175,7 @@ const App: React.FC = () => {
                     <DrawerContext.Provider
                       value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                     >
-                      <OverlayContext.Provider
-                        value={[
-                          {
-                            content,
-                            title: '',
-                            action1: () => {},
-                            action1Icon: 'alertTriangle',
-                            action1Label: '',
-                            action2: () => {},
-                            action2Icon: 'alertTriangle',
-                            action2Label: '',
-                            visible: false,
-                            level: 'DEFAULT',
-                          },
-                          updateOverlay,
-                        ]}
-                      >
+                      <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                         <View style={tw`h-full flex-col`}>
                           {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
                           <Drawer
@@ -200,7 +184,7 @@ const App: React.FC = () => {
                             show={showDrawer}
                             onClose={onCloseDrawer}
                           />
-                          <Overlay {...{ content, ...overlayProps }} />
+                          <Overlay {...overlayState} />
 
                           {messageState.msgKey ? (
                             <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
