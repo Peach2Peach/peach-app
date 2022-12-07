@@ -68,7 +68,7 @@ type CheckboxesProps = ComponentProps & {
 export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID }: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
     let newValues = Array.from(selectedValues)
-    if (newValues.indexOf(value) !== -1) {
+    if (newValues.includes(value)) {
       newValues = newValues.filter((v) => v !== value)
     } else {
       newValues.push(value)
@@ -77,7 +77,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID
     if (onChange) onChange(newValues)
   }
 
-  const isSelected = (itm: CheckboxItemType) => selectedValues.indexOf(itm.value) !== -1
+  const isSelected = (itm: CheckboxItemType) => selectedValues.includes(itm.value)
 
   return (
     <View testID={`checkboxes-${testID}`} style={style}>
