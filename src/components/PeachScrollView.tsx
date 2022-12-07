@@ -53,7 +53,7 @@ export const PeachScrollView = ({
       removeClippedSubviews={false}
       contentContainerStyle={contentContainerStyle || {}}
       onLayout={onContainerLayout}
-      style={style || {}}
+      style={[tw`bg-primary-background`, style || {}]}
     >
       <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`} onLayout={onContentLayout}>
         {children}
