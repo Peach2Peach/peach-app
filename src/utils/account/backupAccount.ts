@@ -6,6 +6,7 @@ import { error, info } from '../log'
 import { sessionStorage } from '../session'
 import { parseError } from '../system'
 import { account } from './account'
+import { getAccountBackup } from './getAccountBackup'
 
 type BackupAccountProps = {
   onSuccess: () => void
@@ -29,7 +30,7 @@ export const backupAccount = async ({ onSuccess, onCancel, onError }: BackupAcco
 
     await writeFile(
       '/' + destinationFileName,
-      JSON.stringify(account),
+      JSON.stringify(getAccountBackup(account)),
       sessionStorage.getString('password') || undefined,
     )
 
