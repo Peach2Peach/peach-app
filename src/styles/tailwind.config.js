@@ -24,7 +24,7 @@ module.exports = {
           light: '#F56522',
           mild: '#FCCCB6',
           background: '#FFF9F6',
-        background2: '#FEEDE5',
+          'background-heavy': '#FEEDE5',
           'background-light': '#FFFCFA',
         },
         success: {
@@ -44,7 +44,6 @@ module.exports = {
           main: '#DF321F',
           light: '#FE5A48',
           background: '#FFD2CC',
-          background2: '#FFE6E1'
         },
         info: {
           dark: '#005E89',
