@@ -38,7 +38,11 @@ export const Button = (props: ButtonProps) => {
         pressableProps.style,
       ]}
     >
-      {children && <Text style={[textColor, tw`button-medium px-2`]}>{children}</Text>}
+      {children && (
+        <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`button-medium px-2`]}>
+          {children}
+        </Text>
+      )}
       {loading ? (
         <Loading size="small" style={iconSize} color={textColor?.color} />
       ) : (
