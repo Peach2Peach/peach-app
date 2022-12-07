@@ -6,7 +6,7 @@ import { info } from '../log'
 import { logoutUser } from '../peachAPI'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
-import { setSessionItem } from '../session'
+import { sessionStorage } from '../session'
 
 interface DeleteAccountProps {
   onSuccess: Function
@@ -47,7 +47,8 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   logoutUser({})
 
-  await setSessionItem('password', null)
+  sessionStorage.removeItem('password')
+
   deleteAccessToken()
   deletePeachAccount()
   onSuccess()

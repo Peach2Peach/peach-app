@@ -6,7 +6,7 @@ import { decrypt } from '../crypto'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
 import { getOffers, getTradingLimit } from '../peachAPI'
-import { setSessionItem } from '../session'
+import { sessionStorage } from '../session'
 import { account } from './account'
 import { updateTradingLimit } from './tradingLimit'
 
@@ -28,7 +28,7 @@ export const recoverAccount = async ({
 
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
-    await setSessionItem('password', password)
+    sessionStorage.setString('password', password)
 
     updateSettings({
       fcmToken: '',

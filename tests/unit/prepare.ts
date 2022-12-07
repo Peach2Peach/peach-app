@@ -110,10 +110,12 @@ jest.mock('react-native-mmkv-storage', () => ({
             const getAsync = async (key: string) => storage[instanceId][key]
             const store = (key: string, val: any) => (storage[instanceId][key] = val)
             const storeAsync = async (key: string, val: any) => (storage[instanceId][key] = val)
+            const remove = (key: string) => delete storage[instanceId][key]
 
             return {
               setItem: jest.fn().mockImplementation(storeAsync),
               getItem: jest.fn().mockImplementation(getAsync),
+              removeItem: jest.fn().mockImplementation(remove),
               getString: jest.fn().mockImplementation(get),
               setString: jest.fn().mockImplementation(store),
               setStringAsync: jest.fn().mockImplementation(storeAsync),

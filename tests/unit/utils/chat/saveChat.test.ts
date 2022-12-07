@@ -3,9 +3,6 @@ import { account, defaultAccount, setAccount } from '../../../../src/utils/accou
 import { saveChat } from '../../../../src/utils/chat'
 import * as chatData from '../../data/chatData'
 import { resetFakeFiles } from '../../prepare'
-import { session } from '../../../../src/utils/session'
-
-session.password = 'supersecret'
 
 describe('saveChat', () => {
   beforeEach(async () => {

@@ -6,7 +6,7 @@ import { name as appName } from './app.json'
 import * as db from './utils/db'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
-import { getSession, initSession, setSessionItem } from './utils/session'
+import { sessionStorage } from './utils/session'
 import { isIOS, isProduction, isWeb, parseError } from './utils/system'
 
 // TODO check if these messages have a fix
@@ -28,12 +28,11 @@ LogBox.ignoreAllLogs(isProduction())
 
 try {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    await initSession()
-    let notifications = Number(getSession().notifications || 0)
+    let notifications = sessionStorage.getInt('notifications') || 0
     notifications += 1
 
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSessionItem('notifications', notifications)
+    sessionStorage.setInt('notifications', notifications)
 
     info('Message handled in the background!', remoteMessage)
   })

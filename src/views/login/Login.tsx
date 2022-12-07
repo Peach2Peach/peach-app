@@ -15,7 +15,7 @@ import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
-import { setSessionItem } from '../../utils/session'
+import { sessionStorage } from '../../utils/session'
 import { useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
@@ -40,9 +40,9 @@ export default ({ navigation }: Props): ReactElement => {
       Keyboard.dismiss()
       setLoading(isValid)
 
-      const loadedAccount = await loadAccount(password)
+      const loadedAccount = await loadAccount()
       if (loadedAccount?.publicKey) {
-        await setSessionItem('password', password)
+        sessionStorage.setString('password', password)
         await getPeachInfo(loadedAccount)
         await getTrades()
         updateAppContext({

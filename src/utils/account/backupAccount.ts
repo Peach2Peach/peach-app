@@ -3,7 +3,6 @@ import Share from 'react-native-share'
 import { writeFile } from '../file'
 import RNFS from 'react-native-fs'
 import { error, info } from '../log'
-import { getSession } from '../session'
 import { parseError } from '../system'
 import { account } from './account'
 
@@ -27,7 +26,7 @@ export const backupAccount = async ({ onSuccess, onCancel, onError }: BackupAcco
         ? `peach-account-${account.publicKey.substring(0, 8)}.json`
         : `peach-account-${NETWORK}-${account.publicKey.substring(0, 8)}.json`
 
-    await writeFile('/' + destinationFileName, JSON.stringify(account), getSession().password)
+    await writeFile('/' + destinationFileName, JSON.stringify(account), sessionStorage.getString('password'))
 
     Share.open({
       title: destinationFileName,

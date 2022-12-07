@@ -11,7 +11,7 @@ import { exists } from '../utils/file'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { getSession, setSessionItem } from '../utils/session'
+import { sessionStorage } from '../utils/session'
 import { isIOS, parseError } from '../utils/system'
 
 /**
@@ -61,10 +61,10 @@ const initialNavigation = async (
   } else if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
-    let notifications = Number(getSession().notifications || 0)
+    let notifications = sessionStorage.getInt('notifications') || 0
     if (notifications > 0) notifications -= 1
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSessionItem('notifications', notifications)
+    sessionStorage.setInt('notifications', notifications)
 
     if (initialNotification.data) {
       const handledNotification = handlePushNotification(
@@ -89,10 +89,10 @@ const initialNavigation = async (
   messaging().onNotificationOpenedApp((remoteMessage) => {
     info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
 
-    let notifications = Number(getSession().notifications || 0)
+    let notifications = sessionStorage.getInt('notifications') || 0
     if (notifications > 0) notifications -= 1
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSessionItem('notifications', notifications)
+    sessionStorage.setInt('notifications', notifications)
 
     if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
