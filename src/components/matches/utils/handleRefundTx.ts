@@ -22,5 +22,5 @@ export const handleRefundTx = async (offer: BuyOffer | SellOffer, result: MatchR
     })
     return result.contractId
   }
-  return Promise.resolve(undefined)
+  return undefined
 }
