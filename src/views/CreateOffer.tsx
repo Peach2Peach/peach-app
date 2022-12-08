@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
@@ -11,14 +11,49 @@ import { account, getTradingLimit, updateSettings } from '../utils/account'
 import { applyTradingLimit } from '../utils/account/tradingLimit'
 import { StackNavigation } from '../utils/navigation'
 import { thousands } from '../utils/string'
+import { useHeaderState } from '../components/header/store'
+import { useFocusEffect } from '@react-navigation/native'
+import { IconType } from '../components/icons'
 
 type Props = {
   navigation: StackNavigation
   page: 'buy' | 'sell'
 }
 
+const useHeaderSetup = (page: 'buy' | 'sell') => {
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  const titleComponent = useMemo(
+    () => (
+      <Text style={tw`h6`}>
+        <Text style={[tw`h6`, page === 'buy' ? tw`text-success-light` : tw`text-primary-main`]}>{page}</Text> bitcoin
+      </Text>
+    ),
+    [page],
+  )
+
+  const icons = useMemo(() => {
+    let defaultIcons = [
+      { iconId: 'alignLeft', onPress: () => null },
+      { iconId: 'helpCircle', onPress: () => null },
+    ]
+    if (page === 'buy') defaultIcons = [{ iconId: 'bellSmall' as IconType, onPress: () => null }, ...defaultIcons]
+    return defaultIcons as {
+      iconId: IconType
+      onPress: () => void
+    }[]
+  }, [page])
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ titleComponent, icons })
+    }, [icons, setHeaderState, titleComponent]),
+  )
+}
+
 export default ({ navigation, page }: Props): ReactElement => {
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
+  useHeaderSetup(page)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
   const [amount, setAmount] = useState(
