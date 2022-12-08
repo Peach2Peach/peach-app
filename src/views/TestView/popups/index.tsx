@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { GoBackButton, PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
 
@@ -34,7 +34,7 @@ export default () => {
       action2Icon: 'xSquare',
     })
   return (
-    <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`py-10 px-6`}>
+    <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
       <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('DEFAULT')}>
         Default Overlay
@@ -51,6 +51,7 @@ export default () => {
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
         Info Overlay
       </PrimaryButton>
+      <GoBackButton white wide style={tw`mt-8`} />
     </PeachScrollView>
   )
 }
