@@ -616,6 +616,8 @@
   "settings.referrals": "Referrals",
   "settings.backups": "Backups",
   "settings.backups.subtitle": "Backups",
+  "settings.backups.fileBackup": "file backup",
+  "settings.backups.seedPhrase": "seed phrase",
   "settings.backups.lastBackup": "last backup",
   "settings.backups.createASecurePassword": "create a secure password",
   "settings.backups.createNew": "Create new backup",

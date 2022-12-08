@@ -24,7 +24,6 @@ import Escrow from './settings/Escrow'
 import Fees from './settings/Fees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
-import SeedWords from './settings/SeedWords'
 import Settings from './settings/Settings'
 import Socials from './settings/Socials'
 import SplashScreen from './splashScreen/SplashScreen'
@@ -66,7 +65,6 @@ export const views: ViewType[] = [
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
   { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
   { name: 'escrow', component: Escrow, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
   { name: 'fees', component: Fees, showHeader: true, showFooter: true },
