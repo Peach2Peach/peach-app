@@ -52,7 +52,11 @@ export default (): ReactElement => {
         ) : (
           <View style={tw`h-full flex-shrink flex justify-center items-center`}>
             <Headline style={tw`text-grey-1`}>{i18n('settings.seedWords.note')}</Headline>
-            <Text style={tw`text-grey-1`}>{i18n('settings.seedWords.note.description')}</Text>
+            <Text style={tw`text-grey-1 leading-xl`}>
+              {i18n('settings.seedWords.note.description.1')}
+              {'\n\n'}
+              {i18n('settings.seedWords.note.description.2')}
+            </Text>
           </View>
         )}
       </PeachScrollView>

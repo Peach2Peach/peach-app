@@ -8,14 +8,14 @@ export type TabbedNavigationItem = {
   display: string
   view: () => ReactElement
 }
-type TabbedNavigationProps = {
+type TabbedNavigationProps = ComponentProps & {
   items: TabbedNavigationItem[]
   selected: TabbedNavigationItem
   select: (item: TabbedNavigationItem) => void
 }
 
-export const TabbedNavigation = ({ items, selected, select }: TabbedNavigationProps) => (
-  <View style={tw`flex flex-row justify-center`}>
+export const TabbedNavigation = ({ items, selected, select, style }: TabbedNavigationProps) => (
+  <View style={[tw`flex flex-row justify-center`, style]}>
     {items.map((item) => (
       <Pressable style={tw`px-2`} key={item.id} onPress={() => select(item)}>
         <Text
