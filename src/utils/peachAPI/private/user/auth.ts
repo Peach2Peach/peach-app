@@ -5,6 +5,7 @@ import { RequestProps } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
+import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 import { getPeachAccount } from '../../peachAccount'
 import { getResponseError } from '../../getResponseError'
 import { setAccessToken } from '../../accessToken'
@@ -30,8 +31,9 @@ const handleMissingPeachAccount = () => {
  * @returns AccessToken or APIError
  */
 export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
-  const message = 'Peach Registration ' + new Date().getTime()
   const peachAccount = getPeachAccount()
+  const message = getAuthenticationChallenge()
+
   if (!peachAccount) return handleMissingPeachAccount()
 
   try {
