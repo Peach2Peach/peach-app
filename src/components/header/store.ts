@@ -1,10 +1,9 @@
 import create from 'zustand'
-import { IconType } from '../icons'
 
 type HeaderConfig = {
   title?: string
   titleComponent?: JSX.Element
-  icons?: { iconId: IconType; onPress: () => void }[]
+  icons?: { iconComponent: JSX.Element; onPress: () => void }[]
   showGoBackButton?: boolean
 }
 
