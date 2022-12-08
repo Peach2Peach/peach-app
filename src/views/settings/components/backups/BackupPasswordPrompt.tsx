@@ -1,9 +1,10 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
-import { Keyboard, TextInput, View } from 'react-native'
-import { Button, Input, Text } from '../../../../components'
+import { Keyboard, Pressable, TextInput, View } from 'react-native'
+import { Button, Icon, Input, Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
+import Password from '../../../../overlays/info/Password'
 import tw from '../../../../styles/tailwind'
 import { account, backupAccount, updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -20,6 +21,7 @@ export default (): ReactElement => {
   const [isBackingUp, setIsBackingUp] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
 
+  const openPasswordHelp = () => updateOverlay({ content: <Password />, showCloseButton: true, help: true })
   const checkPasswordMatch = () => password === passwordRepeat
 
   const validate = () => password && passwordRepeat && passwordIsValid && checkPasswordMatch()
@@ -98,7 +100,14 @@ export default (): ReactElement => {
   return (
     <View style={tw`h-full flex-shrink flex flex-col mt-12`}>
       <View style={tw`h-full flex-shrink`}>
-        <Text style={[tw`font-baloo text-2xs text-grey-3 text-center`, password && !isValid ? tw`text-red` : {}]}>
+        <View style={tw`items-center justify-center flex-row`}>
+          <Text style={tw`text-center`}>{i18n('settings.backups.createASecurePassword')}</Text>
+          <Pressable style={tw`p-2`} onPress={openPasswordHelp}>
+            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+          </Pressable>
+        </View>
+
+        <Text style={[tw`font-baloo text-2xs text-grey-3 text-center mt-4`, password && !isValid ? tw`text-red` : {}]}>
           {!passwordMatch ? i18n('form.password.match.error') : i18n('form.password.error')}
         </Text>
         <Input
