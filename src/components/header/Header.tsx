@@ -70,7 +70,7 @@ export const Header = () => {
   const handleBackPress = canGoBack() ? goBack : () => undefined
 
   return (
-    <View style={tw`flex-row h-9 bg-primary-background justify-between mx-4 px-8`}>
+    <View style={tw`flex-row h-9 justify-between mx-4 px-8`}>
       <View style={tw`items-center flex-row`}>
         {showGoBackButton && (
           <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-2`} onPress={handleBackPress}>
