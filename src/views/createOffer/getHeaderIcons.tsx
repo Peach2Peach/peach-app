@@ -1,10 +1,10 @@
 import React from 'react'
-import { CrazyHeaderIcon, HelpIcon, BellIcon } from '../../components/icons/components'
+import { StatsIcon, HelpIcon, BellIcon } from '../../components/icons/components'
 
 export const getHeaderIcons = (page: 'buy' | 'sell') => {
   let defaultIcons = [
     {
-      iconComponent: <CrazyHeaderIcon />,
+      iconComponent: <StatsIcon />,
       onPress: () => null,
     },
     { iconComponent: <HelpIcon />, onPress: () => null },

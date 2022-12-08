@@ -1,3 +1,3 @@
 export { BellIcon } from './BellIcon'
-export { CrazyHeaderIcon } from './CrazyHeaderIcon'
+export { StatsIcon } from './StatsIcon'
 export { HelpIcon } from './HelpIcon'
