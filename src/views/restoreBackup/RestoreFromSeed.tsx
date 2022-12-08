@@ -77,13 +77,17 @@ export default ({ style }: ComponentProps): ReactElement => {
       {restored ? (
         <Restored />
       ) : !loading ? (
-        <View style={tw`pb-8 flex items-center w-full bg-white-1`}>
-          <Text style={tw`text-center`}>{i18n('restoreBackup.seedPhrase.useBackupFile')}</Text>
-          <Text style={tw`mt-6 text-center`}>{i18n('restoreBackup.seedPhrase.enter')}</Text>
-          <View style={tw`flex flex-row`}>
-            <View style={tw`w-1/2 pr-1`}>{seedPhrase.slice(0, 6).map((word, i) => mapSeedWordToInput(0)(word, i))}</View>
-            <View style={tw`w-1/2 pl-1`}>
-              {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(7)(word, i))}
+        <View style={tw`h-full pb-8 flex justify-between`}>
+          <View style={tw`h-full flex-shrink flex justify-center items-center`}>
+            <Text style={tw`text-center`}>{i18n('restoreBackup.seedPhrase.useBackupFile')}</Text>
+            <Text style={tw`mt-6 text-center`}>{i18n('restoreBackup.seedPhrase.enter')}</Text>
+            <View style={tw`flex flex-row`}>
+              <View style={tw`w-1/2 pr-1`}>
+                {seedPhrase.slice(0, 6).map((word, i) => mapSeedWordToInput(0)(word, i))}
+              </View>
+              <View style={tw`w-1/2 pl-1`}>
+                {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(7)(word, i))}
+              </View>
             </View>
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
