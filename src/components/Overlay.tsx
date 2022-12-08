@@ -88,11 +88,7 @@ export const Overlay = ({
           </View>
           <View style={[tw`px-4 py-1 flex-row`, !!action2Label ? tw`justify-between` : tw`justify-center`]}>
             {!!action2 && !!action2Label && (
-              <Pressable
-                onPress={() => {
-                  action2()
-                }}
-              >
+              <Pressable onPress={action2}>
                 <View
                   style={[
                     tw`flex-row flex-shrink `,
@@ -105,11 +101,7 @@ export const Overlay = ({
               </Pressable>
             )}
             {!!action1 && !!action1Label && (
-              <Pressable
-                onPress={() => {
-                  action1()
-                }}
-              >
+              <Pressable onPress={action1}>
                 <View style={[tw`flex-row flex-shrink `]}>
                   <Text style={actionColor}>{action1Label}</Text>
                   <Icon id={action1Icon} color={actionColor.color} style={tw`w-5 ml-1`} />
