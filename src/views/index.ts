@@ -35,6 +35,7 @@ import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
 import TestView from './TestView/TestView'
 import TestViewButtons from './TestView/buttons'
+import TestViewPopups from './TestView/popups'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -82,6 +83,7 @@ export const views: ViewType[] = [
 
   { name: 'testView', component: TestView, showHeader: true, showFooter: true },
   { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
+  { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
 ]
 
 export default views
