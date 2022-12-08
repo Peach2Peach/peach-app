@@ -39,6 +39,9 @@ export default () => {
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('DEFAULT')}>
         Default Overlay
       </PrimaryButton>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('WARN')}>
+        Warn Overlay
+      </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('ERROR')}>
         Error Overlay
       </PrimaryButton>
