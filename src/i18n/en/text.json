@@ -53,6 +53,8 @@
   "restoreBackup.autoScan.description.1": "We'll look for the backup file in the default directory.",
   "restoreBackup.autoScan.description.2": "Hang on tight!",
   "restoreBackup.manual.description.1": "select your backup file & enter your password",
+  "restoreBackup.seedPhrase.useBackupFile": "use your backup file if you have it",
+  "restoreBackup.seedPhrase.enter": "enter your seed phrase",
   "restoreBackup.decrypt.description.1": "Your backup is password encrypted. Please type in your account password.",
   "restoreBackup.decrypt.password": "Backup password",
   "restoreBackup.restored.description.1": "We restored your backup. Let's continue your Peer to Peer journey!",

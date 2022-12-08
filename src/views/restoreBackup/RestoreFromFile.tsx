@@ -11,6 +11,7 @@ import { recoverAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
+import { decryptAccount } from '../../utils/account/decryptAccount'
 
 const passwordRules = { required: true, password: true }
 
@@ -40,16 +41,23 @@ export default ({ style }: ComponentProps): ReactElement => {
     Keyboard.dismiss()
     setLoading(true)
 
-    const [recoveredAccount, err] = await recoverAccount({
+    const [recoveredAccount, err] = await decryptAccount({
       encryptedAccount: file.content,
       password,
     })
 
-    if (recoveredAccount) {
+    if (!recoveredAccount) {
+      onError(err as Error)
+      return
+    }
+
+    const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
+
+    if (success) {
       await storeAccount(recoveredAccount)
       setRestored(true)
     } else {
-      onError(err as Error)
+      onError(recoverAccountErr as Error)
     }
     setLoading(false)
   }
@@ -61,10 +69,7 @@ export default ({ style }: ComponentProps): ReactElement => {
       ) : !loading ? (
         <View style={tw`h-full pb-8 flex flex-col justify-between flex-shrink`}>
           <View style={tw`h-full w-full flex-shrink flex flex-col justify-center`}>
-            <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>{i18n('restoreBackup')}</Text>
-            <View>
-              <Text style={tw`mt-4 text-center`}>{i18n('restoreBackup.manual.description.1')}</Text>
-            </View>
+            <Text style={tw`mt-4 text-center`}>{i18n('restoreBackup.manual.description.1')}</Text>
             <View style={tw`w-full mt-2`}>
               <FileInput fileName={file.name} style={tw`w-full`} onChange={setFile} />
             </View>

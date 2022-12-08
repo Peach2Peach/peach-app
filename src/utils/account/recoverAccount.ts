@@ -1,35 +1,16 @@
 import analytics from '@react-native-firebase/analytics'
 
-import { setAccount, updateSettings } from '.'
+import { updateSettings } from '.'
 import userUpdate from '../../init/userUpdate'
-import { decrypt } from '../crypto'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
 import { getOffers, getTradingLimit } from '../peachAPI'
-import { sessionStorage } from '../session'
-import { account } from './account'
 import { updateTradingLimit } from './tradingLimit'
 
-interface RecoverAccountProps {
-  encryptedAccount: string
-  password: string
-}
-
-/**
- * @description Method to recover account
- * @param props.encryptedAccount the account but password encrypted
- * @param [props.password] secret
- */
-export const recoverAccount = async ({
-  encryptedAccount,
-  password = '',
-}: RecoverAccountProps): Promise<[Account | null, Error | null]> => {
+export const recoverAccount = async (account: Account): Promise<[Account | null, Error | null]> => {
   info('Recovering account')
 
   try {
-    await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
-    sessionStorage.setString('password', password)
-
     updateSettings({
       fcmToken: '',
     })

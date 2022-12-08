@@ -1,39 +1,40 @@
-export { defaultAccount, account, getAccount, setAccount } from './account'
+export { account, defaultAccount, getAccount, setAccount } from './account'
+export { addPaymentData } from './addPaymentData'
+export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
-export {
-  loadIdentity,
-  loadSettings,
-  loadTradingLimit,
-  loadPaymentData,
-  loadOffers,
-  loadContracts,
-  loadChat,
-  loadChats,
-  loadAccount,
-} from './loadAccount'
-export {
-  storeIdentity,
-  storeSettings,
-  storeTradingLimit,
-  storePaymentData,
-  storeOffer,
-  storeOffers,
-  storeContract,
-  storeContracts,
-  storeChat,
-  storeChats,
-  storeAccount,
-} from './storeAccount'
+export { decryptAccount } from './decryptAccount'
+export { deleteAccount } from './deleteAccount'
 export { getAccountBackup } from './getAccountBackup'
-export { updateSettings } from './updateSettings'
 export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
 export { getPaymentDataByType } from './getPaymentDataByType'
 export { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
-export { updatePaymentData } from './updatePaymentData'
-export { addPaymentData } from './addPaymentData'
-export { removePaymentData } from './removePaymentData'
-export { getTradingLimit, updateTradingLimit } from './tradingLimit'
-export { backupAccount } from './backupAccount'
+export {
+  loadAccount,
+  loadChat,
+  loadChats,
+  loadContracts,
+  loadIdentity,
+  loadOffers,
+  loadPaymentData,
+  loadSettings,
+  loadTradingLimit,
+} from './loadAccount'
 export { recoverAccount } from './recoverAccount'
-export { deleteAccount } from './deleteAccount'
+export { removePaymentData } from './removePaymentData'
+export {
+  storeAccount,
+  storeChat,
+  storeChats,
+  storeContract,
+  storeContracts,
+  storeIdentity,
+  storeOffer,
+  storeOffers,
+  storePaymentData,
+  storeSettings,
+  storeTradingLimit,
+} from './storeAccount'
+export { getTradingLimit, updateTradingLimit } from './tradingLimit'
+export { updatePaymentData } from './updatePaymentData'
+export { updateSettings } from './updateSettings'
