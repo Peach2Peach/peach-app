@@ -86,7 +86,7 @@ export default ({ style }: ComponentProps): ReactElement => {
                 {seedPhrase.slice(0, 6).map((word, i) => mapSeedWordToInput(0)(word, i))}
               </View>
               <View style={tw`w-1/2 pl-1`}>
-                {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(7)(word, i))}
+                {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(6)(word, i))}
               </View>
             </View>
           </View>
