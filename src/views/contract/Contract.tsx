@@ -244,7 +244,9 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
 
   return !contract || updatePending ? (
-    <Loading />
+    <View style={tw`w-full h-full items-center justify-center`}>
+      <Loading />
+    </View>
   ) : (
     <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>

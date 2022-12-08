@@ -30,6 +30,7 @@ import Message from './components/Message'
 import Overlay from './components/Overlay'
 
 import { DEV } from '@env'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
@@ -46,6 +47,8 @@ enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
 
+const queryClient = new QueryClient()
+
 /**
  * @description Method to determine weather header should be shown
  * @param view view id
@@ -58,7 +61,7 @@ const showHeader = (view: keyof RootStackParamList) => !!views.find((v) => v.nam
  * @param view view id
  * @returns true if view should show header
  */
-const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
+const showFooter = (view: keyof RootStackParamList) => !!views.find((v) => v.name === view)?.showFooter
 
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
@@ -185,81 +188,83 @@ const App: React.FC = () => {
     <GestureHandlerRootView style={tw`bg-white-1`}>
       <AvoidKeyboard>
         <SafeAreaView>
-          <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
-            <PeachWSContext.Provider value={peachWS}>
-              <AppContext.Provider value={[appContext, updateAppContext]}>
-                <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                  <MessageContext.Provider value={[messageState, updateMessage]}>
-                    <DrawerContext.Provider
-                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
-                    >
-                      <OverlayContext.Provider
-                        value={[
-                          { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                          updateOverlay,
-                        ]}
+          <QueryClientProvider client={queryClient}>
+            <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
+              <PeachWSContext.Provider value={peachWS}>
+                <AppContext.Provider value={[appContext, updateAppContext]}>
+                  <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
+                    <MessageContext.Provider value={[messageState, updateMessage]}>
+                      <DrawerContext.Provider
+                        value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                       >
-                        <View style={tw`h-full flex-col`}>
-                          <Drawer
-                            title={drawerTitle}
-                            content={drawerContent}
-                            show={showDrawer}
-                            onClose={onCloseDrawer}
-                          />
-                          {!!content && (
-                            <Overlay
-                              content={content}
-                              help={help}
-                              showCloseIcon={showCloseIcon}
-                              showCloseButton={showCloseButton}
-                              onClose={onCloseOverlay}
+                        <OverlayContext.Provider
+                          value={[
+                            { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
+                            updateOverlay,
+                          ]}
+                        >
+                          <View style={tw`h-full flex-col`}>
+                            <Drawer
+                              title={drawerTitle}
+                              content={drawerContent}
+                              show={showDrawer}
+                              onClose={onCloseDrawer}
                             />
-                          )}
-                          {!!messageState.msgKey && (
-                            <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                              <Message {...messageState} />
-                            </Animated.View>
-                          )}
-                          <View style={tw`h-full flex-shrink`}>
-                            <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
-                              <Stack.Navigator
-                                detachInactiveScreens={true}
-                                screenOptions={{
-                                  gestureEnabled: false,
-                                  headerShown: false,
-                                  cardStyle: tw`bg-white-1`,
-                                }}
-                              >
-                                {views.map(({ name, component }) => (
-                                  <Stack.Screen
-                                    {...{ name, component }}
-                                    key={name}
-                                    options={{
-                                      animationEnabled: false,
-                                      headerShown: showHeader(name),
-                                      header: () => <Header />,
-                                    }}
-                                  />
-                                ))}
-                              </Stack.Navigator>
-                            </NavigationContainer>
+                            {!!content && (
+                              <Overlay
+                                content={content}
+                                help={help}
+                                showCloseIcon={showCloseIcon}
+                                showCloseButton={showCloseButton}
+                                onClose={onCloseOverlay}
+                              />
+                            )}
+                            {!!messageState.msgKey && (
+                              <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                <Message {...messageState} />
+                              </Animated.View>
+                            )}
+                            <View style={tw`h-full flex-shrink`}>
+                              <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
+                                <Stack.Navigator
+                                  detachInactiveScreens={true}
+                                  screenOptions={{
+                                    gestureEnabled: false,
+                                    headerShown: false,
+                                    cardStyle: tw`bg-white-1`,
+                                  }}
+                                >
+                                  {views.map(({ name, component }) => (
+                                    <Stack.Screen
+                                      {...{ name, component }}
+                                      key={name}
+                                      options={{
+                                        animationEnabled: false,
+                                        headerShown: showHeader(name),
+                                        header: () => <Header />,
+                                      }}
+                                    />
+                                  ))}
+                                </Stack.Navigator>
+                              </NavigationContainer>
+                            </View>
+                            {showFooter(currentPage) && (
+                              <Footer
+                                style={tw`z-10`}
+                                active={currentPage}
+                                navigation={navigationRef}
+                                setCurrentPage={setCurrentPage}
+                              />
+                            )}
                           </View>
-                          {showFooter(currentPage) ? (
-                            <Footer
-                              style={tw`z-10`}
-                              active={currentPage}
-                              navigation={navigationRef}
-                              setCurrentPage={setCurrentPage}
-                            />
-                          ) : null}
-                        </View>
-                      </OverlayContext.Provider>
-                    </DrawerContext.Provider>
-                  </MessageContext.Provider>
-                </BitcoinContext.Provider>
-              </AppContext.Provider>
-            </PeachWSContext.Provider>
-          </LanguageContext.Provider>
+                        </OverlayContext.Provider>
+                      </DrawerContext.Provider>
+                    </MessageContext.Provider>
+                  </BitcoinContext.Provider>
+                </AppContext.Provider>
+              </PeachWSContext.Provider>
+            </LanguageContext.Provider>
+          </QueryClientProvider>
         </SafeAreaView>
       </AvoidKeyboard>
     </GestureHandlerRootView>

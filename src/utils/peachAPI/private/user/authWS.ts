@@ -1,6 +1,7 @@
 import { crypto } from 'bitcoinjs-lib'
 import { error } from '../../../log'
 import { getPeachAccount } from '../../peachAccount'
+import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 
 /**
  * @description Method to authenticate with Peach WS API
@@ -8,7 +9,7 @@ import { getPeachAccount } from '../../peachAccount'
  */
 export const authWS = (ws: WebSocket) => {
   const peachAccount = getPeachAccount()
-  const message = 'Peach Registration ' + new Date().getTime()
+  const message = getAuthenticationChallenge()
 
   if (!peachAccount) {
     const authError = new Error('Peach Account not set')

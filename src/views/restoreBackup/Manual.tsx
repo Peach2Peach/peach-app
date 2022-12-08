@@ -62,7 +62,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
         <View style={[tw`mt-11 w-full`, tw.md`mt-14`]}>
           <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>{i18n('restoreBackup')}</Text>
           {loading ? (
-            <View style={tw`h-1/2`}>
+            <View style={tw`w-full items-center`}>
               <Loading />
             </View>
           ) : (
