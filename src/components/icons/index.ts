@@ -3,6 +3,9 @@ import alertCircle from './alertCircle.svg'
 import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import arrowLeft from './arrowLeft.svg'
+import alignJustify from './alignJustify.svg'
+import alignLeft from './alignLeft.svg'
+import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
@@ -68,8 +71,11 @@ const Icons = {
   alertCircle,
   alertOctagon,
   alertTriangle,
+  alignJustify,
+  alignLeft,
   arrowLeft,
   buy: download,
+  bellSmall,
   camera,
   chatDoubleCheck,
   check,
