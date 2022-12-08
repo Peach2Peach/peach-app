@@ -92,20 +92,20 @@ export const Overlay = ({
               <Pressable onPress={action2}>
                 <View
                   style={[
-                    tw`flex-row flex-shrink `,
+                    tw`flex flex-row flex-shrink`,
                     level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`,
                   ]}
                 >
-                  <Icon id={action2Icon} color={actionColor.color} style={tw`w-5 mr-1`} />
-                  <Text style={actionColor}>{action2Label}</Text>
+                  <Icon id={action2Icon} color={actionColor.color} style={tw`w-4 mr-1`} />
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2Label}</Text>
                 </View>
               </Pressable>
             )}
             {!!action1 && !!action1Label && (
               <Pressable onPress={action1}>
-                <View style={[tw`flex-row flex-shrink `]}>
-                  <Text style={actionColor}>{action1Label}</Text>
-                  <Icon id={action1Icon} color={actionColor.color} style={tw`w-5 ml-1`} />
+                <View style={[tw`flex flex-row flex-shrink`]}>
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action1Label}</Text>
+                  <Icon id={action1Icon} color={actionColor.color} style={tw`w-4 ml-1`} />
                 </View>
               </Pressable>
             )}
