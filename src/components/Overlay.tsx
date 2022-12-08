@@ -1,9 +1,8 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
-
-import tw from '../styles/tailwind'
 import { OverlayContext } from '../contexts/overlay'
+import tw from '../styles/tailwind'
 import Icon from './Icon'
 
 type LevelColorMap = {
@@ -62,9 +61,7 @@ export const Overlay = ({
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => {
-    updateOverlay({ visible: false })
-  }
+  const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -74,13 +71,17 @@ export const Overlay = ({
     return () => {
       backHandler.remove()
     }
-  }, [content])
+  }, [closeOverlay, content])
 
   const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
 
   return (
     <Modal transparent={true} visible={visible}>
       <View style={tw`flex-1 items-center justify-center`}>
+        <Pressable
+          style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
+          onPress={closeOverlay}
+        ></Pressable>
         <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level ?? 'DEFAULT'], tw`rounded-2xl shadow`]}>
           <View style={[tw`p-4`, levelColorMap.bg2[level ?? 'DEFAULT'], tw`rounded-t-2xl`]}>
             {!!title && <Text style={tw`h6 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
