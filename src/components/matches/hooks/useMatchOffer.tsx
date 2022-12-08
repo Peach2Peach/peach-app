@@ -1,14 +1,13 @@
-import { error, info } from '../../../utils/log'
-import DifferentCurrencyWarning from '../../../overlays/DifferentCurrencyWarning'
-import React, { useContext } from 'react'
+import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
-import { useMutation, useQueryClient, InfiniteData } from '@tanstack/react-query'
-import { useNavigation, useRoute } from '../../../hooks'
 import { OverlayContext } from '../../../contexts/overlay'
+import { useNavigation, useRoute } from '../../../hooks'
+import { error, info } from '../../../utils/log'
 
-import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
-import { updateMatchedStatus, matchFn, handleMissingPaymentData, handleRefundTx } from '../utils'
+import { useMatchStore } from '../store'
+import { handleMissingPaymentData, handleRefundTx, matchFn, updateMatchedStatus } from '../utils'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
@@ -16,7 +15,6 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const navigation = useNavigation()
   const routeParams = useRoute<'search'>().params
   const [, updateMessage] = useContext(MessageContext)
-  const [, updateOverlay] = useContext(OverlayContext)
 
   const { selectedCurrency, selectedPaymentMethod, currentPage } = useMatchStore(
     (state) => ({
@@ -34,13 +32,6 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
         updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage),
       )
-      if (!offer.meansOfPayment[selectedCurrency]?.includes(selectedPaymentMethod)) {
-        updateOverlay({
-          content: <DifferentCurrencyWarning currency={selectedCurrency} paymentMethod={selectedPaymentMethod} />,
-          showCloseButton: false,
-          showCloseIcon: false,
-        })
-      }
 
       return { previousData }
     },
