@@ -42,12 +42,10 @@ export default ({ route, navigation }: Props): ReactElement => {
     = sellOffer.funding.status === 'MEMPOOL' ? (
       i18n('sell.escrow.waitingForConfirmation')
     ) : (
-      <Text style={tw`font-baloo text-sm uppercase text-white-1`}>
-        {i18n('sell.escrow.fundToContinue')}
-        <View style={tw`w-8 h-0 bg-red absolute -mt-10`}>
-          <Loading size="small" style={tw`-mt-2`} color={tw`text-white-1`.color} />
-        </View>
-      </Text>
+      <View style={tw`flex-row items-center`}>
+        <Text style={tw`font-baloo text-sm uppercase text-white-1`}>{i18n('sell.escrow.fundToContinue')}</Text>
+        <Loading style={tw`w-10`} color={tw`text-white-1`.color} />
+      </View>
     )
 
   const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
@@ -162,9 +160,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
       <View style={tw``}>
         <Title title={i18n('sell.title')} subtitle={subtitle} help={<Escrow />} />
-        {updatePending ? (
-          <Loading />
-        ) : sellOffer.id && escrow && fundingStatus && !fundingError ? (
+        {updatePending && (
+          <View style={tw` items-center justify-center items-center`}>
+            <Loading />
+          </View>
+        )}
+        {sellOffer.id && escrow && fundingStatus && !fundingError ? (
           <View>
             <Text style={tw`mt-6 mb-5 text-center`}>
               <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>
