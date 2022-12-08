@@ -165,6 +165,10 @@ const App: React.FC = () => {
 
   useEffect(websocket(updatePeachWS, updateMessage), [])
 
+  useEffect(() => {
+    analytics().logAppOpen()
+  }, [])
+
   const onNavStateChange = (state: NavigationState | undefined) => {
     if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
   }
