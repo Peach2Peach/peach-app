@@ -1,9 +1,9 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { PrimaryButton, RadioButtons, Selector, SelectorBig, Title } from '../../components'
+import { PrimaryButton, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import LanguageContext from '../../contexts/language'

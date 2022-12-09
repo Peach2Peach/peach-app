@@ -1,8 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import { Shadow, Text, Icon } from '..'
+import { Text, Icon } from '..'
 import tw from '../../styles/tailwind'
-import { mildShadow } from '../../utils/layout'
 
 export type RadioButtonItem<T> = {
   value: T
@@ -19,7 +18,7 @@ type RadioButtonItemProp = ComponentProps & {
 const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement => (
   <View
     style={[
-      tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`, // bg-primary-background-heavy comes from pr on Overlay.
+      tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
       selected ? tw`border-primary-light` : tw`border-transparent`,
     ]}
   >
