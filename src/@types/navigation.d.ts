@@ -83,4 +83,6 @@ declare type RootStackParamList = {
   fees: {}
   socials: {}
   testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
 }

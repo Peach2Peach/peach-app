@@ -33,7 +33,7 @@ export default (): ReactElement => {
       onSuccess: () => {
         updateOverlay({
           content: <BackupCreated />,
-          showCloseButton: false,
+          visible: true,
         })
         updateSettings(
           {
@@ -46,8 +46,7 @@ export default (): ReactElement => {
 
         setTimeout(() => {
           updateOverlay({
-            content: null,
-            showCloseButton: true,
+            visible: false,
           })
         }, 3000)
       },

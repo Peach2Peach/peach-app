@@ -36,8 +36,7 @@ export const CurrencySelection = ({
   const openCurrencyHelp = () =>
     updateOverlay({
       content: <Currency />,
-      help: true,
-      showCloseIcon: true,
+      visible: true,
     })
 
   return (

@@ -2,7 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Headline, PrimaryButton, Text } from '../../components'
+import { Headline, Text, PrimaryButton } from '../../components'
 import i18n from '../../utils/i18n'
 import { OverlayContext } from '../../contexts/overlay'
 
@@ -13,7 +13,7 @@ type PaymentMethodEditProps = {
 
 export default ({ paymentData, onConfirm }: PaymentMethodEditProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const confirm = () => {
     closeOverlay()
     onConfirm(paymentData)

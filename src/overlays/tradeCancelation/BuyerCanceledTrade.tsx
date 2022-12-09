@@ -20,13 +20,13 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const showEscrow = () =>
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
   const refund = () => {
     updateOverlay({
       content: <Refund {...{ sellOffer, navigate: closeOverlay, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
   }
 

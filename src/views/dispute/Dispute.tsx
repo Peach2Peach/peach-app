@@ -103,11 +103,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       Keyboard.dismiss()
       updateOverlay({
         content: <RaiseDisputeSuccess />,
-        showCloseButton: false,
+        visible: true,
       })
       setTimeout(() => {
         navigation.navigate('contract', { contractId })
-        updateOverlay({ content: null, showCloseButton: true })
+        updateOverlay({ visible: false })
       }, 3000)
       setLoading(false)
 

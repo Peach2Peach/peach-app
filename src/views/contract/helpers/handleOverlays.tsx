@@ -35,19 +35,21 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
           {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason!, navigation }}
         />
       ),
-      showCloseButton: false,
+      visible: true,
     })
   }
 
   if (!contract.disputeActive && contract.disputeResolvedDate && !contract.disputeResultAcknowledged) {
     return updateOverlay({
       content: <DisputeResult {...{ contractId, navigation }} />,
+      visible: true,
     })
   }
 
   if (contract.cancelationRequested && view === 'buyer' && !contract.disputeActive && !contract.paymentConfirmed) {
     return updateOverlay({
       content: <ConfirmCancelTradeRequest {...{ contract, navigation }} />,
+      visible: true,
     })
   }
 
@@ -61,6 +63,7 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
   ) {
     return updateOverlay({
       content: <CancelTradeRequestConfirmed {...{ contract, navigation }} />,
+      visible: true,
     })
   }
 
@@ -74,12 +77,14 @@ export const handleOverlays = ({ contract, navigation, updateOverlay, view }: Ha
   ) {
     return updateOverlay({
       content: <CancelTradeRequestRejected {...{ contract, navigation }} />,
+      visible: true,
     })
   }
 
   if (contract.canceled && view === 'seller' && !contract.cancelConfirmationDismissed && !contract.paymentConfirmed) {
     return updateOverlay({
       content: <BuyerCanceledTrade {...{ contract, navigation }} />,
+      visible: true,
     })
   }
 

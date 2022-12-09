@@ -9,6 +9,7 @@ import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
+import checkSquare from './checkSquare.svg'
 import checkboxMark from './checkboxMark.svg'
 import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
@@ -80,6 +81,7 @@ const Icons = {
   camera,
   chatDoubleCheck,
   check,
+  checkSquare,
   checkboxMark,
   chevronDown,
   chevronsDown,

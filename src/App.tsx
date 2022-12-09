@@ -11,8 +11,8 @@ import {
   useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { enableScreens } from 'react-native-screens'
 import RNRestart from 'react-native-restart'
+import { enableScreens } from 'react-native-screens'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
@@ -24,7 +24,7 @@ import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
+import { defaultOverlay, OverlayContext, useOverlay } from './contexts/overlay'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import Drawer from './components/Drawer'
@@ -35,18 +35,18 @@ import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
+import appStateEffect from './effects/appStateEffect'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { initApp } from './init'
+import { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
-import AnalyticsPrompt from './overlays/AnalyticsPrompt'
-import { account, getAccount, updateSettings } from './utils/account'
+import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { account, getAccount } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
-import { compatibilityCheck, linkToAppStore } from './utils/system'
-import appStateEffect from './effects/appStateEffect'
-import { getPeachInfo, getTrades } from './init/session'
 import { marketPrices } from './utils/peachAPI/public/market'
+import { compatibilityCheck, linkToAppStore } from './utils/system'
 
 enableScreens()
 
@@ -121,10 +121,7 @@ const App: React.FC = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
-    setOverlay,
-    getOverlay(),
-  )
+  const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -172,20 +169,9 @@ const App: React.FC = () => {
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
-        updateOverlay({
-          content: <AnalyticsPrompt />,
-          showCloseIcon: true,
-          onClose: () => {
-            analytics().setAnalyticsCollectionEnabled(false)
-            updateSettings(
-              {
-                enableAnalytics: false,
-              },
-              true,
-            )
-          },
-        })
+        showAnalyticsPrompt(updateOverlay)
       }
+
       if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
         updateMessage({
           msgKey: 'CRITICAL_UPDATE_AVAILABLE',
@@ -249,12 +235,7 @@ const App: React.FC = () => {
                       <DrawerContext.Provider
                         value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                       >
-                        <OverlayContext.Provider
-                          value={[
-                            { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                            updateOverlay,
-                          ]}
-                        >
+                        <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                           <View style={tw`h-full flex-col`}>
                             <Drawer
                               title={drawerTitle}
@@ -262,15 +243,7 @@ const App: React.FC = () => {
                               show={showDrawer}
                               onClose={onCloseDrawer}
                             />
-                            {!!content && (
-                              <Overlay
-                                content={content}
-                                help={help}
-                                showCloseIcon={showCloseIcon}
-                                showCloseButton={showCloseButton}
-                                onClose={onCloseOverlay}
-                              />
-                            )}
+                            <Overlay {...overlayState} />
                             {!!messageState.msgKey && (
                               <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                                 <Message {...messageState} />

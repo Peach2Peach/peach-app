@@ -3,11 +3,12 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Headline, PrimaryButton, Text } from '../components'
+import { Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { Navigation } from '../utils/navigation'
+import { PrimaryButton } from '../components/buttons'
 
 type Props = {
   offer: SellOffer
@@ -19,7 +20,7 @@ export default ({ offer, days, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToOffer = () => {

@@ -239,8 +239,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const openPaymentHelp = () =>
     updateOverlay({
       content: <Payment />,
-      showCloseButton: true,
-      help: true,
+      visible: true,
     })
 
   return !contract || updatePending ? (
