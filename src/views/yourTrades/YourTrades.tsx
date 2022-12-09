@@ -19,7 +19,7 @@ import { StackNavigation } from '../../utils/navigation'
 import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
 import { session } from '../../utils/session'
 import { OfferItem } from './components/OfferItem'
-import { getOfferStatus } from '../../utils/offer/status'
+import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
 
 type Props = {
   navigation: StackNavigation
@@ -36,7 +36,7 @@ const showOffer = (offer: SellOffer | BuyOffer) => {
   if (isBuyOffer(offer)) return offer.online
 
   // filter out sell offer which has been canceled before funding escrow
-  if (offer.funding?.status === 'CANCELED' && offer.funding.txIds?.length === 0 && !offer.txId) return false
+  if (isFundingCanceled(offer) && offer.funding.txIds?.length === 0 && !offer.txId) return false
 
   return true
 }

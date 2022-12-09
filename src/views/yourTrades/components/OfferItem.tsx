@@ -13,7 +13,7 @@ import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
 import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
-import { getOfferStatus, isEscrowRefunded, isFunded } from '../../../utils/offer/status'
+import { getOfferStatus, hasFundingTransactions, isEscrowRefunded, isFunded } from '../../../utils/offer/status'
 
 // eslint-disable-next-line complexity
 const navigateToOffer = (
@@ -35,7 +35,7 @@ const navigateToOffer = (
       isSellOffer(offer)
       && !offer.online
       && (!offer.contractId || (contract?.canceled && contract.disputeWinner === 'seller'))
-      && offer.funding?.txIds.length > 0
+      && hasFundingTransactions(offer)
       && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
       && !isEscrowRefunded(offer)
     ) {
