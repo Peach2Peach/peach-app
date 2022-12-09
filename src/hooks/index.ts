@@ -1,3 +1,5 @@
 export { useKeyboard } from './useKeyboard'
 export { useNavigation } from './useNavigation'
 export { useValidatedState } from './useValidatedState'
+export { useNavigation } from './useNavigation'
+export { useRoute } from './useRoute'

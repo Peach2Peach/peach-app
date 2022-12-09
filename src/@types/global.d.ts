@@ -105,6 +105,8 @@ declare type Chat = {
 declare type AppState = {
   notifications: number
 }
+
+declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type MessageState = {
   template?: ReactNode
   msgKey?: string
