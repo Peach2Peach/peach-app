@@ -26,7 +26,7 @@ export default ({
     const checkingFunction = async () => {
       if (!offer?.id) return
       if (offer.doubleMatched) return
-      if (isSellOffer(offer) && !isFunded(offer as SellOffer)) return
+      if (isSellOffer(offer) && !isFunded(offer)) return
 
       if (onBefore) onBefore()
 

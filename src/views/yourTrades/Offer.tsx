@@ -36,7 +36,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
 
   const offerId = route.params.offer.id as string
-  const offer = getOffer(offerId) as BuyOffer | SellOffer
+  const offer = getOffer(offerId)!
   const view = isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
