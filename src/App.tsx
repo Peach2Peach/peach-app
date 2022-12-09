@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+/* eslint-disable max-lines */
+import React, { useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, StatusBar, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -11,6 +12,7 @@ import {
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
+import RNRestart from 'react-native-restart'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
@@ -32,16 +34,19 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
+import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
 import { initApp } from './init'
 import websocket from './init/websocket'
 import AnalyticsPrompt from './overlays/AnalyticsPrompt'
-import { account, updateSettings } from './utils/account'
+import { account, getAccount, updateSettings } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import appStateEffect from './effects/appStateEffect'
+import { getPeachInfo, getTrades } from './init/session'
+import { marketPrices } from './utils/peachAPI/public/market'
 
 enableScreens()
 
@@ -62,6 +67,52 @@ const showHeader = (view: keyof RootStackParamList) => !!views.find((v) => v.nam
  * @returns true if view should show header
  */
 const showFooter = (view: keyof RootStackParamList) => !!views.find((v) => v.name === view)?.showFooter
+
+let goHomeTimeout: NodeJS.Timer
+
+const usePartialAppSetup = () => {
+  const [, updateBitcoinContext] = useContext(BitcoinContext)
+  const [, updateAppContext] = useContext(AppContext)
+  const [active, setActive] = useState(true)
+
+  useEffect(
+    appStateEffect({
+      callback: (isActive) => {
+        setActive(isActive)
+        if (isActive) {
+          getPeachInfo(getAccount())
+          getTrades()
+          updateAppContext({
+            notifications: getChatNotifications() + getRequiredActionCount(),
+          })
+          analytics().logAppOpen()
+
+          clearTimeout(goHomeTimeout)
+        } else {
+          goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
+        }
+      },
+    }),
+    [],
+  )
+
+  useEffect(() => {
+    if (!active) return () => {}
+
+    const checkingInterval = 15 * 1000
+    const checkingFunction = async () => {
+      const [prices] = await marketPrices({ timeout: checkingInterval })
+      if (prices) updateBitcoinContext({ prices })
+    }
+    const interval = setInterval(checkingFunction, checkingInterval)
+    updateBitcoinContext({ currency: account.settings.displayCurrency })
+    checkingFunction()
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [active])
+}
 
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
@@ -167,6 +218,7 @@ const App: React.FC = () => {
   )
 
   useEffect(websocket(updatePeachWS, updateMessage), [])
+  usePartialAppSetup()
 
   useEffect(() => {
     analytics().logAppOpen()
