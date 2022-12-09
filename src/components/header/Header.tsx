@@ -69,7 +69,7 @@ export const Header = () => {
   const { goBack, canGoBack } = useNavigation()
 
   return (
-    <View style={tw`flex-row h-9 justify-between mx-4 px-8`}>
+    <View style={tw`h-9 flex-row justify-between px-8`}>
       <View style={tw`items-center flex-row`}>
         {showGoBackButton && canGoBack() && (
           <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={goBack}>
