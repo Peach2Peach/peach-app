@@ -1,28 +1,23 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, setAccount, storeAccount } from '../../../../../src/utils/account'
+import { defaultAccount, setAccount, storeIdentity } from '../../../../../src/utils/account'
+import { accountStorage } from '../../../../../src/utils/account/accountStorage'
 import { loadIdentity } from '../../../../../src/utils/account/loadAccount'
-import * as file from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('loadIdentity', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
   })
 
-  it('loads identity from file', async () => {
-    const readFileSpy = jest.spyOn(file, 'readFile')
+  it('loads identity', async () => {
+    await storeIdentity(accountData.account1)
 
-    await storeAccount(accountData.account1, password)
-
-    const identity = await loadIdentity(password)
-    expect(readFileSpy).toHaveBeenCalledWith('/peach-account-identity.json', password)
+    const identity = await loadIdentity()
+    expect(accountStorage.getMap).toHaveBeenCalledWith('identity')
     deepStrictEqual(identity, {
       publicKey: accountData.account1.publicKey,
       privKey: accountData.account1.privKey,

@@ -1,42 +1,28 @@
 import OpenPGP from 'react-native-fast-openpgp'
 import { defaultAccount, setAccount } from '.'
 import { info } from '../log'
-import { setSessionItem } from '../session'
-import { createWallet, getMainAddress } from '../wallet'
+import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork } from '../wallet'
 
-interface CreateAccountProps {
-  password: string
-  onSuccess: Function
-  onError: Function
-}
-
-/**
- * @description Method to create a new or existing account
- * @param [password] secret
- * @param onSuccess callback on success
- * @param onError callback on error
- * @returns promise resolving to encrypted account
- */
-export const createAccount = async ({ password = '', onSuccess }: CreateAccountProps): Promise<void> => {
+export const createAccount = async (seedPhrase?: string): Promise<Account> => {
   info('Create account')
-  const { wallet, mnemonic } = await createWallet()
+  const { wallet, mnemonic } = seedPhrase
+    ? await createWalletFromSeedPhrase(seedPhrase, getNetwork())
+    : await createRandomWallet(getNetwork())
   const firstAddress = getMainAddress(wallet)
   const recipient = await OpenPGP.generate({})
 
-  await setSessionItem('password', password)
-  await setAccount(
-    {
-      ...defaultAccount,
-      publicKey: firstAddress.publicKey.toString('hex'),
-      privKey: (wallet.privateKey as Buffer).toString('hex'),
-      mnemonic,
-      pgp: {
-        privateKey: recipient.privateKey,
-        publicKey: recipient.publicKey,
-      },
+  const newAccount = {
+    ...defaultAccount,
+    publicKey: firstAddress.publicKey.toString('hex'),
+    privKey: (wallet.privateKey as Buffer).toString('hex'),
+    mnemonic,
+    pgp: {
+      privateKey: recipient.privateKey,
+      publicKey: recipient.publicKey,
     },
-    true,
-  )
+  }
 
-  onSuccess()
+  await setAccount(newAccount, true)
+
+  return newAccount
 }

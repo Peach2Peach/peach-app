@@ -1,5 +1,4 @@
 import { account } from '.'
-import { session } from '../session'
 import { storePaymentData } from './storeAccount'
 
 /**
@@ -8,5 +7,5 @@ import { storePaymentData } from './storeAccount'
  */
 export const updatePaymentData = async (paymentData: PaymentData[]) => {
   account.paymentData = paymentData
-  if (session.password) await storePaymentData(account.paymentData, session.password)
+  await storePaymentData(account.paymentData)
 }

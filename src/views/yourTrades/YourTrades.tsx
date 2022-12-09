@@ -68,7 +68,7 @@ export default ({ navigation }: Props): ReactElement => {
           if (!result?.length) return
           saveOffers(result)
 
-          if (session.password) storeOffers(getAccount().offers, session.password)
+          storeOffers(getAccount().offers)
 
           setLastUpdate(new Date().getTime())
           updateAppContext({
@@ -95,7 +95,7 @@ export default ({ navigation }: Props): ReactElement => {
           if (!result?.length) return
 
           saveContracts(result)
-          if (session.password) storeContracts(getAccount().contracts, session.password)
+          storeContracts(getAccount().contracts)
           setLastUpdate(new Date().getTime())
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),

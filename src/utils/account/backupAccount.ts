@@ -1,13 +1,14 @@
 import { NETWORK } from '@env'
+import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { writeFile } from '../file'
-import RNFS from 'react-native-fs'
 import { error, info } from '../log'
-import { getSession } from '../session'
 import { parseError } from '../system'
 import { account } from './account'
+import { getAccountBackup } from './getAccountBackup'
 
 type BackupAccountProps = {
+  password: string
   onSuccess: () => void
   onCancel: () => void
   onError: () => void
@@ -16,10 +17,8 @@ type BackupAccountProps = {
 /**
  * @description Method to backup account
  * Will open share dialogue on mobile or automatically download the file on web
- * @param onSuccess callback function on success
- * @param onError callback function on error
  */
-export const backupAccount = async ({ onSuccess, onCancel, onError }: BackupAccountProps) => {
+export const backupAccount = async ({ password, onSuccess, onCancel, onError }: BackupAccountProps) => {
   info('Backing up account')
   try {
     const destinationFileName
@@ -27,7 +26,7 @@ export const backupAccount = async ({ onSuccess, onCancel, onError }: BackupAcco
         ? `peach-account-${account.publicKey.substring(0, 8)}.json`
         : `peach-account-${NETWORK}-${account.publicKey.substring(0, 8)}.json`
 
-    await writeFile('/' + destinationFileName, JSON.stringify(account), getSession().password)
+    await writeFile('/' + destinationFileName, JSON.stringify(getAccountBackup(account)), password)
 
     Share.open({
       title: destinationFileName,

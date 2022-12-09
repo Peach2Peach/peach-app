@@ -1,3 +1,4 @@
+import { wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
@@ -24,23 +25,6 @@ export const rules = {
       valid = true
     } catch (e) {}
 
-    return valid
-  },
-  tetherAddress (_: boolean, value: string) {
-    if (!value) return false
-
-    // Tether as erc-20 token
-    if (/0x+[A-F,a-f,0-9]{40}/u.test(value)) return true
-
-    // Tether as trc-20 token
-    if (/T[A-Za-z1-9]{33}/u.test(value)) return true
-
-    // tether on omni layer
-    let valid = false
-    try {
-      address.fromBase58Check(value)
-      valid = true
-    } catch (e) {}
     return valid
   },
   duplicate (existingValue: any) {
@@ -72,6 +56,9 @@ export const rules = {
     } catch (e) {
       return false
     }
+  },
+  bip39 (_: boolean, value: string) {
+    return wordlists.english.includes(value)
   },
 }
 

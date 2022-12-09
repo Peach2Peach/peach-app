@@ -1,6 +1,5 @@
-import { exists, readFile } from '../../file'
 import { error } from '../../log'
-import { parseError } from '../../system'
+import { accountStorage } from '../accountStorage'
 
 const emptyIdentity: Identity = {
   publicKey: '',
@@ -12,19 +11,11 @@ const emptyIdentity: Identity = {
   },
 }
 
-/**
- * @description Method to load account identity
- * @param password password
- * @returns Promise resolving to account identity
- */
-export const loadIdentity = async (password: string): Promise<Identity> => {
-  if (!(await exists('/peach-account-identity.json'))) return emptyIdentity
+export const loadIdentity = async (): Promise<Identity> => {
+  const identity = accountStorage.getMap('identity')
 
-  try {
-    const identity = await readFile('/peach-account-identity.json', password)
-    return JSON.parse(identity)
-  } catch (e) {
-    error('Could not load identity', parseError(e))
-    return emptyIdentity
-  }
+  if (identity) return identity as Identity
+
+  error('Could not load identity')
+  return emptyIdentity
 }

@@ -31,8 +31,9 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
   const canCancel
     = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
   const canDispute
-    = (!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
-    || (view === 'seller' && contract.cancelationRequested)
+    = contract.symmetricKey
+    && ((!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
+      || (view === 'seller' && contract.cancelationRequested))
 
   const openCancelTrade = () =>
     canCancel

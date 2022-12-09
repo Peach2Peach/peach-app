@@ -1,28 +1,19 @@
 import { defaultAccount, setAccount } from '../../../../../src/utils/account'
+import { accountStorage } from '../../../../../src/utils/account/accountStorage'
 import { storeSettings } from '../../../../../src/utils/account/storeAccount'
-import * as fileUtils from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('storeSettings', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
-    await storeSettings(defaultAccount.settings, password)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
   })
 
-  it('would write file to store settings', async () => {
-    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await storeSettings(accountData.account1.settings, password)
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-settings.json',
-      JSON.stringify(accountData.account1.settings),
-      password,
-    )
+  it('would store settings', async () => {
+    await storeSettings(accountData.account1.settings)
+    expect(accountStorage.setMap).toHaveBeenCalledWith('settings', accountData.account1.settings)
   })
 })

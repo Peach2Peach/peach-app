@@ -1,11 +1,8 @@
 import { deepStrictEqual } from 'assert'
 import { setAccount } from '../../../../src/utils/account'
 import { createSystemMessage } from '../../../../src/utils/chat'
-import { session } from '../../../../src/utils/session'
 import * as accountData from '../../data/accountData'
 import { resetFakeFiles } from '../../prepare'
-
-session.password = 'supersecret'
 
 describe('createSystemMessage', () => {
   beforeEach(async () => {
