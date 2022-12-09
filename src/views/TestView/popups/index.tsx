@@ -1,10 +1,23 @@
-import React, { useContext } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useContext } from 'react'
 import { View } from 'react-native'
 import { GoBackButton, PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { useHeaderState } from '../../../components/header/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
 
+const useHeaderSetup = () => {
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: 'test view - popups' })
+    }, [setHeaderState]),
+  )
+}
+
 export default () => {
+  useHeaderSetup()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () =>
