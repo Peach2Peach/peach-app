@@ -4,7 +4,6 @@ import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
 
 import { DrawerContext } from '../contexts/drawer'
 import tw from '../styles/tailwind'
-import { getHeaderHeight } from './Header'
 
 const animConfig = {
   duration: 300,
@@ -31,7 +30,7 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
   useEffect(() => {
     const animate = (): any => {
       Animated.timing(slideAnim, {
-        toValue: show ? getHeaderHeight() : height,
+        toValue: show ? 0 : height,
         delay: show ? 50 : 0,
         ...animConfig,
       }).start()

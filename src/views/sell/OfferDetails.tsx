@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -12,6 +12,9 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useFocusEffect } from '@react-navigation/native'
+import { useHeaderState } from '../../components/header/store'
+import { EditIcon, HelpIcon } from '../../components/icons/components'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -30,9 +33,27 @@ const validate = (offer: SellOffer) => {
   )
 }
 
+export const getHeaderIcons = () => [
+  {
+    iconComponent: <EditIcon />,
+    onPress: () => null,
+  },
+  { iconComponent: <HelpIcon />, onPress: () => null },
+]
+
+const useHeaderSetup = () => {
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: i18n('settings.paymentMethods'), icons: getHeaderIcons() })
+    }, [setHeaderState]),
+  )
+}
+
 export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
-
+  useHeaderSetup()
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
