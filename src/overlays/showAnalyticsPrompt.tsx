@@ -50,12 +50,16 @@ export const showAnalyticsPrompt = (updateOverlay: Function) => {
     title: i18n('analytics.request.title'),
     content: <AnalyticsPrompt />,
     visible: true,
-    action1: accept,
-    action1Label: i18n('analytics.request.yes'),
-    action1Icon: 'checkSquare',
-    action2: deny,
-    action2Label: i18n('analytics.request.no'),
-    action2Icon: 'xSquare',
+    action1: {
+      callback: accept,
+      label: i18n('analytics.request.yes'),
+      icon: 'checkSquare',
+    },
+    action2: {
+      callback: deny,
+      label: i18n('analytics.request.no'),
+      icon: 'xSquare',
+    },
     level: 'APP',
     closeOnTap: true,
   })

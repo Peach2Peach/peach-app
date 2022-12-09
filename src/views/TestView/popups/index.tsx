@@ -39,12 +39,16 @@ export default () => {
       ),
       visible: true,
       level,
-      action1: closeOverlay,
-      action1Label: 'close',
-      action1Icon: 'checkSquare',
-      action2: closeOverlay,
-      action2Label: 'also close',
-      action2Icon: 'xSquare',
+      action1: {
+        callback: closeOverlay,
+        label: 'close',
+        icon: 'checkSquare',
+      },
+      action2: {
+        callback: closeOverlay,
+        label: 'also close',
+        icon: 'xSquare',
+      },
       ...options,
     })
   return (

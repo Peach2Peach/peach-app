@@ -103,6 +103,12 @@ declare type AppState = {
   notifications: number
 }
 
+declare type Action = {
+  callback: () => void
+  label: string
+  icon: IconType
+}
+
 declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type OverlayLevel = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 
@@ -110,23 +116,18 @@ declare type MessageState = {
   level: MessageLevel
   msgKey?: string
   msg?: string
-  action?: Function
-  actionLabel?: string
-  actionIcon?: IconType
+  action?: Action
   onClose?: Function
   time?: number
   keepAlive?: boolean
 }
+
 declare type OverlayState = {
   level?: OverlayLevel
   title?: string
   content?: ReactNode
-  action1?: () => void
-  action1Label?: string
-  action1Icon?: IconType
-  action2?: () => void
-  action2Label?: string
-  action2Icon?: IconType
+  action1?: Action
+  action2?: Action
   visible: boolean
   requireUserAction?: boolean
 }

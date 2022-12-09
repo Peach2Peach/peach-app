@@ -33,11 +33,7 @@ export const Overlay = ({
   title,
   content,
   action1,
-  action1Label,
-  action1Icon,
   action2,
-  action2Icon,
-  action2Label,
   level,
   visible,
   requireUserAction,
@@ -70,20 +66,20 @@ export const Overlay = ({
             {!!title && <Text style={tw`h6 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
             {content}
           </View>
-          <View style={[tw`px-4 py-1 flex-row`, !!action2Label ? tw`justify-between` : tw`justify-center`]}>
-            {!!action2 && !!action2Label && (
-              <Pressable onPress={action2}>
+          <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
+            {!!action2 && (
+              <Pressable onPress={action2.callback}>
                 <View style={[tw`flex flex-row flex-shrink`]}>
-                  <Icon id={action2Icon} color={actionColor.color} style={tw`w-4 mr-1`} />
-                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2Label}</Text>
+                  <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 mr-1`} />
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2.label}</Text>
                 </View>
               </Pressable>
             )}
-            {!!action1 && !!action1Label && (
-              <Pressable onPress={action1}>
+            {!!action1 && (
+              <Pressable onPress={action1.callback}>
                 <View style={[tw`flex flex-row flex-shrink`]}>
-                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action1Label}</Text>
-                  <Icon id={action1Icon} color={actionColor.color} style={tw`w-4 ml-1`} />
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action1.label}</Text>
+                  <Icon id={action1.icon} color={actionColor.color} style={tw`w-4 ml-1`} />
                 </View>
               </Pressable>
             )}
