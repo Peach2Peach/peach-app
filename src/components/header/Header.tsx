@@ -73,7 +73,7 @@ export const Header = () => {
     <View style={tw`flex-row h-9 justify-between mx-4 px-8`}>
       <View style={tw`items-center flex-row`}>
         {showGoBackButton && (
-          <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-2`} onPress={handleBackPress}>
+          <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={handleBackPress}>
             <Icon id="chevronLeft" />
           </TouchableOpacity>
         )}
