@@ -1,4 +1,4 @@
-import { getPaymentDataByMethod } from '../../../utils/offer'
+import { getPaymentDataByMethod, isBuyOffer } from '../../../utils/offer'
 import { createEncryptedKey } from './createEncryptedKey'
 import { createEncryptedPaymentData } from './createEncryptedPaymentData'
 
@@ -21,7 +21,7 @@ export const generateMatchOfferData = async (
     hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash,
   }
 
-  if (offer.type === 'bid') {
+  if (isBuyOffer(offer)) {
     const { encrypted: symmetricKeyEncrypted, signature: symmetricKeySignature } = await createEncryptedKey(match)
     return {
       ...defaultOfferData,

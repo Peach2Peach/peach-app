@@ -3,6 +3,7 @@ import shallow from 'zustand/shallow'
 import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { isBuyOffer } from '../../../utils/offer'
 import { Selector } from '../../inputs'
 import { Headline } from '../../text'
 import { HorizontalLine } from '../../ui'
@@ -26,7 +27,7 @@ export const PaymentMethodSelector = () => {
     <>
       <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]} />
       <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
-        {i18n(offer.type === 'bid' ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
+        {i18n(isBuyOffer(offer) ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
       </Headline>
       <Selector
         style={tw`mt-2`}

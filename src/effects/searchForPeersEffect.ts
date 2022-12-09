@@ -1,5 +1,7 @@
 import { EffectCallback } from 'react'
 import { error, info } from '../utils/log'
+import { isSellOffer } from '../utils/offer'
+import { isFunded } from '../utils/offer/status'
 import { getMatches } from '../utils/peachAPI'
 
 type SearchForPeersEffectProps = {
@@ -24,7 +26,7 @@ export default ({
     const checkingFunction = async () => {
       if (!offer?.id) return
       if (offer.doubleMatched) return
-      if (offer.type === 'ask' && (!offer.funding || offer.funding.status !== 'FUNDED')) return
+      if (isSellOffer(offer) && !isFunded(offer as SellOffer)) return
 
       if (onBefore) onBefore()
 

@@ -1,13 +1,13 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
-import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation, useRoute } from '../../../hooks'
 import { error, info } from '../../../utils/log'
 
 import shallow from 'zustand/shallow'
 import { useMatchStore } from '../store'
-import { handleMissingPaymentData, handleRefundTx, matchFn, updateMatchedStatus } from '../utils'
+import { handleMissingPaymentData, createRefundTx, matchFn, updateMatchedStatus } from '../utils'
+import { isSellOffer, saveOffer } from '../../../utils/offer'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
@@ -51,10 +51,18 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },
     onSuccess: async (result: MatchResponse) => {
-      const contractId = await handleRefundTx(offer, result)
-      if (contractId) {
-        info('Search.tsx - _match', `navigate to contract ${contractId}`)
-        navigation.replace('contract', { contractId })
+      const refundTx = isSellOffer(offer) && result.refundTx ? await createRefundTx(offer, result.refundTx) : undefined
+      if (isSellOffer(offer)) {
+        saveOffer({
+          ...(offer as SellOffer),
+          doubleMatched: true,
+          contractId: result.contractId,
+          refundTx,
+        })
+      }
+      if (result.contractId) {
+        info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
+        navigation.replace('contract', { contractId: result.contractId })
       }
     },
     onSettled: () => {

@@ -12,8 +12,8 @@ import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
-import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
-import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
+import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
+import { getOfferStatus, isEscrowRefunded, isFunded } from '../../../utils/offer/status'
 
 // eslint-disable-next-line complexity
 const navigateToOffer = (
@@ -32,7 +32,7 @@ const navigateToOffer = (
     && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)
   ) {
     if (
-      offer.type === 'ask'
+      isSellOffer(offer)
       && !offer.online
       && (!offer.contractId || (contract?.canceled && contract.disputeWinner === 'seller'))
       && offer.funding?.txIds.length > 0
@@ -56,17 +56,17 @@ const navigateToOffer = (
     return navigation.navigate('contract', { contractId: contract.id })
   }
 
-  if (offer.type === 'ask') {
+  if (isSellOffer(offer)) {
     if (offer.returnAddressRequired) {
       return navigation.navigate('setReturnAddress', { offer })
     }
-    if (offer.funding.status === 'FUNDED') {
+    if (isFunded(offer)) {
       return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
     }
     return navigation.navigate('fundEscrow', { offer })
   }
 
-  if (offer.type === 'bid' && offer.online) {
+  if (isBuyOffer(offer) && offer.online) {
     return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
   }
 
@@ -113,8 +113,8 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const icon = contract?.disputeWinner ? 'dispute' : ICONMAP[requiredAction] || ICONMAP[status]
   const notifications = contract ? getContractChatNotification(contract) : 0
 
-  const isRedStatus = contract?.disputeActive || (offer.type === 'bid' && contract?.cancelationRequested)
-  const isOrangeStatus = requiredAction || (offer.type === 'ask' && contract?.cancelationRequested)
+  const isRedStatus = contract?.disputeActive || (isBuyOffer(offer) && contract?.cancelationRequested)
+  const isOrangeStatus = requiredAction || (isSellOffer(offer) && contract?.cancelationRequested)
   const textColor1 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-2`
   const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
 
@@ -137,7 +137,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
                   {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
                 </Headline>
                 <View>
-                  {offer.type === 'ask' && contract?.cancelationRequested ? (
+                  {isSellOffer(offer) && contract?.cancelationRequested ? (
                     <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
                   ) : (
                     <Text style={textColor2}>
@@ -166,12 +166,12 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
           <View style={tw`flex-row justify-between items-center p-2`}>
             <View style={tw`flex-row items-center`}>
               <Icon
-                id={offer.type === 'ask' ? 'sell' : 'buy'}
+                id={isSellOffer(offer) ? 'sell' : 'buy'}
                 style={tw`w-5 h-5 mr-2`}
                 color={
                   (requiredAction || contract?.disputeActive
                     ? tw`text-white-1`
-                    : offer.type === 'ask'
+                    : isSellOffer(offer)
                       ? tw`text-red`
                       : tw`text-green`
                   ).color as string
