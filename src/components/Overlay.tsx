@@ -3,6 +3,7 @@ import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
+import { info } from '../utils/log'
 import Icon from './Icon'
 
 type LevelColorMap = {
@@ -43,6 +44,7 @@ const levelColorMap: LevelColorMap = {
  * @param [props.action2Icon] optional icon for action2
  * @param [props.style] additional styles to apply to the component
  * @param [props.visible] check whether the modal is visible or not
+ * @param [props.closeOnTap] whether the modal can be closed when tap outside
  * @example
  * <Overlay title="popup title" level="ERROR" />
  */
@@ -58,6 +60,7 @@ export const Overlay = ({
   action2Label,
   level,
   visible,
+  closeOnTap,
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 

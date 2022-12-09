@@ -128,6 +128,7 @@ declare type OverlayState = {
   action2Label?: string
   action2Icon?: IconType
   visible: boolean
+  closeOnTap?: boolean
 }
 declare type DrawerState = {
   title: string

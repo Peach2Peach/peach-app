@@ -57,5 +57,6 @@ export const showAnalyticsPrompt = (updateOverlay: Function) => {
     action2Label: i18n('analytics.request.no'),
     action2Icon: 'xSquare',
     level: 'APP',
+    closeOnTap: true,
   })
 }
