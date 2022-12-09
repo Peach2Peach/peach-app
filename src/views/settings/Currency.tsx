@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, SelectorBig, Title } from '../../components'
+import { GoBackButton, RadioButtons, Selector, SelectorBig, Title } from '../../components'
 import { CURRENCIES } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import LanguageContext from '../../contexts/language'
@@ -21,17 +21,16 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-      <Title title={i18n('settings.title')} subtitle={i18n('settings.displayCurrency.subtitle')} />
-      <View style={tw`h-full flex-shrink mt-12`}>
-        <SelectorBig
+    <View style={tw`h-full flex pt-6 px-6 pb-10`}>
+      <View style={tw`h-full items-center justify-center`}>
+        <RadioButtons
           style={tw`mt-2`}
           selectedValue={currency}
           items={CURRENCIES.map((c) => ({ value: c, display: c }))}
           onChange={(c) => setCurrency(c as Currency)}
         />
       </View>
-      <GoBackButton style={tw`self-center mt-16`} />
+      <GoBackButton style={tw`absolute bottom-0 self-center mb-6`} />
     </View>
   )
 }
