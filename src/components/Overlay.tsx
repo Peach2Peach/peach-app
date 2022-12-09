@@ -3,7 +3,6 @@ import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
-import { info } from '../utils/log'
 import Icon from './Icon'
 
 type LevelColorMap = {
@@ -30,25 +29,6 @@ const levelColorMap: LevelColorMap = {
   },
 }
 
-/**
- * @description Component to display the Overlay
- * @param props Component properties
- * @param props.level level of overlay
- * @param props.title title of the overlay
- * @param props.content content of the overlay
- * @param [props.action1] custom action to appear on bottom right corner
- * @param [props.action1Label] label for action1
- * @param [props.action1Icon] optional icon for action1
- * @param [props.action2] custom action to appear on bottom left corner
- * @param [props.action2Label] label for action2
- * @param [props.action2Icon] optional icon for action2
- * @param [props.style] additional styles to apply to the component
- * @param [props.visible] check whether the modal is visible or not
- * @param [props.closeOnTap] whether the modal can be closed when tap outside
- * @example
- * <Overlay title="popup title" level="ERROR" />
- */
-
 export const Overlay = ({
   title,
   content,
@@ -60,7 +40,7 @@ export const Overlay = ({
   action2Label,
   level,
   visible,
-  closeOnTap,
+  requireUserAction,
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
@@ -83,7 +63,7 @@ export const Overlay = ({
       <View style={tw`flex-1 items-center justify-center`}>
         <Pressable
           style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
-          onPress={closeOverlay}
+          onPress={!requireUserAction ? closeOverlay : null}
         ></Pressable>
         <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level ?? 'DEFAULT'], tw`rounded-2xl shadow`]}>
           <View style={[tw`p-4`, levelColorMap.bg2[level ?? 'DEFAULT'], tw`rounded-t-2xl`]}>

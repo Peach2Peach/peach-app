@@ -11,7 +11,7 @@ export const defaultOverlay: OverlayState = {
   action2Label: '',
   action2Icon: 'alertTriangle',
   level: 'DEFAULT',
-  closeOnTap: true,
+  requireUserAction: false,
 }
 
 const dispatch: Dispatch<OverlayState> = () => {}

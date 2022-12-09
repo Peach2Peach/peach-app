@@ -11,16 +11,16 @@ export default () => {
     updateOverlay({
       visible: false,
     })
-  const openOverlay = (level: OverlayLevel) =>
+  const openOverlay = (level: OverlayLevel, options: Partial<OverlayState> = {}) =>
     updateOverlay({
-      title: 'A Bitcoin trader named Pete',
+      title: 'There once was a trader named Pete',
       content: (
         <View>
           <Text>
-            Was quite good at P2P, you'd think{'\n'}
-            He'd trade with a stranger{'\n'}
-            But now he's in danger{'\n'}
-            His wealth has made him quite chinky!
+            Who traded bitcoin on peach{'\n'}
+            He found it quite neat{'\n'}
+            To trade on the street{'\n'}
+            And never again would he lose a seat
           </Text>
         </View>
       ),
@@ -32,10 +32,14 @@ export default () => {
       action2: closeOverlay,
       action2Label: 'also close',
       action2Icon: 'xSquare',
+      ...options,
     })
   return (
     <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
       <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { requireUserAction: true })}>
+        User action required
+      </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('DEFAULT')}>
         Default Overlay
       </PrimaryButton>
