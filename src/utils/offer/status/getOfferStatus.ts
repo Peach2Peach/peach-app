@@ -4,7 +4,7 @@ import { hasSeenAllMatches } from './hasSeenAllMatches'
 import { isContractPendingForCancelation } from './isContractPendingForCancelation'
 import { isDisputeActive } from './isDisputeActive'
 import { isEscrowRefunded } from './isEscrowRefunded'
-import { isEscrowTransactionSent } from './isEscrowTransactionSent'
+import { hasFundingTransactions } from './hasFundingTransactions'
 import { isEscrowWaitingForConfirmation } from './isEscrowWaitingForConfirmation'
 import { isKYCConfirmationRequired } from './isKYCConfirmationRequired'
 import { isKYCRequired } from './isKYCRequired'
@@ -59,7 +59,7 @@ export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
   if (isSellOffer(offer)) {
     if (isEscrowWaitingForConfirmation(offer)) return {
       status: 'escrowWaitingForConfirmation',
-      requiredAction: !isEscrowTransactionSent(offer) ? 'fundEscrow' : '',
+      requiredAction: !hasFundingTransactions(offer) ? 'fundEscrow' : '',
     }
     if (offer.returnAddressRequired) return {
       status: 'returnAddressRequired',
@@ -68,7 +68,7 @@ export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
     if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        requiredAction: isEscrowTransactionSent(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : '',
+        requiredAction: hasFundingTransactions(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : '',
       }
     }
   }

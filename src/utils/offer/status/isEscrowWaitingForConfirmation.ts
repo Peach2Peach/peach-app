@@ -1,8 +1,7 @@
 import { isSellOffer } from '../isSellOffer'
+import { isFunded } from './isFunded'
+import { isFundingCanceled } from './isFundingCanceled'
+import { isWronglyFunded } from './isWronglyFunded'
 
 export const isEscrowWaitingForConfirmation = (offer: SellOffer) =>
-  isSellOffer(offer)
-  && offer.escrow
-  && offer.funding.status !== 'FUNDED'
-  && offer.funding.status !== 'WRONG_FUNDING_AMOUNT'
-  && offer.funding.status !== 'CANCELED'
+  isSellOffer(offer) && offer.escrow && !isFunded(offer) && !isWronglyFunded(offer) && !isFundingCanceled(offer)
