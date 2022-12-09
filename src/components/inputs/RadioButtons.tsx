@@ -61,9 +61,7 @@ export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: Rad
       <View key={i} style={[tw`flex-row items-center`, i > 0 ? tw`mt-2` : {}]}>
         <Pressable style={tw`w-full`} onPress={() => (onChange && !item.disabled ? onChange(item.value) : null)}>
           {item.value === selectedValue ? (
-            <Shadow shadow={mildShadow}>
-              <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
-            </Shadow>
+            <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
           ) : (
             <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
           )}
