@@ -1,4 +1,6 @@
+import { isSellOffer } from '../isSellOffer'
+import { isFundingCanceled } from './isFundingCanceled'
+import { isWronglyFunded } from './isWronglyFunded'
+
 export const isOfferCanceled = (offer: BuyOffer | SellOffer) =>
-  !offer.online
-  && !offer.contractId
-  && (offer.type !== 'ask' || /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status))
+  (!offer.online && !offer.contractId) || (isSellOffer(offer) && (isWronglyFunded(offer) || isFundingCanceled(offer)))

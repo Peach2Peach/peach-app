@@ -16,6 +16,7 @@ import { isRefundRequired } from './isRefundRequired'
 import { isTradeCanceled } from './isTradeCanceled'
 import { isTradeComplete } from './isTradeComplete'
 import { requiresDisputeResultAcknowledgement } from './requiresDisputeResultAcknowledgement'
+import { isEscrowReleased } from './isEscrowReleased'
 
 // eslint-disable-next-line complexity
 export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
@@ -68,7 +69,8 @@ export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
     if (isOfferCanceled(offer)) {
       return {
         status: 'offerCanceled',
-        requiredAction: hasFundingTransactions(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : '',
+        requiredAction:
+          hasFundingTransactions(offer) && !isEscrowReleased(offer) && !isEscrowRefunded(offer) ? 'refundEscrow' : '',
       }
     }
   }
@@ -81,6 +83,6 @@ export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
   }
   return {
     status: offer.matches.length === 0 ? 'searchingForPeer' : 'match',
-    requiredAction: hasSeenAllMatches(offer) ? 'checkMatches' : '',
+    requiredAction: !hasSeenAllMatches(offer) ? 'checkMatches' : '',
   }
 }
