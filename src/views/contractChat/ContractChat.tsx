@@ -30,7 +30,7 @@ type Props = {
   navigation: StackNavigation
 }
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements, max-lines-per-function
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
