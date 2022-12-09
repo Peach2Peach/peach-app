@@ -51,10 +51,10 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },
     onSuccess: async (result: MatchResponse) => {
-      const refundTx = isSellOffer(offer) && result.refundTx ? await createRefundTx(offer, result.refundTx) : undefined
-      if (isSellOffer(offer)) {
+      if (isSellOffer(offer) && result.refundTx) {
+        const refundTx = await createRefundTx(offer, result.refundTx)
         saveOffer({
-          ...(offer as SellOffer),
+          ...offer,
           doubleMatched: true,
           contractId: result.contractId,
           refundTx,
