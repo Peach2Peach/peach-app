@@ -256,7 +256,7 @@ const App: React.FC = () => {
                                   screenOptions={{
                                     gestureEnabled: false,
                                     headerShown: false,
-                                    cardStyle: tw`bg-white-1`,
+                                    cardStyle: tw`bg-primary-background`,
                                   }}
                                 >
                                   {views.map(({ name, component }) => (

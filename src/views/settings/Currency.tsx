@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -9,7 +9,8 @@ import BitcoinContext from '../../contexts/bitcoin'
 import LanguageContext from '../../contexts/language'
 import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useHeaderState } from '../../components/header/store'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -20,6 +21,14 @@ export default (): ReactElement => {
   const [selectedCurrency, setSelectedCurrency] = useState(currency)
   const [loading, setLoading] = useState(false)
 
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: i18n('currency').toLocaleLowerCase() })
+    }, [setHeaderState]),
+  )
+
   const updateCurrency = (c: Currency) => {
     setLoading(true)
     updateSettings({ displayCurrency: c }, true)
@@ -29,7 +38,7 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex pt-6 px-6 pb-10`}>
+    <View style={tw`h-full flex pt-6 px-6 pb-10 bg-primary-background`}>
       <View style={tw`h-full items-center justify-center`}>
         <RadioButtons
           style={tw`mt-2`}
