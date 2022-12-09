@@ -3,7 +3,7 @@ import { isContractPendingForCancelation } from '../../../../../src/utils/offer/
 import { contract } from '../../../data/contractData'
 
 describe('isContractPendingForCancelation', () => {
-  it('should check if offer has seen all matches', () => {
+  it('should check if a cancelation was requested', () => {
     ok(
       isContractPendingForCancelation({
         ...contract,

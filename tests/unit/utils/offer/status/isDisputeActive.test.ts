@@ -3,7 +3,7 @@ import { isDisputeActive } from '../../../../../src/utils/offer/status'
 import { contract } from '../../../data/contractData'
 
 describe('isDisputeActive', () => {
-  it('should check if offer has seen all matches', () => {
+  it('should check if a dispute is active', () => {
     ok(
       isDisputeActive({
         ...contract,
