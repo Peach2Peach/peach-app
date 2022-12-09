@@ -1,29 +1,21 @@
 import { defaultAccount, setAccount } from '../../../../../src/utils/account'
+import { contractStorage } from '../../../../../src/utils/account/accountStorage'
 import { storeContracts } from '../../../../../src/utils/account/storeAccount'
-import * as fileUtils from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
 import * as contractData from '../../../data/contractData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('storeContracts', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
-    await storeContracts(defaultAccount.contracts, password)
+    await storeContracts(defaultAccount.contracts)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
   })
 
-  it('would write file to store contracts', async () => {
-    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await storeContracts(accountData.account1.contracts, password)
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-contracts/14-15.json',
-      JSON.stringify(contractData.contract),
-      password,
-    )
+  it('would store contracts', async () => {
+    await storeContracts(accountData.account1.contracts)
+    expect(contractStorage.setMapAsync).toHaveBeenCalledWith('14-15', contractData.contract)
   })
 })

@@ -1,6 +1,6 @@
 import { Psbt } from 'bitcoinjs-lib'
 import { verifyPSBT } from '../../views/contract/helpers/verifyPSBT'
-import { getEscrowWallet, getFinalScript, getNetwork } from '../wallet'
+import { getEscrowWallet, getFinalScript, getNetwork, getWallet } from '../wallet'
 import { getSellOfferFromContract } from './getSellOfferFromContract'
 
 /**
@@ -10,8 +10,8 @@ import { getSellOfferFromContract } from './getSellOfferFromContract'
  */
 export const signReleaseTx = (contract: Contract): [string | null, string[] | null] => {
   const sellOffer = getSellOfferFromContract(contract)
-  if (!sellOffer.id || !sellOffer?.funding) return [null, ['SELL_OFFER_NOT_FOUND']]
-
+  const sellOfferId = sellOffer.oldOfferId || sellOffer.id
+  if (!sellOfferId || !sellOffer?.funding) return [null, ['SELL_OFFER_NOT_FOUND']]
   const psbt = Psbt.fromBase64(contract.releaseTransaction, { network: getNetwork() })
 
   // Don't trust the response, verify
@@ -21,7 +21,7 @@ export const signReleaseTx = (contract: Contract): [string | null, string[] | nu
 
   // Sign psbt
   psbt.txInputs.forEach((input, i) =>
-    psbt.signInput(i, getEscrowWallet(sellOffer.oldOfferId || sellOffer.id!)).finalizeInput(i, getFinalScript),
+    psbt.signInput(i, getEscrowWallet(getWallet(), sellOfferId)).finalizeInput(i, getFinalScript),
   )
 
   const tx = psbt.extractTransaction().toHex()

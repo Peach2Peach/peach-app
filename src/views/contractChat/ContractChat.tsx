@@ -257,7 +257,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       contractId: contract.id,
       page,
       onSuccess: async (result) => {
-        if (!contract || !contract.symmetricKey) return
+        if (!contract || !contract.symmetricKey) {
+          setUpdatePending(false)
+          return
+        }
         let decryptedMessages = await Promise.all(result.map(decryptMessage(chat, contract.symmetricKey)))
 
         if (decryptedMessages.some((m) => m.message === null)) {
@@ -317,6 +320,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <MessageInput
             onChange={onChangeMessage}
             onSubmit={submit}
+            disabled={!contract.symmetricKey}
             disableSubmit={disableSend}
             value={newMessage}
             placeholder={i18n('chat.yourMessage')}

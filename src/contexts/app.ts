@@ -1,6 +1,6 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import { createContext, Dispatch, ReducerState } from 'react'
-import { setSessionItem } from '../utils/session'
+import { sessionStorage } from '../utils/session'
 import { isIOS } from '../utils/system'
 
 let notifications = 0
@@ -17,7 +17,7 @@ export const setAppContext = (state: ReducerState<any>, newState: Partial<AppSta
   notifications = Math.max(0, newState.notifications ?? notifications)
 
   if (isIOS()) NotificationBadge.setNumber(notifications)
-  setSessionItem('notifications', notifications)
+  sessionStorage.setInt('notifications', notifications)
 
   return {
     notifications,

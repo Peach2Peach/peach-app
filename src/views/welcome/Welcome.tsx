@@ -7,12 +7,12 @@ import Logo from '../../assets/logo/peachLogo.svg'
 import { Button } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
+import { ContactButton } from '../report/components/ContactButton'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import Swipe from './Swipe'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
-import { ContactButton } from '../report/components/ContactButton'
 
 const onStartShouldSetResponder = () => true
 
@@ -65,30 +65,10 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`mb-8 mt-4 flex items-center w-full`}>
-        {page !== screens.length - 1 ? (
-          <View>
-            <Button testID="welcome-next" title={i18n('next')} wide={false} onPress={next} />
-            <Button style={tw`opacity-0 mt-4`} title="layout dummy" secondary={true} wide={false} />
-          </View>
-        ) : (
-          <View>
-            <Button
-              testID="welcome-newUser"
-              onPress={() => navigation.navigate('newUser', {})}
-              wide={false}
-              title={i18n('newUser')}
-            />
-            <Button
-              testID="welcome-restoreBackup"
-              style={tw`mt-4`}
-              onPress={() => navigation.navigate('restoreBackup', {})}
-              wide={false}
-              secondary={true}
-              title={i18n('restoreBackup')}
-            />
-          </View>
-        )}
+      <View style={tw`mb-8 flex items-center w-full`}>
+        <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
+          <Button testID="welcome-next" title={i18n('next')} wide={false} onPress={next} />
+        </View>
         <View style={tw`w-full flex-row justify-center mt-11`}>
           {screens.map((screen, i) => (
             <Pressable

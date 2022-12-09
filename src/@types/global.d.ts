@@ -135,14 +135,6 @@ declare type BitcoinState = {
   prices: Pricebook
 }
 
-declare type Session = {
-  initialized: boolean
-  password?: string
-  notifications: number
-  peachInfo?: PeachInfo
-  unsavedPaymentData?: PaymentData[]
-}
-
 declare type PeachWallet = {
   wallet: bip32.BIP32Interface
   mnemonic: string

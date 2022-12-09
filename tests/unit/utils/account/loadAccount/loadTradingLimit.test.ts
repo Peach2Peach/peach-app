@@ -1,28 +1,21 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, setAccount, storeAccount } from '../../../../../src/utils/account'
+import { defaultAccount, setAccount, storeTradingLimit } from '../../../../../src/utils/account'
 import { loadTradingLimit } from '../../../../../src/utils/account/loadAccount'
-import * as file from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('loadTradingLimit', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
   })
 
-  it('loads trading limit from files', async () => {
-    const readFileSpy = jest.spyOn(file, 'readFile')
+  it('loads trading limit', async () => {
+    await storeTradingLimit(accountData.account1.tradingLimit)
 
-    await storeAccount(accountData.account1, password)
-
-    const tradingLimit = await loadTradingLimit(password)
-    expect(readFileSpy).toHaveBeenCalledWith('/peach-account-tradingLimit.json', password)
+    const tradingLimit = await loadTradingLimit()
     deepStrictEqual(tradingLimit, accountData.account1.tradingLimit)
   })
 })

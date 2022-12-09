@@ -3,14 +3,12 @@ export {}
 import * as accountData from './data/accountData'
 const { version } = require('../../package.json')
 
-jest.mock('../../src/utils/peachAPI', () => {
-  const actual = jest.requireActual('../../src/utils/peachAPI')
-  const mock = jest.requireActual('../../src/utils/__mocks__/peachAPI')
-  return {
-    ...actual,
-    ...mock,
-  }
-})
+export const resetMocks = (...mocks: any) => mocks.forEach((mock: jest.Mock) => (<jest.Mock>mock).mockReset())
+
+jest.mock('../../src/utils/peachAPI', () => ({
+  ...jest.requireActual('../../src/utils/peachAPI'),
+  ...jest.requireActual('../../src/utils/__mocks__/peachAPI'),
+}))
 
 export let fakeFiles: Record<string, string> = {}
 export const resetFakeFiles = () => (fakeFiles = {})
@@ -25,25 +23,19 @@ jest.mock('react-native-fs', () => ({
     delete fakeFiles[path]
   },
   mkdir: async (): Promise<void> => {},
-  readDir: async (path: string): Promise<string[]> => [],
+  readDir: async (): Promise<string[]> => [],
   DocumentDirectoryPath: '',
 }))
 
-jest.mock('react-native-screens', () => {
-  const actual = jest.requireActual('react-native-screens')
-  return {
-    ...actual,
-    enableScreens: jest.fn(),
-  }
-})
+jest.mock('react-native-screens', () => ({
+  ...jest.requireActual('react-native-screens'),
+  enableScreens: jest.fn(),
+}))
 
-jest.mock('react-native-fast-openpgp', () => {
-  const actual = jest.requireActual('react-native-fast-openpgp')
-  return {
-    ...actual,
-    generate: () => accountData.account1.pgp,
-  }
-})
+jest.mock('react-native-fast-openpgp', () => ({
+  ...jest.requireActual('react-native-fast-openpgp'),
+  generate: () => accountData.account1.pgp,
+}))
 
 jest.mock('react-native-share', () => ({
   open: jest.fn(),
@@ -99,43 +91,58 @@ jest.mock('react-native-promise-rejection-utils', () => ({
 }))
 
 type Storage = {
-  [key: string]: string | boolean
+  [key: string]: any
 }
-export let storage: Storage = {}
+export let storage: Record<string, Storage> = {}
 export const setStorage = (strg: Storage) => (storage = strg)
+export const resetStorage = () => (storage = {})
 
 jest.mock('react-native-mmkv-storage', () => ({
   IOSAccessibleStates: {},
-  MMKVLoader: () => ({
+  MMKVLoader: jest.fn(() => ({
     setAccessibleIOS: () => ({
       withEncryption: () => ({
-        withInstanceID: () => ({
-          initialize: () => ({
-            setItem: async (key: string, val: string) => (storage[key] = val),
-            getItem: async (key: string) => storage[key],
-            setBool: (key: string, val: boolean) => (storage[key] = val),
-            getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
-            options: {
-              accessibleMode: 'AccessibleAfterFirstUnlock',
-            },
-          }),
-        }),
-      }),
-    }),
-    withEncryption: () => ({
-      withInstanceID: () => ({
-        initialize: () => ({
-          setItem: async (key: string, val: string) => (storage[key] = val),
-          getItem: async (key: string) => storage[key],
-          setBool: (key: string, val: boolean) => (storage[key] = val),
-          getBoolAsync: async (key: string): Promise<boolean> => storage[key] as boolean,
-          options: {
-            accessibleMode: 'AccessibleAfterFirstUnlock',
+        withInstanceID: (instanceId: string) => ({
+          initialize: () => {
+            storage[instanceId] = {}
+
+            const get = (key: string) => storage[instanceId][key]
+            const getAsync = async (key: string) => storage[instanceId][key]
+            const store = (key: string, val: any) => (storage[instanceId][key] = val)
+            const storeAsync = async (key: string, val: any) => (storage[instanceId][key] = val)
+            const remove = (key: string) => delete storage[instanceId][key]
+
+            return {
+              setItem: jest.fn().mockImplementation(storeAsync),
+              getItem: jest.fn().mockImplementation(getAsync),
+              removeItem: jest.fn().mockImplementation(remove),
+              getString: jest.fn().mockImplementation(get),
+              setString: jest.fn().mockImplementation(store),
+              setStringAsync: jest.fn().mockImplementation(storeAsync),
+              getArray: jest.fn().mockImplementation(get),
+              setArray: jest.fn().mockImplementation(store),
+              setArrayAsync: jest.fn().mockImplementation(storeAsync),
+              setMap: jest.fn().mockImplementation(store),
+              setMapAsync: jest.fn().mockImplementation(storeAsync),
+              getMap: jest.fn().mockImplementation(get),
+              getBool: jest.fn().mockImplementation(get),
+              setBool: jest.fn().mockImplementation(store),
+              getBoolAsync: jest.fn().mockImplementation(getAsync),
+              indexer: {
+                getKeys: jest.fn().mockImplementation(async () => Object.keys(storage[instanceId])),
+                maps: {
+                  getAll: jest.fn().mockImplementation(async () => storage[instanceId]),
+                },
+              },
+              options: {
+                accessibleMode: 'AccessibleAfterFirstUnlock',
+              },
+            }
           },
         }),
       }),
     }),
-  }),
+  })),
 }))
 
 jest.mock('react-native-snap-carousel', () => jest.fn())

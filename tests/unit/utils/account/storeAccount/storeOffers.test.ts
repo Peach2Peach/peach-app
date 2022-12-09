@@ -1,34 +1,22 @@
 import { defaultAccount, setAccount } from '../../../../../src/utils/account'
+import { offerStorage } from '../../../../../src/utils/account/accountStorage'
 import { storeOffers } from '../../../../../src/utils/account/storeAccount'
-import * as fileUtils from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
 import * as offerData from '../../../data/offerData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('storeOffers', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
-    await storeOffers(defaultAccount.offers, password)
+    await storeOffers(defaultAccount.offers)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
   })
 
   it('would write file to store offers', async () => {
-    const writeFileSpy = jest.spyOn(fileUtils, 'writeFile')
-    await storeOffers(accountData.account1.offers, password)
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-offers/37.json',
-      JSON.stringify(offerData.buyOffer),
-      password,
-    )
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      '/peach-account-offers/38.json',
-      JSON.stringify(offerData.sellOffer),
-      password,
-    )
+    await storeOffers(accountData.account1.offers)
+    expect(offerStorage.setMapAsync).toHaveBeenCalledWith('37', offerData.buyOffer)
+    expect(offerStorage.setMapAsync).toHaveBeenCalledWith('38', offerData.sellOffer)
   })
 })

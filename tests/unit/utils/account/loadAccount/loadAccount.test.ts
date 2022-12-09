@@ -1,51 +1,30 @@
 import { deepStrictEqual, ok } from 'assert'
 import { account, defaultAccount, loadAccount, setAccount, storeAccount } from '../../../../../src/utils/account'
-import * as file from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
-import { fakeFiles, resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('loadAccount', () => {
   beforeEach(async () => {
-    const existsMock = jest.spyOn(file, 'exists')
-    const readDirMock = jest.spyOn(file, 'readDir')
-    existsMock.mockImplementation(
-      async (path) => path === '/peach-account-contracts' || path === '/peach-account-offers' || !!fakeFiles[path],
-    )
-    readDirMock.mockImplementation(async (path) =>
-      path === '/peach-account-contracts'
-        ? ['/peach-account-contracts/14-15.json']
-        : ['/peach-account-offers/37.json', '/peach-account-offers/38.json'],
-    )
-
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
+  })
+
+  it('loads account', async () => {
+    await storeAccount(accountData.buyer)
+
+    const acc = await loadAccount()
+    ok(acc.publicKey)
+    ok(account.publicKey)
+    deepStrictEqual(account, acc)
+    deepStrictEqual(account, accountData.buyer)
   })
 
   it('returns already loaded account', async () => {
     await setAccount(accountData.account1)
-    const acc = await loadAccount(password)
+    const acc = await loadAccount()
     deepStrictEqual(account, acc)
     deepStrictEqual(account, accountData.account1)
-  })
-  it('loads account from file', async () => {
-    const existsSpy = jest.spyOn(file, 'exists')
-    const readFileSpy = jest.spyOn(file, 'readFile')
-
-    await storeAccount(accountData.userWithNoTrades, password)
-
-    const acc = await loadAccount(password)
-    expect(existsSpy).toHaveBeenCalledWith('/peach-account-offers')
-    expect(existsSpy).toHaveBeenCalledWith('/peach-account-contracts')
-    expect(readFileSpy).toHaveBeenCalledTimes(7)
-    expect(readFileSpy).toHaveBeenCalledWith(expect.stringContaining('.json'), password)
-    ok(acc.publicKey)
-    ok(account.publicKey)
-    deepStrictEqual(account, acc)
-    deepStrictEqual(account, accountData.userWithNoTrades)
   })
 })

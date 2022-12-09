@@ -2,17 +2,16 @@ import { contractExists } from '.'
 import { account } from '../account'
 import { storeContract } from '../account/storeAccount'
 import { info } from '../log'
-import { session } from '../session'
 
 /**
  * @description Method to add contract to contract list
  * @param contract the contract
-*/
+ */
 export const saveContract = (contract: Contract, disableSave = false): void => {
   if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
 
   if (contractExists(contract.id)) {
-    account.contracts = account.contracts.map(c => {
+    account.contracts = account.contracts.map((c) => {
       if (c.id !== contract.id) return c
       return {
         ...c,
@@ -29,18 +28,18 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
     account.contracts.push(contract)
   }
 
-  if (!disableSave && session.password) {
+  if (!disableSave) {
     info('saveContract', contract.id)
-    storeContract(contract, session.password)
+    storeContract(contract)
   }
 }
 
 /**
  * @description Method to save multiple contracts
  * @param contracts the contracts
-*/
+ */
 export const saveContracts = (contracts: Contract[]) => {
   info('saveContracts', contracts.length)
 
-  contracts.map(contract => saveContract(contract, true))
+  contracts.map((contract) => saveContract(contract, true))
 }
