@@ -28,7 +28,7 @@ const useHeaderSetup = (page: 'buy' | 'sell') => {
     useCallback(() => {
       setHeaderState({
         titleComponent: <TitleComponent page={page} />,
-        showGoBackButton: false,
+        hideGoBackButton: true,
         icons: getHeaderIcons(page),
       })
     }, [page, setHeaderState]),

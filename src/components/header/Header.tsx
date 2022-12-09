@@ -7,13 +7,13 @@ import { useNavigation } from '@react-navigation/native'
 import { useHeaderState } from './store'
 
 export const Header = () => {
-  const { title, icons, titleComponent, showGoBackButton } = useHeaderState()
+  const { title, icons, titleComponent, hideGoBackButton } = useHeaderState()
   const { goBack, canGoBack } = useNavigation()
 
   return (
     <View style={tw`h-9 flex-row justify-between px-8`}>
       <View style={tw`items-center flex-row`}>
-        {showGoBackButton && canGoBack() && (
+        {!hideGoBackButton && canGoBack() && (
           <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={goBack}>
             <Icon id="chevronLeft" />
           </TouchableOpacity>

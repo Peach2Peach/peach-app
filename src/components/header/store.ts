@@ -4,7 +4,7 @@ type HeaderConfig = {
   title?: string
   titleComponent?: JSX.Element
   icons?: { iconComponent: JSX.Element; onPress: () => void }[]
-  showGoBackButton?: boolean
+  hideGoBackButton?: boolean
 }
 
 type HeaderState = HeaderConfig & {
@@ -15,7 +15,7 @@ const defaultState = {
   title: '',
   titleComponent: undefined,
   icons: [],
-  showGoBackButton: true,
+  hideGoBackButton: false,
 }
 
 export const useHeaderState = create<HeaderState>()((set) => ({
