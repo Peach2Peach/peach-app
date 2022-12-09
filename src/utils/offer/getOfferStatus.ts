@@ -36,7 +36,11 @@ export const isRatingRequired = (offer: SellOffer | BuyOffer, contract: Contract
   && ((offer.type === 'bid' && !contract.ratingSeller) || (offer.type === 'ask' && !contract.ratingBuyer))
 
 export const refundRequired = (offer: SellOffer | BuyOffer, contract: Contract) =>
-  offer.type === 'ask' && contract.disputeWinner === 'seller' && !offer.refunded && !contract.releaseTxId
+  offer.type === 'ask'
+  && contract.disputeWinner === 'seller'
+  && !offer.newOfferId
+  && !offer.refunded
+  && !contract.releaseTxId
 
 export const isDisputeActive = (contract: Contract) => contract.disputeActive
 export const requiresDisputeResultAcknowledgement = (contract: Contract) =>
