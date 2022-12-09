@@ -26,7 +26,11 @@ const useHeaderSetup = (page: 'buy' | 'sell') => {
 
   useFocusEffect(
     useCallback(() => {
-      setHeaderState({ titleComponent: <TitleComponent page={page} />, icons: getHeaderIcons(page) })
+      setHeaderState({
+        titleComponent: <TitleComponent page={page} />,
+        showGoBackButton: false,
+        icons: getHeaderIcons(page),
+      })
     }, [page, setHeaderState]),
   )
 }

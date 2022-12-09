@@ -67,13 +67,12 @@ export const Header = () => {
   const { title, icons, titleComponent, showGoBackButton } = useHeaderState()
   useHeaderEffect()
   const { goBack, canGoBack } = useNavigation()
-  const handleBackPress = canGoBack() ? goBack : () => undefined
 
   return (
     <View style={tw`flex-row h-9 justify-between mx-4 px-8`}>
       <View style={tw`items-center flex-row`}>
-        {showGoBackButton && (
-          <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={handleBackPress}>
+        {showGoBackButton && canGoBack() && (
+          <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={goBack}>
             <Icon id="chevronLeft" />
           </TouchableOpacity>
         )}

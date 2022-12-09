@@ -23,6 +23,7 @@ import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
+import edit from './edit.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import clipboard from './clipboard.svg'
@@ -93,6 +94,7 @@ const Icons = {
   creditCard,
   dollarSign,
   download,
+  edit,
   eye,
   eyeOff,
   clipboard,

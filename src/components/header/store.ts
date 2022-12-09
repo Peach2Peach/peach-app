@@ -15,7 +15,7 @@ const defaultState = {
   title: '',
   titleComponent: undefined,
   icons: [],
-  showGoBackButton: false,
+  showGoBackButton: true,
 }
 
 export const useHeaderState = create<HeaderState>()((set) => ({
