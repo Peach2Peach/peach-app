@@ -1,16 +1,17 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
-import { Headline, PrimaryButton, Text } from '../components'
+import { Headline, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
+import { PrimaryButton } from '../components/buttons'
 
 export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const confirm = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   return (

@@ -18,7 +18,7 @@ export type ConfirmRaiseDisputeProps = {
 export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisputeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   const ok = async () => {
     closeOverlay()
@@ -28,7 +28,7 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
   const openExplainer = () =>
     updateOverlay({
       content: <WhatIsADispute />,
-      showCloseButton: true,
+      visible: true,
     })
 
   return (

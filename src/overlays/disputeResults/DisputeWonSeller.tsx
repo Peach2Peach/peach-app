@@ -24,7 +24,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: Disp
       disputeResultAcknowledged: true,
     })
     navigate()
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
   const refund = () => {
     saveContract({
@@ -34,7 +34,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: Disp
     })
     updateOverlay({
       content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
   }
 

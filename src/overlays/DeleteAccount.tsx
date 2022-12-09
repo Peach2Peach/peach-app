@@ -22,10 +22,10 @@ type DeleteAccountProps = {
 export const DeleteAccount = ({ navigate }: DeleteAccountProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const ok = async () => {
     await deleteAccount({ onSuccess: navigate })
-    updateOverlay({ content: <AccountDeleted />, showCloseButton: false })
+    updateOverlay({ content: <AccountDeleted />, visible: true })
     setTimeout(() => {
       closeOverlay()
     }, 3000)

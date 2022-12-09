@@ -20,7 +20,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const confirm = async () => {
     setLoading(true)
     const [result, err] = await confirmContractCancelation({ contractId: contract.id })
@@ -31,7 +31,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
         canceled: true,
         cancelationRequested: false,
       })
-      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
+      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} />, visible: true })
       navigation.navigate('yourTrades', {})
     } else if (err) {
       error('Error', err)

@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
-import { Headline, PrimaryButton, Text } from '../../components'
+import { Headline, Text, PrimaryButton } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { saveContract } from '../../utils/contract'
@@ -21,7 +21,7 @@ export const DisputeWonBuyer = ({ contract, navigate }: DisputeWonBuyerProps): R
       cancelConfirmationDismissed: true,
     })
     navigate()
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   return (

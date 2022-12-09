@@ -11,7 +11,7 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
  */
 export const ContractCanceled = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   useEffect(() => {
     setTimeout(() => {

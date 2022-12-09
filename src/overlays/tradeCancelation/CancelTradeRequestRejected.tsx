@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import { Headline, PrimaryButton, Text } from '../../components'
+import { Headline, Text, PrimaryButton } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { getOfferIdfromContract, saveContract } from '../../utils/contract'
@@ -13,7 +13,7 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   useEffect(() => {
     saveContract({

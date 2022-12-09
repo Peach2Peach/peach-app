@@ -63,7 +63,7 @@ const ReturnAddressMismatchMessage = ({
         i18n('refund.RETURN_ADDRESS_MISMATCH.actual', refundPSBT?.txOutputs[0]?.address || 'null'),
       ].join('\n\n'),
     })
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
   return (
     <View>
@@ -101,7 +101,7 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
 
   const closeOverlay = () => {
     navigate()
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   useEffect(

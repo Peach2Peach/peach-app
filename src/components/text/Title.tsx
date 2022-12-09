@@ -15,7 +15,7 @@ type TitleProps = ComponentProps & {
 export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const openHelp = () => updateOverlay({ content: help, showCloseButton: true, help: true })
+  const openHelp = () => updateOverlay({ content: help, visible: true })
 
   return (
     <View style={[tw`flex items-center`, style]}>

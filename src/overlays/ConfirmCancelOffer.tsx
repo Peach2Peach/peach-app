@@ -59,7 +59,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const ok = async () => {
     setLoading(true)
     await confirm(offer)
@@ -71,7 +71,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
       }
     })
 
-    updateOverlay({ content: <TradeCanceled />, showCloseButton: false })
+    updateOverlay({ content: <TradeCanceled />, visible: true })
     setTimeout(() => {
       closeOverlay()
 
@@ -81,7 +81,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
       }
       updateOverlay({
         content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
-        showCloseButton: false,
+        visible: true,
       })
     }, 3000)
   }

@@ -25,8 +25,7 @@ export default ({
   const openConfirmPaymentHelp = () =>
     updateOverlay({
       content: <ConfirmPayment />,
-      showCloseButton: true,
-      help: true,
+      visible: true,
     })
   return (
     <View>
