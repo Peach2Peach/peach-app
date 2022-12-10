@@ -39,7 +39,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
       onSuccess: async (result) => {
         const newView = result.seller.id === account.publicKey ? 'seller' : 'buyer'
         setContract(result)
-        setOffer(getOffer(result.id.split('-')[newView === 'seller' ? 0 : 1]) as BuyOffer | SellOffer)
+        setOffer(getOffer(result.id.split('-')[newView === 'seller' ? 0 : 1])!)
 
         setView(newView)
         setHasWinner(!!result.disputeWinner)

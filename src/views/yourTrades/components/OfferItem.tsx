@@ -150,7 +150,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
               </View>
               <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
             </View>
-            {requiredAction && !contract?.disputeActive && (offer.type === 'bid' || !contract?.cancelationRequested) ? (
+            {requiredAction && !contract?.disputeActive && (isBuyOffer(offer) || !contract?.cancelationRequested) ? (
               <View style={tw`flex items-center mt-3 mb-1`}>
                 <Button
                   title={i18n(`offer.requiredAction.${requiredAction}`)}

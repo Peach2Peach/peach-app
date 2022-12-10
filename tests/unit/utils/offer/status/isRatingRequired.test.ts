@@ -4,7 +4,7 @@ import { contract } from '../../../data/contractData'
 import { buyOffer, sellOffer } from '../../../data/offerData'
 
 describe('isRatingRequired', () => {
-  it('should check if payment is required', () => {
+  it('should check if rating is required', () => {
     ok(
       isRatingRequired(buyOffer, {
         ...contract,
