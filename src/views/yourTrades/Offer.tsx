@@ -22,7 +22,8 @@ import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
 import AppContext from '../../contexts/app'
 import { getChatNotifications } from '../../utils/chat'
-import { getOfferStatus, isTradeComplete } from '../../utils/offer/status'
+import { getOfferStatus } from '../../utils/offer/status'
+import { isTradeComplete } from '../../utils/contract/status'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['offer'] }>
