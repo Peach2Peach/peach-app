@@ -18,7 +18,7 @@ import { getOfferStatus, hasFundingTransactions, isEscrowReleased, isFunded } fr
 // eslint-disable-next-line complexity
 const navigateToOffer = (
   offer: SellOffer | BuyOffer,
-  offerStatus: OfferStatus,
+  offerStatus: TradeStatus,
   navigation: StackNavigation,
   updateOverlay: React.Dispatch<OverlayState>,
   // eslint-disable-next-line max-params
@@ -79,7 +79,7 @@ type OfferItemProps = ComponentProps & {
   navigation: StackNavigation
 }
 
-type IconMap = { [key in OfferStatus['status']]?: IconType } & { [key in OfferStatus['requiredAction']]?: IconType }
+type IconMap = { [key in TradeStatus['status']]?: IconType } & { [key in TradeStatus['requiredAction']]?: IconType }
 
 const ICONMAP: IconMap = {
   offerPublished: 'clock',

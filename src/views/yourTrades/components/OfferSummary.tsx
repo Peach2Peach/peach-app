@@ -12,7 +12,7 @@ const sellOrBuy = (offer: SellOffer | BuyOffer) => (isSellOffer(offer) ? 'sell' 
 
 type OfferSummaryProps = {
   offer: BuyOffer | SellOffer
-  status: OfferStatus['status']
+  status: TradeStatus['status']
   navigation: StackNavigation
 }
 export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): ReactElement => {

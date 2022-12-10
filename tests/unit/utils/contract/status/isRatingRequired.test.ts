@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { isRatingRequired } from '../../../../../src/utils/offer/status'
+import { isRatingRequired } from '../../../../../src/utils/contract/status'
 import { contract } from '../../../data/contractData'
 import { buyOffer, sellOffer } from '../../../data/offerData'
 

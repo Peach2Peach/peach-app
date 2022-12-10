@@ -6,16 +6,18 @@ import { hasSeenAllMatches } from './hasSeenAllMatches'
 import { isEscrowRefunded } from './isEscrowRefunded'
 import { isEscrowReleased } from './isEscrowReleased'
 import { isEscrowWaitingForConfirmation } from './isEscrowWaitingForConfirmation'
-import { isKYCConfirmationRequired } from './isKYCConfirmationRequired'
-import { isKYCRequired } from './isKYCRequired'
+import { isKYCConfirmationRequired } from '../../contract/status/isKYCConfirmationRequired'
 import { isOfferCanceled } from './isOfferCanceled'
-import { isPaymentConfirmationRequired } from './isPaymentConfirmationRequired'
-import { isPaymentRequired } from './isPaymentRequired'
-import { isRatingRequired } from './isRatingRequired'
 import { isRefundRequired } from './isRefundRequired'
-import { isTradeCanceled } from './isTradeCanceled'
-import { isTradeComplete } from './isTradeComplete'
 import { requiresDisputeResultAcknowledgement } from './requiresDisputeResultAcknowledgement'
+import {
+  isKYCRequired,
+  isPaymentConfirmationRequired,
+  isPaymentRequired,
+  isRatingRequired,
+  isTradeCanceled,
+  isTradeComplete,
+} from '../../contract/status'
 
 const getSellOfferStatus = (offer: SellOffer): OfferStatus => {
   if (isEscrowWaitingForConfirmation(offer)) return {

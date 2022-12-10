@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { isTradeComplete } from '../../../../../src/utils/offer/status'
+import { isTradeComplete } from '../../../../../src/utils/contract/status'
 import { contract } from '../../../data/contractData'
 
 describe('isTradeComplete', () => {

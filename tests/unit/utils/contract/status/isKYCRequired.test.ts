@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { isKYCRequired } from '../../../../../src/utils/offer/status'
+import { isKYCRequired } from '../../../../../src/utils/contract/status'
 import { contract } from '../../../data/contractData'
 
 describe('isKYCRequired', () => {

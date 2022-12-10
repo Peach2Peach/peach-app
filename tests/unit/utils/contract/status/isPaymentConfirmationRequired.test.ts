@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { isPaymentConfirmationRequired } from '../../../../../src/utils/offer/status'
+import { isPaymentConfirmationRequired } from '../../../../../src/utils/contract/status'
 import { contract } from '../../../data/contractData'
 
 describe('isPaymentConfirmationRequired', () => {
