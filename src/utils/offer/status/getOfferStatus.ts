@@ -1,25 +1,14 @@
 import { getContract } from '../../contract'
-import { isBuyOffer } from '../isBuyOffer'
+import { getContractStatus } from '../../contract/status'
 import { isSellOffer } from '../isSellOffer'
 import { hasFundingTransactions } from './hasFundingTransactions'
 import { hasSeenAllMatches } from './hasSeenAllMatches'
 import { isEscrowRefunded } from './isEscrowRefunded'
 import { isEscrowReleased } from './isEscrowReleased'
 import { isEscrowWaitingForConfirmation } from './isEscrowWaitingForConfirmation'
-import { isKYCConfirmationRequired } from '../../contract/status/isKYCConfirmationRequired'
 import { isOfferCanceled } from './isOfferCanceled'
-import { isRefundRequired } from './isRefundRequired'
-import { requiresDisputeResultAcknowledgement } from './requiresDisputeResultAcknowledgement'
-import {
-  isKYCRequired,
-  isPaymentConfirmationRequired,
-  isPaymentRequired,
-  isRatingRequired,
-  isTradeCanceled,
-  isTradeComplete,
-} from '../../contract/status'
 
-const getSellOfferStatus = (offer: SellOffer): OfferStatus => {
+const getSellOfferStatus = (offer: SellOffer): TradeStatus => {
   if (isEscrowWaitingForConfirmation(offer)) return {
     status: 'escrowWaitingForConfirmation',
     requiredAction: !hasFundingTransactions(offer) ? 'fundEscrow' : '',
@@ -40,47 +29,7 @@ const getSellOfferStatus = (offer: SellOffer): OfferStatus => {
   }
 }
 
-const getContractStatus = (offer: BuyOffer | SellOffer, contract: Contract): OfferStatus => {
-  if (isTradeComplete(contract)) return {
-    status: 'tradeCompleted',
-    requiredAction: contract.disputeActive
-      ? 'dispute'
-      : requiresDisputeResultAcknowledgement(contract)
-        ? 'acknowledgeDisputeResult'
-        : isRatingRequired(offer, contract)
-          ? 'rate'
-          : '',
-  }
-
-  if (isTradeCanceled(contract)) return {
-    status: 'tradeCanceled',
-    requiredAction: isRefundRequired(offer, contract) ? 'startRefund' : '',
-  }
-
-  if (isBuyOffer(offer)) return {
-    status: 'contractCreated',
-    requiredAction: contract.cancelationRequested
-      ? 'confirmCancelation'
-      : isKYCRequired(contract)
-        ? 'sendKYC'
-        : isPaymentRequired(contract)
-          ? 'sendPayment'
-          : '',
-  }
-
-  return {
-    status: 'contractCreated',
-    requiredAction: contract.cancelationRequested
-      ? 'confirmCancelation'
-      : isKYCConfirmationRequired(contract)
-        ? 'confirmKYC'
-        : isPaymentConfirmationRequired(contract)
-          ? 'confirmPayment'
-          : '',
-  }
-}
-
-export const getOfferStatus = (offer: SellOffer | BuyOffer): OfferStatus => {
+export const getOfferStatus = (offer: SellOffer | BuyOffer): TradeStatus => {
   if (!offer) return { status: 'null', requiredAction: '' }
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
