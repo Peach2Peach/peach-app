@@ -1,4 +1,2 @@
-import { isSellOffer } from '../isSellOffer'
-
-export const isPaymentConfirmationRequired = (offer: SellOffer, contract: Contract) =>
-  isSellOffer(offer) && contract.paymentMade !== null && !contract.paymentConfirmed
+export const isPaymentConfirmationRequired = (contract: Contract) =>
+  contract.paymentMade !== null && !contract.paymentConfirmed

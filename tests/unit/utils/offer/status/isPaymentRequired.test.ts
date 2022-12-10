@@ -1,18 +1,17 @@
 import { ok } from 'assert'
 import { isPaymentRequired } from '../../../../../src/utils/offer/status'
 import { contract } from '../../../data/contractData'
-import { buyOffer } from '../../../data/offerData'
 
 describe('isPaymentRequired', () => {
   it('should check if payment is required', () => {
     ok(
-      isPaymentRequired(buyOffer, {
+      isPaymentRequired({
         ...contract,
         paymentMade: null,
       }),
     )
     ok(
-      isPaymentRequired(buyOffer, {
+      isPaymentRequired({
         ...contract,
         paymentMade: null,
         kycRequired: true,
@@ -20,7 +19,7 @@ describe('isPaymentRequired', () => {
       }),
     )
     ok(
-      !isPaymentRequired(buyOffer, {
+      !isPaymentRequired({
         ...contract,
         paymentMade: null,
         kycRequired: true,
@@ -29,7 +28,7 @@ describe('isPaymentRequired', () => {
       }),
     )
     ok(
-      !isPaymentRequired(buyOffer, {
+      !isPaymentRequired({
         ...contract,
         paymentMade: new Date(),
       }),

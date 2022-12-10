@@ -1,8 +1,6 @@
 export { getOfferStatus } from './getOfferStatus'
 export { hasFundingTransactions } from './hasFundingTransactions'
 export { hasSeenAllMatches } from './hasSeenAllMatches'
-export { isContractPendingForCancelation } from './isContractPendingForCancelation'
-export { isDisputeActive } from './isDisputeActive'
 export { isEscrowRefunded } from './isEscrowRefunded'
 export { isEscrowReleased } from './isEscrowReleased'
 export { isEscrowWaitingForConfirmation } from './isEscrowWaitingForConfirmation'
