@@ -1,6 +1,6 @@
-import { Platform } from 'react-native'
+import { getOS } from './getOS'
 
 /**
  * @description Method to check if app is compiled for iOS
  */
-export const isIOS = () => Platform.OS === 'ios'
+export const isIOS = () => getOS() === 'ios'
