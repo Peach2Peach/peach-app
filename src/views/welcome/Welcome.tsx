@@ -6,23 +6,20 @@ import Carousel from 'react-native-snap-carousel'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { PrimaryButton } from '../../components'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import Swipe from './Swipe'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
 import { ContactButton } from '../report/components/ContactButton'
+import { useNavigation } from '../../hooks'
 
 const onStartShouldSetResponder = () => true
 
-type ScreenProps = {
-  navigation: StackNavigation
-}
-
 const screens = [WelcomeToPeach, Swipe, PeachOfMind, YouOwnYourData, LetsGetStarted]
 
-export default ({ navigation }: ScreenProps): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
@@ -36,7 +33,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
 
   return (
     <View style={tw`h-full flex`} testID="welcome">
-      <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
+      <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} />
       <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
         <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
           <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
@@ -76,13 +73,13 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           </View>
         ) : (
           <View>
-            <PrimaryButton testID="welcome-newUser" onPress={() => navigation.navigate('newUser', {})} narrow>
+            <PrimaryButton testID="welcome-newUser" onPress={() => navigation.navigate('newUser')} narrow>
               {i18n('newUser')}
             </PrimaryButton>
             <PrimaryButton
               testID="welcome-restoreBackup"
               style={tw`mt-4`}
-              onPress={() => navigation.navigate('restoreBackup', {})}
+              onPress={() => navigation.navigate('restoreBackup')}
               border
               narrow
             >

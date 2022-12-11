@@ -2,10 +2,10 @@ import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
 import { BuyOfferSummary, PrimaryButton, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
+import { useNavigation } from '../../../hooks'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { StackNavigation } from '../../../utils/navigation'
 import { getOffer, offerIdToHex } from '../../../utils/offer'
 
 const sellOrBuy = (offer: SellOffer | BuyOffer) => (offer.type === 'ask' ? 'sell' : 'buy')
@@ -13,9 +13,9 @@ const sellOrBuy = (offer: SellOffer | BuyOffer) => (offer.type === 'ask' ? 'sell
 type OfferSummaryProps = {
   offer: BuyOffer | SellOffer
   status: OfferStatus['status']
-  navigation: StackNavigation
 }
-export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): ReactElement => {
+export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const navigate = () => {}
   const title = status !== 'offerCanceled' ? i18n('yourTrades.search.title') : i18n(`${sellOrBuy(offer)}.title`)
@@ -55,7 +55,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
         {offer.type === 'ask' ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
       </View>
-      <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})} narrow>
+      <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades')} narrow>
         {i18n('back')}
       </PrimaryButton>
       {status !== 'offerCanceled' ? (

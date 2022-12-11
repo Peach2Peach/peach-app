@@ -14,9 +14,9 @@ import { OverlayContext } from '../contexts/overlay'
 import { checkAndRefund, showTransaction } from '../utils/bitcoin'
 import { error, info } from '../utils/log'
 import { sum } from '../utils/math'
-import { Navigation } from '../utils/navigation'
 import { offerIdToHex, saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'
+import { useNavigation } from '../hooks'
 
 const textStyle = tw`text-white-1 text-center leading-5`
 
@@ -41,14 +41,10 @@ const WrongFundingAmountMessage = ({ sellOffer, fundingStatus }: WrongFundingAmo
 type ReturnAddressMismatchMessageProps = {
   sellOffer: SellOffer
   refundPSBT: Psbt
-  navigation: Navigation
 }
 
-const ReturnAddressMismatchMessage = ({
-  sellOffer,
-  refundPSBT,
-  navigation,
-}: ReturnAddressMismatchMessageProps): ReactElement => {
+const ReturnAddressMismatchMessage = ({ sellOffer, refundPSBT }: ReturnAddressMismatchMessageProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const goToContact = () => {
@@ -86,10 +82,10 @@ const ReturnAddressMismatchMessage = ({
 type Props = {
   sellOffer: SellOffer
   navigate: () => void
-  navigation: Navigation
 }
 
-export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
+export default ({ sellOffer, navigate }: Props): ReactElement => {
+  const navigation = useNavigation()
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -130,7 +126,7 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
             updateMessage({
               msgKey: err || 'GENERAL_ERROR',
               level: 'ERROR',
-              action: () => navigation.navigate('contact', {}),
+              action: () => navigation.navigate('contact'),
               actionLabel: i18n('contactUs'),
               actionIcon: 'mail',
             })
@@ -141,7 +137,7 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
         updateMessage({
           msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
+          action: () => navigation.navigate('contact'),
           actionLabel: i18n('contactUs'),
           actionIcon: 'mail',
         })
@@ -155,7 +151,7 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n(`refund.${fundingStatus}.title`)}</Headline>
       <View style={tw`flex justify-center items-center`}>
         {returnAddressMismatch ? (
-          !!refundPSBT && <ReturnAddressMismatchMessage {...{ sellOffer, refundPSBT, navigation }} />
+          !!refundPSBT && <ReturnAddressMismatchMessage {...{ sellOffer, refundPSBT }} />
         ) : fundingStatus === 'WRONG_FUNDING_AMOUNT' && sellOffer.funding ? (
           <WrongFundingAmountMessage {...{ sellOffer, fundingStatus }} />
         ) : (

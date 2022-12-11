@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getOfferIdfromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -15,7 +16,8 @@ import { ContractCanceled } from './ContractCanceled'
 /**
  * @description Overlay the buyer sees after seller requested the cancelation of the trade
  */
-export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
@@ -31,14 +33,14 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
         canceled: true,
         cancelationRequested: false,
       })
-      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} />, visible: true })
-      navigation.navigate('yourTrades', {})
+      updateOverlay({ content: <ContractCanceled contract={contract} />, visible: true })
+      navigation.navigate('yourTrades')
     } else if (err) {
       error('Error', err)
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })

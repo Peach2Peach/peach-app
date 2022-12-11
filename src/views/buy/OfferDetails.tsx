@@ -1,8 +1,7 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './BuyPreferences'
 import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
@@ -41,7 +40,7 @@ const useHeaderSetup = () => {
   )
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   useHeaderSetup()
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
@@ -80,11 +79,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       <Title title={i18n('buy.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
       <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['buyPreferences', { amount: offer.amount }]}
-        style={tw`mt-4`}
-      />
+      <AddPaymentMethodButton origin={['buyPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
     </View>
   )
 }

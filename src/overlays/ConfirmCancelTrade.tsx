@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { account } from '../utils/account'
-import { Navigation } from '../utils/navigation'
 import { ConfirmCancelTradeBuyer } from './tradeCancelation/ConfirmCancelTradeBuyer'
 import { ConfirmCancelTradeSeller } from './tradeCancelation/ConfirmCancelTradeSeller'
 
@@ -9,11 +8,10 @@ import { ConfirmCancelTradeSeller } from './tradeCancelation/ConfirmCancelTradeS
  */
 export type ConfirmCancelTradeProps = {
   contract: Contract
-  navigation: Navigation
 }
-export const ConfirmCancelTrade = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement =>
-  contract.seller.id === account.publicKey ? (
-    <ConfirmCancelTradeSeller contract={contract} navigation={navigation} />
+export const ConfirmCancelTrade = (props: ConfirmCancelTradeProps): ReactElement =>
+  props.contract.seller.id === account.publicKey ? (
+    <ConfirmCancelTradeSeller {...props} />
   ) : (
-    <ConfirmCancelTradeBuyer contract={contract} navigation={navigation} />
+    <ConfirmCancelTradeBuyer {...props} />
   )

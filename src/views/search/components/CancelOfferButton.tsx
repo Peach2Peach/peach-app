@@ -12,7 +12,7 @@ export const CancelOfferButton = () => {
   const { offer } = useRoute<'search'>().params
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const navigate = () => navigation.replace('yourTrades', {})
+  const navigate = () => navigation.replace('yourTrades')
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,

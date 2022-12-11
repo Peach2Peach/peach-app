@@ -2,6 +2,7 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import { Headline, Icon, PrimaryButton } from '../components'
 import { OverlayContext } from '../contexts/overlay'
+import { useNavigation } from '../hooks'
 import tw from '../styles/tailwind'
 import { deleteAccount } from '../utils/account'
 import i18n from '../utils/i18n'
@@ -15,12 +16,15 @@ const AccountDeleted = (): ReactElement => (
   </View>
 )
 
-type DeleteAccountProps = {
-  navigate: () => void
-}
-
-export const DeleteAccount = ({ navigate }: DeleteAccountProps): ReactElement => {
+export const DeleteAccount = (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const navigation = useNavigation()
+  const navigate = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'welcome' }],
+    })
+  }
 
   const closeOverlay = () => updateOverlay({ visible: false })
   const ok = async () => {

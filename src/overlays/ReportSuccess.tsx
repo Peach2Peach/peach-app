@@ -7,14 +7,11 @@ import { Headline, Icon, PrimaryButton, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { StackNavigation } from '../utils/navigation'
 import { account } from '../utils/account'
+import { useNavigation } from '../hooks'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
@@ -22,7 +19,7 @@ export default ({ navigation }: Props): ReactElement => {
   }
 
   const goToHome = () => {
-    navigation.replace(account?.publicKey ? 'home' : 'welcome', {})
+    navigation.replace(account?.publicKey ? 'home' : 'welcome')
     closeOverlay()
   }
   return (

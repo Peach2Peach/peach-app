@@ -1,31 +1,28 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import { getPaymentDataByType } from '../../utils/account'
-import { StackNavigation } from '../../utils/navigation'
 import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>
-  navigation: StackNavigation
-}
+import { useNavigation, useRoute } from '../../hooks'
 
 const screens = [{ id: 'currency' }, { id: 'paymentMethod' }, { id: 'extraInfo' }]
-const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
+const getPage = ({ currencies, paymentMethod }: RootStackParamList['addPaymentMethod']) => {
   if (paymentMethod) return 2
   if (currencies?.length === 1) return 1
   return 0
 }
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'addPaymentMethod'>()
+  const navigation = useNavigation()
   const [page, setPage] = useState(getPage(route.params))
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [country, setCountry] = useState(route.params.country)
@@ -48,8 +45,8 @@ export default ({ route, navigation }: Props): ReactElement => {
         'addPaymentMethod',
         {
           currencies: data.currencies,
-          country: null,
-          paymentMethod: null,
+          country: undefined,
+          paymentMethod: undefined,
           origin: route.params.origin,
         },
       ],

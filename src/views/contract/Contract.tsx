@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useContext, useEffect, useState } fro
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
@@ -13,7 +13,6 @@ import { account } from '../../utils/account'
 import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { getOffer, getRequiredActionCount } from '../../utils/offer'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { confirmPayment } from '../../utils/peachAPI'
@@ -26,13 +25,11 @@ import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
 import { getChatNotifications } from '../../utils/chat'
 import AppContext from '../../contexts/app'
+import { useNavigation, useRoute } from '../../hooks'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['contract'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'contract'>()
+  const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -139,7 +136,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
+            action: () => navigation.navigate('contact'),
             actionLabel: i18n('contactUs'),
             actionIcon: 'mail',
           }),
@@ -182,7 +179,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })
@@ -206,7 +203,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({
         msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })
@@ -222,7 +219,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })
@@ -256,7 +253,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
-            <ContractSummary contract={contract} view={view} navigation={navigation} />
+            <ContractSummary {...{ contract, view }} />
             <View style={tw`mt-16 flex-row justify-center`}>
               {/sendPayment/u.test(requiredAction) ? (
                 <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
@@ -273,13 +270,7 @@ export default ({ route, navigation }: Props): ReactElement => {
                   ) : null}
                 </View>
               ) : null}
-              <ContractCTA
-                view={view}
-                requiredAction={requiredAction}
-                loading={loading}
-                postConfirmPaymentBuyer={postConfirmPaymentBuyer}
-                postConfirmPaymentSeller={postConfirmPaymentSeller}
-              />
+              <ContractCTA {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }} />
             </View>
           </View>
         ) : null}

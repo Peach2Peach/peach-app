@@ -7,16 +7,16 @@ import { Headline, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { Navigation } from '../utils/navigation'
 import { PrimaryButton } from '../components/buttons'
+import { useNavigation } from '../hooks'
 
 type Props = {
   offer: SellOffer
   days: string
-  navigation: Navigation
 }
 
-export default ({ offer, days, navigation }: Props): ReactElement => {
+export default ({ offer, days }: Props): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {

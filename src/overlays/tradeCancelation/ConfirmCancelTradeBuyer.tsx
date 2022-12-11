@@ -13,7 +13,7 @@ import { ContractCanceled } from './ContractCanceled'
 /**
  * @description Overlay the buyer sees when intending to cancel trade
  */
-export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ConfirmCancelTradeBuyer = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
@@ -30,7 +30,7 @@ export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelT
         ...contract,
         canceled: true,
       })
-      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} />, visible: true })
+      updateOverlay({ content: <ContractCanceled contract={contract} />, visible: true })
     } else if (err) {
       error('Error', err)
     }

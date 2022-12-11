@@ -1,23 +1,20 @@
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { GoBackButton, PrimaryButton, Title } from '../../components'
 import ProvideRefundAddress from '../../overlays/info/ProvideRefundAddress'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import ReturnAddress from './components/ReturnAddress'
 import { saveOffer } from '../../utils/offer'
 import { patchOffer } from '../../utils/peachAPI'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation, useRoute } from '../../hooks'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['setReturnAddress'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'setReturnAddress'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [offer, setOffer] = useState<SellOffer>(route.params.offer)
   const [returnAddress, setReturnAddress] = useState(route.params.offer.returnAddress)
@@ -47,7 +44,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({
         msgKey: patchOfferError?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })

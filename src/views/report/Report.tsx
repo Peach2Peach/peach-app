@@ -3,7 +3,6 @@ import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { RouteProp } from '@react-navigation/native'
 import { Icon, Input, PeachScrollView, PrimaryButton, Text, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
@@ -11,20 +10,16 @@ import { OverlayContext } from '../../contexts/overlay'
 import ReportSuccess from '../../overlays/ReportSuccess'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
-import { useValidatedState } from '../../hooks'
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['report'] }>
-  navigation: StackNavigation
-}
+import { useNavigation, useRoute, useValidatedState } from '../../hooks'
 
 const emailRules = { required: true, email: true }
 const required = { required: true }
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'report'>()
+  const navigation = useNavigation()
   useContext(LanguageContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -57,7 +52,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
     if (result) {
       updateOverlay({
-        content: <ReportSuccess navigation={navigation} />,
+        content: <ReportSuccess />,
         visible: true,
       })
       return
@@ -68,7 +63,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })

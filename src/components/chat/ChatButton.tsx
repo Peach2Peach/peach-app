@@ -2,6 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Shadow } from '../../components'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getContractChatNotification } from '../../utils/chat'
 import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
@@ -12,9 +13,9 @@ export type Navigation = StackNavigationProp<RootStackParamList, keyof RootStack
 
 type ChatButtonProps = ComponentProps & {
   contract: Contract
-  navigation: Navigation
 }
-export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): ReactElement => {
+export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement => {
+  const navigation = useNavigation()
   const notifications = getContractChatNotification(contract)
   const shadow = contract.disputeActive ? mildShadowRed : mildShadowOrange
   const goToChat = () => navigation.push('contractChat', { contractId: contract.id })

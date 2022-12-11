@@ -5,17 +5,15 @@ import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { Navigation } from '../../utils/navigation'
 import Refund from '../Refund'
 
 type DisputeWonSellerProps = {
   contract: Contract
   offer: SellOffer
   navigate: () => void
-  navigation: Navigation
 }
 
-export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: DisputeWonSellerProps): ReactElement => {
+export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSellerProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
@@ -33,7 +31,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: Disp
       cancelConfirmationDismissed: true,
     })
     updateOverlay({
-      content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
+      content: <Refund {...{ sellOffer: offer, navigate }} />,
       visible: true,
     })
   }

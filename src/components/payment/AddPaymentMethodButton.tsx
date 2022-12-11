@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '../'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 
 type AddPaymentMethodProps = ComponentProps & {
-  navigation: StackNavigation
   origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
 }
 
-export default ({ navigation, origin, style }: AddPaymentMethodProps): ReactElement => {
+export default ({ origin, style }: AddPaymentMethodProps): ReactElement => {
+  const navigation = useNavigation()
   const addPaymentMethods = () => {
     navigation.push('addPaymentMethod', { origin })
   }

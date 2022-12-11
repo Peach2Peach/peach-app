@@ -2,10 +2,10 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { PAYMENTCATEGORIES } from '../../constants'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
@@ -36,11 +36,11 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[]
   editable?: boolean
-  navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
-export default ({ paymentData, editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
+export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
+  const navigation = useNavigation()
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {
@@ -81,9 +81,9 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   }
 
   const editItem = (data: PaymentData) => {
-    navigation!.push('paymentDetails', {
+    navigation.push('paymentDetails', {
       paymentData: data,
-      origin: ['paymentMethods', {}],
+      origin: ['paymentMethods'],
     })
   }
 

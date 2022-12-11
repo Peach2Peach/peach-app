@@ -2,7 +2,7 @@ import messaging from '@react-native-firebase/messaging'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import tw from '../../styles/tailwind'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
 import { PeachScrollView, PrimaryButton, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
@@ -13,7 +13,6 @@ import MatchAccepted from '../../overlays/MatchAccepted'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { getOffer, getOfferStatus, offerIdToHex, getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
@@ -23,19 +22,16 @@ import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
 import AppContext from '../../contexts/app'
 import { getChatNotifications } from '../../utils/chat'
+import { useNavigation, useRoute } from '../../hooks'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['offer'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const offerId = useRoute<'offer'>().params.offer.id!
+  const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
-  const offerId = route.params.offer.id as string
   const offer = getOffer(offerId) as BuyOffer | SellOffer
   const view = offer.type === 'ask' ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
@@ -116,7 +112,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
+            action: () => navigation.navigate('contact'),
             actionLabel: i18n('contactUs'),
             actionIcon: 'mail',
           })
@@ -145,7 +141,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
+            action: () => navigation.navigate('contact'),
             actionLabel: i18n('contactUs'),
             actionIcon: 'mail',
           }),
@@ -163,7 +159,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           setPNReceived(Math.random())
         } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
           updateOverlay({
-            content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+            content: <MatchAccepted contractId={remoteMessage.data.contractId} />,
             visible: true,
           })
         }
@@ -175,10 +171,10 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   return (
     <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
-      {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status) ? (
-        <OfferSummary offer={offer} status={offerStatus.status} navigation={navigation} />
-      ) : null}
-      {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) ? (
+      {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status) && (
+        <OfferSummary offer={offer} status={offerStatus.status} />
+      )}
+      {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) && (
         <View>
           <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (
@@ -187,13 +183,13 @@ export default ({ route, navigation }: Props): ReactElement => {
             </Text>
           ) : null}
           <View style={tw`mt-7`}>
-            <ContractSummary contract={contract} view={view} navigation={navigation} />
-            <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades', {})} narrow>
+            <ContractSummary {...{ contract, view }} />
+            <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades')} narrow>
               {i18n('back')}
             </PrimaryButton>
           </View>
         </View>
-      ) : null}
+      )}
     </PeachScrollView>
   )
 }
