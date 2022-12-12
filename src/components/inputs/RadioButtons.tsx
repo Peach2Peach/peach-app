@@ -18,19 +18,19 @@ type RadioButtonItemProp = ComponentProps & {
 }
 const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement => (
   <Shadow shadow={mildShadow}>
-  <View
-    style={[
-      tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
-      selected ? tw`border-primary-light` : tw`border-transparent`,
-    ]}
-  >
-    <Text style={tw`subtitle-1`}>{display}</Text>
-    <Icon
-      id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
-      style={tw`h-5 w-5`}
-      color={(selected ? tw`text-primary-light` : tw`text-black-3`).color}
-    />
-  </View>
+    <View
+      style={[
+        tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
+        selected ? tw`border-primary-light` : tw`border-transparent`,
+      ]}
+    >
+      <Text style={tw`subtitle-1`}>{display}</Text>
+      <Icon
+        id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
+        style={tw`h-5 w-5`}
+        color={(selected ? tw`text-primary-light` : tw`text-black-3`).color}
+      />
+    </View>
   </Shadow>
 )
 
