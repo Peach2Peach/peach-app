@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, SetStateAction, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Button, Input, Loading, Text } from '../../components'
@@ -9,7 +9,7 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
 import { createAccount, recoverAccount } from '../../utils/account'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
 
 const bip39Rules = {
   required: true,
@@ -20,6 +20,7 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const navigation = useNavigation()
   const seedPhrase: ReturnType<typeof useValidatedState>[] = []
+  const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
 
   for (let i = 12; i > 0; i--) {
     seedPhrase.push(useValidatedState('' as string, bip39Rules))
@@ -53,6 +54,7 @@ export default ({ style }: ComponentProps): ReactElement => {
 
     if (success) {
       await storeAccount(recoveredAccount)
+      setAllPaymentData(recoveredAccount.paymentData)
       setRestored(true)
     } else {
       onError(recoverAccountErr as Error)

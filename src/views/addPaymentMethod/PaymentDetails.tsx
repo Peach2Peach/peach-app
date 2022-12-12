@@ -9,8 +9,7 @@ import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { StackNavigation } from '../../utils/navigation'
 import { specialTemplates } from './specialTemplates'
-import { usePaymentDataStore } from '../../utils/storage/paymentDataStorage'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { usePaymentDataStore, useAccountStore } from '../../utils/storage'
 import { hasPreferredPaymentMethod } from '../../utils/account'
 
 type Props = {
@@ -25,7 +24,7 @@ const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList>
 }
 
 export default ({ route, navigation }: Props): ReactElement => {
-  const paymentData = usePaymentDataStore()
+  const setPaymentData = usePaymentDataStore((state) => state.setPaymentData)
   const account = useAccountStore()
   const { paymentData: data } = route.params
   const { type: paymentMethod, currencies } = data
@@ -47,7 +46,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const goToOriginOnCancel = () => goToOrigin(route.params.originOnCancel || route.params.origin)
 
   const onSubmit = (d: PaymentData) => {
-    paymentData.setPaymentData(d)
+    setPaymentData(d)
     account.setSettings({
       showBackupReminder: true,
     })

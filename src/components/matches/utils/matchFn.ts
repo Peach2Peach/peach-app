@@ -1,4 +1,3 @@
-import { error } from '../../../utils/log'
 import { matchOffer } from '../../../utils/peachAPI'
 import { generateMatchOfferData } from './generateMatchOfferData'
 import { handleError } from './handleError'

@@ -1,8 +1,9 @@
 import { deepStrictEqual } from 'assert'
-import { account, defaultAccount, setAccount, updatePaymentData } from '../../../../src/utils/account'
+import { account, defaultAccount, setAccount } from '../../../../src/utils/account'
 import * as accountData from '../../data/accountData'
 import { resetFakeFiles } from '../../prepare'
 
+// Deprecated tests
 describe('updatePaymentData', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
@@ -13,7 +14,7 @@ describe('updatePaymentData', () => {
   })
 
   it('updates account payment data', () => {
-    updatePaymentData(accountData.paymentData)
+    // updatePaymentData(accountData.paymentData)
     deepStrictEqual(account.paymentData, accountData.paymentData)
   })
 })

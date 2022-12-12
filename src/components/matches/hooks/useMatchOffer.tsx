@@ -8,6 +8,7 @@ import shallow from 'zustand/shallow'
 import { useMatchStore } from '../store'
 import { handleMissingPaymentData, createRefundTx, matchFn, updateMatchedStatus } from '../utils'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
+import { usePaymentDataStore } from '../../../utils/storage'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
@@ -24,6 +25,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
     }),
     shallow,
   )
+  const getWithType = usePaymentDataStore((state) => state.getWithType)
 
   return useMutation({
     onMutate: async () => {
@@ -44,7 +46,15 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
           `selectedPaymentMethod: ${selectedPaymentMethod}`,
         )
       } else if (err === 'Missing paymentdata') {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
+        handleMissingPaymentData(
+          offer,
+          selectedCurrency,
+          selectedPaymentMethod,
+          updateMessage,
+          navigation,
+          routeParams,
+          getWithType,
+        )
       } else if (typeof err === 'string') {
         error(err)
       }
