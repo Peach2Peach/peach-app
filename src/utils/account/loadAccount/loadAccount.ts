@@ -41,7 +41,7 @@ export const loadAccount = async (): Promise<Account> => {
     error('Account does not exist')
   } else {
     info('Account loaded', account.publicKey)
-    await setAccount(acc)
+    // await setAccount(acc) // TODO how to populate useAccountStore?
   }
 
   return account

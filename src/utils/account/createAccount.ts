@@ -22,7 +22,7 @@ export const createAccount = async (seedPhrase?: string): Promise<Account> => {
     },
   }
 
-  await setAccount(newAccount, true)
+  // await setAccount(newAccount, true) // how to populate useAccountStore?
 
   return newAccount
 }

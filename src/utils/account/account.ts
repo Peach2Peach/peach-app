@@ -2,6 +2,7 @@ import { APPVERSION } from '../../constants'
 import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
+import { AccountStore } from '../storage/useAccountStore'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
 
 export const defaultAccount: Account = {
@@ -16,30 +17,26 @@ export const defaultAccount: Account = {
     showBackupReminder: false,
     showDisputeDisclaimer: true,
   },
-  paymentData: {},
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
     yearly: 100000,
     yearlyAmount: 0,
   },
-  offers: [],
-  contracts: [],
-  chats: {},
   pgp: {
     privateKey: '',
     publicKey: '',
   },
 }
 
-export let account = defaultAccount
+export const account = defaultAccount
 
 export const getAccount = () => account
 
 /**
  * @description Method to set account for app session
  */
-export const setAccount = async (acc: Account, overwrite?: boolean) => {
+export const setAccount = async (account: AccountStore) => {
   account = overwrite
     ? acc
     : {

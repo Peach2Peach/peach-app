@@ -1,7 +1,7 @@
 import { setAccount } from '.'
 import { decrypt } from '../crypto'
 import { info } from '../log'
-import { account } from './account'
+// import { account } from './account'
 
 interface DecryptAccountProps {
   encryptedAccount: string
@@ -15,7 +15,8 @@ export const decryptAccount = async ({
   info('Decrypting account')
 
   try {
-    await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
+    // await setAccount(JSON.parse(decrypt(encryptedAccount, password))) // TODO how to clear useAccountStore etc?
+    const account = JSON.parse(decrypt(encryptedAccount, password))
     return [account, null]
   } catch (e) {
     return [null, e as Error]

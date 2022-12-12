@@ -20,7 +20,7 @@ interface DeleteAccountProps {
 export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
   info('Deleting account')
 
-  setAccount(defaultAccount, true)
+  // setAccount(defaultAccount, true) // TODO how to update all useStorage?
   ;[accountStorage, offersStorage, contractsStorage, chatsStorage, sessionStorage].forEach(clearStorage)
 
   logoutUser({})
