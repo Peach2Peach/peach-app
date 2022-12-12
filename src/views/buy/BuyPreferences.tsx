@@ -11,13 +11,12 @@ import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
-import { account, updateTradingLimit } from '../../utils/account'
 import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-
+import { AccountStore, useAccountStore } from '../../utils/storage/accountStorage'
 const { LinearGradient } = require('react-native-gradients')
 
 type Props = {
@@ -34,7 +33,7 @@ export type BuyViewProps = {
   navigation: StackNavigation
 }
 
-const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
+const getDefaultBuyOffer = (account: AccountStore, amount?: number): BuyOffer => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
@@ -70,8 +69,9 @@ const screens = [
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const account = useAccountStore()
 
-  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
+  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(account, route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -116,7 +116,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useFocusEffect(
     useCallback(() => {
-      setOffer(getDefaultBuyOffer(route.params.amount))
+      setOffer(getDefaultBuyOffer(account, route.params.amount))
       setUpdatePending(false)
       setPage(() => 0)
     }, [route]),
@@ -127,13 +127,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (screens[page].id === 'search' && !offer.id) {
         setUpdatePending(true)
 
-        await pgp() // make sure pgp has been sent
+        await pgp(account) // make sure pgp has been sent
         const [result, err] = await postOffer(offer)
 
         if (result) {
           getTradingLimit({}).then(([tradingLimit]) => {
             if (tradingLimit) {
-              updateTradingLimit(tradingLimit)
+              account.setTradingLimit(tradingLimit)
             }
           })
           saveAndUpdate({ ...offer, id: result.offerId })

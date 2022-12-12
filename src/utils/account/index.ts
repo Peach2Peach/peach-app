@@ -1,5 +1,5 @@
 export { account, defaultAccount, getAccount, setAccount } from './account'
-export { addPaymentData } from './addPaymentData'
+export { applyTradingLimit } from './applyTradingLimit'
 export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
 export { decryptAccount } from './decryptAccount'
@@ -9,6 +9,8 @@ export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
 export { getPaymentDataByType } from './getPaymentDataByType'
 export { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
+export { getTradingLimit } from './getTradingLimit'
+export { hasPreferredPaymentMethod } from './hasPreferredPaymentMethod'
 export {
   loadAccount,
   loadChat,
@@ -21,7 +23,6 @@ export {
   loadTradingLimit,
 } from './loadAccount'
 export { recoverAccount } from './recoverAccount'
-export { removePaymentData } from './removePaymentData'
 export {
   storeAccount,
   storeChat,
@@ -35,6 +36,4 @@ export {
   storeSettings,
   storeTradingLimit,
 } from './storeAccount'
-export { getTradingLimit, updateTradingLimit } from './tradingLimit'
 export { updatePaymentData } from './updatePaymentData'
-export { updateSettings } from './updateSettings'

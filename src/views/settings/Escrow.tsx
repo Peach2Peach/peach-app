@@ -4,9 +4,9 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Button, Headline, Text, Title } from '../../components'
-import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 import ReturnAddress from '../sell/components/ReturnAddress'
 
 type Props = {
@@ -14,13 +14,12 @@ type Props = {
 }
 
 export default ({ navigation }: Props): ReactElement => {
+  const account = useAccountStore()
+
   const setReturnAddress = (address: string) => {
-    updateSettings(
-      {
-        returnAddress: address,
-      },
-      true,
-    )
+    account.updateSettings({
+      returnAddress: address,
+    })
   }
 
   return (

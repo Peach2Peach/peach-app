@@ -1,17 +1,17 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import { SellViewProps } from './SellPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import Premium from './components/Premium'
-import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
-import { hasMopsConfigured } from '../../utils/offer'
-import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
+import { getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { hasMopsConfigured } from '../../utils/offer'
+import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
+import { useAccountStore } from '../../utils/storage/accountStorage'
+import Premium from './components/Premium'
+import { SellViewProps } from './SellPreferences'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -31,7 +31,7 @@ const validate = (offer: SellOffer) => {
 }
 
 export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
-  useContext(LanguageContext)
+  const account = useAccountStore()
 
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
@@ -46,15 +46,12 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       },
       shield,
     )
-    updateSettings(
-      {
-        meansOfPayment: offr.meansOfPayment,
-        premium: offr.premium,
-        kyc: offr.kyc,
-        kycType: offr.kycType,
-      },
-      true,
-    )
+    account.updateSettings({
+      meansOfPayment: offr.meansOfPayment,
+      premium: offr.premium,
+      kyc: offr.kyc,
+      kycType: offr.kycType,
+    })
   }
 
   useEffect(() => {
@@ -79,7 +76,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       },
       false,
     )
-  }, [meansOfPayment, premium])
+  }, [account, meansOfPayment, premium])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 

@@ -1,24 +1,23 @@
 import analytics from '@react-native-firebase/analytics'
 
-import { updateSettings } from '.'
 import userUpdate from '../../init/userUpdate'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
 import { getOffers, getTradingLimit } from '../peachAPI'
-import { updateTradingLimit } from './tradingLimit'
+import { AccountStore } from '../storage/accountStorage'
 
-export const recoverAccount = async (account: Account): Promise<[Account | null, Error | null]> => {
+export const recoverAccount = async (account: AccountStore): Promise<[Account | null, Error | null]> => {
   info('Recovering account')
 
   try {
-    updateSettings({
+    account.updateSettings({
       fcmToken: '',
     })
     info('Get offers')
     const [[getOffersResult, getOffersErr], [getTradingLimitResult, getTradingLimitErr]] = await Promise.all([
       getOffers({}),
       getTradingLimit({}),
-      userUpdate(),
+      userUpdate(account),
     ])
 
     if (getOffersResult?.length) {
@@ -29,7 +28,7 @@ export const recoverAccount = async (account: Account): Promise<[Account | null,
     }
     if (getTradingLimitResult) {
       info('Got tradinglimit')
-      updateTradingLimit(getTradingLimitResult)
+      account.setTradingLimit(getTradingLimitResult)
     } else if (getTradingLimitErr) {
       error('Error', getTradingLimitErr)
     }

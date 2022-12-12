@@ -1,34 +1,29 @@
+import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useContext } from 'react'
 import { Linking, View } from 'react-native'
 import { Button, Headline, Text } from '../components'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import analytics from '@react-native-firebase/analytics'
-import { updateSettings } from '../utils/account'
+import { useAccountStore } from '../utils/storage/accountStorage'
 
 export default (): ReactElement => {
+  const account = useAccountStore()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const accept = () => {
     analytics().setAnalyticsCollectionEnabled(true)
-    updateSettings(
-      {
-        enableAnalytics: true
-      },
-      true
-    )
+    account.updateSettings({
+      enableAnalytics: true,
+    })
     updateOverlay({ content: null, showCloseButton: true })
   }
 
   const deny = () => {
     analytics().setAnalyticsCollectionEnabled(false)
-    updateSettings(
-      {
-        enableAnalytics: false
-      },
-      true
-    )
+    account.updateSettings({
+      enableAnalytics: false,
+    })
     updateOverlay({ content: null, showCloseButton: true })
   }
 

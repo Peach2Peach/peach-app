@@ -3,10 +3,12 @@ import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { PAYMENTCATEGORIES } from '../../constants'
 import tw from '../../styles/tailwind'
-import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
+import { getPaymentData, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
+import { useAccountStore } from '../../utils/storage/accountStorage'
+import { usePaymentDataStore } from '../../utils/storage/paymentDataStorage'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
@@ -39,7 +41,10 @@ type PaymentDetailsProps = ComponentProps & {
   navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
-export default ({ paymentData, editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
+export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
+  const account = useAccountStore()
+  const paymentData = usePaymentDataStore()
+
   const [, setRandom] = useState(0)
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
@@ -62,21 +67,18 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   })
 
   const setPreferredPaymentMethods = (ids: string[]) => {
-    updateSettings(
-      {
-        preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
-          const method = paymentData.find((d) => d.id === id)!.type
-          obj[method] = id
-          return obj
-        }, {} as Settings['preferredPaymentMethods']),
-      },
-      true,
-    )
+    account.updateSettings({
+      preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
+        const method = paymentData.get(id).type
+        obj[method] = id
+        return obj
+      }, {} as Settings['preferredPaymentMethods']),
+    })
     update()
   }
 
   const deletePaymentData = (data: PaymentData) => {
-    removePaymentData(data.id)
+    paymentData.removePaymentData(data.id)
     setRandom(Math.random())
   }
 

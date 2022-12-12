@@ -38,11 +38,11 @@ import { initApp } from './init'
 import websocket from './init/websocket'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import AnalyticsPrompt from './overlays/AnalyticsPrompt'
-import { account, updateSettings } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { compatibilityCheck } from './utils/system'
+import { useAccountStore } from './utils/storage/accountStorage'
 
 enableScreens()
 
@@ -67,6 +67,7 @@ const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name 
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
+  const account = useAccountStore()
 
   const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
@@ -105,7 +106,7 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp(navigationRef, updateMessage)
+      await initApp(account, navigationRef, updateMessage)
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
@@ -115,12 +116,9 @@ const App: React.FC = () => {
           showCloseIcon: true,
           onClose: () => {
             analytics().setAnalyticsCollectionEnabled(false)
-            updateSettings(
-              {
-                enableAnalytics: false,
-              },
-              true,
-            )
+            account.updateSettings({
+              enableAnalytics: false,
+            })
           },
         })
       }

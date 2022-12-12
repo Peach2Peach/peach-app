@@ -8,12 +8,13 @@ import {
   setPeachFee,
   setPeachPGPPublicKey,
 } from '../constants'
-import { defaultAccount, updateTradingLimit } from '../utils/account'
+import { defaultAccount } from '../utils/account'
 import { saveContracts } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { saveOffers } from '../utils/offer'
 import { getContracts, getInfo, getOffers, getStatus, getTradingLimit } from '../utils/peachAPI'
 import { sessionStorage } from '../utils/session'
+import { AccountStore } from '../utils/storage/accountStorage'
 
 /**
  * Note: we estimate the time it took for the response to arrive from server to client
@@ -37,12 +38,12 @@ const calculateClientServerTimeDifference = async () => {
 /**
  * @description Method to fetch peach info and user trading limit and store values in constants
  */
-export const getPeachInfo = async (account?: Account): Promise<GetInfoResponse | null> => {
+export const getPeachInfo = async (account: AccountStore): Promise<GetInfoResponse | null> => {
   await calculateClientServerTimeDifference()
 
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
     getInfo({ timeout: 10000 }),
-    account?.publicKey ? getTradingLimit({ timeout: 10000 }) : [defaultAccount.tradingLimit, null],
+    account.publicKey ? getTradingLimit({ timeout: 10000 }) : [defaultAccount.tradingLimit, null],
   ])
 
   let peachInfo = peachInfoResponse
@@ -52,7 +53,7 @@ export const getPeachInfo = async (account?: Account): Promise<GetInfoResponse |
     peachInfo = sessionStorage.getMap('peachInfo')
   }
   if (tradingLimit) {
-    updateTradingLimit(tradingLimit)
+    account.setTradingLimit(tradingLimit)
   }
   if (peachInfo) {
     setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey)

@@ -4,10 +4,11 @@ import LanguageContext from '../../contexts/language'
 import tw from '../../styles/tailwind'
 import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 import Select from './Select'
 
 interface LanguageSelectProps {
-  locale: string,
+  locale: string
   setLocale: Function
 }
 
@@ -19,22 +20,26 @@ interface LanguageSelectProps {
  */
 export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
   useContext(LanguageContext)
-  const languages = i18n.getLocales().map(lcl => ({
+  const account = useAccountStore()
+
+  const languages = i18n.getLocales().map((lcl) => ({
     value: lcl,
-    display: i18n(`languageName.${lcl}`)
+    display: i18n(`languageName.${lcl}`),
   }))
   const [pristine, setPristine] = useState(true)
 
-  return <View style={tw`w-40`}>
-    <Select
-      items={languages}
-      label={i18n('language')}
-      selectedValue={pristine ? null : locale}
-      onChange={value => {
-        setLocale({ locale: value as string })
-        updateSettings({ locale }, true)
-        setPristine(false)
-      }}
-    />
-  </View>
+  return (
+    <View style={tw`w-40`}>
+      <Select
+        items={languages}
+        label={i18n('language')}
+        selectedValue={pristine ? null : locale}
+        onChange={(value) => {
+          setLocale({ locale: value as string })
+          account.updateSettings({ locale })
+          setPristine(false)
+        }}
+      />
+    </View>
+  )
 }

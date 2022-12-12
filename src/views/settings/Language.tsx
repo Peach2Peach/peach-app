@@ -7,7 +7,7 @@ import { Button, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { updateSettings } from '../../utils/account'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 
 type Props = {
   navigation: StackNavigation
@@ -15,31 +15,31 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
+  const account = useAccountStore()
+
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: i18n.getLocale() })
 
-  return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-    <Title title={i18n('settings.title')} subtitle={i18n('settings.language.subtitle')} />
-    <View style={tw`h-full flex-shrink mt-12`}>
-      {i18n.getLocales().map(lcl => <Button
-        key={lcl}
-        title={i18n(`languageName.${lcl}`)}
-        style={tw`mb-3`}
-        onPress={() => {
-          setLocale({ locale: lcl })
-          updateSettings({ locale }, true)
-        }}
-        wide={true}
-        grey={locale !== lcl}
-      />)}
+  return (
+    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+      <Title title={i18n('settings.title')} subtitle={i18n('settings.language.subtitle')} />
+      <View style={tw`h-full flex-shrink mt-12`}>
+        {i18n.getLocales().map((lcl) => (
+          <Button
+            key={lcl}
+            title={i18n(`languageName.${lcl}`)}
+            style={tw`mb-3`}
+            onPress={() => {
+              setLocale({ locale: lcl })
+              account.updateSettings({ locale })
+            }}
+            wide={true}
+            grey={locale !== lcl}
+          />
+        ))}
+      </View>
+      <View style={tw`flex items-center mt-16`}>
+        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+      </View>
     </View>
-    <View style={tw`flex items-center mt-16`}>
-      <Button
-        title={i18n('back')}
-        wide={false}
-        secondary={true}
-        onPress={navigation.goBack}
-      />
-    </View>
-  </View>
+  )
 }
-

@@ -6,12 +6,15 @@ import { useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
 import Password from '../../../../overlays/info/Password'
 import tw from '../../../../styles/tailwind'
-import { account, backupAccount, updateSettings } from '../../../../utils/account'
+import { backupAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { useAccountStore } from '../../../../utils/storage/accountStorage'
 
 const passwordRules = { required: true, password: true }
 
 export default (): ReactElement => {
+  const account = useAccountStore()
+
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
 
@@ -50,13 +53,10 @@ export default (): ReactElement => {
     const previousDate = account.settings.lastBackupDate
     const previousShowBackupReminder = account.settings.showBackupReminder
     setIsBackingUp(true)
-    updateSettings(
-      {
-        lastBackupDate: new Date().getTime(),
-        showBackupReminder: false,
-      },
-      true,
-    )
+    account.updateSettings({
+      lastBackupDate: new Date().getTime(),
+      showBackupReminder: false,
+    })
     backupAccount({
       password,
       onSuccess: () => {
@@ -64,13 +64,10 @@ export default (): ReactElement => {
           content: <BackupCreated />,
           showCloseButton: false,
         })
-        updateSettings(
-          {
-            lastBackupDate: new Date().getTime(),
-            showBackupReminder: false,
-          },
-          true,
-        )
+        account.updateSettings({
+          lastBackupDate: new Date().getTime(),
+          showBackupReminder: false,
+        })
         setIsBackingUp(false)
 
         setTimeout(() => {
@@ -82,14 +79,14 @@ export default (): ReactElement => {
       },
       onCancel: () => {
         setIsBackingUp(false)
-        updateSettings({
+        account.updateSettings({
           lastBackupDate: previousDate,
           showBackupReminder: previousShowBackupReminder,
         })
       },
       onError: () => {
         setIsBackingUp(false)
-        updateSettings({
+        account.updateSettings({
           lastBackupDate: previousDate,
           showBackupReminder: previousShowBackupReminder,
         })

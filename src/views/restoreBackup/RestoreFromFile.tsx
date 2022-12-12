@@ -12,6 +12,7 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
 import { decryptAccount } from '../../utils/account/decryptAccount'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 
 const passwordRules = { required: true, password: true }
 
@@ -51,7 +52,10 @@ export default ({ style }: ComponentProps): ReactElement => {
       return
     }
 
-    const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
+    const account = useAccountStore()
+    account.setAccount(recoveredAccount)
+
+    const [success, recoverAccountErr] = await recoverAccount(account)
 
     if (success) {
       await storeAccount(recoveredAccount)

@@ -1,9 +1,10 @@
 import { exists } from 'react-native-fs'
-import { storeAccount } from '../../utils/account'
+import shallow from 'zustand/shallow'
 import { loadAccountFromFileSystem } from '../../utils/account/loadAccount/loadAccountFromFileSystem'
 import { deleteFile, readDir } from '../../utils/file'
 import { info } from '../../utils/log'
 import { sessionStorage } from '../../utils/session'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 
 const accountFiles = [
   '/peach-account-identity.json',
@@ -22,9 +23,15 @@ export const migrateAccountToSecureStorage = async () => {
   info('migrateAccountToSecureStorage - copying to MMKV storage')
 
   const password = sessionStorage.getString('password')
-  let account
-  if (password) account = await loadAccountFromFileSystem(password)
-  if (account) storeAccount(account)
+  if (password) {
+    const account = await loadAccountFromFileSystem(password)
+    if (!account) {
+      info('migrateAccountToSecureStorage - no legacy account found')
+      return
+    }
+    const { setAccount } = useAccountStore()
+    setAccount(account)
+  }
 
   info('migrateAccountToSecureStorage - deleting legacy files')
 

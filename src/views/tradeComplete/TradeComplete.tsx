@@ -6,18 +6,19 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
 import { BigTitle, PeachScrollView } from '../../components'
-import { account, updateTradingLimit } from '../../utils/account'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { getTradingLimit } from '../../utils/peachAPI'
 import Rate from './components/Rate'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['tradeComplete'] }>
   navigation: StackNavigation
 }
 export default ({ route, navigation }: Props): ReactElement => {
+  const account = useAccountStore()
   const [contract, setContract] = useState<Contract>(route.params.contract)
   const [view, setView] = useState<'seller' | 'buyer' | ''>('')
 
@@ -36,7 +37,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       const [tradingLimit] = await getTradingLimit({})
 
       if (tradingLimit) {
-        updateTradingLimit(tradingLimit)
+        account.setTradingLimit(tradingLimit)
       }
     })()
     analytics().logEvent('trade_completed', {

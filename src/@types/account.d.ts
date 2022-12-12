@@ -33,13 +33,13 @@ declare type Identity = {
   pgp: PGPKeychain
 }
 
+declare type Chats = Record<Chat['id'], Chat>
+
 declare type Account = Identity & {
   settings: Settings
   paymentData: PaymentData[]
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]
-  chats: {
-    [key: string]: Chat
-  }
+  chats: Chats
 }

@@ -7,9 +7,11 @@ import i18n from '../../utils/i18n'
 import { RouteProp } from '@react-navigation/native'
 import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
-import { addPaymentData } from '../../utils/account'
 import { StackNavigation } from '../../utils/navigation'
 import { specialTemplates } from './specialTemplates'
+import { usePaymentDataStore } from '../../utils/storage/paymentDataStorage'
+import { useAccountStore } from '../../utils/storage/accountStorage'
+import { hasPreferredPaymentMethod } from '../../utils/account'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>
@@ -23,6 +25,8 @@ const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList>
 }
 
 export default ({ route, navigation }: Props): ReactElement => {
+  const paymentData = usePaymentDataStore()
+  const account = useAccountStore()
   const { paymentData: data } = route.params
   const { type: paymentMethod, currencies } = data
 
@@ -43,7 +47,19 @@ export default ({ route, navigation }: Props): ReactElement => {
   const goToOriginOnCancel = () => goToOrigin(route.params.originOnCancel || route.params.origin)
 
   const onSubmit = (d: PaymentData) => {
-    addPaymentData(d)
+    paymentData.setPaymentData(d)
+    account.setSettings({
+      showBackupReminder: true,
+    })
+    if (!hasPreferredPaymentMethod(account, d.type)) {
+      account.setSettings({
+        preferredPaymentMethods: {
+          ...account.settings.preferredPaymentMethods,
+          [data.type]: data.id,
+        },
+      })
+    }
+
     goToOrigin(route.params.origin)
   }
 

@@ -19,13 +19,13 @@ import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
-import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { AccountStore, useAccountStore } from '../../utils/storage/accountStorage'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -43,7 +43,7 @@ export type SellViewProps = {
   navigation: StackNavigation
 }
 
-const getDefaultSellOffer = (amount?: number): SellOffer => ({
+const getDefaultSellOffer = (account: AccountStore, amount?: number): SellOffer => ({
   online: false,
   type: 'ask',
   creationDate: new Date(),
@@ -87,8 +87,9 @@ const screens = [
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const account = useAccountStore()
 
-  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(route.params.amount))
+  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(account, route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -106,7 +107,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   useFocusEffect(
     useCallback(
       () => () => {
-        setOffer(getDefaultSellOffer(route.params.amount))
+        setOffer(getDefaultSellOffer(account, route.params.amount))
         setUpdatePending(false)
         setPage(0)
       },
@@ -149,7 +150,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       setUpdatePending(true)
       info('Posting offer ', JSON.stringify(offer))
 
-      await pgp() // make sure pgp has been sent
+      await pgp(account) // make sure pgp has been sent
 
       const [result, err] = await postOffer(offer)
       if (result) {
@@ -157,7 +158,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         getTradingLimit({}).then(([tradingLimit]) => {
           if (tradingLimit) {
-            updateTradingLimit(tradingLimit)
+            account.setTradingLimit(tradingLimit)
           }
         })
 

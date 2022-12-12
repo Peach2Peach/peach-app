@@ -1,18 +1,17 @@
+import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { AppState, Linking, Pressable, View } from 'react-native'
-import analytics from '@react-native-firebase/analytics'
 
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Card, Headline, Icon, PeachScrollView, Text, Title } from '../../components'
 import { APPVERSION, BUILDNUMBER } from '../../constants'
-import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
 import { DeleteAccount } from '../../overlays/DeleteAccount'
-import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
 
 type Props = {
@@ -20,7 +19,8 @@ type Props = {
 }
 
 export default ({ navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
+  const account = useAccountStore()
+
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)
@@ -29,7 +29,7 @@ export default ({ navigation }: Props): ReactElement => {
   const toggleAnalytics = () => {
     setAnalyticsOn(!account.settings.enableAnalytics)
     analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
-    updateSettings({
+    account.updateSettings({
       enableAnalytics: !account.settings.enableAnalytics,
     })
   }

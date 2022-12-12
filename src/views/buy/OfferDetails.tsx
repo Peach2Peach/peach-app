@@ -1,16 +1,16 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import { BuyViewProps } from './BuyPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
+import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import { getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import PaymentDetails from '../../components/payment/PaymentDetails'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import { useAccountStore } from '../../utils/storage/accountStorage'
+import { BuyViewProps } from './BuyPreferences'
 
 const validate = (offer: BuyOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()
@@ -21,7 +21,7 @@ const validate = (offer: BuyOffer) => {
 }
 
 export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
-  useContext(LanguageContext)
+  const account = useAccountStore()
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
@@ -43,14 +43,11 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
     })
-    updateSettings(
-      {
-        meansOfPayment,
-        kyc: offer.kyc,
-      },
-      true,
-    )
-  }, [meansOfPayment])
+    account.updateSettings({
+      meansOfPayment,
+      kyc: offer.kyc,
+    })
+  }, [account, meansOfPayment])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 

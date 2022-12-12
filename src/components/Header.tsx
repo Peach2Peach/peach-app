@@ -10,7 +10,6 @@ import BitcoinContext from '../contexts/bitcoin'
 import appStateEffect from '../effects/appStateEffect'
 import { getPeachInfo, getTrades } from '../init/session'
 import tw from '../styles/tailwind'
-import { account, getAccount } from '../utils/account'
 import { getChatNotifications } from '../utils/chat'
 import i18n from '../utils/i18n'
 import { mildShadow } from '../utils/layout'
@@ -20,6 +19,7 @@ import { marketPrices } from '../utils/peachAPI/public/market'
 import { thousands } from '../utils/string'
 import { Fade } from './animation'
 import Logo from '../assets/logo/peachLogo.svg'
+import { useAccountStore } from '../utils/storage/accountStorage'
 
 let HEADERHEIGHT = 56
 const setHeaderHeight = (event: LayoutChangeEvent) => (HEADERHEIGHT = event.nativeEvent.layout.height)
@@ -39,6 +39,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
   const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
+  const account = useAccountStore()
 
   useEffect(() => {
     analytics().logAppOpen()
@@ -49,7 +50,7 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
       callback: (isActive) => {
         setActive(isActive)
         if (isActive) {
-          getPeachInfo(getAccount())
+          getPeachInfo(account)
           getTrades()
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),

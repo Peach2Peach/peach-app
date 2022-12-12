@@ -9,11 +9,12 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import userUpdate from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
-import { account, createAccount, deleteAccount } from '../../utils/account'
+import { createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 import { parseError } from '../../utils/system'
 
 type Props = {
@@ -23,6 +24,7 @@ type Props = {
 
 // eslint-disable-next-line complexity
 export default ({ route, navigation }: Props): ReactElement => {
+  const account = useAccountStore()
   const [, updateOverlay] = useContext(OverlayContext)
 
   useContext(LanguageContext)
@@ -49,7 +51,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     try {
       const [result, authError] = await auth({})
       if (result) {
-        await userUpdate(route.params.referralCode)
+        await userUpdate(account, route.params.referralCode)
         storeAccount(account)
 
         navigation.replace('home', {})

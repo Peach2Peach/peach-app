@@ -3,10 +3,10 @@ import { View } from 'react-native'
 import { Text, TextLink } from '../../../components'
 import { MessageContext } from '../../../contexts/message'
 import tw from '../../../styles/tailwind'
-import { updateSettings } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { textShadow } from '../../../utils/layout'
 import { Navigation } from '../../../utils/navigation'
+import { useAccountStore } from '../../../utils/storage/accountStorage'
 
 type DisputeDisclaimerProps = ComponentProps & {
   navigation: Navigation
@@ -15,6 +15,8 @@ type DisputeDisclaimerProps = ComponentProps & {
 
 export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDisclaimerProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const account = useAccountStore()
+
   const raiseDispute = () => {
     updateMessage({ template: null, level: 'ERROR' })
     navigation.navigate('dispute', { contractId: contract.id })
@@ -38,7 +40,7 @@ export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDiscla
       <View style={tw`w-full flex-row`}>
         <Text
           onPress={() => {
-            updateSettings({ showDisputeDisclaimer: false }, true)
+            account.updateSettings({ showDisputeDisclaimer: false })
             updateMessage({ template: undefined, msg: undefined, level: 'ERROR' })
           }}
           style={[tw`flex-1 font-baloo text-xs text-white-2 underline`, textShadow]}

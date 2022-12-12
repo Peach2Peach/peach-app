@@ -9,6 +9,7 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
 import { createAccount, recoverAccount } from '../../utils/account'
+import { useAccountStore } from '../../utils/storage/accountStorage'
 
 const bip39Rules = {
   required: true,
@@ -45,7 +46,10 @@ export default ({ style }: ComponentProps): ReactElement => {
     const mnemonic = seedPhrase.map(([word]) => word).join(' ')
     const recoveredAccount = await createAccount(mnemonic)
 
-    const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
+    const account = useAccountStore()
+    account.setAccount(recoveredAccount)
+
+    const [success, recoverAccountErr] = await recoverAccount(account)
 
     if (success) {
       await storeAccount(recoveredAccount)

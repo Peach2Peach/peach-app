@@ -3,7 +3,6 @@ import { Pressable, View } from 'react-native'
 import { OverlayContext } from '../../../../contexts/overlay'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
-import { removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { whiteGradient } from '../../../../utils/layout'
 import { StackNavigation } from '../../../../utils/navigation'
@@ -30,6 +29,7 @@ import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemp
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
 import { useKeyboard } from '../../../../hooks'
+import { usePaymentDataStore } from '../../../../utils/storage/paymentDataStorage'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -79,6 +79,7 @@ export const PaymentMethodForm = ({
   back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
+  const paymentData = usePaymentDataStore()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const keyboardOpen = useKeyboard()
@@ -101,7 +102,7 @@ export const PaymentMethodForm = ({
   }
 
   const remove = () => {
-    if (data.id) removePaymentData(data.id)
+    if (data.id) paymentData.removePaymentData(data.id)
     if ($formRef && onDelete) onDelete()
   }
 

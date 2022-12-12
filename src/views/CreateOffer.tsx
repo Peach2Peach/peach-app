@@ -7,9 +7,9 @@ import i18n from '../utils/i18n'
 import { Button, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../components'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../constants'
 import BitcoinContext from '../contexts/bitcoin'
-import { account, getTradingLimit, updateSettings } from '../utils/account'
-import { applyTradingLimit } from '../utils/account/tradingLimit'
+import { applyTradingLimit, getTradingLimit } from '../utils/account'
 import { StackNavigation } from '../utils/navigation'
+import { useAccountStore } from '../utils/storage/accountStorage'
 import { thousands } from '../utils/string'
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
 }
 
 export default ({ navigation, page }: Props): ReactElement => {
+  const account = useAccountStore()
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
@@ -43,7 +44,7 @@ export default ({ navigation, page }: Props): ReactElement => {
 
   const goToBackups = () => navigation.navigate('backups', {})
   const dismissBackupReminder = () => {
-    updateSettings({ showBackupReminder: false }, true)
+    account.updateSettings({ showBackupReminder: false })
     setShowBackupReminder(false)
   }
 
@@ -52,8 +53,8 @@ export default ({ navigation, page }: Props): ReactElement => {
   }
 
   useEffect(() => {
-    updateSettings({ amount }, true)
-  }, [amount])
+    account.updateSettings({ amount })
+  }, [account, amount])
 
   return (
     <View testID={`view-${page}`} style={tw`h-full flex`}>
