@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import { Text, Icon } from '..'
+import { Text, Icon, Shadow } from '..'
 import tw from '../../styles/tailwind'
+import { mildShadow } from '../../utils/layout'
 
 export type RadioButtonItem<T> = {
   value: T
@@ -16,6 +17,7 @@ type RadioButtonItemProp = ComponentProps & {
   disabled?: boolean
 }
 const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement => (
+  <Shadow shadow={mildShadow}>
   <View
     style={[
       tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
@@ -29,6 +31,7 @@ const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): 
       color={(selected ? tw`text-primary-light` : tw`text-black-3`).color}
     />
   </View>
+  </Shadow>
 )
 
 type RadioButtonsProps<T> = ComponentProps & {

@@ -37,13 +37,15 @@ export default (): ReactElement => {
     navigation.goBack()
   }
 
+  const getDisplayCurrency = (c: Currency) => {}
+
   return (
     <View style={tw`h-full flex pt-6 px-6 pb-10 bg-primary-background`}>
       <View style={tw`h-full items-center justify-center`}>
         <RadioButtons
           style={tw`mt-2`}
           selectedValue={selectedCurrency}
-          items={CURRENCIES.map((c) => ({ value: c, display: c }))}
+          items={CURRENCIES.map((c) => ({ value: c, display: i18n(`currency.${c}`) }))}
           onChange={(c) => setSelectedCurrency(c as Currency)}
         />
       </View>
