@@ -23,7 +23,7 @@ type DisputeResultProps = {
 }
 
 export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) => {
-  const chat = useChatStore()
+  const chat = useChatStore(contractId)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
