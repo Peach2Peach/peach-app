@@ -43,7 +43,7 @@ try {
 
 AppRegistry.registerComponent(appName, () => App)
 
-if (typeof document !== 'undefined') {
+if (document !== undefined) {
   // start webapp if document available
   AppRegistry.runApplication(appName, {
     rootTag: document.getElementById('root'),

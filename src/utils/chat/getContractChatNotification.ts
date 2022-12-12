@@ -4,7 +4,7 @@
  * @returns unread chat notifications for contract
  */
 export const getContractChatNotification = (contract: Contract) => {
-  if (typeof contract.unreadMessages !== 'undefined') {
+  if (contract.unreadMessages === undefined) {
     return contract.unreadMessages
   }
 
