@@ -12,7 +12,7 @@ import { loadChatsFromFileSystem } from './loadChatsFromFileSystem'
  * @description Method to load legacy account from file system
  * @deprecated
  */
-export const loadAccountFromFileSystem = async (password: string) => {
+export const loadAccountFromFileSystem = async (password: string): Promise<LegacyAccount> => {
   info('Loading account from file system')
 
   let acc = defaultAccount

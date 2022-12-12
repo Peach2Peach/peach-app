@@ -1,10 +1,15 @@
 import { exists } from 'react-native-fs'
-import shallow from 'zustand/shallow'
 import { loadAccountFromFileSystem } from '../../utils/account/loadAccount/loadAccountFromFileSystem'
 import { deleteFile, readDir } from '../../utils/file'
 import { info } from '../../utils/log'
 import { sessionStorage } from '../../utils/session'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import {
+  chatStorage,
+  useAccountStore,
+  useContractsStore,
+  useOffersStore,
+  usePaymentDataStore,
+} from '../../utils/storage'
 
 const accountFiles = [
   '/peach-account-identity.json',
@@ -24,13 +29,26 @@ export const migrateAccountToSecureStorage = async () => {
 
   const password = sessionStorage.getString('password')
   if (password) {
-    const account = await loadAccountFromFileSystem(password)
-    if (!account) {
+    const legacyAccount = await loadAccountFromFileSystem(password)
+    if (!legacyAccount) {
       info('migrateAccountToSecureStorage - no legacy account found')
       return
     }
-    const { setAccount } = useAccountStore()
-    setAccount(account)
+    const setAccount = useAccountStore((state) => state.setAccount)
+    const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
+    const setOffer = useOffersStore((state) => state.setOffer)
+    const setContract = useContractsStore((state) => state.setContract)
+
+    setAccount(legacyAccount)
+    setAllPaymentData(
+      legacyAccount.paymentData.reduce((obj, data) => {
+        obj[data.id] = data
+        return obj
+      }, {} as Record<string, PaymentData>),
+    )
+    legacyAccount.offers.forEach(setOffer)
+    legacyAccount.contracts.forEach(setContract)
+    Object.values(legacyAccount.chats).forEach((chat) => chatStorage.setMap(chat.id, chat))
   }
 
   info('migrateAccountToSecureStorage - deleting legacy files')
