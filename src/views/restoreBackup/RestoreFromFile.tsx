@@ -2,7 +2,6 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import Logo from '../../assets/logo/peachLogo.svg'
 import { Button, FileInput, Input, Loading, Text } from '../../components'
 import Icon from '../../components/Icon'
 import { MessageContext } from '../../contexts/message'
@@ -12,7 +11,7 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
 import { decryptAccount } from '../../utils/account/decryptAccount'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
 
 const passwordRules = { required: true, password: true }
 
@@ -27,6 +26,7 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
+  const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
 
   const onError = (e: Error) => {
     updateMessage({
@@ -59,6 +59,7 @@ export default ({ style }: ComponentProps): ReactElement => {
 
     if (success) {
       await storeAccount(recoveredAccount)
+      setAllPaymentData(recoveredAccount.paymentData)
       setRestored(true)
     } else {
       onError(recoverAccountErr as Error)

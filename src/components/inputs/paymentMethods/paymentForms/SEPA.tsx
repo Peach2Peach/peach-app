@@ -3,8 +3,8 @@ import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
-import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 
@@ -28,6 +28,8 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   )
   const [displayErrors, setDisplayErrors] = useState(false)
 
+  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
+
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
   let $bic = useRef<TextInput>(null).current
@@ -36,7 +38,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
 
   const labelRules = {
     required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    duplicate: getWithLabel(label) && getWithLabel(label)!.id !== data.id,
   }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])

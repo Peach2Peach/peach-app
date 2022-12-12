@@ -5,19 +5,19 @@ import tw from '../../styles/tailwind'
 import { Headline, Title } from '../../components'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
-import { getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import { getSelectedPaymentDataIds } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import { useAccountStore } from '../../utils/storage/accountStorage'
 import Premium from './components/Premium'
 import { SellViewProps } from './SellPreferences'
+import { usePaymentDataStore, useAccountStore } from '../../utils/storage'
 
-const validate = (offer: SellOffer) => {
+const validate = (offer: SellOffer, getWithId: (id: string) => PaymentData) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
   const selectedPaymentMethods = Object.keys(offer.paymentData)
   const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
+    .map(getWithId)
     .filter((d) => d)
     .every((d) => isValidPaymentData(d!))
 
@@ -32,6 +32,7 @@ const validate = (offer: SellOffer) => {
 
 export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
   const account = useAccountStore()
+  const getWithId = usePaymentDataStore((state) => state.getWithId)
 
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
@@ -56,7 +57,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
 
   useEffect(() => {
     const paymentData = getSelectedPaymentDataIds()
-      .map(getPaymentData)
+      .map(getWithId)
       .reduce((obj, data) => {
         if (!data) return obj
         obj[data.type] = {
@@ -71,20 +72,20 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         ...offer,
         meansOfPayment,
         paymentData,
-        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
+        originalPaymentData: getSelectedPaymentDataIds().map(getWithId) as PaymentData[],
         premium,
       },
       false,
     )
   }, [account, meansOfPayment, premium])
 
-  useEffect(() => setStepValid(validate(offer)), [offer])
+  useEffect(() => setStepValid(validate(offer, getWithId)), [offer])
 
   return (
     <View style={tw`mb-16 px-6`}>
       <Title title={i18n('sell.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
+      <PaymentDetails style={tw`mt-4`} setMeansOfPayment={setMeansOfPayment} />
       <AddPaymentMethodButton
         navigation={navigation}
         origin={['sellPreferences', { amount: offer.amount }]}

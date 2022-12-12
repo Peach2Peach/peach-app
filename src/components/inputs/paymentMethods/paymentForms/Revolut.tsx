@@ -2,18 +2,20 @@ import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, u
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
-import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
+// eslint-disable-next-line max-statements
 export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [userName, setUserName] = useState(data?.userName || '')
   const [email, setEmail] = useState(data?.email || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
 
   const anyFieldSet = !!(phone || userName || email)
 
@@ -23,7 +25,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
 
   const labelRules = {
     required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    duplicate: getWithLabel(label) && getWithLabel(label)!.id !== data.id,
   }
   const phoneRules = { required: !email && !userName, phone: true }
   const emailRules = { required: !phone && !userName, email: true }

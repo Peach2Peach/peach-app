@@ -3,12 +3,10 @@ import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { PAYMENTCATEGORIES } from '../../constants'
 import tw from '../../styles/tailwind'
-import { getPaymentData, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { useAccountStore } from '../../utils/storage/accountStorage'
-import { usePaymentDataStore } from '../../utils/storage/paymentDataStorage'
+import { usePaymentDataStore, useAccountStore } from '../../utils/storage'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
@@ -36,22 +34,22 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 )
 
 type PaymentDetailsProps = ComponentProps & {
-  paymentData: PaymentData[]
   editable?: boolean
   navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
 export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
   const account = useAccountStore()
-  const paymentData = usePaymentDataStore()
+  const paymentData = usePaymentDataStore((state) => state.paymentData)
+  const getWithId = usePaymentDataStore((state) => state.getWithId)
+  const removePaymentData = usePaymentDataStore((state) => state.removePaymentData)
 
-  const [, setRandom] = useState(0)
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {
     setMeansOfPayment(
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
-        .map(getPaymentData)
+        .map(getWithId)
         .filter((data) => data)
         .filter((data) => getPaymentMethodInfo(data!.type))
         .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}),
@@ -69,7 +67,7 @@ export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetai
   const setPreferredPaymentMethods = (ids: string[]) => {
     account.updateSettings({
       preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
-        const method = paymentData.get(id).type
+        const method = getWithId(id).type
         obj[method] = id
         return obj
       }, {} as Settings['preferredPaymentMethods']),
@@ -78,8 +76,7 @@ export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetai
   }
 
   const deletePaymentData = (data: PaymentData) => {
-    paymentData.removePaymentData(data.id)
-    setRandom(Math.random())
+    removePaymentData(data.id)
   }
 
   const editItem = (data: PaymentData) => {
@@ -111,7 +108,7 @@ export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetai
         {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
           .map((category) => ({
             category,
-            checkboxItems: paymentData
+            checkboxItems: Object.values(paymentData)
               .filter(belongsToCategory(category))
               .filter((data) => getPaymentMethodInfo(data.type))
               .sort((a, b) => (a.id > b.id ? 1 : -1))

@@ -14,7 +14,7 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
 import { parseError } from '../../utils/system'
 
 type Props = {
@@ -25,6 +25,8 @@ type Props = {
 // eslint-disable-next-line complexity
 export default ({ route, navigation }: Props): ReactElement => {
   const account = useAccountStore()
+  const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
+
   const [, updateOverlay] = useContext(OverlayContext)
 
   useContext(LanguageContext)
@@ -53,6 +55,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (result) {
         await userUpdate(account, route.params.referralCode)
         storeAccount(account)
+        setAllPaymentData(account.paymentData)
 
         navigation.replace('home', {})
       } else {

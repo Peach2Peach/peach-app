@@ -6,12 +6,12 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
-import { getPaymentDataByType } from '../../utils/account'
 import { StackNavigation } from '../../utils/navigation'
 import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
+import { usePaymentDataStore } from '../../utils/storage'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>
@@ -30,6 +30,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [country, setCountry] = useState(route.params.country)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | undefined>(route.params.paymentMethod)
+  const getWithType = usePaymentDataStore((state) => state.getWithType)
 
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
@@ -37,7 +38,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const goToPaymentDetails = (data: Partial<PaymentData>) => {
     if (!data.paymentMethod || !data.currencies) return
     const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
-    const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
+    const existingPaymentMethodsOfType = getWithType(methodType).length
     let label = i18n(`paymentMethod.${methodType}`)
     if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
 

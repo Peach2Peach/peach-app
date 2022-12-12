@@ -3,8 +3,8 @@ import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
-import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 const phoneRules = {
@@ -18,12 +18,14 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [displayErrors, setDisplayErrors] = useState(false)
 
+  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
+
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
 
   const labelRules = {
     required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    duplicate: getWithLabel(label) && getWithLabel(label)!.id !== data.id,
   }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])

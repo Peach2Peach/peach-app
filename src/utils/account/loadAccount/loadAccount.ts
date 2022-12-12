@@ -5,7 +5,6 @@ import {
   loadContracts,
   loadIdentity,
   loadOffers,
-  loadPaymentData,
   loadSettings,
   loadTradingLimit,
   setAccount,
@@ -23,10 +22,9 @@ export const loadAccount = async (): Promise<Account> => {
     return defaultAccount
   }
 
-  const [settings, tradingLimit, paymentData, offers, contracts, chats] = await Promise.all([
+  const [settings, tradingLimit, offers, contracts, chats] = await Promise.all([
     loadSettings(),
     loadTradingLimit(),
-    loadPaymentData(),
     loadOffers(),
     loadContracts(),
     loadChats(),
@@ -36,7 +34,6 @@ export const loadAccount = async (): Promise<Account> => {
     ...identity,
     settings,
     tradingLimit,
-    paymentData,
     offers,
     contracts,
     chats,
