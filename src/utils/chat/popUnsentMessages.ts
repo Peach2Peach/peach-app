@@ -11,7 +11,7 @@ export const popUnsentMessages = (id: Chat['id']): Message[] => {
 
   if (!chat) return []
 
-  const unsentMessages = getUnsentMessages(chat)
-  chat.messages = chat.messages.filter(m => m.from !== account.publicKey || m.readBy?.length > 0)
+  const unsentMessages = getUnsentMessages(chat.messages)
+  chat.messages = chat.messages.filter((m) => m.from !== account.publicKey || m.readBy?.length > 0)
   return unsentMessages
 }

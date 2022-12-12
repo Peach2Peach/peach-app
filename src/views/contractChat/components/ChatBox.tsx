@@ -4,13 +4,13 @@ import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { getChat, getChatNotifications } from '../../../utils/chat'
 import { getRequiredActionCount } from '../../../utils/offer'
+import { ChatStorage } from '../../../utils/storage/useChatStore'
 import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 21
 
 type ChatBoxProps = ComponentProps & {
-  chat: Chat
-  setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void
+  chat: ChatStorage
   tradingPartner: User['id']
   page: number
   loadMore: () => void
@@ -18,15 +18,7 @@ type ChatBoxProps = ComponentProps & {
   online: boolean
 }
 
-export default ({
-  chat,
-  setAndSaveChat,
-  tradingPartner,
-  page,
-  loadMore,
-  loading,
-  online,
-}: ChatBoxProps): ReactElement => {
+export default ({ chat, tradingPartner, page, loadMore, loading, online }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
@@ -42,16 +34,19 @@ export default ({
   const onContentSizeChange = () =>
     page === 0 ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50) : () => {}
 
-  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    const lastItem = viewableItems.pop()?.item as Message
-    const savedChat = getChat(chat.id)
-    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
+  const onViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+      const lastItem = viewableItems.pop()?.item as Message
+      const savedChat = getChat(chat.id)
+      if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
-  }, [])
+      chat.setLastSeen(lastItem.date)
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount(),
+      })
+    },
+    [updateAppContext],
+  )
 
   return (
     <FlatList

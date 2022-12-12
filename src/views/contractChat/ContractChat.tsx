@@ -10,21 +10,22 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import { account } from '../../utils/account'
-import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
+import { decryptMessage, popUnsentMessages } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
+import { debounce } from '../../utils/performance'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
+import { useChatStore } from '../../utils/storage'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
-import { debounce } from '../../utils/performance'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>
@@ -33,6 +34,7 @@ type Props = {
 
 // eslint-disable-next-line max-statements
 export default ({ route, navigation }: Props): ReactElement => {
+  const chat = useChatStore(route.params.contractId)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
@@ -44,12 +46,10 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [tradingPartner, setTradingPartner] = useState<User | null>(
     contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null,
   )
-  const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
 
-  const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
@@ -61,9 +61,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const saveDraft = useCallback(
     () =>
       debounce(() => {
-        setAndSaveChat(contractId, {
-          draftMessage: newMessage,
-        })
+        chat.setDraft(newMessage)
       }, 2000),
     [contractId, newMessage],
   )
@@ -89,23 +87,17 @@ export default ({ route, navigation }: Props): ReactElement => {
         )
       }
 
-      setAndSaveChat(
-        chat.id,
+      chat.setLastSeen(new Date())
+      chat.addMessages([
         {
-          messages: [
-            {
-              roomId: `contract-${contract.id}`,
-              from: account.publicKey,
-              date: new Date(),
-              readBy: [],
-              message,
-              signature: encryptedResult.signature,
-            },
-          ],
-          lastSeen: new Date(),
+          roomId: `contract-${contract.id}`,
+          from: account.publicKey,
+          date: new Date(),
+          readBy: [],
+          message,
+          signature: encryptedResult.signature,
         },
-        false,
-      )
+      ])
     },
     [chat.id, contract, tradingPartner, ws],
   )
@@ -137,7 +129,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       setLoadingMessages(true)
       setPage(0)
       setTradingPartner(c ? (account.publicKey === c.seller.id ? c.buyer : c.seller) : null)
-      setChat(getChat(route.params.contractId) || {})
       setContract(c)
     }
   }
@@ -177,9 +168,8 @@ export default ({ route, navigation }: Props): ReactElement => {
           date: new Date(message.date),
           message: messageBody,
         }
-        setAndSaveChat(contractId, {
-          messages: [decryptedMessage],
-        })
+        chat.addMessages([decryptedMessage])
+
         if (!message.readBy.includes(account.publicKey)) {
           ws.send(
             JSON.stringify({
@@ -282,9 +272,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           error('Could not decrypt all messages', contract.id)
         }
 
-        setAndSaveChat(contractId, {
-          messages: decryptedMessages,
-        })
+        chat.addMessages(decryptedMessages)
         setLoadingMessages(false)
         setUpdatePending(false)
       },
@@ -307,7 +295,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       <View style={[tw`w-full h-full flex-shrink`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}
-          setAndSaveChat={setAndSaveChat}
           tradingPartner={tradingPartner?.id || ''}
           online={ws.connected}
           page={page}

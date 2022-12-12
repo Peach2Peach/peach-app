@@ -1,7 +1,6 @@
 import {
   account,
   defaultAccount,
-  loadChats,
   loadContracts,
   loadIdentity,
   loadOffers,
@@ -29,7 +28,6 @@ export const loadAccount = async (): Promise<Account> => {
     loadPaymentData(),
     loadOffers(),
     loadContracts(),
-    loadChats(),
   ])
 
   const acc = {
