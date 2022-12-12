@@ -37,7 +37,7 @@ declare type Chats = Record<Chat['id'], Chat>
 
 declare type Account = Identity & {
   settings: Settings
-  paymentData: PaymentData[]
+  paymentData: Record<string, PaymentData>
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]

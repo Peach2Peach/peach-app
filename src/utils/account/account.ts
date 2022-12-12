@@ -16,7 +16,7 @@ export const defaultAccount: Account = {
     showBackupReminder: false,
     showDisputeDisclaimer: true,
   },
-  paymentData: [],
+  paymentData: {},
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,

@@ -2,6 +2,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { defaultAccount } from '../account/account'
 import { accountStorage } from './accountStorage'
+import { toZustandStorage } from './toZustandStorage'
 
 export type AccountStore = Account & {
   setAccount: (account: Account) => void
@@ -19,9 +20,9 @@ export const useAccountStore = create<AccountStore>()(
       setTradingLimit: (tradingLimit: TradingLimit) => set((state) => ({ ...state, tradingLimit })),
     }),
     {
-      name: 'account-storage',
+      name: 'account',
       version: 0,
-      getStorage: () => accountStorage,
+      getStorage: () => toZustandStorage(accountStorage),
     },
   ),
 )
