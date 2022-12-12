@@ -7,16 +7,16 @@ import { Headline, Icon, PrimaryButton, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { Navigation } from '../utils/navigation'
 import { getOffer } from '../utils/offer'
 import { getOfferDetails } from '../utils/peachAPI'
+import { useNavigation } from '../hooks'
 
 type Props = {
   offerId: Offer['id']
-  navigation: Navigation
 }
 
-export default ({ offerId, navigation }: Props): ReactElement => {
+export default ({ offerId }: Props): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [offer, setOffer] = useState(getOffer(offerId))
 

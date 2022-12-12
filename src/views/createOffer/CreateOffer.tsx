@@ -9,15 +9,14 @@ import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import { account, getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
-import { StackNavigation } from '../../utils/navigation'
 import { thousands } from '../../utils/string'
 import { useHeaderState } from '../../components/header/store'
 import { useFocusEffect } from '@react-navigation/native'
 import TitleComponent from './TitleComponent'
 import { getHeaderIcons } from './getHeaderIcons'
+import { useNavigation } from '../../hooks'
 
 type Props = {
-  navigation: StackNavigation
   page: 'buy' | 'sell'
 }
 
@@ -35,7 +34,8 @@ const useHeaderSetup = (page: 'buy' | 'sell') => {
   )
 }
 
-export default ({ navigation, page }: Props): ReactElement => {
+export default ({ page }: Props): ReactElement => {
+  const navigation = useNavigation()
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
   useHeaderSetup(page)
 
@@ -64,7 +64,7 @@ export default ({ navigation, page }: Props): ReactElement => {
     updateSettings({ amount }, true)
   }, [amount])
 
-  const goToBackups = () => navigation.navigate('backups', {})
+  const goToBackups = () => navigation.navigate('backups')
   const dismissBackupReminder = () => {
     updateSettings({ showBackupReminder: false }, true)
     setShowBackupReminder(false)

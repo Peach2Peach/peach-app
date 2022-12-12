@@ -136,7 +136,7 @@ const App: React.FC = () => {
     updateMessage({
       msgKey: (err as Error).message || 'GENERAL_ERROR',
       level: 'ERROR',
-      action: () => navigationRef.navigate('contact', {}),
+      action: () => navigationRef.navigate('contact'),
       actionLabel: i18n('contactUs'),
       actionIcon: 'mail',
     })
@@ -147,7 +147,7 @@ const App: React.FC = () => {
     updateMessage({
       msgKey: (err as Error).message || 'GENERAL_ERROR',
       level: 'ERROR',
-      action: () => navigationRef.navigate('contact', {}),
+      action: () => navigationRef.navigate('contact'),
       actionLabel: i18n('contactUs'),
       actionIcon: 'mail',
     })
@@ -236,21 +236,21 @@ const App: React.FC = () => {
                         value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                       >
                         <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                          <View style={tw`h-full flex-col`}>
-                            <Drawer
-                              title={drawerTitle}
-                              content={drawerContent}
-                              show={showDrawer}
-                              onClose={onCloseDrawer}
-                            />
-                            <Overlay {...overlayState} />
-                            {!!messageState.msgKey && (
-                              <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                                <Message {...messageState} />
-                              </Animated.View>
-                            )}
-                            <View style={tw`h-full flex-shrink`}>
-                              <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
+                          <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
+                            <View style={tw`h-full flex-col`}>
+                              <Drawer
+                                title={drawerTitle}
+                                content={drawerContent}
+                                show={showDrawer}
+                                onClose={onCloseDrawer}
+                              />
+                              <Overlay {...overlayState} />
+                              {!!messageState.msgKey && (
+                                <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                  <Message {...messageState} />
+                                </Animated.View>
+                              )}
+                              <View style={tw`h-full flex-shrink`}>
                                 <Stack.Navigator
                                   detachInactiveScreens={true}
                                   screenOptions={{
@@ -271,17 +271,12 @@ const App: React.FC = () => {
                                     />
                                   ))}
                                 </Stack.Navigator>
-                              </NavigationContainer>
+                              </View>
+                              {showFooter(currentPage) && (
+                                <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
+                              )}
                             </View>
-                            {showFooter(currentPage) && (
-                              <Footer
-                                style={tw`z-10`}
-                                active={currentPage}
-                                navigation={navigationRef}
-                                setCurrentPage={setCurrentPage}
-                              />
-                            )}
-                          </View>
+                          </NavigationContainer>
                         </OverlayContext.Provider>
                       </DrawerContext.Provider>
                     </MessageContext.Provider>

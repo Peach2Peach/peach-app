@@ -1,24 +1,12 @@
 declare type RootStackParamList = {
-  [key: string]: {}
-  home: {}
-  newUser: {}
-  login: {}
-  restoreBackup: {}
-  buy: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
-  }
-  buyPreferences: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
-  }
-  sell: {
-    amount: number
-    offer?: SellOffer
-    page?: number
-  }
+  home: undefined
+  newUser: undefined
+  login: undefined
+  restoreBackup: undefined
+  buy: undefined
+  sell: undefined
+  buyPreferences: { amount: number }
+  sellPreferences: { amount: number }
   addPaymentMethod: {
     currencies?: Currency[]
     country?: Country
@@ -56,33 +44,36 @@ declare type RootStackParamList = {
   tradeComplete: {
     contract: Contract
   }
-  yourTrades: {}
+  yourTrades: undefined
   offer: {
     offer: SellOffer | BuyOffer
   }
-  settings: {}
-  contact: {}
+  settings: undefined
+  contact: undefined
   report: {
     reason: ContactReason
     topic?: string
     message?: string
     shareDeviceID?: boolean
   }
-  language: {}
-  currency: {}
+  language: undefined
+  currency: undefined
   profile: {
     userId: User['id']
     user?: User
   }
-  referrals: {}
-  backups: {}
-  seedWords: {}
-  escrow: {}
-  paymentMethods: {}
-  deleteAccount: {}
-  fees: {}
-  socials: {}
+  referrals: undefined
+  backups: undefined
+  seedWords: undefined
+  escrow: undefined
+  paymentMethods: undefined
+  deleteAccount: undefined
+  fees: undefined
+  socials: undefined
   testView: undefined
   testViewButtons: undefined
   testViewPopups: undefined
+  reportFullScreen: undefined
+  welcome: undefined
+  splashScreen: undefined
 }

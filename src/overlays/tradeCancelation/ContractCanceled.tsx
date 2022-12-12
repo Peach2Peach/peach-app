@@ -2,6 +2,7 @@ import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import { Headline, Icon } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
@@ -9,14 +10,15 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 /**
  * @description Overlay the buyer sees after succesful cancelation
  */
-export const ContractCanceled = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ContractCanceled = ({ contract: { id: contractId } }: ConfirmCancelTradeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => updateOverlay({ visible: false })
 
   useEffect(() => {
     setTimeout(() => {
       closeOverlay()
-      navigation.navigate('contract', { contractId: contract.id })
+      navigation.navigate('contract', { contractId })
     }, 3000)
   }, [])
 

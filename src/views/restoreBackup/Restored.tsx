@@ -6,17 +6,14 @@ import Logo from '../../assets/logo/peachLogo.svg'
 import { Text, PrimaryButton } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
+import { useNavigation } from '../../hooks'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   useContext(LanguageContext)
 
   const finish = () => {
-    navigation.replace('home', {})
+    navigation.replace('home')
   }
 
   return (

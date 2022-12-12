@@ -1,8 +1,4 @@
-import React, { ReactElement } from 'react'
-import { StackNavigation } from '../../utils/navigation'
+import React from 'react'
 import CreateOffer from '../createOffer/CreateOffer'
-type Props = {
-  navigation: StackNavigation
-}
 
-export default (props: Props): ReactElement => <CreateOffer page="sell" {...props} />
+export default () => <CreateOffer page="sell" />

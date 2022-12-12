@@ -51,7 +51,7 @@ const useHeaderSetup = () => {
   )
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
   useHeaderSetup()
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
@@ -59,14 +59,11 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
   )
   const [premium, setPremium] = useState(offer.premium)
 
-  const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer(
-      {
-        ...offr,
-        meansOfPayment,
-      },
-      shield,
-    )
+  const saveAndUpdate = (offr: SellOffer) => {
+    updateOffer({
+      ...offr,
+      meansOfPayment,
+    })
     updateSettings(
       {
         meansOfPayment: offr.meansOfPayment,
@@ -90,16 +87,13 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         return obj
       }, {} as Offer['paymentData'])
 
-    saveAndUpdate(
-      {
-        ...offer,
-        meansOfPayment,
-        paymentData,
-        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-        premium,
-      },
-      false,
-    )
+    saveAndUpdate({
+      ...offer,
+      meansOfPayment,
+      paymentData,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
+      premium,
+    })
   }, [meansOfPayment, premium])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
@@ -109,13 +103,9 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       <Title title={i18n('sell.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
       <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['sellPreferences', { amount: offer.amount }]}
-        style={tw`mt-4`}
-      />
+      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
 
-      <Premium premium={premium} setPremium={setPremium} offer={offer} />
+      <Premium {...{ offer, premium, setPremium }} />
     </View>
   )
 }

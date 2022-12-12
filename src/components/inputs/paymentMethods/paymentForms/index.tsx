@@ -6,7 +6,6 @@ import tw from '../../../../styles/tailwind'
 import { removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { whiteGradient } from '../../../../utils/layout'
-import { StackNavigation } from '../../../../utils/navigation'
 import { paymentDataChanged } from '../../../../utils/paymentMethod'
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
@@ -29,7 +28,7 @@ import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
-import { useKeyboard } from '../../../../hooks'
+import { useKeyboard, useNavigation } from '../../../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -43,7 +42,6 @@ export type PaymentMethodFormProps = ComponentProps & {
   onSubmit: (data: PaymentData) => void
   onDelete?: () => void
   back?: () => void
-  navigation: StackNavigation
 }
 export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
 
@@ -75,10 +73,10 @@ export const PaymentMethodForm = ({
   currencies = [],
   onSubmit,
   onDelete,
-  navigation,
   back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const keyboardOpen = useKeyboard()
@@ -114,7 +112,7 @@ export const PaymentMethodForm = ({
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
           onSubmit={submit}
-          {...{ paymentMethod, data, currencies, setStepValid, navigation }}
+          {...{ paymentMethod, data, currencies, setStepValid }}
         />
       </PeachScrollView>
       <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>

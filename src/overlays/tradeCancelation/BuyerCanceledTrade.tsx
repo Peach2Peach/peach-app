@@ -15,7 +15,7 @@ import Refund from '../Refund'
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation
  */
-export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const BuyerCanceledTrade = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
@@ -25,7 +25,7 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
   const refund = () => {
     updateOverlay({
-      content: <Refund {...{ sellOffer, navigate: closeOverlay, navigation }} />,
+      content: <Refund {...{ sellOffer, navigate: closeOverlay }} />,
       visible: true,
     })
   }

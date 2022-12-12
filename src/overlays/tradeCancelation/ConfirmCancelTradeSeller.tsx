@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
@@ -15,7 +16,8 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 /**
  * @description Overlay the seller sees when requesting cancelation
  */
-export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
@@ -40,7 +42,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         })
         if (patchOfferResult) {
           closeOverlay()
-          navigation.navigate('yourTrades', {})
+          navigation.navigate('yourTrades')
           saveOffer({
             ...sellOffer,
             refundTx: psbt.toBase64(),
@@ -56,7 +58,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
           updateMessage({
             msgKey: patchOfferError?.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
+            action: () => navigation.navigate('contact'),
             actionLabel: i18n('contactUs'),
             actionIcon: 'mail',
           })
@@ -66,7 +68,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         updateMessage({
           msgKey: checkRefundPSBTError || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
+          action: () => navigation.navigate('contact'),
           actionLabel: i18n('contactUs'),
           actionIcon: 'mail',
         })
@@ -76,7 +78,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })

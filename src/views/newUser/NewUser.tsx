@@ -13,22 +13,17 @@ import { account, createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import userUpdate from '../../init/userUpdate'
 import { ContactButton } from '../report/components/ContactButton'
-import { useValidatedState } from '../../hooks'
+import { useNavigation, useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
-
-type Props = {
-  navigation: StackNavigation
-}
 
 const passwordRules = { required: true, password: true }
 const referralCodeRules = { referralCode: true }
 
-// eslint-disable-next-line complexity
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
@@ -72,11 +67,11 @@ export default ({ navigation }: Props): ReactElement => {
     updateMessage({
       msgKey: e.message || 'AUTHENTICATION_FAILURE',
       level: 'ERROR',
-      action: () => navigation.navigate('contact', {}),
+      action: () => navigation.navigate('contact'),
       actionLabel: i18n('contactUs'),
       actionIcon: 'mail',
     })
-    if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
+    if (e.message === 'REGISTRATION_DENIED') navigation.replace('welcome')
     deleteAccount({
       onSuccess: () => {
         setLoading(false)
@@ -95,7 +90,7 @@ export default ({ navigation }: Props): ReactElement => {
         storeAccount(account, password)
 
         setLoading(false)
-        navigation.replace('home', {})
+        navigation.replace('home')
       } else {
         onError(new Error(authError?.error))
       }
@@ -135,7 +130,7 @@ export default ({ navigation }: Props): ReactElement => {
 
   return (
     <View style={tw`h-full flex justify-center px-6`}>
-      <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
+      <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} />
       <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
         <View />
         {/* dummy for layout */}
@@ -213,7 +208,7 @@ export default ({ navigation }: Props): ReactElement => {
             />
           </View>
           <View style={tw`w-full mt-10 flex items-center`}>
-            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
+            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome')}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <PrimaryButton

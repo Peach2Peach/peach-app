@@ -13,19 +13,15 @@ import { getChatNotifications } from '../../utils/chat'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { setSessionItem } from '../../utils/session'
-import { useValidatedState } from '../../hooks'
+import { useNavigation, useValidatedState } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
-
-type Props = {
-  navigation: StackNavigation
-}
 
 const passwordRules = { required: true }
 
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
@@ -48,7 +44,7 @@ export default ({ navigation }: Props): ReactElement => {
         updateAppContext({
           notifications: getChatNotifications() + getRequiredActionCount(),
         })
-        navigation.replace('home', {})
+        navigation.replace('home')
       } else {
         updateMessage({ msgKey: 'WRONG_PASSWORD', level: 'ERROR' })
       }
@@ -101,7 +97,7 @@ export default ({ navigation }: Props): ReactElement => {
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
-            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
+            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome')}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <PrimaryButton onPress={submit} disabled={!password} narrow>

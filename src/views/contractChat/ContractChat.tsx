@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useContext, useEffect, useState } fro
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading } from '../../components'
 import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
@@ -14,7 +14,6 @@ import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../util
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
@@ -24,14 +23,12 @@ import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { debounce } from '../../utils/performance'
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['contractChat'] }>
-  navigation: StackNavigation
-}
+import { useNavigation, useRoute } from '../../hooks'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'contractChat'>()
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
@@ -143,7 +140,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const showDisclaimer = useCallback(async () => {
     await sleep(1000)
-    // <DisputeDisclaimer navigation={navigation} contract={contract!} />
+    // <DisputeDisclaimer contract={contract!} />
     updateMessage({
       msgKey: 'DISPUTE_DISCLAIMER',
       level: 'WARN',
@@ -239,7 +236,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
+            action: () => navigation.navigate('contact'),
             actionLabel: i18n('contactUs'),
             actionIcon: 'mail',
           }),
@@ -295,7 +292,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateMessage({
           msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
+          action: () => navigation.navigate('contact'),
           actionLabel: i18n('contactUs'),
           actionIcon: 'mail',
         })
@@ -309,7 +306,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     </View>
   ) : (
     <View style={[tw`h-full flex-col`]}>
-      <ChatHeader contract={contract} navigation={navigation} />
+      <ChatHeader contract={contract} />
       <View style={[tw`w-full h-full flex-shrink`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}

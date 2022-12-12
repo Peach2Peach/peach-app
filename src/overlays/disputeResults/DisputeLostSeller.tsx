@@ -2,20 +2,20 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { Navigation } from '../../utils/navigation'
 import { confirmPayment } from '../../utils/peachAPI'
 
 type DisputeLostSellerProps = {
   contract: Contract
-  navigation: Navigation
   navigate: () => void
 }
 
-export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLostSellerProps): ReactElement => {
+export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
 
   const [loading, setLoading] = useState(false)
@@ -37,7 +37,7 @@ export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLos
       updateMessage({
         msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })
@@ -53,7 +53,7 @@ export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLos
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })
