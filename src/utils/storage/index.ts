@@ -1,2 +1,6 @@
-export { createStorage } from './createStorage'
+export { accountStorage } from './accountStorage'
+export { chatStorage } from './chatStorage'
 export { clearStorage } from './clearStorage'
+export { contractStorage } from './contractStorage'
+export { offerStorage } from './offerStorage'
+export { paymentDataStorage } from './paymentDataStorage'
