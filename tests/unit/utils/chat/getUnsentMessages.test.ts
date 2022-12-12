@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount } from '../../../../src/utils/account'
-import { getUnsentMessages, saveChat } from '../../../../src/utils/chat'
+import { getUnsentMessages } from '../../../../src/utils/chat'
 import * as chatData from '../../data/chatData'
 import { resetFakeFiles } from '../../prepare'
 
@@ -17,8 +17,7 @@ describe('getUnsentMessages', () => {
   })
 
   it('gets unsent messages from a chat', () => {
-    saveChat(chatData.chatWithUnsentMessages.id, chatData.chatWithUnsentMessages)
-    const unsentMessages = getUnsentMessages(chatData.chatWithUnsentMessages)
+    const unsentMessages = getUnsentMessages(chatData.chatWithUnsentMessages.messages)
     deepStrictEqual(
       unsentMessages.map((m) => m.message),
       ['Test', 'D'],
