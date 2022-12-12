@@ -1,9 +1,9 @@
 import { defaultAccount } from '../'
 import { error } from '../../log'
-import { accountStorage } from '../accountStorage'
+import { paymentDataStorage } from '../../storage'
 
 export const loadPaymentData = async (): Promise<Account['paymentData']> => {
-  const paymentData = accountStorage.getArray('paymentData')
+  const paymentData = await paymentDataStorage.indexer.maps.getAll()
 
   if (paymentData) return paymentData as Account['paymentData']
 

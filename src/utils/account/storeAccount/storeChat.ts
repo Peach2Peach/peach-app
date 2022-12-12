@@ -1,8 +1,8 @@
 import { info } from '../../log'
-import { chatStorage } from '../accountStorage'
+import { chatsStorage } from '../../storage'
 
 export const storeChat = (chat: Chat) => {
   info('storeChat - Storing chat')
 
-  chatStorage.setMap(chat.id, chat)
+  chatsStorage.setMap(chat.id, chat)
 }

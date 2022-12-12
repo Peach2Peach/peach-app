@@ -39,7 +39,7 @@ declare type Account = Identity & {
   settings: Settings
   paymentData: Record<string, PaymentData>
   tradingLimit: TradingLimit
-  offers: (SellOffer | BuyOffer)[]
-  contracts: Contract[]
+  offers: Record<string, SellOffer | BuyOffer>
+  contracts: Record<string, Contract>
   chats: Chats
 }

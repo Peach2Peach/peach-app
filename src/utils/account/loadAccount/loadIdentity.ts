@@ -1,5 +1,5 @@
 import { error } from '../../log'
-import { accountStorage } from '../accountStorage'
+import { accountStorage } from '../../storage'
 
 const emptyIdentity: Identity = {
   publicKey: '',

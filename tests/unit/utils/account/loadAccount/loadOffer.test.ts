@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount, storeOffers } from '../../../../../src/utils/account'
-import { offerStorage } from '../../../../../src/utils/storage/accountStorage'
+import { offerStorage } from '../../../../../src/utils/storage'
 import { loadOffer } from '../../../../../src/utils/account/loadAccount'
 import * as accountData from '../../../data/accountData'
 import { resetStorage } from '../../../prepare'

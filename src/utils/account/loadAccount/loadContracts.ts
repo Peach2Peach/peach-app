@@ -1,8 +1,8 @@
 import { error } from '../../log'
-import { contractStorage } from '../accountStorage'
+import { contractsStorage } from '../../storage'
 
 export const loadContracts = async (): Promise<Account['contracts']> => {
-  const contracts = await contractStorage.indexer.maps.getAll()
+  const contracts = await contractsStorage.indexer.maps.getAll()
 
   if (contracts) return Object.values(contracts) as Account['contracts']
 

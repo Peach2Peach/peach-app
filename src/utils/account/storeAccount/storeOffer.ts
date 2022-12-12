@@ -1,5 +1,5 @@
 import { error, info } from '../../log'
-import { offerStorage } from '../accountStorage'
+import { offersStorage } from '../../storage'
 
 export const storeOffer = async (offer: SellOffer | BuyOffer): Promise<void> => {
   if (!offer.id) {
@@ -8,5 +8,5 @@ export const storeOffer = async (offer: SellOffer | BuyOffer): Promise<void> => 
   }
   info('storeOffer - Storing offer')
 
-  offerStorage.setMap(offer.id, offer)
+  offersStorage.setMap(offer.id, offer)
 }

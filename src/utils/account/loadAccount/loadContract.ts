@@ -1,3 +1,3 @@
-import { contractStorage } from '../../storage/accountStorage'
+import { contractsStorage } from '../../storage'
 
-export const loadContract = async (id: Contract['id']): Promise<Contract | null> => contractStorage.getMap(id)
+export const loadContract = async (id: Contract['id']): Promise<Contract | null> => contractsStorage.getMap(id)

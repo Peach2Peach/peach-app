@@ -1,3 +1,3 @@
-import { chatStorage } from '../accountStorage'
+import { chatsStorage } from '../../storage'
 
-export const loadChat = async (id: Chat['id']): Promise<Chat | null> => chatStorage.getMap(id)
+export const loadChat = async (id: Chat['id']): Promise<Chat | null> => chatsStorage.getMap(id)

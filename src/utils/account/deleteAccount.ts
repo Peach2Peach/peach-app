@@ -6,8 +6,7 @@ import { logoutUser } from '../peachAPI'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { sessionStorage } from '../session'
-import { clearStorage } from '../storage'
-import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
+import { accountStorage, chatsStorage, clearStorage, contractsStorage, offersStorage } from '../storage'
 
 interface DeleteAccountProps {
   onSuccess: Function
@@ -22,7 +21,7 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
   info('Deleting account')
 
   setAccount(defaultAccount, true)
-  ;[accountStorage, offerStorage, contractStorage, chatStorage, sessionStorage].forEach(clearStorage)
+  ;[accountStorage, offersStorage, contractsStorage, chatsStorage, sessionStorage].forEach(clearStorage)
 
   logoutUser({})
 
