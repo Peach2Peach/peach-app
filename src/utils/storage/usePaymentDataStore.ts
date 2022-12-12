@@ -26,12 +26,13 @@ export const usePaymentDataStore = create<PaymentDataStorage>()(
       set((state) => (state.paymentData[paymentData.id] = paymentData))
     },
     setAllPaymentData: (paymentData: Record<PaymentData['id'], PaymentData>) => {
-      // TODO: is setArray still correct here?
-      paymentDataStorage.setArray('paymentData', paymentData)
+      Object.keys(paymentData).forEach((key) => {
+        paymentDataStorage.setMap(key, paymentData[key])
+      })
       set((state) => (state.paymentData = paymentData))
     },
     removePaymentData: (id: PaymentData['id']) => {
-      // TODO: remove from storage here
+      paymentDataStorage.removeItem(id)
       set((state) => {
         delete state.paymentData[id]
         return state
