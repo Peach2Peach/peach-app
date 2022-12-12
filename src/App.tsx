@@ -41,8 +41,8 @@ import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
+import { useAccountStore, useChatsStore, useContractsStore, useOffersStore, usePaymentDataStore } from './utils/storage'
 import { compatibilityCheck } from './utils/system'
-import { useAccountStore } from './utils/storage/accountStorage'
 
 enableScreens()
 
@@ -64,10 +64,25 @@ const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name 
  */
 const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
 
+const useSetupZustand = () => {
+  const initializePaymentData = usePaymentDataStore((state) => state.initialize)
+  const initializeOffers = useOffersStore((state) => state.initialize)
+  const initializeContract = useContractsStore((state) => state.initialize)
+  const initializeChats = useChatsStore((state) => state.initialize)
+
+  useEffect(() => {
+    initializePaymentData()
+    initializeOffers()
+    initializeContract()
+    initializeChats()
+  }, [initializePaymentData, initializeOffers, initializeContract, initializeChats])
+}
+
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
   const account = useAccountStore()
+  useSetupZustand()
 
   const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
