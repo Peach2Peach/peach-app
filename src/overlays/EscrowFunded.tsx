@@ -8,7 +8,7 @@ import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { Navigation } from '../utils/navigation'
-import { getOffer } from '../utils/offer'
+import { getOffer, isSellOffer } from '../utils/offer'
 import { getOfferDetails } from '../utils/peachAPI'
 
 type Props = {
@@ -26,7 +26,7 @@ export default ({ offerId, navigation }: Props): ReactElement => {
 
   const goToOffer = async (): Promise<void> => {
     if (!offer) return closeOverlay()
-    if (offer.type === 'ask' && offer.returnAddressRequired) {
+    if (isSellOffer(offer) && offer.returnAddressRequired) {
       navigation.navigate('setReturnAddress', { offer })
     } else {
       navigation.navigate({ name: 'offer', merge: false, params: { offer } })

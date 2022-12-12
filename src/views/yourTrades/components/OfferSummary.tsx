@@ -6,13 +6,13 @@ import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { StackNavigation } from '../../../utils/navigation'
-import { getOffer, offerIdToHex } from '../../../utils/offer'
+import { getOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 
-const sellOrBuy = (offer: SellOffer | BuyOffer) => (offer.type === 'ask' ? 'sell' : 'buy')
+const sellOrBuy = (offer: SellOffer | BuyOffer) => (isSellOffer(offer) ? 'sell' : 'buy')
 
 type OfferSummaryProps = {
   offer: BuyOffer | SellOffer
-  status: OfferStatus['status']
+  status: TradeStatus['status']
   navigation: StackNavigation
 }
 export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): ReactElement => {
@@ -37,7 +37,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       <Title title={title} />
       {status !== 'offerCanceled' ? (
         <Text style={tw`text-grey-2 text-center -mt-1`}>
-          {i18n(`yourTrades.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`)}{' '}
+          {i18n(`yourTrades.search.${isSellOffer(offer) ? 'sell' : 'buy'}.subtitle`)}{' '}
           <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
         </Text>
       ) : (
@@ -53,7 +53,7 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       ) : null}
 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
-        {offer.type === 'ask' ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
+        {isSellOffer(offer) ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
       </View>
 
       <View style={tw`flex items-center mt-4`}>

@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { interpolate } from '../../../utils/math'
+import { isSellOffer } from '../../../utils/offer'
 import { Text } from '../../text'
 import { Rating, ExtraMedals } from '../../user'
 
@@ -24,7 +25,7 @@ export const UserInfo = ({ match }: UserInfoProps) => {
     >
       <View>
         <Text style={tw`text-base`}>
-          <Text style={tw`font-bold text-base`}>{i18n(offer.type === 'ask' ? 'buyer' : 'seller')}:</Text>
+          <Text style={tw`font-bold text-base`}>{i18n(isSellOffer(offer) ? 'buyer' : 'seller')}:</Text>
           <Text style={tw`text-base`}> Peach{match.user.id.substring(0, 8)}</Text>
         </Text>
         {match.user.trades < 3 ? (

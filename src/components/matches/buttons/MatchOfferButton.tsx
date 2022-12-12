@@ -5,6 +5,7 @@ import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
 import { useMatchOffer } from '../hooks'
 import { useRoute } from '../../../hooks'
+import { isBuyOffer } from '../../../utils/offer'
 
 export const MatchOfferButton = () => {
   const { offer } = useRoute<'search'>().params
@@ -18,7 +19,7 @@ export const MatchOfferButton = () => {
   return (
     <Button
       title={i18n(
-        `search.${offer.type === 'bid' ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
+        `search.${isBuyOffer(offer) ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
       )}
       wide={false}
       disabled={currentMatch.matched || isLoading}

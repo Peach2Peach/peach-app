@@ -6,13 +6,14 @@ import Icon from '../../Icon'
 import MatchOverlay from '../../../overlays/info/Match'
 import DoubleMatch from '../../../overlays/info/DoubleMatch'
 import { useRoute } from '../../../hooks'
+import { isBuyOffer } from '../../../utils/offer'
 
 export const MatchHelpButton = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const { offer } = useRoute<'search'>().params
   const openMatchHelp = () =>
     updateOverlay({
-      content: offer.type === 'bid' ? <MatchOverlay /> : <DoubleMatch />,
+      content: isBuyOffer(offer) ? <MatchOverlay /> : <DoubleMatch />,
       showCloseButton: true,
       help: true,
     })

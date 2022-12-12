@@ -14,8 +14,7 @@ import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getOffer, getOfferStatus, offerIdToHex, getRequiredActionCount, saveOffer } from '../../utils/offer'
-import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { getOffer, offerIdToHex, getRequiredActionCount, saveOffer, isSellOffer } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
@@ -23,6 +22,8 @@ import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
 import AppContext from '../../contexts/app'
 import { getChatNotifications } from '../../utils/chat'
+import { getOfferStatus } from '../../utils/offer/status'
+import { isTradeComplete } from '../../utils/contract/status'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['offer'] }>
@@ -36,8 +37,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
 
   const offerId = route.params.offer.id as string
-  const offer = getOffer(offerId) as BuyOffer | SellOffer
-  const view = offer.type === 'ask' ? 'seller' : 'buyer'
+  const offer = getOffer(offerId)!
+  const view = isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
@@ -173,7 +174,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       ) : null}
       {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) ? (
         <View>
-          <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
+          <Title title={i18n(`${isSellOffer(offer) ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (
             <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
               {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}

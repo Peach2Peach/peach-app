@@ -7,6 +7,7 @@ import { HorizontalLine } from '../../ui'
 import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
 import { useRoute } from '../../../hooks'
+import { isBuyOffer } from '../../../utils/offer'
 
 export const CurrencySelector = () => {
   const { offer } = useRoute<'search'>().params
@@ -23,7 +24,7 @@ export const CurrencySelector = () => {
     <>
       <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]} />
       <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
-        {i18n(offer.type === 'bid' ? 'form.currency' : 'match.selectedCurrency')}:
+        {i18n(isBuyOffer(offer) ? 'form.currency' : 'match.selectedCurrency')}:
       </Headline>
       <Selector
         style={tw`mt-2`}

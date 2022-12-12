@@ -3,6 +3,8 @@ import { storeOffer } from '../account/storeAccount'
 import { sort } from '../array'
 import { info } from '../log'
 import { session } from '../session'
+import { isBuyOffer } from './isBuyOffer'
+import { isSellOffer } from './isSellOffer'
 import { offerExists } from './offerExists'
 
 /**
@@ -22,10 +24,10 @@ export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shie
 
       if (shield) {
         if (o.paymentData) offer.paymentData = o.paymentData
-        if (offer.type === 'ask') {
-          if ((o as SellOffer).returnAddress) offer.returnAddress = (o as SellOffer).returnAddress
-        } else if ((o as BuyOffer).releaseAddress) {
-          offer.releaseAddress = (o as BuyOffer).releaseAddress
+        if (isSellOffer(offer)) {
+          if (o.returnAddress) offer.returnAddress = o.returnAddress
+        } else if (isBuyOffer(o) && o.releaseAddress) {
+          offer.releaseAddress = o.releaseAddress
         }
       }
       return {
