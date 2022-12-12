@@ -2,7 +2,6 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp } from '@react-navigation/native'
 import { Fade, Input, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
@@ -13,17 +12,11 @@ import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
 import { error } from '../../utils/log'
-import { Navigation } from '../../utils/navigation'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useKeyboard } from '../../hooks'
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['dispute'] }>
-  navigation: Navigation
-}
+import { useValidatedState, useKeyboard, useRoute, useNavigation } from '../../hooks'
 
 const disputeReasonsSeller: DisputeReason[] = [
   'noPayment',
@@ -38,7 +31,9 @@ export const isEmailRequired = (reason: DisputeReason | '') =>
 
 const required = { required: true }
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'dispute'>()
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -103,11 +98,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       Keyboard.dismiss()
       updateOverlay({
         content: <RaiseDisputeSuccess />,
-        showCloseButton: false,
+        visible: true,
       })
       setTimeout(() => {
         navigation.navigate('contract', { contractId })
-        updateOverlay({ content: null, showCloseButton: true })
+        updateOverlay({ visible: false })
       }, 3000)
       setLoading(false)
 
@@ -119,7 +114,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
+        action: () => navigation.navigate('contact'),
         actionLabel: i18n('contactUs'),
         actionIcon: 'mail',
       })

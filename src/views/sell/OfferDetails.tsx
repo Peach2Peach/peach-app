@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -12,6 +12,9 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useFocusEffect } from '@react-navigation/native'
+import { useHeaderState } from '../../components/header/store'
+import { EditIcon, HelpIcon } from '../../components/icons/components'
 
 const validate = (offer: SellOffer) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -30,22 +33,37 @@ const validate = (offer: SellOffer) => {
   )
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
-  useContext(LanguageContext)
+export const getHeaderIcons = () => [
+  {
+    iconComponent: <EditIcon />,
+    onPress: () => null,
+  },
+  { iconComponent: <HelpIcon />, onPress: () => null },
+]
 
+const useHeaderSetup = () => {
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: i18n('settings.paymentMethods'), icons: getHeaderIcons() })
+    }, [setHeaderState]),
+  )
+}
+
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+  useContext(LanguageContext)
+  useHeaderSetup()
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [premium, setPremium] = useState(offer.premium)
 
-  const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer(
-      {
-        ...offr,
-        meansOfPayment,
-      },
-      shield,
-    )
+  const saveAndUpdate = (offr: SellOffer) => {
+    updateOffer({
+      ...offr,
+      meansOfPayment,
+    })
     updateSettings(
       {
         meansOfPayment: offr.meansOfPayment,
@@ -69,16 +87,13 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         return obj
       }, {} as Offer['paymentData'])
 
-    saveAndUpdate(
-      {
-        ...offer,
-        meansOfPayment,
-        paymentData,
-        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-        premium,
-      },
-      false,
-    )
+    saveAndUpdate({
+      ...offer,
+      meansOfPayment,
+      paymentData,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
+      premium,
+    })
   }, [meansOfPayment, premium])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
@@ -88,13 +103,9 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       <Title title={i18n('sell.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
       <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['sellPreferences', { amount: offer.amount }]}
-        style={tw`mt-4`}
-      />
+      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
 
-      <Premium premium={premium} setPremium={setPremium} offer={offer} />
+      <Premium {...{ offer, premium, setPremium }} />
     </View>
   )
 }

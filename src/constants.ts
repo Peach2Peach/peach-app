@@ -18,6 +18,9 @@ export const TIMETORESTART = 1000 * 60 * 5
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
 
+export let CLIENTSERVERTIMEDIFFERENCE = 0
+export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIMEDIFFERENCE = diff)
+
 export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueId())
@@ -37,7 +40,6 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: 'sepa',
     currencies: ['EUR', 'CHF', 'GBP'],
-    exchange: true,
   },
 ]
 

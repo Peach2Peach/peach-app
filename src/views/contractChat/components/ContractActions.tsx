@@ -6,7 +6,6 @@ import { OverlayContext } from '../../../contexts/overlay'
 import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
 import { ConfirmRaiseDispute } from '../../../overlays/ConfirmRaiseDispute'
 import tw from '../../../styles/tailwind'
-import { StackNavigation } from '../../../utils/navigation'
 
 type IconButtonProps = ComponentProps & {
   icon: IconType
@@ -23,10 +22,9 @@ const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => 
 type ContractActionsProps = ComponentProps & {
   contract: Contract
   view: 'buyer' | 'seller' | ''
-  navigation: StackNavigation
 }
 
-export const ContractActions = ({ contract, view, navigation, style }: ContractActionsProps): ReactElement => {
+export const ContractActions = ({ contract, view, style }: ContractActionsProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const canCancel
     = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
@@ -37,14 +35,16 @@ export const ContractActions = ({ contract, view, navigation, style }: ContractA
   const openCancelTrade = () =>
     canCancel
       ? updateOverlay({
-        content: <ConfirmCancelTrade contract={contract} navigation={navigation} />,
+        content: <ConfirmCancelTrade contract={contract} />,
+        visible: true,
       })
       : null
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = () =>
     canDispute
       ? updateOverlay({
-        content: <ConfirmRaiseDispute contract={contract} navigation={navigation} />,
+        content: <ConfirmRaiseDispute contract={contract} />,
+        visible: true,
       })
       : null
 

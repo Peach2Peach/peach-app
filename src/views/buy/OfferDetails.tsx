@@ -1,8 +1,7 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './BuyPreferences'
 import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
@@ -11,6 +10,9 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import { useHeaderState } from '../../components/header/store'
+import { useFocusEffect } from '@react-navigation/native'
+import { EditIcon, HelpIcon } from '../../components/icons/components'
 
 const validate = (offer: BuyOffer) => {
   const paymentDataValid = getSelectedPaymentDataIds()
@@ -20,8 +22,26 @@ const validate = (offer: BuyOffer) => {
   return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
-  useContext(LanguageContext)
+export const getHeaderIcons = () => [
+  {
+    iconComponent: <EditIcon />,
+    onPress: () => null,
+  },
+  { iconComponent: <HelpIcon />, onPress: () => null },
+]
+
+const useHeaderSetup = () => {
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: i18n('settings.paymentMethods'), icons: getHeaderIcons() })
+    }, [setHeaderState]),
+  )
+}
+
+export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+  useHeaderSetup()
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
@@ -59,11 +79,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       <Title title={i18n('buy.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
       <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['buyPreferences', { amount: offer.amount }]}
-        style={tw`mt-4`}
-      />
+      <AddPaymentMethodButton origin={['buyPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
     </View>
   )
 }

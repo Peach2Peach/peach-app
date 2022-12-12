@@ -7,18 +7,14 @@ import { useFocusEffect } from '@react-navigation/native'
 import { Card, GoBackButton, Loading, PeachScrollView, PrimaryButton, RadioButtons, Text, Title } from '../../components'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { Navigation } from '../../utils/navigation'
 import { getUserPrivate } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
 import { BonusPointsBar } from './components/BonusPointsBar'
 import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 
 type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
-type Props = {
-  navigation: Navigation
-}
 
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   const [user, setUser] = useState<User>()
   const pointsBalance = user?.bonusPoints || 0
   const [selectedReward, setSelectedReward] = useState<Reward>('')
@@ -68,7 +64,9 @@ export default ({ navigation }: Props): ReactElement => {
   )
 
   return !user ? (
-    <Loading />
+    <View style={tw`w-full h-full items-center justify-center absolute`}>
+      <Loading />
+    </View>
   ) : (
     <View style={tw`h-full flex items-stretch`}>
       <PeachScrollView contentContainerStyle={tw`pt-6 px-7 pb-10`}>

@@ -2,9 +2,9 @@ import React, { ReactElement, useContext } from 'react'
 import { View, Text } from 'react-native'
 import { Headline, PrimaryButton } from '../components'
 import { OverlayContext } from '../contexts/overlay'
+import { useNavigation } from '../hooks'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { Navigation } from '../utils/navigation'
 import WhatIsADispute from './WhatIsADispute'
 
 /**
@@ -13,22 +13,22 @@ import WhatIsADispute from './WhatIsADispute'
 
 export type ConfirmRaiseDisputeProps = {
   contract: Contract
-  navigation: Navigation
 }
-export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisputeProps): ReactElement => {
+export const ConfirmRaiseDispute = ({ contract: { id: contractId } }: ConfirmRaiseDisputeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   const ok = async () => {
     closeOverlay()
-    navigation.navigate('dispute', { contractId: contract.id })
+    navigation.navigate('dispute', { contractId })
   }
 
   const openExplainer = () =>
     updateOverlay({
       content: <WhatIsADispute />,
-      showCloseButton: true,
+      visible: true,
     })
 
   return (

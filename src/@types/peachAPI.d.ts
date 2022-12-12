@@ -97,7 +97,6 @@ declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
   countries?: Country[]
-  exchange: boolean
   rounded?: boolean
 }
 
@@ -114,7 +113,7 @@ declare type FundingStatus = {
 declare type GetStatusResponse = {
   error: null // TODO there will be error codes
   status: 'online' // TODO there will be other stati
-  date: string
+  serverTime: number
 }
 
 declare type GetInfoResponse = {
@@ -228,6 +227,8 @@ declare type Match = {
 declare type GetMatchesResponse = {
   offerId: string
   matches: Match[]
+  totalMatches: number
+  remainingMatches: number
 }
 declare type MatchResponse = {
   success: true

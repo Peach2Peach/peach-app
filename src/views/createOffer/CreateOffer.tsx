@@ -1,24 +1,43 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
-import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
-import { PrimaryButton, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../components'
-import { BUCKETS, DEPRECATED_BUCKETS } from '../constants'
-import BitcoinContext from '../contexts/bitcoin'
-import { account, getTradingLimit, updateSettings } from '../utils/account'
-import { applyTradingLimit } from '../utils/account/tradingLimit'
-import { StackNavigation } from '../utils/navigation'
-import { thousands } from '../utils/string'
+import { PrimaryButton, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../../components'
+import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
+import BitcoinContext from '../../contexts/bitcoin'
+import { account, getTradingLimit, updateSettings } from '../../utils/account'
+import { applyTradingLimit } from '../../utils/account/tradingLimit'
+import { thousands } from '../../utils/string'
+import { useHeaderState } from '../../components/header/store'
+import { useFocusEffect } from '@react-navigation/native'
+import TitleComponent from './TitleComponent'
+import { getHeaderIcons } from './getHeaderIcons'
+import { useNavigation } from '../../hooks'
 
 type Props = {
-  navigation: StackNavigation
   page: 'buy' | 'sell'
 }
 
-export default ({ navigation, page }: Props): ReactElement => {
+const useHeaderSetup = (page: 'buy' | 'sell') => {
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({
+        titleComponent: <TitleComponent page={page} />,
+        hideGoBackButton: true,
+        icons: getHeaderIcons(page),
+      })
+    }, [page, setHeaderState]),
+  )
+}
+
+export default ({ page }: Props): ReactElement => {
+  const navigation = useNavigation()
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
+  useHeaderSetup(page)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
   const [amount, setAmount] = useState(
@@ -41,7 +60,11 @@ export default ({ navigation, page }: Props): ReactElement => {
     ),
   }))
 
-  const goToBackups = () => navigation.navigate('backups', {})
+  useEffect(() => {
+    updateSettings({ amount }, true)
+  }, [amount])
+
+  const goToBackups = () => navigation.navigate('backups')
   const dismissBackupReminder = () => {
     updateSettings({ showBackupReminder: false }, true)
     setShowBackupReminder(false)
@@ -50,10 +73,6 @@ export default ({ navigation, page }: Props): ReactElement => {
   const next = () => {
     navigation.navigate(`${page}Preferences`, { amount })
   }
-
-  useEffect(() => {
-    updateSettings({ amount }, true)
-  }, [amount])
 
   return (
     <View testID={`view-${page}`} style={tw`h-full flex`}>
@@ -76,16 +95,14 @@ export default ({ navigation, page }: Props): ReactElement => {
           <View style={tw`h-full flex-shrink flex justify-center z-10`}>
             <View>
               <Headline style={tw`mt-16 text-grey-1 px-5`}>{i18n(`${page}.subtitle`)}</Headline>
-              <View style={tw`z-10`}>
-                <View style={tw`w-full absolute px-6 flex-row items-start justify-center mt-3`}>
-                  <Dropdown
-                    testID={`${page}-amount`}
-                    style={tw`flex-shrink`}
-                    items={dropdownItems}
-                    selectedValue={amount}
-                    onChange={setAmount}
-                  />
-                </View>
+              <View style={tw`w-full absolute px-6 flex-row items-start justify-center mt-3 z-10`}>
+                <Dropdown
+                  testID={`${page}-amount`}
+                  style={tw`flex-shrink`}
+                  items={dropdownItems}
+                  selectedValue={amount}
+                  onChange={setAmount}
+                />
               </View>
               {satsPerUnit ? (
                 <Text style={tw`mt-4 mt-16 font-mono text-peach-1 text-center`}>
@@ -95,16 +112,14 @@ export default ({ navigation, page }: Props): ReactElement => {
             </View>
           </View>
           {showBackupReminder && (
-            <View style={tw`flex items-center mt-2`}>
-              <Hint
-                style={tw`max-w-xs`}
-                title={i18n('hint.backup.title')}
-                text={i18n('hint.backup.text')}
-                icon="lock"
-                onPress={goToBackups}
-                onDismiss={dismissBackupReminder}
-              />
-            </View>
+            <Hint
+              style={tw`self-center mt-2 max-w-xs`}
+              title={i18n('hint.backup.title')}
+              text={i18n('hint.backup.text')}
+              icon="lock"
+              onPress={goToBackups}
+              onDismiss={dismissBackupReminder}
+            />
           )}
         </View>
       </View>

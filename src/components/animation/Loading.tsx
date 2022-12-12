@@ -1,13 +1,27 @@
-import React, { ReactElement } from 'react'
-import { ActivityIndicator, ColorValue, View } from 'react-native'
+import React from 'react'
+import Lottie from 'lottie-react-native'
 import tw from '../../styles/tailwind'
+import { ColorValue } from 'react-native'
+const loading = require('../animation/lotties/loading.json')
 
-type LoadingProps = ComponentProps & {
+type Props = ComponentProps & {
   color?: ColorValue
-  size?: 'small' | 'large'
 }
-export const Loading = ({ style, color, size = 'large' }: LoadingProps): ReactElement => (
-  <View style={[tw`h-full w-full flex justify-center items-center`, style]}>
-    <ActivityIndicator size={size} color={color ? color : tw`text-peach-1`.color} />
-  </View>
+
+/**
+ * @description Component to show loader animation
+ * @example
+ * <Loading
+ *   style={tw`mt-4`}
+ *   color={tw`text-white-1`.color}
+ * />
+ */
+
+export const Loading = ({ style, color }: Props): JSX.Element => (
+  <Lottie
+    style={[tw`w-20`, style]}
+    source={loading}
+    autoPlay
+    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw`text-primary-light`.color) as string }]}
+  />
 )

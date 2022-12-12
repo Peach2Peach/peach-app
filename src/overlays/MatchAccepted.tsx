@@ -7,22 +7,22 @@ import { Headline, Icon, PrimaryButton, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { Navigation } from '../utils/navigation'
+import { useNavigation } from '../hooks'
 
 type Props = {
   contractId: Contract['id']
-  navigation: Navigation
 }
 
-export default ({ contractId, navigation }: Props): ReactElement => {
+export default (props: Props): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToContract = () => {
-    navigation.navigate({ name: 'contract', merge: false, params: { contractId } })
+    navigation.navigate({ name: 'contract', merge: false, params: props })
     closeOverlay()
   }
 

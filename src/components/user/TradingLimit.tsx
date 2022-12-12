@@ -18,7 +18,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
   const [, updateOverlay] = useContext(OverlayContext)
   const { daily, dailyAmount, yearly, yearlyAmount } = tradingLimit
 
-  const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, showCloseButton: true, help: true })
+  const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, visible: true })
 
   return (
     <View style={style}>

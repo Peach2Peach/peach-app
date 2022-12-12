@@ -8,21 +8,20 @@ import LanguageContext from '../../contexts/language'
 import { recoverAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
-import { StackNavigation } from '../../utils/navigation'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { storeAccount } from '../../utils/account/storeAccount'
-import { useValidatedState } from '../../hooks'
+import { useNavigation, useValidatedState } from '../../hooks'
 
 const { LinearGradient } = require('react-native-gradients')
 
 const passwordRules = { required: true, password: true }
 
 type ManualProps = {
-  navigation: StackNavigation
   onSuccess: (account: Account) => void
   onError: (err: Error) => void
 }
-export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement => {
+export default ({ onSuccess, onError }: ManualProps): ReactElement => {
+  const navigation = useNavigation()
   useContext(LanguageContext)
   const [file, setFile] = useState({
     name: '',
@@ -62,7 +61,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
         <View style={[tw`mt-11 w-full`, tw.md`mt-14`]}>
           <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>{i18n('restoreBackup')}</Text>
           {loading ? (
-            <View style={tw`h-1/2`}>
+            <View style={tw`w-full items-center`}>
               <Loading />
             </View>
           ) : (
@@ -94,7 +93,7 @@ export default ({ navigation, onSuccess, onError }: ManualProps): ReactElement =
             />
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
-            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
+            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome')}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
             </Pressable>
             <PrimaryButton onPress={submit} disabled={!file.content || !password} narrow>

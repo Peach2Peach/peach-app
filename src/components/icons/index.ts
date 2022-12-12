@@ -3,11 +3,16 @@ import alertCircle from './alertCircle.svg'
 import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import arrowLeft from './arrowLeft.svg'
+import alignJustify from './alignJustify.svg'
+import alignLeft from './alignLeft.svg'
+import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
+import checkSquare from './checkSquare.svg'
 import checkboxMark from './checkboxMark.svg'
 import chevronDown from './chevronDown.svg'
+import chevronLeft from './chevronLeft.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
@@ -19,6 +24,7 @@ import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
+import edit from './edit.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import clipboard from './clipboard.svg'
@@ -67,16 +73,21 @@ const Icons = {
   alertCircle,
   alertOctagon,
   alertTriangle,
+  alignJustify,
+  alignLeft,
   arrowLeft,
   buy: download,
+  bellSmall,
   camera,
   chatDoubleCheck,
   check,
+  checkSquare,
   checkboxMark,
   chevronDown,
   chevronsDown,
   chevronsUp,
   chevronUp,
+  chevronLeft,
   circle,
   paperclip,
   clock,
@@ -85,6 +96,7 @@ const Icons = {
   creditCard,
   dollarSign,
   download,
+  edit,
   eye,
   eyeOff,
   clipboard,

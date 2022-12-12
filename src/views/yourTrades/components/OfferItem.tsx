@@ -4,6 +4,7 @@ import { Bubble, Headline, SatsFormat, Shadow, Text, PrimaryButton } from '../..
 import Icon from '../../../components/Icon'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
+import { useNavigation } from '../../../hooks'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
@@ -11,7 +12,6 @@ import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
-import { info } from '../../../utils/log'
 import { StackNavigation } from '../../../utils/navigation'
 import { getOfferStatus, offerIdToHex } from '../../../utils/offer'
 import { isEscrowRefunded } from '../../../utils/offer/getOfferStatus'
@@ -24,7 +24,7 @@ const navigateToOffer = (
   updateOverlay: React.Dispatch<OverlayState>,
   // eslint-disable-next-line max-params
 ): void => {
-  if (!offer) return navigation.navigate('yourTrades', {})
+  if (!offer) return navigation.navigate('yourTrades')
 
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
@@ -44,7 +44,7 @@ const navigateToOffer = (
 
       updateOverlay({
         content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
-        showCloseButton: false,
+        visible: true,
       })
     }
     return navigation.navigate('offer', { offer })
@@ -71,13 +71,12 @@ const navigateToOffer = (
     return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
   }
 
-  return navigation.navigate('yourTrades', {})
+  return navigation.navigate('yourTrades')
 }
 
 type OfferItemProps = ComponentProps & {
   offer: BuyOffer | SellOffer
   extended?: boolean
-  navigation: StackNavigation
 }
 
 type IconMap = { [key in OfferStatus['status']]?: IconType } & { [key in OfferStatus['requiredAction']]?: IconType }
@@ -99,7 +98,8 @@ const ICONMAP: IconMap = {
 }
 
 // eslint-disable-next-line max-lines-per-function, complexity
-export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
+export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null

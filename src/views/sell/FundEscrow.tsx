@@ -1,30 +1,27 @@
 import { NETWORK } from '@env'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Loading, PeachScrollView, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
+import { useNavigation, useRoute } from '../../hooks'
 import ConfirmCancelOffer from '../../overlays/ConfirmCancelOffer'
 import Escrow from '../../overlays/info/Escrow'
 import Refund from '../../overlays/Refund'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { offerIdToHex, saveOffer } from '../../utils/offer'
 import { fundEscrow, generateBlock } from '../../utils/peachAPI'
 import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import createEscrowEffect from './effects/createEscrowEffect'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['fundEscrow'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'fundEscrow'>()
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -42,21 +39,19 @@ export default ({ route, navigation }: Props): ReactElement => {
     = sellOffer.funding.status === 'MEMPOOL' ? (
       i18n('sell.escrow.waitingForConfirmation')
     ) : (
-      <Text style={tw`font-baloo text-sm uppercase text-white-1`}>
-        {i18n('sell.escrow.fundToContinue')}
-        <View style={tw`w-8 h-0 bg-red absolute -mt-10`}>
-          <Loading size="small" style={tw`-mt-2`} color={tw`text-white-1`.color} />
-        </View>
-      </Text>
+      <View style={tw`flex-row items-center`}>
+        <Text style={tw`font-baloo text-sm uppercase text-white-1`}>{i18n('sell.escrow.fundToContinue')}</Text>
+        <Loading style={tw`w-10`} color={tw`text-white-1`.color} />
+      </View>
     )
 
   const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
-  const navigateToYourTrades = () => navigation.replace('yourTrades', {})
+  const navigateToYourTrades = () => navigation.replace('yourTrades')
 
   const cancelOffer = () =>
     updateOverlay({
-      content: <ConfirmCancelOffer {...{ offer: sellOffer, navigate: navigateToOffer, navigation }} />,
-      showCloseButton: false,
+      content: <ConfirmCancelOffer {...{ offer: sellOffer, navigate: navigateToOffer }} />,
+      visible: true,
     })
 
   const subtitle
@@ -103,7 +98,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           updateMessage({
             msgKey: err.error || 'CREATE_ESCROW_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
+            action: () => navigation.navigate('contact'),
             actionLabel: i18n('contactUs'),
             actionIcon: 'mail',
           }),
@@ -131,7 +126,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateMessage({
           msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
+          action: () => navigation.navigate('contact'),
           actionLabel: i18n('contactUs'),
           actionIcon: 'mail',
         })
@@ -143,8 +138,8 @@ export default ({ route, navigation }: Props): ReactElement => {
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
       updateOverlay({
-        content: <Refund {...{ sellOffer, navigate: navigateToYourTrades, navigation }} />,
-        showCloseButton: false,
+        content: <Refund {...{ sellOffer, navigate: navigateToYourTrades }} />,
+        visible: true,
       })
       return
     }
@@ -162,9 +157,12 @@ export default ({ route, navigation }: Props): ReactElement => {
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
       <View style={tw``}>
         <Title title={i18n('sell.title')} subtitle={subtitle} help={<Escrow />} />
-        {updatePending ? (
-          <Loading />
-        ) : sellOffer.id && escrow && fundingStatus && !fundingError ? (
+        {updatePending && (
+          <View style={tw` items-center justify-center items-center`}>
+            <Loading />
+          </View>
+        )}
+        {sellOffer.id && escrow && fundingStatus && !fundingError ? (
           <View>
             <Text style={tw`mt-6 mb-5 text-center`}>
               <Text style={tw`font-baloo text-lg uppercase text-grey-2`}>{i18n('sell.escrow.sendSats.1')} </Text>

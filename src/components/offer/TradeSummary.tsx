@@ -2,10 +2,10 @@ import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { APPLINKS } from '../../constants'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
-import { Navigation } from '../../utils/navigation'
 import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
 import { openAppLink } from '../../utils/web'
 import Card from '../Card'
@@ -18,7 +18,6 @@ import { HorizontalLine } from '../ui'
 type TradeSummaryProps = ComponentProps & {
   contract: Contract
   view: 'seller' | 'buyer' | ''
-  navigation: Navigation
 }
 
 type PaymentMethodProps = {
@@ -73,7 +72,8 @@ const Escrow = ({ contract }: TradeSummaryProps): ReactElement => (
   </View>
 )
 
-const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
+const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
+  const navigation = useNavigation()
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   const goToUserProfile = () => navigation.navigate('profile', { userId: contract.buyer.id, user: contract.buyer })
 
@@ -99,7 +99,7 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
         {contract.escrow || contract.releaseTxId ? (
           <View>
             <HorizontalLine style={tw`mt-4`} />
-            <Escrow contract={contract} view={''} navigation={navigation} />
+            <Escrow contract={contract} view={''} />
           </View>
         ) : null}
       </View>
@@ -107,7 +107,8 @@ const OpenTradeSeller = ({ contract, navigation }: TradeSummaryProps): ReactElem
   )
 }
 
-const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactElement => {
+const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
+  const navigation = useNavigation()
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   const goToUserProfile = () => navigation.navigate('profile', { userId: contract.seller.id, user: contract.seller })
   const appLink = APPLINKS[contract.paymentMethod]
@@ -147,7 +148,7 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
         {contract.escrow || contract.releaseTxId ? (
           <View>
             <HorizontalLine style={tw`mt-4`} />
-            <Escrow contract={contract} view={''} navigation={navigation} />
+            <Escrow contract={contract} view={''} />
           </View>
         ) : null}
       </View>
@@ -155,14 +156,11 @@ const OpenTradeBuyer = ({ contract, navigation }: TradeSummaryProps): ReactEleme
   )
 }
 
-const OpenTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactElement =>
-  view === 'seller' ? (
-    <OpenTradeSeller contract={contract} view={view} navigation={navigation} />
-  ) : (
-    <OpenTradeBuyer contract={contract} view={view} navigation={navigation} />
-  )
+const OpenTrade = (props: TradeSummaryProps): ReactElement =>
+  props.view === 'seller' ? <OpenTradeSeller {...props} /> : <OpenTradeBuyer {...props} />
 
-const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactElement => {
+const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
+  const navigation = useNavigation()
   const ratingTradingPartner = view === 'seller' ? contract.ratingBuyer : contract.ratingSeller
   const tradingPartner = view === 'seller' ? contract.buyer : contract.seller
   const disputeOutcome
@@ -260,12 +258,12 @@ const ClosedTrade = ({ contract, view, navigation }: TradeSummaryProps): ReactEl
   )
 }
 
-export const TradeSummary = ({ contract, view, navigation, style }: TradeSummaryProps): ReactElement => (
+export const TradeSummary = ({ contract, view, style }: TradeSummaryProps): ReactElement => (
   <Card style={style}>
     {!isTradeComplete(contract) && !isTradeCanceled(contract) ? (
-      <OpenTrade contract={contract} view={view} navigation={navigation} />
+      <OpenTrade {...{ contract, view }} />
     ) : (
-      <ClosedTrade contract={contract} view={view} navigation={navigation} />
+      <ClosedTrade {...{ contract, view }} />
     )}
   </Card>
 )

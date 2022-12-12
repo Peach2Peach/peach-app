@@ -11,6 +11,7 @@ import { StackNavigation } from '../../utils/navigation'
 type Props = {
   navigation: StackNavigation
 }
+import { useNavigation } from '../../hooks'
 
 const contactReasons = ['bug', 'userProblem', 'question', 'newMethod', 'other'] as const
 type ContactReason = typeof contactReasons[number]
@@ -22,7 +23,8 @@ const ContactButton = ({ name, setReason }: ContactButtonProps) => (
   </PrimaryButton>
 )
 
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   useContext(LanguageContext)
 
   const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
