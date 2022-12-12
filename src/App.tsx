@@ -41,7 +41,7 @@ import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
-import { useAccountStore, useChatsStore, useContractsStore, useOffersStore, usePaymentDataStore } from './utils/storage'
+import { useAccountStore, useContractsStore, useOffersStore, usePaymentDataStore } from './utils/storage'
 import { compatibilityCheck } from './utils/system'
 
 enableScreens()
@@ -68,14 +68,12 @@ const useSetupZustand = () => {
   const initializePaymentData = usePaymentDataStore((state) => state.initialize)
   const initializeOffers = useOffersStore((state) => state.initialize)
   const initializeContract = useContractsStore((state) => state.initialize)
-  const initializeChats = useChatsStore((state) => state.initialize)
 
   useEffect(() => {
     initializePaymentData()
     initializeOffers()
     initializeContract()
-    initializeChats()
-  }, [initializePaymentData, initializeOffers, initializeContract, initializeChats])
+  }, [initializePaymentData, initializeOffers, initializeContract])
 }
 
 const App: React.FC = () => {

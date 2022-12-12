@@ -7,16 +7,15 @@ import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import getContractEffect from '../effects/getContractEffect'
 import { account } from '../utils/account'
+import { endDisputeSystemMessages } from '../utils/chat/createDisputeSystemMessages'
 import { Navigation } from '../utils/navigation'
 import { getOffer } from '../utils/offer'
+import { useChatStore } from '../utils/storage'
 import { DisputeLostBuyer } from './disputeResults/DisputeLostBuyer'
 import { DisputeLostSeller } from './disputeResults/DisputeLostSeller'
 import { DisputeWonBuyer } from './disputeResults/DisputeWonBuyer'
 import { DisputeWonSeller } from './disputeResults/DisputeWonSeller'
 import { NonDispute } from './disputeResults/NonDispute'
-import { getChat, saveChat } from '../utils/chat'
-import { endDisputeSystemMessages } from '../utils/chat/createDisputeSystemMessages'
-import { useChatsStore } from '../utils/storage'
 
 type DisputeResultProps = {
   contractId: Contract['id']
@@ -24,7 +23,7 @@ type DisputeResultProps = {
 }
 
 export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) => {
-  const chat = useChatsStore()
+  const chat = useChatStore()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
