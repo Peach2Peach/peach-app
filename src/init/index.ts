@@ -105,7 +105,6 @@ export const initApp = async (
   events()
   await dataMigrationBeforeLoadingAccount()
 
-  await loadAccount()
   await getPeachInfo(useAccountStore())
   if (account.publicKey) {
     getTrades()
