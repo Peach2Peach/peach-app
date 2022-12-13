@@ -1,17 +1,15 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Logo from '../../assets/logo/peachLogo.svg'
-import { Text, PrimaryButton } from '../../components'
-import LanguageContext from '../../contexts/language'
-import i18n from '../../utils/i18n'
+import { Button, Text } from '../../components'
 import { useNavigation } from '../../hooks'
+import i18n from '../../utils/i18n'
+import { PrimaryButton } from '../../components/buttons'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
-  useContext(LanguageContext)
-
   const finish = () => {
     navigation.replace('home')
   }
@@ -24,6 +22,9 @@ export default (): ReactElement => {
           <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>{i18n('backupRestored')}</Text>
           <Text style={tw`mt-4 text-center`}>{i18n('restoreBackup.restored.description.1')}</Text>
         </View>
+      </View>
+      <View style={tw`pb-8 mt-4 flex items-center w-full bg-white-1`}>
+        <Button onPress={finish} wide={false} title={i18n('continue')} />
       </View>
 
       <PrimaryButton style={tw`mb-8 mt-4 self-center bg-white-1`} onPress={finish} narrow>

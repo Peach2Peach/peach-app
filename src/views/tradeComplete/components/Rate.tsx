@@ -60,7 +60,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
     })
 
     if (rating.rating === 1) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
       navigation.replace('offer', { offer })
     } else {
       navigation.replace('yourTrades')

@@ -9,22 +9,19 @@ import { storeChats } from './storeChats'
 
 /**
  * @description Method to save whole account
- * @param account peach account
- * @param password secret
- * @returns promise resolving to encrypted account
  */
-export const storeAccount = async (acc: Account, password: string): Promise<void> => {
-  info('Storing account')
+export const storeAccount = async (acc: Account): Promise<void> => {
+  info('storeAccount - Storing account')
 
   if (!acc.publicKey) throw new Error('ERROR_SAVE_ACCOUNT')
 
   await Promise.all([
-    storeIdentity(acc, password),
-    storeSettings(acc.settings, password),
-    storeTradingLimit(acc.tradingLimit, password),
-    storePaymentData(acc.paymentData, password),
-    storeOffers(acc.offers, password),
-    storeContracts(acc.contracts, password),
-    storeChats(acc.chats, password),
+    storeIdentity(acc),
+    storeSettings(acc.settings),
+    storeTradingLimit(acc.tradingLimit),
+    storePaymentData(acc.paymentData),
+    storeOffers(acc.offers),
+    storeContracts(acc.contracts),
+    storeChats(acc.chats),
   ])
 }

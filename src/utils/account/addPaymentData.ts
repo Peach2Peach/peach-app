@@ -1,5 +1,4 @@
 import { account } from '.'
-import { session } from '../session'
 import { getPaymentData } from './getPaymentData'
 import { storePaymentData } from './storeAccount'
 import { updateSettings } from './updateSettings'
@@ -10,27 +9,35 @@ import { updateSettings } from './updateSettings'
  * @param save if true save on account
  */
 export const addPaymentData = async (data: PaymentData, save = true) => {
-  if (getPaymentData(data.id)) { // existing payment data, update
-    account.paymentData = account.paymentData.map(d => {
+  if (getPaymentData(data.id)) {
+    // existing payment data, update
+    account.paymentData = account.paymentData.map((d) => {
       if (d.id !== data.id) return d
       return data
     })
-  } else { // otherwise add
+  } else {
+    // otherwise add
     account.paymentData = account.paymentData.concat([data])
   }
 
   // if preferred payment method doesn't exist for this type, set it
   if (!account.settings.preferredPaymentMethods[data.type]) {
-    updateSettings({
-      preferredPaymentMethods: {
-        ...account.settings.preferredPaymentMethods,
-        [data.type]: data.id
-      }
-    }, true)
+    updateSettings(
+      {
+        preferredPaymentMethods: {
+          ...account.settings.preferredPaymentMethods,
+          [data.type]: data.id,
+        },
+      },
+      true,
+    )
   }
 
-  updateSettings({
-    showBackupReminder: true,
-  }, true)
-  if (save && session.password) await storePaymentData(account.paymentData, session.password)
+  updateSettings(
+    {
+      showBackupReminder: true,
+    },
+    true,
+  )
+  if (save) await storePaymentData(account.paymentData)
 }

@@ -1,29 +1,17 @@
 import analytics from '@react-native-firebase/analytics'
 
 import { defaultAccount, setAccount } from '.'
-import { deleteFile, exists, readDir } from '../file'
 import { info } from '../log'
 import { logoutUser } from '../peachAPI'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
-import { setSessionItem } from '../session'
+import { sessionStorage } from '../session'
+import { clearStorage } from '../storage'
+import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
 
 interface DeleteAccountProps {
   onSuccess: Function
 }
-
-const accountFiles = [
-  '/peach-account-identity.json',
-  '/peach-account-settings.json',
-  '/peach-account-tradingLimit.json',
-  '/peach-account-paymentData.json',
-  '/peach-account-offers.json',
-  '/peach-account-contracts.json',
-  '/peach-account-chats.json',
-  '/peach-account.json',
-]
-
-const accountFolders = ['/peach-account-offers', '/peach-account-contracts']
 
 /**
  * @description Method to delete account
@@ -34,20 +22,10 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
   info('Deleting account')
 
   setAccount(defaultAccount, true)
-
-  accountFiles.forEach(async (file) => {
-    if (await exists(file)) await deleteFile(file)
-  })
-
-  accountFolders.forEach(async (folder) => {
-    if (!(await exists(folder))) return
-    const files = await readDir(folder)
-    await Promise.all(files.map((file) => deleteFile(file)))
-  })
+  ;[accountStorage, offerStorage, contractStorage, chatStorage, sessionStorage].forEach(clearStorage)
 
   logoutUser({})
 
-  await setSessionItem('password', null)
   deleteAccessToken()
   deletePeachAccount()
   onSuccess()

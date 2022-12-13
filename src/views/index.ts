@@ -8,7 +8,6 @@ import Contact from './contact/Contact'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
-import Login from './login/Login'
 import NewUser from './newUser/NewUser'
 import Profile from './profile/Profile'
 import Referrals from './referrals/Referrals'
@@ -25,7 +24,6 @@ import Escrow from './settings/Escrow'
 import Fees from './settings/Fees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
-import SeedWords from './settings/SeedWords'
 import Settings from './settings/Settings'
 import Socials from './settings/Socials'
 import SplashScreen from './splashScreen/SplashScreen'
@@ -48,7 +46,6 @@ export const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
   { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
   { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'login', component: Login, showHeader: false, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
@@ -71,7 +68,6 @@ export const views: ViewType[] = [
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
   { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
   { name: 'escrow', component: Escrow, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
   { name: 'fees', component: Fees, showHeader: true, showFooter: true },

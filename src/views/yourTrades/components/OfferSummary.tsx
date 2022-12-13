@@ -1,18 +1,19 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { BuyOfferSummary, PrimaryButton, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
+import { BuyOfferSummary, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
+import { PrimaryButton } from '../../../components/buttons'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { getOffer, offerIdToHex } from '../../../utils/offer'
+import { getOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 
-const sellOrBuy = (offer: SellOffer | BuyOffer) => (offer.type === 'ask' ? 'sell' : 'buy')
+const sellOrBuy = (offer: SellOffer | BuyOffer) => (isSellOffer(offer) ? 'sell' : 'buy')
 
 type OfferSummaryProps = {
   offer: BuyOffer | SellOffer
-  status: OfferStatus['status']
+  status: TradeStatus['status']
 }
 export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement => {
   const navigation = useNavigation()
@@ -37,7 +38,7 @@ export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement
       <Title title={title} />
       {status !== 'offerCanceled' ? (
         <Text style={tw`text-grey-2 text-center -mt-1`}>
-          {i18n(`yourTrades.search.${offer.type === 'ask' ? 'sell' : 'buy'}.subtitle`)}{' '}
+          {i18n(`yourTrades.search.${isSellOffer(offer) ? 'sell' : 'buy'}.subtitle`)}{' '}
           <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
         </Text>
       ) : (
@@ -53,7 +54,7 @@ export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement
       ) : null}
 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
-        {offer.type === 'ask' ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
+        {isSellOffer(offer) ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
       </View>
       <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades')} narrow>
         {i18n('back')}

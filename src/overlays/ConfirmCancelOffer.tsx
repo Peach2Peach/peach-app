@@ -8,7 +8,7 @@ import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import { cancelOffer, getTradingLimit } from '../utils/peachAPI'
 import { error, info } from '../utils/log'
-import { saveOffer } from '../utils/offer'
+import { isBuyOffer, isSellOffer, saveOffer } from '../utils/offer'
 import Refund from './Refund'
 import { updateTradingLimit } from '../utils/account'
 
@@ -21,7 +21,7 @@ const confirm = async (offer: BuyOffer | SellOffer) => {
   })
   if (result) {
     info('Cancel offer: ', JSON.stringify(result))
-    if (offer.type === 'ask') {
+    if (isSellOffer(offer)) {
       saveOffer({
         ...offer,
         online: false,
@@ -73,7 +73,7 @@ export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
     setTimeout(() => {
       closeOverlay()
 
-      if (offer.type === 'bid' || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
+      if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
         navigate()
         return
       }

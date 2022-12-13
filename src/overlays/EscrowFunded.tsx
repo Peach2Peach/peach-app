@@ -3,13 +3,14 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Headline, Icon, PrimaryButton, Text } from '../components'
+import { Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { getOffer } from '../utils/offer'
-import { getOfferDetails } from '../utils/peachAPI'
 import { useNavigation } from '../hooks'
+import { getOffer, isSellOffer } from '../utils/offer'
+import { getOfferDetails } from '../utils/peachAPI'
+import { PrimaryButton } from '../components/buttons'
 
 type Props = {
   offerId: Offer['id']
@@ -26,7 +27,7 @@ export default ({ offerId }: Props): ReactElement => {
 
   const goToOffer = async (): Promise<void> => {
     if (!offer) return closeOverlay()
-    if (offer.type === 'ask' && offer.returnAddressRequired) {
+    if (isSellOffer(offer) && offer.returnAddressRequired) {
       navigation.navigate('setReturnAddress', { offer })
     } else {
       navigation.navigate({ name: 'offer', merge: false, params: { offer } })

@@ -1,18 +1,19 @@
 import { account } from '../account'
+import { isSellOffer } from './isSellOffer'
 
 /**
-  * @description Method to get saved offer
-  * @param id offer id
-  * @returns offer
-  */
-export const getOffer = (id: string): SellOffer|BuyOffer|null => {
-  const offer = account.offers.find(c => c.id === id)
+ * @description Method to get saved offer
+ * @param id offer id
+ * @returns offer
+ */
+export const getOffer = (id: string): SellOffer | BuyOffer | null => {
+  const offer = account.offers.find((c) => c.id === id)
 
   if (!offer) return null
 
   if (!offer.seenMatches) offer.seenMatches = []
 
-  if (offer.type === 'ask') {
+  if (isSellOffer(offer)) {
     offer.funding.txIds = offer.funding.txIds || []
     offer.funding.vouts = offer.funding.vouts || []
     offer.funding.amounts = offer.funding.amounts || []
