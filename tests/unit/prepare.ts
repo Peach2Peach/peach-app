@@ -1,5 +1,3 @@
-export {}
-
 import * as accountData from './data/accountData'
 const { version } = require('../../package.json')
 
