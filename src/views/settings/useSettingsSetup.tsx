@@ -12,6 +12,7 @@ import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../utils/system'
 import { useHeaderSetup, useNavigation } from '../../hooks'
+import { goToHomepage } from '../../utils/web'
 
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
@@ -54,7 +55,6 @@ export const useSettingsSetup = () => {
     })
   }, [updateOverlay])
   const openPrivacyPolicy = () => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')
-  const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
 
   const appSettings = useMemo(
     () => [
@@ -92,7 +92,7 @@ export const useSettingsSetup = () => {
       { title: 'socials' },
       {
         title: 'website',
-        onPress: goToWebsite,
+        onPress: goToHomepage,
         icon: <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color} />,
       },
       { title: 'analytics', onPress: toggleAnalytics, condition: analyticsOn },
