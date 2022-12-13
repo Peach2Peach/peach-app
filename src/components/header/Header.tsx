@@ -9,7 +9,7 @@ import { useHeaderState } from './store'
 const themes = {
   default: {
     text: tw`text-black-1`,
-    bg: tw`bg-primary-background`,
+    bg: tw`bg-primary-background-light`,
   },
   inverted: {
     text: tw`text-primary-background-light`,
