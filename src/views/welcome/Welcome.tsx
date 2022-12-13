@@ -3,8 +3,7 @@ import { Dimensions, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
-import Logo from '../../assets/logo/peachLogo.svg'
-import { Icon } from '../../components'
+import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { useHeaderSetup } from '../../hooks'
 import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
@@ -12,13 +11,12 @@ import i18n from '../../utils/i18n'
 import { goToHomepage } from '../../utils/web'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
-import Swipe from './Swipe'
-import WelcomeToPeach from './WelcomeToPeach'
-import YouOwnYourData from './YouOwnYourData'
+import PeerToPeer from './PeerToPeer'
+import PrivacyFirst from './PrivacyFirst'
 
 const onStartShouldSetResponder = () => true
 
-const screens = [WelcomeToPeach, Swipe, PeachOfMind, YouOwnYourData, LetsGetStarted]
+const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
 
 const headerIcons = [
   {
@@ -58,17 +56,26 @@ export default (): ReactElement => {
   const next = () => {
     $carousel.current?.snapToNext()
   }
-  const goTo = (p: number) => {
-    $carousel.current?.snapToItem(p)
+  const goToEnd = () => {
+    $carousel.current?.snapToItem(screens.length - 1)
   }
+  const getProgress = () => (page + 1) / screens.length
+  const endReached = () => getProgress() === 1
 
   return (
     <View style={tw`h-full flex`} testID="welcome">
+      <View style={tw`w-full px-8`}>
+        <Progress percent={getProgress()} color={tw`bg-primary-background-light`} style={tw`h-2`} />
+        <Pressable
+          onPress={goToEnd}
+          style={[tw`h-8 flex flex-row justify-end items-center`, endReached() ? tw`opacity-0` : {}]}
+        >
+          <Text style={tw`text-primary-background-light mr-1`}>{i18n('skip')}</Text>
+          <Icon id="skipForward" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />
+        </Pressable>
+      </View>
       <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
-        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
-          <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
-        </View>
-        <View style={tw`w-full flex-shrink`}>
+        <View style={tw`w-full h-full flex-shrink`}>
           <Carousel
             ref={$carousel}
             data={screens}
@@ -91,19 +98,9 @@ export default (): ReactElement => {
       </View>
       <View style={tw`mb-8 flex items-center w-full`}>
         <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
-          <PrimaryButton testID="welcome-next" narrow onPress={next}>
+          <PrimaryButton testID="welcome-next" narrow white onPress={next} iconId="arrowRightCircle">
             {i18n('next')}
           </PrimaryButton>
-        </View>
-        <View style={tw`w-full flex-row justify-center mt-11`}>
-          {screens.map((screen, i) => (
-            <Pressable
-              key={i}
-              onPress={() => goTo(i)}
-              accessibilityLabel={i18n('accessibility.bulletPoint')}
-              style={[tw`w-4 h-4 mx-2 rounded-full bg-peach-1`, i !== page ? tw`opacity-30` : {}]}
-            />
-          ))}
         </View>
       </View>
     </View>
