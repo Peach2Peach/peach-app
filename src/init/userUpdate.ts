@@ -1,25 +1,27 @@
 import messaging from '@react-native-firebase/messaging'
-import { account, updateSettings } from '../utils/account'
+import { UserDataStore } from '../store'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 import { UpdateUserProps } from '../utils/peachAPI/private/user/updateUser'
 import { parseError } from '../utils/system'
 
-export default async (referralCode?: string) => {
-  if (!account) return
+export default async (userDataStore: UserDataStore, referralCode?: string) => {
+  const { publicKey, pgp, settings, updateSettings } = userDataStore
+
+  if (!publicKey) return
 
   try {
     const payload: UpdateUserProps = {}
 
-    let fcmToken = account.settings.fcmToken
+    let fcmToken = settings.fcmToken
     try {
       fcmToken = await messaging().getToken()
     } catch (e) {
       error('messaging().getToken - Push notifications not supported', parseError(e))
     }
 
-    if (account.pgp.publicKey && !account.settings.pgpPublished) payload.pgp = account.pgp
-    if (account.settings.fcmToken !== fcmToken) payload.fcmToken = fcmToken
+    if (pgp.publicKey && !settings.pgpPublished) payload.pgp = pgp
+    if (settings.fcmToken !== fcmToken) payload.fcmToken = fcmToken
     if (referralCode) payload.referralCode = referralCode
 
     if (Object.keys(payload).length) {
@@ -29,7 +31,7 @@ export default async (referralCode?: string) => {
         info('Updated user information', 'fcmToken', !!payload.fcmToken, 'pgp', !!payload.pgp)
 
         updateSettings({
-          pgpPublished: account.settings.pgpPublished || !!payload.pgp,
+          pgpPublished: settings.pgpPublished || !!payload.pgp,
           fcmToken,
         })
       } else {

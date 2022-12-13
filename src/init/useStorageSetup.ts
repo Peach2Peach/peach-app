@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useUserDataStore } from '../../store'
+import { useUserDataStore } from '../store'
 import { dataMigration } from './dataMigration'
 
 export const useStorageSetup = () => {

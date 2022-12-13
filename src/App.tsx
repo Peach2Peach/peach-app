@@ -32,19 +32,19 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
+import shallow from 'zustand/shallow'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
-import { initApp } from './init'
+import { useAppSetup } from './init/useAppSetup'
 import websocket from './init/websocket'
 import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
 import AnalyticsPrompt from './overlays/AnalyticsPrompt'
+import { useUserDataStore } from './store'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { compatibilityCheck } from './utils/system'
-import { useUserDataStore } from './store'
-import shallow from 'zustand/shallow'
-import { useStorageSetup } from './init/dataMigration/useStorageSetup'
+import { useStorageSetup } from './init/useStorageSetup'
 
 enableScreens()
 
@@ -67,7 +67,10 @@ const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name 
 const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
 
 const App: React.FC = () => {
+  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
+
   useStorageSetup()
+  useAppSetup(navigationRef)
 
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
@@ -92,7 +95,6 @@ const App: React.FC = () => {
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
-  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
   const getCurrentPage = () => currentPage
@@ -119,7 +121,6 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp(account, navigationRef, updateMessage)
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })

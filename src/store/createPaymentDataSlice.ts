@@ -19,24 +19,24 @@ export const createPaymentDataSlice: StateCreator<UserDataStore, [], [['zustand/
   = immer((set, get) => ({
     paymentData: {},
     initializePaymentData: async () => {
-      const initialPaymentData = (await paymentDataStorage.indexer.maps.getAll()) as Account['paymentData']
-      set((state) => (state.paymentData = initialPaymentData))
+      const initialPaymentData = (await paymentDataStorage.indexer.maps.getAll()) as Record<string, PaymentData>
+      set((state) => ({ ...state, paymentData: initialPaymentData }))
     },
     setPaymentData: (paymentData: PaymentData) => {
       paymentDataStorage.setMap(paymentData.id, paymentData)
-      set((state) => (state.paymentData[paymentData.id] = paymentData))
+      set((state) => ({ ...state, paymentData: { ...state.paymentData, [paymentData.id]: paymentData } }))
     },
     setAllPaymentData: (paymentData: Record<PaymentData['id'], PaymentData>) => {
       Object.keys(paymentData).forEach((key) => {
         paymentDataStorage.setMap(key, paymentData[key])
       })
-      set((state) => (state.paymentData = paymentData))
+      set((state) => ({ ...state, paymentData }))
     },
     removePaymentData: (id: PaymentData['id']) => {
       paymentDataStorage.removeItem(id)
       set((state) => {
         delete state.paymentData[id]
-        return state
+        return { ...state }
       })
     },
     getPaymentDataArray: () => Object.values(get().paymentData),
