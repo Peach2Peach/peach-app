@@ -21,7 +21,7 @@ export default (): ReactElement => {
   const [isBackingUp, setIsBackingUp] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
 
-  const openPasswordHelp = () => updateOverlay({ content: <Password />, showCloseButton: true, help: true })
+  const openPasswordHelp = () => updateOverlay({ content: <Password />, visible: true, level: 'INFO' })
   const checkPasswordMatch = () => password === passwordRepeat
 
   const validate = () => password && passwordRepeat && passwordIsValid && checkPasswordMatch()
@@ -62,7 +62,7 @@ export default (): ReactElement => {
       onSuccess: () => {
         updateOverlay({
           content: <BackupCreated />,
-          showCloseButton: false,
+          visible: true,
         })
         updateSettings(
           {
@@ -76,7 +76,7 @@ export default (): ReactElement => {
         setTimeout(() => {
           updateOverlay({
             content: null,
-            showCloseButton: true,
+            visible: true,
           })
         }, 3000)
       },

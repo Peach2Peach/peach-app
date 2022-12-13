@@ -16,7 +16,7 @@ export const CancelOfferButton = () => {
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
   return (
     <Pressable style={tw`mt-3`} onPress={cancelOffer}>
