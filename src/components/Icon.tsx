@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { FillProps } from 'react-native-svg'
 import { Text } from '.'
+import tw from '../styles/tailwind'
 import Icons, { IconType } from './icons'
 
 type IconProps = ComponentProps & {
@@ -9,11 +10,6 @@ type IconProps = ComponentProps & {
 }
 
 /**
- * @description Component to display an icon
- * @param props Component properties
- * @param props.id icon id
- * @param [props.style] css style object
- * @param [props.color] icon color
  * @example
  * <Icon
  *   id={'save'}
@@ -24,7 +20,7 @@ type IconProps = ComponentProps & {
 export const Icon = ({ id, style, color }: IconProps): ReactElement => {
   const SVG = Icons[id]
 
-  return SVG ? <SVG style={style} fill={color || '#888'} /> : <Text>❌</Text>
+  return SVG ? <SVG style={[tw`w-6 h-6`, style]} fill={color || '#888'} /> : <Text>❌</Text>
 }
 
 export default Icon
