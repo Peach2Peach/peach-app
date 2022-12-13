@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { View } from 'react-native'
+import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
@@ -35,13 +35,9 @@ export default (): ReactElement => {
     }, [setHeaderState]),
   )
 
-  const openTelegram = () => {
-    // TODO : Open telegram
-  }
+  const openTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
 
-  const openDiscord = () => {
-    // TODO : Open Discord
-  }
+  const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
     <PeachScrollView contentContainerStyle={tw`py-6 flex-grow bg-primary-background`}>
