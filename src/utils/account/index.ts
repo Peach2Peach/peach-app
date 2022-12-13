@@ -7,7 +7,6 @@ export { deleteAccount } from './deleteAccount'
 export { getAccountBackup } from './getAccountBackup'
 export { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
 export { getTradingLimit } from './getTradingLimit'
-export { loadAccount, loadContracts, loadIdentity, loadOffers, loadSettings, loadTradingLimit } from './loadAccount'
 export { recoverAccount } from './recoverAccount'
 export {
   storeAccount,
