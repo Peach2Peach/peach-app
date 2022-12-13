@@ -1,8 +1,8 @@
 import { info } from '../../log'
-import { contractStorage } from '../accountStorage'
+import { contractsStorage } from '../../storage'
 
-export const storeContracts = async (contracts: Account['contracts']) => {
+export const storeContracts = async (contracts: LegacyAccount['contracts']) => {
   info('storeContracts - Storing contracts', contracts.length)
 
-  await Promise.all(contracts.map((contract) => contractStorage.setMapAsync(contract.id, contract)))
+  await Promise.all(contracts.map((contract) => contractsStorage.setMapAsync(contract.id, contract)))
 }

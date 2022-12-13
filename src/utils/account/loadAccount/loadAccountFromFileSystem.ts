@@ -15,7 +15,7 @@ import { loadChatsFromFileSystem } from './loadChatsFromFileSystem'
 export const loadAccountFromFileSystem = async (password: string): Promise<LegacyAccount> => {
   info('Loading account from file system')
 
-  let acc = defaultAccount
+  let acc = defaultAccount as LegacyAccount
 
   try {
     const identity = await loadIdentityFromFileSystem(password)
@@ -39,7 +39,7 @@ export const loadAccountFromFileSystem = async (password: string): Promise<Legac
       }
     }
   } catch (e) {
-    return account
+    return account as LegacyAccount
   }
 
   if (!acc.publicKey) {
@@ -49,5 +49,5 @@ export const loadAccountFromFileSystem = async (password: string): Promise<Legac
     // await setAccount(acc) // TODO how to populate useAccountStore?
   }
 
-  return account
+  return account as LegacyAccount
 }

@@ -1,6 +1,6 @@
 import { APPVERSION } from '../../../constants'
 import { info } from '../../log'
-import { accountStorage } from '../accountStorage'
+import { accountStorage } from '../../storage'
 
 export const storeSettings = async (settings: Account['settings']) => {
   info('storeSettings - Storing settings')

@@ -1,6 +1,6 @@
 import { defaultAccount } from '../'
 import { error } from '../../log'
-import { accountStorage } from '../accountStorage'
+import { accountStorage } from '../../storage'
 
 export const loadTradingLimit = async (): Promise<Account['tradingLimit']> => {
   const tradingLimit = accountStorage.getMap('tradingLimit')

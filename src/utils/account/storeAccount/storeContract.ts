@@ -1,8 +1,8 @@
 import { info } from '../../log'
-import { contractStorage } from '../accountStorage'
+import { contractsStorage } from '../../storage'
 
 export const storeContract = async (contract: Contract): Promise<void> => {
   info('storeContract - Storing contract')
 
-  contractStorage.setMap(contract.id, contract)
+  contractsStorage.setMap(contract.id, contract)
 }

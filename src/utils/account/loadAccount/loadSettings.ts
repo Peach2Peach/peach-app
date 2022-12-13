@@ -1,6 +1,6 @@
 import { defaultAccount } from '../'
 import { error } from '../../log'
-import { accountStorage } from '../accountStorage'
+import { accountStorage } from '../../storage'
 
 export const loadSettings = async (): Promise<Account['settings']> => {
   const settings = accountStorage.getMap('settings')
