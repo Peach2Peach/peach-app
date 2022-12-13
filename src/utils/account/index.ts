@@ -12,8 +12,6 @@ export {
   storeAccount,
   storeChat,
   storeChats,
-  storeContract,
-  storeContracts,
   storeIdentity,
   storeOffer,
   storeOffers,
