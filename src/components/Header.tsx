@@ -60,7 +60,6 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
         setActive(isActive)
         if (isActive) {
           getPeachInfo(account)
-          getTrades()
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),
           })

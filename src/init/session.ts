@@ -65,23 +65,3 @@ export const getPeachInfo = async (userDataStore: UserDataStore): Promise<GetInf
 
   return peachInfo
 }
-
-/**
- * @description Method to fetch users offers and contracts
- */
-export const getTrades = async (): Promise<void> => {
-  const [offers, getOffersError] = await getOffers({})
-  if (offers) {
-    info(`Got ${offers.length} offers`)
-    saveOffers(offers)
-  } else if (getOffersError) {
-    error('Error', getOffersError)
-  }
-
-  const [contracts, err] = await getContracts({})
-  if (contracts) {
-    saveContracts(contracts)
-  } else if (err) {
-    error('Error', err)
-  }
-}
