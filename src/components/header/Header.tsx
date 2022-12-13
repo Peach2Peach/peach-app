@@ -6,19 +6,31 @@ import tw from '../../styles/tailwind'
 import { useNavigation } from '@react-navigation/native'
 import { useHeaderState } from './store'
 
+const themes = {
+  default: {
+    text: tw`text-black-1`,
+    bg: tw`bg-primary-background`,
+  },
+  inverted: {
+    text: tw`text-primary-background-light`,
+    bg: tw`bg-transparent`,
+  },
+}
+
 export const Header = () => {
-  const { title, icons, titleComponent, hideGoBackButton } = useHeaderState()
+  const { title, icons, titleComponent, hideGoBackButton, theme } = useHeaderState()
+  const colors = themes[theme || 'default']
   const { goBack, canGoBack } = useNavigation()
 
   return (
-    <View style={tw`h-9 flex-row justify-between px-8`}>
+    <View style={[tw`h-9 flex-row justify-between px-8`, colors.bg]}>
       <View style={tw`items-center flex-row`}>
         {!hideGoBackButton && canGoBack() && (
           <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={goBack}>
             <Icon id="chevronLeft" />
           </TouchableOpacity>
         )}
-        {title ? <Text style={tw`h6 lowercase`}>{title}</Text> : titleComponent}
+        {title ? <Text style={[tw`h6 lowercase`, colors.text]}>{title}</Text> : titleComponent}
       </View>
 
       <View style={tw`items-center flex-row`}>

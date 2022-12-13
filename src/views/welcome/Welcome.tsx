@@ -1,13 +1,15 @@
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useMemo, useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
 import Logo from '../../assets/logo/peachLogo.svg'
+import { Icon } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
-import { useNavigation } from '../../hooks'
+import { useHeaderSetup } from '../../hooks'
+import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
-import { ContactButton } from '../report/components/ContactButton'
+import { goToHomepage } from '../../utils/web'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import Swipe from './Swipe'
@@ -18,8 +20,37 @@ const onStartShouldSetResponder = () => true
 
 const screens = [WelcomeToPeach, Swipe, PeachOfMind, YouOwnYourData, LetsGetStarted]
 
+const headerIcons = [
+  {
+    iconComponent: <Icon id="mail" color={tw`text-primary-background-light`.color} />,
+    onPress: () => null,
+  },
+  {
+    iconComponent: <Icon id="globe" color={tw`text-primary-background-light`.color} />,
+    onPress: goToHomepage,
+  },
+]
+
 export default (): ReactElement => {
-  const navigation = useNavigation()
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: i18n('welcome.welcomeToPeach.title'),
+        hideGoBackButton: true,
+        icons: headerIcons,
+        theme: 'inverted',
+      }),
+      [],
+    ),
+  )
+  useBackgroundSetup(
+    useMemo(
+      () => ({
+        color: 'primaryGradient',
+      }),
+      [],
+    ),
+  )
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
@@ -33,7 +64,6 @@ export default (): ReactElement => {
 
   return (
     <View style={tw`h-full flex`} testID="welcome">
-      <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} />
       <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
         <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
           <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />

@@ -1,12 +1,13 @@
 import { RouteProp } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import Logo from '../../assets/logo/peachLogo.svg'
-import { Loading, Text } from '../../components'
+import { Icon, Loading, Text } from '../../components'
 
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useHeaderSetup } from '../../hooks'
 import userUpdate from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
 import { account, createAccount, deleteAccount } from '../../utils/account'
@@ -15,14 +16,36 @@ import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
+import { goToHomepage } from '../../utils/web'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['newUser'] }>
   navigation: StackNavigation
 }
 
+const headerIcons = [
+  {
+    iconComponent: <Icon id="mail" color={tw`text-primary-background-light`.color} />,
+    onPress: () => null,
+  },
+  {
+    iconComponent: <Icon id="globe" color={tw`text-primary-background-light`.color} />,
+    onPress: goToHomepage,
+  },
+]
 // eslint-disable-next-line complexity
 export default ({ route, navigation }: Props): ReactElement => {
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: i18n('welcome.welcomeToPeach.title'),
+        hideGoBackButton: true,
+        icons: headerIcons,
+        theme: 'inverted',
+      }),
+      [],
+    ),
+  )
   const [, updateOverlay] = useContext(OverlayContext)
 
   useContext(LanguageContext)
