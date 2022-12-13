@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react'
-import { AppState, Linking, Platform } from 'react-native'
+import { AppState, Linking } from 'react-native'
 import analytics from '@react-native-firebase/analytics'
 
 import { useFocusEffect } from '@react-navigation/native'
@@ -7,9 +7,10 @@ import { OverlayContext } from '../../contexts/overlay'
 import { DeleteAccount } from '../../overlays/DeleteAccount'
 import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { checkNotificationStatus, isProduction, toggleNotifications } from '../../utils/system'
+import { checkNotificationStatus, isAndroid, isProduction, toggleNotifications } from '../../utils/system'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import { SettingsItemProps } from './components/SettingsItem'
+import { NotificationPopup } from './components/NotificationPopup'
 
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
@@ -54,17 +55,41 @@ export const useSettingsSetup = () => {
   const openPrivacyPolicy = () => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
 
+  const notificationClick = useCallback(() => {
+    if (notificationsOn) {
+      updateOverlay({
+        title: 'turn off notifications?',
+        content: <NotificationPopup />,
+        visible: true,
+        level: 'WARN',
+        action2: {
+          callback: () => updateOverlay({ visible: false }),
+          label: 'never mind',
+          icon: 'arrowLeftCircle',
+        },
+        action1: {
+          callback: () => {
+            updateOverlay({ visible: false })
+            toggleNotifications()
+          },
+          label: 'yes, turn off',
+          icon: 'slash',
+        },
+      })
+    } else {
+      toggleNotifications()
+    }
+  }, [notificationsOn, updateOverlay])
+
   const appSettings: SettingsItemProps[] = useMemo(
     () => [
       {
         title: 'notifications',
-        onPress: toggleNotifications,
-        enabled: notificationsOn,
-        iconId: Platform.OS === 'android' ? (notificationsOn ? 'toggleRight' : 'toggleLeft') : undefined,
+        onPress: notificationClick,
       },
       { title: 'displayCurrency', onPress: goToCurrencySettings },
     ],
-    [goToCurrencySettings, notificationsOn],
+    [goToCurrencySettings, notificationClick],
   )
 
   const accountSettings: SettingsItemProps[] = useMemo(

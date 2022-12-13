@@ -109,7 +109,16 @@ module.exports = {
         'Baloo2-SemiBold',
         'Baloo2-Medium',
         'sans-serif'
-      ]
+      ],
+      'baloo-medium': [
+        'Baloo2-Medium',
+      ],
+      'baloo-semibold': [
+        'Baloo2-SemiBold',
+      ],
+      'baloo-bold': [
+        'Baloo2-Bold',
+      ],
     },
     screens: {
       'sm': '640px',

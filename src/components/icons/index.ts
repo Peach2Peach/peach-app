@@ -3,6 +3,7 @@ import alertCircle from './alertCircle.svg'
 import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import arrowLeft from './arrowLeft.svg'
+import arrowLeftCircle from './arrowLeftCircle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
 import bellSmall from './bellSmall.svg'
@@ -56,6 +57,7 @@ import settings from './settings.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
+import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import thumbsDown from './thumbsDown.svg'
@@ -79,6 +81,7 @@ const Icons = {
   alignJustify,
   alignLeft,
   arrowLeft,
+  arrowLeftCircle,
   buy: download,
   bellSmall,
   camera,
@@ -132,6 +135,7 @@ const Icons = {
   shield,
   shiftCrypto,
   shuffle,
+  slash,
   sliderNext,
   sliderPrev,
   thumbsDown,
