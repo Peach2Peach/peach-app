@@ -3,16 +3,16 @@ import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Icon, Input, PeachScrollView, PrimaryButton, Text, Title } from '../../components'
+import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import ReportSuccess from '../../overlays/ReportSuccess'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { showReportSuccess } from '../../overlays/showReportSuccess'
 
 const emailRules = { required: true, email: true }
 const required = { required: true }
@@ -51,10 +51,7 @@ export default (): ReactElement => {
       message: messageToSend,
     })
     if (result) {
-      updateOverlay({
-        content: <ReportSuccess />,
-        visible: true,
-      })
+      showReportSuccess(updateOverlay)
       return
     }
 
