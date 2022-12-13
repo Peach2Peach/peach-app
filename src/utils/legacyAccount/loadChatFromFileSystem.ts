@@ -1,6 +1,6 @@
-import { exists, readFile } from '../../file'
-import { error } from '../../log'
-import { parseError } from '../../system'
+import { exists, readFile } from '../file'
+import { error } from '../log'
+import { parseError } from '../system'
 
 /**
  * @description Method to load chat

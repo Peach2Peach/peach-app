@@ -1,5 +1,5 @@
-import { account, defaultAccount, setAccount } from '..'
-import { error, info } from '../../log'
+import { account, defaultAccount, setAccount } from '../account'
+import { error, info } from '../log'
 import { loadIdentityFromFileSystem } from './loadIdentityFromFileSystem'
 import { loadSettingsFromFileSystem } from './loadSettingsFromFileSystem'
 import { loadTradingLimitFromFileSystem } from './loadTradingLimitFromFileSystem'

@@ -1,7 +1,7 @@
-import { parseContract } from '../../contract'
-import { exists, readDir, readFile } from '../../file'
-import { error } from '../../log'
-import { parseError } from '../../system'
+import { parseContract } from '../contract'
+import { exists, readDir, readFile } from '../file'
+import { error } from '../log'
+import { parseError } from '../system'
 
 /**
  * @deprecated

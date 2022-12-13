@@ -1,16 +1,10 @@
 import { exists } from 'react-native-fs'
 import { UserDataStore } from '../../store'
-import { loadAccountFromFileSystem } from '../../utils/account/loadAccount/loadAccountFromFileSystem'
 import { deleteFile, readDir } from '../../utils/file'
+import { loadAccountFromFileSystem } from '../../utils/legacyAccount/loadAccountFromFileSystem'
 import { info } from '../../utils/log'
 import { sessionStorage } from '../../utils/session'
-import {
-  chatStorage,
-  useAccountStore,
-  useContractsStore,
-  useOffersStore,
-  usePaymentDataStore,
-} from '../../utils/storage'
+import { chatStorage } from '../../utils/storage'
 
 const accountFiles = [
   '/peach-account-identity.json',

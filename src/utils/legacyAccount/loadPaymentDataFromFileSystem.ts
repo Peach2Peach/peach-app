@@ -1,6 +1,6 @@
-import { readFile } from '../../file'
-import { error } from '../../log'
-import { parseError } from '../../system'
+import { readFile } from '../file'
+import { error } from '../log'
+import { parseError } from '../system'
 
 /**
  * @deprecated

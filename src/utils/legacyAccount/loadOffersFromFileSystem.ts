@@ -1,7 +1,7 @@
-import { exists, readDir, readFile } from '../../file'
-import { error } from '../../log'
-import { parseOffer } from '../../offer'
-import { parseError } from '../../system'
+import { exists, readDir, readFile } from '../file'
+import { error } from '../log'
+import { parseOffer } from '../offer'
+import { parseError } from '../system'
 
 /**
  * @deprecated

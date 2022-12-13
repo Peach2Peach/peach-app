@@ -1,7 +1,7 @@
-import { defaultAccount } from '..'
-import { readFile } from '../../file'
-import { error } from '../../log'
-import { parseError } from '../../system'
+import { defaultAccount } from '../account'
+import { readFile } from '../file'
+import { error } from '../log'
+import { parseError } from '../system'
 
 /**
  * @deprecated
