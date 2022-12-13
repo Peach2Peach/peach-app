@@ -720,7 +720,7 @@
   "analytics.request.description1": "You can help us improve Peach by sharing some of your usage data with us.",
   "analytics.request.description2": "No personally identifiable information is ever collected, see also our ",
   "analytics.request.description3": "This data will be shared through Google Analytics. You can turn this off again at any time in the Settings.",
-  "analytics.request.no": "No, thanks",
-  "analytics.request.yes": "Sure",
+  "analytics.request.no": "no, thanks",
+  "analytics.request.yes": "sure",
   "rating.newUser": "no score (new user)"
 }
