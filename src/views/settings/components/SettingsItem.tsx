@@ -5,14 +5,13 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useNavigation } from '../../../hooks'
 
-export type SettingsItemProps =
-  | { title: ScreenWithoutProps; onPress?: undefined; condition?: boolean; icon?: JSX.Element }
+export type SettingsItemProps = (
+  | { title: ScreenWithoutProps; onPress?: undefined }
   | {
       onPress: () => void
       title: string
-      condition?: boolean
-      icon?: JSX.Element
     }
+) & { condition?: boolean; icon?: JSX.Element }
 
 export const SettingsItem = ({ onPress: pressAction, title, icon, condition }: SettingsItemProps) => {
   const navigation = useNavigation()
