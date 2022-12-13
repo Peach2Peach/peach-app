@@ -1,6 +1,4 @@
 export { loadAccount } from './loadAccount'
-export { loadContract } from './loadContract'
-export { loadContracts } from './loadContracts'
 export { loadIdentity } from './loadIdentity'
 export { loadOffer } from './loadOffer'
 export { loadOffers } from './loadOffers'

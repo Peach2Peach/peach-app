@@ -3,7 +3,6 @@ import { storeIdentity } from './storeIdentity'
 import { storeSettings } from './storeSettings'
 import { storeTradingLimit } from './storeTradingLimit'
 import { storeOffers } from './storeOffers'
-import { storeContracts } from './storeContracts'
 import { storeChats } from './storeChats'
 
 /**
@@ -19,7 +18,7 @@ export const storeAccount = async (acc: Account): Promise<void> => {
     storeSettings(acc.settings),
     storeTradingLimit(acc.tradingLimit),
     storeOffers(acc.offers),
-    storeContracts(acc.contracts),
+    // storeContracts(acc.contracts),
     storeChats(acc.chats),
   ])
 }
