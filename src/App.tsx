@@ -44,6 +44,7 @@ import { getRequiredActionCount } from './utils/offer'
 import { compatibilityCheck } from './utils/system'
 import { useUserDataStore } from './store'
 import shallow from 'zustand/shallow'
+import { useStorageSetup } from './init/dataMigration/useStorageSetup'
 
 enableScreens()
 
@@ -65,15 +66,9 @@ const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name 
  */
 const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
 
-const useSetupZustand = () => {
-  const initialize = useUserDataStore((state) => state.initialize)
-
-  useEffect(() => {
-    initialize()
-  }, [initialize])
-}
-
 const App: React.FC = () => {
+  useStorageSetup()
+
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
   const account = useUserDataStore(
@@ -86,7 +81,6 @@ const App: React.FC = () => {
     shallow,
   )
   const updateSettings = useUserDataStore((state) => state.updateSettings)
-  useSetupZustand()
 
   const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]

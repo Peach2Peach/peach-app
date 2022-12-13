@@ -101,13 +101,11 @@ export const initApp = async (
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
   events()
-  await dataMigrationBeforeLoadingAccount()
 
   await getPeachInfo(account)
   if (account.publicKey) {
     getTrades()
     userUpdate(account)
-    await dataMigrationAfterLoadingAccount()
   }
 
   initialNavigation(navigationRef, updateMessage)

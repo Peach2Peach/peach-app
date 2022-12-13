@@ -1,4 +1,5 @@
 import { exists } from 'react-native-fs'
+import { UserDataStore } from '../../store'
 import { loadAccountFromFileSystem } from '../../utils/account/loadAccount/loadAccountFromFileSystem'
 import { deleteFile, readDir } from '../../utils/file'
 import { info } from '../../utils/log'
@@ -24,7 +25,7 @@ const accountFiles = [
 
 const accountFolders = ['/peach-account-offers', '/peach-account-contracts']
 
-export const migrateAccountToSecureStorage = async () => {
+export const migrateAccountToSecureStorage = async (userDataStore: UserDataStore) => {
   info('migrateAccountToSecureStorage - copying to MMKV storage')
 
   const password = sessionStorage.getString('password')
@@ -34,20 +35,16 @@ export const migrateAccountToSecureStorage = async () => {
       info('migrateAccountToSecureStorage - no legacy account found')
       return
     }
-    const setAccount = useAccountStore((state) => state.setAccount)
-    const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
-    const setOffer = useOffersStore((state) => state.setOffer)
-    const setContract = useContractsStore((state) => state.setContract)
 
-    setAccount(legacyAccount)
-    setAllPaymentData(
+    userDataStore.setAccount(legacyAccount)
+    userDataStore.setAllPaymentData(
       legacyAccount.paymentData.reduce((obj, data) => {
         obj[data.id] = data
         return obj
       }, {} as Record<string, PaymentData>),
     )
-    legacyAccount.offers.forEach(setOffer)
-    legacyAccount.contracts.forEach(setContract)
+    legacyAccount.offers.forEach(userDataStore.setOffer)
+    legacyAccount.contracts.forEach(userDataStore.setContract)
     Object.values(legacyAccount.chats).forEach((chat) => chatStorage.setMap(chat.id, chat))
   }
 
