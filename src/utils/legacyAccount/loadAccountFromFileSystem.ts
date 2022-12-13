@@ -1,4 +1,4 @@
-import { account, defaultAccount, setAccount } from '../account'
+import { account, defaultAccount } from '../account'
 import { error, info } from '../log'
 import { loadIdentityFromFileSystem } from './loadIdentityFromFileSystem'
 import { loadSettingsFromFileSystem } from './loadSettingsFromFileSystem'
