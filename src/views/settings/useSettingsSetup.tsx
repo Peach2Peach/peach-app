@@ -88,7 +88,7 @@ export const useSettingsSetup = () => {
       { title: 'fees' },
       { title: 'privacyPolicy', onPress: openPrivacyPolicy },
       { title: 'socials' },
-      { title: 'website', onPress: goToWebsite, iconId: 'link' },
+      { title: 'website', onPress: goToWebsite },
       {
         title: 'analytics',
         onPress: toggleAnalytics,

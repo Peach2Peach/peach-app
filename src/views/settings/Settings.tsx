@@ -13,22 +13,20 @@ export default (): ReactElement => {
   const settings = useSettingsSetup()
 
   return (
-    <View style={tw`h-full pb-10`}>
-      <PeachScrollView>
-        {settings.map(({ headline, items }) => (
-          <View key={`settings-${headline}`} style={tw`mx-8`}>
-            {headline && (
-              <Headline style={tw`text-left h6 text-primary-light mt-9 mb-3 lowercase`}>
-                {i18n(`settings.${headline}`)}
-              </Headline>
-            )}
-            {items.map((item, i) => (
-              <SettingsItem key={`${headline}-${item.title}-${i}`} {...item} />
-            ))}
-          </View>
-        ))}
-        <VersionInfo />
-      </PeachScrollView>
-    </View>
+    <PeachScrollView>
+      {settings.map(({ headline, items }) => (
+        <View key={`settings-${headline}`} style={tw`mx-8`}>
+          {headline && (
+            <Headline style={tw`text-left h6 text-primary-light mt-9 mb-3 lowercase`}>
+              {i18n(`settings.${headline}`)}
+            </Headline>
+          )}
+          {items.map((item, i) => (
+            <SettingsItem key={`${headline}-${item.title}-${i}`} {...item} />
+          ))}
+        </View>
+      ))}
+      <VersionInfo />
+    </PeachScrollView>
   )
 }
