@@ -1,3 +1,3 @@
-import { createStorage } from '../storage'
+import { createStorage } from '../storage/createStorage'
 
 export const sessionStorage = createStorage('peachSession')
