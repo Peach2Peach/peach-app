@@ -6,7 +6,7 @@ import { parseError } from '../../system'
 /**
  * @deprecated
  */
-export const loadChatsFromFileSystem = async (password: string): Promise<Account['chats']> => {
+export const loadChatsFromFileSystem = async (password: string): Promise<LegacyAccount['chats']> => {
   try {
     let chats: Chat[] = []
 

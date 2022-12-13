@@ -6,7 +6,7 @@ import { parseError } from '../../system'
 /**
  * @deprecated
  */
-export const loadTradingLimitFromFileSystem = async (password: string): Promise<Account['tradingLimit']> => {
+export const loadTradingLimitFromFileSystem = async (password: string): Promise<LegacyAccount['tradingLimit']> => {
   try {
     const tradingLimit = await readFile('/peach-account-tradingLimit.json', password)
     return JSON.parse(tradingLimit)

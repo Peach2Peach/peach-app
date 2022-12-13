@@ -6,7 +6,7 @@ import { parseError } from '../../system'
 /**
  * @deprecated
  */
-export const loadContractsFromFileSystem = async (password: string): Promise<Account['contracts']> => {
+export const loadContractsFromFileSystem = async (password: string): Promise<LegacyAccount['contracts']> => {
   try {
     if (await exists('/peach-account-contracts')) {
       const contractFiles = await readDir('/peach-account-contracts')
