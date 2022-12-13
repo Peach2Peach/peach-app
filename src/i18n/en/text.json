@@ -37,6 +37,7 @@
   "newUser.saveYourPassword.description.4": "recover your account.",
   "newUser.saveYourPassword.ok": "I understand",
   "newUser.referralCode": "and do you have a referral code?",
+  "restore": "restore",
   "restoreBackup": "Restore backup",
   "backupRestored": "Backup restored",
   "decrypt": "Decrypt",

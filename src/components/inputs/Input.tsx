@@ -37,7 +37,7 @@ const themes = {
     bg: tw`bg-transparent`,
     bgError: tw`bg-primary-background-light`,
     error: tw`text-primary-background-light`,
-    placeholder: tw`text-primary-mild-4`,
+    placeholder: tw`text-primary-mild-2`,
     optional: tw`text-black-4`,
     isValid: tw`border-green`,
   },

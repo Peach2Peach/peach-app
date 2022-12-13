@@ -23,6 +23,7 @@ module.exports = {
           main: '#C45104',
           light: '#F56522',
           mild: '#FCCCB6',
+          'mild-2': '#FFA171',
           background: '#FFF9F6',
           'background-heavy': '#FEEDE5',
           'background-light': '#FFFCFA',
