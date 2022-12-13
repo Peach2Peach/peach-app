@@ -4,14 +4,16 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { Loading } from '../../components'
 import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
+import { useUserDataStore } from '../../store'
 import { account } from '../../utils/account'
 import { decryptMessage, popUnsentMessages } from '../../utils/chat'
-import { getContract, saveContract } from '../../utils/contract'
+import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
@@ -39,10 +41,18 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
 
+  const { getContractById, setContract } = useUserDataStore(
+    (state) => ({
+      getContractById: state.getContractById,
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
+
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
+  const contract = getContractById(contractId)
   const [tradingPartner, setTradingPartner] = useState<User | null>(
     contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null,
   )
@@ -54,7 +64,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
     setContract(contractData)
-    saveContract(contractData)
     return contractData
   }
 

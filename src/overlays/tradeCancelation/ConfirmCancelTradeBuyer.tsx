@@ -1,9 +1,10 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
-import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { cancelContract } from '../../utils/peachAPI'
@@ -15,8 +16,13 @@ import { ContractCanceled } from './ContractCanceled'
  */
 export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const { setContract } = useUserDataStore(
+    (state) => ({
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
   const [loading, setLoading] = useState(false)
-
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
 
   const ok = async () => {
@@ -26,7 +32,7 @@ export const ConfirmCancelTradeBuyer = ({ contract, navigation }: ConfirmCancelT
     })
 
     if (result) {
-      saveContract({
+      setContract({
         ...contract,
         canceled: true,
       })

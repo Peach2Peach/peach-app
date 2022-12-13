@@ -1,9 +1,10 @@
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
-import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { Navigation } from '../../utils/navigation'
 import Refund from '../Refund'
@@ -17,9 +18,14 @@ type DisputeWonSellerProps = {
 
 export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: DisputeWonSellerProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const { setContract } = useUserDataStore(
+    (state) => ({
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
   const closeOverlay = () => {
-    saveContract({
+    setContract({
       ...contract,
       disputeResultAcknowledged: true,
     })
@@ -27,7 +33,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate, navigation }: Disp
     updateOverlay({ content: null, showCloseButton: true })
   }
   const refund = () => {
-    saveContract({
+    setContract({
       ...contract,
       disputeResultAcknowledged: true,
       cancelConfirmationDismissed: true,

@@ -6,21 +6,20 @@ import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 
 import { useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { Headline, PeachScrollView, Text, Title } from '../../components'
 import getContractsEffect from '../../effects/getContractsEffect'
 import getOffersEffect from '../../effects/getOffersEffect'
+import { useUserDataStore } from '../../store'
 import { getAccount } from '../../utils/account'
 import { storeContracts, storeOffers } from '../../utils/account/storeAccount'
 import { getChatNotifications } from '../../utils/chat'
-import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
-import { OfferItem } from './components/OfferItem'
+import { getOffers, getRequiredActionCount, isBuyOffer } from '../../utils/offer'
 import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
-import { useMMKVStorage } from 'react-native-mmkv-storage'
-import { offerStorage } from '../../utils/storage'
+import { OfferItem } from './components/OfferItem'
 
 type Props = {
   navigation: StackNavigation
@@ -50,6 +49,14 @@ const sortByStatus = (a: SellOffer | BuyOffer, b: SellOffer | BuyOffer) =>
 export default ({ navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
+  const { setOffer, setContract } = useUserDataStore(
+    (state) => ({
+      setOffer: state.setOffer,
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
+
   const [, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
 
@@ -66,9 +73,7 @@ export default ({ navigation }: Props): ReactElement => {
       getOffersEffect({
         onSuccess: (result) => {
           if (!result?.length) return
-          saveOffers(result)
-
-          storeOffers(getAccount().offers)
+          result.forEach(setOffer)
 
           setLastUpdate(new Date().getTime())
           updateAppContext({
@@ -94,8 +99,7 @@ export default ({ navigation }: Props): ReactElement => {
         onSuccess: (result) => {
           if (!result?.length) return
 
-          saveContracts(result)
-          storeContracts(getAccount().contracts)
+          result.forEach(setContract)
           setLastUpdate(new Date().getTime())
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),

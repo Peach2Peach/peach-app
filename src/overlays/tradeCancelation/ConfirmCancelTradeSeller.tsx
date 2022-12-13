@@ -1,11 +1,13 @@
 import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Button, Headline, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
@@ -18,6 +20,12 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
+  const { setContract } = useUserDataStore(
+    (state) => ({
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
   const [loading, setLoading] = useState(false)
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
@@ -45,7 +53,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
             ...sellOffer,
             refundTx: psbt.toBase64(),
           })
-          saveContract({
+          setContract({
             ...contract,
             cancelConfirmationDismissed: false,
             cancelationRequested: true,

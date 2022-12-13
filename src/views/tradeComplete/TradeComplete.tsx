@@ -1,35 +1,40 @@
+import analytics from '@react-native-firebase/analytics'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import analytics from '@react-native-firebase/analytics'
 
 import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { BigTitle, PeachScrollView } from '../../components'
-import { saveContract } from '../../utils/contract'
+import { useUserDataStore } from '../../store'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { getTradingLimit } from '../../utils/peachAPI'
 import Rate from './components/Rate'
-import { useUserDataStore } from '../../store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['tradeComplete'] }>
   navigation: StackNavigation
 }
 export default ({ route, navigation }: Props): ReactElement => {
+  const { getContractById, setContract } = useUserDataStore(
+    (state) => ({
+      getContractById: state.getContractById,
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
   const publicKey = useUserDataStore((state) => state.publicKey)
   const setTradingLimit = useUserDataStore((state) => state.setTradingLimit)
-  const [contract, setContract] = useState<Contract>(route.params.contract)
+  const contract = getContractById(route.params.contract.id)
   const [view, setView] = useState<'seller' | 'buyer' | ''>('')
 
   const saveAndUpdate = (contractData: Contract) => {
-    setContract(() => contractData)
-    saveContract(contractData)
+    setContract(contractData)
   }
 
   useEffect(() => {
-    setContract(() => route.params.contract)
     setView(() => (publicKey === route.params.contract.seller.id ? 'seller' : 'buyer'))
   }, [route])
 

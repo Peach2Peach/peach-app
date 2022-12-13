@@ -1,11 +1,13 @@
 import { NETWORK } from '@env'
 import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Button, Headline, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getOfferIdfromContract } from '../../utils/contract'
 import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
@@ -17,6 +19,13 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
  */
 export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const { setContract } = useUserDataStore(
+    (state) => ({
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
+
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
@@ -25,12 +34,12 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
 
   useEffect(() => {
-    saveContract({
+    setContract({
       ...contract,
       cancelConfirmationDismissed: true,
       cancelConfirmationPending: false,
     })
-  }, [])
+  }, [setContract])
 
   return (
     <View style={tw`flex items-center`}>

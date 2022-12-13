@@ -1,10 +1,12 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Button, Headline, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
-import { getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getOfferIdfromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
@@ -18,6 +20,12 @@ import { ContractCanceled } from './ContractCanceled'
 export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
+  const { setContract } = useUserDataStore(
+    (state) => ({
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
   const [loading, setLoading] = useState(false)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
@@ -26,7 +34,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
     if (result) {
-      saveContract({
+      setContract({
         ...contract,
         canceled: true,
         cancelationRequested: false,
@@ -48,7 +56,7 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
     const [result, err] = await rejectContractCancelation({ contractId: contract.id })
 
     if (result) {
-      saveContract({
+      setContract({
         ...contract,
         cancelationRequested: false,
       })

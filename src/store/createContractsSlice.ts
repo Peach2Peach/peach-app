@@ -1,5 +1,6 @@
 import { StateCreator } from 'zustand'
 import { UserDataStore } from '.'
+import { patchDisputeAcknowledgements } from '../utils/contract'
 import { contractsStorage } from '../utils/storage/contractsStorage'
 
 export type ContractsStore = {
@@ -23,8 +24,9 @@ export const createContractsSlice: StateCreator<
   },
   setContract: (contract: Contract) =>
     set((state) => {
-      contractsStorage.setMap(contract.id, contract)
-      return { ...state, [contract.id]: contract }
+      const patchedContract = patchDisputeAcknowledgements(get().getContractById(contract.id), contract)
+      contractsStorage.setMap(patchedContract.id, patchedContract)
+      return { ...state, [patchedContract.id]: patchedContract }
     }),
   getContractArray: () => Object.values(get().contracts),
   getContractById: (id: Contract['id']) => get().contracts[id],

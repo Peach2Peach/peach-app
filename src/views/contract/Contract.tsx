@@ -3,19 +3,23 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import Payment from '../../overlays/info/Payment'
+import { useUserDataStore } from '../../store'
 import { account } from '../../utils/account'
-import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
+import { getChatNotifications } from '../../utils/chat'
+import { getContract, getOfferIdfromContract, signReleaseTx } from '../../utils/contract'
+import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getOffer, getRequiredActionCount } from '../../utils/offer'
-import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
@@ -24,8 +28,6 @@ import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
-import { getChatNotifications } from '../../utils/chat'
-import AppContext from '../../contexts/app'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contract'] }>
@@ -38,9 +40,17 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
+  const { getContractById, setContract } = useUserDataStore(
+    (state) => ({
+      getContractById: state.getContractById,
+      setContract: state.setContract,
+    }),
+    shallow,
+  )
+
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => route.params.contract || getContract(contractId))
+  const contract = getContractById(contractId)
   const [updatePending, setUpdatePending] = useState(!contract)
   const [view, setView] = useState<'seller' | 'buyer' | ''>(
     contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
@@ -51,7 +61,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
     setContract(contractData)
-    saveContract(contractData)
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount(),
     })
