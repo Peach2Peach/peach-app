@@ -1,9 +1,10 @@
 import { Pressable } from 'react-native'
 import React from 'react'
-import { Card, Text } from '../../../components'
+import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useNavigation } from '../../../hooks'
+import { IconType } from '../../../components/icons'
 
 export type SettingsItemProps = (
   | { title: ScreenWithoutProps; onPress?: undefined }
@@ -11,26 +12,17 @@ export type SettingsItemProps = (
       onPress: () => void
       title: string
     }
-) & { condition?: boolean; icon?: JSX.Element }
+) & { iconId?: IconType; warning?: boolean; enabled?: boolean }
 
-export const SettingsItem = ({ onPress: pressAction, title, icon, condition }: SettingsItemProps) => {
+export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, enabled }: SettingsItemProps) => {
   const navigation = useNavigation()
   const onPress = pressAction ? pressAction : () => navigation.navigate(title)
+  const iconColor = warning ? tw`text-error-main`.color : enabled ? tw`text-primary-light`.color : tw`text-black-3`.color
 
   return (
-    <Pressable style={tw`mt-2`} onPress={onPress}>
-      <Card style={tw`flex-row items-center justify-center`}>
-        <Text style={tw`text-center text-lg text-black-1 p-2`}>
-          {i18n(`settings.${title}`)}
-          {condition !== undefined && (
-            <>
-              <Text style={!!condition && tw`text-peach-1 font-bold`}> {i18n('settings.on')} </Text>/
-              <Text style={!condition && tw`text-peach-1 font-bold`}> {i18n('settings.off')}</Text>
-            </>
-          )}
-        </Text>
-        {!!icon && icon}
-      </Card>
+    <Pressable style={tw`my-3 mx-[6px] justify-between items-center flex-row`} onPress={onPress}>
+      <Text style={[tw`h6 lowercase text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
+      <Icon id={iconId ? iconId : 'chevronRight'} style={[tw`w-6 h-6`]} color={iconColor} />
     </Pressable>
   )
 }

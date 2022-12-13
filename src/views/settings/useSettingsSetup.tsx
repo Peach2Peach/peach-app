@@ -1,11 +1,8 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react'
-import { AppState, Linking } from 'react-native'
+import { AppState, Linking, Platform } from 'react-native'
 import analytics from '@react-native-firebase/analytics'
 
-import tw from '../../styles/tailwind'
-
 import { useFocusEffect } from '@react-navigation/native'
-import { Icon } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { DeleteAccount } from '../../overlays/DeleteAccount'
 import { account, updateSettings } from '../../utils/account'
@@ -59,7 +56,12 @@ export const useSettingsSetup = () => {
 
   const appSettings: SettingsItemProps[] = useMemo(
     () => [
-      { title: 'notifications', onPress: toggleNotifications, condition: notificationsOn },
+      {
+        title: 'notifications',
+        onPress: toggleNotifications,
+        enabled: notificationsOn,
+        iconId: Platform.OS === 'android' ? (notificationsOn ? 'toggleRight' : 'toggleLeft') : undefined,
+      },
       { title: 'displayCurrency', onPress: goToCurrencySettings },
     ],
     [goToCurrencySettings, notificationsOn],
@@ -70,13 +72,8 @@ export const useSettingsSetup = () => {
       { title: 'myAccount', onPress: goToMyAccount },
       {
         title: 'backups',
-        icon: account.settings.showBackupReminder ? (
-          <Icon
-            id="alertTriangle"
-            style={tw`w-6 h-6 absolute right-3 h-full flex justify-center`}
-            color={tw`text-white-1`.color}
-          />
-        ) : undefined,
+        iconId: account.settings.showBackupReminder ? 'alertTriangle' : undefined,
+        warning: !!account.settings.showBackupReminder,
       },
       { title: 'referrals' },
       { title: 'escrow' },
@@ -91,12 +88,13 @@ export const useSettingsSetup = () => {
       { title: 'fees' },
       { title: 'privacyPolicy', onPress: openPrivacyPolicy },
       { title: 'socials' },
+      { title: 'website', onPress: goToWebsite, iconId: 'link' },
       {
-        title: 'website',
-        onPress: goToWebsite,
-        icon: <Icon id="link" style={tw`w-3 h-3`} color={tw`text-grey-2`.color} />,
+        title: 'analytics',
+        onPress: toggleAnalytics,
+        iconId: analyticsOn ? 'toggleRight' : 'toggleLeft',
+        enabled: analyticsOn,
       },
-      { title: 'analytics', onPress: toggleAnalytics, condition: analyticsOn },
     ],
     [analyticsOn],
   )

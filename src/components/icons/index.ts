@@ -13,6 +13,7 @@ import checkSquare from './checkSquare.svg'
 import checkboxMark from './checkboxMark.svg'
 import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
+import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
@@ -60,6 +61,8 @@ import sliderPrev from './slider-prev.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
+import toggleLeft from './toggleLeft.svg'
+import toggleRight from './toggleRight.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
 import userX from './userX.svg'
@@ -88,6 +91,7 @@ const Icons = {
   chevronsUp,
   chevronUp,
   chevronLeft,
+  chevronRight,
   circle,
   paperclip,
   clock,
@@ -133,6 +137,8 @@ const Icons = {
   thumbsDown,
   thumbsUp,
   timer,
+  toggleLeft,
+  toggleRight,
   trendingUp,
   upload,
   userX,
