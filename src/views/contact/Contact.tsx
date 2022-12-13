@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -12,6 +12,8 @@ type Props = {
   navigation: StackNavigation
 }
 import { useNavigation } from '../../hooks'
+import { useHeaderState } from '../../components/header/store'
+import { useFocusEffect } from '@react-navigation/native'
 
 const contactReasons = ['bug', 'userProblem', 'question', 'newMethod', 'other'] as const
 type ContactReason = typeof contactReasons[number]
@@ -28,6 +30,14 @@ export default (): ReactElement => {
   useContext(LanguageContext)
 
   const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
+
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: i18n('contact.title').toLocaleLowerCase() })
+    }, [setHeaderState]),
+  )
 
   return (
     <PeachScrollView contentContainerStyle={tw`py-6 flex-grow bg-primary-background`}>

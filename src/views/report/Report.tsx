@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useRef, useState } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,6 +13,8 @@ import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
+import { useHeaderState } from '../../components/header/store'
+import { useFocusEffect } from '@react-navigation/native'
 
 const emailRules = { required: true, email: true }
 const required = { required: true }
@@ -33,6 +35,14 @@ export default (): ReactElement => {
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
+
+  const setHeaderState = useHeaderState((state) => state.setHeaderState)
+
+  useFocusEffect(
+    useCallback(() => {
+      setHeaderState({ title: i18n('contact.title').toLocaleLowerCase() })
+    }, [setHeaderState]),
+  )
 
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
