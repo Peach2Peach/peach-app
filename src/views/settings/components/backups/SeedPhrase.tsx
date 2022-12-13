@@ -7,6 +7,7 @@ import { Button, Card, Headline, PeachScrollView, Text } from '../../../../compo
 import { useNavigation } from '../../../../hooks'
 import { account } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { PrimaryButton } from '../../../../components/buttons'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -62,9 +63,13 @@ export default (): ReactElement => {
       </PeachScrollView>
       <View style={tw`flex items-center mt-16`}>
         {!showWords && (
-          <Button style={tw`mb-2`} title={i18n('settings.seedWords.iUnderstand')} wide={false} onPress={iUnderstand} />
+          <PrimaryButton style={tw`mb-2`} narrow onPress={iUnderstand}>
+            {i18n('settings.seedWords.iUnderstand')}
+          </PrimaryButton>
         )}
-        <Button title={i18n('back')} wide={false} secondary onPress={navigation.goBack} />
+        <PrimaryButton narrow onPress={navigation.goBack}>
+          {i18n('back')}
+        </PrimaryButton>
       </View>
     </View>
   )

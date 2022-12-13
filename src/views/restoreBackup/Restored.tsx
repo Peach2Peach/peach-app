@@ -3,10 +3,10 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Logo from '../../assets/logo/peachLogo.svg'
-import { Button, Text } from '../../components'
+import { Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
 import { useNavigation } from '../../hooks'
 import i18n from '../../utils/i18n'
-import { PrimaryButton } from '../../components/buttons'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -23,10 +23,6 @@ export default (): ReactElement => {
           <Text style={tw`mt-4 text-center`}>{i18n('restoreBackup.restored.description.1')}</Text>
         </View>
       </View>
-      <View style={tw`pb-8 mt-4 flex items-center w-full bg-white-1`}>
-        <Button onPress={finish} wide={false} title={i18n('continue')} />
-      </View>
-
       <PrimaryButton style={tw`mb-8 mt-4 self-center bg-white-1`} onPress={finish} narrow>
         {i18n('continue')}
       </PrimaryButton>

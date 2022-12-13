@@ -2,10 +2,11 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import { Input, Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
 import LanguageContext from '../../contexts/language'
-import { Button, Input, Text } from '../../components'
-import i18n from '../../utils/i18n'
 import { useNavigation, useValidatedState } from '../../hooks'
+import i18n from '../../utils/i18n'
 
 const referralCodeRules = { referralCode: true }
 
@@ -52,15 +53,17 @@ export default (): ReactElement => {
         </View>
       </View>
       <View style={tw`flex items-center`}>
-        <Button style={tw`mt-4`} testID="welcome-newUser" onPress={goToNewUser} wide={false} title={i18n('newUser')} />
-        <Button
+        <PrimaryButton style={tw`mt-4`} testID="welcome-newUser" onPress={goToNewUser} narrow>
+          {i18n('newUser')}
+        </PrimaryButton>
+        <PrimaryButton
           testID="welcome-restoreBackup"
           style={tw`mt-2`}
-          onPress={() => navigation.navigate('restoreBackup', {})}
-          wide={false}
-          secondary={true}
-          title={i18n('restoreBackup')}
-        />
+          onPress={() => navigation.navigate('restoreBackup')}
+          narrow
+        >
+          {i18n('restoreBackup')}
+        </PrimaryButton>
       </View>
     </View>
   )

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import { Button, Card, Text } from '../../../../components'
+import { Card, Text } from '../../../../components'
+import { PrimaryButton } from '../../../../components/buttons'
 import { useNavigation } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
@@ -28,7 +29,9 @@ export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElem
         </Pressable>
       </View>
       <View style={tw`flex items-center mt-16`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <PrimaryButton narrow onPress={navigation.goBack}>
+          {i18n('back')}
+        </PrimaryButton>
       </View>
     </View>
   )

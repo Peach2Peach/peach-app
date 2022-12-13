@@ -1,14 +1,15 @@
-import React, { Dispatch, ReactElement, SetStateAction, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
-import { Button, Input, Loading, Text } from '../../components'
+import { Input, Loading, Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
 import Icon from '../../components/Icon'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useValidatedState } from '../../hooks'
+import tw from '../../styles/tailwind'
+import { createAccount, recoverAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
-import { createAccount, recoverAccount } from '../../utils/account'
 
 const bip39Rules = {
   required: true,
@@ -94,7 +95,9 @@ export default ({ style }: ComponentProps): ReactElement => {
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
             </Pressable>
-            <Button onPress={submit} disabled={!formIsValid} wide={false} title={i18n('restoreBackup')} />
+            <PrimaryButton onPress={submit} disabled={!formIsValid} narrow>
+              {i18n('restoreBackup')}
+            </PrimaryButton>
           </View>
         </View>
       ) : (

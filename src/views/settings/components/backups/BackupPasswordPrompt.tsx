@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Button, Icon, Input, Text } from '../../../../components'
+import { Icon, Input, Text } from '../../../../components'
+import { PrimaryButton } from '../../../../components/buttons'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
@@ -130,14 +131,12 @@ export default (): ReactElement => {
         />
       </View>
       <View style={tw`flex items-center mt-16`}>
-        <Button
-          disabled={!isValid}
-          style={tw`mb-2`}
-          title={i18n('settings.backups.createNew')}
-          wide={false}
-          onPress={startAccountBackup}
-        />
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <PrimaryButton disabled={!isValid} style={tw`mb-2`} narrow onPress={startAccountBackup}>
+          {i18n('settings.backups.createNew')}
+        </PrimaryButton>
+        <PrimaryButton narrow onPress={navigation.goBack}>
+          {i18n('back')}{' '}
+        </PrimaryButton>
       </View>
     </View>
   )
