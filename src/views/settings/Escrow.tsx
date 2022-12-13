@@ -6,18 +6,19 @@ import tw from '../../styles/tailwind'
 import { Button, Headline, Text, Title } from '../../components'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { useAccountStore } from '../../utils/storage/accountStorage'
 import ReturnAddress from '../sell/components/ReturnAddress'
+import { useUserDataStore } from '../../store'
 
 type Props = {
   navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {
-  const account = useAccountStore()
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
+  const returnAddress = useUserDataStore((state) => state.settings.returnAddress)
 
-  const setReturnAddress = (address: string) => {
-    account.updateSettings({
+  const update = (address: string) => {
+    updateSettings({
       returnAddress: address,
     })
   }
@@ -28,7 +29,7 @@ export default ({ navigation }: Props): ReactElement => {
       <View style={tw`h-full flex-shrink mt-12`}>
         <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.escrow.returnAddress.title')}</Headline>
         <Text style={tw`text-grey-2 text-center -mt-2`}>{i18n('sell.escrow.returnAddress.subtitle')}</Text>
-        <ReturnAddress returnAddress={account.settings.returnAddress} update={setReturnAddress} />
+        <ReturnAddress {...{ update, returnAddress }} />
       </View>
       <View style={tw`flex items-center mt-16`}>
         <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />

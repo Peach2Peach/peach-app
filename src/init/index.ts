@@ -6,12 +6,10 @@ import events from '../init/events'
 import requestUserPermissions from '../init/requestUserPermissions'
 import { getPeachInfo, getTrades } from '../init/session'
 import userUpdate from '../init/userUpdate'
-import { loadAccount } from '../utils/account'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
 import { sessionStorage } from '../utils/session'
-import { AccountStore, useAccountStore } from '../utils/storage/accountStorage'
 import { isIOS, parseError } from '../utils/system'
 
 /**
@@ -98,14 +96,14 @@ const initialNavigation = async (
  * @param navigationRef reference to navigation
  */
 export const initApp = async (
-  account: AccountStore,
+  account: Account,
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
   events()
   await dataMigrationBeforeLoadingAccount()
 
-  await getPeachInfo(useAccountStore())
+  await getPeachInfo(account)
   if (account.publicKey) {
     getTrades()
     userUpdate(account)

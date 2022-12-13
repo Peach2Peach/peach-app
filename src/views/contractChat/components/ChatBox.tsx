@@ -4,7 +4,7 @@ import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { getChat, getChatNotifications } from '../../../utils/chat'
 import { getRequiredActionCount } from '../../../utils/offer'
-import { ChatStorage } from '../../../utils/storage/useChatStore'
+import { ChatStorage } from '../../../store/useChatStore'
 import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 21

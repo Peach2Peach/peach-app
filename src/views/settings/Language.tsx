@@ -7,7 +7,7 @@ import { Button, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { useUserDataStore } from '../../store'
 
 type Props = {
   navigation: StackNavigation
@@ -15,7 +15,7 @@ type Props = {
 
 export default ({ navigation }: Props): ReactElement => {
   useContext(LanguageContext)
-  const account = useAccountStore()
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
 
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: i18n.getLocale() })
 
@@ -30,7 +30,7 @@ export default ({ navigation }: Props): ReactElement => {
             style={tw`mb-3`}
             onPress={() => {
               setLocale({ locale: lcl })
-              account.updateSettings({ locale })
+              updateSettings({ locale })
             }}
             wide={true}
             grey={locale !== lcl}

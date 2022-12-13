@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
+import { useUserDataStore } from '../../../../store'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
@@ -17,7 +17,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
-  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
+  const getWithLabel = useUserDataStore((state) => state.getPaymentDataByLabel)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current

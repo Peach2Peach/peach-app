@@ -19,7 +19,8 @@ import { marketPrices } from '../utils/peachAPI/public/market'
 import { thousands } from '../utils/string'
 import { Fade } from './animation'
 import Logo from '../assets/logo/peachLogo.svg'
-import { useAccountStore } from '../utils/storage/accountStorage'
+import { useUserDataStore } from '../store'
+import shallow from 'zustand/shallow'
 
 let HEADERHEIGHT = 56
 const setHeaderHeight = (event: LayoutChangeEvent) => (HEADERHEIGHT = event.nativeEvent.layout.height)
@@ -39,7 +40,15 @@ export const Header = ({ style, navigation }: HeaderProps): ReactElement => {
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
   const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
-  const account = useAccountStore()
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
 
   useEffect(() => {
     analytics().logAppOpen()

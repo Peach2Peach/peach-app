@@ -7,6 +7,9 @@ import { innerShadow, mildShadow } from '../../utils/layout'
 import PeachScrollView from '../PeachScrollView'
 import { isAndroid } from '../../utils/system'
 import { useFocusEffect } from '@react-navigation/native'
+import { UserDataStore, useUserDataStore } from '../../store'
+import { BUCKETS } from '../../constants'
+import shallow from 'zustand/shallow'
 
 interface Item {
   value: number
@@ -15,9 +18,12 @@ interface Item {
 
 type DropdownProps = ComponentProps & {
   items: Item[]
-  selectedValue: number
-  onChange: (value: number) => void
 }
+
+const dropdownSelector = (state: UserDataStore) => ({
+  amount: state.settings.amount && BUCKETS.includes(state.settings.amount) ? state.settings.amount : BUCKETS[0],
+  setAmount: state.setAmount,
+})
 
 /**
  * @description Component to display the Sats select
@@ -57,15 +63,16 @@ type DropdownProps = ComponentProps & {
  *   ]}
  * />
  */
-export const Dropdown = ({ items, selectedValue, onChange, style, testID }: DropdownProps): ReactElement => {
+export const Dropdown = ({ items, style, testID }: DropdownProps): ReactElement => {
+  const { amount, setAmount } = useUserDataStore(dropdownSelector, shallow)
   const [isOpen, setOpen] = useState(false)
-  const selectedItem = items.find((item) => item.value === selectedValue)
+  const selectedItem = items.find((item) => item.value === amount)
 
   const toggle = useCallback(() => {
     setOpen((prev) => !prev)
   }, [])
   const select = (value: number) => {
-    onChange(value)
+    setAmount(value)
     toggle()
   }
 

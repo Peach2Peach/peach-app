@@ -1,10 +1,9 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 import LanguageContext from '../../contexts/language'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
-import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { useAccountStore } from '../../utils/storage/accountStorage'
 import Select from './Select'
 
 interface LanguageSelectProps {
@@ -20,7 +19,7 @@ interface LanguageSelectProps {
  */
 export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): ReactElement => {
   useContext(LanguageContext)
-  const account = useAccountStore()
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
 
   const languages = i18n.getLocales().map((lcl) => ({
     value: lcl,
@@ -36,7 +35,7 @@ export const LanguageSelect = ({ locale, setLocale }: LanguageSelectProps): Reac
         selectedValue={pristine ? null : locale}
         onChange={(value) => {
           setLocale({ locale: value as string })
-          account.updateSettings({ locale })
+          updateSettings({ locale })
           setPristine(false)
         }}
       />

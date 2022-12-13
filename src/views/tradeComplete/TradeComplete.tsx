@@ -11,14 +11,15 @@ import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { getTradingLimit } from '../../utils/peachAPI'
 import Rate from './components/Rate'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { useUserDataStore } from '../../store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['tradeComplete'] }>
   navigation: StackNavigation
 }
 export default ({ route, navigation }: Props): ReactElement => {
-  const account = useAccountStore()
+  const publicKey = useUserDataStore((state) => state.publicKey)
+  const setTradingLimit = useUserDataStore((state) => state.setTradingLimit)
   const [contract, setContract] = useState<Contract>(route.params.contract)
   const [view, setView] = useState<'seller' | 'buyer' | ''>('')
 
@@ -29,7 +30,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   useEffect(() => {
     setContract(() => route.params.contract)
-    setView(() => (account.publicKey === route.params.contract.seller.id ? 'seller' : 'buyer'))
+    setView(() => (publicKey === route.params.contract.seller.id ? 'seller' : 'buyer'))
   }, [route])
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       const [tradingLimit] = await getTradingLimit({})
 
       if (tradingLimit) {
-        account.setTradingLimit(tradingLimit)
+        setTradingLimit(tradingLimit)
       }
     })()
     analytics().logEvent('trade_completed', {

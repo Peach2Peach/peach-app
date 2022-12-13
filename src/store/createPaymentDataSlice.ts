@@ -1,23 +1,24 @@
-import create from 'zustand'
-import { paymentDataStorage } from './paymentDataStorage'
+import { StateCreator } from 'zustand'
+import { paymentDataStorage } from '../utils/storage/paymentDataStorage'
 import { immer } from 'zustand/middleware/immer'
+import { UserDataStore } from '.'
 
 export type PaymentDataStorage = {
   paymentData: Record<PaymentData['id'], PaymentData>
   setPaymentData: (paymentData: PaymentData) => void
   setAllPaymentData: (paymentData: Record<PaymentData['id'], PaymentData>) => void
-  getWithId: (id: PaymentData['id']) => PaymentData
-  iterator: () => PaymentData[]
-  initialize: () => Promise<unknown>
-  getWithLabel: (label: PaymentData['label']) => PaymentData | undefined
-  getWithType: (type: PaymentData['type']) => PaymentData[]
+  getPaymentDataById: (id: PaymentData['id']) => PaymentData
+  getPaymentDataArray: () => PaymentData[]
+  initializePaymentData: () => Promise<unknown>
+  getPaymentDataByLabel: (label: PaymentData['label']) => PaymentData | undefined
+  getPaymentDataByType: (type: PaymentData['type']) => PaymentData[]
   removePaymentData: (id: PaymentData['id']) => void
 }
 
-export const usePaymentDataStore = create<PaymentDataStorage>()(
-  immer((set, get) => ({
+export const createPaymentDataSlice: StateCreator<UserDataStore, [], [['zustand/immer', never]], PaymentDataStorage>
+  = immer((set, get) => ({
     paymentData: {},
-    initialize: async () => {
+    initializePaymentData: async () => {
       const initialPaymentData = (await paymentDataStorage.indexer.maps.getAll()) as Account['paymentData']
       set((state) => (state.paymentData = initialPaymentData))
     },
@@ -38,15 +39,14 @@ export const usePaymentDataStore = create<PaymentDataStorage>()(
         return state
       })
     },
-    iterator: () => Object.values(get().paymentData),
-    getWithId: (id: PaymentData['id']) => get().paymentData[id],
-    getWithLabel: (label: PaymentData['label']) =>
+    getPaymentDataArray: () => Object.values(get().paymentData),
+    getPaymentDataById: (id: PaymentData['id']) => get().paymentData[id],
+    getPaymentDataByLabel: (label: PaymentData['label']) =>
       get()
-        .iterator()
+        .getPaymentDataArray()
         .find((d) => d.label === label),
-    getWithType: (type: PaymentData['type']) =>
+    getPaymentDataByType: (type: PaymentData['type']) =>
       get()
-        .iterator()
+        .getPaymentDataArray()
         .filter((d) => d.type === type),
-  })),
-)
+  }))

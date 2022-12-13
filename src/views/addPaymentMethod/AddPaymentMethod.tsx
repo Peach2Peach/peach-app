@@ -11,7 +11,7 @@ import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '..
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
-import { usePaymentDataStore } from '../../utils/storage'
+import { useUserDataStore } from '../../store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>
@@ -30,7 +30,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [country, setCountry] = useState(route.params.country)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | undefined>(route.params.paymentMethod)
-  const getWithType = usePaymentDataStore((state) => state.getWithType)
+  const getWithType = useUserDataStore((state) => state.getPaymentDataByType)
 
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)

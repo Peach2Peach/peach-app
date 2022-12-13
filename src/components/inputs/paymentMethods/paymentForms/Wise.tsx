@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
+import { useUserDataStore } from '../../../../store'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
@@ -16,7 +16,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const [reference, setReference] = useState(data?.reference || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
-  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
+  const getWithLabel = useUserDataStore((state) => state.getPaymentDataByLabel)
 
   let $email = useRef<TextInput>(null).current
   let $phone = useRef<TextInput>(null).current

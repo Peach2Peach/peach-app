@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
+import { useUserDataStore } from '../../../../store'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
@@ -15,7 +15,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
   const [userName, setUserName] = useState(data?.userName || '')
   const [email, setEmail] = useState(data?.email || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
-  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
+  const getWithLabel = useUserDataStore((state) => state.getPaymentDataByLabel)
 
   const anyFieldSet = !!(phone || userName || email)
 

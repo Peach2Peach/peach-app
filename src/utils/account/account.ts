@@ -2,7 +2,7 @@ import { APPVERSION } from '../../constants'
 import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
-import { AccountStore } from '../storage/useAccountStore'
+import { AccountStore } from '../../store/createAccountSlice'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
 
 export const defaultAccount: Account = {

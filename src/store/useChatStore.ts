@@ -1,8 +1,8 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
-import { concatMessages } from '../chat'
-import { chatStorage } from './chatStorage'
-import { toZustandStorage } from './toZustandStorage'
+import { concatMessages } from '../utils/chat'
+import { chatStorage } from '../utils/storage/chatStorage'
+import { toZustandStorage } from '../utils/storage/toZustandStorage'
 
 export type ChatStorage = Chat & {
   setLastSeen: (date: Date) => void

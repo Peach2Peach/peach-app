@@ -41,8 +41,9 @@ import AnalyticsPrompt from './overlays/AnalyticsPrompt'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
-import { useAccountStore, useContractsStore, useOffersStore, usePaymentDataStore } from './utils/storage'
 import { compatibilityCheck } from './utils/system'
+import { useUserDataStore } from './store'
+import shallow from 'zustand/shallow'
 
 enableScreens()
 
@@ -65,21 +66,26 @@ const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name 
 const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
 
 const useSetupZustand = () => {
-  const initializePaymentData = usePaymentDataStore((state) => state.initialize)
-  const initializeOffers = useOffersStore((state) => state.initialize)
-  const initializeContract = useContractsStore((state) => state.initialize)
+  const initialize = useUserDataStore((state) => state.initialize)
 
   useEffect(() => {
-    initializePaymentData()
-    initializeOffers()
-    initializeContract()
-  }, [initializePaymentData, initializeOffers, initializeContract])
+    initialize()
+  }, [initialize])
 }
 
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
-  const account = useAccountStore()
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
   useSetupZustand()
 
   const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
@@ -129,7 +135,7 @@ const App: React.FC = () => {
           showCloseIcon: true,
           onClose: () => {
             analytics().setAnalyticsCollectionEnabled(false)
-            account.updateSettings({
+            updateSettings({
               enableAnalytics: false,
             })
           },

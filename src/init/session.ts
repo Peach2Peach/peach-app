@@ -14,7 +14,6 @@ import { error, info } from '../utils/log'
 import { saveOffers } from '../utils/offer'
 import { getContracts, getInfo, getOffers, getStatus, getTradingLimit } from '../utils/peachAPI'
 import { sessionStorage } from '../utils/session'
-import { AccountStore } from '../utils/storage/accountStorage'
 
 /**
  * Note: we estimate the time it took for the response to arrive from server to client
@@ -38,7 +37,7 @@ const calculateClientServerTimeDifference = async () => {
 /**
  * @description Method to fetch peach info and user trading limit and store values in constants
  */
-export const getPeachInfo = async (account: AccountStore): Promise<GetInfoResponse | null> => {
+export const getPeachInfo = async (account: Account): Promise<GetInfoResponse | null> => {
   await calculateClientServerTimeDifference()
 
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
@@ -53,6 +52,7 @@ export const getPeachInfo = async (account: AccountStore): Promise<GetInfoRespon
     peachInfo = sessionStorage.getMap('peachInfo')
   }
   if (tradingLimit) {
+    // TODO
     account.setTradingLimit(tradingLimit)
   }
   if (peachInfo) {

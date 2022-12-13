@@ -1,16 +1,17 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
-import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
-import { Button, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../components'
-import { BUCKETS, DEPRECATED_BUCKETS } from '../constants'
-import BitcoinContext from '../contexts/bitcoin'
-import { applyTradingLimit, getTradingLimit } from '../utils/account'
-import { StackNavigation } from '../utils/navigation'
-import { useAccountStore } from '../utils/storage/accountStorage'
-import { thousands } from '../utils/string'
+import { Button, Dropdown, Headline, Progress, SatsFormat, Text, Title } from '../../components'
+import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
+import BitcoinContext from '../../contexts/bitcoin'
+import { applyTradingLimit, getTradingLimit } from '../../utils/account'
+import { StackNavigation } from '../../utils/navigation'
+import { thousands } from '../../utils/string'
+import { useUserDataStore } from '../../store'
+import { BackupReminder } from './components/BackupReminder'
 
 type Props = {
   navigation: StackNavigation
@@ -18,14 +19,12 @@ type Props = {
 }
 
 export default ({ navigation, page }: Props): ReactElement => {
-  const account = useAccountStore()
+  const amount = useUserDataStore((state) =>
+    state.settings.amount && BUCKETS.includes(state.settings.amount) ? state.settings.amount : BUCKETS[0],
+  )
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
 
   const { daily, dailyAmount } = getTradingLimit(currency)
-  const [amount, setAmount] = useState(
-    account.settings.amount && BUCKETS.includes(account.settings.amount) ? account.settings.amount : BUCKETS[0],
-  )
-  const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
   const allowedBuckets = page === 'sell' ? BUCKETS.filter((b) => DEPRECATED_BUCKETS.indexOf(b) === -1) : BUCKETS
   const dropdownItems = applyTradingLimit(allowedBuckets, prices.CHF as number, getTradingLimit()).map((value) => ({
@@ -42,19 +41,9 @@ export default ({ navigation, page }: Props): ReactElement => {
     ),
   }))
 
-  const goToBackups = () => navigation.navigate('backups', {})
-  const dismissBackupReminder = () => {
-    account.updateSettings({ showBackupReminder: false })
-    setShowBackupReminder(false)
-  }
-
   const next = () => {
     navigation.navigate(`${page}Preferences`, { amount })
   }
-
-  useEffect(() => {
-    account.updateSettings({ amount })
-  }, [account, amount])
 
   return (
     <View testID={`view-${page}`} style={tw`h-full flex`}>
@@ -79,13 +68,7 @@ export default ({ navigation, page }: Props): ReactElement => {
               <Headline style={tw`mt-16 text-grey-1 px-5`}>{i18n(`${page}.subtitle`)}</Headline>
               <View style={tw`z-10`}>
                 <View style={tw`w-full absolute px-6 flex-row items-start justify-center mt-3`}>
-                  <Dropdown
-                    testID={`${page}-amount`}
-                    style={tw`flex-shrink`}
-                    items={dropdownItems}
-                    selectedValue={amount}
-                    onChange={setAmount}
-                  />
+                  <Dropdown testID={`${page}-amount`} style={tw`flex-shrink`} items={dropdownItems} />
                 </View>
               </View>
               {satsPerUnit ? (
@@ -95,18 +78,7 @@ export default ({ navigation, page }: Props): ReactElement => {
               ) : null}
             </View>
           </View>
-          {showBackupReminder && (
-            <View style={tw`flex items-center mt-2`}>
-              <Hint
-                style={tw`max-w-xs`}
-                title={i18n('hint.backup.title')}
-                text={i18n('hint.backup.text')}
-                icon="lock"
-                onPress={goToBackups}
-                onDismiss={dismissBackupReminder}
-              />
-            </View>
-          )}
+          <BackupReminder />
         </View>
       </View>
       <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>

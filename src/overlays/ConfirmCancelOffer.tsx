@@ -11,7 +11,7 @@ import { error, info } from '../utils/log'
 import { isBuyOffer, isSellOffer, saveOffer } from '../utils/offer'
 import Refund from './Refund'
 import { Navigation } from '../utils/navigation'
-import { useAccountStore } from '../utils/storage/accountStorage'
+import { useUserDataStore } from '../store'
 
 const confirm = async (offer: BuyOffer | SellOffer) => {
   if (!offer.id) return
@@ -58,7 +58,7 @@ type ConfirmCancelOfferProps = {
 export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
-  const account = useAccountStore()
+  const setTradingLimit = useUserDataStore((state) => state.setTradingLimit)
 
   const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
   const ok = async () => {
@@ -68,7 +68,7 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
 
     getTradingLimit({}).then(([tradingLimit]) => {
       if (tradingLimit) {
-        account.setTradingLimit(tradingLimit)
+        setTradingLimit(tradingLimit)
       }
     })
 
