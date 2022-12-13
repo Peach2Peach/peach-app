@@ -63,9 +63,11 @@ export default (): ReactElement => {
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact'),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
   }

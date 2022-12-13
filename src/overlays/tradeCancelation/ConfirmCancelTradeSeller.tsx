@@ -58,9 +58,11 @@ export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps):
           updateMessage({
             msgKey: patchOfferError?.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           })
         }
       } else if (checkRefundPSBTError) {
@@ -68,9 +70,11 @@ export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps):
         updateMessage({
           msgKey: checkRefundPSBTError || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact'),
-          actionLabel: i18n('contactUs'),
-          actionIcon: 'mail',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
       }
     } else if (err) {
@@ -78,9 +82,11 @@ export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps):
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact'),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
     setLoading(false)

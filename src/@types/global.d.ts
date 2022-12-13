@@ -105,8 +105,8 @@ declare type AppState = {
 
 declare type Action = {
   callback: () => void
-  label: string
-  icon: IconType
+  label?: string
+  icon?: IconType
 }
 
 declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'

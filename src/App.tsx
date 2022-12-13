@@ -136,9 +136,11 @@ const App: React.FC = () => {
     updateMessage({
       msgKey: (err as Error).message || 'GENERAL_ERROR',
       level: 'ERROR',
-      action: () => navigationRef.navigate('contact'),
-      actionLabel: i18n('contactUs'),
-      actionIcon: 'mail',
+      action: {
+        callback: () => navigationRef.navigate('contact'),
+        label: i18n('contactUs'),
+        icon: 'mail',
+      },
     })
   })
 
@@ -147,9 +149,11 @@ const App: React.FC = () => {
     updateMessage({
       msgKey: (err as Error).message || 'GENERAL_ERROR',
       level: 'ERROR',
-      action: () => navigationRef.navigate('contact'),
-      actionLabel: i18n('contactUs'),
-      actionIcon: 'mail',
+      action: {
+        callback: () => navigationRef.navigate('contact'),
+        label: i18n('contactUs'),
+        icon: 'mail',
+      },
     })
   })
 
@@ -177,18 +181,22 @@ const App: React.FC = () => {
           msgKey: 'CRITICAL_UPDATE_AVAILABLE',
           level: 'ERROR',
           keepAlive: true,
-          action: linkToAppStore,
-          actionLabel: i18n('download'),
-          actionIcon: 'download',
+          action: {
+            callback: linkToAppStore,
+            label: i18n('download'),
+            icon: 'download',
+          },
         })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
         updateMessage({
           msgKey: 'UPDATE_AVAILABLE',
           level: 'WARN',
           keepAlive: true,
-          action: linkToAppStore,
-          actionLabel: i18n('download'),
-          actionIcon: 'download',
+          action: {
+            callback: linkToAppStore,
+            label: i18n('download'),
+            icon: 'download',
+          },
         })
       }
     })()
