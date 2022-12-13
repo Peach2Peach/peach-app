@@ -77,3 +77,9 @@ declare type RootStackParamList = {
   welcome: undefined
   splashScreen: undefined
 }
+
+type KeysWithUndefined<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never
+}[keyof T]
+
+declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>
