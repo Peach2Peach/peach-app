@@ -25,7 +25,8 @@ import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-import { AccountStore, useAccountStore } from '../../utils/storage/accountStorage'
+import { useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -43,7 +44,7 @@ export type SellViewProps = {
   navigation: StackNavigation
 }
 
-const getDefaultSellOffer = (account: AccountStore, amount?: number): SellOffer => ({
+const getDefaultSellOffer = (account: Account, amount?: number): SellOffer => ({
   online: false,
   type: 'ask',
   creationDate: new Date(),
@@ -87,7 +88,16 @@ const screens = [
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const account = useAccountStore()
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
+  const setTradingLimit = useUserDataStore((state) => state.setTradingLimit)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(account, route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -158,7 +168,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         getTradingLimit({}).then(([tradingLimit]) => {
           if (tradingLimit) {
-            account.setTradingLimit(tradingLimit)
+            setTradingLimit(tradingLimit)
           }
         })
 

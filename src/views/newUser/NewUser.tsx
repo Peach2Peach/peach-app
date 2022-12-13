@@ -1,6 +1,7 @@
 import { RouteProp } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import Logo from '../../assets/logo/peachLogo.svg'
 import { Loading, Text } from '../../components'
 
@@ -8,13 +9,13 @@ import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import userUpdate from '../../init/userUpdate'
+import { useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
 import { createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
-import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
 import { parseError } from '../../utils/system'
 
 type Props = {
@@ -24,8 +25,16 @@ type Props = {
 
 // eslint-disable-next-line complexity
 export default ({ route, navigation }: Props): ReactElement => {
-  const account = useAccountStore()
-  const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
+  const setAllPaymentData = useUserDataStore((state) => state.setAllPaymentData)
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
 
   const [, updateOverlay] = useContext(OverlayContext)
 
@@ -53,6 +62,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     try {
       const [result, authError] = await auth({})
       if (result) {
+        // TODO: Functionality probably can be moved to store
         await userUpdate(account, route.params.referralCode)
         storeAccount(account)
         setAllPaymentData(account.paymentData)

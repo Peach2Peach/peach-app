@@ -9,8 +9,9 @@ import { getSelectedPaymentDataIds } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
 import { BuyViewProps } from './BuyPreferences'
+import { UserDataStore, useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 const validate = (offer: BuyOffer, getWithId: (id: string) => PaymentData) => {
   const paymentDataValid = getSelectedPaymentDataIds()
@@ -20,12 +21,15 @@ const validate = (offer: BuyOffer, getWithId: (id: string) => PaymentData) => {
   return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
 }
 
+const offerDetailsSelector = (state: UserDataStore) => ({
+  accountMeansOfPayment: state.settings.meansOfPayment,
+  getWithId: state.getPaymentDataById,
+  updateSettings: state.updateSettings,
+})
+
 export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
-  const account = useAccountStore()
-  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment,
-  )
-  const getWithId = usePaymentDataStore((state) => state.getWithId)
+  const { accountMeansOfPayment, getWithId, updateSettings } = useUserDataStore(offerDetailsSelector, shallow)
+  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(offer.meansOfPayment || accountMeansOfPayment)
 
   useEffect(() => {
     const paymentData = getSelectedPaymentDataIds()
@@ -44,11 +48,11 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getWithId) as PaymentData[],
     })
-    account.updateSettings({
+    updateSettings({
       meansOfPayment,
       kyc: offer.kyc,
     })
-  }, [account, meansOfPayment])
+  }, [getWithId, meansOfPayment, updateSettings])
 
   useEffect(() => setStepValid(validate(offer, getWithId)), [getWithId, offer])
 

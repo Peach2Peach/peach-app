@@ -1,19 +1,29 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Button, Icon, Input, Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
 import Password from '../../../../overlays/info/Password'
+import { useUserDataStore } from '../../../../store'
 import tw from '../../../../styles/tailwind'
 import { backupAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { useAccountStore } from '../../../../utils/storage/accountStorage'
 
 const passwordRules = { required: true, password: true }
 
 export default (): ReactElement => {
-  const account = useAccountStore()
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
 
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
@@ -53,7 +63,7 @@ export default (): ReactElement => {
     const previousDate = account.settings.lastBackupDate
     const previousShowBackupReminder = account.settings.showBackupReminder
     setIsBackingUp(true)
-    account.updateSettings({
+    updateSettings({
       lastBackupDate: new Date().getTime(),
       showBackupReminder: false,
     })
@@ -64,7 +74,7 @@ export default (): ReactElement => {
           content: <BackupCreated />,
           showCloseButton: false,
         })
-        account.updateSettings({
+        updateSettings({
           lastBackupDate: new Date().getTime(),
           showBackupReminder: false,
         })
@@ -79,14 +89,14 @@ export default (): ReactElement => {
       },
       onCancel: () => {
         setIsBackingUp(false)
-        account.updateSettings({
+        updateSettings({
           lastBackupDate: previousDate,
           showBackupReminder: previousShowBackupReminder,
         })
       },
       onError: () => {
         setIsBackingUp(false)
-        account.updateSettings({
+        updateSettings({
           lastBackupDate: previousDate,
           showBackupReminder: previousShowBackupReminder,
         })

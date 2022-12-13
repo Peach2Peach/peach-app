@@ -9,7 +9,8 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
 import { createAccount, recoverAccount } from '../../utils/account'
-import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
+import { useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 const bip39Rules = {
   required: true,
@@ -20,7 +21,17 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const navigation = useNavigation()
   const seedPhrase: ReturnType<typeof useValidatedState>[] = []
-  const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
+  const setAllPaymentData = useUserDataStore((state) => state.setAllPaymentData)
+  const setAccount = useUserDataStore((state) => state.setAccount)
 
   for (let i = 12; i > 0; i--) {
     seedPhrase.push(useValidatedState('' as string, bip39Rules))
@@ -47,8 +58,7 @@ export default ({ style }: ComponentProps): ReactElement => {
     const mnemonic = seedPhrase.map(([word]) => word).join(' ')
     const recoveredAccount = await createAccount(mnemonic)
 
-    const account = useAccountStore()
-    account.setAccount(recoveredAccount)
+    setAccount(recoveredAccount)
 
     const [success, recoverAccountErr] = await recoverAccount(account)
 

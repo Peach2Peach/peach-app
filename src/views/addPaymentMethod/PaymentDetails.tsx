@@ -9,8 +9,8 @@ import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { StackNavigation } from '../../utils/navigation'
 import { specialTemplates } from './specialTemplates'
-import { usePaymentDataStore, useAccountStore } from '../../utils/storage'
-import { hasPreferredPaymentMethod } from '../../utils/account'
+import { UserDataStore, useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>
@@ -23,9 +23,14 @@ const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList>
   paymentMethods: 'settings',
 }
 
+const paymentDetailsSelector = (state: UserDataStore) => ({
+  preferredPaymentMethods: state.settings.preferredPaymentMethods,
+  setPaymentData: state.setPaymentData,
+  setSettings: state.updateSettings,
+})
+
 export default ({ route, navigation }: Props): ReactElement => {
-  const setPaymentData = usePaymentDataStore((state) => state.setPaymentData)
-  const account = useAccountStore()
+  const { preferredPaymentMethods, setPaymentData, setSettings } = useUserDataStore(paymentDetailsSelector, shallow)
   const { paymentData: data } = route.params
   const { type: paymentMethod, currencies } = data
 
@@ -47,13 +52,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const onSubmit = (d: PaymentData) => {
     setPaymentData(d)
-    account.setSettings({
+    setSettings({
       showBackupReminder: true,
     })
-    if (!hasPreferredPaymentMethod(account, d.type)) {
-      account.setSettings({
+    if (!preferredPaymentMethods[d.type]) {
+      setSettings({
         preferredPaymentMethods: {
-          ...account.settings.preferredPaymentMethods,
+          ...preferredPaymentMethods,
           [data.type]: data.id,
         },
       })

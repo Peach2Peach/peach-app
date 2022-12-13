@@ -60,7 +60,7 @@ export const migrateAccountToSecureStorage = async () => {
   accountFolders.forEach(async (folder) => {
     if (!(await exists(folder))) return
     const files = await readDir(folder)
-    await Promise.all(files.map((file) => deleteFile(file)))
+    await Promise.all(files.map(deleteFile))
   })
 
   info('migrateAccountToSecureStorage - complete')

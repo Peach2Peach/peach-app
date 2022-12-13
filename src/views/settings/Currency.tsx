@@ -8,19 +8,19 @@ import { CURRENCIES } from '../../constants'
 import BitcoinContext from '../../contexts/bitcoin'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { useAccountStore } from '../../utils/storage/accountStorage'
+import { useUserDataStore } from '../../store'
 
 type Props = {
   navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {
-  const account = useAccountStore()
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
   const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
   const { currency } = bitcoinContext
 
   const setCurrency = (c: Currency) => {
-    account.updateSettings({ displayCurrency: c })
+    updateSettings({ displayCurrency: c })
     updateBitcoinContext({ currency: c })
   }
 

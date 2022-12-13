@@ -3,9 +3,9 @@ import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useValidatedState } from '../../../../hooks'
+import { useUserDataStore } from '../../../../store'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { usePaymentDataStore } from '../../../../utils/storage'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 
@@ -25,7 +25,7 @@ export const GiftCardAmazon = ({
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
   const [displayErrors, setDisplayErrors] = useState(false)
-  const getWithLabel = usePaymentDataStore((state) => state.getWithLabel)
+  const getWithLabel = useUserDataStore((state) => state.getPaymentDataByLabel)
 
   let $email = useRef<TextInput>(null).current
 

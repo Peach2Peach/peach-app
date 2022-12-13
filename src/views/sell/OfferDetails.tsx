@@ -11,7 +11,8 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import Premium from './components/Premium'
 import { SellViewProps } from './SellPreferences'
-import { usePaymentDataStore, useAccountStore } from '../../utils/storage'
+import { UserDataStore, useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 const validate = (offer: SellOffer, getWithId: (id: string) => PaymentData) => {
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -30,13 +31,16 @@ const validate = (offer: SellOffer, getWithId: (id: string) => PaymentData) => {
   )
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
-  const account = useAccountStore()
-  const getWithId = usePaymentDataStore((state) => state.getWithId)
+const offerDetailsSelector = (state: UserDataStore) => ({
+  accountMeansOfPayment: state.settings.meansOfPayment,
+  getWithId: state.getPaymentDataById,
+  updateSettings: state.updateSettings,
+})
 
-  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment,
-  )
+export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
+  const { accountMeansOfPayment, getWithId, updateSettings } = useUserDataStore(offerDetailsSelector, shallow)
+
+  const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(offer.meansOfPayment || accountMeansOfPayment)
   const [premium, setPremium] = useState(offer.premium)
 
   const saveAndUpdate = (offr: SellOffer, shield = true) => {
@@ -47,7 +51,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       },
       shield,
     )
-    account.updateSettings({
+    updateSettings({
       meansOfPayment: offr.meansOfPayment,
       premium: offr.premium,
       kyc: offr.kyc,
@@ -77,7 +81,7 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       },
       false,
     )
-  }, [account, meansOfPayment, premium])
+  }, [meansOfPayment, premium])
 
   useEffect(() => setStepValid(validate(offer, getWithId)), [offer])
 

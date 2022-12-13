@@ -1,12 +1,13 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { Icon, Text } from '..'
 import { PAYMENTCATEGORIES } from '../../constants'
+import { UserDataStore, useUserDataStore } from '../../store'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { usePaymentDataStore, useAccountStore } from '../../utils/storage'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
@@ -38,17 +39,26 @@ type PaymentDetailsProps = ComponentProps & {
   navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
-export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
-  const account = useAccountStore()
-  const paymentData = usePaymentDataStore((state) => state.paymentData)
-  const getWithId = usePaymentDataStore((state) => state.getWithId)
-  const removePaymentData = usePaymentDataStore((state) => state.removePaymentData)
 
-  const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
+const paymentDetailsSelector = (state: UserDataStore) => ({
+  preferredPaymentMethods: state.settings.preferredPaymentMethods,
+  updateSettings: state.updateSettings,
+  paymentData: state.paymentData,
+  getWithId: state.getPaymentDataById,
+  removePaymentData: state.removePaymentData,
+})
+
+export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
+  const { paymentData, preferredPaymentMethods, getWithId, removePaymentData, updateSettings } = useUserDataStore(
+    paymentDetailsSelector,
+    shallow,
+  )
+
+  const selectedPaymentData = getSelectedPaymentDataIds(preferredPaymentMethods)
 
   const update = () => {
     setMeansOfPayment(
-      getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
+      getSelectedPaymentDataIds(preferredPaymentMethods)
         .map(getWithId)
         .filter((data) => data)
         .filter((data) => getPaymentMethodInfo(data!.type))
@@ -65,7 +75,7 @@ export default ({ editable, setMeansOfPayment, navigation, style }: PaymentDetai
   })
 
   const setPreferredPaymentMethods = (ids: string[]) => {
-    account.updateSettings({
+    updateSettings({
       preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
         const method = getWithId(id).type
         obj[method] = id

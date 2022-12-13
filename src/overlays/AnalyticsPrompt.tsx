@@ -3,17 +3,17 @@ import React, { ReactElement, useContext } from 'react'
 import { Linking, View } from 'react-native'
 import { Button, Headline, Text } from '../components'
 import { OverlayContext } from '../contexts/overlay'
+import { useUserDataStore } from '../store'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { useAccountStore } from '../utils/storage/accountStorage'
 
 export default (): ReactElement => {
-  const account = useAccountStore()
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const accept = () => {
     analytics().setAnalyticsCollectionEnabled(true)
-    account.updateSettings({
+    updateSettings({
       enableAnalytics: true,
     })
     updateOverlay({ content: null, showCloseButton: true })
@@ -21,7 +21,7 @@ export default (): ReactElement => {
 
   const deny = () => {
     analytics().setAnalyticsCollectionEnabled(false)
-    account.updateSettings({
+    updateSettings({
       enableAnalytics: false,
     })
     updateOverlay({ content: null, showCloseButton: true })

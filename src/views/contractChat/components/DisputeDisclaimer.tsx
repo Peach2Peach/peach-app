@@ -2,11 +2,11 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import { Text, TextLink } from '../../../components'
 import { MessageContext } from '../../../contexts/message'
+import { useUserDataStore } from '../../../store'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { textShadow } from '../../../utils/layout'
 import { Navigation } from '../../../utils/navigation'
-import { useAccountStore } from '../../../utils/storage/accountStorage'
 
 type DisputeDisclaimerProps = ComponentProps & {
   navigation: Navigation
@@ -15,7 +15,7 @@ type DisputeDisclaimerProps = ComponentProps & {
 
 export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDisclaimerProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const account = useAccountStore()
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
 
   const raiseDispute = () => {
     updateMessage({ template: null, level: 'ERROR' })
@@ -40,7 +40,7 @@ export const DisputeDisclaimer = ({ navigation, contract, style }: DisputeDiscla
       <View style={tw`w-full flex-row`}>
         <Text
           onPress={() => {
-            account.updateSettings({ showDisputeDisclaimer: false })
+            updateSettings({ showDisputeDisclaimer: false })
             updateMessage({ template: undefined, msg: undefined, level: 'ERROR' })
           }}
           style={[tw`flex-1 font-baloo text-xs text-white-2 underline`, textShadow]}

@@ -11,7 +11,8 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
 import { decryptAccount } from '../../utils/account/decryptAccount'
-import { useAccountStore, usePaymentDataStore } from '../../utils/storage'
+import { useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 const passwordRules = { required: true, password: true }
 
@@ -26,7 +27,17 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
-  const setAllPaymentData = usePaymentDataStore((state) => state.setAllPaymentData)
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
+  const setAllPaymentData = useUserDataStore((state) => state.setAllPaymentData)
+  const setAccount = useUserDataStore((state) => state.setAccount)
 
   const onError = (e: Error) => {
     updateMessage({
@@ -51,9 +62,7 @@ export default ({ style }: ComponentProps): ReactElement => {
       onError(err as Error)
       return
     }
-
-    const account = useAccountStore()
-    account.setAccount(recoveredAccount)
+    setAccount(recoveredAccount)
 
     const [success, recoverAccountErr] = await recoverAccount(account)
 

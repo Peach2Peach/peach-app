@@ -29,7 +29,7 @@ import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemp
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
 import { useKeyboard } from '../../../../hooks'
-import { usePaymentDataStore } from '../../../../utils/storage'
+import { useUserDataStore } from '../../../../store'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -79,7 +79,7 @@ export const PaymentMethodForm = ({
   back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
-  const removePaymentData = usePaymentDataStore((state) => state.removePaymentData)
+  const removePaymentData = useUserDataStore((state) => state.removePaymentData)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const keyboardOpen = useKeyboard()

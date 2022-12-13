@@ -11,15 +11,25 @@ import { OverlayContext } from '../../contexts/overlay'
 import { DeleteAccount } from '../../overlays/DeleteAccount'
 import i18n from '../../utils/i18n'
 import { StackNavigation } from '../../utils/navigation'
-import { useAccountStore } from '../../utils/storage/accountStorage'
 import { checkNotificationStatus, toggleNotifications } from '../../utils/system'
+import { useUserDataStore } from '../../store'
+import shallow from 'zustand/shallow'
 
 type Props = {
   navigation: StackNavigation
 }
 
 export default ({ navigation }: Props): ReactElement => {
-  const account = useAccountStore()
+  const account = useUserDataStore(
+    (state) => ({
+      publicKey: state.publicKey,
+      settings: state.settings,
+      tradingLimit: state.tradingLimit,
+      pgp: state.pgp,
+    }),
+    shallow,
+  )
+  const updateSettings = useUserDataStore((state) => state.updateSettings)
 
   const [, updateOverlay] = useContext(OverlayContext)
 
@@ -29,9 +39,7 @@ export default ({ navigation }: Props): ReactElement => {
   const toggleAnalytics = () => {
     setAnalyticsOn(!account.settings.enableAnalytics)
     analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
-    account.updateSettings({
-      enableAnalytics: !account.settings.enableAnalytics,
-    })
+    updateSettings({ enableAnalytics: !account.settings.enableAnalytics })
   }
   useEffect(() => {
     ;(async () => {
