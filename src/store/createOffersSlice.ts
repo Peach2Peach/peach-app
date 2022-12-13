@@ -16,7 +16,7 @@ export const createOffersSlice: StateCreator<UserDataStore, [], [['zustand/persi
 ) => ({
   offers: {},
   initializeOffers: async () => {
-    const initialOfferData = (await offersStorage.indexer.maps.getAll()) as Account['offers']
+    const initialOfferData = (await offersStorage.indexer.maps.getAll()) as Record<string, BuyOffer | SellOffer>
     set((state) => ({ ...state, offers: initialOfferData }))
   },
   setOffer: (offer: BuyOffer | SellOffer) =>

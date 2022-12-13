@@ -18,7 +18,7 @@ export const createContractsSlice: StateCreator<
 > = (set, get) => ({
   contracts: {},
   initializeContracts: async () => {
-    const initialContractData = (await contractsStorage.indexer.maps.getAll()) as Account['contracts']
+    const initialContractData = (await contractsStorage.indexer.maps.getAll()) as Record<string, Contract>
     set((state) => ({ ...state, contracts: initialContractData }))
   },
   setContract: (contract: Contract) =>
