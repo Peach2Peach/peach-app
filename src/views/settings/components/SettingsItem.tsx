@@ -5,7 +5,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useNavigation } from '../../../hooks'
 
-export type SettingsItem =
+export type SettingsItemProps =
   | { title: ScreenWithoutProps; onPress?: undefined; condition?: boolean; icon?: JSX.Element }
   | {
       onPress: () => void
@@ -14,7 +14,7 @@ export type SettingsItem =
       icon?: JSX.Element
     }
 
-export const SettingsItem = ({ onPress: pressAction, title, icon, condition }: SettingsItem) => {
+export const SettingsItem = ({ onPress: pressAction, title, icon, condition }: SettingsItemProps) => {
   const navigation = useNavigation()
   const onPress = pressAction ? pressAction : () => navigation.navigate(title)
 

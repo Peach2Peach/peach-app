@@ -12,7 +12,7 @@ import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../utils/system'
 import { useHeaderSetup, useNavigation } from '../../hooks'
-import { SettingsItem } from './components/SettingsItem'
+import { SettingsItemProps } from './components/SettingsItem'
 
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
@@ -57,7 +57,7 @@ export const useSettingsSetup = () => {
   const openPrivacyPolicy = () => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')
   const goToWebsite = () => Linking.openURL('https://peachbitcoin.com')
 
-  const appSettings: SettingsItem[] = useMemo(
+  const appSettings: SettingsItemProps[] = useMemo(
     () => [
       { title: 'notifications', onPress: toggleNotifications, condition: notificationsOn },
       { title: 'displayCurrency', onPress: goToCurrencySettings },
@@ -65,7 +65,7 @@ export const useSettingsSetup = () => {
     [goToCurrencySettings, notificationsOn],
   )
 
-  const accountSettings: SettingsItem[] = useMemo(
+  const accountSettings: SettingsItemProps[] = useMemo(
     () => [
       { title: 'myAccount', onPress: goToMyAccount },
       {
@@ -86,7 +86,7 @@ export const useSettingsSetup = () => {
     [deleteAccount, goToMyAccount],
   )
 
-  const aboutPeach: SettingsItem[] = useMemo(
+  const aboutPeach: SettingsItemProps[] = useMemo(
     () => [
       { title: 'fees' },
       { title: 'privacyPolicy', onPress: openPrivacyPolicy },
@@ -101,8 +101,8 @@ export const useSettingsSetup = () => {
     [analyticsOn],
   )
 
-  const contactUs: SettingsItem[] = useMemo(() => {
-    let arr: SettingsItem[] = [{ title: 'contactUs', onPress: goToContactUs }]
+  const contactUs: SettingsItemProps[] = useMemo(() => {
+    let arr: SettingsItemProps[] = [{ title: 'contactUs', onPress: goToContactUs }]
     if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
     return arr
   }, [goToContactUs])
