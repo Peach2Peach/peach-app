@@ -1,22 +1,10 @@
-import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import { GoBackButton, OptionButton, PeachScrollView } from '../../components'
-import { useHeaderState } from '../../components/header/store'
-import { useNavigation } from '../../hooks'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 
-const useHeaderSetup = () => {
-  const setHeaderState = useHeaderState((state) => state.setHeaderState)
-
-  useFocusEffect(
-    useCallback(() => {
-      setHeaderState({ title: 'test view' })
-    }, [setHeaderState]),
-  )
-}
-
 export default () => {
-  useHeaderSetup()
+  useHeaderSetup(useMemo(() => ({ title: 'test view' }), []))
   const navigation = useNavigation()
   const goToButtons = () => navigation.navigate('testViewButtons')
   const goToPopups = () => navigation.navigate('testViewPopups')

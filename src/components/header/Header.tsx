@@ -18,7 +18,7 @@ export const Header = () => {
             <Icon id="chevronLeft" />
           </TouchableOpacity>
         )}
-        {title ? <Text style={tw`h6`}>{title}</Text> : titleComponent}
+        {title ? <Text style={tw`h6 lowercase`}>{title}</Text> : titleComponent}
       </View>
 
       <View style={tw`items-center flex-row`}>

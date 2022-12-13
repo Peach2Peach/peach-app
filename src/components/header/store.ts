@@ -1,6 +1,6 @@
 import create from 'zustand'
 
-type HeaderConfig = {
+export type HeaderConfig = {
   title?: string
   titleComponent?: JSX.Element
   icons?: { iconComponent: JSX.Element; onPress: () => void }[]
@@ -20,5 +20,5 @@ const defaultState = {
 
 export const useHeaderState = create<HeaderState>()((set) => ({
   ...defaultState,
-  setHeaderState: (props) => set({ ...defaultState, ...props }),
+  setHeaderState: (headerConfiguration) => set({ ...defaultState, ...headerConfiguration }),
 }))

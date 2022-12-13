@@ -1,20 +1,35 @@
-import { Pressable, Text } from 'react-native'
+import { Pressable } from 'react-native'
 import React from 'react'
-import { Card } from '../../../components'
+import { Card, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { useNavigation } from '../../../hooks'
 
 type SettingsItemProps = {
-  onPress: () => void
+  onPress?: () => void
   title: string
+  condition?: boolean
+  icon?: JSX.Element
 }
 
-const SettingsItem = ({ onPress, title }: SettingsItemProps) => (
-  <Pressable style={tw`mt-2`} onPress={onPress}>
-    <Card>
-      <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n(`settings.${title}`)}</Text>
-    </Card>
-  </Pressable>
-)
+export const SettingsItem = ({ onPress: pressAction, title, icon, condition }: SettingsItemProps) => {
+  const navigation = useNavigation()
+  const onPress = pressAction ? pressAction : () => navigation.navigate(title)
 
-export default SettingsItem
+  return (
+    <Pressable style={tw`mt-2`} onPress={onPress}>
+      <Card style={tw`flex-row items-center justify-center`}>
+        <Text style={tw`text-center text-lg text-black-1 p-2`}>
+          {i18n(`settings.${title}`)}
+          {condition !== undefined && (
+            <>
+              <Text style={!!condition && tw`text-peach-1 font-bold`}> {i18n('settings.on')} </Text>/
+              <Text style={!condition && tw`text-peach-1 font-bold`}> {i18n('settings.off')}</Text>
+            </>
+          )}
+        </Text>
+        {!!icon && icon}
+      </Card>
+    </Pressable>
+  )
+}
