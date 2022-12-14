@@ -1,13 +1,12 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, PrimaryButton, Title } from '../../components'
+import { GoBackButton, PrimaryButton } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { useHeaderState } from '../../components/header/store'
-import { useFocusEffect } from '@react-navigation/native'
+import { useHeaderSetup } from '../../hooks'
 
 export default (): ReactElement => {
   useContext(LanguageContext)
@@ -17,13 +16,7 @@ export default (): ReactElement => {
   const goToTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
   const goToDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
-  const setHeaderState = useHeaderState((state) => state.setHeaderState)
-
-  useFocusEffect(
-    useCallback(() => {
-      setHeaderState({ title: i18n('settings.socials.subtitle').toLocaleLowerCase() })
-    }, [setHeaderState]),
-  )
+  useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
 
   return (
     <View style={tw`h-full`}>
