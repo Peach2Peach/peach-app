@@ -1,26 +1,19 @@
-import { RouteProp } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useBackgroundState } from '../../components/background/backgroundStore'
 
 import { MessageContext } from '../../contexts/message'
-import { useHeaderSetup } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import userUpdate from '../../init/userUpdate'
 import { account, createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
 import CreateAccountError from './CreateAccountError'
 import CreateAccountLoading from './CreateAccountLoading'
 import CreateAccountSuccess from './CreateAccountSuccess'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['newUser'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
   useHeaderSetup(
     useMemo(
       () => ({
@@ -31,6 +24,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       [],
     ),
   )
+  const route = useRoute<'newUser'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
 

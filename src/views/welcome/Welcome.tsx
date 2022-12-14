@@ -8,7 +8,7 @@ import { PrimaryButton } from '../../components/buttons'
 import { useHeaderSetup } from '../../hooks'
 import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
-import { goToHomepage } from '../../utils/web'
+import { headerIcons } from './headerIcons'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
@@ -17,17 +17,6 @@ import PrivacyFirst from './PrivacyFirst'
 const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
-
-const headerIcons = [
-  {
-    iconComponent: <Icon id="mail" color={tw`text-primary-background-light`.color} />,
-    onPress: () => null,
-  },
-  {
-    iconComponent: <Icon id="globe" color={tw`text-primary-background-light`.color} />,
-    onPress: goToHomepage,
-  },
-]
 
 export default (): ReactElement => {
   useHeaderSetup(

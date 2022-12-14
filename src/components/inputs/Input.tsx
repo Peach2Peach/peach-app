@@ -156,7 +156,7 @@ export const Input = ({
       >
         <TextInput
           style={[
-            tw`w-full h-10 flex-shrink input-text py-0 `,
+            tw`w-full h-10 flex-shrink input-text py-0`,
             value ? colors.text : colors.placeholder,
             showError ? colors.textError : {},
             !showError ? tw`border border-transparent` : {},
