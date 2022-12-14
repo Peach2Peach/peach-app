@@ -78,7 +78,7 @@ export const useSettingsSetup = () => {
         ) : undefined,
       },
       { title: 'referrals' },
-      { title: 'escrow' },
+      { title: 'refundAddress' },
       { title: 'paymentMethods' },
       { title: 'deleteAccount', onPress: deleteAccount },
     ],

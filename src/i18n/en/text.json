@@ -676,6 +676,7 @@
   "settings.seedWords.note.description.2": "We do not store this seed phrase, and cannot help you recover it!",
   "settings.seedWords.iUnderstand": "I understand",
   "settings.escrow": "Escrow",
+  "settings.refundAddress": "Refund address",
   "settings.escrow.subtitle": "Escrow",
   "settings.paymentMethods": "Payment methods",
   "settings.paymentMethods.subtitle": "Payment methods",
