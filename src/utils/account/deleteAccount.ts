@@ -9,16 +9,7 @@ import { sessionStorage } from '../session'
 import { clearStorage } from '../storage'
 import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
 
-interface DeleteAccountProps {
-  onSuccess: Function
-}
-
-/**
- * @description Method to delete account
- * @param props.onSuccess callback on success
- * @param props.onError callback on error
- */
-export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
+export const deleteAccount = async () => {
   info('Deleting account')
 
   setAccount(defaultAccount, true)
@@ -28,6 +19,6 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   deleteAccessToken()
   deletePeachAccount()
-  onSuccess()
+
   analytics().logEvent('account_deleted')
 }

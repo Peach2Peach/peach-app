@@ -135,7 +135,7 @@ module.exports = {
         'subtitle-1': `font-baloo-semibold font-semibold text-base leading-xl tracking-normal`,
         'subtitle-2': `font-baloo-semibold font-semibold text-xs leading-sm tracking-normal`,
         'avatar': `font-baloo text-xs leading-xs tracking-normal`,
-        'body-l': `font-baloo text-xs leading-xs tracking-normal`,
+        'body-l': `font-baloo text-xl leading-xl tracking-normal`,
         'body-m': `font-baloo text-base leading-base tracking-normal`,
         'body-s': `font-baloo text-xs leading-xs tracking-normal`,
         'button-large': `font-baloo-semibold font-semibold text-sm leading-lg tracking-wider uppercase`,
