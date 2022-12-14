@@ -10,7 +10,7 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
-import { EditIcon, HelpIcon } from '../../components/icons/components'
+import { EditIcon, HelpIcon } from '../../components/icons'
 import { useHeaderSetup } from '../../hooks'
 
 const validate = (offer: BuyOffer) => {
