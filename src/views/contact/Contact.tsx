@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -27,13 +27,7 @@ export default (): ReactElement => {
 
   const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
 
-  const setHeaderState = useHeaderState((state) => state.setHeaderState)
-
-  useFocusEffect(
-    useCallback(() => {
-      setHeaderState({ title: i18n('contact.title').toLocaleLowerCase() })
-    }, [setHeaderState]),
-  )
+  useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
 
   const openTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
 
@@ -59,4 +53,7 @@ export default (): ReactElement => {
       </View>
     </PeachScrollView>
   )
+}
+function useHeaderSetup (arg0: any) {
+  throw new Error('Function not implemented.')
 }
