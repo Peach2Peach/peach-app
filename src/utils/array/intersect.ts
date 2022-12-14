@@ -4,6 +4,6 @@
  * @param b array B
  * @returns intersection of A and B
  */
-export const intersect = <T>(a: T[], b: T[]): T[] => a.filter(b.includes)
+export const intersect = <T>(a: T[], b: T[]): T[] => a.filter((val) => b.includes(val))
 
 export default intersect

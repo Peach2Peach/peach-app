@@ -9,7 +9,7 @@ export const getAvailableCurrencies = (
   const matchCurrencies = (Object.keys(offer.meansOfPayment) as Currency[]).filter((currency) =>
     match.meansOfPayment[currency]?.includes(paymentMethod),
   )
-  const sharedCurrencies = matchCurrencies.filter(offerCurrencies.includes)
+  const sharedCurrencies = matchCurrencies.filter((c) => offerCurrencies.includes(c))
   const availableCurrencies = sharedCurrencies.length ? sharedCurrencies : matchCurrencies
   return availableCurrencies as Currency[]
 }
