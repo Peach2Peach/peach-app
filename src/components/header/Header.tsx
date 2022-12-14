@@ -9,10 +9,12 @@ import { useHeaderState } from './store'
 const themes = {
   default: {
     text: tw`text-black-1`,
+    backButton: tw`text-black-2`,
     bg: tw`bg-primary-background-light`,
   },
   inverted: {
     text: tw`text-primary-background-light`,
+    backButton: tw`text-primary-mild`,
     bg: tw`bg-transparent`,
   },
 }
@@ -27,7 +29,7 @@ export const Header = () => {
       <View style={tw`items-center flex-row`}>
         {!hideGoBackButton && canGoBack() && (
           <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={goBack}>
-            <Icon id="chevronLeft" />
+            <Icon id="chevronLeft" color={colors.backButton.color} />
           </TouchableOpacity>
         )}
         {title ? <Text style={[tw`h6 lowercase`, colors.text]}>{title}</Text> : titleComponent}
