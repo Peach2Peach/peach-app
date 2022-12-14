@@ -1,38 +1,52 @@
-import React, { ReactElement, useContext, useState } from 'react'
-import { Keyboard, Pressable, View } from 'react-native'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { FileInput, Input, Loading, Text } from '../../components'
+import { FileInput, Input, Text } from '../../components'
+import { useBackgroundState } from '../../components/background/backgroundStore'
 import { PrimaryButton } from '../../components/buttons'
-import Icon from '../../components/Icon'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { recoverAccount } from '../../utils/account'
+import { deleteAccount, recoverAccount } from '../../utils/account'
 import { decryptAccount } from '../../utils/account/decryptAccount'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
-import Restored from './Restored'
+import { parseError } from '../../utils/system'
+import RestoreBackupError from './RestoreBackupError'
+import RestoreBackupLoading from './RestoreBackupLoading'
+import RestoreSuccess from './RestoreSuccess'
 
 const passwordRules = { required: true, password: true }
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
   const navigation = useNavigation()
+
   const [file, setFile] = useState({
     name: '',
     content: '',
   })
 
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
 
-  const onError = (e: Error) => {
-    updateMessage({
-      msgKey: e.message === 'AUTHENTICATION_FAILURE' ? e.message : 'form.password.invalid',
-      level: 'ERROR',
-    })
-  }
+  const onError = useCallback(
+    (err?: string) => {
+      const errorMsg = err || 'UNKNOWN_ERROR'
+      if (err !== 'WRONG_PASSWORD') setError(errorMsg)
+      if (err !== 'REGISTRATION_DENIED') {
+        updateMessage({
+          msgKey: err || errorMsg,
+          level: 'ERROR',
+        })
+      }
+      deleteAccount()
+    },
+    [updateMessage],
+  )
   const onPasswordChange = (value: string) => {
     setPassword(value)
   }
@@ -47,7 +61,8 @@ export default ({ style }: ComponentProps): ReactElement => {
     })
 
     if (!recoveredAccount) {
-      onError(err as Error)
+      setLoading(false)
+      onError(err)
       return
     }
 
@@ -56,52 +71,54 @@ export default ({ style }: ComponentProps): ReactElement => {
     if (success) {
       await storeAccount(recoveredAccount)
       setRestored(true)
+      setLoading(false)
+
+      setTimeout(() => {
+        navigation.replace('home')
+        setBackgroundState({
+          color: undefined,
+        })
+      }, 1500)
     } else {
-      onError(recoverAccountErr as Error)
+      setLoading(false)
+      onError(parseError(recoverAccountErr))
     }
-    setLoading(false)
   }
+  if (loading) return <RestoreBackupLoading />
+  if (error) return <RestoreBackupError err={error} />
+  if (restored) return <RestoreSuccess />
 
   return (
-    <View style={[tw`flex flex-col`, style]}>
-      {restored ? (
-        <Restored />
-      ) : !loading ? (
-        <View style={tw`h-full pb-8 flex flex-col justify-between flex-shrink`}>
-          <View style={tw`h-full w-full flex-shrink flex flex-col justify-center`}>
-            <Text style={tw`mt-4 text-center`}>{i18n('restoreBackup.manual.description.1')}</Text>
-            <View style={tw`w-full mt-2`}>
-              <FileInput fileName={file.name} style={tw`w-full`} onChange={setFile} />
-            </View>
-            <View style={tw`mt-2`}>
-              <Input
-                onChange={setPassword}
-                onSubmit={(val: string) => {
-                  onPasswordChange(val)
-                  if (file.name) submit()
-                }}
-                secureTextEntry={true}
-                placeholder={i18n('restoreBackup.decrypt.password')}
-                value={password}
-                isValid={passwordIsValid}
-                errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
-              />
-            </View>
+    <View style={[tw`flex flex-col px-6`, style]}>
+      <View style={tw`h-full flex flex-col justify-between flex-shrink`}>
+        <View style={tw`h-full w-full flex-shrink flex flex-col justify-center`}>
+          <Text style={tw`subtitle-1 mt-4 text-center text-primary-background-light`}>
+            {i18n('restoreBackup.manual.description.1')}
+          </Text>
+          <View style={tw`w-full mt-2 px-2`}>
+            <FileInput theme="inverted" fileName={file.name} onChange={setFile} />
           </View>
-          <View style={tw`w-full mt-5 flex items-center`}>
-            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
-            </Pressable>
-            <PrimaryButton onPress={submit} disabled={!file.content || !password} narrow>
-              {i18n('restoreBackup')}
-            </PrimaryButton>
+          <View style={tw`px-2`}>
+            <Input
+              theme="inverted"
+              onChange={setPassword}
+              onSubmit={(val: string) => {
+                onPasswordChange(val)
+                if (file.name) submit()
+              }}
+              secureTextEntry={true}
+              placeholder={i18n('restoreBackup.decrypt.password')}
+              value={password}
+              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
+            />
           </View>
         </View>
-      ) : (
-        <View style={tw`h-1/2`}>
-          <Loading />
+        <View style={tw`flex items-center pb-8`}>
+          <PrimaryButton onPress={submit} disabled={!file.content || !password} white iconId="save">
+            {i18n('restoreBackup')}
+          </PrimaryButton>
         </View>
-      )}
+      </View>
     </View>
   )
 }
