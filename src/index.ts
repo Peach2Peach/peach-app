@@ -3,11 +3,10 @@ import messaging from '@react-native-firebase/messaging'
 import { AppRegistry, LogBox } from 'react-native'
 import App from './App'
 import { name as appName } from './app.json'
-import * as db from './utils/db'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
-import { getSession, initSession, setSessionItem } from './utils/session'
-import { isIOS, isProduction, isWeb, parseError } from './utils/system'
+import { sessionStorage } from './utils/session'
+import { isIOS, isProduction, parseError } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
@@ -28,12 +27,11 @@ LogBox.ignoreAllLogs(isProduction())
 
 try {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    await initSession()
-    let notifications = Number(getSession().notifications || 0)
+    let notifications = sessionStorage.getInt('notifications') || 0
     notifications += 1
 
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSessionItem('notifications', notifications)
+    sessionStorage.setInt('notifications', notifications)
 
     info('Message handled in the background!', remoteMessage)
   })
@@ -54,11 +52,5 @@ if (typeof document !== 'undefined') {
     navigator.serviceWorker.register('/service-worker.js')
   }
 }
-
-const init = async () => {
-  if (isWeb()) await db.init(process.env.NODE_ENV !== 'production')
-}
-
-init()
 
 export default () => {}

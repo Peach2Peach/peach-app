@@ -105,8 +105,8 @@ declare type AppState = {
 
 declare type Action = {
   callback: () => void
-  label: string
-  icon: IconType
+  label?: string
+  icon?: IconType
 }
 
 declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
@@ -142,14 +142,6 @@ declare type BitcoinState = {
   price: number
   satsPerUnit: number
   prices: Pricebook
-}
-
-declare type Session = {
-  initialized: boolean
-  password?: string
-  notifications: number
-  peachInfo?: PeachInfo
-  unsavedPaymentData?: PaymentData[]
 }
 
 declare type PeachWallet = {

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -10,34 +10,27 @@ import BitcoinContext from '../../contexts/bitcoin'
 import { account, getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
 import { thousands } from '../../utils/string'
-import { useHeaderState } from '../../components/header/store'
-import { useFocusEffect } from '@react-navigation/native'
 import TitleComponent from './TitleComponent'
 import { getHeaderIcons } from './getHeaderIcons'
-import { useNavigation } from '../../hooks'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 
 type Props = {
   page: 'buy' | 'sell'
 }
 
-const useHeaderSetup = (page: 'buy' | 'sell') => {
-  const setHeaderState = useHeaderState((state) => state.setHeaderState)
-
-  useFocusEffect(
-    useCallback(() => {
-      setHeaderState({
-        titleComponent: <TitleComponent page={page} />,
-        hideGoBackButton: true,
-        icons: getHeaderIcons(page),
-      })
-    }, [page, setHeaderState]),
-  )
-}
-
 export default ({ page }: Props): ReactElement => {
   const navigation = useNavigation()
   const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
-  useHeaderSetup(page)
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        titleComponent: <TitleComponent page={page} />,
+        hideGoBackButton: true,
+        icons: getHeaderIcons(page),
+      }),
+      [page],
+    ),
+  )
 
   const { daily, dailyAmount } = getTradingLimit(currency)
   const [amount, setAmount] = useState(

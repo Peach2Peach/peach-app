@@ -1,4 +1,4 @@
-declare type OfferStatus = {
+declare type TradeStatus = {
   status:
     | 'escrowWaitingForConfirmation'
     | 'returnAddressRequired'

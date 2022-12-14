@@ -162,9 +162,11 @@ export default (): ReactElement => {
         updateMessage({
           msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
-          action: () => navigation.navigate('contact'),
-          actionLabel: i18n('contactUs'),
-          actionIcon: 'mail',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
         back()
       }

@@ -236,9 +236,11 @@ export default (): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           }),
       }),
       [contractId],
@@ -258,7 +260,10 @@ export default (): ReactElement => {
       contractId: contract.id,
       page,
       onSuccess: async (result) => {
-        if (!contract || !contract.symmetricKey) return
+        if (!contract || !contract.symmetricKey) {
+          setUpdatePending(false)
+          return
+        }
         let decryptedMessages = await Promise.all(result.map(decryptMessage(chat, contract.symmetricKey)))
 
         if (decryptedMessages.some((m) => m.message === null)) {
@@ -292,9 +297,11 @@ export default (): ReactElement => {
         updateMessage({
           msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact'),
-          actionLabel: i18n('contactUs'),
-          actionIcon: 'mail',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
       },
     })()
@@ -323,6 +330,7 @@ export default (): ReactElement => {
           <MessageInput
             onChange={onChangeMessage}
             onSubmit={submit}
+            disabled={!contract.symmetricKey}
             disableSubmit={disableSend}
             value={newMessage}
             placeholder={i18n('chat.yourMessage')}

@@ -14,7 +14,7 @@ import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { getOffer, getRequiredActionCount } from '../../utils/offer'
-import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
@@ -136,9 +136,11 @@ export default (): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           }),
       }),
       [contractId],
@@ -155,12 +157,12 @@ export default (): ReactElement => {
       ) {
         navigation.replace('tradeComplete', { contract })
       } else {
-        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
         navigation.replace('offer', { offer })
       }
       return
     } else if (isTradeCanceled(contract)) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
       navigation.replace('offer', { offer })
       return
     }
@@ -179,9 +181,11 @@ export default (): ReactElement => {
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact'),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -203,9 +207,11 @@ export default (): ReactElement => {
       updateMessage({
         msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
-        action: () => navigation.navigate('contact'),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -219,9 +225,11 @@ export default (): ReactElement => {
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact'),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }

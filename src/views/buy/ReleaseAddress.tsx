@@ -49,7 +49,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const showIDontHaveAWallet = () =>
     updateOverlay({
       content: <IDontHaveAWallet />,
-      showCloseButton: true,
+      visible: true,
     })
 
   useEffect(() => {

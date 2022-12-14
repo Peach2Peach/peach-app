@@ -1,32 +1,11 @@
-import { exists, readDir, readFile } from '../../file'
 import { error } from '../../log'
-import { parseOffer } from '../../offer'
-import { parseError } from '../../system'
+import { offerStorage } from '../accountStorage'
 
-/**
- * @description Method to load offers
- * @param password password
- * @returns Promise resolving to offers
- */
-export const loadOffers = async (password: string): Promise<Account['offers']> => {
-  try {
-    if (await exists('/peach-account-offers')) {
-      const offerFiles = await readDir('/peach-account-offers')
-      const offers = await Promise.all(offerFiles.map((file) => readFile(file, password)))
+export const loadOffers = async (): Promise<Account['offers']> => {
+  const offers = await offerStorage.indexer.maps.getAll()
 
-      return offers.map((offer) => JSON.parse(offer)).map(parseOffer)
-    }
+  if (offers) return Object.values(offers) as Account['offers']
 
-    // fallback to version 0.1.3
-    let offers = '[]'
-    if (await exists('/peach-account-offers.json')) {
-      offers = await readFile('/peach-account-offers.json', password)
-    }
-    const parsedOffers = offers ? (JSON.parse(offers) as Account['offers']) : []
-
-    return parsedOffers.map(parseOffer)
-  } catch (e) {
-    error('Could not load offers', parseError(e))
-    return []
-  }
+  error('Could not load offers')
+  return []
 }

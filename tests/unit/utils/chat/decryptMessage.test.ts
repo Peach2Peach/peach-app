@@ -1,11 +1,8 @@
 import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount } from '../../../../src/utils/account'
 import { decryptMessage } from '../../../../src/utils/chat'
-import { session } from '../../../../src/utils/session'
 import * as chatData from '../../data/chatData'
 import { resetFakeFiles } from '../../prepare'
-
-session.password = 'supersecret'
 
 describe('decryptMessage', () => {
   beforeEach(async () => {
