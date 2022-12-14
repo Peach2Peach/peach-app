@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useMemo } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,8 +7,6 @@ import { GoBackButton, PeachScrollView, PrimaryButton } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { useNavigation } from '../../hooks'
-import { useHeaderState } from '../../components/header/store'
-import { useFocusEffect } from '@react-navigation/native'
 import LinedText from '../../components/ui/LinedText'
 
 const contactReasons = ['bug', 'userProblem', 'other'] as const

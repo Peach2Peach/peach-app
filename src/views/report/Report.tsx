@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,8 +13,6 @@ import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
-import { useHeaderState } from '../../components/header/store'
-import { useFocusEffect } from '@react-navigation/native'
 
 const emailRules = { required: true, email: true }
 const required = { required: true }
@@ -36,13 +34,7 @@ export default (): ReactElement => {
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
-  const setHeaderState = useHeaderState((state) => state.setHeaderState)
-
-  useFocusEffect(
-    useCallback(() => {
-      setHeaderState({ title: i18n('contact.title').toLocaleLowerCase() })
-    }, [setHeaderState]),
-  )
+  useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
 
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
@@ -130,4 +122,7 @@ export default (): ReactElement => {
       </View>
     </PeachScrollView>
   )
+}
+function useHeaderSetup (arg0: any) {
+  throw new Error('Function not implemented.')
 }
