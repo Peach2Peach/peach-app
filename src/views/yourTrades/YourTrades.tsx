@@ -17,9 +17,8 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
-import { session } from '../../utils/session'
-import { OfferItem } from './components/OfferItem'
 import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
+import { OfferItem } from './components/OfferItem'
 
 type Props = {
   navigation: StackNavigation
@@ -65,8 +64,8 @@ export default ({ navigation }: Props): ReactElement => {
       getOffersEffect({
         onSuccess: (result) => {
           if (!result?.length) return
-          saveOffers(result)
 
+          saveOffers(result)
           storeOffers(getAccount().offers)
 
           setLastUpdate(new Date().getTime())
