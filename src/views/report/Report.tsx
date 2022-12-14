@@ -11,7 +11,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
 import { UNIQUEID } from '../../constants'
-import { useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
 
 const emailRules = { required: true, email: true }
@@ -124,7 +124,4 @@ export default (): ReactElement => {
       </View>
     </PeachScrollView>
   )
-}
-function useHeaderSetup (arg0: any) {
-  throw new Error('Function not implemented.')
 }

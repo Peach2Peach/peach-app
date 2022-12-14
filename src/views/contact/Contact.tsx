@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import { GoBackButton, PeachScrollView, PrimaryButton } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { useNavigation } from '../../hooks'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 import LinedText from '../../components/ui/LinedText'
 
 const contactReasons = ['bug', 'userProblem', 'other'] as const
@@ -51,7 +51,4 @@ export default (): ReactElement => {
       </View>
     </PeachScrollView>
   )
-}
-function useHeaderSetup (arg0: any) {
-  throw new Error('Function not implemented.')
 }
