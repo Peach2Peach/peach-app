@@ -5,6 +5,7 @@ import { PAYMENTCATEGORIES } from '../../constants'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { Item } from '../inputs'
@@ -47,9 +48,9 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
     setMeansOfPayment(
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
         .map(getPaymentData)
-        .filter((data) => data)
-        .filter((data) => getPaymentMethodInfo(data!.type))
-        .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}),
+        .filter(isDefined)
+        .filter((data) => getPaymentMethodInfo(data.type))
+        .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
   }
 
