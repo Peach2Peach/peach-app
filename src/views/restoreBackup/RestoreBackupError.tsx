@@ -34,7 +34,7 @@ export default ({ err }: RestoreBackupErrorProps): ReactElement => {
         <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
       </View>
       <View style={tw`w-full flex flex-col items-center mb-8`}>
-        <PrimaryButton testID="restoreBackup-contactUs" onPress={goToContact} white narrow iconId="plusCircle">
+        <PrimaryButton testID="restoreBackup-contactUs" onPress={goToContact} white narrow>
           {i18n('contactUs')}
         </PrimaryButton>
       </View>

@@ -35,14 +35,13 @@ export default ({ err }: CreateAccountErrorProps): ReactElement => {
         <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
       </View>
       <View style={tw`w-full flex flex-col items-center mb-8`}>
-        <PrimaryButton testID="createAccount-contactUs" onPress={goToContact} white narrow iconId="plusCircle">
+        <PrimaryButton testID="createAccount-contactUs" onPress={goToContact} white narrow>
           {i18n('contactUs')}
         </PrimaryButton>
         <PrimaryButton
           testID="createAccount-restoreBackup"
           onPress={goToRestoreBackup}
           style={tw`mt-2`}
-          iconId="save"
           white
           border
           narrow
