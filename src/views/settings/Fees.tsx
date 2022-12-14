@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, Text, Title } from '../../components'
+import { GoBackButton, Text } from '../../components'
 import { PEACHFEE } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
