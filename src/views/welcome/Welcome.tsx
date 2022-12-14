@@ -41,7 +41,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
     <View style={tw`h-full flex`} testID="welcome">
       <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
       <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
-        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
+        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-8`}>
           <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
         </View>
         <View style={tw`w-full flex-shrink`}>
@@ -65,11 +65,11 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`mb-8 flex items-center w-full`}>
+      <View style={tw`mb-8 pt-4 flex items-center w-full`}>
         <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
           <Button testID="welcome-next" title={i18n('next')} wide={false} onPress={next} />
         </View>
-        <View style={tw`w-full flex-row justify-center mt-11`}>
+        <View style={tw`w-full flex-row justify-center mt-8`}>
           {screens.map((screen, i) => (
             <Pressable
               key={i}
