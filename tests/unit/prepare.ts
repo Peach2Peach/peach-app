@@ -93,7 +93,10 @@ type Storage = {
 }
 export let storage: Record<string, Storage> = {}
 export const setStorage = (strg: Storage) => (storage = strg)
-export const resetStorage = () => (storage = {})
+export const resetStorage = () =>
+  Object.keys(storage).forEach((key) => {
+    storage[key] = {}
+  })
 
 jest.mock('react-native-mmkv-storage', () => ({
   IOSAccessibleStates: {},
