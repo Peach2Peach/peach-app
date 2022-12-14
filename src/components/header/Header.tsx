@@ -34,8 +34,8 @@ export const Header = () => {
       </View>
 
       <View style={tw`items-center flex-row`}>
-        {icons?.map(({ iconComponent, onPress }) => (
-          <TouchableOpacity style={tw`w-6 h-6 mx-2`} onPress={onPress}>
+        {icons?.map(({ iconComponent, onPress }, i) => (
+          <TouchableOpacity key={i} style={tw`w-6 h-6 mx-2`} onPress={onPress}>
             {iconComponent}
           </TouchableOpacity>
         ))}
