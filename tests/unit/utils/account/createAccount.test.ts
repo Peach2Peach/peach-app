@@ -1,15 +1,13 @@
 import { notStrictEqual, ok } from 'assert'
 import { account, createAccount, defaultAccount, setAccount } from '../../../../src/utils/account'
-import { resetFakeFiles } from '../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../prepare'
 
 describe('createAccount', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 
