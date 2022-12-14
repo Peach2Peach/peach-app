@@ -6,7 +6,7 @@ import { PrimaryButton } from '../../components/buttons'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from './headerIcons'
+import { getHeaderIcons } from './getHeaderIcons'
 
 type RestoreBackupErrorProps = {
   err: string
@@ -17,8 +17,7 @@ export default ({ err }: RestoreBackupErrorProps): ReactElement => {
     useMemo(
       () => ({
         title: i18n('restoreBackup.title'),
-        hideGoBackButton: false,
-        icons: headerIcons,
+        icons: getHeaderIcons(),
         theme: 'inverted',
       }),
       [],

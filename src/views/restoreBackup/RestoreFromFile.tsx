@@ -62,7 +62,7 @@ export default ({ style }: ComponentProps): ReactElement => {
 
     if (!recoveredAccount) {
       setLoading(false)
-      onError(err)
+      onError(parseError(err))
       return
     }
 

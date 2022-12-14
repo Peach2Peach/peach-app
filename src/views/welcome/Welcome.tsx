@@ -8,7 +8,7 @@ import { PrimaryButton } from '../../components/buttons'
 import { useHeaderSetup } from '../../hooks'
 import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
-import { headerIcons } from './headerIcons'
+import { getHeaderIcons } from './getHeaderIcons'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
@@ -24,7 +24,7 @@ export default (): ReactElement => {
       () => ({
         title: i18n('welcome.welcomeToPeach.title'),
         hideGoBackButton: true,
-        icons: headerIcons,
+        icons: getHeaderIcons(),
         theme: 'inverted',
       }),
       [],

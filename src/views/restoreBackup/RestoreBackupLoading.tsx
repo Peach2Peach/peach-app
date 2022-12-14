@@ -5,14 +5,12 @@ import { Loading, Text } from '../../components'
 import { useHeaderSetup } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from './headerIcons'
 
 export default (): ReactElement => {
   useHeaderSetup(
     useMemo(
       () => ({
         title: i18n('restoreBackup.title'),
-        icons: headerIcons,
         theme: 'inverted',
         hideGoBackButton: true,
       }),

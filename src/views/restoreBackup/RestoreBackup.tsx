@@ -5,7 +5,7 @@ import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigat
 import { useHeaderSetup } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from './headerIcons'
+import { getHeaderIcons } from './getHeaderIcons'
 import RestoreFromFile from './RestoreFromFile'
 import RestoreFromSeed from './RestoreFromSeed'
 
@@ -27,7 +27,7 @@ export default (): ReactElement => {
     useMemo(
       () => ({
         title: i18n('restoreBackup.title'),
-        icons: headerIcons,
+        icons: getHeaderIcons(),
         theme: 'inverted',
       }),
       [],

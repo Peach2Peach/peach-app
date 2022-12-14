@@ -6,7 +6,7 @@ import { PrimaryButton } from '../../components/buttons'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from './headerIcons'
+import { getHeaderIcons } from './getHeaderIcons'
 
 type CreateAccountErrorProps = {
   err: string
@@ -17,8 +17,7 @@ export default ({ err }: CreateAccountErrorProps): ReactElement => {
     useMemo(
       () => ({
         title: i18n('welcome.welcomeToPeach.title'),
-        hideGoBackButton: true,
-        icons: headerIcons,
+        icons: getHeaderIcons(),
         theme: 'inverted',
       }),
       [],
