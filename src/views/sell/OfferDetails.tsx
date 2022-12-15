@@ -12,7 +12,7 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
-import { EditIcon, HelpIcon } from '../../components/icons/components'
+import { EditIcon, HelpIcon } from '../../components/icons'
 import { useHeaderSetup } from '../../hooks'
 import { isDefined } from '../../utils/array/isDefined'
 

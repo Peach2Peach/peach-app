@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { FillProps } from 'react-native-svg'
 import { Text } from '.'
-import Icons, { IconType } from './icons'
+import Icons, { IconType } from '../assets/icons'
 
 type IconProps = ComponentProps & {
   id: IconType
