@@ -13,7 +13,7 @@ export const defaultAccount: Account = {
     preferredCurrencies: [],
     preferredPaymentMethods: {},
     meansOfPayment: {},
-    showBackupReminder: false,
+    showBackupReminder: true,
     showDisputeDisclaimer: true,
   },
   paymentData: [],
