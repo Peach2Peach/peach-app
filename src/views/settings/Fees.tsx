@@ -16,15 +16,15 @@ export default (): ReactElement => {
   type BulletPointProps = { text: String }
 
   const BulletPoint = ({ text }: BulletPointProps) => (
-    <View style={tw`flex-row`}>
-      <Text style={tw`body-m`}> · </Text>
+    <View style={tw`flex-row pl-3`}>
+      <Text style={tw`body-m text-xl`}>· </Text>
       <Text style={tw`body-m`}>{text}</Text>
     </View>
   )
 
   return (
     <View style={tw`flex-1`}>
-      <View style={tw`flex-1 items-start justify-center p-6`}>
+      <View style={tw`flex-1 items-start justify-center p-8`}>
         <Text style={tw`body-m`}>
           {i18n('settings.fees.text.1')}
           <Text style={tw`body-m text-primary-main`}> {(PEACHFEE * 100).toString()}% </Text>
@@ -39,7 +39,7 @@ export default (): ReactElement => {
         <BulletPoint text={i18n('settings.fees.point.2')} />
         <BulletPoint text={i18n('settings.fees.point.3')} />
       </View>
-      <GoBackButton style={tw`m-10 self-center`} />
+      <GoBackButton style={tw`m-8 self-center`} />
     </View>
   )
 }
