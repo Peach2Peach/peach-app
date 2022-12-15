@@ -80,7 +80,7 @@ export const Overlay = ({
               <Pressable onPress={action1 ? action1.callback : closeOverlay}>
                 <View style={[tw`flex flex-row flex-shrink`]}>
                   <Text style={[tw`text-base leading-relaxed`, actionColor]}>
-                    {action1 ? action1.label : i18n('close').toLocaleLowerCase()}
+                    {action1 ? action1.label : i18n('close')}
                   </Text>
                   <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 ml-1`} />
                 </View>

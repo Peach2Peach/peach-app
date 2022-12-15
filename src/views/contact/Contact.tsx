@@ -3,7 +3,7 @@ import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, PeachScrollView, PrimaryButton } from '../../components'
+import { GoBackButton, OptionButton, PeachScrollView } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation } from '../../hooks'
@@ -14,9 +14,9 @@ type ContactReason = typeof contactReasons[number]
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
-  <PrimaryButton onPress={() => setReason(name)} style={tw`mt-2`} wide border baseColor={tw`text-black-2`}>
+  <OptionButton onPress={() => setReason(name)} style={tw`mt-2`} wide>
     {i18n(`contact.reason.${name}`)}
-  </PrimaryButton>
+  </OptionButton>
 )
 
 export default (): ReactElement => {
@@ -32,7 +32,7 @@ export default (): ReactElement => {
   const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
-    <PeachScrollView contentContainerStyle={tw`py-6 flex-grow bg-primary-background`}>
+    <PeachScrollView contentContainerStyle={tw`py-6 flex-grow`}>
       <View style={tw`h-full items-center p-6 justify-center`}>
         <LinedText text={i18n('report.mailUs')} />
         {contactReasons.map((name) => (
@@ -40,12 +40,12 @@ export default (): ReactElement => {
         ))}
         <View style={tw`mt-10 w-full items-center`}>
           <LinedText text={i18n('report.communityHelp')} />
-          <PrimaryButton onPress={openTelegram} style={tw`mt-2`} wide border baseColor={tw`text-black-2`}>
+          <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
             {i18n('telegram')}
-          </PrimaryButton>
-          <PrimaryButton onPress={openDiscord} style={tw`mt-2`} wide border baseColor={tw`text-black-2`}>
+          </OptionButton>
+          <OptionButton onPress={openDiscord} style={tw`mt-2`} wide>
             {i18n('telegram')}
-          </PrimaryButton>
+          </OptionButton>
         </View>
         <GoBackButton style={tw`mt-12`} />
       </View>

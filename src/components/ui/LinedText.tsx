@@ -20,7 +20,7 @@ type LinedTextProps = ComponentProps & {
 export const LinedText = ({ style, text }: LinedTextProps): ReactElement => (
   <View style={[tw`flex-row items-center justify-center my-3 mx-5`, style]}>
     <View style={tw`flex-1 bg-black-5 h-0.1`} />
-    <Text style={tw`body-m text-black-5 px-2`}>{text}</Text>
+    <Text style={tw`body-m text-black-2 px-2`}>{text}</Text>
     <View style={tw`flex-1 bg-black-5 h-0.1`} />
   </View>
 )
