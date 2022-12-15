@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import LanguageContext from '../../contexts/language'
-import { Button, Input, Text } from '../../components'
+import { Button, Input, PeachScrollView, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { useNavigation, useValidatedState } from '../../hooks'
 
@@ -29,7 +29,7 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`flex flex-col justify-between`}>
+    <PeachScrollView contentContainerStyle={tw`flex flex-col justify-between`}>
       <View>
         <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
           {i18n('welcome.letsGetStarted.title')}
@@ -62,6 +62,6 @@ export default (): ReactElement => {
           title={i18n('restoreBackup')}
         />
       </View>
-    </View>
+    </PeachScrollView>
   )
 }

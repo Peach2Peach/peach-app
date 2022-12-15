@@ -1,6 +1,6 @@
 import { crypto } from 'bitcoinjs-lib'
 import { account } from '../account'
-import { getPeachAccount } from '../peachAPI'
+import { getPeachAccount } from '../peachAPI/peachAccount'
 import { getMainAddress, getWallet } from '../wallet'
 
 /**

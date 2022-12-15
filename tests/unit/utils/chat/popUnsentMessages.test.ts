@@ -2,7 +2,7 @@ import { deepStrictEqual, strictEqual } from 'assert'
 import { defaultAccount, setAccount } from '../../../../src/utils/account'
 import { getChat, popUnsentMessages, saveChat } from '../../../../src/utils/chat'
 import * as chatData from '../../data/chatData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('popUnsentMessages', () => {
   beforeEach(async () => {
@@ -12,7 +12,7 @@ describe('popUnsentMessages', () => {
     })
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 
