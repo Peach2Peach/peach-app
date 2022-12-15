@@ -55,6 +55,12 @@ export default (): ReactElement => {
     })
     if (result) {
       showReportSuccess(updateOverlay)
+      // Clear all fields
+      setEmail('')
+      setTopic(route.params.topic || '')
+      setMessage(route.params.message || '')
+      setShareDeviceID(false)
+      setDisplayErrors(false)
       return
     }
 
@@ -105,9 +111,9 @@ export default (): ReactElement => {
         <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row justify-center items-center my-5`}>
           <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
             {shareDeviceID ? (
-              <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
+              <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
             ) : (
-              <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
+              <View style={tw`w-4 h-4 rounded-sm border-2 border-black-3`} />
             )}
           </View>
           <Text style={tw`pl-2 flex-shrink subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
