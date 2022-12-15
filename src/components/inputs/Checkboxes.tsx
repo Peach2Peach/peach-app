@@ -23,7 +23,7 @@ export const CheckboxItem = ({ item, checked, onPress, style, testID }: Checkbox
       onPress={onPress}
       style={[
         tw`w-full flex-row justify-between items-center px-4 py-3 bg-primary-background rounded-lg border-2`,
-        checked && !item.disabled ? tw`border-primary-light` : tw`border-transparent`,
+        checked && !item.disabled ? tw`border-primary-main` : tw`border-transparent`,
         style,
       ]}
     >
@@ -31,7 +31,7 @@ export const CheckboxItem = ({ item, checked, onPress, style, testID }: Checkbox
       {!item.disabled ? (
         <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
           {checked ? (
-            <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-light`.color} />
+            <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
           ) : (
             <View style={tw`w-4 h-4 rounded-sm border-2 border-black-3`} />
           )}

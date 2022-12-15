@@ -19,10 +19,15 @@ module.exports = {
           6: '#ECECEC',
         },
         primary: {
-          dark: '#963600',
-          main: '#C45104',
-          light: '#F56522',
-          mild: '#FCCCB6',
+          dark: {
+            1: '#C45104', // old main
+            2:'#963600' // old dark
+          },
+          main: '#F56522', // old light
+          mild: {
+            1: '#FCCCB6', // old mild
+            2: '#FFA171' // new
+          },
           background: '#FFF9F6',
           'background-heavy': '#FEEDE5',
           'background-light': '#FFFCFA',

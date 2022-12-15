@@ -27,13 +27,13 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
             <Text style={tw`subtitle-1 w-full flex-shrink`} onPress={() => select(country)}>
               {i18n(`country.${country}`)}
             </Text>
-            {country === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-light`.color} /> : null}
+            {country === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-main`.color} /> : null}
           </View>
           {i < countries.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
         </View>
       ))}
       <HorizontalLine style={tw`my-6`} />
-      <Text onPress={confirm} style={tw`drawer-title text-primary-light text-center`}>
+      <Text onPress={confirm} style={tw`drawer-title text-primary-main text-center`}>
         {i18n('confirm')}
       </Text>
     </View>
