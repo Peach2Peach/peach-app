@@ -4,7 +4,7 @@ import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useNavigation } from '../../../hooks'
-import { IconType } from '../../../components/icons'
+import { IconType } from '../../../assets/icons'
 
 export type SettingsItemProps = (
   | { title: ScreenWithoutProps; onPress?: undefined }
