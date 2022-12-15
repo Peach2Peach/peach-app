@@ -67,6 +67,7 @@ export const useSettingsSetup = () => {
   const accountSettings = useMemo(
     () => [
       { title: 'myAccount', onPress: goToMyAccount },
+      { title: 'referrals' },
       {
         title: 'backups',
         icon: account.settings.showBackupReminder ? (
@@ -77,9 +78,8 @@ export const useSettingsSetup = () => {
           />
         ) : undefined,
       },
-      { title: 'referrals' },
-      { title: 'refundAddress' },
       { title: 'paymentMethods' },
+      { title: 'refundAddress' },
       { title: 'deleteAccount', onPress: deleteAccount },
     ],
     [deleteAccount, goToMyAccount],
