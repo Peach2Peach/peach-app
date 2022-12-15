@@ -10,7 +10,7 @@ import { Text } from '../../../text'
 import { Item } from '../../Item'
 
 export const toggleCurrency = (currency: Currency) => (currencies: Currency[]) => {
-  if (currencies.indexOf(currency) === -1) {
+  if (!currencies.includes(currency)) {
     currencies.push(currency)
   } else {
     currencies = currencies.filter((c) => c !== currency)
@@ -55,9 +55,9 @@ export const CurrencySelection = ({
             key={currency}
             style={[tw`h-6 px-2`, i > 0 ? tw`ml-2` : {}]}
             label={currency}
-            isSelected={selectedCurrencies.indexOf(currency) !== -1}
+            isSelected={selectedCurrencies.includes(currency)}
             onPress={() =>
-              selectedCurrencies.indexOf(currency) === -1 || selectedCurrencies.length > 1 ? onToggle(currency) : null
+              !selectedCurrencies.includes(currency) || selectedCurrencies.length > 1 ? onToggle(currency) : null
             }
           />
         ))}

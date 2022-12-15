@@ -1,6 +1,6 @@
 import React from 'react'
-import tw from '../../../styles/tailwind'
-import Icon from '../../Icon'
+import tw from '../../styles/tailwind'
+import Icon from '../Icon'
 
 export const StatsIcon = () => (
   <>

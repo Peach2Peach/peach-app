@@ -5,13 +5,14 @@ import { PAYMENTCATEGORIES } from '../../constants'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].indexOf(data.type) !== -1
+  PAYMENTCATEGORIES[category].includes(data.type)
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce((arr: string[], type: PaymentMethod) => {
@@ -47,9 +48,9 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
     setMeansOfPayment(
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
         .map(getPaymentData)
-        .filter((data) => data)
-        .filter((data) => getPaymentMethodInfo(data!.type))
-        .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}),
+        .filter(isDefined)
+        .filter((data) => getPaymentMethodInfo(data.type))
+        .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
   }
 
@@ -89,7 +90,7 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
 
   const select = (value: string) => {
     let newValues = selectedPaymentData
-    if (newValues.indexOf(value) !== -1) {
+    if (newValues.includes(value)) {
       newValues = newValues.filter((v) => v !== value)
     } else {
       newValues.push(value)
@@ -97,7 +98,7 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
     setPreferredPaymentMethods(newValues)
   }
 
-  const isSelected = (itm: CheckboxItemType) => selectedPaymentData.indexOf(itm.value as string) !== -1
+  const isSelected = (itm: CheckboxItemType) => selectedPaymentData.includes(itm.value as string)
 
   useEffect(() => {
     update()

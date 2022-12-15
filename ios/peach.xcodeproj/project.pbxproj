@@ -49,7 +49,7 @@
 		03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peach mainnet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		053AE86B4FCFEB2126C3B539 /* Pods-peach-peach mainnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach-peach mainnet.release.xcconfig"; path = "Target Support Files/Pods-peach-peach mainnet/Pods-peach-peach mainnet.release.xcconfig"; sourceTree = "<group>"; };
 		12FEF51E3BCE1869E3461B0C /* Pods-peach mainnet-peachTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peachTests.debug.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peachTests/Pods-peach mainnet-peachTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* peach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = peach.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Peach Bitcoin Testnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peach Bitcoin Testnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = peach/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = peach/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = peach/Images.xcassets; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peachTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Regular.ttf"; path = "../assets/fonts/Baloo2-Regular.ttf"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
-		671A56452850E9AE0058434C /* peach mainnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "peach mainnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		671A56452850E9AE0058434C /* Peach Bitcoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peach Bitcoin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		671A56462850E9AE0058434C /* peach mainnet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach mainnet-Info.plist"; path = "/Users/czino/Projects/peach-app/ios/peach mainnet-Info.plist"; sourceTree = "<absolute>"; };
 		672B1301288AF7240089147A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		675514812812AA1D00A17B6C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = peach/main.jsbundle; sourceTree = "<group>"; };
@@ -226,9 +226,9 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* peach.app */,
+				13B07F961A680F5B00A75B9A /* Peach Bitcoin Testnet.app */,
 				00E356EE1AD99517003FC87E /* peachTests.xctest */,
-				671A56452850E9AE0058434C /* peach mainnet.app */,
+				671A56452850E9AE0058434C /* Peach Bitcoin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 			);
 			name = "peach testnet";
 			productName = peach;
-			productReference = 13B07F961A680F5B00A75B9A /* peach.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Peach Bitcoin Testnet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		671A562A2850E9AE0058434C /* peach mainnet */ = {
@@ -320,7 +320,7 @@
 			);
 			name = "peach mainnet";
 			productName = peach;
-			productReference = 671A56452850E9AE0058434C /* peach mainnet.app */;
+			productReference = 671A56452850E9AE0058434C /* Peach Bitcoin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -799,7 +799,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peachDebug.entitlements;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -807,19 +807,21 @@
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = peach/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Peach Bitcoin Testnet";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.1.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.peachbitcoin.peach;
-				PRODUCT_NAME = peach;
+				PRODUCT_NAME = "Peach Bitcoin Testnet";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -833,26 +835,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = peach/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Peach Bitcoin Testnet";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.1.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.peachbitcoin.peach;
-				PRODUCT_NAME = peach;
+				PRODUCT_NAME = "Peach Bitcoin Testnet";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -865,7 +869,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peachDebug.entitlements;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -873,19 +877,21 @@
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = "peach mainnet-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Peach Bitcoin";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.1.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.peachbitcoin.peach.mainnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Peach Bitcoin";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -899,26 +905,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peach/peach.entitlements;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = 6G5FFY3H35;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
 				);
 				INFOPLIST_FILE = "peach mainnet-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Peach Bitcoin";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.1.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.peachbitcoin.peach.mainnet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Peach Bitcoin";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

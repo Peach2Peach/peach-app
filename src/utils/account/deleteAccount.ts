@@ -10,7 +10,7 @@ import { clearStorage } from '../storage'
 import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
 
 interface DeleteAccountProps {
-  onSuccess: Function
+  onSuccess?: Function
 }
 
 /**
@@ -28,6 +28,6 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   deleteAccessToken()
   deletePeachAccount()
-  onSuccess()
+  if (onSuccess) onSuccess()
   analytics().logEvent('account_deleted')
 }

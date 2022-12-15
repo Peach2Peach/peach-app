@@ -1,7 +1,7 @@
 import { setAccount } from '../../../../src/utils/account'
 import * as accountData from '../../data/accountData'
 import * as contractData from '../../data/contractData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 import {
   initDisputeSystemMessages,
   endDisputeSystemMessages,
@@ -12,7 +12,7 @@ describe.skip('createDisputeSystemMessages', () => {
     await setAccount(accountData.account1)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 

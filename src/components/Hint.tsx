@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '.'
 import tw from '../styles/tailwind'
-import { IconType } from './icons'
+import { IconType } from '../assets/icons'
 
 type HintProps = ComponentProps & {
   title: string

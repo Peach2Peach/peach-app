@@ -1,5 +1,5 @@
 import React from 'react'
-import tw from '../../../styles/tailwind'
-import Icon from '../../Icon'
+import tw from '../../styles/tailwind'
+import Icon from '../Icon'
 
 export const EditIcon = () => <Icon id={'edit'} color={tw`text-black-2`.color} />

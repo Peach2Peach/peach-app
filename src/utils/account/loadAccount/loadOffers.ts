@@ -1,11 +1,8 @@
-import { error } from '../../log'
+import { getIndexedMap } from '../../storage'
 import { offerStorage } from '../accountStorage'
 
 export const loadOffers = async (): Promise<Account['offers']> => {
-  const offers = await offerStorage.indexer.maps.getAll()
+  const offers = await getIndexedMap(offerStorage)
 
-  if (offers) return Object.values(offers) as Account['offers']
-
-  error('Could not load offers')
-  return []
+  return Object.values(offers) as Account['offers']
 }

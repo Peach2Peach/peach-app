@@ -2,15 +2,16 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { FileInput, Input, Loading, Text } from '../../components'
-import { PrimaryButton } from '../../components/buttons'
+import { FileInput, Input, Loading, PrimaryButton, Text } from '../../components'
 import Icon from '../../components/Icon'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { recoverAccount } from '../../utils/account'
+import { deleteAccount, recoverAccount } from '../../utils/account'
 import { decryptAccount } from '../../utils/account/decryptAccount'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
+import { auth } from '../../utils/peachAPI'
+import { parseError } from '../../utils/system'
 import Restored from './Restored'
 
 const passwordRules = { required: true, password: true }
@@ -27,11 +28,13 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
 
-  const onError = (e: Error) => {
+  const onError = (e?: string) => {
+    const errorMsg = e || 'UNKNOWN_ERROR'
     updateMessage({
-      msgKey: e.message === 'AUTHENTICATION_FAILURE' ? e.message : 'form.password.invalid',
+      msgKey: errorMsg,
       level: 'ERROR',
     })
+    deleteAccount({})
   }
   const onPasswordChange = (value: string) => {
     setPassword(value)
@@ -41,13 +44,20 @@ export default ({ style }: ComponentProps): ReactElement => {
     Keyboard.dismiss()
     setLoading(true)
 
-    const [recoveredAccount, err] = await decryptAccount({
+    const [recoveredAccount] = await decryptAccount({
       encryptedAccount: file.content,
       password,
     })
 
     if (!recoveredAccount) {
-      onError(err as Error)
+      onError('WRONG_PASSWORD')
+      return
+    }
+
+    const [, authError] = await auth({})
+    if (authError) {
+      onError(authError.error)
+      setLoading(false)
       return
     }
 
@@ -57,7 +67,7 @@ export default ({ style }: ComponentProps): ReactElement => {
       await storeAccount(recoveredAccount)
       setRestored(true)
     } else {
-      onError(recoverAccountErr as Error)
+      onError(parseError(recoverAccountErr))
     }
     setLoading(false)
   }
@@ -89,7 +99,7 @@ export default ({ style }: ComponentProps): ReactElement => {
             </View>
           </View>
           <View style={tw`w-full mt-5 flex items-center`}>
-            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
+            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome')}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
             </Pressable>
             <PrimaryButton onPress={submit} disabled={!file.content || !password} narrow>

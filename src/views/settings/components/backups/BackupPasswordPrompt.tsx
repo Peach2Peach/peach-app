@@ -1,9 +1,9 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Icon, Input, Text } from '../../../../components'
+import { Fade, Icon, Input, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import { OverlayContext } from '../../../../contexts/overlay'
-import { useNavigation, useValidatedState } from '../../../../hooks'
+import { useKeyboard, useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
 import Password from '../../../../overlays/info/Password'
 import tw from '../../../../styles/tailwind'
@@ -18,6 +18,8 @@ export default (): ReactElement => {
 
   const [passwordMatch, setPasswordMatch] = useState(true)
   const navigation = useNavigation()
+  const keyboardOpen = useKeyboard()
+
   const [, updateOverlay] = useContext(OverlayContext)
   const [isBackingUp, setIsBackingUp] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
@@ -130,14 +132,14 @@ export default (): ReactElement => {
           isValid={passwordRepeatIsValid && passwordMatch}
         />
       </View>
-      <View style={tw`flex items-center mt-16`}>
+      <Fade show={!keyboardOpen} style={tw`flex items-center mt-16`}>
         <PrimaryButton disabled={!isValid} style={tw`mb-2`} narrow onPress={startAccountBackup}>
           {i18n('settings.backups.createNew')}
         </PrimaryButton>
         <PrimaryButton narrow onPress={navigation.goBack}>
           {i18n('back')}{' '}
         </PrimaryButton>
-      </View>
+      </Fade>
     </View>
   )
 }

@@ -12,24 +12,23 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
-import { EditIcon, HelpIcon } from '../../components/icons/components'
+import { EditIcon, HelpIcon } from '../../components/icons'
 import { useHeaderSetup } from '../../hooks'
+import { isDefined } from '../../utils/array/isDefined'
 
 const validate = (offer: SellOffer) => {
-  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
-  const selectedPaymentMethods = Object.keys(offer.paymentData)
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentData(d!))
+  if (!offer.amount || !hasMopsConfigured(offer)) return false
 
-  return (
-    !!offer.amount
-    && hasMopsConfigured(offer)
-    && selectedPaymentMethods.length > 0
-    && paymentMethods.every((p) => offer.paymentData[p])
-    && paymentDataValid
-  )
+  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
+  if (!paymentMethods.every((p) => offer.paymentData[p])) return false
+
+  const selectedPaymentMethods = Object.keys(offer.paymentData)
+  if (selectedPaymentMethods.length === 0) return false
+
+  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
+  return paymentDataValid
 }
 
 export const headerIcons = [
