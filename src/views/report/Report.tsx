@@ -13,7 +13,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
-import { UNIQUEID } from '../../constants'
+import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import { useValidatedState } from '../../hooks'
 
 type Props = {
@@ -48,6 +48,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     let messageToSend = message
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
+    messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`
 
     const [result, err] = await sendReport({
       email,
