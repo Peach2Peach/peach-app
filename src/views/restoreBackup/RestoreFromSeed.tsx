@@ -8,7 +8,9 @@ import { useNavigation, useValidatedState } from '../../hooks'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import Restored from './Restored'
-import { createAccount, recoverAccount } from '../../utils/account'
+import { createAccount, deleteAccount, recoverAccount } from '../../utils/account'
+import { auth } from '../../utils/peachAPI'
+import { parseError } from '../../utils/system'
 
 const bip39Rules = {
   required: true,
@@ -26,11 +28,13 @@ export default ({ style }: ComponentProps): ReactElement => {
 
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
-  const onError = (e: Error) => {
+  const onError = (e?: string) => {
+    const errorMsg = e || 'UNKNOWN_ERROR'
     updateMessage({
-      msgKey: e.message === 'AUTHENTICATION_FAILURE' ? e.message : 'form.password.invalid',
+      msgKey: errorMsg,
       level: 'ERROR',
     })
+    deleteAccount({})
   }
 
   const validate = () => seedPhrase.every(([word]) => word)
@@ -45,15 +49,22 @@ export default ({ style }: ComponentProps): ReactElement => {
     const mnemonic = seedPhrase.map(([word]) => word).join(' ')
     const recoveredAccount = await createAccount(mnemonic)
 
+    const [, authError] = await auth({})
+    if (authError) {
+      onError(authError.error)
+      setLoading(false)
+      return
+    }
     const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
 
     if (success) {
       await storeAccount(recoveredAccount)
       setRestored(true)
+      setLoading(false)
     } else {
-      onError(recoverAccountErr as Error)
+      onError(parseError(recoverAccountErr))
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   const mapSeedWordToInput
