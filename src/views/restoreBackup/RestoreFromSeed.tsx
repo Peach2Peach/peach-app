@@ -1,16 +1,16 @@
-import React, { Dispatch, ReactElement, SetStateAction, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { Keyboard, Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
-import { Button, Input, Loading, Text } from '../../components'
+import { Button, Fade, Input, Loading, PeachScrollView, Text } from '../../components'
 import Icon from '../../components/Icon'
 import { MessageContext } from '../../contexts/message'
-import { useNavigation, useValidatedState } from '../../hooks'
+import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
+import tw from '../../styles/tailwind'
+import { createAccount, deleteAccount, recoverAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
-import Restored from './Restored'
-import { createAccount, deleteAccount, recoverAccount } from '../../utils/account'
 import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
+import Restored from './Restored'
 
 const bip39Rules = {
   required: true,
@@ -19,6 +19,7 @@ const bip39Rules = {
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
   const seedPhrase: ReturnType<typeof useValidatedState>[] = []
 
@@ -89,7 +90,7 @@ export default ({ style }: ComponentProps): ReactElement => {
         <Restored />
       ) : !loading ? (
         <View style={tw`h-full pb-8 flex justify-between`}>
-          <View style={tw`h-full flex-shrink flex justify-center items-center`}>
+          <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`flex justify-center items-center`}>
             <Text style={tw`text-center`}>{i18n('restoreBackup.seedPhrase.useBackupFile')}</Text>
             <Text style={tw`mt-6 text-center`}>{i18n('restoreBackup.seedPhrase.enter')}</Text>
             <View style={tw`flex flex-row`}>
@@ -100,13 +101,13 @@ export default ({ style }: ComponentProps): ReactElement => {
                 {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(6)(word, i))}
               </View>
             </View>
-          </View>
-          <View style={tw`w-full mt-5 flex items-center`}>
+          </PeachScrollView>
+          <Fade show={!keyboardOpen} style={tw`w-full mt-5 flex items-center`}>
             <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
               <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
             </Pressable>
             <Button onPress={submit} disabled={!formIsValid} wide={false} title={i18n('restoreBackup')} />
-          </View>
+          </Fade>
         </View>
       ) : (
         <View style={tw`h-1/2`}>
