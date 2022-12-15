@@ -1,14 +1,14 @@
 import { deepStrictEqual } from 'assert'
 import { APPVERSION } from '../../../../src/constants'
 import { account, defaultAccount, setAccount, updateSettings } from '../../../../src/utils/account'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('updateSettings', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 
@@ -43,7 +43,7 @@ describe('updateSettings', () => {
       },
       preferredCurrencies: [],
       preferredPaymentMethods: {},
-      showBackupReminder: false,
+      showBackupReminder: true,
       showDisputeDisclaimer: true,
     })
   })

@@ -3,16 +3,17 @@ import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
+import { useHeaderSetup } from '../../hooks'
+import { showReportSuccess } from '../../overlays/showReportSuccess'
 import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useNavigation, useRoute, useValidatedState } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
-import { UNIQUEID } from '../../constants'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
-import { showReportSuccess } from '../../overlays/showReportSuccess'
 
 const emailRules = { required: true, email: true }
 const required = { required: true }
@@ -45,6 +46,7 @@ export default (): ReactElement => {
 
     let messageToSend = message
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
+    messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`
 
     const [result, err] = await sendReport({
       email,

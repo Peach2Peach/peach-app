@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatsIcon, HelpIcon, BellIcon } from '../../components/icons/components'
+import { StatsIcon, HelpIcon, BellIcon } from '../../components/icons'
 
 export const getHeaderIcons = (page: 'buy' | 'sell') => {
   let defaultIcons = [

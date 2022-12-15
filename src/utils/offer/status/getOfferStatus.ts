@@ -24,8 +24,8 @@ const getSellOfferStatus = (offer: SellOffer): TradeStatus => {
   }
 
   return {
-    status: 'null',
-    requiredAction: '',
+    status: offer.matches.length === 0 ? 'searchingForPeer' : 'match',
+    requiredAction: !hasSeenAllMatches(offer) ? 'checkMatches' : '',
   }
 }
 
