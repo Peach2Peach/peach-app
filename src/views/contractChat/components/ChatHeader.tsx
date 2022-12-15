@@ -15,8 +15,8 @@ type ChatHeaderProps = {
 export const ChatHeader = ({ contract }: ChatHeaderProps): ReactElement => {
   const navigation = useNavigation()
   const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-
-  const goBack = () => navigation.goBack()
+  const goBack = () =>
+    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('contract', { contract, contractId: contract.id })
 
   return (
     <Shadow shadow={mildShadow}>

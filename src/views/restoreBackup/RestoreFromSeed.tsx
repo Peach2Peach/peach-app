@@ -1,14 +1,15 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
-import { Input, PeachScrollView, Text } from '../../components'
+import { Fade, Input, PeachScrollView, Text } from '../../components'
 import { useBackgroundState } from '../../components/background/backgroundStore'
 import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
-import { useNavigation, useValidatedState } from '../../hooks'
+import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { createAccount, deleteAccount, recoverAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
+import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
 import RestoreBackupError from './RestoreBackupError'
 import RestoreBackupLoading from './RestoreBackupLoading'
@@ -26,6 +27,7 @@ const bip39Rules = {
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
+  const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
 
   const seedPhrase: ReturnType<typeof useValidatedState>[] = []
@@ -63,6 +65,12 @@ export default ({ style }: ComponentProps): ReactElement => {
 
     const recoveredAccount = await createAccount(mnemonic)
 
+    const [, authError] = await auth({})
+    if (authError) {
+      onError(authError.error)
+      setLoading(false)
+      return
+    }
     const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
 
     if (success) {
@@ -80,7 +88,6 @@ export default ({ style }: ComponentProps): ReactElement => {
       setLoading(false)
       onError(parseError(recoverAccountErr))
     }
-    setLoading(false)
   }
 
   const mapSeedWordToInput
@@ -101,7 +108,7 @@ export default ({ style }: ComponentProps): ReactElement => {
         )
 
   useEffect(() => {
-    setMnemonic(seedPhrase.map(([word]) => word).join(' ') as string)
+    setMnemonic(seedPhrase.map(([word]) => word).join(' '))
   }, [seedPhrase, setMnemonic])
 
   if (loading) return <RestoreBackupLoading />
@@ -127,11 +134,11 @@ export default ({ style }: ComponentProps): ReactElement => {
             <Text style={[tw`tooltip text-center text-primary-background-light mt-2`]}>{i18n('form.bip39.error')}</Text>
           )}
         </PeachScrollView>
-        <View style={tw`flex items-center`}>
+        <Fade show={!keyboardOpen} style={tw`flex items-center`}>
           <PrimaryButton onPress={submit} disabled={!isMnemonicValid} white iconId="save">
             {i18n('restoreBackup')}
           </PrimaryButton>
-        </View>
+        </Fade>
       </View>
     </View>
   )

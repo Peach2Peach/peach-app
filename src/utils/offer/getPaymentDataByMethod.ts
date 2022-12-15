@@ -16,7 +16,7 @@ export const getPaymentDataByMethod = (
     ? offer.originalPaymentData.filter((data) => data.type === paymentMethod)
     : account.paymentData.filter((data) => data.type === paymentMethod)
 
-  const paymentDataHashes = paymentData.map((data) => hashPaymentData(data))
+  const paymentDataHashes = paymentData.map(hashPaymentData)
   const index = paymentDataHashes.indexOf(offer.paymentData[paymentMethod]!.hash || '')
 
   return paymentData[index]

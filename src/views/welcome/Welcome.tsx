@@ -68,7 +68,7 @@ export default (): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`mb-8 flex items-center w-full`}>
+      <View style={tw`mb-8 pt-4 flex items-center w-full`}>
         <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
           <PrimaryButton testID="welcome-next" narrow white onPress={next} iconId="arrowRightCircle">
             {i18n('next')}

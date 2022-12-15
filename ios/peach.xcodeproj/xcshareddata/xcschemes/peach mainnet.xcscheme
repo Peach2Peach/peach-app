@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "671A562A2850E9AE0058434C"
-               BuildableName = "peach mainnet.app"
+               BuildableName = "Peach Bitcoin.app"
                BlueprintName = "peach mainnet"
                ReferencedContainer = "container:peach.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "671A562A2850E9AE0058434C"
-            BuildableName = "peach mainnet.app"
+            BuildableName = "Peach Bitcoin.app"
             BlueprintName = "peach mainnet"
             ReferencedContainer = "container:peach.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "671A562A2850E9AE0058434C"
-            BuildableName = "peach mainnet.app"
+            BuildableName = "Peach Bitcoin.app"
             BlueprintName = "peach mainnet"
             ReferencedContainer = "container:peach.xcodeproj">
          </BuildableReference>

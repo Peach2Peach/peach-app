@@ -139,7 +139,7 @@ export default (): ReactElement => {
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),
           })
-          handleOverlays({ contract: c, navigation, updateOverlay, view })
+          handleOverlays({ contract: c, updateOverlay, view })
         },
         onError: (err) =>
           updateMessage({

@@ -12,7 +12,7 @@ import { Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
-import { IconType } from '../icons'
+import { IconType } from '../../assets/icons'
 
 const themes = {
   default: {

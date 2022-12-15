@@ -2,14 +2,14 @@ import { deepStrictEqual, strictEqual } from 'assert'
 import { account, defaultAccount, setAccount } from '../../../../src/utils/account'
 import { saveChat } from '../../../../src/utils/chat'
 import * as chatData from '../../data/chatData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('saveChat', () => {
   beforeEach(async () => {
+    resetStorage()
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    resetFakeFiles()
     jest.clearAllMocks()
   })
 

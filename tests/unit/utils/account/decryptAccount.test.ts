@@ -1,14 +1,14 @@
 import { deepStrictEqual, ok } from 'assert'
 import { decryptAccount, setAccount } from '../../../../src/utils/account'
 import * as accountData from '../../data/accountData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('decryptAccount', () => {
   beforeAll(async () => {
     await setAccount(accountData.account1)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
   })
 
   it('would decrypt recovery account', async () => {

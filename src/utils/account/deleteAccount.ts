@@ -19,6 +19,5 @@ export const deleteAccount = async () => {
 
   deleteAccessToken()
   deletePeachAccount()
-
   analytics().logEvent('account_deleted')
 }
