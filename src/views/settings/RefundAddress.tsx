@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Icon, Input, PrimaryButton, ScanQR, Text } from '../../components'
-import { updateSettings } from '../../utils/account'
+import { account, updateSettings } from '../../utils/account'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
 import { HelpIcon } from '../../components/icons/components'
 import { OverlayContext } from '../../contexts/overlay'
@@ -16,7 +16,10 @@ import { BarCodeReadEvent } from 'react-native-camera'
 
 const rulesToCheck = { required: false, bitcoinAddress: true }
 export default (): ReactElement => {
-  const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', rulesToCheck)
+  const [address, setAddress, isValid, addressErrors] = useValidatedState(
+    account.settings.returnAddress || '',
+    rulesToCheck,
+  )
   const [isUpdated, setUpdated] = useState(false)
   const [showQRScanner, setShowQRScanner] = useState(false)
   const navigation = useNavigation()
@@ -77,7 +80,7 @@ export default (): ReactElement => {
       <Text style={tw`h6`}>{i18n('settings.refundAddress.title')}</Text>
       <View style={tw`mx-16 mt-4`}>
         <Input
-          placeholder={i18n('form.address.btc')}
+          placeholder={i18n('form.address.btc.placeholder')}
           icons={[
             ['clipboard', pasteAddress],
             ['camera', showQR],
