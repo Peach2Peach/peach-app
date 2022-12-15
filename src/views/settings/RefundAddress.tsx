@@ -63,25 +63,24 @@ export default (): ReactElement => {
     ),
   )
 
-  const show = () => setShowQRScanner(true)
-  const close = () => setShowQRScanner(false)
+  const showQR = () => setShowQRScanner(true)
+  const closeQR = () => setShowQRScanner(false)
   const onQRScanSuccess = (e: BarCodeReadEvent) => {
     const request = parseBitcoinRequest(e.data)
 
     setAddress(request.address || e.data)
-    close()
+    closeQR()
   }
 
   return !showQRScanner ? (
     <View style={tw`h-full w-full justify-center items-center`}>
-      <Text style={tw`h6`}>set custom refund address</Text>
-      {/** we are usign mx-16 here, because the icons the input to become wider than 100%. this seems wrong */}
+      <Text style={tw`h6`}>{i18n('settings.refundAddress.title')}</Text>
       <View style={tw`mx-16 mt-4`}>
         <Input
           placeholder={i18n('form.address.btc')}
           icons={[
             ['clipboard', pasteAddress],
-            ['camera', show],
+            ['camera', showQR],
           ]}
           value={address}
           isValid={isValid}
@@ -91,15 +90,15 @@ export default (): ReactElement => {
       </View>
       {isUpdated && (
         <View style={tw`w-full h-0 flex-row justify-center`}>
-          <Text style={tw`button-medium h-6`}>ADDRESS SET</Text>
+          <Text style={tw`button-medium h-6 uppercase`}>{i18n('settings.refundAddress.success')}</Text>
           <Icon id="check" style={tw`w-[20px] h-[20px] ml-1`} color={tw`text-success-main`.color} />
         </View>
       )}
       <PrimaryButton narrow style={tw`mt-16 absolute bottom-6`} onPress={setReturnAddress} disabled={isUpdated}>
-        confirm
+        {i18n('settings.refundAddress.confirm')}
       </PrimaryButton>
     </View>
   ) : (
-    <ScanQR onSuccess={onQRScanSuccess} onCancel={close} />
+    <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQR} />
   )
 }
