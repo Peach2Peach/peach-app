@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useBackgroundState } from '../../components/background/backgroundStore'
 
 import { MessageContext } from '../../contexts/message'
@@ -13,17 +13,10 @@ import CreateAccountError from './CreateAccountError'
 import CreateAccountLoading from './CreateAccountLoading'
 import CreateAccountSuccess from './CreateAccountSuccess'
 
+const headerConfig = { title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' as const }
+
 export default (): ReactElement => {
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('welcome.welcomeToPeach.title'),
-        hideGoBackButton: true,
-        theme: 'inverted',
-      }),
-      [],
-    ),
-  )
+  useHeaderSetup(headerConfig)
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)

@@ -1,28 +1,19 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 
-import { useHeaderSetup, useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { getHeaderIcons } from './getHeaderIcons'
+import { useCreateAccountErrorHeader } from './useCreateAccountErrorHeader'
 
 type CreateAccountErrorProps = {
   err: string
 }
 
 export default ({ err }: CreateAccountErrorProps): ReactElement => {
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('welcome.welcomeToPeach.title'),
-        icons: getHeaderIcons(),
-        theme: 'inverted',
-      }),
-      [],
-    ),
-  )
+  useCreateAccountErrorHeader()
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('reportFullScreen')
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')

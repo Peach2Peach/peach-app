@@ -14,9 +14,11 @@ import { checkNotificationStatus, isProduction, toggleNotifications } from '../.
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import { goToHomepage } from '../../utils/web'
 
+const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
+
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
-  useHeaderSetup(useMemo(() => ({ title: i18n('settings.title'), hideGoBackButton: true }), []))
+  useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)

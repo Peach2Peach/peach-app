@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { GoBackButton, PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -7,8 +7,10 @@ import { InfoButtons } from './InfoButtons'
 import { OptionButtons } from './OptionButtons'
 import { PrimaryButtons } from './PrimaryButtons'
 
+const headerConfig = { title: 'test view - buttons' }
+
 export default () => {
-  useHeaderSetup(useMemo(() => ({ title: 'test view - buttons' }), []))
+  useHeaderSetup(headerConfig)
   return (
     <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
       <PrimaryButtons />

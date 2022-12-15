@@ -1,43 +1,26 @@
-import React, { ReactElement, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
-import { useHeaderSetup } from '../../hooks'
 import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
-import { getHeaderIcons } from './getHeaderIcons'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
 import PrivacyFirst from './PrivacyFirst'
+import { useWelcomeHeader } from './useWelcomeHeader'
 
 const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
+const backgroundConfig = { color: 'primaryGradient' as const }
 
 export default (): ReactElement => {
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('welcome.welcomeToPeach.title'),
-        hideGoBackButton: true,
-        icons: getHeaderIcons(),
-        theme: 'inverted',
-      }),
-      [],
-    ),
-  )
-  useBackgroundSetup(
-    useMemo(
-      () => ({
-        color: 'primaryGradient',
-      }),
-      [],
-    ),
-  )
+  useWelcomeHeader()
+  useBackgroundSetup(backgroundConfig)
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)

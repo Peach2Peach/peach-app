@@ -1,12 +1,14 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { GoBackButton, PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 
+const headerConfig = { title: 'test view - popups' }
+
 export default () => {
-  useHeaderSetup(useMemo(() => ({ title: 'test view - popups' }), []))
+  useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () =>

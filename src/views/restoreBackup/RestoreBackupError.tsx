@@ -1,28 +1,19 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 
-import { useHeaderSetup, useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { getHeaderIcons } from './getHeaderIcons'
+import { useBackupHeader } from './useBackupHeader'
 
 type RestoreBackupErrorProps = {
   err: string
 }
 
 export default ({ err }: RestoreBackupErrorProps): ReactElement => {
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('restoreBackup.title'),
-        icons: getHeaderIcons(),
-        theme: 'inverted',
-      }),
-      [],
-    ),
-  )
+  useBackupHeader()
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('reportFullScreen')
 
