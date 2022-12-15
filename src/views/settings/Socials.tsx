@@ -1,12 +1,11 @@
-import React, { ReactElement, useContext, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
 import { GoBackButton, OptionButton } from '../../components'
-import LanguageContext from '../../contexts/language'
-import i18n from '../../utils/i18n'
 import { useHeaderSetup } from '../../hooks'
+import i18n from '../../utils/i18n'
 
 const socials = [
   { name: 'twitter', url: 'https://twitter.com/peachbitcoin' },
@@ -15,7 +14,6 @@ const socials = [
   { name: 'discord', url: 'https://discord.gg/skP9zqTB' },
 ]
 export default (): ReactElement => {
-  useContext(LanguageContext)
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
 
   return (
