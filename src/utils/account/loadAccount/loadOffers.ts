@@ -4,7 +4,7 @@ import { offerStorage } from '../accountStorage'
 export const loadOffers = async (): Promise<Account['offers']> => {
   const offers = await offerStorage.indexer.maps.getAll()
 
-  if (offers) return Object.values(offers) as Account['offers']
+  if (offers) return Object.values(offers).map(([, offer]) => offer) as Account['offers']
 
   error('Could not load offers')
   return []
