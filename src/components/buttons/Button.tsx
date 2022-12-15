@@ -24,7 +24,7 @@ export const Button = (props: ButtonProps) => {
   const { wide, children, iconId, narrow, color, textColor, borderColor, loading, ...pressableProps } = props
   const width = iconId && !children ? tw`w-14` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
   const iconSize = !children ? tw`w-6 h-6` : tw`w-4 h-4`
-  const borderRadius = !!iconId && !children ? tw`rounded-[12px]` : tw`rounded-full`
+  const borderRadius = !!iconId && !children ? tw`rounded-xl` : tw`rounded-full`
 
   return (
     <TouchableOpacity
