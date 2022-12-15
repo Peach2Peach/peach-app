@@ -22,9 +22,9 @@ export type ButtonProps = {
 
 export const Button = (props: ButtonProps) => {
   const { wide, children, iconId, narrow, color, textColor, borderColor, loading, ...pressableProps } = props
-  const width = iconId && !children ? tw`w-12` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
+  const width = iconId && !children ? tw`w-14` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
   const iconSize = !children ? tw`w-6 h-6` : tw`w-4 h-4`
-  const borderRadius = !!iconId && !children ? tw`rounded-[16px]` : tw`rounded-full`
+  const borderRadius = !!iconId && !children ? tw`rounded-xl` : tw`rounded-full`
 
   return (
     <TouchableOpacity
@@ -40,7 +40,7 @@ export const Button = (props: ButtonProps) => {
     >
       {children && <Text style={[textColor, tw`button-medium px-2`]}>{children}</Text>}
       {loading ? (
-        <Loading size="small" style={iconSize} color={textColor?.color} />
+        <Loading style={iconSize} color={textColor?.color} />
       ) : (
         !!iconId && <Icon id={iconId} style={iconSize} color={textColor?.color} />
       )}
