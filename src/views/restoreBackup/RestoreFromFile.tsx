@@ -15,6 +15,7 @@ import { parseError } from '../../utils/system'
 import RestoreBackupError from './RestoreBackupError'
 import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
+import { auth } from '../../utils/peachAPI'
 
 const passwordRules = { required: true, password: true }
 
@@ -66,6 +67,12 @@ export default ({ style }: ComponentProps): ReactElement => {
       return
     }
 
+    const [, authErr] = await auth({})
+    if (authErr) {
+      onError(authErr.error)
+      setLoading(false)
+      return
+    }
     const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
 
     if (success) {
