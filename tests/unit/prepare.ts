@@ -132,7 +132,12 @@ jest.mock('react-native-mmkv-storage', () => ({
               indexer: {
                 getKeys: jest.fn().mockImplementation(async () => Object.keys(storage[instanceId])),
                 maps: {
-                  getAll: jest.fn().mockImplementation(async () => storage[instanceId]),
+                  getAll: jest.fn().mockImplementation(async () =>
+                    Object.keys(storage[instanceId]).reduce((obj, key, i) => {
+                      obj[String(i)] = [key, storage[instanceId][key]]
+                      return obj
+                    }, {} as AnyObject),
+                  ),
                 },
               },
               options: {
