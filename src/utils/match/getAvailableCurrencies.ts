@@ -1,15 +1,15 @@
 export const getAvailableCurrencies = (
-  offer: SellOffer | BuyOffer,
-  match: Match,
+  offerMeansOfPayment: (SellOffer | BuyOffer)['meansOfPayment'],
+  matchMeansOfPayment: Match['meansOfPayment'],
   paymentMethod: PaymentMethod,
 ): Currency[] => {
-  const offerCurrencies = (Object.keys(offer.meansOfPayment) as Currency[]).filter((currency) =>
-    offer.meansOfPayment[currency]?.includes(paymentMethod),
+  const offerCurrencies = (Object.keys(offerMeansOfPayment) as Currency[]).filter((currency) =>
+    offerMeansOfPayment[currency]?.includes(paymentMethod),
   )
-  const matchCurrencies = (Object.keys(offer.meansOfPayment) as Currency[]).filter((currency) =>
-    match.meansOfPayment[currency]?.includes(paymentMethod),
+  const matchCurrencies = (Object.keys(offerMeansOfPayment) as Currency[]).filter((currency) =>
+    matchMeansOfPayment[currency]?.includes(paymentMethod),
   )
   const sharedCurrencies = matchCurrencies.filter((c) => offerCurrencies.includes(c))
   const availableCurrencies = sharedCurrencies.length ? sharedCurrencies : matchCurrencies
-  return availableCurrencies as Currency[]
+  return availableCurrencies
 }

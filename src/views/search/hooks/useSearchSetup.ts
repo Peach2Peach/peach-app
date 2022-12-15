@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useRoute } from '../../../hooks'
 import { useOfferMatches } from './useOfferMatches'
@@ -9,6 +10,11 @@ export const useSearchSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const { offer } = useRoute<'search'>().params
   const { allMatches: matches, error, refetch } = useOfferMatches()
+  const setOfferMeansOfPayment = useMatchStore((state) => state.setOfferMeansOfPayment)
+
+  useEffect(() => {
+    setOfferMeansOfPayment(offer.meansOfPayment)
+  }, [offer.meansOfPayment, setOfferMeansOfPayment])
 
   useEffect(() => {
     if (error) {

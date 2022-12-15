@@ -7,7 +7,6 @@ import i18n from '../../utils/i18n'
 import { mildShadow, mildShadowOrange, noShadow } from '../../utils/layout'
 import { UnmatchButton } from './buttons'
 import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo } from './components'
-import { useMatchSetup } from './hooks'
 
 type MatchProps = ComponentProps & {
   match: Match
@@ -23,7 +22,6 @@ type MatchProps = ComponentProps & {
  */
 export const Match = ({ match, renderShadow }: MatchProps): ReactElement => {
   const shadow = renderShadow ? (match.matched ? mildShadowOrange : mildShadow) : noShadow
-  useMatchSetup(match)
 
   return (
     <Shadow shadow={shadow}>

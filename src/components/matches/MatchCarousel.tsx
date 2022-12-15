@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Dimensions, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
@@ -35,10 +35,23 @@ export default () => {
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
-  const { currentIndex, onBeforeSnapToItem } = useMatchStore(
-    (state) => ({ currentIndex: state.currentIndex, onBeforeSnapToItem: state.setCurrentIndex }),
-    shallow,
+  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
+  const setMatchMeansOfPayment = useMatchStore((state) => state.setMatchMeansOfPayment)
+
+  const onBeforeSnapToItem = useCallback(
+    (newIndex: number) => {
+      setMatchMeansOfPayment(matches[newIndex].meansOfPayment)
+      setCurrentIndex(newIndex)
+    },
+    [matches, setCurrentIndex, setMatchMeansOfPayment],
   )
+
+  useEffect(() => {
+    onBeforeSnapToItem(0)
+    return () => {
+      setCurrentIndex(0)
+    }
+  }, [onBeforeSnapToItem, setCurrentIndex])
 
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>
