@@ -37,7 +37,7 @@ export default (): ReactElement => {
 
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => route.params.contract || getContract(contractId))
+  const [contract, setContract] = useState(route.params.contract || getContract(contractId))
   const [updatePending, setUpdatePending] = useState(!contract)
   const [view, setView] = useState<'seller' | 'buyer' | ''>(
     contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
@@ -130,7 +130,7 @@ export default (): ReactElement => {
               },
           )
 
-          handleOverlays({ contract: c, navigation, updateOverlay, view: v })
+          handleOverlays({ contract: c, updateOverlay, view: v })
         },
         onError: (err) =>
           updateMessage({

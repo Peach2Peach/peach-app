@@ -12,14 +12,14 @@ import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import { EditIcon, HelpIcon } from '../../components/icons/components'
 import { useHeaderSetup } from '../../hooks'
+import { isDefined } from '../../utils/array/isDefined'
 
-const validate = (offer: BuyOffer) => {
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentData(d!))
-  return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
-}
+const validate = (offer: BuyOffer) =>
+  !!offer.amount
+  && hasMopsConfigured(offer)
+  && getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
 
 export const headerIcons = [
   {
