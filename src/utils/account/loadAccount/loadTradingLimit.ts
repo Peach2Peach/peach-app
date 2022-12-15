@@ -1,19 +1,12 @@
 import { defaultAccount } from '../'
-import { readFile } from '../../file'
 import { error } from '../../log'
-import { parseError } from '../../system'
+import { accountStorage } from '../accountStorage'
 
-/**
- * @description Method to load trading limits
- * @param password password
- * @returns Promise resolving to trading limits
- */
-export const loadTradingLimit = async (password: string): Promise<Account['tradingLimit']> => {
-  try {
-    const tradingLimit = await readFile('/peach-account-tradingLimit.json', password)
-    return JSON.parse(tradingLimit)
-  } catch (e) {
-    error('Could not load trading limit', parseError(e))
-    return defaultAccount.tradingLimit
-  }
+export const loadTradingLimit = async (): Promise<Account['tradingLimit']> => {
+  const tradingLimit = accountStorage.getMap('tradingLimit')
+
+  if (tradingLimit) return tradingLimit as Account['tradingLimit']
+
+  error('Could not load tradingLimit')
+  return defaultAccount.tradingLimit
 }

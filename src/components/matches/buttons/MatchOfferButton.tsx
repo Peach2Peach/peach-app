@@ -5,6 +5,7 @@ import { useMatchStore } from '../store'
 import { useMatchOffer } from '../hooks'
 import { useRoute } from '../../../hooks'
 import { PrimaryButton } from '../../buttons'
+import { isBuyOffer } from '../../../utils/offer'
 
 export const MatchOfferButton = () => {
   const { offer } = useRoute<'search'>().params
@@ -16,14 +17,8 @@ export const MatchOfferButton = () => {
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
 
   return (
-    <PrimaryButton
-      title={i18n(
-        `search.${offer.type === 'bid' ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
-      )}
-      narrow
-      disabled={currentMatch.matched || isLoading}
-      loading={isLoading}
-      onPress={() => matchOffer()}
-    />
+    <PrimaryButton narrow disabled={currentMatch.matched || isLoading} loading={isLoading} onPress={() => matchOffer()}>
+      {i18n(`search.${isBuyOffer(offer) ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`)}
+    </PrimaryButton>
   )
 }

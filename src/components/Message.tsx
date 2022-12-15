@@ -5,7 +5,7 @@ import { Text, Icon, Shadow } from '.'
 import tw from '../styles/tailwind'
 import { MessageContext } from '../contexts/message'
 import i18n from '../utils/i18n'
-import { IconType } from './icons'
+import { IconType } from '../assets/icons'
 import { dropShadowMild } from '../utils/layout'
 
 type LevelColorMap = {
@@ -31,28 +31,7 @@ const levelColorMap: LevelColorMap = {
 
 type MessageProps = ComponentProps & MessageState
 
-/**
- * @description Component to display the Message
- * @param props Component properties
- * @param props.level level of message
- * @param [props.msgKey] key for error message
- * @param [props.action] custom action to appear on bottom right corner
- * @param [props.actionLabel] label for action
- * @param [props.actionIcon] optional icon for action
- * @param [props.onClose] callback when closing the message
- * @param [props.style] additional styles to apply to the component
- * @example
- * <Message msg="Oops something went wrong!" level="ERROR" />
- */
-export const Message = ({
-  level,
-  msgKey,
-  action,
-  actionLabel,
-  actionIcon,
-  onClose,
-  style,
-}: MessageProps): ReactElement => {
+export const Message = ({ level, msgKey, action, onClose, style }: MessageProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   let icon: IconType | null = msgKey ? (i18n(`${msgKey}.icon`) as IconType) : null
   let title = msgKey ? i18n(`${msgKey}.title`) : ''
@@ -86,9 +65,9 @@ export const Message = ({
         </View>
         <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>
           {!!action ? (
-            <Text onPress={action as TextProps['onPress']} style={tw`flex flex-row items-center`}>
-              {!!actionIcon && <Icon id={actionIcon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-              <Text style={[tw`subtitle-2 leading-xs`, levelColorMap.text[level]]}> {actionLabel}</Text>
+            <Text onPress={action.callback as TextProps['onPress']} style={tw`flex flex-row items-center`}>
+              {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
+              <Text style={[tw`subtitle-2 leading-xs`, levelColorMap.text[level]]}> {action.label}</Text>
             </Text>
           ) : (
             <View>{/* placeholder for layout */}</View>

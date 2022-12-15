@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { GestureResponderEvent, Pressable, View, ViewStyle } from 'react-native'
 import { Icon } from '../../../components'
-import { IconType } from '../../../components/icons'
+import { IconType } from '../../../assets/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
 import { ConfirmRaiseDispute } from '../../../overlays/ConfirmRaiseDispute'
@@ -29,8 +29,9 @@ export const ContractActions = ({ contract, view, style }: ContractActionsProps)
   const canCancel
     = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
   const canDispute
-    = (!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
-    || (view === 'seller' && contract.cancelationRequested)
+    = contract.symmetricKey
+    && ((!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
+      || (view === 'seller' && contract.cancelationRequested))
 
   const openCancelTrade = () =>
     canCancel

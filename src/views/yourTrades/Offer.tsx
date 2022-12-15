@@ -4,25 +4,27 @@ import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
-import { PeachScrollView, PrimaryButton, Text, Title } from '../../components'
+import { PeachScrollView, Text, Title } from '../../components'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { useNavigation, useRoute } from '../../hooks'
 import MatchAccepted from '../../overlays/MatchAccepted'
+import { getChatNotifications } from '../../utils/chat'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { getOffer, getOfferStatus, offerIdToHex, getRequiredActionCount, saveOffer } from '../../utils/offer'
-import { isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { getOffer, getRequiredActionCount, isSellOffer, offerIdToHex, saveOffer } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
-import AppContext from '../../contexts/app'
-import { getChatNotifications } from '../../utils/chat'
-import { useNavigation, useRoute } from '../../hooks'
+import { getOfferStatus } from '../../utils/offer/status'
+import { isTradeComplete } from '../../utils/contract/status'
+import { PrimaryButton } from '../../components/buttons'
 
 export default (): ReactElement => {
   const offerId = useRoute<'offer'>().params.offer.id!
@@ -32,8 +34,8 @@ export default (): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
-  const offer = getOffer(offerId) as BuyOffer | SellOffer
-  const view = offer.type === 'ask' ? 'seller' : 'buyer'
+  const offer = getOffer(offerId)!
+  const view = isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
@@ -112,9 +114,11 @@ export default (): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           })
         },
       }),
@@ -135,15 +139,17 @@ export default (): ReactElement => {
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),
           })
-          handleOverlays({ contract: c, navigation, updateOverlay, view })
+          handleOverlays({ contract: c, updateOverlay, view })
         },
         onError: (err) =>
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           }),
       }),
       [contractId],
@@ -176,7 +182,7 @@ export default (): ReactElement => {
       )}
       {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) && (
         <View>
-          <Title title={i18n(`${offer.type === 'ask' ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
+          <Title title={i18n(`${isSellOffer(offer) ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (
             <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
               {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}

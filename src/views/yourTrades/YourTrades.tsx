@@ -9,16 +9,16 @@ import { useFocusEffect } from '@react-navigation/native'
 import { Headline, PeachScrollView, Text, Title } from '../../components'
 import getContractsEffect from '../../effects/getContractsEffect'
 import getOffersEffect from '../../effects/getOffersEffect'
+import { useNavigation } from '../../hooks'
 import { getAccount } from '../../utils/account'
 import { storeContracts, storeOffers } from '../../utils/account/storeAccount'
 import { getChatNotifications } from '../../utils/chat'
 import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { getOffers, getOfferStatus, getRequiredActionCount, saveOffers } from '../../utils/offer'
-import { session } from '../../utils/session'
+import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
+import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
 import { OfferItem } from './components/OfferItem'
-import { useNavigation } from '../../hooks'
 
 const isPastOffer = (offer: SellOffer | BuyOffer) => {
   const { status } = getOfferStatus(offer)
@@ -28,12 +28,10 @@ const isPastOffer = (offer: SellOffer | BuyOffer) => {
 const isOpenOffer = (offer: SellOffer | BuyOffer) => !isPastOffer(offer)
 const showOffer = (offer: SellOffer | BuyOffer) => {
   if (offer.contractId) return true
-  if (offer.type === 'bid') {
-    return offer.online
-  }
+  if (isBuyOffer(offer)) return offer.online
 
   // filter out sell offer which has been canceled before funding escrow
-  if (offer.funding?.status === 'CANCELED' && offer.funding.txIds?.length === 0 && !offer.txId) return false
+  if (isFundingCanceled(offer) && offer.funding.txIds?.length === 0 && !offer.txId) return false
 
   return true
 }
@@ -63,9 +61,9 @@ export default (): ReactElement => {
       getOffersEffect({
         onSuccess: (result) => {
           if (!result?.length) return
-          saveOffers(result)
 
-          if (session.password) storeOffers(getAccount().offers, session.password)
+          saveOffers(result)
+          storeOffers(getAccount().offers)
 
           setLastUpdate(new Date().getTime())
           updateAppContext({
@@ -78,9 +76,11 @@ export default (): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           })
         },
       }),
@@ -95,7 +95,7 @@ export default (): ReactElement => {
           if (!result?.length) return
 
           saveContracts(result)
-          if (session.password) storeContracts(getAccount().contracts, session.password)
+          storeContracts(getAccount().contracts)
           setLastUpdate(new Date().getTime())
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),
@@ -106,9 +106,11 @@ export default (): ReactElement => {
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact'),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           })
         },
       }),

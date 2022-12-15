@@ -4,17 +4,19 @@ import * as accountData from '../../data/accountData'
 import { resetFakeFiles } from '../../prepare'
 
 describe('backupAccount', () => {
+  let openSpy: jest.SpyInstance
+
   beforeAll(async () => {
-    await setAccount(accountData.account1)
+    openSpy = jest.spyOn(Share, 'open')
+    await setAccount(accountData.account1, true)
   })
   afterEach(() => {
     resetFakeFiles()
-    jest.clearAllMocks()
+    openSpy.mockReset()
   })
 
   it('opens share dialog', async () => {
-    const openSpy = jest.spyOn(Share, 'open')
-    await backupAccount({ onSuccess: () => {}, onCancel: () => {}, onError: () => {} })
+    await backupAccount({ password: 'password', onSuccess: () => {}, onCancel: () => {}, onError: () => {} })
     expect(openSpy).toBeCalled()
   })
 })

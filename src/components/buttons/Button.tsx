@@ -3,7 +3,7 @@ import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyl
 import tw from '../../styles/tailwind'
 import { Loading } from '../animation'
 import Icon from '../Icon'
-import { IconType } from '../icons'
+import { IconType } from '../../assets/icons'
 import { Text } from '../text'
 
 export type ButtonProps = {

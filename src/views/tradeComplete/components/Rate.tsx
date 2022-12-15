@@ -45,9 +45,11 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact'),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -60,7 +62,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
     })
 
     if (rating.rating === 1) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
       navigation.replace('offer', { offer })
     } else {
       navigation.replace('yourTrades')

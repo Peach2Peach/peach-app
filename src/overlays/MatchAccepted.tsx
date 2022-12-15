@@ -3,11 +3,12 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Headline, Icon, PrimaryButton, Text } from '../components'
+import { Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
+import { PrimaryButton } from '../components/buttons'
 
 type Props = {
   contractId: Contract['id']

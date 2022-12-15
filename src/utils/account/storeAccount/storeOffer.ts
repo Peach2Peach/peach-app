@@ -1,16 +1,12 @@
-import { exists } from 'react-native-fs'
-import { mkdir, writeFile } from '../../file'
-import { info } from '../../log'
+import { error, info } from '../../log'
+import { offerStorage } from '../accountStorage'
 
-/**
- * @description Method to save offer
- * @param offer offer
- * @param password secret
- * @returns promise resolving to encrypted offer
- */
-export const storeOffer = async (offer: SellOffer | BuyOffer, password: string): Promise<void> => {
-  info('Storing offer')
+export const storeOffer = async (offer: SellOffer | BuyOffer): Promise<void> => {
+  if (!offer.id) {
+    error('storeOffer - No offer id defined')
+    return
+  }
+  info('storeOffer - Storing offer')
 
-  if (!(await exists('/peach-account-offers'))) await mkdir('/peach-account-offers')
-  await writeFile(`/peach-account-offers/${offer.id}.json`, JSON.stringify(offer), password)
+  offerStorage.setMap(offer.id, offer)
 }

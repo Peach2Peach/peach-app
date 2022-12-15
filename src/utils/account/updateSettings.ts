@@ -1,5 +1,4 @@
 import { account } from '.'
-import { session } from '../session'
 import { storeSettings } from './storeAccount'
 
 /**
@@ -10,7 +9,7 @@ import { storeSettings } from './storeAccount'
 export const updateSettings = async (options: Partial<Settings>, save?: boolean): Promise<void> => {
   account.settings = {
     ...account.settings,
-    ...options
+    ...options,
   }
-  if (save && session.password) await storeSettings(account.settings, session.password)
+  if (save) await storeSettings(account.settings)
 }

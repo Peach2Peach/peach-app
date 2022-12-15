@@ -4,15 +4,15 @@ import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
 import Logo from '../../assets/logo/peachLogo.svg'
-import { PrimaryButton } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
+import { useNavigation } from '../../hooks'
 import i18n from '../../utils/i18n'
+import { ContactButton } from '../report/components/ContactButton'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import Swipe from './Swipe'
 import WelcomeToPeach from './WelcomeToPeach'
 import YouOwnYourData from './YouOwnYourData'
-import { ContactButton } from '../report/components/ContactButton'
-import { useNavigation } from '../../hooks'
 
 const onStartShouldSetResponder = () => true
 
@@ -35,7 +35,7 @@ export default (): ReactElement => {
     <View style={tw`h-full flex`} testID="welcome">
       <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} />
       <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
-        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
+        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-8`}>
           <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
         </View>
         <View style={tw`w-full flex-shrink`}>
@@ -59,35 +59,13 @@ export default (): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`mb-8 mt-4 flex items-center w-full`}>
-        {page !== screens.length - 1 ? (
-          <View>
-            <PrimaryButton testID="welcome-next" onPress={next} narrow>
-              {i18n('next')}
-            </PrimaryButton>
-            <View style={tw`opacity-0`}>
-              <PrimaryButton style={tw` mt-4`} narrow>
-                {i18n('restoreBackup')}
-              </PrimaryButton>
-            </View>
-          </View>
-        ) : (
-          <View>
-            <PrimaryButton testID="welcome-newUser" onPress={() => navigation.navigate('newUser')} narrow>
-              {i18n('newUser')}
-            </PrimaryButton>
-            <PrimaryButton
-              testID="welcome-restoreBackup"
-              style={tw`mt-4`}
-              onPress={() => navigation.navigate('restoreBackup')}
-              border
-              narrow
-            >
-              {i18n('restoreBackup')}
-            </PrimaryButton>
-          </View>
-        )}
-        <View style={tw`w-full flex-row justify-center mt-11`}>
+      <View style={tw`mb-8 pt-4 flex items-center w-full`}>
+        <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
+          <PrimaryButton testID="welcome-next" narrow onPress={next}>
+            {i18n('next')}
+          </PrimaryButton>
+        </View>
+        <View style={tw`w-full flex-row justify-center mt-8`}>
           {screens.map((screen, i) => (
             <Pressable
               key={i}

@@ -1,14 +1,14 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import fetch, { getAbortSignal } from '../../../fetch'
 import { RequestProps } from '../..'
 import { UNIQUEID } from '../../../../constants'
+import fetch, { getAbortSignal } from '../../../fetch'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
-import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
-import { getPeachAccount } from '../../peachAccount'
-import { getResponseError } from '../../getResponseError'
 import { setAccessToken } from '../../accessToken'
+import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
+import { getResponseError } from '../../getResponseError'
+import { getPeachAccount } from '../../peachAccount'
 
 const tokenNotFoundError = {
   error: 'Token not found',

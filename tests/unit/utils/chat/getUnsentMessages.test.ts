@@ -1,11 +1,8 @@
 import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount } from '../../../../src/utils/account'
 import { getUnsentMessages, saveChat } from '../../../../src/utils/chat'
-import { session } from '../../../../src/utils/session'
 import * as chatData from '../../data/chatData'
-import { resetFakeFiles } from '../../prepare'
-
-session.password = 'supersecret'
+import { resetStorage } from '../../prepare'
 
 describe('getUnsentMessages', () => {
   beforeEach(async () => {
@@ -15,7 +12,7 @@ describe('getUnsentMessages', () => {
     })
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 
@@ -23,11 +20,11 @@ describe('getUnsentMessages', () => {
     saveChat(chatData.chatWithUnsentMessages.id, chatData.chatWithUnsentMessages)
     const unsentMessages = getUnsentMessages(chatData.chatWithUnsentMessages)
     deepStrictEqual(
-      unsentMessages.map(m => m.message),
+      unsentMessages.map((m) => m.message),
       ['Test', 'D'],
     )
     deepStrictEqual(
-      unsentMessages.map(m => m.readBy.length),
+      unsentMessages.map((m) => m.readBy.length),
       [0, 0],
     )
   })
