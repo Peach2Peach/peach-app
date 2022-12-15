@@ -1,14 +1,4 @@
-import { error } from '../../log'
+import { getIndexedMap } from '../../storage'
 import { chatStorage } from '../accountStorage'
 
-export const loadChats = async (): Promise<Account['chats']> => {
-  const chats = await chatStorage.indexer.maps.getAll()
-
-  if (chats) return Object.values(chats).reduce((obj, [, chat]) => {
-    obj[chat.id] = chat
-    return obj
-  }, {}) as Account['chats']
-
-  error('Could not load chats')
-  return {}
-}
+export const loadChats = async (): Promise<Account['chats']> => (await getIndexedMap(chatStorage)) as Account['chats']
