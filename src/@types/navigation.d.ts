@@ -67,10 +67,10 @@ declare type RootStackParamList = {
   referrals: undefined
   backups: undefined
   seedWords: undefined
-  escrow: undefined
+  refundAddress: undefined
   paymentMethods: undefined
   deleteAccount: undefined
-  fees: undefined
+  networkFees: undefined
   socials: undefined
   testView: undefined
   testViewButtons: undefined
