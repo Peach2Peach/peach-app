@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -25,6 +25,7 @@ import { ChatHeader } from './components/ChatHeader'
 import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
 import { debounce } from '../../utils/performance'
+import { useThrottledEffect } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contractChat'] }>
@@ -58,19 +59,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     return contractData
   }
 
-  const saveDraft = useCallback(
-    () =>
-      debounce(() => {
-        setAndSaveChat(contractId, {
-          draftMessage: newMessage,
-        })
-      }, 2000),
+  useThrottledEffect(
+    () => {
+      setAndSaveChat(contractId, {
+        draftMessage: newMessage,
+      })
+    },
+    2000,
     [contractId, newMessage],
   )
-
-  useEffect(() => {
-    saveDraft()
-  }, [saveDraft])
 
   const sendMessage = useCallback(
     async (message: string) => {
