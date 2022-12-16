@@ -10,13 +10,7 @@ export const useMatchesSetup = () => {
   const { offer } = useRoute<'search'>().params
   const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches()
 
-  const { currentIndex, setCurrentIndex } = useMatchStore(
-    (state) => ({
-      currentIndex: state.currentIndex,
-      setCurrentIndex: state.setCurrentIndex,
-    }),
-    shallow,
-  )
+  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
 
   useEffect(() => {
     setCurrentIndex(0)

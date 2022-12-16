@@ -4,14 +4,16 @@ import { createEncryptedKey } from './createEncryptedKey'
 import { createEncryptedPaymentData } from './createEncryptedPaymentData'
 
 export const generateMatchOfferData = async (
-  offer: BuyOffer | SellOffer,
+  offer: (BuyOffer | SellOffer) & { id: string },
   match: Match,
   selectedCurrency: Currency,
   selectedPaymentMethod: PaymentMethod,
   // eslint-disable-next-line max-params
 ): Promise<[MatchProps | null, string | null]> => {
+  const hashedPaymentData = offer.paymentData[selectedPaymentMethod]?.hash
+  if (hashedPaymentData === undefined) return [null, 'MISSING_HASHED_PAYMENT_DATA']
   const defaultOfferData = {
-    offerId: offer.id!,
+    offerId: offer.id,
     matchingOfferId: match.offerId,
     currency: selectedCurrency,
     paymentMethod: selectedPaymentMethod,
@@ -19,7 +21,7 @@ export const generateMatchOfferData = async (
     symmetricKeySignature: undefined,
     paymentDataEncrypted: undefined,
     paymentDataSignature: undefined,
-    hashedPaymentData: offer.paymentData[selectedPaymentMethod]!.hash,
+    hashedPaymentData,
   }
 
   if (isBuyOffer(offer)) {
@@ -34,7 +36,7 @@ export const generateMatchOfferData = async (
     ]
   }
 
-  const paymentDataForMethod = getPaymentDataByMethod(offer, selectedPaymentMethod)
+  const paymentDataForMethod = getPaymentDataByMethod(offer, selectedPaymentMethod, hashedPaymentData)
   if (!paymentDataForMethod) return [null, 'MISSING_PAYMENTDATA']
 
   const encryptedPaymentData = await createEncryptedPaymentData(match, paymentDataForMethod)
@@ -43,8 +45,8 @@ export const generateMatchOfferData = async (
   return [
     {
       ...defaultOfferData,
-      paymentDataEncrypted: encryptedPaymentData?.encrypted,
-      paymentDataSignature: encryptedPaymentData?.signature,
+      paymentDataEncrypted: encryptedPaymentData.encrypted,
+      paymentDataSignature: encryptedPaymentData.signature,
     },
     null,
   ]
