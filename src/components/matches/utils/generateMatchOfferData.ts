@@ -11,7 +11,7 @@ export const generateMatchOfferData = async (
   // eslint-disable-next-line max-params
 ): Promise<[MatchProps | null, string | null]> => {
   const hashedPaymentData = offer.paymentData[selectedPaymentMethod]?.hash
-  if (hashedPaymentData === undefined) return [null, 'MISSING HASHED PAYMENT DATA']
+  if (hashedPaymentData === undefined) return [null, 'MISSING_HASHED_PAYMENT_DATA']
   const defaultOfferData = {
     offerId: offer.id,
     matchingOfferId: match.offerId,
