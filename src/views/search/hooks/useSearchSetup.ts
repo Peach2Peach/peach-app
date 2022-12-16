@@ -10,11 +10,19 @@ export const useSearchSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const { offer } = useRoute<'search'>().params
   const { allMatches: matches, error, refetch } = useOfferMatches()
-  const setOfferMeansOfPayment = useMatchStore((state) => state.setOfferMeansOfPayment)
+  const addMatchSelectors = useMatchStore((state) => state.addMatchSelectors)
+  const resetStore = useMatchStore((state) => state.resetStore)
 
   useEffect(() => {
-    setOfferMeansOfPayment(offer.meansOfPayment)
-  }, [offer.meansOfPayment, setOfferMeansOfPayment])
+    addMatchSelectors(matches, offer.meansOfPayment)
+  }, [offer.meansOfPayment, addMatchSelectors, matches])
+
+  useEffect(
+    () => () => {
+      resetStore()
+    },
+    [resetStore],
+  )
 
   useEffect(() => {
     if (error) {

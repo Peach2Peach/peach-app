@@ -1,71 +1,68 @@
-import { getMatchCurrency } from './../../../utils/match/getMatchCurrency'
 import create from 'zustand'
-import { getAvailableCurrencies, getAvailableMethods, getMatchPaymentMethod } from '../../../utils/match'
-import { getMoPsInCommon, hasMoPsInCommon } from '../../../utils/paymentMethod'
+import { getAvailableMethods } from '../../../utils/match'
+import { immer } from 'zustand/middleware/immer'
+import { createMatchSelectors, MatchSelectors } from './createMatchSelectors'
+import { updateMatchSelectors } from './updateMatchSelectors'
 
 type MatchState = {
-  selectedCurrency: Currency
-  selectedPaymentMethod: PaymentMethod
+  matchSelectors: MatchSelectors
   currentIndex: number
   currentPage: number
-  availableCurrencies: Currency[]
-  availablePaymentMethods: PaymentMethod[]
-  mopsInCommon: Partial<Record<Currency, string[]>>
-  offerMeansOfPayment: Partial<Record<Currency, string[]>>
-  matchMeansOfPayment: Partial<Record<Currency, string[]>>
+  offerMeansOfPayment: MeansOfPayment
 }
 
-type MatchStore = MatchState & {
-  setSelectedCurrency: (currency: Currency) => void
-  setSelectedPaymentMethod: (paymentMethod: PaymentMethod) => void
-  setCurrentIndex: (mewIndex: number) => void
-  setAvailableCurrencies: (currencies: Currency[]) => void
-  setAvailablePaymentMethods: (methods: PaymentMethod[]) => void
-  setMopsInCommon: (mopsInCommon: Partial<Record<Currency, string[]>>) => void
-  setOfferMeansOfPayment: (offerMeansOfPayment: Partial<Record<Currency, string[]>>) => void
-  setMatchMeansOfPayment: (matchMeansOfPayment: Partial<Record<Currency, string[]>>) => void
+export type MatchStore = MatchState & {
+  setSelectedCurrency: (currency: Currency, matchId: Match['offerId']) => void
+  setSelectedPaymentMethod: (paymentMethod: PaymentMethod, matchId: Match['offerId']) => void
+  setCurrentIndex: (newIndex: number) => void
+  setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
+  setOfferMeansOfPayment: (offerMeansOfPayment: MeansOfPayment) => void
+  resetStore: () => void
+  addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
 }
 
 const defaultState: MatchState = {
-  selectedCurrency: 'EUR',
-  selectedPaymentMethod: 'paypal',
   currentIndex: 0,
   currentPage: 0,
-  availableCurrencies: [],
-  availablePaymentMethods: [],
-  mopsInCommon: {},
+  matchSelectors: {},
   offerMeansOfPayment: {},
-  matchMeansOfPayment: {},
 }
 
-export const useMatchStore = create<MatchStore>()((set, get) => ({
-  ...defaultState,
-  setSelectedCurrency: (currency) => {
-    get().setAvailablePaymentMethods(getAvailableMethods(get().matchMeansOfPayment, currency, get().mopsInCommon))
-    return set((state) => ({ ...state, selectedCurrency: currency }))
-  },
-  setSelectedPaymentMethod: (paymentMethod) => {
-    get().setAvailableCurrencies(
-      getAvailableCurrencies(get().offerMeansOfPayment, get().matchMeansOfPayment, paymentMethod),
-    )
-    return set((state) => ({ ...state, selectedPaymentMethod: paymentMethod }))
-  },
-  setCurrentIndex: (newIndex) => {
-    get().setSelectedCurrency(getMatchCurrency(get().offerMeansOfPayment, get().matchMeansOfPayment))
-    get().setSelectedPaymentMethod(
-      getMatchPaymentMethod(get().offerMeansOfPayment, get().matchMeansOfPayment) || defaultState.selectedPaymentMethod,
-    )
-    get().setMopsInCommon(
-      hasMoPsInCommon(get().offerMeansOfPayment, get().matchMeansOfPayment)
-        ? getMoPsInCommon(get().offerMeansOfPayment, get().matchMeansOfPayment)
-        : get().matchMeansOfPayment,
-    )
+export const useMatchStore = create<MatchStore>()(
+  immer((set, get) => ({
+    ...defaultState,
+    setSelectedCurrency: (currency, matchId) => {
+      const currentMatch = get().matchSelectors[matchId]
+      const newMethods = getAvailableMethods(currentMatch.meansOfPayment, currency, currentMatch.mopsInCommon)
+      get().setAvailablePaymentMethods(newMethods, matchId)
+      if (!newMethods.includes(currentMatch.selectedCurrency)) {
+        get().setSelectedPaymentMethod(newMethods[0], matchId)
+      }
+      return set((state) => {
+        state.matchSelectors[matchId].selectedCurrency = currency
+      })
+    },
+    setSelectedPaymentMethod: (paymentMethod, matchId) =>
+      set((state) => {
+        state.matchSelectors[matchId].selectedPaymentMethod = paymentMethod
+      }),
+    setCurrentIndex: (newIndex) =>
+      set((state) => ({ ...state, currentIndex: newIndex, currentPage: Math.floor(newIndex / 10) })),
+    setOfferMeansOfPayment: (offerMeansOfPayment) => set((state) => ({ ...state, offerMeansOfPayment })),
+    setAvailablePaymentMethods: (methods, matchId) =>
+      set((state) => {
+        state.matchSelectors[matchId].availablePaymentMethods = methods
+      }),
+    resetStore: () => set(() => defaultState),
+    addMatchSelectors: (matches, offerMeansOfPayment) => {
+      const newMatchSelectors = createMatchSelectors(matches, offerMeansOfPayment)
+      const updatedMatchSelectors = updateMatchSelectors(get().matchSelectors, newMatchSelectors)
 
-    return set((state) => ({ ...state, currentIndex: newIndex, currentPage: Math.floor(newIndex / 10) }))
-  },
-  setMopsInCommon: (mopsInCommon: Partial<Record<Currency, string[]>>) => set((state) => ({ ...state, mopsInCommon })),
-  setOfferMeansOfPayment: (offerMeansOfPayment) => set((state) => ({ ...state, offerMeansOfPayment })),
-  setMatchMeansOfPayment: (matchMeansOfPayment) => set((state) => ({ ...state, matchMeansOfPayment })),
-  setAvailableCurrencies: (currencies) => set((state) => ({ ...state, availableCurrencies: currencies })),
-  setAvailablePaymentMethods: (methods) => set((state) => ({ ...state, availablePaymentMethods: methods })),
-}))
+      return set((state) => ({
+        ...state,
+        matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
+        offerMeansOfPayment,
+      }))
+    },
+  })),
+)

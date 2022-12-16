@@ -35,23 +35,10 @@ export default () => {
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
-  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
-  const setMatchMeansOfPayment = useMatchStore((state) => state.setMatchMeansOfPayment)
-
-  const onBeforeSnapToItem = useCallback(
-    (newIndex: number) => {
-      setMatchMeansOfPayment(matches[newIndex].meansOfPayment)
-      setCurrentIndex(newIndex)
-    },
-    [matches, setCurrentIndex, setMatchMeansOfPayment],
+  const [currentIndex, onBeforeSnapToItem] = useMatchStore(
+    (state) => [state.currentIndex, state.setCurrentIndex],
+    shallow,
   )
-
-  useEffect(() => {
-    onBeforeSnapToItem(0)
-    return () => {
-      setCurrentIndex(0)
-    }
-  }, [onBeforeSnapToItem, setCurrentIndex])
 
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>
