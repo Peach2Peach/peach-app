@@ -27,7 +27,7 @@ export default (): ReactElement => {
       <View style={tw`flex-1 items-start justify-center p-8`}>
         <Text style={tw`body-m`}>
           {i18n('settings.fees.text.1')}
-          <Text style={tw`body-m text-primary-dark-1`}> {(PEACHFEE * 100).toString()}% </Text>
+          <Text style={tw`body-m text-primary-main`}> {(PEACHFEE * 100).toString()}% </Text>
           {i18n('settings.fees.text.2')}
           {'\n'}
         </Text>

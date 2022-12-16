@@ -20,13 +20,13 @@ module.exports = {
         },
         primary: {
           dark: {
-            1: '#C45104', // old main
-            2:'#963600' // old dark
+            1: '#C45104',
+            2:'#963600'
           },
-          main: '#F56522', // old light
+          main: '#F56522',
           mild: {
-            1: '#FCCCB6', // old mild
-            2: '#FFA171' // new
+            1: '#FCCCB6',
+            2: '#FFA171'
           },
           background: '#FFF9F6',
           'background-heavy': '#FEEDE5',
