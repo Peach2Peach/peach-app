@@ -9,7 +9,6 @@ import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodBut
 import { account } from '../../utils/account'
 import { useHeaderSetup } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
-import { info } from '../../utils/log'
 import { View, Text } from 'react-native'
 
 export default (): ReactElement => {

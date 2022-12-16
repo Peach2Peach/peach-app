@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -11,6 +11,7 @@ import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useHeaderState } from '../../components/header/store'
+import { useHeaderSetup } from '../../hooks'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -21,13 +22,7 @@ export default (): ReactElement => {
   const [selectedCurrency, setSelectedCurrency] = useState(currency)
   const [loading, setLoading] = useState(false)
 
-  const setHeaderState = useHeaderState((state) => state.setHeaderState)
-
-  useFocusEffect(
-    useCallback(() => {
-      setHeaderState({ title: i18n('currency').toLocaleLowerCase() })
-    }, [setHeaderState]),
-  )
+  useHeaderSetup(useMemo(() => ({ title: i18n('currency') }), []))
 
   const updateCurrency = (c: Currency) => {
     setLoading(true)
