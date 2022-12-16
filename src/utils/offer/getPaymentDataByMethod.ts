@@ -11,13 +11,14 @@ import { hashPaymentData } from '../paymentMethod'
 export const getPaymentDataByMethod = (
   offer: BuyOffer | SellOffer,
   paymentMethod: PaymentMethod,
+  hashedPaymentData: string,
 ): PaymentData | undefined => {
   const paymentData = offer.originalPaymentData
     ? offer.originalPaymentData.filter((data) => data.type === paymentMethod)
     : account.paymentData.filter((data) => data.type === paymentMethod)
 
-  const paymentDataHashes = paymentData.map((data) => hashPaymentData(data))
-  const index = paymentDataHashes.indexOf(offer.paymentData[paymentMethod]!.hash || '')
+  const paymentDataHashes = paymentData.map(hashPaymentData)
+  const index = paymentDataHashes.indexOf(hashedPaymentData)
 
   return paymentData[index]
 }
