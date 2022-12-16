@@ -5,7 +5,7 @@ import { DrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Flag, Headline, Icon, RadioButtons, Text } from '../../components'
+import { Flag, Headline, Icon, PrimaryButton, RadioButtons, Text } from '../../components'
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
 import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
 import { CountrySelect } from '../../drawers/CountrySelect'
@@ -99,7 +99,6 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
 
   return (
     <View style={tw`flex h-full`}>
-      <Headline>{i18n('paymentMethod.select')}</Headline>
       <View style={tw`h-full flex-shrink flex justify-center px-10`}>
         {!country ? (
           <RadioButtons items={paymentCategories} selectedValue={paymentCategory} onChange={setPaymentCategory} />
@@ -123,7 +122,9 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
-        <Navigation back={country ? restoreDefaults : back} next={next} stepValid={stepValid} />
+        <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+          {i18n('next')}
+        </PrimaryButton>
       </View>
     </View>
   )
