@@ -122,12 +122,6 @@ export default (): ReactElement => {
         <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)} narrow>
           {i18n('report.sendReport')}
         </PrimaryButton>
-
-        {route.name.toString() === 'reportFullScreen' && ( // to be deleted after header feature
-          <PrimaryButton style={tw`mt-5`} onPress={navigation.goBack} narrow>
-            {i18n('cancel')}
-          </PrimaryButton>
-        )}
       </View>
     </PeachScrollView>
   )
