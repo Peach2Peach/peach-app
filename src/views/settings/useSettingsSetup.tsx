@@ -58,13 +58,13 @@ export const useSettingsSetup = () => {
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
       updateOverlay({
-        title: 'turn off notifications?',
+        title: i18n('settings.notifications.overlay.title'),
         content: <NotificationPopup />,
         visible: true,
         level: 'WARN',
         action2: {
           callback: () => updateOverlay({ visible: false }),
-          label: 'never mind',
+          label: i18n('settings.notifications.overlay.neverMind'),
           icon: 'arrowLeftCircle',
         },
         action1: {
@@ -72,7 +72,7 @@ export const useSettingsSetup = () => {
             updateOverlay({ visible: false })
             toggleNotifications()
           },
-          label: 'yes, turn off',
+          label: i18n('settings.notifications.overlay.yes'),
           icon: 'slash',
         },
       })
