@@ -19,8 +19,8 @@ export default ({ origin, style }: AddPaymentMethodProps): ReactElement => {
     <View style={style}>
       <View style={tw`flex items-center`}>
         <Pressable testID="buy-add-mop" onPress={addPaymentMethods} style={tw`flex flex-row items-center`}>
-          <Icon id="plusCircle" style={tw`w-7 h-7 mr-2`} color={tw`text-peach-1`.color} />
-          <Text style={tw`text-peach-1 font-baloo text-sm`}>{i18n('paymentMethod.select')}</Text>
+          <Text style={tw`h6 text-primary-main`}>{i18n('paymentMethod.select')}</Text>
+          <Icon id="plusCircle" style={tw`w-5 h-5 ml-2`} color={tw`text-primary-main`.color} />
         </Pressable>
       </View>
     </View>
