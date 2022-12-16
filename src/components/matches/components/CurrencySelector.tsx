@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { Selector } from '../../inputs'

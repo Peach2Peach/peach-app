@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Dimensions, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
