@@ -42,8 +42,8 @@ export default () => {
     })
   return (
     <PeachScrollView
-      style={tw`h-full bg-primary-mild`}
-      contentContainerStyle={tw`w-full py-10 px-6 flex flex-col items-center`}
+      style={tw`h-full bg-primary-mild-1`}
+      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
     >
       <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { action1: undefined, action2: undefined })}>

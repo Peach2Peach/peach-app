@@ -21,14 +21,14 @@ const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): 
     <View
       style={[
         tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
-        selected ? tw`border-primary-light` : tw`border-transparent`,
+        selected ? tw`border-primary-main` : tw`border-transparent`,
       ]}
     >
       <Text style={tw`subtitle-1`}>{display}</Text>
       <Icon
         id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
         style={tw`h-5 w-5`}
-        color={(selected ? tw`text-primary-light` : tw`text-black-3`).color}
+        color={(selected ? tw`text-primary-main` : tw`text-black-3`).color}
       />
     </View>
   </Shadow>
