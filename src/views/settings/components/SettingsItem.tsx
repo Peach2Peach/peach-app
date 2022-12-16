@@ -22,7 +22,7 @@ export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, ena
   return (
     <Pressable style={tw`my-3 mx-[6px] justify-between items-center flex-row`} onPress={onPress}>
       <Text style={[tw`h6 lowercase text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
-      <Icon id={iconId ? iconId : 'chevronRight'} style={[tw`w-6 h-6`]} color={iconColor} />
+      <Icon id={iconId || 'chevronRight'} style={[tw`w-6 h-6`]} color={iconColor} />
     </Pressable>
   )
 }
