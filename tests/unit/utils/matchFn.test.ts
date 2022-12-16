@@ -9,6 +9,28 @@ const offer = offerData.sellOffer
 
 const updateMessage = jest.fn()
 
+const defaultOfferData = {
+  offerId: offer.id,
+  matchingOfferId: match.offerId,
+  currency: selectedCurrency,
+  paymentMethod: selectedPaymentMethod,
+  symmetricKeyEncrypted: undefined,
+  symmetricKeySignature: undefined,
+  paymentDataEncrypted: undefined,
+  paymentDataSignature: undefined,
+  hashedPaymentData: undefined,
+}
+
+const generateMatchOfferDataMock = jest.fn(() => [defaultOfferData, undefined])
+jest.mock('../../../src/components/matches/utils/generateMatchOfferData', () => ({
+  generateMatchOfferData: () => generateMatchOfferDataMock(),
+}))
+// mock matchOffer
+const matchOfferMock = jest.fn(() => [offer.paymentData[selectedPaymentMethod], undefined])
+jest.mock('../../../src/utils/peachAPI/private/offer/matchOffer', () => ({
+  matchOffer: () => matchOfferMock(),
+}))
+
 describe('matchFn', () => {
   it('should return the result if successful', async () => {
     const result = await matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage)
@@ -37,9 +59,15 @@ describe('matchFn', () => {
   })
 
   it('should throw an error if no match offer data', async () => {
-    const matchOfferData = 'Missing paymentData hash'
+    generateMatchOfferDataMock.mockReturnValueOnce([undefined, 'MISSING_PAYMENTDATA'])
+    const matchOfferData = 'MISSING_PAYMENTDATA'
     await expect(matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage)).rejects.toThrow(
       matchOfferData,
     )
+  })
+
+  it('should throw an error if no result', async () => {
+    matchOfferMock.mockReturnValueOnce([undefined, 'UNKNOWN_ERROR'])
+    await expect(matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage)).rejects.toThrow()
   })
 })

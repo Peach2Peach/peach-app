@@ -45,8 +45,8 @@ export const generateMatchOfferData = async (
   return [
     {
       ...defaultOfferData,
-      paymentDataEncrypted: encryptedPaymentData?.encrypted,
-      paymentDataSignature: encryptedPaymentData?.signature,
+      paymentDataEncrypted: encryptedPaymentData.encrypted,
+      paymentDataSignature: encryptedPaymentData.signature,
     },
     null,
   ]
