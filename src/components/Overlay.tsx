@@ -3,6 +3,7 @@ import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
+import i18n from '../utils/i18n'
 import Icon from './Icon'
 
 type LevelColorMap = {
@@ -75,14 +76,16 @@ export const Overlay = ({
                 </View>
               </Pressable>
             )}
-            {!!action1 && (
-              <Pressable onPress={action1.callback}>
+            {
+              <Pressable onPress={action1 ? action1.callback : closeOverlay}>
                 <View style={[tw`flex flex-row flex-shrink`]}>
-                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action1.label}</Text>
-                  <Icon id={action1.icon} color={actionColor.color} style={tw`w-4 ml-1`} />
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>
+                    {action1 ? action1.label : i18n('close')}
+                  </Text>
+                  <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 ml-1`} />
                 </View>
               </Pressable>
-            )}
+            }
           </View>
         </View>
       </View>

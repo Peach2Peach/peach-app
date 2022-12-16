@@ -7,23 +7,14 @@ import i18n from '../../utils/i18n'
 import { mildShadow, mildShadowOrange, noShadow } from '../../utils/layout'
 import { UnmatchButton } from './buttons'
 import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo } from './components'
-import { useMatchSetup } from './hooks'
 
 type MatchProps = ComponentProps & {
   match: Match
   renderShadow?: boolean
 }
 
-/**
- * @description Component to display a match
- * @param match the match
- * @param renderShadow wetheror not a shadow should be rendered
- * @example
- * <Match match={match} renderShadow />
- */
 export const Match = ({ match, renderShadow }: MatchProps): ReactElement => {
   const shadow = renderShadow ? (match.matched ? mildShadowOrange : mildShadow) : noShadow
-  useMatchSetup(match)
 
   return (
     <Shadow shadow={shadow}>
@@ -40,10 +31,10 @@ export const Match = ({ match, renderShadow }: MatchProps): ReactElement => {
           </View>
         )}
         <View style={tw`px-5 pt-5 pb-8`}>
-          <UserInfo match={match} />
+          <UserInfo user={match.user} />
           <PriceInfo match={match} />
-          <CurrencySelector />
-          <PaymentMethodSelector />
+          <CurrencySelector matchId={match.offerId} />
+          <PaymentMethodSelector matchId={match.offerId} />
         </View>
       </View>
     </Shadow>

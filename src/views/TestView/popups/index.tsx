@@ -46,6 +46,9 @@ export default () => {
       contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
     >
       <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { action1: undefined, action2: undefined })}>
+        APP Overlay without defined actions
+      </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { requireUserAction: true })}>
         User action required
       </PrimaryButton>
@@ -64,7 +67,7 @@ export default () => {
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
         Info Overlay
       </PrimaryButton>
-      <GoBackButton white wide style={tw`mt-8`} />
+      <GoBackButton white style={tw`mt-8`} />
     </PeachScrollView>
   )
 }
