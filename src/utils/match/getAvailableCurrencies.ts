@@ -1,15 +1,11 @@
 export const getAvailableCurrencies = (
-  offer: SellOffer | BuyOffer,
-  match: Match,
-  paymentMethod: PaymentMethod,
+  mopsIncCommon: MeansOfPayment,
+  matchMeansOfPayment: Match['meansOfPayment'],
 ): Currency[] => {
-  const offerCurrencies = (Object.keys(offer.meansOfPayment) as Currency[]).filter((currency) =>
-    offer.meansOfPayment[currency]?.includes(paymentMethod),
+  const sharedCurrencies = Object.keys(mopsIncCommon) as Currency[]
+  const matchCurrencies = (Object.keys(matchMeansOfPayment) as Currency[]).filter(
+    (currency) => matchMeansOfPayment[currency],
   )
-  const matchCurrencies = (Object.keys(offer.meansOfPayment) as Currency[]).filter((currency) =>
-    match.meansOfPayment[currency]?.includes(paymentMethod),
-  )
-  const sharedCurrencies = matchCurrencies.filter((c) => offerCurrencies.includes(c))
   const availableCurrencies = sharedCurrencies.length ? sharedCurrencies : matchCurrencies
-  return availableCurrencies as Currency[]
+  return availableCurrencies
 }

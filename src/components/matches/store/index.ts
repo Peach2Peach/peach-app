@@ -1,31 +1,63 @@
 import create from 'zustand'
+import { getAvailableMethods } from '../../../utils/match'
+import { immer } from 'zustand/middleware/immer'
+import { createMatchSelectors, MatchSelectors } from './createMatchSelectors'
+import { updateMatchSelectors } from './updateMatchSelectors'
 
-type MatchStore = {
-  selectedCurrency: Currency
-  selectedPaymentMethod: PaymentMethod
+type MatchState = {
+  matchSelectors: MatchSelectors
   currentIndex: number
   currentPage: number
-  availableCurrencies: Currency[]
-  availablePaymentMethods: PaymentMethod[]
-  setSelectedCurrency: (currency: Currency) => void
-  setSelectedPaymentMethod: (paymentMethod: PaymentMethod) => void
-  setCurrentIndex: (mewIndex: number) => void
-  setAvailableCurrencies: (currencies: Currency[]) => void
-  setAvailablePaymentMethods: (methods: PaymentMethod[]) => void
 }
 
-export const useMatchStore = create<MatchStore>()((set) => ({
-  selectedCurrency: 'EUR',
-  selectedPaymentMethod: 'paypal',
+export type MatchStore = MatchState & {
+  setSelectedCurrency: (currency: Currency, matchId: Match['offerId']) => void
+  setSelectedPaymentMethod: (paymentMethod: PaymentMethod, matchId: Match['offerId']) => void
+  setCurrentIndex: (newIndex: number) => void
+  setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
+  resetStore: () => void
+  addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
+}
+
+const defaultState: MatchState = {
   currentIndex: 0,
   currentPage: 0,
-  availableCurrencies: [],
-  availablePaymentMethods: [],
-  setSelectedCurrency: (currency) => set((state) => ({ ...state, selectedCurrency: currency })),
-  setSelectedPaymentMethod: (paymentMethod) => set((state) => ({ ...state, selectedPaymentMethod: paymentMethod })),
-  setCurrentIndex: (newIndex) =>
-    set((state) => ({ ...state, currentIndex: newIndex, currentPage: Math.floor(newIndex / 10) })),
-  setAvailableCurrencies: (currencies: Currency[]) => set((state) => ({ ...state, availableCurrencies: currencies })),
-  setAvailablePaymentMethods: (methods: PaymentMethod[]) =>
-    set((state) => ({ ...state, availablePaymentMethods: methods })),
-}))
+  matchSelectors: {},
+}
+
+export const useMatchStore = create<MatchStore>()(
+  immer((set, get) => ({
+    ...defaultState,
+    setSelectedCurrency: (currency, matchId) => {
+      const currentMatch = get().matchSelectors[matchId]
+      const newMethods = getAvailableMethods(currentMatch.meansOfPayment, currency, currentMatch.mopsInCommon)
+      get().setAvailablePaymentMethods(newMethods, matchId)
+      if (!newMethods.includes(currentMatch.selectedCurrency)) {
+        get().setSelectedPaymentMethod(newMethods[0], matchId)
+      }
+      return set((state) => {
+        state.matchSelectors[matchId].selectedCurrency = currency
+      })
+    },
+    setSelectedPaymentMethod: (paymentMethod, matchId) =>
+      set((state) => {
+        state.matchSelectors[matchId].selectedPaymentMethod = paymentMethod
+      }),
+    setCurrentIndex: (newIndex) =>
+      set((state) => ({ ...state, currentIndex: newIndex, currentPage: Math.floor(newIndex / 10) })),
+    setAvailablePaymentMethods: (methods, matchId) =>
+      set((state) => {
+        state.matchSelectors[matchId].availablePaymentMethods = methods
+      }),
+    resetStore: () => set(() => defaultState),
+    addMatchSelectors: (matches, offerMeansOfPayment) => {
+      const newMatchSelectors = createMatchSelectors(matches, offerMeansOfPayment)
+      const updatedMatchSelectors = updateMatchSelectors(get().matchSelectors, newMatchSelectors)
+
+      return set((state) => ({
+        ...state,
+        matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
+      }))
+    },
+  })),
+)

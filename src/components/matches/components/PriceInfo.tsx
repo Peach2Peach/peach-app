@@ -14,7 +14,10 @@ type PriceInfoProps = {
 
 export const PriceInfo = ({ match }: PriceInfoProps) => {
   const { selectedCurrency, selectedPaymentMethod } = useMatchStore(
-    (state) => ({ selectedCurrency: state.selectedCurrency, selectedPaymentMethod: state.selectedPaymentMethod }),
+    (state) => ({
+      selectedCurrency: state.matchSelectors[match.offerId]?.selectedCurrency,
+      selectedPaymentMethod: state.matchSelectors[match.offerId]?.selectedPaymentMethod,
+    }),
     shallow,
   )
   const displayPrice = getDisplayPrice(match, selectedPaymentMethod, selectedCurrency)
