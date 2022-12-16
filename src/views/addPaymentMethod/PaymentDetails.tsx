@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -8,7 +8,7 @@ import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { addPaymentData } from '../../utils/account'
 import { specialTemplates } from './specialTemplates'
-import { useNavigation, useRoute } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -47,6 +47,10 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
+  useHeaderSetup(
+    useMemo(() => ({ title: i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)) }), []),
+  )
+
   return (
     <View
       style={
@@ -55,9 +59,6 @@ export default (): ReactElement => {
           : tw`flex h-full mt-8`
       }
     >
-      {!specialTemplates[paymentMethod] && (
-        <Headline>{i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`))}</Headline>
-      )}
       <View style={[tw`h-full flex-shrink flex justify-center`, !specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
         <PaymentMethodForm
           style={tw`h-full flex-shrink flex-col justify-between`}

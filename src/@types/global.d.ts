@@ -39,7 +39,6 @@ declare type SEPAData = {
   beneficiary: string
   iban: string
   bic?: string
-  address?: string
   reference?: string
 }
 declare type BizumData = {

@@ -5,13 +5,12 @@ import { DrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Flag, Headline, Icon, PrimaryButton, RadioButtons, Text } from '../../components'
+import { Flag, Icon, PrimaryButton, RadioButtons, Text } from '../../components'
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
 import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
 import { CountrySelect } from '../../drawers/CountrySelect'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { FlagType } from '../../components/flags'
-import { Navigation } from './components/Navigation'
 import { whiteGradient } from '../../utils/layout'
 
 const { LinearGradient } = require('react-native-gradients')
