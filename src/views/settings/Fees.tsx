@@ -8,19 +8,11 @@ import { PEACHFEE } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { useHeaderSetup } from '../../hooks'
+import { BulletPoint } from '../../components/text'
 
 export default (): ReactElement => {
   useContext(LanguageContext)
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.peachFees') }), []))
-
-  type BulletPointProps = { text: String }
-
-  const BulletPoint = ({ text }: BulletPointProps) => (
-    <View style={tw`flex-row pl-3`}>
-      <Text style={tw`body-m text-xl`}>· </Text>
-      <Text style={tw`body-m`}>{text}</Text>
-    </View>
-  )
 
   return (
     <View style={tw`flex-1`}>
