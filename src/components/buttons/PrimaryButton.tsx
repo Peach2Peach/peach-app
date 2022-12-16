@@ -1,19 +1,15 @@
 import React from 'react'
-import { ButtonProps, Button } from './Button'
 import tw from '../../styles/tailwind'
-import { ViewStyle, TextStyle, ImageStyle } from 'react-native'
+import { Button, ButtonProps } from './Button'
 
 export type PrimaryButtonProps = {
   white?: true
   border?: true
-  baseColor?: ViewStyle & TextStyle & ImageStyle
 } & Partial<ButtonProps>
 
 export const PrimaryButton = (props: PrimaryButtonProps) => {
-  const { white, border, disabled, baseColor } = props
-  if (baseColor) {
-    return <Button {...{ ...props, color: baseColor, textColor: baseColor, borderColor: baseColor }} />
-  }
+  const { white, border, disabled } = props
+
   const color
     = white && !border
       ? tw`bg-primary-background-light`
