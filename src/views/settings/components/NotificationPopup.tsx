@@ -1,9 +1,5 @@
 import React from 'react'
 import { Text } from '../../../components'
+import i18n from '../../../utils/i18n'
 
-export const NotificationPopup = () => (
-  <Text>
-    Without notifications, you'll not be informed when there's a match. {'\n\n'} Taking a long time to match someone back
-    will negatively impact your reputation score.
-  </Text>
-)
+export const NotificationPopup = () => <Text>{i18n('settings.notifications.popup')}</Text>

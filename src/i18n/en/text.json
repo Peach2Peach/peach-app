@@ -654,6 +654,7 @@
   "settings.contactUs": "Contact us",
   "settings.appSettings": "App Settings",
   "settings.notifications": "Notifications",
+  "settings.notifications.popup": "Without notifications, you'll not be informed when there's a match. \n\n Taking a long time to match someone back will negatively impact your reputation score.",
   "settings.on": "on",
   "settings.off": "off",
   "settings.language": "Language",
