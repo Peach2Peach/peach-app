@@ -13,7 +13,7 @@ export default (): ReactElement => {
   const settings = useSettingsSetup()
 
   return (
-    <PeachScrollView>
+    <PeachScrollView contentContainerStyle={tw`pt-12`}>
       {settings.map(({ headline, items }) => (
         <View key={`settings-${headline}`} style={tw`mx-8`}>
           {headline && (
