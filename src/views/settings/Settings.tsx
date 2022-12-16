@@ -26,7 +26,7 @@ export default (): ReactElement => {
           ))}
         </View>
       ))}
-      <VersionInfo />
+      <VersionInfo style={tw`mt-9 mb-10 text-center`} />
     </PeachScrollView>
   )
 }
