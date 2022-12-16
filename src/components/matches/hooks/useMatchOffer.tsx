@@ -6,8 +6,9 @@ import { error, info } from '../../../utils/log'
 
 import shallow from 'zustand/shallow'
 import { useMatchStore } from '../store'
-import { handleMissingPaymentData, createRefundTx, matchFn, updateMatchedStatus } from '../utils'
+import { handleMissingPaymentData, createRefundTx, matchFn, updateMatchedStatus, handleError } from '../utils'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
+import { parseError } from '../../../utils/system'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
@@ -36,17 +37,18 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       return { previousData }
     },
     mutationFn: () => matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage),
-    onError: (err: 'Missing values' | 'Missing paymentdata' | string | undefined, _variables, context) => {
-      if (err === 'Missing values') {
-        error(
+    onError: (err: Error, _variables, context) => {
+      const errorMsg = parseError(err)
+
+      if (errorMsg === 'MISSING_PAYMENTDATA') {
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
+      } else {
+        if (errorMsg === 'MISSING_VALUES') error(
           'Match data missing values.',
           `selectedCurrency: ${selectedCurrency}`,
           `selectedPaymentMethod: ${selectedPaymentMethod}`,
         )
-      } else if (err === 'Missing paymentdata') {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
-      } else if (typeof err === 'string') {
-        error(err)
+        handleError({ error: errorMsg }, updateMessage)
       }
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },

@@ -4,7 +4,7 @@ import fetch, { getAbortSignal } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
-type MatchProps = RequestProps & {
+export type MatchProps = RequestProps & {
   offerId: string
   matchingOfferId: string
   currency: Currency
