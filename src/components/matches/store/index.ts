@@ -8,7 +8,6 @@ type MatchState = {
   matchSelectors: MatchSelectors
   currentIndex: number
   currentPage: number
-  offerMeansOfPayment: MeansOfPayment
 }
 
 export type MatchStore = MatchState & {
@@ -16,7 +15,6 @@ export type MatchStore = MatchState & {
   setSelectedPaymentMethod: (paymentMethod: PaymentMethod, matchId: Match['offerId']) => void
   setCurrentIndex: (newIndex: number) => void
   setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
-  setOfferMeansOfPayment: (offerMeansOfPayment: MeansOfPayment) => void
   resetStore: () => void
   addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
 }
@@ -25,7 +23,6 @@ const defaultState: MatchState = {
   currentIndex: 0,
   currentPage: 0,
   matchSelectors: {},
-  offerMeansOfPayment: {},
 }
 
 export const useMatchStore = create<MatchStore>()(
@@ -48,7 +45,6 @@ export const useMatchStore = create<MatchStore>()(
       }),
     setCurrentIndex: (newIndex) =>
       set((state) => ({ ...state, currentIndex: newIndex, currentPage: Math.floor(newIndex / 10) })),
-    setOfferMeansOfPayment: (offerMeansOfPayment) => set((state) => ({ ...state, offerMeansOfPayment })),
     setAvailablePaymentMethods: (methods, matchId) =>
       set((state) => {
         state.matchSelectors[matchId].availablePaymentMethods = methods
@@ -61,7 +57,6 @@ export const useMatchStore = create<MatchStore>()(
       return set((state) => ({
         ...state,
         matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
-        offerMeansOfPayment,
       }))
     },
   })),
