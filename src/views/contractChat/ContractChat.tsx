@@ -9,6 +9,7 @@ import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
+import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
@@ -22,8 +23,6 @@ import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
-import { debounce } from '../../utils/performance'
-import { useNavigation, useRoute } from '../../hooks'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -54,19 +53,15 @@ export default (): ReactElement => {
     return contractData
   }
 
-  const saveDraft = useCallback(
-    () =>
-      debounce(() => {
-        setAndSaveChat(contractId, {
-          draftMessage: newMessage,
-        })
-      }, 2000),
+  useThrottledEffect(
+    () => {
+      setAndSaveChat(contractId, {
+        draftMessage: newMessage,
+      })
+    },
+    2000,
     [contractId, newMessage],
   )
-
-  useEffect(() => {
-    saveDraft()
-  }, [saveDraft])
 
   const sendMessage = useCallback(
     async (message: string) => {
