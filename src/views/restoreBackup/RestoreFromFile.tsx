@@ -51,6 +51,7 @@ export default ({ style }: ComponentProps): ReactElement => {
 
     if (!recoveredAccount) {
       onError('WRONG_PASSWORD')
+      setLoading(false)
       return
     }
 
