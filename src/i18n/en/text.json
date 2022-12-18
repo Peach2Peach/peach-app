@@ -277,7 +277,7 @@
   "paymentCategory.cryptoCurrency": "Crypto",
   "paymentCategory.cash": "Cash",
   "paymentMethod.empty": "none yet!",
-  "paymentMethod.select": "add payment method",
+  "paymentMethod.select": "add new currency / payment method",
   "paymentMethod.select.title": "Add $0 details",
   "paymentMethod.restore.title": "You closed your previous payment method",
   "paymentMethod.restore.description": "Do you want to restore it?",

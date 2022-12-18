@@ -4,7 +4,6 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { addPaymentData } from '../../utils/account'
 import { specialTemplates } from './specialTemplates'
