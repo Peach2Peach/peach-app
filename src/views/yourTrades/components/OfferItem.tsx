@@ -4,7 +4,6 @@ import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../com
 import Icon from '../../../components/Icon'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
-import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
@@ -13,65 +12,8 @@ import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
 import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
-import { getOfferStatus, hasFundingTransactions, isEscrowReleased, isFunded } from '../../../utils/offer/status'
-
-// eslint-disable-next-line complexity
-const navigateToOffer = (
-  offer: SellOffer | BuyOffer,
-  offerStatus: TradeStatus,
-  navigation: StackNavigation,
-  updateOverlay: React.Dispatch<OverlayState>,
-  // eslint-disable-next-line max-params
-): void => {
-  if (!offer) return navigation.navigate('yourTrades', {})
-
-  const contract = offer.contractId ? getContract(offer.contractId) : null
-
-  if (
-    !/rate/u.test(offerStatus.requiredAction)
-    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)
-  ) {
-    if (
-      isSellOffer(offer)
-      && !offer.online
-      && (!offer.contractId || (contract?.canceled && contract.disputeWinner === 'seller'))
-      && hasFundingTransactions(offer)
-      && /WRONG_FUNDING_AMOUNT|CANCELED/u.test(offer.funding.status)
-      && !isEscrowReleased(offer)
-    ) {
-      const navigate = () => {}
-
-      updateOverlay({
-        content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
-        showCloseButton: false,
-      })
-    }
-    return navigation.navigate('offer', { offer })
-  }
-
-  if (contract) {
-    if (contract && !contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
-      return navigation.navigate('tradeComplete', { contract })
-    }
-    return navigation.navigate('contract', { contractId: contract.id })
-  }
-
-  if (isSellOffer(offer)) {
-    if (offer.returnAddressRequired) {
-      return navigation.navigate('setReturnAddress', { offer })
-    }
-    if (isFunded(offer)) {
-      return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
-    }
-    return navigation.navigate('fundEscrow', { offer })
-  }
-
-  if (isBuyOffer(offer) && offer.online) {
-    return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
-  }
-
-  return navigation.navigate('yourTrades', {})
-}
+import { getOfferStatus } from '../../../utils/offer/status'
+import { navigateToOffer } from '../utils/navigateToOffer'
 
 type OfferItemProps = ComponentProps & {
   offer: BuyOffer | SellOffer
