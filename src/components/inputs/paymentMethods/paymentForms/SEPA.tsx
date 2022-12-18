@@ -10,8 +10,8 @@ import Input from '../../Input'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const ibanRules = { required: true, iban: true }
-const bicRules = { required: true, bic: true }
+const ibanRules = { required: false, iban: true }
+const bicRules = { required: false, bic: true }
 
 export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
