@@ -25,7 +25,7 @@ export const BuyerCanceledTrade = ({ contract, navigation }: ConfirmCancelTradeP
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
   const refund = () => {
     updateOverlay({
-      content: <Refund {...{ sellOffer, navigate: closeOverlay, navigation }} />,
+      content: <Refund {...{ sellOffer, navigation }} />,
       showCloseButton: false,
     })
   }

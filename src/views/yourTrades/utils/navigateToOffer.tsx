@@ -15,10 +15,8 @@ export const navigateToOffer = (
   const contract = offer.contractId ? getContract(offer.contractId) : null
   const navigationDestination = getNavigationDestination(offer, offerStatus, contract)
   if (shouldUpdateOverlay(offer, offerStatus, contract)) {
-    const navigate = () => {}
-
     updateOverlay({
-      content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
+      content: <Refund {...{ sellOffer: offer, navigation }} />,
       showCloseButton: false,
     })
   }
