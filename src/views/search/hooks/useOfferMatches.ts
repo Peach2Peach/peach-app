@@ -18,7 +18,7 @@ export const useOfferMatches = () => {
   })
 
   const allMatches = useMemo(
-    () => [...(queryData.data?.pages || [])].flatMap((page) => page.matches),
+    () => (queryData.data?.pages || []).flatMap((page) => page.matches),
     [queryData.data?.pages],
   )
 
