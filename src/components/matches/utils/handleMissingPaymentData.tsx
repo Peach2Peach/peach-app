@@ -12,10 +12,7 @@ export const handleMissingPaymentData = (
   paymentMethod: PaymentMethod,
   updateMessage: (value: MessageState) => void,
   navigation: StackNavigation,
-  routeParams: Readonly<{
-    offer: BuyOffer | SellOffer
-    hasMatches?: boolean | undefined
-  }>,
+  routeParams: Readonly<{ offer: BuyOffer | SellOffer }>,
   // eslint-disable-next-line max-params
 ) => {
   error('Payment data could not be found for offer', offer.id)
