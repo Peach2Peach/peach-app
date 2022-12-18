@@ -127,13 +127,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   })
 
-  useEffect(() => {
-    if (screens[page].id === 'search') {
-      saveAndUpdate({ ...offer })
-      navigation.replace('search', { offer })
-    }
-  }, [page])
-
   const back = () => {
     if (page === 0) {
       navigation.goBack()
