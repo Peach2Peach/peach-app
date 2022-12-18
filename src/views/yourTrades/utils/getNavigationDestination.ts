@@ -1,15 +1,16 @@
 import { isSellOffer, isBuyOffer } from '../../../utils/offer'
 import { isFunded } from '../../../utils/offer/status'
 
+const shouldGoToOffer = ({ requiredAction, status }: TradeStatus): boolean =>
+  !/rate/u.test(requiredAction)
+  && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(status)
+
 export const getNavigationDestination = (
   offer: SellOffer | BuyOffer,
   offerStatus: TradeStatus,
   contract: Contract | null,
 ): [string, object] => {
-  if (
-    !/rate/u.test(offerStatus.requiredAction)
-    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)
-  ) {
+  if (shouldGoToOffer(offerStatus)) {
     return ['offer', { offer }]
   }
 
