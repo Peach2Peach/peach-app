@@ -35,8 +35,8 @@ export default () => {
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
-  const { currentIndex, onBeforeSnapToItem } = useMatchStore(
-    (state) => ({ currentIndex: state.currentIndex, onBeforeSnapToItem: state.setCurrentIndex }),
+  const [currentIndex, onBeforeSnapToItem] = useMatchStore(
+    (state) => [state.currentIndex, state.setCurrentIndex],
     shallow,
   )
 

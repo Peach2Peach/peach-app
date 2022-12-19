@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 import { footerShadow } from '../../utils/layout'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { IconType } from '../icons'
+import { IconType } from '../../assets/icons'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList

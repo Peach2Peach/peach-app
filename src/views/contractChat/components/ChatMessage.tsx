@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { ColorValue, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
-import { IconType } from '../../../components/icons'
+import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'

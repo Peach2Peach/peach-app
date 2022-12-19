@@ -5,7 +5,7 @@ import { Text, Icon, Shadow } from '.'
 import tw from '../styles/tailwind'
 import { MessageContext } from '../contexts/message'
 import i18n from '../utils/i18n'
-import { IconType } from './icons'
+import { IconType } from '../assets/icons'
 import { dropShadowMild } from '../utils/layout'
 
 type LevelColorMap = {

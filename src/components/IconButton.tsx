@@ -3,7 +3,7 @@ import { GestureResponderEvent, Pressable, View } from 'react-native'
 import tw from '../styles/tailwind'
 import Icon from './Icon'
 import { Text } from '.'
-import { IconType } from './icons'
+import { IconType } from '../assets/icons'
 
 type IconButtonProps = ComponentProps & {
   icon: IconType

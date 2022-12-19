@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react'
 import { GestureResponderEvent, Pressable, View, ViewStyle } from 'react-native'
 import { Icon } from '../../../components'
-import { IconType } from '../../../components/icons'
+import { IconType } from '../../../assets/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
 import { ConfirmRaiseDispute } from '../../../overlays/ConfirmRaiseDispute'

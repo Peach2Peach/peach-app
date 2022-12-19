@@ -1,14 +1,14 @@
 import { deepStrictEqual } from 'assert'
 import { account, addPaymentData, defaultAccount, setAccount } from '../../../../src/utils/account'
 import * as accountData from '../../data/accountData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('addPaymentData', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 

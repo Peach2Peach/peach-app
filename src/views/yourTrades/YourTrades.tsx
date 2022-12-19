@@ -61,8 +61,8 @@ export default (): ReactElement => {
       getOffersEffect({
         onSuccess: (result) => {
           if (!result?.length) return
-          saveOffers(result)
 
+          saveOffers(result)
           storeOffers(getAccount().offers)
 
           setLastUpdate(new Date().getTime())

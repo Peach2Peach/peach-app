@@ -1,6 +1,6 @@
 import * as chatData from './chatData'
 import { contract } from './contractData'
-import { buyOffer, buyOfferUnpublished, sellOffer } from './offerData'
+import { buyOffer, sellOffer } from './offerData'
 
 export const recoveredAccount: Account = {
   settings: {
@@ -100,7 +100,7 @@ export const seller: Account = {
     yearly: 100000,
     yearlyAmount: 0,
   },
-  offers: [buyOffer, sellOffer, buyOfferUnpublished],
+  offers: [buyOffer, sellOffer],
   contracts: [],
   chats: {},
   pgp: {
@@ -138,7 +138,7 @@ export const buyer: Account = {
     yearly: 100000,
     yearlyAmount: 0,
   },
-  offers: [buyOffer, sellOffer, buyOfferUnpublished],
+  offers: [buyOffer, sellOffer],
   contracts: [],
   chats: {
     [chatData.chat1.id]: chatData.chat1,

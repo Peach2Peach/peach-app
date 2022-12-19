@@ -39,10 +39,10 @@ export default (): ReactElement => {
 
   const keyboardOpen = useKeyboard()
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
+  const [contract, setContract] = useState(getContract(contractId))
   const [start, setStart] = useState(false)
   const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
-  const emailRules = useMemo(() => ({ email: isEmailRequired(reason!), required: isEmailRequired(reason!) }), [reason])
+  const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
@@ -149,7 +149,7 @@ export default (): ReactElement => {
       ) : (
         <View style={tw`flex items-center`}>
           <Text style={tw`text-center px-4`}>{i18n('dispute.provideExplanation')}</Text>
-          {isEmailRequired(reason!) ? (
+          {isEmailRequired(reason) ? (
             <View style={tw`mt-4`}>
               <Input
                 onChange={setEmail}

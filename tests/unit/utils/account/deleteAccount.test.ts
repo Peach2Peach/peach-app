@@ -1,6 +1,6 @@
 import { deleteAccount, setAccount } from '../../../../src/utils/account'
 import * as accountData from '../../data/accountData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('deleteAccount', () => {
   const onSuccess = jest.fn()
@@ -9,7 +9,7 @@ describe('deleteAccount', () => {
     await setAccount(accountData.account1)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 

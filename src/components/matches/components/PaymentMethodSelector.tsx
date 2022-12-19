@@ -9,17 +9,20 @@ import { Headline } from '../../text'
 import { HorizontalLine } from '../../ui'
 import { useMatchStore } from '../store'
 
-export const PaymentMethodSelector = () => {
+export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }) => {
   const { offer } = useRoute<'search'>().params
-  const { selectedPaymentMethod, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
+  const { selectedValue, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
     (state) => ({
-      selectedPaymentMethod: state.selectedPaymentMethod,
+      selectedValue: state.matchSelectors[matchId]?.selectedPaymentMethod,
       setSelectedPaymentMethod: state.setSelectedPaymentMethod,
-      availablePaymentMethods: state.availablePaymentMethods,
+      availablePaymentMethods: state.matchSelectors[matchId]?.availablePaymentMethods || [],
     }),
     shallow,
   )
-  const paymentMethodSelectorItems = availablePaymentMethods.map((p) => ({
+  const onChange = (paymentMethod: PaymentMethod) => {
+    setSelectedPaymentMethod(paymentMethod, matchId)
+  }
+  const items = availablePaymentMethods.map((p) => ({
     value: p,
     display: i18n(`paymentMethod.${p}`),
   }))
@@ -29,12 +32,7 @@ export const PaymentMethodSelector = () => {
       <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
         {i18n(isBuyOffer(offer) ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}:
       </Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedPaymentMethod}
-        items={paymentMethodSelectorItems}
-        onChange={setSelectedPaymentMethod}
-      />
+      <Selector style={tw`mt-2`} {...{ selectedValue, items, onChange }} />
     </>
   )
 }

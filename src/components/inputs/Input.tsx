@@ -12,7 +12,7 @@ import { Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
-import { IconType } from '../icons'
+import { IconType } from '../../assets/icons'
 
 const regularTheme = {
   label: tw`text-black-1`,
@@ -36,7 +36,7 @@ const invertedTheme = {
   bg: tw`bg-transparent`,
   bgError: tw`bg-primary-background-light`,
   error: tw`text-primary-background-light`,
-  placeholder: tw`text-primary-mild-4`,
+  placeholder: tw`text-primary-mild-1`,
   optional: tw`text-black-4`,
   isValid: tw`border-green`,
 }
