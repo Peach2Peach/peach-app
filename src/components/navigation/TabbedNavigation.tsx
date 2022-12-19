@@ -6,7 +6,7 @@ import { Text } from '../'
 export type TabbedNavigationItem = {
   id: string
   display: string
-  view: (props: ComponentProps) => ReactElement
+  view?: (props: any) => ReactElement
 }
 type TabbedNavigationProps = ComponentProps & {
   items: TabbedNavigationItem[]

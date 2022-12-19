@@ -8,7 +8,6 @@ import { account, getPaymentData, removePaymentData, updateSettings } from '../.
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
@@ -21,15 +20,15 @@ const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMeth
     return arr.concat(id)
   }, [])
 
-const dummy = () => {}
-
 type PaymentDataKeyFactsProps = ComponentProps & {
   paymentData: PaymentData
 }
 const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) => (
   <View style={[tw`flex-row justify-center`, style]}>
     {(paymentData.currencies || []).map((currency) => (
-      <Item style={tw`h-5 px-1 mx-px`} key={currency} label={currency} isSelected={false} onPress={dummy} />
+      <View style={[tw`h-8 px-2 justify-center border border-black-3 rounded`, style]}>
+        <Text style={[tw`button-medium text-black-3`]}>{currency}</Text>
+      </View>
     ))}
   </View>
 )
