@@ -68,10 +68,10 @@ export default (): ReactElement => {
 
   const showQR = () => setShowQRScanner(true)
   const closeQR = () => setShowQRScanner(false)
-  const onQRScanSuccess = (e: BarCodeReadEvent) => {
-    const request = parseBitcoinRequest(e.data)
+  const onQRScanSuccess = ({ data }: BarCodeReadEvent) => {
+    const request = parseBitcoinRequest(data)
 
-    setAddress(request.address || e.data)
+    setAddress(request.address || data)
     closeQR()
   }
 
