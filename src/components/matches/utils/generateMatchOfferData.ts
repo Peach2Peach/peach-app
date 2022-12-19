@@ -40,7 +40,7 @@ export const generateMatchOfferData = async (
   if (!paymentDataForMethod) return [null, 'MISSING_PAYMENTDATA']
 
   const encryptedPaymentData = await createEncryptedPaymentData(match, paymentDataForMethod)
-  if (!encryptedPaymentData) return [null, 'DECRYPTION_FAILED']
+  if (!encryptedPaymentData) return [null, 'PAYMENTDATA_ENCRYPTION_FAILED']
 
   return [
     {
