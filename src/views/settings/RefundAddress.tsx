@@ -20,7 +20,7 @@ export default (): ReactElement => {
     account.settings.returnAddress || '',
     rulesToCheck,
   )
-  const [isUpdated, setUpdated] = useState(false)
+  const [isUpdated, setUpdated] = useState(!!account.settings.returnAddress)
   const [showQRScanner, setShowQRScanner] = useState(false)
   const navigation = useNavigation()
 
