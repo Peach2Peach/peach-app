@@ -3,6 +3,7 @@ import shallow from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
+import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 
@@ -28,12 +29,13 @@ export const useSearchSetup = () => {
 
   useEffect(() => {
     if (error) {
-      if (error === 'CANCELED' || error === 'CONTRACT_EXISTS') {
+      const errorMessage = parseError(error)
+      if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
         navigation.navigate('offer', { offer })
         return
       }
-      if (error !== 'UNAUTHORIZED' && typeof error === 'string') {
-        updateMessage({ msgKey: error, level: 'ERROR' })
+      if (errorMessage !== 'UNAUTHORIZED') {
+        updateMessage({ msgKey: errorMessage, level: 'ERROR' })
       }
     }
   }, [error, navigation, offer, updateMessage])
