@@ -53,7 +53,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     )
 
   const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
-  const navigateToYourTrades = () => navigation.replace('yourTrades', {})
+  const navigateToYourTrades = useCallback(() => navigation.replace('yourTrades', {}), [navigation])
 
   const cancelOffer = () =>
     updateOverlay({
