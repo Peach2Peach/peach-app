@@ -118,7 +118,7 @@ describe('navigateToOffer', () => {
   })
 
   it('should set the offer in the match store', () => {
-    getNavigationDestination.mockReturnValueOnce(['search', {}])
+    getNavigationDestination.mockReturnValueOnce(['search'])
     const navigateToOfferProps = {
       offer: mockOffer,
       navigation,
