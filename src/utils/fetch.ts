@@ -1,16 +1,10 @@
 import { info, error } from './log'
 
-/**
- * @description Method to generate timeout signal for fetch requests
- * @param timeout timeout in ms
- * @returns AbortSignal
- */
-export const getAbortSignal = (timeout: number) => {
+export const getAbortWithTimeout = (timeout?: number) => {
   const controller = new AbortController()
-  const signal = controller.signal
-  setTimeout(() => controller.abort(), timeout)
+  if (timeout) setTimeout(() => controller.abort(), timeout)
 
-  return signal
+  return controller
 }
 
 export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>

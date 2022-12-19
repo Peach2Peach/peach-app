@@ -1,14 +1,13 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMatchStore } from '../../../components/matches/store'
-import { useRoute } from '../../../hooks'
 import { getMatchesFn } from '../getMatches'
+import shallow from 'zustand/shallow'
 
 const FIFTEEN_SECONDS = 15 * 1000
 
 export const useOfferMatches = () => {
-  const { offer } = useRoute<'search'>().params
-  const currentPage = useMatchStore((state) => state.currentPage)
+  const [offer, currentPage] = useMatchStore((state) => [state.offer, state.currentPage], shallow)
 
   const queryData = useInfiniteQuery(['matches', offer.id || ''], getMatchesFn, {
     refetchInterval: FIFTEEN_SECONDS,
@@ -18,7 +17,7 @@ export const useOfferMatches = () => {
   })
 
   const allMatches = useMemo(
-    () => [...(queryData.data?.pages || [])].flatMap((page) => page.matches),
+    () => (queryData.data?.pages || []).flatMap((page) => page.matches),
     [queryData.data?.pages],
   )
 

@@ -24,6 +24,7 @@ import AppContext from '../../contexts/app'
 import { getChatNotifications } from '../../utils/chat'
 import { getOfferStatus } from '../../utils/offer/status'
 import { isTradeComplete } from '../../utils/contract/status'
+import { useMatchStore } from '../../components/matches/store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['offer'] }>
@@ -35,6 +36,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const offerId = route.params.offer.id as string
   const offer = getOffer(offerId)!
@@ -103,7 +105,8 @@ export default ({ route, navigation }: Props): ReactElement => {
 
           if (result.online && result.matches.length && !result.contractId) {
             info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
-            navigation.replace('search', { offer })
+            matchStoreSetOffer(offer)
+            navigation.replace('search')
           }
           if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
             info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)

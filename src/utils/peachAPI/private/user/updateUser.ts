@@ -2,7 +2,7 @@ import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
 import { RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { getPeachAccount } from '../../peachAccount'
 import { fetchAccessToken } from './fetchAccessToken'
@@ -65,7 +65,7 @@ export const updateUser = async ({
       fcmToken,
       referralCode,
     }),
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'updateUser')

@@ -12,10 +12,6 @@ export const handleMissingPaymentData = (
   paymentMethod: PaymentMethod,
   updateMessage: (value: MessageState) => void,
   navigation: StackNavigation,
-  routeParams: Readonly<{
-    offer: BuyOffer | SellOffer
-    hasMatches?: boolean | undefined
-  }>,
   // eslint-disable-next-line max-params
 ) => {
   error('Payment data could not be found for offer', offer.id)
@@ -31,7 +27,7 @@ export const handleMissingPaymentData = (
         currencies: [currency],
         country: /giftCard/u.test(paymentMethod) ? (paymentMethod.split('.').pop() as Country) : undefined,
       },
-      origin: ['search', routeParams],
+      origin: ['search', {}],
     })
   }
 
