@@ -3,7 +3,7 @@ import Refund from '../../../overlays/Refund'
 import { getContract } from '../../../utils/contract'
 import { StackNavigation } from '../../../utils/navigation'
 import { getNavigationDestination } from './getNavigationDestination'
-import { shouldUpdateOverlay } from './shouldUpdateOverlay'
+import { shouldOpenRefundOverlay } from './shouldOpenRefundOverlay'
 
 type NavigateToOfferProps = {
   offer: SellOffer | BuyOffer
@@ -23,7 +23,7 @@ export const navigateToOffer = ({
 }: NavigateToOfferProps): void => {
   const contract = offer.contractId ? getContract(offer.contractId) : null
   const navigationDestination = getNavigationDestination(offer, offerStatus, contract)
-  if (shouldUpdateOverlay(offer, offerStatus, contract)) {
+  if (shouldOpenRefundOverlay(offer, offerStatus, contract)) {
     updateOverlay({
       content: <Refund {...{ sellOffer: offer, navigation }} />,
       showCloseButton: false,

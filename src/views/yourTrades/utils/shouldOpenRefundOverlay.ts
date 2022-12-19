@@ -2,7 +2,7 @@ import { isSellOffer } from '../../../utils/offer'
 import { hasFundingTransactions, isEscrowReleased } from '../../../utils/offer/status'
 import { shouldGoToOffer } from './shouldGoToOffer'
 
-export const shouldUpdateOverlay = (
+export const shouldOpenRefundOverlay = (
   offer: SellOffer | BuyOffer,
   offerStatus: TradeStatus,
   contract: Contract | null,
