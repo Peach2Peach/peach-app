@@ -12,6 +12,7 @@ import { saveOffer } from '../../utils/offer'
 import { patchOffer } from '../../utils/peachAPI'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
+import { useMatchStore } from '../../components/matches/store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['setReturnAddress'] }>
@@ -20,6 +21,8 @@ type Props = {
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
+
   const [offer, setOffer] = useState<SellOffer>(route.params.offer)
   const [returnAddress, setReturnAddress] = useState(route.params.offer.returnAddress)
 
@@ -42,7 +45,12 @@ export default ({ route, navigation }: Props): ReactElement => {
         returnAddressRequired: false,
       }
       saveOffer(patchedOffer)
-      navigation.navigate(offer.online ? 'search' : 'fundEscrow', { offer: patchedOffer })
+      if (offer.online) {
+        matchStoreSetOffer(patchedOffer)
+        navigation.navigate('search')
+        return
+      }
+      navigation.navigate('fundEscrow', { offer: patchedOffer })
     } else if (patchOfferError) {
       error('Error', patchOfferError)
       updateMessage({

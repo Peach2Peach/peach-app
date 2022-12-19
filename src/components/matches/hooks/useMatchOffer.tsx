@@ -1,20 +1,19 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { error, info } from '../../../utils/log'
 
 import shallow from 'zustand/shallow'
-import { useMatchStore } from '../store'
-import { handleMissingPaymentData, createRefundTx, matchFn, updateMatchedStatus, handleError } from '../utils'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
+import { useMatchStore } from '../store'
+import { createRefundTx, handleError, handleMissingPaymentData, matchFn, updateMatchedStatus } from '../utils'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const routeParams = useRoute<'search'>().params
   const [, updateMessage] = useContext(MessageContext)
 
   const { selectedCurrency, selectedPaymentMethod, currentPage } = useMatchStore(
@@ -41,7 +40,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA') {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
       } else {
         if (errorMsg === 'MISSING_VALUES') error(
           'Match data missing values.',

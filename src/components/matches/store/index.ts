@@ -1,6 +1,6 @@
-import create, { Mutate, StoreApi, UseBoundStore } from 'zustand'
-import { getAvailableMethods } from '../../../utils/match'
+import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
+import { getAvailableMethods } from '../../../utils/match'
 import { createMatchSelectors, MatchSelectors } from './createMatchSelectors'
 import { updateMatchSelectors } from './updateMatchSelectors'
 

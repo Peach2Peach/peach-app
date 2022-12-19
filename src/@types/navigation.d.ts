@@ -41,10 +41,7 @@ declare type RootStackParamList = {
   setReturnAddress: {
     offer: SellOffer
   }
-  search: {
-    offerId: string
-    hasMatches?: boolean
-  }
+  search: undefined
   contract: {
     contractId: Contract['id']
     contract?: Contract

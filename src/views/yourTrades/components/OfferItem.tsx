@@ -3,6 +3,7 @@ import { Pressable, View } from 'react-native'
 import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import { IconType } from '../../../components/icons'
+import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import Refund from '../../../overlays/Refund'
 import tw from '../../../styles/tailwind'
@@ -12,24 +13,34 @@ import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
-import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
+import { getOffer, isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { getOfferStatus, hasFundingTransactions, isEscrowReleased, isFunded } from '../../../utils/offer/status'
 
+type NavigateToOfferProps = {
+  offer: SellOffer | BuyOffer
+  status: TradeStatus['status']
+  requiredAction: TradeStatus['requiredAction']
+  navigation: StackNavigation
+  updateOverlay: React.Dispatch<OverlayState>
+  matchStoreSetOffer: (offer: BuyOffer | SellOffer) => void
+}
+
 // eslint-disable-next-line complexity
-const navigateToOffer = (
-  offer: SellOffer | BuyOffer,
-  offerStatus: TradeStatus,
-  navigation: StackNavigation,
-  updateOverlay: React.Dispatch<OverlayState>,
-  // eslint-disable-next-line max-params
-): void => {
+const navigateToOffer = ({
+  offer,
+  status,
+  requiredAction,
+  navigation,
+  updateOverlay,
+  matchStoreSetOffer,
+}: NavigateToOfferProps): void => {
   if (!offer) return navigation.navigate('yourTrades', {})
 
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
   if (
-    !/rate/u.test(offerStatus.requiredAction)
-    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(offerStatus.status)
+    !/rate/u.test(requiredAction)
+    && /offerPublished|searchingForPeer|offerCanceled|tradeCompleted|tradeCanceled/u.test(status)
   ) {
     if (
       isSellOffer(offer)
@@ -50,7 +61,7 @@ const navigateToOffer = (
   }
 
   if (contract) {
-    if (contract && !contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
+    if (contract && !contract.disputeWinner && status === 'tradeCompleted') {
       return navigation.navigate('tradeComplete', { contract })
     }
     return navigation.navigate('contract', { contractId: contract.id })
@@ -61,13 +72,15 @@ const navigateToOffer = (
       return navigation.navigate('setReturnAddress', { offer })
     }
     if (isFunded(offer)) {
-      return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
+      matchStoreSetOffer(offer)
+      return navigation.navigate('search')
     }
     return navigation.navigate('fundEscrow', { offer })
   }
 
   if (isBuyOffer(offer) && offer.online) {
-    return navigation.navigate('search', { offer, hasMatches: offer.matches?.length > 0 })
+    matchStoreSetOffer(offer)
+    return navigation.navigate('search')
   }
 
   return navigation.navigate('yourTrades', {})
@@ -100,6 +113,8 @@ const ICONMAP: IconMap = {
 // eslint-disable-next-line max-lines-per-function, complexity
 export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
+
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
@@ -118,7 +133,15 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const textColor1 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-2`
   const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
 
-  const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
+  const navigate = () =>
+    navigateToOffer({
+      offer,
+      status,
+      requiredAction,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer,
+    })
   return (
     <Shadow shadow={mildShadow}>
       <Pressable

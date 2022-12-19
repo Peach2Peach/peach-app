@@ -16,10 +16,10 @@ export const MatchOfferButton = () => {
   return (
     <Button
       title={i18n(
-        `search.${isBuyOffer(offer) ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
+        `search.${isBuyOffer(offer) ? (currentMatch?.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
       )}
       wide={false}
-      disabled={currentMatch.matched || isLoading}
+      disabled={currentMatch?.matched || isLoading}
       loading={isLoading}
       onPress={matchOffer}
     />
