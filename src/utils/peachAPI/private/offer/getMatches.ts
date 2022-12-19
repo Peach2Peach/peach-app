@@ -31,7 +31,5 @@ export const getMatches = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  console.log(response)
-
   return await parseResponse<GetMatchesResponse>(response, 'getMatches')
 }
