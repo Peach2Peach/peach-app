@@ -28,9 +28,9 @@ const getContract = jest.fn()
 jest.mock('../../../../src/utils/contract/getContract', () => ({
   getContract: (id: string) => getContract(id),
 }))
-const shouldUpdateOverlay = jest.fn()
-jest.mock('../../../../src/views/yourTrades/utils/shouldUpdateOverlay', () => ({
-  shouldUpdateOverlay: () => shouldUpdateOverlay(),
+const shouldOpenRefundOverlay = jest.fn()
+jest.mock('../../../../src/views/yourTrades/utils/shouldOpenRefundOverlay', () => ({
+  shouldOpenRefundOverlay: () => shouldOpenRefundOverlay(),
 }))
 const getNavigationDestination = jest.fn((offer, offerStatus, contract) => ['offer', { offer: mockOffer }])
 jest.mock('../../../../src/views/yourTrades/utils/getNavigationDestination', () => ({
@@ -88,7 +88,7 @@ describe('navigateToOffer', () => {
   })
 
   it('should update the overlay if needed', () => {
-    shouldUpdateOverlay.mockReturnValueOnce(true)
+    shouldOpenRefundOverlay.mockReturnValueOnce(true)
     const navigateToOfferProps = {
       offer: mockOffer,
       requiredAction: mockOfferStatus.requiredAction,
@@ -103,7 +103,7 @@ describe('navigateToOffer', () => {
   })
 
   it('should not update the overlay if not needed', () => {
-    shouldUpdateOverlay.mockReturnValueOnce(false)
+    shouldOpenRefundOverlay.mockReturnValueOnce(false)
     const navigateToOfferProps = {
       offer: mockOffer,
       requiredAction: mockOfferStatus.requiredAction,
