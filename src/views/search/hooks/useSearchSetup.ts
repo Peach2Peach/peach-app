@@ -39,4 +39,6 @@ export const useSearchSetup = () => {
   }, [error, navigation, offer, updateMessage])
 
   useRefetchOnNotification(refetch, offer.id)
+
+  return !!matches.length
 }
