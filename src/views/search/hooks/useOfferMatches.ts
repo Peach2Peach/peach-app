@@ -2,11 +2,12 @@ import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMatchStore } from '../../../components/matches/store'
 import { getMatchesFn } from '../getMatches'
+import shallow from 'zustand/shallow'
 
 const FIFTEEN_SECONDS = 15 * 1000
 
 export const useOfferMatches = () => {
-  const [offer, currentPage] = useMatchStore((state) => [state.offer, state.currentPage])
+  const [offer, currentPage] = useMatchStore((state) => [state.offer, state.currentPage], shallow)
 
   const queryData = useInfiniteQuery(['matches', offer.id || ''], getMatchesFn, {
     refetchInterval: FIFTEEN_SECONDS,

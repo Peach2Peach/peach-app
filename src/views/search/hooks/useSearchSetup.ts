@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+import shallow from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
@@ -9,7 +10,7 @@ export const useSearchSetup = () => {
   const navigation = useNavigation()
 
   const [, updateMessage] = useContext(MessageContext)
-  const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors])
+  const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
 
   const { allMatches: matches, error, refetch } = useOfferMatches()
   const resetStore = useMatchStore((state) => state.resetStore)
