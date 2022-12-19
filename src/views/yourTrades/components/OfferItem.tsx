@@ -3,6 +3,7 @@ import { Pressable, View } from 'react-native'
 import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import { IconType } from '../../../components/icons'
+import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
@@ -42,6 +43,8 @@ const ICONMAP: IconMap = {
 // eslint-disable-next-line max-lines-per-function, complexity
 export const OfferItem = ({ offer, extended = true, navigation, style }: OfferItemProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
+
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
@@ -60,7 +63,15 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
   const textColor1 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-2`
   const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
 
-  const navigate = () => navigateToOffer(offer, { status, requiredAction }, navigation, updateOverlay)
+  const navigate = () =>
+    navigateToOffer({
+      offer,
+      status,
+      requiredAction,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer,
+    })
   return (
     <Shadow shadow={mildShadow}>
       <Pressable

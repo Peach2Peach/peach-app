@@ -92,7 +92,7 @@ describe('getNavigationDestination', () => {
     const [destination, params] = getNavigationDestination(offer, offerStatus, contract)
 
     expect(destination).toBe('search')
-    expect(params).toEqual({ offer })
+    expect(params).toEqual({})
 
     const offer2 = {
       id: 'offerId',
@@ -109,7 +109,7 @@ describe('getNavigationDestination', () => {
     const [destination2, params2] = getNavigationDestination(offer2, offerStatus2, contract2)
 
     expect(destination2).toBe('search')
-    expect(params2).toEqual({ offer: offer2 })
+    expect(params2).toEqual({})
   })
 
   it('should navigate to fundEscrow', () => {

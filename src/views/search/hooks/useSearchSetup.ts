@@ -1,16 +1,18 @@
 import { useContext, useEffect } from 'react'
+import shallow from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
+
   const [, updateMessage] = useContext(MessageContext)
-  const { offer } = useRoute<'search'>().params
+  const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
+
   const { allMatches: matches, error, refetch } = useOfferMatches()
-  const addMatchSelectors = useMatchStore((state) => state.addMatchSelectors)
   const resetStore = useMatchStore((state) => state.resetStore)
 
   useEffect(() => {
@@ -38,5 +40,5 @@ export const useSearchSetup = () => {
 
   useRefetchOnNotification(refetch, offer.id)
 
-  return !!matches.length
+  return !!offer.matches.length
 }

@@ -5,13 +5,22 @@ import { StackNavigation } from '../../../utils/navigation'
 import { getNavigationDestination } from './getNavigationDestination'
 import { shouldUpdateOverlay } from './shouldUpdateOverlay'
 
-export const navigateToOffer = (
-  offer: SellOffer | BuyOffer,
-  offerStatus: TradeStatus,
-  navigation: StackNavigation,
-  updateOverlay: React.Dispatch<OverlayState>,
-  // eslint-disable-next-line max-params
-): void => {
+type NavigateToOfferProps = {
+  offer: SellOffer | BuyOffer
+  status: TradeStatus['status']
+  requiredAction: TradeStatus['requiredAction']
+  navigation: StackNavigation
+  updateOverlay: React.Dispatch<OverlayState>
+  matchStoreSetOffer: (offer: BuyOffer | SellOffer) => void
+}
+
+export const navigateToOffer = ({
+  offer,
+  navigation,
+  updateOverlay,
+  matchStoreSetOffer,
+  ...offerStatus
+}: NavigateToOfferProps): void => {
   const contract = offer.contractId ? getContract(offer.contractId) : null
   const navigationDestination = getNavigationDestination(offer, offerStatus, contract)
   if (shouldUpdateOverlay(offer, offerStatus, contract)) {
@@ -20,5 +29,9 @@ export const navigateToOffer = (
       showCloseButton: false,
     })
   }
+  if (navigationDestination[0] === 'search') {
+    matchStoreSetOffer(offer)
+  }
+
   return navigation.navigate(...navigationDestination)
 }

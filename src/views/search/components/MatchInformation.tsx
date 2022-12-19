@@ -1,13 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Headline, SatsFormat, Text } from '../../../components'
-import { useRoute } from '../../../hooks'
+import { useMatchStore } from '../../../components/matches/store'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../hooks/useOfferMatches'
 
 export const MatchInformation = () => {
-  const { type, amount, premium } = useRoute<'search'>().params.offer
+  const { type, amount, premium } = useMatchStore((state) => state.offer)
   const { allMatches: matches } = useOfferMatches()
   return (
     <>

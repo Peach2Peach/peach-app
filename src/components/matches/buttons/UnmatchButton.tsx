@@ -1,14 +1,14 @@
 import React from 'react'
 import { Pressable, View } from 'react-native'
-import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { dropShadowRed } from '../../../utils/layout'
 import Icon from '../../Icon'
 import { Shadow } from '../../ui'
 import { useUnmatchOffer } from '../hooks'
+import { useMatchStore } from '../store'
 
 export const UnmatchButton = ({ match }: { match: Match }) => {
-  const { offer } = useRoute<'search'>().params
+  const offer = useMatchStore((state) => state.offer)
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
   return (
     <Pressable onPress={() => unmatch()} style={tw`absolute top-0 right-0 p-2 z-10`}>

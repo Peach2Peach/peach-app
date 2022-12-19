@@ -22,6 +22,7 @@ const navigation = {
 } as unknown as StackNavigation
 
 const updateOverlay = jest.fn()
+const matchStoreSetOfferMock = jest.fn()
 
 const getContract = jest.fn()
 jest.mock('../../../../src/utils/contract/getContract', () => ({
@@ -37,52 +38,115 @@ jest.mock('../../../../src/views/yourTrades/utils/getNavigationDestination', () 
     getNavigationDestination(offer, offerStatus, contract),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('navigateToOffer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
   it('should get the contract if the offer has a contract id', () => {
-    navigateToOffer(mockOffer, mockOfferStatus, navigation, updateOverlay)
+    const navigateToOfferProps = {
+      offer: mockOffer,
+      requiredAction: mockOfferStatus.requiredAction,
+      status: mockOfferStatus.status,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+    }
+    navigateToOffer(navigateToOfferProps)
 
     expect(getContract).toHaveBeenCalledWith(mockOffer.contractId)
   })
 
   it('should not get the contract if the offer does not have a contract id', () => {
     const offerWithoutContractId = { ...mockOffer, contractId: undefined }
-    navigateToOffer(offerWithoutContractId, mockOfferStatus, navigation, updateOverlay)
+    const navigateToOfferProps = {
+      offer: offerWithoutContractId,
+      requiredAction: mockOfferStatus.requiredAction,
+      status: mockOfferStatus.status,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+    }
+    navigateToOffer(navigateToOfferProps)
 
     expect(getContract).not.toHaveBeenCalled()
   })
 
   it('should get the navigation destination', () => {
     getContract.mockReturnValueOnce(mockContract)
-    navigateToOffer(mockOffer, mockOfferStatus, navigation, updateOverlay)
+    const navigateToOfferProps = {
+      offer: mockOffer,
+      requiredAction: mockOfferStatus.requiredAction,
+      status: mockOfferStatus.status,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+    }
+    navigateToOffer(navigateToOfferProps)
 
     expect(getNavigationDestination).toHaveBeenCalledWith(mockOffer, mockOfferStatus, mockContract)
   })
 
   it('should update the overlay if needed', () => {
     shouldUpdateOverlay.mockReturnValueOnce(true)
-    navigateToOffer(mockOffer, mockOfferStatus, navigation, updateOverlay)
+    const navigateToOfferProps = {
+      offer: mockOffer,
+      requiredAction: mockOfferStatus.requiredAction,
+      status: mockOfferStatus.status,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+    }
+    navigateToOffer(navigateToOfferProps)
 
     expect(updateOverlay).toHaveBeenCalledTimes(1)
   })
 
   it('should not update the overlay if not needed', () => {
     shouldUpdateOverlay.mockReturnValueOnce(false)
-    navigateToOffer(mockOffer, mockOfferStatus, navigation, updateOverlay)
+    const navigateToOfferProps = {
+      offer: mockOffer,
+      requiredAction: mockOfferStatus.requiredAction,
+      status: mockOfferStatus.status,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+    }
+    navigateToOffer(navigateToOfferProps)
 
     expect(updateOverlay).not.toHaveBeenCalled()
   })
 
+  it('should set the offer in the match store', () => {
+    getNavigationDestination.mockReturnValueOnce(['search', {}])
+    const navigateToOfferProps = {
+      offer: mockOffer,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+      requiredAction: 'acknowledgeDisputeResult' as const,
+      status: 'escrowWaitingForConfirmation' as const,
+    }
+    navigateToOffer(navigateToOfferProps)
+    expect(matchStoreSetOfferMock).toHaveBeenCalledWith(mockOffer)
+  })
+
   it('should navigate to the navigation destination', () => {
     getNavigationDestination.mockReturnValueOnce(['offer', { offer: mockOffer }])
-    navigateToOffer(mockOffer, mockOfferStatus, navigation, updateOverlay)
+    const navigateToOfferProps = {
+      offer: mockOffer,
+      requiredAction: mockOfferStatus.requiredAction,
+      status: mockOfferStatus.status,
+      navigation,
+      updateOverlay,
+      matchStoreSetOffer: matchStoreSetOfferMock,
+    }
+    navigateToOffer(navigateToOfferProps)
 
     expect(navigation.navigate).toHaveBeenCalledWith('offer', { offer: mockOffer })
 
     getNavigationDestination.mockReturnValueOnce(['search', { offer: mockOffer }])
-    navigateToOffer(mockOffer, mockOfferStatus, navigation, updateOverlay)
+    navigateToOffer(navigateToOfferProps)
 
     expect(navigation.navigate).toHaveBeenCalledWith('search', { offer: mockOffer })
   })
