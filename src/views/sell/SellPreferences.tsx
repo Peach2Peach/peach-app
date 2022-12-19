@@ -26,7 +26,6 @@ import { error, info } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-import { useMatchStore } from '../../components/matches/store'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -88,7 +87,6 @@ const screens = [
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -128,14 +126,6 @@ export default ({ route, navigation }: Props): ReactElement => {
       listener.remove()
     }
   })
-
-  useEffect(() => {
-    if (screens[page].id === 'search') {
-      saveAndUpdate({ ...offer })
-      matchStoreSetOffer(offer)
-      navigation.replace('search')
-    }
-  }, [page, matchStoreSetOffer])
 
   const back = () => {
     if (page === 0) {

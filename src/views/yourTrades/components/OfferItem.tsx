@@ -13,7 +13,7 @@ import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
-import { getOffer, isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
+import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { getOfferStatus, hasFundingTransactions, isEscrowReleased, isFunded } from '../../../utils/offer/status'
 
 type NavigateToOfferProps = {
