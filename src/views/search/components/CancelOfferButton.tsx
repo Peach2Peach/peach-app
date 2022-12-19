@@ -1,15 +1,16 @@
 import React, { useContext } from 'react'
 import { Pressable } from 'react-native'
 import { Text } from '../../../components'
+import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
 export const CancelOfferButton = () => {
   const navigation = useNavigation()
-  const { offer } = useRoute<'search'>().params
+  const offer = useMatchStore((state) => state.offer)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const navigate = () => navigation.replace('yourTrades', {})

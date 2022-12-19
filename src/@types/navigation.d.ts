@@ -42,7 +42,7 @@ declare type RootStackParamList = {
     offer: SellOffer
   }
   search: {
-    offer: SellOffer | BuyOffer
+    offerId: string
     hasMatches?: boolean
   }
   contract: {

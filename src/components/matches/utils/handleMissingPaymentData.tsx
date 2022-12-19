@@ -13,7 +13,7 @@ export const handleMissingPaymentData = (
   updateMessage: (value: MessageState) => void,
   navigation: StackNavigation,
   routeParams: Readonly<{
-    offer: BuyOffer | SellOffer
+    offerId: string
     hasMatches?: boolean | undefined
   }>,
   // eslint-disable-next-line max-params
