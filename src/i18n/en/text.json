@@ -681,6 +681,7 @@
   "settings.refundAddress.title": "set custom refund address",
   "settings.refundAddress.success": "address set",
   "settings.refundAddress.confirm": "confirm",
+  "settings.refundAddress.popup": "By default, any refunds are sent to your Peach wallet. If you want to have them sent somewhere else, you can enter a custom refund address here.",
   "settings.paymentMethods": "Payment methods",
   "settings.paymentMethods.subtitle": "Payment methods",
   "settings.privacyPolicy": "Privacy policy",
