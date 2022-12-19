@@ -17,3 +17,10 @@ export const cutOffAddress = (address: string) => {
 }
 
 export default cutOffAddress
+
+export const newCutOffAddress = (address: string) => {
+  if (address.length < 15) {
+    return address
+  }
+  return `${address.slice(0, 8)} ... ${address.slice(-6)}`
+}

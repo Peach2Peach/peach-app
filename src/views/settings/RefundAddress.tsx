@@ -13,11 +13,12 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { BarCodeReadEvent } from 'react-native-camera'
+import { newCutOffAddress } from '../../utils/string/cutOffAddress'
 
 const rulesToCheck = { required: false, bitcoinAddress: true }
 export default (): ReactElement => {
   const [address, setAddress, isValid, addressErrors] = useValidatedState(
-    account.settings.returnAddress || '',
+    newCutOffAddress(account.settings.returnAddress || ''),
     rulesToCheck,
   )
   const [isUpdated, setUpdated] = useState(!!account.settings.returnAddress)
