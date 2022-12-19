@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
@@ -19,6 +19,7 @@ export const getMatches = async ({
   page = 0,
   size = 21,
   timeout,
+  abortSignal,
 }: GetMatchesProps): Promise<[GetMatchesResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches?page=${page}&size=${size}`, {
     headers: {
@@ -27,8 +28,10 @@ export const getMatches = async ({
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
+
+  console.log(response)
 
   return await parseResponse<GetMatchesResponse>(response, 'getMatches')
 }

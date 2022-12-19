@@ -1,5 +1,6 @@
 export type RequestProps = {
   timeout?: number
+  abortSignal?: AbortSignal
 }
 
 export { getStatus, getInfo } from './public/system'
