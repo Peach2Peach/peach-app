@@ -75,6 +75,14 @@ export default (): ReactElement => {
     closeQR()
   }
 
+  const onChange = useCallback(
+    (value: string) => {
+      setAddress(value)
+      setUpdated(false)
+    },
+    [setAddress],
+  )
+
   return !showQRScanner ? (
     <View style={tw`h-full w-full justify-center items-center`}>
       <Text style={tw`h6`}>{i18n('settings.refundAddress.title')}</Text>
@@ -86,9 +94,8 @@ export default (): ReactElement => {
             ['camera', showQR],
           ]}
           value={address}
-          isValid={isValid}
           errorMessage={addressErrors}
-          onChange={setAddress}
+          {...{ isValid, onChange }}
         />
       </View>
       {isUpdated && (
