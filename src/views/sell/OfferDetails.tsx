@@ -39,9 +39,11 @@ export const headerIcons = [
   { iconComponent: <HelpIcon />, onPress: () => null },
 ]
 
+const headerConfig = { title: i18n('settings.paymentMethods'), icons: headerIcons }
+
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useContext(LanguageContext)
-  useHeaderSetup(useMemo(() => ({ title: i18n('settings.paymentMethods'), icons: headerIcons }), []))
+  useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )

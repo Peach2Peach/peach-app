@@ -74,6 +74,7 @@ export default ({ page }: Props): ReactElement => {
           <View style={tw`h-0`}>
             <Progress
               percent={dailyAmount / daily}
+              color={tw`bg-primary-main`}
               text={i18n(
                 'profile.tradingLimits.daily',
                 currency,

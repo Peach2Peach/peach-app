@@ -2,22 +2,23 @@ import activity from './activity.svg'
 import alertCircle from './alertCircle.svg'
 import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
-import arrowLeft from './arrowLeft.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
+import arrowLeft from './arrowLeft.svg'
+import arrowRightCircle from './arrowRightCircle.svg'
 import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
-import checkSquare from './checkSquare.svg'
 import checkboxMark from './checkboxMark.svg'
+import checkSquare from './checkSquare.svg'
 import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
-import paperclip from './paperclip.svg'
+import clipboard from './clipboard.svg'
 import clock from './clock.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
@@ -27,9 +28,9 @@ import download from './download.svg'
 import edit from './edit.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
-import clipboard from './clipboard.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
+import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
 import link from './link.svg'
@@ -43,11 +44,13 @@ import minusSquare from './minusSquare.svg'
 import noNetwork from './noNetwork.svg'
 import notification from './notification.svg'
 import offline from './offline.svg'
+import paperclip from './paperclip.svg'
 import plusCircle from './plusCircle.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
+import save from './save.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import send from './send.svg'
@@ -55,6 +58,7 @@ import settings from './settings.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
+import skipForward from './skipForward.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import thumbsDown from './thumbsDown.svg'
@@ -62,6 +66,7 @@ import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
+import userCheck from './userCheck.svg'
 import userX from './userX.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
@@ -76,20 +81,21 @@ const Icons = {
   alignJustify,
   alignLeft,
   arrowLeft,
-  buy: download,
+  arrowRightCircle,
   bellSmall,
+  buy: download,
   camera,
   chatDoubleCheck,
   check,
-  checkSquare,
   checkboxMark,
+  checkSquare,
   chevronDown,
+  chevronLeft,
   chevronsDown,
   chevronsUp,
   chevronUp,
-  chevronLeft,
   circle,
-  paperclip,
+  clipboard,
   clock,
   copy,
   cpu,
@@ -99,9 +105,9 @@ const Icons = {
   edit,
   eye,
   eyeOff,
-  clipboard,
   fire,
   fundEscrow,
+  globe,
   heart,
   helpCircle,
   link,
@@ -115,11 +121,13 @@ const Icons = {
   noNetwork,
   notification,
   offline,
+  paperclip,
   plusCircle,
   prev,
   radioSelected,
   refreshCcw,
   rotateCounterClockwise,
+  save,
   selectClosed,
   selectOpen,
   sell: upload,
@@ -128,6 +136,7 @@ const Icons = {
   shield,
   shiftCrypto,
   shuffle,
+  skipForward,
   sliderNext,
   sliderPrev,
   thumbsDown,
@@ -135,6 +144,7 @@ const Icons = {
   timer,
   trendingUp,
   upload,
+  userCheck,
   userX,
   x,
   xCircle,

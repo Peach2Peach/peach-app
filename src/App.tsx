@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
 import {
+  DefaultTheme,
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
@@ -47,10 +48,19 @@ import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import { Background } from './components/background/Background'
 
 enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
+
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  },
+}
 
 const queryClient = new QueryClient()
 
@@ -231,7 +241,7 @@ const App: React.FC = () => {
   }, [currentPage])
 
   return (
-    <GestureHandlerRootView style={tw`bg-white-1`}>
+    <GestureHandlerRootView>
       <AvoidKeyboard>
         <SafeAreaView>
           <QueryClientProvider client={queryClient}>
@@ -244,46 +254,47 @@ const App: React.FC = () => {
                         value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
                       >
                         <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                          <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
-                            <View style={tw`h-full flex-col`}>
-                              <Drawer
-                                title={drawerTitle}
-                                content={drawerContent}
-                                show={showDrawer}
-                                onClose={onCloseDrawer}
-                              />
-                              <Overlay {...overlayState} />
-                              {!!messageState.msgKey && (
-                                <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                                  <Message {...messageState} />
-                                </Animated.View>
-                              )}
-                              <View style={tw`h-full flex-shrink`}>
-                                <Stack.Navigator
-                                  detachInactiveScreens={true}
-                                  screenOptions={{
-                                    gestureEnabled: false,
-                                    headerShown: false,
-                                    cardStyle: tw`bg-primary-background`,
-                                  }}
-                                >
-                                  {views.map(({ name, component }) => (
-                                    <Stack.Screen
-                                      {...{ name, component }}
-                                      key={name}
-                                      options={{
-                                        animationEnabled: false,
-                                        headerShown: showHeader(name),
-                                        header: () => <Header />,
-                                      }}
-                                    />
-                                  ))}
-                                </Stack.Navigator>
+                          <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                            <Background>
+                              <View style={tw`h-full flex-col`}>
+                                <Drawer
+                                  title={drawerTitle}
+                                  content={drawerContent}
+                                  show={showDrawer}
+                                  onClose={onCloseDrawer}
+                                />
+                                <Overlay {...overlayState} />
+                                {!!messageState.msgKey && (
+                                  <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                    <Message {...messageState} />
+                                  </Animated.View>
+                                )}
+                                <View style={tw`h-full flex-shrink`}>
+                                  <Stack.Navigator
+                                    detachInactiveScreens={true}
+                                    screenOptions={{
+                                      gestureEnabled: false,
+                                      headerShown: false,
+                                    }}
+                                  >
+                                    {views.map(({ name, component }) => (
+                                      <Stack.Screen
+                                        {...{ name, component }}
+                                        key={name}
+                                        options={{
+                                          animationEnabled: false,
+                                          headerShown: showHeader(name),
+                                          header: () => <Header />,
+                                        }}
+                                      />
+                                    ))}
+                                  </Stack.Navigator>
+                                </View>
+                                {showFooter(currentPage) && (
+                                  <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
+                                )}
                               </View>
-                              {showFooter(currentPage) && (
-                                <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
-                              )}
-                            </View>
+                            </Background>
                           </NavigationContainer>
                         </OverlayContext.Provider>
                       </DrawerContext.Provider>

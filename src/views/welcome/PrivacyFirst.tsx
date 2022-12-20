@@ -1,4 +1,4 @@
 import React from 'react'
 import WelcomeInfo from './WelcomeInfo'
 
-export default () => <WelcomeInfo name="peachOfMind" />
+export default () => <WelcomeInfo name="privacyFirst" />
