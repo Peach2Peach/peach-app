@@ -12,7 +12,10 @@ const headerConfig = { title: 'test view - buttons' }
 export default () => {
   useHeaderSetup(headerConfig)
   return (
-    <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
+    <PeachScrollView
+      style={tw`h-full bg-primary-mild-1`}
+      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
+    >
       <PrimaryButtons />
       <InfoButtons />
       <GoBackButtons />

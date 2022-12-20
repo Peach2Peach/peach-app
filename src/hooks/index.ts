@@ -1,5 +1,6 @@
+export { useHeaderSetup } from './useHeaderSetup'
 export { useKeyboard } from './useKeyboard'
 export { useNavigation } from './useNavigation'
 export { useRoute } from './useRoute'
-export { useHeaderSetup } from './useHeaderSetup'
+export { useThrottledEffect } from './useThrottledEffect'
 export { useValidatedState } from './useValidatedState'

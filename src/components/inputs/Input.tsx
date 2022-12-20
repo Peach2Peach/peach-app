@@ -26,7 +26,6 @@ const themes = {
     error: tw`text-error-main`,
     placeholder: tw`text-black-4`,
     optional: tw`text-black-4`,
-    isValid: tw`border-green`,
   },
   inverted: {
     label: tw`text-primary-background-light`,
@@ -37,9 +36,8 @@ const themes = {
     bg: tw`bg-transparent`,
     bgError: tw`bg-primary-background-light`,
     error: tw`text-primary-background-light`,
-    placeholder: tw`text-primary-mild-2`,
+    placeholder: tw`text-primary-mild-1`,
     optional: tw`text-black-4`,
-    isValid: tw`border-green`,
   },
 }
 
@@ -85,7 +83,6 @@ export const Input = ({
   disabled = false,
   disableSubmit = false,
   disableOnEndEditing = false,
-  isValid,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -150,7 +147,6 @@ export const Input = ({
           colors.border,
           showError ? colors.borderError : {},
           showError ? tw`border-2` : {},
-          isValid && value && !disabled ? colors.isValid : {},
           style ? style : {},
         ]}
       >

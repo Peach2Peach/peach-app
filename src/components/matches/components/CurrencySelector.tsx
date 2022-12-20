@@ -9,29 +9,28 @@ import shallow from 'zustand/shallow'
 import { useRoute } from '../../../hooks'
 import { isBuyOffer } from '../../../utils/offer'
 
-export const CurrencySelector = () => {
+export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => {
   const { offer } = useRoute<'search'>().params
-  const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useMatchStore(
+  const { selectedValue, setSelectedCurrency, availableCurrencies } = useMatchStore(
     (state) => ({
-      selectedCurrency: state.selectedCurrency,
+      selectedValue: state.matchSelectors[matchId]?.selectedCurrency,
       setSelectedCurrency: state.setSelectedCurrency,
-      availableCurrencies: state.availableCurrencies,
+      availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],
     }),
     shallow,
   )
-  const currencySelectorItems = availableCurrencies.map((c) => ({ value: c, display: c }))
+
+  const onChange = (currency: Currency) => {
+    setSelectedCurrency(currency, matchId)
+  }
+  const items = availableCurrencies.map((c) => ({ value: c, display: c }))
   return (
     <>
       <HorizontalLine style={[tw`mt-4`, tw.md`mt-5`]} />
       <Headline style={[tw`mt-3 lowercase text-grey-2`, tw.md`mt-4`]}>
         {i18n(isBuyOffer(offer) ? 'form.currency' : 'match.selectedCurrency')}:
       </Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedCurrency}
-        items={currencySelectorItems}
-        onChange={setSelectedCurrency}
-      />
+      <Selector style={tw`mt-2`} {...{ selectedValue, items, onChange }} />
     </>
   )
 }
