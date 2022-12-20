@@ -55,29 +55,13 @@ type FileInputProps = ComponentProps & {
   errorMessage?: string[]
   onChange?: Function
   secureTextEntry?: boolean
-  invertColors?: boolean
+  theme?: 'default' | 'inverted'
 }
 
-/**
- * @description Component to display the language select
- * @param props Component properties
- * @param [props.fileName] file name
- * @param [props.style] css style object
- * @param [props.invertColors] if true invert color
- * @param [props.errorMessage] error message for invalid field
- * @param [props.onChange] onchange handler from outside
- * @example
- * <FileInput
- *   onChange={setAddress}
- *   fileName={fileName}
- *   isValid={!isFieldInError('address')}
- *   errorMessage={getErrorsInField('address')}
- * />
- */
 export const FileInput = ({
   fileName,
   style,
-  invertColors,
+  theme = 'default',
   errorMessage = [],
   onChange,
 }: FileInputProps): ReactElement => {
@@ -87,7 +71,7 @@ export const FileInput = ({
     <Input
       {...{
         style,
-        invertColors,
+        theme,
         value: fileName,
         disabled: true,
         onPressIn: onPress,

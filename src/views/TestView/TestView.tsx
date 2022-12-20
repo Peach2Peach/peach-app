@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { GoBackButton, OptionButton, PeachScrollView } from '../../components'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
-
+const headerConfig = { title: 'test view' }
 export default () => {
-  useHeaderSetup(useMemo(() => ({ title: 'test view' }), []))
+  useHeaderSetup(headerConfig)
   const navigation = useNavigation()
   const goToButtons = () => navigation.navigate('testViewButtons')
   const goToPopups = () => navigation.navigate('testViewPopups')

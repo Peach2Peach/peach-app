@@ -44,9 +44,9 @@ type ViewType = {
 
 export const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
-  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
+  { name: 'welcome', component: Welcome, showHeader: true, showFooter: false },
+  { name: 'newUser', component: NewUser, showHeader: true, showFooter: false },
+  { name: 'restoreBackup', component: RestoreBackup, showHeader: true, showFooter: false },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
   { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
@@ -70,7 +70,7 @@ export const views: ViewType[] = [
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
   { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-  { name: 'fees', component: Fees, showHeader: true, showFooter: true },
+  { name: 'networkFees', component: Fees, showHeader: true, showFooter: true },
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },

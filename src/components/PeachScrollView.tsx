@@ -26,11 +26,10 @@ export const PeachScrollView = ({
   horizontal = false,
   showsHorizontalScrollIndicator = true,
   disable,
-  scrollEventThrottle,
-  onScroll,
   onContainerLayout,
   onContentLayout,
   style,
+  ...scrollViewProps
 }: PeachScrollViewProps): ReactElement => {
   const onStartShouldSetResponder = () => !disable
   const $scroll = useRef<ScrollView>(null)
@@ -46,16 +45,11 @@ export const PeachScrollView = ({
   return !disable ? (
     <ScrollView
       ref={$scroll}
-      horizontal={horizontal}
-      onScroll={onScroll}
-      scrollEventThrottle={scrollEventThrottle}
-      showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
-      removeClippedSubviews={false}
+      {...{ horizontal, showsHorizontalScrollIndicator, style, ...scrollViewProps }}
       contentContainerStyle={contentContainerStyle || {}}
       onLayout={onContainerLayout}
-      style={style || {}}
     >
-      <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`bg-transparent`} onLayout={onContentLayout}>
+      <View {...{ onStartShouldSetResponder }} style={tw`bg-transparent`} onLayout={onContentLayout}>
         {children}
       </View>
     </ScrollView>
