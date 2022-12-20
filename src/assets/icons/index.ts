@@ -5,6 +5,7 @@ import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
 import arrowLeft from './arrowLeft.svg'
+import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
@@ -14,6 +15,7 @@ import checkboxMark from './checkboxMark.svg'
 import checkSquare from './checkSquare.svg'
 import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
+import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
@@ -58,12 +60,15 @@ import settings from './settings.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
+import slash from './slash.svg'
 import skipForward from './skipForward.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
+import toggleLeft from './toggleLeft.svg'
+import toggleRight from './toggleRight.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
 import userCheck from './userCheck.svg'
@@ -81,6 +86,7 @@ const Icons = {
   alignJustify,
   alignLeft,
   arrowLeft,
+  arrowLeftCircle,
   arrowRightCircle,
   bellSmall,
   buy: download,
@@ -91,6 +97,7 @@ const Icons = {
   checkSquare,
   chevronDown,
   chevronLeft,
+  chevronRight,
   chevronsDown,
   chevronsUp,
   chevronUp,
@@ -137,11 +144,14 @@ const Icons = {
   shiftCrypto,
   shuffle,
   skipForward,
+  slash,
   sliderNext,
   sliderPrev,
   thumbsDown,
   thumbsUp,
   timer,
+  toggleLeft,
+  toggleRight,
   trendingUp,
   upload,
   userCheck,

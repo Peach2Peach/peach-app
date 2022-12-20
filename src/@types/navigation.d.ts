@@ -67,10 +67,10 @@ declare type RootStackParamList = {
   referrals: undefined
   backups: undefined
   seedWords: undefined
-  escrow: undefined
+  refundAddress: undefined
   paymentMethods: undefined
   deleteAccount: undefined
-  fees: undefined
+  networkFees: undefined
   socials: undefined
   testView: undefined
   testViewButtons: undefined
@@ -79,3 +79,9 @@ declare type RootStackParamList = {
   welcome: undefined
   splashScreen: undefined
 }
+
+type KeysWithUndefined<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never
+}[keyof T]
+
+declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>

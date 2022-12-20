@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,20 +13,20 @@ export default (): ReactElement => {
   const settings = useSettingsSetup()
 
   return (
-    <View style={tw`h-full pb-10`}>
-      <PeachScrollView contentContainerStyle={tw`pt-6 px-12`}>
-        {settings.map(({ headline, items }) => (
-          <Fragment key={`settings-${headline}`}>
-            {headline && (
-              <Headline style={tw`text-center text-lg text-peach-mild mt-8`}>{i18n(`settings.${headline}`)}</Headline>
-            )}
-            {items.map((item, i) => (
-              <SettingsItem key={`${headline}-${item.title}-${i}`} {...item} />
-            ))}
-          </Fragment>
-        ))}
-        <VersionInfo />
-      </PeachScrollView>
-    </View>
+    <PeachScrollView contentContainerStyle={tw`pt-12`}>
+      {settings.map(({ headline, items }) => (
+        <View key={`settings-${headline}`} style={tw`mx-8`}>
+          {headline && (
+            <Headline style={tw`text-left h6 text-primary-main mt-9 mb-3 lowercase`}>
+              {i18n(`settings.${headline}`)}
+            </Headline>
+          )}
+          {items.map((item, i) => (
+            <SettingsItem key={`${headline}-${item.title}-${i}`} {...item} />
+          ))}
+        </View>
+      ))}
+      <VersionInfo style={tw`mt-9 mb-10 text-center`} />
+    </PeachScrollView>
   )
 }
