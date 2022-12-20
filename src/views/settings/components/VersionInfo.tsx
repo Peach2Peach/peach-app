@@ -5,8 +5,8 @@ import { APPVERSION, BUILDNUMBER } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-export const VersionInfo = ({ style }: { style?: StyleProp<TextStyle> }) => (
-  <Text style={[tw`button-medium text-black-3 uppercase`, style]}>
+export const VersionInfo = ({ style, ...props }: { style?: StyleProp<TextStyle> } & ComponentProps) => (
+  <Text style={[tw`button-medium text-black-3 uppercase`, style]} {...props}>
     {i18n('settings.peachApp')}
     {APPVERSION} ({BUILDNUMBER})
   </Text>
