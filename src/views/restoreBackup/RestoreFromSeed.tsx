@@ -45,9 +45,9 @@ export default ({ style }: ComponentProps): ReactElement => {
     (err?: string) => {
       const errorMsg = err || 'UNKNOWN_ERROR'
       setError(errorMsg)
-      if (err !== 'REGISTRATION_DENIED') {
+      if (errorMsg !== 'REGISTRATION_DENIED') {
         updateMessage({
-          msgKey: err || errorMsg,
+          msgKey: errorMsg,
           level: 'ERROR',
         })
       }

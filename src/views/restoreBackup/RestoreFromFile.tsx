@@ -37,10 +37,10 @@ export default ({ style }: ComponentProps): ReactElement => {
   const onError = useCallback(
     (err?: string) => {
       const errorMsg = err || 'UNKNOWN_ERROR'
-      if (err !== 'WRONG_PASSWORD') setError(errorMsg)
-      if (err !== 'REGISTRATION_DENIED') {
+      if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
+      if (errorMsg !== 'REGISTRATION_DENIED') {
         updateMessage({
-          msgKey: err || errorMsg,
+          msgKey: errorMsg,
           level: 'ERROR',
         })
       }
