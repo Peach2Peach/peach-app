@@ -68,6 +68,7 @@ declare type RootStackParamList = {
   backups: undefined
   seedWords: undefined
   refundAddress: undefined
+  payoutAddress: undefined
   paymentMethods: undefined
   deleteAccount: undefined
   networkFees: undefined

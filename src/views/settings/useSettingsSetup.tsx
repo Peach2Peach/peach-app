@@ -88,7 +88,7 @@ export const useSettingsSetup = () => {
       { title: 'networkFees' },
       { title: 'paymentMethods' },
       { title: 'refundAddress' },
-      { title: 'payoutAddress', onPress: () => null },
+      { title: 'payoutAddress' },
     ],
     [goToMyAccount],
   )
