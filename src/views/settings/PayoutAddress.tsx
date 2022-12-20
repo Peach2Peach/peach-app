@@ -8,12 +8,12 @@ import { account, updateSettings } from '../../utils/account'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
 import { OverlayContext } from '../../contexts/overlay'
-import { RefundAddressPopup } from './components/RefundAddressPopup'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { newCutOffAddress } from '../../utils/string/cutOffAddress'
+import { PayoutAddressPopup } from './components/PayoutAddressPopup'
 
 const rulesToCheck = { required: false, bitcoinAddress: true }
 export default (): ReactElement => {
@@ -32,12 +32,12 @@ export default (): ReactElement => {
     }
   }
   const [, updateOverlay] = useContext(OverlayContext)
-  const showRefundAddressPopup = useCallback(() => {
+  const showPayoutAddressPopup = useCallback(() => {
     updateOverlay({
-      content: <RefundAddressPopup />,
+      content: <PayoutAddressPopup />,
       level: 'INFO',
       visible: true,
-      title: 'refund address',
+      title: i18n('settings.payoutAddress'),
       action2: {
         callback: () => {
           updateOverlay({ visible: false })
@@ -62,8 +62,11 @@ export default (): ReactElement => {
 
   useHeaderSetup(
     useMemo(
-      () => ({ title: 'refund address', icons: [{ iconComponent: <HelpIcon />, onPress: showRefundAddressPopup }] }),
-      [showRefundAddressPopup],
+      () => ({
+        title: i18n('settings.payoutAddress'),
+        icons: [{ iconComponent: <HelpIcon />, onPress: showPayoutAddressPopup }],
+      }),
+      [showPayoutAddressPopup],
     ),
   )
 
@@ -86,7 +89,7 @@ export default (): ReactElement => {
 
   return !showQRScanner ? (
     <View style={tw`h-full w-full justify-center items-center`}>
-      <Text style={tw`h6`}>{i18n('settings.refundAddress.title')}</Text>
+      <Text style={tw`h6`}>{i18n('settings.payoutAddress.title')}</Text>
       <View style={tw`mx-16 mt-4`}>
         <Input
           placeholder={i18n('form.address.btc.placeholder')}
@@ -101,12 +104,12 @@ export default (): ReactElement => {
       </View>
       {isUpdated && (
         <View style={tw`w-full h-0 flex-row justify-center`}>
-          <Text style={tw`button-medium h-6 uppercase`}>{i18n('settings.refundAddress.success')}</Text>
+          <Text style={tw`button-medium h-6 uppercase`}>{i18n('settings.payoutAddress.success')}</Text>
           <Icon id="check" style={tw`w-[20px] h-[20px] ml-1`} color={tw`text-success-main`.color} />
         </View>
       )}
       <PrimaryButton narrow style={tw`mt-16 absolute bottom-6`} onPress={setPayoutAddress} disabled={isUpdated}>
-        {i18n('settings.refundAddress.confirm')}
+        {i18n('settings.payoutAddress.confirm')}
       </PrimaryButton>
     </View>
   ) : (
