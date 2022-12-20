@@ -14,12 +14,15 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
+  const [reference, setReference] = useState(data?.reference || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+
   const [displayErrors, setDisplayErrors] = useState(false)
 
   let $phone = useRef<TextInput>(null).current
   let $email = useRef<TextInput>(null).current
   let $userName = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
 
   const labelRules = {
     required: true,
@@ -28,11 +31,13 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   const phoneRules = { required: !email && !userName, phone: true }
   const emailRules = { required: !phone && !userName, email: true }
   const userNameRules = { required: !phone && !email, userName: true }
+  const referenceRules = { required: false }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
+  const referenceErrors = useMemo(() => getErrorsInField(reference, referenceRules), [reference, referenceRules])
 
   const tabs: TabbedNavigationItem[] = [
     {
@@ -89,7 +94,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => $phone?.focus()}
+          onSubmit={() => $email?.focus()}
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
@@ -106,7 +111,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
             }}
             onSubmit={() => {
               setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-              $email?.focus()
+              $reference?.focus()
             }}
             reference={(el: any) => ($phone = el)}
             value={phone}
@@ -121,7 +126,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
         <View style={tw`mt-2`}>
           <Input
             onChange={setEmail}
-            onSubmit={() => $userName?.focus()}
+            onSubmit={() => $reference?.focus()}
             reference={(el: any) => ($email = el)}
             required={true}
             value={email}
@@ -139,7 +144,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
             }}
             onSubmit={() => {
               setUserName((usr: string) => (!/@/gu.test(usr) ? `@${usr}` : usr))
-              save()
+              $reference?.focus()
             }}
             reference={(el: any) => ($userName = el)}
             required={true}
@@ -150,6 +155,17 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           />
         </View>
       )}
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceErrors : undefined}
+      />
       <CurrencySelection paymentMethod="paypal" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )
