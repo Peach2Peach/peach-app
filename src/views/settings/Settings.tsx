@@ -17,7 +17,7 @@ export default (): ReactElement => {
       {settings.map(({ headline, items }) => (
         <View key={`settings-${headline}`} style={tw`mx-8`}>
           {headline && (
-            <Headline style={tw`text-left h6 text-primary-light mt-9 mb-3 lowercase`}>
+            <Headline style={tw`text-left h6 text-primary-main mt-9 mb-3 lowercase`}>
               {i18n(`settings.${headline}`)}
             </Headline>
           )}
