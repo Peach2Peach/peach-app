@@ -37,7 +37,7 @@ export default (): ReactElement => {
       content: <RefundAddressPopup />,
       level: 'INFO',
       visible: true,
-      title: 'refund address',
+      title: i18n('settings.refundAddress'),
       action2: {
         callback: () => {
           updateOverlay({ visible: false })
@@ -62,7 +62,10 @@ export default (): ReactElement => {
 
   useHeaderSetup(
     useMemo(
-      () => ({ title: 'refund address', icons: [{ iconComponent: <HelpIcon />, onPress: showRefundAddressPopup }] }),
+      () => ({
+        title: i18n('settings.refundAddress'),
+        icons: [{ iconComponent: <HelpIcon />, onPress: showRefundAddressPopup }],
+      }),
       [showRefundAddressPopup],
     ),
   )
