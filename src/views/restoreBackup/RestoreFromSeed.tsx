@@ -30,7 +30,7 @@ export default ({ style }: ComponentProps): ReactElement => {
   const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
 
-  const seedPhrase: ReturnType<typeof useValidatedState<string>>[] = []
+  const seedPhrase: ReturnType<typeof useValidatedState>[] = []
   const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
 
   for (let i = 12; i > 0; i--) {
