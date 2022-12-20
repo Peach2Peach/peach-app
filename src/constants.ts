@@ -39,7 +39,7 @@ export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: 'sepa',
-    currencies: ['EUR', 'CHF', 'GBP'],
+    currencies: ['EUR'],
   },
 ]
 
