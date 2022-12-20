@@ -103,8 +103,9 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
         />
       </View>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
-      <View style={tw`mt-2`}>
-        {currentTab.id === 'phone' && (
+
+      {currentTab.id === 'phone' && (
+        <View style={tw`mt-2`}>
           <Input
             onChange={(number: string) => {
               setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
@@ -120,8 +121,9 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
             autoCorrect={false}
             errorMessage={displayErrors ? phoneErrors : undefined}
           />
-        )}
-      </View>
+        </View>
+      )}
+
       {currentTab.id === 'email' && (
         <View style={tw`mt-2`}>
           <Input
