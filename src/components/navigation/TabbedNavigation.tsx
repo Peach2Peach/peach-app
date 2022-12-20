@@ -10,7 +10,7 @@ const themes = {
     underline: tw`bg-black-1`,
   },
   inverted: {
-    text: tw`text-primary-mild`,
+    text: tw`text-primary-mild-1`,
     textSelected: tw`text-primary-background-light`,
     underline: tw`bg-primary-background-light`,
   },

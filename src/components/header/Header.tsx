@@ -14,7 +14,7 @@ const themes = {
   },
   inverted: {
     text: tw`text-primary-background-light`,
-    backButton: tw`text-primary-mild`,
+    backButton: tw`text-primary-mild-1`,
     bg: tw`bg-transparent`,
   },
 }

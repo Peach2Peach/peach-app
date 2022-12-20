@@ -14,7 +14,7 @@ export default (): ReactElement => {
     <View style={tw`h-full flex justify-center items-center`}>
       <Text style={tw`h4 text-center text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
       <Text style={tw`body-l text-center text-primary-background-light`}>{i18n('newUser.oneSec')}</Text>
-      <Loading style={tw`w-32 h-32`} color={tw`text-primary-mild`.color} />
+      <Loading style={tw`w-32 h-32`} color={tw`text-primary-mild-1`.color} />
     </View>
   )
 }
