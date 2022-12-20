@@ -1,4 +1,5 @@
 import { info, error } from './log'
+import { parseError } from './system'
 
 export const getAbortWithTimeout = (timeout?: number) => {
   const controller = new AbortController()
@@ -16,6 +17,6 @@ export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>
       })
       .catch((err) => {
         resolve(err)
-        error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, err)
+        error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, parseError(err))
       }),
   )
