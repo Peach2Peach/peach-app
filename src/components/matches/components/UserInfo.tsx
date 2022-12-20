@@ -1,12 +1,13 @@
 import React from 'react'
 import { Pressable, View } from 'react-native'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { interpolate } from '../../../utils/math'
 import { isSellOffer } from '../../../utils/offer'
 import { Text } from '../../text'
-import { Rating, ExtraMedals } from '../../user'
+import { ExtraMedals, Rating } from '../../user'
+import { useMatchStore } from '../store'
 
 type UserInfoProps = {
   user: Match['user']
@@ -14,7 +15,7 @@ type UserInfoProps = {
 
 export const UserInfo = ({ user }: UserInfoProps) => {
   const navigation = useNavigation()
-  const { offer } = useRoute<'search'>().params
+  const offer = useMatchStore((state) => state.offer)
   const rawRating = user.ratingCount === 0 && user.medals.includes('ambassador') ? 0.2 : user.rating
   const userRating = Math.round(interpolate(rawRating, [-1, 1], [0, 5]) * 10) / 10
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import shallow from 'zustand/shallow'
-import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isBuyOffer } from '../../../utils/offer'
@@ -10,9 +9,9 @@ import { HorizontalLine } from '../../ui'
 import { useMatchStore } from '../store'
 
 export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer } = useRoute<'search'>().params
-  const { selectedValue, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
+  const { offer, selectedValue, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
     (state) => ({
+      offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedPaymentMethod,
       setSelectedPaymentMethod: state.setSelectedPaymentMethod,
       availablePaymentMethods: state.matchSelectors[matchId]?.availablePaymentMethods || [],

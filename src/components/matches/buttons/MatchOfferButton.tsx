@@ -4,14 +4,12 @@ import Button from '../../Button'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
 import { useMatchOffer } from '../hooks'
-import { useRoute } from '../../../hooks'
 import { isBuyOffer } from '../../../utils/offer'
+import shallow from 'zustand/shallow'
 
 export const MatchOfferButton = () => {
-  const { offer } = useRoute<'search'>().params
-
   const { allMatches: matches } = useOfferMatches()
-  const currentIndex = useMatchStore((state) => state.currentIndex)
+  const [offer, currentIndex] = useMatchStore((state) => [state.offer, state.currentIndex], shallow)
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
@@ -19,10 +17,10 @@ export const MatchOfferButton = () => {
   return (
     <Button
       title={i18n(
-        `search.${isBuyOffer(offer) ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
+        `search.${isBuyOffer(offer) ? (currentMatch?.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
       )}
       wide={false}
-      disabled={currentMatch.matched || isLoading}
+      disabled={currentMatch?.matched || isLoading}
       loading={isLoading}
       onPress={matchOffer}
     />

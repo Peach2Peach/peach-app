@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { getPeachAccount } from '../../peachAccount'
 import { fetchAccessToken } from './fetchAccessToken'
@@ -22,7 +22,7 @@ export const logoutUser = async ({ timeout }: LogoutUserProps): Promise<[APISucc
       'Content-Type': 'application/json',
     },
     method: 'PATCH',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'logoutUser')
