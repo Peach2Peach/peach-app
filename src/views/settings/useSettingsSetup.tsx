@@ -1,19 +1,21 @@
+import analytics from '@react-native-firebase/analytics'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
-import analytics from '@react-native-firebase/analytics'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { OverlayContext } from '../../contexts/overlay'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../utils/system'
-import { useHeaderSetup, useNavigation } from '../../hooks'
-import { SettingsItemProps } from './components/SettingsItem'
 import { NotificationPopup } from './components/NotificationPopup'
+import { SettingsItemProps } from './components/SettingsItem'
+
+const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
-  useHeaderSetup(useMemo(() => ({ title: i18n('settings.title'), hideGoBackButton: true }), []))
+  useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)

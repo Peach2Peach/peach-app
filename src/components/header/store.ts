@@ -5,17 +5,19 @@ export type HeaderConfig = {
   titleComponent?: JSX.Element
   icons?: { iconComponent: JSX.Element; onPress: () => void }[]
   hideGoBackButton?: boolean
+  theme?: 'default' | 'inverted'
 }
 
 type HeaderState = HeaderConfig & {
-  setHeaderState: (headerConfiguration: HeaderConfig) => void
+  setHeaderState: (headerConfiguration: Partial<HeaderConfig>) => void
 }
 
-const defaultState = {
+const defaultState: HeaderConfig = {
   title: '',
   titleComponent: undefined,
   icons: [],
   hideGoBackButton: false,
+  theme: 'default',
 }
 
 export const useHeaderState = create<HeaderState>()((set) => ({

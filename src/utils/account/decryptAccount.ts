@@ -11,13 +11,13 @@ interface DecryptAccountProps {
 export const decryptAccount = async ({
   encryptedAccount,
   password = '',
-}: DecryptAccountProps): Promise<[Account | null, Error | null]> => {
+}: DecryptAccountProps): Promise<[Account | null, string | null]> => {
   info('Decrypting account')
 
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
     return [account, null]
   } catch (e) {
-    return [null, e as Error]
+    return [null, 'WRONG_PASSWORD']
   }
 }

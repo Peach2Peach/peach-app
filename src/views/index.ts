@@ -44,9 +44,9 @@ type ViewType = {
 
 export const views: ViewType[] = [
   { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
-  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
+  { name: 'welcome', component: Welcome, showHeader: true, showFooter: false },
+  { name: 'newUser', component: NewUser, showHeader: true, showFooter: false },
+  { name: 'restoreBackup', component: RestoreBackup, showHeader: true, showFooter: false },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
   { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
