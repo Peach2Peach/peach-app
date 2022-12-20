@@ -70,19 +70,19 @@ export const Overlay = ({
           <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
             {!!action2 && (
               <Pressable onPress={action2.callback}>
-                <View style={[tw`flex flex-row flex-shrink`]}>
-                  <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 mr-1`} />
+                <View style={[tw`flex flex-row flex-shrink items-center`]}>
+                  <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 h-4 mr-1`} />
                   <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2.label}</Text>
                 </View>
               </Pressable>
             )}
             {
               <Pressable onPress={action1 ? action1.callback : closeOverlay}>
-                <View style={[tw`flex flex-row flex-shrink`]}>
+                <View style={[tw`flex flex-row flex-shrink items-center`]}>
                   <Text style={[tw`text-base leading-relaxed`, actionColor]}>
                     {action1 ? action1.label : i18n('close')}
                   </Text>
-                  <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 ml-1`} />
+                  <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 h-4 ml-1`} />
                 </View>
               </Pressable>
             }

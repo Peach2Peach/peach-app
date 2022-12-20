@@ -32,6 +32,7 @@ import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
+import info from './info.svg'
 import link from './link.svg'
 import list from './list.svg'
 import lock from './lock.svg'
@@ -104,6 +105,7 @@ const Icons = {
   fundEscrow,
   heart,
   helpCircle,
+  info,
   link,
   list,
   lock,

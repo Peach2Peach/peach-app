@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -8,6 +8,10 @@ import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymen
 import { addPaymentData } from '../../utils/account'
 import { specialTemplates } from './specialTemplates'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { HelpIcon } from '../../components/icons'
+import { showCurrencyHelp } from '../../overlays/info/showCurrencyHelp'
+import { OverlayContext } from '../../contexts/overlay'
+import { NavigationContainerRefWithCurrent, useNavigationContainerRef } from '@react-navigation/native'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -46,8 +50,26 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
+  const [, updateOverlay] = useContext(OverlayContext)
+
+  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
+  const goToHelp = () => navigationRef.navigate('contact') // TODO : NOT WORKING
+
   useHeaderSetup(
-    useMemo(() => ({ title: i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)) }), []),
+    useMemo(
+      () => ({
+        title: i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
+        icons: [
+          {
+            iconComponent: <HelpIcon />,
+            onPress: () => {
+              showCurrencyHelp(updateOverlay, goToHelp)
+            },
+          },
+        ],
+      }),
+      [],
+    ),
   )
 
   return (
