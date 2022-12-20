@@ -1,6 +1,6 @@
 export const getAvailableCurrencies = (
   mopsIncCommon: MeansOfPayment,
-  matchMeansOfPayment: Match['meansOfPayment'],
+  matchMeansOfPayment: MeansOfPayment,
 ): Currency[] => {
   const sharedCurrencies = Object.keys(mopsIncCommon) as Currency[]
   const matchCurrencies = (Object.keys(matchMeansOfPayment) as Currency[]).filter(
