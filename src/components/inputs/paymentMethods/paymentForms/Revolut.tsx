@@ -130,7 +130,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>
-      <CurrencySelection paymentMethod="paypal" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      <CurrencySelection paymentMethod="revolut" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )
 }
