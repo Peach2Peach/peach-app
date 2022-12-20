@@ -686,7 +686,6 @@
   "settings.refundAddress": "refund address",
   "settings.escrow": "Escrow",
   "settings.escrow.subtitle": "Escrow",
-  "settings.refundAddress": "Refund address",
   "settings.refundAddress.title": "set custom refund address",
   "settings.refundAddress.success": "address set",
   "settings.refundAddress.confirm": "confirm",
