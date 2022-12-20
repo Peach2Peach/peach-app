@@ -1,6 +1,7 @@
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '..'
-import fetch, { getAbortSignal } from '../../fetch'
+import { RequestProps } from '..'
+import fetch, { getAbortWithTimeout } from '../../fetch'
+import { parseResponse } from '../parseResponse'
 
 type GenerateBlockProps = RequestProps
 
@@ -18,7 +19,7 @@ export const generateBlock = async ({
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<GenerateBlockResponse>(response, 'generateBlock')

@@ -15,7 +15,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { getOffer, getRequiredActionCount } from '../../utils/offer'
-import { isTradeCanceled, isTradeComplete } from '../../utils/offer/getOfferStatus'
+import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
@@ -155,12 +155,12 @@ export default ({ route, navigation }: Props): ReactElement => {
       ) {
         navigation.replace('tradeComplete', { contract })
       } else {
-        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
         navigation.replace('offer', { offer })
       }
       return
     } else if (isTradeCanceled(contract)) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
       navigation.replace('offer', { offer })
       return
     }

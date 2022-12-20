@@ -1,18 +1,15 @@
 import { deepStrictEqual } from 'assert'
 import { setAccount } from '../../../../src/utils/account'
 import { createSystemMessage } from '../../../../src/utils/chat'
-import { session } from '../../../../src/utils/session'
 import * as accountData from '../../data/accountData'
-import { resetFakeFiles } from '../../prepare'
-
-session.password = 'supersecret'
+import { resetStorage } from '../../prepare'
 
 describe('createSystemMessage', () => {
   beforeEach(async () => {
     await setAccount(accountData.account1)
   })
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 

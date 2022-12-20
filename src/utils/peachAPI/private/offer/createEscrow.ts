@@ -1,7 +1,8 @@
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
-import { getAccessToken } from '../user'
+import { RequestProps } from '../..'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { parseResponse } from '../../parseResponse'
+import { fetchAccessToken } from '../user'
 
 type CreateEscrowProps = RequestProps & {
   offerId: string
@@ -21,7 +22,7 @@ export const createEscrow = async ({
 }: CreateEscrowProps): Promise<[CreateEscrowResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -29,7 +30,7 @@ export const createEscrow = async ({
     body: JSON.stringify({
       publicKey,
     }),
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<CreateEscrowResponse>(response, 'createEscrow')

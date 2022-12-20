@@ -1,28 +1,23 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, setAccount, storeAccount } from '../../../../../src/utils/account'
+import { defaultAccount, setAccount, storeSettings } from '../../../../../src/utils/account'
+import { accountStorage } from '../../../../../src/utils/account/accountStorage'
 import { loadSettings } from '../../../../../src/utils/account/loadAccount'
-import * as file from '../../../../../src/utils/file'
 import * as accountData from '../../../data/accountData'
-import { resetFakeFiles } from '../../../prepare'
-
-const password = 'supersecret'
+import { resetStorage } from '../../../prepare'
 
 describe('loadSettings', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
   })
   afterEach(() => {
-    resetFakeFiles()
-    jest.clearAllMocks()
+    resetStorage()
   })
 
-  it('loads settings from files', async () => {
-    const readFileSpy = jest.spyOn(file, 'readFile')
+  it('loads settings', async () => {
+    await storeSettings(accountData.account1.settings)
 
-    await storeAccount(accountData.account1, password)
-
-    const settings = await loadSettings(password)
-    expect(readFileSpy).toHaveBeenCalledWith('/peach-account-settings.json', password)
+    const settings = await loadSettings()
+    expect(accountStorage.getMap).toHaveBeenCalledWith('settings')
     deepStrictEqual(settings, accountData.account1.settings)
   })
 })

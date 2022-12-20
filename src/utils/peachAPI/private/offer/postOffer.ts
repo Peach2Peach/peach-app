@@ -1,7 +1,8 @@
 import { API_URL } from '@env'
-import { parseResponse, RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
-import { getAccessToken } from '../user'
+import { RequestProps } from '../..'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { parseResponse } from '../../parseResponse'
+import { fetchAccessToken } from '../user'
 
 type PostOfferProps = RequestProps & {
   type: OfferType
@@ -37,7 +38,7 @@ export const postOffer = async ({
 }: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -52,7 +53,7 @@ export const postOffer = async ({
       returnAddress,
       releaseAddress,
     }),
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<PostOfferResponse>(response, 'postOffer')

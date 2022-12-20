@@ -1,10 +1,13 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import fetch, { getAbortSignal } from '../../../fetch'
-import { getResponseError, peachAccount, RequestProps, setAccessToken } from '../..'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { RequestProps } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import { error, info } from '../../../log'
 import { parseError } from '../../../system'
+import { getPeachAccount } from '../../peachAccount'
+import { getResponseError } from '../../getResponseError'
+import { setAccessToken } from '../../accessToken'
 import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 
 const tokenNotFoundError = {
@@ -29,6 +32,7 @@ const handleMissingPeachAccount = () => {
  */
 export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
   const message = getAuthenticationChallenge()
+  const peachAccount = getPeachAccount()
 
   if (!peachAccount) return handleMissingPeachAccount()
 
@@ -45,7 +49,7 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
         message,
         signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
       }),
-      signal: timeout ? getAbortSignal(timeout) : undefined,
+      signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
     })
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]

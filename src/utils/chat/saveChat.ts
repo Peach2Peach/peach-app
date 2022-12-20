@@ -1,7 +1,6 @@
 import { account } from '../account'
 import { storeChat } from '../account/storeAccount'
 import { unique } from '../array'
-import { session } from '../session'
 import { getChat } from './getChat'
 
 /**
@@ -36,7 +35,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
       .filter(unique('signature')) // signatures are unique even if the same message is being sent 2x (user intention)
       .sort((a, b) => a.date.getTime() - b.date.getTime()),
   }
-  if (save && session.password) storeChat(account.chats[id], session.password)
+  if (save) storeChat(account.chats[id])
 
   return account.chats[id]
 }

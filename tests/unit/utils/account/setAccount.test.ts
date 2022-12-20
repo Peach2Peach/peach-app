@@ -1,13 +1,13 @@
 import { deepStrictEqual, ok } from 'assert'
 import { account, setAccount } from '../../../../src/utils/account'
-import { getPeachAccount } from '../../../../src/utils/peachAPI'
+import { getPeachAccount } from '../../../../src/utils/peachAPI/peachAccount'
 import { getWallet } from '../../../../src/utils/wallet'
 import * as accountData from '../../data/accountData'
-import { resetFakeFiles } from '../../prepare'
+import { resetStorage } from '../../prepare'
 
 describe('setAccount', () => {
   afterEach(() => {
-    resetFakeFiles()
+    resetStorage()
     jest.clearAllMocks()
   })
 

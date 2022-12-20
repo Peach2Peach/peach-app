@@ -84,3 +84,47 @@ export const buyOfferUnpublished: BuyOffer = {
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
 }
+
+export const matchOffer: Match = {
+  user: {
+    id: '1',
+    creationDate: new Date('2022-03-08T11:41:07.245Z'),
+    trades: 0,
+    rating: 0,
+    userRating: 0,
+    ratingCount: 0,
+    peachRating: 0,
+    medals: [],
+    bonusPoints: 0,
+    referredTradingAmount: 0,
+    disputes: {
+      opened: 0,
+      won: 0,
+      lost: 0,
+    },
+    pgpPublicKey: 'TODO add pgp public key',
+    pgpPublicKeyProof: 'TODO add pgp',
+  },
+  offerId: '37',
+  prices: {
+    EUR: 1,
+    CHF: 1.1,
+  },
+  matchedPrice: 1,
+  premium: 1.5,
+  meansOfPayment: {
+    EUR: ['sepa'],
+    CHF: ['sepa'],
+  },
+  paymentData: {
+    sepa: {
+      hash: ' add payment hash',
+    },
+  },
+  selectedCurrency: 'EUR',
+  selectedPaymentMethod: 'sepa',
+  kyc: false,
+  symmetricKeyEncrypted: 'TODO add symmetric key encrypted',
+  symmetricKeySignature: 'TODO add symmetric key signature',
+  matched: true,
+}

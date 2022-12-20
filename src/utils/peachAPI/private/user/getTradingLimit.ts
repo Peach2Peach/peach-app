@@ -1,7 +1,9 @@
 import { API_URL } from '@env'
-import fetch, { getAbortSignal } from '../../../fetch'
-import { parseResponse, peachAccount, RequestProps } from '../..'
-import { getAccessToken } from './getAccessToken'
+import { RequestProps } from '../..'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { parseResponse } from '../../parseResponse'
+import { getPeachAccount } from '../../peachAccount'
+import { fetchAccessToken } from './fetchAccessToken'
 
 type GetTradingLimitProps = RequestProps
 
@@ -12,16 +14,17 @@ type GetTradingLimitProps = RequestProps
 export const getTradingLimit = async ({
   timeout,
 }: GetTradingLimitProps): Promise<[TradingLimit | null, APIError | null]> => {
+  const peachAccount = getPeachAccount()
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
   const response = await fetch(`${API_URL}/v1/user/tradingLimit`, {
     headers: {
-      Authorization: await getAccessToken(),
+      Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<TradingLimit>(response, 'getTradingLimit')

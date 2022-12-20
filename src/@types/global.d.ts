@@ -105,6 +105,8 @@ declare type Chat = {
 declare type AppState = {
   notifications: number
 }
+
+declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type MessageState = {
   template?: ReactNode
   msgKey?: string
@@ -131,14 +133,6 @@ declare type BitcoinState = {
   price: number
   satsPerUnit: number
   prices: Pricebook
-}
-
-declare type Session = {
-  initialized: boolean
-  password?: string
-  notifications: number
-  peachInfo?: PeachInfo
-  unsavedPaymentData?: PaymentData[]
 }
 
 declare type PeachWallet = {

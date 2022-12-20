@@ -97,7 +97,6 @@ declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
   countries?: Country[]
-  exchange: boolean
   rounded?: boolean
 }
 
@@ -228,6 +227,8 @@ declare type Match = {
 declare type GetMatchesResponse = {
   offerId: string
   matches: Match[]
+  totalMatches: number
+  remainingMatches: number
 }
 declare type MatchResponse = {
   success: true
