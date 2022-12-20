@@ -1,31 +1,31 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, Title } from '../../components'
-import LanguageContext from '../../contexts/language'
+import { GoBackButton, OptionButton } from '../../components'
+import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
-import SocialsItem from './components/SocialsItem'
 
+const socials = [
+  { name: 'twitter', url: 'https://twitter.com/peachbitcoin' },
+  { name: 'instagram', url: 'https://www.instagram.com/peachbitcoin' },
+  { name: 'telegram', url: 'https://t.me/+3KpdrMw25xBhNGJk' },
+  { name: 'discord', url: 'https://discord.gg/skP9zqTB' },
+]
 export default (): ReactElement => {
-  useContext(LanguageContext)
-
-  const goToTwitter = () => Linking.openURL('https://twitter.com/peachbitcoin')
-  const goToInstagram = () => Linking.openURL('https://www.instagram.com/peachbitcoin')
-  const goToTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
-  const goToDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
+  useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
 
   return (
-    <View style={tw`h-full pb-10 pt-6 px-12`}>
-      <Title title={i18n('settings.title')} subtitle={i18n('settings.socials.subtitle')} />
-      <View style={tw`h-full flex-shrink flex justify-center`}>
-        <SocialsItem onPress={goToTwitter} title="twitter" />
-        <SocialsItem onPress={goToInstagram} title="instagram" />
-        <SocialsItem onPress={goToTelegram} title="telegram" />
-        <SocialsItem onPress={goToDiscord} title="discord" />
+    <View style={tw`h-full`}>
+      <View style={tw`items-center justify-center flex-1`}>
+        {socials.map(({ name, url }) => (
+          <OptionButton key={name} onPress={() => Linking.openURL(url)} style={tw`mt-2`} wide>
+            {i18n(name)}
+          </OptionButton>
+        ))}
       </View>
-      <GoBackButton style={tw`self-center mt-16`} />
+      <GoBackButton style={tw`self-center mb-6`} />
     </View>
   )
 }

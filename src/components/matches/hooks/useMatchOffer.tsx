@@ -18,8 +18,8 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
 
   const { selectedCurrency, selectedPaymentMethod, currentPage } = useMatchStore(
     (state) => ({
-      selectedCurrency: state.selectedCurrency,
-      selectedPaymentMethod: state.selectedPaymentMethod,
+      selectedCurrency: state.matchSelectors[match.offerId]?.selectedCurrency,
+      selectedPaymentMethod: state.matchSelectors[match.offerId]?.selectedPaymentMethod,
       currentPage: state.currentPage,
     }),
     shallow,
