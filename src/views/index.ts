@@ -70,7 +70,7 @@ export const views: ViewType[] = [
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
   { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-  { name: 'fees', component: Fees, showHeader: true, showFooter: true },
+  { name: 'networkFees', component: Fees, showHeader: true, showFooter: true },
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
