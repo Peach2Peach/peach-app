@@ -1,4 +1,5 @@
 declare type RootStackParamList = {
+  loading: undefined
   home: undefined
   newUser: {
     referralCode?: string

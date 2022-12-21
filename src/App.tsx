@@ -18,7 +18,7 @@ import { enableScreens } from 'react-native-screens'
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
-import views from './views'
+import { getViews } from './views'
 
 import AppContext, { getAppContext, setAppContext } from './contexts/app'
 import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
@@ -35,10 +35,10 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
+import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
-import { initApp } from './init'
 import { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
@@ -48,7 +48,8 @@ import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import { Background } from './components/background/Background'
+import { initialNavigation } from './init/initialNavigation'
+import { initApp } from './init/initApp'
 
 enableScreens()
 
@@ -63,20 +64,6 @@ const navTheme = {
 }
 
 const queryClient = new QueryClient()
-
-/**
- * @description Method to determine weather header should be shown
- * @param view view id
- * @returns true if view should show header
- */
-const showHeader = (view: keyof RootStackParamList) => !!views.find((v) => v.name === view)?.showHeader
-
-/**
- * @description Method to determine weather header should be shown
- * @param view view id
- * @returns true if view should show header
- */
-const showFooter = (view: keyof RootStackParamList) => !!views.find((v) => v.name === view)?.showFooter
 
 let goHomeTimeout: NodeJS.Timer
 
@@ -124,6 +111,7 @@ const usePartialAppSetup = () => {
   }, [active])
 }
 
+// eslint-disable-next-line max-statements
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
   const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
@@ -137,8 +125,10 @@ const App: React.FC = () => {
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
-  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>(account?.publicKey ? 'home' : 'welcome')
+  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = () => currentPage
+  const views = getViews(!!account?.publicKey)
+  const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
 
   StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
@@ -178,7 +168,10 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp(navigationRef, updateMessage)
+      await initApp()
+      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
+      await initialNavigation(navigationRef, updateMessage)
+
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
@@ -229,7 +222,7 @@ const App: React.FC = () => {
   }, [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
-    if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
+    if (state) setCurrentPage(state.routes[state.routes.length - 1].name as keyof RootStackParamList)
   }
 
   useEffect(() => {
@@ -239,6 +232,8 @@ const App: React.FC = () => {
       screen_name: currentPage as string,
     })
   }, [currentPage])
+
+  if (!currentPage) return null
 
   return (
     <GestureHandlerRootView>
@@ -277,20 +272,20 @@ const App: React.FC = () => {
                                       headerShown: false,
                                     }}
                                   >
-                                    {views.map(({ name, component }) => (
+                                    {views.map(({ name, component, showHeader }) => (
                                       <Stack.Screen
                                         {...{ name, component }}
                                         key={name}
                                         options={{
                                           animationEnabled: false,
-                                          headerShown: showHeader(name),
+                                          headerShown: showHeader,
                                           header: () => <Header />,
                                         }}
                                       />
                                     ))}
                                   </Stack.Navigator>
                                 </View>
-                                {showFooter(currentPage) && (
+                                {showFooter && (
                                   <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
                                 )}
                               </View>

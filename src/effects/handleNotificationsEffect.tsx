@@ -19,7 +19,7 @@ import { parseError } from '../utils/system'
 import { Navigation } from '../utils/navigation'
 
 type HandleNotificationsEffectProps = {
-  getCurrentPage: () => keyof RootStackParamList
+  getCurrentPage: () => keyof RootStackParamList | undefined
   updateOverlay: Dispatch<OverlayState>
   navigation: Navigation
 }

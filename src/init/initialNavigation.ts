@@ -2,12 +2,7 @@ import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
-import { dataMigrationAfterLoadingAccount, dataMigrationBeforeLoadingAccount } from '../init/dataMigration'
-import events from '../init/events'
-import requestUserPermissions from '../init/requestUserPermissions'
-import { getPeachInfo, getTrades } from '../init/session'
-import userUpdate from '../init/userUpdate'
-import { account, loadAccount } from '../utils/account'
+import { account } from '../utils/account'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
@@ -16,8 +11,6 @@ import { isIOS, parseError } from '../utils/system'
 
 /**
  * @description Method to wait up to 10 seconds for navigation to initialise.
- * @param navigationRef reference to navigation
- * @param updateMessage updateMessage dispatch function
  */
 const waitForNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
@@ -37,10 +30,8 @@ const waitForNavigation = async (
 
 /**
  * @description Method to init navigation and check where to navigate to first after opening the app
- * @param navigationRef reference to navigation
- * @param updateMessage updateMessage dispatch function
  */
-const initialNavigation = async (
+export const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
 ) => {
@@ -68,10 +59,7 @@ const initialNavigation = async (
         initialNotification.sentTime,
       )
       if (!handledNotification) {
-        navigationRef.reset({
-          index: 0,
-          routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
-        })
+        navigationRef.navigate(account?.publicKey ? 'home' : 'welcome')
       }
     }
   }
@@ -86,33 +74,6 @@ const initialNavigation = async (
 
     if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
-}
 
-/**
- * @description Method to initialize app by retrieving app session and user account
- * @param navigationRef reference to navigation
- */
-export const initApp = async (
-  navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>,
-): Promise<void> => {
-  events()
-  await dataMigrationBeforeLoadingAccount()
-
-  await loadAccount()
-  await getPeachInfo(account)
-  if (account?.publicKey) {
-    getTrades()
-    userUpdate()
-    await dataMigrationAfterLoadingAccount()
-  }
-
-  navigationRef.reset({
-    index: 0,
-    routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
-  })
-
-  initialNavigation(navigationRef, updateMessage)
   SplashScreen.hide()
-  await requestUserPermissions()
 }
