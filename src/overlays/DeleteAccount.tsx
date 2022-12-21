@@ -28,7 +28,8 @@ export const DeleteAccount = (): ReactElement => {
 
   const closeOverlay = () => updateOverlay({ visible: false })
   const ok = async () => {
-    await deleteAccount({ onSuccess: navigate })
+    await deleteAccount()
+    navigate()
     updateOverlay({ content: <AccountDeleted />, visible: true })
     setTimeout(() => {
       closeOverlay()
