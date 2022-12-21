@@ -7,7 +7,7 @@ import { Headline, PeachScrollView } from '../../components'
 import i18n from '../../utils/i18n'
 import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'
-import { useSettingsSetup } from './useSettingsSetup'
+import { useSettingsSetup } from './hooks/useSettingsSetup'
 
 export default (): ReactElement => {
   const settings = useSettingsSetup()
