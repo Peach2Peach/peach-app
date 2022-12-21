@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import React, { useContext, useEffect, useReducer, useRef, useState } from 'react'
-import { Animated, Dimensions, SafeAreaView, StatusBar, View } from 'react-native'
+import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
@@ -39,6 +39,8 @@ import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { initApp } from './init/initApp'
+import { initialNavigation } from './init/initialNavigation'
 import { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
@@ -48,8 +50,6 @@ import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import { initialNavigation } from './init/initialNavigation'
-import { initApp } from './init/initApp'
 
 enableScreens()
 
@@ -130,7 +130,6 @@ const App: React.FC = () => {
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
 
-  StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
     updateMessage({
@@ -238,27 +237,27 @@ const App: React.FC = () => {
   return (
     <GestureHandlerRootView>
       <AvoidKeyboard>
-        <SafeAreaView>
-          <QueryClientProvider client={queryClient}>
-            <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
-              <PeachWSContext.Provider value={peachWS}>
-                <AppContext.Provider value={[appContext, updateAppContext]}>
-                  <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                    <MessageContext.Provider value={[messageState, updateMessage]}>
-                      <DrawerContext.Provider
-                        value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
-                      >
-                        <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                          <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                            <Background>
+        <QueryClientProvider client={queryClient}>
+          <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
+            <PeachWSContext.Provider value={peachWS}>
+              <AppContext.Provider value={[appContext, updateAppContext]}>
+                <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
+                  <MessageContext.Provider value={[messageState, updateMessage]}>
+                    <DrawerContext.Provider
+                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+                    >
+                      <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
+                        <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                          <Background>
+                            <Drawer
+                              title={drawerTitle}
+                              content={drawerContent}
+                              show={showDrawer}
+                              onClose={onCloseDrawer}
+                            />
+                            <Overlay {...overlayState} />
+                            <SafeAreaView>
                               <View style={tw`h-full flex-col`}>
-                                <Drawer
-                                  title={drawerTitle}
-                                  content={drawerContent}
-                                  show={showDrawer}
-                                  onClose={onCloseDrawer}
-                                />
-                                <Overlay {...overlayState} />
                                 {!!messageState.msgKey && (
                                   <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                                     <Message {...messageState} />
@@ -289,17 +288,17 @@ const App: React.FC = () => {
                                   <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
                                 )}
                               </View>
-                            </Background>
-                          </NavigationContainer>
-                        </OverlayContext.Provider>
-                      </DrawerContext.Provider>
-                    </MessageContext.Provider>
-                  </BitcoinContext.Provider>
-                </AppContext.Provider>
-              </PeachWSContext.Provider>
-            </LanguageContext.Provider>
-          </QueryClientProvider>
-        </SafeAreaView>
+                            </SafeAreaView>
+                          </Background>
+                        </NavigationContainer>
+                      </OverlayContext.Provider>
+                    </DrawerContext.Provider>
+                  </MessageContext.Provider>
+                </BitcoinContext.Provider>
+              </AppContext.Provider>
+            </PeachWSContext.Provider>
+          </LanguageContext.Provider>
+        </QueryClientProvider>
       </AvoidKeyboard>
     </GestureHandlerRootView>
   )
