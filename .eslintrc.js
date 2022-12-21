@@ -301,6 +301,7 @@ module.exports = {
     'yield-star-spacing': 'error',
     'yoda': 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'warn',
     'jest/expect-expect': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'react-native/no-inline-styles': 'off'

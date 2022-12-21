@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { ColorValue, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
-import { IconType } from '../../../components/icons'
+import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -72,9 +72,9 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
         ? 'offline'
         : 'clock'
       : meta.readByCounterParty
-        ? 'checkDouble'
+        ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'checkDouble' ? tw`text-blue-1`.color : tw`text-grey-3`.color
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-blue-1`.color : tw`text-grey-3`.color
   return {
     text,
     bgColor,

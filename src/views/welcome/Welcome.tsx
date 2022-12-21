@@ -3,48 +3,51 @@ import { Dimensions, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Carousel from 'react-native-snap-carousel'
-import Logo from '../../assets/logo/peachLogo.svg'
-import { Button } from '../../components'
+import { Icon, Progress, Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
+import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
-import Swipe from './Swipe'
-import WelcomeToPeach from './WelcomeToPeach'
-import YouOwnYourData from './YouOwnYourData'
-import { ContactButton } from '../report/components/ContactButton'
+import PeerToPeer from './PeerToPeer'
+import PrivacyFirst from './PrivacyFirst'
+import { useWelcomeHeader } from './useWelcomeHeader'
 
 const onStartShouldSetResponder = () => true
 
-type ScreenProps = {
-  navigation: StackNavigation
-}
+const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
+const backgroundConfig = { color: 'primaryGradient' as const }
 
-const screens = [WelcomeToPeach, Swipe, PeachOfMind, YouOwnYourData, LetsGetStarted]
-
-export default ({ navigation }: ScreenProps): ReactElement => {
+export default (): ReactElement => {
+  useWelcomeHeader()
+  useBackgroundSetup(backgroundConfig)
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
 
-  const onBeforeSnapToItem = (i: number) => {
-    setPage(i)
-  }
   const next = () => {
     $carousel.current?.snapToNext()
   }
-  const goTo = (p: number) => {
-    $carousel.current?.snapToItem(p)
+  const goToEnd = () => {
+    $carousel.current?.snapToItem(screens.length - 1)
   }
+  const getProgress = () => (page + 1) / screens.length
+  const endReached = () => getProgress() === 1
 
   return (
     <View style={tw`h-full flex`} testID="welcome">
-      <ContactButton style={tw`p-4 absolute top-0 left-0 z-10`} navigation={navigation} />
+      <View style={tw`w-full px-8`}>
+        <Progress percent={getProgress()} color={tw`bg-primary-background-light`} style={tw`h-2`} />
+        <Pressable
+          onPress={goToEnd}
+          style={[tw`h-8 flex flex-row justify-end items-center`, endReached() ? tw`opacity-0` : {}]}
+        >
+          <Text style={tw`text-primary-background-light mr-1`}>{i18n('skip')}</Text>
+          <Icon id="skipForward" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />
+        </Pressable>
+      </View>
       <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
-        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-16 pb-10`}>
-          <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
-        </View>
-        <View style={tw`w-full flex-shrink`}>
+        <View style={tw`w-full h-full flex-shrink`}>
           <Carousel
             ref={$carousel}
             data={screens}
@@ -55,7 +58,7 @@ export default ({ navigation }: ScreenProps): ReactElement => {
             inactiveSlideScale={1}
             inactiveSlideOpacity={1}
             inactiveSlideShift={0}
-            onBeforeSnapToItem={onBeforeSnapToItem}
+            onBeforeSnapToItem={setPage}
             shouldOptimizeUpdates={true}
             renderItem={({ item: Item }) => (
               <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`h-full px-6`}>
@@ -65,39 +68,11 @@ export default ({ navigation }: ScreenProps): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`mb-8 mt-4 flex items-center w-full`}>
-        {page !== screens.length - 1 ? (
-          <View>
-            <Button testID="welcome-next" title={i18n('next')} wide={false} onPress={next} />
-            <Button style={tw`opacity-0 mt-4`} title="layout dummy" secondary={true} wide={false} />
-          </View>
-        ) : (
-          <View>
-            <Button
-              testID="welcome-newUser"
-              onPress={() => navigation.navigate('newUser', {})}
-              wide={false}
-              title={i18n('newUser')}
-            />
-            <Button
-              testID="welcome-restoreBackup"
-              style={tw`mt-4`}
-              onPress={() => navigation.navigate('restoreBackup', {})}
-              wide={false}
-              secondary={true}
-              title={i18n('restoreBackup')}
-            />
-          </View>
-        )}
-        <View style={tw`w-full flex-row justify-center mt-11`}>
-          {screens.map((screen, i) => (
-            <Pressable
-              key={i}
-              onPress={() => goTo(i)}
-              accessibilityLabel={i18n('accessibility.bulletPoint')}
-              style={[tw`w-4 h-4 mx-2 rounded-full bg-peach-1`, i !== page ? tw`opacity-30` : {}]}
-            />
-          ))}
+      <View style={tw`mb-8 pt-4 flex items-center w-full`}>
+        <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
+          <PrimaryButton testID="welcome-next" narrow white onPress={next} iconId="arrowRightCircle">
+            {i18n('next')}
+          </PrimaryButton>
         </View>
       </View>
     </View>

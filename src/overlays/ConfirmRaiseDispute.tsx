@@ -1,10 +1,10 @@
 import React, { ReactElement, useContext } from 'react'
 import { View, Text } from 'react-native'
-import { Button, Headline } from '../components'
+import { Headline, PrimaryButton } from '../components'
 import { OverlayContext } from '../contexts/overlay'
+import { useNavigation } from '../hooks'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { Navigation } from '../utils/navigation'
 import WhatIsADispute from './WhatIsADispute'
 
 /**
@@ -13,22 +13,22 @@ import WhatIsADispute from './WhatIsADispute'
 
 export type ConfirmRaiseDisputeProps = {
   contract: Contract
-  navigation: Navigation
 }
-export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisputeProps): ReactElement => {
+export const ConfirmRaiseDispute = ({ contract: { id: contractId } }: ConfirmRaiseDisputeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   const ok = async () => {
     closeOverlay()
-    navigation.navigate('dispute', { contractId: contract.id })
+    navigation.navigate('dispute', { contractId })
   }
 
   const openExplainer = () =>
     updateOverlay({
       content: <WhatIsADispute />,
-      showCloseButton: true,
+      visible: true,
     })
 
   return (
@@ -38,15 +38,15 @@ export const ConfirmRaiseDispute = ({ contract, navigation }: ConfirmRaiseDisput
       </Headline>
       <Text style={tw`text-center text-white-1 mt-5`}>{i18n('dispute.doYouWantToOpenDispute')}</Text>
       <View>
-        <Button
-          style={tw`mt-8`}
-          title={i18n('contract.cancel.confirm.back')}
-          secondary={true}
-          wide={false}
-          onPress={closeOverlay}
-        />
-        <Button style={tw`mt-2`} title={i18n('dispute.openDispute')} tertiary={true} wide={false} onPress={ok} />
-        <Button tertiary={true} wide={false} onPress={openExplainer} style={tw`mt-2`} title={i18n('whatIsThis')} />
+        <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
+          {i18n('contract.cancel.confirm.back')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
+          {i18n('dispute.openDispute')}
+        </PrimaryButton>
+        <PrimaryButton onPress={openExplainer} style={tw`mt-2`} narrow>
+          {i18n('whatIsThis')}
+        </PrimaryButton>
       </View>
     </View>
   )

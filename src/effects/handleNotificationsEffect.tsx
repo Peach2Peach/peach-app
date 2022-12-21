@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { Dispatch, EffectCallback } from 'react'
 import { DisputeResult } from '../overlays/DisputeResult'
@@ -42,36 +41,41 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
         const days = args ? args[0] || '15' : '15'
         return updateOverlay({
           content: <OfferExpired {...{ offer, days, navigation }} />,
+          visible: true,
         })
       }
       if (offer && type === 'offer.notFunded' && !/sell|contract/u.test(currentPage)) {
         const days = args ? args[0] || '7' : '7'
         return updateOverlay({
           content: <OfferNotFunded {...{ offer, days, navigation }} />,
+          visible: true,
         })
       }
       if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
         return updateOverlay({
           content: <EscrowFunded {...{ offerId: remoteMessage.data.offerId, navigation }} />,
+          visible: true,
         })
       }
 
       if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
         return updateOverlay({
           content: <MatchAccepted {...{ contractId: remoteMessage.data.contractId, navigation }} />,
+          visible: true,
         })
       }
-      if (type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-        const { contractId } = remoteMessage.data
+      if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
         const date = remoteMessage.sentTime || Date.now()
         return updateOverlay({
-          content: <PaymentMade {...{ contractId, date, navigation }} />,
+          content: <PaymentMade {...{ contract, date, navigation }} />,
+          visible: true,
         })
       }
       if (type === 'contract.disputeRaised') {
         const { contractId, message, reason } = remoteMessage.data
         return updateOverlay({
           content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
+          visible: true,
         })
       }
       if (type === 'contract.disputeResolved') {
@@ -79,6 +83,7 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
 
         return updateOverlay({
           content: <DisputeResult {...{ contractId, navigation }} />,
+          visible: true,
         })
       }
 
@@ -87,21 +92,25 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
         if (result) contract = { ...result, ...contract }
         return updateOverlay({
           content: <BuyerCanceledTrade {...{ contract, navigation }} />,
+          visible: true,
         })
       }
       if (contract && type === 'contract.cancelationRequest' && !contract.disputeActive) {
         return updateOverlay({
           content: <ConfirmCancelTradeRequest {...{ contract, navigation }} />,
+          visible: true,
         })
       }
       if (contract && type === 'contract.cancelationRequestAccepted') {
         return updateOverlay({
           content: <CancelTradeRequestConfirmed {...{ contract, navigation }} />,
+          visible: true,
         })
       }
       if (contract && type === 'contract.cancelationRequestRejected') {
         return updateOverlay({
           content: <CancelTradeRequestRejected {...{ contract, navigation }} />,
+          visible: true,
         })
       }
       return null

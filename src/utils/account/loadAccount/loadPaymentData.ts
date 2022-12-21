@@ -1,19 +1,12 @@
 import { defaultAccount } from '../'
-import { readFile } from '../../file'
 import { error } from '../../log'
-import { parseError } from '../../system'
+import { accountStorage } from '../accountStorage'
 
-/**
- * @description Method to load payment data
- * @param password password
- * @returns Promise resolving to payment data
- */
-export const loadPaymentData = async (password: string): Promise<Account['paymentData']> => {
-  try {
-    const paymentData = await readFile('/peach-account-paymentData.json', password)
-    return JSON.parse(paymentData)
-  } catch (e) {
-    error('Could not load payment data', parseError(e))
-    return defaultAccount.paymentData
-  }
+export const loadPaymentData = async (): Promise<Account['paymentData']> => {
+  const paymentData = accountStorage.getArray('paymentData')
+
+  if (paymentData) return paymentData as Account['paymentData']
+
+  error('Could not load paymentData')
+  return defaultAccount.paymentData
 }

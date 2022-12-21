@@ -1,8 +1,7 @@
-
 import { crypto } from 'bitcoinjs-lib'
 import { account } from '../account'
-import { getPeachAccount } from '../peachAPI'
-import { getMainAddress, wallet } from '../wallet'
+import { getPeachAccount } from '../peachAPI/peachAccount'
+import { getMainAddress, getWallet } from '../wallet'
 
 /**
  * @description Method to create rating object for given user
@@ -11,7 +10,7 @@ import { getMainAddress, wallet } from '../wallet'
  * @returns User Rating
  */
 export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
-  const keyPair = getPeachAccount() || getMainAddress(wallet)
+  const keyPair = getPeachAccount() || getMainAddress(getWallet())
   const signature = keyPair.sign(crypto.sha256(Buffer.from(userId))).toString('hex')
 
   return {

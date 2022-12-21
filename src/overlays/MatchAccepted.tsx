@@ -3,26 +3,27 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Icon, Text } from '../components'
+import { Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { Navigation } from '../utils/navigation'
+import { useNavigation } from '../hooks'
+import { PrimaryButton } from '../components/buttons'
 
 type Props = {
   contractId: Contract['id']
-  navigation: Navigation
 }
 
-export default ({ contractId, navigation }: Props): ReactElement => {
+export default (props: Props): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToContract = () => {
-    navigation.navigate({ name: 'contract', merge: false, params: { contractId } })
+    navigation.navigate({ name: 'contract', merge: false, params: props })
     closeOverlay()
   }
 
@@ -40,8 +41,12 @@ export default ({ contractId, navigation }: Props): ReactElement => {
         {i18n('matchAccepted.description.2')}
       </Text>
       <View style={tw`flex justify-center items-center mt-5`}>
-        <Button title={i18n('goToMatch')} secondary={true} wide={false} onPress={goToContract} />
-        <Button title={i18n('later')} style={tw`mt-2`} tertiary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton onPress={goToContract} narrow>
+          {i18n('goToMatch')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('later')}
+        </PrimaryButton>
       </View>
     </View>
   )

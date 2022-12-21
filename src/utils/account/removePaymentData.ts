@@ -1,5 +1,4 @@
 import { account } from '.'
-import { session } from '../session'
 import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
 import { storePaymentData } from './storeAccount'
@@ -13,17 +12,20 @@ export const removePaymentData = async (id: PaymentData['id']) => {
   const dataToBeRemoved = getPaymentData(id)
   if (!dataToBeRemoved) return
 
-  account.paymentData = account.paymentData.filter(data => data.id !== id)
+  account.paymentData = account.paymentData.filter((data) => data.id !== id)
 
   if (account.settings.preferredPaymentMethods[dataToBeRemoved.type]) {
     const nextInLine = getPaymentDataByType(dataToBeRemoved.type).shift()
-    updateSettings({
-      preferredPaymentMethods: {
-        ...account.settings.preferredPaymentMethods,
-        [dataToBeRemoved.type]: nextInLine?.id || ''
-      }
-    }, true)
+    updateSettings(
+      {
+        preferredPaymentMethods: {
+          ...account.settings.preferredPaymentMethods,
+          [dataToBeRemoved.type]: nextInLine?.id || '',
+        },
+      },
+      true,
+    )
   }
 
-  if (session.password) await storePaymentData(account.paymentData, session.password)
+  await storePaymentData(account.paymentData)
 }

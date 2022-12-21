@@ -105,7 +105,7 @@ export const PremiumSlider = ({ value, min, max, onChange, displayUpdate, style 
                 },
               ]}
             >
-              <Icon id="triangleUp" style={tw`w-6 h-6`} />
+              <Icon id="chevronsDown" style={tw`w-6 h-6`} />
             </Animated.View>
           </View>
         </View>

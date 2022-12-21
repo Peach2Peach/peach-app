@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Pressable } from 'react-native'
-import { Button } from '..'
+import { PrimaryButton } from '..'
 import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -27,13 +27,9 @@ export const Navigation = ({ screen, back, next, stepValid }: NavigationProps): 
           <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color} />
         </Pressable>
       ) : null}
-      <Button
-        testID="navigation-next"
-        disabled={!stepValid}
-        wide={false}
-        onPress={stepValid ? next : () => {}}
-        title={buttonText}
-      />
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+        {buttonText}
+      </PrimaryButton>
     </Fade>
   )
 }

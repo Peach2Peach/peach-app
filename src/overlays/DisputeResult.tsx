@@ -7,7 +7,6 @@ import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import getContractEffect from '../effects/getContractEffect'
 import { account } from '../utils/account'
-import { Navigation } from '../utils/navigation'
 import { getOffer } from '../utils/offer'
 import { DisputeLostBuyer } from './disputeResults/DisputeLostBuyer'
 import { DisputeLostSeller } from './disputeResults/DisputeLostSeller'
@@ -17,13 +16,14 @@ import { NonDispute } from './disputeResults/NonDispute'
 import { getChat, saveChat } from '../utils/chat'
 import { endDisputeSystemMessages } from '../utils/chat/createDisputeSystemMessages'
 import i18n from '../utils/i18n'
+import { useNavigation } from '../hooks'
 
 type DisputeResultProps = {
   contractId: Contract['id']
-  navigation: Navigation
 }
 
-export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) => {
+export const DisputeResult = ({ contractId }: DisputeResultProps) => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -40,7 +40,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
       onSuccess: async (result) => {
         const newView = result.seller.id === account.publicKey ? 'seller' : 'buyer'
         setContract(result)
-        setOffer(getOffer(result.id.split('-')[newView === 'seller' ? 0 : 1]) as BuyOffer | SellOffer)
+        setOffer(getOffer(result.id.split('-')[newView === 'seller' ? 0 : 1]))
 
         setView(newView)
         setHasWinner(!!result.disputeWinner)
@@ -55,11 +55,13 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
         updateMessage({
           msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
-          actionLabel: i18n('contactUs'),
-          actionIcon: 'mail',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
-        updateOverlay({ content: null, showCloseButton: true })
+        updateOverlay({ visible: false })
         return navigation.navigate('contract', { contractId })
       },
     }),
@@ -68,7 +70,7 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
 
   const goToContract = () => {
     navigation.navigate('contract', { contractId })
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   return !view || !contract || !offer ? (
@@ -77,9 +79,9 @@ export const DisputeResult = ({ contractId, navigation }: DisputeResultProps) =>
     <NonDispute {...{ contract, navigate: goToContract }} />
   ) : view === 'seller' ? (
     isWinner ? (
-      <DisputeWonSeller {...{ contract, offer: offer as SellOffer, navigate: goToContract, navigation }} />
+      <DisputeWonSeller {...{ contract, offer: offer as SellOffer, navigate: goToContract }} />
     ) : (
-      <DisputeLostSeller {...{ contract, navigation, navigate: goToContract }} />
+      <DisputeLostSeller {...{ contract, navigate: goToContract }} />
     )
   ) : isWinner ? (
     <DisputeWonBuyer {...{ contract, navigate: goToContract }} />

@@ -3,12 +3,16 @@ import { ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
 import i18n from '../../../src/utils/i18n'
 import { getErrorsInField, getMessages, rules } from '../../../src/utils/validation'
-import * as wallet from '../../../src/utils/wallet'
+import { getNetwork } from '../../../src/utils/wallet'
 import paymentData from '../data/paymentData.json'
+
+jest.mock('../../../src/utils/wallet', () => ({
+  getNetwork: jest.fn(),
+}))
 
 describe('rules', () => {
   afterEach(() => {
-    jest.clearAllMocks()
+    jest.resetAllMocks()
   })
 
   it('validates required fields correctly', () => {
@@ -47,8 +51,7 @@ describe('rules', () => {
   })
 
   it('validates btc addresses correctly for mainnet', () => {
-    const getNetworkSpy = jest.spyOn(wallet, 'getNetwork')
-    getNetworkSpy.mockReturnValue(networks.bitcoin)
+    ;(<jest.Mock>getNetwork).mockReturnValue(networks.bitcoin)
     for (const address of paymentData.bitcoin.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }
@@ -67,8 +70,7 @@ describe('rules', () => {
   })
 
   it('validates btc addresses correctly for testnet', () => {
-    const getNetworkSpy = jest.spyOn(wallet, 'getNetwork')
-    getNetworkSpy.mockReturnValue(networks.testnet)
+    ;(<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
     for (const address of paymentData.bitcoinTestnet.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }
@@ -105,6 +107,10 @@ describe('rules', () => {
 })
 
 describe('getMessages', () => {
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
   it('has all messages defined', () => {
     const messages = getMessages()
     for (const message in messages) {
@@ -136,6 +142,7 @@ describe('getErrorMessage', () => {
     expect(isValid).toBeFalsy()
   })
   it('should not return errors for valid values', () => {
+    ;(<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
     const isValid
       = getErrorsInField(paymentData.bitcoinTestnet.base58Check.valid[0] as string, {
         bitcoinAddress: true,

@@ -29,8 +29,7 @@ export const setMessage = (oldState: ReducerState<any>, newState: MessageState):
   state.level = newState.level
   state.action = newState.action || undefined
   state.onClose = newState.onClose || undefined
-  state.actionLabel = newState.actionLabel
-  state.actionIcon = newState.actionIcon
+  state.action = newState.action
   state.keepAlive = newState.keepAlive || false
   state.time = Date.now()
 

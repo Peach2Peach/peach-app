@@ -4,44 +4,39 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import Clipboard from '@react-native-clipboard/clipboard'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Fade, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
+import { useFocusEffect } from '@react-navigation/native'
+import { Fade, GoBackButton, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
 import { ExtraMedals, Rating, TradingLimit } from '../../components/user'
 import BitcoinContext from '../../contexts/bitcoin'
 import { account, getTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { Navigation } from '../../utils/navigation'
 import { getUser } from '../../utils/peachAPI'
 import { splitAt, toShortDateFormat } from '../../utils/string'
+import { useRoute } from '../../hooks'
 
 type UserTradeDetailsProps = {
   user: User
 }
 
-const UserTradeDetails = ({ user }: UserTradeDetailsProps): ReactElement => (
+const UserTradeDetails = ({ user: { trades, disputes } }: UserTradeDetailsProps): ReactElement => (
   <View>
     <Text style={tw`text-center font-bold text-grey-1 mt-4`}>{i18n('profile.numberOfTrades')}</Text>
-    <Text style={tw`text-center text-grey-1`}>{user.trades}</Text>
+    <Text style={tw`text-center text-grey-1`}>{trades}</Text>
 
     <Text style={tw`text-center font-bold text-grey-1 mt-4`}>{i18n('profile.disputes')}</Text>
     <Text style={tw`text-center text-grey-1`}>
-      {i18n('profile.disputesOpened')}: {user.disputes.opened}
+      {i18n('profile.disputesOpened')}: {disputes.opened}
     </Text>
     <Text style={tw`text-center text-grey-1`}>
-      {i18n('profile.disputesWon')}: {user.disputes.won}
+      {i18n('profile.disputesWon')}: {disputes.won}
     </Text>
     <Text style={tw`text-center text-grey-1`}>
-      {i18n('profile.disputesLost')}: {user.disputes.lost}
+      {i18n('profile.disputesLost')}: {disputes.lost}
     </Text>
   </View>
 )
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['profile'] }>
-  navigation: Navigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'profile'>()
   const [bitcoinContext] = useContext(BitcoinContext)
 
   const { userId } = route.params
@@ -127,20 +122,18 @@ export default ({ route, navigation }: Props): ReactElement => {
               <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color} />
             </View>
           </Pressable>
-          {updatePending ? (
-            <View style={tw`mt-4 h-10`}>
-              <Loading />
-            </View>
-          ) : null}
           {isMyAccount ? (
             <TradingLimit tradingLimit={getTradingLimit(bitcoinContext.currency)} style={tw`mt-4 px-2`} />
           ) : null}
           {user ? <UserTradeDetails user={user} /> : null}
         </View>
-        <View style={tw`flex items-center mt-16`}>
-          <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-        </View>
+        <GoBackButton style={tw`self-center mt-16`} />
       </PeachScrollView>
+      {updatePending && (
+        <View style={tw`w-full h-full items-center justify-center absolute`}>
+          <Loading />
+        </View>
+      )}
     </View>
   )
 }

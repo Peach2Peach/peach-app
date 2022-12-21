@@ -2,17 +2,16 @@ import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
-import { dataMigration } from '../init/dataMigration'
+import { dataMigrationAfterLoadingAccount, dataMigrationBeforeLoadingAccount } from '../init/dataMigration'
 import events from '../init/events'
 import requestUserPermissions from '../init/requestUserPermissions'
-import session, { getPeachInfo, getTrades } from '../init/session'
+import { getPeachInfo, getTrades } from '../init/session'
 import userUpdate from '../init/userUpdate'
-import { account } from '../utils/account'
-import { exists } from '../utils/file'
+import { account, loadAccount } from '../utils/account'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { getSession, setSessionItem } from '../utils/session'
+import { sessionStorage } from '../utils/session'
 import { isIOS, parseError } from '../utils/system'
 
 /**
@@ -40,12 +39,10 @@ const waitForNavigation = async (
  * @description Method to init navigation and check where to navigate to first after opening the app
  * @param navigationRef reference to navigation
  * @param updateMessage updateMessage dispatch function
- * @param sessionInitiated true if session has properly initialised
  */
 const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
   updateMessage: React.Dispatch<MessageState>,
-  sessionInitiated: boolean,
 ) => {
   await waitForNavigation(navigationRef, updateMessage)
 
@@ -56,16 +53,13 @@ const initialNavigation = async (
     error('messaging().getInitialNotification - Push notifications not supported', parseError(e))
   }
 
-  if (!sessionInitiated && ((await exists('/peach-account.json')) || (await exists('/peach-account-identity.json')))) {
-    // couldn't retrieve account but account files exist, must have not gotten password so we redirect to Login Screen
-    navigationRef.navigate('login', {})
-  } else if (initialNotification) {
+  if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
-    let notifications = Number(getSession().notifications || 0)
+    let notifications = sessionStorage.getInt('notifications') || 0
     if (notifications > 0) notifications -= 1
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSessionItem('notifications', notifications)
+    sessionStorage.setInt('notifications', notifications)
 
     if (initialNotification.data) {
       const handledNotification = handlePushNotification(
@@ -85,10 +79,10 @@ const initialNavigation = async (
   messaging().onNotificationOpenedApp((remoteMessage) => {
     info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
 
-    let notifications = Number(getSession().notifications || 0)
+    let notifications = sessionStorage.getInt('notifications') || 0
     if (notifications > 0) notifications -= 1
     if (isIOS()) NotificationBadge.setNumber(notifications)
-    setSessionItem('notifications', notifications)
+    sessionStorage.setInt('notifications', notifications)
 
     if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
   })
@@ -103,13 +97,14 @@ export const initApp = async (
   updateMessage: React.Dispatch<MessageState>,
 ): Promise<void> => {
   events()
-  const sessionInitiated = await session()
+  await dataMigrationBeforeLoadingAccount()
 
+  await loadAccount()
   await getPeachInfo(account)
   if (account?.publicKey) {
     getTrades()
     userUpdate()
-    dataMigration()
+    await dataMigrationAfterLoadingAccount()
   }
 
   navigationRef.reset({
@@ -117,7 +112,7 @@ export const initApp = async (
     routes: [{ name: account?.publicKey ? 'home' : 'welcome' }],
   })
 
-  initialNavigation(navigationRef, updateMessage, sessionInitiated)
+  initialNavigation(navigationRef, updateMessage)
   SplashScreen.hide()
   await requestUserPermissions()
 }

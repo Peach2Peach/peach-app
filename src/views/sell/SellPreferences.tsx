@@ -14,7 +14,7 @@ import tw from '../../styles/tailwind'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
@@ -23,24 +23,16 @@ import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { error, info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { useNavigation, useRoute } from '../../hooks'
 
 const { LinearGradient } = require('react-native-gradients')
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['sell'] }>
-  navigation: StackNavigation
-}
-
 export type SellViewProps = {
   offer: SellOffer
-  updateOffer: (offer: SellOffer, shield?: boolean) => void
+  updateOffer: (offer: SellOffer) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
-  back: () => void
-  next: () => void
-  navigation: StackNavigation
 }
 
 const getDefaultSellOffer = (amount?: number): SellOffer => ({
@@ -85,10 +77,12 @@ const screens = [
   },
 ]
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'sellPreferences'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(route.params.amount))
+  const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -168,9 +162,11 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateMessage({
           msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
-          actionLabel: i18n('contactUs'),
-          actionIcon: 'mail',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
         back()
       }
@@ -193,34 +189,30 @@ export default ({ route, navigation }: Props): ReactElement => {
         >
           <View style={tw`h-full flex`}>
             <View style={tw`h-full flex-shrink`}>
-              {updatePending ? <Loading /> : null}
-              {!updatePending && CurrentView ? (
-                <CurrentView
-                  offer={offer}
-                  updateOffer={setOffer}
-                  setStepValid={setStepValid}
-                  back={back}
-                  next={next}
-                  navigation={navigation}
-                />
-              ) : null}
+              {!updatePending && CurrentView && <CurrentView {...{ offer, setStepValid }} updateOffer={setOffer} />}
             </View>
-            {scrollable && !updatePending ? (
+            {scrollable && !updatePending && (
               <View style={tw`pt-8 px-6`}>
-                <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+                <Navigation screen={currentScreen.id} {...{ back, next, stepValid }} />
               </View>
-            ) : null}
+            )}
           </View>
         </PeachScrollView>
       </View>
-      {!scrollable && !updatePending ? (
-        <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-          <View style={tw`w-full h-8 -mt-8`}>
-            <LinearGradient colorList={whiteGradient} angle={90} />
-          </View>
-          <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+      {updatePending ? (
+        <View style={tw`w-full h-full items-center justify-center absolute`}>
+          <Loading />
         </View>
-      ) : null}
+      ) : (
+        !scrollable && (
+          <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+            <View style={tw`w-full h-8 -mt-8`}>
+              <LinearGradient colorList={whiteGradient} angle={90} />
+            </View>
+            <Navigation screen={currentScreen.id} {...{ back, next, stepValid }} />
+          </View>
+        )
+      )}
     </View>
   )
 }

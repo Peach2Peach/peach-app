@@ -8,7 +8,6 @@ import Contact from './contact/Contact'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
-import Login from './login/Login'
 import NewUser from './newUser/NewUser'
 import Profile from './profile/Profile'
 import Referrals from './referrals/Referrals'
@@ -25,13 +24,15 @@ import Escrow from './settings/Escrow'
 import Fees from './settings/Fees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
-import SeedWords from './settings/SeedWords'
 import Settings from './settings/Settings'
 import Socials from './settings/Socials'
 import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
+import TestView from './TestView/TestView'
+import TestViewButtons from './TestView/buttons'
+import TestViewPopups from './TestView/popups'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -41,10 +42,9 @@ type ViewType = {
 }
 
 export const views: ViewType[] = [
-  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'login', component: Login, showHeader: false, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
+  { name: 'welcome', component: Welcome, showHeader: true, showFooter: false },
+  { name: 'newUser', component: NewUser, showHeader: true, showFooter: false },
+  { name: 'restoreBackup', component: RestoreBackup, showHeader: true, showFooter: false },
   { name: 'home', component: Buy, showHeader: true, showFooter: true },
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
   { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
@@ -66,15 +66,18 @@ export const views: ViewType[] = [
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
   { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'seedWords', component: SeedWords, showHeader: true, showFooter: true },
-  { name: 'escrow', component: Escrow, showHeader: true, showFooter: true },
+  { name: 'refundAddress', component: Escrow, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-  { name: 'fees', component: Fees, showHeader: true, showFooter: true },
+  { name: 'networkFees', component: Fees, showHeader: true, showFooter: true },
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
   { name: 'contact', component: Contact, showHeader: true, showFooter: true },
   { name: 'report', component: Report, showHeader: true, showFooter: true },
   { name: 'reportFullScreen', component: Report, showHeader: false, showFooter: false },
   { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
+
+  { name: 'testView', component: TestView, showHeader: true, showFooter: true },
+  { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
+  { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
 ]
 
 export default views

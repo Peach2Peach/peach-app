@@ -18,18 +18,19 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
   const [, updateOverlay] = useContext(OverlayContext)
   const { daily, dailyAmount, yearly, yearlyAmount } = tradingLimit
 
-  const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, showCloseButton: true, help: true })
+  const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, visible: true })
 
   return (
     <View style={style}>
       <View style={tw`flex-row justify-center items-center pl-11`}>
         <Text style={tw`text-center text-grey-1 font-bold`}>{i18n('profile.tradingLimits')}</Text>
         <Pressable style={tw`p-3`} onPress={openTradingLimitHelp}>
-          <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
+          <Icon id="helpCircle" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
         </Pressable>
       </View>
       <Progress
         style={tw`mt-1 rounded`}
+        color={tw`bg-primary-main`}
         percent={dailyAmount / daily}
         text={i18n(
           'profile.tradingLimits.daily',
@@ -41,6 +42,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
       <Progress
         style={tw`mt-1 rounded`}
         percent={yearlyAmount / yearly}
+        color={tw`bg-primary-main`}
         text={i18n(
           'profile.tradingLimits.yearly.short',
           bitcoinContext.currency,

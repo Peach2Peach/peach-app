@@ -4,26 +4,22 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { RouteProp } from '@react-navigation/native'
 import { Headline } from '../../components'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { addPaymentData } from '../../utils/account'
-import { StackNavigation } from '../../utils/navigation'
 import { specialTemplates } from './specialTemplates'
+import { useNavigation, useRoute } from '../../hooks'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>
-  navigation: StackNavigation
-}
-
-const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList> = {
+const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
   sellPreferences: 'sell',
   paymentMethods: 'settings',
 }
 
-export default ({ route, navigation }: Props): ReactElement => {
-  const { paymentData: data } = route.params
+export default (): ReactElement => {
+  const route = useRoute<'paymentDetails'>()
+  const navigation = useNavigation()
+  const { paymentData: data, originOnCancel } = route.params
   const { type: paymentMethod, currencies } = data
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
@@ -31,16 +27,16 @@ export default ({ route, navigation }: Props): ReactElement => {
       index: 2,
       routes: [
         { name: 'home' },
-        { name: (previousScreen[origin[0]] as string) || 'home' },
+        { name: previousScreen[origin[0]] || 'home' },
         {
-          name: origin[0] as string,
+          name: origin[0],
           params: origin[1],
         },
       ],
     })
   }
 
-  const goToOriginOnCancel = () => goToOrigin(route.params.originOnCancel || route.params.origin)
+  const goToOriginOnCancel = () => goToOrigin(originOnCancel || route.params.origin)
 
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
@@ -66,7 +62,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <PaymentMethodForm
           style={tw`h-full flex-shrink flex-col justify-between`}
           back={goToOriginOnCancel}
-          {...{ paymentMethod, onSubmit, onDelete, navigation, currencies, data }}
+          {...{ paymentMethod, onSubmit, onDelete, currencies, data }}
         />
       </View>
     </View>

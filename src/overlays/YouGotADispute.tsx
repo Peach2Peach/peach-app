@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { Keyboard, View } from 'react-native'
-import { Button, Headline, Input, Text } from '../components'
+import { Headline, Input, PrimaryButton, Text } from '../components'
 import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
@@ -10,21 +10,20 @@ import { initDisputeSystemMessages } from '../utils/chat/createDisputeSystemMess
 import { getContract, getOfferIdfromContract } from '../utils/contract'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log'
-import { Navigation } from '../utils/navigation'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
 import { account } from '../utils/account'
-import { useValidatedState } from '../hooks'
+import { useNavigation, useValidatedState } from '../hooks'
 
 type YouGotADisputeProps = {
   message: string
   reason: DisputeReason
   contractId: Contract['id']
-  navigation: Navigation
 }
 
-export default ({ message, reason, contractId, navigation }: YouGotADisputeProps): ReactElement => {
+export default ({ message, reason, contractId }: YouGotADisputeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
@@ -38,7 +37,7 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
   const submit = async () => {
     setDisplayErrors(true)
@@ -70,15 +69,11 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
         Keyboard.dismiss()
         updateOverlay({
           content: <SuccessOverlay />,
-          showCloseButton: false,
+          visible: true,
         })
         setTimeout(closeOverlay, 3000)
       } else {
-        if ('push' in navigation) {
-          navigation.push('contractChat', { contractId })
-        } else {
-          navigation.navigate({ name: 'contractChat', merge: false, params: { contractId } })
-        }
+        navigation.push('contractChat', { contractId })
         closeOverlay()
       }
       return
@@ -89,9 +84,11 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
       updateMessage({
         msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
     setLoading(false)
@@ -112,33 +109,20 @@ export default ({ message, reason, contractId, navigation }: YouGotADisputeProps
             onSubmit={submit}
             value={email}
             placeholder={i18n('form.userEmail')}
-            isValid={isEmailValid}
             autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
         </View>
       ) : null}
       <View style={tw`flex items-center`}>
-        <Button
-          style={tw`mt-6`}
-          title={loading ? '' : i18n('dispute.startedOverlay.goToDispute')}
-          disabled={loading}
-          loading={loading}
-          secondary={true}
-          wide={false}
-          onPress={submit}
-        />
-        {!isEmailRequired(reason) ? (
-          <Button
-            style={tw`mt-2`}
-            title={loading ? '' : i18n('close')}
-            disabled={loading}
-            loading={loading}
-            tertiary={true}
-            wide={false}
-            onPress={closeOverlay}
-          />
-        ) : null}
+        <PrimaryButton style={tw`mt-6`} disabled={loading} loading={loading} onPress={submit} narrow>
+          {loading ? '' : i18n('dispute.startedOverlay.goToDispute')}
+        </PrimaryButton>
+        {!isEmailRequired(reason) && (
+          <PrimaryButton style={tw`mt-2`} disabled={loading} loading={loading} onPress={closeOverlay} narrow>
+            {loading ? '' : i18n('close')}
+          </PrimaryButton>
+        )}
       </View>
     </View>
   )

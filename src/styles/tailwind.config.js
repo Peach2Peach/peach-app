@@ -19,11 +19,17 @@ module.exports = {
           6: '#ECECEC',
         },
         primary: {
-          dark: '#963600',
-          main: '#C45104',
-          light: '#F56522',
-          'mild-2': '#FCCCB6',
+          dark: {
+            1: '#C45104',
+            2:'#963600'
+          },
+          main: '#F56522',
+          mild: {
+            1: '#FCCCB6',
+            2: '#FFA171'
+          },
           background: '#FFF9F6',
+          'background-heavy': '#FEEDE5',
           'background-light': '#FFFCFA',
         },
         success: {
@@ -50,7 +56,7 @@ module.exports = {
           light: '#099DE2',
           background: '#D7F2FE',
           'background-light': 'rgba(215, 242, 254, 0.1)',
-        }
+        },
       },
       fontSize: {
         '6xl': '96px',
@@ -80,7 +86,7 @@ module.exports = {
       },
       letterSpacing: {
         tightest: '-0.016em',
-        tighter: '-0.008em',
+        tighter: '-0.01em',
         tight: '0m',
         normal: '0.01em',
         wide: '0.028em',
@@ -102,13 +108,10 @@ module.exports = {
       }
     },
     fontFamily: {
-      baloo: [
-        'Baloo2-Regular',
-        'Baloo2-Bold',
-        'Baloo2-SemiBold',
-        'Baloo2-Medium',
-        'sans-serif'
-      ]
+      baloo: ['Baloo2-Regular', 'sans-serif'],
+      'baloo-medium': ['Baloo2-Medium', 'sans-serif'],
+      'baloo-semibold': ['Baloo2-SemiBold', 'sans-serif'],
+      'baloo-bold': ['Baloo2-Bold', 'sans-serif'],
     },
     screens: {
       'sm': '640px',
@@ -123,28 +126,28 @@ module.exports = {
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
-        'h1': `font-baloo-bold font-bold text-6xl leading-6xl tracking-tightest`,
-        'h2': `font-baloo-bold font-bold text-5xl leading-5xl tracking-tighter`,
-        'h3': `font-baloo-bold font-bold text-4xl leading-4xl tracking-tight`,
-        'h4': `font-baloo-bold font-bold text-3xl leading-3xl tracking-normal`,
-        'h5': `font-baloo-bold font-bold text-2xl leading-2xl tracking-normal`,
-        'h6': `font-baloo-bold font-bold text-xl leading-2xl tracking-normal`,
-        'drawer-title': `font-baloo-bold font-bold text-base leading-3xl tracking-widest`,
-        'subtitle-1': `font-baloo-semibold font-semibold text-base leading-xl tracking-normal`,
-        'subtitle-2': `font-baloo-semibold font-semibold text-xs leading-sm tracking-normal`,
+        'h1': `font-baloo-bold text-6xl leading-6xl tracking-tightest`,
+        'h2': `font-baloo-bold text-5xl leading-5xl tracking-tighter`,
+        'h3': `font-baloo-bold text-4xl leading-5xl tracking-tight`,
+        'h4': `font-baloo-bold text-3xl leading-3xl tracking-normal`,
+        'h5': `font-baloo-bold text-2xl leading-2xl tracking-normal`,
+        'h6': `font-baloo-bold text-xl leading-2xl tracking-normal`,
+        'drawer-title': `font-baloo-bold text-base leading-relaxed tracking-widest uppercase`,
+        'subtitle-1': `font-baloo-semibold text-base leading-xl tracking-normal`,
+        'subtitle-2': `font-baloo-semibold text-xs leading-sm tracking-normal`,
         'avatar': `font-baloo text-xs leading-xs tracking-normal`,
-        'body-l': `font-baloo text-xs leading-xs tracking-normal`,
+        'body-l': `font-baloo text-xl leading-xl tracking-normal`,
         'body-m': `font-baloo text-base leading-base tracking-normal`,
         'body-s': `font-baloo text-xs leading-xs tracking-normal`,
-        'button-large': `font-baloo-semibold font-semibold text-sm leading-lg tracking-wider`,
-        'button-medium': `font-baloo-semibold font-semibold text-xs leading-base tracking-wider`,
-        'button-small': `font-baloo-semibold font-semibold text-2xs leading-sm tracking-wider`,
+        'button-large': `font-baloo-semibold text-sm leading-lg tracking-wider uppercase`,
+        'button-medium': `font-baloo-semibold text-xs leading-base tracking-wider uppercase`,
+        'button-small': `font-baloo-semibold text-2xs leading-sm tracking-wider uppercase`,
         'caption': `font-baloo text-xs leading-xs tracking-wide`,
         'helper-text': `font-baloo text-xs leading-xs tracking-wide`,
-        'input-label': `font-baloo text-xs leading-xs tracking-normal`,
+        'input-label': `font-baloo-bold text-base leading-xs tracking-normal`,
         'overline': `font-baloo text-xs leading-xs tracking-normal`,
-        'input-text': `font-baloo text-lg leading-sm tracking-normal`,
-        'tooltip': `font-baloo-medium font-medium text-xs leading-xs tracking-normal`,
+        'input-text': `font-baloo text-lg leading-relaxed tracking-normal`,
+        'tooltip': `font-baloo-medium text-xs leading-xs tracking-normal`,
       });
     }),
   ]}

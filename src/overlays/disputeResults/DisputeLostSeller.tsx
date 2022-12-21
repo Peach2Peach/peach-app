@@ -1,21 +1,21 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { Navigation } from '../../utils/navigation'
 import { confirmPayment } from '../../utils/peachAPI'
 
 type DisputeLostSellerProps = {
   contract: Contract
-  navigation: Navigation
   navigate: () => void
 }
 
-export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLostSellerProps): ReactElement => {
+export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
 
   const [loading, setLoading] = useState(false)
@@ -37,9 +37,11 @@ export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLos
       updateMessage({
         msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
-        action: () => navigation.navigate('contact', {}),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -53,9 +55,11 @@ export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLos
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -75,18 +79,18 @@ export const DisputeLostSeller = ({ contract, navigation, navigate }: DisputeLos
       <View style={tw`flex justify-center items-center`}>
         <View style={tw`flex justify-center items-center`}>
           <Text style={tw`text-white-1 text-center`}>{i18n('dispute.seller.lost.text.1')}</Text>
-          {!contract.paymentConfirmed ? (
+          {!contract.paymentConfirmed && (
             <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.lost.text.2')}</Text>
-          ) : null}
+          )}
         </View>
-        <Button
+        <PrimaryButton
           style={tw`mt-5`}
-          title={i18n(contract.paymentConfirmed ? 'close' : 'dispute.seller.lost.button')}
-          secondary={true}
-          wide={false}
           onPress={contract.paymentConfirmed ? closeOverlay : release}
           loading={loading}
-        />
+          narrow
+        >
+          {i18n(contract.paymentConfirmed ? 'close' : 'dispute.seller.lost.button')}
+        </PrimaryButton>
       </View>
     </View>
   )

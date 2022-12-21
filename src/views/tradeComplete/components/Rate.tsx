@@ -1,26 +1,26 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Button, Card, Text } from '../../../components'
+import { Card, PrimaryButton, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import AppContext from '../../../contexts/app'
 import { MessageContext } from '../../../contexts/message'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { getChatNotifications } from '../../../utils/chat'
 import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { StackNavigation } from '../../../utils/navigation'
 import { getOffer, getRequiredActionCount } from '../../../utils/offer'
 import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
   contract: Contract
   view: 'seller' | 'buyer' | ''
-  navigation: StackNavigation
   saveAndUpdate: (contract: Contract) => void
 }
 
-export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps): ReactElement => {
+export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
@@ -45,9 +45,11 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
       updateMessage({
         msgKey: err.error || 'GENERAL_ERROR',
         level: 'ERROR',
-        action: () => navigation.navigate('contact', {}),
-        actionLabel: i18n('contactUs'),
-        actionIcon: 'mail',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -60,10 +62,10 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (rating.rating === 1) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1]) as BuyOffer | SellOffer
+      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
       navigation.replace('offer', { offer })
     } else {
-      navigation.replace('yourTrades', {})
+      navigation.replace('yourTrades')
     }
   }
   return (
@@ -74,23 +76,23 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
         <View style={tw`mt-4 flex-row justify-center`}>
           <Pressable onPress={() => setVote('negative')}>
             <Icon
-              id="negative"
+              id="thumbsDown"
               style={[tw`w-6 h-6 mx-2`, vote !== 'negative' ? tw`opacity-30` : {}]}
               color={tw`text-peach-1`.color}
             />
           </Pressable>
           <Pressable onPress={() => setVote('positive')}>
             <Icon
-              id="positive"
+              id="thumbsUp"
               style={[tw`w-6 h-6 mx-2`, vote !== 'positive' ? tw`opacity-30` : {}]}
               color={tw`text-peach-1`.color}
             />
           </Pressable>
         </View>
       </Card>
-      <View style={tw`mt-4 flex items-center`}>
-        <Button title={i18n('rate.rateAndFinish')} disabled={!vote} wide={false} onPress={rate} />
-      </View>
+      <PrimaryButton style={tw`mt-4 self-center`} disabled={!vote} onPress={rate} narrow>
+        title={i18n('rate.rateAndFinish')}
+      </PrimaryButton>
     </View>
   )
 }

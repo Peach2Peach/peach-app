@@ -6,10 +6,9 @@ import tw from '../../../../styles/tailwind'
 import { removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { whiteGradient } from '../../../../utils/layout'
-import { StackNavigation } from '../../../../utils/navigation'
 import { paymentDataChanged } from '../../../../utils/paymentMethod'
 import { Fade } from '../../../animation'
-import Button from '../../../Button'
+import { PrimaryButton } from '../../../buttons'
 import Icon from '../../../Icon'
 import PeachScrollView from '../../../PeachScrollView'
 import { Text } from '../../../text'
@@ -29,7 +28,7 @@ import { CashAmsterdam } from './Cash.amsterdam'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
 import { CashLugano } from './Cash.lugano'
-import { useKeyboard } from '../../../../hooks'
+import { useKeyboard, useNavigation } from '../../../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -43,7 +42,6 @@ export type PaymentMethodFormProps = ComponentProps & {
   onSubmit: (data: PaymentData) => void
   onDelete?: () => void
   back?: () => void
-  navigation: StackNavigation
 }
 export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
 
@@ -75,10 +73,10 @@ export const PaymentMethodForm = ({
   currencies = [],
   onSubmit,
   onDelete,
-  navigation,
   back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const keyboardOpen = useKeyboard()
@@ -93,7 +91,7 @@ export const PaymentMethodForm = ({
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
         content: <PaymentMethodEdit paymentData={newPaymentData} onConfirm={onSubmit} />,
-        help: true,
+        visible: false,
       })
     } else {
       onSubmit(newPaymentData)
@@ -114,7 +112,7 @@ export const PaymentMethodForm = ({
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
           onSubmit={submit}
-          {...{ paymentMethod, data, currencies, setStepValid, navigation }}
+          {...{ paymentMethod, data, currencies, setStepValid }}
         />
       </PeachScrollView>
       <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
@@ -128,21 +126,13 @@ export const PaymentMethodForm = ({
             <Icon
               id="arrowLeft"
               style={tw`w-10 h-10`}
-              color={
-                (specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color) as string
-              }
+              color={specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color}
             />
           </Pressable>
           <View style={tw`flex-grow items-center`}>
-            <Button
-              testID="navigation-next"
-              disabled={!stepValid}
-              wide={false}
-              onPress={() => $formRef?.save()}
-              title={i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-              textColor={specialTemplates[paymentMethod]?.button?.textColor}
-              bgColor={specialTemplates[paymentMethod]?.button?.bgColor}
-            />
+            <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
+              {i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
+            </PrimaryButton>
           </View>
         </View>
         {data.id ? (

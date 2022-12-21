@@ -1,22 +1,22 @@
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Shadow, Text } from '../../../components'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
-import { StackNavigation } from '../../../utils/navigation'
 import ContractActions from './ContractActions'
 
 type ChatHeaderProps = {
   contract: Contract
-  navigation: StackNavigation
 }
 
-export const ChatHeader = ({ contract, navigation }: ChatHeaderProps): ReactElement => {
+export const ChatHeader = ({ contract }: ChatHeaderProps): ReactElement => {
+  const navigation = useNavigation()
   const view = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
-
-  const goBack = () => navigation.goBack()
+  const goBack = () =>
+    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('contract', { contract, contractId: contract.id })
 
   return (
     <Shadow shadow={mildShadow}>
@@ -27,12 +27,7 @@ export const ChatHeader = ({ contract, navigation }: ChatHeaderProps): ReactElem
         <Text style={tw`items-center text-peach-1 text-xl font-bold`}>
           {i18n(contract.disputeActive ? 'dispute.chat' : 'trade.chat')}
         </Text>
-        <ContractActions
-          style={tw`flex-row-reverse content-end flex-grow ml-2`}
-          contract={contract}
-          view={view}
-          navigation={navigation}
-        />
+        <ContractActions style={tw`flex-row-reverse content-end flex-grow ml-2`} {...{ contract, view }} />
       </View>
     </Shadow>
   )

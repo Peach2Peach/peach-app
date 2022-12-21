@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -9,43 +9,51 @@ import Premium from './components/Premium'
 import i18n from '../../utils/i18n'
 import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
-import { getPaymentMethods, hashPaymentData, isValidPaymentdata } from '../../utils/paymentMethod'
+import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
+import { EditIcon, HelpIcon } from '../../components/icons'
+import { useHeaderSetup } from '../../hooks'
+import { isDefined } from '../../utils/array/isDefined'
 
 const validate = (offer: SellOffer) => {
-  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
-  const selectedPaymentMethods = Object.keys(offer.paymentData)
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentdata(d!))
+  if (!offer.amount || !hasMopsConfigured(offer)) return false
 
-  return (
-    !!offer.amount
-    && hasMopsConfigured(offer)
-    && selectedPaymentMethods.length > 0
-    && paymentMethods.every((p) => offer.paymentData[p])
-    && paymentDataValid
-  )
+  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
+  if (!paymentMethods.every((p) => offer.paymentData[p])) return false
+
+  const selectedPaymentMethods = Object.keys(offer.paymentData)
+  if (selectedPaymentMethods.length === 0) return false
+
+  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
+  return paymentDataValid
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
-  useContext(LanguageContext)
+export const headerIcons = [
+  {
+    iconComponent: <EditIcon />,
+    onPress: () => null,
+  },
+  { iconComponent: <HelpIcon />, onPress: () => null },
+]
 
+const headerConfig = { title: i18n('settings.paymentMethods'), icons: headerIcons }
+
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+  useContext(LanguageContext)
+  useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
   const [premium, setPremium] = useState(offer.premium)
 
-  const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer(
-      {
-        ...offr,
-        meansOfPayment,
-      },
-      shield,
-    )
+  const saveAndUpdate = (offr: SellOffer) => {
+    updateOffer({
+      ...offr,
+      meansOfPayment,
+    })
     updateSettings(
       {
         meansOfPayment: offr.meansOfPayment,
@@ -69,16 +77,13 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         return obj
       }, {} as Offer['paymentData'])
 
-    saveAndUpdate(
-      {
-        ...offer,
-        meansOfPayment,
-        paymentData,
-        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-        premium,
-      },
-      false,
-    )
+    saveAndUpdate({
+      ...offer,
+      meansOfPayment,
+      paymentData,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
+      premium,
+    })
   }, [meansOfPayment, premium])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
@@ -88,13 +93,9 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
       <Title title={i18n('sell.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
       <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['sellPreferences', { amount: offer.amount }]}
-        style={tw`mt-4`}
-      />
+      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
 
-      <Premium premium={premium} setPremium={setPremium} offer={offer} />
+      <Premium {...{ offer, premium, setPremium }} />
     </View>
   )
 }

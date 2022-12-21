@@ -10,7 +10,7 @@ import { Text } from '../../../text'
 import { Item } from '../../Item'
 
 export const toggleCurrency = (currency: Currency) => (currencies: Currency[]) => {
-  if (currencies.indexOf(currency) === -1) {
+  if (!currencies.includes(currency)) {
     currencies.push(currency)
   } else {
     currencies = currencies.filter((c) => c !== currency)
@@ -36,8 +36,7 @@ export const CurrencySelection = ({
   const openCurrencyHelp = () =>
     updateOverlay({
       content: <Currency />,
-      help: true,
-      showCloseIcon: true,
+      visible: true,
     })
 
   return (
@@ -47,7 +46,7 @@ export const CurrencySelection = ({
           {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
         </Text>
         <Pressable style={tw`p-3`} onPress={openCurrencyHelp}>
-          <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
+          <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
         </Pressable>
       </View>
       <View style={tw`flex-row mt-1`}>
@@ -56,9 +55,9 @@ export const CurrencySelection = ({
             key={currency}
             style={[tw`h-6 px-2`, i > 0 ? tw`ml-2` : {}]}
             label={currency}
-            isSelected={selectedCurrencies.indexOf(currency) !== -1}
+            isSelected={selectedCurrencies.includes(currency)}
             onPress={() =>
-              selectedCurrencies.indexOf(currency) === -1 || selectedCurrencies.length > 1 ? onToggle(currency) : null
+              !selectedCurrencies.includes(currency) || selectedCurrencies.length > 1 ? onToggle(currency) : null
             }
           />
         ))}

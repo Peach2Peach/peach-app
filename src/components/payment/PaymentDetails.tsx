@@ -2,16 +2,17 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { PAYMENTCATEGORIES } from '../../constants'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
-import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentdata } from '../../utils/paymentMethod'
+import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { Item } from '../inputs'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].indexOf(data.type) !== -1
+  PAYMENTCATEGORIES[category].includes(data.type)
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce((arr: string[], type: PaymentMethod) => {
@@ -36,27 +37,27 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[]
   editable?: boolean
-  navigation?: StackNavigation
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
 }
-export default ({ paymentData, editable, setMeansOfPayment, navigation, style }: PaymentDetailsProps): ReactElement => {
+export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
+  const navigation = useNavigation()
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
 
   const update = () => {
     setMeansOfPayment(
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
         .map(getPaymentData)
-        .filter((data) => data)
-        .filter((data) => getPaymentMethodInfo(data!.type))
-        .reduce((mop, data) => dataToMeansOfPayment(mop, data!), {}),
+        .filter(isDefined)
+        .filter((data) => getPaymentMethodInfo(data.type))
+        .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
   }
 
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
     display: <Text style={tw`font-baloo text-base`}>{data.label}</Text>,
-    isValid: isValidPaymentdata(data),
+    isValid: isValidPaymentData(data),
     disabled: editable,
     data,
   })
@@ -81,15 +82,15 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
   }
 
   const editItem = (data: PaymentData) => {
-    navigation!.push('paymentDetails', {
+    navigation.push('paymentDetails', {
       paymentData: data,
-      origin: ['paymentMethods', {}],
+      origin: ['paymentMethods'],
     })
   }
 
   const select = (value: string) => {
     let newValues = selectedPaymentData
-    if (newValues.indexOf(value) !== -1) {
+    if (newValues.includes(value)) {
       newValues = newValues.filter((v) => v !== value)
     } else {
       newValues.push(value)
@@ -97,7 +98,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
     setPreferredPaymentMethods(newValues)
   }
 
-  const isSelected = (itm: CheckboxItemType) => selectedPaymentData.indexOf(itm.value as string) !== -1
+  const isSelected = (itm: CheckboxItemType) => selectedPaymentData.includes(itm.value as string)
 
   useEffect(() => {
     update()
@@ -135,7 +136,7 @@ export default ({ paymentData, editable, setMeansOfPayment, navigation, style }:
                     <View style={tw`flex flex-row justify-between`}>
                       <Text style={tw`font-baloo text-red`}>{item.data.label}</Text>
                       <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                        <Icon id="cross" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
+                        <Icon id="x" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
                       </Pressable>
                     </View>
                   )}

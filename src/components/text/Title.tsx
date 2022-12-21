@@ -15,7 +15,7 @@ type TitleProps = ComponentProps & {
 export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const openHelp = () => updateOverlay({ content: help, showCloseButton: true, help: true })
+  const openHelp = () => updateOverlay({ content: help, visible: true })
 
   return (
     <View style={[tw`flex items-center`, style]}>
@@ -25,7 +25,7 @@ export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElemen
           <Text style={tw`text-center leading-6 text-grey-2 `}>{i18n(subtitle)}</Text>
           {help ? (
             <Pressable style={tw`p-2`} onPress={openHelp}>
-              <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
+              <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
             </Pressable>
           ) : null}
         </View>

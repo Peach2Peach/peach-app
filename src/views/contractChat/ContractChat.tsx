@@ -3,18 +3,18 @@ import React, { ReactElement, useCallback, useContext, useEffect, useState } fro
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading } from '../../components'
 import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
+import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
 import { getContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
@@ -23,15 +23,11 @@ import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
-import { debounce } from '../../utils/performance'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['contractChat'] }>
-  navigation: StackNavigation
-}
-
-// eslint-disable-next-line max-statements
-export default ({ route, navigation }: Props): ReactElement => {
+// eslint-disable-next-line max-statements, max-lines-per-function
+export default (): ReactElement => {
+  const route = useRoute<'contractChat'>()
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
@@ -39,7 +35,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
+  const [contract, setContract] = useState(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User | null>(
     contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null,
   )
@@ -57,50 +53,53 @@ export default ({ route, navigation }: Props): ReactElement => {
     return contractData
   }
 
-  const saveDraft = debounce(() => {
-    setAndSaveChat(contractId, {
-      draftMessage: newMessage,
-    })
-  }, 2000)
+  useThrottledEffect(
+    () => {
+      setAndSaveChat(contractId, {
+        draftMessage: newMessage,
+      })
+    },
+    2000,
+    [contractId, newMessage],
+  )
 
-  useEffect(() => {
-    saveDraft()
-  }, [newMessage])
+  const sendMessage = useCallback(
+    async (message: string) => {
+      if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !message) return
 
-  const sendMessage = async (message: string) => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !message) return
+      const encryptedResult = await signAndEncryptSymmetric(message, contract.symmetricKey)
 
-    const encryptedResult = await signAndEncryptSymmetric(message, contract.symmetricKey)
-
-    if (ws.connected) {
-      ws.send(
-        JSON.stringify({
-          path: '/v1/contract/chat',
-          contractId: contract.id,
-          message: encryptedResult.encrypted,
-          signature: encryptedResult.signature,
-        }),
-      )
-    }
-
-    setAndSaveChat(
-      chat.id,
-      {
-        messages: [
-          {
-            roomId: `contract-${contract.id}`,
-            from: account.publicKey,
-            date: new Date(),
-            readBy: [],
-            message,
+      if (ws.connected) {
+        ws.send(
+          JSON.stringify({
+            path: '/v1/contract/chat',
+            contractId: contract.id,
+            message: encryptedResult.encrypted,
             signature: encryptedResult.signature,
-          },
-        ],
-        lastSeen: new Date(),
-      },
-      false,
-    )
-  }
+          }),
+        )
+      }
+
+      setAndSaveChat(
+        chat.id,
+        {
+          messages: [
+            {
+              roomId: `contract-${contract.id}`,
+              from: account.publicKey,
+              date: new Date(),
+              readBy: [],
+              message,
+              signature: encryptedResult.signature,
+            },
+          ],
+          lastSeen: new Date(),
+        },
+        false,
+      )
+    },
+    [chat.id, contract, tradingPartner, ws],
+  )
 
   const submit = async () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
@@ -134,18 +133,18 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
   }
 
-  const showDisclaimer = async () => {
+  const showDisclaimer = useCallback(async () => {
     await sleep(1000)
-    // <DisputeDisclaimer navigation={navigation} contract={contract!} />
+    // <DisputeDisclaimer contract={contract!} />
     updateMessage({
       msgKey: 'DISPUTE_DISCLAIMER',
       level: 'WARN',
       keepAlive: true,
       onClose: () => updateSettings({ showDisputeDisclaimer: false }, true),
     })
-  }
+  }, [contract, navigation, updateMessage])
 
-  useFocusEffect(useCallback(initChat, [route]))
+  useFocusEffect(useCallback(initChat, [contract?.id, route.params.contractId]))
 
   useFocusEffect(
     useCallback(() => {
@@ -160,10 +159,16 @@ export default ({ route, navigation }: Props): ReactElement => {
         if (!contract || !contract.symmetricKey) return
         if (!message.message || message.roomId !== `contract-${contract.id}`) return
 
+        let messageBody = ''
+        try {
+          messageBody = await decryptSymmetric(message.message, contract.symmetricKey)
+        } catch {
+          error(new Error(`Could not decrypt message for contract ${contract.id}`))
+        }
         const decryptedMessage = {
           ...message,
           date: new Date(message.date),
-          message: await decryptSymmetric(message.message, contract.symmetricKey),
+          message: messageBody,
         }
         setAndSaveChat(contractId, {
           messages: [decryptedMessage],
@@ -186,7 +191,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (!ws.connected) return unsubscribe
       ws.on('message', messageHandler)
       return unsubscribe
-    }, [contract, ws.connected]),
+    }, [chat.id, contract, contractId, sendMessage, ws]),
   )
 
   useFocusEffect(
@@ -220,15 +225,17 @@ export default ({ route, navigation }: Props): ReactElement => {
               },
           )
 
-          handleOverlays({ contract: c, navigation, updateOverlay, view })
+          handleOverlays({ contract: c, updateOverlay, view })
         },
         onError: (err) =>
           updateMessage({
             msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
-            action: () => navigation.navigate('contact', {}),
-            actionLabel: i18n('contactUs'),
-            actionIcon: 'mail',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           }),
       }),
       [contractId],
@@ -240,7 +247,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
       showDisclaimer()
     }
-  }, [updatePending])
+  }, [contract, showDisclaimer, updatePending])
 
   useEffect(() => {
     if (!contract) return
@@ -248,7 +255,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       contractId: contract.id,
       page,
       onSuccess: async (result) => {
-        if (!contract || !contract.symmetricKey) return
+        if (!contract || !contract.symmetricKey) {
+          setUpdatePending(false)
+          return
+        }
         let decryptedMessages = await Promise.all(result.map(decryptMessage(chat, contract.symmetricKey)))
 
         if (decryptedMessages.some((m) => m.message === null)) {
@@ -282,19 +292,23 @@ export default ({ route, navigation }: Props): ReactElement => {
         updateMessage({
           msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
-          action: () => navigation.navigate('contact', {}),
-          actionLabel: i18n('contactUs'),
-          actionIcon: 'mail',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
       },
     })()
-  }, [contract, page])
+  }, [contractId, page, updateMessage])
 
   return !contract || updatePending ? (
-    <Loading />
+    <View style={tw`w-full h-full items-center justify-center`}>
+      <Loading />
+    </View>
   ) : (
     <View style={[tw`h-full flex-col`]}>
-      <ChatHeader contract={contract} navigation={navigation} />
+      <ChatHeader contract={contract} />
       <View style={[tw`w-full h-full flex-shrink`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}
@@ -311,6 +325,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           <MessageInput
             onChange={onChangeMessage}
             onSubmit={submit}
+            disabled={!contract.symmetricKey}
             disableSubmit={disableSend}
             value={newMessage}
             placeholder={i18n('chat.yourMessage')}

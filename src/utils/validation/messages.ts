@@ -17,4 +17,6 @@ export const getMessages = () => ({
   ukBankAccount: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
   url: i18n('form.invalid.error'),
+  bip39: i18n('form.bip39.error'),
+  bip39Word: i18n('form.bip39Word.error'),
 })

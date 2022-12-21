@@ -55,7 +55,12 @@ export const MessageInput = ({
   }
   // TODO Attach files
   return (
-    <View style={tw`rounded flex-row bg-chat-you-translucent items-center max-h-40 px-2 py-2`}>
+    <View
+      style={[
+        tw`rounded flex-row bg-chat-you-translucent items-center max-h-40 px-2 py-2`,
+        disabled ? tw`opacity-50` : {},
+      ]}
+    >
       <TextInput
         testID={testID}
         style={tw`w-full flex-shrink font-lato leading-5 text-black-1 p-1`}

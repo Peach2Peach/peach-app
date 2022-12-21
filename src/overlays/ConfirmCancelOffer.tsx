@@ -1,17 +1,16 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
 
-import { Button, Headline, Loading } from '../components'
+import { Headline, Loading, PrimaryButton } from '../components'
 import Icon from '../components/Icon'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { OverlayContext } from '../contexts/overlay'
 import { cancelOffer, getTradingLimit } from '../utils/peachAPI'
 import { error, info } from '../utils/log'
-import { saveOffer } from '../utils/offer'
+import { isBuyOffer, isSellOffer, saveOffer } from '../utils/offer'
 import Refund from './Refund'
 import { updateTradingLimit } from '../utils/account'
-import { Navigation } from '../utils/navigation'
 
 const confirm = async (offer: BuyOffer | SellOffer) => {
   if (!offer.id) return
@@ -22,7 +21,7 @@ const confirm = async (offer: BuyOffer | SellOffer) => {
   })
   if (result) {
     info('Cancel offer: ', JSON.stringify(result))
-    if (offer.type === 'ask') {
+    if (isSellOffer(offer)) {
       saveOffer({
         ...offer,
         online: false,
@@ -52,14 +51,13 @@ const TradeCanceled = () => (
 type ConfirmCancelOfferProps = {
   offer: BuyOffer | SellOffer
   navigate: () => void
-  navigation: Navigation
 }
 
-export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): ReactElement => {
+export default ({ offer, navigate }: ConfirmCancelOfferProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const ok = async () => {
     setLoading(true)
     await confirm(offer)
@@ -71,17 +69,17 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
       }
     })
 
-    updateOverlay({ content: <TradeCanceled />, showCloseButton: false })
+    updateOverlay({ content: <TradeCanceled />, visible: true })
     setTimeout(() => {
       closeOverlay()
 
-      if (offer.type === 'bid' || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
+      if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
         navigate()
         return
       }
       updateOverlay({
-        content: <Refund {...{ sellOffer: offer, navigate, navigation }} />,
-        showCloseButton: false,
+        content: <Refund {...{ sellOffer: offer, navigate }} />,
+        visible: true,
       })
     }, 3000)
   }
@@ -91,16 +89,14 @@ export default ({ offer, navigate, navigation }: ConfirmCancelOfferProps): React
         {i18n('cancelOffer.confirm.title')}
       </Headline>
       <View style={loading ? tw`opacity-0` : {}} pointerEvents={loading ? 'none' : 'auto'}>
-        <Button
-          style={tw`mt-2`}
-          title={i18n('cancelOffer.confirm.back')}
-          secondary={true}
-          wide={false}
-          onPress={closeOverlay}
-        />
-        <Button style={tw`mt-2`} title={i18n('cancelOffer.confirm.ok')} tertiary={true} wide={false} onPress={ok} />
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('cancelOffer.confirm.back')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={ok} narrow>
+          {i18n('cancelOffer.confirm.ok')}
+        </PrimaryButton>
       </View>
-      {loading ? <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} /> : null}
+      {loading && <Loading style={tw`absolute mt-4`} color={tw`text-white-1`.color} />}
     </View>
   )
 }
