@@ -16,6 +16,8 @@ export const recoveredAccount: Account = {
     preferredPaymentMethods: {},
     showBackupReminder: false,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   offers: [],
@@ -54,6 +56,8 @@ export const account1: Account = {
     kyc: false,
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   tradingLimit: {
@@ -92,6 +96,8 @@ export const seller: Account = {
     kyc: false,
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   tradingLimit: {
@@ -130,6 +136,8 @@ export const buyer: Account = {
     kyc: false,
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   tradingLimit: {
@@ -170,6 +178,8 @@ export const userWithNoTrades: Account = {
     kyc: false,
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   tradingLimit: {

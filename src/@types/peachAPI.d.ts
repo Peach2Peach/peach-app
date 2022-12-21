@@ -263,3 +263,5 @@ declare type FundEscrowResponse = {
 declare type GenerateBlockResponse = {
   txId: string
 }
+
+declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'economyFee' | 'custom'
