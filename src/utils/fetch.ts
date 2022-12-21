@@ -16,7 +16,10 @@ export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>
         info('fetch success', init?.method || 'GET', response.status, response.statusText, url)
       })
       .catch((err) => {
+        const errorMessage = parseError(err)
+        if (errorMessage === 'Aborted') err.statusText = 'Aborted'
+
         resolve(err)
-        error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, parseError(err))
+        error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, errorMessage)
       }),
   )
