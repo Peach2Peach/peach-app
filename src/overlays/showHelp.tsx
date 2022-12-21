@@ -16,15 +16,7 @@ const PaymentMethodsHelp = (
   </>
 )
 
-const CurrenciesHelp = (
-  <View>
-    <Text>{i18n('help.paymentMethods.description.1')}</Text>
-    <View style={tw`flex-row`}>
-      <Text>{i18n('help.paymentMethods.description.2')}</Text>
-      <Icon id="userCheck" />
-    </View>
-  </View>
-)
+const CurrenciesHelp = <Text>{i18n('help.currency.description')}</Text>
 
 type HelpContent = {
   title: Record<HelpType, string>
@@ -34,11 +26,11 @@ type HelpContent = {
 const helpOverlays: HelpContent = {
   title: {
     paymentMethods: i18n('settings.paymentMethods'),
-    currencies: i18n('settings.currencies'), // TODO
+    currencies: i18n('help.currency.title'),
   },
   content: {
     paymentMethods: PaymentMethodsHelp,
-    currencies: CurrenciesHelp, // TODO
+    currencies: CurrenciesHelp,
   },
 }
 

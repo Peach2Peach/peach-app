@@ -12,6 +12,7 @@ import { HelpIcon } from '../../components/icons'
 import { showCurrencyHelp } from '../../overlays/info/showCurrencyHelp'
 import { OverlayContext } from '../../contexts/overlay'
 import { NavigationContainerRefWithCurrent, useNavigationContainerRef } from '@react-navigation/native'
+import { showHelp } from '../../overlays/showHelp'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -53,7 +54,6 @@ export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-  const goToHelp = () => navigationRef.navigate('contact') // TODO : NOT WORKING
 
   useHeaderSetup(
     useMemo(
@@ -65,7 +65,7 @@ export default (): ReactElement => {
               {
                 iconComponent: <HelpIcon />,
                 onPress: () => {
-                  showCurrencyHelp(updateOverlay, goToHelp)
+                  showHelp(updateOverlay, 'currencies')
                 },
               },
             ]
