@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
+import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../constants'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -9,6 +10,16 @@ import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
+import LinedText from '../ui/LinedText'
+
+const paymentCategoryIcons: Record<PaymentCategory, string> = {
+  bankTransfer: 'inbox',
+  onlineWallet: 'cloud',
+  giftCard: '',
+  localOption: '',
+  cryptoCurrency: '',
+  cash: '',
+}
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   PAYMENTCATEGORIES[category].includes(data.type)
@@ -26,8 +37,8 @@ type PaymentDataKeyFactsProps = ComponentProps & {
 const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) => (
   <View style={[tw`flex-row justify-center`, style]}>
     {(paymentData.currencies || []).map((currency) => (
-      <View style={[tw`h-8 px-2 justify-center border border-black-3 rounded`, style]}>
-        <Text style={[tw`button-medium text-black-3`]}>{currency}</Text>
+      <View style={[tw`px-1 justify-center border border-black-1 rounded-lg mx-1`, style]}>
+        <Text style={[tw`button-medium text-black-1`]}>{currency}</Text>
       </View>
     ))}
   </View>
@@ -55,7 +66,7 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
 
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
-    display: <Text style={tw`font-baloo text-base`}>{data.label}</Text>,
+    display: <Text style={tw`subtitle-1`}>{data.label}</Text>,
     isValid: isValidPaymentData(data),
     disabled: editable,
     data,
@@ -118,7 +129,10 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
           .filter(({ checkboxItems }) => checkboxItems.length)
           .map(({ category, checkboxItems }, i) => (
             <View key={category} style={i > 0 ? tw`mt-8` : {}}>
-              <Text style={tw`font-baloo text-lg text-center`}>{i18n(`paymentCategory.${category}`)}</Text>
+              <LinedText style={tw`pb-3`}>
+                <Text style={tw`h6 text-black-2 mr-1`}>{i18n(`paymentCategory.${category}`)}</Text>
+                <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+              </LinedText>
               {checkboxItems.map((item, j) => (
                 <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
                   {item.isValid ? (
@@ -129,7 +143,7 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
                         item={item}
                         checked={isSelected(item)}
                       />
-                      <PaymentDataKeyFacts style={tw`mt-2`} paymentData={item.data} />
+                      <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
                     </View>
                   ) : (
                     <View style={tw`flex flex-row justify-between`}>

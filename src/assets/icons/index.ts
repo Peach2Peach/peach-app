@@ -22,6 +22,7 @@ import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
 import clipboard from './clipboard.svg'
 import clock from './clock.svg'
+import cloud from './cloud.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
@@ -36,6 +37,7 @@ import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
 import info from './info.svg'
+import inbox from './inbox.svg'
 import link from './link.svg'
 import list from './list.svg'
 import lock from './lock.svg'
@@ -105,6 +107,7 @@ const Icons = {
   circle,
   clipboard,
   clock,
+  cloud,
   copy,
   cpu,
   creditCard,
@@ -119,6 +122,7 @@ const Icons = {
   heart,
   helpCircle,
   info,
+  inbox,
   link,
   list,
   lock,
