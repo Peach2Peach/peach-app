@@ -44,7 +44,6 @@ export const useSettingsSetup = () => {
     })
   }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
-  const goToMyAccount = useCallback(() => navigation.navigate('profile', { userId: account.publicKey }), [navigation])
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
@@ -80,7 +79,7 @@ export const useSettingsSetup = () => {
 
   const profileSettings: SettingsItemProps[] = useMemo(
     () => [
-      { title: 'myProfile', onPress: goToMyAccount },
+      { title: 'myProfile' },
       { title: 'referrals' },
       {
         title: 'backups',
@@ -92,7 +91,7 @@ export const useSettingsSetup = () => {
       { title: 'refundAddress' },
       { title: 'payoutAddress', onPress: () => null },
     ],
-    [goToMyAccount],
+    [],
   )
 
   const appSettings: SettingsItemProps[] = useMemo(

@@ -7,6 +7,7 @@ import alignLeft from './alignLeft.svg'
 import arrowLeft from './arrowLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
+import award from './award.svg'
 import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
@@ -64,19 +65,23 @@ import slash from './slash.svg'
 import skipForward from './skipForward.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
+import star from './star.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
 import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
+import trash2 from './trash2.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
+import user from './user.svg'
 import userCheck from './userCheck.svg'
 import userX from './userX.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
+import zap from './zap.svg'
 
 const Icons = {
   activity,
@@ -88,6 +93,7 @@ const Icons = {
   arrowLeft,
   arrowLeftCircle,
   arrowRightCircle,
+  award,
   bellSmall,
   buy: download,
   camera,
@@ -147,19 +153,23 @@ const Icons = {
   slash,
   sliderNext,
   sliderPrev,
+  star,
   thumbsDown,
   thumbsUp,
   timer,
   toggleLeft,
   toggleRight,
+  trash2,
   trendingUp,
   upload,
+  user,
   userCheck,
   userX,
   x,
   xCircle,
   xSquare,
   yourTrades,
+  zap,
 }
 
 export type IconType = keyof typeof Icons

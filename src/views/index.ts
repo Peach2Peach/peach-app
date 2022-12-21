@@ -34,6 +34,7 @@ import YourTrades from './yourTrades/YourTrades'
 import TestView from './TestView/TestView'
 import TestViewButtons from './TestView/buttons'
 import TestViewPopups from './TestView/popups'
+import MyProfile from './settings/profile/MyProfile'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -62,6 +63,7 @@ export const views: ViewType[] = [
   { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
   { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
   { name: 'offer', component: Offer, showHeader: true, showFooter: true },
+  { name: 'myProfile', component: MyProfile, showHeader: true, showFooter: true },
   { name: 'profile', component: Profile, showHeader: true, showFooter: true },
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'language', component: Language, showHeader: true, showFooter: true },

@@ -78,6 +78,7 @@ declare type RootStackParamList = {
   reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
+  myProfile: undefined
 }
 
 type KeysWithUndefined<T> = {
