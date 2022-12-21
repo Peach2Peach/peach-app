@@ -140,7 +140,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       </View>
       <CurrencySelection
         style={tw`mt-6`}
-        paymentMethod="paypal"
+        paymentMethod="wise"
         selectedCurrencies={selectedCurrencies}
         onToggle={onCurrencyToggle}
       />
