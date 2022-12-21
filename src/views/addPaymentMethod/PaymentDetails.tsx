@@ -59,14 +59,17 @@ export default (): ReactElement => {
     useMemo(
       () => ({
         title: i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
-        icons: [
-          {
-            iconComponent: <HelpIcon />,
-            onPress: () => {
-              showCurrencyHelp(updateOverlay, goToHelp)
-            },
-          },
-        ],
+        icons:
+          paymentMethod === 'revolut' || paymentMethod === 'wise' || paymentMethod === 'paypal'
+            ? [
+              {
+                iconComponent: <HelpIcon />,
+                onPress: () => {
+                  showCurrencyHelp(updateOverlay, goToHelp)
+                },
+              },
+            ]
+            : [],
       }),
       [],
     ),
