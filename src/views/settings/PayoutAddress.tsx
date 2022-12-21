@@ -18,9 +18,10 @@ import { PayoutAddressPopup } from './components/PayoutAddressPopup'
 const rulesToCheck = { required: false, bitcoinAddress: true }
 export default (): ReactElement => {
   const [address, setAddress, isValid, addressErrors] = useValidatedState(
-    newCutOffAddress(account.settings.payoutAddress || ''),
+    account.settings.payoutAddress || '',
     rulesToCheck,
   )
+  const [isFocused, setFocused] = useState(false)
   const [isUpdated, setUpdated] = useState(!!account.settings.payoutAddress)
   const [showQRScanner, setShowQRScanner] = useState(false)
   const navigation = useNavigation()
@@ -81,8 +82,12 @@ export default (): ReactElement => {
 
   const onChange = useCallback(
     (value: string) => {
-      setAddress(value)
-      setUpdated(false)
+      setAddress((prev) => {
+        if (prev !== value) {
+          setUpdated(false)
+        }
+        return value
+      })
     },
     [setAddress],
   )
@@ -97,7 +102,9 @@ export default (): ReactElement => {
             ['clipboard', pasteAddress],
             ['camera', showQR],
           ]}
-          value={address}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          value={isFocused ? address : newCutOffAddress(address)}
           errorMessage={addressErrors}
           {...{ isValid, onChange }}
         />
