@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useState } from 'react'
 
 import tw from '../../styles/tailwind'
 
@@ -10,15 +10,18 @@ import { account } from '../../utils/account'
 import { useHeaderSetup } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
 import { View, Text } from 'react-native'
+import { showHelp } from '../../overlays/showHelp'
+import { OverlayContext } from '../../contexts/overlay'
 
 export default (): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const headerConfig = {
     title: i18n('form.paymentMethod'),
     icons: [
       {
         iconComponent: <HelpIcon />,
         onPress: () => {
-          // TODO : Implement popup
+          showHelp(updateOverlay, 'paymentMethods')
         },
       },
     ],
