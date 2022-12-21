@@ -25,7 +25,7 @@ type TabbedNavigationProps = ComponentProps & {
   items: TabbedNavigationItem[]
   selected: TabbedNavigationItem
   select: (item: TabbedNavigationItem) => void
-  theme: 'default' | 'inverted'
+  theme?: 'default' | 'inverted'
 }
 
 export const TabbedNavigation = ({ items, selected, select, theme = 'default', style }: TabbedNavigationProps) => {
