@@ -104,10 +104,12 @@ export const PaymentMethodForm = ({
   }
 
   return (
-    <View style={[tw`flex`, style]}>
+    <View style={[tw`h-full`, style]}>
       <PeachScrollView
-        style={tw`h-full flex-shrink`}
-        contentContainerStyle={[tw`flex`, !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {}]}
+        contentContainerStyle={[
+          tw`flex-1 items-center justify-center`,
+          !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {},
+        ]}
       >
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
@@ -115,13 +117,13 @@ export const PaymentMethodForm = ({
           {...{ paymentMethod, data, currencies, setStepValid }}
         />
       </PeachScrollView>
-      <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
+      <Fade show={!keyboardOpen} style={tw` w-full items-center mb-10`}>
         {!specialTemplates[paymentMethod] && (
           <View style={tw`w-full h-10 -mt-10`}>
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
         )}
-        <View style={tw`flex-grow items-center`}>
+        <View style={tw`flex-grow items-center `}>
           <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
             {i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
           </PrimaryButton>

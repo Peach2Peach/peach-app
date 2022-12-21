@@ -76,19 +76,9 @@ export default (): ReactElement => {
   )
 
   return (
-    <View
-      style={
-        specialTemplates[paymentMethod]
-          ? [tw`flex h-full`, specialTemplates[paymentMethod]!.style]
-          : tw`flex h-full mt-8`
-      }
-    >
-      <View style={[tw`h-full flex-shrink flex justify-center`, !specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
-        <PaymentMethodForm
-          style={tw`h-full flex-shrink flex-col justify-between`}
-          back={goToOriginOnCancel}
-          {...{ paymentMethod, onSubmit, onDelete, currencies, data }}
-        />
+    <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
+      <View style={[!specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
+        <PaymentMethodForm back={goToOriginOnCancel} {...{ paymentMethod, onSubmit, onDelete, currencies, data }} />
       </View>
     </View>
   )

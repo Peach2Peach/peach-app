@@ -31,15 +31,13 @@ export default (): ReactElement => {
   const [, setUpdate] = useState(0)
   const dummy = () => setUpdate(Math.random())
 
-  return account.paymentData.length === 0 ? (
-    <View style={tw`items-center justify-center m-10 flex-1`}>
-      <Text style={tw`h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
-      <View style={tw`w-60 bg-black-5 h-0.3 m-5`} />
-      <AddPaymentMethodButton origin={['paymentMethods']} />
-    </View>
-  ) : (
-    <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
-      <PaymentDetails editable={true} paymentData={account.paymentData} setMeansOfPayment={dummy} />
+  return (
+    <PeachScrollView style={tw`h-full w-full`} contentContainerStyle={tw`flex-1 px-6 pt-7 pb-10 justify-center`}>
+      {account.paymentData.length === 0 ? (
+        <Text style={tw`h6 text-black-3 text-center`}>{i18n('paymentMethod.empty')}</Text>
+      ) : (
+        <PaymentDetails editable={true} paymentData={account.paymentData} setMeansOfPayment={dummy} />
+      )}
       <View style={tw`w-60 bg-black-5 h-0.3 m-5`} />
       <AddPaymentMethodButton origin={['paymentMethods']} />
     </PeachScrollView>
