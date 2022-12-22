@@ -15,6 +15,8 @@ export const defaultAccount: Account = {
     meansOfPayment: {},
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   tradingLimit: {

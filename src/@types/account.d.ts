@@ -20,6 +20,8 @@ declare type Settings = {
   lastBackupDate?: number
   showBackupReminder: boolean
   showDisputeDisclaimer: boolean
+  customFeeRate: number
+  selectedFeeRate: FeeRate
 }
 
 declare type PGPKeychain = {
