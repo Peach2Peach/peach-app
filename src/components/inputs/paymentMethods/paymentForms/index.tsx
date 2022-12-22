@@ -1,34 +1,31 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
+import { COUNTRIES } from '../../../../constants'
 import { OverlayContext } from '../../../../contexts/overlay'
+import { useKeyboard } from '../../../../hooks'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
-import { removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { whiteGradient } from '../../../../utils/layout'
 import { paymentDataChanged } from '../../../../utils/paymentMethod'
+import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
-import Icon from '../../../Icon'
 import PeachScrollView from '../../../PeachScrollView'
-import { Text } from '../../../text'
 import { Bizum } from './Bizum'
+import { Cash } from './Cash'
+import { CashAmsterdam } from './Cash.amsterdam'
+import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
+import { CashLugano } from './Cash.lugano'
+import { GiftCardAmazon } from './giftCard.amazon'
 import { MBWay } from './MBWay'
 import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
+import { Satispay } from './Satispay'
 import { SEPA } from './SEPA'
 import { Swish } from './Swish'
-import { Satispay } from './Satispay'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
-import { GiftCardAmazon } from './giftCard.amazon'
-import { Cash } from './Cash'
-import { COUNTRIES } from '../../../../constants'
-import { CashAmsterdam } from './Cash.amsterdam'
-import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
-import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
-import { CashLugano } from './Cash.lugano'
-import { useKeyboard, useNavigation } from '../../../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -72,11 +69,8 @@ export const PaymentMethodForm = ({
   data,
   currencies = [],
   onSubmit,
-  onDelete,
-  back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
-  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const keyboardOpen = useKeyboard()
