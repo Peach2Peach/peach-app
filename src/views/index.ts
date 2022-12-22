@@ -15,26 +15,28 @@ import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import Search from './search/Search'
 import FundEscrow from './sell/FundEscrow'
-import SetReturnAddress from './sell/SetReturnAddress'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
+import SetReturnAddress from './sell/SetReturnAddress'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
-import Escrow from './settings/Escrow'
 import PeachFees from './settings/PeachFees'
 import NetworkFees from './settings/NetworkFees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
+import PayoutAddress from './settings/PayoutAddress'
+import RefundAddress from './settings/RefundAddress'
 import Settings from './settings/Settings'
 import Socials from './settings/Socials'
 import SplashScreen from './splashScreen/SplashScreen'
+import TestViewButtons from './TestView/buttons'
+import TestViewMessages from './TestView/messages'
+import TestViewPopups from './TestView/popups'
+import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
-import TestView from './TestView/TestView'
-import TestViewButtons from './TestView/buttons'
-import TestViewPopups from './TestView/popups'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -69,7 +71,8 @@ export const views: ViewType[] = [
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
   { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'refundAddress', component: Escrow, showHeader: true, showFooter: true },
+  { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
+  { name: 'payoutAddress', component: PayoutAddress, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
   { name: 'peachFees', component: PeachFees, showHeader: true, showFooter: true },
   { name: 'networkFees', component: NetworkFees, showHeader: true, showFooter: true },
@@ -82,6 +85,7 @@ export const views: ViewType[] = [
   { name: 'testView', component: TestView, showHeader: true, showFooter: true },
   { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
   { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
+  { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
 ]
 
 export default views

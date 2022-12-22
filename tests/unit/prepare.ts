@@ -114,6 +114,7 @@ jest.mock('react-native-mmkv-storage', () => ({
             const remove = (key: string) => delete storage[instanceId][key]
 
             return {
+              clearStore: jest.fn().mockImplementation(() => (storage[instanceId] = {})),
               setItem: jest.fn().mockImplementation(storeAsync),
               getItem: jest.fn().mockImplementation(getAsync),
               removeItem: jest.fn().mockImplementation(remove),

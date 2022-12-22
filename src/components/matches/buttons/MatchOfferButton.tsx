@@ -1,17 +1,15 @@
 import React from 'react'
+import shallow from 'zustand/shallow'
 import i18n from '../../../utils/i18n'
-import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
-import { useMatchStore } from '../store'
-import { useMatchOffer } from '../hooks'
-import { useRoute } from '../../../hooks'
-import { PrimaryButton } from '../../buttons'
 import { isBuyOffer } from '../../../utils/offer'
+import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
+import { PrimaryButton } from '../../buttons'
+import { useMatchOffer } from '../hooks'
+import { useMatchStore } from '../store'
 
 export const MatchOfferButton = () => {
-  const { offer } = useRoute<'search'>().params
-
   const { allMatches: matches } = useOfferMatches()
-  const currentIndex = useMatchStore((state) => state.currentIndex)
+  const [offer, currentIndex] = useMatchStore((state) => [state.offer, state.currentIndex], shallow)
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)

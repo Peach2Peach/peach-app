@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
@@ -16,6 +16,7 @@ type GetFundingStatusProps = RequestProps & {
 export const getFundingStatus = async ({
   offerId,
   timeout,
+  abortSignal,
 }: GetFundingStatusProps): Promise<[FundingStatusResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: {
@@ -24,7 +25,7 @@ export const getFundingStatus = async ({
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
   return await parseResponse<FundingStatusResponse>(response, 'getFundingStatus')

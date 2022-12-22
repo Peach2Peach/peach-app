@@ -5,6 +5,8 @@ import tw from '../../styles/tailwind'
 import { useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
 import { PeachScrollView, Text, Title } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
+import { useMatchStore } from '../../components/matches/store'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
@@ -14,17 +16,16 @@ import { useNavigation, useRoute } from '../../hooks'
 import MatchAccepted from '../../overlays/MatchAccepted'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract } from '../../utils/contract'
+import { isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, offerIdToHex, saveOffer } from '../../utils/offer'
+import { getOfferStatus } from '../../utils/offer/status'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { ContractSummary } from './components/ContractSummary'
 import { OfferSummary } from './components/OfferSummary'
-import { getOfferStatus } from '../../utils/offer/status'
-import { isTradeComplete } from '../../utils/contract/status'
-import { PrimaryButton } from '../../components/buttons'
 
 export default (): ReactElement => {
   const offerId = useRoute<'offer'>().params.offer.id!
@@ -33,6 +34,7 @@ export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const offer = getOffer(offerId)!
   const view = isSellOffer(offer) ? 'seller' : 'buyer'
@@ -100,7 +102,8 @@ export default (): ReactElement => {
 
           if (result.online && result.matches.length && !result.contractId) {
             info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
-            navigation.replace('search', { offer })
+            matchStoreSetOffer(offer)
+            navigation.replace('search')
           }
           if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
             info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)

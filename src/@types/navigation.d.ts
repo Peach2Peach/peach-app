@@ -29,10 +29,7 @@ declare type RootStackParamList = {
   setReturnAddress: {
     offer: SellOffer
   }
-  search: {
-    offer: SellOffer | BuyOffer
-    hasMatches?: boolean
-  }
+  search: undefined
   contract: {
     contractId: Contract['id']
     contract?: Contract
@@ -68,16 +65,19 @@ declare type RootStackParamList = {
   backups: undefined
   seedWords: undefined
   refundAddress: undefined
+  payoutAddress: undefined
   paymentMethods: undefined
   deleteAccount: undefined
+  peachFees: undefined
   networkFees: undefined
   socials: undefined
-  testView: undefined
-  testViewButtons: undefined
-  testViewPopups: undefined
   reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
+  testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
+  testViewMessages: undefined
 }
 
 type KeysWithUndefined<T> = {

@@ -183,8 +183,8 @@ export const Input = ({
           }}
         />
         <View style={tw`flex flex-row`}>
-          {inputIcons.map(([icon, action]) => (
-            <Pressable onPress={action}>
+          {inputIcons.map(([icon, action], index) => (
+            <Pressable onPress={action} key={`inputIcon-${icon}-${index}`}>
               <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
             </Pressable>
           ))}

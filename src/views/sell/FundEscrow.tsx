@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Loading, PeachScrollView, PrimaryButton, SatsFormat, Text, Title } from '../../components'
+import { useMatchStore } from '../../components/matches/store'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
@@ -24,6 +25,7 @@ export default (): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
@@ -46,7 +48,7 @@ export default (): ReactElement => {
     )
 
   const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
-  const navigateToYourTrades = () => navigation.replace('yourTrades')
+  const navigateToYourTrades = useCallback(() => navigation.replace('yourTrades'), [navigation])
 
   const cancelOffer = () =>
     updateOverlay({
@@ -152,10 +154,11 @@ export default (): ReactElement => {
       if (sellOffer.returnAddressRequired) {
         navigation.replace('setReturnAddress', { offer: sellOffer })
       } else {
-        navigation.replace('search', { offer: sellOffer })
+        matchStoreSetOffer(sellOffer)
+        navigation.replace('search')
       }
     }
-  }, [fundingStatus])
+  }, [fundingStatus, matchStoreSetOffer, navigateToYourTrades, navigation, sellOffer, updateOverlay])
 
   return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>

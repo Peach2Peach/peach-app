@@ -1,10 +1,10 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
-type MatchProps = RequestProps & {
+export type MatchProps = RequestProps & {
   offerId: string
   matchingOfferId: string
   currency: Currency
@@ -50,7 +50,7 @@ export const matchOffer = async ({
       hashedPaymentData,
     }),
     method: 'POST',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<MatchResponse>(response, 'matchOffer')

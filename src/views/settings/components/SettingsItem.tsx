@@ -21,7 +21,7 @@ export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, ena
 
   return (
     <TouchableOpacity style={tw`my-3 mx-[6px] justify-between items-center flex-row`} onPress={onPress}>
-      <Text style={[tw`h6 lowercase text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
+      <Text style={[tw`settings text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
       <Icon id={iconId || 'chevronRight'} style={tw`w-8 h-8`} color={iconColor} />
     </TouchableOpacity>
   )

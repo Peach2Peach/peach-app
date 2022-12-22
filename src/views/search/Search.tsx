@@ -4,8 +4,8 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Matches, PeachScrollView } from '../../components'
-import { useSearchSetup } from './hooks/useSearchSetup'
 import { CancelOfferButton, GoHomeButton, MatchInformation, NoMatchesYet } from './components'
+import { useSearchSetup } from './hooks/useSearchSetup'
 
 export default (): ReactElement => {
   const hasMatches = useSearchSetup()

@@ -13,6 +13,7 @@ import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidatedState, useKeyboard } from '../../hooks'
+import { account } from '../../utils/account'
 
 const addressRules = { required: true, bitcoinAddress: true }
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
@@ -20,7 +21,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   useContext(LanguageContext)
 
   const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
-    offer.releaseAddress || '',
+    offer.releaseAddress || account.settings.payoutAddress || '',
     addressRules,
   )
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
