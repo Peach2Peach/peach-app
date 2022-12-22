@@ -1,12 +1,14 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { GoBackButton, PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 
+const headerConfig = { title: 'test view - popups' }
+
 export default () => {
-  useHeaderSetup(useMemo(() => ({ title: 'test view - popups' }), []))
+  useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () =>
@@ -41,8 +43,14 @@ export default () => {
       ...options,
     })
   return (
-    <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
+    <PeachScrollView
+      style={tw`h-full bg-primary-mild-1`}
+      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
+    >
       <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { action1: undefined, action2: undefined })}>
+        APP Overlay without defined actions
+      </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { requireUserAction: true })}>
         User action required
       </PrimaryButton>
@@ -61,7 +69,7 @@ export default () => {
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
         Info Overlay
       </PrimaryButton>
-      <GoBackButton white wide style={tw`mt-8`} />
+      <GoBackButton white style={tw`mt-8`} />
     </PeachScrollView>
   )
 }

@@ -30,6 +30,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
       </View>
       <Progress
         style={tw`mt-1 rounded`}
+        color={tw`bg-primary-main`}
         percent={dailyAmount / daily}
         text={i18n(
           'profile.tradingLimits.daily',
@@ -41,6 +42,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
       <Progress
         style={tw`mt-1 rounded`}
         percent={yearlyAmount / yearly}
+        color={tw`bg-primary-main`}
         text={i18n(
           'profile.tradingLimits.yearly.short',
           bitcoinContext.currency,

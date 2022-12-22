@@ -61,6 +61,5 @@ export const showAnalyticsPrompt = (updateOverlay: Function) => {
       icon: 'xSquare',
     },
     level: 'APP',
-    closeOnTap: true,
   })
 }

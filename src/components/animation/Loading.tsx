@@ -22,6 +22,6 @@ export const Loading = ({ style, color }: Props): JSX.Element => (
     style={[tw`w-20`, style]}
     source={loading}
     autoPlay
-    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw`text-primary-light`.color) as string }]}
+    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw`text-primary-main`.color) as string }]}
   />
 )

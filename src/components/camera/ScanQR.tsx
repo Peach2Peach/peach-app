@@ -37,12 +37,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
                 <View
                   style={[{ width: Math.round((windowDimensions.width - viewSize) / 2) }, tw`bg-peach-translucent`]}
                 />
-                <View
-                  style={{
-                    width: viewSize,
-                    height: viewSize,
-                  }}
-                >
+                <View style={{ width: viewSize, height: viewSize }}>
                   <FocusView />
                 </View>
                 <View
