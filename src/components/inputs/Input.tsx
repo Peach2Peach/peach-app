@@ -14,37 +14,37 @@ import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { IconType } from '../../assets/icons'
 
-const regularTheme = {
-  label: tw`text-black-1`,
-  text: tw`text-black-1`,
-  textError: tw`text-black-1`,
-  border: tw`border-black-1`,
-  borderError: tw`border-error-main`,
-  bg: tw`bg-primary-background-light`,
-  bgError: tw`bg-primary-background-light`,
-  error: tw`text-error-main`,
-  placeholder: tw`text-black-4`,
-  optional: tw`text-black-4`,
-  isValid: tw`border-green`,
-}
-const invertedTheme = {
-  label: tw`text-primary-background-light`,
-  text: tw`text-primary-background-light`,
-  textError: tw`text-error-main`,
-  border: tw`border-primary-background-light`,
-  borderError: tw`border-primary-background-light`,
-  bg: tw`bg-transparent`,
-  bgError: tw`bg-primary-background-light`,
-  error: tw`text-primary-background-light`,
-  placeholder: tw`text-primary-mild-1`,
-  optional: tw`text-black-4`,
-  isValid: tw`border-green`,
+const themes = {
+  default: {
+    label: tw`text-black-1`,
+    text: tw`text-black-1`,
+    textError: tw`text-black-1`,
+    border: tw`border-black-1`,
+    borderError: tw`border-error-main`,
+    bg: tw`bg-primary-background-light`,
+    bgError: tw`bg-primary-background-light`,
+    error: tw`text-error-main`,
+    placeholder: tw`text-black-4`,
+    optional: tw`text-black-4`,
+  },
+  inverted: {
+    label: tw`text-primary-background-light`,
+    text: tw`text-primary-background-light`,
+    textError: tw`text-error-main`,
+    border: tw`border-primary-background-light`,
+    borderError: tw`border-primary-background-light`,
+    bg: tw`bg-transparent`,
+    bgError: tw`bg-primary-background-light`,
+    error: tw`text-primary-background-light`,
+    placeholder: tw`text-primary-mild-1`,
+    optional: tw`text-black-4`,
+  },
 }
 
 type IconActionPair = [IconType, () => void]
 type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
-    invertColors?: boolean
+    theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
     required?: boolean
@@ -62,24 +62,6 @@ type InputProps = ComponentProps &
 
 /**
  * @description Component to display an input field
- * @param props Component properties
- * @param [props.value] current value
- * @param [props.label] input label
- * @param [props.icons] array of icon components
- * @param [props.required] if true, field shows as required
- * @param [props.multiline] if true, turns field into a text field
- * @param [props.autoCorrect] if true, enable autocorrect on input field
- * @param [props.disabled] if true, disable input field
- * @param [props.isValid] if true show valid state
- * @param [props.errorMessage] error message for invalid field
- * @param [props.onChange] onchange handler from outside
- * @param [props.onSubmit] onsubmit handler from outside
- * @param [props.onFocus] onFocus handler from outside
- * @param [props.onBlur] onBlur handler from outside
- * @param [props.secureTextEntry] if true hide input
- * @param [props.autoCapitalize] how to capitalize input automatically
- * @param [props.style] css style object
- * @param [props.invertColors] if true invert color
  * @example
  * <Input
  *   onChange={setAddress}
@@ -101,7 +83,6 @@ export const Input = ({
   disabled = false,
   disableSubmit = false,
   disableOnEndEditing = false,
-  isValid,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -112,11 +93,11 @@ export const Input = ({
   returnKeyType,
   autoCapitalize,
   style,
-  invertColors,
+  theme = 'default',
   testID,
   reference,
 }: InputProps): ReactElement => {
-  const colors = useMemo(() => (invertColors ? invertedTheme : regularTheme), [invertColors])
+  const colors = useMemo(() => themes[theme], [theme])
   const [touched, setTouched] = useState(false)
   const [showSecret, setShowSecret] = useState(false)
   const showError = errorMessage.length > 0 && !disabled && touched
@@ -166,13 +147,12 @@ export const Input = ({
           colors.border,
           showError ? colors.borderError : {},
           showError ? tw`border-2` : {},
-          isValid && value && !disabled ? colors.isValid : {},
           style ? style : {},
         ]}
       >
         <TextInput
           style={[
-            tw`w-full h-10 flex-shrink input-text py-0 `,
+            tw`w-full h-10 flex-shrink input-text py-0`,
             value ? colors.text : colors.placeholder,
             showError ? colors.textError : {},
             !showError ? tw`border border-transparent` : {},

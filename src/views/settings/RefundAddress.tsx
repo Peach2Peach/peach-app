@@ -13,14 +13,15 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { newCutOffAddress } from '../../utils/string/cutOffAddress'
+import { cutOffAddress } from '../../utils/string/cutOffAddress'
 
 const rulesToCheck = { required: false, bitcoinAddress: true }
 export default (): ReactElement => {
   const [address, setAddress, isValid, addressErrors] = useValidatedState(
-    newCutOffAddress(account.settings.returnAddress || ''),
+    account.settings.returnAddress || '',
     rulesToCheck,
   )
+  const [isFocused, setFocused] = useState(false)
   const [isUpdated, setUpdated] = useState(!!account.settings.returnAddress)
   const [showQRScanner, setShowQRScanner] = useState(false)
   const navigation = useNavigation()
@@ -81,8 +82,12 @@ export default (): ReactElement => {
 
   const onChange = useCallback(
     (value: string) => {
-      setAddress(value)
-      setUpdated(false)
+      setAddress((prev) => {
+        if (prev !== value) {
+          setUpdated(false)
+        }
+        return value
+      })
     },
     [setAddress],
   )
@@ -97,8 +102,10 @@ export default (): ReactElement => {
             ['clipboard', pasteAddress],
             ['camera', showQR],
           ]}
-          value={address}
+          value={isFocused ? address : cutOffAddress(address)}
           errorMessage={addressErrors}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           {...{ isValid, onChange }}
         />
       </View>

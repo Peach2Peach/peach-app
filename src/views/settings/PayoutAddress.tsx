@@ -12,7 +12,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { newCutOffAddress } from '../../utils/string/cutOffAddress'
+import { cutOffAddress } from '../../utils/string/cutOffAddress'
 import { PayoutAddressPopup } from './components/PayoutAddressPopup'
 
 const rulesToCheck = { required: false, bitcoinAddress: true }
@@ -104,7 +104,7 @@ export default (): ReactElement => {
           ]}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          value={isFocused ? address : newCutOffAddress(address)}
+          value={isFocused ? address : cutOffAddress(address)}
           errorMessage={addressErrors}
           {...{ isValid, onChange }}
         />

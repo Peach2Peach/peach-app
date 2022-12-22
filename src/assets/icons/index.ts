@@ -6,6 +6,7 @@ import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
 import arrowLeft from './arrowLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
+import arrowRightCircle from './arrowRightCircle.svg'
 import bellSmall from './bellSmall.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
@@ -31,6 +32,7 @@ import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
+import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
 import link from './link.svg'
@@ -50,6 +52,7 @@ import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
+import save from './save.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import send from './send.svg'
@@ -58,6 +61,7 @@ import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
 import slash from './slash.svg'
+import skipForward from './skipForward.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import thumbsDown from './thumbsDown.svg'
@@ -67,6 +71,7 @@ import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
+import userCheck from './userCheck.svg'
 import userX from './userX.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
@@ -82,6 +87,7 @@ const Icons = {
   alignLeft,
   arrowLeft,
   arrowLeftCircle,
+  arrowRightCircle,
   bellSmall,
   buy: download,
   camera,
@@ -108,6 +114,7 @@ const Icons = {
   eyeOff,
   fire,
   fundEscrow,
+  globe,
   heart,
   helpCircle,
   link,
@@ -127,6 +134,7 @@ const Icons = {
   radioSelected,
   refreshCcw,
   rotateCounterClockwise,
+  save,
   selectClosed,
   selectOpen,
   sell: upload,
@@ -135,6 +143,7 @@ const Icons = {
   shield,
   shiftCrypto,
   shuffle,
+  skipForward,
   slash,
   sliderNext,
   sliderPrev,
@@ -145,6 +154,7 @@ const Icons = {
   toggleRight,
   trendingUp,
   upload,
+  userCheck,
   userX,
   x,
   xCircle,
