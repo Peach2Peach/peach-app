@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import { Icon, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { StackNavigation } from '../utils/navigation'
 
 const PaymentMethodsHelp = (
   <>
@@ -24,7 +23,7 @@ type HelpContent = {
   content: Record<HelpType, ReactElement>
 }
 
-const helpOverlays: HelpContent = {
+export const helpOverlays: HelpContent = {
   title: {
     paymentMethods: i18n('settings.paymentMethods'),
     currencies: i18n('help.currency.title'),
@@ -33,25 +32,4 @@ const helpOverlays: HelpContent = {
     paymentMethods: PaymentMethodsHelp,
     currencies: CurrenciesHelp,
   },
-}
-
-export const showHelp = (updateOverlay: Function, id: HelpType, navigation: StackNavigation) => {
-  const goToHelp = () => {
-    updateOverlay({
-      visible: false,
-    })
-    navigation.navigate('contact')
-  }
-
-  updateOverlay({
-    title: helpOverlays.title[id],
-    content: helpOverlays.content[id],
-    visible: true,
-    action2: {
-      callback: goToHelp,
-      label: i18n('help'),
-      icon: 'info',
-    },
-    level: 'INFO',
-  })
 }

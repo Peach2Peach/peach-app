@@ -48,25 +48,17 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  const showHelp = useShowHelp()
+  const showHelp = useShowHelp('currencies')
 
   useHeaderSetup(
     useMemo(
       () => ({
         title: i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
-        icons:
-          paymentMethod === 'revolut' || paymentMethod === 'wise' || paymentMethod === 'paypal'
-            ? [
-              {
-                iconComponent: <HelpIcon />,
-                onPress: () => {
-                  showHelp('currencies')
-                },
-              },
-            ]
-            : [],
+        icons: ['revolut', 'wise', 'paypal'].includes(paymentMethod)
+          ? [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+          : [],
       }),
-      [],
+      [paymentMethod, showHelp],
     ),
   )
 
