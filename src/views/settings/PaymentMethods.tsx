@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useMemo, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 
 import tw from '../../styles/tailwind'
 
@@ -13,19 +13,20 @@ import { View, Text } from 'react-native'
 import { useShowHelp } from '../../hooks/useShowHelp'
 
 export default (): ReactElement => {
-  const showHelp = useShowHelp()
-  const headerConfig = {
-    title: i18n('form.paymentMethod'),
-    icons: [
-      {
-        iconComponent: <HelpIcon />,
-        onPress: () => {
-          showHelp('paymentMethods')
+  const showHelp = useShowHelp('paymentMethods')
+  const headerConfig = useMemo(
+    () => ({
+      title: i18n('form.paymentMethod'),
+      icons: [
+        {
+          iconComponent: <HelpIcon />,
+          onPress: showHelp,
         },
-      },
-    ],
-  }
-  useHeaderSetup(useMemo(() => headerConfig, []))
+      ],
+    }),
+    [showHelp],
+  )
+  useHeaderSetup(useMemo(() => headerConfig, [headerConfig]))
 
   const [, setUpdate] = useState(0)
   const dummy = () => setUpdate(Math.random())
