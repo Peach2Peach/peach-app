@@ -46,7 +46,7 @@ const themes = {
 }
 
 type IconActionPair = [IconType, () => void]
-type InputProps = ComponentProps &
+export type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
     theme?: 'default' | 'inverted'
     label?: string

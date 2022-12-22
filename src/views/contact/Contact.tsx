@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useMemo } from 'react'
-import { Linking, View } from 'react-native'
+import { Linking, View, Text } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
@@ -34,12 +34,16 @@ export default (): ReactElement => {
   return (
     <PeachScrollView contentContainerStyle={tw`py-6 flex-grow`}>
       <View style={tw`h-full items-center p-6 justify-center`}>
-        <LinedText text={i18n('report.mailUs')} />
+        <LinedText style={tw`my-3 mx-5`}>
+          <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
+        </LinedText>
         {contactReasons.map((name) => (
           <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
         ))}
         <View style={tw`mt-10 w-full items-center`}>
-          <LinedText text={i18n('report.communityHelp')} />
+          <LinedText style={tw`my-3 mx-5`}>
+            <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
+          </LinedText>
           <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
             {i18n('telegram')}
           </OptionButton>

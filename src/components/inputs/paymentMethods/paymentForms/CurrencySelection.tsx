@@ -1,13 +1,10 @@
-import React, { ReactElement, useContext, useState } from 'react'
-import { Pressable, View } from 'react-native'
-import { OverlayContext } from '../../../../contexts/overlay'
-import Currency from '../../../../overlays/info/Currency'
+import React, { ReactElement, useState } from 'react'
+import { View } from 'react-native'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { getPaymentMethodInfo } from '../../../../utils/paymentMethod'
-import Icon from '../../../Icon'
 import { Text } from '../../../text'
-import { Item } from '../../Item'
+import { CurrencyItem } from '../../CurrencyItem'
 
 export const toggleCurrency = (currency: Currency) => (currencies: Currency[]) => {
   if (!currencies.includes(currency)) {
@@ -30,30 +27,18 @@ export const CurrencySelection = ({
   onToggle,
   style,
 }: CurrencySelectionProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
   const [paymentMethodInfo] = useState(getPaymentMethodInfo(paymentMethod))
-
-  const openCurrencyHelp = () =>
-    updateOverlay({
-      content: <Currency />,
-      visible: true,
-    })
 
   return (
     <View style={style}>
       <View style={tw`items-center flex-row`}>
-        <Text style={tw`font-baloo text-lg`}>
-          {i18n('form.additionalCurrencies')} ({i18n('form.optional')})
-        </Text>
-        <Pressable style={tw`p-3`} onPress={openCurrencyHelp}>
-          <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
-        </Pressable>
+        <Text style={tw`input-label`}>{i18n('form.additionalCurrencies')}</Text>
       </View>
       <View style={tw`flex-row mt-1`}>
         {paymentMethodInfo.currencies.map((currency, i) => (
-          <Item
+          <CurrencyItem
             key={currency}
-            style={[tw`h-6 px-2`, i > 0 ? tw`ml-2` : {}]}
+            style={[i > 0 ? tw`ml-2` : {}]}
             label={currency}
             isSelected={selectedCurrencies.includes(currency)}
             onPress={() =>

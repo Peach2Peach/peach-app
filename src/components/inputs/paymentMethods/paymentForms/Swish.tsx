@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 
 const phoneRules = { required: true, phone: true }
 
@@ -67,12 +68,9 @@ export const Swish = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
         />
       </View>
       <View style={tw`mt-1`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
+        <PhoneInput
+          onChange={setPhone}
           onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
             $beneficiary?.focus()
           }}
           reference={(el: any) => ($phone = el)}

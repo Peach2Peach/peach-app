@@ -39,7 +39,6 @@ declare type SEPAData = {
   beneficiary: string
   iban: string
   bic?: string
-  address?: string
   reference?: string
 }
 declare type BizumData = {
@@ -104,13 +103,15 @@ declare type AppState = {
 }
 
 declare type Action = {
-  callback: () => void
+  callback: Function
   label?: string
   icon?: IconType
 }
 
 declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type OverlayLevel = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+
+declare type HelpType = 'paymentMethods' | 'currencies'
 
 declare type MessageState = {
   level: MessageLevel

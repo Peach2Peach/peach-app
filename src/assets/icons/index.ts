@@ -22,6 +22,7 @@ import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
 import clipboard from './clipboard.svg'
 import clock from './clock.svg'
+import cloud from './cloud.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
@@ -35,6 +36,8 @@ import fundEscrow from './fundEscrow.svg'
 import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
+import info from './info.svg'
+import inbox from './inbox.svg'
 import link from './link.svg'
 import list from './list.svg'
 import lock from './lock.svg'
@@ -69,6 +72,7 @@ import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
 import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
+import trash from './trash.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
 import userCheck from './userCheck.svg'
@@ -104,6 +108,7 @@ const Icons = {
   circle,
   clipboard,
   clock,
+  cloud,
   copy,
   cpu,
   creditCard,
@@ -117,6 +122,8 @@ const Icons = {
   globe,
   heart,
   helpCircle,
+  info,
+  inbox,
   link,
   list,
   lock,
@@ -152,6 +159,7 @@ const Icons = {
   timer,
   toggleLeft,
   toggleRight,
+  trash,
   trendingUp,
   upload,
   userCheck,

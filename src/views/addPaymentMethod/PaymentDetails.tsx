@@ -1,14 +1,20 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Headline } from '../../components'
+import { HeaderConfig } from '../../components/header/store'
+import { HelpIcon } from '../../components/icons'
+import { DeleteIcon } from '../../components/icons/DeleteIcon'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
-import { addPaymentData } from '../../utils/account'
+import { OverlayContext } from '../../contexts/overlay'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
+import { addPaymentData, removePaymentData } from '../../utils/account'
+import { info } from '../../utils/log'
 import { specialTemplates } from './specialTemplates'
-import { useNavigation, useRoute } from '../../hooks'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -17,6 +23,7 @@ const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackPa
 }
 
 export default (): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const route = useRoute<'paymentDetails'>()
   const navigation = useNavigation()
   const { paymentData: data, originOnCancel } = route.params
@@ -43,27 +50,60 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  const onDelete = () => {
-    goToOrigin(route.params.origin)
+  const deletePaymentMethod = () => {
+    updateOverlay({
+      title: i18n('help.paymentMethodDelete.title'),
+      content: <DeletePaymentMethodConfirm />,
+      visible: true,
+      level: 'ERROR',
+      action1: {
+        callback: () => updateOverlay({ visible: false }),
+        icon: 'xSquare',
+        label: i18n('neverMind'),
+      },
+      action2: {
+        callback: () => {
+          if (!data?.id) return
+          removePaymentData(data.id)
+          updateOverlay({ visible: false })
+          goToOrigin(route.params.origin)
+        },
+        icon: 'info',
+        label: i18n('delete'),
+      },
+    })
   }
 
+  const showHelp = useShowHelp('currencies')
+
+  const headerIcons = () => {
+    const icons: HeaderConfig['icons'] = []
+    if (['revolut', 'wise', 'paypal'].includes(paymentMethod)) {
+      icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
+    }
+    if (data.id) {
+      icons[1] = { iconComponent: <DeleteIcon />, onPress: deletePaymentMethod }
+    }
+    info('icons' + icons)
+    return icons
+  }
+
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: data.id
+          ? i18n('paymentMethod.edit.title', i18n(`paymentMethod.${paymentMethod}`))
+          : i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
+        icons: headerIcons(),
+      }),
+      [paymentMethod, showHelp],
+    ),
+  )
+
   return (
-    <View
-      style={
-        specialTemplates[paymentMethod]
-          ? [tw`flex h-full`, specialTemplates[paymentMethod]!.style]
-          : tw`flex h-full mt-8`
-      }
-    >
-      {!specialTemplates[paymentMethod] && (
-        <Headline>{i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`))}</Headline>
-      )}
-      <View style={[tw`h-full flex-shrink flex justify-center`, !specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
-        <PaymentMethodForm
-          style={tw`h-full flex-shrink flex-col justify-between`}
-          back={goToOriginOnCancel}
-          {...{ paymentMethod, onSubmit, onDelete, currencies, data }}
-        />
+    <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
+      <View style={[!specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
+        <PaymentMethodForm back={goToOriginOnCancel} {...{ paymentMethod, onSubmit, currencies, data }} />
       </View>
     </View>
   )
