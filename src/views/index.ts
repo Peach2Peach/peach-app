@@ -34,6 +34,7 @@ import YourTrades from './yourTrades/YourTrades'
 import TestView from './TestView/TestView'
 import TestViewButtons from './TestView/buttons'
 import TestViewPopups from './TestView/popups'
+import PayoutAddress from './settings/PayoutAddress'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -69,6 +70,7 @@ export const views: ViewType[] = [
   { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
   { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
+  { name: 'payoutAddress', component: PayoutAddress, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
   { name: 'networkFees', component: Fees, showHeader: true, showFooter: true },
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
