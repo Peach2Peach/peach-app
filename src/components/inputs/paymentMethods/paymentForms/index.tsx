@@ -89,7 +89,10 @@ export const PaymentMethodForm = ({
         visible: true,
         level: 'WARN',
         action2: {
-          callback: () => onSubmit(newPaymentData),
+          callback: () => {
+            onSubmit(newPaymentData)
+            updateOverlay({ visible: false })
+          },
           icon: 'info',
           label: i18n('help.paymentMethodEdit.editMethod'),
         },
