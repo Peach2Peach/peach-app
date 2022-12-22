@@ -3,7 +3,6 @@ declare type RootStackParamList = {
   newUser: {
     referralCode?: string
   }
-  login: undefined
   restoreBackup: undefined
   buy: undefined
   sell: undefined
