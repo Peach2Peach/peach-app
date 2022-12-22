@@ -11,6 +11,7 @@ import { getResponseError } from './getResponseError'
 export const parseResponse = async <T>(response: Response, caller: string): Promise<[T | null, APIError | null]> => {
   try {
     const responseError = getResponseError(response)
+    if (responseError === 'ABORTED') return [null, null]
     if (responseError) return [null, { error: responseError }]
 
     const data = await response.json()
