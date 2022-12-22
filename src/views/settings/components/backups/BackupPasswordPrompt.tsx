@@ -1,8 +1,8 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Button, Fade, Icon, Input, PeachScrollView, Text } from '../../../../components'
+import { Button, Icon, Input, PeachScrollView, Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
-import { useKeyboard, useNavigation, useValidatedState } from '../../../../hooks'
+import { useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
 import Password from '../../../../overlays/info/Password'
 import tw from '../../../../styles/tailwind'
@@ -17,7 +17,6 @@ export default (): ReactElement => {
 
   const [passwordMatch, setPasswordMatch] = useState(true)
   const navigation = useNavigation()
-  const keyboardOpen = useKeyboard()
 
   const [, updateOverlay] = useContext(OverlayContext)
   const [isBackingUp, setIsBackingUp] = useState(false)
