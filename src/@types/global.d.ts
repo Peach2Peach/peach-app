@@ -103,7 +103,7 @@ declare type AppState = {
 }
 
 declare type Action = {
-  callback: () => void
+  callback: Function
   label?: string
   icon?: IconType
 }
