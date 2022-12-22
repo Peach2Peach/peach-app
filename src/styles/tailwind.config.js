@@ -42,6 +42,7 @@ module.exports = {
           dark: '#917201',
           main: '#B6900B',
           light: '#EAB703',
+          mild: '#FBEF96',
           background: '#FFF1CA',
         },
         error: {
@@ -142,6 +143,7 @@ module.exports = {
         'button-large': `font-baloo-semibold text-sm leading-lg tracking-wider uppercase`,
         'button-medium': `font-baloo-semibold text-xs leading-base tracking-wider uppercase`,
         'button-small': `font-baloo-semibold text-2xs leading-sm tracking-wider uppercase`,
+        'settings': 'font-baloo-semibold text-xl lowercase leading-2xl tracking-normal',
         'caption': `font-baloo text-xs leading-xs tracking-wide`,
         'helper-text': `font-baloo text-xs leading-xs tracking-wide`,
         'input-label': `font-baloo-bold text-base leading-xs tracking-normal`,

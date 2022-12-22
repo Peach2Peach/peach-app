@@ -116,7 +116,6 @@ declare type HelpType = 'paymentMethods' | 'currencies'
 declare type MessageState = {
   level: MessageLevel
   msgKey?: string
-  msg?: string
   action?: Action
   onClose?: Function
   time?: number

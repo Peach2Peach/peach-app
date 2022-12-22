@@ -4,6 +4,7 @@ declare type Settings = {
   locale: string
   amount?: number
   returnAddress?: string
+  payoutAddress?: string
   derivationPath?: string
   hdStartIndex?: number
   displayCurrency: Currency
