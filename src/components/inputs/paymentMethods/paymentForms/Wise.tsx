@@ -8,6 +8,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { HorizontalLine } from '../../../ui'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
@@ -97,7 +98,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'email' && (
-          <Input
+          <PhoneInput
             onChange={setEmail}
             onSubmit={() => $phone?.focus()}
             reference={(el: any) => ($email = el)}
@@ -110,11 +111,8 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         )}
         {currentTab.id === 'phone' && (
           <Input
-            onChange={(number: string) => {
-              setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            }}
+            onChange={setPhone}
             onSubmit={() => {
-              setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
               $reference?.focus()
             }}
             reference={(el: any) => ($phone = el)}

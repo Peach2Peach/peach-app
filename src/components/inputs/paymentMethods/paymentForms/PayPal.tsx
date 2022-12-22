@@ -32,10 +32,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
-  const [reference, setReference, isReferenceValid, referenceError] = useValidatedState(
-    data?.reference || '',
-    referenceRules,
-  )
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
@@ -106,8 +103,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
         <View style={tw`mt-2`}>
           <PhoneInput
             onChange={setPhone}
-            onSubmit={(number: string) => {
-              setPhone(number)
+            onSubmit={() => {
               $reference?.focus()
             }}
             value={phone}

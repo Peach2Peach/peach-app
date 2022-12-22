@@ -1,12 +1,14 @@
 import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
@@ -23,22 +25,20 @@ const tabs: TabbedNavigationItem[] = [
     display: i18n('form.phone'),
   },
 ]
+const referenceRules = { required: false }
 
 export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [userName, setUserName] = useState(data?.userName || '')
   const [email, setEmail] = useState(data?.email || '')
-  const [reference, setReference] = useState(data?.reference || '')
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const anyFieldSet = !!(phone || userName || email)
 
-  let $phone = useRef<TextInput>(null).current
-  let $userName = useRef<TextInput>(null).current
-  let $email = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = {
@@ -48,13 +48,11 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
   const phoneRules = { required: !email && !userName, phone: true }
   const emailRules = { required: !phone && !userName, email: true }
   const userNameRules = { required: !phone && !email, userName: true }
-  const referenceRules = { required: false }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
-  const referenceErrors = useMemo(() => getErrorsInField(reference, referenceRules), [reference, referenceRules])
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const buildPaymentData = (): PaymentData & RevolutData => ({
@@ -95,7 +93,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => $phone?.focus()}
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
@@ -109,7 +106,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           <Input
             onChange={setEmail}
             onSubmit={$reference?.focus}
-            reference={(el: any) => ($email = el)}
             value={email}
             required={!anyFieldSet}
             placeholder={i18n('form.email.placeholder')}
@@ -126,7 +122,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
               setUserName((usr: string) => (!/@/gu.test(usr) ? `@${usr}` : usr))
               $reference?.focus()
             }}
-            reference={(el: any) => ($userName = el)}
             value={userName}
             required={!anyFieldSet}
             placeholder={i18n('form.revtag.placeholder')}
@@ -135,15 +130,11 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           />
         )}
         {currentTab.id === 'phone' && (
-          <Input
-            onChange={(number: string) => {
-              setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            }}
+          <PhoneInput
+            onChange={setPhone}
             onSubmit={() => {
-              setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
               $reference?.focus()
             }}
-            reference={(el: any) => ($phone = el)}
             value={phone}
             required={!anyFieldSet}
             placeholder={i18n('form.phone.placeholder')}
@@ -161,7 +152,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
         label={i18n('form.reference')}
         placeholder={i18n('form.reference.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? referenceErrors : undefined}
+        errorMessage={displayErrors ? referenceError : undefined}
       />
       <CurrencySelection paymentMethod="revolut" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>

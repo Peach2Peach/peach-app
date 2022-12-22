@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 
 const phoneRules = { required: true, phone: true }
 export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
@@ -64,14 +65,9 @@ export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepV
         />
       </View>
       <View style={tw`mt-1`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
-          onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            save()
-          }}
+        <PhoneInput
+          onChange={setPhone}
+          onSubmit={save}
           reference={(el: any) => ($phone = el)}
           value={phone}
           label={i18n('form.phone')}
