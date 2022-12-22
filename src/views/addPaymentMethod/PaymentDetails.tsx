@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -9,9 +9,7 @@ import { addPaymentData } from '../../utils/account'
 import { specialTemplates } from './specialTemplates'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
-import { OverlayContext } from '../../contexts/overlay'
-import { NavigationContainerRefWithCurrent, useNavigationContainerRef } from '@react-navigation/native'
-import { showHelp } from '../../overlays/showHelp'
+import { useShowHelp } from '../../hooks/useShowHelp'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -50,7 +48,7 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  const [, updateOverlay] = useContext(OverlayContext)
+  const showHelp = useShowHelp()
 
   useHeaderSetup(
     useMemo(
@@ -62,7 +60,7 @@ export default (): ReactElement => {
               {
                 iconComponent: <HelpIcon />,
                 onPress: () => {
-                  showHelp(updateOverlay, 'currencies', navigation)
+                  showHelp('currencies')
                 },
               },
             ]

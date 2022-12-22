@@ -7,22 +7,20 @@ import i18n from '../../utils/i18n'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import { account } from '../../utils/account'
-import { useHeaderSetup, useNavigation } from '../../hooks'
+import { useHeaderSetup } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
 import { View, Text } from 'react-native'
-import { showHelp } from '../../overlays/showHelp'
-import { OverlayContext } from '../../contexts/overlay'
+import { useShowHelp } from '../../hooks/useShowHelp'
 
 export default (): ReactElement => {
-  const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
+  const showHelp = useShowHelp()
   const headerConfig = {
     title: i18n('form.paymentMethod'),
     icons: [
       {
         iconComponent: <HelpIcon />,
         onPress: () => {
-          showHelp(updateOverlay, 'paymentMethods', navigation)
+          showHelp('paymentMethods')
         },
       },
     ],
