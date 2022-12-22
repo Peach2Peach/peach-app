@@ -10,6 +10,8 @@ import { specialTemplates } from './specialTemplates'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
 import { useShowHelp } from '../../hooks/useShowHelp'
+import { DeleteIcon } from '../../components/icons/DeleteIcon'
+import { info } from '../../utils/log'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -50,13 +52,28 @@ export default (): ReactElement => {
 
   const showHelp = useShowHelp('currencies')
 
+  const headerIcons = () => {
+    const icons: {
+      iconComponent: JSX.Element
+      onPress: () => void
+    }[] = []
+    if (['revolut', 'wise', 'paypal'].includes(paymentMethod)) {
+      icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
+    }
+    if (data.id) {
+      icons[1] = { iconComponent: <DeleteIcon />, onPress: onDelete }
+    }
+    info('icons' + icons)
+    return icons
+  }
+
   useHeaderSetup(
     useMemo(
       () => ({
-        title: i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
-        icons: ['revolut', 'wise', 'paypal'].includes(paymentMethod)
-          ? [{ iconComponent: <HelpIcon />, onPress: showHelp }]
-          : [],
+        title: data.id
+          ? i18n('paymentMethod.edit.title', i18n(`paymentMethod.${paymentMethod}`))
+          : i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
+        icons: headerIcons(),
       }),
       [paymentMethod, showHelp],
     ),
@@ -65,7 +82,7 @@ export default (): ReactElement => {
   return (
     <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
       <View style={[!specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
-        <PaymentMethodForm back={goToOriginOnCancel} {...{ paymentMethod, onSubmit, onDelete, currencies, data }} />
+        <PaymentMethodForm back={goToOriginOnCancel} {...{ paymentMethod, onSubmit, currencies, data }} />
       </View>
     </View>
   )

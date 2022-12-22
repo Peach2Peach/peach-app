@@ -46,10 +46,10 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[]
-  editable?: boolean
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
+  editing: boolean
 }
-export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDetailsProps): ReactElement => {
+export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
   const navigation = useNavigation()
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
@@ -68,7 +68,6 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
     value: data.id,
     display: <Text style={tw`subtitle-1`}>{data.label}</Text>,
     isValid: isValidPaymentData(data),
-    disabled: editable,
     data,
   })
 
@@ -94,7 +93,7 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
   const editItem = (data: PaymentData) => {
     navigation.push('paymentDetails', {
       paymentData: data,
-      origin: ['paymentMethods'],
+      origin: ['paymentMethods', {}],
     })
   }
 
@@ -114,7 +113,9 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
     update()
   }, [paymentData])
 
-  return (
+  return paymentData.length === 0 ? (
+    <Text style={tw`h6 text-black-3 text-center`}>{i18n('paymentMethod.empty')}</Text>
+  ) : (
     <View style={[tw`px-4`, style]}>
       <View testID={'checkboxes-buy-mops'}>
         {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
@@ -131,7 +132,9 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
             <View key={category} style={i > 0 ? tw`mt-8` : {}}>
               <LinedText style={tw`pb-3`}>
                 <Text style={tw`h6 text-black-2 mr-1`}>{i18n(`paymentCategory.${category}`)}</Text>
-                <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+                {paymentCategoryIcons[category] !== '' && (
+                  <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+                )}
               </LinedText>
               {checkboxItems.map((item, j) => (
                 <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
@@ -139,9 +142,10 @@ export default ({ paymentData, editable, setMeansOfPayment, style }: PaymentDeta
                     <View>
                       <CheckboxItem
                         testID={`buy-mops-checkbox-${item.value}`}
-                        onPress={() => (!editable ? select(item.value) : editItem(item.data))}
+                        onPress={() => (editing ? editItem(item.data) : select(item.value))}
                         item={item}
                         checked={isSelected(item)}
+                        editing={editing}
                       />
                       <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
                     </View>

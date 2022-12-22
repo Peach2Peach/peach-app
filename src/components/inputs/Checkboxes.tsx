@@ -2,6 +2,7 @@ import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Icon } from '../'
+import { EditIcon } from '../icons'
 
 export type CheckboxItemType = {
   value: string | number
@@ -13,21 +14,24 @@ type CheckboxItemProps = ComponentProps & {
   onPress: () => void
   item: CheckboxItemType
   checked: boolean
+  editing: boolean
 }
-export const CheckboxItem = ({ item, checked, onPress, style, testID }: CheckboxItemProps): ReactElement => (
+export const CheckboxItem = ({ item, checked, onPress, style, testID, editing }: CheckboxItemProps): ReactElement => (
   <Pressable
     testID={testID}
     onPress={onPress}
     style={[
       tw`w-full flex-row justify-between items-center px-3 py-2 bg-primary-background-heavy rounded-xl border-2`,
-      checked && !item.disabled ? tw`border-primary-main` : tw`border-transparent`,
+      checked && !item.disabled && !editing ? tw`border-primary-main` : tw`border-transparent`,
       style,
     ]}
   >
     {item.display}
     {!item.disabled ? (
       <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
-        {checked ? (
+        {editing ? (
+          <Icon id={'edit'} color={tw`text-primary-main`.color} />
+        ) : checked ? (
           <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
         ) : (
           <View style={tw`w-4 h-4 rounded-sm border-2 border-black-3`} />
@@ -43,6 +47,7 @@ type CheckboxesProps = ComponentProps & {
   items: CheckboxItemType[]
   selectedValues?: (string | number)[]
   onChange?: (values: (string | number)[]) => void
+  editing: boolean
 }
 
 /**
@@ -59,7 +64,14 @@ type CheckboxesProps = ComponentProps & {
     selectedValues={selectedCurrencies}
     onChange={(values) => setSelectedCurrencies(values)}/>
  */
-export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID }: CheckboxesProps): ReactElement => {
+export const Checkboxes = ({
+  items,
+  selectedValues = [],
+  onChange,
+  style,
+  testID,
+  editing,
+}: CheckboxesProps): ReactElement => {
   const select = (value: string | number) => {
     let newValues = Array.from(selectedValues)
     if (newValues.includes(value)) {
@@ -82,6 +94,7 @@ export const Checkboxes = ({ items, selectedValues = [], onChange, style, testID
           onPress={() => select(item.value)}
           key={i}
           item={item}
+          editing={editing}
           checked={isSelected(item)}
         />
       ))}

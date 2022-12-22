@@ -125,16 +125,9 @@ export const PaymentMethodForm = ({
         )}
         <View style={tw`flex-grow items-center `}>
           <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
-            {i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
+            {i18n(!data.id ? 'next' : 'confirm')}
           </PrimaryButton>
         </View>
-        {data.id ? (
-          <Pressable onPress={remove} style={tw`mt-6`}>
-            <Text style={tw`font-baloo text-sm text-center underline text-peach-1`}>
-              {i18n('form.paymentMethod.remove')}
-            </Text>
-          </Pressable>
-        ) : null}
       </Fade>
     </View>
   )

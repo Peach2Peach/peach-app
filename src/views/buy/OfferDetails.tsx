@@ -21,16 +21,20 @@ const validate = (offer: BuyOffer) =>
     .filter(isDefined)
     .every(isValidPaymentData)
 
-export const headerIcons = [
-  {
-    iconComponent: <EditIcon />,
-    onPress: () => null,
-  },
-  { iconComponent: <HelpIcon />, onPress: () => null },
-]
-const headerConfig = { title: i18n('settings.paymentMethods'), icons: headerIcons }
-
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+  const [editing, setEditing] = useState(false)
+
+  const headerIcons = [
+    {
+      iconComponent: <EditIcon />,
+      onPress: () => {
+        setEditing(!editing)
+      },
+    },
+    { iconComponent: <HelpIcon />, onPress: () => null },
+  ]
+  const headerConfig = { title: i18n('settings.paymentMethods'), icons: headerIcons }
+
   useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
@@ -68,7 +72,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     <View style={tw`mb-16 px-6`}>
       <Title title={i18n('buy.title')} />
       <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
+      <PaymentDetails
+        style={tw`mt-4`}
+        paymentData={account.paymentData}
+        setMeansOfPayment={setMeansOfPayment}
+        editing={editing}
+      />
       <AddPaymentMethodButton origin={['buyPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
     </View>
   )

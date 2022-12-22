@@ -72,6 +72,7 @@ import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
 import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
+import trash from './trash.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
 import userCheck from './userCheck.svg'
@@ -158,6 +159,7 @@ const Icons = {
   timer,
   toggleLeft,
   toggleRight,
+  trash,
   trendingUp,
   upload,
   userCheck,

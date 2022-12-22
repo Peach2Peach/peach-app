@@ -9,20 +9,14 @@ import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodBut
 import { account } from '../../utils/account'
 import { useHeaderSetup } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { useShowHelp } from '../../hooks/useShowHelp'
 
 export default (): ReactElement => {
   const showHelp = useShowHelp('paymentMethods')
   const headerConfig = useMemo(
     () => ({
-      title: i18n('form.paymentMethod'),
-      icons: [
-        {
-          iconComponent: <HelpIcon />,
-          onPress: showHelp,
-        },
-      ],
+      title: i18n('form.paymentMethod.edit'),
     }),
     [showHelp],
   )
@@ -33,13 +27,9 @@ export default (): ReactElement => {
 
   return (
     <PeachScrollView style={tw`h-full w-full`} contentContainerStyle={tw`flex-1 px-6 pt-7 pb-10 justify-center`}>
-      {account.paymentData.length === 0 ? (
-        <Text style={tw`h6 text-black-3 text-center`}>{i18n('paymentMethod.empty')}</Text>
-      ) : (
-        <PaymentDetails editable={true} paymentData={account.paymentData} setMeansOfPayment={dummy} />
-      )}
+      <PaymentDetails paymentData={account.paymentData} setMeansOfPayment={dummy} editing={true} />
       <View style={tw`w-60 bg-black-5 h-0.3 m-5`} />
-      <AddPaymentMethodButton origin={['paymentMethods']} />
+      <AddPaymentMethodButton origin={['paymentMethods', {}]} />
     </PeachScrollView>
   )
 }
