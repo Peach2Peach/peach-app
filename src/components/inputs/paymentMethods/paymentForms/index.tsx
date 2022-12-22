@@ -98,11 +98,6 @@ export const PaymentMethodForm = ({
     }
   }
 
-  const remove = () => {
-    if (data.id) removePaymentData(data.id)
-    if ($formRef && onDelete) onDelete()
-  }
-
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView

@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
-import { addPaymentData } from '../../utils/account'
+import { addPaymentData, removePaymentData } from '../../utils/account'
 import { specialTemplates } from './specialTemplates'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
@@ -46,7 +46,10 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  const onDelete = () => {
+  const deletePaymentMethod = () => {
+    if (!data?.id) return
+
+    removePaymentData(data.id)
     goToOrigin(route.params.origin)
   }
 
@@ -61,7 +64,7 @@ export default (): ReactElement => {
       icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
     }
     if (data.id) {
-      icons[1] = { iconComponent: <DeleteIcon />, onPress: onDelete }
+      icons[1] = { iconComponent: <DeleteIcon />, onPress: deletePaymentMethod }
     }
     info('icons' + icons)
     return icons
