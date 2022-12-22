@@ -1,5 +1,5 @@
-import React from 'react'
-import { View } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, StatusBar } from 'react-native'
 import tw from '../../styles/tailwind'
 import { primaryGradient } from '../../utils/layout'
 import { useBackgroundState } from './backgroundStore'
@@ -8,6 +8,10 @@ const { RadialGradient } = require('react-native-gradients')
 export const Background = ({ children }: ComponentProps) => {
   const { color } = useBackgroundState()
   const coverStyle = tw`absolute top-0 left-0 w-full h-full`
+
+  useEffect(() => {
+    StatusBar.setBarStyle(color === 'primaryGradient' ? 'light-content' : 'dark-content', true)
+  }, [color])
 
   return (
     <View style={tw`w-full h-full`}>

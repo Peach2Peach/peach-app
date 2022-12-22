@@ -16,7 +16,7 @@ import { IconType } from '../../assets/icons'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
-  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>
+  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
 }
 type FooterItemProps = ComponentProps & {
   id: IconType

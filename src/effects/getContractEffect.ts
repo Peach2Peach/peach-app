@@ -1,7 +1,10 @@
 import { EffectCallback } from 'react'
 import { parseContract } from '../utils/contract'
+import { getAbortWithTimeout } from '../utils/fetch'
 import { error, info } from '../utils/log'
 import { getContract } from '../utils/peachAPI'
+
+const checkingInterval = 30 * 1000
 
 type GetContractEffectProps = {
   contractId?: string
@@ -11,13 +14,16 @@ type GetContractEffectProps = {
 
 export default ({ contractId, onSuccess, onError }: GetContractEffectProps): EffectCallback =>
   () => {
+    let abortCtrl: AbortController
     const checkingFunction = async () => {
       if (!contractId) return
+      abortCtrl = getAbortWithTimeout(checkingInterval)
 
       info('Get contract info', contractId)
 
       const [result, err] = await getContract({
         contractId,
+        abortSignal: abortCtrl.signal,
       })
 
       if (result) {
@@ -28,10 +34,11 @@ export default ({ contractId, onSuccess, onError }: GetContractEffectProps): Eff
       }
     }
 
-    const interval = setInterval(checkingFunction, 30 * 1000)
+    const interval = setInterval(checkingFunction, checkingInterval)
     checkingFunction()
 
     return () => {
+      abortCtrl?.abort()
       clearInterval(interval)
     }
   }

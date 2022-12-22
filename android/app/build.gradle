@@ -162,7 +162,7 @@ android {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 107
+        versionCode 111
         versionName "0.1.10"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
@@ -329,6 +329,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation project(':react-native-splash-screen')
 }
 
 if (isNewArchitectureEnabled()) {

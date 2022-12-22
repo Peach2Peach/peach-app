@@ -3,7 +3,6 @@ declare type RootStackParamList = {
   newUser: {
     referralCode?: string
   }
-  login: undefined
   restoreBackup: undefined
   buy: undefined
   sell: undefined
@@ -29,10 +28,7 @@ declare type RootStackParamList = {
   setReturnAddress: {
     offer: SellOffer
   }
-  search: {
-    offer: SellOffer | BuyOffer
-    hasMatches?: boolean
-  }
+  search: undefined
   contract: {
     contractId: Contract['id']
     contract?: Contract

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { Pressable } from 'react-native'
 import { OverlayContext } from '../../../contexts/overlay'
-import tw from '../../../styles/tailwind'
-import Icon from '../../Icon'
-import MatchOverlay from '../../../overlays/info/Match'
 import DoubleMatch from '../../../overlays/info/DoubleMatch'
-import { useRoute } from '../../../hooks'
+import MatchOverlay from '../../../overlays/info/Match'
+import tw from '../../../styles/tailwind'
 import { isBuyOffer } from '../../../utils/offer'
+import Icon from '../../Icon'
+import { useMatchStore } from '../store'
 
 export const MatchHelpButton = () => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const { offer } = useRoute<'search'>().params
+  const offer = useMatchStore((state) => state.offer)
   const openMatchHelp = () =>
     updateOverlay({
       content: isBuyOffer(offer) ? <MatchOverlay /> : <DoubleMatch />,
