@@ -52,8 +52,6 @@ export default (): ReactElement => {
 
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-
   useHeaderSetup(
     useMemo(
       () => ({
@@ -64,7 +62,7 @@ export default (): ReactElement => {
               {
                 iconComponent: <HelpIcon />,
                 onPress: () => {
-                  showHelp(updateOverlay, 'currencies')
+                  showHelp(updateOverlay, 'currencies', navigation)
                 },
               },
             ]
