@@ -120,7 +120,7 @@ export default (): ReactElement => {
           isValid={passwordIsValid && passwordMatch}
         />
         <Input
-          style={tw`mt-2 h-12`}
+          style={tw`mt-2`}
           testID="backup-passwordRepeat"
           reference={(el: any) => ($passwordRepeat = el)}
           onChange={onPasswordRepeatChange}
