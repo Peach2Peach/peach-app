@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '..'
-import fetch, { getAbortSignal } from '../../fetch'
+import fetch, { getAbortWithTimeout } from '../../fetch'
 import { parseResponse } from '../parseResponse'
 
 type GetTxProps = RequestProps & {
@@ -12,14 +12,18 @@ type GetTxProps = RequestProps & {
  * @param txId transaction id
  * @returns GetTxResponse
  */
-export const getTx = async ({ txId, timeout }: GetTxProps): Promise<[GetTxResponse | null, APIError | null]> => {
+export const getTx = async ({
+  txId,
+  timeout,
+  abortSignal,
+}: GetTxProps): Promise<[GetTxResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/tx/${txId}`, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
   return await parseResponse<GetTxResponse>(response, 'postTx')
@@ -44,7 +48,7 @@ export const postTx = async ({ tx, timeout }: PostTxProps): Promise<[PostTxRespo
     body: JSON.stringify({
       tx,
     }),
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<PostTxResponse>(response, 'postTx')

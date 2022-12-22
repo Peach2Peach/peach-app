@@ -1,6 +1,9 @@
 import { EffectCallback } from 'react'
+import { getAbortWithTimeout } from '../utils/fetch'
 import { error, info } from '../utils/log'
 import { getOffers } from '../utils/peachAPI'
+
+const checkingInterval = 60 * 1000
 
 type GetOffersProps = {
   onSuccess: (result: (SellOffer | BuyOffer)[]) => void
@@ -8,11 +11,12 @@ type GetOffersProps = {
 }
 export default ({ onSuccess, onError }: GetOffersProps): EffectCallback =>
   () => {
-    const checkingInterval = 60 * 1000
+    let abortCtrl: AbortController
     const checkingFunction = async () => {
+      abortCtrl = getAbortWithTimeout(checkingInterval)
       info('Get offers')
       const [result, err] = await getOffers({
-        timeout: checkingInterval,
+        abortSignal: abortCtrl.signal,
       })
 
       if (result) {
@@ -30,6 +34,7 @@ export default ({ onSuccess, onError }: GetOffersProps): EffectCallback =>
     checkingFunction()
 
     return () => {
+      abortCtrl?.abort()
       clearInterval(interval)
     }
   }

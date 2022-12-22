@@ -14,6 +14,7 @@ export const recoverAccount = async (account: Account): Promise<[Account | null,
   try {
     updateSettings({
       fcmToken: '',
+      pgpPublished: false,
     })
     info('Get offers')
     const [
