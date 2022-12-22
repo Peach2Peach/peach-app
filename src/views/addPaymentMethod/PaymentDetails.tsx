@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -12,6 +12,8 @@ import { HelpIcon } from '../../components/icons'
 import { useShowHelp } from '../../hooks/useShowHelp'
 import { DeleteIcon } from '../../components/icons/DeleteIcon'
 import { info } from '../../utils/log'
+import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
+import { OverlayContext } from '../../contexts/overlay'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -20,6 +22,7 @@ const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackPa
 }
 
 export default (): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const route = useRoute<'paymentDetails'>()
   const navigation = useNavigation()
   const { paymentData: data, originOnCancel } = route.params
@@ -47,10 +50,27 @@ export default (): ReactElement => {
   }
 
   const deletePaymentMethod = () => {
-    if (!data?.id) return
-
-    removePaymentData(data.id)
-    goToOrigin(route.params.origin)
+    updateOverlay({
+      title: i18n('help.paymentMethodDelete.title'),
+      content: <DeletePaymentMethodConfirm />,
+      visible: true,
+      level: 'ERROR',
+      action1: {
+        callback: () => updateOverlay({ visible: false }),
+        icon: 'xSquare',
+        label: i18n('neverMind'),
+      },
+      action2: {
+        callback: () => {
+          if (!data?.id) return
+          removePaymentData(data.id)
+          updateOverlay({ visible: false })
+          goToOrigin(route.params.origin)
+        },
+        icon: 'info',
+        label: i18n('delete'),
+      },
+    })
   }
 
   const showHelp = useShowHelp('currencies')
