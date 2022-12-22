@@ -265,3 +265,12 @@ declare type GenerateBlockResponse = {
 }
 
 declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'economyFee' | 'custom'
+
+declare type FeeRecommendation = {
+  fastestFee: number
+  halfHourFee: number
+  hourFee: number
+  economyFee: number
+  minimumFee: number
+}
+declare type GetFeeEstimateResponse = FeeRecommendation
