@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Button, Fade, Icon, Input, Text } from '../../../../components'
+import { Button, Fade, Icon, Input, PeachScrollView, Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useKeyboard, useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
@@ -100,8 +100,8 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex-shrink flex flex-col mt-12`}>
-      <View style={tw`h-full flex-shrink`}>
+    <PeachScrollView style={tw`h-full flex-shrink mt-12`}>
+      <View>
         <View style={tw`items-center justify-center flex-row`}>
           <Text style={tw`text-center`}>{i18n('settings.backups.createASecurePassword')}</Text>
           <Pressable style={tw`p-2`} onPress={openPasswordHelp}>
@@ -131,7 +131,7 @@ export default (): ReactElement => {
           isValid={passwordRepeatIsValid && passwordMatch}
         />
       </View>
-      <Fade show={!keyboardOpen} style={tw`flex items-center mt-16`}>
+      <View style={tw`flex items-center mt-16`}>
         <Button
           disabled={!isValid}
           style={tw`mb-2`}
@@ -140,7 +140,7 @@ export default (): ReactElement => {
           onPress={startAccountBackup}
         />
         <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-      </Fade>
-    </View>
+      </View>
+    </PeachScrollView>
   )
 }
