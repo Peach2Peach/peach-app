@@ -1,11 +1,6 @@
-
-import React, { ReactElement } from 'react'
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
+import { isIOS } from '../utils/system'
 
 type AvoidKeyboardProps = ComponentProps
 
@@ -18,11 +13,30 @@ type AvoidKeyboardProps = ComponentProps
  *    <Text>Your content</Text>
  * </AvoidKeyboard>
  */
-export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement =>
-  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      {children}
-    </TouchableWithoutFeedback>
-  </KeyboardAvoidingView>
+export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement => {
+  const [enabled, setEnabled] = useState(true)
+  useEffect(() => {
+    ;(async () => {
+
+      /**
+       * workaround for react native <=69 which has a bug that view collapses to 0
+       * when closing keyboard
+       * can be removed with react native 70+
+       */
+      setEnabled(!(await AccessibilityInfo.isReduceMotionEnabled()))
+    })()
+  }, [])
+
+  return (
+    <KeyboardAvoidingView
+      {...{
+        enabled,
+        behavior: isIOS() ? 'padding' : undefined,
+      }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>{children}</TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+  )
+}
 
 export default AvoidKeyboard
