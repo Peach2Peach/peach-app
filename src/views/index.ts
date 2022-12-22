@@ -20,7 +20,7 @@ import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
-import Escrow from './settings/Escrow'
+import RefundAddress from './settings/RefundAddress'
 import Fees from './settings/Fees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
@@ -68,7 +68,7 @@ export const views: ViewType[] = [
   { name: 'currency', component: Currency, showHeader: true, showFooter: true },
   { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
   { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'refundAddress', component: Escrow, showHeader: true, showFooter: true },
+  { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
   { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
   { name: 'networkFees', component: Fees, showHeader: true, showFooter: true },
   { name: 'socials', component: Socials, showHeader: true, showFooter: true },
