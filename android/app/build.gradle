@@ -329,6 +329,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation project(':react-native-splash-screen')
 }
 
 if (isNewArchitectureEnabled()) {
