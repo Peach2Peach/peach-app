@@ -4,7 +4,7 @@ import { useNavigation } from '../hooks'
 import { helpOverlays } from '../overlays/showHelp'
 import i18n from '../utils/i18n'
 
-export const useShowHelp = (id: 'paymentMethods' | 'currencies') => {
+export const useShowHelp = (id: HelpType) => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 

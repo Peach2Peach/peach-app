@@ -12,7 +12,7 @@ import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '
 import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
 import LinedText from '../ui/LinedText'
 
-const paymentCategoryIcons: Record<PaymentCategory, string> = {
+const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
   onlineWallet: 'cloud',
   giftCard: '',

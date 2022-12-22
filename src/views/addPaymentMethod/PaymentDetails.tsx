@@ -4,16 +4,17 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
-import { addPaymentData, removePaymentData } from '../../utils/account'
-import { specialTemplates } from './specialTemplates'
-import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { HeaderConfig } from '../../components/header/store'
 import { HelpIcon } from '../../components/icons'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { DeleteIcon } from '../../components/icons/DeleteIcon'
-import { info } from '../../utils/log'
-import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
+import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { OverlayContext } from '../../contexts/overlay'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
+import { addPaymentData, removePaymentData } from '../../utils/account'
+import { info } from '../../utils/log'
+import { specialTemplates } from './specialTemplates'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -76,10 +77,7 @@ export default (): ReactElement => {
   const showHelp = useShowHelp('currencies')
 
   const headerIcons = () => {
-    const icons: {
-      iconComponent: JSX.Element
-      onPress: () => void
-    }[] = []
+    const icons: HeaderConfig['icons'] = []
     if (['revolut', 'wise', 'paypal'].includes(paymentMethod)) {
       icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
     }
