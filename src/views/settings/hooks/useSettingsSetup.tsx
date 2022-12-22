@@ -3,13 +3,13 @@ import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { OverlayContext } from '../../contexts/overlay'
-import { useHeaderSetup, useNavigation } from '../../hooks'
-import { account, updateSettings } from '../../utils/account'
-import i18n from '../../utils/i18n'
-import { checkNotificationStatus, isProduction, toggleNotifications } from '../../utils/system'
-import { NotificationPopup } from './components/NotificationPopup'
-import { SettingsItemProps } from './components/SettingsItem'
+import { OverlayContext } from '../../../contexts/overlay'
+import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { account, updateSettings } from '../../../utils/account'
+import i18n from '../../../utils/i18n'
+import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
+import { NotificationPopup } from '../components/NotificationPopup'
+import { SettingsItemProps } from '../components/SettingsItem'
 
 const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 

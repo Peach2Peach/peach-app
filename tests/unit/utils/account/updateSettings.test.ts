@@ -45,6 +45,8 @@ describe('updateSettings', () => {
       preferredPaymentMethods: {},
       showBackupReminder: true,
       showDisputeDisclaimer: true,
+      customFeeRate: 1,
+      selectedFeeRate: 'halfHourFee',
     })
   })
 })

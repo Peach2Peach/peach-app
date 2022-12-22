@@ -63,6 +63,9 @@ export const rules = {
   bip39Word (_: boolean, value: string) {
     return wordlists.english.includes(value)
   },
+  feeRate (_: boolean, value: string) {
+    return /^[0-9]*$/u.test(value) && Number(value) >= 1
+  },
 }
 
 export type Rule = keyof typeof rules

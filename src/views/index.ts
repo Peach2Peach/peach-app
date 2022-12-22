@@ -20,7 +20,8 @@ import SellPreferences from './sell/SellPreferences'
 import SetReturnAddress from './sell/SetReturnAddress'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
-import Fees from './settings/Fees'
+import PeachFees from './settings/PeachFees'
+import NetworkFees from './settings/NetworkFees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
@@ -70,7 +71,8 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
       { name: 'payoutAddress', component: PayoutAddress, showHeader: true, showFooter: true },
       { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-      { name: 'networkFees', component: Fees, showHeader: true, showFooter: true },
+      { name: 'peachFees', component: PeachFees, showHeader: true, showFooter: true },
+      { name: 'networkFees', component: NetworkFees, showHeader: true, showFooter: true },
       { name: 'socials', component: Socials, showHeader: true, showFooter: true },
       { name: 'contact', component: Contact, showHeader: true, showFooter: true },
       { name: 'report', component: Report, showHeader: true, showFooter: true },

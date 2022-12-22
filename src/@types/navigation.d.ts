@@ -67,6 +67,7 @@ declare type RootStackParamList = {
   payoutAddress: undefined
   paymentMethods: undefined
   deleteAccount: undefined
+  peachFees: undefined
   networkFees: undefined
   socials: undefined
   reportFullScreen: undefined
