@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '..'
-import fetch, { getAbortSignal } from '../../fetch'
+import fetch, { getAbortWithTimeout } from '../../fetch'
 import { parseResponse } from '../parseResponse'
 
 type GetStatusProps = RequestProps
@@ -16,7 +16,7 @@ export const getStatus = async ({ timeout }: GetStatusProps): Promise<[GetStatus
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<GetStatusResponse>(response, 'getStatus')
@@ -36,7 +36,7 @@ export const getInfo = async ({ timeout }: GetInfoProps): Promise<[GetInfoRespon
       'Content-Type': 'application/json',
     },
     method: 'GET',
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<GetInfoResponse>(response, 'getInfo')

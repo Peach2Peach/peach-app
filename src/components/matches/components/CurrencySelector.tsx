@@ -6,13 +6,12 @@ import { Headline } from '../../text'
 import { HorizontalLine } from '../../ui'
 import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
-import { useRoute } from '../../../hooks'
 import { isBuyOffer } from '../../../utils/offer'
 
 export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer } = useRoute<'search'>().params
-  const { selectedValue, setSelectedCurrency, availableCurrencies } = useMatchStore(
+  const { offer, selectedValue, setSelectedCurrency, availableCurrencies } = useMatchStore(
     (state) => ({
+      offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedCurrency,
       setSelectedCurrency: state.setSelectedCurrency,
       availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],

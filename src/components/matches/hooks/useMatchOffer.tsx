@@ -1,19 +1,19 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { error, info } from '../../../utils/log'
 
 import shallow from 'zustand/shallow'
-import { useMatchStore } from '../store'
-import { handleMissingPaymentData, createRefundTx, matchFn, updateMatchedStatus } from '../utils'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
+import { parseError } from '../../../utils/system'
+import { useMatchStore } from '../store'
+import { createRefundTx, handleError, handleMissingPaymentData, matchFn, updateMatchedStatus } from '../utils'
 
 export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const routeParams = useRoute<'search'>().params
   const [, updateMessage] = useContext(MessageContext)
 
   const { selectedCurrency, selectedPaymentMethod, currentPage } = useMatchStore(
@@ -36,17 +36,18 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       return { previousData }
     },
     mutationFn: () => matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage),
-    onError: (err: 'Missing values' | 'Missing paymentdata' | string | undefined, _variables, context) => {
-      if (err === 'Missing values') {
-        error(
+    onError: (err: Error, _variables, context) => {
+      const errorMsg = parseError(err)
+
+      if (errorMsg === 'MISSING_PAYMENTDATA') {
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
+      } else {
+        if (errorMsg === 'MISSING_VALUES') error(
           'Match data missing values.',
           `selectedCurrency: ${selectedCurrency}`,
           `selectedPaymentMethod: ${selectedPaymentMethod}`,
         )
-      } else if (err === 'Missing paymentdata') {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation, routeParams)
-      } else if (typeof err === 'string') {
-        error(err)
+        handleError({ error: errorMsg }, updateMessage)
       }
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },

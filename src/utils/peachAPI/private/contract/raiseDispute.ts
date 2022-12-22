@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
-import fetch, { getAbortSignal } from '../../../fetch'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
@@ -40,7 +40,7 @@ export const raiseDispute = async ({
       message,
       symmetricKeyEncrypted,
     }),
-    signal: timeout ? getAbortSignal(timeout) : undefined,
+    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
   return await parseResponse<APISuccess>(response, 'raiseDispute')

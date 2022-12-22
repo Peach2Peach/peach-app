@@ -4,6 +4,8 @@
  * @returns error or null
  */
 export const getResponseError = (response: Response): string | null => {
+  if (response.statusText === 'Aborted') return 'ABORTED'
+
   if (response.status === 0) return 'EMPTY_RESPONSE'
   if (response.status === 500) return 'INTERNAL_SERVER_ERROR'
   if (response.status === 503) return 'SERVICE_UNAVAILABLE'

@@ -1,8 +1,11 @@
 import { EffectCallback } from 'react'
+import { getAbortWithTimeout } from '../utils/fetch'
 import { error, info } from '../utils/log'
 import { isSellOffer } from '../utils/offer'
 import { isFunded } from '../utils/offer/status'
 import { getMatches } from '../utils/peachAPI'
+
+const checkingInterval = 15 * 1000
 
 type SearchForPeersEffectProps = {
   offer: SellOffer | BuyOffer
@@ -21,9 +24,9 @@ export default ({
   onError,
 }: SearchForPeersEffectProps): EffectCallback =>
   () => {
-    const checkingInterval = 15 * 1000
-
+    let abortCtrl: AbortController
     const checkingFunction = async () => {
+      abortCtrl = getAbortWithTimeout(checkingInterval)
       if (!offer?.id) return
       if (offer.doubleMatched) return
       if (isSellOffer(offer) && !isFunded(offer)) return
@@ -36,7 +39,7 @@ export default ({
         offerId: offer.id,
         page,
         size,
-        timeout: checkingInterval,
+        abortSignal: abortCtrl.signal,
       })
 
       if (result) {
@@ -51,6 +54,7 @@ export default ({
     checkingFunction()
 
     return () => {
+      abortCtrl?.abort()
       clearInterval(interval)
     }
   }

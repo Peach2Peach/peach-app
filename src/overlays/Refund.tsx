@@ -81,7 +81,7 @@ const ReturnAddressMismatchMessage = ({ sellOffer, refundPSBT }: ReturnAddressMi
 
 type Props = {
   sellOffer: SellOffer
-  navigate: () => void
+  navigate?: () => void
 }
 
 export default ({ sellOffer, navigate }: Props): ReactElement => {
@@ -96,7 +96,7 @@ export default ({ sellOffer, navigate }: Props): ReactElement => {
   const fundingStatus = sellOffer.funding.status === 'WRONG_FUNDING_AMOUNT' ? 'WRONG_FUNDING_AMOUNT' : 'CANCELED'
 
   const closeOverlay = () => {
-    navigate()
+    if (navigate) navigate()
     updateOverlay({ visible: false })
   }
 
