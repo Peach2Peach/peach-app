@@ -722,7 +722,7 @@
   "settings.networkFees.averageFees": "average btc network fees",
   "settings.networkFees.estimatedTime.fastestFee": "~ 10 minutes",
   "settings.networkFees.estimatedTime.halfHourFee": "~ 30 minutes",
-  "settings.networkFees.estimatedTime.economyFee": "~ 1 hour",
+  "settings.networkFees.estimatedTime.hourFee": "~ 1 hour",
   "settings.networkFees.xSatsPerByte": "$0 sat / vb",
   "settings.networkFees.custom": "custom",
   "settings.networkFees.help": "These are the fees you pay to the bitcoin network to receive your sats after a trade, or in case of a refund. These fees change over time, depending on how busy it is.\n\nThe busier the network, the more you'll need to pay to get a quick confirmation.",

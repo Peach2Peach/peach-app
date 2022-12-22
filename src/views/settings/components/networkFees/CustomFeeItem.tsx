@@ -1,6 +1,29 @@
 import React, { ReactElement } from 'react'
-import { Text } from '../../../../components'
+import { View } from 'react-native'
+import { Input, Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 
-export default (): ReactElement => <Text style={tw`subtitle-1`}>{i18n('settings.networkFees.custom')}</Text>
+type CustomFeeItemProps = {
+  customFeeRate: string
+  setCustomFeeRate: React.Dispatch<string>
+  disabled?: boolean
+}
+
+export default ({ customFeeRate, setCustomFeeRate, disabled }: CustomFeeItemProps): ReactElement => (
+  <View style={tw`flex flex-row items-center`}>
+    <Text style={tw`subtitle-1 leading-relaxed`}>{i18n('settings.networkFees.custom')}</Text>
+    <View style={tw`h-10 mx-2`}>
+      <Input
+        style={tw`w-16`}
+        {...{
+          value: customFeeRate,
+          onChange: setCustomFeeRate,
+          required: true,
+          disabled,
+        }}
+      />
+    </View>
+    <Text style={tw`text-black-2`}>{i18n('satsPerByte')}</Text>
+  </View>
+)

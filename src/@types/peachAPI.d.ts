@@ -264,7 +264,7 @@ declare type GenerateBlockResponse = {
   txId: string
 }
 
-declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'economyFee' | 'custom'
+declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
 
 declare type FeeRecommendation = {
   fastestFee: number
