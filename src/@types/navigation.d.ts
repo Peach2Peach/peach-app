@@ -73,12 +73,13 @@ declare type RootStackParamList = {
   deleteAccount: undefined
   networkFees: undefined
   socials: undefined
-  testView: undefined
-  testViewButtons: undefined
-  testViewPopups: undefined
   reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
+  testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
+  testViewMessages: undefined
 }
 
 type KeysWithUndefined<T> = {
