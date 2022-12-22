@@ -1,15 +1,17 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, HorizontalLine, Input, PeachScrollView, RadioButtons, Text } from '../../components'
+import { GoBackButton, HorizontalLine, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
+import { MessageContext } from '../../contexts/message'
 import { useValidatedState } from '../../hooks'
+import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { updateUser } from '../../utils/peachAPI'
 import CustomFeeItem from './components/networkFees/CustomFeeItem'
 import EstimatedFeeItem from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
-import { updateSettings } from '../../utils/account'
 
 const customFeeRules = {
   required: true,
@@ -19,9 +21,15 @@ const customFeeRules = {
 const estimatedFeeRates: FeeRate[] = ['fastestFee', 'halfHourFee', 'hourFee', 'custom']
 
 export default (): ReactElement => {
+  const [, updateMessage] = useContext(MessageContext)
   const { estimatedFees } = useNetworkFeesSetup()
-  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate>('fastestFee')
-  const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState<string>('1', customFeeRules)
+
+  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate>(account.settings.selectedFeeRate || 'halfHourFee')
+  const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState<string>(
+    (account.settings.customFeeRate || '1').toString(),
+    customFeeRules,
+  )
+  const [feeRateSet, setFeeRateSet] = useState(true)
 
   const options = estimatedFeeRates.map((feeRate) => ({
     value: feeRate,
@@ -33,17 +41,33 @@ export default (): ReactElement => {
       ),
   }))
 
-  useEffect(() => {
-    updateSettings({
-      selectedFeeRate,
+  const submit = async () => {
+    const [result, err] = await updateUser({
+      feeRate: selectedFeeRate !== 'custom' ? selectedFeeRate : Number(customFeeRate),
     })
-  }, [selectedFeeRate])
+    if (result) {
+      updateSettings({
+        selectedFeeRate,
+        customFeeRate: Number(customFeeRate),
+      })
+      setFeeRateSet(true)
+    } else if (err) {
+      updateMessage({
+        msgKey: err.error,
+        level: 'ERROR',
+      })
+    }
+  }
 
   useEffect(() => {
-    updateSettings({
-      customFeeRate: Number(customFeeRate),
-    })
-  }, [customFeeRate])
+    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('1')
+  }, [selectedFeeRate, setCustomFeeRate])
+
+  useEffect(() => {
+    setFeeRateSet(
+      account.settings.selectedFeeRate === selectedFeeRate && account.settings.customFeeRate === Number(customFeeRate),
+    )
+  }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
 
   return (
     <View style={tw`flex-1`}>
@@ -61,7 +85,9 @@ export default (): ReactElement => {
           {i18n('settings.networkFees.xSatsPerByte', estimatedFees.economyFee.toString())}
         </Text>
       </PeachScrollView>
-      <GoBackButton style={tw`m-8 self-center`} />
+      <PrimaryButton onPress={submit} disabled={!isValid || feeRateSet} style={tw`m-8 self-center`}>
+        {i18n(feeRateSet ? 'settings.networkFees.feeRateSet' : 'confirm')}
+      </PrimaryButton>
     </View>
   )
 }

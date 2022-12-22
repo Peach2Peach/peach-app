@@ -11,11 +11,11 @@ type CustomFeeItemProps = {
 }
 
 export default ({ customFeeRate, setCustomFeeRate, disabled }: CustomFeeItemProps): ReactElement => (
-  <View style={tw`flex flex-row items-center`}>
-    <Text style={tw`subtitle-1 leading-relaxed`}>{i18n('settings.networkFees.custom')}</Text>
-    <View style={tw`h-10 mx-2`}>
+  <View style={tw`flex flex-row items-center h-8`}>
+    <Text style={tw`subtitle-1`}>{i18n('settings.networkFees.custom')}:</Text>
+    <View style={tw`h-8 mx-2`}>
       <Input
-        style={tw`w-16`}
+        style={tw`w-16 h-8`}
         {...{
           value: customFeeRate,
           onChange: setCustomFeeRate,

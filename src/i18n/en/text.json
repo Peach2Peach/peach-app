@@ -726,6 +726,7 @@
   "settings.networkFees.xSatsPerByte": "$0 sat / vb",
   "settings.networkFees.custom": "custom",
   "settings.networkFees.help": "These are the fees you pay to the bitcoin network to receive your sats after a trade, or in case of a refund. These fees change over time, depending on how busy it is.\n\nThe busier the network, the more you'll need to pay to get a quick confirmation.",
+  "settings.networkFees.feeRateSet": "fee rate set",
   "satsPerByte": "sat / vb",
   "twitter": "Twitter",
   "instagram": "Instagram",
