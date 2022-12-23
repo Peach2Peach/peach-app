@@ -111,7 +111,7 @@ declare type Action = {
 declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
 declare type OverlayLevel = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 
-declare type HelpType = 'paymentMethods' | 'currencies'
+declare type HelpType = 'paymentMethods' | 'currencies' | 'referrals'
 
 declare type MessageState = {
   level: MessageLevel

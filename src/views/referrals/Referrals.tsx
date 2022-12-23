@@ -11,10 +11,12 @@ import { thousands } from '../../utils/string'
 import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 import { useHeaderSetup } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
+import { useShowHelp } from '../../hooks/useShowHelp'
 
 type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
 
 export default (): ReactElement => {
+  const showHelp = useShowHelp('referrals')
   // Header set
   useHeaderSetup(
     useMemo(
@@ -23,9 +25,7 @@ export default (): ReactElement => {
         icons: [
           {
             iconComponent: <HelpIcon />,
-            onPress: () => {
-              // TODO : Add help overlay when merge with PP-642
-            },
+            onPress: showHelp,
           },
         ],
       }),
