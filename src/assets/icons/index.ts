@@ -33,6 +33,7 @@ import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
+import gift from './gift.svg'
 import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
@@ -119,6 +120,7 @@ const Icons = {
   eyeOff,
   fire,
   fundEscrow,
+  gift,
   globe,
   heart,
   helpCircle,
