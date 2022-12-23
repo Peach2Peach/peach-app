@@ -31,7 +31,7 @@ export const showCustomReferralCode = (updateOverlay: Function) => {
       icon: 'checkSquare',
     },
     action2: {
-      disabled: customReferral != '',
+      disabled: customReferral !== '',
       callback: () => {
         updateOverlay({ visible: false })
       },

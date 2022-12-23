@@ -112,7 +112,7 @@ export default (): ReactElement => {
         </Text>
         <RadioButtons selectedValue={selectedReward} items={rewards} onChange={setSelectedReward} />
         <View style={tw`flex items-center mt-5 mb-10`}>
-          <PrimaryButton wide disabled={selectedReward != null} onPress={redeemReward} iconId={'gift'}>
+          <PrimaryButton wide disabled={selectedReward !== null} onPress={redeemReward} iconId={'gift'}>
             {i18n('referrals.reward.select')}
           </PrimaryButton>
           <Text style={tw`body-m text-black-2 text-center`}>{i18n('referrals.reward.comingSoon')}</Text>
