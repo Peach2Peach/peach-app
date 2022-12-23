@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -12,6 +12,8 @@ import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 import { useHeaderSetup } from '../../hooks'
 import { HelpIcon } from '../../components/icons'
 import { useShowHelp } from '../../hooks/useShowHelp'
+import { OverlayContext } from '../../contexts/overlay'
+import { showCustomReferralCode } from '../../overlays/referrals/showCustomReferralCode'
 
 type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
 
@@ -35,6 +37,7 @@ export default (): ReactElement => {
   const [user, setUser] = useState<User>()
   const pointsBalance = user?.bonusPoints || 0
   const [selectedReward, setSelectedReward] = useState<Reward>('')
+  const [, updateOverlay] = useContext(OverlayContext)
 
   const rewards: RadioButtonItem<Reward>[] = [
     ['customReferralCode', 100, '100'],
@@ -44,7 +47,7 @@ export default (): ReactElement => {
     ([reward, pointsRequired, cost]) =>
       ({
         value: reward,
-        disabled: pointsRequired > pointsBalance || reward === 'sats',
+        disabled: true /* pointsRequired > pointsBalance || reward === 'sats'*/,
         display: (
           <View style={tw`flex-row justify-between items-center py-1`}>
             <Text style={tw`subtitle-1`}>{i18n(`referrals.reward.${reward}`)}</Text>
@@ -55,18 +58,17 @@ export default (): ReactElement => {
   )
   const availableRewards = rewards.filter((reward) => !reward.disabled).length
 
-  // const shareReferralCode = () => user?.referralCode
-  //   ? Share.open({
-  //     message: [
-  //       i18n('referrals.shareCode.text.1'),
-  //       i18n('referrals.shareCode.text.2', user.referralCode),
-  //       'https://peachbitcoin.com',
-  //     ].join('\n\n')
-  //   })
-  //     .catch(() => {})
-  //   : null
-
-  const redeemReward = () => {}
+  const redeemReward = () => {
+    // TO BE IMPLEMENTED IN 0.2.1
+    switch (selectedReward) {
+    case 'customReferralCode':
+      break
+    case 'noPeachFees':
+      break
+    default:
+      break
+    }
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -110,9 +112,10 @@ export default (): ReactElement => {
         </Text>
         <RadioButtons selectedValue={selectedReward} items={rewards} onChange={setSelectedReward} />
         <View style={tw`flex items-center mt-5 mb-10`}>
-          <PrimaryButton wide disabled={selectedReward !== null} onPress={redeemReward} iconId={'gift'}>
+          <PrimaryButton wide disabled={selectedReward != null} onPress={redeemReward} iconId={'gift'}>
             {i18n('referrals.reward.select')}
           </PrimaryButton>
+          <Text style={tw`body-m text-black-2 text-center`}>{i18n('referrals.reward.comingSoon')}</Text>
         </View>
         {user.referralCode && (
           <>

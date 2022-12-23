@@ -106,6 +106,7 @@ declare type Action = {
   callback: Function
   label?: string
   icon?: IconType
+  disabled?: boolean
 }
 
 declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
