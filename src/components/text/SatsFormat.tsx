@@ -20,9 +20,8 @@ export const SatsFormat = ({ sats, color, style }: SatsFormat): ReactElement => 
       <Text style={[tw`font-medium`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
         {parts[0]}.{parts[1]}
       </Text>
-      <Text style={[tw`font-medium`, color || tw`text-black-1`, style]}>
-        {parts[2]} {i18n('currency.SATS')}
-      </Text>
+      <Text style={[tw`font-medium`, color || tw`text-black-1`, style]}>{parts[2]}</Text>
+      <Text style={[tw`body-s font-medium mt-0.5`, color || tw`text-black-1`, style]}> {i18n('currency.SATS')}</Text>
     </View>
   )
 }
