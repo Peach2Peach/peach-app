@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import { View } from 'react-native'
 
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
@@ -34,9 +33,6 @@ import TestViewMessages from './TestView/messages'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
-import TransactionDetails from './wallet/TransactionDetails'
-import TransactionHistory from './wallet/TransactionHistory'
-import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
@@ -55,12 +51,6 @@ const onboarding: ViewType[] = [
 ]
 
 const home: ViewType[] = [{ name: 'home', component: Buy, showHeader: true, showFooter: true }]
-
-const walletViews: ViewType[] = [
-  { name: 'wallet', component: Wallet, showHeader: true, showFooter: true },
-  { name: 'transactionHistory', component: TransactionHistory, showHeader: true, showFooter: true },
-  { name: 'transactionDetails', component: TransactionDetails, showHeader: true, showFooter: true },
-]
 
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
@@ -128,7 +118,6 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
       ...home,
-      ...walletViews,
       ...buyFlow,
       ...sellFlow,
       ...search,
