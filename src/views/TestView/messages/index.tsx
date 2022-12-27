@@ -13,7 +13,7 @@ export default () => {
       msgKey: 'GENERAL_ERROR',
       level,
       action: {
-        callback: () => updateMessage({ msgKey: undefined, level: 'OK' }),
+        callback: () => updateMessage({ msgKey: undefined, level: 'SUCCESS' }),
         label: 'an action',
         icon: 'mail',
       },
@@ -24,7 +24,7 @@ export default () => {
       style={tw`h-full bg-primary-mild-1`}
       contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
     >
-      <PrimaryButton onPress={() => openMessage('OK')}>ok message</PrimaryButton>
+      <PrimaryButton onPress={() => openMessage('SUCCESS')}>ok message</PrimaryButton>
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('ERROR')}>
         error message
       </PrimaryButton>
@@ -34,7 +34,7 @@ export default () => {
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('INFO')}>
         info message
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('DEBUG')}>
+      <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('DEFAULT')}>
         debug message
       </PrimaryButton>
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('WARN', { action: undefined })}>

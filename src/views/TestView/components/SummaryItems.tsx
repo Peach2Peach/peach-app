@@ -1,7 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'
+import { MSINADAY } from '../../../constants'
 import tw from '../../../styles/tailwind'
 
 export const SummaryItems = () => {
@@ -13,11 +14,11 @@ export const SummaryItems = () => {
     price: 133.7,
     date: new Date(),
     action: {
-      callback: () => {},
-      label: 'Action label',
+      callback: () => Alert.alert('Action works'),
+      label: 'action label',
       icon: 'alertCircle',
     },
-    color: tw`text-primary-main`.color,
+    level: 'APP' as Level,
     style: tw`mt-2`,
   }
   return (
@@ -27,12 +28,13 @@ export const SummaryItems = () => {
       <SummaryItem
         {...{
           ...defaultSummaryItem,
+          date: new Date(Date.now() - MSINADAY),
           title: 'with icon',
           icon: <Icon id="upload" style={tw`w-4`} color={tw`text-success-main`.color} />,
         }}
       />
-      <SummaryItem {...{ ...defaultSummaryItem, color: tw`text-info-main`.color }} />
-      <SummaryItem {...{ ...defaultSummaryItem, color: tw`text-warning-main`.color }} />
+      <SummaryItem {...{ ...defaultSummaryItem, date: new Date(Date.now() - 2 * MSINADAY), level: 'INFO' }} />
+      <SummaryItem {...{ ...defaultSummaryItem, level: 'WARN' }} />
       <SummaryItem {...{ ...defaultSummaryItem, title: 'no action', action: { callback: () => {} } }} />
     </View>
   )
