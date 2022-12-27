@@ -47,7 +47,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
   }
   const phoneRules = { required: !email && !userName, phone: true }
   const emailRules = { required: !phone && !userName, email: true }
-  const userNameRules = { required: !phone && !email, userName: true }
+  const userNameRules = { required: !phone && !email, revtag: true }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
@@ -115,6 +115,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
         )}
         {currentTab.id === 'revtag' && (
           <Input
+            maxLength={17}
             onChange={(usr: string) => {
               setUserName(usr.length && !/@/gu.test(usr) ? `@${usr}` : usr)
             }}

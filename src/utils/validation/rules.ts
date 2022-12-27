@@ -47,6 +47,10 @@ export const rules = {
     if (!value) return false
     return value !== '@' && /^@[a-z0-9]*/iu.test(value)
   },
+  revtag (_: boolean, value: string | null) {
+    if (!value) return false
+    return value !== '@' && /^@[a-z0-9]{3,}/iu.test(value)
+  },
   url (_: boolean, value: string) {
     if (!value) return false
     try {
