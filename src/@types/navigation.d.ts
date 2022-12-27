@@ -77,6 +77,7 @@ declare type RootStackParamList = {
   testViewButtons: undefined
   testViewPopups: undefined
   testViewMessages: undefined
+  testViewComponents: undefined
 }
 
 type KeysWithUndefined<T> = {

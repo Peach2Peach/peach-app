@@ -1,8 +1,6 @@
 import React, { useContext, useMemo } from 'react'
-import { View } from 'react-native'
-import { GoBackButton, PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { GoBackButton, PeachScrollView, PrimaryButton } from '../../../components'
 import { MessageContext } from '../../../contexts/message'
-import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 
@@ -22,7 +20,10 @@ export default () => {
       ...options,
     })
   return (
-    <PeachScrollView style={tw`h-full bg-primary-mild`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
+    <PeachScrollView
+      style={tw`h-full bg-primary-mild-1`}
+      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
+    >
       <PrimaryButton onPress={() => openMessage('OK')}>ok message</PrimaryButton>
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('ERROR')}>
         error message

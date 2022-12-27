@@ -30,6 +30,7 @@ import Settings from './settings/Settings'
 import Socials from './settings/Socials'
 import TestViewButtons from './TestView/buttons'
 import TestViewMessages from './TestView/messages'
+import TestViewComponents from './TestView/components'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
@@ -82,6 +83,7 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
       { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
       { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
+      { name: 'testViewComponents', component: TestViewComponents, showHeader: true, showFooter: true },
     ]
     : [
       { name: 'welcome', component: Welcome, showHeader: true, showFooter: false },
