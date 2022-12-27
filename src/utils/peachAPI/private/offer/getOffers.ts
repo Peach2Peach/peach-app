@@ -1,6 +1,7 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { info } from '../../../log'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 

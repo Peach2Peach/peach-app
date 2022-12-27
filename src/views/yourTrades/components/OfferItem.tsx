@@ -63,6 +63,8 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
   const textColor1 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-2`
   const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
 
+  const getStatusColor = () => {}
+
   const navigate = () =>
     navigateToOffer({
       offer,
@@ -77,7 +79,7 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
       <Pressable
         onPress={navigate}
         style={[
-          tw`rounded`,
+          tw`rounded-lg`,
           isRedStatus ? tw`bg-red` : isOrangeStatus ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
           style,
         ]}

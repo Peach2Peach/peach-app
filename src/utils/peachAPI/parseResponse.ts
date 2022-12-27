@@ -1,4 +1,4 @@
-import { error } from '../log'
+import { error, info } from '../log'
 import { parseError } from '../system'
 import { getResponseError } from './getResponseError'
 
@@ -15,6 +15,8 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
     if (responseError) return [null, { error: responseError }]
 
     const data = await response.json()
+
+    info('offers: ' + JSON.stringify(data))
 
     if (response.status !== 200) {
       error(

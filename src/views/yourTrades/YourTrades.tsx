@@ -1,5 +1,5 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import { FlatList, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import AppContext from '../../contexts/app'
@@ -9,7 +9,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { Headline, PeachScrollView, Text, Title } from '../../components'
 import getContractsEffect from '../../effects/getContractsEffect'
 import getOffersEffect from '../../effects/getOffersEffect'
-import { useNavigation } from '../../hooks'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 import { getAccount } from '../../utils/account'
 import { storeContracts, storeOffers } from '../../utils/account/storeAccount'
 import { getChatNotifications } from '../../utils/chat'
@@ -19,6 +19,7 @@ import { error } from '../../utils/log'
 import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
 import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
 import { OfferItem } from './components/OfferItem'
+import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 
 const isPastOffer = (offer: SellOffer | BuyOffer) => {
   const { status } = getOfferStatus(offer)
@@ -43,6 +44,16 @@ const sortByStatus = (a: SellOffer | BuyOffer, b: SellOffer | BuyOffer) =>
 
 export default (): ReactElement => {
   const navigation = useNavigation()
+  // Set header
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: i18n('yourTrades.title'),
+        hideGoBackButton: true,
+      }),
+      [],
+    ),
+  )
   const [, updateAppContext] = useContext(AppContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, setLastUpdate] = useState(new Date().getTime())
@@ -118,10 +129,51 @@ export default (): ReactElement => {
     ),
   )
 
+  const tabs: TabbedNavigationItem[] = [
+    {
+      id: 'buy',
+      display: i18n('yourTrades.buy'),
+    },
+    {
+      id: 'sell',
+      display: i18n('yourTrades.sell'),
+    },
+    {
+      id: 'history',
+      display: i18n('yourTrades.history'),
+    },
+  ]
+  const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const getCurrentData = () => {
+    switch (currentTab.id) {
+    case 'buy':
+      return openOffers.buy
+    case 'sell':
+      return openOffers.sell
+    default:
+      return pastOffers
+    }
+  }
+
   return (
-    <PeachScrollView contentContainerStyle={tw`px-12`}>
+    <>
+      <TabbedNavigation items={tabs} select={setCurrentTab} selected={currentTab} />
+      <View style={tw`p-5`}>
+        {allOpenOffers.length + pastOffers.length === 0 ? (
+          // TODO : EMPTY PLACEHOLDER
+          <View />
+        ) : (
+          <FlatList
+            data={getCurrentData()}
+            renderItem={({ item }) => <OfferItem key={item.id} style={tw`mt-3`} extended={true} offer={item} />}
+          />
+        )}
+      </View>
+    </>
+
+  /* <PeachScrollView contentContainerStyle={tw`px-12`}>
       <View style={tw`pt-5 pb-10`}>
-        <Title title={i18n('yourTrades.title')} />
         {allOpenOffers.length + pastOffers.length === 0 ? (
           <Text style={tw`text-center`}>{i18n('yourTrades.noOffers')}</Text>
         ) : null}
@@ -150,6 +202,6 @@ export default (): ReactElement => {
           <OfferItem key={offer.id} extended={false} style={tw`mt-3`} offer={offer} />
         ))}
       </View>
-    </PeachScrollView>
+    </PeachScrollView>*/
   )
 }
