@@ -1,4 +1,6 @@
 export { cutOffAddress } from './cutOffAddress'
+export { getNumberFormatParts } from './getNumberFormatParts'
+export { groupChars } from './groupChars'
 export { msToTimer } from './msToTimer'
 export { padString } from './padString'
 export { splitAt } from './splitAt'
