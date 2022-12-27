@@ -17,6 +17,7 @@ const PaymentLogos = {
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
   amazon,
+  bitcoin,
   bizum,
   mbWay,
   paypal,

@@ -103,18 +103,17 @@ declare type AppState = {
 }
 
 declare type Action = {
-  callback: Function
+  callback: () => void
   label?: string
   icon?: IconType
 }
 
-declare type MessageLevel = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
-declare type OverlayLevel = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 
 declare type HelpType = 'paymentMethods' | 'currencies'
 
 declare type MessageState = {
-  level: MessageLevel
+  level: Level
   msgKey?: string
   action?: Action
   onClose?: Function
@@ -123,7 +122,7 @@ declare type MessageState = {
 }
 
 declare type OverlayState = {
-  level?: OverlayLevel
+  level?: Level
   title?: string
   content?: ReactNode
   action1?: Action

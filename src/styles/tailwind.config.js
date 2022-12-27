@@ -40,11 +40,13 @@ module.exports = {
           background: '#C9FFE5',
         },
         warning: {
-          dark: '#917201',
-          main: '#B6900B',
-          light: '#EAB703',
+          dark: {
+            1: '#F19E12',
+            2: '#F3B71A',
+          },
+          main: '#F5CE22',
           mild: '#FBEF96',
-          background: '#FFF1CA',
+          background: '#FDF6C0',
         },
         error: {
           dark: '#B01807',
