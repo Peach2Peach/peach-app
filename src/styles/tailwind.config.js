@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
+        bitcoin: '#F7931A',
         black: {
           1: '#2B1911',
           2: '#7D675E',
