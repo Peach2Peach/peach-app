@@ -75,6 +75,7 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
     home: () => navTo('home'),
     buy: () => navTo('buy'),
     sell: () => navTo('sell'),
+    wallet: () => navTo('wallet'),
     yourTrades: () => navTo('yourTrades'),
     settings: () => navTo('settings'),
   }
@@ -131,21 +132,22 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
           <View style={tw`flex-row items-center justify-between bg-primary-background py-4`}>
             <FooterItem
               id="buy"
-              style={tw`w-1/4`}
+              style={tw`w-1/5`}
               active={active === 'buy' || active === 'home'}
               onPress={navigate.buy}
             />
-            <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
+            <FooterItem id="sell" style={tw`w-1/5`} active={active === 'sell'} onPress={navigate.sell} />
+            <FooterItem id="wallet" style={tw`w-1/5`} active={active === 'wallet'} onPress={navigate.wallet} />
             <FooterItem
               id="yourTrades"
-              style={tw`w-1/4`}
+              style={tw`w-1/5`}
               active={active === 'yourTrades' || /contract/u.test(active as string)}
               onPress={navigate.yourTrades}
               notifications={notifications}
             />
             <FooterItem
               id="settings"
-              style={tw`w-1/4`}
+              style={tw`w-1/5`}
               active={isSettings.test(active as string)}
               onPress={navigate.settings}
             />
