@@ -69,6 +69,8 @@ declare type RootStackParamList = {
   deleteAccount: undefined
   peachFees: undefined
   networkFees: undefined
+  aboutPeach: undefined
+  bitcoinProducts: undefined
   socials: undefined
   reportFullScreen: undefined
   welcome: undefined

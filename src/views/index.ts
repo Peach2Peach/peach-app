@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 
+import AboutPeach from './settings/aboutPeach/AboutPeach'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
@@ -20,14 +21,14 @@ import SellPreferences from './sell/SellPreferences'
 import SetReturnAddress from './sell/SetReturnAddress'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
-import PeachFees from './settings/PeachFees'
+import PeachFees from './settings/aboutPeach/PeachFees'
 import NetworkFees from './settings/NetworkFees'
 import Language from './settings/Language'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import RefundAddress from './settings/RefundAddress'
 import Settings from './settings/Settings'
-import Socials from './settings/Socials'
+import Socials from './settings/aboutPeach/Socials'
 import TestViewButtons from './TestView/buttons'
 import TestViewMessages from './TestView/messages'
 import TestViewPopups from './TestView/popups'
@@ -36,6 +37,7 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
+import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -64,6 +66,8 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       { name: 'offer', component: Offer, showHeader: true, showFooter: true },
       { name: 'profile', component: Profile, showHeader: true, showFooter: true },
       { name: 'settings', component: Settings, showHeader: true, showFooter: true },
+      { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true },
+      { name: 'bitcoinProducts', component: BitcoinProducts, showHeader: true, showFooter: true },
       { name: 'language', component: Language, showHeader: true, showFooter: true },
       { name: 'currency', component: Currency, showHeader: true, showFooter: true },
       { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
