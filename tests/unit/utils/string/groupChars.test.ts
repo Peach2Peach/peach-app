@@ -1,5 +1,6 @@
 /* eslint-disable no-loss-of-precision */
-import { groupChars } from '../../../../../src/utils/string'
+
+import { groupChars } from '../../../../src/utils/string'
 
 describe('groupChars', () => {
   it('should group characters in sets of the specified size', () => {
