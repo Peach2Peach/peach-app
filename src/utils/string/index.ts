@@ -1,4 +1,5 @@
 export { cutOffAddress } from './cutOffAddress'
+export { getDateSuffix } from './getDateSuffix'
 export { getNumberFormatParts } from './getNumberFormatParts'
 export { groupChars } from './groupChars'
 export { msToTimer } from './msToTimer'

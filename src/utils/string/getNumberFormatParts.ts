@@ -16,7 +16,11 @@ export const getNumberFormatParts = (num: number): string[] => {
   const [integer, decimal] = num.toFixed(8).split('.')
 
   const groupedDecimals = groupChars(decimal, 3)
-  const cutIndex = num >= 1 ? 0 : groupedDecimals.split('').findIndex((digit) => /[1-9]/u.test(digit))
+  const cutIndex = Math.abs(Number(num)) >= 1 ? 0 : groupedDecimals.split('').findIndex((digit) => /[1-9]/u.test(digit))
 
-  return [integer, groupedDecimals.slice(0, cutIndex), groupedDecimals.slice(cutIndex, groupedDecimals.length)]
+  return [
+    groupChars(integer, 3),
+    groupedDecimals.slice(0, cutIndex),
+    groupedDecimals.slice(cutIndex, groupedDecimals.length),
+  ]
 }
