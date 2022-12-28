@@ -83,44 +83,9 @@ const tradeHistory: ViewType[] = [
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      { name: 'home', component: Buy, showHeader: true, showFooter: true },
-      { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-      { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
-      { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-      { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
-      { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
-      { name: 'setReturnAddress', component: SetReturnAddress, showHeader: true, showFooter: true },
-      { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
-      { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
-      { name: 'search', component: Search, showHeader: true, showFooter: true },
-      { name: 'contract', component: Contract, showHeader: true, showFooter: true },
-      { name: 'contractChat', component: ContractChat, showHeader: false, showFooter: false },
-      { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-      { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
-      { name: 'offer', component: Offer, showHeader: true, showFooter: true },
-      { name: 'profile', component: Profile, showHeader: true, showFooter: true },
-      { name: 'settings', component: Settings, showHeader: true, showFooter: true },
-      { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true },
-      { name: 'bitcoinProducts', component: BitcoinProducts, showHeader: true, showFooter: true },
-      { name: 'language', component: Language, showHeader: true, showFooter: true },
-      { name: 'currency', component: Currency, showHeader: true, showFooter: true },
-      { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
-      { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-      { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
-      { name: 'payoutAddress', component: PayoutAddress, showHeader: true, showFooter: true },
-      { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-      { name: 'peachFees', component: PeachFees, showHeader: true, showFooter: true },
-      { name: 'networkFees', component: NetworkFees, showHeader: true, showFooter: true },
-      { name: 'socials', component: Socials, showHeader: true, showFooter: true },
       { name: 'contact', component: Contact, showHeader: true, showFooter: true },
       { name: 'report', component: Report, showHeader: true, showFooter: true },
       { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
-
-      { name: 'testView', component: TestView, showHeader: true, showFooter: true },
-      { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
-      { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
-      { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
-      { name: 'testViewComponents', component: TestViewComponents, showHeader: true, showFooter: true },
     ]
     : [
       { name: 'contact', component: Contact, showHeader: true, showFooter: true },
@@ -131,6 +96,8 @@ const profile: ViewType[] = [{ name: 'profile', component: Profile, showHeader: 
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
+  { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true },
+  { name: 'bitcoinProducts', component: BitcoinProducts, showHeader: true, showFooter: true },
   { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
   { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
   { name: 'language', component: Language, showHeader: true, showFooter: true },
@@ -150,6 +117,7 @@ const testViews: ViewType[] = [
   { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
   { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
   { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
+  { name: 'testViewComponents', component: TestViewComponents, showHeader: true, showFooter: true },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

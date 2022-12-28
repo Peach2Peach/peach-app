@@ -2,12 +2,15 @@ import React, { ReactElement, useCallback } from 'react'
 import { Linking, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import { PeachScrollView } from '../../../components'
-import { useNavigation } from '../../../hooks'
+import { useHeaderSetup, useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { SettingsItem } from '../components/SettingsItem'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
+  useHeaderSetup({ title: i18n('settings.aboutPeach') })
+
   const items: { title: string; onPress: () => void; icon?: IconType; iconSize?: ViewStyle }[] = [
     {
       title: 'peachFees',
@@ -43,8 +46,14 @@ export default (): ReactElement => {
 
   return (
     <PeachScrollView contentContainerStyle={tw`px-8 flex-1 justify-center`}>
-      {items.map((item, i) => (
-        <SettingsItem title={item.title} onPress={item.onPress} iconId={item.icon} iconSize={item.iconSize} />
+      {items.map((item) => (
+        <SettingsItem
+          key={item.title}
+          title={item.title}
+          onPress={item.onPress}
+          iconId={item.icon}
+          iconSize={item.iconSize}
+        />
       ))}
     </PeachScrollView>
   )
