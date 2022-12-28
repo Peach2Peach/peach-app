@@ -110,8 +110,6 @@ declare type Action = {
 
 declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 
-declare type HelpType = 'paymentMethods' | 'currencies'
-
 declare type MessageState = {
   level: Level
   msgKey?: string

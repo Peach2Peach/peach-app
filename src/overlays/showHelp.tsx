@@ -3,33 +3,28 @@ import { View } from 'react-native'
 import { Icon, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-
-const PaymentMethodsHelp = (
-  <>
-    <Text>{i18n('help.paymentMethods.description.1')}</Text>
-    <View style={tw`flex-row mt-2 items-center`}>
-      <View style={tw`flex-shrink`}>
-        <Text>{i18n('help.paymentMethods.description.2')}</Text>
-      </View>
-      <Icon style={tw`w-7 h-7 mx-3`} id="userCheck" color={tw`text-black-1`.color} />
-    </View>
-  </>
-)
-
-const CurrenciesHelp = <Text>{i18n('help.currency.description')}</Text>
+import { CurrenciesHelp } from './info/CurrenciesHelp'
+import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
+import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 
 type HelpContent = {
-  title: Record<HelpType, string>
-  content: Record<HelpType, ReactElement>
+  title: string
+  content: ReactElement
 }
 
-export const helpOverlays: HelpContent = {
-  title: {
-    paymentMethods: i18n('settings.paymentMethods'),
-    currencies: i18n('help.currency.title'),
+export const helpOverlays: Record<string, HelpContent> = {
+  paymentMethods: {
+    title: i18n('settings.paymentMethods'),
+    content: PaymentMethodsHelp,
   },
-  content: {
-    paymentMethods: PaymentMethodsHelp,
-    currencies: CurrenciesHelp,
+  currencies: {
+    title: i18n('help.currency.title'),
+    content: CurrenciesHelp,
+  },
+  withdrawingFunds: {
+    title: i18n('wallet.withdraw.help.title'),
+    content: WithdrawingFundsHelp,
   },
 }
+
+export type HelpType = keyof typeof helpOverlays

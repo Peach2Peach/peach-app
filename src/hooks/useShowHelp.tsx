@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
-import { helpOverlays } from '../overlays/showHelp'
+import { helpOverlays, HelpType } from '../overlays/showHelp'
 import i18n from '../utils/i18n'
 
 export const useShowHelp = (id: HelpType) => {
@@ -17,8 +17,8 @@ export const useShowHelp = (id: HelpType) => {
     }
 
     updateOverlay({
-      title: helpOverlays.title[id],
-      content: helpOverlays.content[id],
+      title: helpOverlays[id].title,
+      content: helpOverlays[id].content,
       visible: true,
       action2: {
         callback: goToHelp,
