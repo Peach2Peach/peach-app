@@ -106,11 +106,12 @@ declare type Action = {
   callback: () => void
   label?: string
   icon?: IconType
+  disabled?: boolean
 }
 
 declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 
-declare type HelpType = 'paymentMethods' | 'currencies'
+declare type HelpType = 'paymentMethods' | 'currencies' | 'referrals'
 
 declare type MessageState = {
   level: Level

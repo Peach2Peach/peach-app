@@ -7,9 +7,10 @@ import { Text } from '../text'
 type ProgressProps = ComponentProps & {
   percent: number
   text?: string
-  color: ViewStyle
+  backgroundStyle?: ViewStyle
+  barStyle?: ViewStyle
 }
-export const Progress = ({ percent, text, color, style }: ProgressProps): ReactElement => {
+export const Progress = ({ percent, text, color, backgroundStyle, barStyle, style }: ProgressProps): ReactElement => {
   const widthAnim = useRef(new Animated.Value(percent)).current
 
   useEffect(() => {
@@ -22,17 +23,17 @@ export const Progress = ({ percent, text, color, style }: ProgressProps): ReactE
 
   return (
     <View style={[tw`w-full h-4 overflow-hidden rounded-full`, style]}>
-      <View style={[tw`absolute w-full h-full opacity-50 rounded-full`, color]} />
+      <View style={[tw`absolute w-full h-full opacity-50 rounded-full`, backgroundStyle]} />
       <Animated.View
         style={[
           tw`w-full h-full rounded-full`,
-          color,
           {
             width: widthAnim.interpolate({
               inputRange: [0, 1],
               outputRange: ['0%', '100%'],
             }),
           },
+          percent ? barStyle : {},
         ]}
       />
       {text ? (
