@@ -9,6 +9,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { UsernameInput } from '../../UsernameInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
@@ -130,19 +131,17 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
       )}
       {currentTab.id === 'userName' && (
         <View style={tw`mt-2`}>
-          <Input
-            onChange={(usr: string) => {
-              setUserName(usr.length && !/@/gu.test(usr) ? `@${usr}` : usr)
+          <UsernameInput
+            {...{
+              maxLength: 17,
+              required: true,
+              onChange: setUserName,
+              onSubmit: $reference?.focus,
+              value: userName,
+              placeholder: i18n('form.userName.placeholder'),
+              autoCorrect: false,
+              errorMessage: displayErrors ? userNameErrors : undefined,
             }}
-            onSubmit={() => {
-              setUserName((usr: string) => (!/@/gu.test(usr) ? `@${usr}` : usr))
-              $reference?.focus()
-            }}
-            required={true}
-            value={userName}
-            placeholder={i18n('form.userName.placeholder')}
-            autoCorrect={false}
-            errorMessage={displayErrors ? userNameErrors : undefined}
           />
         </View>
       )}
