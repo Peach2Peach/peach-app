@@ -17,11 +17,11 @@ export const BigSatsFormat = ({ sats, color, style }: SatsFormat): ReactElement 
   return (
     <View style={tw`flex flex-row`}>
       <PaymentLogo id="bitcoin" style={tw`w-7 h-7 mr-1`} />
-      <Text style={[tw`h4`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
+      <Text style={[tw`h4`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`]}>
         {parts[0]}.{parts[1]}
       </Text>
       <Text style={[tw`h4`, color || tw`text-black-1`, style]}>{parts[2]}</Text>
-      <Text style={[tw`h6 mt-0.5`, color || tw`text-black-1`, style]}>{i18n('currency.SATS')}</Text>
+      <Text style={[tw`h6 ml-1 mt-0.5`, color || tw`text-black-1`, style]}>{i18n('currency.SATS')}</Text>
     </View>
   )
 }
