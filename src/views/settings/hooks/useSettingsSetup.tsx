@@ -45,6 +45,7 @@ export const useSettingsSetup = () => {
   }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
   const goToMyAccount = useCallback(() => navigation.navigate('profile', { userId: account.publicKey }), [navigation])
+  const goToAboutPeach = useCallback(() => navigation.navigate('aboutPeach'), [navigation])
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
@@ -73,7 +74,7 @@ export const useSettingsSetup = () => {
   }, [notificationsOn, updateOverlay])
 
   const contactUs: SettingsItemProps[] = useMemo(() => {
-    let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach', onPress: () => null }]
+    let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach', onPress: goToAboutPeach }]
     if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
     return arr
   }, [])

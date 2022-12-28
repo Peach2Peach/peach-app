@@ -32,6 +32,6 @@ export { Bubble, CopyAble, HorizontalLine, Progress, Shadow } from './ui'
 export { paymentDetailTemplates } from './payment/'
 export { PaymentLogo } from './payment/PaymentLogo'
 export { ScanQR } from './camera/ScanQR'
-export { BigTitle, Headline, SatsFormat, Text, TextLink, Timer, Title } from './text'
+export { BigTitle, Headline, PriceFormat, SatsFormat, Text, TextLink, Timer, Title } from './text'
 
 export type { FileData } from './types'

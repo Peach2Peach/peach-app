@@ -1,11 +1,11 @@
 import React, { ReactElement, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
-import tw from '../../styles/tailwind'
+import tw from '../../../styles/tailwind'
 
-import { GoBackButton, OptionButton } from '../../components'
-import { useHeaderSetup } from '../../hooks'
-import i18n from '../../utils/i18n'
+import { GoBackButton, OptionButton } from '../../../components'
+import { useHeaderSetup } from '../../../hooks'
+import i18n from '../../../utils/i18n'
 
 const socials = [
   { name: 'twitter', url: 'https://twitter.com/peachbitcoin' },

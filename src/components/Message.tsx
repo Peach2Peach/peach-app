@@ -9,23 +9,25 @@ import { IconType } from '../assets/icons'
 import { dropShadowMild } from '../utils/layout'
 
 type LevelColorMap = {
-  bg: Record<MessageLevel, ViewStyle>
-  text: Record<MessageLevel, TextStyle>
+  bg: Record<Level, ViewStyle>
+  text: Record<Level, TextStyle>
 }
 const levelColorMap: LevelColorMap = {
   bg: {
-    OK: tw`bg-success-background`,
+    APP: tw`bg-primary-main`,
+    SUCCESS: tw`bg-success-background`,
     WARN: tw`bg-warning-mild`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-background`,
-    DEBUG: tw`bg-black-6`,
+    DEFAULT: tw`bg-black-6`,
   },
   text: {
-    OK: tw`text-black-1`,
+    APP: tw`text-primary-background`,
+    SUCCESS: tw`text-black-1`,
     WARN: tw`text-black-1`,
     ERROR: tw`text-primary-background-light`,
     INFO: tw`text-black-1`,
-    DEBUG: tw`text-black-1`,
+    DEFAULT: tw`text-black-1`,
   },
 }
 
