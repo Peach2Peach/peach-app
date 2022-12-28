@@ -14,6 +14,7 @@ import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidatedState, useKeyboard } from '../../hooks'
 import { account } from '../../utils/account'
+import { peachWallet } from '../../utils/wallet/setWallet'
 
 const addressRules = { required: true, bitcoinAddress: true }
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
@@ -78,6 +79,13 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       false,
     )
   }, [address, addressIsValid])
+
+  useEffect(() => {
+    ;(async () => {
+      if (address) return
+      setAddress(await peachWallet.getReceivingAddress())
+    })()
+  }, [address, setAddress])
 
   return (
     <View style={tw`h-full flex-col justify-between px-6`}>
