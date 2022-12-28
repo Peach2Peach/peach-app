@@ -31,6 +31,7 @@ import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
 import edit from './edit.svg'
+import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
@@ -119,6 +120,7 @@ const Icons = {
   dollarSign,
   download,
   edit,
+  externalLink,
   eye,
   eyeOff,
   fire,
