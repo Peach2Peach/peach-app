@@ -1,11 +1,11 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { Text } from '../../../components'
 import { SlideToUnlock } from '../../../components/inputs'
 import tw from '../../../styles/tailwind'
 
 export const SlideToUnlockTests = () => {
-  const onUnlock = () => alert('unlocked')
+  const onUnlock = () => Alert.alert('unlocked')
   return (
     <View style={tw`flex flex-col items-center`}>
       <Text style={tw`h3 mt-4`}>Slide to unlock</Text>
