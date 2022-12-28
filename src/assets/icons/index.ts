@@ -12,11 +12,13 @@ import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
+import checkCircle from './checkCircle.svg'
 import checkSquare from './checkSquare.svg'
 import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
+import chevronsRight from './chevronsRight.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
@@ -36,8 +38,8 @@ import fundEscrow from './fundEscrow.svg'
 import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
-import info from './info.svg'
 import inbox from './inbox.svg'
+import info from './info.svg'
 import link from './link.svg'
 import list from './list.svg'
 import lock from './lock.svg'
@@ -63,8 +65,8 @@ import settings from './settings.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
-import slash from './slash.svg'
 import skipForward from './skipForward.svg'
+import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import thumbsDown from './thumbsDown.svg'
@@ -98,11 +100,13 @@ const Icons = {
   chatDoubleCheck,
   check,
   checkboxMark,
+  checkCircle,
   checkSquare,
   chevronDown,
   chevronLeft,
   chevronRight,
   chevronsDown,
+  chevronsRight,
   chevronsUp,
   chevronUp,
   circle,
@@ -122,8 +126,8 @@ const Icons = {
   globe,
   heart,
   helpCircle,
-  info,
   inbox,
+  info,
   link,
   list,
   lock,

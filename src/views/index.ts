@@ -84,12 +84,6 @@ const contact = (hasAccount: boolean): ViewType[] =>
       { name: 'contact', component: Contact, showHeader: true, showFooter: true },
       { name: 'report', component: Report, showHeader: true, showFooter: true },
       { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
-
-      { name: 'testView', component: TestView, showHeader: true, showFooter: true },
-      { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
-      { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
-      { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
-      { name: 'testViewComponents', component: TestViewComponents, showHeader: true, showFooter: true },
     ]
     : [
       { name: 'contact', component: Contact, showHeader: true, showFooter: true },
@@ -119,6 +113,7 @@ const testViews: ViewType[] = [
   { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
   { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
   { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
+  { name: 'testViewComponents', component: TestViewComponents, showHeader: true, showFooter: true },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>
