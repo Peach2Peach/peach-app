@@ -1,16 +1,13 @@
-import Clipboard from '@react-native-clipboard/clipboard'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { View } from 'react-native'
-import { BarCodeReadEvent } from 'react-native-camera'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Icon, Input, ScanQR, Text } from '../../components'
-import { BitcoinAddressInput } from '../../components/inputs'
+import { Icon, Text } from '../../components'
+import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import { useValidatedState } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { openInWallet, parseBitcoinRequest } from '../../utils/bitcoin'
+import { openInWallet } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
-import { cutOffAddress } from '../../utils/string'
 import { useWalletSetup } from './hooks/useWalletSetup'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
@@ -48,9 +45,7 @@ export default () => {
           <Icon id="externalLink" style={tw`w-4 h-4 ml-1 -mt-1`} color={tw`text-primary-main`.color} />
         </TouchableOpacity>
       </View>
-      <View>
-        <Text>withdraw slider todo</Text>
-      </View>
+      <SlideToUnlock style={tw`mb-6`} label1={i18n('wallet.withdrawAll')} onUnlock={() => alert('ok')} />
     </View>
   )
 }
