@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon, Input, ScanQR, Text } from '../../components'
+import { BitcoinAddressInput } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import { useValidatedState } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -17,24 +18,8 @@ const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 export default () => {
   useWalletSetup()
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
-  const [showQRScanner, setShowQRScanner] = useState(false)
-  const [isFocused, setFocused] = useState(false)
 
   const openWalletApp = () => openInWallet('bitcoin:')
-  const pasteAddress = async () => {
-    const clipboard = await Clipboard.getString()
-    const request = parseBitcoinRequest(clipboard)
-    setAddress(request.address || clipboard)
-  }
-
-  const showQR = () => setShowQRScanner(true)
-  const closeQR = () => setShowQRScanner(false)
-  const onQRScanSuccess = ({ data }: BarCodeReadEvent) => {
-    const request = parseBitcoinRequest(data)
-
-    setAddress(request.address || data)
-    closeQR()
-  }
 
   const onChange = useCallback(
     (value: string) => {
@@ -43,24 +28,18 @@ export default () => {
     [setAddress],
   )
 
-  return !showQRScanner ? (
+  return (
     <View style={tw`h-full flex flex-col justify-between px-8`}>
       <View style={tw`h-full flex-shrink flex flex-col justify-center items-center`}>
         <Text style={tw`button-medium mb-4`}>{i18n('wallet.totalBalance')}:</Text>
         <BigSatsFormat sats={50000} />
         <Text style={tw`button-medium mt-16`}>{i18n('wallet.withdrawTo')}:</Text>
-        <Input
+        <BitcoinAddressInput
+          style={tw`mt-4`}
           {...{
-            placeholder: i18n('form.address.btc.placeholder'),
-            icons: [
-              ['clipboard', pasteAddress],
-              ['camera', showQR],
-            ],
             onChange,
-            onFocus: () => setFocused(true),
-            onBlur: () => setFocused(false),
             isValid,
-            value: isFocused ? address : cutOffAddress(address),
+            value: address,
             errorMessage: addressErrors,
           }}
         />
@@ -73,7 +52,5 @@ export default () => {
         <Text>withdraw slider todo</Text>
       </View>
     </View>
-  ) : (
-    <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQR} />
   )
 }
