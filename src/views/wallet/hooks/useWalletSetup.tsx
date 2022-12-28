@@ -6,8 +6,10 @@ import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 export const useWalletSetup = () => {
+  const walletStore = useWalletState()
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
   useHeaderSetup(
@@ -30,4 +32,8 @@ export const useWalletSetup = () => {
       [],
     ),
   )
+
+  return {
+    walletStore,
+  }
 }

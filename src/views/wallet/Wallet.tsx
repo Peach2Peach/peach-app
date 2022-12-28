@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon, Text } from '../../components'
@@ -8,12 +8,13 @@ import { useValidatedState } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { openInWallet } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
+import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletSetup } from './hooks/useWalletSetup'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
 export default () => {
-  useWalletSetup()
+  const { walletStore } = useWalletSetup()
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
   const openWalletApp = () => openInWallet('bitcoin:')
@@ -25,11 +26,15 @@ export default () => {
     [setAddress],
   )
 
+  useEffect(() => {
+    peachWallet.getBalance()
+  }, [])
+
   return (
     <View style={tw`h-full flex flex-col justify-between px-8`}>
       <View style={tw`h-full flex-shrink flex flex-col justify-center items-center`}>
         <Text style={tw`button-medium mb-4`}>{i18n('wallet.totalBalance')}:</Text>
-        <BigSatsFormat sats={50000} />
+        <BigSatsFormat sats={walletStore.balance} />
         <Text style={tw`button-medium mt-16`}>{i18n('wallet.withdrawTo')}:</Text>
         <BitcoinAddressInput
           style={tw`mt-4`}
