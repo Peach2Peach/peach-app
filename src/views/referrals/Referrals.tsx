@@ -1,19 +1,17 @@
-import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { CopyAble, Loading, PeachScrollView, PrimaryButton, Progress, RadioButtons, Text } from '../../components'
+import { HelpIcon } from '../../components/icons'
+import { RadioButtonItem } from '../../components/inputs/RadioButtons'
+import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getUserPrivate } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
-import { RadioButtonItem } from '../../components/inputs/RadioButtons'
-import { useHeaderSetup } from '../../hooks'
-import { HelpIcon } from '../../components/icons'
-import { useShowHelp } from '../../hooks/useShowHelp'
-import { OverlayContext } from '../../contexts/overlay'
-import { showCustomReferralCode } from '../../overlays/referrals/showCustomReferralCode'
 
 type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
 
@@ -37,7 +35,6 @@ export default (): ReactElement => {
   const [user, setUser] = useState<User>()
   const pointsBalance = user?.bonusPoints || 0
   const [selectedReward, setSelectedReward] = useState<Reward>('')
-  const [, updateOverlay] = useContext(OverlayContext)
 
   const rewards: RadioButtonItem<Reward>[] = [
     ['customReferralCode', 100, '100'],
