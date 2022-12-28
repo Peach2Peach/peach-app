@@ -37,7 +37,12 @@ export default (): ReactElement => {
   return (
     <View style={tw`h-full flex`} testID="welcome">
       <View style={tw`w-full px-8`}>
-        <Progress percent={getProgress()} color={tw`bg-primary-background-light`} style={tw`h-2`} />
+        <Progress
+          percent={getProgress()}
+          backgroundStyle={tw`bg-primary-background-light`}
+          barStyle={tw`bg-primary-background-light`}
+          style={tw`h-2`}
+        />
         <Pressable
           onPress={goToEnd}
           style={[tw`h-8 flex flex-row justify-end items-center`, endReached() ? tw`opacity-0` : {}]}
