@@ -163,6 +163,5 @@ jest.mock('@env', () => ({
   NETWORK: 'regtest',
   DEV: 'true',
   API_URL: 'https://localhost:8080/',
-  HTTP_AUTH_USER: 'value',
-  HTTP_AUTH_PASS: 'value2',
+  BLOCKEXPRLORER: 'https://localhost:3000/',
 }))
