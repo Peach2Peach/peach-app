@@ -8,7 +8,7 @@ import { updateSettings } from '../utils/account'
 
 const AnalyticsPrompt = (): ReactElement => (
   <View testID="saveYourPassword" style={tw`flex items-center`}>
-    <Text style={tw`text-white-1 mt-2`}>
+    <Text style={tw`text-white-1`}>
       {i18n('analytics.request.description1')}
       {'\n\n'}
       {i18n('analytics.request.description2')}
