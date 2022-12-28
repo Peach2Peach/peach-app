@@ -7,12 +7,12 @@ import i18n from '../../utils/i18n'
 import { getNumberFormatParts } from '../../utils/string'
 import PaymentLogo from '../payment/PaymentLogo'
 
-type SatsFormat = ComponentProps & {
+type SatsFormatProps = ComponentProps & {
   sats: number
   color?: TextStyle
 }
 
-export const SatsFormat = ({ sats, color, style }: SatsFormat): ReactElement => {
+export const SatsFormat = ({ sats, color, style }: SatsFormatProps): ReactElement => {
   const parts = getNumberFormatParts(sats / SATSINBTC)
   return (
     <View style={tw`flex flex-row items-center`}>
