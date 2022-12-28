@@ -7,12 +7,12 @@ import i18n from '../../utils/i18n'
 import { getNumberFormatParts } from '../../utils/string'
 import PaymentLogo from '../payment/PaymentLogo'
 
-type SatsFormat = ComponentProps & {
+type SatsFormatProps = ComponentProps & {
   sats: number
   color?: TextStyle
 }
 
-export const SatsFormat = ({ sats, color, style }: SatsFormat): ReactElement => {
+export const SatsFormat = ({ sats, color, style }: SatsFormatProps): ReactElement => {
   const parts = getNumberFormatParts(sats / SATSINBTC)
   return (
     <View style={tw`flex flex-row items-center`}>
@@ -20,9 +20,8 @@ export const SatsFormat = ({ sats, color, style }: SatsFormat): ReactElement => 
       <Text style={[tw`font-medium`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
         {parts[0]}.{parts[1]}
       </Text>
-      <Text style={[tw`font-medium`, color || tw`text-black-1`, style]}>
-        {parts[2]} {i18n('currency.SATS')}
-      </Text>
+      <Text style={[tw`font-medium`, color || tw`text-black-1`, style]}>{parts[2]}</Text>
+      <Text style={[tw`body-s font-medium mt-0.5`, color || tw`text-black-1`, style]}> {i18n('currency.SATS')}</Text>
     </View>
   )
 }

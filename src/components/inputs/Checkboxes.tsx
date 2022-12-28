@@ -21,7 +21,7 @@ export const CheckboxItem = ({ item, checked, onPress, style, testID, editing }:
     testID={testID}
     onPress={onPress}
     style={[
-      tw`w-full flex-row justify-between items-center px-3 py-2 bg-primary-background-heavy rounded-xl border-2`,
+      tw`w-full flex-row justify-between items-center px-3 py-2 bg-primary-background-dark rounded-xl border-2`,
       checked && !item.disabled && !editing ? tw`border-primary-main` : tw`border-transparent`,
       style,
     ]}

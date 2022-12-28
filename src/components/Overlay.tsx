@@ -22,7 +22,7 @@ const levelColorMap: LevelColorMap = {
   },
   bg2: {
     DEFAULT: tw`bg-primary-background-light`,
-    APP: tw`bg-primary-background-heavy`,
+    APP: tw`bg-primary-background-dark`,
     SUCCESS: tw`bg-success-background`,
     WARN: tw`bg-warning-background`,
     ERROR: tw`bg-error-background`,

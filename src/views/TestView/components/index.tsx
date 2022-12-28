@@ -4,6 +4,7 @@ import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { PriceFormats } from './PriceFormats'
 import { SatsFormats } from './SatsFormats'
+import { SlideToUnlockTests } from './SlideToUnlockTests'
 import { SummaryItems } from './SummaryItems'
 
 export default () => {
@@ -14,6 +15,7 @@ export default () => {
       <SatsFormats />
       <PriceFormats />
       <SummaryItems />
+      <SlideToUnlockTests />
 
       <GoBackButton white wide style={tw`mt-8`} />
     </PeachScrollView>

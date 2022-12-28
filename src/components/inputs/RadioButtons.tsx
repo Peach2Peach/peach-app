@@ -19,7 +19,7 @@ type RadioButtonItemProp = ComponentProps & {
 const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement => (
   <View
     style={[
-      tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
+      tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-dark rounded-xl border-2`,
       selected ? tw`border-primary-main` : tw`border-transparent`,
     ]}
   >

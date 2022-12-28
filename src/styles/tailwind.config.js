@@ -30,7 +30,7 @@ module.exports = {
             2: '#FFA171'
           },
           background: '#FFF9F6',
-          'background-heavy': '#FEEDE5',
+          'background-dark': '#FEEDE5',
           'background-light': '#FFFCFA',
         },
         success: {
