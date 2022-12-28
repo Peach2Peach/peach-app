@@ -8,6 +8,7 @@ import arrowLeft from './arrowLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import bellSmall from './bellSmall.svg'
+import bitbox from './bitbox.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
@@ -26,9 +27,11 @@ import cloud from './cloud.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
+import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
 import edit from './edit.svg'
+import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
@@ -93,6 +96,7 @@ const Icons = {
   arrowLeftCircle,
   arrowRightCircle,
   bellSmall,
+  bitbox,
   buy: download,
   camera,
   chatDoubleCheck,
@@ -111,10 +115,12 @@ const Icons = {
   cloud,
   copy,
   cpu,
+  cryptotag,
   creditCard,
   dollarSign,
   download,
   edit,
+  externalLink,
   eye,
   eyeOff,
   fire,
