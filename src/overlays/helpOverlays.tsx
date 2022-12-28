@@ -1,10 +1,8 @@
-import React, { ReactElement } from 'react'
-import { View } from 'react-native'
-import { Icon, Text } from '../components'
-import tw from '../styles/tailwind'
+import { ReactElement } from 'react'
 import i18n from '../utils/i18n'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
+import { ReferralsHelp } from './info/ReferralsHelp'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 
 type HelpContent = {
@@ -24,6 +22,10 @@ export const helpOverlays: Record<string, HelpContent> = {
   withdrawingFunds: {
     title: i18n('wallet.withdraw.help.title'),
     content: WithdrawingFundsHelp,
+  },
+  referrals: {
+    title: i18n('help.referral.title'),
+    content: ReferralsHelp,
   },
 }
 

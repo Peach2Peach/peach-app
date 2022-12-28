@@ -25,19 +25,25 @@ export const Header = () => {
   const { goBack, canGoBack } = useNavigation()
 
   return (
-    <View style={[tw`h-9 flex-row justify-between px-8`, colors.bg]}>
-      <View style={tw`items-center flex-row`}>
+    <View style={[tw`flex-row justify-between px-5 py-2 w-full`, colors.bg]}>
+      <View style={tw`items-center flex-row justify-start flex-shrink`}>
         {!hideGoBackButton && canGoBack() && (
-          <TouchableOpacity style={tw`w-6 h-6 -ml-[10px] mr-1 -mt-0.5`} onPress={goBack}>
+          <TouchableOpacity style={tw`w-6 h-6 mr-1 -ml-1`} onPress={goBack}>
             <Icon id="chevronLeft" color={colors.backButton.color} />
           </TouchableOpacity>
         )}
-        {title ? <Text style={[tw`h6 lowercase`, colors.text]}>{title}</Text> : titleComponent}
+        {title ? (
+          <Text style={[tw`h6 lowercase`, colors.text]} numberOfLines={1}>
+            {title}
+          </Text>
+        ) : (
+          titleComponent
+        )}
       </View>
 
-      <View style={tw`items-center flex-row`}>
+      <View style={tw`items-center flex-row justify-end`}>
         {icons?.map(({ iconComponent, onPress }, i) => (
-          <TouchableOpacity key={i} style={tw`w-6 h-6 mx-2`} onPress={onPress}>
+          <TouchableOpacity key={i} style={tw`w-6 h-6 ml-4`} onPress={onPress}>
             {iconComponent}
           </TouchableOpacity>
         ))}

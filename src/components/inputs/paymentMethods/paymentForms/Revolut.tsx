@@ -9,6 +9,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { UsernameInput } from '../../UsernameInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
@@ -45,9 +46,9 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     required: true,
     duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
   }
-  const phoneRules = { required: !email && !userName, phone: true }
-  const emailRules = { required: !phone && !userName, email: true }
-  const userNameRules = { required: !phone && !email, userName: true }
+  const phoneRules = { phone: true, required: !email && !userName }
+  const emailRules = { email: true, required: !phone && !userName }
+  const userNameRules = { revtag: true, required: !phone && !email }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
@@ -114,19 +115,17 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           />
         )}
         {currentTab.id === 'revtag' && (
-          <Input
-            onChange={(usr: string) => {
-              setUserName(usr.length && !/@/gu.test(usr) ? `@${usr}` : usr)
+          <UsernameInput
+            {...{
+              maxLength: 17,
+              onChange: setUserName,
+              onSubmit: $reference?.focus,
+              value: userName,
+              required: !anyFieldSet,
+              placeholder: i18n('form.revtag.placeholder'),
+              autoCorrect: false,
+              errorMessage: displayErrors ? userNameErrors : undefined,
             }}
-            onSubmit={() => {
-              setUserName((usr: string) => (!/@/gu.test(usr) ? `@${usr}` : usr))
-              $reference?.focus()
-            }}
-            value={userName}
-            required={!anyFieldSet}
-            placeholder={i18n('form.revtag.placeholder')}
-            autoCorrect={false}
-            errorMessage={displayErrors ? userNameErrors : undefined}
           />
         )}
         {currentTab.id === 'phone' && (

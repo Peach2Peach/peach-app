@@ -69,16 +69,16 @@ export const Overlay = ({
           </View>
           <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
             {!!action2 && (
-              <Pressable onPress={action2.callback}>
-                <View style={[tw`flex flex-row flex-shrink items-center`]}>
+              <Pressable onPress={!action2.disabled && action2.callback}>
+                <View style={[tw`flex flex-row flex-shrink items-center`, action2?.disabled && tw`opacity-50`]}>
                   <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 h-4 mr-1`} />
                   <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2.label}</Text>
                 </View>
               </Pressable>
             )}
             {
-              <Pressable onPress={action1 ? action1.callback : closeOverlay}>
-                <View style={[tw`flex flex-row flex-shrink items-center`]}>
+              <Pressable onPress={action1 ? !action1.disabled && action1.callback : closeOverlay}>
+                <View style={[tw`flex flex-row flex-shrink items-center`, action1?.disabled && tw`opacity-50`]}>
                   <Text style={[tw`text-base leading-relaxed`, actionColor]}>
                     {action1 ? action1.label : i18n('close')}
                   </Text>
