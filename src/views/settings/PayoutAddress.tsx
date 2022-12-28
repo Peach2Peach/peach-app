@@ -112,7 +112,7 @@ export default (): ReactElement => {
       {isUpdated && (
         <View style={tw`w-full h-0 flex-row justify-center`}>
           <Text style={tw`button-medium h-6 uppercase`}>{i18n('settings.payoutAddress.success')}</Text>
-          <Icon id="check" style={tw`w-[20px] h-[20px] ml-1`} color={tw`text-success-main`.color} />
+          <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
         </View>
       )}
       <PrimaryButton narrow style={tw`mt-16 absolute bottom-6`} onPress={setPayoutAddress} disabled={isUpdated}>
