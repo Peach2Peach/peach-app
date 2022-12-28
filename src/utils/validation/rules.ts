@@ -49,7 +49,7 @@ export const rules = {
   },
   revtag (_: boolean, value: string | null) {
     if (!value) return false
-    return value !== '@' && /^@[a-z0-9]{3,16}/u.test(value)
+    return value !== '@' && /^@[a-z0-9]{3,16}$/u.test(value)
   },
   url (_: boolean, value: string) {
     if (!value) return false
