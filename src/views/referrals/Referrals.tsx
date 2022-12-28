@@ -93,9 +93,8 @@ export default (): ReactElement => {
     <View style={tw`h-full flex px-7 `}>
       <Progress
         style={tw`rounded h-3`}
-        color={tw`bg-primary-main`}
-        backgroundStyle={tw`border-2 border-primary-background`}
-        barStyle={tw`border-2 border-primary-background`}
+        backgroundStyle={tw`bg-primary-main border-2 border-primary-background`}
+        barStyle={tw`bg-primary-main border-2 border-primary-background`}
         percent={pointsBalance / BARLIMIT}
       />
       <Text style={tw`tooltip text-black-2 pl-2`}>
