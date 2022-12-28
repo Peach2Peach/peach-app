@@ -24,8 +24,12 @@ const getTranslateX = (pan: Animated.Value, widthToSlide: number) =>
   })
 const getBackgroundColor = (pan: Animated.Value) =>
   pan.interpolate({
-    inputRange: [0, 1],
-    outputRange: [tw`text-primary-main`.color as string, tw`text-success-main`.color as string],
+    inputRange: [0, 0.8, 1],
+    outputRange: [
+      tw`text-primary-main`.color as string,
+      tw`text-primary-main`.color as string,
+      tw`text-success-main`.color as string,
+    ],
   })
 const getLabel1Opacity = (pan: Animated.Value) =>
   pan.interpolate({
