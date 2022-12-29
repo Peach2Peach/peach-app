@@ -48,7 +48,7 @@
     "@tanstack/react-query": "^4.19.1",
     "@types/react-native-snap-carousel": "^3.8.5",
     "assert": "^1.5.0",
-    "bdk-rn": "^0.1.1",
+    "bdk-rn": "github:Peach2Peach/bdk-rn#feature/add-drainwallet-method",
     "bip174": "^2.0.1",
     "bip32": "^3.0.1",
     "bip39": "^3.0.4",

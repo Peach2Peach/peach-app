@@ -1,5 +1,5 @@
 PODS:
-  - bdk-rn (0.1.1):
+  - bdk-rn (0.1.0):
     - React
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
@@ -776,7 +776,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  bdk-rn: 3a98818963a051be5d2356c0dd79cf904768ce26
+  bdk-rn: bed1f20d9a0fe4b60507966d67afe051b5338ad4
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
