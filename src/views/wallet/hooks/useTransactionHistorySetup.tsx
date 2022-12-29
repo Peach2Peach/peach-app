@@ -54,7 +54,7 @@ export const useTransactionHistorySetup = () => {
             amount: sats,
             price,
             currency,
-            date: transactionisConfirmed(tx) ? new Date(tx.block_timestamp) : new Date(),
+            date: transactionisConfirmed(tx) ? new Date(tx.block_timestamp * 1000) : new Date(),
           }
         }),
       )

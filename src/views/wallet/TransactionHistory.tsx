@@ -5,6 +5,7 @@ import { SummaryItem } from '../../components/lists/SummaryItem'
 import { useHeaderSetup } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { offerIdToHex } from '../../utils/offer'
 import { TransactionType, useTransactionHistorySetup } from './hooks/useTransactionHistorySetup'
 
 const iconMap: Record<TransactionType, ReactElement> = {
@@ -31,7 +32,7 @@ export default () => {
           style={i > 0 ? tw`mt-4` : {}}
           {...{
             title: tx.offerId
-              ? i18n('wallet.trade', tx.offerId)
+              ? i18n('wallet.trade', offerIdToHex(tx.offerId))
               : tx.type === 'WITHDRAWAL'
                 ? i18n('wallet.withdrawal')
                 : i18n('wallet.deposit'),
