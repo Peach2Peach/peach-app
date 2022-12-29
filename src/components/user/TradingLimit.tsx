@@ -9,12 +9,14 @@ import { default as TradingLimitHelp } from '../../overlays/info/TradingLimit'
 import { Text } from '../text'
 import { Progress } from '../ui'
 import { thousands } from '../../utils/string'
+import { useBitcoinStore } from '../../store/bitcoinStore'
+import shallow from 'zustand/shallow'
 
 type TradingLimitProps = ComponentProps & {
   tradingLimit: TradingLimit
 }
 export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactElement => {
-  const [bitcoinContext] = useContext(BitcoinContext)
+  const [currency] = useBitcoinStore((state) => [state.currency], shallow)
   const [, updateOverlay] = useContext(OverlayContext)
   const { daily, dailyAmount, yearly, yearlyAmount } = tradingLimit
 
@@ -34,7 +36,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
         percent={dailyAmount / daily}
         text={i18n(
           'profile.tradingLimits.daily',
-          bitcoinContext.currency,
+          currency,
           thousands(dailyAmount),
           daily === Infinity ? '∞' : thousands(daily),
         )}
@@ -45,7 +47,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
         color={tw`bg-primary-main`}
         text={i18n(
           'profile.tradingLimits.yearly.short',
-          bitcoinContext.currency,
+          currency,
           thousands(yearlyAmount),
           yearly === Infinity ? '∞' : thousands(yearly),
         )}

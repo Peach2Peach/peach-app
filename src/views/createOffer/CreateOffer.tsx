@@ -1,18 +1,19 @@
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PrimaryButton, Dropdown, Headline, Hint, Progress, SatsFormat, Text, Title } from '../../components'
+import { Dropdown, Headline, Hint, PrimaryButton, Progress, SatsFormat, Text, Title } from '../../components'
 import { BUCKETS, DEPRECATED_BUCKETS } from '../../constants'
-import BitcoinContext from '../../contexts/bitcoin'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 import { account, getTradingLimit, updateSettings } from '../../utils/account'
 import { applyTradingLimit } from '../../utils/account/tradingLimit'
 import { thousands } from '../../utils/string'
-import TitleComponent from './TitleComponent'
 import { getHeaderIcons } from './getHeaderIcons'
-import { useHeaderSetup, useNavigation } from '../../hooks'
+import TitleComponent from './TitleComponent'
+import shallow from 'zustand/shallow'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 
 type Props = {
   page: 'buy' | 'sell'
@@ -20,7 +21,11 @@ type Props = {
 
 export default ({ page }: Props): ReactElement => {
   const navigation = useNavigation()
-  const [{ currency, satsPerUnit, prices }] = useContext(BitcoinContext)
+  const [currency, satsPerUnit, prices] = useBitcoinStore(
+    (state) => [state.currency, state.satsPerUnit, state.prices],
+    shallow,
+  )
+
   useHeaderSetup(
     useMemo(
       () => ({
