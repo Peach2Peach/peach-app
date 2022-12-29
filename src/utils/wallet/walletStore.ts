@@ -1,5 +1,5 @@
-import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
-import create, { createStore, StateCreator } from 'zustand'
+import { ConfirmedTransaction, PendingTransaction, TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
+import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createStorage } from '../storage'
 import { toZustandStorage } from '../storage/toZustandStorage'
@@ -15,6 +15,7 @@ type WalletStore = WalletState & {
   setSynced: (synced: boolean) => void
   setBalance: (balance: number) => void
   setTransactions: (txs: TransactionsResponse) => void
+  getAllTransactions: () => (ConfirmedTransaction | PendingTransaction)[]
   updateTxOfferMap: (txid: string, offerId: string) => void
 }
 
@@ -25,17 +26,15 @@ const defaultState: WalletState = {
   txOfferMap: {},
 }
 export const walletStorage = createStorage('wallet')
-;(async () => {
-  console.log('walletStorage.getItem(txOfferMap)', await walletStorage.getItem('txOfferMap'))
-})()
 
 export const walletStore = createStore(
   persist<WalletStore>(
-    (set) => ({
+    (set, get) => ({
       ...defaultState,
       setSynced: (synced) => set((state) => ({ ...state, synced })),
       setBalance: (balance) => set((state) => ({ ...state, balance })),
       setTransactions: (transactions) => set((state) => ({ ...state, transactions })),
+      getAllTransactions: () => [...get().transactions.confirmed, ...get().transactions.pending],
       updateTxOfferMap: (txId: string, offerId: string) =>
         set((state) => ({
           ...state,
