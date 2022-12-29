@@ -1,7 +1,10 @@
 import { BLOCKEXPRLORER, NETWORK } from '@env'
 import BdkRn from 'bdk-rn'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
+import { account } from '../account'
+import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
+import { isSellOffer } from '../offer'
 import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
@@ -85,6 +88,16 @@ export class PeachWallet {
     walletStore.getState().setSynced(this.synced)
     walletStore.getState().setBalance(this.balance)
     walletStore.getState().setTransactions(this.transactions)
+    ;[...this.transactions.confirmed, ...this.transactions.pending]
+      .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
+      .forEach(({ txid }) => {
+        const sellOffer = account.offers.find((offer) => isSellOffer(offer) && offer.txId === txid)
+        if (sellOffer?.id) return walletStore.getState().updateTxOfferMap(txid, sellOffer.id)
+
+        const contract = account.contracts.find((cntrct) => cntrct.releaseTxId === txid)
+        if (contract) return walletStore.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
+        return null
+      })
   }
 
   async getBalance (): Promise<number> {
@@ -99,7 +112,7 @@ export class PeachWallet {
     return this.balance
   }
 
-  async getTransactions (): Promise<number> {
+  async getTransactions (): Promise<TransactionsResponse> {
     const result = await BdkRn.getTransactions()
     if (result.isErr()) {
       error(result.error)
