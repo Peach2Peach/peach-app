@@ -7,7 +7,10 @@ export const toZustandStorage = (storage: MMKVInstance): StateStorage => ({
   },
   getItem: async (name: string) => {
     const value = await storage.getItem(name)
-    return value ? JSON.parse(value) : null
+    try {
+      if (value) return JSON.parse(value)
+    } catch (e) {}
+    return null
   },
   removeItem: storage.removeItem as (name: string) => void | Promise<void>,
 })

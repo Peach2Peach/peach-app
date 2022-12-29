@@ -161,10 +161,4 @@ export class PeachWallet {
   //   const pk = this.bip32Interface.derivePath(`${this.derivationPath}/1/${index}`)
   //   return this.getAddress(pk)
   // }
-
-  // async watchAddresses (gapLimit = 25) {}
-
-  // createWithdrawalTransaction (): PeachTransaction {
-  //   return new PeachTransaction({ inputs: this.utxo })
-  // }
 }

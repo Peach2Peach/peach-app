@@ -1,5 +1,4 @@
 import { APPVERSION } from '../../constants'
-import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
@@ -56,7 +55,6 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
       tradingLimit: defaultAccount.tradingLimit,
     }
 
-  setDisplayCurrencyQuiet(account.settings.displayCurrency || 'EUR')
   setLocaleQuiet(account.settings.locale || 'en')
 
   const peachWallet = new PeachWallet({})
