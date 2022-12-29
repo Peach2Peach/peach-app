@@ -1,14 +1,14 @@
 import React, { ReactElement, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 
-import tw from '../../styles/tailwind'
+import tw from '../../../styles/tailwind'
 
-import { GoBackButton, Text } from '../../components'
-import { PEACHFEE } from '../../constants'
-import LanguageContext from '../../contexts/language'
-import i18n from '../../utils/i18n'
-import { useHeaderSetup } from '../../hooks'
-import { BulletPoint } from '../../components/text'
+import { GoBackButton, Text } from '../../../components'
+import { PEACHFEE } from '../../../constants'
+import LanguageContext from '../../../contexts/language'
+import i18n from '../../../utils/i18n'
+import { useHeaderSetup } from '../../../hooks'
+import { BulletPoint } from '../../../components/text'
 
 export default (): ReactElement => {
   useContext(LanguageContext)

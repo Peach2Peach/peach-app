@@ -3,6 +3,7 @@ import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 
 export const SATSINBTC = 100000000
+export const MSINADAY = 86400000
 
 export let PEACHPGPPUBLICKEY = ''
 export const setPeachPGPPublicKey = (pgpPublicKey: string) => (PEACHPGPPUBLICKEY = pgpPublicKey)

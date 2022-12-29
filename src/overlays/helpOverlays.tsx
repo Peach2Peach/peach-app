@@ -18,6 +18,13 @@ const PaymentMethodsHelp = (
 
 const CurrenciesHelp = <Text>{i18n('help.currency.description')}</Text>
 
+const ReferralsHelp = (
+  <>
+    <Text style={tw`mb-2`}>{i18n('help.referral.description.1')}</Text>
+    <Text>{i18n('help.referral.description.2')}</Text>
+  </>
+)
+
 type HelpContent = {
   title: Record<HelpType, string>
   content: Record<HelpType, ReactElement>
@@ -27,9 +34,11 @@ export const helpOverlays: HelpContent = {
   title: {
     paymentMethods: i18n('settings.paymentMethods'),
     currencies: i18n('help.currency.title'),
+    referrals: i18n('help.referral.title'),
   },
   content: {
     paymentMethods: PaymentMethodsHelp,
     currencies: CurrenciesHelp,
+    referrals: ReferralsHelp,
   },
 }
