@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { ColorValue, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { toDateFormat } from '../../utils/string'
 import Icon from '../Icon'
@@ -21,7 +21,7 @@ const levelColorMap: LevelColorMap = {
   },
   border: {
     APP: tw`border-primary-main`,
-    SUCCESS: tw`border-success-background`,
+    SUCCESS: tw`border-success-main`,
     WARN: tw`border-warning-main`,
     ERROR: tw`border-error-main`,
     INFO: tw`border-info-light`,
