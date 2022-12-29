@@ -26,6 +26,7 @@ import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
+import { peachWallet } from '../../utils/wallet/setWallet'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -109,6 +110,16 @@ export default (): ReactElement => {
   )
 
   useEffect(() => {
+    ;(async () => {
+      if (offer.returnAddress) return
+      setOffer({
+        ...offer,
+        returnAddress: (await peachWallet.getReceivingAddress()) || '',
+      })
+    })()
+  }, [offer])
+
+  useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
       if (page === 0) {
         return false
@@ -119,7 +130,7 @@ export default (): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const back = () => {
     if (page === 0) {

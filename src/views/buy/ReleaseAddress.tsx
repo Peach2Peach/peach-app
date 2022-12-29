@@ -83,7 +83,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   useEffect(() => {
     ;(async () => {
       if (address) return
-      setAddress(await peachWallet.getReceivingAddress())
+      setAddress((await peachWallet.getReceivingAddress()) || '')
     })()
   }, [address, setAddress])
 
