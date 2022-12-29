@@ -1,5 +1,6 @@
 import { BLOCKEXPRLORER, NETWORK } from '@env'
 import BdkRn from 'bdk-rn'
+import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 import { error, info } from '../log'
 import { walletStore } from './walletStore'
 
@@ -17,6 +18,8 @@ export class PeachWallet {
 
   balance: number
 
+  transactions: TransactionsResponse
+
   network: BitcoinNetwork
 
   gapLimit: number
@@ -26,6 +29,7 @@ export class PeachWallet {
     this.gapLimit = gapLimit
     this.derivationPath = 'm/84\'/0\'/0\''
     this.balance = 0
+    this.transactions = { confirmed: [], pending: [] }
     this.initialized = false
     this.synced = false
   }
@@ -45,19 +49,20 @@ export class PeachWallet {
       mnemonic = generateMnemonicResult.value
     }
 
-    const response = await BdkRn.createWallet({
+    const result = await BdkRn.createWallet({
       mnemonic,
       password: '',
       network: this.network,
       blockChainConfigUrl: BLOCKEXPRLORER, // TODO get user config
       blockChainName: 'ESPLORA',
     })
-    if (response.isErr()) {
-      throw response.error
+    if (result.isErr()) {
+      throw result.error
     }
 
     this.initialized = true
     this.getBalance()
+    this.getTransactions()
 
     this.syncWallet()
 
@@ -70,6 +75,7 @@ export class PeachWallet {
     const result = await BdkRn.syncWallet()
     if (!result.isErr()) {
       this.getBalance()
+      this.getTransactions()
       this.synced = true
       info('PeachWallet - syncWallet - synced')
     }
@@ -78,18 +84,31 @@ export class PeachWallet {
   updateStore (): void {
     walletStore.getState().setSynced(this.synced)
     walletStore.getState().setBalance(this.balance)
+    walletStore.getState().setTransactions(this.transactions)
   }
 
   async getBalance (): Promise<number> {
-    const getBalanceResult = await BdkRn.getBalance()
-    if (getBalanceResult.isErr()) {
-      error(getBalanceResult.error)
+    const result = await BdkRn.getBalance()
+    if (result.isErr()) {
+      error(result.error)
       return this.balance
     }
-    this.balance = Number(getBalanceResult.value)
+    this.balance = Number(result.value)
     this.updateStore()
 
     return this.balance
+  }
+
+  async getTransactions (): Promise<number> {
+    const result = await BdkRn.getTransactions()
+    if (result.isErr()) {
+      error(result.error)
+      return this.transactions
+    }
+    this.transactions = result.value
+    this.updateStore()
+
+    return this.transactions
   }
 
   async getReceivingAddress (): Promise<string | null> {
