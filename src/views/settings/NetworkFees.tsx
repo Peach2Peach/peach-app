@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, HorizontalLine, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
+import { HorizontalLine, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { useValidatedState } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
