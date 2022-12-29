@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { TouchableOpacity, View, ViewStyle } from 'react-native'
+import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { toDateFormat } from '../../utils/string'
 import Icon from '../Icon'
