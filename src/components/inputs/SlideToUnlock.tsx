@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
@@ -9,6 +9,7 @@ import Icon from '../Icon'
 type SlideToUnlockProps = ComponentProps & {
   label1: string
   label2?: string
+  disabled?: boolean
   onUnlock: () => void
 }
 
@@ -37,7 +38,13 @@ const getLabel1Opacity = (pan: Animated.Value) =>
     outputRange: [1, 0],
   })
 
-export const SlideToUnlock = ({ label1, label2 = label1, onUnlock, style }: SlideToUnlockProps): ReactElement => {
+export const SlideToUnlock = ({
+  label1,
+  label2 = label1,
+  disabled,
+  onUnlock,
+  style,
+}: SlideToUnlockProps): ReactElement => {
   const [trackWidth, setTrackWidth] = useState(260)
   const [widthToSlide, setWidthToSlide] = useState(trackWidth - knobWidth - padding)
 
@@ -48,35 +55,42 @@ export const SlideToUnlock = ({ label1, label2 = label1, onUnlock, style }: Slid
   }
 
   const pan = useRef(new Animated.Value(0)).current
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: (e, gestureState) => {
-        const x = gestureState.dx as number
-        pan.setValue(getNormalized(x, trackWidth))
-      },
-      onPanResponderRelease: (e, gestureState) => {
-        const x = gestureState.dx as number
-        const val = getNormalized(x, trackWidth)
-        if (val === 1) onUnlock()
-        if (val !== 1) {
-          Animated.timing(pan, {
-            toValue: 0,
-            duration: 100,
-            delay: 10,
-            useNativeDriver: false,
-          }).start()
-        }
-      },
-      onShouldBlockNativeResponder: () => true,
-    }),
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderMove: (e, gestureState) => {
+          if (disabled) return
+          const x = gestureState.dx as number
+          pan.setValue(getNormalized(x, trackWidth))
+        },
+        onPanResponderRelease: (e, gestureState) => {
+          const x = gestureState.dx as number
+          const val = getNormalized(x, trackWidth)
+          if (val === 1 && !disabled) onUnlock()
+          if (val !== 1) {
+            Animated.timing(pan, {
+              toValue: 0,
+              duration: 100,
+              delay: 10,
+              useNativeDriver: false,
+            }).start()
+          }
+        },
+        onShouldBlockNativeResponder: () => true,
+      }),
+    [disabled, onUnlock, pan, trackWidth],
   )
 
   return (
     <View
-      {...panResponder.current.panHandlers}
+      {...panResponder.panHandlers}
       onLayout={onLayout}
-      style={[tw`max-w-full w-full bg-primary-background-dark rounded-full overflow-hidden`, style]}
+      style={[
+        tw`max-w-full w-full bg-primary-background-dark rounded-full overflow-hidden`,
+        disabled ? tw`opacity-50` : {},
+        style,
+      ]}
     >
       <Shadow shadow={innerShadow}>
         <Animated.View
