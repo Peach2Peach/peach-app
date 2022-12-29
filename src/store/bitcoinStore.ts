@@ -2,7 +2,7 @@ import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { SATSINBTC } from '../constants'
 import { createStorage } from '../utils/storage'
-import { toZustandStorage } from '../utils/storage/toZustandStorage'
+import { toZustandStorage } from '../utils/storage'
 
 export type BitcoinState = {
   currency: Currency
