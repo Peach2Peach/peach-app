@@ -1,6 +1,6 @@
 import { BLOCKEXPRLORER, NETWORK } from '@env'
 import BdkRn from 'bdk-rn'
-import { error } from '../log'
+import { error, info } from '../log'
 import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
@@ -10,6 +10,8 @@ type PeachWalletProps = {
 
 export class PeachWallet {
   initialized: boolean
+
+  synced: boolean
 
   derivationPath: string
 
@@ -25,16 +27,22 @@ export class PeachWallet {
     this.derivationPath = 'm/84\'/0\'/0\''
     this.balance = 0
     this.initialized = false
+    this.synced = false
   }
 
   async loadWallet (seedphrase?: string) {
+    info('PeachWallet - loadWallet - start')
+
     let mnemonic = seedphrase
     if (!mnemonic) {
       const generateMnemonicResult = await BdkRn.generateMnemonic({
         length: 12,
         network: this.network,
       })
-      mnemonic = generateMnemonicResult.data
+      if (generateMnemonicResult.isErr()) {
+        throw generateMnemonicResult.error
+      }
+      mnemonic = generateMnemonicResult.value
     }
 
     const response = await BdkRn.createWallet({
@@ -44,46 +52,72 @@ export class PeachWallet {
       blockChainConfigUrl: BLOCKEXPRLORER, // TODO get user config
       blockChainName: 'ESPLORA',
     })
-    if (response.error) {
-      throw new Error(response.data)
+    if (response.isErr()) {
+      throw response.error
     }
-    this.balance = response.data.balance || 0
-    this.initialized = true
 
-    this.updateStore()
-    BdkRn.syncWallet()
+    this.initialized = true
+    this.getBalance()
+
+    this.syncWallet()
+
+    info('PeachWallet - loadWallet - loaded')
+  }
+
+  async syncWallet () {
+    info('PeachWallet - syncWallet - start')
+
+    const result = await BdkRn.syncWallet()
+    if (!result.isErr()) {
+      this.getBalance()
+      this.synced = true
+      info('PeachWallet - syncWallet - synced')
+    }
   }
 
   updateStore (): void {
+    walletStore.getState().setSynced(this.synced)
     walletStore.getState().setBalance(this.balance)
   }
 
   async getBalance (): Promise<number> {
     const getBalanceResult = await BdkRn.getBalance()
-    if (getBalanceResult.error) {
-      error(getBalanceResult.data)
+    if (getBalanceResult.isErr()) {
+      error(getBalanceResult.error)
       return this.balance
     }
-    this.balance = getBalanceResult.data
+    this.balance = Number(getBalanceResult.value)
     this.updateStore()
 
     return this.balance
   }
 
-  async getReceivingAddress (): Promise<string> {
+  async getReceivingAddress (): Promise<string | null> {
+    info('PeachWallet - getReceivingAddress - start')
     if (!this.initialized) throw Error('WALLET_NOT_READY')
-    const response = await BdkRn.getNewAddress()
-    return response.data
+
+    const result = await BdkRn.getNewAddress()
+
+    if (result.isErr()) {
+      throw result.error
+    }
+
+    return result.value
   }
 
-  async withdrawAll (address: string): Promise<string> {
-    const broadcastTxResult = await BdkRn.broadcastTx({ address, amount: await this.getBalance() })
+  async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
+    info('PeachWallet - withdrawAll - start')
+    if (!this.initialized) throw Error('WALLET_NOT_READY')
+    const broadcastTxResult = await BdkRn.drainWallet({ address, feeRate })
 
-    if (broadcastTxResult.error) {
-      error(broadcastTxResult.data)
+    if (broadcastTxResult.isErr()) {
+      throw broadcastTxResult.error
     }
+
     this.getBalance()
-    return broadcastTxResult.data
+    info('PeachWallet - withdrawAll - end')
+
+    return broadcastTxResult.value
   }
 
   // getAddress (pk: BIP32Interface) {
