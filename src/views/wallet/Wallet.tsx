@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -65,9 +66,11 @@ export default () => {
       level: 'APP',
     })
 
-  useEffect(() => {
-    peachWallet.getBalance()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      peachWallet.syncWallet()
+    }, []),
+  )
 
   return (
     <View style={tw`h-full flex flex-col justify-between px-8`}>
