@@ -7,4 +7,5 @@ declare type TransactionSummary = {
   price: number
   currency: Currency
   date: Date
+  confirmed: boolean
 }

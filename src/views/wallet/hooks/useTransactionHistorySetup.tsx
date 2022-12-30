@@ -45,6 +45,7 @@ export const useTransactionHistorySetup = () => {
               price,
               currency,
               date: txIsConfirmed(tx) ? new Date(tx.block_timestamp * 1000) : new Date(),
+              confirmed: txIsConfirmed(tx),
             }
           })
           .sort(sort('date'))

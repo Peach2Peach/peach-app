@@ -16,6 +16,7 @@ type WalletStore = WalletState & {
   setBalance: (balance: number) => void
   setTransactions: (txs: TransactionsResponse) => void
   getAllTransactions: () => (ConfirmedTransaction | PendingTransaction)[]
+  getTransaction: (txId: string) => ConfirmedTransaction | PendingTransaction | undefined
   updateTxOfferMap: (txid: string, offerId: string) => void
 }
 
@@ -35,6 +36,10 @@ export const walletStore = createStore(
       setBalance: (balance) => set((state) => ({ ...state, balance })),
       setTransactions: (transactions) => set((state) => ({ ...state, transactions })),
       getAllTransactions: () => [...get().transactions.confirmed, ...get().transactions.pending],
+      getTransaction: (txId) =>
+        get()
+          .getAllTransactions()
+          .find((tx) => tx.txid === txId),
       updateTxOfferMap: (txId: string, offerId: string) =>
         set((state) => ({
           ...state,

@@ -28,6 +28,7 @@ type FooterItemProps = ComponentProps & {
 // eslint-disable-next-line max-len
 const isSettings
   = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
+const isWallet = /wallet|transactionHistory|transactionDetails/u
 
 /**
  * @description Component to display the Footer Item
@@ -137,20 +138,15 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
               onPress={navigate.buy}
             />
             <FooterItem id="sell" style={tw`w-1/5`} active={active === 'sell'} onPress={navigate.sell} />
-            <FooterItem id="wallet" style={tw`w-1/5`} active={active === 'wallet'} onPress={navigate.wallet} />
+            <FooterItem id="wallet" style={tw`w-1/5`} active={isWallet.test(active)} onPress={navigate.wallet} />
             <FooterItem
               id="yourTrades"
               style={tw`w-1/5`}
-              active={active === 'yourTrades' || /contract/u.test(active as string)}
+              active={active === 'yourTrades' || /contract/u.test(active)}
               onPress={navigate.yourTrades}
               notifications={notifications}
             />
-            <FooterItem
-              id="settings"
-              style={tw`w-1/5`}
-              active={isSettings.test(active as string)}
-              onPress={navigate.settings}
-            />
+            <FooterItem id="settings" style={tw`w-1/5`} active={isSettings.test(active)} onPress={navigate.settings} />
           </View>
         </Shadow>
       </View>
