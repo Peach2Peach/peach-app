@@ -1,22 +1,10 @@
-import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
 import tw from '../../styles/tailwind'
-
-import AppContext from '../../contexts/app'
-import { MessageContext } from '../../contexts/message'
-
-import { useFocusEffect } from '@react-navigation/native'
-import { Headline, PeachScrollView, Text, Title } from '../../components'
-import getContractsEffect from '../../effects/getContractsEffect'
-import getOffersEffect from '../../effects/getOffersEffect'
 import { useHeaderSetup, useNavigation } from '../../hooks'
-import { getAccount } from '../../utils/account'
-import { storeContracts, storeOffers } from '../../utils/account/storeAccount'
-import { getChatNotifications } from '../../utils/chat'
-import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { error } from '../../utils/log'
-import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
+import { info } from '../../utils/log'
+import { getOffers, isBuyOffer } from '../../utils/offer'
 import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
 import { OfferItem } from './components/OfferItem'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
@@ -54,9 +42,6 @@ export default (): ReactElement => {
       [],
     ),
   )
-  const [, updateAppContext] = useContext(AppContext)
-  const [, updateMessage] = useContext(MessageContext)
-  const [, setLastUpdate] = useState(new Date().getTime())
   const offers = getOffers()
 
   const allOpenOffers = offers.filter(isOpenOffer).filter(showOffer)
@@ -67,6 +52,7 @@ export default (): ReactElement => {
   }
   const pastOffers = offers.filter(isPastOffer).filter(showOffer)
 
+  /*
   useFocusEffect(
     useCallback(
       getOffersEffect({
@@ -127,7 +113,7 @@ export default (): ReactElement => {
       }),
       [],
     ),
-  )
+  )*/
 
   const tabs: TabbedNavigationItem[] = [
     {
@@ -146,6 +132,7 @@ export default (): ReactElement => {
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const getCurrentData = () => {
+    info('data -> ' + JSON.stringify(openOffers))
     switch (currentTab.id) {
     case 'buy':
       return openOffers.buy
@@ -165,8 +152,9 @@ export default (): ReactElement => {
           <View />
         ) : (
           <FlatList
+            ItemSeparatorComponent={() => <View style={tw`h-5`} />}
             data={getCurrentData()}
-            renderItem={({ item }) => <OfferItem key={item.id} style={tw`mt-3`} extended={true} offer={item} />}
+            renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
           />
         )}
       </View>

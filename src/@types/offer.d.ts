@@ -1,30 +1,32 @@
 declare type TradeStatus = {
+  // waiting for seller // ??
+  // waiting for payment // ??
   status:
-    | 'escrowWaitingForConfirmation'
-    | 'returnAddressRequired'
-    | 'offerPublished'
-    | 'searchingForPeer'
-    | 'match'
+    | 'escrowWaitingForConfirmation' // waiting for network confirm
+    | 'returnAddressRequired' // ?? this goes with 'provideReturnAddress' action
+    | 'offerPublished' // ?? could be 'checkMatches', or directly this doesn't exist and 'searchingForPeer'
+    | 'searchingForPeer' // looking for match
+    | 'match' // ??
     | 'contractCreated'
-    | 'tradeCompleted'
-    | 'offerCanceled'
-    | 'tradeCanceled'
+    | 'tradeCompleted' // past
+    | 'offerCanceled' // past
+    | 'tradeCanceled' // past
     | 'null'
   requiredAction:
     | ''
-    | 'fundEscrow'
-    | 'provideReturnAddress'
-    | 'refundEscrow'
-    | 'checkMatches'
-    | 'sendKYC'
-    | 'confirmKYC'
-    | 'sendPayment'
-    | 'confirmPayment'
-    | 'dispute'
-    | 'acknowledgeDisputeResult'
-    | 'confirmCancelation'
-    | 'rate'
-    | 'startRefund'
+    | 'fundEscrow' // fund escrow
+    | 'provideReturnAddress' // ??
+    | 'refundEscrow' // fund escrow -> refund escrow // ??
+    | 'checkMatches' // select match
+    | 'sendKYC' // ??
+    | 'confirmKYC' // ??
+    | 'sendPayment' // make payment
+    | 'confirmPayment' // confirm payment
+    | 'dispute' // dispute started
+    | 'acknowledgeDisputeResult' // ??
+    | 'confirmCancelation' // buyer / seller wants to cancel (check offer)
+    | 'rate' // rate seller / buyer
+    | 'startRefund' // ??
 }
 
 declare type SellOffer = Omit<Offer, 'id'> & {

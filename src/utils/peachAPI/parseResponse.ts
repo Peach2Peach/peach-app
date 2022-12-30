@@ -16,8 +16,6 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
 
     const data = await response.json()
 
-    info('offers: ' + JSON.stringify(data))
-
     if (response.status !== 200) {
       error(
         `peachAPI - ${caller}`,

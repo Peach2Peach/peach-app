@@ -175,6 +175,7 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
+  tradeStatus?: TradeStatus
 }
 
 declare type PostOfferResponse = {

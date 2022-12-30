@@ -1,18 +1,14 @@
 import React, { ReactElement, useContext } from 'react'
-import { Pressable, View } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { Bubble, Headline, PrimaryButton, SatsFormat, Shadow, Text } from '../../../components'
-import Icon from '../../../components/Icon'
+import { SummaryItem } from '../../../components/lists/SummaryItem'
 import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
-import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import { getContractChatNotification } from '../../../utils/chat'
 import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { mildShadow } from '../../../utils/layout'
-import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
+import { info } from '../../../utils/log'
+import { offerIdToHex } from '../../../utils/offer'
 import { getOfferStatus } from '../../../utils/offer/status'
 import { navigateToOffer } from '../utils/navigateToOffer'
 
@@ -45,6 +41,11 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
   const [, updateOverlay] = useContext(OverlayContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
+  const isClosed
+    = offer.tradeStatus?.status === 'tradeCompleted'
+    || offer.tradeStatus?.status === 'tradeCanceled'
+    || offer.tradeStatus?.status === 'offerCanceled'
+
   const { status, requiredAction } = getOfferStatus(offer)
   const contract = offer.contractId ? getContract(offer.contractId) : null
 
@@ -55,15 +56,26 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
       : Object.keys(offer.meansOfPayment)[0]
   const price = contract?.price || Object(offer.prices)[currency]
 
-  const icon = contract?.disputeWinner ? 'alertTriangle' : ICONMAP[requiredAction] || ICONMAP[status]
-  const notifications = contract ? getContractChatNotification(contract) : 0
+  info('status -> ' + JSON.stringify(offer.tradeStatus))
 
-  const isRedStatus = contract?.disputeActive || (isBuyOffer(offer) && contract?.cancelationRequested)
-  const isOrangeStatus = requiredAction || (isSellOffer(offer) && contract?.cancelationRequested)
-  const textColor1 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-2`
-  const textColor2 = isRedStatus || isOrangeStatus ? tw`text-white-1` : tw`text-grey-1`
+  const getOfferLevel = () => {
+    // case messages
+    // case open actions
+    // case dispute/cancelation
 
-  const getStatusColor = () => {}
+    switch (offer.tradeStatus?.requiredAction) {
+    case '':
+      // case waiting
+      return 'WAITING'
+    case 'dispute' || 'confirmCancellation':
+      return 'WARN'
+    default:
+      return 'APP'
+    }
+  }
+
+  const getInfoText = () =>
+    offer.tradeStatus?.requiredAction !== '' ? offer.tradeStatus?.requiredAction : offer.tradeStatus?.status
 
   const navigate = () =>
     navigateToOffer({
@@ -74,8 +86,28 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
       updateOverlay,
       matchStoreSetOffer,
     })
+
+  info(offer.tradeStatus?.requiredAction)
   return (
-    <Shadow shadow={mildShadow}>
+    <SummaryItem
+      title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
+      amount={offer.amount}
+      currency={currency as Currency}
+      price={price}
+      level={getOfferLevel()}
+      date={new Date(offer.creationDate)}
+      action={
+        isClosed
+          ? undefined
+          : {
+            callback: navigate,
+            label: getInfoText(),
+            icon: 'x',
+          }
+      }
+    />
+
+  /* <Shadow shadow={mildShadow}>
       <Pressable
         onPress={navigate}
         style={[
@@ -152,6 +184,6 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
           </Bubble>
         ) : null}
       </Pressable>
-    </Shadow>
+    </Shadow>*/
   )
 }
