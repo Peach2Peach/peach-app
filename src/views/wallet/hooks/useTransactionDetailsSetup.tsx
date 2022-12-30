@@ -1,9 +1,11 @@
+import { NETWORK } from '@env'
 import { useEffect, useMemo, useState } from 'react'
 import shallow from 'zustand/shallow'
 
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
 import { sort } from '../../../utils/array'
+import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { getOffer } from '../../../utils/offer'
 import { getTx } from '../../../utils/peachAPI'
@@ -16,6 +18,10 @@ export const useTransactionDetailsSetup = () => {
   const walletStore = useWalletState()
   const [transaction, setTransaction] = useState<TransactionSummary>()
   const [receivingAddress, setReceivingAddress] = useState<string>()
+
+  const openInExplorer = () => {
+    if (transaction) showTransaction(transaction.id as string, NETWORK)
+  }
 
   useHeaderSetup(
     useMemo(
@@ -57,5 +63,6 @@ export const useTransactionDetailsSetup = () => {
   return {
     transaction,
     receivingAddress,
+    openInExplorer,
   }
 }

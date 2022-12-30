@@ -1,4 +1,3 @@
-import { NETWORK } from '@env'
 import React from 'react'
 import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -6,7 +5,6 @@ import { Card, HorizontalLine, Icon, Loading, Text } from '../../components'
 import { ShortBitcoinAddress } from '../../components/bitcoin'
 import { MediumSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
-import { showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { toDateFormat } from '../../utils/string'
 import { iconMap } from './components/iconMap'
@@ -14,11 +12,7 @@ import { getTxDetailsTitle } from './helpers/getTxDetailsTitle'
 import { useTransactionDetailsSetup } from './hooks/useTransactionDetailsSetup'
 
 export default () => {
-  const { transaction, receivingAddress } = useTransactionDetailsSetup()
-
-  const openInExplorer = () => {
-    if (transaction) showTransaction(transaction.id as string, NETWORK)
-  }
+  const { transaction, receivingAddress, openInExplorer } = useTransactionDetailsSetup()
 
   return (
     <View style={tw`h-full flex justify-center px-8`}>
