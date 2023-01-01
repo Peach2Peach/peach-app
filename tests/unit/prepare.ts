@@ -61,10 +61,22 @@ jest.mock('react-native-crypto-js', () => ({
   },
 }))
 
-jest.mock('@react-native-firebase/messaging', () => () => ({
-  onMessage: jest.fn(),
-  onNotificationOpenedApp: jest.fn(),
-}))
+export const hasPermissionMock = jest.fn()
+jest.mock('@react-native-firebase/messaging', () => {
+  const messaging = () => ({
+    hasPermission: hasPermissionMock,
+    onMessage: jest.fn(),
+    onNotificationOpenedApp: jest.fn(),
+  })
+
+  messaging.AuthorizationStatus = {
+    NOT_DETERMINED: -1,
+    AUTHORIZED: 1,
+    DENIED: 0,
+    PROVISIONAL: 2,
+  }
+  return messaging
+})
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
   log: jest.fn(),
 }))

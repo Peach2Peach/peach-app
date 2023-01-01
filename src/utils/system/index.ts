@@ -1,4 +1,6 @@
 export { checkNotificationStatus } from './checkNotificationStatus'
+export { checkNotificationStatusAndroid } from './checkNotificationStatusAndroid'
+export { checkNotificationStatusIOS } from './checkNotificationStatusIOS'
 export { compatibilityCheck } from './compatibilityCheck'
 export { getOS } from './getOS'
 export { isAndroid } from './isAndroid'
