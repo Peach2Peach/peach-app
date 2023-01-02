@@ -44,6 +44,7 @@ describe('updateSettings', () => {
       preferredPaymentMethods: {},
       showBackupReminder: true,
       showDisputeDisclaimer: true,
+      peachWalletActive: true,
       customFeeRate: 1,
       selectedFeeRate: 'halfHourFee',
     })
