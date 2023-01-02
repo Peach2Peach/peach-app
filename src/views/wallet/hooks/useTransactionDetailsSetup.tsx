@@ -11,6 +11,7 @@ import { getOffer } from '../../../utils/offer'
 import { getTx } from '../../../utils/peachAPI'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { getTxSummary } from '../helpers/getTxSummary'
 
 export const useTransactionDetailsSetup = () => {
   const route = useRoute<'transactionDetails'>()
@@ -43,21 +44,8 @@ export const useTransactionDetailsSetup = () => {
   useEffect(() => {
     const tx = walletStore.getTransaction(route.params.txId)
     if (!tx) return
-    const offer = getOffer(walletStore.txOfferMap[tx.txid])
-    const sats = tx.received - tx.sent
-    const price = sats / satsPerUnit
-    const type = getTransactionType(tx, offer)
 
-    setTransaction({
-      id: tx.txid,
-      offerId: offer?.id,
-      type,
-      amount: sats,
-      price,
-      currency,
-      date: txIsConfirmed(tx) ? new Date(tx.block_timestamp * 1000) : new Date(),
-      confirmed: txIsConfirmed(tx),
-    })
+    setTransaction(getTxSummary(tx))
   }, [currency, route, satsPerUnit, walletStore, walletStore.txOfferMap])
 
   return {
