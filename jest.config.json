@@ -12,7 +12,7 @@
     "^.+\\.(t|j)sx?$": "@swc/jest"
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg)/)"
+    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn)/)"
   ],
   "setupFiles": [
     "./tests/unit/prepare.ts",
