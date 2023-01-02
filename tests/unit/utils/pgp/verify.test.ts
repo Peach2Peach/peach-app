@@ -6,8 +6,7 @@ jest.mock('react-native-fast-openpgp', () => ({
 }))
 
 describe('verify', () => {
-  beforeEach(() => {
-    // Reset mocks before each test case
+  afterEach(() => {
     jest.resetAllMocks()
   })
 
