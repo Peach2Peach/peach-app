@@ -15,10 +15,13 @@ import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidatedState, useKeyboard } from '../../hooks'
 import { account } from '../../utils/account'
 import { peachWallet } from '../../utils/wallet/setWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 const addressRules = { required: true, bitcoinAddress: true }
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
   useContext(LanguageContext)
 
   const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
@@ -82,10 +85,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
   useEffect(() => {
     ;(async () => {
-      if (address) return
+      if (!peachWalletActive || address) return
       setAddress((await peachWallet.getReceivingAddress()) || '')
     })()
-  }, [address, setAddress])
+  }, [address, peachWalletActive, setAddress])
 
   return (
     <View style={tw`h-full flex-col justify-between px-6`}>

@@ -41,7 +41,6 @@ describe('updateSettings', () => {
       meansOfPayment: {
         EUR: ['sepa', 'paypal'],
       },
-      preferredCurrencies: [],
       preferredPaymentMethods: {},
       showBackupReminder: true,
       showDisputeDisclaimer: true,

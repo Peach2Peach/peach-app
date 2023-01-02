@@ -27,6 +27,8 @@ import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
 import { peachWallet } from '../../utils/wallet/setWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -82,6 +84,7 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
   const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -111,13 +114,13 @@ export default (): ReactElement => {
 
   useEffect(() => {
     ;(async () => {
-      if (offer.returnAddress) return
+      if (!peachWalletActive || offer.returnAddress) return
       setOffer({
         ...offer,
         returnAddress: (await peachWallet.getReceivingAddress()) || '',
       })
     })()
-  }, [offer])
+  }, [offer, peachWalletActive])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {

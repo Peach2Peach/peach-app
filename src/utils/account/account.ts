@@ -1,4 +1,5 @@
 import { APPVERSION } from '../../constants'
+import { settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
@@ -11,11 +12,11 @@ export const defaultAccount: Account = {
     appVersion: APPVERSION,
     displayCurrency: 'EUR',
     locale: 'en',
-    preferredCurrencies: [],
     preferredPaymentMethods: {},
     meansOfPayment: {},
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    peachWalletActive: true,
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -55,13 +56,13 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
       tradingLimit: defaultAccount.tradingLimit,
     }
 
+  settingsStore.getState().updateSettings(account.settings)
   setLocaleQuiet(account.settings.locale || 'en')
 
   const peachWallet = new PeachWallet({})
   peachWallet.loadWallet(account.mnemonic)
   setPeachWallet(peachWallet)
 
-  // TODO replace old code
   const { wallet } = account.mnemonic
     ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
     : await createRandomWallet(getNetwork())

@@ -3,8 +3,10 @@ import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { account, updateSettings } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
@@ -19,6 +21,11 @@ export const useSettingsSetup = () => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)
+  const [peachWalletActive, setPeachWalletActive] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive],
+    shallow,
+  )
+
   const [analyticsOn, setAnalyticsOn] = useState(account.settings.enableAnalytics)
 
   useFocusEffect(
@@ -36,6 +43,9 @@ export const useSettingsSetup = () => {
     }, []),
   )
 
+  const togglePeachWallet = () => {
+    setPeachWalletActive(!peachWalletActive)
+  }
   const toggleAnalytics = () => {
     setAnalyticsOn(!account.settings.enableAnalytics)
     analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
@@ -77,10 +87,10 @@ export const useSettingsSetup = () => {
     let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach', onPress: goToAboutPeach }]
     if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
     return arr
-  }, [])
+  }, [goToAboutPeach])
 
-  const profileSettings: SettingsItemProps[] = useMemo(
-    () => [
+  const profileSettings: SettingsItemProps[] = useMemo(() => {
+    let arr: SettingsItemProps[] = [
       { title: 'myProfile', onPress: goToMyAccount },
       { title: 'referrals' },
       {
@@ -90,19 +100,18 @@ export const useSettingsSetup = () => {
       },
       { title: 'networkFees' },
       { title: 'paymentMethods' },
-      { title: 'refundAddress' },
-      { title: 'payoutAddress' },
-    ],
-    [goToMyAccount],
-  )
+    ]
+    if (!peachWalletActive) arr = [...arr, { title: 'refundAddress' }, { title: 'payoutAddress' }]
+    return arr
+  }, [peachWalletActive, goToMyAccount])
 
   const appSettings: SettingsItemProps[] = useMemo(
     () => [
       {
         title: 'peachWallet',
-        onPress: () => null,
-        iconId: false ? 'toggleRight' : 'toggleLeft',
-        enabled: false,
+        onPress: togglePeachWallet,
+        iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
+        enabled: peachWalletActive,
       },
       {
         title: 'analytics',
@@ -116,7 +125,7 @@ export const useSettingsSetup = () => {
       },
       { title: 'currency', onPress: goToCurrencySettings },
     ],
-    [analyticsOn, goToCurrencySettings, notificationClick],
+    [peachWalletActive, analyticsOn, goToCurrencySettings, notificationClick],
   )
 
   const settings = [

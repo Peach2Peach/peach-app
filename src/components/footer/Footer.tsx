@@ -13,6 +13,8 @@ import { footerShadow } from '../../utils/layout'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../../assets/icons'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -65,6 +67,8 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
   const navigation = useNavigation()
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
+
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
   const keyboardOpen = useKeyboard()
 
@@ -130,23 +134,17 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
     <View style={[tw`w-full flex-row items-start`, style]}>
       <View style={tw`flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`flex-row items-center justify-between bg-primary-background py-4`}>
-            <FooterItem
-              id="buy"
-              style={tw`w-1/5`}
-              active={active === 'buy' || active === 'home'}
-              onPress={navigate.buy}
-            />
-            <FooterItem id="sell" style={tw`w-1/5`} active={active === 'sell'} onPress={navigate.sell} />
-            <FooterItem id="wallet" style={tw`w-1/5`} active={isWallet.test(active)} onPress={navigate.wallet} />
+          <View style={tw`flex-row items-center justify-between bg-primary-background py-4 px-5`}>
+            <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
+            <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+            {peachWalletActive && <FooterItem id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />}
             <FooterItem
               id="yourTrades"
-              style={tw`w-1/5`}
               active={active === 'yourTrades' || /contract/u.test(active)}
               onPress={navigate.yourTrades}
               notifications={notifications}
             />
-            <FooterItem id="settings" style={tw`w-1/5`} active={isSettings.test(active)} onPress={navigate.settings} />
+            <FooterItem id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
           </View>
         </Shadow>
       </View>
