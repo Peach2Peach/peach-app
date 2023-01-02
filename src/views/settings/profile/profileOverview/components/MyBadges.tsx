@@ -8,7 +8,7 @@ import i18n from '../../../../../utils/i18n'
 import { MyBadgesPopup } from './MyBadgesPopup'
 
 const icons = ['star', 'zap', 'award'] as const
-export const Badges = () => {
+export const MyBadges = () => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const openPeachBadgesPopup = () =>
@@ -27,10 +27,20 @@ export const Badges = () => {
       },
     })
 
+  const enabled = false // TODO: get from user data
+
   return (
     <TouchableOpacity style={tw`flex-row items-center`} onPress={openPeachBadgesPopup}>
       {icons.map((id) => (
-        <View key={`profileOverviewIcon-${id}`} style={tw`ml-4 p-[3px] rounded-full bg-primary-main`}>
+        <View
+          key={`profileOverviewIcon-${id}`}
+          style={[
+            enabled
+              ? tw`bg-primary-main shadow-black-1 shadow-opacity-50 shadow-offset-0 shadow-radius-[6px]`
+              : tw`bg-primary-mild-1`,
+            tw`ml-4 p-[3px] rounded-full`,
+          ]}
+        >
           <Icon id={id} color={tw`text-primary-background-light`.color} style={tw`w-3 h-3`} />
         </View>
       ))}
