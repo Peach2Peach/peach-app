@@ -43,16 +43,18 @@ export default () => {
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>
       {matches[currentIndex - 1] !== undefined && <PrevButton onPress={snapToPrev} />}
-      <Carousel
-        ref={$carousel}
-        data={matches}
-        {...{ ...carouselConfig, onBeforeSnapToItem }}
-        renderItem={({ item, index }) => (
-          <View {...{ onStartShouldSetResponder }} style={tw`-mx-4 px-4 py-4 bg-transparent`}>
-            <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
-          </View>
-        )}
-      />
+      {matches[currentIndex] !== undefined && (
+        <Carousel
+          ref={$carousel}
+          data={matches}
+          {...{ ...carouselConfig, onBeforeSnapToItem }}
+          renderItem={({ item, index }) => (
+            <View {...{ onStartShouldSetResponder }} style={tw`-mx-4 px-4 py-4 bg-transparent`}>
+              <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
+            </View>
+          )}
+        />
+      )}
       {matches[currentIndex + 1] !== undefined ? (
         <NextButton onPress={snapToNext} />
       ) : (
