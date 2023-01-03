@@ -40,5 +40,12 @@ describe('getTxDetailsTitle', () => {
     expect(result).toEqual('wallet.withdrawal')
   })
 
-  // it('returns the correct string for a deposit without an offer ID', () => {
+  it('returns the correct string for a deposit without an offer ID', () => {
+    const tx: Partial<TransactionSummary> = {
+      type: 'DEPOSIT',
+    }
+    const result = getTxDetailsTitle(tx as TransactionSummary)
+    expect(i18n).toHaveBeenCalledWith('wallet.deposit')
+    expect(result).toEqual('wallet.deposit')
+  })
 })
