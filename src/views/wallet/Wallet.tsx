@@ -95,7 +95,7 @@ export default () => {
       </View>
       <SlideToUnlock
         style={tw`mb-6`}
-        disabled={!peachWallet.synced || !address || !isValid}
+        disabled={!walletStore.balance || !peachWallet.synced || !address || !isValid}
         label1={i18n('wallet.withdrawAll')}
         onUnlock={openWithdrawalConfirmation}
       />
