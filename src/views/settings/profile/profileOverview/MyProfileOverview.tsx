@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Rating } from '../../../../components/user'
+import { Rating } from './components/Rating'
 import { useUserQuery } from '../../../../hooks/useUserQuery'
 import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
