@@ -35,10 +35,12 @@ export default () => {
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
-  const [currentIndex, onBeforeSnapToItem] = useMatchStore(
-    (state) => [state.currentIndex, state.setCurrentIndex],
-    shallow,
-  )
+  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
+
+  const onBeforeSnapToItem = (index: number) => {
+    // ensure that index can't be higher than available matches
+    setCurrentIndex(Math.min(index, matches.length))
+  }
 
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>
