@@ -45,7 +45,8 @@ export default () => {
       if (estimatedFees) feeRate = estimatedFees[account.settings.selectedFeeRate]
     }
 
-    await peachWallet.withdrawAll(address, feeRate)
+    const txId = await peachWallet.withdrawAll(address, feeRate)
+    if (txId) setAddress('')
   }
 
   const openWithdrawalConfirmation = () =>
