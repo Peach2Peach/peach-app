@@ -17,12 +17,15 @@ const onStartShouldSetResponder = () => true
 const knobWidth = tw`w-18`.width as number
 const padding = tw`w-1`.width as number
 
-const getTranslateX = (pan: Animated.Value, widthToSlide: number) =>
-  pan.interpolate({
-    inputRange: [0, 1],
-    outputRange: [padding, widthToSlide],
-    extrapolate: 'clamp',
-  })
+const getTransform = (pan: Animated.Value, widthToSlide: number) => [
+  {
+    translateX: pan.interpolate({
+      inputRange: [0, 1],
+      outputRange: [padding, widthToSlide],
+      extrapolate: 'clamp',
+    }),
+  },
+]
 const getBackgroundColor = (pan: Animated.Value) =>
   pan.interpolate({
     inputRange: [0, 0.8, 1],
@@ -62,20 +65,18 @@ export const SlideToUnlock = ({
         onPanResponderMove: (e, gestureState) => {
           if (disabled) return
           const x = gestureState.dx as number
-          pan.setValue(getNormalized(x, trackWidth))
+          pan.setValue(getNormalized(x, widthToSlide))
         },
         onPanResponderRelease: (e, gestureState) => {
           const x = gestureState.dx as number
-          const val = getNormalized(x, trackWidth)
-          if (val === 1 && !disabled) onUnlock()
-          if (val !== 1) {
-            Animated.timing(pan, {
-              toValue: 0,
-              duration: 100,
-              delay: 10,
-              useNativeDriver: false,
-            }).start()
-          }
+          const normalizedVal = getNormalized(x, widthToSlide)
+          if (normalizedVal === 1 && !disabled) onUnlock()
+          Animated.timing(pan, {
+            toValue: 0,
+            duration: 100,
+            delay: 10,
+            useNativeDriver: false,
+          }).start()
         },
         onShouldBlockNativeResponder: () => true,
       }),
@@ -95,16 +96,7 @@ export const SlideToUnlock = ({
       <Shadow shadow={innerShadow}>
         <Animated.View
           {...{ onStartShouldSetResponder }}
-          style={[
-            tw`flex flex-row items-center`,
-            {
-              transform: [
-                {
-                  translateX: getTranslateX(pan, widthToSlide),
-                },
-              ],
-            },
-          ]}
+          style={[tw`flex flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}
         >
           <Animated.View style={[tw`absolute right-full`, { width: widthToSlide, opacity: pan }]}>
             <Text style={tw`button-large text-center`}>{label2}</Text>
