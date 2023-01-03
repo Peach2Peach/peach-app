@@ -56,7 +56,8 @@ export class PeachWallet {
       mnemonic,
       password: '',
       network: this.network,
-      blockChainConfigUrl: BLOCKEXPRLORER, // TODO get user config
+      // TODO get user config
+      blockChainConfigUrl: BLOCKEXPRLORER,
       blockChainName: 'ESPLORA',
     })
     if (result.isErr()) {
@@ -146,19 +147,9 @@ export class PeachWallet {
       throw broadcastTxResult.error
     }
 
-    this.getBalance()
+    this.syncWallet()
     info('PeachWallet - withdrawAll - end')
 
     return broadcastTxResult.value
   }
-
-  // getAddress (pk: BIP32Interface) {
-  //   const payment = payments.p2wpkh({ pubkey: pk.publicKey, network: this.network })
-  //   return payment.address
-  // }
-
-  // getChangeAddress (index: number): string | undefined {
-  //   const pk = this.bip32Interface.derivePath(`${this.derivationPath}/1/${index}`)
-  //   return this.getAddress(pk)
-  // }
 }
