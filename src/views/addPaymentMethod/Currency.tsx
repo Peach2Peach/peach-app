@@ -2,12 +2,11 @@ import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Headline, PrimaryButton, RadioButtons } from '../../components'
+import { PrimaryButton, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
-import i18n from '../../utils/i18n'
-import { Navigation } from './components/Navigation'
-import { whiteGradient } from '../../utils/layout'
 import { useHeaderSetup } from '../../hooks'
+import i18n from '../../utils/i18n'
+import { whiteGradient } from '../../utils/layout'
 const { LinearGradient } = require('react-native-gradients')
 
 type CurrencySelectProps = {

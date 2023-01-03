@@ -2,12 +2,11 @@ import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Headline, PrimaryButton, RadioButtons } from '../../components'
+import { PrimaryButton, RadioButtons } from '../../components'
+import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
 import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
-import { Navigation } from './components/Navigation'
-import { useHeaderSetup } from '../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type CountrySelectProps = {

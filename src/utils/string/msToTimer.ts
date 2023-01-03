@@ -14,12 +14,14 @@ export const msToTimer = (ms: number): string => {
   ms -= seconds * 1000
 
   return [hours, minutes, seconds]
-    .map(num => padString({
-      string: num.toString(),
-      length: 2,
-      char: '0',
-      side: 'left'
-    }))
+    .map((num) =>
+      padString({
+        string: num.toString(),
+        length: 2,
+        char: '0',
+        side: 'left',
+      }),
+    )
     .join(':')
 }
 
