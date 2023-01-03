@@ -44,8 +44,8 @@ export default () => {
       const [estimatedFees] = await getFeeEstimate({})
       if (estimatedFees) feeRate = estimatedFees[account.settings.selectedFeeRate]
     }
-    console.log('withdrawing', feeRate)
-    console.log(await peachWallet.withdrawAll(address, feeRate))
+
+    await peachWallet.withdrawAll(address, feeRate)
   }
 
   const openWithdrawalConfirmation = () =>
