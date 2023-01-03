@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import BitcoinContext from '../../contexts/bitcoin'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
