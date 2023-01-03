@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useContext, useEffect, useMemo } from 'react'
+import React, { useCallback, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon, Loading, Text } from '../../components'

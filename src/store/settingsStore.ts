@@ -1,5 +1,6 @@
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { APPVERSION } from '../constants'
 import { defaultAccount } from '../utils/account'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
@@ -29,14 +30,25 @@ type SettingsStore = Settings & {
   setSelectedFeeRate: (selectedFeeRate: FeeRate) => void
 }
 
-const defaultState = defaultAccount.settings
+export const defaultSettings: Settings = {
+  appVersion: APPVERSION,
+  displayCurrency: 'EUR',
+  locale: 'en',
+  preferredPaymentMethods: {},
+  meansOfPayment: {},
+  showBackupReminder: true,
+  showDisputeDisclaimer: true,
+  peachWalletActive: true,
+  customFeeRate: 1,
+  selectedFeeRate: 'halfHourFee',
+}
 
 export const settingsStorage = createStorage('settings')
 
 export const settingsStore = createStore(
   persist<SettingsStore>(
     (set) => ({
-      ...defaultState,
+      ...defaultSettings,
       updateSettings: (settings: Settings) => set({ ...settings }),
       setAppVersion: (appVersion: string) => set((state) => ({ ...state, appVersion })),
       setEnableAnalytics: (enableAnalytics: boolean) => set((state) => ({ ...state, enableAnalytics })),

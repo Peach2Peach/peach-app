@@ -1,5 +1,4 @@
-import { APPVERSION } from '../../constants'
-import { settingsStore } from '../../store/settingsStore'
+import { defaultSettings, settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
@@ -8,18 +7,7 @@ import { setPeachWallet } from '../wallet/setWallet'
 
 export const defaultAccount: Account = {
   publicKey: '',
-  settings: {
-    appVersion: APPVERSION,
-    displayCurrency: 'EUR',
-    locale: 'en',
-    preferredPaymentMethods: {},
-    meansOfPayment: {},
-    showBackupReminder: true,
-    showDisputeDisclaimer: true,
-    peachWalletActive: true,
-    customFeeRate: 1,
-    selectedFeeRate: 'halfHourFee',
-  },
+  settings: defaultSettings,
   paymentData: [],
   tradingLimit: {
     daily: 1000,

@@ -12,6 +12,7 @@ jest.mock('../../../../../src/utils/transaction', () => ({
   getTransactionType: jest.fn(),
   txIsConfirmed: jest.fn(),
 }))
+
 jest.mock('../../../../../src/store/bitcoinStore', () => ({
   bitcoinStore: {
     getState: jest.fn(),
