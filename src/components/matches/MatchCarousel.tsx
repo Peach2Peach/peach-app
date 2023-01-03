@@ -39,7 +39,7 @@ export default () => {
 
   const onBeforeSnapToItem = (index: number) => {
     // ensure that index can't be higher than available matches
-    setCurrentIndex(Math.min(index, matches.length))
+    setCurrentIndex(Math.min(index, matches.length - 1))
   }
 
   return (
