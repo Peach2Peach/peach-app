@@ -34,7 +34,7 @@ export const MyBadges = () => {
       {icons.map((id) => (
         <View
           key={`profileOverviewIcon-${id}`}
-          style={[enabled ? tw`bg-primary-main` : tw`bg-primary-mild-1`, tw`ml-4 p-[3px] rounded-full`]}
+          style={[enabled ? tw`bg-primary-main` : tw`bg-primary-mild-1`, tw`ml-2 p-[3px] rounded-full`]}
         >
           <Icon id={id} color={tw`text-primary-background-light`.color} style={tw`w-3 h-3`} />
         </View>
