@@ -1,18 +1,19 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
 import Clipboard from '@react-native-clipboard/clipboard'
 import { useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { Fade, GoBackButton, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
 import { ExtraMedals, Rating, TradingLimit } from '../../components/user'
-import BitcoinContext from '../../contexts/bitcoin'
+import { useRoute } from '../../hooks'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 import { account, getTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getUser } from '../../utils/peachAPI'
 import { splitAt, toShortDateFormat } from '../../utils/string'
-import { useRoute } from '../../hooks'
 
 type UserTradeDetailsProps = {
   user: User
@@ -37,8 +38,7 @@ const UserTradeDetails = ({ user: { trades, disputes } }: UserTradeDetailsProps)
 )
 export default (): ReactElement => {
   const route = useRoute<'profile'>()
-  const [bitcoinContext] = useContext(BitcoinContext)
-
+  const [currency] = useBitcoinStore((state) => [state.currency], shallow)
   const { userId } = route.params
   const [updatePending, setUpdatePending] = useState(!route.params.user)
   const [showCopied, setShowCopied] = useState(false)
@@ -122,9 +122,7 @@ export default (): ReactElement => {
               <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color} />
             </View>
           </Pressable>
-          {isMyAccount ? (
-            <TradingLimit tradingLimit={getTradingLimit(bitcoinContext.currency)} style={tw`mt-4 px-2`} />
-          ) : null}
+          {isMyAccount ? <TradingLimit tradingLimit={getTradingLimit(currency)} style={tw`mt-4 px-2`} /> : null}
           {user ? <UserTradeDetails user={user} /> : null}
         </View>
         <GoBackButton style={tw`self-center mt-16`} />
