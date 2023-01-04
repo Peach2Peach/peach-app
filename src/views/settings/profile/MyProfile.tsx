@@ -13,6 +13,8 @@ import { MyProfileOverview } from './profileOverview/MyProfileOverview'
 import { TradingLimits } from './TradingLimits'
 
 export default () => {
+  const { user, isLoading } = useUserQuery(account.publicKey)
+  if (isLoading || !user) return <></>
   const [, updateOverlay] = useContext(OverlayContext)
   const openTradingLimitsPopup = useCallback(() => {
     updateOverlay({ content: null, visible: false })
@@ -26,9 +28,6 @@ export default () => {
       [openTradingLimitsPopup],
     ),
   )
-
-  const { user, isLoading } = useUserQuery(account.publicKey)
-  if (isLoading || !user) return <></>
 
   return (
     <View style={tw`px-8 h-full`}>
