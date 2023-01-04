@@ -64,7 +64,7 @@ export default () => {
         Error Overlay
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('SUCCESS')}>
-        Error Overlay
+        Success Overlay
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
         Info Overlay
