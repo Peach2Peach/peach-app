@@ -7,13 +7,8 @@ import { useUserQuery } from '../../../../../hooks/useUserQuery'
 import tw from '../../../../../styles/tailwind'
 import { account } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
+import { badges } from './badges'
 import { MyBadgesPopup } from './MyBadgesPopup'
-
-const badges = [
-  ['star', 'fastTrader'],
-  ['zap', 'superTrader'],
-  ['award', 'ambassador'],
-] as const
 
 export const MyBadges = () => {
   const { user, isLoading } = useUserQuery(account.publicKey)
