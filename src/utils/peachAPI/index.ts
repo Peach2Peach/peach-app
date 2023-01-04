@@ -13,6 +13,7 @@ export {
   getOffers,
   postOffer,
   getOfferDetails,
+  signMessageToPublish,
   patchOffer,
   createEscrow,
   getFundingStatus,
