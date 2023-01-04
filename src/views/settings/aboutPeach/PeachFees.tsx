@@ -31,7 +31,7 @@ export default (): ReactElement => {
         <BulletPoint text={i18n('settings.fees.point.2')} />
         <BulletPoint text={i18n('settings.fees.point.3')} />
       </View>
-      <GoBackButton style={tw`m-8 self-center`} />
+      <GoBackButton style={tw`m-10 self-center`} />
     </View>
   )
 }

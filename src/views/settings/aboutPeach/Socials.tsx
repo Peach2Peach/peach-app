@@ -25,7 +25,7 @@ export default (): ReactElement => {
           </OptionButton>
         ))}
       </View>
-      <GoBackButton style={tw`self-center mb-6`} />
+      <GoBackButton style={tw`self-center mb-10`} />
     </View>
   )
 }
