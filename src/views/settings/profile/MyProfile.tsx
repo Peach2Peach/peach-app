@@ -28,7 +28,7 @@ export default () => {
   )
 
   const { user, isLoading } = useUserQuery(account.publicKey)
-  if (isLoading || !user) return null
+  if (isLoading || !user) return <></>
 
   return (
     <View style={tw`px-8 h-full`}>

@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import React from 'react'
 import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
@@ -12,17 +12,19 @@ export type SettingsItemProps = (
       onPress: () => void
       title: string
     }
-) & { iconId?: IconType; warning?: boolean; enabled?: boolean }
+) & { iconId?: IconType; iconSize?: ViewStyle; warning?: boolean; enabled?: boolean }
 
-export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, enabled }: SettingsItemProps) => {
+export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, enabled, iconSize }: SettingsItemProps) => {
   const navigation = useNavigation()
   const onPress = pressAction ? pressAction : () => navigation.navigate(title)
   const iconColor = warning ? tw`text-error-main`.color : enabled ? tw`text-primary-main`.color : tw`text-black-3`.color
 
   return (
     <TouchableOpacity style={tw`my-3 mx-[6px] justify-between items-center flex-row`} onPress={onPress}>
-      <Text style={[tw`h6 lowercase text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
-      <Icon id={iconId || 'chevronRight'} style={tw`w-8 h-8`} color={iconColor} />
+      <Text style={[tw`settings text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
+      <View style={tw`w-8 h-8 flex items-center`}>
+        <Icon id={iconId || 'chevronRight'} style={iconSize || tw`w-8 h-8`} color={iconColor} />
+      </View>
     </TouchableOpacity>
   )
 }

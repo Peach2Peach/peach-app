@@ -21,8 +21,10 @@ const themes = {
     textError: tw`text-black-1`,
     border: tw`border-black-1`,
     borderError: tw`border-error-main`,
+    borderDisabled: tw`text-black-2`,
     bg: tw`bg-primary-background-light`,
     bgError: tw`bg-primary-background-light`,
+    bgDisabled: tw`bg-transparent`,
     error: tw`text-error-main`,
     placeholder: tw`text-black-4`,
     optional: tw`text-black-4`,
@@ -33,8 +35,10 @@ const themes = {
     textError: tw`text-error-main`,
     border: tw`border-primary-background-light`,
     borderError: tw`border-primary-background-light`,
+    borderDisabled: tw`border-primary-background-light`,
     bg: tw`bg-transparent`,
     bgError: tw`bg-primary-background-light`,
+    bgDisabled: tw`bg-transparent`,
     error: tw`text-primary-background-light`,
     placeholder: tw`text-primary-mild-1`,
     optional: tw`text-black-4`,
@@ -42,7 +46,7 @@ const themes = {
 }
 
 type IconActionPair = [IconType, () => void]
-type InputProps = ComponentProps &
+export type InputProps = ComponentProps &
   Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
     theme?: 'default' | 'inverted'
     label?: string
@@ -84,6 +88,7 @@ export const Input = ({
   disableSubmit = false,
   disableOnEndEditing = false,
   errorMessage = [],
+  maxLength,
   onChange,
   onSubmit,
   onFocus,
@@ -142,9 +147,9 @@ export const Input = ({
         style={[
           tw`w-full flex flex-row items-center justify-between px-3`,
           tw`overflow-hidden rounded-xl border`,
-          colors.bg,
+          disabled ? colors.bgDisabled : colors.bg,
+          disabled ? colors.borderDisabled : colors.border,
           showError ? colors.bgError : {},
-          colors.border,
           showError ? colors.borderError : {},
           showError ? tw`border-2` : {},
           style ? style : {},
@@ -170,6 +175,7 @@ export const Input = ({
             editable: !disabled,
             multiline,
             onChangeText,
+            maxLength,
             textAlignVertical: multiline ? 'top' : 'center',
             onEndEditing,
             onSubmitEditing,
@@ -183,8 +189,8 @@ export const Input = ({
           }}
         />
         <View style={tw`flex flex-row`}>
-          {inputIcons.map(([icon, action]) => (
-            <Pressable onPress={action}>
+          {inputIcons.map(([icon, action], index) => (
+            <Pressable onPress={action} key={`inputIcon-${icon}-${index}`}>
               <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
             </Pressable>
           ))}

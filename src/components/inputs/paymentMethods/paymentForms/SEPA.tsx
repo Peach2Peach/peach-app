@@ -10,8 +10,8 @@ import Input from '../../Input'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const ibanRules = { required: true, iban: true }
-const bicRules = { required: true, bic: true }
+const ibanRules = { required: false, iban: true }
+const bicRules = { required: false, bic: true }
 
 export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -21,7 +21,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   )
   const [iban, setIBAN, ibanIsValid, ibanErrors] = useValidatedState(data?.iban || '', ibanRules)
   const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
-  const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(data?.address || '', notRequired)
   const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
     data?.reference || '',
     notRequired,
@@ -31,7 +30,6 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
   let $bic = useRef<TextInput>(null).current
-  let $address = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = {
@@ -48,16 +46,13 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     beneficiary,
     iban,
     bic,
-    address,
     reference,
     currencies: data?.currencies || currencies,
   })
 
   const isFormValid = () => {
     setDisplayErrors(true)
-    return (
-      labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && addressIsValid && referenceIsValid
-    )
+    return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid
   }
 
   const save = () => {
@@ -75,81 +70,58 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   }, [isFormValid, setStepValid])
 
   return (
-    <View>
-      <View>
-        <Input
-          onChange={setLabel}
-          onSubmit={() => $beneficiary?.focus()}
-          value={label}
-          label={i18n('form.paymentMethodName')}
-          placeholder={i18n('form.paymentMethodName.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? labelErrors : undefined}
-        />
-      </View>
-      <View style={tw`mt-1`}>
-        <Input
-          onChange={setBeneficiary}
-          onSubmit={() => $iban?.focus()}
-          reference={(el: any) => ($beneficiary = el)}
-          value={beneficiary}
-          label={i18n('form.beneficiary')}
-          placeholder={i18n('form.beneficiary.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? beneficiaryErrors : undefined}
-        />
-      </View>
-      <View style={tw`mt-1`}>
-        <Input
-          onChange={setIBAN}
-          onSubmit={() => $bic?.focus()}
-          reference={(el: any) => ($iban = el)}
-          value={iban}
-          label={i18n('form.iban')}
-          placeholder={i18n('form.iban.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? ibanErrors : undefined}
-        />
-      </View>
-      <View style={tw`mt-1`}>
-        <Input
-          onChange={setBIC}
-          onSubmit={() => $address?.focus()}
-          reference={(el: any) => ($bic = el)}
-          value={bic}
-          required={true}
-          label={i18n('form.bic')}
-          placeholder={i18n('form.bic.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? bicErrors : undefined}
-        />
-      </View>
-      <View style={tw`mt-1`}>
-        <Input
-          onChange={setAddress}
-          onSubmit={() => $reference?.focus()}
-          reference={(el: any) => ($address = el)}
-          value={address}
-          required={false}
-          label={i18n('form.address')}
-          placeholder={i18n('form.address.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? addressErrors : undefined}
-        />
-      </View>
-      <View style={tw`mt-1`}>
-        <Input
-          onChange={setReference}
-          onSubmit={save}
-          reference={(el: any) => ($reference = el)}
-          value={reference}
-          required={false}
-          label={i18n('form.reference')}
-          placeholder={i18n('form.reference.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? referenceErrors : undefined}
-        />
-      </View>
-    </View>
+    <>
+      <Input
+        onChange={setLabel}
+        onSubmit={() => $beneficiary?.focus()}
+        value={label}
+        label={i18n('form.paymentMethodName')}
+        placeholder={i18n('form.paymentMethodName.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? labelErrors : undefined}
+      />
+      <Input
+        onChange={setBeneficiary}
+        onSubmit={() => $iban?.focus()}
+        reference={(el: any) => ($beneficiary = el)}
+        value={beneficiary}
+        label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? beneficiaryErrors : undefined}
+      />
+      <Input
+        onChange={setIBAN}
+        onSubmit={() => $bic?.focus()}
+        reference={(el: any) => ($iban = el)}
+        value={iban}
+        label={i18n('form.iban')}
+        placeholder={i18n('form.iban.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? ibanErrors : undefined}
+      />
+      <Input
+        onChange={setBIC}
+        onSubmit={() => $reference?.focus()}
+        reference={(el: any) => ($bic = el)}
+        value={bic}
+        required={false}
+        label={i18n('form.bic')}
+        placeholder={i18n('form.bic.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? bicErrors : undefined}
+      />
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceErrors : undefined}
+      />
+    </>
   )
 }

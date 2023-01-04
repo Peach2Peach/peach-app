@@ -31,17 +31,21 @@ const validate = (offer: SellOffer) => {
   return paymentDataValid
 }
 
-export const headerIcons = [
-  {
-    iconComponent: <EditIcon />,
-    onPress: () => null,
-  },
-  { iconComponent: <HelpIcon />, onPress: () => null },
-]
-
-const headerConfig = { title: i18n('settings.paymentMethods'), icons: headerIcons }
-
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+  const [editing, setEditing] = useState(false)
+
+  const headerConfig = {
+    title: i18n('settings.paymentMethods'),
+    icons: [
+      {
+        iconComponent: <EditIcon />,
+        onPress: () => {
+          setEditing(!editing)
+        },
+      },
+      { iconComponent: <HelpIcon />, onPress: () => null },
+    ],
+  }
   useContext(LanguageContext)
   useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
@@ -90,9 +94,12 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   return (
     <View style={tw`mb-16 px-6`}>
-      <Title title={i18n('sell.title')} />
-      <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
+      <PaymentDetails
+        style={tw`mt-4`}
+        paymentData={account.paymentData}
+        setMeansOfPayment={setMeansOfPayment}
+        editing={editing}
+      />
       <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
 
       <Premium {...{ offer, premium, setPremium }} />

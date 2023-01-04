@@ -1,5 +1,4 @@
 import { APPVERSION } from '../../constants'
-import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
@@ -15,6 +14,8 @@ export const defaultAccount: Account = {
     meansOfPayment: {},
     showBackupReminder: true,
     showDisputeDisclaimer: true,
+    customFeeRate: 1,
+    selectedFeeRate: 'halfHourFee',
   },
   paymentData: [],
   tradingLimit: {
@@ -52,7 +53,6 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
       tradingLimit: defaultAccount.tradingLimit,
     }
 
-  setDisplayCurrencyQuiet(account.settings.displayCurrency || 'EUR')
   setLocaleQuiet(account.settings.locale || 'en')
 
   const { wallet } = account.mnemonic

@@ -1,16 +1,11 @@
 import { info, error } from './log'
+import { parseError } from './system'
 
-/**
- * @description Method to generate timeout signal for fetch requests
- * @param timeout timeout in ms
- * @returns AbortSignal
- */
-export const getAbortSignal = (timeout: number) => {
+export const getAbortWithTimeout = (timeout?: number) => {
   const controller = new AbortController()
-  const signal = controller.signal
-  setTimeout(() => controller.abort(), timeout)
+  if (timeout) setTimeout(() => controller.abort(), timeout)
 
-  return signal
+  return controller
 }
 
 export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>
@@ -21,7 +16,10 @@ export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>
         info('fetch success', init?.method || 'GET', response.status, response.statusText, url)
       })
       .catch((err) => {
+        const errorMessage = parseError(err)
+        if (errorMessage === 'Aborted') err.statusText = 'Aborted'
+
         resolve(err)
-        error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, err)
+        error('fetch error', `${init?.method || 'GET'} - ${err.status} - ${err.statusText} - ${url}`, errorMessage)
       }),
   )

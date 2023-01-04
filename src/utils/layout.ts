@@ -72,11 +72,11 @@ export const nativeShadow = {
 
 export const innerShadow: ShadowType = {
   inset: true,
-  blur: 16,
+  blur: 8,
   color: '#000000',
-  opacity: 0.05,
-  offsetX: 0,
-  offsetY: 6,
+  opacity: 0.16,
+  offsetX: 2,
+  offsetY: 2,
 }
 
 export const whiteGradient = [

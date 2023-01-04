@@ -1,4 +1,5 @@
 import { EffectCallback } from 'react'
+import { getAbortWithTimeout } from '../utils/fetch'
 import { error, info } from '../utils/log'
 import { getOfferDetails } from '../utils/peachAPI'
 
@@ -11,14 +12,15 @@ type GetOfferEffectProps = {
 export default ({ offerId, interval, onSuccess, onError }: GetOfferEffectProps): EffectCallback =>
   () => {
     let intrvl: NodeJS.Timer
-
+    let abortCtrl: AbortController
     const checkingFunction = async () => {
       if (!offerId) return
+      abortCtrl = getAbortWithTimeout(interval)
 
       info('Get offer details for', offerId)
       const [result, err] = await getOfferDetails({
         offerId,
-        timeout: interval,
+        abortSignal: abortCtrl.signal,
       })
       if (result) {
         // info('Got offer details: ', JSON.stringify(result))
@@ -36,6 +38,7 @@ export default ({ offerId, interval, onSuccess, onError }: GetOfferEffectProps):
     }
 
     return () => {
+      abortCtrl?.abort()
       if (intrvl) clearInterval(intrvl)
     }
   }

@@ -23,7 +23,7 @@ const tabs: TabbedNavigationItem[] = [
 export default (): ReactElement => {
   useBackupHeader()
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const CurrentView = currentTab.view
+  const CurrentView = currentTab.view!
 
   return (
     <View style={tw`h-full`}>

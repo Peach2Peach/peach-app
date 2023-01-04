@@ -17,6 +17,7 @@ import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
+import { useMatchStore } from '../../components/matches/store'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -64,6 +65,7 @@ export default (): ReactElement => {
   const route = useRoute<'buyPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
+  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -131,7 +133,8 @@ export default (): ReactElement => {
             }
           })
           saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.replace('search', { offer: { ...offer, id: result.offerId } })
+          matchStoreSetOffer({ ...offer, id: result.offerId })
+          navigation.replace('search')
           return
         }
 

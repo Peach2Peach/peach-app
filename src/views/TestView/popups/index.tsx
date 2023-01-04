@@ -15,7 +15,7 @@ export default () => {
     updateOverlay({
       visible: false,
     })
-  const openOverlay = (level: OverlayLevel, options: Partial<OverlayState> = {}) =>
+  const openOverlay = (level: Level, options: Partial<OverlayState> = {}) =>
     updateOverlay({
       title: 'There once was a trader named Pete',
       content: (
@@ -64,7 +64,7 @@ export default () => {
         Error Overlay
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('SUCCESS')}>
-        Error Overlay
+        Success Overlay
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
         Info Overlay

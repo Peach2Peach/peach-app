@@ -39,6 +39,10 @@ jest.mock('react-native-share', () => ({
   open: jest.fn(),
 }))
 
+jest.mock('react-native-splash-screen', () => ({
+  hide: jest.fn(),
+}))
+
 jest.mock('react-native-randombytes', () => ({
   randomBytes: jest.fn((size, callback) => {
     let uint8 = new Uint8Array(size)
@@ -57,10 +61,24 @@ jest.mock('react-native-crypto-js', () => ({
   },
 }))
 
-jest.mock('@react-native-firebase/messaging', () => () => ({
-  onMessage: jest.fn(),
-  onNotificationOpenedApp: jest.fn(),
-}))
+export const requestPermissionMock = jest.fn()
+export const hasPermissionMock = jest.fn()
+jest.mock('@react-native-firebase/messaging', () => {
+  const messaging = () => ({
+    requestPermission: requestPermissionMock,
+    hasPermission: hasPermissionMock,
+    onMessage: jest.fn(),
+    onNotificationOpenedApp: jest.fn(),
+  })
+
+  messaging.AuthorizationStatus = {
+    NOT_DETERMINED: -1,
+    AUTHORIZED: 1,
+    DENIED: 0,
+    PROVISIONAL: 2,
+  }
+  return messaging
+})
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
   log: jest.fn(),
 }))
@@ -114,6 +132,7 @@ jest.mock('react-native-mmkv-storage', () => ({
             const remove = (key: string) => delete storage[instanceId][key]
 
             return {
+              clearStore: jest.fn().mockImplementation(() => (storage[instanceId] = {})),
               setItem: jest.fn().mockImplementation(storeAsync),
               getItem: jest.fn().mockImplementation(getAsync),
               removeItem: jest.fn().mockImplementation(remove),

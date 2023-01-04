@@ -4,6 +4,7 @@ declare type Settings = {
   locale: string
   amount?: number
   returnAddress?: string
+  payoutAddress?: string
   derivationPath?: string
   hdStartIndex?: number
   displayCurrency: Currency
@@ -19,6 +20,8 @@ declare type Settings = {
   lastBackupDate?: number
   showBackupReminder: boolean
   showDisputeDisclaimer: boolean
+  customFeeRate: number
+  selectedFeeRate: FeeRate
 }
 
 declare type PGPKeychain = {

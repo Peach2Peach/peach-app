@@ -34,7 +34,7 @@ export const rules = {
     return value && value.length > 7
   },
   referralCode (_: boolean, value: string) {
-    return !value || value.length === 0 || /^PR[0-9A-F]{4,}$/u.test(value)
+    return !value || value.length === 0 || /^[A-Z0-9]{4,16}$/u.test(value)
   },
   iban (_: boolean, value: string | null) {
     if (!value) return false
@@ -46,6 +46,10 @@ export const rules = {
   userName (_: boolean, value: string | null) {
     if (!value) return false
     return value !== '@' && /^@[a-z0-9]*/iu.test(value)
+  },
+  revtag (_: boolean, value: string | null) {
+    if (!value) return false
+    return value !== '@' && /^@[a-z0-9]{3,16}$/u.test(value)
   },
   url (_: boolean, value: string) {
     if (!value) return false
@@ -62,6 +66,9 @@ export const rules = {
   },
   bip39Word (_: boolean, value: string) {
     return wordlists.english.includes(value)
+  },
+  feeRate (_: boolean, value: string) {
+    return /^[0-9]*$/u.test(value) && Number(value) >= 1
   },
 }
 

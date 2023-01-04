@@ -1,6 +1,7 @@
 export { BigTitle } from './BigTitle'
 export { BulletPoint } from './BulletPoint'
 export { Headline } from './Headline'
+export { PriceFormat } from './PriceFormat'
 export { SatsFormat } from './SatsFormat'
 export { PeachText as Text } from './Text'
 export { TextLink } from './TextLink'

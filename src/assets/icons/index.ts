@@ -9,33 +9,42 @@ import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import bellSmall from './bellSmall.svg'
+import bitbox from './bitbox.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
+import checkCircle from './checkCircle.svg'
 import checkSquare from './checkSquare.svg'
 import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
+import chevronsRight from './chevronsRight.svg'
 import chevronsUp from './chevronsUp.svg'
 import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
 import clipboard from './clipboard.svg'
 import clock from './clock.svg'
+import cloud from './cloud.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
+import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
 import edit from './edit.svg'
+import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
 import fundEscrow from './fundEscrow.svg'
+import gift from './gift.svg'
 import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
+import inbox from './inbox.svg'
+import info from './info.svg'
 import link from './link.svg'
 import list from './list.svg'
 import lock from './lock.svg'
@@ -61,8 +70,8 @@ import settings from './settings.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
-import slash from './slash.svg'
 import skipForward from './skipForward.svg'
+import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
 import star from './star.svg'
@@ -71,6 +80,7 @@ import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
 import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
+import trash from './trash.svg'
 import trash2 from './trash2.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
@@ -95,34 +105,43 @@ const Icons = {
   arrowRightCircle,
   award,
   bellSmall,
+  bitbox,
   buy: download,
   camera,
   chatDoubleCheck,
   check,
   checkboxMark,
+  checkCircle,
   checkSquare,
   chevronDown,
   chevronLeft,
   chevronRight,
   chevronsDown,
+  chevronsRight,
   chevronsUp,
   chevronUp,
   circle,
   clipboard,
   clock,
+  cloud,
   copy,
   cpu,
+  cryptotag,
   creditCard,
   dollarSign,
   download,
   edit,
+  externalLink,
   eye,
   eyeOff,
   fire,
   fundEscrow,
+  gift,
   globe,
   heart,
   helpCircle,
+  inbox,
+  info,
   link,
   list,
   lock,
@@ -159,6 +178,7 @@ const Icons = {
   timer,
   toggleLeft,
   toggleRight,
+  trash,
   trash2,
   trendingUp,
   upload,

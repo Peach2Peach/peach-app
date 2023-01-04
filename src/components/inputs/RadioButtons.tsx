@@ -17,21 +17,24 @@ type RadioButtonItemProp = ComponentProps & {
   disabled?: boolean
 }
 const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp): ReactElement => (
-  <Shadow shadow={mildShadow}>
-    <View
-      style={[
-        tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-heavy rounded-xl border-2`,
-        selected ? tw`border-primary-main` : tw`border-transparent`,
-      ]}
-    >
-      <Text style={tw`subtitle-1`}>{display}</Text>
-      <Icon
-        id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
-        style={tw`h-5 w-5`}
-        color={(selected ? tw`text-primary-main` : tw`text-black-3`).color}
-      />
-    </View>
-  </Shadow>
+  <View
+    style={[
+      tw`w-full flex-row justify-between items-center px-4 py-2 bg-primary-background-dark rounded-xl border-2`,
+      disabled && tw`opacity-50`,
+      selected ? tw`border-primary-main` : tw`border-transparent`,
+    ]}
+  >
+    {typeof display === 'string' ? (
+      <Text style={tw`subtitle-1 flex-1`}>{display}</Text>
+    ) : (
+      <View style={tw`flex-1`}>{display}</View>
+    )}
+    <Icon
+      id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
+      style={tw`h-5 w-5`}
+      color={(selected ? tw`text-primary-main` : tw`text-black-3`).color}
+    />
+  </View>
 )
 
 type RadioButtonsProps<T> = ComponentProps & {
@@ -63,7 +66,9 @@ export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: Rad
       <View key={i} style={[tw`flex-row items-center`, i > 0 ? tw`mt-2` : {}]}>
         <Pressable style={tw`w-full`} onPress={() => (onChange && !item.disabled ? onChange(item.value) : null)}>
           {item.value === selectedValue ? (
-            <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
+            <Shadow shadow={mildShadow}>
+              <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
+            </Shadow>
           ) : (
             <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
           )}

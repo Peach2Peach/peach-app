@@ -1,34 +1,31 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
+import { COUNTRIES } from '../../../../constants'
 import { OverlayContext } from '../../../../contexts/overlay'
+import { useKeyboard } from '../../../../hooks'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
-import { removePaymentData } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { whiteGradient } from '../../../../utils/layout'
 import { paymentDataChanged } from '../../../../utils/paymentMethod'
+import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
-import Icon from '../../../Icon'
 import PeachScrollView from '../../../PeachScrollView'
-import { Text } from '../../../text'
 import { Bizum } from './Bizum'
+import { Cash } from './Cash'
+import { CashAmsterdam } from './Cash.amsterdam'
+import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
+import { CashLugano } from './Cash.lugano'
+import { GiftCardAmazon } from './giftCard.amazon'
 import { MBWay } from './MBWay'
 import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
+import { Satispay } from './Satispay'
 import { SEPA } from './SEPA'
 import { Swish } from './Swish'
-import { Satispay } from './Satispay'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
-import { GiftCardAmazon } from './giftCard.amazon'
-import { Cash } from './Cash'
-import { COUNTRIES } from '../../../../constants'
-import { CashAmsterdam } from './Cash.amsterdam'
-import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
-import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
-import { CashLugano } from './Cash.lugano'
-import { useKeyboard, useNavigation } from '../../../../hooks'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -72,11 +69,8 @@ export const PaymentMethodForm = ({
   data,
   currencies = [],
   onSubmit,
-  onDelete,
-  back,
   style,
 }: PaymentMethodFormProps): ReactElement => {
-  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const keyboardOpen = useKeyboard()
@@ -90,24 +84,31 @@ export const PaymentMethodForm = ({
 
     if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
       updateOverlay({
-        content: <PaymentMethodEdit paymentData={newPaymentData} onConfirm={onSubmit} />,
-        visible: false,
+        title: i18n('help.paymentMethodEdit.title'),
+        content: <PaymentMethodEdit />,
+        visible: true,
+        level: 'WARN',
+        action2: {
+          callback: () => {
+            onSubmit(newPaymentData)
+            updateOverlay({ visible: false })
+          },
+          icon: 'info',
+          label: i18n('help.paymentMethodEdit.editMethod'),
+        },
       })
     } else {
       onSubmit(newPaymentData)
     }
   }
 
-  const remove = () => {
-    if (data.id) removePaymentData(data.id)
-    if ($formRef && onDelete) onDelete()
-  }
-
   return (
-    <View style={[tw`flex`, style]}>
+    <View style={[tw`h-full`, style]}>
       <PeachScrollView
-        style={tw`h-full flex-shrink`}
-        contentContainerStyle={[tw`flex`, !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {}]}
+        contentContainerStyle={[
+          tw`flex-1 items-center justify-center`,
+          !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {},
+        ]}
       >
         <Form
           forwardRef={(r: FormRef) => ($formRef = r)}
@@ -115,33 +116,17 @@ export const PaymentMethodForm = ({
           {...{ paymentMethod, data, currencies, setStepValid }}
         />
       </PeachScrollView>
-      <Fade show={!keyboardOpen} style={tw`w-full flex items-center mb-16`}>
+      <Fade show={!keyboardOpen} style={tw` w-full items-center mb-10`}>
         {!specialTemplates[paymentMethod] && (
           <View style={tw`w-full h-10 -mt-10`}>
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
         )}
-        <View style={tw`flex-row pr-10 w-full items-stretch mb-2`}>
-          <Pressable testID="navigation-back" onPress={back || navigation.goBack}>
-            <Icon
-              id="arrowLeft"
-              style={tw`w-10 h-10`}
-              color={specialTemplates[paymentMethod]?.button?.bgColor?.backgroundColor || tw`text-peach-1`.color}
-            />
-          </Pressable>
-          <View style={tw`flex-grow items-center`}>
-            <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
-              {i18n(!data.id ? 'next' : 'form.paymentMethod.update')}
-            </PrimaryButton>
-          </View>
+        <View style={tw`flex-grow items-center `}>
+          <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
+            {i18n(!data.id ? 'next' : 'confirm')}
+          </PrimaryButton>
         </View>
-        {data.id ? (
-          <Pressable onPress={remove} style={tw`mt-6`}>
-            <Text style={tw`font-baloo text-sm text-center underline text-peach-1`}>
-              {i18n('form.paymentMethod.remove')}
-            </Text>
-          </Pressable>
-        ) : null}
       </Fade>
     </View>
   )

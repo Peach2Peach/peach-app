@@ -15,8 +15,8 @@ const mockDimensions = ({ width, height }: Dimension) => {
 describe('tailwind', () => {
   it('returns correct styles', () => {
     deepStrictEqual(tw`mt-4`, { marginTop: 16 })
-    deepStrictEqual(tw`text-xl text-warning-dark`, {
-      color: '#917201',
+    deepStrictEqual(tw`text-xl text-warning-dark-1`, {
+      color: '#F19E12',
       fontSize: 20,
     })
   })
@@ -44,8 +44,8 @@ describe('tailwind', () => {
       width: 1200,
       height: 840,
     })
-    deepStrictEqual(tw.lg`text-xl text-warning-dark`, {
-      color: '#917201',
+    deepStrictEqual(tw.lg`text-xl text-warning-dark-1`, {
+      color: '#F19E12',
       fontSize: 20,
     })
     deepStrictEqual([tw`mt-2`, tw.md`mt-4`], [{ marginTop: 8 }, { marginTop: 16 }])

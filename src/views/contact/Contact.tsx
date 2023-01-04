@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useMemo } from 'react'
-import { Linking, View } from 'react-native'
+import { Linking, View, Text } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
@@ -32,14 +32,18 @@ export default (): ReactElement => {
   const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
-    <PeachScrollView contentContainerStyle={tw`py-6 flex-grow`}>
-      <View style={tw`h-full items-center p-6 justify-center`}>
-        <LinedText text={i18n('report.mailUs')} />
+    <View style={tw`p-6 h-full items-center`}>
+      <PeachScrollView contentContainerStyle={tw`py-6 flex-1`}>
+        <LinedText style={tw`mb-3 mx-5`}>
+          <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
+        </LinedText>
         {contactReasons.map((name) => (
           <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
         ))}
-        <View style={tw`mt-10 w-full items-center`}>
-          <LinedText text={i18n('report.communityHelp')} />
+        <View style={tw`mt-10`}>
+          <LinedText style={tw`my-3 mx-5`}>
+            <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
+          </LinedText>
           <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
             {i18n('telegram')}
           </OptionButton>
@@ -47,8 +51,8 @@ export default (): ReactElement => {
             {i18n('telegram')}
           </OptionButton>
         </View>
-        <GoBackButton style={tw`mt-12`} />
-      </View>
-    </PeachScrollView>
+      </PeachScrollView>
+      <GoBackButton style={tw`absolute bottom-10`} />
+    </View>
   )
 }

@@ -3,7 +3,6 @@ declare type RootStackParamList = {
   newUser: {
     referralCode?: string
   }
-  login: undefined
   restoreBackup: undefined
   buy: undefined
   sell: undefined
@@ -29,10 +28,7 @@ declare type RootStackParamList = {
   setReturnAddress: {
     offer: SellOffer
   }
-  search: {
-    offer: SellOffer | BuyOffer
-    hasMatches?: boolean
-  }
+  search: undefined
   contract: {
     contractId: Contract['id']
     contract?: Contract
@@ -68,17 +64,23 @@ declare type RootStackParamList = {
   backups: undefined
   seedWords: undefined
   refundAddress: undefined
+  payoutAddress: undefined
   paymentMethods: undefined
   deleteAccount: undefined
+  peachFees: undefined
   networkFees: undefined
+  aboutPeach: undefined
+  bitcoinProducts: undefined
   socials: undefined
-  testView: undefined
-  testViewButtons: undefined
-  testViewPopups: undefined
   reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
   myProfile: undefined
+  testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
+  testViewMessages: undefined
+  testViewComponents: undefined
 }
 
 type KeysWithUndefined<T> = {
