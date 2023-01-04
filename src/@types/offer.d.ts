@@ -49,6 +49,8 @@ declare type BuyOffer = Omit<Offer, 'id'> & {
   id?: string
   type: 'bid'
   releaseAddress?: string
+  message: string
+  messageSignature?: string
   matched: Offer['id'][]
   seenMatches: Offer['id'][]
 }
