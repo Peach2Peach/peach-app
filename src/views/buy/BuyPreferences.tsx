@@ -134,7 +134,7 @@ export default (): ReactElement => {
           })
           saveAndUpdate({ ...offer, id: result.offerId })
           matchStoreSetOffer({ ...offer, id: result.offerId })
-          navigation.replace('search')
+          navigation.replace('signMessage', { offerId: result.offerId })
           return
         }
 
