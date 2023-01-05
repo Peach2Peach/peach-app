@@ -66,7 +66,7 @@ export default (): ReactElement => {
           if (!data?.id) return
           removePaymentData(data.id)
           updateOverlay({ visible: false })
-          goToOrigin(route.params.origin)
+          navigation.goBack()
         },
         icon: 'info',
         label: i18n('delete'),
