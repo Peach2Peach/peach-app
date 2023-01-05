@@ -8,7 +8,7 @@ import { thousands } from '../../../utils/string'
 
 const Progress = ({ text, percentage, style }: { text?: string; percentage: number } & ComponentProps) => (
   <View style={style}>
-    <View style={tw`bg-primary-mild-1 h-2 rounded-full`}>
+    <View style={tw`bg-primary-background-dark h-2 rounded-full`}>
       {percentage > 0 && (
         <View
           style={[
