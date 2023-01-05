@@ -35,7 +35,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [editing, setEditing] = useState(false)
 
   const headerConfig = {
-    title: i18n('settings.paymentMethods'),
+    title: i18n('form.paymentMethod'),
     icons: [
       {
         iconComponent: <EditIcon />,
@@ -51,23 +51,6 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
-  const [premium, setPremium] = useState(offer.premium)
-
-  const saveAndUpdate = (offr: SellOffer) => {
-    updateOffer({
-      ...offr,
-      meansOfPayment,
-    })
-    updateSettings(
-      {
-        meansOfPayment: offr.meansOfPayment,
-        premium: offr.premium,
-        kyc: offr.kyc,
-        kycType: offr.kycType,
-      },
-      true,
-    )
-  }
 
   useEffect(() => {
     const paymentData = getSelectedPaymentDataIds()
@@ -80,29 +63,25 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         }
         return obj
       }, {} as Offer['paymentData'])
-
-    saveAndUpdate({
+    updateOffer({
       ...offer,
       meansOfPayment,
       paymentData,
-      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-      premium,
     })
-  }, [meansOfPayment, premium])
+  }, [meansOfPayment])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return (
-    <View style={tw`mb-16 px-6`}>
+    <View>
       <PaymentDetails
         style={tw`mt-4`}
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
       />
-      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} style={tw`mt-4`} />
-
-      <Premium {...{ offer, premium, setPremium }} />
+      <View style={tw`bg-black-5 h-0.3 m-5`} />
+      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} />
     </View>
   )
 }

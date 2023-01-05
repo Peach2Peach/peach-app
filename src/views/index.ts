@@ -57,12 +57,12 @@ const home: ViewType[] = [{ name: 'home', component: Buy, showHeader: true, show
 
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
+  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: true },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
+  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: true },
   { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
   { name: 'setReturnAddress', component: SetReturnAddress, showHeader: true, showFooter: true },
 ]

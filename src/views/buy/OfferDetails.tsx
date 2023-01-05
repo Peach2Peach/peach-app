@@ -34,7 +34,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     },
     { iconComponent: <HelpIcon />, onPress: () => null },
   ]
-  const headerConfig = { title: i18n('settings.paymentMethods'), icons: headerIcons } as HeaderConfig
+  const headerConfig = { title: i18n('form.paymentMethod'), icons: headerIcons } as HeaderConfig
 
   useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(

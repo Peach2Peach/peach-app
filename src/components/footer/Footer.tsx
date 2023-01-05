@@ -29,6 +29,10 @@ type FooterItemProps = ComponentProps & {
 const isSettings
   = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
 
+const isBuy = /buy|buyPreferences|home/u
+
+const isSell = /sell|sellPreferences/u
+
 /**
  * @description Component to display the Footer Item
  * @example
@@ -129,13 +133,8 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
       <View style={tw`flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
           <View style={tw`flex-row items-center justify-between bg-primary-background py-4`}>
-            <FooterItem
-              id="buy"
-              style={tw`w-1/4`}
-              active={active === 'buy' || active === 'home'}
-              onPress={navigate.buy}
-            />
-            <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
+            <FooterItem id="buy" style={tw`w-1/4`} active={isBuy.test(active as string)} onPress={navigate.buy} />
+            <FooterItem id="sell" style={tw`w-1/4`} active={isSell.test(active as string)} onPress={navigate.sell} />
             <FooterItem
               id="yourTrades"
               style={tw`w-1/4`}
