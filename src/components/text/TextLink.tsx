@@ -1,12 +1,10 @@
-
 import React, { ReactElement } from 'react'
 import { GestureResponderEvent } from 'react-native'
 import { Text } from '.'
 import tw from '../../styles/tailwind'
 
-
 type TextLinkProps = ComponentProps & {
-  onPress: (e: GestureResponderEvent) => void,
+  onPress: (e: GestureResponderEvent) => void
 }
 
 /**
@@ -20,12 +18,10 @@ type TextLinkProps = ComponentProps & {
  *   {i18n('form.save')}
  * </TextLink>
  */
-export const TextLink = ({ style, children, onPress }: TextLinkProps): ReactElement =>
-  <Text onPress={onPress} style={[
-    tw`text-peach-1 underline`,
-    style
-  ]}>
+export const TextLink = ({ style, children, onPress }: TextLinkProps): ReactElement => (
+  <Text onPress={onPress} style={[tw`text-peach-1 underline`, style]}>
     {children}
   </Text>
+)
 
 export default TextLink
