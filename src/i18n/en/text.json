@@ -295,7 +295,7 @@
   "paymentCategory.bankTransfer": "bank transfer",
   "paymentCategory.onlineWallet": "online wallets",
   "paymentCategory.giftCard": "gift cards",
-  "paymentCategory.localOption": "local options",
+  "paymentCategory.localOption": "national options",
   "paymentCategory.cryptoCurrency": "crypto",
   "paymentCategory.cash": "Cash",
   "paymentMethod.empty": "none yet!",

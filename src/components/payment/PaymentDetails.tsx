@@ -16,7 +16,7 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
   onlineWallet: 'cloud',
   giftCard: 'creditCard',
-  localOption: '',
+  localOption: 'flag',
   cryptoCurrency: '',
   cash: '',
 }
