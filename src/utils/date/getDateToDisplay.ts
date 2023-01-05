@@ -1,6 +1,5 @@
-import i18n from '../../../../../utils/i18n'
-
-export const getTimeDiffInDays = (date: Date) => Math.floor((Date.now() - new Date(date).getTime()) / (86400 * 1000))
+import i18n from '../i18n'
+import { getTimeDiffInDays } from './getTimeDiffInDays'
 
 export const getDateToDisplay = (date: Date) => {
   const newDate = new Date(date)

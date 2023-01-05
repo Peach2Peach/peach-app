@@ -13,7 +13,8 @@ import { useBitcoinStore } from '../../store/bitcoinStore'
 import { account, getTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getUser } from '../../utils/peachAPI'
-import { splitAt, toShortDateFormat } from '../../utils/string'
+import { splitAt } from '../../utils/string'
+import { toShortDateFormat } from '../../utils/date'
 
 type UserTradeDetailsProps = {
   user: User
