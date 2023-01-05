@@ -10,8 +10,8 @@ export const getDateToDisplay = (date: Date) => {
     = numberOfDays > 1
       ? i18n('profile.daysAgo', String(getTimeDiffInDays(newDate)))
       : numberOfDays === 1
-        ? i18n('profile.yesterday')
-        : i18n('profile.today')
+        ? i18n('yesterday')
+        : i18n('today')
 
   return `${dateString} (${daysAgo})`
 }

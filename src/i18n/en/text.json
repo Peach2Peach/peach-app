@@ -666,8 +666,6 @@
   "profile.myAccount.title": "My account",
   "profile.user.title": "Public profile",
   "profile.accountCreated": "Account created",
-  "profile.today": "today",
-  "profile.yesterday": "yesterday",
   "profile.daysAgo": "$0 days ago",
   "profile.publicKey": "Account pubkey",
   "profile.tradingLimits": "Trading limits",
