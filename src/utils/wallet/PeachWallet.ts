@@ -42,6 +42,7 @@ export class PeachWallet {
 
     let mnemonic = seedphrase
     if (!mnemonic) {
+      info('PeachWallet - loadWallet - generateMnemonic')
       const generateMnemonicResult = await BdkRn.generateMnemonic({
         length: 12,
         network: this.network,
@@ -52,14 +53,19 @@ export class PeachWallet {
       mnemonic = generateMnemonicResult.value
     }
 
+    info('PeachWallet - loadWallet - createWallet')
     const result = await BdkRn.createWallet({
       mnemonic,
       password: '',
       network: this.network,
       // TODO get user config
       blockChainConfigUrl: BLOCKEXPRLORER,
+      retry: '5',
+      timeOut: '5',
       blockChainName: 'ESPLORA',
     })
+    info('PeachWallet - loadWallet - createWallet', JSON.stringify(result))
+
     if (result.isErr()) {
       throw result.error
     }
