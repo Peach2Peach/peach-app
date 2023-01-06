@@ -1,33 +1,27 @@
-import { isSellOffer, isBuyOffer } from '../../../utils/offer'
-import { isFunded } from '../../../utils/offer/status'
+import { getContract } from '../../../utils/contract'
+import { getOffer } from '../../../utils/offer'
 import { shouldGoToOffer } from './shouldGoToOffer'
 
-export const getNavigationDestination = (
-  offer: SellOffer | BuyOffer,
-  contract?: Contract,
-): [string, object | undefined] => {
+export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
+  if (!contract.disputeWinner && contract.tradeStatus === 'tradeCompleted') {
+    const fullContract = getContract(contract.id)
+    return ['tradeComplete', { contract: fullContract }]
+  }
+  return ['contract', { contractId: contract.id }]
+}
+
+export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, object | undefined] => {
   if (shouldGoToOffer(offer.tradeStatus)) {
     return ['offer', { offer }]
   }
 
-  if (contract) {
-    if (!contract.disputeWinner && offer.tradeStatus === 'tradeCompleted') {
-      return ['tradeComplete', { contract }]
-    }
-    return ['contract', { contractId: contract.id }]
+  if (offer.tradeStatus === 'returnAddressRequired') {
+    return ['setReturnAddress', { offer: getOffer(offer.id) }]
   }
-
-  if (isSellOffer(offer)) {
-    if (offer.returnAddressRequired) {
-      return ['setReturnAddress', { offer }]
-    }
-    if (isFunded(offer)) {
-      return ['search', undefined]
-    }
-    return ['fundEscrow', { offer }]
+  if (offer.tradeStatus === 'fundEscrow') {
+    return ['fundEscrow', { offer: getOffer(offer.id) }]
   }
-
-  if (isBuyOffer(offer) && offer.online) {
+  if (/searchingForPeer|hasMatchesAvailable/u.test(offer.tradeStatus)) {
     return ['search', undefined]
   }
 
