@@ -13,7 +13,7 @@ type LevelColorMap = {
 const levelColorMap: LevelColorMap = {
   bg: {
     APP: tw`bg-primary-main`,
-    SUCCESS: tw`bg-success-background`,
+    SUCCESS: tw`bg-success-main`,
     WARN: tw`bg-warning-main`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-light`,
@@ -84,7 +84,7 @@ export const SummaryItem = ({
       </View>
     </View>
     {!!action?.label && (
-      <View style={[tw`flex flex-row items-center justify-center py-1 rounded-b-lg`, levelColorMap.bg[level]]}>
+      <View style={[tw`flex flex-row items-center justify-center py-2 rounded-b-lg`, levelColorMap.bg[level]]}>
         <Icon id={action.icon} style={tw`w-4 mr-1 -mt-0.5`} color={levelColorMap.text[level].color} />
         <Text style={[tw`font-semibold`, levelColorMap.text[level]]}>{action.label}</Text>
       </View>
