@@ -24,5 +24,5 @@ export const getOffers = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<(SellOffer | BuyOffer)[]>(response, 'getOffers')
+  return await parseResponse<GetOffersResponse>(response, 'getOffers')
 }

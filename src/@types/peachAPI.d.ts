@@ -145,8 +145,9 @@ declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 declare type TradeStatus =
   | 'fundEscrow'
-  | 'searchingForPeer'
   | 'escrowWaitingForConfirmation'
+  | 'returnAddressRequired'
+  | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
   | 'refundTxSignatureRequired'
@@ -191,7 +192,7 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
-  tradeStatus: TradeStatus
+  tradeStatus?: TradeStatus
   lastModified: Date
 }
 
@@ -255,27 +256,34 @@ declare type MatchResponse = {
   refundTx?: string
 }
 
-declare type GetOffersResponse = {
+declare type OfferSummary = {
   id: string
+  type: 'bid' | 'ask'
   contractId?: string
   lastModified: Date
   amount: number
   matches: string[]
   prices: Pricebook
   tradeStatus: TradeStatus
-}[]
+}
+declare type GetOffersResponse = OfferSummary[]
 
 declare type GetContractResponse = Contract
 
-declare type GetContractsResponse = {
+declare type ContractSummary = {
   id: string
+  offerId: string
+  type: 'bid' | 'ask'
   lastModified: Date
   tradeStatus: TradeStatus
+  amount: number
   price: number
   currency: Currency
   disputeWinner: Contract['disputeWinner']
   messages: Contract['messages']
-}[]
+}
+declare type GetContractsResponse = ContractSummary[]
+
 declare type ConfirmPaymentResponse = {
   success: true
   txId?: string
