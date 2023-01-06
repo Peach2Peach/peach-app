@@ -1,7 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
-import { info } from '../../../log'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
@@ -14,7 +13,7 @@ type GetOfferProps = RequestProps
 export const getOffers = async ({
   timeout,
   abortSignal,
-}: GetOfferProps): Promise<[(SellOffer | BuyOffer)[] | null, APIError | null]> => {
+}: GetOfferProps): Promise<[GetOffersResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offers`, {
     headers: {
       Authorization: await fetchAccessToken(),

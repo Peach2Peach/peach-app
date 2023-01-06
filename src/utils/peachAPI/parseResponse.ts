@@ -1,4 +1,4 @@
-import { error, info } from '../log'
+import { error } from '../log'
 import { parseError } from '../system'
 import { getResponseError } from './getResponseError'
 
