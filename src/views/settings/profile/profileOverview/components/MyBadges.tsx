@@ -1,15 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon } from '../../../../../components'
-import { OverlayContext } from '../../../../../contexts/overlay'
-import { useNavigation } from '../../../../../hooks'
 import { useShowHelp } from '../../../../../hooks/useShowHelp'
 import { useUserQuery } from '../../../../../hooks/useUserQuery'
 import tw from '../../../../../styles/tailwind'
 import { account } from '../../../../../utils/account'
-import i18n from '../../../../../utils/i18n'
 import { badges } from './badges'
-import { MyBadgesPopup } from '../../../../../overlays/info/MyBadges'
 
 export const MyBadges = () => {
   const { user, isLoading } = useUserQuery(account.publicKey)
