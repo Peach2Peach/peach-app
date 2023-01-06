@@ -13,7 +13,7 @@ import { account } from '../../utils/account'
 import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { getOffer, getRequiredActionCount } from '../../utils/offer'
+import { getOffer, getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
@@ -26,6 +26,7 @@ import { parseContract } from './helpers/parseContract'
 import { getChatNotifications } from '../../utils/chat'
 import AppContext from '../../contexts/app'
 import { useNavigation, useRoute } from '../../hooks'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -144,6 +145,28 @@ export default (): ReactElement => {
           }),
       }),
       [contractId],
+    ),
+  )
+
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: contract ? getOfferIdfromContract(contract) : undefined,
+        onSuccess: async (result) => {
+          saveOffer(result)
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'GENERAL_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          }),
+      }),
+      [contract],
     ),
   )
 
