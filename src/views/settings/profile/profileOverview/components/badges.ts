@@ -1,5 +1,5 @@
 export const badges = [
   ['star', 'fastTrader'],
   ['zap', 'superTrader'],
-  ['award', 'earlyAdopter'],
+  ['award', 'ambassador'],
 ] as const
