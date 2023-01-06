@@ -3,7 +3,7 @@ import { getOffer } from '../../../utils/offer'
 import { shouldGoToOfferSummary } from './'
 
 export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
-  if (!contract.disputeWinner && contract.tradeStatus === 'tradeCompleted') {
+  if (contract.tradeStatus === 'tradeCompleted') {
     const fullContract = getContract(contract.id)
     return ['tradeComplete', { contract: fullContract }]
   }

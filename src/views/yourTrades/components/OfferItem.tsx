@@ -47,7 +47,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
     <SummaryItem
       title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
-      level={getOfferLevel(offer.type, offer.tradeStatus)}
+      level={getOfferLevel(offer)}
       date={new Date(offer.lastModified)}
       action={{
         callback: navigate,

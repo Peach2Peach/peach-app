@@ -1,3 +1,10 @@
-const prioritaryStatus = ['dispute', 'confirmCancelation', 'refundTxSignatureRequired', 'tradeCanceled', 'offerCanceled']
+const prioritaryStatus = [
+  'dispute',
+  'confirmCancelation',
+  'refundTxSignatureRequired',
+  'tradeCompleted',
+  'tradeCanceled',
+  'offerCanceled',
+]
 
 export const isPrioritary = (tradeStatus: TradeStatus) => prioritaryStatus.includes(tradeStatus)
