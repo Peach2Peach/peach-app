@@ -9,6 +9,7 @@ import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import bellSmall from './bellSmall.svg'
+import bitcoin from './bitcoin.svg'
 import bitbox from './bitbox.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
@@ -87,6 +88,7 @@ import upload from './upload.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
 import userX from './userX.svg'
+import wallet from './wallet.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
@@ -105,6 +107,7 @@ const Icons = {
   arrowRightCircle,
   award,
   bellSmall,
+  bitcoin,
   bitbox,
   buy: download,
   camera,
@@ -185,6 +188,7 @@ const Icons = {
   user,
   userCheck,
   userX,
+  wallet,
   x,
   xCircle,
   xSquare,

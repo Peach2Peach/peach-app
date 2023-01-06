@@ -25,6 +25,9 @@ import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
+import { peachWallet } from '../../utils/wallet/setWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 export type SellViewProps = {
   offer: SellOffer
@@ -78,6 +81,7 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
   const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -106,6 +110,16 @@ export default (): ReactElement => {
   )
 
   useEffect(() => {
+    ;(async () => {
+      if (!peachWalletActive || offer.returnAddress) return
+      setOffer({
+        ...offer,
+        returnAddress: (await peachWallet.getReceivingAddress()) || '',
+      })
+    })()
+  }, [offer, peachWalletActive])
+
+  useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
       if (page === 0) {
         return false
@@ -116,7 +130,7 @@ export default (): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const back = () => {
     if (page === 0) {

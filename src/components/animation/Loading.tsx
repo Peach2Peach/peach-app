@@ -13,7 +13,7 @@ type Props = ComponentProps & {
  * @example
  * <Loading
  *   style={tw`mt-4`}
- *   color={tw`text-white-1`.color}
+ *   color={tw`text-primary-background-light`.color}
  * />
  */
 

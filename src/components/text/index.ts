@@ -1,6 +1,8 @@
+export { BigSatsFormat } from './BigSatsFormat'
 export { BigTitle } from './BigTitle'
 export { BulletPoint } from './BulletPoint'
 export { Headline } from './Headline'
+export { MediumSatsFormat } from './MediumSatsFormat'
 export { PriceFormat } from './PriceFormat'
 export { SatsFormat } from './SatsFormat'
 export { PeachText as Text } from './Text'
