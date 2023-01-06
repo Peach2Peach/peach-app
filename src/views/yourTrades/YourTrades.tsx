@@ -1,15 +1,13 @@
-import React, { ReactElement, useMemo, useState } from 'react'
-import { FlatList, View, Text, SectionList } from 'react-native'
-import tw from '../../styles/tailwind'
-import { useHeaderSetup } from '../../hooks'
-import i18n from '../../utils/i18n'
-import { getOffers } from '../../utils/offer'
-import { OfferItem } from './components/OfferItem'
+import React, { ReactElement, useState } from 'react'
+import { SectionList, Text, View } from 'react-native'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
-import { isOpenAction, isOpenOffer, isPastOffer, isPrioritary, isWaiting } from './utils/overviewUtils'
 import LinedText from '../../components/ui/LinedText'
-import { PeachScrollView } from '../../components'
-import { info } from '../../utils/log'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { ContractItem } from './components/ContractItem'
+import { OfferItem } from './components/OfferItem'
+import { useYourTradesSetup } from './useYourTradesSetup'
+import { isContractSummary, isOpenAction, isOpenOffer, isPastOffer, isPrioritary, isWaiting } from './utils'
 
 // TODO : Show offer was messing with the logic and I don't know why
 /* const showOffer = (offer: SellOffer | BuyOffer) => {
@@ -22,40 +20,37 @@ import { info } from '../../utils/log'
   return true
 }*/
 
+const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'buy',
+    display: i18n('yourTrades.buy'),
+  },
+  {
+    id: 'sell',
+    display: i18n('yourTrades.sell'),
+  },
+  {
+    id: 'history',
+    display: i18n('yourTrades.history'),
+  },
+]
+
+const getCategories = (trades: (OfferSummary | ContractSummary)[]) => [
+  { title: 'priority', data: trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus)) },
+  { title: 'openActions', data: trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)) },
+  { title: 'waiting', data: trades.filter(({ type, tradeStatus }) => isWaiting(type, tradeStatus)) },
+]
+
 export default (): ReactElement => {
-  // Set header
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('yourTrades.title'),
-        hideGoBackButton: true,
-      }),
-      [],
-    ),
-  )
-  const offers = getOffers()
+  const { trades } = useYourTradesSetup()
 
-  const allOpenOffers = offers.filter((offer) => isOpenOffer(offer))
+  const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
   const openOffers = {
-    buy: allOpenOffers.filter((o) => o.type === 'bid'),
-    sell: allOpenOffers.filter((o) => o.type === 'ask'),
+    buy: allOpenOffers.filter(({ type }) => type === 'bid'),
+    sell: allOpenOffers.filter(({ type }) => type === 'ask'),
   }
-  const pastOffers = offers.filter((offer) => isPastOffer(offer))
+  const pastOffers = trades.filter(({ tradeStatus }) => isPastOffer(tradeStatus))
 
-  const tabs: TabbedNavigationItem[] = [
-    {
-      id: 'buy',
-      display: i18n('yourTrades.buy'),
-    },
-    {
-      id: 'sell',
-      display: i18n('yourTrades.sell'),
-    },
-    {
-      id: 'history',
-      display: i18n('yourTrades.history'),
-    },
-  ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const getCurrentData = () => {
@@ -69,12 +64,6 @@ export default (): ReactElement => {
     }
   }
 
-  const getCategories = (offers: (BuyOffer | SellOffer)[]) => [
-    { title: 'priority', data: offers.filter((offer) => isPrioritary(offer)) },
-    { title: 'openActions', data: offers.filter((offer) => isOpenAction(offer)) },
-    { title: 'waiting', data: offers.filter((offer) => isWaiting(offer)) },
-  ]
-
   return (
     <>
       <TabbedNavigation items={tabs} select={setCurrentTab} selected={currentTab} />
@@ -87,7 +76,11 @@ export default (): ReactElement => {
             sections={getCategories(getCurrentData())}
             renderItem={({ item }) => (
               <View style={tw`mb-3`}>
-                <OfferItem key={item.id} extended={true} offer={item} />
+                {isContractSummary(item) ? (
+                  <ContractItem key={item.id} contract={item} />
+                ) : (
+                  <OfferItem key={item.id} offer={item} />
+                )}
               </View>
             )}
             renderSectionHeader={({ section: { title, data } }) =>

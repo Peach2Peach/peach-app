@@ -41,7 +41,6 @@ export default (): ReactElement => {
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
 
-  const offerStatus = offer.tradeStatus
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
     ? isTradeComplete(contract)
