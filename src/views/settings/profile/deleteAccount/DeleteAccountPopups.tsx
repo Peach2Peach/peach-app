@@ -24,7 +24,7 @@ export const useDeleteAccountPopups = () => {
           !isSuccess && callback
             ? {
               label: i18n('settings.deleteAccount'),
-              icon: 'trash2',
+              icon: 'trash',
               callback,
             }
             : undefined,
