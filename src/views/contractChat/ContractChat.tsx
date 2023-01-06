@@ -12,7 +12,7 @@ import getContractEffect from '../../effects/getContractEffect'
 import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, saveContract } from '../../utils/contract'
+import { getContract, getOfferIdfromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
@@ -23,6 +23,8 @@ import { parseContract } from '../contract/helpers/parseContract'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { saveOffer } from '../../utils/offer'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -239,6 +241,28 @@ export default (): ReactElement => {
           }),
       }),
       [contractId],
+    ),
+  )
+
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: contract ? getOfferIdfromContract(contract) : undefined,
+        onSuccess: async (result) => {
+          saveOffer(result)
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'GENERAL_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          }),
+      }),
+      [contract],
     ),
   )
 

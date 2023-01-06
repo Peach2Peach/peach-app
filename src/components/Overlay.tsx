@@ -15,7 +15,7 @@ const levelColorMap: LevelColorMap = {
   bg1: {
     DEFAULT: tw`bg-black-3`,
     APP: tw`bg-primary-main`,
-    SUCCESS: tw`bg-success-light`,
+    SUCCESS: tw`bg-success-main`,
     WARN: tw`bg-warning-main`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-light`,
@@ -65,7 +65,7 @@ export const Overlay = ({
         <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`rounded-2xl shadow`]}>
           <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
             {!!title && <Text style={tw`h6 text-black-1 mb-1`}>{title.toLocaleLowerCase()}</Text>}
-            <Content />
+            {content}
           </View>
           <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
             {!!action2 && (
