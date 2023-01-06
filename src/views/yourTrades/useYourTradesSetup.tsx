@@ -29,7 +29,7 @@ export const useYourTradesSetup = () => {
 
   useFocusEffect(
     useCallback(() => {
-      ;(async () => {
+      const checkingFunction = async () => {
         const [getOffersResult, getOffersErr] = await getOffers({})
         const [getContractsResult, getContractsErr] = await getContracts({})
         if (getOffersResult && getContractsResult) {
@@ -39,7 +39,13 @@ export const useYourTradesSetup = () => {
         if (getOffersErr || getContractsErr) {
           showErrorBanner((getOffersErr || getContractsErr)!.error)
         }
-      })()
+      }
+      checkingFunction()
+      const interval = setInterval(checkingFunction, 15 * 1000)
+
+      return () => {
+        clearInterval(interval)
+      }
     }, [setContracts, setOffers, showErrorBanner]),
   )
 
