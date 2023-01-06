@@ -3,18 +3,8 @@ import { diff, intersect, sort, unique } from '../../../src/utils/array'
 
 describe('sort', () => {
   it('filters duplicated items in an array', () => {
-    const arrayA = [
-      { 'id': 'd' },
-      { 'id': 'b' },
-      { 'id': 'c' },
-      { 'id': 'a' }
-    ]
-    const expectedA = [
-      { 'id': 'a' },
-      { 'id': 'b' },
-      { 'id': 'c' },
-      { 'id': 'd' }
-    ]
+    const arrayA = [{ id: 'd' }, { id: 'b' }, { id: 'c' }, { id: 'a' }]
+    const expectedA = [{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }]
     const arrayB = [5, 3, 1, 2, 4]
     const expectedB = [1, 2, 3, 4, 5]
     const arrayC = ['d', 'b', 'c', 'a']
@@ -27,17 +17,8 @@ describe('sort', () => {
 
 describe('unique', () => {
   it('filters duplicated items in an array', () => {
-    const arrayA = [
-      { 'id': 'a' },
-      { 'id': 'b' },
-      { 'id': 'a' },
-      { 'id': 'c' }
-    ]
-    const expectedA = [
-      { 'id': 'a' },
-      { 'id': 'b' },
-      { 'id': 'c' }
-    ]
+    const arrayA = [{ id: 'a' }, { id: 'b' }, { id: 'a' }, { id: 'c' }]
+    const expectedA = [{ id: 'a' }, { id: 'b' }, { id: 'c' }]
     const arrayB = [1, 3, 2, 3, 4]
     const expectedB = [1, 3, 2, 4]
     const arrayC = ['a', 'c', 'c', 'b', 'd', 'a']

@@ -52,7 +52,8 @@ module.exports = {
           dark: '#B01807',
           main: '#DF321F',
           light: '#FE5A48',
-          background: '#FFD2CC',
+          mild: '#FFD1CA',
+          background: '#FFE6E1',
         },
         info: {
           dark: '#005E89',

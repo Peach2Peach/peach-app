@@ -4,10 +4,12 @@ import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { ReferralsHelp } from './info/ReferralsHelp'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
+import { MyBadges } from './info/MyBadges'
+import { TradingLimit } from './info/TradingLimit'
 
 type HelpContent = {
   title: string
-  content: ReactElement
+  content: () => ReactElement
 }
 
 export const helpOverlays: Record<string, HelpContent> = {
@@ -26,6 +28,14 @@ export const helpOverlays: Record<string, HelpContent> = {
   referrals: {
     title: i18n('help.referral.title'),
     content: ReferralsHelp,
+  },
+  tradingLimit: {
+    title: i18n('help.tradingLimit.title'),
+    content: TradingLimit,
+  },
+  myBadges: {
+    title: i18n('peachBadges'),
+    content: MyBadges,
   },
 }
 

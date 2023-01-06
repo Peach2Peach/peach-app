@@ -7,6 +7,7 @@ import alignLeft from './alignLeft.svg'
 import arrowLeft from './arrowLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
+import award from './award.svg'
 import bellSmall from './bellSmall.svg'
 import bitcoin from './bitcoin.svg'
 import bitbox from './bitbox.svg'
@@ -38,6 +39,7 @@ import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
+import flag from './flag.svg'
 import fundEscrow from './fundEscrow.svg'
 import gift from './gift.svg'
 import globe from './globe.svg'
@@ -74,6 +76,7 @@ import skipForward from './skipForward.svg'
 import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
+import star from './star.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
@@ -82,6 +85,7 @@ import toggleRight from './toggleRight.svg'
 import trash from './trash.svg'
 import trendingUp from './trendingUp.svg'
 import upload from './upload.svg'
+import user from './user.svg'
 import userCheck from './userCheck.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
@@ -89,6 +93,7 @@ import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
+import zap from './zap.svg'
 
 const Icons = {
   activity,
@@ -100,6 +105,7 @@ const Icons = {
   arrowLeft,
   arrowLeftCircle,
   arrowRightCircle,
+  award,
   bellSmall,
   bitcoin,
   bitbox,
@@ -132,6 +138,7 @@ const Icons = {
   eye,
   eyeOff,
   fire,
+  flag,
   fundEscrow,
   gift,
   globe,
@@ -169,6 +176,7 @@ const Icons = {
   slash,
   sliderNext,
   sliderPrev,
+  star,
   thumbsDown,
   thumbsUp,
   timer,
@@ -177,6 +185,7 @@ const Icons = {
   trash,
   trendingUp,
   upload,
+  user,
   userCheck,
   userX,
   wallet,
@@ -184,6 +193,7 @@ const Icons = {
   xCircle,
   xSquare,
   yourTrades,
+  zap,
 }
 
 export type IconType = keyof typeof Icons

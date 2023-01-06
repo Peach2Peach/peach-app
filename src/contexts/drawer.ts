@@ -7,10 +7,7 @@ let onClose = () => {}
 
 const dispatch: Dispatch<Partial<DrawerState>> = () => {}
 
-export const DrawerContext = createContext([
-  { title, content, show, onClose },
-  dispatch
-] as const)
+export const DrawerContext = createContext([{ title, content, show, onClose }, dispatch] as const)
 
 /**
  * @description Method to get drawer content

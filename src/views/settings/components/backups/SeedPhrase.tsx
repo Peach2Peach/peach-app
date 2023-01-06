@@ -3,11 +3,11 @@ import { View } from 'react-native'
 
 import tw from '../../../../styles/tailwind'
 
-import { Button, Card, Headline, PeachScrollView, Text } from '../../../../components'
+import { Card, Headline, PeachScrollView, Text } from '../../../../components'
+import { PrimaryButton } from '../../../../components/buttons'
 import { useNavigation } from '../../../../hooks'
 import { account } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { PrimaryButton } from '../../../../components/buttons'
 
 export default (): ReactElement => {
   const navigation = useNavigation()

@@ -15,6 +15,12 @@ import { SettingsItemProps } from '../components/SettingsItem'
 
 const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 
+const contactUs = (() => {
+  let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach' }]
+  if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
+  return arr
+})()
+
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
   useHeaderSetup(headerConfig)
@@ -54,8 +60,6 @@ export const useSettingsSetup = () => {
     })
   }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
-  const goToMyAccount = useCallback(() => navigation.navigate('profile', { userId: account.publicKey }), [navigation])
-  const goToAboutPeach = useCallback(() => navigation.navigate('aboutPeach'), [navigation])
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
@@ -83,15 +87,9 @@ export const useSettingsSetup = () => {
     }
   }, [notificationsOn, updateOverlay])
 
-  const contactUs: SettingsItemProps[] = useMemo(() => {
-    let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach', onPress: goToAboutPeach }]
-    if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
-    return arr
-  }, [goToAboutPeach])
-
   const profileSettings: SettingsItemProps[] = useMemo(() => {
     let arr: SettingsItemProps[] = [
-      { title: 'myProfile', onPress: goToMyAccount },
+      { title: 'myProfile' },
       { title: 'referrals' },
       {
         title: 'backups',
@@ -103,7 +101,7 @@ export const useSettingsSetup = () => {
     ]
     if (!peachWalletActive) arr = [...arr, { title: 'refundAddress' }, { title: 'payoutAddress' }]
     return arr
-  }, [peachWalletActive, goToMyAccount])
+  }, [peachWalletActive])
 
   const appSettings: SettingsItemProps[] = useMemo(
     () => [

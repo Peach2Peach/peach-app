@@ -41,6 +41,7 @@ import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
+import MyProfile from './settings/profile/MyProfile'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 
 type ViewType = {
@@ -65,12 +66,12 @@ const wallet: ViewType[] = [
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
+  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: true },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
+  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: true },
   { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
   { name: 'setReturnAddress', component: SetReturnAddress, showHeader: true, showFooter: true },
 ]
@@ -105,6 +106,7 @@ const profile: ViewType[] = [{ name: 'profile', component: Profile, showHeader: 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true },
+  { name: 'myProfile', component: MyProfile, showHeader: true, showFooter: true },
   { name: 'bitcoinProducts', component: BitcoinProducts, showHeader: true, showFooter: true },
   { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
   { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },

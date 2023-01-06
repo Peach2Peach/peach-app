@@ -80,6 +80,7 @@ declare type RootStackParamList = {
   reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
+  myProfile: undefined
   testView: undefined
   testViewButtons: undefined
   testViewPopups: undefined

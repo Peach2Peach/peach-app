@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { toDateFormat } from '../../utils/string'
+import { toDateFormat } from '../../utils/date'
 import Icon from '../Icon'
 import { PriceFormat, SatsFormat, Text } from '../text'
 

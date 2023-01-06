@@ -6,7 +6,7 @@ import { useNavigation } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { toShortDateFormat } from '../../../../utils/string'
+import { toShortDateFormat } from '../../../../utils/date'
 
 type FileBackupOverviewProps = {
   next: () => void

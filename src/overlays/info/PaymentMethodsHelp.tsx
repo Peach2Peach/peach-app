@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const PaymentMethodsHelp = (
+export const PaymentMethodsHelp = (): ReactElement => (
   <>
     <Text>{i18n('help.paymentMethods.description.1')}</Text>
     <View style={tw`flex-row mt-2 items-center`}>
