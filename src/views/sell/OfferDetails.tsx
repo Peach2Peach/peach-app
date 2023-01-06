@@ -2,17 +2,17 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import { EditIcon, HelpIcon } from '../../components/icons'
+import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import PaymentDetails from '../../components/payment/PaymentDetails'
 import LanguageContext from '../../contexts/language'
-import { SellViewProps } from './SellPreferences'
+import { useHeaderSetup } from '../../hooks'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
-import PaymentDetails from '../../components/payment/PaymentDetails'
-import { EditIcon, HelpIcon } from '../../components/icons'
-import { useHeaderSetup } from '../../hooks'
-import { isDefined } from '../../utils/array/isDefined'
+import { SellViewProps } from './SellPreferences'
 
 const validate = (offer: SellOffer) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false

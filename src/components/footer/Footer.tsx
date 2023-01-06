@@ -14,6 +14,9 @@ import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../../assets/icons'
 
+import PeachOrange from '../../assets/logo/peachOrange.svg'
+import PeachBorder from '../../assets/logo/peachBorder.svg'
+
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
@@ -39,12 +42,20 @@ const isSell = /sell|sellPreferences/u
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? tw`text-black-1` : tw`text-black-5`
+  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-5`
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
         <View style={tw`flex items-center`}>
-          <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
+          {id === 'settings' ? (
+            active ? (
+              <PeachOrange style={tw`w-6 h-6`} />
+            ) : (
+              <PeachBorder style={tw`w-6 h-6`} />
+            )
+          ) : (
+            <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
+          )}
           <Text style={[color, tw`subtitle-1 text-3xs leading-relaxed text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
