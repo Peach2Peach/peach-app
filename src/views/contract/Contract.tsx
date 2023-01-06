@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -5,16 +6,20 @@ import tw from '../../styles/tailwind'
 import { useFocusEffect } from '@react-navigation/native'
 import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { useNavigation, useRoute } from '../../hooks'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
+import { getChatNotifications } from '../../utils/chat'
 import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
+import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { getOffer, getRequiredActionCount, saveOffer } from '../../utils/offer'
-import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
+import { getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
@@ -23,10 +28,6 @@ import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
-import { getChatNotifications } from '../../utils/chat'
-import AppContext from '../../contexts/app'
-import { useNavigation, useRoute } from '../../hooks'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -180,13 +181,11 @@ export default (): ReactElement => {
       ) {
         navigation.replace('tradeComplete', { contract })
       } else {
-        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-        navigation.replace('offer', { offer })
+        navigation.replace('offer', { offerId: getOfferIdfromContract(contract) })
       }
       return
     } else if (isTradeCanceled(contract)) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-      navigation.replace('offer', { offer })
+      navigation.replace('offer', { offerId: getOfferIdfromContract(contract) })
       return
     }
 
