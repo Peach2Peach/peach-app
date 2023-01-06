@@ -3,8 +3,10 @@ import { View } from 'react-native'
 import { Icon, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
+import { MyBadges } from './info/MyBadges'
+import { TradingLimit } from './info/TradingLimit'
 
-const PaymentMethodsHelp = (
+const PaymentMethodsHelp = (): ReactElement => (
   <>
     <Text>{i18n('help.paymentMethods.description.1')}</Text>
     <View style={tw`flex-row mt-2 items-center`}>
@@ -16,9 +18,9 @@ const PaymentMethodsHelp = (
   </>
 )
 
-const CurrenciesHelp = <Text>{i18n('help.currency.description')}</Text>
+const CurrenciesHelp = (): ReactElement => <Text>{i18n('help.currency.description')}</Text>
 
-const ReferralsHelp = (
+const ReferralsHelp = (): ReactElement => (
   <>
     <Text style={tw`mb-2`}>{i18n('help.referral.description.1')}</Text>
     <Text>{i18n('help.referral.description.2')}</Text>
@@ -27,7 +29,7 @@ const ReferralsHelp = (
 
 type HelpContent = {
   title: Record<HelpType, string>
-  content: Record<HelpType, ReactElement>
+  content: Record<HelpType, () => ReactElement>
 }
 
 export const helpOverlays: HelpContent = {
@@ -35,10 +37,14 @@ export const helpOverlays: HelpContent = {
     paymentMethods: i18n('settings.paymentMethods'),
     currencies: i18n('help.currency.title'),
     referrals: i18n('help.referral.title'),
+    tradingLimit: i18n('help.tradingLimit.title'),
+    myBadges: i18n('peachBadges'),
   },
   content: {
     paymentMethods: PaymentMethodsHelp,
     currencies: CurrenciesHelp,
     referrals: ReferralsHelp,
+    tradingLimit: TradingLimit,
+    myBadges: MyBadges,
   },
 }

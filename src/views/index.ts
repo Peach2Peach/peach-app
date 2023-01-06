@@ -38,6 +38,7 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import Welcome from './welcome/Welcome'
 import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
+import MyProfile from './settings/profile/MyProfile'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 
 type ViewType = {
@@ -97,6 +98,7 @@ const profile: ViewType[] = [{ name: 'profile', component: Profile, showHeader: 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, showHeader: true, showFooter: true },
   { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true },
+  { name: 'myProfile', component: MyProfile, showHeader: true, showFooter: true },
   { name: 'bitcoinProducts', component: BitcoinProducts, showHeader: true, showFooter: true },
   { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
   { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },

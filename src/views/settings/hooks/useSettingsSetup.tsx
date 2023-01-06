@@ -13,6 +13,26 @@ import { SettingsItemProps } from '../components/SettingsItem'
 
 const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 
+const contactUs = (() => {
+  let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach' }]
+  if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
+  return arr
+})()
+
+const profileSettings = [
+  { title: 'myProfile' },
+  { title: 'referrals' },
+  {
+    title: 'backups',
+    iconId: account.settings.showBackupReminder ? 'alertTriangle' : undefined,
+    warning: !!account.settings.showBackupReminder,
+  },
+  { title: 'networkFees' },
+  { title: 'paymentMethods' },
+  { title: 'refundAddress' },
+  { title: 'payoutAddress' },
+] as const
+
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
   useHeaderSetup(headerConfig)
@@ -44,8 +64,6 @@ export const useSettingsSetup = () => {
     })
   }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
-  const goToMyAccount = useCallback(() => navigation.navigate('profile', { userId: account.publicKey }), [navigation])
-  const goToAboutPeach = useCallback(() => navigation.navigate('aboutPeach'), [navigation])
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
@@ -72,29 +90,6 @@ export const useSettingsSetup = () => {
       toggleNotifications()
     }
   }, [notificationsOn, updateOverlay])
-
-  const contactUs: SettingsItemProps[] = useMemo(() => {
-    let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach', onPress: goToAboutPeach }]
-    if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
-    return arr
-  }, [])
-
-  const profileSettings: SettingsItemProps[] = useMemo(
-    () => [
-      { title: 'myProfile', onPress: goToMyAccount },
-      { title: 'referrals' },
-      {
-        title: 'backups',
-        iconId: account.settings.showBackupReminder ? 'alertTriangle' : undefined,
-        warning: !!account.settings.showBackupReminder,
-      },
-      { title: 'networkFees' },
-      { title: 'paymentMethods' },
-      { title: 'refundAddress' },
-      { title: 'payoutAddress' },
-    ],
-    [goToMyAccount],
-  )
 
   const appSettings: SettingsItemProps[] = useMemo(
     () => [
