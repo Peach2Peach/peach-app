@@ -1,3 +1,4 @@
+import React from 'react'
 import { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
@@ -15,10 +16,11 @@ export const useShowHelp = (id: HelpType) => {
       })
       navigation.navigate('contact')
     }
+    const Content = helpOverlays[id].content
 
     updateOverlay({
       title: helpOverlays[id].title,
-      content: helpOverlays[id].content,
+      content: <Content />,
       visible: true,
       action2: {
         callback: goToHelp,
