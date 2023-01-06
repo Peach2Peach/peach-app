@@ -63,10 +63,10 @@ export const SummaryItem = ({
   style,
 }: SummaryItemProps): ReactElement => (
   <TouchableOpacity
-    style={[tw`w-full rounded-lg`, tw`border`, levelColorMap.border[level], style]}
+    style={[tw`w-full rounded-xl`, tw`border`, levelColorMap.border[level], style]}
     onPress={action?.callback}
   >
-    <View style={tw`flex flex-row items-center justify-between px-4 py-3`}>
+    <View style={tw`flex flex-row items-center justify-between px-3 py-1 rounded-xl`}>
       <View>
         <Text style={tw`subtitle-1`}>{title}</Text>
         <View style={tw`flex flex-row items-center`}>
@@ -80,7 +80,7 @@ export const SummaryItem = ({
       </View>
     </View>
     {!!action?.label && (
-      <View style={[tw`flex flex-row items-center justify-center py-2`, levelColorMap.bg[level]]}>
+      <View style={[tw`flex flex-row items-center justify-center py-1 rounded-b-lg`, levelColorMap.bg[level]]}>
         <Icon id={action.icon} style={tw`w-4 mr-1 -mt-0.5`} color={levelColorMap.text[level].color} />
         <Text style={[tw`font-semibold`, levelColorMap.text[level]]}>{action.label}</Text>
       </View>

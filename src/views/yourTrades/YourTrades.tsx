@@ -1,12 +1,15 @@
 import React, { ReactElement, useMemo, useState } from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, View, Text, SectionList } from 'react-native'
 import tw from '../../styles/tailwind'
 import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { getOffers } from '../../utils/offer'
 import { OfferItem } from './components/OfferItem'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
-import { isOpenOffer, isPastOffer } from './utils/overviewUtils'
+import { isOpenAction, isOpenOffer, isPastOffer, isPrioritary, isWaiting } from './utils/overviewUtils'
+import LinedText from '../../components/ui/LinedText'
+import { PeachScrollView } from '../../components'
+import { info } from '../../utils/log'
 
 // TODO : Show offer was messing with the logic and I don't know why
 /* const showOffer = (offer: SellOffer | BuyOffer) => {
@@ -66,19 +69,73 @@ export default (): ReactElement => {
     }
   }
 
+  const getCategories = (offers: (BuyOffer | SellOffer)[]) => [
+    { title: 'priority', data: offers.filter((offer) => isPrioritary(offer)) },
+    { title: 'openActions', data: offers.filter((offer) => isOpenAction(offer)) },
+    { title: 'waiting', data: offers.filter((offer) => isWaiting(offer)) },
+  ]
+
   return (
     <>
       <TabbedNavigation items={tabs} select={setCurrentTab} selected={currentTab} />
-      <View style={tw`p-5`}>
+      <View style={tw`p-7`}>
         {allOpenOffers.length + pastOffers.length === 0 ? (
           // TODO : EMPTY PLACEHOLDER
           <View />
         ) : (
-          <FlatList
-            ItemSeparatorComponent={() => <View style={tw`h-5`} />}
-            data={getCurrentData()}
-            renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
+          <SectionList
+            sections={getCategories(getCurrentData())}
+            renderItem={({ item }) => (
+              <View style={tw`mb-3`}>
+                <OfferItem key={item.id} extended={true} offer={item} />
+              </View>
+            )}
+            renderSectionHeader={({ section: { title, data } }) =>
+              data.length !== 0 && title !== 'priority' ? (
+                <LinedText style={tw`my-3`}>
+                  <Text style={tw` text-black-2 body-m`}>{i18n(`yourTrades.${title}`)}</Text>
+                </LinedText>
+              ) : (
+                <></>
+              )
+            }
           />
+
+        /* <>
+
+            <FlatList
+              scrollEnabled={false}
+              ItemSeparatorComponent={() => <View style={tw`h-5`} />}
+              data={getCategories(getCurrentData()).priority}
+              renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
+            />
+            {getCategories(getCurrentData()).openActions.length !== 0 && (
+              <>
+                <LinedText>
+                  <Text>{i18n('yourTrades.openActions')}</Text>
+                </LinedText>
+                <FlatList
+                  scrollEnabled={false}
+                  ItemSeparatorComponent={() => <View style={tw`h-5`} />}
+                  data={getCategories(getCurrentData()).openActions}
+                  renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
+                />
+              </>
+            )}
+            {getCategories(getCurrentData()).waiting.length !== 0 && (
+              <>
+                <LinedText style={tw`my-2`}>
+                  <Text>{i18n('yourTrades.waiting')}</Text>
+                </LinedText>
+                <FlatList
+                  scrollEnabled={false}
+                  ItemSeparatorComponent={() => <View style={tw`h-5`} />}
+                  data={getCategories(getCurrentData()).waiting}
+                  renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
+                />
+              </>
+            )}
+          </>*/
         )}
       </View>
     </>

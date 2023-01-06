@@ -246,6 +246,8 @@
   "yourTrades.offerCompleted.subtitle": "trade $0 completed \n$1",
   "yourTrades.tradeCanceled.subtitle": "trade canceled",
   "yourTrades.offer.replaced": "Offer has been replaced by $0",
+  "yourTrades.openActions": "open actions",
+  "yourTrades.waiting": "waiting",
   "cancelOffer": "Cancel offer",
   "cancelOffer.confirm.title": "Are you sure you want to cancel this offer?",
   "cancelOffer.confirm.ok": "Do it",

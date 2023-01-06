@@ -19,7 +19,7 @@ type OfferItemProps = ComponentProps & {
 }
 
 // eslint-disable-next-line max-lines-per-function, complexity
-export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): ReactElement => {
+export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
@@ -43,6 +43,7 @@ export const OfferItem = ({ offer, extended = true, style }: OfferItemProps): Re
 
   return isPastOffer(offer) ? (
     <SummaryItem
+      style={style}
       title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
       currency={currency as Currency}

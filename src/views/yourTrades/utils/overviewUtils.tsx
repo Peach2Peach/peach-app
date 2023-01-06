@@ -5,6 +5,10 @@ export const isPastOffer = (offer: SellOffer | BuyOffer) =>
 
 export const isOpenOffer = (offer: SellOffer | BuyOffer) => !isPastOffer(offer)
 
+export const isOpenAction = (offer: SellOffer | BuyOffer) =>
+  /fundEscrow|hasMatchesAvailable|rateUser/u.test(offer.tradeStatus)
+  || (offer.tradeStatus === 'confirmPaymentRequired' && offer.type === 'ask')
+  || (offer.tradeStatus === 'paymentRequired' && offer.type === 'bid')
 export const isWaiting = (offer: SellOffer | BuyOffer) =>
   /escrowWaitingForConfirmation|searchingForPeer/u.test(offer.tradeStatus)
   || (offer.tradeStatus === 'paymentRequired' && offer.type === 'ask')
