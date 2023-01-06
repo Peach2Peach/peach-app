@@ -8,10 +8,9 @@ import {
   setPeachFee,
   setPeachPGPPublicKey,
 } from '../constants'
+import { tradeSummaryStore } from '../store/tradeSummaryStore'
 import { defaultAccount, updateTradingLimit } from '../utils/account'
-import { saveContracts } from '../utils/contract'
 import { error, info } from '../utils/log'
-import { saveOffers } from '../utils/offer'
 import { getContracts, getInfo, getOffers, getStatus, getTradingLimit } from '../utils/peachAPI'
 import { sessionStorage } from '../utils/session'
 
@@ -75,14 +74,14 @@ export const getTrades = async (): Promise<void> => {
   const [offers, getOffersError] = await getOffers({})
   if (offers) {
     info(`Got ${offers.length} offers`)
-    saveOffers(offers)
+    tradeSummaryStore.getState().setOffers(offers)
   } else if (getOffersError) {
     error('Error', getOffersError)
   }
 
   const [contracts, err] = await getContracts({})
   if (contracts) {
-    saveContracts(contracts)
+    tradeSummaryStore.getState().setContracts(contracts)
   } else if (err) {
     error('Error', err)
   }
