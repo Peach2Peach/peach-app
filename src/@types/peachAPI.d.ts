@@ -142,6 +142,45 @@ declare type PeachPairInfo = {
 }
 declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
+declare type TradeStatus =
+  | 'fundEscrow'
+  | 'searchingForPeer'
+  | 'escrowWaitingForConfirmation'
+  | 'hasMatchesAvailable'
+  | 'offerCanceled'
+  | 'refundTxSignatureRequired'
+  | 'paymentRequired'
+  | 'confirmPaymentRequired'
+  | 'dispute'
+  | 'rateUser'
+  | 'confirmCancelation'
+  | 'tradeCompleted'
+  | 'tradeCanceled'
+
+declare type GetOffersResponseBody =
+  | {
+      id: string
+      contractId?: string
+      lastModified: Date
+      amount: number
+      matches: Offer['id'][]
+      prices: Pricebook
+      tradeStatus: TradeStatus
+    }[]
+  | APIError<null>
+
+declare type GetContractsResponseBody =
+  | {
+      id: string
+      lastModified: Date
+      tradeStatus: TradeStatus
+      price: number
+      currency: Currency
+      disputeWinner: Contract['disputeWinner']
+      messages: Contract['messages']
+    }[]
+  | APIError<null>
+
 declare type Offer = {
   id: string
   oldOfferId?: string
@@ -175,7 +214,8 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
-  tradeStatus?: TradeStatus
+  tradeStatus: TradeStatus
+  lastModified: Date
 }
 
 declare type PostOfferResponse = {

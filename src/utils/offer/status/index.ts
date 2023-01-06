@@ -1,4 +1,3 @@
-export { getOfferStatus } from './getOfferStatus'
 export { hasFundingTransactions } from './hasFundingTransactions'
 export { hasSeenAllMatches } from './hasSeenAllMatches'
 export { isEscrowRefunded } from './isEscrowRefunded'

@@ -4,15 +4,14 @@ import { shouldGoToOffer } from './shouldGoToOffer'
 
 export const getNavigationDestination = (
   offer: SellOffer | BuyOffer,
-  offerStatus: TradeStatus,
   contract?: Contract,
 ): [string, object | undefined] => {
-  if (shouldGoToOffer(offerStatus)) {
+  if (shouldGoToOffer(offer.tradeStatus)) {
     return ['offer', { offer }]
   }
 
   if (contract) {
-    if (!contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
+    if (!contract.disputeWinner && offer.tradeStatus === 'tradeCompleted') {
       return ['tradeComplete', { contract }]
     }
     return ['contract', { contractId: contract.id }]

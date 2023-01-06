@@ -2,12 +2,8 @@ import { isSellOffer } from '../../../utils/offer'
 import { hasFundingTransactions, isEscrowReleased } from '../../../utils/offer/status'
 import { shouldGoToOffer } from './shouldGoToOffer'
 
-export const shouldOpenRefundOverlay = (
-  offer: SellOffer | BuyOffer,
-  offerStatus: TradeStatus,
-  contract?: Contract,
-): offer is SellOffer =>
-  shouldGoToOffer(offerStatus)
+export const shouldOpenRefundOverlay = (offer: SellOffer | BuyOffer, contract?: Contract): offer is SellOffer =>
+  shouldGoToOffer(offer.tradeStatus)
   && isSellOffer(offer)
   && !offer.online
   && (!offer.contractId || (!!contract?.canceled && contract.disputeWinner === 'seller'))

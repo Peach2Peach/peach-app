@@ -32,6 +32,7 @@ import creditCard from './creditCard.svg'
 import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
+import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
@@ -62,6 +63,7 @@ import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
+import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import send from './send.svg'
@@ -124,6 +126,7 @@ const Icons = {
   creditCard,
   dollarSign,
   download,
+  downloadCloud,
   edit,
   externalLink,
   eye,
@@ -154,6 +157,7 @@ const Icons = {
   refreshCcw,
   rotateCounterClockwise,
   save,
+  search,
   selectClosed,
   selectOpen,
   sell: upload,

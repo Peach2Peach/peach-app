@@ -7,8 +7,6 @@ import { shouldOpenRefundOverlay } from './shouldOpenRefundOverlay'
 
 type NavigateToOfferProps = {
   offer: SellOffer | BuyOffer
-  status: TradeStatus['status']
-  requiredAction: TradeStatus['requiredAction']
   navigation: StackNavigation
   updateOverlay: React.Dispatch<OverlayState>
   matchStoreSetOffer: (offer: BuyOffer | SellOffer) => void
@@ -19,11 +17,10 @@ export const navigateToOffer = ({
   navigation,
   updateOverlay,
   matchStoreSetOffer,
-  ...offerStatus
 }: NavigateToOfferProps): void => {
   const contract = offer.contractId ? getContract(offer.contractId) : undefined
-  const [screen, params] = getNavigationDestination(offer, offerStatus, contract)
-  if (shouldOpenRefundOverlay(offer, offerStatus, contract)) {
+  const [screen, params] = getNavigationDestination(offer, contract)
+  if (shouldOpenRefundOverlay(offer, contract)) {
     updateOverlay({
       content: <Refund {...{ sellOffer: offer, navigation }} />,
       visible: true,

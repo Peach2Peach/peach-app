@@ -20,7 +20,6 @@ import { isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, offerIdToHex, saveOffer } from '../../utils/offer'
-import { getOfferStatus } from '../../utils/offer/status'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { toShortDateFormat } from '../../utils/string'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
@@ -42,7 +41,7 @@ export default (): ReactElement => {
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
 
-  const offerStatus = getOfferStatus(offer)
+  const offerStatus = offer.tradeStatus
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
     ? isTradeComplete(contract)
@@ -105,7 +104,7 @@ export default (): ReactElement => {
             matchStoreSetOffer(offer)
             navigation.replace('search')
           }
-          if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
+          if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offer.tradeStatus)) {
             info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
             navigation.replace('contract', { contractId: result.contractId })
           } else if (result.contractId) {
@@ -180,10 +179,10 @@ export default (): ReactElement => {
 
   return (
     <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
-      {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status) && (
-        <OfferSummary offer={offer} status={offerStatus.status} />
+      {/offerPublished|searchingForPeer|offerCanceled/u.test(offer.tradeStatus) && (
+        <OfferSummary offer={offer} status={offer.tradeStatus} />
       )}
-      {contract && /tradeCompleted|tradeCanceled/u.test(offerStatus.status) && (
+      {contract && /tradeCompleted|tradeCanceled/u.test(offer.tradeStatus) && (
         <View>
           <Title title={i18n(`${isSellOffer(offer) ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (

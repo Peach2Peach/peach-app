@@ -1,5 +1,4 @@
 import { getOffers } from './getOffers'
-import { getOfferStatus } from './status'
 
 /**
  * @description Method to sum up all required actions on current offers
@@ -7,7 +6,15 @@ import { getOfferStatus } from './status'
  */
 export const getRequiredActionCount = (): number =>
   getOffers().reduce((sum, offer) => {
-    const { requiredAction } = getOfferStatus(offer)
+    const requiredAction
+      = offer.tradeStatus === 'fundEscrow'
+      || 'hasMatchesAvailable'
+      || 'refundTxSignatureRequired'
+      || ('paymentRequired' && offer.type === 'bid')
+      || ('confirmPaymentRequired' && offer.type === 'ask')
+      || 'dispute'
+      || 'rateUser'
+      || 'confirmCancelation'
 
     return requiredAction ? sum + 1 : sum
   }, 0)
