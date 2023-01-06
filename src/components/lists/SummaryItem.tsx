@@ -76,7 +76,11 @@ export const SummaryItem = ({
       </View>
       <View>
         <SatsFormat {...{ sats: amount }} />
-        {!!price && !!currency && <PriceFormat style={tw`text-black-2 text-right`} {...{ amount: price, currency }} />}
+        {!!price && !!currency ? (
+          <PriceFormat style={tw`text-black-2 text-right`} {...{ amount: price, currency }} />
+        ) : (
+          <Text> </Text>
+        )}
       </View>
     </View>
     {!!action?.label && (
