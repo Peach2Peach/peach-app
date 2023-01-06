@@ -1,2 +1,3 @@
-export const isPrioritary = (tradeStatus: TradeStatus) =>
-  /dispute|confirmCancelation|refundTxSignatureRequired/u.test(tradeStatus)
+const prioritaryStatus = ['dispute', 'confirmCancelation', 'refundTxSignatureRequired', 'tradeCanceled', 'offerCanceled']
+
+export const isPrioritary = (tradeStatus: TradeStatus) => prioritaryStatus.includes(tradeStatus)
