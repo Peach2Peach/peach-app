@@ -3,7 +3,9 @@ import { View } from 'react-native'
 import { HelpIcon } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
+import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useUserQuery } from '../../../hooks/useUserQuery'
+import { TradingLimit } from '../../../overlays/info/TradingLimit'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -14,10 +16,7 @@ import { TradingLimits } from './TradingLimits'
 
 export default () => {
   const { user, isLoading } = useUserQuery(account.publicKey)
-  const [, updateOverlay] = useContext(OverlayContext)
-  const openTradingLimitsPopup = useCallback(() => {
-    updateOverlay({ content: null, visible: false })
-  }, [updateOverlay])
+  const openTradingLimitsPopup = useShowHelp('tradingLimit')
   useHeaderSetup(
     useMemo(
       () => ({

@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Icon, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
+import { TradingLimit } from './info/TradingLimit'
 
 const PaymentMethodsHelp = (
   <>
@@ -35,10 +36,12 @@ export const helpOverlays: HelpContent = {
     paymentMethods: i18n('settings.paymentMethods'),
     currencies: i18n('help.currency.title'),
     referrals: i18n('help.referral.title'),
+    tradingLimit: i18n('help.tradingLimit.title'),
   },
   content: {
     paymentMethods: PaymentMethodsHelp,
     currencies: CurrenciesHelp,
     referrals: ReferralsHelp,
+    tradingLimit: TradingLimit,
   },
 }
