@@ -1,18 +1,19 @@
 import { IconType } from '../../../assets/icons'
 
-export const statusIcons: Record<TradeStatus, IconType | ''> = {
+export const statusIcons: Record<TradeStatus, IconType> = {
   fundEscrow: 'downloadCloud',
   searchingForPeer: 'search',
   escrowWaitingForConfirmation: 'clock',
   hasMatchesAvailable: 'checkCircle',
-  refundTxSignatureRequired: '', // TODO Ask Lab
-  returnAddressRequired: '', // TODO Ask Lab
+  refundTxSignatureRequired: 'alertOctagon',
+  returnAddressRequired: 'alertOctagon',
   paymentRequired: 'dollarSign',
   confirmPaymentRequired: 'dollarSign',
   dispute: 'alertOctagon',
   rateUser: 'heart',
   confirmCancelation: 'xCircle',
-  offerCanceled: '',
-  tradeCanceled: '',
-  tradeCompleted: '',
+  waiting: 'clock',
+  offerCanceled: 'crossOutlined',
+  tradeCanceled: 'crossOutlined',
+  tradeCompleted: 'checkCircle',
 }

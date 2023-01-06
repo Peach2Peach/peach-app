@@ -158,6 +158,7 @@ declare type TradeStatus =
   | 'confirmCancelation'
   | 'tradeCompleted'
   | 'tradeCanceled'
+  | 'waiting'
 
 declare type Offer = {
   id: string

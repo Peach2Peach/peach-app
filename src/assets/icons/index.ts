@@ -9,8 +9,8 @@ import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import bellSmall from './bellSmall.svg'
-import bitcoin from './bitcoin.svg'
 import bitbox from './bitbox.svg'
+import bitcoin from './bitcoin.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
@@ -31,6 +31,7 @@ import cloud from './cloud.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
+import crossOutlined from './crossOutlined.svg'
 import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
@@ -131,6 +132,7 @@ const Icons = {
   cloud,
   copy,
   cpu,
+  crossOutlined,
   cryptotag,
   creditCard,
   dollarSign,

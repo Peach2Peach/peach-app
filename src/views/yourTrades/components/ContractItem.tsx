@@ -17,12 +17,13 @@ type OfferItemProps = ComponentProps & {
 export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-
-  const theme = useMemo(() => getThemeForPastTrade(contract), [contract])
-
   const currency = contract.currency
-
   const price = contract.price
+
+  const offerLevel = getOfferLevel(contract.type, contract.tradeStatus)
+  const status = offerLevel === 'WAITING' ? 'waiting' : contract.tradeStatus
+  const counterparty = contract.type === 'bid' ? 'seller' : 'buyer'
+  const theme = useMemo(() => getThemeForPastTrade(contract), [contract])
 
   const navigate = () =>
     navigateToContract({
@@ -48,12 +49,12 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
       amount={contract.amount}
       currency={currency as Currency}
       price={price}
-      level={getOfferLevel(contract.type, contract.tradeStatus)}
+      level={offerLevel}
       date={new Date(contract.lastModified)}
       action={{
         callback: navigate,
-        label: contract.tradeStatus,
-        icon: statusIcons[contract.tradeStatus],
+        label: i18n(`offer.requiredAction.${status}`, i18n(counterparty)),
+        icon: statusIcons[status],
       }}
     />
   )

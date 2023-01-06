@@ -6,7 +6,6 @@ import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
-import { getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
 import { getOfferLevel, getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
@@ -50,7 +49,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       date={new Date(offer.lastModified)}
       action={{
         callback: navigate,
-        label: offer.tradeStatus,
+        label: i18n(`offer.requiredAction.${offer.tradeStatus}`),
         icon: statusIcons[offer.tradeStatus],
       }}
     />
