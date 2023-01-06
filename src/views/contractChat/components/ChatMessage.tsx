@@ -5,7 +5,7 @@ import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
+import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
 
 type GetMessageMetaProps = {
   message: Message

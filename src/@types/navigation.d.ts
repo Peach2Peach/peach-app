@@ -4,6 +4,11 @@ declare type RootStackParamList = {
     referralCode?: string
   }
   restoreBackup: undefined
+  wallet: undefined
+  transactionHistory: undefined
+  transactionDetails: {
+    txId: string
+  }
   buy: undefined
   sell: undefined
   buyPreferences: { amount: number }
@@ -75,6 +80,7 @@ declare type RootStackParamList = {
   reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
+  myProfile: undefined
   testView: undefined
   testViewButtons: undefined
   testViewPopups: undefined

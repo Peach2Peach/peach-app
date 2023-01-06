@@ -21,7 +21,6 @@ import i18n from './utils/i18n'
 import { getViews } from './views'
 
 import AppContext, { getAppContext, setAppContext } from './contexts/app'
-import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
@@ -35,6 +34,7 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
+import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
@@ -44,6 +44,7 @@ import { initialNavigation } from './init/initialNavigation'
 import { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { useBitcoinStore } from './store/bitcoinStore'
 import { account, getAccount } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
@@ -68,9 +69,9 @@ const queryClient = new QueryClient()
 let goHomeTimeout: NodeJS.Timer
 
 const usePartialAppSetup = () => {
-  const [, updateBitcoinContext] = useContext(BitcoinContext)
   const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
+  const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
 
   useEffect(
     appStateEffect({
@@ -99,22 +100,21 @@ const usePartialAppSetup = () => {
     const checkingInterval = 15 * 1000
     const checkingFunction = async () => {
       const [prices] = await marketPrices({ timeout: checkingInterval })
-      if (prices) updateBitcoinContext({ prices })
+      if (prices) setPrices(prices)
     }
     const interval = setInterval(checkingFunction, checkingInterval)
-    updateBitcoinContext({ currency: account.settings.displayCurrency })
+    setCurrency(account.settings.displayCurrency)
     checkingFunction()
 
     return () => {
       clearInterval(interval)
     }
-  }, [active])
+  }, [active, setCurrency, setPrices])
 }
 
 // eslint-disable-next-line max-statements
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
-  const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
@@ -241,60 +241,58 @@ const App: React.FC = () => {
           <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
             <PeachWSContext.Provider value={peachWS}>
               <AppContext.Provider value={[appContext, updateAppContext]}>
-                <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                  <MessageContext.Provider value={[messageState, updateMessage]}>
-                    <DrawerContext.Provider
-                      value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
-                    >
-                      <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                        <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                          <Background>
-                            <Drawer
-                              title={drawerTitle}
-                              content={drawerContent}
-                              show={showDrawer}
-                              onClose={onCloseDrawer}
-                            />
-                            <Overlay {...overlayState} />
-                            <SafeAreaView>
-                              <View style={tw`h-full flex-col`}>
-                                {!!messageState.msgKey && (
-                                  <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                                    <Message {...messageState} />
-                                  </Animated.View>
-                                )}
-                                <View style={tw`h-full flex-shrink`}>
-                                  <Stack.Navigator
-                                    detachInactiveScreens={true}
-                                    screenOptions={{
-                                      gestureEnabled: false,
-                                      headerShown: false,
-                                    }}
-                                  >
-                                    {views.map(({ name, component, showHeader }) => (
-                                      <Stack.Screen
-                                        {...{ name, component }}
-                                        key={name}
-                                        options={{
-                                          animationEnabled: false,
-                                          headerShown: showHeader,
-                                          header: () => <Header />,
-                                        }}
-                                      />
-                                    ))}
-                                  </Stack.Navigator>
-                                </View>
-                                {showFooter && (
-                                  <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
-                                )}
+                <MessageContext.Provider value={[messageState, updateMessage]}>
+                  <DrawerContext.Provider
+                    value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+                  >
+                    <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
+                      <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                        <Background>
+                          <Drawer
+                            title={drawerTitle}
+                            content={drawerContent}
+                            show={showDrawer}
+                            onClose={onCloseDrawer}
+                          />
+                          <Overlay {...overlayState} />
+                          <SafeAreaView>
+                            <View style={tw`h-full flex-col`}>
+                              {!!messageState.msgKey && (
+                                <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                  <Message {...messageState} />
+                                </Animated.View>
+                              )}
+                              <View style={tw`h-full flex-shrink`}>
+                                <Stack.Navigator
+                                  detachInactiveScreens={true}
+                                  screenOptions={{
+                                    gestureEnabled: false,
+                                    headerShown: false,
+                                  }}
+                                >
+                                  {views.map(({ name, component, showHeader }) => (
+                                    <Stack.Screen
+                                      {...{ name, component }}
+                                      key={name}
+                                      options={{
+                                        animationEnabled: false,
+                                        headerShown: showHeader,
+                                        header: () => <Header />,
+                                      }}
+                                    />
+                                  ))}
+                                </Stack.Navigator>
                               </View>
-                            </SafeAreaView>
-                          </Background>
-                        </NavigationContainer>
-                      </OverlayContext.Provider>
-                    </DrawerContext.Provider>
-                  </MessageContext.Provider>
-                </BitcoinContext.Provider>
+                              {showFooter && (
+                                <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
+                              )}
+                            </View>
+                          </SafeAreaView>
+                        </Background>
+                      </NavigationContainer>
+                    </OverlayContext.Provider>
+                  </DrawerContext.Provider>
+                </MessageContext.Provider>
               </AppContext.Provider>
             </PeachWSContext.Provider>
           </LanguageContext.Provider>

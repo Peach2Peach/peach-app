@@ -7,6 +7,9 @@ jest.mock('../../src/utils/peachAPI', () => ({
   ...jest.requireActual('../../src/utils/peachAPI'),
   ...jest.requireActual('../../src/utils/__mocks__/peachAPI'),
 }))
+jest.mock('../../src/utils/wallet/PeachWallet', () => ({
+  ...jest.requireActual('../../src/utils/__mocks__/wallet/PeachWallet'),
+}))
 
 export let fakeFiles: Record<string, string> = {}
 export const resetFakeFiles = () => (fakeFiles = {})
@@ -61,10 +64,24 @@ jest.mock('react-native-crypto-js', () => ({
   },
 }))
 
-jest.mock('@react-native-firebase/messaging', () => () => ({
-  onMessage: jest.fn(),
-  onNotificationOpenedApp: jest.fn(),
-}))
+export const requestPermissionMock = jest.fn()
+export const hasPermissionMock = jest.fn()
+jest.mock('@react-native-firebase/messaging', () => {
+  const messaging = () => ({
+    requestPermission: requestPermissionMock,
+    hasPermission: hasPermissionMock,
+    onMessage: jest.fn(),
+    onNotificationOpenedApp: jest.fn(),
+  })
+
+  messaging.AuthorizationStatus = {
+    NOT_DETERMINED: -1,
+    AUTHORIZED: 1,
+    DENIED: 0,
+    PROVISIONAL: 2,
+  }
+  return messaging
+})
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
   log: jest.fn(),
 }))
@@ -156,6 +173,8 @@ jest.mock('react-native-mmkv-storage', () => ({
   })),
 }))
 
+jest.mock('bdk-rn')
+
 jest.mock('react-native-snap-carousel', () => jest.fn())
 jest.mock('react-native-url-polyfill/auto', () => jest.fn())
 jest.mock('@react-native-clipboard/clipboard', () => jest.fn())
@@ -163,6 +182,5 @@ jest.mock('@env', () => ({
   NETWORK: 'regtest',
   DEV: 'true',
   API_URL: 'https://localhost:8080/',
-  HTTP_AUTH_USER: 'value',
-  HTTP_AUTH_PASS: 'value2',
+  BLOCKEXPRLORER: 'https://localhost:3000/',
 }))

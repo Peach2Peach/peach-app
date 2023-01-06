@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { toDateFormat } from '../../utils/string'
+import { toDateFormat } from '../../utils/date'
 import Icon from '../Icon'
 import { PriceFormat, SatsFormat, Text } from '../text'
 
@@ -22,7 +22,7 @@ const levelColorMap: LevelColorMap = {
   },
   border: {
     APP: tw`border-primary-main`,
-    SUCCESS: tw`border-success-background`,
+    SUCCESS: tw`border-success-main`,
     WARN: tw`border-warning-main`,
     ERROR: tw`border-error-main`,
     INFO: tw`border-info-light`,

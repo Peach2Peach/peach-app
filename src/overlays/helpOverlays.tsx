@@ -1,44 +1,42 @@
-import React, { ReactElement } from 'react'
-import { View } from 'react-native'
-import { Icon, Text } from '../components'
-import tw from '../styles/tailwind'
+import { ReactElement } from 'react'
 import i18n from '../utils/i18n'
-
-const PaymentMethodsHelp = (
-  <>
-    <Text>{i18n('help.paymentMethods.description.1')}</Text>
-    <View style={tw`flex-row mt-2 items-center`}>
-      <View style={tw`flex-shrink`}>
-        <Text>{i18n('help.paymentMethods.description.2')}</Text>
-      </View>
-      <Icon style={tw`w-7 h-7 mx-3`} id="userCheck" color={tw`text-black-1`.color} />
-    </View>
-  </>
-)
-
-const CurrenciesHelp = <Text>{i18n('help.currency.description')}</Text>
-
-const ReferralsHelp = (
-  <>
-    <Text style={tw`mb-2`}>{i18n('help.referral.description.1')}</Text>
-    <Text>{i18n('help.referral.description.2')}</Text>
-  </>
-)
+import { CurrenciesHelp } from './info/CurrenciesHelp'
+import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
+import { ReferralsHelp } from './info/ReferralsHelp'
+import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
+import { MyBadges } from './info/MyBadges'
+import { TradingLimit } from './info/TradingLimit'
 
 type HelpContent = {
-  title: Record<HelpType, string>
-  content: Record<HelpType, ReactElement>
+  title: string
+  content: () => ReactElement
 }
 
-export const helpOverlays: HelpContent = {
-  title: {
-    paymentMethods: i18n('settings.paymentMethods'),
-    currencies: i18n('help.currency.title'),
-    referrals: i18n('help.referral.title'),
+export const helpOverlays: Record<string, HelpContent> = {
+  paymentMethods: {
+    title: i18n('settings.paymentMethods'),
+    content: PaymentMethodsHelp,
   },
-  content: {
-    paymentMethods: PaymentMethodsHelp,
-    currencies: CurrenciesHelp,
-    referrals: ReferralsHelp,
+  currencies: {
+    title: i18n('help.currency.title'),
+    content: CurrenciesHelp,
+  },
+  withdrawingFunds: {
+    title: i18n('wallet.withdraw.help.title'),
+    content: WithdrawingFundsHelp,
+  },
+  referrals: {
+    title: i18n('help.referral.title'),
+    content: ReferralsHelp,
+  },
+  tradingLimit: {
+    title: i18n('help.tradingLimit.title'),
+    content: TradingLimit,
+  },
+  myBadges: {
+    title: i18n('peachBadges'),
+    content: MyBadges,
   },
 }
+
+export type HelpType = keyof typeof helpOverlays

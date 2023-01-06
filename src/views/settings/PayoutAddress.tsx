@@ -3,16 +3,13 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Icon, Input, PrimaryButton, ScanQR, Text } from '../../components'
-import { account, updateSettings } from '../../utils/account'
-import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
+import { Icon, PrimaryButton, Text } from '../../components'
 import { HelpIcon } from '../../components/icons'
+import { BitcoinAddressInput } from '../../components/inputs'
 import { OverlayContext } from '../../contexts/overlay'
-import Clipboard from '@react-native-clipboard/clipboard'
-import { parseBitcoinRequest } from '../../utils/bitcoin'
+import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
+import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { BarCodeReadEvent } from 'react-native-camera'
-import { cutOffAddress } from '../../utils/string/cutOffAddress'
 import { PayoutAddressPopup } from './components/PayoutAddressPopup'
 
 const rulesToCheck = { required: false, bitcoinAddress: true }
@@ -21,9 +18,7 @@ export default (): ReactElement => {
     account.settings.payoutAddress || '',
     rulesToCheck,
   )
-  const [isFocused, setFocused] = useState(false)
   const [isUpdated, setUpdated] = useState(!!account.settings.payoutAddress)
-  const [showQRScanner, setShowQRScanner] = useState(false)
   const navigation = useNavigation()
 
   const setPayoutAddress = () => {
@@ -55,12 +50,6 @@ export default (): ReactElement => {
     })
   }, [navigation, updateOverlay])
 
-  const pasteAddress = async () => {
-    const clipboard = await Clipboard.getString()
-    const request = parseBitcoinRequest(clipboard)
-    setAddress(request.address || clipboard)
-  }
-
   useHeaderSetup(
     useMemo(
       () => ({
@@ -70,15 +59,6 @@ export default (): ReactElement => {
       [showPayoutAddressPopup],
     ),
   )
-
-  const showQR = () => setShowQRScanner(true)
-  const closeQR = () => setShowQRScanner(false)
-  const onQRScanSuccess = ({ data }: BarCodeReadEvent) => {
-    const request = parseBitcoinRequest(data)
-
-    setAddress(request.address || data)
-    closeQR()
-  }
 
   const onChange = useCallback(
     (value: string) => {
@@ -92,34 +72,28 @@ export default (): ReactElement => {
     [setAddress],
   )
 
-  return !showQRScanner ? (
+  return (
     <View style={tw`h-full w-full justify-center items-center`}>
       <Text style={tw`h6`}>{i18n('settings.payoutAddress.title')}</Text>
       <View style={tw`mx-16 mt-4`}>
-        <Input
-          placeholder={i18n('form.address.btc.placeholder')}
-          icons={[
-            ['clipboard', pasteAddress],
-            ['camera', showQR],
-          ]}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          value={isFocused ? address : cutOffAddress(address)}
-          errorMessage={addressErrors}
-          {...{ isValid, onChange }}
+        <BitcoinAddressInput
+          {...{
+            onChange,
+            isValid,
+            value: address,
+            errorMessage: addressErrors,
+          }}
         />
       </View>
       {isUpdated && (
         <View style={tw`w-full h-0 flex-row justify-center`}>
           <Text style={tw`button-medium h-6 uppercase`}>{i18n('settings.payoutAddress.success')}</Text>
-          <Icon id="check" style={tw`w-[20px] h-[20px] ml-1`} color={tw`text-success-main`.color} />
+          <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
         </View>
       )}
       <PrimaryButton narrow style={tw`mt-16 absolute bottom-6`} onPress={setPayoutAddress} disabled={isUpdated}>
         {i18n('settings.payoutAddress.confirm')}
       </PrimaryButton>
     </View>
-  ) : (
-    <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQR} />
   )
 }

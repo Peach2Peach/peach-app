@@ -3,8 +3,10 @@ import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { account, updateSettings } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
@@ -13,12 +15,23 @@ import { SettingsItemProps } from '../components/SettingsItem'
 
 const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 
+const contactUs = (() => {
+  let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach' }]
+  if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
+  return arr
+})()
+
 export const useSettingsSetup = () => {
   const navigation = useNavigation()
   useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [notificationsOn, setNotificationsOn] = useState(false)
+  const [peachWalletActive, setPeachWalletActive] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive],
+    shallow,
+  )
+
   const [analyticsOn, setAnalyticsOn] = useState(account.settings.enableAnalytics)
 
   useFocusEffect(
@@ -36,6 +49,9 @@ export const useSettingsSetup = () => {
     }, []),
   )
 
+  const togglePeachWallet = () => {
+    setPeachWalletActive(!peachWalletActive)
+  }
   const toggleAnalytics = () => {
     setAnalyticsOn(!account.settings.enableAnalytics)
     analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
@@ -44,8 +60,6 @@ export const useSettingsSetup = () => {
     })
   }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
-  const goToMyAccount = useCallback(() => navigation.navigate('profile', { userId: account.publicKey }), [navigation])
-  const goToAboutPeach = useCallback(() => navigation.navigate('aboutPeach'), [navigation])
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
@@ -73,15 +87,9 @@ export const useSettingsSetup = () => {
     }
   }, [notificationsOn, updateOverlay])
 
-  const contactUs: SettingsItemProps[] = useMemo(() => {
-    let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach', onPress: goToAboutPeach }]
-    if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
-    return arr
-  }, [])
-
-  const profileSettings: SettingsItemProps[] = useMemo(
-    () => [
-      { title: 'myProfile', onPress: goToMyAccount },
+  const profileSettings: SettingsItemProps[] = useMemo(() => {
+    let arr: SettingsItemProps[] = [
+      { title: 'myProfile' },
       { title: 'referrals' },
       {
         title: 'backups',
@@ -90,19 +98,18 @@ export const useSettingsSetup = () => {
       },
       { title: 'networkFees' },
       { title: 'paymentMethods' },
-      { title: 'refundAddress' },
-      { title: 'payoutAddress' },
-    ],
-    [goToMyAccount],
-  )
+    ]
+    if (!peachWalletActive) arr = [...arr, { title: 'refundAddress' }, { title: 'payoutAddress' }]
+    return arr
+  }, [peachWalletActive])
 
   const appSettings: SettingsItemProps[] = useMemo(
     () => [
       {
         title: 'peachWallet',
-        onPress: () => null,
-        iconId: false ? 'toggleRight' : 'toggleLeft',
-        enabled: false,
+        onPress: togglePeachWallet,
+        iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
+        enabled: peachWalletActive,
       },
       {
         title: 'analytics',
@@ -116,7 +123,7 @@ export const useSettingsSetup = () => {
       },
       { title: 'currency', onPress: goToCurrencySettings },
     ],
-    [analyticsOn, goToCurrencySettings, notificationClick],
+    [peachWalletActive, analyticsOn, goToCurrencySettings, notificationClick],
   )
 
   const settings = [

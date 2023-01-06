@@ -1,8 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
 import { Icon } from '../'
-import { EditIcon } from '../icons'
+import tw from '../../styles/tailwind'
 
 export type CheckboxItemType = {
   value: string | number

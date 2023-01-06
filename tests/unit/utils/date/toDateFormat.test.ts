@@ -1,5 +1,5 @@
 import { MSINADAY } from '../../../../src/constants'
-import { toDateFormat } from '../../../../src/utils/string'
+import { toDateFormat } from '../../../../src/utils/date'
 
 describe('toDateFormat', () => {
   it('should format the date as "today" if it is the current date', () => {

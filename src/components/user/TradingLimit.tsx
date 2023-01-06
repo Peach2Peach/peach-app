@@ -1,24 +1,22 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import BitcoinContext from '../../contexts/bitcoin'
-import { OverlayContext } from '../../contexts/overlay'
+import shallow from 'zustand/shallow'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { thousands } from '../../utils/string'
 import Icon from '../Icon'
-import { default as TradingLimitHelp } from '../../overlays/info/TradingLimit'
 import { Text } from '../text'
 import { Progress } from '../ui'
-import { thousands } from '../../utils/string'
 
 type TradingLimitProps = ComponentProps & {
   tradingLimit: TradingLimit
 }
 export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactElement => {
-  const [bitcoinContext] = useContext(BitcoinContext)
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [currency] = useBitcoinStore((state) => [state.currency], shallow)
   const { daily, dailyAmount, yearly, yearlyAmount } = tradingLimit
-
-  const openTradingLimitHelp = () => updateOverlay({ content: <TradingLimitHelp />, visible: true })
+  const openTradingLimitHelp = useShowHelp('tradingLimit')
 
   return (
     <View style={style}>
@@ -34,7 +32,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
         percent={dailyAmount / daily}
         text={i18n(
           'profile.tradingLimits.daily',
-          bitcoinContext.currency,
+          currency,
           thousands(dailyAmount),
           daily === Infinity ? '∞' : thousands(daily),
         )}
@@ -45,7 +43,7 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
         color={tw`bg-primary-main`}
         text={i18n(
           'profile.tradingLimits.yearly.short',
-          bitcoinContext.currency,
+          currency,
           thousands(yearlyAmount),
           yearly === Infinity ? '∞' : thousands(yearly),
         )}

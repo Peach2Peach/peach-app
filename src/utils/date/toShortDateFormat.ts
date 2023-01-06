@@ -1,4 +1,4 @@
-import padString from './padString'
+import padString from '../string/padString'
 
 /**
  * @description Format date as hh::mm

@@ -40,7 +40,7 @@ export const Overlay = ({
   requireUserAction,
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const Content = content
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export const Overlay = ({
         <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`rounded-2xl shadow`]}>
           <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
             {!!title && <Text style={tw`h6 text-black-1 mb-1`}>{title.toLocaleLowerCase()}</Text>}
-            {content}
+            <Content />
           </View>
           <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
             {!!action2 && (
