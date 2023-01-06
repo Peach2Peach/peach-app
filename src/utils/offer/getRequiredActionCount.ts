@@ -1,4 +1,4 @@
-import { getOffers } from './getOffers'
+import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 
 const statusWithRequiredAction = [
   'fundEscrow',
@@ -16,7 +16,7 @@ const statusWithRequiredActionForSeller = ['confirmPaymentRequired']
  * @returns number of offers that require action
  */
 export const getRequiredActionCount = (): number =>
-  getOffers().reduce((sum, offer) => {
+  tradeSummaryStore.getState().offers.reduce((sum, offer) => {
     const requiredAction
       = statusWithRequiredAction.includes(offer.tradeStatus)
       || (offer.type === 'bid' && statusWithRequiredActionForBuyer.includes(offer.tradeStatus))
