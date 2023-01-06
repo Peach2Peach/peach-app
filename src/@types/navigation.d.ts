@@ -49,7 +49,7 @@ declare type RootStackParamList = {
   }
   yourTrades: undefined
   offer: {
-    offer: SellOffer | BuyOffer
+    offerId: string
   }
   settings: undefined
   contact: undefined

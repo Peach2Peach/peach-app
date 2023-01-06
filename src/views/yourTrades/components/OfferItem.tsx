@@ -8,8 +8,7 @@ import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
-import { getOfferLevel, getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
-import { navigateToOffer } from '../utils/navigateToOffer'
+import { getOfferLevel, getThemeForPastTrade, isPastOffer, navigateToOffer, statusIcons } from '../utils'
 
 type OfferItemProps = ComponentProps & {
   offer: OfferSummary
@@ -38,8 +37,11 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
       level={theme.level as SummaryItemLevel}
-      icon={<Icon id={theme.icon as IconType} style={tw`w-3 h-3`} color={theme.color} />}
+      icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
       date={new Date(offer.lastModified)}
+      action={{
+        callback: navigate,
+      }}
     />
   ) : (
     <SummaryItem

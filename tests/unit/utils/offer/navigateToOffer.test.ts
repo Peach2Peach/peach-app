@@ -1,5 +1,5 @@
 import { StackNavigation } from '../../../../src/utils/navigation'
-import { navigateToOffer } from '../../../../src/views/yourTrades/utils/navigateToOffer'
+import { navigateToOffer } from '../../../../src/views/yourTrades/utils'
 import { buyOffer } from '../../data/offerData'
 
 const mockOfferStatus: TradeStatus = {

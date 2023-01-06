@@ -7,8 +7,8 @@ import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
-import { getOfferLevel, getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
-import { navigateToContract } from '../utils/navigateToContract'
+import { getOfferLevel, getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
+
 type OfferItemProps = ComponentProps & {
   contract: ContractSummary
 }
@@ -37,17 +37,20 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
       style={style}
       title={i18n('trade') + ' ' + offerIdToHex(contract.offerId)}
       amount={contract.amount}
-      currency={currency as Currency}
+      currency={currency}
       price={price}
       level={theme.level as SummaryItemLevel}
-      icon={<Icon id={theme.icon as IconType} style={tw`w-3 h-3`} color={theme.color} />}
+      icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
       date={new Date(contract.lastModified)}
+      action={{
+        callback: navigate,
+      }}
     />
   ) : (
     <SummaryItem
       title={i18n('trade') + ' ' + offerIdToHex(contract.offerId as Offer['id'])}
       amount={contract.amount}
-      currency={currency as Currency}
+      currency={currency}
       price={price}
       level={offerLevel}
       date={new Date(contract.lastModified)}
