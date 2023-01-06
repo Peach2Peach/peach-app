@@ -23,15 +23,13 @@ const tabs: TabbedNavigationItem[] = [
 
 export default (): ReactElement => {
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const CurrentView = currentTab.view!
+  const CurrentView = currentTab.view
 
   return (
     <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
       <Title title={i18n('settings.title')} subtitle={i18n('settings.backups.subtitle')} help={<MakingABackup />} />
       <TabbedNavigation style={tw`mt-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
-      <View style={tw`mt-4 flex-shrink`}>
-        <CurrentView />
-      </View>
+      <View style={tw`mt-4 flex-shrink`}>{!!CurrentView && <CurrentView />}</View>
     </View>
   )
 }
