@@ -8,6 +8,7 @@ import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
+import { sort } from '../../utils/array'
 
 export const useYourTradesSetup = () => {
   const showErrorBanner = useShowErrorBanner()
@@ -43,6 +44,6 @@ export const useYourTradesSetup = () => {
   )
 
   return {
-    trades: [...offers, ...contracts],
+    trades: [...offers, ...contracts].sort(sort('lastModified')).reverse(),
   }
 }
