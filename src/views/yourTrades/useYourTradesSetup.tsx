@@ -41,11 +41,6 @@ export const useYourTradesSetup = () => {
         }
       }
       checkingFunction()
-      const interval = setInterval(checkingFunction, 15 * 1000)
-
-      return () => {
-        clearInterval(interval)
-      }
     }, [setContracts, setOffers, showErrorBanner]),
   )
 
