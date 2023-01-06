@@ -65,7 +65,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
           <Icon
             id="notification"
             style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
-            color={tw`text-success-light`.color}
+            color={tw`text-success-main`.color}
           />
         ) : null}
       </View>
