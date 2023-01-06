@@ -1,4 +1,4 @@
-import { BLOCKEXPRLORER, NETWORK } from '@env'
+import { BLOCKEXPLORER, NETWORK } from '@env'
 import BdkRn from 'bdk-rn'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 import { account } from '../account'
@@ -59,7 +59,7 @@ export class PeachWallet {
       password: '',
       network: this.network,
       // TODO get user config
-      blockChainConfigUrl: BLOCKEXPRLORER,
+      blockChainConfigUrl: BLOCKEXPLORER,
       retry: '5',
       timeOut: '5',
       blockChainName: 'ESPLORA',
