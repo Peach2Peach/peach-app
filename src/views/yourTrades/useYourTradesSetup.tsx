@@ -3,13 +3,18 @@ import { useCallback, useMemo, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { getContracts, getOffers } from '../../utils/peachAPI'
-import { hasDoubleMatched } from './utils'
+import { hasDoubleMatched, isContractSummary } from './utils'
 import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { sort } from '../../utils/array'
 
+const sortByDate = (a: TradeSummary, b: TradeSummary) => {
+  if (isContractSummary(a) && isContractSummary(b)) {
+    return a.paymentMade?.getTime() > b.paymentMade?.getTime() ? 1 : -1
+  }
+  return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
+}
 export const useYourTradesSetup = () => {
   const showErrorBanner = useShowErrorBanner()
   const [offers, setOffers, contracts, setContracts] = useTradeSummaryStore(
@@ -27,24 +32,26 @@ export const useYourTradesSetup = () => {
     ),
   )
 
+  const getTradeSummary = useCallback(async () => {
+    const [getOffersResult, getOffersErr] = await getOffers({})
+    const [getContractsResult, getContractsErr] = await getContracts({})
+    if (getOffersResult && getContractsResult) {
+      setOffers(getOffersResult.filter((offer) => !hasDoubleMatched(offer.tradeStatus)))
+      setContracts(getContractsResult)
+    }
+    if (getOffersErr || getContractsErr) {
+      showErrorBanner((getOffersErr || getContractsErr)!.error)
+    }
+  }, [setContracts, setOffers, showErrorBanner])
+
   useFocusEffect(
     useCallback(() => {
-      const checkingFunction = async () => {
-        const [getOffersResult, getOffersErr] = await getOffers({})
-        const [getContractsResult, getContractsErr] = await getContracts({})
-        if (getOffersResult && getContractsResult) {
-          setOffers(getOffersResult.filter((offer) => !hasDoubleMatched(offer.tradeStatus)))
-          setContracts(getContractsResult)
-        }
-        if (getOffersErr || getContractsErr) {
-          showErrorBanner((getOffersErr || getContractsErr)!.error)
-        }
-      }
-      checkingFunction()
-    }, [setContracts, setOffers, showErrorBanner]),
+      getTradeSummary()
+    }, [getTradeSummary]),
   )
 
   return {
-    trades: [...offers, ...contracts].sort(sort('lastModified')).reverse(),
+    trades: [...offers, ...contracts].sort(sortByDate).reverse(),
+    getTradeSummary,
   }
 }

@@ -261,6 +261,7 @@ declare type OfferSummary = {
   id: string
   type: 'bid' | 'ask'
   contractId?: string
+  creationDate: Date
   lastModified: Date
   amount: number
   matches: string[]
@@ -275,7 +276,9 @@ declare type ContractSummary = {
   id: string
   offerId: string
   type: 'bid' | 'ask'
+  creationDate: Date
   lastModified: Date
+  paymentMade: Date
   tradeStatus: TradeStatus
   amount: number
   price: number
@@ -321,3 +324,4 @@ declare type FeeRecommendation = {
   minimumFee: number
 }
 declare type GetFeeEstimateResponse = FeeRecommendation
+declare type TradeSummary = OfferSummary | ContractSummary

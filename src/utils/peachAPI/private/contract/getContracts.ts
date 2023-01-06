@@ -27,11 +27,12 @@ export const getContracts = async ({
   const parsedResponse = await parseResponse<GetContractsResponse>(response, 'getContract')
 
   if (parsedResponse[0]) {
-    parsedResponse[0] = parsedResponse[0].map((contract) => {
-      contract.lastModified = new Date(contract.lastModified)
-
-      return contract
-    })
+    parsedResponse[0] = parsedResponse[0].map((contract) => ({
+      ...contract,
+      creationDate: new Date(contract.creationDate),
+      lastModified: new Date(contract.lastModified),
+      paymentMade: new Date(contract.paymentMade),
+    }))
   }
 
   return parsedResponse

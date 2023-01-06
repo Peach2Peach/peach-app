@@ -24,5 +24,14 @@ export const getOffers = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetOffersResponse>(response, 'getOffers')
+  const parsedResponse = await parseResponse<GetOffersResponse>(response, 'getOffers')
+
+  if (parsedResponse[0]) {
+    parsedResponse[0] = parsedResponse[0].map((offer) => ({
+      ...offer,
+      creationDate: new Date(offer.creationDate),
+      lastModified: new Date(offer.lastModified),
+    }))
+  }
+  return parsedResponse
 }

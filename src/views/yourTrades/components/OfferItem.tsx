@@ -38,7 +38,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       amount={offer.amount}
       level={theme.level as SummaryItemLevel}
       icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
-      date={new Date(offer.lastModified)}
+      date={new Date(offer.creationDate)}
       action={{
         callback: navigate,
       }}
@@ -48,7 +48,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
       level={getOfferLevel(offer)}
-      date={new Date(offer.lastModified)}
+      date={new Date(offer.creationDate)}
       action={{
         callback: navigate,
         label: i18n(`offer.requiredAction.${offer.tradeStatus}`),

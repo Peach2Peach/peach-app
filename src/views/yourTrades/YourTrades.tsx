@@ -35,14 +35,14 @@ const tabs: TabbedNavigationItem[] = [
   },
 ]
 
-const getCategories = (trades: (OfferSummary | ContractSummary)[]) => [
+const getCategories = (trades: TradeSummary[]) => [
   { title: 'priority', data: trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus)) },
   { title: 'openActions', data: trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)) },
   { title: 'waiting', data: trades.filter(({ type, tradeStatus }) => isWaiting(type, tradeStatus)) },
 ]
 
 export default (): ReactElement => {
-  const { trades } = useYourTradesSetup()
+  const { trades, getTradeSummary } = useYourTradesSetup()
 
   const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
   const openOffers = {
@@ -51,6 +51,11 @@ export default (): ReactElement => {
   }
   const pastOffers = trades.filter(({ tradeStatus }) => isPastOffer(tradeStatus))
   const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const switchTab = (tab: TabbedNavigationItem) => {
+    setCurrentTab(tab)
+    getTradeSummary()
+  }
 
   const getCurrentData = () => {
     switch (currentTab.id) {
@@ -65,7 +70,7 @@ export default (): ReactElement => {
 
   return (
     <>
-      <TabbedNavigation items={tabs} select={setCurrentTab} selected={currentTab} />
+      <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
       <View style={tw`p-7`}>
         {allOpenOffers.length + pastOffers.length === 0 ? (
           // TODO : EMPTY PLACEHOLDER

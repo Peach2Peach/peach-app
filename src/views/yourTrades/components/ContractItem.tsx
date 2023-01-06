@@ -65,7 +65,7 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
           price={price}
           level={theme.level as SummaryItemLevel}
           icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
-          date={new Date(contract.lastModified)}
+          date={new Date(contract.creationDate)}
           action={{
             callback: navigate,
             label: contract.messages > 0 ? ' ' : undefined,
@@ -79,7 +79,7 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
           currency={currency}
           price={price}
           level={theme.level}
-          date={new Date(contract.lastModified)}
+          date={new Date(contract.paymentMade || contract.creationDate)}
           action={{
             callback: navigate,
             label: i18n(`offer.requiredAction.${status}`, i18n(counterparty)),
