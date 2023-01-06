@@ -3,7 +3,7 @@ import { isPastOffer } from './isPastOffer'
 import { isPrioritary } from './isPrioritary'
 import { isWaiting } from './isWaiting'
 
-export const getOfferLevel = (trade: OfferSummary | ContractSummary): SummaryItemLevel => {
+export const getOfferLevel = (trade: TradeSummary): SummaryItemLevel => {
   if (isPastOffer(trade.tradeStatus)) {
     if (trade.tradeStatus === 'tradeCanceled') return 'DEFAULT'
     if (trade.tradeStatus === 'offerCanceled') return 'DEFAULT'
