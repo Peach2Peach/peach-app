@@ -50,7 +50,6 @@ export default (): ReactElement => {
     sell: allOpenOffers.filter(({ type }) => type === 'ask'),
   }
   const pastOffers = trades.filter(({ tradeStatus }) => isPastOffer(tradeStatus))
-
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const getCurrentData = () => {
@@ -93,42 +92,6 @@ export default (): ReactElement => {
               )
             }
           />
-
-        /* <>
-
-            <FlatList
-              scrollEnabled={false}
-              ItemSeparatorComponent={() => <View style={tw`h-5`} />}
-              data={getCategories(getCurrentData()).priority}
-              renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
-            />
-            {getCategories(getCurrentData()).openActions.length !== 0 && (
-              <>
-                <LinedText>
-                  <Text>{i18n('yourTrades.openActions')}</Text>
-                </LinedText>
-                <FlatList
-                  scrollEnabled={false}
-                  ItemSeparatorComponent={() => <View style={tw`h-5`} />}
-                  data={getCategories(getCurrentData()).openActions}
-                  renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
-                />
-              </>
-            )}
-            {getCategories(getCurrentData()).waiting.length !== 0 && (
-              <>
-                <LinedText style={tw`my-2`}>
-                  <Text>{i18n('yourTrades.waiting')}</Text>
-                </LinedText>
-                <FlatList
-                  scrollEnabled={false}
-                  ItemSeparatorComponent={() => <View style={tw`h-5`} />}
-                  data={getCategories(getCurrentData()).waiting}
-                  renderItem={({ item }) => <OfferItem key={item.id} extended={true} offer={item} />}
-                />
-              </>
-            )}
-          </>*/
         )}
       </View>
     </>

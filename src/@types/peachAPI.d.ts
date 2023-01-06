@@ -193,7 +193,7 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
-  tradeStatus?: TradeStatus
+  tradeStatus: TradeStatus
   lastModified: Date
 }
 
