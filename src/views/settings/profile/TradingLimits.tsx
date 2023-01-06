@@ -8,17 +8,17 @@ import { thousands } from '../../../utils/string'
 
 const Progress = ({ text, percentage, style }: { text?: string; percentage: number } & ComponentProps) => (
   <View style={style}>
-    <View style={tw`bg-primary-background-dark h-2 rounded-full`}>
+    <View style={tw`bg-primary-background-dark h-2 rounded-full overflow-hidden`}>
       {percentage > 0 && (
         <View
           style={[
-            tw`bg-primary-main h-[9px] rounded-full border-[1px] border-primary-background`,
-            { width: `${percentage}%` },
+            tw`bg-primary-main h-[9px] rounded-full border border-primary-background`,
+            { width: `${percentage * 100}%` },
           ]}
         />
       )}
     </View>
-    {!!text && <Text style={tw`self-center body-s mt-1 text-[#816D64]`}>{text}</Text>}
+    {!!text && <Text style={tw`self-center body-s mt-1 text-black-2`}>{text}</Text>}
   </View>
 )
 
