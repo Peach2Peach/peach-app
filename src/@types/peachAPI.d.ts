@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 declare type WSCallback = (message?: any) => void
 declare type PeachWS = {
   ws?: WebSocket
@@ -157,30 +158,6 @@ declare type TradeStatus =
   | 'tradeCompleted'
   | 'tradeCanceled'
 
-declare type GetOffersResponseBody =
-  | {
-      id: string
-      contractId?: string
-      lastModified: Date
-      amount: number
-      matches: Offer['id'][]
-      prices: Pricebook
-      tradeStatus: TradeStatus
-    }[]
-  | APIError<null>
-
-declare type GetContractsResponseBody =
-  | {
-      id: string
-      lastModified: Date
-      tradeStatus: TradeStatus
-      price: number
-      currency: Currency
-      disputeWinner: Contract['disputeWinner']
-      messages: Contract['messages']
-    }[]
-  | APIError<null>
-
 declare type Offer = {
   id: string
   oldOfferId?: string
@@ -277,8 +254,28 @@ declare type MatchResponse = {
   contractId?: string
   refundTx?: string
 }
+
+declare type GetOffersResponse = {
+  id: string
+  contractId?: string
+  lastModified: Date
+  amount: number
+  matches: string[]
+  prices: Pricebook
+  tradeStatus: TradeStatus
+}[]
+
 declare type GetContractResponse = Contract
-declare type GetContractsResponse = Contract[]
+
+declare type GetContractsResponse = {
+  id: string
+  lastModified: Date
+  tradeStatus: TradeStatus
+  price: number
+  currency: Currency
+  disputeWinner: Contract['disputeWinner']
+  messages: Contract['messages']
+}[]
 declare type ConfirmPaymentResponse = {
   success: true
   txId?: string
