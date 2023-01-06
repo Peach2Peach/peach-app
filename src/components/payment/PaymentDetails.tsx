@@ -15,8 +15,8 @@ import LinedText from '../ui/LinedText'
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
   onlineWallet: 'cloud',
-  giftCard: '',
-  localOption: '',
+  giftCard: 'creditCard',
+  localOption: 'flag',
   cryptoCurrency: '',
   cash: '',
 }

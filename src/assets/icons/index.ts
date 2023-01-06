@@ -37,6 +37,7 @@ import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
 import fire from './fire.svg'
+import flag from './flag.svg'
 import fundEscrow from './fundEscrow.svg'
 import gift from './gift.svg'
 import globe from './globe.svg'
@@ -129,6 +130,7 @@ const Icons = {
   eye,
   eyeOff,
   fire,
+  flag,
   fundEscrow,
   gift,
   globe,
