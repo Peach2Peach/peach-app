@@ -66,7 +66,7 @@ export const SummaryItem = ({
     style={[tw`w-full rounded-xl`, tw`border`, levelColorMap.border[level], style]}
     onPress={action?.callback}
   >
-    <View style={tw`flex flex-row items-center justify-between px-3 py-1 rounded-xl`}>
+    <View style={tw`flex flex-row items-center justify-between py-3 px-4 rounded-xl`}>
       <View>
         <Text style={tw`subtitle-1`}>{title}</Text>
         <View style={tw`flex flex-row items-center`}>
