@@ -74,12 +74,10 @@ export const SummaryItem = ({
           <Text style={tw`text-xs text-black-2`}>{toDateFormat(date)}</Text>
         </View>
       </View>
-      {!!price && !!currency && (
-        <View>
-          <SatsFormat {...{ sats: amount }} />
-          <PriceFormat style={tw`text-black-2 text-right`} {...{ amount: price, currency }} />
-        </View>
-      )}
+      <View>
+        <SatsFormat {...{ sats: amount }} />
+        {!!price && !!currency && <PriceFormat style={tw`text-black-2 text-right`} {...{ amount: price, currency }} />}
+      </View>
     </View>
     {!!action?.label && (
       <View style={[tw`flex flex-row items-center justify-center py-1 rounded-b-lg`, levelColorMap.bg[level]]}>
