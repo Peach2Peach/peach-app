@@ -55,6 +55,7 @@ import lock from './lock.svg'
 import mail from './mail.svg'
 import map from './map.svg'
 import messageCircle from './messageCircle.svg'
+import messageFull from './messageFull.svg'
 import minusCircle from './minusCircle.svg'
 import minusSquare from './minusSquare.svg'
 import noNetwork from './noNetwork.svg'
@@ -157,6 +158,7 @@ const Icons = {
   mail,
   map,
   messageCircle,
+  messageFull,
   minusCircle,
   minusSquare,
   noNetwork,
