@@ -3,6 +3,7 @@ import { getNavigationDestinationForContract } from '../../../../src/views/yourT
 
 jest.mock('../../../../src/utils/contract', () => ({
   getContract: jest.fn(),
+  getOfferIdFromContract: () => '1',
 }))
 
 afterEach(() => {
@@ -21,7 +22,23 @@ describe('getNavigationDestinationForContract', () => {
     expect(params).toEqual({ contractId: '3' })
   })
 
-  it('should navigate to tradeComplete', () => {
+  it('should navigate to tradeComplete (rate user screen)', () => {
+    const contract = {
+      id: '1-2',
+    }
+    const contractSummary: Partial<ContractSummary> = {
+      id: '3',
+      tradeStatus: 'rateUser',
+    }
+
+    ;(<jest.Mock>getContract).mockReturnValue(contract)
+    const [destination, params] = getNavigationDestinationForContract(contractSummary as ContractSummary)
+
+    expect(destination).toBe('tradeComplete')
+    expect(params).toEqual({ contract })
+  })
+
+  it('should navigate to offer when trade is complete', () => {
     const contract = {
       id: '1-2',
     }
@@ -33,7 +50,7 @@ describe('getNavigationDestinationForContract', () => {
     ;(<jest.Mock>getContract).mockReturnValue(contract)
     const [destination, params] = getNavigationDestinationForContract(contractSummary as ContractSummary)
 
-    expect(destination).toBe('tradeComplete')
-    expect(params).toEqual({ contract })
+    expect(destination).toBe('offer')
+    expect(params).toEqual({ offerId: '1' })
   })
 })
