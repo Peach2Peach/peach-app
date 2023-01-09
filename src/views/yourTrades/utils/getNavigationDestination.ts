@@ -1,11 +1,15 @@
-import { getContract } from '../../../utils/contract'
+import { getContract, getOfferIdFromContract } from '../../../utils/contract'
 import { getOffer } from '../../../utils/offer'
 import { shouldGoToOfferSummary } from './'
 
 export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
-  if (contract.tradeStatus === 'tradeCompleted') {
+  if (contract.tradeStatus === 'rateUser') {
     const fullContract = getContract(contract.id)
     if (fullContract) return ['tradeComplete', { contract: fullContract }]
+  }
+  if (contract.tradeStatus === 'tradeCompleted') {
+    const fullContract = getContract(contract.id)
+    if (fullContract) return ['offer', { offerId: getOfferIdFromContract(fullContract) }]
   }
   return ['contract', { contractId: contract.id }]
 }
