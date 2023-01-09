@@ -36,7 +36,6 @@ const ChatMessages = ({ messages, level }: ChatMessagesProps): ReactElement => (
   </View>
 )
 
-// eslint-disable-next-line max-lines-per-function, complexity
 export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
