@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import { useBackgroundState } from '../../components/background/backgroundStore'
 
 import { MessageContext } from '../../contexts/message'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
@@ -20,7 +19,6 @@ export default (): ReactElement => {
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
 
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -49,14 +47,11 @@ export default (): ReactElement => {
 
       setTimeout(() => {
         navigation.replace('home')
-        setBackgroundState({
-          color: undefined,
-        })
       }, 1500)
     } else {
       onError(authError?.error)
     }
-  }, [navigation, onError, route.params.referralCode, setBackgroundState])
+  }, [navigation, onError, route.params.referralCode])
 
   useEffect(() => {
     // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard

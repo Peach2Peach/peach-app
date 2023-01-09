@@ -3,7 +3,6 @@ import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { FileInput, Input, Text } from '../../components'
-import { useBackgroundState } from '../../components/background/backgroundStore'
 import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -11,17 +10,16 @@ import { deleteAccount, recoverAccount } from '../../utils/account'
 import { decryptAccount } from '../../utils/account/decryptAccount'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
+import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
 import RestoreBackupError from './RestoreBackupError'
 import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
-import { auth } from '../../utils/peachAPI'
 
 const passwordRules = { password: true, required: true }
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
   const navigation = useNavigation()
 
   const [file, setFile] = useState({
@@ -79,9 +77,6 @@ export default ({ style }: ComponentProps): ReactElement => {
 
       setTimeout(() => {
         navigation.replace('home')
-        setBackgroundState({
-          color: undefined,
-        })
       }, 1500)
     } else {
       setLoading(false)

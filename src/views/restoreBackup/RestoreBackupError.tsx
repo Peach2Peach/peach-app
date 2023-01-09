@@ -15,7 +15,7 @@ type RestoreBackupErrorProps = {
 export default ({ err }: RestoreBackupErrorProps): ReactElement => {
   useBackupHeader()
   const navigation = useNavigation()
-  const goToContact = () => navigation.navigate('reportFullScreen')
+  const goToContact = () => navigation.navigate('contact')
 
   return (
     <View style={tw`h-full flex flex-shrink justify-between`}>
