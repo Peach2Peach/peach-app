@@ -27,7 +27,7 @@ import ContractCTA from './components/ContractCTA'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
-import { parseContract } from './helpers/parseContract'
+import { decryptContractData } from './helpers/decryptContractData'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -111,7 +111,7 @@ export default (): ReactElement => {
           const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setView(v)
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,

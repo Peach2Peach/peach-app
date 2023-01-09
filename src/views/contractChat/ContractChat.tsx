@@ -19,7 +19,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
-import { parseContract } from '../contract/helpers/parseContract'
+import { decryptContractData } from '../contract/helpers/decryptContractData'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
@@ -206,7 +206,7 @@ export default (): ReactElement => {
           const view = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setTradingPartner(() => (account.publicKey === result.seller.id ? result.buyer : result.seller))
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,
@@ -287,7 +287,7 @@ export default (): ReactElement => {
 
         if (decryptedMessages.some((m) => m.message === null)) {
           // delete symmetric key to let app decrypt actual one
-          const { symmetricKey } = await parseContract({
+          const { symmetricKey } = await decryptContractData({
             ...contract,
             symmetricKey: undefined,
           })
