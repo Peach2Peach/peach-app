@@ -48,7 +48,7 @@ export default (): ReactElement => {
             {i18n('telegram')}
           </OptionButton>
           <OptionButton onPress={openDiscord} style={tw`mt-2`} wide>
-            {i18n('telegram')}
+            {i18n('discord')}
           </OptionButton>
         </View>
       </PeachScrollView>

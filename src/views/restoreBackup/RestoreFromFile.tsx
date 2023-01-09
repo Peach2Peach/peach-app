@@ -17,7 +17,7 @@ import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 import { auth } from '../../utils/peachAPI'
 
-const passwordRules = { required: true, password: true }
+const passwordRules = { password: true, required: true }
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
@@ -29,7 +29,7 @@ export default ({ style }: ComponentProps): ReactElement => {
     content: '',
   })
 
-  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
+  const [password, setPassword, , passwordError] = useValidatedState<string>('', passwordRules)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
@@ -48,9 +48,6 @@ export default ({ style }: ComponentProps): ReactElement => {
     },
     [updateMessage],
   )
-  const onPasswordChange = (value: string) => {
-    setPassword(value)
-  }
 
   const submit = async () => {
     Keyboard.dismiss()
@@ -115,13 +112,13 @@ export default ({ style }: ComponentProps): ReactElement => {
               theme="inverted"
               onChange={setPassword}
               onSubmit={(val: string) => {
-                onPasswordChange(val)
+                setPassword(val)
                 if (file.name) submit()
               }}
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
+              errorMessage={passwordError}
             />
           </View>
         </View>
