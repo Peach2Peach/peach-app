@@ -5,6 +5,7 @@ import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title, TradeSummary } from '../../components'
+import { ChatButton } from '../../components/chat/ChatButton'
 import { TIMERS } from '../../constants'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
@@ -29,12 +30,10 @@ import { getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import ContractCTA from './components/ContractCTA'
+import { decryptContractData } from './helpers/decryptContractData'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
-import { decryptContractData } from './helpers/decryptContractData'
-import { ContractSummary } from '../../components/contract/ContractSummary'
-import { ChatButton } from '../../components/chat/ChatButton'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -179,7 +178,7 @@ export default (): ReactElement => {
   )
 
   useEffect(() => {
-    if (!contract || !view) return
+    if (!contract || !view || updatePending) return
 
     if (isTradeComplete(contract)) {
       if (
@@ -187,9 +186,10 @@ export default (): ReactElement => {
         || (view === 'seller' && !contract.ratingBuyer)
       ) {
         navigation.replace('tradeComplete', { contract })
-      } else {
-        navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
+        return
       }
+
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       return
     } else if (isTradeCanceled(contract)) {
       navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
@@ -198,7 +198,7 @@ export default (): ReactElement => {
 
     setRequiredAction(getRequiredAction(contract))
     setUpdatePending(false)
-  }, [contract])
+  }, [contract, navigation, updatePending, view])
 
   const postConfirmPaymentBuyer = async () => {
     if (!contract) return

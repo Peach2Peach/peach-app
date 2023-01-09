@@ -6,7 +6,7 @@ import OfferSummary from './components/OfferSummary'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 
 const statusToShowOfferSummary = ['offerPublished', 'searchingForPeer', 'offerCanceled']
-const statusToShowContractSummary = ['tradeCompleted', 'tradeCanceled']
+const statusToShowContractSummary = ['tradeCompleted', 'tradeCanceled', 'dispute']
 
 export default (): ReactElement => {
   const { offer, contract } = useOfferDetailsSetup()
@@ -18,6 +18,5 @@ export default (): ReactElement => {
   if (contract && statusToShowContractSummary.includes(offer.tradeStatus)) {
     return <ContractSummary contract={contract} />
   }
-
   return <OfferLoading />
 }
