@@ -129,6 +129,7 @@ const App: React.FC = () => {
   const getCurrentPage = () => currentPage
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
+  const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -247,7 +248,7 @@ const App: React.FC = () => {
                   >
                     <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                       <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                        <Background>
+                        <Background config={backgroundConfig}>
                           <Drawer
                             title={drawerTitle}
                             content={drawerContent}

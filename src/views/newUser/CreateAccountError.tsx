@@ -15,7 +15,7 @@ type CreateAccountErrorProps = {
 export default ({ err }: CreateAccountErrorProps): ReactElement => {
   useCreateAccountErrorHeader()
   const navigation = useNavigation()
-  const goToContact = () => navigation.navigate('reportFullScreen')
+  const goToContact = () => navigation.navigate('contact')
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')
 
   return (

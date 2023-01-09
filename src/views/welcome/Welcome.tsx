@@ -5,7 +5,6 @@ import tw from '../../styles/tailwind'
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
-import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
@@ -16,11 +15,9 @@ import { useWelcomeHeader } from './useWelcomeHeader'
 const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
-const backgroundConfig = { color: 'primaryGradient' as const }
 
 export default (): ReactElement => {
   useWelcomeHeader()
-  useBackgroundSetup(backgroundConfig)
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
