@@ -53,6 +53,7 @@ type ViewType = {
 
 const onboarding: ViewType[] = [
   { name: 'welcome', component: Welcome, showHeader: true, showFooter: false },
+  { name: 'home', component: Welcome, showHeader: true, showFooter: false },
   { name: 'newUser', component: NewUser, showHeader: true, showFooter: false },
   { name: 'restoreBackup', component: RestoreBackup, showHeader: true, showFooter: false },
 ]
