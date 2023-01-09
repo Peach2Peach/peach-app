@@ -19,3 +19,4 @@
 
 # Package: bdk-rn
 -keep class com.sun.jna.** { *; }
+-keep class org.bitcoindevkit.** { *; }
