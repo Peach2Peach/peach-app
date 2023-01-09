@@ -5,7 +5,7 @@ import { shouldGoToOfferSummary } from './'
 export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
   if (contract.tradeStatus === 'tradeCompleted') {
     const fullContract = getContract(contract.id)
-    return ['tradeComplete', { contract: fullContract }]
+    if (fullContract) return ['tradeComplete', { contract: fullContract }]
   }
   return ['contract', { contractId: contract.id }]
 }

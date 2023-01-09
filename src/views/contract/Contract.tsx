@@ -15,7 +15,13 @@ import { useNavigation, useRoute } from '../../hooks'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
-import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
+import {
+  getContract,
+  getOfferHexIdFromContract,
+  getOfferIdFromContract,
+  saveContract,
+  signReleaseTx,
+} from '../../utils/contract'
 import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
@@ -152,9 +158,9 @@ export default (): ReactElement => {
   useFocusEffect(
     useCallback(
       getOfferDetailsEffect({
-        offerId: contract ? getOfferIdfromContract(contract) : undefined,
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
         onSuccess: async (result) => {
-          saveOffer(result)
+          saveOffer(result, false)
         },
         onError: (err) =>
           updateMessage({
@@ -181,11 +187,11 @@ export default (): ReactElement => {
       ) {
         navigation.replace('tradeComplete', { contract })
       } else {
-        navigation.replace('offer', { offerId: getOfferIdfromContract(contract) })
+        navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       }
       return
     } else if (isTradeCanceled(contract)) {
-      navigation.replace('offer', { offerId: getOfferIdfromContract(contract) })
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       return
     }
 
@@ -280,7 +286,9 @@ export default (): ReactElement => {
         <Text style={tw`text-grey-2 text-center -mt-1`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
+        <Text style={tw`text-center text-grey-2 mt-2`}>
+          {i18n('contract.trade', getOfferHexIdFromContract(contract))}
+        </Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
             <ContractSummary {...{ contract, view }} />

@@ -8,7 +8,7 @@ import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
-import { getOfferLevel, getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
+import { getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
 
 type OfferItemProps = ComponentProps & {
   contract: ContractSummary

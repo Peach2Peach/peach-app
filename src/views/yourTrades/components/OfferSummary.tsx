@@ -29,8 +29,7 @@ export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement
 
   const goToOffer = () => {
     if (!offer.newOfferId) return
-    const offr = getOffer(offer.newOfferId)
-    if (offr) navigation.replace('offer', { offer: offr })
+    navigation.replace('offer', { offerId: offer.newOfferId })
   }
 
   return (

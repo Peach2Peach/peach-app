@@ -12,7 +12,7 @@ import getContractEffect from '../../effects/getContractEffect'
 import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
@@ -247,9 +247,9 @@ export default (): ReactElement => {
   useFocusEffect(
     useCallback(
       getOfferDetailsEffect({
-        offerId: contract ? getOfferIdfromContract(contract) : undefined,
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
         onSuccess: async (result) => {
-          saveOffer(result)
+          saveOffer(result, false)
         },
         onError: (err) =>
           updateMessage({
