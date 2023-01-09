@@ -53,7 +53,7 @@ export class PeachWallet {
       mnemonic = generateMnemonicResult.value
     }
 
-    info('PeachWallet - loadWallet - createWallet')
+    info('PeachWallet - loadWallet - createWallet', BLOCKEXPLORER)
     const result = await BdkRn.createWallet({
       mnemonic,
       password: '',

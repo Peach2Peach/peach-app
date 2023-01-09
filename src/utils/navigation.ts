@@ -44,11 +44,9 @@ export const handlePushNotification = (
     return true
   }
   if (offerId) {
-    const offer = getOffer(offerId)
-    if (offer) {
-      navigationRef.navigate('offer', { offer })
-      return true
-    }
+    navigationRef.navigate('offer', { offerId })
+
+    return true
   }
 
   return false

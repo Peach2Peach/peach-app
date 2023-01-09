@@ -34,9 +34,12 @@ module.exports = {
           'background-light': '#FFFCFA',
         },
         success: {
-          dark: '#016736',
+          dark: {
+            1: '#016736',
+            2: '#008847'
+          },
           main: '#008847',
-          light: '#05A85A',
+          mild: '#88E2B7',
           background: '#C9FFE5',
         },
         warning: {

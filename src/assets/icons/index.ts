@@ -9,8 +9,8 @@ import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import bellSmall from './bellSmall.svg'
-import bitcoin from './bitcoin.svg'
 import bitbox from './bitbox.svg'
+import bitcoin from './bitcoin.svg'
 import camera from './camera.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
@@ -31,9 +31,11 @@ import cloud from './cloud.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
+import crossOutlined from './crossOutlined.svg'
 import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import download from './download.svg'
+import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
@@ -53,6 +55,7 @@ import lock from './lock.svg'
 import mail from './mail.svg'
 import map from './map.svg'
 import messageCircle from './messageCircle.svg'
+import messageFull from './messageFull.svg'
 import minusCircle from './minusCircle.svg'
 import minusSquare from './minusSquare.svg'
 import noNetwork from './noNetwork.svg'
@@ -65,6 +68,7 @@ import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
+import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
 import send from './send.svg'
@@ -129,10 +133,12 @@ const Icons = {
   cloud,
   copy,
   cpu,
+  crossOutlined,
   cryptotag,
   creditCard,
   dollarSign,
   download,
+  downloadCloud,
   edit,
   externalLink,
   eye,
@@ -152,6 +158,7 @@ const Icons = {
   mail,
   map,
   messageCircle,
+  messageFull,
   minusCircle,
   minusSquare,
   noNetwork,
@@ -164,6 +171,7 @@ const Icons = {
   refreshCcw,
   rotateCounterClockwise,
   save,
+  search,
   selectClosed,
   selectOpen,
   sell: upload,

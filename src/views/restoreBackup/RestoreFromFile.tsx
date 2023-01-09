@@ -17,7 +17,7 @@ import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 import { auth } from '../../utils/peachAPI'
 
-const passwordRules = { required: true, password: true }
+const passwordRules = { password: true, required: true }
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
@@ -29,7 +29,7 @@ export default ({ style }: ComponentProps): ReactElement => {
     content: '',
   })
 
-  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
+  const [password, setPassword, , passwordError] = useValidatedState<string>('', passwordRules)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
@@ -48,9 +48,6 @@ export default ({ style }: ComponentProps): ReactElement => {
     },
     [updateMessage],
   )
-  const onPasswordChange = (value: string) => {
-    setPassword(value)
-  }
 
   const submit = async () => {
     Keyboard.dismiss()
@@ -103,20 +100,25 @@ export default ({ style }: ComponentProps): ReactElement => {
             {i18n('restoreBackup.manual.description.1')}
           </Text>
           <View style={tw`w-full mt-2 px-2`}>
-            <FileInput theme="inverted" fileName={file.name} onChange={setFile} />
+            <FileInput
+              theme="inverted"
+              fileName={file.name}
+              placeholder={i18n('restoreBackup.decrypt.file')}
+              onChange={setFile}
+            />
           </View>
           <View style={tw`px-2`}>
             <Input
               theme="inverted"
               onChange={setPassword}
               onSubmit={(val: string) => {
-                onPasswordChange(val)
+                setPassword(val)
                 if (file.name) submit()
               }}
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
+              errorMessage={passwordError}
             />
           </View>
         </View>

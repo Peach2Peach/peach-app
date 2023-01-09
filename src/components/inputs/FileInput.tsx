@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import { readFileInChunks } from '../../utils/file'
 import { error } from '../../utils/log'
-import Input from './Input'
+import Input, { InputProps } from './Input'
 
 export type FileData = {
   name: string
@@ -50,16 +50,13 @@ const selectFile = (): Promise<FileData> =>
     }
   })
 
-type FileInputProps = ComponentProps & {
+type FileInputProps = InputProps & {
   fileName?: string
-  errorMessage?: string[]
-  onChange?: Function
-  secureTextEntry?: boolean
-  theme?: 'default' | 'inverted'
 }
 
 export const FileInput = ({
   fileName,
+  placeholder,
   style,
   theme = 'default',
   errorMessage = [],
@@ -73,6 +70,7 @@ export const FileInput = ({
         style,
         theme,
         value: fileName,
+        placeholder,
         disabled: true,
         onPressIn: onPress,
         icons: [['clipboard', onPress]],

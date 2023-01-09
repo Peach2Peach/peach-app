@@ -1,32 +1,3 @@
-declare type TradeStatus = {
-  status:
-    | 'escrowWaitingForConfirmation'
-    | 'returnAddressRequired'
-    | 'offerPublished'
-    | 'searchingForPeer'
-    | 'match'
-    | 'contractCreated'
-    | 'tradeCompleted'
-    | 'offerCanceled'
-    | 'tradeCanceled'
-    | 'null'
-  requiredAction:
-    | ''
-    | 'fundEscrow'
-    | 'provideReturnAddress'
-    | 'refundEscrow'
-    | 'checkMatches'
-    | 'sendKYC'
-    | 'confirmKYC'
-    | 'sendPayment'
-    | 'confirmPayment'
-    | 'dispute'
-    | 'acknowledgeDisputeResult'
-    | 'confirmCancelation'
-    | 'rate'
-    | 'startRefund'
-}
-
 declare type SellOffer = Omit<Offer, 'id'> & {
   id?: string
   type: 'ask'

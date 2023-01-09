@@ -8,9 +8,9 @@ import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { getChatNotifications } from '../../../utils/chat'
-import { createUserRating } from '../../../utils/contract'
+import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getOffer, getRequiredActionCount } from '../../../utils/offer'
+import { getRequiredActionCount } from '../../../utils/offer'
 import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
@@ -62,8 +62,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
     })
 
     if (rating.rating === 1) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-      navigation.replace('offer', { offer })
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
     } else {
       navigation.replace('yourTrades')
     }

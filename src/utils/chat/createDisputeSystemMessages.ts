@@ -1,5 +1,5 @@
 import { isEmailRequired } from '../../views/dispute/Dispute'
-import { getOfferIdfromContract } from '../contract'
+import { getOfferHexIdFromContract, getOfferIdFromContract } from '../contract'
 import i18n from '../i18n'
 import { createSystemMessage } from './createSystemMessage'
 
@@ -33,7 +33,7 @@ export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract
           contract.disputeDate,
           [
             i18n('chat.systemMessage.provideMoreInformation.1'),
-            i18n('chat.systemMessage.provideMoreInformation.2', getOfferIdfromContract(contract)),
+            i18n('chat.systemMessage.provideMoreInformation.2', getOfferHexIdFromContract(contract)),
           ].join('\n\n'),
         ),
       ])
