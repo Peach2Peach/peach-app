@@ -77,7 +77,6 @@ declare type RootStackParamList = {
   aboutPeach: undefined
   bitcoinProducts: undefined
   socials: undefined
-  reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
   myProfile: undefined

@@ -11,7 +11,7 @@ export const useCreateAccountErrorHeader = () => {
     () => [
       {
         iconComponent: <Icon id="mail" color={tw`text-primary-background-light`.color} />,
-        onPress: () => navigation.navigate('reportFullScreen'),
+        onPress: () => navigation.navigate('contact'),
       },
       {
         iconComponent: <Icon id="globe" color={tw`text-primary-background-light`.color} />,

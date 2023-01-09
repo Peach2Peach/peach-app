@@ -16,7 +16,7 @@ export const useWelcomeHeader = () => {
         icons: [
           {
             iconComponent: <Icon id="mail" color={iconColor} />,
-            onPress: () => navigation.navigate('reportFullScreen'),
+            onPress: () => navigation.navigate('contact'),
           },
           {
             iconComponent: <Icon id="globe" color={iconColor} />,
