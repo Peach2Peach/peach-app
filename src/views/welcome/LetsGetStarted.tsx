@@ -31,7 +31,8 @@ export default (): ReactElement => {
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')
 
   return (
-    <View style={tw`h-full flex flex-col justify-center items-center`}>
+    <View style={tw`h-full flex flex-col justify-between items-center`}>
+      <View>{/* dummy for layout */}</View>
       <View>
         <Text style={tw`h4 text-center text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>
         <Text style={tw`mt-4 text-primary-background-light text-center`}>{i18n('newUser.referralCode')}</Text>
