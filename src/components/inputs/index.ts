@@ -1,4 +1,3 @@
-export { Checkboxes } from './Checkboxes'
 export { CurrencyItem } from './CurrencyItem'
 export { Dropdown } from './Dropdown'
 export { FileInput } from './FileInput'
