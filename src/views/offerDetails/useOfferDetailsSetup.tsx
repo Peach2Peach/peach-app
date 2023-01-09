@@ -46,7 +46,7 @@ export const useOfferDetailsSetup = () => {
           saveAndUpdate(updatedOffer)
 
           if (result.online && result.matches.length && !result.contractId) {
-            info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
+            info('useOfferDetailsSetup - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
             matchStoreSetOffer(updatedOffer)
             navigation.replace('search')
           }
@@ -81,7 +81,7 @@ export const useOfferDetailsSetup = () => {
           setContract(c)
 
           if (!result.paymentMade && !result.canceled) {
-            info('Offer.tsx - getContractEffect', `navigate to contract ${result.id}`)
+            info('useOfferDetailsSetup - getContractEffect', `navigate to contract ${result.id}`)
             navigation.replace('contract', { contractId: result.id })
           }
           updateAppContext({
