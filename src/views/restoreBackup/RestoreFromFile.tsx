@@ -100,7 +100,12 @@ export default ({ style }: ComponentProps): ReactElement => {
             {i18n('restoreBackup.manual.description.1')}
           </Text>
           <View style={tw`w-full mt-2 px-2`}>
-            <FileInput theme="inverted" fileName={file.name} onChange={setFile} />
+            <FileInput
+              theme="inverted"
+              fileName={file.name}
+              placeholder={i18n('restoreBackup.decrypt.file')}
+              onChange={setFile}
+            />
           </View>
           <View style={tw`px-2`}>
             <Input
