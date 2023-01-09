@@ -103,20 +103,29 @@ export default ({ style }: ComponentProps): ReactElement => {
             {i18n('restoreBackup.manual.description.1')}
           </Text>
           <View style={tw`w-full mt-2 px-2`}>
-            <FileInput theme="inverted" fileName={file.name} onChange={setFile} />
+            <FileInput
+              {...{
+                placeholder: i18n('restoreBackup.decrypt.file'),
+                theme: 'inverted',
+                fileName: file.name,
+                onChange: setFile,
+              }}
+            />
           </View>
           <View style={tw`px-2`}>
             <Input
-              theme="inverted"
-              onChange={setPassword}
-              onSubmit={(val: string) => {
-                onPasswordChange(val)
-                if (file.name) submit()
+              {...{
+                theme: 'inverted',
+                onChange: setPassword,
+                onSubmit: (val: string) => {
+                  onPasswordChange(val)
+                  if (file.name) submit()
+                },
+                secureTextEntry: true,
+                placeholder: i18n('restoreBackup.decrypt.password'),
+                value: password,
+                errorMessage: !passwordIsValid ? [i18n('form.password.error')] : [],
               }}
-              secureTextEntry={true}
-              placeholder={i18n('restoreBackup.decrypt.password')}
-              value={password}
-              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
             />
           </View>
         </View>
