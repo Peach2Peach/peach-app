@@ -182,7 +182,7 @@ const contact = (hasAccount: boolean): ViewType[] =>
     ]
     : [
       { name: 'contact', component: Contact, showHeader: true, showFooter: false, background: { color: undefined } },
-      { name: 'report', component: Report, showHeader: false, showFooter: false, background: { color: undefined } },
+      { name: 'report', component: Report, showHeader: true, showFooter: false, background: { color: undefined } },
     ]
 
 const profile: ViewType[] = [
