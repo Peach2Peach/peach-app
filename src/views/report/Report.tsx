@@ -14,7 +14,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
 
-const emailRules = { required: true, email: true }
+const emailRules = { email: true, required: true }
 const required = { required: true }
 
 export default (): ReactElement => {
@@ -28,7 +28,6 @@ export default (): ReactElement => {
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
-  const [displayErrors, setDisplayErrors] = useState(false)
   const reason = route.params.reason
 
   let $topic = useRef<TextInput>(null).current
@@ -39,7 +38,6 @@ export default (): ReactElement => {
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
-    setDisplayErrors(true)
     const isFormValid = isEmailValid && isTopicValid && isMessageValid
     if (!isFormValid) return
 
@@ -60,7 +58,6 @@ export default (): ReactElement => {
       setTopic(route.params.topic || '')
       setMessage(route.params.message || '')
       setShareDeviceID(false)
-      setDisplayErrors(false)
       return
     }
 
@@ -87,7 +84,7 @@ export default (): ReactElement => {
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
           autoCorrect={false}
-          errorMessage={displayErrors ? emailErrors : undefined}
+          errorMessage={emailErrors}
         />
         <Input
           onChange={setTopic}
@@ -96,7 +93,7 @@ export default (): ReactElement => {
           value={topic}
           placeholder={i18n('form.topic.placeholder')}
           autoCorrect={false}
-          errorMessage={displayErrors ? topicErrors : undefined}
+          errorMessage={topicErrors}
         />
         <Input
           style={tw`h-40`}
@@ -106,7 +103,7 @@ export default (): ReactElement => {
           multiline={true}
           placeholder={i18n('form.message.placeholder')}
           autoCorrect={false}
-          errorMessage={displayErrors ? messageErrors : undefined}
+          errorMessage={messageErrors}
         />
         <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row justify-center items-center my-5`}>
           <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
