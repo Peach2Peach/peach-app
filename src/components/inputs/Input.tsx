@@ -7,6 +7,7 @@ import {
   TextInputProps,
   TextInputSubmitEditingEventData,
   View,
+  ViewStyle,
 } from 'react-native'
 import { Text } from '..'
 import tw from '../../styles/tailwind'
@@ -51,6 +52,7 @@ export type InputProps = ComponentProps &
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
+    inputStyle: ViewStyle | ViewStyle[]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
@@ -98,6 +100,7 @@ export const Input = ({
   returnKeyType,
   autoCapitalize,
   style,
+  inputStyle,
   theme = 'default',
   testID,
   reference,
@@ -162,6 +165,7 @@ export const Input = ({
             showError ? colors.textError : {},
             !showError ? tw`border border-transparent` : {},
             multiline ? tw`pt-2 h-full` : {},
+            inputStyle ? inputStyle : {},
           ]}
           {...{
             testID,

@@ -39,6 +39,7 @@ export default (): ReactElement => {
           <Input
             testID="newUser-referralCode"
             style={tw`w-40 mt-2`}
+            inputStyle={tw`text-center`}
             theme="inverted"
             placeholder={i18n('form.optional')}
             onChange={setReferralCode}
