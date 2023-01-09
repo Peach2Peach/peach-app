@@ -39,9 +39,10 @@ import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { getPeachInfo } from './init/getPeachInfo'
+import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
-import { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
@@ -79,10 +80,12 @@ const usePartialAppSetup = () => {
         setActive(isActive)
         if (isActive) {
           getPeachInfo(getAccount())
-          getTrades()
-          updateAppContext({
-            notifications: getChatNotifications() + getRequiredActionCount(),
-          })
+          if (account?.publicKey) {
+            getTrades()
+            updateAppContext({
+              notifications: getChatNotifications() + getRequiredActionCount(),
+            })
+          }
           analytics().logAppOpen()
 
           clearTimeout(goHomeTimeout)

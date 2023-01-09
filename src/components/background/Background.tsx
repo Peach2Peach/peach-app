@@ -27,7 +27,7 @@ export const Background = ({ config = defaultConfig, children }: BackgroundProps
       {config.color === 'primaryGradient' ? (
         <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={primaryGradient} />
       ) : (
-        <View style={[tw`w-full h-full`, config.color || tw`bg-primary-background-light`]} />
+        <View style={[tw`w-full h-full`, config.color || tw`bg-primary-background`]} />
       )}
       <View style={coverStyle}>{children}</View>
     </View>

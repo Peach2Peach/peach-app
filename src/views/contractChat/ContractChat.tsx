@@ -12,14 +12,14 @@ import getContractEffect from '../../effects/getContractEffect'
 import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
-import { parseContract } from '../contract/helpers/parseContract'
+import { decryptContractData } from '../contract/helpers/decryptContractData'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
@@ -206,7 +206,7 @@ export default (): ReactElement => {
           const view = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setTradingPartner(() => (account.publicKey === result.seller.id ? result.buyer : result.seller))
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,
@@ -247,9 +247,9 @@ export default (): ReactElement => {
   useFocusEffect(
     useCallback(
       getOfferDetailsEffect({
-        offerId: contract ? getOfferIdfromContract(contract) : undefined,
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
         onSuccess: async (result) => {
-          saveOffer(result)
+          saveOffer(result, false)
         },
         onError: (err) =>
           updateMessage({
@@ -287,7 +287,7 @@ export default (): ReactElement => {
 
         if (decryptedMessages.some((m) => m.message === null)) {
           // delete symmetric key to let app decrypt actual one
-          const { symmetricKey } = await parseContract({
+          const { symmetricKey } = await decryptContractData({
             ...contract,
             symmetricKey: undefined,
           })

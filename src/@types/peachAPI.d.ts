@@ -284,7 +284,7 @@ declare type ContractSummary = {
   price: number
   currency: Currency
   disputeWinner: Contract['disputeWinner']
-  messages: Contract['messages']
+  unreadMessages: number
 }
 declare type GetContractsResponse = ContractSummary[]
 

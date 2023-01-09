@@ -8,7 +8,7 @@ import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
-import { getOfferLevel, getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
+import { getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
 
 type OfferItemProps = ComponentProps & {
   contract: ContractSummary
@@ -36,7 +36,6 @@ const ChatMessages = ({ messages, level }: ChatMessagesProps): ReactElement => (
   </View>
 )
 
-// eslint-disable-next-line max-lines-per-function, complexity
 export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
@@ -68,8 +67,8 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
           date={new Date(contract.creationDate)}
           action={{
             callback: navigate,
-            label: contract.messages > 0 ? ' ' : undefined,
-            icon: contract.messages > 0 ? 'info' : undefined,
+            label: contract.unreadMessages > 0 ? ' ' : undefined,
+            icon: contract.unreadMessages > 0 ? 'info' : undefined,
           }}
         />
       ) : (
@@ -87,9 +86,9 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
           }}
         />
       )}
-      {contract.messages > 0 && (
+      {contract.unreadMessages > 0 && (
         <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
-          <ChatMessages messages={contract.messages} level={theme.level as SummaryItemLevel} />
+          <ChatMessages messages={contract.unreadMessages} level={theme.level as SummaryItemLevel} />
         </View>
       )}
     </View>

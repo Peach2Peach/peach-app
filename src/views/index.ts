@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-
 import AboutPeach from './settings/aboutPeach/AboutPeach'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
@@ -55,6 +54,7 @@ type ViewType = {
 
 const onboarding: ViewType[] = [
   { name: 'welcome', component: Welcome, showHeader: true, showFooter: false, background: { color: 'primaryGradient' } },
+  { name: 'home', component: Welcome, showHeader: true, showFooter: false, background: { color: 'primaryGradient' } },
   { name: 'newUser', component: NewUser, showHeader: true, showFooter: false, background: { color: 'primaryGradient' } },
   {
     name: 'restoreBackup',
