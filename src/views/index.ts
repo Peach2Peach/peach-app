@@ -39,7 +39,7 @@ import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
-import Offer from './yourTrades/Offer'
+import OfferDetails from './offerDetails/OfferDetails'
 import YourTrades from './yourTrades/YourTrades'
 import MyProfile from './settings/profile/MyProfile'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
@@ -87,7 +87,7 @@ const trade: ViewType[] = [
 
 const tradeHistory: ViewType[] = [
   { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
-  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
+  { name: 'offer', component: OfferDetails, showHeader: true, showFooter: true },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>

@@ -4,7 +4,7 @@ import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
+import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title, TradeSummary } from '../../components'
 import { TIMERS } from '../../constants'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
@@ -28,12 +28,13 @@ import { error } from '../../utils/log'
 import { getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import ContractCTA from './components/ContractCTA'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
 import { decryptContractData } from './helpers/decryptContractData'
+import { ContractSummary } from '../../components/contract/ContractSummary'
+import { ChatButton } from '../../components/chat/ChatButton'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -291,7 +292,10 @@ export default (): ReactElement => {
         </Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
-            <ContractSummary {...{ contract, view }} />
+            <View>
+              <ChatButton contract={contract} style={tw`absolute top-4 right-0 -mr-4 z-10`} />
+              <TradeSummary {...{ contract, view }} />
+            </View>
             <View style={tw`mt-16 flex-row justify-center`}>
               {/sendPayment/u.test(requiredAction) ? (
                 <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
