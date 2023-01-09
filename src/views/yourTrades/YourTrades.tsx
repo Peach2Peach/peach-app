@@ -77,6 +77,7 @@ export default (): ReactElement => {
           <View />
         ) : (
           <SectionList
+            showsVerticalScrollIndicator={false}
             sections={getCategories(getCurrentData())}
             renderItem={({ item }) => (
               <View style={tw`mb-3`}>
