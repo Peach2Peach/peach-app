@@ -107,6 +107,5 @@ export const useOfferDetailsSetup = () => {
   return {
     offer,
     contract,
-    navigation,
   }
 }

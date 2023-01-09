@@ -9,7 +9,7 @@ const statusToShowOfferSummary = ['offerPublished', 'searchingForPeer', 'offerCa
 const statusToShowContractSummary = ['tradeCompleted', 'tradeCanceled']
 
 export default (): ReactElement => {
-  const { offer, contract, navigation } = useOfferDetailsSetup()
+  const { offer, contract } = useOfferDetailsSetup()
 
   if (!offer) return <OfferLoading />
   if (statusToShowOfferSummary.includes(offer.tradeStatus)) {
@@ -19,6 +19,5 @@ export default (): ReactElement => {
     return <ContractSummary contract={contract} />
   }
 
-  navigation.navigate('yourTrades')
   return <OfferLoading />
 }
