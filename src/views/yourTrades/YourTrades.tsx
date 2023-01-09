@@ -60,6 +60,7 @@ export default (): ReactElement => {
           <View />
         ) : (
           <SectionList
+            showsVerticalScrollIndicator={false}
             sections={getCategories(getCurrentData())}
             renderSectionHeader={SectionHeader}
             renderItem={TradeItem}
