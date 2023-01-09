@@ -64,7 +64,7 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
           price={price}
           level={theme.level as SummaryItemLevel}
           icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
-          date={new Date(contract.creationDate)}
+          date={new Date(contract.paymentMade || contract.creationDate)}
           action={{
             callback: navigate,
             label: contract.unreadMessages > 0 ? ' ' : undefined,
