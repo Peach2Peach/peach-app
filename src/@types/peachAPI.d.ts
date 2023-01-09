@@ -278,7 +278,7 @@ declare type ContractSummary = {
   type: 'bid' | 'ask'
   creationDate: Date
   lastModified: Date
-  paymentMade: Date
+  paymentMade?: Date
   tradeStatus: TradeStatus
   amount: number
   price: number
@@ -324,4 +324,6 @@ declare type FeeRecommendation = {
   minimumFee: number
 }
 declare type GetFeeEstimateResponse = FeeRecommendation
-declare type TradeSummary = OfferSummary | ContractSummary
+declare type TradeSummary = (OfferSummary | ContractSummary) & {
+  paymentMade?: Date
+}
