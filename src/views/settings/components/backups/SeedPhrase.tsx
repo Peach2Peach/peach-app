@@ -19,9 +19,9 @@ const KeepPhraseSecure = (): ReactElement => {
       <Text>keep your seed phrase secure!</Text>
       <Icon id="edit" />
       <Text>Write it down on a piece of paper</Text>
-      <Icon id="edit" />
+      <Icon id="cameraOff" />
       <Text>Store it in a safe place</Text>
-      <Icon id="edit" />
+      <Icon id="cloudOff" />
       <Text>Don't share it with anyone</Text>
       <Checkbox
         {...{

@@ -12,6 +12,7 @@ import bellSmall from './bellSmall.svg'
 import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
 import camera from './camera.svg'
+import cameraOff from './cameraOff.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
@@ -28,6 +29,7 @@ import circle from './circle.svg'
 import clipboard from './clipboard.svg'
 import clock from './clock.svg'
 import cloud from './cloud.svg'
+import cloudOff from './cloudOff.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
@@ -88,6 +90,7 @@ import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
 import trash from './trash.svg'
 import trendingUp from './trendingUp.svg'
+import unlock from './unlock.svg'
 import upload from './upload.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
@@ -115,6 +118,7 @@ const Icons = {
   bitbox,
   buy: download,
   camera,
+  cameraOff,
   chatDoubleCheck,
   check,
   checkboxMark,
@@ -131,6 +135,7 @@ const Icons = {
   clipboard,
   clock,
   cloud,
+  cloudOff,
   copy,
   cpu,
   crossOutlined,
@@ -192,6 +197,7 @@ const Icons = {
   toggleRight,
   trash,
   trendingUp,
+  unlock,
   upload,
   user,
   userCheck,
