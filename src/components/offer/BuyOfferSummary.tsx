@@ -11,6 +11,7 @@ type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer
 }
 export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
+  console.log(offer)
   const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const [paymentMethods, setPaymentMethods] = useState(offer.meansOfPayment[selectedCurrency]!)

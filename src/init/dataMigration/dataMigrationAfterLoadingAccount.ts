@@ -1,1 +1,5 @@
-export const dataMigrationAfterLoadingAccount = async () => {}
+import { fixBrokenOffersAndContracts } from './fixBrokenOffersAndContracts'
+
+export const dataMigrationAfterLoadingAccount = async () => {
+  fixBrokenOffersAndContracts()
+}

@@ -1,4 +1,5 @@
 import { setAccount } from '.'
+import { dataMigrationAfterLoadingAccount } from '../../init/dataMigration'
 import { decrypt } from '../crypto'
 import { info } from '../log'
 import { account } from './account'
@@ -16,6 +17,7 @@ export const decryptAccount = async ({
 
   try {
     await setAccount(JSON.parse(decrypt(encryptedAccount, password)))
+    await dataMigrationAfterLoadingAccount()
     return [account, null]
   } catch (e) {
     return [null, 'WRONG_PASSWORD']
