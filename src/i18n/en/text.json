@@ -133,6 +133,7 @@
   "offer.summary.escrow": "escrow",
   "offer.summary.refundTx": "refund tx",
   "offer.requiredAction.fundEscrow": "fund escrow",
+  "offer.requiredAction.escrowWaitingForConfirmation": "waiting for network",
   "offer.requiredAction.returnAddressRequired": "provide refund address",
   "offer.requiredAction.refundTxSignatureRequired": "refund escrow",
   "offer.requiredAction.provideReturnAddress": "provide refund address",
