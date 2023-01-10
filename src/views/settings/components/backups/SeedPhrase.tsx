@@ -5,13 +5,21 @@ import tw from '../../../../styles/tailwind'
 
 import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { useToggleBoolean } from '../../../../hooks'
+import { useHeaderSetup, useToggleBoolean } from '../../../../hooks'
 import i18n from '../../../../utils/i18n'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { TwelveWords } from './TwelveWords'
 import { ReadAndUnderstood } from './ReadAndUnderstood'
+import { HelpIcon } from '../../../../components/icons'
+import { useShowHelp } from '../../../../hooks/useShowHelp'
 
 export default (): ReactElement => {
+  const showSeedPhrasePopup = useShowHelp('seedPhrase')
+
+  useHeaderSetup({
+    title: i18n('settings.backups.walletBackup'),
+    icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
+  })
   const [checked, onPress] = useToggleBoolean()
   const [showsWords, toggle] = useToggleBoolean()
 

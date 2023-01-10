@@ -6,6 +6,7 @@ import { ReferralsHelp } from './info/ReferralsHelp'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 import { MyBadges } from './info/MyBadges'
 import { TradingLimit } from './info/TradingLimit'
+import { SeedPhrasePopup } from './info/SeedPhrasePopup'
 
 type HelpContent = {
   title: string
@@ -36,6 +37,10 @@ export const helpOverlays: Record<string, HelpContent> = {
   myBadges: {
     title: i18n('peachBadges'),
     content: MyBadges,
+  },
+  seedPhrase: {
+    title: i18n('settings.backups.seedPhrase.popup.title'),
+    content: SeedPhrasePopup,
   },
 }
 
