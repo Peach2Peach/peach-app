@@ -16,7 +16,7 @@ import { getContract as getContractAPI } from '../utils/peachAPI'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
 import { parseError } from '../utils/system'
-import { Navigation } from '../utils/navigation'
+import { Navigation } from '../utils/navigation/handlePushNotification'
 
 type HandleNotificationsEffectProps = {
   getCurrentPage: () => keyof RootStackParamList | undefined

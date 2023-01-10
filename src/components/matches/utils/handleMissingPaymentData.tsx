@@ -2,7 +2,7 @@ import i18n from '../../../utils/i18n'
 
 import { getPaymentDataByType } from '../../../utils/account'
 import { error } from '../../../utils/log'
-import { StackNavigation } from '../../../utils/navigation'
+import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 
 export const handleMissingPaymentData = (
   offer: BuyOffer | SellOffer,

@@ -1,6 +1,6 @@
 import React from 'react'
 import Refund from '../../../overlays/Refund'
-import { StackNavigation } from '../../../utils/navigation'
+import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 import { getOffer } from '../../../utils/offer'
 import { getNavigationDestinationForContract } from './getNavigationDestination'
 import { shouldOpenRefundOverlay } from './shouldOpenRefundOverlay'
