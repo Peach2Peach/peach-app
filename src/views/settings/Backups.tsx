@@ -24,9 +24,9 @@ export default (): ReactElement => {
   const CurrentView = currentTab.view
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+    <View style={tw`h-full`}>
       <TabbedNavigation style={tw`mt-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
-      <View style={tw`mt-4 flex-shrink`}>{!!CurrentView && <CurrentView />}</View>
+      <View style={tw`mt-6 flex-shrink`}>{!!CurrentView && <CurrentView />}</View>
     </View>
   )
 }
