@@ -9,8 +9,7 @@ import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import LinedText from '../../components/ui/LinedText'
 
-const contactReasons = ['bug', 'userProblem', 'other'] as const
-type ContactReason = typeof contactReasons[number]
+const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as const
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
@@ -32,16 +31,16 @@ export default (): ReactElement => {
   const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
-    <View style={tw`p-6 h-full items-center`}>
-      <PeachScrollView contentContainerStyle={tw`py-6 flex-1`}>
-        <LinedText style={tw`mb-3 mx-5`}>
+    <View style={tw`items-center h-full p-6`}>
+      <PeachScrollView contentContainerStyle={tw`flex-1 py-6`}>
+        <LinedText style={tw`mx-5 mb-3`}>
           <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
         </LinedText>
         {contactReasons.map((name) => (
           <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
         ))}
         <View style={tw`mt-10`}>
-          <LinedText style={tw`my-3 mx-5`}>
+          <LinedText style={tw`mx-5 my-3`}>
             <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
           </LinedText>
           <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
