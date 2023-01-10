@@ -31,16 +31,16 @@ export default (): ReactElement => {
   const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
-    <View style={tw`items-center h-full p-6`}>
+    <View style={tw`items-center w-full h-full p-6`}>
       <PeachScrollView contentContainerStyle={tw`flex-1 py-6`}>
-        <LinedText style={tw`mx-5 mb-3`}>
+        <LinedText style={tw`mb-3`}>
           <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
         </LinedText>
         {contactReasons.map((name) => (
           <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
         ))}
         <View style={tw`mt-10`}>
-          <LinedText style={tw`mx-5 my-3`}>
+          <LinedText style={tw`my-3`}>
             <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
           </LinedText>
           <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
