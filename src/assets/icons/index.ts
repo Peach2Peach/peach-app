@@ -83,6 +83,7 @@ import skipForward from './skipForward.svg'
 import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
+import square from './square.svg'
 import star from './star.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
@@ -191,6 +192,7 @@ const Icons = {
   slash,
   sliderNext,
   sliderPrev,
+  square,
   star,
   thumbsDown,
   thumbsUp,
