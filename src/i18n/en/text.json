@@ -817,7 +817,6 @@
   "contact.title": "Contact peach",
   "contact.whyAreYouContactingUs": "what's up?",
   "contact.reason.bug": "I found a bug",
-  "contact.reason.userProblem": "a user is misbehaving",
   "contact.reason.question": "I have a question",
   "contact.reason.newMethod": "I lost my account",
   "contact.reason.other": "something else",

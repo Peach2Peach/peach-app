@@ -148,7 +148,7 @@ declare type PeachWallet = {
   mnemonic: string
 }
 
-declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other' | 'newMethod'
+declare type ContactReason = 'bug' | 'question' | 'other' | 'newMethod'
 
 declare type Expiry = {
   date: Date
