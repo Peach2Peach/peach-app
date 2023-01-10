@@ -9,7 +9,7 @@ import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import LinedText from '../../components/ui/LinedText'
 
-const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as const
+const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as ContactReason[]
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
