@@ -64,6 +64,7 @@ export default (): ReactElement => {
             sections={getCategories(getCurrentData())}
             renderSectionHeader={SectionHeader}
             renderItem={TradeItem}
+            ItemSeparatorComponent={() => <View style={tw`h-3`}></View>}
           />
         )}
       </View>
