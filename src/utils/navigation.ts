@@ -28,35 +28,25 @@ export const handlePushNotification = (
 
   if (contractId && isChat !== 'true') {
     const contract = getContract(contractId)
-    navigationRef.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'contract',
-          params: {
-            contract: contract
-              ? {
-                ...contract,
-                paymentMade: sentTime ? new Date(sentTime) : new Date(),
-              }
-              : undefined,
-            contractId,
-          },
-        },
-      ],
+    navigationRef.navigate('contract', {
+      contract: contract
+        ? {
+          ...contract,
+          paymentMade: sentTime ? new Date(sentTime) : new Date(),
+        }
+        : undefined,
+      contractId,
     })
     return true
   }
   if (contractId && isChat === 'true') {
-    navigationRef.reset({ index: 0, routes: [{ name: 'contractChat', params: { contractId } }] })
+    navigationRef.navigate('contractChat', { contractId })
     return true
   }
   if (offerId) {
-    const offer = getOffer(offerId)
-    if (offer) {
-      navigationRef.reset({ index: 0, routes: [{ name: 'offer', params: { offer } }] })
-      return true
-    }
+    navigationRef.navigate('offer', { offerId })
+
+    return true
   }
 
   return false

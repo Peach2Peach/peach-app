@@ -1,6 +1,6 @@
 import { account } from '.'
 import { SATSINBTC } from '../../constants'
-import { getBitcoinContext } from '../../contexts/bitcoin'
+import { bitcoinStore } from '../../store/bitcoinStore'
 import { defaultAccount } from './account'
 import { storeTradingLimit } from './storeAccount'
 
@@ -8,7 +8,7 @@ import { storeTradingLimit } from './storeAccount'
  * @description Method to get trading limit of account
  */
 export const getTradingLimit = (currency?: Currency): TradingLimit => {
-  const { prices } = getBitcoinContext()
+  const { prices } = bitcoinStore.getState()
   let exchangeRate = 1
   const tradingLimit = account.tradingLimit || defaultAccount.tradingLimit
 

@@ -13,7 +13,7 @@ import { storeChats } from './storeChats'
 export const storeAccount = async (acc: Account): Promise<void> => {
   info('storeAccount - Storing account')
 
-  if (!acc.publicKey) throw new Error('error.ERROR_SAVE_ACCOUNT')
+  if (!acc.publicKey) throw new Error('ERROR_SAVE_ACCOUNT')
 
   await Promise.all([
     storeIdentity(acc),

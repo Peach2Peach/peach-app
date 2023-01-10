@@ -13,14 +13,19 @@ import { cutOffAddress } from '../../utils/string'
 import { BuyViewProps } from './BuyPreferences'
 import IDontHaveAWallet from './components/IDontHaveAWallet'
 import { useValidatedState, useKeyboard } from '../../hooks'
+import { account } from '../../utils/account'
+import { peachWallet } from '../../utils/wallet/setWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 const addressRules = { required: true, bitcoinAddress: true }
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
   useContext(LanguageContext)
 
   const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
-    offer.releaseAddress || '',
+    offer.releaseAddress || account.settings.payoutAddress || '',
     addressRules,
   )
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
@@ -49,7 +54,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const showIDontHaveAWallet = () =>
     updateOverlay({
       content: <IDontHaveAWallet />,
-      showCloseButton: true,
+      visible: true,
     })
 
   useEffect(() => {
@@ -77,6 +82,13 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       false,
     )
   }, [address, addressIsValid])
+
+  useEffect(() => {
+    ;(async () => {
+      if (!peachWalletActive || address) return
+      setAddress((await peachWallet.getReceivingAddress()) || '')
+    })()
+  }, [address, peachWalletActive, setAddress])
 
   return (
     <View style={tw`h-full flex-col justify-between px-6`}>

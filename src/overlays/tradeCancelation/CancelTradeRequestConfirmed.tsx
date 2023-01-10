@@ -1,11 +1,11 @@
 import { NETWORK } from '@env'
 import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getOfferHexIdFromContract, saveContract } from '../../utils/contract'
 import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
@@ -20,7 +20,7 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const showEscrow = () =>
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
 
@@ -40,17 +40,20 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
       <Text style={tw`text-center text-white-1 mt-8`}>
         {i18n(
           'contract.cancel.seller.confirmed.text.1',
-          getOfferIdfromContract(contract),
+          getOfferHexIdFromContract(contract),
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>
       <Text style={tw`text-center text-white-1 mt-2`}>
         {i18n(`contract.cancel.seller.confirmed.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
-
       <View>
-        <Button style={tw`mt-8`} title={i18n('showEscrow')} tertiary={true} wide={false} onPress={showEscrow} />
-        <Button style={tw`mt-2`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton style={tw`mt-8`} onPress={showEscrow} narrow>
+          {i18n('showEscrow')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('close')}
+        </PrimaryButton>
       </View>
     </View>
   )

@@ -41,10 +41,12 @@ describe('updateSettings', () => {
       meansOfPayment: {
         EUR: ['sepa', 'paypal'],
       },
-      preferredCurrencies: [],
       preferredPaymentMethods: {},
       showBackupReminder: true,
       showDisputeDisclaimer: true,
+      peachWalletActive: true,
+      customFeeRate: 1,
+      selectedFeeRate: 'halfHourFee',
     })
   })
 })

@@ -12,16 +12,12 @@ interface PropertiesMap {
 const properties: PropertiesMap = {
   en,
   de,
-  'de-CH': de_CH
+  'de-CH': de_CH,
 }
 
-export const locales = [
-  'en',
-  'de',
-  'de-CH'
-]
+export const locales = ['en', 'de', 'de-CH']
 export let locale: string = 'en'
-export const setLocaleQuiet = (lcl: string) => locale = lcl
+export const setLocaleQuiet = (lcl: string) => (locale = lcl)
 
 /**
  * @description Method to get localized string based on current locale
@@ -38,7 +34,7 @@ export const setLocaleQuiet = (lcl: string) => locale = lcl
 export const i18n = (id: string, ...args: string[]): string => {
   let text = properties[locale][id]
 
-  if (!text && locale.indexOf('-') !== -1) {
+  if (!text && locale.includes('-')) {
     const language = locale.split('-')[0]
     text = properties[language][id]
   }
@@ -51,7 +47,7 @@ export const i18n = (id: string, ...args: string[]): string => {
     text = text.replace(regex, arg)
   })
 
-  return (text.match(/ /ug) || []).length >= 4 ? text.replace(/ (?=[^ ]*$)/u, ' ') : text
+  return (text.match(/ /gu) || []).length >= 4 ? text.replace(/ (?=[^ ]*$)/u, ' ') : text
 }
 
 interface i18nState {
@@ -63,7 +59,6 @@ interface i18nState {
  * @returns current locale
  */
 i18n.getLocale = (): string => locale
-
 
 /**
  * @description Method to get all registered locales
@@ -84,7 +79,7 @@ i18n.setLocale = (state: ReducerState<any>, newState: i18nState): i18nState => {
   if (!properties[locale]) locale = 'en'
 
   return {
-    locale
+    locale,
   }
 }
 

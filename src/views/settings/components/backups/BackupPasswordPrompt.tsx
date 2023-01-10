@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Button, Icon, Input, PeachScrollView, Text } from '../../../../components'
+import { Icon, Input, PeachScrollView, Text } from '../../../../components'
+import { PrimaryButton } from '../../../../components/buttons'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
@@ -22,7 +23,7 @@ export default (): ReactElement => {
   const [isBackingUp, setIsBackingUp] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
 
-  const openPasswordHelp = () => updateOverlay({ content: <Password />, showCloseButton: true, help: true })
+  const openPasswordHelp = () => updateOverlay({ content: <Password />, visible: true, level: 'INFO' })
   const checkPasswordMatch = () => password === passwordRepeat
 
   const validate = () => password && passwordRepeat && passwordIsValid && checkPasswordMatch()
@@ -63,7 +64,7 @@ export default (): ReactElement => {
       onSuccess: () => {
         updateOverlay({
           content: <BackupCreated />,
-          showCloseButton: false,
+          visible: true,
         })
         updateSettings(
           {
@@ -77,7 +78,7 @@ export default (): ReactElement => {
         setTimeout(() => {
           updateOverlay({
             content: null,
-            showCloseButton: true,
+            visible: true,
           })
         }, 3000)
       },
@@ -131,14 +132,12 @@ export default (): ReactElement => {
         />
       </View>
       <View style={tw`flex items-center mt-16`}>
-        <Button
-          disabled={!isValid}
-          style={tw`mb-2`}
-          title={i18n('settings.backups.createNew')}
-          wide={false}
-          onPress={startAccountBackup}
-        />
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <PrimaryButton disabled={!isValid} style={tw`mb-2`} narrow onPress={startAccountBackup}>
+          {i18n('settings.backups.createNew')}
+        </PrimaryButton>
+        <PrimaryButton narrow onPress={navigation.goBack}>
+          {i18n('back')}
+        </PrimaryButton>
       </View>
     </PeachScrollView>
   )

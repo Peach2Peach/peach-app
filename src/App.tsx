@@ -1,28 +1,30 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { Animated, Dimensions, SafeAreaView, StatusBar, View } from 'react-native'
+/* eslint-disable max-lines */
+import React, { useContext, useEffect, useReducer, useRef, useState } from 'react'
+import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
 import {
+  DefaultTheme,
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
   useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
 import { AvoidKeyboard, Footer, Header } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
-import views from './views'
+import { getViews } from './views'
 
 import AppContext, { getAppContext, setAppContext } from './contexts/app'
-import BitcoinContext, { getBitcoinContext, setBitcoinContext } from './contexts/bitcoin'
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { getOverlay, OverlayContext, setOverlay } from './contexts/overlay'
+import { defaultOverlay, OverlayContext, useOverlay } from './contexts/overlay'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import Drawer from './components/Drawer'
@@ -32,69 +34,133 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION } from './constants'
+import shallow from 'zustand/shallow'
+import { Background } from './components/background/Background'
+import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
+import appStateEffect from './effects/appStateEffect'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
-import { initApp } from './init'
+import { getPeachInfo } from './init/getPeachInfo'
+import { getTrades } from './init/getTrades'
+import { initApp } from './init/initApp'
+import { initialNavigation } from './init/initialNavigation'
 import websocket from './init/websocket'
-import { CriticalUpdate, NewVersionAvailable } from './messageBanners/UpdateApp'
-import AnalyticsPrompt from './overlays/AnalyticsPrompt'
-import { account, updateSettings } from './utils/account'
+import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { useBitcoinStore } from './store/bitcoinStore'
+import { account, getAccount } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
-import { compatibilityCheck } from './utils/system'
+import { marketPrices } from './utils/peachAPI/public/market'
+import { compatibilityCheck, linkToAppStore } from './utils/system'
 
 enableScreens()
 
 const Stack = createStackNavigator<RootStackParamList>()
 
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  },
+}
+
 const queryClient = new QueryClient()
 
-/**
- * @description Method to determine weather header should be shown
- * @param view view id
- * @returns true if view should show header
- */
-const showHeader = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showHeader
+let goHomeTimeout: NodeJS.Timer
 
-/**
- * @description Method to determine weather header should be shown
- * @param view view id
- * @returns true if view should show header
- */
-const showFooter = (view: keyof RootStackParamList) => views.find((v) => v.name === view)?.showFooter
+const usePartialAppSetup = () => {
+  const [, updateAppContext] = useContext(AppContext)
+  const [active, setActive] = useState(true)
+  const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
 
+  useEffect(
+    appStateEffect({
+      callback: (isActive) => {
+        setActive(isActive)
+        if (isActive) {
+          getPeachInfo(getAccount())
+          if (account?.publicKey) {
+            getTrades()
+            updateAppContext({
+              notifications: getChatNotifications() + getRequiredActionCount(),
+            })
+          }
+          analytics().logAppOpen()
+
+          clearTimeout(goHomeTimeout)
+        } else {
+          goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
+        }
+      },
+    }),
+    [],
+  )
+
+  useEffect(() => {
+    if (!active) return () => {}
+
+    const checkingInterval = 15 * 1000
+    const checkingFunction = async () => {
+      const [prices] = await marketPrices({ timeout: checkingInterval })
+      if (prices) setPrices(prices)
+    }
+    const interval = setInterval(checkingFunction, checkingInterval)
+    setCurrency(account.settings.displayCurrency)
+    checkingFunction()
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [active, setCurrency, setPrices])
+}
+
+// eslint-disable-next-line max-statements
 const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
-  const [bitcoinContext, updateBitcoinContext] = useReducer(setBitcoinContext, getBitcoinContext())
 
-  const [{ template, msgKey, msg, level, close, time }, updateMessage] = useReducer(setMessage, getMessage())
+  const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
     = useReducer(setDrawer, getDrawer())
-  const [{ content, showCloseIcon, showCloseButton, help, onClose: onCloseOverlay }, updateOverlay] = useReducer(
-    setOverlay,
-    getOverlay(),
-  )
+  const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
 
-  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>('splashScreen')
+  const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = () => currentPage
+  const views = getViews(!!account?.publicKey)
+  const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
+  const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
-  StatusBar.setBarStyle('dark-content', true)
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
-    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
+    updateMessage({
+      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: {
+        callback: () => navigationRef.navigate('contact'),
+        label: i18n('contactUs'),
+        icon: 'mail',
+      },
+    })
   })
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
-    updateMessage({ msgKey: (err as Error).message || 'error.general', level: 'ERROR' })
+    updateMessage({
+      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      level: 'ERROR',
+      action: {
+        callback: () => navigationRef.navigate('contact'),
+        label: i18n('contactUs'),
+        icon: 'mail',
+      },
+    })
   })
 
-  useEffect(showMessageEffect(template || msg || msgKey, width, slideInAnim), [template, msg, msgKey, time])
+  useEffect(showMessageEffect(messageState.msgKey, width, slideInAnim), [messageState.msgKey, messageState.time])
 
   useEffect(() => {
     if (DEV !== 'true' && ISEMULATOR) {
@@ -105,29 +171,39 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp(navigationRef, updateMessage)
+      await initApp()
+      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
+      await initialNavigation(navigationRef, updateMessage)
+
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
-        updateOverlay({
-          content: <AnalyticsPrompt />,
-          showCloseIcon: true,
-          onClose: () => {
-            analytics().setAnalyticsCollectionEnabled(false)
-            updateSettings(
-              {
-                enableAnalytics: false,
-              },
-              true,
-            )
+        showAnalyticsPrompt(updateOverlay)
+      }
+
+      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+        updateMessage({
+          msgKey: 'CRITICAL_UPDATE_AVAILABLE',
+          level: 'ERROR',
+          keepAlive: true,
+          action: {
+            callback: linkToAppStore,
+            label: i18n('download'),
+            icon: 'download',
           },
         })
-      }
-      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
-        updateMessage({ template: <CriticalUpdate />, level: 'ERROR', close: false })
       } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
-        updateMessage({ template: <NewVersionAvailable />, level: 'WARN' })
+        updateMessage({
+          msgKey: 'UPDATE_AVAILABLE',
+          level: 'WARN',
+          keepAlive: true,
+          action: {
+            callback: linkToAppStore,
+            label: i18n('download'),
+            icon: 'download',
+          },
+        })
       }
     })()
   }, [])
@@ -142,9 +218,14 @@ const App: React.FC = () => {
   )
 
   useEffect(websocket(updatePeachWS, updateMessage), [])
+  usePartialAppSetup()
+
+  useEffect(() => {
+    analytics().logAppOpen()
+  }, [])
 
   const onNavStateChange = (state: NavigationState | undefined) => {
-    if (state) setCurrentPage(state.routes[state.routes.length - 1].name)
+    if (state) setCurrentPage(state.routes[state.routes.length - 1].name as keyof RootStackParamList)
   }
 
   useEffect(() => {
@@ -155,93 +236,71 @@ const App: React.FC = () => {
     })
   }, [currentPage])
 
+  if (!currentPage) return null
+
   return (
-    <GestureHandlerRootView style={tw`bg-white-1`}>
+    <GestureHandlerRootView>
       <AvoidKeyboard>
-        <SafeAreaView>
-          <QueryClientProvider client={queryClient}>
-            <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
-              <PeachWSContext.Provider value={peachWS}>
-                <AppContext.Provider value={[appContext, updateAppContext]}>
-                  <BitcoinContext.Provider value={[bitcoinContext, updateBitcoinContext]}>
-                    <MessageContext.Provider value={[{ template, msgKey, msg, level, close }, updateMessage]}>
-                      <DrawerContext.Provider
-                        value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
-                      >
-                        <OverlayContext.Provider
-                          value={[
-                            { content, showCloseButton: false, showCloseIcon: false, help: false, onClose: () => {} },
-                            updateOverlay,
-                          ]}
-                        >
-                          <View style={tw`h-full flex-col`}>
-                            {showHeader(currentPage) ? <Header style={tw`z-10`} navigation={navigationRef} /> : null}
-                            <Drawer
-                              title={drawerTitle}
-                              content={drawerContent}
-                              show={showDrawer}
-                              onClose={onCloseDrawer}
-                            />
-                            {content ? (
-                              <Overlay
-                                content={content}
-                                help={help}
-                                showCloseIcon={showCloseIcon}
-                                showCloseButton={showCloseButton}
-                                onClose={onCloseOverlay}
-                              />
-                            ) : null}
-                            {template || msg || msgKey ? (
-                              <Animated.View style={[tw`absolute z-20 w-full`, { left: slideInAnim }]}>
-                                <Message
-                                  template={template}
-                                  msg={msg}
-                                  msgKey={msgKey}
-                                  level={level}
-                                  close={close}
-                                  style={{ minHeight: 60 }}
-                                />
-                              </Animated.View>
-                            ) : null}
-                            <View style={tw`h-full flex-shrink`}>
-                              <NavigationContainer ref={navigationRef} onStateChange={onNavStateChange}>
+        <QueryClientProvider client={queryClient}>
+          <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
+            <PeachWSContext.Provider value={peachWS}>
+              <AppContext.Provider value={[appContext, updateAppContext]}>
+                <MessageContext.Provider value={[messageState, updateMessage]}>
+                  <DrawerContext.Provider
+                    value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+                  >
+                    <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
+                      <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                        <Background config={backgroundConfig}>
+                          <Drawer
+                            title={drawerTitle}
+                            content={drawerContent}
+                            show={showDrawer}
+                            onClose={onCloseDrawer}
+                          />
+                          <Overlay {...overlayState} />
+                          <SafeAreaView>
+                            <View style={tw`h-full flex-col`}>
+                              {!!messageState.msgKey && (
+                                <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                  <Message {...messageState} />
+                                </Animated.View>
+                              )}
+                              <View style={tw`h-full flex-shrink`}>
                                 <Stack.Navigator
                                   detachInactiveScreens={true}
                                   screenOptions={{
                                     gestureEnabled: false,
                                     headerShown: false,
-                                    cardStyle: tw`bg-white-1`,
                                   }}
                                 >
-                                  {views.map((view) => (
+                                  {views.map(({ name, component, showHeader }) => (
                                     <Stack.Screen
-                                      name={view.name}
-                                      component={view.component}
-                                      key={view.name}
-                                      options={{ animationEnabled: false }}
+                                      {...{ name, component }}
+                                      key={name}
+                                      options={{
+                                        animationEnabled: false,
+                                        headerShown: showHeader,
+                                        header: () => <Header />,
+                                      }}
                                     />
                                   ))}
                                 </Stack.Navigator>
-                              </NavigationContainer>
+                              </View>
+                              {showFooter && (
+                                <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
+                              )}
                             </View>
-                            {showFooter(currentPage) ? (
-                              <Footer
-                                style={tw`z-10`}
-                                active={currentPage}
-                                navigation={navigationRef}
-                                setCurrentPage={setCurrentPage}
-                              />
-                            ) : null}
-                          </View>
-                        </OverlayContext.Provider>
-                      </DrawerContext.Provider>
-                    </MessageContext.Provider>
-                  </BitcoinContext.Provider>
-                </AppContext.Provider>
-              </PeachWSContext.Provider>
-            </LanguageContext.Provider>
-          </QueryClientProvider>
-        </SafeAreaView>
+                          </SafeAreaView>
+                        </Background>
+                      </NavigationContainer>
+                    </OverlayContext.Provider>
+                  </DrawerContext.Provider>
+                </MessageContext.Provider>
+              </AppContext.Provider>
+            </PeachWSContext.Provider>
+          </LanguageContext.Provider>
+        </QueryClientProvider>
       </AvoidKeyboard>
     </GestureHandlerRootView>
   )

@@ -1,26 +1,18 @@
 declare type RootStackParamList = {
-  [key: string]: {}
-  home: {}
+  home: undefined
   newUser: {
     referralCode?: string
   }
-  login: {}
-  restoreBackup: {}
-  buy: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
+  restoreBackup: undefined
+  wallet: undefined
+  transactionHistory: undefined
+  transactionDetails: {
+    txId: string
   }
-  buyPreferences: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
-  }
-  sell: {
-    amount: number
-    offer?: SellOffer
-    page?: number
-  }
+  buy: undefined
+  sell: undefined
+  buyPreferences: { amount: number }
+  sellPreferences: { amount: number }
   addPaymentMethod: {
     currencies?: Currency[]
     country?: Country
@@ -55,30 +47,48 @@ declare type RootStackParamList = {
   tradeComplete: {
     contract: Contract
   }
-  yourTrades: {}
+  yourTrades: undefined
   offer: {
-    offer: SellOffer | BuyOffer
+    offerId: string
   }
-  settings: {}
-  contact: {}
+  settings: undefined
+  contact: undefined
   report: {
     reason: ContactReason
     topic?: string
     message?: string
     shareDeviceID?: boolean
   }
-  language: {}
-  currency: {}
+  language: undefined
+  currency: undefined
   profile: {
     userId: User['id']
     user?: User
   }
-  referrals: {}
-  backups: {}
-  seedWords: {}
-  escrow: {}
-  paymentMethods: {}
-  deleteAccount: {}
-  fees: {}
-  socials: {}
+  referrals: undefined
+  backups: undefined
+  seedWords: undefined
+  refundAddress: undefined
+  payoutAddress: undefined
+  paymentMethods: undefined
+  deleteAccount: undefined
+  peachFees: undefined
+  networkFees: undefined
+  aboutPeach: undefined
+  bitcoinProducts: undefined
+  socials: undefined
+  welcome: undefined
+  splashScreen: undefined
+  myProfile: undefined
+  testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
+  testViewMessages: undefined
+  testViewComponents: undefined
 }
+
+type KeysWithUndefined<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never
+}[keyof T]
+
+declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>

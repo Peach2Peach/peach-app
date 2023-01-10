@@ -4,13 +4,12 @@ declare type Settings = {
   locale: string
   amount?: number
   returnAddress?: string
+  payoutAddress?: string
   derivationPath?: string
-  hdStartIndex?: number
   displayCurrency: Currency
   country?: string
   meansOfPayment: MeansOfPayment
   preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  preferredCurrencies: Currency[]
   premium?: number
   kyc?: boolean
   kycType?: KYCType
@@ -19,6 +18,9 @@ declare type Settings = {
   lastBackupDate?: number
   showBackupReminder: boolean
   showDisputeDisclaimer: boolean
+  peachWalletActive: boolean
+  customFeeRate: number
+  selectedFeeRate: FeeRate
 }
 
 declare type PGPKeychain = {

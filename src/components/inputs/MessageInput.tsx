@@ -65,7 +65,7 @@ export const MessageInput = ({
         testID={testID}
         style={tw`w-full flex-shrink font-lato leading-5 text-black-1 p-1`}
         placeholder={placeholder}
-        placeholderTextColor={tw`text-black-1`.color as string}
+        placeholderTextColor={tw`text-black-1`.color}
         allowFontScaling={false}
         removeClippedSubviews={false}
         returnKeyType={'send'}
@@ -81,7 +81,7 @@ export const MessageInput = ({
         autoCapitalize="sentences"
       />
       <Pressable onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}>
-        <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color as string} />
+        <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color} />
       </Pressable>
     </View>
   )

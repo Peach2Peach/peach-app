@@ -1,36 +1,16 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useState } from 'react'
+import { SectionList, Text, View } from 'react-native'
+import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
+import LinedText from '../../components/ui/LinedText'
 import tw from '../../styles/tailwind'
-
-import AppContext from '../../contexts/app'
-import { MessageContext } from '../../contexts/message'
-
-import { useFocusEffect } from '@react-navigation/native'
-import { Headline, PeachScrollView, Text, Title } from '../../components'
-import getContractsEffect from '../../effects/getContractsEffect'
-import getOffersEffect from '../../effects/getOffersEffect'
-import { getAccount } from '../../utils/account'
-import { storeContracts, storeOffers } from '../../utils/account/storeAccount'
-import { getChatNotifications } from '../../utils/chat'
-import { saveContracts } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
-import { getOffers, getRequiredActionCount, isBuyOffer, saveOffers } from '../../utils/offer'
-import { getOfferStatus, isFundingCanceled } from '../../utils/offer/status'
+import { ContractItem } from './components/ContractItem'
 import { OfferItem } from './components/OfferItem'
+import { useYourTradesSetup } from './useYourTradesSetup'
+import { isContractSummary, isOpenAction, isOpenOffer, isPastOffer, isPrioritary, isWaiting } from './utils'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-const isPastOffer = (offer: SellOffer | BuyOffer) => {
-  const { status } = getOfferStatus(offer)
-
-  return /tradeCompleted|tradeCanceled|offerCanceled/u.test(status)
-}
-const isOpenOffer = (offer: SellOffer | BuyOffer) => !isPastOffer(offer)
-const showOffer = (offer: SellOffer | BuyOffer) => {
+// TODO : Show offer was messing with the logic and I don't know why
+/* const showOffer = (offer: SellOffer | BuyOffer) => {
   if (offer.contractId) return true
   if (isBuyOffer(offer)) return offer.online
 
@@ -38,111 +18,88 @@ const showOffer = (offer: SellOffer | BuyOffer) => {
   if (isFundingCanceled(offer) && offer.funding.txIds?.length === 0 && !offer.txId) return false
 
   return true
-}
+}*/
 
-const statusPriority = ['escrowWaitingForConfirmation', 'offerPublished', 'searchingForPeer', 'match', 'contractCreated']
+const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'buy',
+    display: i18n('yourTrades.buy'),
+  },
+  {
+    id: 'sell',
+    display: i18n('yourTrades.sell'),
+  },
+  {
+    id: 'history',
+    display: i18n('yourTrades.history'),
+  },
+]
 
-const sortByStatus = (a: SellOffer | BuyOffer, b: SellOffer | BuyOffer) =>
-  statusPriority.indexOf(getOfferStatus(a).status) - statusPriority.indexOf(getOfferStatus(b).status)
+const getCategories = (trades: TradeSummary[]) => [
+  { title: 'priority', data: trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus)) },
+  { title: 'openActions', data: trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)) },
+  { title: 'waiting', data: trades.filter(({ type, tradeStatus }) => isWaiting(type, tradeStatus)) },
+]
 
-export default ({ navigation }: Props): ReactElement => {
-  const [, updateAppContext] = useContext(AppContext)
-  const [, updateMessage] = useContext(MessageContext)
-  const [, setLastUpdate] = useState(new Date().getTime())
-  const offers = getOffers()
+export default (): ReactElement => {
+  const { trades, getTradeSummary } = useYourTradesSetup()
 
-  const allOpenOffers = offers.filter(isOpenOffer).filter(showOffer)
-    .sort(sortByStatus)
+  const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
   const openOffers = {
-    buy: allOpenOffers.filter((o) => o.type === 'bid'),
-    sell: allOpenOffers.filter((o) => o.type === 'ask'),
+    buy: allOpenOffers.filter(({ type }) => type === 'bid'),
+    sell: allOpenOffers.filter(({ type }) => type === 'ask'),
   }
-  const pastOffers = offers.filter(isPastOffer).filter(showOffer)
+  const pastOffers = trades.filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
-  useFocusEffect(
-    useCallback(
-      getOffersEffect({
-        onSuccess: (result) => {
-          if (!result?.length) return
+  const switchTab = (tab: TabbedNavigationItem) => {
+    setCurrentTab(tab)
+    getTradeSummary()
+  }
 
-          saveOffers(result)
-          storeOffers(getAccount().offers)
-
-          setLastUpdate(new Date().getTime())
-          updateAppContext({
-            notifications: getChatNotifications() + getRequiredActionCount(),
-          })
-        },
-        onError: (err) => {
-          error('Could not fetch offer information')
-
-          updateMessage({
-            msgKey: err.error || 'error.general',
-            level: 'ERROR',
-          })
-        },
-      }),
-      [],
-    ),
-  )
-
-  useFocusEffect(
-    useCallback(
-      getContractsEffect({
-        onSuccess: (result) => {
-          if (!result?.length) return
-
-          saveContracts(result)
-          storeContracts(getAccount().contracts)
-          setLastUpdate(new Date().getTime())
-          updateAppContext({
-            notifications: getChatNotifications() + getRequiredActionCount(),
-          })
-        },
-        onError: (err) => {
-          error('Could not fetch contract information')
-          updateMessage({
-            msgKey: err.error || 'error.general',
-            level: 'ERROR',
-          })
-        },
-      }),
-      [],
-    ),
-  )
+  const getCurrentData = () => {
+    switch (currentTab.id) {
+    case 'buy':
+      return openOffers.buy
+    case 'sell':
+      return openOffers.sell
+    default:
+      return pastOffers
+    }
+  }
 
   return (
-    <PeachScrollView contentContainerStyle={tw`px-12`}>
-      <View style={tw`pt-5 pb-10`}>
-        <Title title={i18n('yourTrades.title')} />
+    <>
+      <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
+      <View style={tw`p-7`}>
         {allOpenOffers.length + pastOffers.length === 0 ? (
-          <Text style={tw`text-center`}>{i18n('yourTrades.noOffers')}</Text>
-        ) : null}
-        {openOffers.buy.length ? (
-          <Headline style={tw`mt-20 text-grey-1`}>
-            {i18n('yourTrades.open')}
-            <Headline style={tw`text-green`}> {i18n('yourTrades.buy')} </Headline>
-            {i18n('yourTrades.offers')}
-          </Headline>
-        ) : null}
-        {openOffers.buy.map((offer) => (
-          <OfferItem key={offer.id} style={tw`mt-3`} extended={true} offer={offer} navigation={navigation} />
-        ))}
-        {openOffers.sell.length ? (
-          <Headline style={tw`mt-20 text-grey-1`}>
-            {i18n('yourTrades.open')}
-            <Headline style={tw`text-red`}> {i18n('yourTrades.sell')} </Headline>
-            {i18n('yourTrades.offers')}
-          </Headline>
-        ) : null}
-        {openOffers.sell.map((offer) => (
-          <OfferItem key={offer.id} style={tw`mt-3`} extended={true} offer={offer} navigation={navigation} />
-        ))}
-        {pastOffers.length ? <Headline style={tw`mt-20 text-grey-1`}>{i18n('yourTrades.pastOffers')}</Headline> : null}
-        {pastOffers.map((offer) => (
-          <OfferItem key={offer.id} extended={false} style={tw`mt-3`} offer={offer} navigation={navigation} />
-        ))}
+          // TODO : EMPTY PLACEHOLDER
+          <View />
+        ) : (
+          <SectionList
+            showsVerticalScrollIndicator={false}
+            sections={getCategories(getCurrentData())}
+            renderItem={({ item }) => (
+              <View style={tw`mb-3`}>
+                {isContractSummary(item) ? (
+                  <ContractItem key={item.id} contract={item} />
+                ) : (
+                  <OfferItem key={item.id} offer={item} />
+                )}
+              </View>
+            )}
+            renderSectionHeader={({ section: { title, data } }) =>
+              data.length !== 0 && title !== 'priority' ? (
+                <LinedText style={tw`my-3`}>
+                  <Text style={tw` text-black-2 body-m`}>{i18n(`yourTrades.${title}`)}</Text>
+                </LinedText>
+              ) : (
+                <></>
+              )
+            }
+          />
+        )}
       </View>
-    </PeachScrollView>
+    </>
   )
 }

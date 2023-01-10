@@ -1,24 +1,21 @@
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Button, Title } from '../../components'
+import { useFocusEffect } from '@react-navigation/native'
+import { GoBackButton, PrimaryButton, Title } from '../../components'
 import ProvideRefundAddress from '../../overlays/info/ProvideRefundAddress'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import ReturnAddress from './components/ReturnAddress'
 import { saveOffer } from '../../utils/offer'
 import { patchOffer } from '../../utils/peachAPI'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation, useRoute } from '../../hooks'
 import { useMatchStore } from '../../components/matches/store'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['setReturnAddress'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'setReturnAddress'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
@@ -53,8 +50,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     } else if (patchOfferError) {
       error('Error', patchOfferError)
       updateMessage({
-        msgKey: patchOfferError?.error || 'error.general',
+        msgKey: patchOfferError?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
   }
@@ -67,17 +69,13 @@ export default ({ route, navigation }: Props): ReactElement => {
         help={<ProvideRefundAddress />}
       />
       <View style={tw`h-full flex-shrink mt-12`}>
-        <ReturnAddress style={tw`mt-16`} returnAddress={returnAddress} required={true} update={setReturnAddress} />
+        <ReturnAddress style={tw`mt-16`} returnAddress={returnAddress} required update={setReturnAddress} />
       </View>
       <View style={tw`flex items-center mt-16`}>
-        <Button
-          title={i18n(!returnAddress ? 'sell.setReturnAddress.provideFirst' : 'confirm')}
-          style={tw`w-52`}
-          disabled={!returnAddress}
-          wide={false}
-          onPress={submit}
-        />
-        <Button style={tw`w-52 mt-2`} title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <PrimaryButton style={tw`w-52`} disabled={!returnAddress} onPress={submit} narrow>
+          {i18n(!returnAddress ? 'sell.setReturnAddress.provideFirst' : 'confirm')}
+        </PrimaryButton>
+        <GoBackButton style={tw`w-52 mt-2`} />
       </View>
     </View>
   )

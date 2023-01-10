@@ -1,71 +1,93 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
-import { BackHandler, Modal, Pressable, SafeAreaView, View } from 'react-native'
-import { Button } from '.'
-
+import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
+import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
+import { Text } from '.'
+import { OverlayContext } from '../contexts/overlay'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { OverlayContext } from '../contexts/overlay'
 import Icon from './Icon'
 
-/**
- * @description Component to display the Overlay
- * @param props Component properties
- * @param props.content the overlay content
- * @param props.showCloseIcon if true show close icon
- * @param props.showCloseButton if true show close button
- * @param props.help if true show overlay as help
- * @example
- * <Overlay content={<Text>Overlay content</Text>} showCloseButton={true} />
- */
-export const Overlay = ({ content, showCloseIcon, showCloseButton, onClose, help }: OverlayState): ReactElement => {
+type LevelColorMap = {
+  bg1: Record<Level, ViewStyle>
+  bg2: Record<Level, ViewStyle>
+}
+
+const levelColorMap: LevelColorMap = {
+  bg1: {
+    DEFAULT: tw`bg-black-3`,
+    APP: tw`bg-primary-main`,
+    SUCCESS: tw`bg-success-main`,
+    WARN: tw`bg-warning-main`,
+    ERROR: tw`bg-error-main`,
+    INFO: tw`bg-info-light`,
+  },
+  bg2: {
+    DEFAULT: tw`bg-primary-background-light`,
+    APP: tw`bg-primary-background-dark`,
+    SUCCESS: tw`bg-success-background`,
+    WARN: tw`bg-warning-background`,
+    ERROR: tw`bg-error-background`,
+    INFO: tw`bg-info-background`,
+  },
+}
+
+export const Overlay = ({
+  title,
+  content,
+  action1,
+  action2,
+  level = 'DEFAULT',
+  visible,
+  requireUserAction,
+}: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = () => {
-    if (onClose) onClose()
-    updateOverlay({ content: null, showCloseButton: true })
-  }
+  const Content = content
+  const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (!(showCloseIcon || showCloseButton)) return true
       closeOverlay()
       return true
     })
     return () => {
       backHandler.remove()
     }
-  }, [content, showCloseIcon, showCloseButton])
+  }, [closeOverlay, content])
+
+  const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
 
   return (
-    <Modal>
-      <View
-        testID="overlay"
-        style={[
-          tw`absolute z-20 w-full h-full flex items-center justify-center`,
-          tw`p-3 pb-8`,
-          help ? tw`bg-blue-translucent-2` : tw`bg-peach-translucent-2`,
-        ]}
-      >
-        {showCloseIcon ? (
-          <SafeAreaView style={tw`absolute z-20 top-5 right-5`}>
-            <Pressable onPress={closeOverlay}>
-              <Icon id="cross" style={tw`w-8 h-8`} color={tw`text-white-1`.color as string} />
-            </Pressable>
-          </SafeAreaView>
-        ) : null}
-
-        {content}
-
-        {showCloseButton ? (
-          <Button
-            style={tw`mt-7`}
-            title={i18n('close')}
-            secondary={!help}
-            activeBgColor={help ? tw`bg-blue-1` : tw`bg-peach-1`}
-            help={help}
-            onPress={closeOverlay}
-            wide={false}
-          />
-        ) : null}
+    <Modal transparent={true} visible={visible}>
+      <View style={tw`flex-1 items-center justify-center`}>
+        <Pressable
+          style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
+          onPress={!requireUserAction ? closeOverlay : null}
+        ></Pressable>
+        <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`rounded-2xl shadow`]}>
+          <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
+            {!!title && <Text style={tw`h6 text-black-1 mb-1`}>{title.toLocaleLowerCase()}</Text>}
+            {content}
+          </View>
+          <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
+            {!!action2 && (
+              <Pressable onPress={!action2.disabled ? action2.callback : null}>
+                <View style={[tw`flex flex-row flex-shrink items-center`, action2?.disabled && tw`opacity-50`]}>
+                  <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 h-4 mr-1`} />
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2.label}</Text>
+                </View>
+              </Pressable>
+            )}
+            {
+              <Pressable onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}>
+                <View style={[tw`flex flex-row flex-shrink items-center`, action1?.disabled && tw`opacity-50`]}>
+                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>
+                    {action1 ? action1.label : i18n('close')}
+                  </Text>
+                  <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 h-4 ml-1`} />
+                </View>
+              </Pressable>
+            }
+          </View>
+        </View>
       </View>
     </Modal>
   )

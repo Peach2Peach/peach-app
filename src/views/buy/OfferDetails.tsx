@@ -1,27 +1,42 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
 import { BuyViewProps } from './BuyPreferences'
 import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { Headline, Title } from '../../components'
+import { Icon } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import { EditIcon, HelpIcon } from '../../components/icons'
+import { useHeaderSetup } from '../../hooks'
+import { isDefined } from '../../utils/array/isDefined'
+import { HeaderConfig } from '../../components/header/store'
 
-const validate = (offer: BuyOffer) => {
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentData(d!))
-  return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
-}
+const validate = (offer: BuyOffer) =>
+  !!offer.amount
+  && hasMopsConfigured(offer)
+  && getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
 
-export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
-  useContext(LanguageContext)
+export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+  const [editing, setEditing] = useState(false)
+
+  const headerIcons = [
+    account.paymentData.length !== 0 && {
+      iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+      onPress: () => {
+        setEditing(!editing)
+      },
+    },
+    { iconComponent: <HelpIcon />, onPress: () => null },
+  ]
+  const headerConfig = { title: i18n('form.paymentMethod'), icons: headerIcons } as HeaderConfig
+
+  useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
@@ -55,15 +70,15 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return (
-    <View style={tw`mb-16 px-6`}>
-      <Title title={i18n('buy.title')} />
-      <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['buyPreferences', { amount: offer.amount }]}
+    <View>
+      <PaymentDetails
         style={tw`mt-4`}
+        paymentData={account.paymentData}
+        setMeansOfPayment={setMeansOfPayment}
+        editing={editing}
       />
+      <View style={tw`bg-black-5 h-0.3 m-5`} />
+      <AddPaymentMethodButton origin={['buyPreferences', { amount: offer.amount }]} />
     </View>
   )
 }

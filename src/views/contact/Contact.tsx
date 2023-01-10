@@ -1,47 +1,58 @@
-import React, { ReactElement, useContext } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useContext, useMemo } from 'react'
+import { Linking, View, Text } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, PeachScrollView, Shadow, Text, Title } from '../../components'
+import { GoBackButton, OptionButton, PeachScrollView } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
-import { innerShadow } from '../../utils/layout'
-import { StackNavigation } from '../../utils/navigation'
+import { useHeaderSetup, useNavigation } from '../../hooks'
+import LinedText from '../../components/ui/LinedText'
 
-type Props = {
-  navigation: StackNavigation
-}
-
-const contactReasons = ['bug', 'userProblem', 'question', 'newMethod', 'other'] as const
+const contactReasons = ['bug', 'userProblem', 'other'] as const
 type ContactReason = typeof contactReasons[number]
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
-  <Button title={i18n(`contact.reason.${name}`)} onPress={() => setReason(name)} style={tw`mt-2`} wide secondary />
+  <OptionButton onPress={() => setReason(name)} style={tw`mt-2`} wide>
+    {i18n(`contact.reason.${name}`)}
+  </OptionButton>
 )
 
-export default ({ navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   useContext(LanguageContext)
 
   const setReason = (reason: ContactReason) => navigation.navigate('report', { reason })
 
+  useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
+
+  const openTelegram = () => Linking.openURL('https://t.me/+3KpdrMw25xBhNGJk')
+
+  const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
+
   return (
-    <PeachScrollView contentContainerStyle={tw`px-6 pt-6 pb-10`}>
-      <Title title={i18n('contact.title')} />
-      <View style={tw`overflow-hidden rounded mt-12`}>
-        <Shadow shadow={innerShadow} style={tw`border border-grey-4 rounded`}>
-          <View style={[tw`p-10 flex items-center justify-center`]}>
-            <Text style={tw`text-center mb-8`}>{i18n('contact.whyAreYouContactingUs')}</Text>
-            {contactReasons.map((name) => (
-              <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
-            ))}
-          </View>
-        </Shadow>
-      </View>
-      <View style={tw`flex items-center mt-12`}>
-        <Button title={i18n('back')} wide={false} secondary onPress={navigation.goBack} />
-      </View>
-    </PeachScrollView>
+    <View style={tw`p-6 h-full items-center`}>
+      <PeachScrollView contentContainerStyle={tw`py-6 flex-1`}>
+        <LinedText style={tw`mb-3 mx-5`}>
+          <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
+        </LinedText>
+        {contactReasons.map((name) => (
+          <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
+        ))}
+        <View style={tw`mt-10`}>
+          <LinedText style={tw`my-3 mx-5`}>
+            <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
+          </LinedText>
+          <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
+            {i18n('telegram')}
+          </OptionButton>
+          <OptionButton onPress={openDiscord} style={tw`mt-2`} wide>
+            {i18n('discord')}
+          </OptionButton>
+        </View>
+      </PeachScrollView>
+      <GoBackButton style={tw`absolute bottom-10`} />
+    </View>
   )
 }

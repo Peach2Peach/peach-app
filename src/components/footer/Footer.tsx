@@ -1,26 +1,27 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Shadow, Text } from '..'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { footerShadow } from '../../utils/layout'
-import Icon from '../Icon'
+import { Icon, Shadow, Text } from '..'
 import AppContext from '../../contexts/app'
+import { useKeyboard, useNavigation } from '../../hooks'
+import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { footerShadow } from '../../utils/layout'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { IconType } from '../icons'
-import { Bubble } from '../ui'
-import { Navigation } from '../../utils/navigation'
-import { useKeyboard } from '../../hooks'
+import { IconType } from '../../assets/icons'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
+
+import PeachOrange from '../../assets/logo/peachOrange.svg'
+import PeachBorder from '../../assets/logo/peachBorder.svg'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
-  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>
-  navigation: Navigation
+  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
 }
 type FooterItemProps = ComponentProps & {
   id: IconType
@@ -29,39 +30,43 @@ type FooterItemProps = ComponentProps & {
   notifications?: number
 }
 
-const height = 52
-
 // eslint-disable-next-line max-len
 const isSettings
   = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
+const isWallet = /wallet|transactionHistory|transactionDetails/u
+
+const isBuy = /buy|buyPreferences|home/u
+
+const isSell = /sell|sellPreferences/u
 
 /**
  * @description Component to display the Footer Item
- * @param props Component properties
- * @param props.id item id
- * @param props.active active menu item
- * @param props.onPress on press handler
  * @example
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? tw`text-peach-1` : tw`text-grey-2`
+  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-5`
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
-        <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-          <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
-          <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>{i18n(id)}</Text>
+        <View style={tw`flex items-center`}>
+          {id === 'settings' ? (
+            active ? (
+              <PeachOrange style={tw`w-6 h-6`} />
+            ) : (
+              <PeachBorder style={tw`w-6 h-6`} />
+            )
+          ) : (
+            <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
+          )}
+          <Text style={[color, tw`subtitle-1 text-3xs leading-relaxed text-center`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
-          <Bubble
-            color={tw`text-green`.color as string}
-            style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
-          >
-            <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
-              {notifications}
-            </Text>
-          </Bubble>
+          <Icon
+            id="notification"
+            style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
+            color={tw`text-success-main`.color}
+          />
         ) : null}
       </View>
     </Pressable>
@@ -70,25 +75,27 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
 
 /**
  * @description Component to display the Footer
- * @param props Component properties
- * @param props.active active menu item
  * @example
  * <Footer active={'home'} />
  */
-export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
+export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactElement => {
+  const navigation = useNavigation()
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
 
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
+
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: keyof RootStackParamList) => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
-    navigation.navigate(page as string, {})
+    navigation.navigate(page)
   }
   const navigate = {
     home: () => navTo('home'),
     buy: () => navTo('buy'),
     sell: () => navTo('sell'),
+    wallet: () => navTo('wallet'),
     yourTrades: () => navTo('yourTrades'),
     settings: () => navTo('settings'),
   }
@@ -97,7 +104,7 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount(),
     })
-  }, [])
+  }, [updateAppContext])
 
   useEffect(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
@@ -136,33 +143,23 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [ws.connected])
+  }, [updateAppContext, ws, ws.connected])
 
   return !keyboardOpen ? (
-    <View style={[tw`w-full flex-row items-start`, { height }, style]}>
-      <View style={tw`h-full flex-grow relative`}>
+    <View style={[tw`w-full flex-row items-start`, style]}>
+      <View style={tw`flex-grow relative`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`h-full flex-row items-center justify-between bg-white-2`}>
-            <FooterItem
-              id="buy"
-              style={tw`w-1/4`}
-              active={active === 'buy' || active === 'home'}
-              onPress={navigate.buy}
-            />
-            <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
+          <View style={tw`flex-row items-center justify-between bg-primary-background py-4 px-5`}>
+            <FooterItem id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
+            <FooterItem id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
+            {peachWalletActive && <FooterItem id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />}
             <FooterItem
               id="yourTrades"
-              style={tw`w-1/4`}
-              active={active === 'yourTrades' || /contract/u.test(active as string)}
+              active={active === 'yourTrades' || /contract/u.test(active)}
               onPress={navigate.yourTrades}
               notifications={notifications}
             />
-            <FooterItem
-              id="settings"
-              style={tw`w-1/4`}
-              active={isSettings.test(active as string)}
-              onPress={navigate.settings}
-            />
+            <FooterItem id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
           </View>
         </Shadow>
       </View>

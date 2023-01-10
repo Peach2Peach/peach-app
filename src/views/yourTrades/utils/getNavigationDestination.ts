@@ -1,36 +1,33 @@
-import { isSellOffer, isBuyOffer } from '../../../utils/offer'
-import { isFunded } from '../../../utils/offer/status'
-import { shouldGoToOffer } from './shouldGoToOffer'
+import { getContract, getOfferIdFromContract } from '../../../utils/contract'
+import { getOffer } from '../../../utils/offer'
+import { shouldGoToOfferSummary } from './'
 
-export const getNavigationDestination = (
-  offer: SellOffer | BuyOffer,
-  offerStatus: TradeStatus,
-  contract: Contract | null,
-): [string, object] => {
-  if (shouldGoToOffer(offerStatus)) {
-    return ['offer', { offer }]
+export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
+  if (contract.tradeStatus === 'rateUser') {
+    const fullContract = getContract(contract.id)
+    if (fullContract) return ['tradeComplete', { contract: fullContract }]
+  }
+  if (contract.tradeStatus === 'tradeCompleted') {
+    const fullContract = getContract(contract.id)
+    if (fullContract) return ['offer', { offerId: getOfferIdFromContract(fullContract) }]
+  }
+  return ['contract', { contractId: contract.id }]
+}
+
+export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, object | undefined] => {
+  if (shouldGoToOfferSummary(offer.tradeStatus)) {
+    return ['offer', { offerId: offer.id }]
   }
 
-  if (contract) {
-    if (!contract.disputeWinner && offerStatus.status === 'tradeCompleted') {
-      return ['tradeComplete', { contract }]
-    }
-    return ['contract', { contractId: contract.id }]
+  if (offer.tradeStatus === 'returnAddressRequired') {
+    return ['setReturnAddress', { offer: getOffer(offer.id) }]
+  }
+  if (offer.tradeStatus === 'fundEscrow') {
+    return ['fundEscrow', { offer: getOffer(offer.id) }]
+  }
+  if (/searchingForPeer|hasMatchesAvailable/u.test(offer.tradeStatus)) {
+    return ['search', undefined]
   }
 
-  if (isSellOffer(offer)) {
-    if (offer.returnAddressRequired) {
-      return ['setReturnAddress', { offer }]
-    }
-    if (isFunded(offer)) {
-      return ['search', {}]
-    }
-    return ['fundEscrow', { offer }]
-  }
-
-  if (isBuyOffer(offer) && offer.online) {
-    return ['search', {}]
-  }
-
-  return ['yourTrades', {}]
+  return ['yourTrades', undefined]
 }

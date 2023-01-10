@@ -6,33 +6,22 @@ import i18n from '../../utils/i18n'
 import OfferDetails from './OfferDetails'
 import ReleaseAddress from './ReleaseAddress'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
-import { whiteGradient } from '../../utils/layout'
 import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { useNavigation, useRoute } from '../../hooks'
 import { useMatchStore } from '../../components/matches/store'
-
-const { LinearGradient } = require('react-native-gradients')
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['buyPreferences'] }>
-  navigation: StackNavigation
-}
 
 export type BuyViewProps = {
   offer: BuyOffer
   updateOffer: (data: BuyOffer, shield?: boolean) => void
   setStepValid: (isValid: boolean) => void
-  back: () => void
-  next: () => void
-  navigation: StackNavigation
 }
 
 const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
@@ -69,7 +58,9 @@ const screens = [
   },
 ]
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'buyPreferences'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
@@ -148,8 +139,13 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         error('Error', err)
         updateMessage({
-          msg: i18n(err?.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
 
         if (err?.error === 'TRADING_LIMIT_REACHED') back()
@@ -158,44 +154,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [page])
 
   return (
-    <View testID="view-buy" style={tw`h-full flex`}>
-      <View style={tw`h-full flex-shrink`}>
-        <PeachScrollView
-          scrollRef={(ref) => (scroll = ref)}
-          disable={!scrollable}
-          contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-          style={tw`h-full`}
-        >
-          <View style={tw`h-full flex`}>
-            <View style={tw`h-full flex-shrink`}>
-              {updatePending ? <Loading /> : null}
-              {!updatePending && CurrentView ? (
-                <CurrentView
-                  offer={offer}
-                  updateOffer={setOffer}
-                  setStepValid={setStepValid}
-                  back={back}
-                  next={next}
-                  navigation={navigation}
-                />
-              ) : null}
-            </View>
-            {scrollable && !updatePending ? (
-              <View style={tw`pt-8 px-6`}>
-                <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
-              </View>
-            ) : null}
-          </View>
-        </PeachScrollView>
-      </View>
-      {!scrollable && !updatePending ? (
-        <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-          <View style={tw`w-full h-8 -mt-8`}>
-            <LinearGradient colorList={whiteGradient} angle={90} />
-          </View>
-          <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+    <View testID="view-buy" style={tw`flex-1`}>
+      {updatePending ? (
+        <View style={tw`w-full h-full items-center justify-center absolute`}>
+          <Loading />
         </View>
-      ) : null}
+      ) : (
+        <>
+          <PeachScrollView
+            scrollRef={(ref) => (scroll = ref)}
+            disable={!scrollable}
+            contentContainerStyle={[tw`p-5 pb-30 flex-grow justify-center`]}
+          >
+            {CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, setStepValid }} />}
+          </PeachScrollView>
+
+          <Navigation screen={currentScreen.id} {...{ next, stepValid }} />
+        </>
+      )}
     </View>
   )
 }

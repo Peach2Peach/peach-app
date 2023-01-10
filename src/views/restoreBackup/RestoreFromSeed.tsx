@@ -1,7 +1,7 @@
-import React, { ReactElement, useContext, useState } from 'react'
-import { Keyboard, Pressable, View } from 'react-native'
-import { Button, Fade, Input, Loading, PeachScrollView, Text } from '../../components'
-import Icon from '../../components/Icon'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import { Keyboard, View } from 'react-native'
+import { Fade, Input, PeachScrollView, Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
 import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -10,8 +10,14 @@ import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
 import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
-import Restored from './Restored'
+import RestoreBackupError from './RestoreBackupError'
+import RestoreBackupLoading from './RestoreBackupLoading'
+import RestoreSuccess from './RestoreSuccess'
 
+const bip39WordRules = {
+  required: true,
+  bip39Word: true,
+}
 const bip39Rules = {
   required: true,
   bip39: true,
@@ -21,33 +27,40 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
+
   const seedPhrase: ReturnType<typeof useValidatedState>[] = []
+  const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
 
   for (let i = 12; i > 0; i--) {
-    seedPhrase.push(useValidatedState('' as string, bip39Rules))
+    seedPhrase.push(useValidatedState<string>('', bip39WordRules))
   }
 
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
-  const onError = (e?: string) => {
-    const errorMsg = e || 'UNKNOWN_ERROR'
-    updateMessage({
-      msgKey: errorMsg,
-      level: 'ERROR',
-    })
-    deleteAccount({})
-  }
 
-  const validate = () => seedPhrase.every(([word]) => word)
-  const formIsValid = validate()
+  const onError = useCallback(
+    (err?: string) => {
+      const errorMsg = err || 'UNKNOWN_ERROR'
+      setError(errorMsg)
+      if (errorMsg !== 'REGISTRATION_DENIED') {
+        updateMessage({
+          msgKey: errorMsg,
+          level: 'ERROR',
+        })
+      }
+      deleteAccount()
+    },
+    [updateMessage],
+  )
 
+  const allWordsSet = () => seedPhrase.every(([word]) => word)
   const submit = async () => {
     Keyboard.dismiss()
     setLoading(true)
 
-    if (!validate()) return
+    if (!isMnemonicValid) return
 
-    const mnemonic = seedPhrase.map(([word]) => word).join(' ')
     const recoveredAccount = await createAccount(mnemonic)
 
     const [, authError] = await auth({})
@@ -62,58 +75,66 @@ export default ({ style }: ComponentProps): ReactElement => {
       await storeAccount(recoveredAccount)
       setRestored(true)
       setLoading(false)
+
+      setTimeout(() => {
+        navigation.replace('home')
+      }, 1500)
     } else {
-      onError(parseError(recoverAccountErr))
       setLoading(false)
+      onError(parseError(recoverAccountErr))
     }
   }
 
   const mapSeedWordToInput
     = (offset: number) =>
-      ([word, setWord, isValid]: ReturnType<typeof useValidatedState>, i: number) =>
+      ([word, setWord, , errorMessage]: ReturnType<typeof useValidatedState>, i: number) =>
         (
-          <View key={i} style={tw`mt-2`}>
-            <Input
-              onChange={(val: string) => setWord(val)}
-              onSubmit={(val: string) => setWord(val)}
-              isValid={isValid}
-              secureTextEntry={false}
-              placeholder={`${i + 1 + offset}.`}
-              value={word}
-            />
-          </View>
+          <Input
+            {...{
+              key: i,
+              theme: 'inverted',
+              onChange: setWord,
+              onSubmit: setWord,
+              errorMessage,
+              placeholder: `${i + 1 + offset}.`,
+              value: word,
+            }}
+          />
         )
 
+  useEffect(() => {
+    setMnemonic(seedPhrase.map(([word]) => word).join(' '))
+  }, [seedPhrase, setMnemonic])
+
+  if (loading) return <RestoreBackupLoading />
+  if (error) return <RestoreBackupError err={error} />
+  if (restored) return <RestoreSuccess />
   return (
-    <View style={[tw`flex flex-col`, style]}>
-      {restored ? (
-        <Restored />
-      ) : !loading ? (
-        <View style={tw`h-full pb-8 flex justify-between`}>
-          <PeachScrollView style={tw`h-full flex-shrink`} contentContainerStyle={tw`flex justify-center items-center`}>
-            <Text style={tw`text-center`}>{i18n('restoreBackup.seedPhrase.useBackupFile')}</Text>
-            <Text style={tw`mt-6 text-center`}>{i18n('restoreBackup.seedPhrase.enter')}</Text>
-            <View style={tw`flex flex-row`}>
-              <View style={tw`w-1/2 pr-1`}>
-                {seedPhrase.slice(0, 6).map((word, i) => mapSeedWordToInput(0)(word, i))}
-              </View>
-              <View style={tw`w-1/2 pl-1`}>
-                {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(6)(word, i))}
-              </View>
+    <View style={[tw`flex flex-col px-6`, style]}>
+      <View style={tw`h-full pb-8`}>
+        <PeachScrollView style={tw`h-full flex-shrink`}>
+          <Text style={tw`text-center text-primary-background-light mt-3`}>
+            {i18n('restoreBackup.seedPhrase.useBackupFile')}
+          </Text>
+          <Text style={tw`subtitle-1 mt-6 text-center text-primary-background-light`}>
+            {i18n('restoreBackup.seedPhrase.enter')}
+          </Text>
+          <View style={tw`flex flex-row px-6 mt-4`}>
+            <View style={tw`w-1/2 pr-2`}>{seedPhrase.slice(0, 6).map((word, i) => mapSeedWordToInput(0)(word, i))}</View>
+            <View style={tw`w-1/2 pl-2`}>
+              {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(6)(word, i))}
             </View>
-          </PeachScrollView>
-          <Fade show={!keyboardOpen} style={tw`w-full mt-5 flex items-center`}>
-            <Pressable style={tw`absolute left-0`} onPress={() => navigation.replace('welcome', {})}>
-              <Icon id="arrowLeft" style={tw`w-10 h-10`} color={tw`text-peach-1`.color as string} />
-            </Pressable>
-            <Button onPress={submit} disabled={!formIsValid} wide={false} title={i18n('restoreBackup')} />
-          </Fade>
-        </View>
-      ) : (
-        <View style={tw`h-1/2`}>
-          <Loading />
-        </View>
-      )}
+          </View>
+          {allWordsSet() && !isMnemonicValid && (
+            <Text style={[tw`tooltip text-center text-primary-background-light mt-2`]}>{i18n('form.bip39.error')}</Text>
+          )}
+        </PeachScrollView>
+        <Fade show={!keyboardOpen} style={tw`flex items-center`}>
+          <PrimaryButton onPress={submit} disabled={!isMnemonicValid} white iconId="save">
+            {i18n('restoreBackup')}
+          </PrimaryButton>
+        </Fade>
+      </View>
     </View>
   )
 }

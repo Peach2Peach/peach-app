@@ -1,4 +1,4 @@
-import { wordlists } from 'bip39'
+import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
@@ -47,6 +47,10 @@ export const rules = {
     if (!value) return false
     return value !== '@' && /^@[a-z0-9]*/iu.test(value)
   },
+  revtag (_: boolean, value: string | null) {
+    if (!value) return false
+    return value !== '@' && /^@[a-z0-9]{3,16}$/u.test(value)
+  },
   url (_: boolean, value: string) {
     if (!value) return false
     try {
@@ -58,7 +62,13 @@ export const rules = {
     }
   },
   bip39 (_: boolean, value: string) {
+    return validateMnemonic(value)
+  },
+  bip39Word (_: boolean, value: string) {
     return wordlists.english.includes(value)
+  },
+  feeRate (_: boolean, value: string) {
+    return /^[0-9]*$/u.test(value) && Number(value) >= 1
   },
 }
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import i18n from '../../../utils/i18n'
-import Button from '../../Button'
-import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
-import { useMatchStore } from '../store'
-import { useMatchOffer } from '../hooks'
-import { isBuyOffer } from '../../../utils/offer'
 import shallow from 'zustand/shallow'
+import i18n from '../../../utils/i18n'
+import { isBuyOffer } from '../../../utils/offer'
+import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
+import { PrimaryButton } from '../../buttons'
+import { useMatchOffer } from '../hooks'
+import { useMatchStore } from '../store'
 
 export const MatchOfferButton = () => {
   const { allMatches: matches } = useOfferMatches()
@@ -15,14 +15,8 @@ export const MatchOfferButton = () => {
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
 
   return (
-    <Button
-      title={i18n(
-        `search.${isBuyOffer(offer) ? (currentMatch?.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`,
-      )}
-      wide={false}
-      disabled={currentMatch?.matched || isLoading}
-      loading={isLoading}
-      onPress={matchOffer}
-    />
+    <PrimaryButton narrow disabled={currentMatch.matched || isLoading} loading={isLoading} onPress={() => matchOffer()}>
+      {i18n(`search.${isBuyOffer(offer) ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`)}
+    </PrimaryButton>
   )
 }

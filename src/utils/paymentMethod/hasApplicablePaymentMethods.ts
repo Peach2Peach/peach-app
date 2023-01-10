@@ -8,6 +8,5 @@ import { paymentMethodAllowedForCurrency } from '../paymentMethod'
  * @returns true if payment category has payment method for given currency
  */
 export const hasApplicablePaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean =>
-  PAYMENTCATEGORIES[paymentCategory].filter(paymentMethod =>
-    paymentMethodAllowedForCurrency(paymentMethod, currency)
-  ).length > 0
+  PAYMENTCATEGORIES[paymentCategory].filter((paymentMethod) => paymentMethodAllowedForCurrency(paymentMethod, currency))
+    .length > 0

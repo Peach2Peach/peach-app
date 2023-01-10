@@ -90,7 +90,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
       {!required ? (
         <Pressable style={tw`flex-row items-center px-5 mt-4`} onPress={toggleUseDepositAddress}>
           {useDepositAddress ? (
-            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+            <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
           ) : (
             <View style={tw`w-5 h-5 flex justify-center items-center`}>
               <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />

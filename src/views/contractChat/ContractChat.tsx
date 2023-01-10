@@ -1,39 +1,35 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading } from '../../components'
 import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import { account } from '../../utils/account'
+import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
+import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, saveContract } from '../../utils/contract'
+import { getContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
-import { parseContract } from '../contract/helpers/parseContract'
+import { decryptContractData } from '../contract/helpers/decryptContractData'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
-import { DisputeDisclaimer } from './components/DisputeDisclaimer'
 import getMessagesEffect from './effects/getMessagesEffect'
-import { debounce } from '../../utils/performance'
-import { useThrottledEffect } from '../../hooks'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { saveOffer } from '../../utils/offer'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['contractChat'] }>
-  navigation: StackNavigation
-}
-
-// eslint-disable-next-line max-statements
-export default ({ route, navigation }: Props): ReactElement => {
+// eslint-disable-next-line max-statements, max-lines-per-function
+export default (): ReactElement => {
+  const route = useRoute<'contractChat'>()
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
@@ -41,7 +37,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
+  const [contract, setContract] = useState(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User | null>(
     contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null,
   )
@@ -141,10 +137,12 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const showDisclaimer = useCallback(async () => {
     await sleep(1000)
+    // <DisputeDisclaimer contract={contract!} />
     updateMessage({
-      template: <DisputeDisclaimer navigation={navigation} contract={contract!} />,
-      level: 'INFO',
-      close: false,
+      msgKey: 'DISPUTE_DISCLAIMER',
+      level: 'WARN',
+      keepAlive: true,
+      onClose: () => updateSettings({ showDisputeDisclaimer: false }, true),
     })
   }, [contract, navigation, updateMessage])
 
@@ -208,7 +206,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           const view = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setTradingPartner(() => (account.publicKey === result.seller.id ? result.buyer : result.seller))
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,
@@ -229,15 +227,42 @@ export default ({ route, navigation }: Props): ReactElement => {
               },
           )
 
-          handleOverlays({ contract: c, navigation, updateOverlay, view })
+          handleOverlays({ contract: c, updateOverlay, view })
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           }),
       }),
       [contractId],
+    ),
+  )
+
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
+        onSuccess: async (result) => {
+          saveOffer(result, false)
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'GENERAL_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          }),
+      }),
+      [contract],
     ),
   )
 
@@ -262,7 +287,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         if (decryptedMessages.some((m) => m.message === null)) {
           // delete symmetric key to let app decrypt actual one
-          const { symmetricKey } = await parseContract({
+          const { symmetricKey } = await decryptContractData({
             ...contract,
             symmetricKey: undefined,
           })
@@ -289,18 +314,25 @@ export default ({ route, navigation }: Props): ReactElement => {
         setUpdatePending(false)
         setLoadingMessages(false)
         updateMessage({
-          msgKey: err.error || 'error.general',
+          msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
       },
     })()
   }, [contractId, page, updateMessage])
 
   return !contract || updatePending ? (
-    <Loading />
+    <View style={tw`w-full h-full items-center justify-center`}>
+      <Loading />
+    </View>
   ) : (
     <View style={[tw`h-full flex-col`]}>
-      <ChatHeader contract={contract} navigation={navigation} />
+      <ChatHeader contract={contract} />
       <View style={[tw`w-full h-full flex-shrink`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}

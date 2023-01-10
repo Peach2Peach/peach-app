@@ -1,37 +1,34 @@
-import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useMemo, useState } from 'react'
 
 import tw from '../../styles/tailwind'
 
-import { Button, PeachScrollView, Title } from '../../components'
-import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
-import PaymentDetails from '../../components/payment/PaymentDetails'
+import { View } from 'react-native'
+import { PeachScrollView } from '../../components'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { account } from '../../utils/account'
+import i18n from '../../utils/i18n'
 
-type Props = {
-  navigation: StackNavigation
-}
+export default (): ReactElement => {
+  const showHelp = useShowHelp('paymentMethods')
+  const headerConfig = useMemo(
+    () => ({
+      title: i18n('form.paymentMethod.edit'),
+    }),
+    [showHelp],
+  )
+  useHeaderSetup(useMemo(() => headerConfig, [headerConfig]))
 
-export default ({ navigation }: Props): ReactElement => {
   const [, setUpdate] = useState(0)
   const dummy = () => setUpdate(Math.random())
-  return (
-    <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>
-      <Title title={i18n('settings.title')} subtitle={i18n('settings.paymentMethods.subtitle')} />
-      <PaymentDetails
-        style={tw`mt-4`}
-        editable={true}
-        navigation={navigation}
-        paymentData={account.paymentData}
-        setMeansOfPayment={dummy}
-      />
-      <AddPaymentMethodButton navigation={navigation} origin={['paymentMethods', {}]} style={tw`mt-4`} />
 
-      <View style={tw`flex items-center mt-16`}>
-        <Button title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
-      </View>
+  return (
+    <PeachScrollView style={tw`h-full w-full`} contentContainerStyle={tw`flex-1 px-6 pt-7 pb-10 justify-center`}>
+      <PaymentDetails paymentData={account.paymentData} setMeansOfPayment={dummy} editing={true} />
+      <View style={tw`bg-black-5 h-0.3 m-5`} />
+      <AddPaymentMethodButton origin={['paymentMethods', {}]} />
     </PeachScrollView>
   )
 }

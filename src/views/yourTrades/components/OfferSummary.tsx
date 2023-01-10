@@ -1,11 +1,12 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Button, BuyOfferSummary, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
+import { BuyOfferSummary, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
+import { PrimaryButton } from '../../../components/buttons'
 import { OverlayContext } from '../../../contexts/overlay'
+import { useNavigation } from '../../../hooks'
 import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { StackNavigation } from '../../../utils/navigation'
 import { getOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 
 const sellOrBuy = (offer: SellOffer | BuyOffer) => (isSellOffer(offer) ? 'sell' : 'buy')
@@ -13,9 +14,9 @@ const sellOrBuy = (offer: SellOffer | BuyOffer) => (isSellOffer(offer) ? 'sell' 
 type OfferSummaryProps = {
   offer: BuyOffer | SellOffer
   status: TradeStatus['status']
-  navigation: StackNavigation
 }
-export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): ReactElement => {
+export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const navigate = () => {}
   const title = status !== 'offerCanceled' ? i18n('yourTrades.search.title') : i18n(`${sellOrBuy(offer)}.title`)
@@ -23,13 +24,12 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
 
   const goToOffer = () => {
     if (!offer.newOfferId) return
-    const offr = getOffer(offer.newOfferId)
-    if (offr) navigation.replace('offer', { offer: offr })
+    navigation.replace('offer', { offerId: offer.newOfferId })
   }
 
   return (
@@ -55,15 +55,9 @@ export const OfferSummary = ({ offer, status, navigation }: OfferSummaryProps): 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
         {isSellOffer(offer) ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
       </View>
-
-      <View style={tw`flex items-center mt-4`}>
-        <Button
-          title={i18n('back')}
-          secondary={true}
-          wide={false}
-          onPress={() => navigation.navigate('yourTrades', {})}
-        />
-      </View>
+      <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades')} narrow>
+        {i18n('back')}
+      </PrimaryButton>
       {status !== 'offerCanceled' ? (
         <Pressable style={tw`mt-3`} onPress={cancelOffer}>
           {/* TODO use TextLink component and add bold mode */}

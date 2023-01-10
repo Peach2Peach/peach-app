@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import { View, ViewStyle } from 'react-native'
+import { ColorValue, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
-import { IconType } from '../../../components/icons'
+import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
+import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
 
 type GetMessageMetaProps = {
   message: Message
@@ -50,7 +50,7 @@ type MessageStyling = {
   text: ViewStyle
   bgColor: ViewStyle
   statusIcon: IconType
-  statusIconColor: string
+  statusIconColor: ColorValue
 }
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
   const text
@@ -72,14 +72,14 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
         ? 'offline'
         : 'clock'
       : meta.readByCounterParty
-        ? 'checkDouble'
+        ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'checkDouble' ? tw`text-blue-1`.color : tw`text-grey-3`.color
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-blue-1`.color : tw`text-grey-3`.color
   return {
     text,
     bgColor,
     statusIcon,
-    statusIconColor: statusIconColor as string,
+    statusIconColor: statusIconColor!,
   }
 }
 type ChatMessageProps = {
@@ -102,15 +102,16 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
   return (
     <View
       onStartShouldSetResponder={() => true}
-      style={[tw`w-11/12 px-3 bg-transparent`, meta.isMediator ? tw`w-full` : meta.isYou ? tw`self-end` : {}]}>
+      style={[tw`w-11/12 px-3 bg-transparent`, meta.isMediator ? tw`w-full` : meta.isYou ? tw`self-end` : {}]}
+    >
       {meta.showName ? <Text style={[tw`px-1 mt-4 -mb-1 font-baloo text-xs`, text]}>{meta.name}</Text> : null}
       <View style={[tw`flex-row flex-wrap justify-between p-3 mt-1 rounded`, bgColor]}>
-        <Text style={'flex-shrink-0'}>{message.message || i18n('chat.decyptionFailed')}</Text>
+        <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
         <Text style={tw`ml-auto text-right leading-5 pt-1`}>
           <Text style={tw`text-xs text-grey-3`}>{toTimeFormat(message.date)}</Text>
           {meta.isYou && (
             <View style={tw`pl-1`}>
-              <Icon id={statusIcon} style={tw`relative -bottom-1 w-4 h-4`} color={statusIconColor as string} />
+              <Icon id={statusIcon} style={tw`relative -bottom-1 w-4 h-4`} color={statusIconColor} />
             </View>
           )}
         </Text>

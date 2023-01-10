@@ -14,33 +14,25 @@ import tw from '../../styles/tailwind'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import { BUCKETS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { whiteGradient } from '../../utils/layout'
 import { error, info } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-
-const { LinearGradient } = require('react-native-gradients')
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['sell'] }>
-  navigation: StackNavigation
-}
+import { useNavigation, useRoute } from '../../hooks'
+import { peachWallet } from '../../utils/wallet/setWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 export type SellViewProps = {
   offer: SellOffer
-  updateOffer: (offer: SellOffer, shield?: boolean) => void
+  updateOffer: (offer: SellOffer) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
-  back: () => void
-  next: () => void
-  navigation: StackNavigation
 }
 
 const getDefaultSellOffer = (amount?: number): SellOffer => ({
@@ -85,10 +77,13 @@ const screens = [
   },
 ]
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'sellPreferences'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
-  const [offer, setOffer] = useState<SellOffer>(getDefaultSellOffer(route.params.amount))
+  const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -115,6 +110,16 @@ export default ({ route, navigation }: Props): ReactElement => {
   )
 
   useEffect(() => {
+    ;(async () => {
+      if (!peachWalletActive || offer.returnAddress) return
+      setOffer({
+        ...offer,
+        returnAddress: (await peachWallet.getReceivingAddress()) || '',
+      })
+    })()
+  }, [offer, peachWalletActive])
+
+  useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
       if (page === 0) {
         return false
@@ -125,7 +130,7 @@ export default ({ route, navigation }: Props): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const back = () => {
     if (page === 0) {
@@ -159,8 +164,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       } else if (err) {
         error('Error', err)
         updateMessage({
-          msg: i18n(err.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
         back()
       }
@@ -173,44 +183,24 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex`}>
-      <View style={tw`h-full flex-shrink`}>
-        <PeachScrollView
-          scrollRef={(ref) => (scroll = ref)}
-          disable={!scrollable}
-          contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-          style={tw`h-full`}
-        >
-          <View style={tw`h-full flex`}>
-            <View style={tw`h-full flex-shrink`}>
-              {updatePending ? <Loading /> : null}
-              {!updatePending && CurrentView ? (
-                <CurrentView
-                  offer={offer}
-                  updateOffer={setOffer}
-                  setStepValid={setStepValid}
-                  back={back}
-                  next={next}
-                  navigation={navigation}
-                />
-              ) : null}
-            </View>
-            {scrollable && !updatePending ? (
-              <View style={tw`pt-8 px-6`}>
-                <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
-              </View>
-            ) : null}
-          </View>
-        </PeachScrollView>
-      </View>
-      {!scrollable && !updatePending ? (
-        <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-          <View style={tw`w-full h-8 -mt-8`}>
-            <LinearGradient colorList={whiteGradient} angle={90} />
-          </View>
-          <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+    <View testID="view-sell" style={tw`flex-1`}>
+      {updatePending ? (
+        <View style={tw`w-full h-full items-center justify-center absolute`}>
+          <Loading />
         </View>
-      ) : null}
+      ) : (
+        <>
+          <PeachScrollView
+            scrollRef={(ref) => (scroll = ref)}
+            disable={!scrollable}
+            contentContainerStyle={[tw`p-5 pb-30 flex-grow justify-center`]}
+          >
+            {CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, setStepValid }} />}
+          </PeachScrollView>
+
+          <Navigation screen={currentScreen.id} {...{ next, stepValid }} />
+        </>
+      )}
     </View>
   )
 }

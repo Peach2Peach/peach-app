@@ -13,11 +13,11 @@ export const CancelOfferButton = () => {
   const offer = useMatchStore((state) => state.offer)
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const navigate = () => navigation.replace('yourTrades', {})
+  const navigate = () => navigation.replace('yourTrades')
   const cancelOffer = () =>
     updateOverlay({
       content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
-      showCloseButton: false,
+      visible: true,
     })
   return (
     <Pressable style={tw`mt-3`} onPress={cancelOffer}>
