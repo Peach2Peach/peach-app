@@ -10,7 +10,7 @@ const themes = {
   default: {
     text: tw`text-black-1`,
     backButton: tw`text-black-2`,
-    bg: tw`bg-primary-background-light`,
+    bg: tw`bg-primary-background`,
   },
   inverted: {
     text: tw`text-primary-background-light`,
