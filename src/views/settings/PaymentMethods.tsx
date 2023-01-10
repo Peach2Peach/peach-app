@@ -25,7 +25,7 @@ export default (): ReactElement => {
   const dummy = () => setUpdate(Math.random())
 
   return (
-    <PeachScrollView style={tw`h-full w-full`} contentContainerStyle={tw`flex-1 px-6 pt-7 pb-10 justify-center`}>
+    <PeachScrollView style={tw`w-full h-full`} contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}>
       <PaymentDetails paymentData={account.paymentData} setMeansOfPayment={dummy} editing={true} />
       <View style={tw`bg-black-5 h-0.3 m-5`} />
       <AddPaymentMethodButton origin={['paymentMethods', {}]} />
