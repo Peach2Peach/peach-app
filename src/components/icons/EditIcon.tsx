@@ -2,4 +2,4 @@ import React from 'react'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 
-export const EditIcon = () => <Icon id={'edit'} color={tw`text-black-2`.color} />
+export const EditIcon = () => <Icon id={'edit2'} color={tw`text-black-2`.color} />
