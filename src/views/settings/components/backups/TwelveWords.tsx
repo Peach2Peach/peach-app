@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import tw from '../../../../styles/tailwind'
+
 import { Text } from '../../../../components'
+import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
-import { Word } from './Word'
 import i18n from '../../../../utils/i18n'
+import { Word } from './Word'
 
 export const TwelveWords = (): ReactElement => (
   <>

@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import tw from '../../../../styles/tailwind'
+
 import { Icon, Text } from '../../../../components'
+import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 
 const translationsPath = 'settings.backups.seedPhrase.'

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
-import tw from '../../../../styles/tailwind'
+
 import { Text } from '../../../../components'
+import tw from '../../../../styles/tailwind'
 
 type Props = ComponentProps & {
   word: string

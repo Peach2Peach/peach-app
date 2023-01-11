@@ -1,19 +1,18 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { View } from 'react-native'
 
-import tw from '../../../../styles/tailwind'
-
 import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { useHeaderSetup, useToggleBoolean } from '../../../../hooks'
-import i18n from '../../../../utils/i18n'
-import { SecurityInfo } from './SecurityInfo'
-import { TwelveWords } from './TwelveWords'
-import { ReadAndUnderstood } from './ReadAndUnderstood'
 import { HelpIcon } from '../../../../components/icons'
+import { useHeaderSetup, useToggleBoolean } from '../../../../hooks'
 import { useShowHelp } from '../../../../hooks/useShowHelp'
+import tw from '../../../../styles/tailwind'
+import i18n from '../../../../utils/i18n'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
+import { ReadAndUnderstood } from './ReadAndUnderstood'
+import { SecurityInfo } from './SecurityInfo'
+import { TwelveWords } from './TwelveWords'
 
 const screens = [
   {

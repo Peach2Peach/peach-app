@@ -1,10 +1,9 @@
-import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
+
 import { Input, PeachScrollView, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { OverlayContext } from '../../../../contexts/overlay'
 import { useValidatedState } from '../../../../hooks'
-import { BackupCreated } from '../../../../overlays/BackupCreated'
 import tw from '../../../../styles/tailwind'
 import { account, backupAccount, updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -20,16 +19,10 @@ export default (): ReactElement => {
 
   const [isBackingUp, setIsBackingUp] = useState(false)
 
-  const [, updateOverlay] = useContext(OverlayContext)
-
   let $passwordRepeat = useRef<TextInput>(null).current
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
 
   const passwordsMatch = useMemo(() => password === passwordRepeat, [password, passwordRepeat])
-  const formIsValid = useMemo(
-    () => !!password && !!passwordRepeat && passwordIsValid && passwordRepeatIsValid && passwordsMatch,
-    [password, passwordRepeat, passwordIsValid, passwordRepeatIsValid, passwordsMatch],
-  )
   const validate = () => !!password && !!passwordRepeat && passwordIsValid && passwordsMatch
 
   const startAccountBackup = () => {
@@ -50,10 +43,7 @@ export default (): ReactElement => {
     backupAccount({
       password,
       onSuccess: () => {
-        updateOverlay({
-          content: <BackupCreated />,
-          visible: true,
-        })
+        setIsBackingUp(false)
         updateSettings(
           {
             lastBackupDate: new Date().getTime(),
@@ -61,15 +51,8 @@ export default (): ReactElement => {
           },
           true,
         )
-        setIsBackingUp(false)
-
-        setTimeout(() => {
-          updateOverlay({
-            content: null,
-            visible: true,
-          })
-        }, 3000)
       },
+      // TODO: why are we not saving the settings in these cases?
       onCancel: () => {
         setIsBackingUp(false)
         updateSettings({
@@ -100,7 +83,7 @@ export default (): ReactElement => {
             secureTextEntry={true}
             value={password}
             errorMessage={passwordError}
-            style={tw`border-black-2`}
+            style={passwordIsValid && tw`border-black-2`}
             iconColor={tw`text-black-2`.color}
           />
           <Input
@@ -112,7 +95,7 @@ export default (): ReactElement => {
             secureTextEntry={true}
             value={passwordRepeat}
             errorMessage={passwordRepeatError}
-            style={tw`border-black-2`}
+            style={passwordRepeatIsValid && tw`border-black-2`}
             iconColor={tw`text-black-2`.color}
           />
         </View>
