@@ -7,6 +7,7 @@ import { HelpIcon } from '../../../../components/icons'
 import { useHeaderSetup, useToggleBoolean } from '../../../../hooks'
 import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
+import { updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
@@ -44,6 +45,9 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [checked, onPress] = useToggleBoolean()
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0)
   const showNextScreen = useCallback(() => {
+    if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
+      updateSettings({ lastSeedBackupDate: new Date().getTime() }, true)
+    }
     if (currentScreenIndex < screens.length - 1) {
       setCurrentScreenIndex((prev) => prev + 1)
     }
