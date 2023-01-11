@@ -67,9 +67,9 @@ export const Overlay = ({
               {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
               {content}
             </View>
-            <View style={[tw`flex-row px-4 py-1`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
+            <View style={[tw`flex-row px-4`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
               {!!action2 && (
-                <Pressable onPress={!action2.disabled ? action2.callback : null}>
+                <Pressable style={tw`py-2`} onPress={!action2.disabled ? action2.callback : null}>
                   <View style={[tw`flex flex-row items-center flex-shrink`, action2?.disabled && tw`opacity-50`]}>
                     <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 h-4 mr-1`} />
                     <Text style={[tw`text-base leading-relaxed subtitle-1`, actionColor]}>{action2.label}</Text>
@@ -77,7 +77,10 @@ export const Overlay = ({
                 </Pressable>
               )}
               {
-                <Pressable onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}>
+                <Pressable
+                  style={tw`py-2`}
+                  onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}
+                >
                   <View style={[tw`flex flex-row items-center flex-shrink`, action1?.disabled && tw`opacity-50`]}>
                     <Text style={[tw`text-base leading-relaxed subtitle-1`, actionColor]}>
                       {action1 ? action1.label : i18n('close')}
