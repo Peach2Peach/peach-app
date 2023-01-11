@@ -9,6 +9,8 @@ export default ({ style }: ComponentProps) => {
   const [showPasswordPrompt, toggle] = useToggleBoolean()
 
   return (
-    <View style={style}>{showPasswordPrompt ? <BackupPasswordPrompt /> : <FileBackupOverview next={toggle} />}</View>
+    <View style={style}>
+      {showPasswordPrompt ? <BackupPasswordPrompt toggle={toggle} /> : <FileBackupOverview next={toggle} />}
+    </View>
   )
 }

@@ -10,7 +10,7 @@ import i18n from '../../../../utils/i18n'
 
 const passwordRules = { required: true, password: true }
 
-export default (): ReactElement => {
+export default ({ toggle }: { toggle: () => void }): ReactElement => {
   const navigation = useNavigation()
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid, passwordRepeatError] = useValidatedState<string>(
@@ -52,6 +52,7 @@ export default (): ReactElement => {
           },
           true,
         )
+        toggle()
         navigation.navigate('backupCreated')
       },
       // TODO: why are we not saving the settings in these cases?
