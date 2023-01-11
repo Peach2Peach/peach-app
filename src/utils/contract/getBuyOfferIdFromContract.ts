@@ -1,1 +1,1 @@
-export const getBuyOfferIdFromContract = (contract: Contract) => contract.id.split('-')[1]
+export const getBuyOfferIdFromContract = (contract: Contract | ContractSummary) => contract.id.split('-')[1]

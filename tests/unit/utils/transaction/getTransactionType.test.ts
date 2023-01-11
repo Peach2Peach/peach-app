@@ -8,10 +8,11 @@ describe('getTransactionType', () => {
       sent: 0,
       received: 1337,
     }
-    const offer: Partial<BuyOffer> = {
+    const offer: Partial<OfferSummary> = {
       id: '456',
+      type: 'bid',
     }
-    const result = getTransactionType(tx as ConfirmedTransaction, offer as BuyOffer)
+    const result = getTransactionType(tx as ConfirmedTransaction, offer as OfferSummary)
     expect(result).toEqual('TRADE')
   })
 
@@ -40,11 +41,11 @@ describe('getTransactionType', () => {
       sent: 0,
       received: 210000,
     }
-    const offer: Partial<SellOffer> = {
+    const offer: Partial<OfferSummary> = {
       id: '456',
-      refunded: true,
+      type: 'ask',
     }
-    const result = getTransactionType(tx as PendingTransaction, offer as SellOffer)
+    const result = getTransactionType(tx as PendingTransaction, offer as OfferSummary)
     expect(result).toEqual('REFUND')
   })
 })

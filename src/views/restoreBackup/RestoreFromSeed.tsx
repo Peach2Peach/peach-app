@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import { Fade, Input, PeachScrollView, Text } from '../../components'
-import { useBackgroundState } from '../../components/background/backgroundStore'
 import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
 import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
@@ -26,7 +25,6 @@ const bip39Rules = {
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
   const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
 
@@ -80,9 +78,6 @@ export default ({ style }: ComponentProps): ReactElement => {
 
       setTimeout(() => {
         navigation.replace('home')
-        setBackgroundState({
-          color: undefined,
-        })
       }, 1500)
     } else {
       setLoading(false)
