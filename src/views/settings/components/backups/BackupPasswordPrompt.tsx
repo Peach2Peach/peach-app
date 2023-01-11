@@ -3,7 +3,9 @@ import { Keyboard, TextInput, View } from 'react-native'
 
 import { Input, PeachScrollView, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { useNavigation, useValidatedState } from '../../../../hooks'
+import { HelpIcon } from '../../../../components/icons'
+import { useHeaderSetup, useNavigation, useValidatedState } from '../../../../hooks'
+import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
 import { account, backupAccount, updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -12,6 +14,13 @@ const passwordRules = { required: true, password: true }
 
 export default ({ toggle }: { toggle: () => void }): ReactElement => {
   const navigation = useNavigation()
+
+  const showPopup = useShowHelp('yourPassword')
+  useHeaderSetup({
+    title: i18n('settings.backups.fileBackup.title'),
+    icons: [{ iconComponent: <HelpIcon />, onPress: showPopup }],
+  })
+
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid, passwordRepeatError] = useValidatedState<string>(
     '',
