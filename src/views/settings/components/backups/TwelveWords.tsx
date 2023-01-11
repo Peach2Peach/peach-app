@@ -8,8 +8,8 @@ import i18n from '../../../../utils/i18n'
 
 export const TwelveWords = (): ReactElement => (
   <>
-    <Text style={tw`self-center subtitle-1 mt-6`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</Text>
-    <View style={tw`h-full flex-shrink flex-row mt-4`}>
+    <Text style={tw`self-center mt-6 subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</Text>
+    <View style={tw`flex-row flex-shrink h-full mt-4`}>
       <View style={tw`w-1/2 pr-2`}>
         {account.mnemonic
           ?.split(' ')
