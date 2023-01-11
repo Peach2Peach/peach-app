@@ -268,7 +268,8 @@ declare type OfferSummary = {
   prices: Pricebook
   tradeStatus: TradeStatus
 }
-declare type GetOffersResponse = OfferSummary[]
+declare type GetOffersResponse = (BuyOffer | SellOffer)[]
+declare type GetOfferSummariesResponse = OfferSummary[]
 
 declare type GetContractResponse = Contract
 
@@ -286,7 +287,8 @@ declare type ContractSummary = {
   disputeWinner: Contract['disputeWinner']
   unreadMessages: number
 }
-declare type GetContractsResponse = ContractSummary[]
+declare type GetContractsResponse = Contract[]
+declare type GetContractSummariesResponse = ContractSummary[]
 
 declare type ConfirmPaymentResponse = {
   success: true

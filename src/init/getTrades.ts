@@ -1,9 +1,9 @@
 import { tradeSummaryStore } from '../store/tradeSummaryStore'
 import { error, info } from '../utils/log'
-import { getContracts, getOffers } from '../utils/peachAPI'
+import { getContractSummaries, getOfferSummaries } from '../utils/peachAPI'
 
 export const getTrades = async (): Promise<void> => {
-  const [offers, getOffersError] = await getOffers({})
+  const [offers, getOffersError] = await getOfferSummaries({})
   if (offers) {
     info(`Got ${offers.length} offers`)
     tradeSummaryStore.getState().setOffers(offers)
@@ -11,7 +11,7 @@ export const getTrades = async (): Promise<void> => {
     error('Error', getOffersError)
   }
 
-  const [contracts, err] = await getContracts({})
+  const [contracts, err] = await getContractSummaries({})
   if (contracts) {
     tradeSummaryStore.getState().setContracts(contracts)
   } else if (err) {

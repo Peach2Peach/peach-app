@@ -10,11 +10,11 @@ type GetOfferProps = RequestProps
  * @description Method to get offer of user
  * @returns GetOffersResponse
  */
-export const getOffers = async ({
+export const getOfferSummaries = async ({
   timeout,
   abortSignal,
-}: GetOfferProps): Promise<[GetOffersResponse | null, APIError | null]> => {
-  const response = await fetch(`${API_URL}/v1/offers`, {
+}: GetOfferProps): Promise<[GetOfferSummariesResponse | null, APIError | null]> => {
+  const response = await fetch(`${API_URL}/v1/offers/summary`, {
     headers: {
       Authorization: await fetchAccessToken(),
       Accept: 'application/json',
@@ -24,5 +24,14 @@ export const getOffers = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetOffersResponse>(response, 'getOffers')
+  const parsedResponse = await parseResponse<GetOfferSummariesResponse>(response, 'getOfferSummaries')
+
+  if (parsedResponse[0]) {
+    parsedResponse[0] = parsedResponse[0].map((offer) => ({
+      ...offer,
+      creationDate: new Date(offer.creationDate),
+      lastModified: new Date(offer.lastModified),
+    }))
+  }
+  return parsedResponse
 }
