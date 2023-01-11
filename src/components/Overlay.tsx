@@ -40,7 +40,6 @@ export const Overlay = ({
   requireUserAction,
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const Content = content
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export const Overlay = ({
 
   return (
     <Modal transparent={true} visible={visible}>
-      <View style={tw`items-center justify-center flex-1`} >
+      <View style={tw`items-center justify-center flex-1`}>
         <Pressable
           style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
           onPress={!requireUserAction ? closeOverlay : null}
