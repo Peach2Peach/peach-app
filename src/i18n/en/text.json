@@ -338,7 +338,7 @@
   "paymentMethod.sepa": "SEPA",
   "paymentMethod.paypal": "PayPal",
   "paymentMethod.satispay": "Satispay",
-  "paymentMethod.giftCard": "online gift cards",
+  "paymentMethod.giftCard": "online gift card",
   "paymentMethod.giftCard.amazon": "Amazon Gift Card",
   "paymentMethod.giftCard.amazon.DE": "German Amazon Gift Card",
   "paymentMethod.giftCard.amazon.ES": "Spanish Amazon Gift Card",
