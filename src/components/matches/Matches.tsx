@@ -9,7 +9,7 @@ export const Matches = (): ReactElement => {
   useMatchesSetup()
 
   return (
-    <View style={tw`h-full flex-shrink flex-col justify-end`}>
+    <View style={tw`flex-col justify-end flex-shrink h-full`}>
       <MatchCarousel />
       <View style={tw`flex-row items-center justify-center pl-11`}>
         <MatchOfferButton />

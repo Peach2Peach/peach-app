@@ -21,7 +21,7 @@ export const MediumSatsFormat = ({ sats, color, style }: SatsFormat): ReactEleme
         {parts[0]}.{parts[1]}
       </Text>
       <Text style={[tw`subtitle-1`, color || tw`text-black-1`, style]}>{parts[2]}</Text>
-      <Text style={[tw`body-s ml-1 mt-1`, color || tw`text-black-1`, style]}>{i18n('currency.SATS')}</Text>
+      <Text style={[tw`mt-1 ml-1 body-s`, color || tw`text-black-1`, style]}>{i18n('currency.SATS')}</Text>
     </View>
   )
 }

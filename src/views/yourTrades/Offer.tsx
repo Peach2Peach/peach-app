@@ -178,11 +178,11 @@ export default (): ReactElement => {
   )
 
   return !offer ? (
-    <View style={tw`h-full flex justify-center items-center`}>
+    <View style={tw`flex items-center justify-center h-full`}>
       <Loading />
     </View>
   ) : (
-    <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
+    <PeachScrollView contentContainerStyle={tw`px-6 pt-5 pb-10`}>
       {/offerPublished|searchingForPeer|offerCanceled/u.test(offer.tradeStatus) && (
         <OfferSummary offer={offer} status={offer.tradeStatus} />
       )}
@@ -190,7 +190,7 @@ export default (): ReactElement => {
         <View>
           <Title title={i18n(`${isSellOffer(offer) ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (
-            <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+            <Text style={tw`leading-6 text-center text-grey-2`} onPress={goToOffer}>
               {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
             </Text>
           ) : null}

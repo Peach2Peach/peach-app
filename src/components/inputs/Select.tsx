@@ -25,15 +25,15 @@ export const Select = ({ items, selectedValue, label, onChange }: SelectProps): 
 
   return (
     <View>
-      <Pressable style={tw`flex-row justify-end items-center mb-4`} onPress={() => setOpen(!isOpen)}>
-        <Text style={tw`text-xs text-right leading-5 uppercase`}>
+      <Pressable style={tw`flex-row items-center justify-end mb-4`} onPress={() => setOpen(!isOpen)}>
+        <Text style={tw`text-xs leading-5 text-right uppercase`}>
           {selectedValue && !isOpen
             ? items.find((item) => item.value === selectedValue)?.display
             : label || items[0].display}
         </Text>
         <Icon
           id={isOpen ? 'selectClosed' : 'selectOpen'}
-          style={tw`flex-shrink-0 ml-2 w-2 h-2`}
+          style={tw`flex-shrink-0 w-2 h-2 ml-2`}
           color={tw`text-black-2`.color}
         />
       </Pressable>
@@ -42,7 +42,7 @@ export const Select = ({ items, selectedValue, label, onChange }: SelectProps): 
           <Pressable key={item.value} style={tw`flex justify-center mb-3`} onPress={() => select(item)}>
             <Text
               style={[
-                tw`text-xs text-right leading-5 uppercase`,
+                tw`text-xs leading-5 text-right uppercase`,
                 item.value === selectedValue ? tw`text-peach-1` : {},
               ]}
             >

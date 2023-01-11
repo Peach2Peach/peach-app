@@ -81,17 +81,17 @@ export const PremiumSlider = ({ value, min, max, onChange, displayUpdate, style 
   return (
     <View {...panResponder.panHandlers} style={style}>
       <Shadow shadow={mildShadow} style={tw`w-full`}>
-        <View style={tw`p-5 pt-3 bg-white-1 border border-grey-4 rounded`}>
-          <View style={tw`w-full flex-row justify-between`}>
-            <Text style={tw`font-baloo text-xs text-red`}>{min}%</Text>
-            <Text style={tw`font-baloo text-xs text-grey-2`}>{i18n('form.premium.marketPrice')}</Text>
-            <Text style={tw`font-baloo text-xs text-green`}>+{max}%</Text>
+        <View style={tw`p-5 pt-3 border rounded bg-white-1 border-grey-4`}>
+          <View style={tw`flex-row justify-between w-full`}>
+            <Text style={tw`text-xs font-baloo text-red`}>{min}%</Text>
+            <Text style={tw`text-xs font-baloo text-grey-2`}>{i18n('form.premium.marketPrice')}</Text>
+            <Text style={tw`text-xs font-baloo text-green`}>+{max}%</Text>
           </View>
-          <View onLayout={onLayout} style={tw`h-0 mx-3 flex-row items-center mt-2 border-2 border-grey-4 rounded`}>
+          <View onLayout={onLayout} style={tw`flex-row items-center h-0 mx-3 mt-2 border-2 rounded border-grey-4`}>
             <Animated.View
               onStartShouldSetResponder={onStartShouldSetResponder}
               style={[
-                tw`z-10 w-10 flex items-center`,
+                tw`z-10 flex items-center w-10`,
                 {
                   transform: [
                     {

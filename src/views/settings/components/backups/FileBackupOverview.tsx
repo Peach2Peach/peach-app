@@ -15,8 +15,8 @@ export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElem
   const navigation = useNavigation()
 
   return (
-    <View style={tw`h-full flex-shrink flex flex-col mt-12`}>
-      <View style={tw`h-full flex-shrink`}>
+    <View style={tw`flex flex-col flex-shrink h-full mt-12`}>
+      <View style={tw`flex-shrink h-full`}>
         {account.settings.lastBackupDate ? (
           <Text style={tw`text-center text-grey-1`}>
             {i18n('settings.backups.lastBackup')} {toShortDateFormat(new Date(account.settings.lastBackupDate), true)}
@@ -24,7 +24,7 @@ export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElem
         ) : null}
         <Pressable style={tw`mt-2`} onPress={next}>
           <Card>
-            <Text style={tw`text-center text-lg text-black-1 p-2`}>{i18n('settings.backups.createNew')}</Text>
+            <Text style={tw`p-2 text-lg text-center text-black-1`}>{i18n('settings.backups.createNew')}</Text>
           </Card>
         </Pressable>
       </View>

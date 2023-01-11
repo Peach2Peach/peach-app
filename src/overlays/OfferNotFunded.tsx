@@ -31,12 +31,12 @@ export default ({ offer, days }: Props): ReactElement => {
   return (
     <View style={tw`px-6`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('offerNotFunded.title')}</Headline>
-      <Text style={tw`text-center text-white-1 mt-5`}>
+      <Text style={tw`mt-5 text-center text-white-1`}>
         {i18n('offerNotFunded.description.1', days)}
         {'\n'}
         {i18n('offerNotFunded.description.2')}
       </Text>
-      <View style={tw`flex justify-center items-center mt-5`}>
+      <View style={tw`flex items-center justify-center mt-5`}>
         <PrimaryButton onPress={goToOffer} narrow>
           {i18n('goToOffer')}
         </PrimaryButton>

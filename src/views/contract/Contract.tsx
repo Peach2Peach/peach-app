@@ -276,25 +276,25 @@ export default (): ReactElement => {
     })
 
   return !contract || updatePending ? (
-    <View style={tw`w-full h-full items-center justify-center`}>
+    <View style={tw`items-center justify-center w-full h-full`}>
       <Loading />
     </View>
   ) : (
     <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
         <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>
+        <Text style={tw`mt-2 text-center text-grey-2`}>
           {i18n('contract.trade', getOfferHexIdFromContract(contract))}
         </Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
             <ContractSummary {...{ contract, view }} />
-            <View style={tw`mt-16 flex-row justify-center`}>
+            <View style={tw`flex-row justify-center mt-16`}>
               {/sendPayment/u.test(requiredAction) ? (
-                <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
+                <View style={tw`absolute flex-row items-center mb-1 bottom-full`}>
                   <Timer
                     text={i18n(`contract.timer.${requiredAction}.${view}`)}
                     start={getTimerStart(contract, requiredAction)}

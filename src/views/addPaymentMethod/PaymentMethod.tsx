@@ -98,14 +98,14 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
 
   return (
     <View style={tw`flex h-full`}>
-      <View style={tw`h-full flex-shrink flex justify-center px-10`}>
+      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
         {!country ? (
           <RadioButtons items={paymentCategories} selectedValue={paymentCategory} onChange={setPaymentCategory} />
         ) : (
           <View>
             <Pressable style={tw`flex flex-row items-center px-8`} onPress={() => showDrawer('localOption')}>
               <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
-              <Text style={tw`drawer-title uppercase w-full flex-shrink`}>{i18n(`country.${country}`)}</Text>
+              <Text style={tw`flex-shrink w-full uppercase drawer-title`}>{i18n(`country.${country}`)}</Text>
               <Icon id="refreshCcw" style={tw`w-7 h-7`} color={tw`text-primary-main`.color} />
             </Pressable>
             <RadioButtons
@@ -117,7 +117,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
           </View>
         )}
       </View>
-      <View style={tw`mt-4 px-6 flex items-center w-full bg-primary-background`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

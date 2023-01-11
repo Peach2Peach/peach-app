@@ -39,10 +39,10 @@ export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSeller
   return (
     <View style={tw`px-6`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('dispute.won')}</Headline>
-      <View style={tw`flex justify-center items-center`}>
-        <View style={tw`flex justify-center items-center`}>
-          <Text style={tw`text-white-1 text-center`}>{i18n('dispute.seller.won.text.1')}</Text>
-          {!offer.refunded && <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.won.text.2')}</Text>}
+      <View style={tw`flex items-center justify-center`}>
+        <View style={tw`flex items-center justify-center`}>
+          <Text style={tw`text-center text-white-1`}>{i18n('dispute.seller.won.text.1')}</Text>
+          {!offer.refunded && <Text style={tw`mt-2 text-center text-white-1`}>{i18n('dispute.seller.won.text.2')}</Text>}
         </View>
         <PrimaryButton style={tw`mt-5`} onPress={offer.refunded ? closeOverlay : refund} narrow>
           {i18n(offer.refunded ? 'close' : 'dispute.seller.won.button')}

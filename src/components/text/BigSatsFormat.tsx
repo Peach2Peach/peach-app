@@ -16,7 +16,7 @@ export const BigSatsFormat = ({ sats, color, style }: SatsFormat): ReactElement 
   const parts = getNumberFormatParts(sats / SATSINBTC)
   return (
     <View style={tw`flex flex-row`}>
-      <PaymentLogo id="bitcoin" style={tw`w-7 h-7 mr-1`} />
+      <PaymentLogo id="bitcoin" style={tw`mr-1 w-7 h-7`} />
       <Text style={[tw`h4`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`]}>
         {parts[0]}.{parts[1]}
       </Text>

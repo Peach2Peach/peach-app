@@ -46,9 +46,9 @@ export default (): ReactElement => {
         value: reward,
         disabled: true /* pointsRequired > pointsBalance || reward === 'sats'*/,
         display: (
-          <View style={tw`flex-row justify-between items-center py-1`}>
+          <View style={tw`flex-row items-center justify-between py-1`}>
             <Text style={tw`subtitle-1`}>{i18n(`referrals.reward.${reward}`)}</Text>
-            <Text style={tw`body-m text-black-2 mr-2`}>({cost})</Text>
+            <Text style={tw`mr-2 body-m text-black-2`}>({cost})</Text>
           </View>
         ),
       } as RadioButtonItem<Reward>),
@@ -83,22 +83,22 @@ export default (): ReactElement => {
   const BARLIMIT = 400
 
   return !user ? (
-    <View style={tw`w-full h-full items-center justify-center absolute`}>
+    <View style={tw`absolute items-center justify-center w-full h-full`}>
       <Loading />
     </View>
   ) : (
-    <View style={tw`h-full flex px-7 `}>
+    <View style={tw`flex h-full px-7 `}>
       <Progress
-        style={tw`rounded h-3`}
-        backgroundStyle={tw`bg-primary-main border-2 border-primary-background`}
-        barStyle={tw`bg-primary-main border-2 border-primary-background`}
+        style={tw`h-3 rounded`}
+        backgroundStyle={tw`border-2 bg-primary-main border-primary-background`}
+        barStyle={tw`border-2 bg-primary-main border-primary-background`}
         percent={pointsBalance / BARLIMIT}
       />
-      <Text style={tw`tooltip text-black-2 pl-2`}>
+      <Text style={tw`pl-2 tooltip text-black-2`}>
         {i18n('referrals.points')}: <Text style={tw`font-bold tooltip text-black-2`}>{pointsBalance}</Text>
       </Text>
-      <PeachScrollView contentContainerStyle={tw`flex-1 justify-center pb-10`}>
-        <Text style={tw`text-center body-m mx-7 my-4`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-1 pb-10`}>
+        <Text style={tw`my-4 text-center body-m mx-7`}>
           {i18n(
             !user.referredTradingAmount ? 'referrals.notTraded' : 'referrals.alreadyTraded',
             i18n('currency.format.sats', thousands(user.referredTradingAmount || 0)),
@@ -111,13 +111,13 @@ export default (): ReactElement => {
           <PrimaryButton wide disabled={selectedReward !== null} onPress={redeemReward} iconId={'gift'}>
             {i18n('referrals.reward.select')}
           </PrimaryButton>
-          <Text style={tw`body-m text-black-2 text-center`}>{i18n('referrals.reward.comingSoon')}</Text>
+          <Text style={tw`text-center body-m text-black-2`}>{i18n('referrals.reward.comingSoon')}</Text>
         </View>
         {user.referralCode && (
           <>
-            <Text style={tw`body-m text-black-2 text-center`}>{i18n('referrals.yourCode')}</Text>
+            <Text style={tw`text-center body-m text-black-2`}>{i18n('referrals.yourCode')}</Text>
             <View style={tw`flex-row justify-center`}>
-              <Text style={tw`h4 text-center mr-1`}>{user.referralCode}</Text>
+              <Text style={tw`mr-1 text-center h4`}>{user.referralCode}</Text>
               <CopyAble value={'p26'} />
             </View>
           </>

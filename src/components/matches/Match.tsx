@@ -19,13 +19,13 @@ export const Match = ({ match, renderShadow }: MatchProps): ReactElement => {
   return (
     <Shadow shadow={shadow}>
       <View
-        style={[tw`w-full border border-grey-4 bg-white-1 rounded-md my-5`, match.matched ? tw`border-peach-1` : {}]}
+        style={[tw`w-full my-5 border rounded-md border-grey-4 bg-white-1`, match.matched ? tw`border-peach-1` : {}]}
       >
         {match.matched && (
-          <View style={tw`absolute top-0 left-0 w-full h-full z-20`}>
+          <View style={tw`absolute top-0 left-0 z-20 w-full h-full`}>
             <UnmatchButton match={match} />
             <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
-            <Text style={tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`}>
+            <Text style={tw`absolute w-full text-xs text-center bottom-full font-baloo text-peach-1`}>
               {i18n('search.matched')}
             </Text>
           </View>

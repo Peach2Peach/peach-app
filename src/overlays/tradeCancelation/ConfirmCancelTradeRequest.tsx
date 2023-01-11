@@ -69,17 +69,17 @@ export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeProps)
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.request.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>
+      <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n(
           'contract.cancel.request.text.1',
           getOfferHexIdFromContract(contract),
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>
-      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.request.text.2')}</Text>
+      <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.request.text.2')}</Text>
       <View>
         <PrimaryButton style={tw`mt-8`} loading={loading} onPress={confirm} narrow>
           {i18n('contract.cancel.request.ok')}

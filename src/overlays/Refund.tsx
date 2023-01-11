@@ -18,7 +18,7 @@ import { offerIdToHex, saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'
 import { useNavigation } from '../hooks'
 
-const textStyle = tw`text-white-1 text-center leading-5`
+const textStyle = tw`leading-5 text-center text-white-1`
 
 type WrongFundingAmountMessageProps = {
   sellOffer: SellOffer
@@ -26,7 +26,7 @@ type WrongFundingAmountMessageProps = {
 }
 
 const WrongFundingAmountMessage = ({ sellOffer, fundingStatus }: WrongFundingAmountMessageProps): ReactElement => (
-  <View style={tw`flex justify-center items-center`}>
+  <View style={tw`flex items-center justify-center`}>
     <Text style={textStyle}>{i18n(`refund.${fundingStatus}.description`)}</Text>
     <Text style={[textStyle, tw`mt-2`]}>
       {i18n(`refund.${fundingStatus}.youSent`)}: {thousands(sellOffer.funding.amounts.reduce(sum, 0))}
@@ -153,13 +153,13 @@ export default ({ sellOffer, navigate }: Props): ReactElement => {
   return (
     <View style={tw`px-6`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n(`refund.${fundingStatus}.title`)}</Headline>
-      <View style={tw`flex justify-center items-center`}>
+      <View style={tw`flex items-center justify-center`}>
         {returnAddressMismatch ? (
           !!refundPSBT && <ReturnAddressMismatchMessage {...{ sellOffer, refundPSBT }} />
         ) : fundingStatus === 'WRONG_FUNDING_AMOUNT' && sellOffer.funding ? (
           <WrongFundingAmountMessage {...{ sellOffer, fundingStatus }} />
         ) : (
-          <View style={tw`flex justify-center items-center`}>
+          <View style={tw`flex items-center justify-center`}>
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.description`)}</Text>
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.refund`)}</Text>
           </View>

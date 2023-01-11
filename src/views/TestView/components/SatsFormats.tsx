@@ -5,7 +5,7 @@ import tw from '../../../styles/tailwind'
 
 export const SatsFormats = () => (
   <View style={tw`flex flex-col items-center`}>
-    <Text style={tw`h3 mt-4`}>Sats Format</Text>
+    <Text style={tw`mt-4 h3`}>Sats Format</Text>
     <SatsFormat sats={0} />
     <SatsFormat sats={1} />
     <SatsFormat sats={12} />

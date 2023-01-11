@@ -8,7 +8,7 @@ type SliderArrowProps = {
 }
 
 export const NextButton = (props: SliderArrowProps) => (
-  <Pressable {...props} style={tw`absolute right-2 z-10`}>
+  <Pressable {...props} style={tw`absolute z-10 right-2`}>
     <Icon id="sliderNext" style={tw`w-4 h-4`} />
   </Pressable>
 )

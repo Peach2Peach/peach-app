@@ -23,7 +23,7 @@ export default ({ premium, setPremium, offer }: PremiumProps): ReactElement => {
 
   return (
     <View>
-      <View style={tw`flex-row justify-center items-center mt-16 mb-2`}>
+      <View style={tw`flex-row items-center justify-center mt-16 mb-2`}>
         <Headline style={tw`text-grey-1`}>{i18n('sell.price')}</Headline>
         <Pressable onPress={openPremiumHelp} style={tw`p-2`}>
           <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
@@ -35,7 +35,7 @@ export default ({ premium, setPremium, offer }: PremiumProps): ReactElement => {
         </Text>
       </View>
       <View style={tw`flex-row justify-center`}>
-        <Text style={tw`text-black-2 w-16 text-right -ml-6 pr-1`}>{display}%</Text>
+        <Text style={tw`w-16 pr-1 -ml-6 text-right text-black-2`}>{display}%</Text>
         <Text>{i18n(display >= 0 ? 'form.premium.overMarketPrice' : 'form.premium.underMarketPrice')}</Text>
       </View>
       <PremiumSlider

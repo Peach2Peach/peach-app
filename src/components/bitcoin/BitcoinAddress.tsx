@@ -73,8 +73,8 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
           <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
             <Text
               style={[
-                tw`font-baloo text-grey-1 text-sm text-center`,
-                tw`uppercase absolute bottom-full w-20 left-1/2 -ml-10`,
+                tw`text-sm text-center font-baloo text-grey-1`,
+                tw`absolute w-20 -ml-10 uppercase bottom-full left-1/2`,
               ]}
             >
               {i18n('copied')}
@@ -95,17 +95,17 @@ export const BitcoinAddress = ({ address, showQR, amount, label, style }: Bitcoi
       <Pressable onPress={copyAddress} style={[tw`flex-row items-center`, showQR ? tw`mt-4` : {}]}>
         <Text style={tw`text-lg text-grey-2`}>
           {addressParts.one}
-          <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.two}</Text>
+          <Text style={tw`text-lg leading-6 text-black-1`}>{addressParts.two}</Text>
           {addressParts.three}
-          <Text style={tw`text-lg text-black-1 leading-6`}>{addressParts.four}</Text>
+          <Text style={tw`text-lg leading-6 text-black-1`}>{addressParts.four}</Text>
         </Text>
         <View>
           <Fade show={showAddressCopied} duration={300} delay={0}>
-            <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
+            <Text style={tw`absolute w-20 -ml-10 text-sm text-center uppercase font-baloo text-grey-1 -top-6 left-1/2`}>
               {i18n('copied')}
             </Text>
           </Fade>
-          <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color} />
+          <Icon id="copy" style={tw`ml-2 w-7 h-7`} color={tw`text-peach-1`.color} />
         </View>
       </Pressable>
     </View>

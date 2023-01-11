@@ -17,7 +17,7 @@ export default (): ReactElement => {
       {settings.map(({ headline, items }) => (
         <View key={`settings-${headline}`} style={tw`mx-8`}>
           {headline && (
-            <Headline style={tw`text-left h6 text-primary-main mt-9 mb-3 lowercase`}>
+            <Headline style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}>
               {i18n(`settings.${headline}`)}
             </Headline>
           )}
@@ -26,7 +26,7 @@ export default (): ReactElement => {
           ))}
         </View>
       ))}
-      <VersionInfo style={tw`mt-9 mb-10 text-center`} />
+      <VersionInfo style={tw`mb-10 text-center mt-9`} />
     </PeachScrollView>
   )
 }

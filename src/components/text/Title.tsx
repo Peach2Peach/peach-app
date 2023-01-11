@@ -19,10 +19,10 @@ export const Title = ({ title, subtitle, help, style }: TitleProps): ReactElemen
 
   return (
     <View style={[tw`flex items-center`, style]}>
-      <Text style={[tw`h3 text-center uppercase text-peach-1`]}>{title}</Text>
+      <Text style={[tw`text-center uppercase h3 text-peach-1`]}>{title}</Text>
       {subtitle ? (
-        <View style={tw`flex-row justify-center items-center -mt-3`}>
-          <Text style={tw`text-center leading-6 text-grey-2 `}>{i18n(subtitle)}</Text>
+        <View style={tw`flex-row items-center justify-center -mt-3`}>
+          <Text style={tw`leading-6 text-center text-grey-2 `}>{i18n(subtitle)}</Text>
           {help ? (
             <Pressable style={tw`p-2`} onPress={openHelp}>
               <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />

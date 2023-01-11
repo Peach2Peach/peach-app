@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 
 export const InfoButtons = () => (
   <View style={tw`flex flex-col items-center`}>
-    <Text style={tw`h3 mt-4`}>Info</Text>
+    <Text style={tw`mt-4 h3`}>Info</Text>
     <InfoButton style={tw`mt-2`} wide>
       Wide
     </InfoButton>

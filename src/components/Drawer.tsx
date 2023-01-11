@@ -79,13 +79,13 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
   const registerTouchMove = (e: GestureResponderEvent) => (touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null)
 
   return (
-    <View style={[tw`absolute top-0 left-0 w-full h-full z-20 flex`, !display ? tw`hidden` : {}]}>
-      <Animated.View style={[tw`w-full flex-grow bg-black-1`, { opacity: fadeAnim, height: slideAnim }]}>
+    <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !display ? tw`hidden` : {}]}>
+      <Animated.View style={[tw`flex-grow w-full bg-black-1`, { opacity: fadeAnim, height: slideAnim }]}>
         <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
       </Animated.View>
-      <Animated.View testID="drawer" style={tw`w-full flex-shrink-0 bg-primary-background-light rounded-t-3xl -mt-7`}>
+      <Animated.View testID="drawer" style={tw`flex-shrink-0 w-full bg-primary-background-light rounded-t-3xl -mt-7`}>
         <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
-          <Text style={tw`drawer-title text-center`}>{title}</Text>
+          <Text style={tw`text-center drawer-title`}>{title}</Text>
           <Pressable onPress={closeDrawer} style={tw`absolute right-7 top-6`}>
             <Icon id="xSquare" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
           </Pressable>

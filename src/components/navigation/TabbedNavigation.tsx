@@ -34,7 +34,7 @@ export const TabbedNavigation = ({ items, selected, select, theme = 'default', s
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
         <Pressable style={tw`px-2`} key={item.id} onPress={() => select(item)}>
-          <Text style={[tw`input-label px-4 py-2`, item.id === selected.id ? colors.textSelected : colors.text]}>
+          <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
             {item.display}
           </Text>
           {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}

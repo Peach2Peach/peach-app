@@ -23,7 +23,7 @@ export const Progress = ({ percent, text, color, backgroundStyle, barStyle, styl
 
   return (
     <View style={[tw`w-full h-4 overflow-hidden rounded-full`, style]}>
-      <View style={[tw`absolute w-full h-full opacity-50 rounded-full`, backgroundStyle]} />
+      <View style={[tw`absolute w-full h-full rounded-full opacity-50`, backgroundStyle]} />
       <Animated.View
         style={[
           tw`w-full h-full rounded-full`,
@@ -38,7 +38,7 @@ export const Progress = ({ percent, text, color, backgroundStyle, barStyle, styl
       />
       {text ? (
         <View style={tw`absolute w-full`}>
-          <Text style={[tw`text-sm font-baloo text-white-2 text-center uppercase -mt-px`, textShadow]}>{text}</Text>
+          <Text style={[tw`-mt-px text-sm text-center uppercase font-baloo text-white-2`, textShadow]}>{text}</Text>
         </View>
       ) : null}
     </View>

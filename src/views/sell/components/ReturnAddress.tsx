@@ -70,7 +70,7 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
         pointerEvents={useDepositAddress ? 'none' : 'auto'}
         style={[tw`flex flex-row mt-4`, useDepositAddress ? tw`opacity-50` : {}]}
       >
-        <View style={tw`w-full flex-shrink mr-2`}>
+        <View style={tw`flex-shrink w-full mr-2`}>
           <Input
             reference={(el: any) => ($address = el)}
             value={focused ? address : shortAddress}
@@ -92,8 +92,8 @@ export default ({ returnAddress, required, update, style }: ReturnAddressProps):
           {useDepositAddress ? (
             <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
           ) : (
-            <View style={tw`w-5 h-5 flex justify-center items-center`}>
-              <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-3`} />
+            <View style={tw`flex items-center justify-center w-5 h-5`}>
+              <View style={tw`w-4 h-4 border-2 rounded-sm border-grey-3`} />
             </View>
           )}
           <Text style={tw`mx-4`}>{i18n('sell.returnAddress.useDepositAddress')}</Text>

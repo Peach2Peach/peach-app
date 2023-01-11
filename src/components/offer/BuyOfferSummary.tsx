@@ -21,13 +21,13 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   }
 
   return (
-    <Card style={[tw`pt-7 pb-8 px-5`, style]}>
-      <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreBuying')}</Headline>
+    <Card style={[tw`px-5 pb-8 pt-7`, style]}>
+      <Headline style={tw`normal-case text-grey-2`}>{i18n('offer.summary.youAreBuying')}</Headline>
       <Text style={tw`text-center`}>
         <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
       </Text>
       <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.in')}</Headline>
       <Selector
         style={tw`mt-2`}
         selectedValue={selectedCurrency}
@@ -35,7 +35,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         items={getCurrencies(offer.meansOfPayment).map((c) => ({ value: c, display: c }))}
       />
       <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.via')}</Headline>
       <Selector
         items={paymentMethods.map((p) => ({
           value: p,

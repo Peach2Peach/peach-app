@@ -10,7 +10,7 @@ type ContractSummaryProps = {
 }
 export const ContractSummary = (props: ContractSummaryProps): ReactElement => (
   <View>
-    <ChatButton contract={props.contract} style={tw`absolute top-4 right-0 -mr-4 z-10`} />
+    <ChatButton contract={props.contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
     <TradeSummary {...props} />
   </View>
 )

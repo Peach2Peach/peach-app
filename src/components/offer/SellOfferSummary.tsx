@@ -26,17 +26,17 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
   return (
     <Card style={[tw`p-5`, style]}>
-      <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
+      <Headline style={tw`normal-case text-grey-2`}>{i18n('offer.summary.youAreSelling')}</Headline>
       <Text style={tw`text-center`}>
         <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
       </Text>
       <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.for')}</Headline>
       <Text style={tw`text-center`}>
         {i18n(offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount', String(Math.abs(offer.premium)))}
       </Text>
       <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.in')}</Headline>
       <Selector
         style={tw`mt-2`}
         selectedValue={selectedCurrency}
@@ -44,7 +44,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
         items={getCurrencies(offer.meansOfPayment).map((c) => ({ value: c, display: c }))}
       />
       <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.via')}</Headline>
       <Selector
         items={paymentMethods.map((p) => ({
           value: p,
@@ -55,11 +55,11 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       {offer.funding?.txIds?.length > 0 ? (
         <View>
           <HorizontalLine style={tw`mt-4`} />
-          <Headline style={tw`text-grey-2 normal-case mt-4`}>
+          <Headline style={tw`mt-4 normal-case text-grey-2`}>
             {i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}
           </Headline>
           <Pressable
-            style={tw`flex-row justify-center items-center`}
+            style={tw`flex-row items-center justify-center`}
             onPress={() => showTransaction(offer.txId || (offer.funding.txIds[0] as string), NETWORK)}
           >
             <Text>{i18n('escrow.viewInExplorer')}</Text>
