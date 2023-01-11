@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import ContractSummary from './components/ContractSummary'
-import OfferLoading from './components/OfferLoading'
+import OfferLoading from '../loading/LoadingScreen'
 import OfferSummary from './components/OfferSummary'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 
