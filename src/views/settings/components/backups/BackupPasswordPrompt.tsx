@@ -1,11 +1,10 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
-import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Icon, Input, PeachScrollView, Text } from '../../../../components'
+import { Keyboard, TextInput, View } from 'react-native'
+import { Input, PeachScrollView, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import { OverlayContext } from '../../../../contexts/overlay'
-import { useNavigation, useValidatedState } from '../../../../hooks'
+import { useValidatedState } from '../../../../hooks'
 import { BackupCreated } from '../../../../overlays/BackupCreated'
-import Password from '../../../../overlays/info/Password'
 import tw from '../../../../styles/tailwind'
 import { account, backupAccount, updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -16,14 +15,11 @@ export default (): ReactElement => {
   const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
 
-  const [passwordMatch, setPasswordMatch] = useState(true)
-  const navigation = useNavigation()
+  const [isBackingUp, setIsBackingUp] = useState(false)
 
   const [, updateOverlay] = useContext(OverlayContext)
-  const [isBackingUp, setIsBackingUp] = useState(false)
   let $passwordRepeat = useRef<TextInput>(null).current
 
-  const openPasswordHelp = () => updateOverlay({ content: <Password />, visible: true, level: 'INFO' })
   const checkPasswordMatch = () => password === passwordRepeat
 
   const validate = () => password && passwordRepeat && passwordIsValid && checkPasswordMatch()
@@ -32,13 +28,11 @@ export default (): ReactElement => {
   const onPasswordChange = (value: string) => {
     setPassword(value)
     validate()
-    setPasswordMatch(checkPasswordMatch())
   }
 
   const onPasswordRepeatChange = (value: string) => {
     setPasswordRepeat(value)
     validate()
-    setPasswordMatch(checkPasswordMatch())
   }
 
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
@@ -100,25 +94,16 @@ export default (): ReactElement => {
   }
 
   return (
-    <PeachScrollView style={tw`h-full flex-shrink mt-12`}>
+    <PeachScrollView style={tw`flex-shrink h-full mt-12`}>
       <View>
-        <View style={tw`items-center justify-center flex-row`}>
-          <Text style={tw`text-center`}>{i18n('settings.backups.createASecurePassword')}</Text>
-          <Pressable style={tw`p-2`} onPress={openPasswordHelp}>
-            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-          </Pressable>
-        </View>
-
-        <Text style={[tw`font-baloo text-2xs text-grey-3 text-center mt-4`, password && !isValid ? tw`text-red` : {}]}>
-          {!passwordMatch ? i18n('form.password.match.error') : i18n('form.password.error')}
-        </Text>
+        <Text style={tw`self-center`}>{i18n('settings.backups.createASecurePassword')}</Text>
         <Input
           testID="backup-password"
           onChange={onPasswordChange}
           onSubmit={focusToPasswordRepeat}
           secureTextEntry={true}
           value={password}
-          isValid={passwordIsValid && passwordMatch}
+          isValid={passwordIsValid && checkPasswordMatch()}
         />
         <Input
           style={tw`mt-2`}
@@ -128,17 +113,13 @@ export default (): ReactElement => {
           onSubmit={onPasswordRepeatChange}
           secureTextEntry={true}
           value={passwordRepeat}
-          isValid={passwordRepeatIsValid && passwordMatch}
+          isValid={passwordRepeatIsValid && checkPasswordMatch()}
         />
       </View>
-      <View style={tw`flex items-center mt-16`}>
-        <PrimaryButton disabled={!isValid} style={tw`mb-2`} narrow onPress={startAccountBackup}>
-          {i18n('settings.backups.createNew')}
-        </PrimaryButton>
-        <PrimaryButton narrow onPress={navigation.goBack}>
-          {i18n('back')}
-        </PrimaryButton>
-      </View>
+
+      <PrimaryButton disabled={!isValid} style={tw`self-center mb-2`} onPress={startAccountBackup} iconId="save" wide>
+        {i18n('settings.backups.fileBackup.createNew')}
+      </PrimaryButton>
     </PeachScrollView>
   )
 }
