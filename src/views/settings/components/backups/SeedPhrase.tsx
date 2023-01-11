@@ -50,11 +50,16 @@ export default ({ style }: ComponentProps): ReactElement => {
     }
   }, [currentScreenIndex])
 
+  const goBackToStart = useCallback(() => {
+    setCurrentScreenIndex(0)
+    onPress()
+  }, [onPress])
+
   const CurrentView = screens[currentScreenIndex].view
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView style={tw`mr-10 ml-13`}>
-        <CurrentView {...{ setCurrentScreenIndex }} />
+        <CurrentView {...{ goBackToStart }} />
       </PeachScrollView>
       {currentScreenIndex === 0 && <ReadAndUnderstood style={tw`self-center`} checkBoxProps={{ checked, onPress }} />}
       {currentScreenIndex !== screens.length - 1 && (
