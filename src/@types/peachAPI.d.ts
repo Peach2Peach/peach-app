@@ -260,13 +260,14 @@ declare type MatchResponse = {
 declare type OfferSummary = {
   id: string
   type: 'bid' | 'ask'
-  contractId?: string
   creationDate: Date
   lastModified: Date
   amount: number
   matches: string[]
   prices: Pricebook
   tradeStatus: TradeStatus
+  contractId?: string
+  txId?: string
 }
 declare type GetOffersResponse = OfferSummary[]
 
@@ -278,13 +279,14 @@ declare type ContractSummary = {
   type: 'bid' | 'ask'
   creationDate: Date
   lastModified: Date
-  paymentMade: Date
+  paymentMade?: Date
   tradeStatus: TradeStatus
   amount: number
   price: number
   currency: Currency
-  disputeWinner: Contract['disputeWinner']
+  disputeWinner?: Contract['disputeWinner']
   unreadMessages: number
+  releaseTxId?: string
 }
 declare type GetContractsResponse = ContractSummary[]
 

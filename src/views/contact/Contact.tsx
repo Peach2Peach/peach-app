@@ -8,7 +8,9 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import LinedText from '../../components/ui/LinedText'
+import { account } from '../../utils/account'
 
+const contactReasonsNoAccount = ['bug', 'question', 'sellMore', 'other'] as ContactReason[]
 const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as ContactReason[]
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
@@ -36,7 +38,7 @@ export default (): ReactElement => {
         <LinedText style={tw`mb-3`}>
           <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
         </LinedText>
-        {contactReasons.map((name) => (
+        {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((name) => (
           <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
         ))}
         <View style={tw`mt-10`}>

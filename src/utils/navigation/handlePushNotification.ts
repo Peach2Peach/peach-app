@@ -1,7 +1,6 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getContract } from './contract'
-import { getOffer } from './offer'
+import { getContract } from '../contract'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
@@ -25,7 +24,6 @@ export const handlePushNotification = (
   sentTime?: number,
 ): boolean => {
   const { offerId, contractId, isChat } = data
-
   if (contractId && isChat !== 'true') {
     const contract = getContract(contractId)
     navigationRef.navigate('contract', {

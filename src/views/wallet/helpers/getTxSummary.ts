@@ -1,11 +1,12 @@
 import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
 import { bitcoinStore } from '../../../store/bitcoinStore'
-import { getOffer } from '../../../utils/offer'
+import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
 import { walletStore } from '../../../utils/wallet/walletStore'
 
 export const getTxSummary = (tx: ConfirmedTransaction | PendingTransaction) => {
-  const offer = getOffer(walletStore.getState().txOfferMap[tx.txid])
+  const offerId = walletStore.getState().txOfferMap[tx.txid]
+  const offer = tradeSummaryStore.getState().offers.find((o) => o.id === offerId)
   const sats = Math.abs(tx.received - tx.sent)
   const price = sats / bitcoinStore.getState().satsPerUnit
   const type = getTransactionType(tx, offer)
