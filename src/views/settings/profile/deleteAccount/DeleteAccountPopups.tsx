@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import React, { useCallback, useContext } from 'react'
 import { Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
@@ -34,9 +34,9 @@ export const useDeleteAccountPopups = () => {
 
   const deleteAccountClicked = async () => {
     await deleteAccount()
-    navigation.reset({
+    CommonActions.reset({
       index: 0,
-      routes: [{ name: 'welcome' }],
+      routes: [{ name: 'welcome' }],       
     })
     showOverlay(<DeleteAccountPopup title={'success'} />, undefined, true)
   }
