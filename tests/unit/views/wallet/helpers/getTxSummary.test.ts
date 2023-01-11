@@ -1,7 +1,7 @@
 import { ConfirmedTransaction } from 'bdk-rn/lib/lib/interfaces'
 import { bitcoinStore } from '../../../../../src/store/bitcoinStore'
-import { getOffer } from '../../../../../src/utils/offer'
-import { getTransactionType, txIsConfirmed } from '../../../../../src/utils/transaction'
+import { tradeSummaryStore } from '../../../../../src/store/tradeSummaryStore'
+import { txIsConfirmed } from '../../../../../src/utils/transaction'
 import { walletStore } from '../../../../../src/utils/wallet/walletStore'
 import { getTxSummary } from '../../../../../src/views/wallet/helpers/getTxSummary'
 
@@ -9,7 +9,7 @@ jest.mock('../../../../../src/utils/offer', () => ({
   getOffer: jest.fn(),
 }))
 jest.mock('../../../../../src/utils/transaction', () => ({
-  getTransactionType: jest.fn(),
+  ...jest.requireActual('../../../../../src/utils/transaction'),
   txIsConfirmed: jest.fn(),
 }))
 
@@ -23,6 +23,11 @@ jest.mock('../../../../../src/utils/wallet/walletStore', () => ({
     getState: jest.fn(),
   },
 }))
+jest.mock('../../../../../src/store/tradeSummaryStore', () => ({
+  tradeSummaryStore: {
+    getState: jest.fn(),
+  },
+}))
 
 describe('getTxSummary', () => {
   beforeEach(() => {
@@ -31,7 +36,17 @@ describe('getTxSummary', () => {
       satsPerUnit: 100000000,
     })
     ;(<jest.Mock>walletStore.getState).mockReturnValue({
-      txOfferMap: {},
+      txOfferMap: {
+        '123': '16',
+      },
+    })
+    ;(<jest.Mock>tradeSummaryStore.getState).mockReturnValue({
+      offers: [
+        {
+          id: '16',
+          type: 'bid',
+        },
+      ],
     })
   })
 
@@ -40,10 +55,6 @@ describe('getTxSummary', () => {
   })
 
   it('returns the correct transaction summary object for a confirmed trade', () => {
-    ;(<jest.Mock>getOffer).mockReturnValue({
-      id: '16',
-    })
-    ;(<jest.Mock>getTransactionType).mockReturnValue('TRADE')
     ;(<jest.Mock>(<unknown>txIsConfirmed)).mockReturnValue(true)
     const tx: Partial<ConfirmedTransaction> = {
       txid: '123',
