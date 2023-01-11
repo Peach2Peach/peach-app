@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../../../styles/tailwind'
-import { Text } from '../../../../components'
-import { Checkbox } from './Checkbox'
+import { Text, Checkbox } from '../../../../components'
 import i18n from '../../../../utils/i18n'
 
 type Props = ComponentProps & {

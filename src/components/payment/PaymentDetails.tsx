@@ -9,7 +9,7 @@ import { account, getPaymentData, removePaymentData, updateSettings } from '../.
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { Checkbox, CheckboxType } from '../inputs/Checkbox'
+import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
@@ -140,7 +140,7 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
                 <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
                   {item.isValid ? (
                     <View>
-                      <Checkbox
+                      <PaymentDetailsCheckbox
                         testID={`buy-mops-checkbox-${item.value}`}
                         onPress={() => (editing ? editItem(item.data) : select(item.value))}
                         item={item}
