@@ -757,6 +757,8 @@
   "settings.backups.fileBackup.toRestore": "to restore your peach account & wallet",
   "settings.backups.fileBackup.lastBackup": "last file backup made:",
   "settings.backups.fileBackup.createNew": "Create new backup",
+  "settings.backups.fileBackup.created": "backup created",
+  "settings.backups.fileBackup.safeNow": "you're safe now",
   "settings.backups.seedPhrase": "seed phrase",
   "settings.backups.seedPhrase.yourSeedPhrase": "your wallet seed phrase",
   "settings.backups.seedPhrase.toRestore": "to restore your peach wallet",

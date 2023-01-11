@@ -24,6 +24,7 @@ import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
 import Socials from './settings/aboutPeach/Socials'
 import Backups from './settings/Backups'
+import BackupCreated from './settings/components/backups/BackupCreated'
 import Currency from './settings/Currency'
 import Language from './settings/Language'
 import NetworkFees from './settings/NetworkFees'
@@ -120,6 +121,13 @@ const settings: ViewType[] = [
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backups', component: Backups, ...defaultConfig },
+  {
+    name: 'backupCreated',
+    component: BackupCreated,
+    showHeader: false,
+    showFooter: false,
+    background: { color: 'primaryGradient' },
+  },
   { name: 'refundAddress', component: RefundAddress, ...defaultConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },

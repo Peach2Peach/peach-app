@@ -3,7 +3,7 @@ import { Keyboard, TextInput, View } from 'react-native'
 
 import { Input, PeachScrollView, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { useValidatedState } from '../../../../hooks'
+import { useNavigation, useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { account, backupAccount, updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -11,6 +11,7 @@ import i18n from '../../../../utils/i18n'
 const passwordRules = { required: true, password: true }
 
 export default (): ReactElement => {
+  const navigation = useNavigation()
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid, passwordRepeatError] = useValidatedState<string>(
     '',
@@ -51,6 +52,7 @@ export default (): ReactElement => {
           },
           true,
         )
+        navigation.navigate('backupCreated')
       },
       // TODO: why are we not saving the settings in these cases?
       onCancel: () => {
