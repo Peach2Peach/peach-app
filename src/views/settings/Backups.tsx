@@ -26,7 +26,7 @@ export default (): ReactElement => {
   return (
     <View style={tw`h-full`}>
       <TabbedNavigation style={tw`mt-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
-      <View style={tw`mt-6 flex-shrink`}>{!!CurrentView && <CurrentView />}</View>
+      {!!CurrentView && <CurrentView style={tw`mt-6 flex-shrink`} />}
     </View>
   )
 }

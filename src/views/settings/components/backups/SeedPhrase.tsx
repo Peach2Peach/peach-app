@@ -35,7 +35,7 @@ const screens = [
   },
 ]
 
-export default (): ReactElement => {
+export default ({ style }: ComponentProps): ReactElement => {
   const showSeedPhrasePopup = useShowHelp('seedPhrase')
 
   useHeaderSetup({
@@ -52,7 +52,7 @@ export default (): ReactElement => {
 
   const CurrentView = screens[currentScreenIndex].view
   return (
-    <View style={tw`h-full`}>
+    <View style={[tw`h-full`, style]}>
       <PeachScrollView style={tw`mr-10 ml-13`}>
         <CurrentView {...{ setCurrentScreenIndex }} />
       </PeachScrollView>
