@@ -24,11 +24,10 @@ export default ({ offer }: OfferSummaryProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const { title, navigation } = useOfferSummarySetup(offer)
-  const navigate = () => {}
 
   const cancelOffer = () =>
     updateOverlay({
-      content: <ConfirmCancelOffer {...{ offer, navigate, navigation }} />,
+      content: <ConfirmCancelOffer {...{ offer, navigate: () => {}, navigation }} />,
       visible: true,
     })
 
