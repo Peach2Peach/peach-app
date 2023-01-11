@@ -36,7 +36,7 @@ export const useDeleteAccountPopups = () => {
     await deleteAccount()
     CommonActions.reset({
       index: 0,
-      routes: [{ name: 'welcome' }],       
+      routes: [{ name: 'welcome' }],   
     })
     showOverlay(<DeleteAccountPopup title={'success'} />, undefined, true)
   }
