@@ -52,7 +52,7 @@ export type InputProps = ComponentProps &
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
-    inputStyle: ViewStyle | ViewStyle[]
+    inputStyle?: ViewStyle | ViewStyle[]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
