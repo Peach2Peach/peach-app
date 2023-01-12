@@ -379,7 +379,7 @@
   "peachBadges.superTrader": "supertrader",
   "peachBadges.fastTrader": "fast trader",
   "peachBadges.ambassador": "early adopter",
-  "peachBadges.superTrader.description": "A supertrader is a very active peach user. They have done at least 20 trades in the last Y.",
+  "peachBadges.superTrader.description": "A supertrader is a very active peach user. They have done at least 20 trades.",
   "peachBadges.fastTrader.description": "A fast trader is as quick as the lightning network. They accept matches and make or confirm payments almost instantly.",
   "peachBadges.ambassador.description": "These fine people have been with us from the very beginning!",
   "scanQR": "Scan QR",
