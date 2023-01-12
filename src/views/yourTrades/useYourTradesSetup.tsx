@@ -1,13 +1,13 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { getContracts, getOffers } from '../../utils/peachAPI'
-import { hasDoubleMatched, isContractSummary } from './utils'
-import { useHeaderSetup } from '../../hooks'
-import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
+import { useHeaderSetup } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
+import i18n from '../../utils/i18n'
+import { getContractSummaries, getOfferSummaries } from '../../utils/peachAPI'
+import { hasDoubleMatched, isContractSummary } from './utils'
 
 const sortByDate = (a: TradeSummary, b: TradeSummary) => {
   if (!a.paymentMade?.getTime()) return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
@@ -32,8 +32,8 @@ export const useYourTradesSetup = () => {
   )
 
   const getTradeSummary = useCallback(async () => {
-    const [getOffersResult, getOffersErr] = await getOffers({})
-    const [getContractsResult, getContractsErr] = await getContracts({})
+    const [getOffersResult, getOffersErr] = await getOfferSummaries({})
+    const [getContractsResult, getContractsErr] = await getContractSummaries({})
     if (getOffersResult && getContractsResult) {
       setOffers(getOffersResult.filter((offer) => !hasDoubleMatched(offer.tradeStatus)))
       setContracts(getContractsResult)

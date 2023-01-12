@@ -10,11 +10,11 @@ type GetContractsProps = RequestProps
  * @description Method to get contracts
  * @returns Contracts
  */
-export const getContracts = async ({
+export const getContractSummaries = async ({
   timeout,
   abortSignal,
-}: GetContractsProps): Promise<[GetContractsResponse | null, APIError | null]> => {
-  const response = await fetch(`${API_URL}/v1/contracts`, {
+}: GetContractsProps): Promise<[GetContractSummariesResponse | null, APIError | null]> => {
+  const response = await fetch(`${API_URL}/v1/contracts/summary`, {
     headers: {
       Authorization: await fetchAccessToken(),
       Accept: 'application/json',
@@ -24,14 +24,14 @@ export const getContracts = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  const parsedResponse = await parseResponse<GetContractsResponse>(response, 'getContracts')
+  const parsedResponse = await parseResponse<GetContractSummariesResponse>(response, 'getContractSummaries')
 
   if (parsedResponse[0]) {
     parsedResponse[0] = parsedResponse[0].map((contract) => ({
       ...contract,
       creationDate: new Date(contract.creationDate),
       lastModified: new Date(contract.lastModified),
-      paymentMade: contract.paymentMade ? new Date(contract.paymentMade) : undefined,
+      paymentMade: new Date(contract.paymentMade),
     }))
   }
 
