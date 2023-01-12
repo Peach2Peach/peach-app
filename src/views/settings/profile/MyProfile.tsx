@@ -34,8 +34,8 @@ export default () => {
         <MyProfileOverview style={tw`mt-[48.5px]`} />
         <TradingLimits style={tw`mt-6`} />
         <AccountInfo style={tw`ml-1`} user={user} />
+        <DeleteAccountButton style={tw`self-center my-7`} />
       </PeachScrollView>
-      <DeleteAccountButton style={tw`self-center mb-7`} />
     </View>
   )
 }
