@@ -2,7 +2,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Icon, Loading, Text } from '../../components'
+import { Icon, Loading, PeachScrollView, Text } from '../../components'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import { OverlayContext } from '../../contexts/overlay'
@@ -74,32 +74,34 @@ export default () => {
   )
 
   return (
-    <View style={tw`h-full flex flex-col justify-between px-8`}>
-      <View style={tw`h-full flex-shrink flex flex-col justify-center items-center`}>
-        <Text style={tw`button-medium mb-4`}>{i18n('wallet.totalBalance')}:</Text>
-        <BigSatsFormat style={!peachWallet.synced ? tw`opacity-60` : {}} sats={walletStore.balance} />
-        {!peachWallet.synced && <Loading style={tw`absolute`} />}
-        <Text style={tw`button-medium mt-16`}>{i18n('wallet.withdrawTo')}:</Text>
-        <BitcoinAddressInput
-          style={tw`mt-4`}
-          {...{
-            onChange,
-            isValid,
-            value: address,
-            errorMessage: addressErrors,
-          }}
+    <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`h-full px-8`}>
+      <View style={tw`h-full flex flex-col justify-between`}>
+        <View style={tw`h-full flex-shrink flex flex-col justify-center items-center`}>
+          <Text style={tw`button-medium mb-4`}>{i18n('wallet.totalBalance')}:</Text>
+          <BigSatsFormat style={!peachWallet.synced ? tw`opacity-60` : {}} sats={walletStore.balance} />
+          {!peachWallet.synced && <Loading style={tw`absolute`} />}
+          <Text style={tw`button-medium mt-16`}>{i18n('wallet.withdrawTo')}:</Text>
+          <BitcoinAddressInput
+            style={tw`mt-4`}
+            {...{
+              onChange,
+              isValid,
+              value: address,
+              errorMessage: addressErrors,
+            }}
+          />
+          <TouchableOpacity style={tw`flex-row justify-center items-center`} onPress={openWalletApp}>
+            <Text style={tw`body-s underline text-black-2 uppercase`}>{i18n('wallet.openWalletApp')}</Text>
+            <Icon id="externalLink" style={tw`w-4 h-4 ml-1 -mt-1`} color={tw`text-primary-main`.color} />
+          </TouchableOpacity>
+        </View>
+        <SlideToUnlock
+          style={tw`mb-6`}
+          disabled={!walletStore.balance || !peachWallet.synced || !address || !isValid}
+          label1={i18n('wallet.withdrawAll')}
+          onUnlock={openWithdrawalConfirmation}
         />
-        <TouchableOpacity style={tw`flex-row justify-center items-center`} onPress={openWalletApp}>
-          <Text style={tw`body-s underline text-black-2 uppercase`}>{i18n('wallet.openWalletApp')}</Text>
-          <Icon id="externalLink" style={tw`w-4 h-4 ml-1 -mt-1`} color={tw`text-primary-main`.color} />
-        </TouchableOpacity>
       </View>
-      <SlideToUnlock
-        style={tw`mb-6`}
-        disabled={!walletStore.balance || !peachWallet.synced || !address || !isValid}
-        label1={i18n('wallet.withdrawAll')}
-        onUnlock={openWithdrawalConfirmation}
-      />
-    </View>
+    </PeachScrollView>
   )
 }
