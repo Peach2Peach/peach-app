@@ -8,9 +8,7 @@ import { account } from '../../../../utils/account'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
 
-type Props = {
-  goBackToStart: () => void
-}
+type Props = { goBackToStart: () => void }
 
 const translationsPath = 'settings.backups.seedPhrase.'
 export const LastSeedBackup = ({ goBackToStart }: Props): ReactElement => (

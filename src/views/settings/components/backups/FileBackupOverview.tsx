@@ -11,9 +11,7 @@ import { account } from '../../../../utils/account'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
 
-type FileBackupOverviewProps = {
-  next: () => void
-}
+type FileBackupOverviewProps = { next: () => void }
 
 const translationsPath = 'settings.backups.fileBackup.'
 export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElement => {
