@@ -10,10 +10,9 @@ import shallow from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 
 const sortByDate = (a: TradeSummary, b: TradeSummary) => {
-  if (isContractSummary(a) && isContractSummary(b)) {
-    return a.paymentMade?.getTime() > b.paymentMade?.getTime() ? 1 : -1
-  }
-  return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
+  if (!a.paymentMade?.getTime()) return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
+  if (!b.paymentMade?.getTime()) return a.paymentMade.getTime() > b.creationDate.getTime() ? 1 : -1
+  return a.paymentMade.getTime() > b.paymentMade.getTime() ? 1 : -1
 }
 export const useYourTradesSetup = () => {
   const showErrorBanner = useShowErrorBanner()
