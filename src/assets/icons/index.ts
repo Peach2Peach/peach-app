@@ -39,7 +39,7 @@ import dollarSign from './dollarSign.svg'
 import download from './download.svg'
 import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
-import edit2 from './edit2.svg'
+import edit3 from './edit2.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
@@ -147,7 +147,7 @@ const Icons = {
   download,
   downloadCloud,
   edit,
-  edit2,
+  edit3,
   externalLink,
   eye,
   eyeOff,
