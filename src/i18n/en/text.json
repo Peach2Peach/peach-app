@@ -692,6 +692,7 @@
   "kyc": "KYC",
   "showTransaction": "Show transaction",
   "showEscrow": "Show escrow",
+  "escrowNotFound": "404 Escrow not found",
   "profile.myAccount.title": "My account",
   "profile.user.title": "Public profile",
   "profile.accountCreated": "Account created",
