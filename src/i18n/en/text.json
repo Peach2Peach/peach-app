@@ -694,7 +694,7 @@
   "showEscrow": "Show escrow",
   "escrowNotFound": "404 Escrow not found",
   "profile.myAccount.title": "My account",
-  "profile.user.title": "Public profile",
+  "profile.user.title": "public profile",
   "profile.accountCreated": "Account created",
   "profile.daysAgo": "$0 days ago",
   "profile.publicKey": "Account pubkey",
