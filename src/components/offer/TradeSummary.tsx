@@ -31,7 +31,7 @@ const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactEl
 
   return (
     <View>
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>
         {i18n(paymentMethod === 'cash' ? 'contract.summary.in' : 'contract.summary.on')}
       </Headline>
       <Selector
@@ -44,8 +44,8 @@ const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactEl
         style={tw`mt-2`}
       />
       {url && showLink ? (
-        <Pressable style={tw`flex-row justify-center items-center`} onPress={openLink}>
-          <Text style={tw`text-peach-1 underline`}>{i18n(/giftCard/u.test(paymentMethod) ? 'buy' : 'open')}</Text>
+        <Pressable style={tw`flex-row items-center justify-center`} onPress={openLink}>
+          <Text style={tw`underline text-peach-1`}>{i18n(/giftCard/u.test(paymentMethod) ? 'buy' : 'open')}</Text>
           <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
         </Pressable>
       ) : null}
@@ -55,18 +55,18 @@ const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactEl
 
 const Escrow = ({ contract }: TradeSummaryProps): ReactElement => (
   <View>
-    <Headline style={tw`text-grey-2 normal-case mt-4`}>
+    <Headline style={tw`mt-4 normal-case text-grey-2`}>
       {i18n(contract.releaseTxId ? 'contract.summary.releaseTx' : 'contract.summary.escrow')}
     </Headline>
     <Pressable
-      style={tw`flex-row justify-center items-center`}
+      style={tw`flex-row items-center justify-center`}
       onPress={() =>
         contract.releaseTxId
           ? showTransaction(contract.releaseTxId as string, NETWORK)
           : showAddress(contract.escrow, NETWORK)
       }
     >
-      <Text style={tw`text-grey-2 underline`}>{i18n('escrow.viewInExplorer')}</Text>
+      <Text style={tw`underline text-grey-2`}>{i18n('escrow.viewInExplorer')}</Text>
       <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
     </Pressable>
   </View>
@@ -80,12 +80,12 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
   return (
     <View>
       <View style={tw`p-5`}>
-        <Headline style={tw`text-grey-2 normal-case`}>{i18n('buyer')}</Headline>
+        <Headline style={tw`normal-case text-grey-2`}>{i18n('buyer')}</Headline>
         <Text onPress={goToUserProfile} style={tw`text-center text-grey-2`}>
           Peach{contract.buyer.id.substring(0, 8)}
         </Text>
         <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.willPayYou')}</Headline>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.willPayYou')}</Headline>
         <Text style={tw`text-center text-grey-2`}>
           {i18n(`currency.format.${contract.currency}`, contract.price.toFixed(2))}
         </Text>
@@ -114,22 +114,22 @@ const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const appLink = APPLINKS[contract.paymentMethod]
 
   return (
-    <View style={tw`border border-peach-1 rounded`}>
+    <View style={tw`border rounded border-peach-1`}>
       {contract.paymentMade ? (
-        <View style={tw`absolute top-0 left-0 w-full h-full z-20`} pointerEvents="none">
+        <View style={tw`absolute top-0 left-0 z-20 w-full h-full`} pointerEvents="none">
           <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
-          <Text style={tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`}>
+          <Text style={tw`absolute w-full text-xs text-center bottom-full font-baloo text-peach-1`}>
             {i18n('contract.payment.made')}
           </Text>
         </View>
       ) : null}
       <View style={tw`p-5`}>
-        <Headline style={tw`text-grey-2 normal-case`}>{i18n('seller')}</Headline>
+        <Headline style={tw`normal-case text-grey-2`}>{i18n('seller')}</Headline>
         <Text onPress={goToUserProfile} style={tw`text-center text-grey-2`}>
           Peach{contract.seller.id.substring(0, 8)}
         </Text>
         <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.youShouldPay')}</Headline>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.youShouldPay')}</Headline>
         <Text style={tw`text-center text-grey-2`}>
           {i18n(`currency.format.${contract.currency}`, contract.price.toFixed(2))}
         </Text>
@@ -173,14 +173,14 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
       {disputeOutcome ? (
         <View
           style={[
-            tw`absolute top-0 left-0 w-full h-full z-20 border`,
+            tw`absolute top-0 left-0 z-20 w-full h-full border`,
             disputeOutcome === 'lost' ? tw`border-red` : tw`border-green`,
           ]}
           pointerEvents="none"
         >
           <Text
             style={[
-              tw`absolute bottom-full w-full text-center font-baloo text-peach-1 text-xs`,
+              tw`absolute w-full text-xs text-center bottom-full font-baloo text-peach-1`,
               disputeOutcome === 'lost' ? tw`text-red` : tw`text-green`,
             ]}
           >
@@ -189,7 +189,7 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
         </View>
       ) : null}
       <View style={tw`p-5 opacity-50`}>
-        <Headline style={tw`text-grey-2 normal-case`}>
+        <Headline style={tw`normal-case text-grey-2`}>
           {isTradeCanceled(contract)
             ? i18n(`contract.summary.${view === 'seller' ? 'youAreSelling' : 'youAreBuying'}`)
             : i18n(`contract.summary.${view === 'seller' ? 'youHaveSold' : 'youHaveBought'}`)}
@@ -198,7 +198,7 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
           <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
         <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.for')}</Headline>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.summary.for')}</Headline>
         <Text style={tw`text-center`}>
           {i18n(`currency.format.${contract.currency}`, contract.price.toString())}
           <Text>
@@ -208,10 +208,10 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
           </Text>
         </Text>
         <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>
           {i18n(view === 'seller' ? 'contract.payment.to' : 'contract.summary.from')}
         </Headline>
-        <View style={tw`flex-row justify-center items-center`}>
+        <View style={tw`flex-row items-center justify-center`}>
           <Text onPress={goToUserProfile}>Peach{tradingPartner.id.substring(0, 8)}</Text>
           {ratingTradingPartner === 1 ? (
             <Icon id="thumbsUp" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
@@ -220,10 +220,10 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
           ) : null}
         </View>
         <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.in')}</Headline>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.summary.in')}</Headline>
         <Selector items={[{ value: contract.currency, display: contract.currency }]} style={tw`mt-2`} />
         <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.summary.via')}</Headline>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.summary.via')}</Headline>
         <Selector
           items={[
             {
@@ -237,11 +237,11 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
         {contract.escrow || contract.releaseTxId ? (
           <View>
             <HorizontalLine style={tw`mt-4`} />
-            <Headline style={tw`text-grey-2 normal-case mt-4`}>
+            <Headline style={tw`mt-4 normal-case text-grey-2`}>
               {i18n(contract.releaseTxId ? 'contract.summary.releaseTx' : 'contract.summary.escrow')}
             </Headline>
             <Pressable
-              style={tw`flex-row justify-center items-center`}
+              style={tw`flex-row items-center justify-center`}
               onPress={() =>
                 contract.releaseTxId
                   ? showTransaction(contract.releaseTxId as string, NETWORK)

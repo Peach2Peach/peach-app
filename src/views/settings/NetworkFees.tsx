@@ -71,7 +71,7 @@ export default (): ReactElement => {
 
   return (
     <View style={tw`flex-1`}>
-      <PeachScrollView contentContainerStyle={tw`flex-1 justify-center p-8`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-1 p-8`}>
         <RadioButtons
           {...{
             items: options,
@@ -80,12 +80,12 @@ export default (): ReactElement => {
           }}
         />
         <HorizontalLine style={tw`mt-8 bg-black-5`} />
-        <Text style={tw`text-center text-black-2 mt-4`}>{i18n('settings.networkFees.averageFees')}</Text>
-        <Text style={tw`subtitle-1 text-center`}>
+        <Text style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</Text>
+        <Text style={tw`text-center subtitle-1`}>
           {i18n('settings.networkFees.xSatsPerByte', estimatedFees.economyFee.toString())}
         </Text>
       </PeachScrollView>
-      <PrimaryButton onPress={submit} disabled={!isValid || feeRateSet} style={tw`m-8 self-center`}>
+      <PrimaryButton onPress={submit} disabled={!isValid || feeRateSet} style={tw`self-center m-8`}>
         {i18n(feeRateSet ? 'settings.networkFees.feeRateSet' : 'confirm')}
       </PrimaryButton>
     </View>

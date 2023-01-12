@@ -26,10 +26,10 @@ export default (): ReactElement => {
   const CurrentView = currentTab.view!
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+    <View style={tw`flex items-stretch h-full px-6 pt-6 pb-10`}>
       <Title title={i18n('settings.title')} subtitle={i18n('settings.backups.subtitle')} help={<MakingABackup />} />
       <TabbedNavigation style={tw`mt-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
-      <View style={tw`mt-4 flex-shrink`}>
+      <View style={tw`flex-shrink mt-4`}>
         <CurrentView />
       </View>
     </View>

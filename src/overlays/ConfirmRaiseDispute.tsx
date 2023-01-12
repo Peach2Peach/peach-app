@@ -32,11 +32,11 @@ export const ConfirmRaiseDispute = ({ contract: { id: contractId } }: ConfirmRai
     })
 
   return (
-    <View style={tw`flex items-center flex-shrink bg-peach-1 rounded-xl p-5`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-lg leading-8`}>
+    <View style={tw`flex items-center flex-shrink p-5 bg-peach-1 rounded-xl`}>
+      <Headline style={tw`text-lg leading-8 text-center text-white-1 font-baloo`}>
         {i18n('dispute.openDispute')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-5`}>{i18n('dispute.doYouWantToOpenDispute')}</Text>
+      <Text style={tw`mt-5 text-center text-white-1`}>{i18n('dispute.doYouWantToOpenDispute')}</Text>
       <View>
         <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
           {i18n('contract.cancel.confirm.back')}

@@ -14,17 +14,17 @@ export default ({ view }: SatsInfoProps): ReactElement => <View>
   <Headline style={tw`text-3xl leading-3xl text-white-1`}>
     {i18n('help.sats.title')}
   </Headline>
-  <View style={tw`flex justify-center items-center`}>
-    <Text style={tw`text-white-1 text-center font-bold`}>
+  <View style={tw`flex items-center justify-center`}>
+    <Text style={tw`font-bold text-center text-white-1`}>
       {i18n('help.sats.description.1')}
     </Text>
-    <Text style={tw`text-white-1 text-center mt-2`}>
+    <Text style={tw`mt-2 text-center text-white-1`}>
       {i18n('help.sats.description.2')}
     </Text>
-    <Text style={tw`text-white-1 text-center font-bold mt-6`}>
+    <Text style={tw`mt-6 font-bold text-center text-white-1`}>
       {i18n('help.sats.description.3')}
     </Text>
-    <Text style={tw`text-white-1 text-center mt-6`}>
+    <Text style={tw`mt-6 text-center text-white-1`}>
       {i18n(`help.sats.fees.${view}`, String(PEACHFEE * 100))}
     </Text>
   </View>

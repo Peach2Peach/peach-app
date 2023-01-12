@@ -10,7 +10,7 @@ import tw from '../../styles/tailwind'
  * @example
  * <LinedText
  *   style={tw`mt-4`}>
- * <Text style={tw`body-m text-black-2 px-2`}>text</Text>
+ * <Text style={tw`px-2 body-m text-black-2`}>text</Text>
  * </LinedText>
  */
 export const LinedText = ({ style, children }: ComponentProps): ReactElement => (

@@ -34,8 +34,8 @@ export const Timer = ({ text, start, duration, style }: TimerProps): ReactElemen
   }, [start, duration])
 
   return <View style={[tw`flex-row justify-center`, style]}>
-    <Text style={tw`font-baloo text-sm`}>{text}</Text>
-    <Text style={tw`w-16 pl-1 font-baloo text-sm text-peach-1`}>{msToTimer(timer)}</Text>
+    <Text style={tw`text-sm font-baloo`}>{text}</Text>
+    <Text style={tw`w-16 pl-1 text-sm font-baloo text-peach-1`}>{msToTimer(timer)}</Text>
   </View>
 }
 

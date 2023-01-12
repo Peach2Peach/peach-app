@@ -47,7 +47,7 @@ export default ({ page }: Props): ReactElement => {
   const dropdownItems = applyTradingLimit(allowedBuckets, prices.CHF as number, getTradingLimit()).map((value) => ({
     value,
     display: (isOpen: boolean) => (
-      <View style={tw`flex-row justify-between items-center`}>
+      <View style={tw`flex-row items-center justify-between`}>
         <SatsFormat sats={value} format="big" />
         {isOpen && satsPerUnit ? (
           <Text style={tw`font-mono text-peach-1`}>
@@ -73,8 +73,8 @@ export default ({ page }: Props): ReactElement => {
   }
 
   return (
-    <View testID={`view-${page}`} style={tw`h-full flex`}>
-      <View style={tw`h-full flex-shrink z-20`}>
+    <View testID={`view-${page}`} style={tw`flex h-full`}>
+      <View style={tw`z-20 flex-shrink h-full`}>
         {!isNaN(dailyAmount) ? (
           <View style={tw`h-0`}>
             <Progress
@@ -89,12 +89,12 @@ export default ({ page }: Props): ReactElement => {
             />
           </View>
         ) : null}
-        <View style={tw`h-full pt-7 pb-8 flex`}>
+        <View style={tw`flex h-full pb-8 pt-7`}>
           <Title title={i18n(`${page}.title`)} />
-          <View style={tw`h-full flex-shrink flex justify-center z-10`}>
+          <View style={tw`z-10 flex justify-center flex-shrink h-full`}>
             <View>
-              <Headline style={tw`mt-16 text-grey-1 px-5`}>{i18n(`${page}.subtitle`)}</Headline>
-              <View style={tw`w-full absolute px-6 flex-row items-start justify-center mt-3 z-10`}>
+              <Headline style={tw`px-5 mt-16 text-grey-1`}>{i18n(`${page}.subtitle`)}</Headline>
+              <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}>
                 <Dropdown
                   testID={`${page}-amount`}
                   style={tw`flex-shrink`}
@@ -104,7 +104,7 @@ export default ({ page }: Props): ReactElement => {
                 />
               </View>
               {satsPerUnit ? (
-                <Text style={tw`mt-4 mt-16 font-mono text-peach-1 text-center`}>
+                <Text style={tw`mt-4 mt-16 font-mono text-center text-peach-1`}>
                   ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
                 </Text>
               ) : null}
@@ -112,7 +112,7 @@ export default ({ page }: Props): ReactElement => {
           </View>
           {showBackupReminder && (
             <Hint
-              style={tw`self-center mt-2 max-w-xs`}
+              style={tw`self-center max-w-xs mt-2`}
               title={i18n('hint.backup.title')}
               text={i18n('hint.backup.text')}
               icon="lock"
@@ -122,7 +122,7 @@ export default ({ page }: Props): ReactElement => {
           )}
         </View>
       </View>
-      <PrimaryButton testID="navigation-next" style={tw`mt-4 mx-6 mb-10 self-center bg-white-1`} onPress={next} narrow>
+      <PrimaryButton testID="navigation-next" style={tw`self-center mx-6 mt-4 mb-10 bg-white-1`} onPress={next} narrow>
         {i18n('next')}
       </PrimaryButton>
     </View>

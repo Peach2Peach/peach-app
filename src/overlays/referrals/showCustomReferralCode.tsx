@@ -8,7 +8,7 @@ export const showCustomReferralCode = (updateOverlay: Function) => {
   const [customReferral, setCustomReferral] = useState('')
   const CustomReferralCodeForm = (): ReactElement => (
     <View>
-      <Text style={tw`body-m text-black-1 mb-2`}>{i18n('referrals.reward.customReferralCode.description')}</Text>
+      <Text style={tw`mb-2 body-m text-black-1`}>{i18n('referrals.reward.customReferralCode.description')}</Text>
       <Input
         style={tw`bg-primary-background-heavy`}
         onChange={setCustomReferral}

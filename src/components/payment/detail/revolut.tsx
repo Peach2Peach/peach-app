@@ -24,7 +24,7 @@ export const DetailRevolut = ({ paymentData, appLink, fallbackUrl }: PaymentTemp
       .map((field, i) => <View key={field}>
         {i > 0 ? <HorizontalLine style={tw`mt-4`} /> : null}
         <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData[field]} /></View>
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>
           {i18n(i > 0 ? 'or' : 'contract.payment.to')}
         </Headline>
         {field === 'userName'

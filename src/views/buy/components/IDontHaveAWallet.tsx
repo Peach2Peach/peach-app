@@ -16,23 +16,23 @@ const linkToBitbox = () => Linking.openURL('https://shiftcrypto.ch/bitbox02/?ref
 
 export default (): ReactElement => (
   <View style={tw`mb-12`}>
-    <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
+    <Headline style={tw`text-3xl text-center text-white-1 font-baloo leading-3xl`}>
       {i18n('iDontHaveAWallet.title')}
     </Headline>
-    <Text style={tw`text-center text-white-1 mt-3`}>{i18n('iDontHaveAWallet.mobileWallet')}</Text>
+    <Text style={tw`mt-3 text-center text-white-1`}>{i18n('iDontHaveAWallet.mobileWallet')}</Text>
     <PrimaryButton style={tw`self-center mt-8 w-60`} onPress={linkToMobileWallet}>
       {i18n(`iDontHaveAWallet.mobileWallet.${isIOS() ? 'iOS' : 'android'}`)}
     </PrimaryButton>
     <View style={tw`mt-10`}>
       <Icon
         id="shiftCrypto"
-        style={tw`w-64 h-64 opacity-40 absolute -top-6 left-1/2 -ml-32`}
+        style={tw`absolute w-64 h-64 -ml-32 opacity-40 -top-6 left-1/2`}
         color={tw`text-white-1`.color}
       />
-      <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
+      <Headline style={tw`text-3xl text-center text-white-1 font-baloo leading-3xl`}>
         {i18n('iDontHaveAWallet.signingDevice.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-3`}>
+      <Text style={tw`mt-3 text-center text-white-1`}>
         {i18n('iDontHaveAWallet.signingDevice.1')}
         <Text style={tw`font-bold text-white-1`}> {i18n('iDontHaveAWallet.signingDevice.2')}</Text>
       </Text>

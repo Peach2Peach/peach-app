@@ -27,9 +27,9 @@ export default (): ReactElement => {
 
   return (
     <View style={tw`h-full`}>
-      <View style={tw`h-full flex flex-col pt-5`}>
+      <View style={tw`flex flex-col h-full pt-5`}>
         <TabbedNavigation theme="inverted" items={tabs} selected={currentTab} select={setCurrentTab} />
-        <CurrentView style={tw`h-full flex-shrink`} />
+        <CurrentView style={tw`flex-shrink h-full`} />
       </View>
     </View>
   )

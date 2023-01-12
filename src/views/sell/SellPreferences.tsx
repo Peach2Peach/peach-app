@@ -185,7 +185,7 @@ export default (): ReactElement => {
   return (
     <View testID="view-sell" style={tw`flex-1`}>
       {updatePending ? (
-        <View style={tw`w-full h-full items-center justify-center absolute`}>
+        <View style={tw`absolute items-center justify-center w-full h-full`}>
           <Loading />
         </View>
       ) : (
@@ -193,7 +193,7 @@ export default (): ReactElement => {
           <PeachScrollView
             scrollRef={(ref) => (scroll = ref)}
             disable={!scrollable}
-            contentContainerStyle={[tw`p-5 pb-30 flex-grow justify-center`]}
+            contentContainerStyle={[tw`justify-center flex-grow p-5 pb-30`]}
           >
             {CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, setStepValid }} />}
           </PeachScrollView>

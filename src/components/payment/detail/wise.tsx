@@ -14,7 +14,7 @@ export const DetailWise = ({ paymentData, appLink, fallbackUrl }: PaymentTemplat
   return <View>
     {paymentData.email ? <View>
       <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.email} /></View>
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>
+      <Headline style={tw`mt-4 normal-case text-grey-2`}>
         {i18n('contract.payment.to')}
       </Headline>
       {appLink || fallbackUrl
@@ -30,7 +30,7 @@ export const DetailWise = ({ paymentData, appLink, fallbackUrl }: PaymentTemplat
         <View style={tw`z-10`}>
           <CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.iban} />
         </View>
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>
           {i18n(paymentData.email ? 'or' : 'contract.payment.to')}
         </Headline>
         {appLink || fallbackUrl
@@ -41,7 +41,7 @@ export const DetailWise = ({ paymentData, appLink, fallbackUrl }: PaymentTemplat
           ? <View>
             <HorizontalLine style={tw`mt-4`}/>
             <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.bic} /></View>
-            <Headline style={tw`text-grey-2 normal-case mt-4`}>
+            <Headline style={tw`mt-4 normal-case text-grey-2`}>
               {i18n('form.bic')}
             </Headline>
             {appLink || fallbackUrl
@@ -55,7 +55,7 @@ export const DetailWise = ({ paymentData, appLink, fallbackUrl }: PaymentTemplat
         <View style={tw`z-10`}>
           <CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.beneficiary} />
         </View>
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>
+        <Headline style={tw`mt-4 normal-case text-grey-2`}>
           {i18n('form.beneficiary')}
         </Headline>
         {appLink || fallbackUrl

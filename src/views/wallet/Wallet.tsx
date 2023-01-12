@@ -75,12 +75,12 @@ export default () => {
 
   return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`h-full px-8`}>
-      <View style={tw`h-full flex flex-col justify-between`}>
-        <View style={tw`h-full flex-shrink flex flex-col justify-center items-center`}>
-          <Text style={tw`button-medium mb-4`}>{i18n('wallet.totalBalance')}:</Text>
+      <View style={tw`flex flex-col justify-between h-full`}>
+        <View style={tw`flex flex-col items-center justify-center flex-shrink h-full`}>
+          <Text style={tw`mb-4 button-medium`}>{i18n('wallet.totalBalance')}:</Text>
           <BigSatsFormat style={!peachWallet.synced ? tw`opacity-60` : {}} sats={walletStore.balance} />
           {!peachWallet.synced && <Loading style={tw`absolute`} />}
-          <Text style={tw`button-medium mt-16`}>{i18n('wallet.withdrawTo')}:</Text>
+          <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
           <BitcoinAddressInput
             style={tw`mt-4`}
             {...{
@@ -90,8 +90,8 @@ export default () => {
               errorMessage: addressErrors,
             }}
           />
-          <TouchableOpacity style={tw`flex-row justify-center items-center`} onPress={openWalletApp}>
-            <Text style={tw`body-s underline text-black-2 uppercase`}>{i18n('wallet.openWalletApp')}</Text>
+          <TouchableOpacity style={tw`flex-row items-center justify-center`} onPress={openWalletApp}>
+            <Text style={tw`underline uppercase body-s text-black-2`}>{i18n('wallet.openWalletApp')}</Text>
             <Icon id="externalLink" style={tw`w-4 h-4 ml-1 -mt-1`} color={tw`text-primary-main`.color} />
           </TouchableOpacity>
         </View>

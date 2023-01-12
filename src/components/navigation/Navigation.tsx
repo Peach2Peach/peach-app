@@ -22,11 +22,11 @@ export const Navigation = ({ screen, next, stepValid }: NavigationProps): ReactE
   if (/returnAddress/u.test(screen)) buttonText = i18n('lookForAMatch')
 
   return (
-    <View style={tw`absolute bottom-0 w-full items-center pb-8 bg-primary-background-light`}>
+    <View style={tw`absolute bottom-0 items-center w-full pb-8 bg-primary-background-light`}>
       <View style={tw`w-full h-8 -mt-8`}>
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>
-      <Fade show={!keyboardOpen} style={tw`w-full flex items-center`} displayNone={false}>
+      <Fade show={!keyboardOpen} style={tw`flex items-center w-full`} displayNone={false}>
         <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
           {buttonText}
         </PrimaryButton>

@@ -38,7 +38,7 @@ type SelectorProps = ComponentProps & {
     onChange={(value) => setCurrencu(value)}/>
  */
 export const SelectorBig = ({ items, selectedValue, onChange, style }: SelectorProps): ReactElement => (
-  <View style={[tw`w-full flex-col items-center h-8`, style]}>
+  <View style={[tw`flex-col items-center w-full h-8`, style]}>
     <PeachScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
@@ -51,13 +51,13 @@ export const SelectorBig = ({ items, selectedValue, onChange, style }: SelectorP
             onPress={() => (onChange ? onChange(item.value) : null)}
             key={item.value}
             style={[
-              tw`px-4 h-8 flex justify-center border border-grey-3 rounded`,
+              tw`flex justify-center h-8 px-4 border rounded border-grey-3`,
               item.value === selectedValue ? tw`border-peach-1 bg-peach-1` : {},
               i > 0 ? tw`ml-2` : {},
             ]}>
             <Text
               style={[
-                tw`font-baloo text-xs leading-6 `,
+                tw`text-xs leading-6 font-baloo `,
                 item.value === selectedValue ? tw`text-white-1` : tw`text-grey-3`,
               ]}>
               {item.display}

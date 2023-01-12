@@ -25,10 +25,10 @@ export default ({ currency = 'EUR', setCurrency, back, next }: CurrencySelectPro
   useHeaderSetup(useMemo(() => ({ title: i18n('paymentMethod.select') }), []))
   return (
     <View style={tw`flex h-full`}>
-      <View style={tw`h-full flex-shrink flex justify-center px-10`}>
+      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
         <RadioButtons items={currencies} selectedValue={currency} onChange={setCurrency} />
       </View>
-      <View style={tw`mt-4 px-6 flex items-center w-full bg-white-1`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 bg-white-1`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

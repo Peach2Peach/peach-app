@@ -14,7 +14,7 @@ type IconButtonProps = ComponentProps & {
 }
 
 const IconButton = ({ icon, onPress, style }: IconButtonProps): ReactElement => (
-  <Pressable style={[tw`w-12 h-7 flex items-center justify-center rounded-lg bg-peach-1`, style]} onPress={onPress}>
+  <Pressable style={[tw`flex items-center justify-center w-12 rounded-lg h-7 bg-peach-1`, style]} onPress={onPress}>
     <Icon id={icon} style={[tw`w-5 h-5`]} color={tw`text-white-1`.color} />
   </Pressable>
 )

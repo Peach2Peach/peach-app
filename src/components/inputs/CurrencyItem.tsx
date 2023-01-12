@@ -18,13 +18,13 @@ export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps): 
     <Pressable
       onPress={onPress}
       style={[
-        tw`flex-shrink flex-row justify-center items-center border border-black-3 rounded-lg`,
+        tw`flex-row items-center justify-center flex-shrink border rounded-lg border-black-3`,
         bgColor,
         borderColor,
         style,
       ]}
     >
-      <Text style={[tw`button-medium px-2`, textColor]}>{label}</Text>
+      <Text style={[tw`px-2 button-medium`, textColor]}>{label}</Text>
       <Icon id={isSelected ? 'minusCircle' : 'plusCircle'} color={textColor.color} style={tw`w-3 h-3 mr-2`} />
     </Pressable>
   )

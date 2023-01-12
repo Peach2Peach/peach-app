@@ -15,10 +15,10 @@ export default (): ReactElement => {
 
   const iUnderstand = () => setShowWords(true)
   return (
-    <View style={tw`h-full flex flex-col flex-shrink`}>
-      <PeachScrollView style={tw`h-full flex flex-col flex-shrink`}>
+    <View style={tw`flex flex-col flex-shrink h-full`}>
+      <PeachScrollView style={tw`flex flex-col flex-shrink h-full`}>
         {showWords ? (
-          <View style={tw`h-full flex-shrink flex-row`}>
+          <View style={tw`flex-row flex-shrink h-full`}>
             <View style={tw`w-1/2 pr-2`}>
               {account.mnemonic
                 ?.split(' ')
@@ -29,7 +29,7 @@ export default (): ReactElement => {
                       <Text style={tw`text-lg text-black-1 w-7`}>{i + 1}.</Text>
                     </View>
                     <View>
-                      <Text style={tw`text-peach-1 ml-4`}>{word}</Text>
+                      <Text style={tw`ml-4 text-peach-1`}>{word}</Text>
                     </View>
                   </Card>
                 ))}
@@ -39,19 +39,19 @@ export default (): ReactElement => {
                 ?.split(' ')
                 .slice(6, 12)
                 .map((word, i) => (
-                  <Card key={i} style={tw`flex-row items-center  p-2 mb-2`}>
+                  <Card key={i} style={tw`flex-row items-center p-2 mb-2`}>
                     <View>
                       <Text style={tw`text-lg text-black-1 w-7`}>{i + 7}.</Text>
                     </View>
                     <View>
-                      <Text style={tw`text-peach-1 ml-4`}>{word}</Text>
+                      <Text style={tw`ml-4 text-peach-1`}>{word}</Text>
                     </View>
                   </Card>
                 ))}
             </View>
           </View>
         ) : (
-          <View style={tw`h-full flex-shrink flex justify-center items-center`}>
+          <View style={tw`flex items-center justify-center flex-shrink h-full`}>
             <Headline style={tw`text-grey-1`}>{i18n('settings.seedWords.note')}</Headline>
             <Text style={tw`text-grey-1 leading-xl`}>
               {i18n('settings.seedWords.note.description.1')}

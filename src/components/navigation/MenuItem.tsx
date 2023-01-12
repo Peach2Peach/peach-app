@@ -20,10 +20,10 @@ type MenuItemProps = ComponentProps & {
  * />
  */
 export const MenuItem = ({ style, text, onPress }: MenuItemProps): ReactElement => (
-  <Shadow shadow={mildShadow} style={[tw`w-full border border-grey-4 rounded`, style || {}]}>
+  <Shadow shadow={mildShadow} style={[tw`w-full border rounded border-grey-4`, style || {}]}>
     <Pressable
       onPress={() => onPress()}
-      style={[tw`h-8 pl-4 pr-2 flex flex-row items-center justify-between bg-white-1`, tw.md`h-10`]}
+      style={[tw`flex flex-row items-center justify-between h-8 pl-4 pr-2 bg-white-1`, tw.md`h-10`]}
     >
       <Text>{text}</Text>
     </Pressable>

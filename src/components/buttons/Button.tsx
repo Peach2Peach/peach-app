@@ -39,7 +39,7 @@ export const Button = (props: ButtonProps) => {
       ]}
     >
       {children && (
-        <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`button-medium min-w-24 text-center px-2`]}>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`px-2 text-center button-medium min-w-24`]}>
           {children}
         </Text>
       )}

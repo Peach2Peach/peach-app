@@ -21,7 +21,7 @@ export const CancelOfferButton = () => {
     })
   return (
     <Pressable style={tw`mt-3`} onPress={cancelOffer}>
-      <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>{i18n('cancelOffer')}</Text>
+      <Text style={tw`text-sm text-center underline uppercase font-baloo text-peach-1`}>{i18n('cancelOffer')}</Text>
     </Pressable>
   )
 }

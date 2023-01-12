@@ -36,20 +36,20 @@ export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement
     <View>
       <Title title={title} />
       {status !== 'offerCanceled' ? (
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n(`yourTrades.search.${isSellOffer(offer) ? 'sell' : 'buy'}.subtitle`)}{' '}
           <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
         </Text>
       ) : (
-        <Text style={tw`text-grey-2 text-center -mt-1`}>{i18n('yourTrades.offerCanceled.subtitle')}</Text>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>{i18n('yourTrades.offerCanceled.subtitle')}</Text>
       )}
       {offer.newOfferId ? (
-        <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+        <Text style={tw`leading-6 text-center text-grey-2`} onPress={goToOffer}>
           {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
         </Text>
       ) : null}
       {status !== 'offerCanceled' ? (
-        <Text style={tw`text-black-1 mt-5 text-center`}>{i18n('search.weWillNotifyYou')}</Text>
+        <Text style={tw`mt-5 text-center text-black-1`}>{i18n('search.weWillNotifyYou')}</Text>
       ) : null}
 
       <View style={[tw`mt-7`, status === 'offerCanceled' ? tw`opacity-50` : {}]}>
@@ -61,7 +61,7 @@ export const OfferSummary = ({ offer, status }: OfferSummaryProps): ReactElement
       {status !== 'offerCanceled' ? (
         <Pressable style={tw`mt-3`} onPress={cancelOffer}>
           {/* TODO use TextLink component and add bold mode */}
-          <Text style={tw`font-baloo text-sm text-peach-1 underline text-center uppercase`}>{i18n('cancelOffer')}</Text>
+          <Text style={tw`text-sm text-center underline uppercase font-baloo text-peach-1`}>{i18n('cancelOffer')}</Text>
         </Pressable>
       ) : null}
     </View>
