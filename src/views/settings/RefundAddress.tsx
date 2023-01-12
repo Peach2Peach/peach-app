@@ -79,7 +79,6 @@ export default (): ReactElement => {
         <BitcoinAddressInput
           {...{
             onChange,
-            isValid,
             value: address,
             errorMessage: addressErrors,
           }}

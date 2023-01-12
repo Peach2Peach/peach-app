@@ -14,6 +14,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { IconType } from '../../assets/icons'
+import { Color } from 'react-native-svg'
 
 const themes = {
   default: {
@@ -52,12 +53,12 @@ export type InputProps = ComponentProps &
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
+    iconColor?: Color
     inputStyle?: ViewStyle | ViewStyle[]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
     disableOnEndEditing?: boolean
-    isValid?: boolean
     errorMessage?: string[]
     onChange?: Function
     onSubmit?: Function
@@ -83,6 +84,7 @@ export const Input = ({
   label,
   placeholder,
   icons = [],
+  iconColor,
   required = true,
   multiline = false,
   autoCorrect = false,
@@ -195,7 +197,11 @@ export const Input = ({
         <View style={tw`flex flex-row`}>
           {inputIcons.map(([icon, action], index) => (
             <Pressable onPress={action} key={`inputIcon-${icon}-${index}`}>
-              <Icon id={icon} style={tw`w-5 h-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
+              <Icon
+                id={icon}
+                style={tw`w-5 h-5 ml-4`}
+                color={!!iconColor ? iconColor : showError ? colors.textError.color : colors.text.color}
+              />
             </Pressable>
           ))}
         </View>

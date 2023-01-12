@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
-import AboutPeach from './settings/aboutPeach/AboutPeach'
+
+import { BackgroundConfig } from '../components/background/Background'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
@@ -18,19 +19,23 @@ import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import SetReturnAddress from './sell/SetReturnAddress'
-import Backups from './settings/Backups'
-import Currency from './settings/Currency'
+import AboutPeach from './settings/aboutPeach/AboutPeach'
+import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
-import NetworkFees from './settings/NetworkFees'
+import Socials from './settings/aboutPeach/Socials'
+import Backups from './settings/Backups'
+import BackupCreated from './settings/components/backups/BackupCreated'
+import Currency from './settings/Currency'
 import Language from './settings/Language'
+import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
+import MyProfile from './settings/profile/MyProfile'
 import RefundAddress from './settings/RefundAddress'
 import Settings from './settings/Settings'
-import Socials from './settings/aboutPeach/Socials'
 import TestViewButtons from './TestView/buttons'
-import TestViewMessages from './TestView/messages'
 import TestViewComponents from './TestView/components'
+import TestViewMessages from './TestView/messages'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
@@ -38,11 +43,8 @@ import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
-import Offer from './yourTrades/Offer'
+import OfferDetails from './offerDetails/OfferDetails'
 import YourTrades from './yourTrades/YourTrades'
-import MyProfile from './settings/profile/MyProfile'
-import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
-import { BackgroundConfig } from '../components/background/Background'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -52,234 +54,94 @@ type ViewType = {
   background: BackgroundConfig
 }
 
+const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined } }
+
+const onboardingConfig = { showHeader: true, showFooter: false, background: { color: 'primaryGradient' } } as const
 const onboarding: ViewType[] = [
-  { name: 'welcome', component: Welcome, showHeader: true, showFooter: false, background: { color: 'primaryGradient' } },
-  { name: 'home', component: Welcome, showHeader: true, showFooter: false, background: { color: 'primaryGradient' } },
-  { name: 'newUser', component: NewUser, showHeader: true, showFooter: false, background: { color: 'primaryGradient' } },
-  {
-    name: 'restoreBackup',
-    component: RestoreBackup,
-    showHeader: true,
-    showFooter: false,
-    background: { color: 'primaryGradient' },
-  },
+  { name: 'welcome', component: Welcome, ...onboardingConfig },
+  { name: 'home', component: Welcome, ...onboardingConfig },
+  { name: 'newUser', component: NewUser, ...onboardingConfig },
+  { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
 ]
 
-const home: ViewType[] = [
-  {
-    name: 'home',
-    component: Buy,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-]
+const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'transactionHistory',
-    component: TransactionHistory,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'transactionDetails',
-    component: TransactionDetails,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
+  { name: 'wallet', component: Wallet, ...defaultConfig },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
-  { name: 'buy', component: Buy, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'buyPreferences',
-    component: BuyPreferences,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
+  { name: 'buy', component: Buy, ...defaultConfig },
+  { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'sell', component: Sell, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'sellPreferences',
-    component: SellPreferences,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'setReturnAddress',
-    component: SetReturnAddress,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
+  { name: 'sell', component: Sell, ...defaultConfig },
+  { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
+  { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
+  { name: 'setReturnAddress', component: SetReturnAddress, ...defaultConfig },
 ]
 
-const search: ViewType[] = [
-  {
-    name: 'search',
-    component: Search,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-]
+const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
 
 const trade: ViewType[] = [
-  { name: 'contract', component: Contract, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'contractChat',
-    component: ContractChat,
-    showHeader: false,
-    showFooter: false,
-    background: { color: undefined },
-  },
-  {
-    name: 'tradeComplete',
-    component: TradeComplete,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
+  { name: 'contract', component: Contract, ...defaultConfig },
+  { name: 'contractChat', component: ContractChat, ...defaultConfig, showHeader: false, showFooter: false },
+  { name: 'tradeComplete', component: TradeComplete, ...defaultConfig },
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'offer', component: Offer, showHeader: true, showFooter: true, background: { color: undefined } },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig },
+  { name: 'offer', component: OfferDetails, ...defaultConfig },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      {
-        name: 'contact',
-        component: Contact,
-        showHeader: true,
-        showFooter: hasAccount,
-        background: { color: undefined },
-      },
-      {
-        name: 'report',
-        component: Report,
-        showHeader: true,
-        showFooter: hasAccount,
-        background: { color: undefined },
-      },
-      {
-        name: 'dispute',
-        component: Dispute,
-        showHeader: true,
-        showFooter: hasAccount,
-        background: { color: undefined },
-      },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
+      { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
+      { name: 'dispute', component: Dispute, ...defaultConfig, showFooter: hasAccount },
     ]
     : [
-      { name: 'contact', component: Contact, showHeader: true, showFooter: false, background: { color: undefined } },
-      { name: 'report', component: Report, showHeader: true, showFooter: false, background: { color: undefined } },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
+      { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
-const profile: ViewType[] = [
-  {
-    name: 'profile',
-    component: Profile,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-]
+const profile: ViewType[] = [{ name: 'profile', component: Profile, ...defaultConfig }]
 
 const settings: ViewType[] = [
-  { name: 'settings', component: Settings, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'myProfile', component: MyProfile, showHeader: true, showFooter: true, background: { color: undefined } },
+  { name: 'settings', component: Settings, ...defaultConfig },
+  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
+  { name: 'myProfile', component: MyProfile, ...defaultConfig },
+  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
+  { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig, showFooter: false },
+  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig, showFooter: false },
+  { name: 'language', component: Language, ...defaultConfig },
+  { name: 'currency', component: Currency, ...defaultConfig },
+  { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'backups', component: Backups, ...defaultConfig },
   {
-    name: 'bitcoinProducts',
-    component: BitcoinProducts,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'addPaymentMethod',
-    component: AddPaymentMethod,
-    showHeader: true,
+    name: 'backupCreated',
+    component: BackupCreated,
+    showHeader: false,
     showFooter: false,
-    background: { color: undefined },
+    background: { color: 'primaryGradient' },
   },
-  {
-    name: 'paymentDetails',
-    component: PaymentDetails,
-    showHeader: true,
-    showFooter: false,
-    background: { color: undefined },
-  },
-  { name: 'language', component: Language, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'currency', component: Currency, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'referrals', component: Referrals, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'backups', component: Backups, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'refundAddress',
-    component: RefundAddress,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'payoutAddress',
-    component: PayoutAddress,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'paymentMethods',
-    component: PaymentMethods,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  { name: 'peachFees', component: PeachFees, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'networkFees', component: NetworkFees, showHeader: true, showFooter: true, background: { color: undefined } },
-  { name: 'socials', component: Socials, showHeader: true, showFooter: true, background: { color: undefined } },
+  { name: 'refundAddress', component: RefundAddress, ...defaultConfig },
+  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
+  { name: 'peachFees', component: PeachFees, ...defaultConfig },
+  { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'socials', component: Socials, ...defaultConfig },
 ]
 
 const testViews: ViewType[] = [
-  { name: 'testView', component: TestView, showHeader: true, showFooter: true, background: { color: undefined } },
-  {
-    name: 'testViewButtons',
-    component: TestViewButtons,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'testViewPopups',
-    component: TestViewPopups,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'testViewMessages',
-    component: TestViewMessages,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
-  {
-    name: 'testViewComponents',
-    component: TestViewComponents,
-    showHeader: true,
-    showFooter: true,
-    background: { color: undefined },
-  },
+  { name: 'testView', component: TestView, ...defaultConfig },
+  { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
+  { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
+  { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
+  { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

@@ -22,7 +22,6 @@ type PeachScrollViewProps = ComponentProps &
 export const PeachScrollView = ({
   children,
   scrollRef,
-  contentContainerStyle,
   horizontal = false,
   showsHorizontalScrollIndicator = true,
   disable,
@@ -46,7 +45,6 @@ export const PeachScrollView = ({
     <ScrollView
       ref={$scroll}
       {...{ horizontal, showsHorizontalScrollIndicator, style, ...scrollViewProps }}
-      contentContainerStyle={contentContainerStyle || {}}
       onLayout={onContainerLayout}
     >
       <View {...{ onStartShouldSetResponder }} style={tw`bg-transparent`} onLayout={onContentLayout}>

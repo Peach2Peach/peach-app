@@ -9,7 +9,7 @@ import { account, getPaymentData, removePaymentData, updateSettings } from '../.
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { CheckboxItem, CheckboxItemType } from '../inputs/Checkboxes'
+import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
@@ -107,7 +107,7 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
     setPreferredPaymentMethods(newValues)
   }
 
-  const isSelected = (itm: CheckboxItemType) => selectedPaymentData.includes(itm.value as string)
+  const isSelected = (itm: CheckboxType) => selectedPaymentData.includes(itm.value as string)
 
   useEffect(() => {
     update()
@@ -121,14 +121,14 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
         {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
           .map((category) => ({
             category,
-            checkboxItems: paymentData
+            checkboxes: paymentData
               .filter(belongsToCategory(category))
               .filter((data) => getPaymentMethodInfo(data.type))
               .sort((a, b) => (a.id > b.id ? 1 : -1))
               .map(mapPaymentDataToCheckboxes),
           }))
-          .filter(({ checkboxItems }) => checkboxItems.length)
-          .map(({ category, checkboxItems }, i) => (
+          .filter(({ checkboxes }) => checkboxes.length)
+          .map(({ category, checkboxes }, i) => (
             <View key={category} style={i > 0 ? tw`mt-8` : {}}>
               <LinedText style={tw`pb-3`}>
                 <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
@@ -136,11 +136,11 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
                   <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
                 )}
               </LinedText>
-              {checkboxItems.map((item, j) => (
+              {checkboxes.map((item, j) => (
                 <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
                   {item.isValid ? (
                     <View>
-                      <CheckboxItem
+                      <PaymentDetailsCheckbox
                         testID={`buy-mops-checkbox-${item.value}`}
                         onPress={() => (editing ? editItem(item.data) : select(item.value))}
                         item={item}

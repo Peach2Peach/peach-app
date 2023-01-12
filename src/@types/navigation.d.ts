@@ -67,6 +67,7 @@ declare type RootStackParamList = {
   }
   referrals: undefined
   backups: undefined
+  backupCreated: undefined
   seedWords: undefined
   refundAddress: undefined
   payoutAddress: undefined
