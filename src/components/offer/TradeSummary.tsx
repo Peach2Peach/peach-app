@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { APPLINKS } from '../../constants'
-import { useNavigation } from '../../hooks'
+import { usePublicProfileNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
@@ -74,9 +74,8 @@ const Escrow = ({ contract }: TradeSummaryProps): ReactElement => (
 )
 
 const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
-  const navigation = useNavigation()
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
-  const goToUserProfile = () => navigation.navigate('publicProfile', { userId: contract.buyer.id, user: contract.buyer })
+  const goToUserProfile = usePublicProfileNavigation(contract.buyer.id)
 
   return (
     <View>
@@ -109,10 +108,8 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
 }
 
 const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
-  const navigation = useNavigation()
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
-  const goToUserProfile = () =>
-    navigation.navigate('publicProfile', { userId: contract.seller.id, user: contract.seller })
+  const goToUserProfile = usePublicProfileNavigation(contract.buyer.id)
   const appLink = APPLINKS[contract.paymentMethod]
 
   return (
@@ -162,13 +159,12 @@ const OpenTrade = (props: TradeSummaryProps): ReactElement =>
   props.view === 'seller' ? <OpenTradeSeller {...props} /> : <OpenTradeBuyer {...props} />
 
 const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
-  const navigation = useNavigation()
   const ratingTradingPartner = view === 'seller' ? contract.ratingBuyer : contract.ratingSeller
   const tradingPartner = view === 'seller' ? contract.buyer : contract.seller
   const disputeOutcome
     = contract.disputeWinner && !contract.disputeActive ? (contract.disputeWinner === view ? 'won' : 'lost') : null
 
-  const goToUserProfile = () => navigation.navigate('publicProfile', { userId: tradingPartner.id, user: tradingPartner })
+  const goToUserProfile = usePublicProfileNavigation(tradingPartner.id)
 
   return (
     <View>
