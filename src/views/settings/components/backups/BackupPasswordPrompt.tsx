@@ -43,41 +43,22 @@ export default ({ toggle }: { toggle: () => void }): ReactElement => {
     const previousDate = account.settings.lastBackupDate
     const previousShowBackupReminder = account.settings.showBackupReminder
     setIsBackingUp(true)
-    updateSettings(
-      {
-        lastBackupDate: new Date().getTime(),
-        showBackupReminder: false,
-      },
-      true,
-    )
+    updateSettings({ lastBackupDate: new Date().getTime(), showBackupReminder: false }, true)
     backupAccount({
       password,
       onSuccess: () => {
         setIsBackingUp(false)
-        updateSettings(
-          {
-            lastBackupDate: new Date().getTime(),
-            showBackupReminder: false,
-          },
-          true,
-        )
+        updateSettings({ lastBackupDate: new Date().getTime(), showBackupReminder: false }, true)
         toggle()
         navigation.navigate('backupCreated')
       },
-      // TODO: why are we not saving the settings in these cases?
       onCancel: () => {
         setIsBackingUp(false)
-        updateSettings({
-          lastBackupDate: previousDate,
-          showBackupReminder: previousShowBackupReminder,
-        })
+        updateSettings({ lastBackupDate: previousDate, showBackupReminder: previousShowBackupReminder }, true)
       },
       onError: () => {
         setIsBackingUp(false)
-        updateSettings({
-          lastBackupDate: previousDate,
-          showBackupReminder: previousShowBackupReminder,
-        })
+        updateSettings({ lastBackupDate: previousDate, showBackupReminder: previousShowBackupReminder }, true)
       },
     })
   }
