@@ -70,9 +70,9 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
   return (
     <View style={style}>
       <Card style={tw`p-4`}>
-        <Text style={tw`mt-2 text-grey-2 text-center`}>{i18n('rate.subtitle')}</Text>
+        <Text style={tw`mt-2 text-center text-grey-2`}>{i18n('rate.subtitle')}</Text>
 
-        <View style={tw`mt-4 flex-row justify-center`}>
+        <View style={tw`flex-row justify-center mt-4`}>
           <Pressable onPress={() => setVote('negative')}>
             <Icon
               id="thumbsDown"
@@ -89,7 +89,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
           </Pressable>
         </View>
       </Card>
-      <PrimaryButton style={tw`mt-4 self-center`} disabled={!vote} onPress={rate} narrow>
+      <PrimaryButton style={tw`self-center mt-4`} disabled={!vote} onPress={rate} narrow>
         title={i18n('rate.rateAndFinish')}
       </PrimaryButton>
     </View>

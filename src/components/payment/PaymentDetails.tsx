@@ -37,7 +37,7 @@ type PaymentDataKeyFactsProps = ComponentProps & {
 const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) => (
   <View style={[tw`flex-row justify-center`, style]}>
     {(paymentData.currencies || []).map((currency) => (
-      <View style={[tw`px-1 justify-center border border-black-1 rounded-lg mx-1`, style]}>
+      <View style={[tw`justify-center px-1 mx-1 border rounded-lg border-black-1`, style]}>
         <Text style={[tw`button-medium text-black-1`]}>{currency}</Text>
       </View>
     ))}
@@ -114,7 +114,7 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
   }, [paymentData])
 
   return paymentData.length === 0 ? (
-    <Text style={tw`h6 text-black-3 text-center`}>{i18n('paymentMethod.empty')}</Text>
+    <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
   ) : (
     <View style={[tw`px-4`, style]}>
       <View testID={'checkboxes-buy-mops'}>
@@ -131,7 +131,7 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
           .map(({ category, checkboxItems }, i) => (
             <View key={category} style={i > 0 ? tw`mt-8` : {}}>
               <LinedText style={tw`pb-3`}>
-                <Text style={tw`h6 text-black-2 mr-1`}>{i18n(`paymentCategory.${category}`)}</Text>
+                <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
                 {paymentCategoryIcons[category] !== '' && (
                   <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
                 )}

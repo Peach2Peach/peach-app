@@ -45,7 +45,7 @@ export default (): ReactElement => {
   ]
 
   return (
-    <PeachScrollView contentContainerStyle={tw`px-8 flex-1 justify-center`}>
+    <PeachScrollView contentContainerStyle={tw`justify-center flex-1 px-8`}>
       {items.map((item) => (
         <SettingsItem
           key={item.title}

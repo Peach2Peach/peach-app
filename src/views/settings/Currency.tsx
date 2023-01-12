@@ -28,8 +28,8 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex pt-6 px-6 pb-10 bg-primary-background`}>
-      <View style={tw`h-full items-center justify-center`}>
+    <View style={tw`flex h-full px-6 pt-6 pb-10 bg-primary-background`}>
+      <View style={tw`items-center justify-center h-full`}>
         <RadioButtons
           style={tw`mt-2`}
           selectedValue={currency}

@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 
 export const OptionButtons = () => (
   <View style={tw`flex flex-col items-center`}>
-    <Text style={tw`h3 mt-4`}>Option</Text>
+    <Text style={tw`mt-4 h3`}>Option</Text>
     <OptionButton style={tw`mt-2`} wide>
       Wide
     </OptionButton>

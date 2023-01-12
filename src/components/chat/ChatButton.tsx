@@ -26,7 +26,7 @@ export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement =
         <Pressable
           onPress={goToChat}
           style={[
-            tw`w-10 h-10 flex justify-center items-center rounded`,
+            tw`flex items-center justify-center w-10 h-10 rounded`,
             contract.disputeActive ? tw`bg-red` : tw`bg-peach-1`,
           ]}
         >
@@ -34,9 +34,9 @@ export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement =
           {notifications > 0 ? (
             <Bubble
               color={tw`text-green`.color}
-              style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
+              style={tw`absolute top-0 right-0 flex items-center justify-center w-4 -m-2`}
             >
-              <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+              <Text style={tw`text-xs text-center font-baloo text-white-1`} ellipsizeMode="head" numberOfLines={1}>
                 {notifications}
               </Text>
             </Bubble>

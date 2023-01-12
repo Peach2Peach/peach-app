@@ -13,18 +13,18 @@ type HintProps = ComponentProps & {
 }
 
 export const Hint = ({ title, text, icon, onPress, onDismiss, style }: HintProps): ReactElement => (
-  <View style={[tw`rounded-lg flex flex-row border border-grey-3 p-4`, style]}>
-    <Pressable onPress={onPress} style={tw`flex flex-row flex-shrink justify-center`}>
-      <View style={tw`w-7 flex-shrink-0`}>
-        <Icon id={icon} style={tw`w-7 h-7 flex-shrink-0`} color={tw`text-red`.color} />
+  <View style={[tw`flex flex-row p-4 border rounded-lg border-grey-3`, style]}>
+    <Pressable onPress={onPress} style={tw`flex flex-row justify-center flex-shrink`}>
+      <View style={tw`flex-shrink-0 w-7`}>
+        <Icon id={icon} style={tw`flex-shrink-0 w-7 h-7`} color={tw`text-red`.color} />
       </View>
-      <View style={tw`ml-4 w-full flex-shrink`}>
+      <View style={tw`flex-shrink w-full ml-4`}>
         <Text style={tw`text-base text-red`}>{title}</Text>
         <Text style={tw`text-sm`}>{text}</Text>
       </View>
     </Pressable>
     {onDismiss ? (
-      <Pressable onPress={onDismiss} style={tw`w-7 flex-shrink-0`}>
+      <Pressable onPress={onDismiss} style={tw`flex-shrink-0 w-7`}>
         <Icon id="x" style={tw`w-7 h-7`} color={tw`text-grey-3`.color} />
       </Pressable>
     ) : null}

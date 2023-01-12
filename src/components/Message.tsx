@@ -55,25 +55,25 @@ export const Message = ({ level, msgKey, action, onClose, style }: MessageProps)
     <Shadow shadow={dropShadowMild} style={tw`m-6`}>
       <View style={[tw`flex items-center justify-center px-4 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}>
         <View style={tw`p-2`}>
-          <View style={tw`flex-row justify-center items-center`}>
+          <View style={tw`flex-row items-center justify-center`}>
             {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2 -mt-1`} color={levelColorMap.text[level].color} />}
-            {!!title && <Text style={[tw`h6 text-center`, levelColorMap.text[level]]}>{title}</Text>}
+            {!!title && <Text style={[tw`text-center h6`, levelColorMap.text[level]]}>{title}</Text>}
           </View>
           {!!message && (
-            <Text style={[tw`body-m text-center`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
+            <Text style={[tw`text-center body-m`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
           )}
         </View>
-        <View style={tw`w-full mt-1 flex flex-row justify-between items-center`}>
+        <View style={tw`flex flex-row items-center justify-between w-full mt-1`}>
           {!!action ? (
             <TouchableOpacity onPress={action.callback as TextProps['onPress']} style={tw`flex flex-row items-center`}>
               {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-              <Text style={[tw`subtitle-2 leading-relaxed`, levelColorMap.text[level]]}> {action.label}</Text>
+              <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}> {action.label}</Text>
             </TouchableOpacity>
           ) : (
             <View>{/* placeholder for layout */}</View>
           )}
-          <TouchableOpacity onPress={closeMessage} style={tw`text-right flex flex-row items-center`}>
-            <Text style={[tw`subtitle-2 leading-relaxed`, levelColorMap.text[level]]}>{i18n('close')} </Text>
+          <TouchableOpacity onPress={closeMessage} style={tw`flex flex-row items-center text-right`}>
+            <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{i18n('close')} </Text>
             <Icon id="xSquare" style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />
           </TouchableOpacity>
         </View>

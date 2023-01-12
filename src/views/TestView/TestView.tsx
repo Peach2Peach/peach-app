@@ -14,7 +14,7 @@ export default () => {
   return (
     <PeachScrollView
       style={tw`h-full bg-primary-mild-1`}
-      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
+      contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
       <OptionButton onPress={goToButtons}>Buttons</OptionButton>
       <OptionButton style={tw`mt-4`} onPress={goToPopups}>

@@ -59,7 +59,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
           ) : (
             <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
           )}
-          <Text style={[color, tw`subtitle-1 text-3xs leading-relaxed text-center`]}>{i18n(id)}</Text>
+          <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-3xs`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
           <Icon
@@ -146,10 +146,10 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
   }, [updateAppContext, ws, ws.connected])
 
   return !keyboardOpen ? (
-    <View style={[tw`w-full flex-row items-start`, style]}>
-      <View style={tw`flex-grow relative`}>
+    <View style={[tw`flex-row items-start w-full`, style]}>
+      <View style={tw`relative flex-grow`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`flex-row items-center justify-between bg-primary-background py-4 px-5`}>
+          <View style={tw`flex-row items-center justify-between px-5 py-4 bg-primary-background`}>
             <FooterItem id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
             <FooterItem id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
             {peachWalletActive && <FooterItem id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />}

@@ -40,7 +40,6 @@ export const Overlay = ({
   requireUserAction,
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const Content = content
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   useEffect(() => {
@@ -57,35 +56,40 @@ export const Overlay = ({
 
   return (
     <Modal transparent={true} visible={visible}>
-      <View style={tw`flex-1 items-center justify-center`}>
+      <View style={tw`items-center justify-center flex-1`}>
         <Pressable
           style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
           onPress={!requireUserAction ? closeOverlay : null}
         ></Pressable>
-        <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`rounded-2xl shadow`]}>
-          <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
-            {!!title && <Text style={tw`h6 text-black-1 mb-1`}>{title.toLocaleLowerCase()}</Text>}
-            {content}
-          </View>
-          <View style={[tw`px-4 py-1 flex-row`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
-            {!!action2 && (
-              <Pressable onPress={!action2.disabled ? action2.callback : null}>
-                <View style={[tw`flex flex-row flex-shrink items-center`, action2?.disabled && tw`opacity-50`]}>
-                  <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 h-4 mr-1`} />
-                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>{action2.label}</Text>
-                </View>
-              </Pressable>
-            )}
-            {
-              <Pressable onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}>
-                <View style={[tw`flex flex-row flex-shrink items-center`, action1?.disabled && tw`opacity-50`]}>
-                  <Text style={[tw`text-base leading-relaxed`, actionColor]}>
-                    {action1 ? action1.label : i18n('close')}
-                  </Text>
-                  <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 h-4 ml-1`} />
-                </View>
-              </Pressable>
-            }
+        <View style={tw`items-center w-full p-6`}>
+          <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`w-full shadow rounded-2xl`]}>
+            <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
+              {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
+              {content}
+            </View>
+            <View style={[tw`flex-row px-4`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
+              {!!action2 && (
+                <Pressable style={tw`py-2`} onPress={!action2.disabled ? action2.callback : null}>
+                  <View style={[tw`flex flex-row items-center flex-shrink`, action2?.disabled && tw`opacity-50`]}>
+                    <Icon id={action2.icon} color={actionColor.color} style={tw`w-4 h-4 mr-1`} />
+                    <Text style={[tw`text-base leading-relaxed subtitle-1`, actionColor]}>{action2.label}</Text>
+                  </View>
+                </Pressable>
+              )}
+              {
+                <Pressable
+                  style={tw`py-2`}
+                  onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}
+                >
+                  <View style={[tw`flex flex-row items-center flex-shrink`, action1?.disabled && tw`opacity-50`]}>
+                    <Text style={[tw`text-base leading-relaxed subtitle-1`, actionColor]}>
+                      {action1 ? action1.label : i18n('close')}
+                    </Text>
+                    <Icon id={action1 ? action1.icon : 'xSquare'} color={actionColor.color} style={tw`w-4 h-4 ml-1`} />
+                  </View>
+                </Pressable>
+              }
+            </View>
           </View>
         </View>
       </View>

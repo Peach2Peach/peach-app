@@ -1,6 +1,6 @@
 import React from 'react'
 import Refund from '../../../overlays/Refund'
-import { StackNavigation } from '../../../utils/navigation'
+import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 import { isSellOffer } from '../../../utils/offer'
 import { getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForOffer } from './getNavigationDestination'

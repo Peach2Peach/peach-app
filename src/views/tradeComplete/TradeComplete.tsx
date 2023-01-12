@@ -44,8 +44,8 @@ export default (): ReactElement => {
   }, [])
 
   return (
-    <PeachScrollView style={tw`h-full flex pb-10 px-6`}>
-      <View style={tw`flex-shrink flex justify-center`}>
+    <PeachScrollView style={tw`flex h-full px-6 pb-10`}>
+      <View style={tw`flex justify-center flex-shrink`}>
         <BigTitle title={i18n(`tradeComplete.title.${view}.default`)} />
       </View>
       <Rate style={tw`flex flex-shrink pb-10`} {...{ contract, view, saveAndUpdate }} />

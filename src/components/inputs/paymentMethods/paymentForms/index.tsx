@@ -106,8 +106,8 @@ export const PaymentMethodForm = ({
     <View style={[tw`h-full`, style]}>
       <PeachScrollView
         contentContainerStyle={[
-          tw`flex-1 items-center justify-center`,
-          !specialTemplates[paymentMethod] ? tw`pb-10 pt-4` : {},
+          tw`items-center justify-center flex-1`,
+          !specialTemplates[paymentMethod] ? tw`pt-4 pb-10` : {},
         ]}
       >
         <Form
@@ -116,13 +116,13 @@ export const PaymentMethodForm = ({
           {...{ paymentMethod, data, currencies, setStepValid }}
         />
       </PeachScrollView>
-      <Fade show={!keyboardOpen} style={tw` w-full items-center mb-10`}>
+      <Fade show={!keyboardOpen} style={tw`items-center w-full mb-10 `}>
         {!specialTemplates[paymentMethod] && (
           <View style={tw`w-full h-10 -mt-10`}>
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
         )}
-        <View style={tw`flex-grow items-center `}>
+        <View style={tw`items-center flex-grow `}>
           <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
             {i18n(!data.id ? 'next' : 'confirm')}
           </PrimaryButton>

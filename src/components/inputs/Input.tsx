@@ -52,7 +52,7 @@ export type InputProps = ComponentProps &
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
-    inputStyle: ViewStyle | ViewStyle[]
+    inputStyle?: ViewStyle | ViewStyle[]
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
@@ -141,15 +141,15 @@ export const Input = ({
       {label ? (
         <Text style={[tw`input-label`, colors.text]}>
           {label}
-          <Text style={[tw`input-label font-medium`, colors.placeholder]}>
+          <Text style={[tw`font-medium input-label`, colors.placeholder]}>
             {!required ? ` (${i18n('form.optional')})` : ''}
           </Text>
         </Text>
       ) : null}
       <View
         style={[
-          tw`w-full flex flex-row items-center justify-between px-3`,
-          tw`overflow-hidden rounded-xl border`,
+          tw`flex flex-row items-center justify-between w-full px-3`,
+          tw`overflow-hidden border rounded-xl`,
           disabled ? colors.bgDisabled : colors.bg,
           disabled ? colors.borderDisabled : colors.border,
           showError ? colors.bgError : {},
@@ -160,11 +160,11 @@ export const Input = ({
       >
         <TextInput
           style={[
-            tw`w-full h-10 flex-shrink input-text py-0`,
+            tw`flex-shrink w-full h-10 py-0 input-text`,
             value ? colors.text : colors.placeholder,
             showError ? colors.textError : {},
             !showError ? tw`border border-transparent` : {},
-            multiline ? tw`pt-2 h-full` : {},
+            multiline ? tw`h-full pt-2` : {},
             inputStyle ? inputStyle : {},
           ]}
           {...{
@@ -195,13 +195,13 @@ export const Input = ({
         <View style={tw`flex flex-row`}>
           {inputIcons.map(([icon, action], index) => (
             <Pressable onPress={action} key={`inputIcon-${icon}-${index}`}>
-              <Icon id={icon} style={tw`h-5 w-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
+              <Icon id={icon} style={tw`w-5 h-5 ml-4`} color={showError ? colors.textError.color : colors.text.color} />
             </Pressable>
           ))}
         </View>
       </View>
 
-      <Text style={[tw`tooltip mt-1 ml-3`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
+      <Text style={[tw`mt-1 ml-3 tooltip`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )
 }

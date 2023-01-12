@@ -100,16 +100,16 @@ export default (): ReactElement => {
   }
 
   return (
-    <PeachScrollView style={tw`h-full flex-shrink mt-12`}>
+    <PeachScrollView style={tw`flex-shrink h-full mt-12`}>
       <View>
-        <View style={tw`items-center justify-center flex-row`}>
+        <View style={tw`flex-row items-center justify-center`}>
           <Text style={tw`text-center`}>{i18n('settings.backups.createASecurePassword')}</Text>
           <Pressable style={tw`p-2`} onPress={openPasswordHelp}>
             <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
           </Pressable>
         </View>
 
-        <Text style={[tw`font-baloo text-2xs text-grey-3 text-center mt-4`, password && !isValid ? tw`text-red` : {}]}>
+        <Text style={[tw`mt-4 text-center font-baloo text-2xs text-grey-3`, password && !isValid ? tw`text-red` : {}]}>
           {!passwordMatch ? i18n('form.password.match.error') : i18n('form.password.error')}
         </Text>
         <Input

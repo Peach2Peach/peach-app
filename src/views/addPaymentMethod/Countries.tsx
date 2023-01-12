@@ -43,18 +43,18 @@ export default ({ paymentMethod, currency, selected, setCountry, back, next }: C
 
   return (
     <View style={tw`flex h-full`}>
-      <View style={tw`h-full flex-shrink flex justify-center px-10`}>
+      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
         <RadioButtons
           items={countries}
           selectedValue={selectedCountry}
           onChange={(cs) => setSelectedCountry(cs as Country)}
         />
       </View>
-      <View style={tw`mt-4 px-6 flex items-center w-full bg-white-1`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 bg-white-1`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
-        <View style={tw`flex-grow items-center`}>
+        <View style={tw`items-center flex-grow`}>
           <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
             {i18n('next')}
           </PrimaryButton>

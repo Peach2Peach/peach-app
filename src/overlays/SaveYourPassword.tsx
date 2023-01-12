@@ -17,7 +17,7 @@ export default (): ReactElement => {
   return (
     <View testID="saveYourPassword" style={tw`flex items-center`}>
       <Headline style={tw`text-white-1`}>{i18n('newUser.saveYourPassword.title')}</Headline>
-      <Text style={tw`text-center text-white-1 mt-2`}>
+      <Text style={tw`mt-2 text-center text-white-1`}>
         {i18n('newUser.saveYourPassword.description.1')}
         {'\n\n'}
         {i18n('newUser.saveYourPassword.description.2')}

@@ -76,11 +76,11 @@ export const DisputeLostSeller = ({ contract, navigate }: DisputeLostSellerProps
   return (
     <View style={tw`px-6`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('dispute.lost')}</Headline>
-      <View style={tw`flex justify-center items-center`}>
-        <View style={tw`flex justify-center items-center`}>
-          <Text style={tw`text-white-1 text-center`}>{i18n('dispute.seller.lost.text.1')}</Text>
+      <View style={tw`flex items-center justify-center`}>
+        <View style={tw`flex items-center justify-center`}>
+          <Text style={tw`text-center text-white-1`}>{i18n('dispute.seller.lost.text.1')}</Text>
           {!contract.paymentConfirmed && (
-            <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.seller.lost.text.2')}</Text>
+            <Text style={tw`mt-2 text-center text-white-1`}>{i18n('dispute.seller.lost.text.2')}</Text>
           )}
         </View>
         <PrimaryButton

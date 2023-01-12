@@ -89,12 +89,12 @@ export default ({ style }: ComponentProps): ReactElement => {
 
   return (
     <View style={[tw`flex flex-col px-6`, style]}>
-      <View style={tw`h-full flex flex-col justify-between flex-shrink`}>
-        <View style={tw`h-full w-full flex-shrink flex flex-col justify-center`}>
-          <Text style={tw`subtitle-1 mt-4 text-center text-primary-background-light`}>
+      <View style={tw`flex flex-col justify-between flex-shrink h-full`}>
+        <View style={tw`flex flex-col justify-center flex-shrink w-full h-full`}>
+          <Text style={tw`mt-4 text-center subtitle-1 text-primary-background-light`}>
             {i18n('restoreBackup.manual.description.1')}
           </Text>
-          <View style={tw`w-full mt-2 px-2`}>
+          <View style={tw`w-full px-2 mt-2`}>
             <FileInput
               theme="inverted"
               fileName={file.name}

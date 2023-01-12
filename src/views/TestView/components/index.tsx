@@ -11,7 +11,7 @@ export default () => {
   useHeaderSetup(useMemo(() => ({ title: 'test view - components' }), []))
 
   return (
-    <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}>
+    <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`flex items-center w-full px-6 py-10`}>
       <SatsFormats />
       <PriceFormats />
       <SummaryItems />

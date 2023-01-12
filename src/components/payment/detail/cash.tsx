@@ -7,7 +7,7 @@ import { Headline, Text } from '../../text'
 
 export const CashDetails = (): ReactElement => (
   <View>
-    <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('contract.payment.at')}</Headline>
+    <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.payment.at')}</Headline>
     <Text style={tw`text-center text-grey-2`}>location agreed in chat</Text>
   </View>
 )

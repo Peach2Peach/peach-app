@@ -5,7 +5,7 @@ import tw from '../../../styles/tailwind'
 
 export const PriceFormats = () => (
   <View style={tw`flex flex-col items-center`}>
-    <Text style={tw`h3 mt-4`}>Price Format</Text>
+    <Text style={tw`mt-4 h3`}>Price Format</Text>
     <PriceFormat amount={1} currency="EUR" />
     <PriceFormat amount={6.15} currency="CHF" />
     <PriceFormat amount={12.5} currency="GBP" />

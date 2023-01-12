@@ -73,7 +73,7 @@ export default (): ReactElement => {
   )
 
   return (
-    <View style={tw`h-full w-full justify-center items-center`}>
+    <View style={tw`items-center justify-center w-full h-full`}>
       <Text style={tw`h6`}>{i18n('settings.refundAddress.title')}</Text>
       <View style={tw`mx-16 mt-4`}>
         <BitcoinAddressInput
@@ -86,12 +86,12 @@ export default (): ReactElement => {
         />
       </View>
       {isUpdated && (
-        <View style={tw`w-full h-0 flex-row justify-center`}>
-          <Text style={tw`button-medium h-6 uppercase`}>{i18n('settings.refundAddress.success')}</Text>
+        <View style={tw`flex-row justify-center w-full h-0`}>
+          <Text style={tw`h-6 uppercase button-medium`}>{i18n('settings.refundAddress.success')}</Text>
           <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
         </View>
       )}
-      <PrimaryButton narrow style={tw`mt-16 absolute bottom-6`} onPress={setReturnAddress} disabled={isUpdated}>
+      <PrimaryButton narrow style={tw`absolute mt-16 bottom-6`} onPress={setReturnAddress} disabled={isUpdated}>
         {i18n('settings.refundAddress.confirm')}
       </PrimaryButton>
     </View>

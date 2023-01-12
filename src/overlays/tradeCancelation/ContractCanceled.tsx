@@ -24,10 +24,10 @@ export const ContractCanceled = ({ contract: { id: contractId } }: ConfirmCancel
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-3xl leading-3xl`}>
+      <Headline style={tw`text-3xl text-center text-white-1 font-baloo leading-3xl`}>
         {i18n('yourTrades.tradeCanceled.subtitle')}
       </Headline>
-      <View style={tw`flex items-center justify-center w-16 h-16 bg-green rounded-full`}>
+      <View style={tw`flex items-center justify-center w-16 h-16 rounded-full bg-green`}>
         <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
       </View>
     </View>

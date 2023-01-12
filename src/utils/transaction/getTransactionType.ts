@@ -2,10 +2,10 @@ import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfa
 
 export const getTransactionType = (
   tx: ConfirmedTransaction | PendingTransaction,
-  offer?: BuyOffer | SellOffer,
+  offer?: OfferSummary,
 ): TransactionType => {
-  if (offer?.id) {
-    return offer.refunded ? 'REFUND' : 'TRADE'
+  if (offer) {
+    return offer.type === 'ask' ? 'REFUND' : 'TRADE'
   }
   return tx.received === 0 ? 'WITHDRAWAL' : 'DEPOSIT'
 }

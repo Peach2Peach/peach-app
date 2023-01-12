@@ -51,7 +51,7 @@ export default () => {
           data={matches}
           {...{ ...carouselConfig, onBeforeSnapToItem }}
           renderItem={({ item, index }) => (
-            <View {...{ onStartShouldSetResponder }} style={tw`-mx-4 px-4 py-4 bg-transparent`}>
+            <View {...{ onStartShouldSetResponder }} style={tw`px-4 py-4 -mx-4 bg-transparent`}>
               <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
             </View>
           )}
@@ -60,7 +60,7 @@ export default () => {
       {matches[currentIndex + 1] !== undefined ? (
         <NextButton onPress={snapToNext} />
       ) : (
-        (isLoading || isFetchingNextPage) && <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
+        (isLoading || isFetchingNextPage) && <Loading style={tw`absolute z-10 w-4 h-4 right-4`} size="small" />
       )}
     </View>
   )

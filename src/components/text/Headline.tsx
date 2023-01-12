@@ -16,7 +16,7 @@ type HeadlineProps = ComponentProps
  * </Headline>
  */
 export const Headline = ({ style, children }: HeadlineProps): ReactElement => (
-  <Text style={[tw`h5 text-lg uppercase text-center text-peach-1`, style as ViewStyle]}>{children}</Text>
+  <Text style={[tw`text-lg text-center uppercase h5 text-peach-1`, style as ViewStyle]}>{children}</Text>
 )
 
 export default Headline

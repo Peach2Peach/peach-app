@@ -22,10 +22,10 @@ type UserTradeDetailsProps = {
 
 const UserTradeDetails = ({ user: { trades, disputes } }: UserTradeDetailsProps): ReactElement => (
   <View>
-    <Text style={tw`text-center font-bold text-grey-1 mt-4`}>{i18n('profile.numberOfTrades')}</Text>
+    <Text style={tw`mt-4 font-bold text-center text-grey-1`}>{i18n('profile.numberOfTrades')}</Text>
     <Text style={tw`text-center text-grey-1`}>{trades}</Text>
 
-    <Text style={tw`text-center font-bold text-grey-1 mt-4`}>{i18n('profile.disputes')}</Text>
+    <Text style={tw`mt-4 font-bold text-center text-grey-1`}>{i18n('profile.disputes')}</Text>
     <Text style={tw`text-center text-grey-1`}>
       {i18n('profile.disputesOpened')}: {disputes.opened}
     </Text>
@@ -81,15 +81,15 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex items-stretch`}>
-      <PeachScrollView contentContainerStyle={tw`pt-6 px-12 pb-10`}>
+    <View style={tw`flex items-stretch h-full`}>
+      <PeachScrollView contentContainerStyle={tw`px-12 pt-6 pb-10`}>
         <Title title={i18n(isMyAccount ? 'profile.myAccount.title' : 'profile.user.title')} />
         <View style={tw`mt-12`}>
-          <Headline style={tw`text-center text-grey-1 font-bold`}>Peach{userId.substring(0, 8)}</Headline>
+          <Headline style={tw`font-bold text-center text-grey-1`}>Peach{userId.substring(0, 8)}</Headline>
           {user ? (
             user.trades < 3 ? (
               <View style={tw`flex items-center`}>
-                <Text style={tw`font-bold font-baloo text-sm leading-4 ml-1 mt-2 text-grey-2`}>
+                <Text style={tw`mt-2 ml-1 text-sm font-bold leading-4 font-baloo text-grey-2`}>
                   {i18n('rating.newUser')}
                 </Text>
               </View>
@@ -101,35 +101,35 @@ export default (): ReactElement => {
             )
           ) : null}
 
-          <Text style={tw`text-center font-bold text-grey-1 mt-4`}>{i18n('profile.accountCreated')}</Text>
+          <Text style={tw`mt-4 font-bold text-center text-grey-1`}>{i18n('profile.accountCreated')}</Text>
           <Text style={tw`text-center text-grey-1`}>
             {user ? toShortDateFormat(new Date(user.creationDate)) : ''} (
             {i18n('profile.daysAgo', accountAge.toString())})
           </Text>
-          <Text style={tw`text-center text-grey-1 font-bold mt-4`}>{i18n('profile.publicKey')}</Text>
+          <Text style={tw`mt-4 font-bold text-center text-grey-1`}>{i18n('profile.publicKey')}</Text>
           <Pressable onPress={copy} style={tw`flex-row items-center justify-center`}>
             <Text style={tw`text-sm text-grey-2`}>{publicKey}</Text>
             <View>
               <Fade show={showCopied} duration={300} delay={0}>
                 <Text
                   style={[
-                    tw`absolute -top-6 w-20 left-1/2 -ml-10`,
-                    tw`font-baloo text-grey-1 text-sm uppercase text-center`,
+                    tw`absolute w-20 -ml-10 -top-6 left-1/2`,
+                    tw`text-sm text-center uppercase font-baloo text-grey-1`,
                   ]}
                 >
                   {i18n('copied')}
                 </Text>
               </Fade>
-              <Icon id="copy" style={tw`w-7 h-7 ml-2`} color={tw`text-peach-1`.color} />
+              <Icon id="copy" style={tw`ml-2 w-7 h-7`} color={tw`text-peach-1`.color} />
             </View>
           </Pressable>
-          {isMyAccount ? <TradingLimit tradingLimit={getTradingLimit(currency)} style={tw`mt-4 px-2`} /> : null}
+          {isMyAccount ? <TradingLimit tradingLimit={getTradingLimit(currency)} style={tw`px-2 mt-4`} /> : null}
           {user ? <UserTradeDetails user={user} /> : null}
         </View>
         <GoBackButton style={tw`self-center mt-16`} />
       </PeachScrollView>
       {updatePending && (
-        <View style={tw`w-full h-full items-center justify-center absolute`}>
+        <View style={tw`absolute items-center justify-center w-full h-full`}>
           <Loading />
         </View>
       )}
