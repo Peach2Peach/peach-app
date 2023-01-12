@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import { Input, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import LanguageContext from '../../contexts/language'
-import { useNavigation, useValidatedState } from '../../hooks'
+import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
 import i18n from '../../utils/i18n'
 
 const referralCodeRules = { referralCode: true }
@@ -13,7 +13,7 @@ const referralCodeRules = { referralCode: true }
 export default (): ReactElement => {
   useContext(LanguageContext)
   const navigation = useNavigation()
-
+  const keyboardOpen = useKeyboard()
   const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState<string>(
     '',
     referralCodeRules,
@@ -51,21 +51,23 @@ export default (): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`flex items-stretch mt-4`}>
+      <View style={[tw`flex items-stretch mt-4`, keyboardOpen ? tw`mb-4` : {}]}>
         <PrimaryButton testID="welcome-newUser" onPress={goToNewUser} white narrow iconId="plusCircle">
           {i18n('newUser')}
         </PrimaryButton>
-        <PrimaryButton
-          testID="welcome-restoreBackup"
-          onPress={goToRestoreBackup}
-          style={tw`mt-2`}
-          iconId="save"
-          white
-          border
-          narrow
-        >
-          {i18n('restore')}
-        </PrimaryButton>
+        {!keyboardOpen && (
+          <PrimaryButton
+            testID="welcome-restoreBackup"
+            onPress={goToRestoreBackup}
+            style={tw`mt-2`}
+            iconId="save"
+            white
+            border
+            narrow
+          >
+            {i18n('restore')}
+          </PrimaryButton>
+        )}
       </View>
     </View>
   )

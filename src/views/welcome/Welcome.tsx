@@ -11,6 +11,7 @@ import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
 import PrivacyFirst from './PrivacyFirst'
 import { useWelcomeHeader } from './useWelcomeHeader'
+import { useKeyboard } from '../../hooks'
 
 const onStartShouldSetResponder = () => true
 
@@ -21,6 +22,7 @@ export default (): ReactElement => {
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
+  const keyboardOpen = useKeyboard()
 
   const next = () => {
     $carousel.current?.snapToNext()
@@ -70,13 +72,13 @@ export default (): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`flex items-center w-full pt-4 mb-8`}>
-        <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
+      {!keyboardOpen && (
+        <View style={[tw`flex items-center w-full pt-4 mb-8`, page === screens.length - 1 ? tw`opacity-0` : {}]}>
           <PrimaryButton testID="welcome-next" narrow white onPress={next} iconId="arrowRightCircle">
             {i18n('next')}
           </PrimaryButton>
         </View>
-      </View>
+      )}
     </View>
   )
 }
