@@ -16,23 +16,10 @@ import { SecurityInfo } from './SecurityInfo'
 import { TwelveWords } from './TwelveWords'
 
 const screens = [
-  {
-    id: 'securityInfo',
-    view: SecurityInfo,
-  },
-  {
-    id: 'twelveWords',
-    view: TwelveWords,
-  },
-  {
-    id: 'keepPhraseSecure',
-    view: KeepPhraseSecure,
-    buttonText: 'finish',
-  },
-  {
-    id: 'lastSeedBackup',
-    view: LastSeedBackup,
-  },
+  { id: 'securityInfo', view: SecurityInfo },
+  { id: 'twelveWords', view: TwelveWords },
+  { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
+  { id: 'lastSeedBackup', view: LastSeedBackup },
 ]
 
 export default ({ style }: ComponentProps): ReactElement => {
