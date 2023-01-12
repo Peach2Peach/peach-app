@@ -10,7 +10,7 @@ import { Trades } from './Trades'
 const style = tw`mt-4`
 export const AccountInfo = ({ style: wrapperStyle, user }: { user: User } & ComponentProps) => (
   <View style={wrapperStyle}>
-    <PublicKey publicKey={user.id} style={style} />
+    <PublicKey publicKey={user.id} />
     <AccountCreated {...{ ...user, style }} />
     <Disputes {...{ ...user.disputes, style }} />
     <Trades {...{ ...user, style }} />

@@ -17,7 +17,7 @@ export default () => {
   return (
     <View style={tw`h-full px-8`}>
       <ProfileOverview style={tw`mt-[48.5px]`} user={user} />
-      <AccountInfo style={tw`ml-1`} user={user} />
+      <AccountInfo style={tw`ml-1 mt-13`} user={user} />
     </View>
   )
 }

@@ -6,7 +6,7 @@ import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { priceFormat, thousands } from '../../../utils/string'
+import { priceFormat } from '../../../utils/string'
 
 const Progress = ({ text, percentage, style }: { text?: string; percentage: number } & ComponentProps) => (
   <View style={style}>
@@ -53,7 +53,7 @@ export const TradingLimits = (props: ComponentProps) => {
               priceFormat(amount),
               priceFormat(limit),
             )}
-            style={tw`mb-4`}
+            style={tw`mt-4`}
             percentage={amount / limit}
           />
         )
