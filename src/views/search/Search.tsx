@@ -12,9 +12,9 @@ export default (): ReactElement => {
 
   return (
     <PeachScrollView>
-      <View style={tw`h-full flex-col pb-6 pt-5`}>
+      <View style={tw`flex-col h-full pt-5 pb-6`}>
         <View style={tw`px-6`}>{hasMatches ? <MatchInformation /> : <NoMatchesYet />}</View>
-        <View style={tw`h-full flex-shrink flex-col justify-end`}>
+        <View style={tw`flex-col justify-end flex-shrink h-full`}>
           {hasMatches ? <Matches /> : <GoHomeButton />}
           <CancelOfferButton />
         </View>

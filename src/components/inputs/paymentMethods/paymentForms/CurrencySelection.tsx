@@ -31,7 +31,7 @@ export const CurrencySelection = ({
 
   return (
     <View style={style}>
-      <View style={tw`items-center flex-row`}>
+      <View style={tw`flex-row items-center`}>
         <Text style={tw`input-label`}>{i18n('form.additionalCurrencies')}</Text>
       </View>
       <View style={tw`flex-row mt-1`}>

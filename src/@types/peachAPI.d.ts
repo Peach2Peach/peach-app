@@ -326,4 +326,6 @@ declare type FeeRecommendation = {
   minimumFee: number
 }
 declare type GetFeeEstimateResponse = FeeRecommendation
-declare type TradeSummary = OfferSummary | ContractSummary
+declare type TradeSummary = (OfferSummary | ContractSummary) & {
+  paymentMade?: Date
+}

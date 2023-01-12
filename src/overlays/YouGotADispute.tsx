@@ -96,11 +96,11 @@ export default ({ message, reason, contractId }: YouGotADisputeProps): ReactElem
   return (
     <View style={tw`flex items-center`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('dispute.startedOverlay.title')}</Headline>
-      <View style={tw`flex justify-center items-center`}>
-        <Text style={tw`text-white-1 text-center`}>{i18n('dispute.startedOverlay.description.1', offerId)}</Text>
-        <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.startedOverlay.description.2')}</Text>
-        <Text style={tw`text-white-1 italic text-center mt-2`}>{message}</Text>
-        <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.startedOverlay.description.3')}</Text>
+      <View style={tw`flex items-center justify-center`}>
+        <Text style={tw`text-center text-white-1`}>{i18n('dispute.startedOverlay.description.1', offerId)}</Text>
+        <Text style={tw`mt-2 text-center text-white-1`}>{i18n('dispute.startedOverlay.description.2')}</Text>
+        <Text style={tw`mt-2 italic text-center text-white-1`}>{message}</Text>
+        <Text style={tw`mt-2 text-center text-white-1`}>{i18n('dispute.startedOverlay.description.3')}</Text>
       </View>
       {isEmailRequired(reason) ? (
         <View style={tw`mt-4`}>

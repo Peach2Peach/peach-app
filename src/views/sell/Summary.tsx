@@ -11,7 +11,7 @@ export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
 
   useEffect(() => setStepValid(true))
 
-  return <View style={tw`h-full flex-col justify-center px-6`}>
+  return <View style={tw`flex-col justify-center h-full px-6`}>
     <Title title={i18n('sell.title')} subtitle={i18n('offer.summary.subtitle')} style={[tw`mb-4`, tw.md`mb-6`]}/>
     <SellOfferSummary offer={offer} style={tw`flex-shrink-0`} />
   </View>

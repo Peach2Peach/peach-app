@@ -117,7 +117,7 @@ export default (): ReactElement => {
   }, [paymentMethod, page])
 
   return (
-    <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
+    <View testID="view-buy" style={tw`h-full pb-10 pt-7`}>
       {getScreen()}
     </View>
   )

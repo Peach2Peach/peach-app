@@ -31,11 +31,11 @@ export default (): ReactElement => {
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')
 
   return (
-    <View style={tw`h-full flex flex-col justify-between items-center`}>
+    <View style={tw`flex flex-col items-center justify-between h-full`}>
       <View>{/* dummy for layout */}</View>
       <View>
-        <Text style={tw`h4 text-center text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>
-        <Text style={tw`mt-4 text-primary-background-light text-center`}>{i18n('newUser.referralCode')}</Text>
+        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>
+        <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</Text>
         <View style={tw`flex items-center`}>
           <Input
             testID="newUser-referralCode"

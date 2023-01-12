@@ -260,13 +260,13 @@ const App: React.FC = () => {
                           />
                           <Overlay {...overlayState} />
                           <SafeAreaView>
-                            <View style={tw`h-full flex-col`}>
+                            <View style={tw`flex-col h-full`}>
                               {!!messageState.msgKey && (
                                 <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                                   <Message {...messageState} />
                                 </Animated.View>
                               )}
-                              <View style={tw`h-full flex-shrink`}>
+                              <View style={tw`flex-shrink h-full`}>
                                 <Stack.Navigator
                                   detachInactiveScreens={true}
                                   screenOptions={{

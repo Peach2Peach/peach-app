@@ -8,6 +8,6 @@ import i18n from '../../utils/i18n'
 export default (): ReactElement => (
   <View>
     <Text style={tw`text-white-1`}>{i18n('help.networkFees.description.1')}</Text>
-    <Text style={tw`text-white-1 mt-2`}>{i18n('help.networkFees.description.2')}</Text>
+    <Text style={tw`mt-2 text-white-1`}>{i18n('help.networkFees.description.2')}</Text>
   </View>
 )

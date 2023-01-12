@@ -43,7 +43,7 @@ import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
-import Offer from './yourTrades/Offer'
+import OfferDetails from './offerDetails/OfferDetails'
 import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
@@ -93,7 +93,7 @@ const trade: ViewType[] = [
 
 const tradeHistory: ViewType[] = [
   { name: 'yourTrades', component: YourTrades, ...defaultConfig },
-  { name: 'offer', component: Offer, ...defaultConfig },
+  { name: 'offer', component: OfferDetails, ...defaultConfig },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>

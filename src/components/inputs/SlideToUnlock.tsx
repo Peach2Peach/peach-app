@@ -88,7 +88,7 @@ export const SlideToUnlock = ({
       {...panResponder.panHandlers}
       onLayout={onLayout}
       style={[
-        tw`max-w-full w-full bg-primary-background-dark rounded-full overflow-hidden`,
+        tw`w-full max-w-full overflow-hidden rounded-full bg-primary-background-dark`,
         disabled ? tw`opacity-50` : {},
         style,
       ]}
@@ -99,19 +99,19 @@ export const SlideToUnlock = ({
           style={[tw`flex flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}
         >
           <Animated.View style={[tw`absolute right-full`, { width: widthToSlide, opacity: pan }]}>
-            <Text style={tw`button-large text-center`}>{label2}</Text>
+            <Text style={tw`text-center button-large`}>{label2}</Text>
           </Animated.View>
           <Animated.View
             style={[
               { width: knobWidth, backgroundColor: getBackgroundColor(pan) },
-              tw`my-1 py-2 rounded-full flex flex-row justify-center `,
+              tw`flex flex-row justify-center py-2 my-1 rounded-full `,
             ]}
           >
             <Icon id="checkCircle" style={tw`w-6 h-6`} color={tw`text-primary-background`.color} />
             <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw`text-primary-background`.color} />
           </Animated.View>
           <Animated.View style={{ width: widthToSlide, opacity: getLabel1Opacity(pan) }}>
-            <Text style={tw`button-large text-center`}>{label1}</Text>
+            <Text style={tw`text-center button-large`}>{label1}</Text>
           </Animated.View>
         </Animated.View>
       </Shadow>

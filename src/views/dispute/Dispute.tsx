@@ -125,10 +125,10 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full pt-6 px-6 flex-col justify-between items-center pb-10`}>
+    <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
       <View style={tw`mb-2`}>
         <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0} color={tw`text-grey-2`} />
         </Text>
       </View>
@@ -148,7 +148,7 @@ export default (): ReactElement => {
         </View>
       ) : (
         <View style={tw`flex items-center`}>
-          <Text style={tw`text-center px-4`}>{i18n('dispute.provideExplanation')}</Text>
+          <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
           {isEmailRequired(reason) ? (
             <View style={tw`mt-4`}>
               <Input

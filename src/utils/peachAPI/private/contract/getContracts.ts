@@ -31,7 +31,7 @@ export const getContracts = async ({
       ...contract,
       creationDate: new Date(contract.creationDate),
       lastModified: new Date(contract.lastModified),
-      paymentMade: new Date(contract.paymentMade),
+      paymentMade: contract.paymentMade ? new Date(contract.paymentMade) : undefined,
     }))
   }
 

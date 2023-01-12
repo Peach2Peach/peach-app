@@ -25,13 +25,13 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.seller.rejected.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>
+      <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n('contract.cancel.seller.rejected.text.1', getOfferHexIdFromContract(contract))}
       </Text>
-      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
+      <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
       <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
         {i18n('close')}
       </PrimaryButton>

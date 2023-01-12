@@ -39,10 +39,10 @@ export const ConfirmCancelTradeBuyer = ({ contract }: ConfirmCancelTradeProps): 
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>{i18n('contract.cancel.text')}</Text>
+      <Text style={tw`mt-8 text-center text-white-1`}>{i18n('contract.cancel.text')}</Text>
       <View>
         <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay} narrow>
           {i18n('contract.cancel.confirm.back')}

@@ -327,13 +327,13 @@ export default (): ReactElement => {
   }, [contractId, page, updateMessage])
 
   return !contract || updatePending ? (
-    <View style={tw`w-full h-full items-center justify-center`}>
+    <View style={tw`items-center justify-center w-full h-full`}>
       <Loading />
     </View>
   ) : (
-    <View style={[tw`h-full flex-col`]}>
+    <View style={[tw`flex-col h-full`]}>
       <ChatHeader contract={contract} />
-      <View style={[tw`w-full h-full flex-shrink`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
+      <View style={[tw`flex-shrink w-full h-full`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}
           setAndSaveChat={setAndSaveChat}

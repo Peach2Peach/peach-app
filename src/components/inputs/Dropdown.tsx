@@ -34,8 +34,8 @@ type DropdownProps = ComponentProps & {
  *   items={[
  *     {
  *       value: 500000,
- *       display: (isOpen: boolean) => <View style={tw`flex-row justify-between items-center`}>
- *         <View style={tw`flex-row justify-start items-center`}>
+ *       display: (isOpen: boolean) => <View style={tw`flex-row items-center justify-between`}>
+ *         <View style={tw`flex-row items-center justify-start`}>
  *           <Text style={tw`font-mono text-grey-2`}>0.00</Text><Text style={tw`font-mono`}> 500 000 Sat</Text>
  *         </View>
  *         {isOpen
@@ -74,13 +74,13 @@ export const Dropdown = ({ items, selectedValue, onChange, style, testID }: Drop
   return (
     <View style={[tw`w-full rounded bg-white-1`, !isOpen ? tw`overflow-hidden` : {}, style]}>
       <Shadow shadow={isOpen ? mildShadow : innerShadow}>
-        <View style={[tw`w-full py-0 border border-grey-4 rounded`, isOpen ? tw`bg-white-1` : {}]}>
+        <View style={[tw`w-full py-0 border rounded border-grey-4`, isOpen ? tw`bg-white-1` : {}]}>
           {isOpen ? (
             [
               <Pressable
                 testID={`${testID}-close`}
                 key={selectedItem?.value}
-                style={tw`h-10 pl-4 pr-3 flex justify-center opacity-30`}
+                style={tw`flex justify-center h-10 pl-4 pr-3 opacity-30`}
                 onPress={toggle}
               >
                 {selectedItem?.display(false)}
@@ -96,7 +96,7 @@ export const Dropdown = ({ items, selectedValue, onChange, style, testID }: Drop
                   <Pressable
                     testID={`${testID}-item-${value}`}
                     key={value}
-                    style={tw`h-10 flex justify-center`}
+                    style={tw`flex justify-center h-10`}
                     onPress={() => select(value)}
                   >
                     {display(isOpen)}
@@ -105,7 +105,7 @@ export const Dropdown = ({ items, selectedValue, onChange, style, testID }: Drop
               </PeachScrollView>,
             ]
           ) : (
-            <Pressable testID={`${testID}-open`} style={tw`h-10 pl-4 pr-3 flex justify-center`} onPress={toggle}>
+            <Pressable testID={`${testID}-open`} style={tw`flex justify-center h-10 pl-4 pr-3`} onPress={toggle}>
               {selectedItem?.display(isOpen)}
             </Pressable>
           )}

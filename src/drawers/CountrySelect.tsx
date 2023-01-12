@@ -24,7 +24,7 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
         <View key={country}>
           <View style={tw`flex flex-row items-center px-8`}>
             <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
-            <Text style={tw`subtitle-1 w-full flex-shrink`} onPress={() => select(country)}>
+            <Text style={tw`flex-shrink w-full subtitle-1`} onPress={() => select(country)}>
               {i18n(`country.${country}`)}
             </Text>
             {country === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-main`.color} /> : null}
@@ -33,7 +33,7 @@ export const CountrySelect = ({ countries, selectedCountry, onSelect }: CountryP
         </View>
       ))}
       <HorizontalLine style={tw`my-6`} />
-      <Text onPress={confirm} style={tw`drawer-title text-primary-main text-center`}>
+      <Text onPress={confirm} style={tw`text-center drawer-title text-primary-main`}>
         {i18n('confirm')}
       </Text>
     </View>

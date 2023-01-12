@@ -77,7 +77,7 @@ export default (): ReactElement => {
 
   return (
     <PeachScrollView contentContainerStyle={tw`flex-grow`}>
-      <View style={tw`h-full items-center justify-end pt-6 px-6 pb-10`}>
+      <View style={tw`items-center justify-end h-full px-6 pt-6 pb-10`}>
         <Input
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
@@ -105,15 +105,15 @@ export default (): ReactElement => {
           autoCorrect={false}
           errorMessage={messageErrors}
         />
-        <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row justify-center items-center my-5`}>
-          <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
+        <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center justify-center my-5`}>
+          <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
             {shareDeviceID ? (
               <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
             ) : (
-              <View style={tw`w-4 h-4 rounded-sm border-2 border-black-3`} />
+              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
             )}
           </View>
-          <Text style={tw`pl-2 flex-shrink subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+          <Text style={tw`flex-shrink pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
         </Pressable>
 
         <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)} narrow>

@@ -11,16 +11,16 @@ export const MatchInformation = () => {
   const { allMatches: matches } = useOfferMatches()
   return (
     <>
-      <Headline style={[tw`text-center text-2xl leading-2xl uppercase text-peach-1`, tw.md`text-3xl leading-3xl`]}>
+      <Headline style={[tw`text-2xl text-center uppercase leading-2xl text-peach-1`, tw.md`text-3xl leading-3xl`]}>
         {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
       </Headline>
       <View>
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n(`search.${type === 'bid' ? 'buyOffer' : 'sellOffer'}`)}{' '}
           <SatsFormat sats={amount} color={tw`text-grey-2`} />
         </Text>
         {type !== 'bid' && (
-          <Text style={tw`text-grey-2 text-center`}>
+          <Text style={tw`text-center text-grey-2`}>
             {i18n(premium > 0 ? 'search.atPremium' : 'search.atDiscount', String(Math.abs(premium)))}
           </Text>
         )}

@@ -14,8 +14,8 @@ export default ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' 
   const { width } = useWindowDimensions()
 
   return (
-    <View style={tw`h-full flex flex-col justify-center items-center`}>
-      <Text style={tw`h5 text-center text-primary-background-light`}>{i18n(`welcome.${name}.title`)}</Text>
+    <View style={tw`flex flex-col items-center justify-center h-full`}>
+      <Text style={tw`text-center h5 text-primary-background-light`}>{i18n(`welcome.${name}.title`)}</Text>
       <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n(`welcome.${name}.description`)}</Text>
       <Image source={images[name]} style={{ width, height: width * 0.7 }} resizeMode="contain" />
     </View>
