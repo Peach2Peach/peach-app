@@ -1,6 +1,7 @@
 import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
+
 import { APPLINKS } from '../../constants'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -75,7 +76,7 @@ const Escrow = ({ contract }: TradeSummaryProps): ReactElement => (
 const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
   const navigation = useNavigation()
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
-  const goToUserProfile = () => navigation.navigate('profile', { userId: contract.buyer.id, user: contract.buyer })
+  const goToUserProfile = () => navigation.navigate('publicProfile', { userId: contract.buyer.id, user: contract.buyer })
 
   return (
     <View>
@@ -110,7 +111,8 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
 const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const navigation = useNavigation()
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
-  const goToUserProfile = () => navigation.navigate('profile', { userId: contract.seller.id, user: contract.seller })
+  const goToUserProfile = () =>
+    navigation.navigate('publicProfile', { userId: contract.seller.id, user: contract.seller })
   const appLink = APPLINKS[contract.paymentMethod]
 
   return (
@@ -166,7 +168,7 @@ const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement => {
   const disputeOutcome
     = contract.disputeWinner && !contract.disputeActive ? (contract.disputeWinner === view ? 'won' : 'lost') : null
 
-  const goToUserProfile = () => navigation.navigate('profile', { userId: tradingPartner.id, user: tradingPartner })
+  const goToUserProfile = () => navigation.navigate('publicProfile', { userId: tradingPartner.id, user: tradingPartner })
 
   return (
     <View>

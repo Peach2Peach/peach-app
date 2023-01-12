@@ -1,5 +1,6 @@
 import React from 'react'
 import { Pressable, View } from 'react-native'
+
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -21,7 +22,7 @@ export const UserInfo = ({ user }: UserInfoProps) => {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('profile', { userId: user.id, user })}
+      onPress={() => navigation.navigate('publicProfile', { userId: user.id, user })}
       style={tw`flex-row items-center justify-between w-full`}
     >
       <View>

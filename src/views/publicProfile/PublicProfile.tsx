@@ -1,20 +1,19 @@
-import React, { ReactElement, useCallback, useState } from 'react'
-import { Pressable, View } from 'react-native'
-
-import tw from '../../styles/tailwind'
-
 import Clipboard from '@react-native-clipboard/clipboard'
 import { useFocusEffect } from '@react-navigation/native'
+import React, { ReactElement, useCallback, useState } from 'react'
+import { Pressable, View } from 'react-native'
 import shallow from 'zustand/shallow'
+
 import { Fade, GoBackButton, Headline, Icon, Loading, PeachScrollView, Text, Title } from '../../components'
 import { ExtraMedals, Rating, TradingLimit } from '../../components/user'
 import { useRoute } from '../../hooks'
 import { useBitcoinStore } from '../../store/bitcoinStore'
+import tw from '../../styles/tailwind'
 import { account, getTradingLimit } from '../../utils/account'
+import { toShortDateFormat } from '../../utils/date'
 import i18n from '../../utils/i18n'
 import { getUser } from '../../utils/peachAPI'
 import { splitAt } from '../../utils/string'
-import { toShortDateFormat } from '../../utils/date'
 
 type UserTradeDetailsProps = {
   user: User
@@ -38,7 +37,7 @@ const UserTradeDetails = ({ user: { trades, disputes } }: UserTradeDetailsProps)
   </View>
 )
 export default (): ReactElement => {
-  const route = useRoute<'profile'>()
+  const route = useRoute<'publicProfile'>()
   const [currency] = useBitcoinStore((state) => [state.currency], shallow)
   const { userId } = route.params
   const [updatePending, setUpdatePending] = useState(!route.params.user)
