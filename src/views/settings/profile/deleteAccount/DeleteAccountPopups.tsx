@@ -1,5 +1,6 @@
-import { CommonActions, useNavigation } from '@react-navigation/native'
+import { CommonActions } from '@react-navigation/native'
 import React, { useCallback, useContext } from 'react'
+
 import { Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { deleteAccount } from '../../../../utils/account'
@@ -11,7 +12,6 @@ const DeleteAccountPopup = ({ title }: { title: 'popup' | 'forRealsies' | 'succe
 
 export const useDeleteAccountPopups = () => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const navigation = useNavigation()
 
   const showOverlay = useCallback(
     (content: JSX.Element, callback?: () => void, isSuccess = false) =>
