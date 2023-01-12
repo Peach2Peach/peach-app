@@ -36,7 +36,8 @@ export const TradingLimits = (props: ComponentProps) => {
   ]
 
   const { data: marketPrices } = useMarketPrices()
-  const exchangeRate = marketPrices ? marketPrices[displayCurrency]! / marketPrices.CHF! : 1
+  const displayPrice = marketPrices && marketPrices[displayCurrency]
+  const exchangeRate = displayPrice && marketPrices.CHF ? displayPrice / marketPrices.CHF : 1
 
   return (
     <View {...props}>
