@@ -1,5 +1,5 @@
-export { Checkboxes } from './Checkboxes'
 export { CurrencyItem } from './CurrencyItem'
+export { Checkbox } from './Checkbox'
 export { Dropdown } from './Dropdown'
 export { FileInput } from './FileInput'
 export type { FileData } from './FileInput'

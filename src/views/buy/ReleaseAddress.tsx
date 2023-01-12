@@ -106,7 +106,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onFocus={focus}
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
-              isValid={addressIsValid}
               errorMessage={displayErrors ? addressErrors : undefined}
             />
           </View>

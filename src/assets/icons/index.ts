@@ -12,6 +12,7 @@ import bellSmall from './bellSmall.svg'
 import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
 import camera from './camera.svg'
+import cameraOff from './cameraOff.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
@@ -28,6 +29,7 @@ import circle from './circle.svg'
 import clipboard from './clipboard.svg'
 import clock from './clock.svg'
 import cloud from './cloud.svg'
+import cloudOff from './cloudOff.svg'
 import copy from './copy.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
@@ -37,6 +39,7 @@ import dollarSign from './dollarSign.svg'
 import download from './download.svg'
 import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
+import edit3 from './edit3.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
@@ -80,6 +83,7 @@ import skipForward from './skipForward.svg'
 import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
+import square from './square.svg'
 import star from './star.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
@@ -88,6 +92,7 @@ import toggleLeft from './toggleLeft.svg'
 import toggleRight from './toggleRight.svg'
 import trash from './trash.svg'
 import trendingUp from './trendingUp.svg'
+import unlock from './unlock.svg'
 import upload from './upload.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
@@ -115,6 +120,7 @@ const Icons = {
   bitbox,
   buy: download,
   camera,
+  cameraOff,
   chatDoubleCheck,
   check,
   checkboxMark,
@@ -131,6 +137,7 @@ const Icons = {
   clipboard,
   clock,
   cloud,
+  cloudOff,
   copy,
   cpu,
   crossOutlined,
@@ -140,6 +147,7 @@ const Icons = {
   download,
   downloadCloud,
   edit,
+  edit3,
   externalLink,
   eye,
   eyeOff,
@@ -184,6 +192,7 @@ const Icons = {
   slash,
   sliderNext,
   sliderPrev,
+  square,
   star,
   thumbsDown,
   thumbsUp,
@@ -192,6 +201,7 @@ const Icons = {
   toggleRight,
   trash,
   trendingUp,
+  unlock,
   upload,
   user,
   userCheck,

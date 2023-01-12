@@ -1,38 +1,41 @@
 import React, { ReactElement } from 'react'
-import { Pressable, View } from 'react-native'
-import { Card, Text } from '../../../../components'
-import { PrimaryButton } from '../../../../components/buttons'
-import { useNavigation } from '../../../../hooks'
+import { View } from 'react-native'
+
+import { Text } from '../../../../components'
+import { GoBackButton, PrimaryButton } from '../../../../components/buttons'
+import { HelpIcon } from '../../../../components/icons'
+import { useHeaderSetup } from '../../../../hooks'
+import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
-import i18n from '../../../../utils/i18n'
 import { toShortDateFormat } from '../../../../utils/date'
+import i18n from '../../../../utils/i18n'
 
-type FileBackupOverviewProps = {
-  next: () => void
-}
+type FileBackupOverviewProps = { next: () => void }
+
 export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElement => {
-  const navigation = useNavigation()
-
+  const showPopup = useShowHelp('fileBackup')
+  useHeaderSetup({
+    title: i18n('settings.backups.fileBackup.title'),
+    icons: [{ iconComponent: <HelpIcon />, onPress: showPopup }],
+  })
   return (
-    <View style={tw`flex flex-col flex-shrink h-full mt-12`}>
-      <View style={tw`flex-shrink h-full`}>
-        {account.settings.lastBackupDate ? (
-          <Text style={tw`text-center text-grey-1`}>
-            {i18n('settings.backups.lastBackup')} {toShortDateFormat(new Date(account.settings.lastBackupDate), true)}
-          </Text>
-        ) : null}
-        <Pressable style={tw`mt-2`} onPress={next}>
-          <Card>
-            <Text style={tw`p-2 text-lg text-center text-black-1`}>{i18n('settings.backups.createNew')}</Text>
-          </Card>
-        </Pressable>
-      </View>
-      <View style={tw`flex items-center mt-16`}>
-        <PrimaryButton narrow onPress={navigation.goBack}>
-          {i18n('back')}
+    <View style={tw`items-center h-full`}>
+      <Text style={tw`subtitle-1`}>{i18n('settings.backups.fileBackup.toRestore')}</Text>
+      <View style={tw`items-center justify-center flex-shrink h-full`}>
+        {!!account.settings.lastBackupDate && (
+          <>
+            <Text style={tw`h6`}>{i18n('settings.backups.fileBackup.lastBackup')}</Text>
+            <Text style={tw`mt-2 mb-8 body-m`}>
+              {toShortDateFormat(new Date(account.settings.lastBackupDate), true)}
+            </Text>
+          </>
+        )}
+        <PrimaryButton onPress={next} iconId="save" wide>
+          {i18n('settings.backups.fileBackup.createNew')}
         </PrimaryButton>
       </View>
+      <GoBackButton style={tw`my-6`} />
     </View>
   )
 }
