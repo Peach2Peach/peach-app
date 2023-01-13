@@ -151,7 +151,10 @@ export default (): ReactElement => {
 
       await pgp() // make sure pgp has been sent
 
-      const [result, err] = await postOffer(offer)
+      const [result, err] = await postOffer({
+        ...offer,
+        amount: undefined,
+      })
       if (result) {
         info('Posted offer', result)
 

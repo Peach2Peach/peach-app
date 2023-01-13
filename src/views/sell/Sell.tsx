@@ -105,7 +105,7 @@ export default (): ReactElement => {
         </View>
       </View>
       <PrimaryButton
-        disabled={!minAmountValid || !maxAmountValid}
+        disabled={!amountValid}
         testID="navigation-next"
         style={tw`self-center mx-6 mt-4 mb-10 bg-white-1`}
         onPress={next}
