@@ -5,15 +5,15 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import shallow from 'zustand/shallow'
-import { Headline, Hint, PrimaryButton, Progress, Title } from '../../components'
+import { Headline, Hint, PrimaryButton, Title } from '../../components'
 import { RangeAmount } from '../../components/inputs/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
 import { useBitcoinStore } from '../../store/bitcoinStore'
-import { account, getTradingLimit, updateSettings } from '../../utils/account'
-import { thousands } from '../../utils/string'
-import { getBuyHeaderIcons } from './components/getBuyHeaderIcons'
+import { account, updateSettings } from '../../utils/account'
+import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import BuyTitleComponent from './components/BuyTitleComponent'
+import { getBuyHeaderIcons } from './components/getBuyHeaderIcons'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
@@ -35,7 +35,6 @@ export default (): ReactElement => {
     ),
   )
 
-  const { daily, dailyAmount } = getTradingLimit(currency)
   const [minAmount, setMinAmount, minAmountValid] = useValidatedState(account.settings.minAmount, rangeRules)
   const [maxAmount, setMaxAmount, maxAmountValid] = useValidatedState(account.settings.maxAmount, rangeRules)
   const setSelectedRange = ([min, max]: [number, number]) => {
@@ -62,20 +61,6 @@ export default (): ReactElement => {
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
       <View style={tw`z-20 flex-shrink h-full`}>
-        {!isNaN(dailyAmount) ? (
-          <View style={tw`h-0`}>
-            <Progress
-              percent={dailyAmount / daily}
-              color={tw`bg-primary-main`}
-              text={i18n(
-                'profile.tradingLimits.daily',
-                currency,
-                thousands(dailyAmount),
-                daily === Infinity ? '∞' : thousands(daily),
-              )}
-            />
-          </View>
-        ) : null}
         <View style={tw`flex h-full pb-8 pt-7`}>
           <Title title={i18n('buy.title')} />
           <View style={tw`z-10 flex justify-center flex-shrink h-full`}>
@@ -118,6 +103,7 @@ export default (): ReactElement => {
       >
         {i18n('next')}
       </PrimaryButton>
+      <DailyTradingLimit />
     </View>
   )
 }

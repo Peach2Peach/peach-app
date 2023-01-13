@@ -1,28 +1,12 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { Text } from '../../../components'
+import { Progress, Text } from '../../../components'
 import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string'
-
-const Progress = ({ text, percentage, style }: { text?: string; percentage: number } & ComponentProps) => (
-  <View style={style}>
-    <View style={tw`h-2 overflow-hidden rounded-full bg-primary-background-dark`}>
-      {percentage > 0 && (
-        <View
-          style={[
-            tw`bg-primary-main h-[9px] rounded-full border border-primary-background`,
-            { width: `${percentage * 100}%` },
-          ]}
-        />
-      )}
-    </View>
-    {!!text && <Text style={tw`self-center mt-1 body-s text-black-2`}>{text}</Text>}
-  </View>
-)
 
 export const TradingLimits = (props: ComponentProps) => {
   const { dailyAmount, daily, yearlyAmount, yearly } = account.tradingLimit
@@ -45,17 +29,23 @@ export const TradingLimits = (props: ComponentProps) => {
         amount = Math.round(amount * exchangeRate * 100) / 100
         limit = Math.round(exchangeRate * limit)
         return (
-          <Progress
-            key={`myProfile-tradingLimits-${index}`}
-            text={i18n(
-              'profile.tradingLimits.' + ['daily', 'monthly', 'yearly'][index],
-              displayCurrency,
-              thousands(amount),
-              thousands(limit),
-            )}
-            style={tw`mb-4`}
-            percentage={amount / limit}
-          />
+          <View style={tw`mb-4`}>
+            <Progress
+              key={`myProfile-tradingLimits-${index}`}
+              percent={amount / limit}
+              style={tw`h-[6px]`}
+              backgroundStyle={tw`bg-primary-background-dark`}
+              barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background-light`}
+            />
+            <Text style={tw`self-center mt-1 body-s text-black-2`}>
+              {i18n(
+                'profile.tradingLimits.' + ['daily', 'monthly', 'yearly'][index],
+                displayCurrency,
+                thousands(amount),
+                thousands(limit),
+              )}
+            </Text>
+          </View>
         )
       })}
     </View>

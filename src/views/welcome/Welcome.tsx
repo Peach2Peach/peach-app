@@ -36,7 +36,7 @@ export default (): ReactElement => {
       <View style={tw`w-full px-8`}>
         <Progress
           percent={getProgress()}
-          backgroundStyle={tw`bg-primary-background-light`}
+          backgroundStyle={tw`opacity-50 bg-primary-background-light`}
           barStyle={tw`bg-primary-background-light`}
           style={tw`h-2`}
         />
