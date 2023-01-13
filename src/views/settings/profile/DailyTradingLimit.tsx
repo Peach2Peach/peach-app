@@ -2,18 +2,16 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { Progress, Text } from '../../../components'
-import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { getExchangeRate } from '../../../utils/market'
 import { priceFormat } from '../../../utils/string'
 
 export const DailyTradingLimit = (props: ComponentProps) => {
   const { dailyAmount, daily } = account.tradingLimit
   const { displayCurrency } = account.settings
-  const { data: marketPrices } = useMarketPrices()
-  const displayPrice = marketPrices && marketPrices[displayCurrency]
-  const exchangeRate = displayPrice && marketPrices.CHF ? displayPrice / marketPrices.CHF : 1
+  const exchangeRate = getExchangeRate(displayCurrency, 'CHF')
   const amount = Math.round(dailyAmount * exchangeRate * 100) / 100
   const limit = Math.round(exchangeRate * daily)
 

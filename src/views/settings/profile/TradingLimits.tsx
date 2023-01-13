@@ -6,6 +6,7 @@ import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { getExchangeRate } from '../../../utils/market'
 import { priceFormat } from '../../../utils/string'
 
 export const TradingLimits = (props: ComponentProps) => {
@@ -19,9 +20,7 @@ export const TradingLimits = (props: ComponentProps) => {
     [yearlyAmount, yearly],
   ]
 
-  const { data: marketPrices } = useMarketPrices()
-  const displayPrice = marketPrices && marketPrices[displayCurrency]
-  const exchangeRate = displayPrice && marketPrices.CHF ? displayPrice / marketPrices.CHF : 1
+  const exchangeRate = getExchangeRate(displayCurrency, 'CHF')
 
   return (
     <View {...props}>
