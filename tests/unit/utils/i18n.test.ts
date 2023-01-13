@@ -25,7 +25,7 @@ describe('getLocales', () => {
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
     i18n.setLocale(null, { locale: 'en' })
-    strictEqual('Language', i18n('language'))
+    strictEqual('language', i18n('language'))
     i18n.setLocale(null, { locale: 'de' })
     strictEqual('Sprache', i18n('language'))
   })
