@@ -266,7 +266,8 @@ declare type OfferSummary = {
   contractId?: string
   txId?: string
 }
-declare type GetOffersResponse = OfferSummary[]
+declare type GetOffersResponse = (BuyOffer | SellOffer)[]
+declare type GetOfferSummariesResponse = OfferSummary[]
 
 declare type GetContractResponse = Contract
 
@@ -285,7 +286,8 @@ declare type ContractSummary = {
   unreadMessages: number
   releaseTxId?: string
 }
-declare type GetContractsResponse = ContractSummary[]
+declare type GetContractsResponse = Contract[]
+declare type GetContractSummariesResponse = ContractSummary[]
 
 declare type ConfirmPaymentResponse = {
   success: true

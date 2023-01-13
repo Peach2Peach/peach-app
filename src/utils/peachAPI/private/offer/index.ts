@@ -1,5 +1,6 @@
 export { getOfferDetails } from './getOfferDetails'
 export { getOffers } from './getOffers'
+export { getOfferSummaries } from './getOfferSummaries'
 export { postOffer } from './postOffer'
 export { patchOffer } from './patchOffer'
 export { createEscrow } from './createEscrow'

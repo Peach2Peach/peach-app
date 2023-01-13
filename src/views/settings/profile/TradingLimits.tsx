@@ -6,7 +6,7 @@ import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
+import { priceFormat } from '../../../utils/string'
 
 export const TradingLimits = (props: ComponentProps) => {
   const { dailyAmount, daily, yearlyAmount, yearly } = account.tradingLimit
@@ -41,8 +41,8 @@ export const TradingLimits = (props: ComponentProps) => {
               {i18n(
                 'profile.tradingLimits.' + ['daily', 'monthly', 'yearly'][index],
                 displayCurrency,
-                thousands(amount),
-                thousands(limit),
+                priceFormat(amount),
+                priceFormat(limit),
               )}
             </Text>
           </View>
