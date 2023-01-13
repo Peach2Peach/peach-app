@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 
 import i18n from '../utils/i18n'
 import { FileBackupPopup } from './FileBackupPopup'
+import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { MyBadges } from './info/MyBadges'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
@@ -26,6 +27,7 @@ export const helpOverlays: Record<string, HelpContent> = {
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPasswordPopup },
+  buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
 }
 
 export type HelpType = keyof typeof helpOverlays

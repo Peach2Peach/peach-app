@@ -1,39 +1,22 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
 import { Headline, Hint, PrimaryButton, Title } from '../../components'
 import { RangeAmount } from '../../components/inputs/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
-import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
-import { useBitcoinStore } from '../../store/bitcoinStore'
+import { useNavigation, useValidatedState } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
-import BuyTitleComponent from './components/BuyTitleComponent'
-import { getBuyHeaderIcons } from './components/getBuyHeaderIcons'
+import { useBuySetup } from './hooks/useBuySetup'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
 export default (): ReactElement => {
   const navigation = useNavigation()
-  const [currency, satsPerUnit, prices] = useBitcoinStore(
-    (state) => [state.currency, state.satsPerUnit, state.prices],
-    shallow,
-  )
-
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        titleComponent: <BuyTitleComponent />,
-        hideGoBackButton: true,
-        icons: getBuyHeaderIcons(),
-      }),
-      [],
-    ),
-  )
+  useBuySetup()
 
   const [minAmount, setMinAmount, minAmountValid] = useValidatedState(account.settings.minAmount, rangeRules)
   const [maxAmount, setMaxAmount, maxAmountValid] = useValidatedState(account.settings.maxAmount, rangeRules)
@@ -42,7 +25,6 @@ export default (): ReactElement => {
     setMaxAmount(max)
   }
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
-  // console.log(getTradingLimit())
 
   useEffect(() => {
     updateSettings({ minAmount, maxAmount }, true)
@@ -75,11 +57,6 @@ export default (): ReactElement => {
                   onChange: setSelectedRange,
                 }}
               />
-              {/* {satsPerUnit ? (
-                <Text style={tw`mt-4 mt-16 font-mono text-center text-peach-1`}>
-                  ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
-                </Text>
-              ) : null} */}
             </View>
           </View>
           {showBackupReminder && (

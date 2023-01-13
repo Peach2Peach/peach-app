@@ -1,43 +1,26 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
 import { Headline, Hint, PrimaryButton, Title } from '../../components'
 import { SelectAmount } from '../../components/inputs/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
-import { useHeaderSetup, useNavigation, useValidatedState } from '../../hooks'
-import { useBitcoinStore } from '../../store/bitcoinStore'
+import { useNavigation, useValidatedState } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
-import { getSellHeaderIcons } from './components/getSellHeaderIcons'
-import SellTitleComponent from './components/SellTitleComponent'
+import { useSellSetup } from './hooks/useSellSetup'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
 export default (): ReactElement => {
   const navigation = useNavigation()
-  const [currency, satsPerUnit, prices] = useBitcoinStore(
-    (state) => [state.currency, state.satsPerUnit, state.prices],
-    shallow,
-  )
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        titleComponent: <SellTitleComponent />,
-        hideGoBackButton: true,
-        icons: getSellHeaderIcons(),
-      }),
-      [],
-    ),
-  )
+  useSellSetup()
 
   const [amount, setAmount, amountValid] = useValidatedState(account.settings.minAmount, rangeRules)
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
-  // console.log(getTradingLimit())
 
   useEffect(() => {
     updateSettings({ minAmount: amount }, true)
@@ -70,11 +53,6 @@ export default (): ReactElement => {
                   onChange: setAmount,
                 }}
               />
-              {/* {satsPerUnit ? (
-                <Text style={tw`mt-4 mt-16 font-mono text-center text-peach-1`}>
-                  ≈ {i18n(`currency.format.${currency}`, String(Math.round(amount / satsPerUnit)))}
-                </Text>
-              ) : null} */}
             </View>
           </View>
           {showBackupReminder && (

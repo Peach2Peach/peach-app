@@ -2,7 +2,6 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { Progress, Text } from '../../../components'
-import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -19,7 +18,6 @@ export const TradingLimits = (props: ComponentProps) => {
     [monthlyAmount, monthly],
     [yearlyAmount, yearly],
   ]
-
   const exchangeRate = getExchangeRate(displayCurrency, 'CHF')
 
   return (

@@ -59,11 +59,6 @@ export const RangeAmount = ({ min, max, value, onChange }: RangeAmountProps): Re
           />
         </View>
       </Shadow>
-      <View style={tw`mt-10`}>
-        <Text>Min: {min}</Text>
-        <Text>max {max}</Text>
-        <Text>Current {value.join()}</Text>
-      </View>
     </View>
   )
 }
