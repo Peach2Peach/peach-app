@@ -69,8 +69,8 @@ declare type RootStackParamList = {
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
-  refundAddress: undefined
   payoutAddress: undefined
+  walletSetting: undefined
   paymentMethods: undefined
   deleteAccount: undefined
   peachFees: undefined

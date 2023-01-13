@@ -10,6 +10,7 @@ import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
 import NewUser from './newUser/NewUser'
+import OfferDetails from './offerDetails/OfferDetails'
 import Profile from './profile/Profile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
@@ -31,8 +32,8 @@ import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
-import RefundAddress from './settings/RefundAddress'
 import Settings from './settings/Settings'
+import WalletSettings from './settings/WalletSettings'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
@@ -43,7 +44,6 @@ import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
-import OfferDetails from './offerDetails/OfferDetails'
 import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
@@ -128,8 +128,8 @@ const settings: ViewType[] = [
     showFooter: false,
     background: { color: 'primaryGradient' },
   },
-  { name: 'refundAddress', component: RefundAddress, ...defaultConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'walletSettings', component: WalletSettings, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },

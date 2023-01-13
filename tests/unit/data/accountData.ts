@@ -16,6 +16,7 @@ export const recoveredAccount: Account = {
     showBackupReminder: false,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -56,6 +57,8 @@ export const account1: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -96,6 +99,8 @@ export const seller: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -136,6 +141,8 @@ export const buyer: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -178,6 +185,8 @@ export const userWithNoTrades: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },

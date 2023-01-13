@@ -1,6 +1,7 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import BdkRn from 'bdk-rn'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
+import { settingsStore } from '../../store/settingsStore'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
@@ -37,6 +38,7 @@ export class PeachWallet {
   }
 
   async loadWallet (seedphrase?: string) {
+    const nodeURL = settingsStore.getState().nodeURL
     info('PeachWallet - loadWallet - start')
 
     let mnemonic = seedphrase
@@ -52,18 +54,18 @@ export class PeachWallet {
       mnemonic = generateMnemonicResult.value
     }
 
-    info('PeachWallet - loadWallet - createWallet', BLOCKEXPLORER)
+    info('PeachWallet - loadWallet - createWallet')
     const result = await BdkRn.createWallet({
       mnemonic,
       password: '',
       network: this.network,
       // TODO get user config
-      blockChainConfigUrl: BLOCKEXPLORER,
+      blockChainConfigUrl: nodeURL,
       retry: '5',
       timeOut: '5',
       blockChainName: 'ESPLORA',
     })
-    info('PeachWallet - loadWallet - createWallet', JSON.stringify(result))
+    info('PeachWallet - loadWallet - createWallet')
 
     if (result.isErr()) {
       throw result.error
