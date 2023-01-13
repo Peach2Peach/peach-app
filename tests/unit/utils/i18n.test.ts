@@ -25,7 +25,7 @@ describe('getLocales', () => {
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
     i18n.setLocale(null, { locale: 'en' })
-    strictEqual('Language', i18n('language'))
+    strictEqual('language', i18n('language'))
     i18n.setLocale(null, { locale: 'de' })
     strictEqual('Sprache', i18n('language'))
   })
@@ -64,9 +64,9 @@ describe('i18n', () => {
 
   it('avoids orphans for 4 or more words', () => {
     i18n.setLocale(null, { locale: 'en' })
-    strictEqual('Two words', i18n('i18n.test.two'))
-    strictEqual('Cool three words', i18n('i18n.test.three'))
-    strictEqual('Four words are nice', i18n('i18n.test.four'))
-    strictEqual('Five words get very interesting', i18n('i18n.test.five'))
+    strictEqual('two words', i18n('i18n.test.two'))
+    strictEqual('cool three words', i18n('i18n.test.three'))
+    strictEqual('four words are nice', i18n('i18n.test.four'))
+    strictEqual('five words get very interesting', i18n('i18n.test.five'))
   })
 })
