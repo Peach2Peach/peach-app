@@ -16,7 +16,7 @@ import Summary from './Summary'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
-import { BUCKETS } from '../../constants'
+import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
@@ -39,11 +39,13 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   online: false,
   type: 'ask',
   creationDate: new Date(),
+  lastModified: new Date(),
+  tradeStatus: 'fundEscrow',
   premium: account.settings.premium || 1.5,
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
   originalPaymentData: [],
-  amount: amount || account.settings.amount || BUCKETS[0],
+  amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
   returnAddress: account.settings.returnAddress,
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
