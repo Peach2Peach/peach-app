@@ -4,7 +4,16 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Headline, Hint, PrimaryButton, Title } from '../../components'
+import {
+  BitcoinPriceStats,
+  Headline,
+  Hint,
+  HorizontalLine,
+  PeachScrollView,
+  PrimaryButton,
+  Text,
+  Title,
+} from '../../components'
 import { SelectAmount } from '../../components/inputs/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -38,12 +47,16 @@ export default (): ReactElement => {
 
   return (
     <View testID="view-sell" style={tw`flex h-full`}>
-      <View style={tw`z-20 flex-shrink h-full`}>
+      <HorizontalLine style={tw`mx-8 mb-2`} />
+      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
+        <BitcoinPriceStats />
         <View style={tw`flex h-full pb-8 pt-7`}>
-          <Title title={i18n('sell.title')} />
           <View style={tw`z-10 flex justify-center flex-shrink h-full`}>
             <View>
-              <Headline style={tw`px-5 mt-16 text-grey-1`}>{i18n('sell.subtitle')}</Headline>
+              <Text style={tw`h6`}>
+                {i18n('sell.subtitle')}
+                <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
+              </Text>
               <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
               <SelectAmount
                 {...{
@@ -66,7 +79,7 @@ export default (): ReactElement => {
             />
           )}
         </View>
-      </View>
+      </PeachScrollView>
       <PrimaryButton
         disabled={!amountValid}
         testID="navigation-next"

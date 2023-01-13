@@ -4,11 +4,14 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Headline, Hint, PrimaryButton, Title } from '../../components'
+import shallow from 'zustand/shallow'
+import { BitcoinPriceStats, Hint, HorizontalLine, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 import { account, updateSettings } from '../../utils/account'
+import { priceFormat, thousands } from '../../utils/string'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
 
@@ -42,12 +45,16 @@ export default (): ReactElement => {
 
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
-      <View style={tw`z-20 flex-shrink h-full`}>
+      <HorizontalLine style={tw`mx-8 mb-2`} />
+      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
+        <BitcoinPriceStats />
         <View style={tw`flex h-full pb-8 pt-7`}>
-          <Title title={i18n('buy.title')} />
           <View style={tw`z-10 flex justify-center flex-shrink h-full`}>
             <View>
-              <Headline style={tw`px-5 mt-16 text-grey-1`}>{i18n('buy.subtitle')}</Headline>
+              <Text style={tw`h6`}>
+                {i18n('buy.subtitle')}
+                <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
+              </Text>
               <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
               <RangeAmount
                 {...{
@@ -70,7 +77,7 @@ export default (): ReactElement => {
             />
           )}
         </View>
-      </View>
+      </PeachScrollView>
       <PrimaryButton
         disabled={!minAmountValid || !maxAmountValid}
         testID="navigation-next"
