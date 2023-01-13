@@ -1,6 +1,6 @@
 export { AvoidKeyboard } from './AvoidKeyboard'
 export { PeachScrollView } from './PeachScrollView'
-export { BitcoinAddress } from './bitcoin'
+export { BitcoinPriceStats, BitcoinAddress } from './bitcoin'
 
 export { PrimaryButton, InfoButton, OptionButton, GoBackButton } from './buttons'
 export { Card } from './Card'
