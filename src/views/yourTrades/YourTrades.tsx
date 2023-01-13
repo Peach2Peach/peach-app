@@ -44,7 +44,7 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`flex px-8`}>
+    <View style={tw`h-full px-8`}>
       <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
       {allOpenOffers.length + pastOffers.length > 0 && (
         <SectionList
@@ -53,7 +53,6 @@ export default (): ReactElement => {
           renderSectionHeader={SectionHeader}
           renderItem={TradeItem}
           ItemSeparatorComponent={() => <View style={tw`h-3`} />}
-          style={tw`flex-shrink h-full`}
           contentContainerStyle={tw`py-10`}
         />
       )}
