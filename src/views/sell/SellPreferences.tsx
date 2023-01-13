@@ -44,7 +44,6 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   paymentData: {},
   originalPaymentData: [],
   amount: amount || account.settings.amount || BUCKETS[0],
-  returnAddress: account.settings.returnAddress,
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   funding: {
@@ -111,11 +110,18 @@ export default (): ReactElement => {
 
   useEffect(() => {
     ;(async () => {
-      if (!peachWalletActive || offer.returnAddress) return
-      setOffer({
-        ...offer,
-        returnAddress: (await peachWallet.getReceivingAddress()) || '',
-      })
+      if (offer.returnAddress) return
+      if (peachWalletActive) {
+        setOffer({
+          ...offer,
+          returnAddress: (await peachWallet.getReceivingAddress()) || '',
+        })
+      } else {
+        setOffer({
+          ...offer,
+          returnAddress: account.settings.payoutAddress || '',
+        })
+      }
     })()
   }, [offer, peachWalletActive])
 

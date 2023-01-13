@@ -25,7 +25,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   useContext(LanguageContext)
 
   const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
-    offer.releaseAddress || account.settings.payoutAddress || '',
+    offer.releaseAddress || '',
     addressRules,
   )
   const [shortAddress, setShortAddress] = useState(offer.releaseAddress ? cutOffAddress(offer.releaseAddress) : '')
@@ -85,8 +85,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
 
   useEffect(() => {
     ;(async () => {
-      if (!peachWalletActive || address) return
-      setAddress((await peachWallet.getReceivingAddress()) || '')
+      if (address) return
+      if (peachWalletActive) {
+        setAddress((await peachWallet.getReceivingAddress()) || '')
+      } else if (account.settings.payoutAddress) {
+        setAddress(account.settings.payoutAddress)
+      }
     })()
   }, [address, peachWalletActive, setAddress])
 
