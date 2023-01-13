@@ -6,7 +6,7 @@ import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { priceFormat, thousands } from '../../../utils/string'
+import { thousands } from '../../../utils/string'
 
 const Progress = ({ text, percentage, style }: { text?: string; percentage: number } & ComponentProps) => (
   <View style={style}>
@@ -42,7 +42,7 @@ export const TradingLimits = (props: ComponentProps) => {
   return (
     <View {...props}>
       {limits.map(([amount, limit], index) => {
-        amount = Math.round(amount * exchangeRate * 100) / 100
+        amount = Math.round(Math.round(amount * exchangeRate * 100) / 100)
         limit = Math.round(exchangeRate * limit)
         return (
           <Progress
@@ -50,8 +50,8 @@ export const TradingLimits = (props: ComponentProps) => {
             text={i18n(
               'profile.tradingLimits.' + ['daily', 'monthly', 'yearly'][index],
               displayCurrency,
-              priceFormat(amount),
-              priceFormat(limit),
+              thousands(amount),
+              thousands(limit),
             )}
             style={tw`mb-4`}
             percentage={amount / limit}
