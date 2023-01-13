@@ -44,20 +44,19 @@ export default (): ReactElement => {
   }
 
   return (
-    <>
+    <View style={tw`flex px-8`}>
       <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
-      <View style={tw`p-7`}>
-        {allOpenOffers.length + pastOffers.length > 0 && (
-          <SectionList
-            showsVerticalScrollIndicator={false}
-            sections={getCategories(getCurrentData())}
-            renderSectionHeader={SectionHeader}
-            renderItem={TradeItem}
-            ItemSeparatorComponent={() => <View style={tw`h-3`} />}
-            style={tw`h-full`}
-          />
-        )}
-      </View>
-    </>
+      {allOpenOffers.length + pastOffers.length > 0 && (
+        <SectionList
+          showsVerticalScrollIndicator={false}
+          sections={getCategories(getCurrentData())}
+          renderSectionHeader={SectionHeader}
+          renderItem={TradeItem}
+          ItemSeparatorComponent={() => <View style={tw`h-3`} />}
+          style={tw`flex-shrink h-full`}
+          contentContainerStyle={tw`py-10`}
+        />
+      )}
+    </View>
   )
 }
