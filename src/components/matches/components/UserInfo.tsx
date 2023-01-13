@@ -6,8 +6,9 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { interpolate } from '../../../utils/math'
 import { isSellOffer } from '../../../utils/offer'
+import { Rating } from '../../../views/settings/profile/profileOverview/components/Rating'
 import { Text } from '../../text'
-import { ExtraMedals, Rating } from '../../user'
+import { ExtraMedals } from '../../user'
 import { useMatchStore } from '../store'
 
 type UserInfoProps = {
@@ -17,7 +18,6 @@ type UserInfoProps = {
 export const UserInfo = ({ user }: UserInfoProps) => {
   const offer = useMatchStore((state) => state.offer)
   const rawRating = user.ratingCount === 0 && user.medals.includes('ambassador') ? 0.2 : user.rating
-  const userRating = Math.round(interpolate(rawRating, [-1, 1], [0, 5]) * 10) / 10
 
   const goToUserProfile = usePublicProfileNavigation(user.id)
 
@@ -33,7 +33,6 @@ export const UserInfo = ({ user }: UserInfoProps) => {
         ) : (
           <View style={tw`flex-row items-center`}>
             <Rating rating={rawRating} style={tw`h-4`} />
-            <Text style={tw`mt-2 ml-1 text-sm font-bold leading-4 font-baloo text-grey-2`}>{userRating} / 5</Text>
           </View>
         )}
       </View>
