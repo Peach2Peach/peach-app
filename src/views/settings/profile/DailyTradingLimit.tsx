@@ -6,7 +6,7 @@ import { useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
+import { priceFormat } from '../../../utils/string'
 
 export const DailyTradingLimit = (props: ComponentProps) => {
   const { dailyAmount, daily } = account.tradingLimit
@@ -20,7 +20,7 @@ export const DailyTradingLimit = (props: ComponentProps) => {
   return (
     <View {...props}>
       <Text style={tw`self-center mt-1 body-s text-black-2`}>
-        {i18n('profile.tradingLimits.daily', displayCurrency, thousands(amount), thousands(limit))}
+        {i18n('profile.tradingLimits.daily', displayCurrency, priceFormat(amount), priceFormat(limit))}
       </Text>
       <Progress
         style={tw`h-1 rounded-none`}

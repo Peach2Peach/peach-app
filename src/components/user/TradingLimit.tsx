@@ -5,7 +5,7 @@ import { useShowHelp } from '../../hooks/useShowHelp'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { thousands } from '../../utils/string'
+import { priceFormat, thousands } from '../../utils/string'
 import Icon from '../Icon'
 import { Text } from '../text'
 import { Progress } from '../ui'
@@ -33,8 +33,8 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
         text={i18n(
           'profile.tradingLimits.daily',
           currency,
-          thousands(dailyAmount),
-          daily === Infinity ? '∞' : thousands(daily),
+          priceFormat(dailyAmount),
+          daily === Infinity ? '∞' : priceFormat(daily),
         )}
       />
       <Progress
@@ -44,8 +44,8 @@ export const TradingLimit = ({ tradingLimit, style }: TradingLimitProps): ReactE
         text={i18n(
           'profile.tradingLimits.yearly.short',
           currency,
-          thousands(yearlyAmount),
-          yearly === Infinity ? '∞' : thousands(yearly),
+          priceFormat(yearlyAmount),
+          yearly === Infinity ? '∞' : priceFormat(yearly),
         )}
       />
     </View>
