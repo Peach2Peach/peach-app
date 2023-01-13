@@ -9,12 +9,13 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
+import { Color } from 'react-native-svg'
+
 import { Text } from '..'
+import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
-import { IconType } from '../../assets/icons'
-import { Color } from 'react-native-svg'
 
 const themes = {
   default: {
@@ -106,6 +107,7 @@ export const Input = ({
   theme = 'default',
   testID,
   reference,
+  ...inputProps
 }: InputProps): ReactElement => {
   const colors = useMemo(() => themes[theme], [theme])
   const [touched, setTouched] = useState(false)
@@ -192,6 +194,7 @@ export const Input = ({
             secureTextEntry: secureTextEntry && !showSecret,
             autoCorrect,
             autoCapitalize: autoCapitalize || 'none',
+            ...inputProps,
           }}
         />
         <View style={tw`flex flex-row`}>

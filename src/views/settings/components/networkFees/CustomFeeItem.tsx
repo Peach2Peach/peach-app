@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
+
 import { Input, Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
@@ -21,6 +22,7 @@ export default ({ customFeeRate, setCustomFeeRate, disabled }: CustomFeeItemProp
           onChange: setCustomFeeRate,
           required: true,
           disabled,
+          keyboardType: 'number-pad',
         }}
       />
     </View>
