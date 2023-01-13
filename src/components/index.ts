@@ -14,7 +14,6 @@ export { IconButton } from './IconButton'
 export { Hint } from './Hint'
 export {
   Checkbox,
-  Dropdown,
   FileInput,
   Input,
   LanguageSelect,
