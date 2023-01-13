@@ -52,7 +52,7 @@ export default (): ReactElement => {
           sections={getCategories(getCurrentData())}
           renderSectionHeader={SectionHeader}
           renderItem={TradeItem}
-          ItemSeparatorComponent={() => <View style={tw`h-3`} />}
+          ItemSeparatorComponent={() => <View style={tw`h-6`} />}
           contentContainerStyle={tw`py-10`}
         />
       )}
