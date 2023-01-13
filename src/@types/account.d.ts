@@ -3,7 +3,6 @@ declare type Settings = {
   enableAnalytics?: boolean
   locale: string
   amount?: number
-  returnAddress?: string
   payoutAddress?: string
   derivationPath?: string
   displayCurrency: Currency

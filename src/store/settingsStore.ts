@@ -10,7 +10,6 @@ type SettingsStore = Settings & {
   setEnableAnalytics: (enableAnalytics: boolean) => void
   setLocale: (locale: string) => void
   setAmount: (amount: number) => void
-  setReturnAddress: (returnAddress: string) => void
   setPayoutAddress: (payoutAddress: string) => void
   setDerivationPath: (derivationPath: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
@@ -54,7 +53,6 @@ export const settingsStore = createStore(
       setEnableAnalytics: (enableAnalytics: boolean) => set((state) => ({ ...state, enableAnalytics })),
       setLocale: (locale: string) => set((state) => ({ ...state, locale })),
       setAmount: (amount: number) => set((state) => ({ ...state, amount })),
-      setReturnAddress: (returnAddress: string) => set((state) => ({ ...state, returnAddress })),
       setPayoutAddress: (payoutAddress: string) => set((state) => ({ ...state, payoutAddress })),
       setDerivationPath: (derivationPath: string) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
