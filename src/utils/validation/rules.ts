@@ -5,9 +5,10 @@ import { getNetwork } from '../wallet'
 
 const emailRegex
   = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
+const urlRegex = /^(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/u // eslint-disable-line prefer-named-capture-group, max-len
+
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
-
 export const rules = {
   required (required: boolean, value: string | number | null) {
     return !required || value
@@ -18,6 +19,7 @@ export const rules = {
   },
   phone: /^\+[1-9][0-9]{7,}$/u,
   email: emailRegex,
+  url: urlRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
     try {
@@ -50,16 +52,6 @@ export const rules = {
   revtag (_: boolean, value: string | null) {
     if (!value) return false
     return value !== '@' && /^@[a-z0-9]{3,16}$/u.test(value)
-  },
-  url (_: boolean, value: string) {
-    if (!value) return false
-    try {
-      const link = /http/u.test(value) ? value : `http://${value}`
-      const url = new URL(link)
-      return !!url
-    } catch (e) {
-      return false
-    }
   },
   bip39 (_: boolean, value: string) {
     return validateMnemonic(value)

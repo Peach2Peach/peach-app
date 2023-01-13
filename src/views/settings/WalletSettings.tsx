@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Icon, PrimaryButton, Text } from '../../components'
+import { Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { Input } from '../../components/inputs'
 import { useValidatedState } from '../../hooks'
 import { account } from '../../utils/account'
@@ -38,24 +38,26 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`items-center justify-center w-full h-full px-8`}>
-      <View>
-        <Input
-          {...{
-            placeholder: i18n('settings.walletSettings.node'),
-            onChange,
-            value: url,
-            errorMessage: urlErrors,
-          }}
-        />
-      </View>
-      {isUpdated && (
-        <View style={tw`flex-row justify-center w-full h-0`}>
-          <Text style={tw`h-6 uppercase button-medium`}>{i18n('settings.walletSettings.success')}</Text>
-          <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
+    <View style={tw`flex items-center w-full h-full px-8`}>
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-shrink h-full`}>
+        <View>
+          <Input
+            {...{
+              placeholder: i18n('settings.walletSettings.node'),
+              onChange,
+              value: url,
+              errorMessage: urlErrors,
+            }}
+          />
         </View>
-      )}
-      <PrimaryButton narrow style={tw`absolute mt-16 bottom-6`} onPress={confirmNewURL} disabled={isUpdated}>
+        {isUpdated && (
+          <View style={tw`flex-row justify-center w-full h-0`}>
+            <Text style={tw`h-6 uppercase button-medium`}>{i18n('settings.walletSettings.success')}</Text>
+            <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
+          </View>
+        )}
+      </PeachScrollView>
+      <PrimaryButton narrow style={tw`absolute mt-16 bottom-6`} onPress={confirmNewURL} disabled={!isValid || isUpdated}>
         {i18n('confirm')}
       </PrimaryButton>
     </View>
