@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useMemo } from 'react'
 import { View, ViewStyle } from 'react-native'
-import { IconType } from '../../../assets/icons'
-import { Icon, Text } from '../../../components'
+import { Icon } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
@@ -9,17 +8,11 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
 import { getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
+import { ChatMessages } from './ChatMessages'
 
-type OfferItemProps = ComponentProps & {
-  contract: ContractSummary
-}
+type OfferItemProps = { contract: ContractSummary }
 
-type ChatMessagesProps = {
-  messages: number
-  level: SummaryItemLevel
-}
-
-const colors: Record<SummaryItemLevel, ViewStyle> = {
+export const colors: Record<SummaryItemLevel, ViewStyle> = {
   APP: tw`text-primary-main`,
   SUCCESS: tw`text-success-main`,
   WARN: tw`text-warning-main`,
@@ -29,14 +22,7 @@ const colors: Record<SummaryItemLevel, ViewStyle> = {
   WAITING: tw`text-black-2`,
 }
 
-const ChatMessages = ({ messages, level }: ChatMessagesProps): ReactElement => (
-  <View>
-    <Icon id="messageFull" style={tw`w-6 h-6`} color={tw`text-primary-background-light`.color} />
-    <Text style={[tw`absolute bottom-0 right-0 w-6 font-bold text-center`, colors[level]]}>{messages}</Text>
-  </View>
-)
-
-export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement => {
+export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const currency = contract.currency
@@ -53,18 +39,21 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
       updateOverlay,
     })
 
+  const sharedProps = {
+    title: i18n('trade') + ' ' + offerIdToHex(contract.offerId),
+    amount: contract.amount,
+    currency,
+    price,
+    level: theme.level,
+    date: new Date(contract.paymentMade || contract.creationDate),
+  }
+
   return (
     <View>
       {isPastOffer(contract.tradeStatus) ? (
         <SummaryItem
-          style={style}
-          title={i18n('trade') + ' ' + offerIdToHex(contract.offerId)}
-          amount={contract.amount}
-          currency={currency}
-          price={price}
-          level={theme.level as SummaryItemLevel}
-          icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
-          date={new Date(contract.paymentMade || contract.creationDate)}
+          {...sharedProps}
+          icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />}
           action={{
             callback: navigate,
             label: contract.unreadMessages > 0 ? ' ' : undefined,
@@ -73,12 +62,7 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
         />
       ) : (
         <SummaryItem
-          title={i18n('trade') + ' ' + offerIdToHex(contract.offerId as Offer['id'])}
-          amount={contract.amount}
-          currency={currency}
-          price={price}
-          level={theme.level}
-          date={new Date(contract.paymentMade || contract.creationDate)}
+          {...sharedProps}
           action={{
             callback: navigate,
             label: i18n(`offer.requiredAction.${status}`, i18n(counterparty)),
@@ -88,7 +72,7 @@ export const ContractItem = ({ contract, style }: OfferItemProps): ReactElement 
       )}
       {contract.unreadMessages > 0 && (
         <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
-          <ChatMessages messages={contract.unreadMessages} level={theme.level as SummaryItemLevel} />
+          <ChatMessages messages={contract.unreadMessages} level={theme.level} />
         </View>
       )}
     </View>
