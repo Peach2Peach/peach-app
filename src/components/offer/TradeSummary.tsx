@@ -109,7 +109,7 @@ const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
 
 const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
-  const goToUserProfile = usePublicProfileNavigation(contract.buyer.id)
+  const goToUserProfile = usePublicProfileNavigation(contract.seller.id)
   const appLink = APPLINKS[contract.paymentMethod]
 
   return (
