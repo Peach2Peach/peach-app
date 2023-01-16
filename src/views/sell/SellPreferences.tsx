@@ -30,13 +30,12 @@ import { useSettingsStore } from '../../store/settingsStore'
 import shallow from 'zustand/shallow'
 
 export type SellViewProps = {
-  offer: SellOffer
-  updateOffer: (offer: SellOffer) => void
+  offer: SellOfferDraft
+  updateOffer: (offer: SellOfferDraft) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
 }
 
-const getDefaultSellOffer = (amount?: number): SellOffer => ({
-  online: false,
+const getDefaultSellOffer = (amount?: number): SellOfferDraft => ({
   type: 'ask',
   creationDate: new Date(),
   lastModified: new Date(),
@@ -49,19 +48,6 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   returnAddress: account.settings.returnAddress,
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
-  funding: {
-    status: 'NULL',
-    txIds: [],
-    amounts: [],
-    vouts: [],
-    expiry: 4320,
-  },
-  matches: [],
-  seenMatches: [],
-  matched: [],
-  doubleMatched: false,
-  refunded: false,
-  released: false,
 })
 
 type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
@@ -164,8 +150,8 @@ export default (): ReactElement => {
           }
         })
 
-        saveAndUpdate({ ...offer, id: result.offerId })
-        navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } })
+        saveAndUpdate({ ...offer, id: result.offerId } as SellOffer)
+        navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } as SellOffer })
       } else if (err) {
         error('Error', err)
         updateMessage({

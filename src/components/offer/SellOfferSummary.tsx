@@ -12,7 +12,7 @@ import { Headline, SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 type SellOfferSummaryProps = ComponentProps & {
-  offer: SellOffer
+  offer: SellOffer | SellOfferDraft
 }
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
   const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
@@ -52,7 +52,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
         }))}
         style={tw`mt-2`}
       />
-      {offer.funding?.txIds?.length > 0 ? (
+      {'funding' in offer && offer.funding?.txIds?.length > 0 ? (
         <View>
           <HorizontalLine style={tw`mt-4`} />
           <Headline style={tw`mt-4 normal-case text-grey-2`}>

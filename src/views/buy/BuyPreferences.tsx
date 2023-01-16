@@ -19,12 +19,12 @@ import { useNavigation, useRoute } from '../../hooks'
 import { useMatchStore } from '../../components/matches/store'
 
 export type BuyViewProps = {
-  offer: BuyOffer
-  updateOffer: (data: BuyOffer, shield?: boolean) => void
+  offer: BuyOfferDraft
+  updateOffer: (data: BuyOfferDraft, shield?: boolean) => void
   setStepValid: (isValid: boolean) => void
 }
 
-const getDefaultBuyOffer = (amount: [number, number]): BuyOffer => ({
+const getDefaultBuyOffer = (amount: [number, number]): BuyOfferDraft => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
@@ -34,10 +34,6 @@ const getDefaultBuyOffer = (amount: [number, number]): BuyOffer => ({
   originalPaymentData: [],
   kyc: account.settings.kyc || false,
   amount: amount || [account.settings.minAmount, account.settings.maxAmount],
-  matches: [],
-  seenMatches: [],
-  matched: [],
-  doubleMatched: false,
   tradeStatus: 'messageSigningRequired',
 })
 
@@ -66,7 +62,7 @@ export default (): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
-  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
+  const [offer, setOffer] = useState<BuyOfferDraft>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -119,7 +115,7 @@ export default (): ReactElement => {
 
   useEffect(() => {
     ;(async () => {
-      if (screens[page].id === 'search' && !offer.id) {
+      if (screens[page].id === 'search' && !('id' in offer)) {
         setUpdatePending(true)
 
         await pgp() // make sure pgp has been sent
@@ -131,8 +127,8 @@ export default (): ReactElement => {
               updateTradingLimit(tradingLimit)
             }
           })
-          saveAndUpdate({ ...offer, id: result.offerId })
-          matchStoreSetOffer({ ...offer, id: result.offerId })
+          saveAndUpdate({ ...offer, id: result.offerId } as BuyOffer)
+          matchStoreSetOffer({ ...offer, id: result.offerId } as BuyOffer)
           navigation.replace('signMessage', { offerId: result.offerId })
           return
         }
