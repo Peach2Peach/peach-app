@@ -1,18 +1,10 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import {
-  Animated,
-  GestureResponderEvent,
-  LayoutChangeEvent,
-  PanResponder,
-  PanResponderGestureState,
-  View,
-} from 'react-native'
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { innerShadow, mildShadow } from '../../utils/layout'
 import { round } from '../../utils/math'
-import { debounce } from '../../utils/performance'
 import Icon from '../Icon'
 
 const SliderToolTip = ({ children }: ComponentProps): ReactElement => (
