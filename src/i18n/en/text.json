@@ -97,7 +97,7 @@
   "help.tradingLimit.title": "trading limits",
   "help.tradingLimit.description": "Peach has to enforce trading limits to abide by Swiss law. There are three trading limits:\n\nYou can buy or sell 1000CHF worth of bitcoin on Peach every day\n\nYou can buy or sell 1000CHF worth of bitcoin with cash or online gift cards (aka anonymous payment methods) every month\n\nYou can buy or sell 100 000CHF worth of bitcoin per year.",
   "help.makingABackup.title": "making a backup",
-  "help.makingABackup.description.1": "A file backup saves all the important information of your Peach account (since we do not!) & wallet.",
+  "help.makingABackup.description.1": "A file backup saves all the important information of your Peach account & wallet (since we do not!).",
   "help.makingABackup.description.2": "You can only restore your file backup when you also have the password you make for it!",
   "help.makingABackup.description.3": "The seed phrase just restores the access to your wallet funds, so it's useful to have as well, should you lose your password.",
   "help.password.title": "your password",
