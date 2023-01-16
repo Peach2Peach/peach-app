@@ -23,11 +23,12 @@ import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { getTradingLimit, postSellOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useSettingsStore } from '../../store/settingsStore'
 import shallow from 'zustand/shallow'
+import Premium from './Premium'
 
 export type SellViewProps = {
   offer: SellOffer
@@ -67,6 +68,11 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
 type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
 const screens = [
+  {
+    id: 'premium',
+    view: Premium,
+    scrollable: true,
+  },
   {
     id: 'offerDetails',
     view: OfferDetails,
@@ -151,9 +157,12 @@ export default (): ReactElement => {
 
       await pgp() // make sure pgp has been sent
 
-      const [result, err] = await postOffer({
-        ...offer,
-        amount: undefined,
+      const [result, err] = await postSellOffer({
+        type: offer.type,
+        premium: offer.premium,
+        meansOfPayment: offer.meansOfPayment,
+        paymentData: offer.paymentData,
+        returnAddress: offer.returnAddress,
       })
       if (result) {
         info('Posted offer', result)

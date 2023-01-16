@@ -14,7 +14,7 @@ import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
 import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
 import { useMatchStore } from '../../components/matches/store'
 
@@ -123,7 +123,7 @@ export default (): ReactElement => {
         setUpdatePending(true)
 
         await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer(offer)
+        const [result, err] = await postBuyOffer(offer)
 
         if (result) {
           getTradingLimit({}).then(([tradingLimit]) => {
