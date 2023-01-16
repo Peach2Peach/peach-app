@@ -74,6 +74,9 @@ export default (): ReactElement => {
     }
   }, [contract, updatePending])
 
+  //INIT CHAT...
+
+  
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
