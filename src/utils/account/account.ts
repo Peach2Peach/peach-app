@@ -5,16 +5,20 @@ import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetw
 import { PeachWallet } from '../wallet/PeachWallet'
 import { setPeachWallet } from '../wallet/setWallet'
 
+export const defaultLimits = {
+  daily: 1000,
+  dailyAmount: 0,
+  monthlyAnonymous: 1000,
+  monthlyAnonymousAmount: 0,
+  yearly: 100000,
+  yearlyAmount: 0,
+}
+
 export const defaultAccount: Account = {
   publicKey: '',
   settings: defaultSettings,
   paymentData: [],
-  tradingLimit: {
-    daily: 1000,
-    dailyAmount: 0,
-    yearly: 100000,
-    yearlyAmount: 0,
-  },
+  tradingLimit: defaultLimits,
   offers: [],
   contracts: [],
   chats: {},

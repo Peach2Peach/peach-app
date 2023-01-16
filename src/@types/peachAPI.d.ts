@@ -65,6 +65,8 @@ declare type TradingLimit = {
   dailyAmount: number
   yearly: number
   yearlyAmount: number
+  monthlyAnonymous: number
+  monthlyAnonymousAmount: number
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
