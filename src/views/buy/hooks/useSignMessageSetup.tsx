@@ -1,11 +1,14 @@
-import { useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
+import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
+import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useOfferDetailsQuery } from '../../../hooks/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
+import i18n from '../../../utils/i18n'
 import { isBuyOffer, saveOffer } from '../../../utils/offer'
 import { signMessageToPublish } from '../../../utils/peachAPI'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
@@ -22,6 +25,19 @@ export const useSignMessageSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
   const signatureField = useValidatedState('', signatureRules)
+
+  const showHelp = useShowHelp('addressSigning')
+  if (!peachWalletActive) {
+    useHeaderSetup(
+      useMemo(
+        () => ({
+          title: i18n('buy.addressSigning.title'),
+          icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        }),
+        [showHelp],
+      ),
+    )
+  }
 
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 

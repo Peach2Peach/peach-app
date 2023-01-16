@@ -12,7 +12,9 @@ export default (): ReactElement => {
   const submitSignature = () => submit(signature)
 
   return !message || peachWalletActive ? (
-    <Loading />
+    <View style={tw`items-center justify-center h-full`}>
+      <Loading />
+    </View>
   ) : (
     <View style={tw`flex items-stretch h-full px-6 pt-6 pb-10`}>
       <Title
