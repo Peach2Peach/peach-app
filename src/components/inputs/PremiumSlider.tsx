@@ -1,13 +1,25 @@
-import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  Animated,
+  GestureResponderEvent,
+  LayoutChangeEvent,
+  PanResponder,
+  PanResponderGestureState,
+  View,
+} from 'react-native'
+import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
-import { innerShadow } from '../../utils/layout'
-import { Input, Shadow, Text } from '..'
-import { debounce } from '../../utils/performance'
 import i18n from '../../utils/i18n'
+import { innerShadow, mildShadow } from '../../utils/layout'
 import { round } from '../../utils/math'
+import { debounce } from '../../utils/performance'
+import Icon from '../Icon'
 
+const SliderToolTip = ({ children }: ComponentProps): ReactElement => (
+  <Shadow shadow={mildShadow} style={tw`absolute py-2 rounded-lg bottom-10 bg-primary-background-light`}>
+    <Text style={tw`w-16 font-semibold text-center`}>{children}</Text>
+  </Shadow>
+)
 type SliderLabelProps = ComponentProps & { position: number }
 const SliderLabel = ({ position, style, children }: SliderLabelProps): ReactElement => (
   <View style={[tw`absolute items-center w-full`, { left: position }, style]}>
@@ -19,7 +31,6 @@ const SliderLabel = ({ position, style, children }: SliderLabelProps): ReactElem
 type PremiumSliderProps = ComponentProps & {
   value: number
   onChange: (value: number) => void
-  displayUpdate?: (value: number) => void
 }
 
 const MIN = -21
@@ -40,7 +51,8 @@ const getTransform = (pan: Animated.Value, trackWidth: number, knobWidth: number
   ],
 })
 
-export const PremiumSlider = ({ value, onChange, displayUpdate, style }: PremiumSliderProps): ReactElement => {
+export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): ReactElement => {
+  const [isSliding, setIsSliding] = useState(false)
   const [premium, setPremium] = useState(value)
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
@@ -53,14 +65,17 @@ export const PremiumSlider = ({ value, onChange, displayUpdate, style }: Premium
     }),
     [trackWidth],
   )
+
   const pan = useRef(new Animated.Value(((value - MIN) / DELTA) * trackWidth)).current
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: (e, gestureState) => {
+        setIsSliding(true)
         Animated.event([null, { dx: pan }], { useNativeDriver: false })(e, gestureState)
       },
-      onPanResponderRelease: () => {
+      onPanResponderRelease: (e, gestureState) => {
+        setIsSliding(false)
         pan.extractOffset()
       },
       onShouldBlockNativeResponder: () => true,
@@ -86,30 +101,15 @@ export const PremiumSlider = ({ value, onChange, displayUpdate, style }: Premium
     pan.setOffset(((value - MIN) / DELTA) * trackWidth)
   }, [pan, trackWidth, value])
 
-  const debounced = useRef(
-    debounce((deps: { premium: number }) => {
-      onChange(deps.premium)
-    }, 300),
-  )
-
-  const deps: AnyObject = { premium }
-  useEffect(
-    () => debounced.current(deps),
-    Object.keys(deps).map((dep) => deps[dep]),
-  )
-
   useEffect(() => {
-    if (displayUpdate) displayUpdate(premium)
-  }, [displayUpdate, premium])
+    if (!isSliding) onChange(premium)
+  }, [isSliding, onChange, premium])
 
   const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width)
 
   return (
     <View>
-      <View
-        {...panResponder.panHandlers}
-        style={[tw`w-full max-w-full overflow-hidden rounded-full bg-primary-background-dark`, style]}
-      >
+      <View {...panResponder.panHandlers} style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`, style]}>
         <Shadow shadow={innerShadow} style={tw`w-full p-0.5 rounded`}>
           <View {...{ onLayout }}>
             <Animated.View
@@ -120,6 +120,7 @@ export const PremiumSlider = ({ value, onChange, displayUpdate, style }: Premium
                 getTransform(pan, trackWidth, KNOBWIDTH),
               ]}
             >
+              {isSliding && <SliderToolTip>{premium}%</SliderToolTip>}
               <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
             </Animated.View>
           </View>
