@@ -16,7 +16,6 @@ import { getContract, getOfferHexIdFromContract, getOfferIdFromContract, saveCon
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { decryptContractData } from '../contract/helpers/decryptContractData'
@@ -222,7 +221,6 @@ export default (): ReactElement => {
         onSuccess: async (result) => {
           info('Got contract', result.id)
           let c = getContract(result.id)
-          const view = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setTradingPartner(() => (account.publicKey === result.seller.id ? result.buyer : result.seller))
 
           const { symmetricKey, paymentData } = await decryptContractData({
