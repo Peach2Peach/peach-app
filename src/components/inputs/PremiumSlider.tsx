@@ -3,15 +3,11 @@ import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { innerShadow, mildShadow } from '../../utils/layout'
+import { innerShadow } from '../../utils/layout'
 import { round } from '../../utils/math'
 import Icon from '../Icon'
+import { ToolTip } from '../ui/ToolTip'
 
-const SliderToolTip = ({ children }: ComponentProps): ReactElement => (
-  <Shadow shadow={mildShadow} style={tw`absolute py-2 rounded-lg bottom-10 bg-primary-background-light`}>
-    <Text style={tw`w-16 font-semibold text-center`}>{children}</Text>
-  </Shadow>
-)
 type SliderLabelProps = ComponentProps & { position: number }
 const SliderLabel = ({ position, style, children }: SliderLabelProps): ReactElement => (
   <View style={[tw`absolute items-center w-full`, { left: position }, style]}>
@@ -66,7 +62,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
         setIsSliding(true)
         Animated.event([null, { dx: pan }], { useNativeDriver: false })(e, gestureState)
       },
-      onPanResponderRelease: (e, gestureState) => {
+      onPanResponderRelease: () => {
         setIsSliding(false)
         pan.extractOffset()
       },
@@ -100,25 +96,24 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width)
 
   return (
-    <View>
-      <View {...panResponder.panHandlers} style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`, style]}>
+    <View {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
+      <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`, style]}>
         <Shadow shadow={innerShadow} style={tw`w-full p-0.5 rounded`}>
           <View {...{ onLayout }}>
             <Animated.View
-              {...{ onStartShouldSetResponder }}
               style={[
                 { width: KNOBWIDTH },
                 tw`z-10 flex items-center rounded-full bg-primary-main`,
                 getTransform(pan, trackWidth, KNOBWIDTH),
               ]}
             >
-              {isSliding && <SliderToolTip>{premium}%</SliderToolTip>}
+              {isSliding && <ToolTip style={tw`absolute bottom-10`}>{premium}%</ToolTip>}
               <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
             </Animated.View>
           </View>
         </Shadow>
       </View>
-      <View style={tw`w-full mt-1`}>
+      <View style={tw`w-full h-10 mt-1`}>
         <SliderLabel position={labelPosition.minus21}>{MIN}%</SliderLabel>
         <SliderLabel position={labelPosition.minus10}>{round(MIN / 2, -1)}%</SliderLabel>
         <SliderLabel position={labelPosition.zero}>{i18n('sell.premium.marketPrice')}</SliderLabel>
