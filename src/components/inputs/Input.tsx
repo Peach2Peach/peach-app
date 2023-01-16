@@ -115,7 +115,10 @@ export const Input = ({
     [icons, secureTextEntry, showSecret],
   )
 
-  const onChangeText = (val: string) => (onChange ? onChange(val) : null)
+  const onChangeText = (val: string) => {
+    setTouched(true)
+    if (onChange) onChange(val)
+  }
   const onSubmitEditing
     = onSubmit && !disableSubmit
       ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
@@ -168,6 +171,7 @@ export const Input = ({
             inputStyle ? inputStyle : {},
           ]}
           {...{
+            value,
             ref: reference ? reference : null,
             placeholderTextColor: colors.placeholder.color,
             allowFontScaling: false,

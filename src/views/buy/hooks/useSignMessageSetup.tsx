@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import shallow from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
@@ -12,11 +12,9 @@ import i18n from '../../../utils/i18n'
 import { isBuyOffer, saveOffer } from '../../../utils/offer'
 import { signMessageToPublish } from '../../../utils/peachAPI'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { getErrorsInField } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
-const signatureRules = {
-  required: true,
-}
 export const useSignMessageSetup = () => {
   const route = useRoute<'signMessage'>()
   const navigation = useNavigation()
@@ -24,7 +22,21 @@ export const useSignMessageSetup = () => {
   const { offer } = useOfferDetailsQuery(route.params.offerId)
   const [, updateMessage] = useContext(MessageContext)
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
-  const signatureField = useValidatedState('', signatureRules)
+  const [signature, setSignature] = useState('')
+
+  const signatureRules = useMemo(
+    () =>
+      offer
+        ? {
+          signature: [offer.releaseAddress, offer.message],
+          required: true,
+        }
+        : { required: true },
+    [offer],
+  )
+
+  const signatureError = useMemo(() => getErrorsInField(signature, signatureRules), [signature, signatureRules])
+  const signatureValid = signatureError.length === 0
 
   const showHelp = useShowHelp('addressSigning')
   if (!peachWalletActive) {
@@ -80,9 +92,13 @@ export const useSignMessageSetup = () => {
   }, [peachWalletActive, updateMessage, navigation, submit, showErrorBanner, offer])
 
   return {
+    offer,
     message: offer?.message,
     peachWalletActive,
     submit,
-    signatureField,
+    signature,
+    setSignature,
+    signatureValid,
+    signatureError,
   }
 }

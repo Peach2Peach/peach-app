@@ -1,5 +1,6 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
+import { verify } from 'bitcoinjs-message'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
 
@@ -72,6 +73,14 @@ export const rules = {
   },
   bip39Word (_: boolean, value: string) {
     return wordlists.english.includes(value)
+  },
+  signature ([btcAddress, message]: [string, string], value: string) {
+    console.log(btcAddress, message, value)
+    try {
+      return verify(message, btcAddress, value, undefined, true)
+    } catch (e) {
+      return false
+    }
   },
   feeRate (_: boolean, value: string) {
     return /^[0-9]*$/u.test(value) && Number(value) >= 1
