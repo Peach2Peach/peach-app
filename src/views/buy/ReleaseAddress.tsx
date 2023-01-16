@@ -91,12 +91,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   }, [address, peachWalletActive, setAddress])
 
   return (
-    <View style={tw`h-full flex-col justify-between px-6`}>
+    <View style={tw`flex-col justify-between h-full px-6`}>
       <Title title={i18n('buy.title')} />
       <View>
         <Headline style={tw`text-grey-1`}>{i18n('buy.releaseAddress')}</Headline>
         <View style={tw`flex flex-row mt-3`}>
-          <View style={tw`w-full flex-shrink mr-2`}>
+          <View style={tw`flex-shrink w-full mr-2`}>
             <Input
               value={focused ? address : shortAddress}
               style={tw`pl-4 pr-8`}
@@ -106,7 +106,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
               onFocus={focus}
               onBlur={unFocus}
               placeholder={i18n('form.address.btc')}
-              isValid={addressIsValid}
               errorMessage={displayErrors ? addressErrors : undefined}
             />
           </View>

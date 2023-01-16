@@ -62,7 +62,7 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
       return [result, null]
     } else if (result) {
       const errorMessage = (result as APIError).error
-      error('peachAPI - auth - FAILED', errorMessage === 'NETWORK_ERROR' ? errorMessage : new Error(errorMessage))
+      error('peachAPI - auth - FAILED', errorMessage)
       return [null, result as APIError]
     }
 

@@ -52,7 +52,7 @@ declare type RootStackParamList = {
   }
   yourTrades: undefined
   offer: {
-    offer: SellOffer | BuyOffer
+    offerId: string
   }
   settings: undefined
   contact: undefined
@@ -64,12 +64,10 @@ declare type RootStackParamList = {
   }
   language: undefined
   currency: undefined
-  profile: {
-    userId: User['id']
-    user?: User
-  }
+  publicProfile: undefined
   referrals: undefined
   backups: undefined
+  backupCreated: undefined
   seedWords: undefined
   refundAddress: undefined
   payoutAddress: undefined
@@ -80,9 +78,9 @@ declare type RootStackParamList = {
   aboutPeach: undefined
   bitcoinProducts: undefined
   socials: undefined
-  reportFullScreen: undefined
   welcome: undefined
   splashScreen: undefined
+  myProfile: undefined
   testView: undefined
   testViewButtons: undefined
   testViewPopups: undefined

@@ -21,7 +21,6 @@ import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { whiteGradient } from '../../utils/layout'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
@@ -29,8 +28,6 @@ import { useNavigation, useRoute } from '../../hooks'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useSettingsStore } from '../../store/settingsStore'
 import shallow from 'zustand/shallow'
-
-const { LinearGradient } = require('react-native-gradients')
 
 export type SellViewProps = {
   offer: SellOffer
@@ -186,39 +183,23 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex`}>
-      <View style={tw`h-full flex-shrink`}>
-        <PeachScrollView
-          scrollRef={(ref) => (scroll = ref)}
-          disable={!scrollable}
-          contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-          style={tw`h-full`}
-        >
-          <View style={tw`h-full flex`}>
-            <View style={tw`h-full flex-shrink`}>
-              {!updatePending && CurrentView && <CurrentView {...{ offer, setStepValid }} updateOffer={setOffer} />}
-            </View>
-            {scrollable && !updatePending && (
-              <View style={tw`pt-8 px-6`}>
-                <Navigation screen={currentScreen.id} {...{ back, next, stepValid }} />
-              </View>
-            )}
-          </View>
-        </PeachScrollView>
-      </View>
+    <View testID="view-sell" style={tw`flex-1`}>
       {updatePending ? (
-        <View style={tw`w-full h-full items-center justify-center absolute`}>
+        <View style={tw`absolute items-center justify-center w-full h-full`}>
           <Loading />
         </View>
       ) : (
-        !scrollable && (
-          <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
-            <View style={tw`w-full h-8 -mt-8`}>
-              <LinearGradient colorList={whiteGradient} angle={90} />
-            </View>
-            <Navigation screen={currentScreen.id} {...{ back, next, stepValid }} />
-          </View>
-        )
+        <>
+          <PeachScrollView
+            scrollRef={(ref) => (scroll = ref)}
+            disable={!scrollable}
+            contentContainerStyle={[tw`justify-center flex-grow p-5 pb-30`]}
+          >
+            {CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, setStepValid }} />}
+          </PeachScrollView>
+
+          <Navigation screen={currentScreen.id} {...{ next, stepValid }} />
+        </>
       )}
     </View>
   )

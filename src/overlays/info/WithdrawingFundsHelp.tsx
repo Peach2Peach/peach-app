@@ -1,5 +1,5 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Text } from '../../components'
 import i18n from '../../utils/i18n'
 
-export const WithdrawingFundsHelp = <Text>{i18n('wallet.withdraw.help.text')}</Text>
+export const WithdrawingFundsHelp = (): ReactElement => <Text>{i18n('wallet.withdraw.help.text')}</Text>

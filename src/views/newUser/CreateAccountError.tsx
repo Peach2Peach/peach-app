@@ -15,17 +15,17 @@ type CreateAccountErrorProps = {
 export default ({ err }: CreateAccountErrorProps): ReactElement => {
   useCreateAccountErrorHeader()
   const navigation = useNavigation()
-  const goToContact = () => navigation.navigate('reportFullScreen')
+  const goToContact = () => navigation.navigate('contact')
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')
 
   return (
-    <View style={tw`h-full flex justify-between`}>
-      <View style={tw`h-full flex-shrink flex justify-center items-center`}>
-        <Text style={tw`h4 text-center text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
-        <Text style={tw`body-l text-center text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
+    <View style={tw`flex justify-between h-full`}>
+      <View style={tw`flex items-center justify-center flex-shrink h-full`}>
+        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
+        <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
         <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
       </View>
-      <View style={tw`w-full flex flex-col items-center mb-8`}>
+      <View style={tw`flex flex-col items-center w-full mb-8`}>
         <PrimaryButton testID="createAccount-contactUs" onPress={goToContact} white narrow>
           {i18n('contactUs')}
         </PrimaryButton>

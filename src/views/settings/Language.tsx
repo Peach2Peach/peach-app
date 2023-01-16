@@ -13,9 +13,9 @@ export default (): ReactElement => {
   const [{ locale }, setLocale] = useReducer(i18n.setLocale, { locale: i18n.getLocale() })
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+    <View style={tw`flex items-stretch h-full px-6 pt-6 pb-10`}>
       <Title title={i18n('settings.title')} subtitle={i18n('settings.language.subtitle')} />
-      <View style={tw`h-full flex-shrink mt-12`}>
+      <View style={tw`flex-shrink h-full mt-12`}>
         {i18n.getLocales().map((lcl) => (
           <PrimaryButton
             key={lcl}

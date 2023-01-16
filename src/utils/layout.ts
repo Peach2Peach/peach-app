@@ -53,11 +53,11 @@ export const mildShadowRed = {
 }
 
 export const footerShadow: ShadowType = {
-  blur: 16,
-  opacity: 0.05,
-  color: '#000000',
+  blur: 8,
+  opacity: 0.08,
+  color: '#9D8276',
   offsetX: 0,
-  offsetY: -2,
+  offsetY: -10,
 }
 
 export const nativeShadow = {

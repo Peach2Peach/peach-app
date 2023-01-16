@@ -1,9 +1,9 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import { Headline, Text, PrimaryButton } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
-import { getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { getOfferHexIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 
@@ -25,13 +25,13 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.seller.rejected.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>
-        {i18n('contract.cancel.seller.rejected.text.1', getOfferIdfromContract(contract))}
+      <Text style={tw`mt-8 text-center text-white-1`}>
+        {i18n('contract.cancel.seller.rejected.text.1', getOfferHexIdFromContract(contract))}
       </Text>
-      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
+      <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
       <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
         {i18n('close')}
       </PrimaryButton>

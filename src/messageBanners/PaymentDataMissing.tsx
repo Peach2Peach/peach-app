@@ -10,11 +10,11 @@ type PaymentDataMissingProps = {
 
 export const PaymentDataMissing = ({ openAddPaymentMethodDialog }: PaymentDataMissingProps): ReactElement => (
   <View>
-    <Headline style={tw`text-white-1 text-lg`}>{i18n('error.paymentDataMissing.title')}</Headline>
-    <Text style={tw`text-white-1 text-center mt-1`}>{i18n('error.paymentDataMissing.text.1')}</Text>
+    <Headline style={tw`text-lg text-white-1`}>{i18n('error.paymentDataMissing.title')}</Headline>
+    <Text style={tw`mt-1 text-center text-white-1`}>{i18n('error.paymentDataMissing.text.1')}</Text>
     <View style={tw`flex-row items-center justify-center mt-1`}>
-      <Text style={tw`text-white-1 text-center`}>{i18n('error.paymentDataMissing.text.2')}</Text>
-      <TextLink style={tw`text-white-1 ml-1`} onPress={openAddPaymentMethodDialog}>
+      <Text style={tw`text-center text-white-1`}>{i18n('error.paymentDataMissing.text.2')}</Text>
+      <TextLink style={tw`ml-1 text-white-1`} onPress={openAddPaymentMethodDialog}>
         {i18n('error.paymentDataMissing.text.3')}
       </TextLink>
     </View>

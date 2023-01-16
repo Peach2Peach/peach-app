@@ -20,20 +20,20 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
     <Modal animationType="fade" transparent={false} visible={true} onRequestClose={onCancel}>
       <View style={tw`w-full h-full bg-black-1`}>
         <QRCodeScanner
-          cameraStyle={tw`w-full h-full z-0`}
+          cameraStyle={tw`z-0 w-full h-full`}
           onRead={onSuccess}
           vibrate
           showMarker
           customMarker={
-            <View style={tw`w-full h-full flex flex-col`}>
-              <View style={tw`bg-peach-translucent h-full flex-shrink flex flex-col justify-end pb-2`}>
+            <View style={tw`flex flex-col w-full h-full`}>
+              <View style={tw`flex flex-col justify-end flex-shrink h-full pb-2 bg-peach-translucent`}>
                 <View>
-                  <Text style={tw`text-white-2 font-baloo text-xl leading-xl m-auto uppercase`}>
+                  <Text style={tw`m-auto text-xl uppercase text-white-2 font-baloo leading-xl`}>
                     {i18n('scanBTCAddress')}
                   </Text>
                 </View>
               </View>
-              <View style={tw`w-full flex-row flex-shrink-0`}>
+              <View style={tw`flex-row flex-shrink-0 w-full`}>
                 <View
                   style={[{ width: Math.round((windowDimensions.width - viewSize) / 2) }, tw`bg-peach-translucent`]}
                 />
@@ -44,7 +44,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
                   style={[{ width: Math.round((windowDimensions.width - viewSize) / 2) }, tw`bg-peach-translucent`]}
                 />
               </View>
-              <View style={tw`bg-peach-translucent h-full flex-shrink flex-row`}>
+              <View style={tw`flex-row flex-shrink h-full bg-peach-translucent`}>
                 <PrimaryButton onPress={onCancel} style={tw`m-auto`}>
                   {i18n('cancel')}
                 </PrimaryButton>

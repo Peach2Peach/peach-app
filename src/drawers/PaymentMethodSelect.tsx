@@ -22,10 +22,10 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
       {paymentMethods.map((method, i) => (
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
-            <View style={tw`p-1 mr-4 border border-black-6 rounded-lg`}>
+            <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
               <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
             </View>
-            <Text style={tw`subtitle-1 w-full flex-shrink`} onPress={() => select(method)}>
+            <Text style={tw`flex-shrink w-full subtitle-1`} onPress={() => select(method)}>
               {i18n(`paymentMethod.${method}`)}
             </Text>
             {method === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-main`.color} /> : null}
@@ -34,7 +34,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
         </View>
       ))}
       <HorizontalLine style={tw`my-6`} />
-      <Text onPress={confirm} style={tw`drawer-title text-primary-main text-center`}>
+      <Text onPress={confirm} style={tw`text-center drawer-title text-primary-main`}>
         {i18n('confirm')}
       </Text>
     </View>

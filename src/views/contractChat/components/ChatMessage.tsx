@@ -5,7 +5,7 @@ import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { toTimeFormat } from '../../../utils/string/toShortDateFormat'
+import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
 
 type GetMessageMetaProps = {
   message: Message
@@ -55,9 +55,9 @@ type MessageStyling = {
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
   const text
     = meta.isMediator || meta.isSystemMessage
-      ? tw`text-chat-mediator text-center`
+      ? tw`text-center text-chat-mediator`
       : meta.isYou
-        ? tw`text-chat-you text-right`
+        ? tw`text-right text-chat-you`
         : tw`text-chat-partner`
   const bgColor = !message.message
     ? tw`bg-chat-error-translucent`
@@ -104,14 +104,14 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
       onStartShouldSetResponder={() => true}
       style={[tw`w-11/12 px-3 bg-transparent`, meta.isMediator ? tw`w-full` : meta.isYou ? tw`self-end` : {}]}
     >
-      {meta.showName ? <Text style={[tw`px-1 mt-4 -mb-1 font-baloo text-xs`, text]}>{meta.name}</Text> : null}
+      {meta.showName ? <Text style={[tw`px-1 mt-4 -mb-1 text-xs font-baloo`, text]}>{meta.name}</Text> : null}
       <View style={[tw`flex-row flex-wrap justify-between p-3 mt-1 rounded`, bgColor]}>
         <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
-        <Text style={tw`ml-auto text-right leading-5 pt-1`}>
+        <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
           <Text style={tw`text-xs text-grey-3`}>{toTimeFormat(message.date)}</Text>
           {meta.isYou && (
             <View style={tw`pl-1`}>
-              <Icon id={statusIcon} style={tw`relative -bottom-1 w-4 h-4`} color={statusIconColor} />
+              <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
             </View>
           )}
         </Text>

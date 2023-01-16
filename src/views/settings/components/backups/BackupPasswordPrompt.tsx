@@ -1,144 +1,101 @@
-import React, { ReactElement, useContext, useRef, useState } from 'react'
-import { Keyboard, Pressable, TextInput, View } from 'react-native'
-import { Icon, Input, PeachScrollView, Text } from '../../../../components'
+import React, { ReactElement, useMemo, useRef, useState } from 'react'
+import { Keyboard, TextInput, View } from 'react-native'
+
+import { Input, PeachScrollView, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { OverlayContext } from '../../../../contexts/overlay'
-import { useNavigation, useValidatedState } from '../../../../hooks'
-import { BackupCreated } from '../../../../overlays/BackupCreated'
-import Password from '../../../../overlays/info/Password'
+import { HelpIcon } from '../../../../components/icons'
+import { useHeaderSetup, useNavigation, useValidatedState } from '../../../../hooks'
+import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
 import { account, backupAccount, updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 
 const passwordRules = { required: true, password: true }
 
-export default (): ReactElement => {
-  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
-  const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid] = useValidatedState<string>('', passwordRules)
-
-  const [passwordMatch, setPasswordMatch] = useState(true)
+export default ({ toggle }: { toggle: () => void }): ReactElement => {
   const navigation = useNavigation()
 
-  const [, updateOverlay] = useContext(OverlayContext)
+  const showPopup = useShowHelp('yourPassword')
+  useHeaderSetup({
+    title: i18n('settings.backups.fileBackup.title'),
+    icons: [{ iconComponent: <HelpIcon />, onPress: showPopup }],
+  })
+
+  const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
+  const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid, passwordRepeatError] = useValidatedState<string>(
+    '',
+    passwordRules,
+  )
+
   const [isBackingUp, setIsBackingUp] = useState(false)
+
   let $passwordRepeat = useRef<TextInput>(null).current
-
-  const openPasswordHelp = () => updateOverlay({ content: <Password />, visible: true, level: 'INFO' })
-  const checkPasswordMatch = () => password === passwordRepeat
-
-  const validate = () => password && passwordRepeat && passwordIsValid && checkPasswordMatch()
-  const isValid = validate()
-
-  const onPasswordChange = (value: string) => {
-    setPassword(value)
-    validate()
-    setPasswordMatch(checkPasswordMatch())
-  }
-
-  const onPasswordRepeatChange = (value: string) => {
-    setPasswordRepeat(value)
-    validate()
-    setPasswordMatch(checkPasswordMatch())
-  }
-
   const focusToPasswordRepeat = () => $passwordRepeat?.focus()
 
+  const passwordsMatch = useMemo(() => password === passwordRepeat, [password, passwordRepeat])
+  const validate = () => !!password && !!passwordRepeat && passwordIsValid && passwordsMatch
+
   const startAccountBackup = () => {
-    if (isBackingUp) return
-    if (!validate()) return
+    if (isBackingUp || !validate()) return
 
     Keyboard.dismiss()
 
     const previousDate = account.settings.lastBackupDate
     const previousShowBackupReminder = account.settings.showBackupReminder
     setIsBackingUp(true)
-    updateSettings(
-      {
-        lastBackupDate: new Date().getTime(),
-        showBackupReminder: false,
-      },
-      true,
-    )
+    updateSettings({ lastBackupDate: new Date().getTime(), showBackupReminder: false }, true)
     backupAccount({
       password,
       onSuccess: () => {
-        updateOverlay({
-          content: <BackupCreated />,
-          visible: true,
-        })
-        updateSettings(
-          {
-            lastBackupDate: new Date().getTime(),
-            showBackupReminder: false,
-          },
-          true,
-        )
         setIsBackingUp(false)
-
-        setTimeout(() => {
-          updateOverlay({
-            content: null,
-            visible: true,
-          })
-        }, 3000)
+        updateSettings({ lastBackupDate: new Date().getTime(), showBackupReminder: false }, true)
+        toggle()
+        navigation.navigate('backupCreated')
       },
       onCancel: () => {
         setIsBackingUp(false)
-        updateSettings({
-          lastBackupDate: previousDate,
-          showBackupReminder: previousShowBackupReminder,
-        })
+        updateSettings({ lastBackupDate: previousDate, showBackupReminder: previousShowBackupReminder }, true)
       },
       onError: () => {
         setIsBackingUp(false)
-        updateSettings({
-          lastBackupDate: previousDate,
-          showBackupReminder: previousShowBackupReminder,
-        })
+        updateSettings({ lastBackupDate: previousDate, showBackupReminder: previousShowBackupReminder }, true)
       },
     })
   }
 
   return (
-    <PeachScrollView style={tw`h-full flex-shrink mt-12`}>
-      <View>
-        <View style={tw`items-center justify-center flex-row`}>
-          <Text style={tw`text-center`}>{i18n('settings.backups.createASecurePassword')}</Text>
-          <Pressable style={tw`p-2`} onPress={openPasswordHelp}>
-            <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
-          </Pressable>
+    <>
+      <PeachScrollView contentContainerStyle={tw`h-full`}>
+        <View style={tw`justify-center h-full mx-8`}>
+          <Text style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</Text>
+          <Input
+            testID="backup-password"
+            placeholder={i18n('form.password.placeholder')}
+            onChange={setPassword}
+            onSubmit={focusToPasswordRepeat}
+            secureTextEntry={true}
+            value={password}
+            errorMessage={passwordError}
+            style={passwordIsValid && tw`border-black-2`}
+            iconColor={tw`text-black-2`.color}
+          />
+          <Input
+            testID="backup-passwordRepeat"
+            placeholder={i18n('form.repeatpassword.placeholder')}
+            reference={(el: any) => ($passwordRepeat = el)}
+            onChange={setPasswordRepeat}
+            onSubmit={setPasswordRepeat}
+            secureTextEntry={true}
+            value={passwordRepeat}
+            errorMessage={passwordRepeatError}
+            style={passwordRepeatIsValid && tw`border-black-2`}
+            iconColor={tw`text-black-2`.color}
+          />
         </View>
-
-        <Text style={[tw`font-baloo text-2xs text-grey-3 text-center mt-4`, password && !isValid ? tw`text-red` : {}]}>
-          {!passwordMatch ? i18n('form.password.match.error') : i18n('form.password.error')}
-        </Text>
-        <Input
-          testID="backup-password"
-          onChange={onPasswordChange}
-          onSubmit={focusToPasswordRepeat}
-          secureTextEntry={true}
-          value={password}
-          isValid={passwordIsValid && passwordMatch}
-        />
-        <Input
-          style={tw`mt-2`}
-          testID="backup-passwordRepeat"
-          reference={(el: any) => ($passwordRepeat = el)}
-          onChange={onPasswordRepeatChange}
-          onSubmit={onPasswordRepeatChange}
-          secureTextEntry={true}
-          value={passwordRepeat}
-          isValid={passwordRepeatIsValid && passwordMatch}
-        />
-      </View>
-      <View style={tw`flex items-center mt-16`}>
-        <PrimaryButton disabled={!isValid} style={tw`mb-2`} narrow onPress={startAccountBackup}>
-          {i18n('settings.backups.createNew')}
-        </PrimaryButton>
-        <PrimaryButton narrow onPress={navigation.goBack}>
-          {i18n('back')}
-        </PrimaryButton>
-      </View>
-    </PeachScrollView>
+      </PeachScrollView>
+      <PrimaryButton disabled={!validate()} style={tw`self-center mb-6`} onPress={startAccountBackup} iconId="save" wide>
+        {i18n('settings.backups.fileBackup.createNew')}
+      </PrimaryButton>
+    </>
   )
 }

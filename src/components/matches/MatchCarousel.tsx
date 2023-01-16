@@ -35,28 +35,32 @@ export default () => {
 
   const snapToPrev = () => $carousel.current?.snapToPrev()
   const snapToNext = () => $carousel.current?.snapToNext()
-  const [currentIndex, onBeforeSnapToItem] = useMatchStore(
-    (state) => [state.currentIndex, state.setCurrentIndex],
-    shallow,
-  )
+  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
+
+  const onBeforeSnapToItem = (index: number) => {
+    // ensure that index can't be higher than available matches
+    setCurrentIndex(Math.min(index, matches.length - 1))
+  }
 
   return (
     <View style={tw`flex-row items-center justify-center overflow-visible`}>
       {matches[currentIndex - 1] !== undefined && <PrevButton onPress={snapToPrev} />}
-      <Carousel
-        ref={$carousel}
-        data={matches}
-        {...{ ...carouselConfig, onBeforeSnapToItem }}
-        renderItem={({ item, index }) => (
-          <View {...{ onStartShouldSetResponder }} style={tw`-mx-4 px-4 py-4 bg-transparent`}>
-            <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
-          </View>
-        )}
-      />
+      {matches[currentIndex] !== undefined && (
+        <Carousel
+          ref={$carousel}
+          data={matches}
+          {...{ ...carouselConfig, onBeforeSnapToItem }}
+          renderItem={({ item, index }) => (
+            <View {...{ onStartShouldSetResponder }} style={tw`px-4 py-4 -mx-4 bg-transparent`}>
+              <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
+            </View>
+          )}
+        />
+      )}
       {matches[currentIndex + 1] !== undefined ? (
         <NextButton onPress={snapToNext} />
       ) : (
-        (isLoading || isFetchingNextPage) && <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
+        (isLoading || isFetchingNextPage) && <Loading style={tw`absolute z-10 w-4 h-4 right-4`} size="small" />
       )}
     </View>
   )

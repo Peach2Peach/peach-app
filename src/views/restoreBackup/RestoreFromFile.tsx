@@ -3,7 +3,6 @@ import { Keyboard, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { FileInput, Input, Text } from '../../components'
-import { useBackgroundState } from '../../components/background/backgroundStore'
 import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -11,17 +10,16 @@ import { deleteAccount, recoverAccount } from '../../utils/account'
 import { decryptAccount } from '../../utils/account/decryptAccount'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
+import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
 import RestoreBackupError from './RestoreBackupError'
 import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
-import { auth } from '../../utils/peachAPI'
 
-const passwordRules = { required: true, password: true }
+const passwordRules = { password: true, required: true }
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
   const navigation = useNavigation()
 
   const [file, setFile] = useState({
@@ -29,7 +27,7 @@ export default ({ style }: ComponentProps): ReactElement => {
     content: '',
   })
 
-  const [password, setPassword, passwordIsValid] = useValidatedState<string>('', passwordRules)
+  const [password, setPassword, , passwordError] = useValidatedState<string>('', passwordRules)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
@@ -48,9 +46,6 @@ export default ({ style }: ComponentProps): ReactElement => {
     },
     [updateMessage],
   )
-  const onPasswordChange = (value: string) => {
-    setPassword(value)
-  }
 
   const submit = async () => {
     Keyboard.dismiss()
@@ -82,9 +77,6 @@ export default ({ style }: ComponentProps): ReactElement => {
 
       setTimeout(() => {
         navigation.replace('home')
-        setBackgroundState({
-          color: undefined,
-        })
       }, 1500)
     } else {
       setLoading(false)
@@ -97,26 +89,31 @@ export default ({ style }: ComponentProps): ReactElement => {
 
   return (
     <View style={[tw`flex flex-col px-6`, style]}>
-      <View style={tw`h-full flex flex-col justify-between flex-shrink`}>
-        <View style={tw`h-full w-full flex-shrink flex flex-col justify-center`}>
-          <Text style={tw`subtitle-1 mt-4 text-center text-primary-background-light`}>
+      <View style={tw`flex flex-col justify-between flex-shrink h-full`}>
+        <View style={tw`flex flex-col justify-center flex-shrink w-full h-full`}>
+          <Text style={tw`mt-4 text-center subtitle-1 text-primary-background-light`}>
             {i18n('restoreBackup.manual.description.1')}
           </Text>
-          <View style={tw`w-full mt-2 px-2`}>
-            <FileInput theme="inverted" fileName={file.name} onChange={setFile} />
+          <View style={tw`w-full px-2 mt-2`}>
+            <FileInput
+              theme="inverted"
+              fileName={file.name}
+              placeholder={i18n('restoreBackup.decrypt.file')}
+              onChange={setFile}
+            />
           </View>
           <View style={tw`px-2`}>
             <Input
               theme="inverted"
               onChange={setPassword}
               onSubmit={(val: string) => {
-                onPasswordChange(val)
+                setPassword(val)
                 if (file.name) submit()
               }}
               secureTextEntry={true}
               placeholder={i18n('restoreBackup.decrypt.password')}
               value={password}
-              errorMessage={!passwordIsValid ? [i18n('form.password.error')] : []}
+              errorMessage={passwordError}
             />
           </View>
         </View>

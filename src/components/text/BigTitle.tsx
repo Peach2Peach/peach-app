@@ -13,8 +13,8 @@ export const BigTitle = ({ title }: BigTitle): ReactElement => (
     <Logo style={tw`w-40 h-40`} />
     <Text
       style={[
-        tw`font-baloo text-center text-2xl leading-3xl uppercase text-peach-1 mt-3`,
-        tw`font-baloo text-center text-3xl leading-4xl uppercase text-peach-1 mt-3`,
+        tw`mt-3 text-2xl text-center uppercase font-baloo leading-3xl text-peach-1`,
+        tw`mt-3 text-3xl text-center uppercase font-baloo leading-4xl text-peach-1`,
       ]}
     >
       {title}

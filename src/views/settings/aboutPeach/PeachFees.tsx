@@ -16,7 +16,7 @@ export default (): ReactElement => {
 
   return (
     <View style={tw`flex-1`}>
-      <View style={tw`flex-1 items-start justify-center p-8`}>
+      <View style={tw`items-start justify-center flex-1 p-8`}>
         <Text style={tw`body-m`}>
           {i18n('settings.fees.text.1')}
           <Text style={tw`body-m text-primary-main`}> {(PEACHFEE * 100).toString()}% </Text>
@@ -31,7 +31,7 @@ export default (): ReactElement => {
         <BulletPoint text={i18n('settings.fees.point.2')} />
         <BulletPoint text={i18n('settings.fees.point.3')} />
       </View>
-      <GoBackButton style={tw`m-8 self-center`} />
+      <GoBackButton style={tw`self-center m-10`} />
     </View>
   )
 }

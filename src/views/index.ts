@@ -1,16 +1,18 @@
 import { ReactElement } from 'react'
 
-import AboutPeach from './settings/aboutPeach/AboutPeach'
+import { BackgroundConfig } from '../components/background/Background'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
 import BuyPreferences from './buy/BuyPreferences'
+import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
 import NewUser from './newUser/NewUser'
-import Profile from './profile/Profile'
+import OfferDetails from './offerDetails/OfferDetails'
+import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
@@ -19,19 +21,23 @@ import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import SetReturnAddress from './sell/SetReturnAddress'
-import Backups from './settings/Backups'
-import Currency from './settings/Currency'
+import AboutPeach from './settings/aboutPeach/AboutPeach'
+import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
-import NetworkFees from './settings/NetworkFees'
+import Socials from './settings/aboutPeach/Socials'
+import Backups from './settings/Backups'
+import BackupCreated from './settings/components/backups/BackupCreated'
+import Currency from './settings/Currency'
 import Language from './settings/Language'
+import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
+import MyProfile from './settings/profile/MyProfile'
 import RefundAddress from './settings/RefundAddress'
 import Settings from './settings/Settings'
-import Socials from './settings/aboutPeach/Socials'
 import TestViewButtons from './TestView/buttons'
-import TestViewMessages from './TestView/messages'
 import TestViewComponents from './TestView/components'
+import TestViewMessages from './TestView/messages'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
@@ -39,95 +45,105 @@ import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
-import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
-import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
-import SignMessage from './buy/SignMessage'
 
 type ViewType = {
   name: keyof RootStackParamList
   component: (props: any) => ReactElement
   showHeader: boolean
   showFooter: boolean
+  background: BackgroundConfig
 }
 
+const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined } }
+
+const onboardingConfig = { showHeader: true, showFooter: false, background: { color: 'primaryGradient' } } as const
 const onboarding: ViewType[] = [
-  { name: 'welcome', component: Welcome, showHeader: true, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: true, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: true, showFooter: false },
+  { name: 'welcome', component: Welcome, ...onboardingConfig },
+  { name: 'home', component: Welcome, ...onboardingConfig },
+  { name: 'newUser', component: NewUser, ...onboardingConfig },
+  { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
 ]
 
-const home: ViewType[] = [{ name: 'home', component: Buy, showHeader: true, showFooter: true }]
+const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, showHeader: true, showFooter: true },
-  { name: 'transactionHistory', component: TransactionHistory, showHeader: true, showFooter: true },
-  { name: 'transactionDetails', component: TransactionDetails, showHeader: true, showFooter: true },
+  { name: 'wallet', component: Wallet, ...defaultConfig },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
-  { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: true },
-  { name: 'signMessage', component: SignMessage, showHeader: true, showFooter: true },
+  { name: 'buy', component: Buy, ...defaultConfig },
+  { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
+  { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: true },
-  { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
-  { name: 'setReturnAddress', component: SetReturnAddress, showHeader: true, showFooter: true },
+  { name: 'sell', component: Sell, ...defaultConfig },
+  { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
+  { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
+  { name: 'setReturnAddress', component: SetReturnAddress, ...defaultConfig },
 ]
 
-const search: ViewType[] = [{ name: 'search', component: Search, showHeader: true, showFooter: true }]
+const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
 
 const trade: ViewType[] = [
-  { name: 'contract', component: Contract, showHeader: true, showFooter: true },
-  { name: 'contractChat', component: ContractChat, showHeader: false, showFooter: false },
-  { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
+  { name: 'contract', component: Contract, ...defaultConfig },
+  { name: 'contractChat', component: ContractChat, ...defaultConfig, showHeader: false, showFooter: false },
+  { name: 'tradeComplete', component: TradeComplete, ...defaultConfig },
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
-  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig },
+  { name: 'offer', component: OfferDetails, ...defaultConfig },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      { name: 'contact', component: Contact, showHeader: true, showFooter: true },
-      { name: 'report', component: Report, showHeader: true, showFooter: true },
-      { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
+      { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
+      { name: 'dispute', component: Dispute, ...defaultConfig, showFooter: hasAccount },
     ]
     : [
-      { name: 'contact', component: Contact, showHeader: true, showFooter: true },
-      { name: 'reportFullScreen', component: Report, showHeader: false, showFooter: false },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
+      { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
-const profile: ViewType[] = [{ name: 'profile', component: Profile, showHeader: true, showFooter: true }]
+const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
 
 const settings: ViewType[] = [
-  { name: 'settings', component: Settings, showHeader: true, showFooter: true },
-  { name: 'aboutPeach', component: AboutPeach, showHeader: true, showFooter: true },
-  { name: 'bitcoinProducts', component: BitcoinProducts, showHeader: true, showFooter: true },
-  { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
-  { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
-  { name: 'language', component: Language, showHeader: true, showFooter: true },
-  { name: 'currency', component: Currency, showHeader: true, showFooter: true },
-  { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
-  { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'refundAddress', component: RefundAddress, showHeader: true, showFooter: true },
-  { name: 'payoutAddress', component: PayoutAddress, showHeader: true, showFooter: true },
-  { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-  { name: 'peachFees', component: PeachFees, showHeader: true, showFooter: true },
-  { name: 'networkFees', component: NetworkFees, showHeader: true, showFooter: true },
-  { name: 'socials', component: Socials, showHeader: true, showFooter: true },
+  { name: 'settings', component: Settings, ...defaultConfig },
+  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
+  { name: 'myProfile', component: MyProfile, ...defaultConfig },
+  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
+  { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig, showFooter: false },
+  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig, showFooter: false },
+  { name: 'language', component: Language, ...defaultConfig },
+  { name: 'currency', component: Currency, ...defaultConfig },
+  { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'backups', component: Backups, ...defaultConfig },
+  {
+    name: 'backupCreated',
+    component: BackupCreated,
+    showHeader: false,
+    showFooter: false,
+    background: { color: 'primaryGradient' },
+  },
+  { name: 'refundAddress', component: RefundAddress, ...defaultConfig },
+  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
+  { name: 'peachFees', component: PeachFees, ...defaultConfig },
+  { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'socials', component: Socials, ...defaultConfig },
 ]
 
 const testViews: ViewType[] = [
-  { name: 'testView', component: TestView, showHeader: true, showFooter: true },
-  { name: 'testViewButtons', component: TestViewButtons, showHeader: true, showFooter: true },
-  { name: 'testViewPopups', component: TestViewPopups, showHeader: true, showFooter: true },
-  { name: 'testViewMessages', component: TestViewMessages, showHeader: true, showFooter: true },
-  { name: 'testViewComponents', component: TestViewComponents, showHeader: true, showFooter: true },
+  { name: 'testView', component: TestView, ...defaultConfig },
+  { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
+  { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
+  { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
+  { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>
@@ -140,7 +156,7 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       ...search,
       ...trade,
       ...tradeHistory,
-      ...profile,
+      ...publicProfile,
       ...contact(hasAccount),
       ...settings,
       ...testViews,

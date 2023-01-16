@@ -11,7 +11,7 @@ export const AnalyticsPrompt = (): ReactElement => (
       {'\n\n'}
       {i18n('analytics.request.description2')}
       <Text
-        style={tw`text-center text-white-1 mt-2 underline`}
+        style={tw`mt-2 text-center underline text-white-1`}
         onPress={() => Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')}
       >
         {i18n('privacyPolicy').toLocaleLowerCase()}.

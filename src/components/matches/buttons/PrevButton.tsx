@@ -8,7 +8,7 @@ type SliderArrowProps = {
 }
 
 export const PrevButton = (props: SliderArrowProps) => (
-  <Pressable {...props} style={tw`absolute left-2 z-10`}>
+  <Pressable {...props} style={tw`absolute z-10 left-2`}>
     <Icon id="sliderPrev" style={tw`w-4 h-4`} />
   </Pressable>
 )

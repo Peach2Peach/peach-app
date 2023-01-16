@@ -16,15 +16,13 @@ describe('Select', () => {
   const items: Item[] = [
     { value: 'peach', display: 'Peach' },
     { value: 'banana', display: 'Banana' },
-    { value: 'apple', display: 'Apple' }
+    { value: 'apple', display: 'Apple' },
   ]
   it('renders a select with 3 items and which are selectable', () => {
     let selectedValue = 'peach'
-    const select = renderer.create(<Select
-      items={items}
-      selectedValue={selectedValue}
-      onChange={(val) => selectedValue = val as string}
-    />)
+    const select = renderer.create(
+      <Select items={items} selectedValue={selectedValue} onChange={(val) => (selectedValue = val as string)} />,
+    )
 
     act(() => {
       select.root.findByType(Pressable).props.onPress()

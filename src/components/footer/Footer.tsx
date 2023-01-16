@@ -16,6 +16,9 @@ import { IconType } from '../../assets/icons'
 import { useSettingsStore } from '../../store/settingsStore'
 import shallow from 'zustand/shallow'
 
+import PeachOrange from '../../assets/logo/peachOrange.svg'
+import PeachBorder from '../../assets/logo/peachBorder.svg'
+
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
@@ -32,25 +35,37 @@ const isSettings
   = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
 const isWallet = /wallet|transactionHistory|transactionDetails/u
 
+const isBuy = /buy|buyPreferences|home/u
+
+const isSell = /sell|sellPreferences/u
+
 /**
  * @description Component to display the Footer Item
  * @example
  * <FooterItem id="sell" active={true} />
  */
 const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? tw`text-black-1` : tw`text-black-5`
+  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-5`
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
         <View style={tw`flex items-center`}>
-          <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
-          <Text style={[color, tw`subtitle-1 text-3xs leading-relaxed text-center`]}>{i18n(id)}</Text>
+          {id === 'settings' ? (
+            active ? (
+              <PeachOrange style={tw`w-6 h-6`} />
+            ) : (
+              <PeachBorder style={tw`w-6 h-6`} />
+            )
+          ) : (
+            <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
+          )}
+          <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-3xs`]}>{i18n(id)}</Text>
         </View>
         {notifications ? (
           <Icon
             id="notification"
             style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
-            color={tw`text-success-light`.color}
+            color={tw`text-success-main`.color}
           />
         ) : null}
       </View>
@@ -131,12 +146,12 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
   }, [updateAppContext, ws, ws.connected])
 
   return !keyboardOpen ? (
-    <View style={[tw`w-full flex-row items-start`, style]}>
-      <View style={tw`flex-grow relative`}>
+    <View style={[tw`flex-row items-start w-full`, style]}>
+      <View style={tw`relative flex-grow`}>
         <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`flex-row items-center justify-between bg-primary-background py-4 px-5`}>
-            <FooterItem id="buy" active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
-            <FooterItem id="sell" active={active === 'sell'} onPress={navigate.sell} />
+          <View style={tw`flex-row items-center justify-between px-5 py-4 bg-primary-background`}>
+            <FooterItem id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
+            <FooterItem id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
             {peachWalletActive && <FooterItem id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />}
             <FooterItem
               id="yourTrades"

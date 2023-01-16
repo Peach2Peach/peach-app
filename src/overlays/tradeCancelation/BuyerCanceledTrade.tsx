@@ -5,7 +5,7 @@ import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getOfferIdfromContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getOfferHexIdFromContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { thousands } from '../../utils/string'
@@ -40,17 +40,17 @@ export const BuyerCanceledTrade = ({ contract }: ConfirmCancelTradeProps): React
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.buyer.confirmed.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>
+      <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n(
           'contract.cancel.buyer.confirmed.text.1',
-          getOfferIdfromContract(contract),
+          getOfferHexIdFromContract(contract),
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>
-      <Text style={tw`text-center text-white-1 mt-2`}>
+      <Text style={tw`mt-2 text-center text-white-1`}>
         {i18n(`contract.cancel.buyer.confirmed.text.${contract.releaseTxId ? 'refunded' : 'backOnline'}`)}
       </Text>
       <View>

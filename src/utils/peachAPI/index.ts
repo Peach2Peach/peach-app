@@ -11,6 +11,7 @@ export { getUser } from './public/user'
 export { auth, getUserPrivate, fetchAccessToken, updateUser, getTradingLimit, logoutUser } from './private/user'
 export {
   getOffers,
+  getOfferSummaries,
   postOffer,
   getOfferDetails,
   signMessageToPublish,
@@ -28,6 +29,7 @@ export {
   rejectContractCancelation,
   getContract,
   getContracts,
+  getContractSummaries,
   confirmPayment,
   rateUser,
   getChat,

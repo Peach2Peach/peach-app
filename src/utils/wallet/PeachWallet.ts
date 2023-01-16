@@ -1,10 +1,9 @@
-import { BLOCKEXPRLORER, NETWORK } from '@env'
+import { BLOCKEXPLORER, NETWORK } from '@env'
 import BdkRn from 'bdk-rn'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
-import { account } from '../account'
+import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
-import { isSellOffer } from '../offer'
 import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
@@ -42,6 +41,7 @@ export class PeachWallet {
 
     let mnemonic = seedphrase
     if (!mnemonic) {
+      info('PeachWallet - loadWallet - generateMnemonic')
       const generateMnemonicResult = await BdkRn.generateMnemonic({
         length: 12,
         network: this.network,
@@ -52,14 +52,19 @@ export class PeachWallet {
       mnemonic = generateMnemonicResult.value
     }
 
+    info('PeachWallet - loadWallet - createWallet', BLOCKEXPLORER)
     const result = await BdkRn.createWallet({
       mnemonic,
       password: '',
       network: this.network,
       // TODO get user config
-      blockChainConfigUrl: BLOCKEXPRLORER,
+      blockChainConfigUrl: BLOCKEXPLORER,
+      retry: '5',
+      timeOut: '5',
       blockChainName: 'ESPLORA',
     })
+    info('PeachWallet - loadWallet - createWallet', JSON.stringify(result))
+
     if (result.isErr()) {
       throw result.error
     }
@@ -92,10 +97,10 @@ export class PeachWallet {
     ;[...this.transactions.confirmed, ...this.transactions.pending]
       .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
-        const sellOffer = account.offers.find((offer) => isSellOffer(offer) && offer.txId === txid)
+        const sellOffer = tradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
         if (sellOffer?.id) return walletStore.getState().updateTxOfferMap(txid, sellOffer.id)
 
-        const contract = account.contracts.find((cntrct) => cntrct.releaseTxId === txid)
+        const contract = tradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
         if (contract) return walletStore.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
         return null
       })

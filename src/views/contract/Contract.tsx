@@ -1,31 +1,39 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
+import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title, TradeSummary } from '../../components'
+import { ChatButton } from '../../components/chat/ChatButton'
 import { TIMERS } from '../../constants'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { useNavigation, useRoute } from '../../hooks'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
-import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
+import { getChatNotifications } from '../../utils/chat'
+import {
+  getContract,
+  getOfferHexIdFromContract,
+  getOfferIdFromContract,
+  saveContract,
+  signReleaseTx,
+} from '../../utils/contract'
+import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { getOffer, getRequiredActionCount } from '../../utils/offer'
-import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
+import { getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import ContractCTA from './components/ContractCTA'
+import { decryptContractData } from './helpers/decryptContractData'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
-import { parseContract } from './helpers/parseContract'
-import { getChatNotifications } from '../../utils/chat'
-import AppContext from '../../contexts/app'
-import { useNavigation, useRoute } from '../../hooks'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -109,7 +117,7 @@ export default (): ReactElement => {
           const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setView(v)
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,
@@ -147,8 +155,30 @@ export default (): ReactElement => {
     ),
   )
 
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
+        onSuccess: async (result) => {
+          saveOffer(result, false)
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'GENERAL_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          }),
+      }),
+      [contract],
+    ),
+  )
+
   useEffect(() => {
-    if (!contract || !view) return
+    if (!contract || !view || updatePending) return
 
     if (isTradeComplete(contract)) {
       if (
@@ -156,20 +186,19 @@ export default (): ReactElement => {
         || (view === 'seller' && !contract.ratingBuyer)
       ) {
         navigation.replace('tradeComplete', { contract })
-      } else {
-        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-        navigation.replace('offer', { offer })
+        return
       }
+
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       return
     } else if (isTradeCanceled(contract)) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-      navigation.replace('offer', { offer })
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       return
     }
 
     setRequiredAction(getRequiredAction(contract))
     setUpdatePending(false)
-  }, [contract])
+  }, [contract, navigation, updatePending, view])
 
   const postConfirmPaymentBuyer = async () => {
     if (!contract) return
@@ -248,23 +277,28 @@ export default (): ReactElement => {
     })
 
   return !contract || updatePending ? (
-    <View style={tw`w-full h-full items-center justify-center`}>
+    <View style={tw`items-center justify-center w-full h-full`}>
       <Loading />
     </View>
   ) : (
     <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
         <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
+        <Text style={tw`mt-2 text-center text-grey-2`}>
+          {i18n('contract.trade', getOfferHexIdFromContract(contract))}
+        </Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
-            <ContractSummary {...{ contract, view }} />
-            <View style={tw`mt-16 flex-row justify-center`}>
+            <View>
+              <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
+              <TradeSummary {...{ contract, view }} />
+            </View>
+            <View style={tw`flex-row justify-center mt-16`}>
               {/sendPayment/u.test(requiredAction) ? (
-                <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
+                <View style={tw`absolute flex-row items-center mb-1 bottom-full`}>
                   <Timer
                     text={i18n(`contract.timer.${requiredAction}.${view}`)}
                     start={getTimerStart(contract, requiredAction)}

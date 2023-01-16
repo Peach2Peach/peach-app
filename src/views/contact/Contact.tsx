@@ -8,9 +8,10 @@ import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import LinedText from '../../components/ui/LinedText'
+import { account } from '../../utils/account'
 
-const contactReasons = ['bug', 'userProblem', 'other'] as const
-type ContactReason = typeof contactReasons[number]
+const contactReasonsNoAccount = ['bug', 'question', 'sellMore', 'other'] as ContactReason[]
+const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as ContactReason[]
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
@@ -32,27 +33,27 @@ export default (): ReactElement => {
   const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
-    <PeachScrollView contentContainerStyle={tw`py-6 flex-grow`}>
-      <View style={tw`h-full items-center p-6 justify-center`}>
-        <LinedText style={tw`my-3 mx-5`}>
+    <View style={tw`items-center w-full h-full p-6`}>
+      <PeachScrollView contentContainerStyle={tw`flex-1 py-6`}>
+        <LinedText style={tw`mb-3`}>
           <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
         </LinedText>
-        {contactReasons.map((name) => (
+        {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((name) => (
           <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
         ))}
-        <View style={tw`mt-10 w-full items-center`}>
-          <LinedText style={tw`my-3 mx-5`}>
+        <View style={tw`mt-10`}>
+          <LinedText style={tw`my-3`}>
             <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
           </LinedText>
           <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
             {i18n('telegram')}
           </OptionButton>
           <OptionButton onPress={openDiscord} style={tw`mt-2`} wide>
-            {i18n('telegram')}
+            {i18n('discord')}
           </OptionButton>
         </View>
-        <GoBackButton style={tw`mt-12`} />
-      </View>
-    </PeachScrollView>
+      </PeachScrollView>
+      <GoBackButton style={tw`absolute bottom-10`} />
+    </View>
   )
 }

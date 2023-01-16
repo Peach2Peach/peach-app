@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import { Fade, Input, PeachScrollView, Text } from '../../components'
-import { useBackgroundState } from '../../components/background/backgroundStore'
 import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
 import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
@@ -26,7 +25,6 @@ const bip39Rules = {
 
 export default ({ style }: ComponentProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const setBackgroundState = useBackgroundState((state) => state.setBackgroundState)
   const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
 
@@ -80,9 +78,6 @@ export default ({ style }: ComponentProps): ReactElement => {
 
       setTimeout(() => {
         navigation.replace('home')
-        setBackgroundState({
-          color: undefined,
-        })
       }, 1500)
     } else {
       setLoading(false)
@@ -117,11 +112,11 @@ export default ({ style }: ComponentProps): ReactElement => {
   return (
     <View style={[tw`flex flex-col px-6`, style]}>
       <View style={tw`h-full pb-8`}>
-        <PeachScrollView style={tw`h-full flex-shrink`}>
-          <Text style={tw`text-center text-primary-background-light mt-3`}>
+        <PeachScrollView style={tw`flex-shrink h-full`}>
+          <Text style={tw`mt-3 text-center text-primary-background-light`}>
             {i18n('restoreBackup.seedPhrase.useBackupFile')}
           </Text>
-          <Text style={tw`subtitle-1 mt-6 text-center text-primary-background-light`}>
+          <Text style={tw`mt-6 text-center subtitle-1 text-primary-background-light`}>
             {i18n('restoreBackup.seedPhrase.enter')}
           </Text>
           <View style={tw`flex flex-row px-6 mt-4`}>
@@ -131,7 +126,7 @@ export default ({ style }: ComponentProps): ReactElement => {
             </View>
           </View>
           {allWordsSet() && !isMnemonicValid && (
-            <Text style={[tw`tooltip text-center text-primary-background-light mt-2`]}>{i18n('form.bip39.error')}</Text>
+            <Text style={[tw`mt-2 text-center tooltip text-primary-background-light`]}>{i18n('form.bip39.error')}</Text>
           )}
         </PeachScrollView>
         <Fade show={!keyboardOpen} style={tw`flex items-center`}>

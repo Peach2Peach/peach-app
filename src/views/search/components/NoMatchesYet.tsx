@@ -16,7 +16,7 @@ export const NoMatchesYet = () => {
           <Text style={tw`text-center`}>{i18n('loading')}</Text>
         </View>
       ) : (
-        <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
+        <Text style={tw`mt-3 text-center`}>{i18n('search.weWillNotifyYou')}</Text>
       )}
     </>
   )

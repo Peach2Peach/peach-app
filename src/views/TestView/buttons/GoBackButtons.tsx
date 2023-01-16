@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 
 export const GoBackButtons = () => (
   <View style={tw`flex flex-col items-center`}>
-    <Text style={tw`h3 mt-4`}>Go back</Text>
+    <Text style={tw`mt-4 h3`}>Go back</Text>
     <GoBackButton style={tw`mt-2`} wide />
     <GoBackButton style={tw`mt-2`} narrow />
     <GoBackButton style={tw`mt-2`} />

@@ -57,13 +57,13 @@ export const MessageInput = ({
   return (
     <View
       style={[
-        tw`rounded flex-row bg-chat-you-translucent items-center max-h-40 px-2 py-2`,
+        tw`flex-row items-center px-2 py-2 rounded bg-chat-you-translucent max-h-40`,
         disabled ? tw`opacity-50` : {},
       ]}
     >
       <TextInput
         testID={testID}
-        style={tw`w-full flex-shrink font-lato leading-5 text-black-1 p-1`}
+        style={tw`flex-shrink w-full p-1 leading-5 font-lato text-black-1`}
         placeholder={placeholder}
         placeholderTextColor={tw`text-black-1`.color}
         allowFontScaling={false}
@@ -81,7 +81,7 @@ export const MessageInput = ({
         autoCapitalize="sentences"
       />
       <Pressable onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}>
-        <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color} />
+        <Icon id="send" style={tw`flex-1 w-5 h-5 ml-2`} color={tw`text-blue-1`.color} />
       </Pressable>
     </View>
   )

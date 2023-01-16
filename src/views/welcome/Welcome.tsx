@@ -5,25 +5,24 @@ import tw from '../../styles/tailwind'
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
-import { useBackgroundSetup } from '../../hooks/useBackgroundSetup'
 import i18n from '../../utils/i18n'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
 import PrivacyFirst from './PrivacyFirst'
 import { useWelcomeHeader } from './useWelcomeHeader'
+import { useKeyboard } from '../../hooks'
 
 const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
-const backgroundConfig = { color: 'primaryGradient' as const }
 
 export default (): ReactElement => {
   useWelcomeHeader()
-  useBackgroundSetup(backgroundConfig)
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
+  const keyboardOpen = useKeyboard()
 
   const next = () => {
     $carousel.current?.snapToNext()
@@ -35,7 +34,7 @@ export default (): ReactElement => {
   const endReached = () => getProgress() === 1
 
   return (
-    <View style={tw`h-full flex`} testID="welcome">
+    <View style={tw`flex h-full`} testID="welcome">
       <View style={tw`w-full px-8`}>
         <Progress
           percent={getProgress()}
@@ -45,14 +44,14 @@ export default (): ReactElement => {
         />
         <Pressable
           onPress={goToEnd}
-          style={[tw`h-8 flex flex-row justify-end items-center`, endReached() ? tw`opacity-0` : {}]}
+          style={[tw`flex flex-row items-center justify-end h-8`, endReached() ? tw`opacity-0` : {}]}
         >
-          <Text style={tw`text-primary-background-light mr-1`}>{i18n('skip')}</Text>
+          <Text style={tw`mr-1 text-primary-background-light`}>{i18n('skip')}</Text>
           <Icon id="skipForward" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />
         </Pressable>
       </View>
-      <View style={tw`h-full flex-shrink flex-col items-center justify-end`}>
-        <View style={tw`w-full h-full flex-shrink`}>
+      <View style={tw`flex-col items-center justify-end flex-shrink h-full`}>
+        <View style={tw`flex-shrink w-full h-full`}>
           <Carousel
             ref={$carousel}
             data={screens}
@@ -73,13 +72,13 @@ export default (): ReactElement => {
           />
         </View>
       </View>
-      <View style={tw`mb-8 pt-4 flex items-center w-full`}>
-        <View style={page === screens.length - 1 ? tw`opacity-0` : {}}>
+      {!keyboardOpen && (
+        <View style={[tw`flex items-center w-full pt-4 mb-8`, page === screens.length - 1 ? tw`opacity-0` : {}]}>
           <PrimaryButton testID="welcome-next" narrow white onPress={next} iconId="arrowRightCircle">
             {i18n('next')}
           </PrimaryButton>
         </View>
-      </View>
+      )}
     </View>
   )
 }

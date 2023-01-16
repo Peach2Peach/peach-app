@@ -39,9 +39,10 @@ import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { getPeachInfo } from './init/getPeachInfo'
+import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
-import { getPeachInfo, getTrades } from './init/session'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
@@ -79,10 +80,12 @@ const usePartialAppSetup = () => {
         setActive(isActive)
         if (isActive) {
           getPeachInfo(getAccount())
-          getTrades()
-          updateAppContext({
-            notifications: getChatNotifications() + getRequiredActionCount(),
-          })
+          if (account?.publicKey) {
+            getTrades()
+            updateAppContext({
+              notifications: getChatNotifications() + getRequiredActionCount(),
+            })
+          }
           analytics().logAppOpen()
 
           clearTimeout(goHomeTimeout)
@@ -129,6 +132,7 @@ const App: React.FC = () => {
   const getCurrentPage = () => currentPage
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
+  const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
@@ -247,7 +251,7 @@ const App: React.FC = () => {
                   >
                     <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                       <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                        <Background>
+                        <Background config={backgroundConfig}>
                           <Drawer
                             title={drawerTitle}
                             content={drawerContent}
@@ -256,13 +260,13 @@ const App: React.FC = () => {
                           />
                           <Overlay {...overlayState} />
                           <SafeAreaView>
-                            <View style={tw`h-full flex-col`}>
+                            <View style={tw`flex-col h-full`}>
                               {!!messageState.msgKey && (
                                 <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
                                   <Message {...messageState} />
                                 </Animated.View>
                               )}
-                              <View style={tw`h-full flex-shrink`}>
+                              <View style={tw`flex-shrink h-full`}>
                                 <Stack.Navigator
                                   detachInactiveScreens={true}
                                   screenOptions={{

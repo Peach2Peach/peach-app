@@ -12,17 +12,19 @@ import getContractEffect from '../../effects/getContractEffect'
 import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, saveContract } from '../../utils/contract'
+import { getContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { sleep } from '../../utils/performance/sleep'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
-import { parseContract } from '../contract/helpers/parseContract'
+import { decryptContractData } from '../contract/helpers/decryptContractData'
 import ChatBox from './components/ChatBox'
 import { ChatHeader } from './components/ChatHeader'
 import getMessagesEffect from './effects/getMessagesEffect'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { saveOffer } from '../../utils/offer'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -204,7 +206,7 @@ export default (): ReactElement => {
           const view = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setTradingPartner(() => (account.publicKey === result.seller.id ? result.buyer : result.seller))
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,
@@ -242,6 +244,28 @@ export default (): ReactElement => {
     ),
   )
 
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
+        onSuccess: async (result) => {
+          saveOffer(result, false)
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'GENERAL_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          }),
+      }),
+      [contract],
+    ),
+  )
+
   // Show dispute disclaimer
   useEffect(() => {
     if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
@@ -263,7 +287,7 @@ export default (): ReactElement => {
 
         if (decryptedMessages.some((m) => m.message === null)) {
           // delete symmetric key to let app decrypt actual one
-          const { symmetricKey } = await parseContract({
+          const { symmetricKey } = await decryptContractData({
             ...contract,
             symmetricKey: undefined,
           })
@@ -303,13 +327,13 @@ export default (): ReactElement => {
   }, [contractId, page, updateMessage])
 
   return !contract || updatePending ? (
-    <View style={tw`w-full h-full items-center justify-center`}>
+    <View style={tw`items-center justify-center w-full h-full`}>
       <Loading />
     </View>
   ) : (
-    <View style={[tw`h-full flex-col`]}>
+    <View style={[tw`flex-col h-full`]}>
       <ChatHeader contract={contract} />
-      <View style={[tw`w-full h-full flex-shrink`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
+      <View style={[tw`flex-shrink w-full h-full`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}
           setAndSaveChat={setAndSaveChat}

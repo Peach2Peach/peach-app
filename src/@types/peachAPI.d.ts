@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 declare type WSCallback = (message?: any) => void
 declare type PeachWS = {
   ws?: WebSocket
@@ -142,6 +143,23 @@ declare type PeachPairInfo = {
 }
 declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
+declare type TradeStatus =
+  | 'fundEscrow'
+  | 'escrowWaitingForConfirmation'
+  | 'returnAddressRequired'
+  | 'searchingForPeer'
+  | 'hasMatchesAvailable'
+  | 'offerCanceled'
+  | 'refundTxSignatureRequired'
+  | 'paymentRequired'
+  | 'confirmPaymentRequired'
+  | 'dispute'
+  | 'rateUser'
+  | 'confirmCancelation'
+  | 'tradeCompleted'
+  | 'tradeCanceled'
+  | 'waiting'
+
 declare type Offer = {
   id: string
   oldOfferId?: string
@@ -175,6 +193,8 @@ declare type Offer = {
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
+  tradeStatus: TradeStatus
+  lastModified: Date
 }
 
 declare type PostOfferResponse = {
@@ -236,8 +256,42 @@ declare type MatchResponse = {
   contractId?: string
   refundTx?: string
 }
+
+declare type OfferSummary = {
+  id: string
+  type: 'bid' | 'ask'
+  creationDate: Date
+  lastModified: Date
+  amount: number
+  matches: string[]
+  prices: Pricebook
+  tradeStatus: TradeStatus
+  contractId?: string
+  txId?: string
+}
+declare type GetOffersResponse = (BuyOffer | SellOffer)[]
+declare type GetOfferSummariesResponse = OfferSummary[]
+
 declare type GetContractResponse = Contract
+
+declare type ContractSummary = {
+  id: string
+  offerId: string
+  type: 'bid' | 'ask'
+  creationDate: Date
+  lastModified: Date
+  paymentMade?: Date
+  tradeStatus: TradeStatus
+  amount: number
+  price: number
+  currency: Currency
+  disputeWinner?: Contract['disputeWinner']
+  unreadMessages: number
+  releaseTxId?: string
+}
 declare type GetContractsResponse = Contract[]
+declare type GetContractSummariesResponse = ContractSummary[]
+
 declare type ConfirmPaymentResponse = {
   success: true
   txId?: string
@@ -274,3 +328,6 @@ declare type FeeRecommendation = {
   minimumFee: number
 }
 declare type GetFeeEstimateResponse = FeeRecommendation
+declare type TradeSummary = (OfferSummary | ContractSummary) & {
+  paymentMade?: Date
+}

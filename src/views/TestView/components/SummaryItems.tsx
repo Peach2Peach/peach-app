@@ -23,7 +23,7 @@ export const SummaryItems = () => {
   }
   return (
     <View style={tw`flex flex-col items-center`}>
-      <Text style={tw`h3 mt-4`}>Summary Item</Text>
+      <Text style={tw`mt-4 h3`}>Summary Item</Text>
       <SummaryItem {...defaultSummaryItem} />
       <SummaryItem
         {...{

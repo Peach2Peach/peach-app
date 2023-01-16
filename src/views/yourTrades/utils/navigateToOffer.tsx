@@ -1,36 +1,35 @@
 import React from 'react'
 import Refund from '../../../overlays/Refund'
-import { getContract } from '../../../utils/contract'
-import { StackNavigation } from '../../../utils/navigation'
-import { getNavigationDestination } from './getNavigationDestination'
+import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
+import { isSellOffer } from '../../../utils/offer'
+import { getOfferDetails } from '../../../utils/peachAPI'
+import { getNavigationDestinationForOffer } from './getNavigationDestination'
 import { shouldOpenRefundOverlay } from './shouldOpenRefundOverlay'
 
 type NavigateToOfferProps = {
-  offer: SellOffer | BuyOffer
-  status: TradeStatus['status']
-  requiredAction: TradeStatus['requiredAction']
+  offer: OfferSummary
   navigation: StackNavigation
   updateOverlay: React.Dispatch<OverlayState>
   matchStoreSetOffer: (offer: BuyOffer | SellOffer) => void
 }
 
-export const navigateToOffer = ({
+export const navigateToOffer = async ({
   offer,
   navigation,
   updateOverlay,
   matchStoreSetOffer,
-  ...offerStatus
-}: NavigateToOfferProps): void => {
-  const contract = offer.contractId ? getContract(offer.contractId) : undefined
-  const [screen, params] = getNavigationDestination(offer, offerStatus, contract)
-  if (shouldOpenRefundOverlay(offer, offerStatus, contract)) {
-    updateOverlay({
-      content: <Refund {...{ sellOffer: offer, navigation }} />,
+}: NavigateToOfferProps) => {
+  const [screen, params] = getNavigationDestinationForOffer(offer)
+  if (shouldOpenRefundOverlay(offer.tradeStatus)) {
+    const [sellOffer] = await getOfferDetails({ offerId: offer.id })
+    if (sellOffer && isSellOffer(sellOffer)) updateOverlay({
+      content: <Refund {...{ sellOffer, navigation }} />,
       visible: true,
     })
   }
   if (screen === 'search') {
-    matchStoreSetOffer(offer)
+    const [offr] = await getOfferDetails({ offerId: offer.id })
+    if (offr) matchStoreSetOffer(offr)
   }
 
   return navigation.navigate(screen, params)

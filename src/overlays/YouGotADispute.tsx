@@ -3,18 +3,18 @@ import { Keyboard, View } from 'react-native'
 import { Headline, Input, PrimaryButton, Text } from '../components'
 import { MessageContext } from '../contexts/message'
 import { OverlayContext } from '../contexts/overlay'
+import { useNavigation, useValidatedState } from '../hooks'
 import tw from '../styles/tailwind'
-import { getContract as getContractAPI } from '../utils/peachAPI'
+import { account } from '../utils/account'
 import { getChat, saveChat } from '../utils/chat'
 import { initDisputeSystemMessages } from '../utils/chat/createDisputeSystemMessages'
-import { getContract, getOfferIdfromContract } from '../utils/contract'
+import { getContract, getOfferHexIdFromContract } from '../utils/contract'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log'
+import { getContract as getContractAPI } from '../utils/peachAPI'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../views/dispute/Dispute'
 import SuccessOverlay from './SuccessOverlay'
-import { account } from '../utils/account'
-import { useNavigation, useValidatedState } from '../hooks'
 
 type YouGotADisputeProps = {
   message: string
@@ -33,7 +33,7 @@ export default ({ message, reason, contractId }: YouGotADisputeProps): ReactElem
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const contract = getContract(contractId)
-  const offerId = getOfferIdfromContract(contract as Contract)
+  const offerId = getOfferHexIdFromContract(contract as Contract)
 
   const closeOverlay = () => {
     navigation.navigate('contract', { contractId })
@@ -96,11 +96,11 @@ export default ({ message, reason, contractId }: YouGotADisputeProps): ReactElem
   return (
     <View style={tw`flex items-center`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('dispute.startedOverlay.title')}</Headline>
-      <View style={tw`flex justify-center items-center`}>
-        <Text style={tw`text-white-1 text-center`}>{i18n('dispute.startedOverlay.description.1', offerId)}</Text>
-        <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.startedOverlay.description.2')}</Text>
-        <Text style={tw`text-white-1 italic text-center mt-2`}>{message}</Text>
-        <Text style={tw`text-white-1 text-center mt-2`}>{i18n('dispute.startedOverlay.description.3')}</Text>
+      <View style={tw`flex items-center justify-center`}>
+        <Text style={tw`text-center text-white-1`}>{i18n('dispute.startedOverlay.description.1', offerId)}</Text>
+        <Text style={tw`mt-2 text-center text-white-1`}>{i18n('dispute.startedOverlay.description.2')}</Text>
+        <Text style={tw`mt-2 italic text-center text-white-1`}>{message}</Text>
+        <Text style={tw`mt-2 text-center text-white-1`}>{i18n('dispute.startedOverlay.description.3')}</Text>
       </View>
       {isEmailRequired(reason) ? (
         <View style={tw`mt-4`}>

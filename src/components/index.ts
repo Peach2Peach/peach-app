@@ -13,7 +13,7 @@ export { Icon } from './Icon'
 export { IconButton } from './IconButton'
 export { Hint } from './Hint'
 export {
-  Checkboxes,
+  Checkbox,
   Dropdown,
   FileInput,
   Input,

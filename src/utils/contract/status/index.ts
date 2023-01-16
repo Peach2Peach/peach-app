@@ -1,4 +1,3 @@
-export { getContractStatus } from './getContractStatus'
 export { isKYCConfirmationRequired } from './isKYCConfirmationRequired'
 export { isKYCRequired } from './isKYCRequired'
 export { isPaymentConfirmationRequired } from './isPaymentConfirmationRequired'

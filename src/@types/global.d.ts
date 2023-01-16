@@ -110,6 +110,7 @@ declare type Action = {
 }
 
 declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+declare type SummaryItemLevel = Level | 'WAITING'
 
 declare type MessageState = {
   level: Level
@@ -147,7 +148,7 @@ declare type PeachWallet = {
   mnemonic: string
 }
 
-declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other' | 'newMethod'
+declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'sellMore' | 'other'
 
 declare type Expiry = {
   date: Date
