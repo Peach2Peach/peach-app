@@ -18,13 +18,11 @@ import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
 import checkCircle from './checkCircle.svg'
 import checkSquare from './checkSquare.svg'
-import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsRight from './chevronsRight.svg'
 import chevronsUp from './chevronsUp.svg'
-import chevronUp from './chevronUp.svg'
 import circle from './circle.svg'
 import clipboard from './clipboard.svg'
 import clock from './clock.svg'
@@ -126,13 +124,11 @@ const Icons = {
   checkboxMark,
   checkCircle,
   checkSquare,
-  chevronDown,
   chevronLeft,
   chevronRight,
   chevronsDown,
   chevronsRight,
   chevronsUp,
-  chevronUp,
   circle,
   clipboard,
   clock,
