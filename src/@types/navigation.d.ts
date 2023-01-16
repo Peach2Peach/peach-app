@@ -61,10 +61,7 @@ declare type RootStackParamList = {
   }
   language: undefined
   currency: undefined
-  profile: {
-    userId: User['id']
-    user?: User
-  }
+  publicProfile: undefined
   referrals: undefined
   backups: undefined
   backupCreated: undefined

@@ -11,7 +11,7 @@ import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
 import NewUser from './newUser/NewUser'
 import OfferDetails from './offerDetails/OfferDetails'
-import Profile from './profile/Profile'
+import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
@@ -108,7 +108,7 @@ const contact = (hasAccount: boolean): ViewType[] =>
       { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
-const profile: ViewType[] = [{ name: 'profile', component: Profile, ...defaultConfig }]
+const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig },
@@ -154,7 +154,7 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       ...search,
       ...trade,
       ...tradeHistory,
-      ...profile,
+      ...publicProfile,
       ...contact(hasAccount),
       ...settings,
       ...testViews,
