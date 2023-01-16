@@ -55,17 +55,17 @@ type MessageStyling = {
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
   const text
     = meta.isMediator || meta.isSystemMessage
-      ? tw`text-center text-chat-mediator`
+      ? tw`text-primary-main`
       : meta.isYou
-        ? tw`text-right text-chat-you`
-        : tw`text-chat-partner`
+        ? tw`text-transparent`
+        : tw`text-black-2`
   const bgColor = !message.message
-    ? tw`bg-chat-error-translucent`
+    ? tw`bg-error-background` // TODO : Which color for error
     : meta.isMediator || meta.isSystemMessage
-      ? tw`bg-chat-mediator-translucent`
+      ? tw`bg-primary-mild-1`
       : meta.isYou
-        ? tw`bg-chat-you-translucent`
-        : tw`bg-chat-partner-translucent`
+        ? tw`bg-info-background`
+        : tw`bg-black-6`
   const statusIcon
     = message.readBy?.length === 0
       ? !meta.online
@@ -102,13 +102,13 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
   return (
     <View
       onStartShouldSetResponder={() => true}
-      style={[tw`w-11/12 px-3 bg-transparent`, meta.isMediator ? tw`w-full` : meta.isYou ? tw`self-end` : {}]}
+      style={[tw`w-10/12 px-3 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
     >
-      {meta.showName ? <Text style={[tw`px-1 mt-4 -mb-1 text-xs font-baloo`, text]}>{meta.name}</Text> : null}
-      <View style={[tw`flex-row flex-wrap justify-between p-3 mt-1 rounded`, bgColor]}>
+      {meta.showName ? <Text style={[tw`px-1 mt-4 subtitle-1`, text]}>{meta.name}</Text> : null}
+      <View style={[tw`px-3 py-2 mt-2 rounded-lg`, bgColor]}>
         <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
-        <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
-          <Text style={tw`text-xs text-grey-3`}>{toTimeFormat(message.date)}</Text>
+        <Text style={tw`pt-1 ml-auto leading-5 text-right `}>
+          <Text style={tw`body-s text-black-3`}>{toTimeFormat(message.date)}</Text>
           {meta.isYou && (
             <View style={tw`pl-1`}>
               <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
