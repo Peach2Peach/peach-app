@@ -50,22 +50,31 @@ export default (): ReactElement => {
   const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
   useHeaderSetup(
     useMemo(
-      () => (!!contract ? {
-        titleComponent:
-          <Text style={tw`lowercase text-black-1 h6`}>
-            {i18n('contract.trade', getOfferHexIdFromContract(contract))}
-            {contract?.disputeActive
-              // Did this considering all amounts are un k so max 1000k, but should it be 1M or is there an util ?
-              ? <Text style={tw`text-black-3`}> - {contract.amount / 1000}k {i18n('sats')}</Text> 
-              : <Text style={tw`text-black-3`}> - {i18n('chat')}</Text>}
-          </Text>,
-        icons: !contract?.disputeActive ? getHeaderChatActions(contract, view, updateOverlay) : [],
-      } : {}),
+      () =>
+        !!contract
+          ? {
+            titleComponent: (
+              <Text style={tw`lowercase text-black-1 h6`}>
+                {i18n('contract.trade', getOfferHexIdFromContract(contract))}
+                {contract?.disputeActive ? (
+                // Did this considering all amounts are un k so max 1000k, but should it be 1M or is there an util ?
+                  <Text style={tw`text-black-3`}>
+                    {' '}
+                      - {contract.amount / 1000}k {i18n('sats')}
+                  </Text>
+                ) : (
+                  <Text style={tw`text-black-3`}> - {i18n('chat')}</Text>
+                )}
+              </Text>
+            ),
+            icons: !contract?.disputeActive ? getHeaderChatActions(contract, view, updateOverlay) : [],
+          }
+          : {},
       [contract],
     ),
   )
 
-  //CHECK SHOW DISPUTE DISCLAIMER
+  // CHECK SHOW DISPUTE DISCLAIMER
   const showDisclaimer = useShowDisputeDisclaimer()
   useEffect(() => {
     if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {

@@ -6,6 +6,8 @@ import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
+import { toDateFormat } from '../../../utils/date'
+import LinedText from '../../../components/ui/LinedText'
 
 type GetMessageMetaProps = {
   message: Message
@@ -53,12 +55,7 @@ type MessageStyling = {
   statusIconColor: ColorValue
 }
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
-  const text
-    = meta.isMediator || meta.isSystemMessage
-      ? tw`text-primary-main`
-      : meta.isYou
-        ? tw`text-transparent`
-        : tw`text-black-2`
+  const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-2`
   const bgColor = !message.message
     ? tw`bg-error-background` // TODO : Which color for error
     : meta.isMediator || meta.isSystemMessage
@@ -99,23 +96,33 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
     online,
   })
   const { statusIcon, statusIconColor, text, bgColor } = getMessageStyling(message, meta)
+
+  const isChangeDate = index === 0 || toDateFormat(message.date) !== toDateFormat(chatMessages[index - 1].date)
+
   return (
-    <View
-      onStartShouldSetResponder={() => true}
-      style={[tw`w-10/12 px-3 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
-    >
-      {meta.showName ? <Text style={[tw`px-1 mt-4 subtitle-1`, text]}>{meta.name}</Text> : null}
-      <View style={[tw`px-3 py-2 mt-2 rounded-lg`, bgColor]}>
-        <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
-        <Text style={tw`pt-1 ml-auto leading-5 text-right `}>
-          <Text style={tw`body-s text-black-3`}>{toTimeFormat(message.date)}</Text>
-          {meta.isYou && (
-            <View style={tw`pl-1`}>
-              <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
-            </View>
-          )}
-        </Text>
+    <>
+      {isChangeDate && (
+        <LinedText style={tw`px-6 py-2`}>
+          <Text style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</Text>
+        </LinedText>
+      )}
+      <View
+        onStartShouldSetResponder={() => true}
+        style={[tw`w-10/12 px-3 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
+      >
+        {meta.showName && !meta.isYou ? <Text style={[tw`px-1 mt-4 subtitle-1`, text]}>{meta.name}</Text> : null}
+        <View style={[tw`px-3 py-2 mt-2 rounded-lg`, bgColor]}>
+          <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
+          <Text style={tw`pt-1 ml-auto leading-5 text-right `}>
+            <Text style={tw`body-s text-black-3`}>{toTimeFormat(message.date)}</Text>
+            {meta.isYou && (
+              <View style={tw`pl-1`}>
+                <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
+              </View>
+            )}
+          </Text>
+        </View>
       </View>
-    </View>
+    </>
   )
 }
