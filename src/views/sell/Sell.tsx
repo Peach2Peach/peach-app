@@ -4,16 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import {
-  BitcoinPriceStats,
-  Headline,
-  Hint,
-  HorizontalLine,
-  PeachScrollView,
-  PrimaryButton,
-  Text,
-  Title,
-} from '../../components'
+import { BitcoinPriceStats, Hint, HorizontalLine, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -26,7 +17,7 @@ const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: tru
 export default (): ReactElement => {
   const navigation = useNavigation()
 
-  useSellSetup()
+  useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 
   const [amount, setAmount, amountValid] = useValidatedState(account.settings.minAmount, rangeRules)
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
