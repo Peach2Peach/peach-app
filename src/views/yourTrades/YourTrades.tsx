@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { SectionList, View } from 'react-native'
+
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -10,18 +11,9 @@ import { isOpenOffer, isPastOffer } from './utils'
 import { getCategories } from './utils/getCategories'
 
 const tabs: TabbedNavigationItem[] = [
-  {
-    id: 'buy',
-    display: i18n('yourTrades.buy'),
-  },
-  {
-    id: 'sell',
-    display: i18n('yourTrades.sell'),
-  },
-  {
-    id: 'history',
-    display: i18n('yourTrades.history'),
-  },
+  { id: 'buy', display: i18n('yourTrades.buy') },
+  { id: 'sell', display: i18n('yourTrades.sell') },
+  { id: 'history', display: i18n('yourTrades.history') },
 ]
 
 export default (): ReactElement => {
@@ -52,22 +44,18 @@ export default (): ReactElement => {
   }
 
   return (
-    <>
+    <View style={tw`h-full px-8`}>
       <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
-      <View style={tw`p-7`}>
-        {allOpenOffers.length + pastOffers.length === 0 ? (
-          // TODO : EMPTY PLACEHOLDER
-          <View />
-        ) : (
-          <SectionList
-            showsVerticalScrollIndicator={false}
-            sections={getCategories(getCurrentData())}
-            renderSectionHeader={SectionHeader}
-            renderItem={TradeItem}
-            ItemSeparatorComponent={() => <View style={tw`h-3`}></View>}
-          />
-        )}
-      </View>
-    </>
+      {allOpenOffers.length + pastOffers.length > 0 && (
+        <SectionList
+          showsVerticalScrollIndicator={false}
+          sections={getCategories(getCurrentData())}
+          renderSectionHeader={SectionHeader}
+          renderItem={TradeItem}
+          ItemSeparatorComponent={() => <View style={tw`h-6`} />}
+          contentContainerStyle={tw`py-10`}
+        />
+      )}
+    </View>
   )
 }
