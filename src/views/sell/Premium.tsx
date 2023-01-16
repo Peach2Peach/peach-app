@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
-import { Input, PremiumSlider, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Input, PremiumSlider, Text } from '../../components'
 import { SATSINBTC } from '../../constants'
 import { useMarketPrices } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -42,7 +42,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   return (
     <View>
-      <View style={tw`flex-row items-center justify-center`}>
+      <Text style={tw`text-center h5`}>{i18n('sell.premium.title')}</Text>
+      <View style={tw`flex-row items-center justify-center mt-8`}>
         <Text
           style={[
             tw`leading-2xl`,

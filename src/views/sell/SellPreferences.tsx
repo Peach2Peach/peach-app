@@ -15,7 +15,7 @@ import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Loading, Navigation, PeachScrollView } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
@@ -72,16 +72,19 @@ const screens = [
     id: 'premium',
     view: Premium,
     scrollable: true,
+    showPrice: true,
   },
   {
     id: 'offerDetails',
     view: OfferDetails,
     scrollable: true,
+    showPrice: false,
   },
   {
     id: 'summary',
     view: Summary,
     scrollable: false,
+    showPrice: false,
   },
 ]
 
@@ -204,6 +207,12 @@ export default (): ReactElement => {
         </View>
       ) : (
         <>
+          {currentScreen.showPrice && (
+            <View style={tw`px-8`}>
+              <HorizontalLine style={tw`mb-2`} />
+              <BitcoinPriceStats />
+            </View>
+          )}
           <PeachScrollView
             scrollRef={(ref) => (scroll = ref)}
             disable={!scrollable}
