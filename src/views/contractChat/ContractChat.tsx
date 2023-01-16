@@ -67,7 +67,7 @@ export default (): ReactElement => {
   
 
   //CHECK SHOW DISPUTE DISCLAIMER
-  const showDisclaimer = useShowDisputeDisclaimer(contract)
+  const showDisclaimer = useShowDisputeDisclaimer()
   useEffect(() => {
     if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
       showDisclaimer()
