@@ -6,7 +6,11 @@ import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'
 
 // eslint-disable-next-line max-len
-export const getHeaderChatActions = (contract: Contract, view: 'buyer' | 'seller' | '', updateOverlay: React.Dispatch<OverlayState>): HeaderConfig['icons'] => {
+export const getHeaderChatActions = (
+  contract: Contract,
+  view: 'buyer' | 'seller' | '',
+  updateOverlay: React.Dispatch<OverlayState>,
+): HeaderConfig['icons'] => {
   const canCancel
     = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
   const canDispute
@@ -33,11 +37,13 @@ export const getHeaderChatActions = (contract: Contract, view: 'buyer' | 'seller
   const icons: HeaderConfig['icons'] = [
     {
       iconComponent: <Icon style={!canCancel && tw`opacity-50`} id="xCircle" color={tw`text-error-main`.color} />,
-      onPress: openCancelTrade
+      onPress: openCancelTrade,
     },
     {
-      iconComponent: <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-warning-main`.color}/>,
-      onPress: raiseDispute
+      iconComponent: (
+        <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-warning-main`.color} />
+      ),
+      onPress: raiseDispute,
     },
   ]
   return icons
