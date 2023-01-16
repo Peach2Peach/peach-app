@@ -10,7 +10,8 @@ import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
 import Dispute from './dispute/Dispute'
 import NewUser from './newUser/NewUser'
-import Profile from './profile/Profile'
+import OfferDetails from './offerDetails/OfferDetails'
+import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
@@ -43,7 +44,6 @@ import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
-import OfferDetails from './offerDetails/OfferDetails'
 import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
@@ -108,7 +108,7 @@ const contact = (hasAccount: boolean): ViewType[] =>
       { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
-const profile: ViewType[] = [{ name: 'profile', component: Profile, ...defaultConfig }]
+const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig },
@@ -154,7 +154,7 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       ...search,
       ...trade,
       ...tradeHistory,
-      ...profile,
+      ...publicProfile,
       ...contact(hasAccount),
       ...settings,
       ...testViews,

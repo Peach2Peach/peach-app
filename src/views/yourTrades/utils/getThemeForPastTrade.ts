@@ -1,8 +1,12 @@
+import { ColorValue } from 'react-native'
+import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
 import { getOfferLevel } from './getOfferLevel'
 import { isContractSummary } from './isContractSummary'
 
-export const getThemeForPastTrade = (trade: ContractSummary | OfferSummary) => {
+export const getThemeForPastTrade = (
+  trade: ContractSummary | OfferSummary,
+): { icon: IconType; level: SummaryItemLevel; color: ColorValue | undefined } => {
   const level = getOfferLevel(trade)
 
   if (isContractSummary(trade)) {

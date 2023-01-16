@@ -32,8 +32,8 @@ export default () => {
     <View style={tw`h-full px-8`}>
       <PeachScrollView>
         <MyProfileOverview style={tw`mt-[48.5px]`} />
-        <TradingLimits style={tw`mt-6`} />
-        <AccountInfo style={tw`ml-1`} user={user} />
+        <TradingLimits style={tw`mt-2`} />
+        <AccountInfo style={tw`mt-12 ml-1`} user={user} />
         <DeleteAccountButton style={tw`self-center my-7`} />
       </PeachScrollView>
     </View>
