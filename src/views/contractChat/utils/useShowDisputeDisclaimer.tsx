@@ -35,7 +35,6 @@ export const useShowDisputeDisclaimer = () => {
         label: i18n('help'),
         icon: 'info',
       },
-
     })
   }, [navigation, updateOverlay])
   return showDisclaimer
