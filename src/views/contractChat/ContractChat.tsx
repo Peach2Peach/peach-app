@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { View, Text } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
@@ -9,10 +9,10 @@ import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
-import { useNavigation, useRoute, useThrottledEffect } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute, useThrottledEffect } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
+import { getContract, getOfferHexIdFromContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
@@ -21,10 +21,10 @@ import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { decryptContractData } from '../contract/helpers/decryptContractData'
 import ChatBox from './components/ChatBox'
-import { ChatHeader } from './components/ChatHeader'
-import getMessagesEffect from './effects/getMessagesEffect'
+import getMessagesEffect from './utils/getMessagesEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { saveOffer } from '../../utils/offer'
+import { getHeaderChatActions } from './utils/getHeaderChatActions'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -45,6 +45,24 @@ export default (): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
+
+  // HEADER CONFIG
+  const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
+  useHeaderSetup(
+    useMemo(
+      () => (!!contract ? {
+        titleComponent:
+          <Text style={tw`lowercase text-black-1 h6`}>
+            {i18n('contract.trade', getOfferHexIdFromContract(contract))}
+            {contract?.disputeActive
+              ? <Text style={tw`text-black-3`}> - {contract.amount / 1000}k {i18n('sats')}</Text> // Did this considering all amounts are un k so max 1000k, but should it be 1M or is there an util ?
+              : <Text style={tw`text-black-3`}> - {i18n('chat')}</Text>}
+          </Text>,
+        icons: !contract?.disputeActive ? getHeaderChatActions(contract, view, updateOverlay) : [],
+      } : {}),
+      [contract],
+    ),
+  )
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
   const saveAndUpdate = (contractData: Contract): Contract => {
@@ -332,7 +350,6 @@ export default (): ReactElement => {
     </View>
   ) : (
     <View style={[tw`flex-col h-full`]}>
-      <ChatHeader contract={contract} />
       <View style={[tw`flex-shrink w-full h-full`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
           chat={chat}
