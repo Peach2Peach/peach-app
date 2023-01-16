@@ -2,7 +2,8 @@ declare type Settings = {
   appVersion: string
   enableAnalytics?: boolean
   locale: string
-  amount?: number
+  minAmount: number
+  maxAmount: number
   returnAddress?: string
   payoutAddress?: string
   derivationPath?: string

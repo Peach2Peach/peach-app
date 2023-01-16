@@ -17,7 +17,6 @@ type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
 
 export default (): ReactElement => {
   const showHelp = useShowHelp('referrals')
-  // Header set
   useHeaderSetup(
     useMemo(
       () => ({

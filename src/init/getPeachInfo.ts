@@ -1,8 +1,8 @@
 import {
-  setBuckets,
-  setDeprecatedBuckets,
   setLatestAppVersion,
+  setMaxTradingAmount,
   setMinAppVersion,
+  setMinTradingAmount,
   setPaymentMethods,
   setPeachFee,
   setPeachPGPPublicKey,
@@ -36,8 +36,8 @@ export const getPeachInfo = async (account?: Account): Promise<GetInfoResponse |
   if (peachInfo) {
     setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey)
     setPaymentMethods(peachInfo.paymentMethods)
-    setBuckets(peachInfo.buckets)
-    setDeprecatedBuckets(peachInfo.deprecatedBuckets)
+    setMinTradingAmount(peachInfo.minAmount)
+    setMaxTradingAmount(peachInfo.maxAmount)
     setPeachFee(peachInfo.fees.escrow)
     setLatestAppVersion(peachInfo.latestAppVersion)
     setMinAppVersion(peachInfo.minAppVersion)

@@ -13,12 +13,18 @@ export const rules = {
     return !required || value
   },
   number: /^\d+$/u,
+  min (min: number, value: number) {
+    return value >= min
+  },
+  max (max: number, value: number) {
+    return value <= max
+  },
   account (_: boolean, value: object) {
     return value && typeof value === 'object'
   },
   phone: /^\+[1-9][0-9]{7,}$/u,
   email: emailRegex,
-  bitcoinAddress (_: boolean, value: string) {
+  bitcoinAddress (enabled: boolean, value: string) {
     let valid = false
     try {
       address.toOutputScript(value, getNetwork())
