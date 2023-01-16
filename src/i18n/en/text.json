@@ -130,7 +130,7 @@
   "sell.discount": "discount",
   "sell.premium.currently": "currently $0",
   "sell.premium.marketPrice": "market\nprice",
-  "offer.summary.subtitle": "summary",
+  "sell.summary.title": "sell offer summary",
   "offer.summary.youAreSelling": "you're selling",
   "offer.summary.youAreBuying": "you're buying",
   "offer.summary.for": "for",
