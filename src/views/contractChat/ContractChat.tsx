@@ -10,7 +10,7 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import { useHeaderSetup, useNavigation, useRoute, useThrottledEffect } from '../../hooks'
-import { account, updateSettings } from '../../utils/account'
+import { account } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
 import { getContract, getOfferHexIdFromContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -25,6 +25,7 @@ import getMessagesEffect from './utils/getMessagesEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { saveOffer } from '../../utils/offer'
 import { getHeaderChatActions } from './utils/getHeaderChatActions'
+import { useShowDisputeDisclaimer } from './utils/useShowDisputeDisclaimer'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -63,6 +64,15 @@ export default (): ReactElement => {
       [contract],
     ),
   )
+  
+
+  //CHECK SHOW DISPUTE DISCLAIMER
+  const showDisclaimer = useShowDisputeDisclaimer(contract)
+  useEffect(() => {
+    if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
+      showDisclaimer()
+    }
+  }, [contract, updatePending])
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
   const saveAndUpdate = (contractData: Contract): Contract => {
@@ -152,17 +162,6 @@ export default (): ReactElement => {
       setContract(c)
     }
   }
-
-  const showDisclaimer = useCallback(async () => {
-    await sleep(1000)
-    // <DisputeDisclaimer contract={contract!} />
-    updateMessage({
-      msgKey: 'DISPUTE_DISCLAIMER',
-      level: 'WARN',
-      keepAlive: true,
-      onClose: () => updateSettings({ showDisputeDisclaimer: false }, true),
-    })
-  }, [contract, navigation, updateMessage])
 
   useFocusEffect(useCallback(initChat, [contract?.id, route.params.contractId]))
 
@@ -283,13 +282,6 @@ export default (): ReactElement => {
       [contract],
     ),
   )
-
-  // Show dispute disclaimer
-  useEffect(() => {
-    if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
-      showDisclaimer()
-    }
-  }, [contract, showDisclaimer, updatePending])
 
   useEffect(() => {
     if (!contract) return
