@@ -56,7 +56,8 @@ export default (): ReactElement => {
           <Text style={tw`lowercase text-black-1 h6`}>
             {i18n('contract.trade', getOfferHexIdFromContract(contract))}
             {contract?.disputeActive
-              ? <Text style={tw`text-black-3`}> - {contract.amount / 1000}k {i18n('sats')}</Text> // Did this considering all amounts are un k so max 1000k, but should it be 1M or is there an util ?
+              // Did this considering all amounts are un k so max 1000k, but should it be 1M or is there an util ?
+              ? <Text style={tw`text-black-3`}> - {contract.amount / 1000}k {i18n('sats')}</Text> 
               : <Text style={tw`text-black-3`}> - {i18n('chat')}</Text>}
           </Text>,
         icons: !contract?.disputeActive ? getHeaderChatActions(contract, view, updateOverlay) : [],
@@ -64,7 +65,6 @@ export default (): ReactElement => {
       [contract],
     ),
   )
-  
 
   //CHECK SHOW DISPUTE DISCLAIMER
   const showDisclaimer = useShowDisputeDisclaimer()
@@ -74,9 +74,8 @@ export default (): ReactElement => {
     }
   }, [contract, updatePending])
 
-  //INIT CHAT...
+  // INIT CHAT...
 
-  
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
