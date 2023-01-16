@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import React from 'react'
 import { Icon } from '../../../components'
 import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
@@ -6,7 +7,6 @@ import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'
 
 export const getHeaderChatActions = (contract: Contract, view: 'buyer' | 'seller' | '', updateOverlay: React.Dispatch<OverlayState>): HeaderConfig['icons'] => {
-
   const canCancel
     = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
   const canDispute
