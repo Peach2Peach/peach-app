@@ -6,10 +6,10 @@ import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useOfferDetailsQuery } from '../../../hooks/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { sha256 } from '../../../utils/crypto'
-import { getOffer, saveOffer } from '../../../utils/offer'
+import { isBuyOffer, saveOffer } from '../../../utils/offer'
 import { signMessageToPublish } from '../../../utils/peachAPI'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 
 const signatureRules = {
   required: true,
@@ -36,6 +36,7 @@ export const useSignMessageSetup = () => {
       if (signMessageToPublishResult) {
         const patchedOffer: BuyOffer = {
           ...offer,
+          online: true,
           messageSignature: sig,
         }
         saveOffer(patchedOffer)
@@ -51,14 +52,14 @@ export const useSignMessageSetup = () => {
   )
 
   useEffect(() => {
-    if (!offer || !peachWalletActive) return
+    if (!offer || !isBuyOffer(offer) || !offer.message || !peachWalletActive) return
     const peachAccount = getPeachAccount()
 
     if (!peachAccount) {
       showErrorBanner(new Error('Peach Account not set'))
       return
     }
-    const sig = peachAccount.sign(Buffer.from(sha256(offer.message))).toString('hex')
+    const sig = peachWallet.signMessage(offer.message, offer.releaseAddress)
     submit(sig)
   }, [peachWalletActive, updateMessage, navigation, submit, showErrorBanner, offer])
 
