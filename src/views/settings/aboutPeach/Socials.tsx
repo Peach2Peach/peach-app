@@ -12,7 +12,7 @@ const socials = [
   { name: 'instagram', url: 'https://www.instagram.com/peachbitcoin' },
   { name: 'telegram', url: 'https://t.me/+3KpdrMw25xBhNGJk' },
   { name: 'discord', url: 'https://discord.gg/skP9zqTB' },
-  { name: 'twitch', url: 'https://www.twitch.tv/peachbitcoin'}
+  { name: 'twitch', url: 'https://www.twitch.tv/peachbitcoin' }
 ]
 export default (): ReactElement => {
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
