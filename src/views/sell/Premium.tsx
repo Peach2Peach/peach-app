@@ -11,15 +11,23 @@ const validate = (offer: SellOffer) => offer.premium >= -21 && offer.premium <= 
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
-  const [premium, setPremium] = useState(offer.premium)
+  const [premium, setPremium] = useState(offer.premium.toString())
   const [display, updateDisplay] = useState(premium)
+
+  const updatePremium = (value: string | number) => {
+    if (!value) return setPremium('')
+    const number = Number(value)
+    if (isNaN(number)) return setPremium(String(value) || '')
+    if (number < -21) return setPremium('-21')
+    if (number > 21) return setPremium('21')
+    return setPremium(String(value))
+  }
 
   useEffect(() => {
     setPremium(premium)
-    console.log(premium)
     updateOffer({
       ...offer,
-      premium,
+      premium: Number(premium),
     })
   }, [premium, setPremium, setStepValid, updateOffer])
 
@@ -28,21 +36,22 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   return (
     <View>
       <View style={tw`flex-row items-center`}>
-        <Text style={premium > 0 ? tw`text-success-main` : tw`text-primary-main`}>
-          {i18n(premium > 0 ? 'sell.premium' : 'sell.discount')}:
+        <Text style={Number(premium) > 0 ? tw`text-success-main` : tw`text-primary-main`}>
+          {i18n(Number(premium) > 0 ? 'sell.premium' : 'sell.discount')}:
         </Text>
         <Input
           style={tw`w-20`}
           {...{
             value: premium.toString(),
-            onChange: setPremium,
+            onChange: updatePremium,
+            keyboardType: 'numeric',
           }}
         />
       </View>
       <PremiumSlider
         {...{
-          value: premium,
-          onChange: setPremium,
+          value: Number(premium),
+          onChange: updatePremium,
           updateDisplay,
         }}
       />

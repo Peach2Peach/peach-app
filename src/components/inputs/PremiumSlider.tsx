@@ -18,7 +18,7 @@ const SliderLabel = ({ position, style, children }: SliderLabelProps): ReactElem
 
 type PremiumSliderProps = ComponentProps & {
   value: number
-  onChange?: (value: number) => void
+  onChange: (value: number) => void
   displayUpdate?: (value: number) => void
 }
 
@@ -41,7 +41,6 @@ const getTransform = (pan: Animated.Value, trackWidth: number, knobWidth: number
 })
 
 export const PremiumSlider = ({ value, onChange, displayUpdate, style }: PremiumSliderProps): ReactElement => {
-  const [markerX] = useState((value - MIN) / DELTA)
   const [premium, setPremium] = useState(value)
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
@@ -54,14 +53,16 @@ export const PremiumSlider = ({ value, onChange, displayUpdate, style }: Premium
     }),
     [trackWidth],
   )
-  const pan = useRef(new Animated.Value(markerX * trackWidth)).current
+  const pan = useRef(new Animated.Value(((value - MIN) / DELTA) * trackWidth)).current
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: (e, gestureState) => {
         Animated.event([null, { dx: pan }], { useNativeDriver: false })(e, gestureState)
       },
-      onPanResponderRelease: () => pan.extractOffset(),
+      onPanResponderRelease: () => {
+        pan.extractOffset()
+      },
       onShouldBlockNativeResponder: () => true,
     }),
   ).current
@@ -80,9 +81,14 @@ export const PremiumSlider = ({ value, onChange, displayUpdate, style }: Premium
     return () => pan.removeAllListeners()
   }, [pan, trackWidth])
 
+  useEffect(() => {
+    if (isNaN(value)) return
+    pan.setOffset(((value - MIN) / DELTA) * trackWidth)
+  }, [pan, trackWidth, value])
+
   const debounced = useRef(
     debounce((deps: { premium: number }) => {
-      if (onChange) onChange(deps.premium)
+      onChange(deps.premium)
     }, 300),
   )
 
