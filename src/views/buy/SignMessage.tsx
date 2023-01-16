@@ -11,16 +11,16 @@ export default (): ReactElement => {
   const [signature, setSignature, , signatureError] = signatureField
   const submitSignature = () => submit(signature)
 
-  return peachWalletActive ? (
+  return !message || peachWalletActive ? (
     <Loading />
   ) : (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+    <View style={tw`flex items-stretch h-full px-6 pt-6 pb-10`}>
       <Title
         title={i18n('sell.title')}
         subtitle={i18n('offer.requiredAction.provideReturnAddress')}
         help={<ProvideRefundAddress />}
       />
-      <View style={tw`h-full flex-shrink mt-12`}>
+      <View style={tw`flex-shrink h-full mt-12`}>
         <CopyAble value={message}></CopyAble>
         <Input
           style={tw`h-40`}
@@ -38,7 +38,7 @@ export default (): ReactElement => {
         <PrimaryButton style={tw`w-52`} disabled={!signature} onPress={submitSignature} narrow>
           {i18n(!signature ? 'buy.messageSigning.provideFirst' : 'confirm')}
         </PrimaryButton>
-        <GoBackButton style={tw`w-52 mt-2`} />
+        <GoBackButton style={tw`mt-2 w-52`} />
       </View>
     </View>
   )
