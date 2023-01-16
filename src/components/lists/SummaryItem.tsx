@@ -43,7 +43,7 @@ const levelColorMap: LevelColorMap = {
 type SummaryItemProps = ComponentProps & {
   title: string
   icon?: ReactElement
-  amount: number
+  amount: number | [number, number]
   currency?: Currency
   price?: number
   date: Date
@@ -61,33 +61,42 @@ export const SummaryItem = ({
   action,
   level = 'DEFAULT',
   style,
-}: SummaryItemProps): ReactElement => (
-  <TouchableOpacity
-    style={[tw`w-full rounded-xl`, tw`border`, levelColorMap.border[level], style]}
-    onPress={action?.callback}
-  >
-    <View style={tw`flex flex-row items-center justify-between px-4 py-3 rounded-xl`}>
-      <View>
-        <Text style={tw`subtitle-1`}>{title}</Text>
-        <View style={tw`flex flex-row items-center`}>
-          {icon && <View style={tw`mr-1`}>{icon}</View>}
-          <Text style={tw`text-xs text-black-2`}>{toDateFormat(date)}</Text>
+}: SummaryItemProps): ReactElement => {
+  const [amount1, amount2] = Array.isArray(amount) ? amount : [amount]
+
+  return (
+    <TouchableOpacity
+      style={[tw`w-full rounded-xl`, tw`border`, levelColorMap.border[level], style]}
+      onPress={action?.callback}
+    >
+      <View style={tw`flex flex-row items-center justify-between px-4 py-3 rounded-xl`}>
+        <View>
+          <Text style={tw`subtitle-1`}>{title}</Text>
+          <View style={tw`flex flex-row items-center`}>
+            {icon && <View style={tw`mr-1`}>{icon}</View>}
+            <Text style={tw`text-xs text-black-2`}>{toDateFormat(date)}</Text>
+          </View>
+        </View>
+        <View style={tw`items-end`}>
+          <SatsFormat {...{ sats: amount1 }} />
+          {amount2 ? (
+            <View>
+              <Text style={tw`absolute w-full overflow-visible text-center bottom-3 text-3xs text-black-3`}>~</Text>
+              <SatsFormat {...{ sats: amount2 }} />
+            </View>
+          ) : !!price && !!currency ? (
+            <PriceFormat style={tw`text-right text-black-2`} {...{ amount: price, currency }} />
+          ) : (
+            <Text> </Text>
+          )}
         </View>
       </View>
-      <View>
-        <SatsFormat {...{ sats: amount }} />
-        {!!price && !!currency ? (
-          <PriceFormat style={tw`text-right text-black-2`} {...{ amount: price, currency }} />
-        ) : (
-          <Text> </Text>
-        )}
-      </View>
-    </View>
-    {!!action?.label && (
-      <View style={[tw`flex flex-row items-center justify-center py-2 rounded-b-lg`, levelColorMap.bg[level]]}>
-        <Icon id={action.icon} style={tw`w-4 mr-1 -mt-0.5`} color={levelColorMap.text[level].color} />
-        <Text style={[tw`font-semibold`, levelColorMap.text[level]]}>{action.label}</Text>
-      </View>
-    )}
-  </TouchableOpacity>
-)
+      {!!action?.label && (
+        <View style={[tw`flex flex-row items-center justify-center py-2 rounded-b-lg`, levelColorMap.bg[level]]}>
+          <Icon id={action.icon} style={tw`w-4 mr-1 -mt-0.5`} color={levelColorMap.text[level].color} />
+          <Text style={[tw`font-semibold`, levelColorMap.text[level]]}>{action.label}</Text>
+        </View>
+      )}
+    </TouchableOpacity>
+  )
+}
