@@ -19,14 +19,14 @@ export const useSignMessageSetup = () => {
   const route = useRoute<'signMessage'>()
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
-  const { offer } = useOfferDetailsQuery<BuyOffer>(route.params.offerId)
+  const { offer } = useOfferDetailsQuery(route.params.offerId)
   const [, updateMessage] = useContext(MessageContext)
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
   const [signature, setSignature] = useState('')
 
   const signatureRules = useMemo(
     () =>
-      offer
+      offer && isBuyOffer(offer)
         ? {
           signature: [offer.releaseAddress, offer.message],
           required: true,
@@ -58,7 +58,7 @@ export const useSignMessageSetup = () => {
 
   const submit = useCallback(
     async (sig: string) => {
-      if (!offer) return
+      if (!offer || !isBuyOffer(offer)) return
 
       const [signMessageToPublishResult, signMessageToPublishError] = await signMessageToPublish({
         offerId: route.params.offerId,
@@ -96,7 +96,7 @@ export const useSignMessageSetup = () => {
 
   return {
     offer,
-    message: offer?.message,
+    message: offer && isBuyOffer(offer) ? offer?.message : '',
     peachWalletActive,
     submit,
     signature,
