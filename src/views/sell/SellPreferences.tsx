@@ -53,7 +53,7 @@ const getDefaultSellOffer = (amount?: number): SellOfferDraft => ({
     expiry: 537,
   },
   amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
-  returnAddress: account.settings.returnAddress,
+  returnAddress: account.settings.returnAddress || '',
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
 })

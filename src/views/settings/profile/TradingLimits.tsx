@@ -5,7 +5,7 @@ import { Progress, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { getExchangeRate } from '../../../utils/market'
+import { useExchangeRate } from '../../../utils/market'
 import { priceFormat } from '../../../utils/string'
 
 export const TradingLimits = (props: ComponentProps) => {
@@ -18,7 +18,7 @@ export const TradingLimits = (props: ComponentProps) => {
     [monthlyAmount, monthly],
     [yearlyAmount, yearly],
   ]
-  const exchangeRate = getExchangeRate(displayCurrency, 'CHF')
+  const exchangeRate = useExchangeRate(displayCurrency, 'CHF')
 
   return (
     <View {...props}>

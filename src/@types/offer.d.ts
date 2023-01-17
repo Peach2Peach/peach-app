@@ -9,6 +9,7 @@ declare type SellOfferDraft = OfferDraft & {
 declare type SellOffer = SellOfferDraft &
   Offer & {
     id: string
+    returnAddress: string
     returnAddressSet?: boolean
     returnAddressRequired?: boolean
     escrow?: string
@@ -24,6 +25,8 @@ declare type BuyOfferDraft = OfferDraft & {
   amount: [number, number]
   type: 'bid'
   releaseAddress: string
+  matched: Offer['id'][]
+  seenMatches: Offer['id'][]
 }
 
 declare type BuyOffer = BuyOfferDraft &

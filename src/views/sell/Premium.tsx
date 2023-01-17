@@ -1,8 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
-import { BitcoinPriceStats, HorizontalLine, Input, PremiumSlider, Text } from '../../components'
-import { SATSINBTC } from '../../constants'
+import { Input, PremiumSlider, Text } from '../../components'
 import { useMarketPrices } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
@@ -56,11 +55,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           <Input
             style={tw`w-16`}
             inputStyle={tw`text-center`}
-            {...{
-              value: premium.toString() || '0',
-              onChange: updatePremium,
-              keyboardType: 'numeric',
-            }}
+            value={premium.toString() || '0'}
+            onChange={updatePremium}
+            keyboardType={'numeric'}
           />
         </View>
       </View>
@@ -69,13 +66,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           ({i18n('sell.premium.currently', i18n(`currency.format.${displayCurrency}`, priceFormat(currentPrice)))})
         </Text>
       )}
-      <PremiumSlider
-        style={tw`mt-22`}
-        {...{
-          value: Number(premium),
-          onChange: updatePremium,
-        }}
-      />
+      <PremiumSlider style={tw`mt-22`} value={Number(premium)} onChange={updatePremium} />
     </View>
   )
 }

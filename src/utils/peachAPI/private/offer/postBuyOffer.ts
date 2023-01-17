@@ -21,12 +21,8 @@ type PostOfferProps = RequestProps & {
  * @returns PostOfferResponse
  */
 export const postBuyOffer = async ({
-  type,
-  amount,
-  meansOfPayment,
-  paymentData,
-  releaseAddress,
   timeout,
+  ...requestBody
 }: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: {
@@ -35,13 +31,7 @@ export const postBuyOffer = async ({
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify({
-      type,
-      amount,
-      meansOfPayment,
-      paymentData,
-      releaseAddress,
-    }),
+    body: JSON.stringify(requestBody),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 

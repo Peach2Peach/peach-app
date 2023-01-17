@@ -1,11 +1,11 @@
 import { useMarketPrices } from '../../../../src/hooks'
-import { getExchangeRate } from '../../../../src/utils/market'
+import { useExchangeRate } from '../../../../src/utils/market'
 
 jest.mock('../../../../src/hooks/useMarketPrices', () => ({
   useMarketPrices: jest.fn(),
 }))
 
-describe('getExchangeRate', () => {
+describe('useExchangeRate', () => {
   it('should return the correct exchange rate', () => {
     ;(<jest.Mock>useMarketPrices).mockReturnValue({
       data: {
@@ -16,17 +16,17 @@ describe('getExchangeRate', () => {
         SEK: 0.1,
       },
     })
-    expect(getExchangeRate('USD', 'EUR')).toEqual(0.8)
-    expect(getExchangeRate('EUR', 'USD')).toEqual(1.25)
-    expect(getExchangeRate('CHF', 'GBP')).toBeCloseTo(0.75, 3)
-    expect(getExchangeRate('GBP', 'SEK')).toEqual(16)
+    expect(useExchangeRate('USD', 'EUR')).toEqual(0.8)
+    expect(useExchangeRate('EUR', 'USD')).toEqual(1.25)
+    expect(useExchangeRate('CHF', 'GBP')).toBeCloseTo(0.75, 3)
+    expect(useExchangeRate('GBP', 'SEK')).toEqual(16)
   })
 
   it('should return 1 when marketPrices is not available', () => {
     ;(<jest.Mock>useMarketPrices).mockReturnValue({
       data: null,
     })
-    expect(getExchangeRate('USD', 'EUR')).toBe(1)
+    expect(useExchangeRate('USD', 'EUR')).toBe(1)
   })
 
   it('should return 1 when price for currency is not available', () => {
@@ -37,6 +37,6 @@ describe('getExchangeRate', () => {
         CHF: 1.1,
       },
     })
-    expect(getExchangeRate('USD', 'GBP')).toBe(1)
+    expect(useExchangeRate('USD', 'GBP')).toBe(1)
   })
 })
