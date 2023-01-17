@@ -5,7 +5,7 @@ import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string'
-import { useTradingLimits } from './useTradingLimits'
+import { useTradingLimits } from '../../../hooks'
 import { Progress, Text } from '../../../components'
 
 export const TradingLimits = (props: ComponentProps) => {
