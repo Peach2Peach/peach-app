@@ -10,10 +10,22 @@ export const getThemeForPastTrade = (
   const level = getOfferLevel(trade)
 
   if (isContractSummary(trade)) {
-    if (trade.disputeWinner) return {
+    // DISPUTE LOST
+    if (
+      (trade.disputeWinner === 'seller' && trade.type === 'bid')
+      || (trade.disputeWinner === 'buyer' && trade.type === 'ask')
+    ) return {
       icon: 'alertOctagon',
-      level,
+      level: 'WARN',
       color: tw`text-warning-main`.color,
+    }
+    // DISPUTE WON AND YOU ARE THE BUYER
+    if (trade.disputeWinner === 'buyer' && trade.type === 'bid') {
+      return { icon: 'buy', level: 'SUCCESS', color: tw`text-success-main`.color }
+    }
+    // DISPUTE WON AND YOU ARE THE SELLER
+    if (trade.disputeWinner === 'seller' && trade.type === 'ask') {
+      return { icon: 'sell', level: 'APP', color: tw`text-primary-main`.color }
     }
     if (trade.tradeStatus === 'tradeCanceled') {
       return {
@@ -22,8 +34,8 @@ export const getThemeForPastTrade = (
         color: tw`text-black-2`.color,
       }
     }
-    if (trade.type === 'ask') return { icon: 'sell', level, color: tw`text-primary-main`.color }
-    if (trade.type === 'bid') return { icon: 'buy', level, color: tw`text-success-main`.color }
+    if (trade.type === 'ask') return { icon: 'sell', level: 'APP', color: tw`text-primary-main`.color }
+    if (trade.type === 'bid') return { icon: 'buy', level: 'SUCCESS', color: tw`text-success-main`.color }
   }
 
   return {
