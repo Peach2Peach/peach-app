@@ -7,6 +7,7 @@ import { fetchAccessToken } from '../user'
 type PostOfferProps = RequestProps & {
   type: 'ask'
   premium: number
+  amount: number
   meansOfPayment: MeansOfPayment
   paymentData: SellOffer['paymentData']
   amount: number
@@ -21,6 +22,7 @@ type PostOfferProps = RequestProps & {
  */
 export const postSellOffer = async ({
   timeout,
+  premium = 0,
   ...requestBody
 }: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
@@ -30,7 +32,7 @@ export const postSellOffer = async ({
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify(requestBody),
+    body: JSON.stringify({ premium, ...requestBody }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 

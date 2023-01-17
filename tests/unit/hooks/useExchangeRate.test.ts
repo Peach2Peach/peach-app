@@ -1,7 +1,7 @@
-import { useMarketPrices } from '../../../../src/hooks'
-import { useExchangeRate } from '../../../../src/utils/market'
+import { useMarketPrices } from '../../../src/hooks/useMarketPrices'
+import { useExchangeRate } from '../../../src/hooks/useExchangeRate'
 
-jest.mock('../../../../src/hooks/useMarketPrices', () => ({
+jest.mock('../../../src/hooks/useMarketPrices', () => ({
   useMarketPrices: jest.fn(),
 }))
 
