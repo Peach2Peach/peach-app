@@ -56,10 +56,7 @@ export const MessageInput = ({
   // TODO Attach files
   return (
     <View
-      style={[
-        tw`flex-row items-center px-2 py-2 rounded bg-info-background max-h-40`,
-        disabled ? tw`opacity-50` : {},
-      ]}
+      style={[tw`flex-row items-end px-2 py-2 rounded bg-info-background max-h-40`, disabled ? tw`opacity-50` : {}]}
     >
       <TextInput
         testID={testID}
@@ -81,7 +78,7 @@ export const MessageInput = ({
         autoCapitalize="sentences"
       />
       <Pressable onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}>
-        <Icon id="arrowRightCircle" style={tw`flex-1 w-6 h-6 ml-2`} color={tw`text-info-light`.color} />
+        <Icon id="arrowRightCircle" style={tw`w-6 h-6 ml-2`} color={tw`text-info-light`.color} />
       </Pressable>
     </View>
   )
