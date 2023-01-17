@@ -1,12 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { Progress, Text } from '../../../components'
+import { Progress } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
 import { useTradingLimits } from '../../../hooks'
+import { TradingLimitAmount } from './TradingLimitAmount'
 
 export const DailyTradingLimit = (props: ComponentProps) => {
   const {
@@ -16,9 +15,7 @@ export const DailyTradingLimit = (props: ComponentProps) => {
 
   return (
     <View {...props}>
-      <Text style={tw`self-center mt-1 body-s text-black-2`}>
-        {i18n('profile.tradingLimits.daily', displayCurrency, thousands(amount), thousands(limit))}
-      </Text>
+      <TradingLimitAmount {...{ amount, limit, displayCurrency }} style={tw`self-center mt-1`} type="daily" />
       <Progress
         style={tw`h-1 rounded-none`}
         percent={amount / limit}

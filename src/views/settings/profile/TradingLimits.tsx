@@ -3,10 +3,9 @@ import { View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
 import { useTradingLimits } from '../../../hooks'
-import { Progress, Text } from '../../../components'
+import { Progress } from '../../../components'
+import { TradingLimitAmount } from './TradingLimitAmount'
 
 export const TradingLimits = (props: ComponentProps) => {
   const {
@@ -27,16 +26,13 @@ export const TradingLimits = (props: ComponentProps) => {
             percent={amount / limit}
             style={tw`h-[6px]`}
             backgroundStyle={tw`bg-primary-background-dark`}
-            barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background-light`}
+            barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background`}
           />
-          <Text style={tw`self-center mt-1 body-s text-black-2`}>
-            {i18n(
-              'profile.tradingLimits.' + ['daily', 'monthly', 'yearly'][index],
-              displayCurrency,
-              thousands(amount),
-              thousands(limit),
-            )}
-          </Text>
+          <TradingLimitAmount
+            style={tw`pl-2 mt-1`}
+            type={(['daily', 'monthly', 'yearly'] as const)[index]}
+            {...{ amount, limit, displayCurrency }}
+          />
         </View>
       ))}
     </View>
