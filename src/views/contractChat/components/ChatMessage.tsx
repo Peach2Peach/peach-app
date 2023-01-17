@@ -71,7 +71,7 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
       : meta.readByCounterParty
         ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-blue-1`.color : tw`text-grey-3`.color
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main`.color : tw`text-black-3`.color
   return {
     text,
     bgColor,
@@ -110,7 +110,7 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
         onStartShouldSetResponder={() => true}
         style={[tw`w-10/12 px-3 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
       >
-        {meta.showName && !meta.isYou ? <Text style={[tw`px-1 mt-4 subtitle-1`, text]}>{meta.name}</Text> : null}
+        {meta.showName && !meta.isYou ? <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text> : null}
         <View style={[tw`px-3 py-2 mt-2 rounded-lg`, bgColor]}>
           <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
           <Text style={tw`pt-1 ml-auto leading-5 text-right `}>
