@@ -25,10 +25,10 @@ export const Header = () => {
   const { goBack, canGoBack } = useNavigation()
 
   return (
-    <View style={[tw`flex-row justify-between w-full px-5 py-2`, colors.bg]}>
+    <View style={[tw`flex-row justify-between w-full px-8 py-2`, colors.bg]}>
       <View style={tw`flex-row items-center justify-start flex-shrink`}>
         {!hideGoBackButton && canGoBack() && (
-          <TouchableOpacity style={tw`w-6 h-6 mr-1 -ml-1`} onPress={goBack}>
+          <TouchableOpacity style={tw`w-6 h-6 mr-1 -ml-3`} onPress={goBack}>
             <Icon id="chevronLeft" color={colors.backButton.color} />
           </TouchableOpacity>
         )}

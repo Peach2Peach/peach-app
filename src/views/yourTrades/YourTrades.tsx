@@ -24,7 +24,9 @@ export default (): ReactElement => {
     buy: allOpenOffers.filter(({ type }) => type === 'bid'),
     sell: allOpenOffers.filter(({ type }) => type === 'ask'),
   }
-  const pastOffers = trades.filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+  const pastOffers = trades.filter(
+    ({ tradeStatus, type }) => isPastOffer(tradeStatus) && (type === 'ask' || tradeStatus !== 'offerCanceled'),
+  )
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const switchTab = (tab: TabbedNavigationItem) => {

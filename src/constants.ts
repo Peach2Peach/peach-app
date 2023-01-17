@@ -90,10 +90,10 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
 }
 
-export let BUCKETS = [50000, 100000, 200000, 350000, 500000]
-export let DEPRECATED_BUCKETS: number[] = []
-export const setBuckets = (buckets: number[]) => (BUCKETS = buckets)
-export const setDeprecatedBuckets = (buckets: number[]) => (DEPRECATED_BUCKETS = buckets)
+export let MINTRADINGAMOUNT = 200000
+export let MAXTRADINGAMOUNT = 5000000
+export const setMinTradingAmount = (amount: number) => (MINTRADINGAMOUNT = amount)
+export const setMaxTradingAmount = (amount: number) => (MAXTRADINGAMOUNT = amount)
 
 type Timers = {
   [key in ContractAction]: number

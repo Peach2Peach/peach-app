@@ -3,6 +3,8 @@ import i18n from '../i18n'
 export const getMessages = () => ({
   required: i18n('form.required.error'),
   number: i18n('form.invalid.error'),
+  min: i18n('form.min.error'),
+  max: i18n('form.max.error'),
   phone: i18n('form.invalid.error'),
   email: i18n('form.email.error'),
   account: i18n('form.account.error'),

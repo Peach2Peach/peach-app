@@ -15,7 +15,6 @@ type OfferItemProps = ComponentProps & {
   extended?: boolean
 }
 
-// eslint-disable-next-line max-lines-per-function, complexity
 export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)

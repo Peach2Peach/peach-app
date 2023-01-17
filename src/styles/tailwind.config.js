@@ -61,6 +61,7 @@ module.exports = {
         info: {
           dark: '#005E89',
           main: '#037DB5',
+          mild: '#BDD1DA',
           light: '#099DE2',
           background: '#D7F2FE',
           'background-light': 'rgba(215, 242, 254, 0.1)',

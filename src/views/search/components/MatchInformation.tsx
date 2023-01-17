@@ -17,7 +17,7 @@ export const MatchInformation = () => {
       <View>
         <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n(`search.${type === 'bid' ? 'buyOffer' : 'sellOffer'}`)}{' '}
-          <SatsFormat sats={amount} color={tw`text-grey-2`} />
+          <SatsFormat sats={type === 'bid' ? amount[0] : amount} color={tw`text-grey-2`} />
         </Text>
         {type !== 'bid' && (
           <Text style={tw`text-center text-grey-2`}>

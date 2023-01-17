@@ -1,6 +1,7 @@
 export { getEscrowExpiry } from './getEscrowExpiry'
 export { getOffer } from './getOffer'
 export { getOfferExpiry } from './getOfferExpiry'
+export { getOfferPrice } from './getOfferPrice'
 export { getOffers } from './getOffers'
 export { getPaymentDataByMethod } from './getPaymentDataByMethod'
 export { getRequiredActionCount } from './getRequiredActionCount'
