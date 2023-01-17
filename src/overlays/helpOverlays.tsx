@@ -4,6 +4,7 @@ import i18n from '../utils/i18n'
 import { FileBackupPopup } from './FileBackupPopup'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
+import { Escrow } from './info/Escrow'
 import { MyBadges } from './info/MyBadges'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { Premium } from './info/Premium'
@@ -21,6 +22,7 @@ type HelpContent = {
 export const helpOverlays: Record<string, HelpContent> = {
   buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
+  escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
