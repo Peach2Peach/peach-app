@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 
 import i18n from '../utils/i18n'
 import { FileBackupPopup } from './FileBackupPopup'
+import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { MyBadges } from './info/MyBadges'
@@ -19,6 +20,7 @@ type HelpContent = {
 }
 
 export const helpOverlays: Record<string, HelpContent> = {
+  addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
   buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },

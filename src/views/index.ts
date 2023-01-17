@@ -5,6 +5,7 @@ import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
 import BuyPreferences from './buy/BuyPreferences'
+import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
 import ContractChat from './contractChat/ContractChat'
@@ -74,6 +75,7 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig },
   { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
+  { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [

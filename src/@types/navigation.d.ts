@@ -27,6 +27,9 @@ declare type RootStackParamList = {
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
     originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   }
+  signMessage: {
+    offerId: string
+  }
   fundEscrow: {
     offer: SellOffer
   }

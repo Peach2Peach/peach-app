@@ -15,6 +15,7 @@ export {
   postBuyOffer,
   postSellOffer,
   getOfferDetails,
+  signMessageToPublish,
   patchOffer,
   createEscrow,
   getFundingStatus,

@@ -47,14 +47,14 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   settingsStore.getState().updateSettings(account.settings)
   setLocaleQuiet(account.settings.locale || 'en')
 
-  const peachWallet = new PeachWallet({})
-  peachWallet.loadWallet(account.mnemonic)
-  setPeachWallet(peachWallet)
-
   const { wallet } = account.mnemonic
     ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
     : await createRandomWallet(getNetwork())
   setWallet(wallet)
   const firstAddress = getMainAddress(wallet)
   setPeachAccount(firstAddress)
+
+  const peachWallet = new PeachWallet({ wallet })
+  peachWallet.loadWallet(account.mnemonic)
+  setPeachWallet(peachWallet)
 }

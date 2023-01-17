@@ -47,7 +47,7 @@ export default (): ReactElement => {
       </View>
     )
 
-  const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
+  const navigateToOffer = () => navigation.replace('offer', { offerId: sellOffer.id })
   const navigateToYourTrades = useCallback(() => navigation.replace('yourTrades'), [navigation])
 
   const cancelOffer = () =>

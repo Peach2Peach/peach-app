@@ -13,7 +13,7 @@ import { Rule } from '../utils/validation/rules'
  */
 export const useValidatedState = <S extends string | number>(
   input: S,
-  rulesToCheck: Partial<Record<Rule, boolean | number | undefined>>,
+  rulesToCheck: Partial<Record<Rule, any>>,
 ): [S, React.Dispatch<React.SetStateAction<S>>, boolean, string[] | undefined] => {
   const [value, setValue] = useState<S>(input)
   const [isValid, setIsValid] = useState(false)
