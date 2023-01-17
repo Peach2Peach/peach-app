@@ -7,7 +7,6 @@ import { sign } from 'bitcoinjs-message'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
-import { getKeyPair } from './getKeyPair'
 import { getNetwork } from './getNetwork'
 import { walletStore } from './walletStore'
 
@@ -36,7 +35,7 @@ export class PeachWallet {
 
   addresses: string[]
 
-  constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
+  constructor ({ wallet, network = NETWORK, gapLimit = 50 }: PeachWalletProps) {
     this.wallet = wallet
     this.network = network
     this.gapLimit = walletStore.getState().gapLimit || gapLimit

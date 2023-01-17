@@ -27,7 +27,7 @@ type WalletStore = WalletState & {
 const defaultState: WalletState = {
   synced: false,
   addresses: [],
-  gapLimit: 25,
+  gapLimit: 50,
   balance: 0,
   transactions: { confirmed: [], pending: [] },
   txOfferMap: {},
