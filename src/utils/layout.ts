@@ -13,6 +13,14 @@ export const mildShadow: ShadowType = {
   offsetY: 6,
 }
 
+export const selectionShadow: ShadowType = {
+  blur: 8,
+  color: '#2B1911',
+  opacity: 0.16,
+  offsetX: 0,
+  offsetY: 0,
+}
+
 export const dropShadow: ShadowType = {
   blur: 4,
   color: '#000000',

@@ -12,7 +12,8 @@ export { auth, getUserPrivate, fetchAccessToken, updateUser, getTradingLimit, lo
 export {
   getOffers,
   getOfferSummaries,
-  postOffer,
+  postBuyOffer,
+  postSellOffer,
   getOfferDetails,
   patchOffer,
   createEscrow,

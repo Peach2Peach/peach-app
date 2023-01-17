@@ -1,7 +1,6 @@
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { APPVERSION, MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../constants'
-import { defaultAccount } from '../utils/account'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
 type SettingsStore = Settings & {

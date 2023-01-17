@@ -1,17 +1,14 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, Hint, HorizontalLine, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { useBitcoinStore } from '../../store/bitcoinStore'
 import { account, updateSettings } from '../../utils/account'
-import { priceFormat, thousands } from '../../utils/string'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
 
@@ -26,12 +23,9 @@ export default (): ReactElement => {
   const setSelectedRange = ([min, max]: [number, number]) => {
     setMinAmount(min)
     setMaxAmount(max)
+    updateSettings({ minAmount, maxAmount }, true)
   }
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
-
-  useEffect(() => {
-    updateSettings({ minAmount, maxAmount }, true)
-  }, [minAmount, maxAmount])
 
   const goToBackups = () => navigation.navigate('backups')
   const dismissBackupReminder = () => {
@@ -40,7 +34,7 @@ export default (): ReactElement => {
   }
 
   const next = () => {
-    navigation.navigate('buyPreferences', { amount: [Number(minAmount), Number(maxAmount)] })
+    navigation.navigate('buyPreferences', { amount: [minAmount, maxAmount] })
   }
 
   return (
@@ -57,12 +51,10 @@ export default (): ReactElement => {
               </Text>
               <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
               <RangeAmount
-                {...{
-                  min: MINTRADINGAMOUNT,
-                  max: MAXTRADINGAMOUNT,
-                  value: [minAmount, maxAmount],
-                  onChange: setSelectedRange,
-                }}
+                min={MINTRADINGAMOUNT}
+                max={MAXTRADINGAMOUNT}
+                value={[minAmount, maxAmount]}
+                onChange={setSelectedRange}
               />
             </View>
           </View>
