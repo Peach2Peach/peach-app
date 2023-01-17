@@ -8,9 +8,9 @@ import Icon from '../Icon'
 import { Headline, Text } from '../text'
 import { TradeSummaryProps } from './TradeSummary'
 
-export const Escrow = ({ contract }: TradeSummaryProps): ReactElement => (
-  <View>
-    <Headline style={tw`mt-4 normal-case text-grey-2`}>
+export const Escrow = ({ contract, style }: TradeSummaryProps): ReactElement => (
+  <View style={style}>
+    <Headline style={tw`normal-case text-grey-2`}>
       {i18n(contract.releaseTxId ? 'contract.summary.releaseTx' : 'contract.summary.escrow')}
     </Headline>
     <Pressable

@@ -46,12 +46,12 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
           />
         ) : null}
         <HorizontalLine style={tw`mt-4`} />
-        <PaymentMethod paymentMethod={contract.paymentMethod} showLink={true} />
+        <PaymentMethod style={tw`mt-4`} paymentMethod={contract.paymentMethod} showLink={true} />
 
         {contract.escrow || contract.releaseTxId ? (
           <View>
             <HorizontalLine style={tw`mt-4`} />
-            <Escrow contract={contract} view={''} />
+            <Escrow style={tw`mt-4`} contract={contract} view={''} />
           </View>
         ) : null}
       </View>

@@ -8,19 +8,19 @@ import Icon from '../Icon'
 import { Selector } from '../inputs'
 import { Headline, Text } from '../text'
 
-type PaymentMethodProps = {
+type PaymentMethodProps = ComponentProps & {
   paymentMethod: PaymentMethod
   showLink: boolean
 }
 
-export const PaymentMethod = ({ paymentMethod, showLink }: PaymentMethodProps): ReactElement => {
+export const PaymentMethod = ({ paymentMethod, showLink, style }: PaymentMethodProps): ReactElement => {
   const url = APPLINKS[paymentMethod]?.url
   const appLink = APPLINKS[paymentMethod]?.appLink
   const openLink = () => (url ? openAppLink(url, appLink) : null)
 
   return (
-    <View>
-      <Headline style={tw`mt-4 normal-case text-grey-2`}>
+    <View style={style}>
+      <Headline style={tw`normal-case text-grey-2`}>
         {i18n(paymentMethod === 'cash' ? 'contract.summary.in' : 'contract.summary.on')}
       </Headline>
       <Selector

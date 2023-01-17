@@ -31,12 +31,12 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           <PaymentTo paymentData={contract.paymentData} country={contract.country} />
         ) : null}
         <HorizontalLine style={tw`mt-4`} />
-        <PaymentMethod paymentMethod={contract.paymentMethod} showLink={false} />
+        <PaymentMethod style={tw`mt-4`} paymentMethod={contract.paymentMethod} showLink={false} />
 
         {contract.escrow || contract.releaseTxId ? (
           <View>
             <HorizontalLine style={tw`mt-4`} />
-            <Escrow contract={contract} view={''} />
+            <Escrow style={tw`mt-4`} contract={contract} view={''} />
           </View>
         ) : null}
       </View>
