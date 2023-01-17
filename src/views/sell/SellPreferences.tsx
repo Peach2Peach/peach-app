@@ -47,7 +47,7 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   paymentData: {},
   originalPaymentData: [],
   amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
-  returnAddress: account.settings.returnAddress,
+  returnAddress: account.settings.returnAddress || '',
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   funding: {

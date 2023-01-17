@@ -11,7 +11,7 @@ import { Rule } from '../utils/validation/rules'
  * @example
  * const [value, setValue, isValueValid, valueErrors] = useValidatedState('defaultValue', { required: true })
  */
-export const useValidatedState = <S extends string | number | (() => string | number)>(
+export const useValidatedState = <S extends string | number>(
   input: S,
   rulesToCheck: Partial<Record<Rule, boolean | number | undefined>>,
 ): [S, React.Dispatch<React.SetStateAction<S>>, boolean, string[] | undefined] => {

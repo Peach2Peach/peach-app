@@ -49,14 +49,7 @@ export default (): ReactElement => {
                 <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
               </Text>
               <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
-              <SelectAmount
-                {...{
-                  min: MINTRADINGAMOUNT,
-                  max: MAXTRADINGAMOUNT,
-                  value: amount,
-                  onChange: setAmount,
-                }}
-              />
+              <SelectAmount min={MINTRADINGAMOUNT} max={MAXTRADINGAMOUNT} value={amount} onChange={setAmount} />
             </View>
           </View>
           {showBackupReminder && (
