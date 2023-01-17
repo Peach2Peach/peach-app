@@ -33,8 +33,8 @@ import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
-import RefundAddress from './settings/RefundAddress'
 import Settings from './settings/Settings'
+import WalletSettings from './settings/WalletSettings'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
@@ -130,8 +130,8 @@ const settings: ViewType[] = [
     showFooter: false,
     background: { color: 'primaryGradient' },
   },
-  { name: 'refundAddress', component: RefundAddress, ...defaultConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'walletSettings', component: WalletSettings, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },

@@ -21,6 +21,7 @@ declare type Settings = {
   showBackupReminder: boolean
   showDisputeDisclaimer: boolean
   peachWalletActive: boolean
+  nodeURL: string
   customFeeRate: number
   selectedFeeRate: FeeRate
 }
