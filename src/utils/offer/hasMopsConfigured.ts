@@ -5,6 +5,4 @@ import { getCurrencies } from '../paymentMethod'
  * @param offer the offer
  * @returns true if offer has MoPs configured
  */
-export const hasMopsConfigured = (offer: SellOffer|BuyOffer): boolean =>
-  getCurrencies(offer.meansOfPayment).length > 0
-
+export const hasMopsConfigured = (offer: Offer | OfferDraft): boolean => getCurrencies(offer.meansOfPayment).length > 0

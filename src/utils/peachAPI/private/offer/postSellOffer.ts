@@ -10,7 +10,6 @@ type PostOfferProps = RequestProps & {
   amount: number
   meansOfPayment: MeansOfPayment
   paymentData: SellOffer['paymentData']
-  returnAddress: string
 }
 
 /**
@@ -18,7 +17,6 @@ type PostOfferProps = RequestProps & {
  * @param type ask or bid
  * @param premium Premium in % (default: 0)
  * @param meansOfPayment mapping of currency and payment methods
- * @param returnAddress Bitcoin address to return funds to in case of cancellation
  * @returns PostOfferResponse
  */
 export const postSellOffer = async ({

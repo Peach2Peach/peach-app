@@ -31,7 +31,7 @@ export default (): ReactElement => {
 
   const submit = async () => {
     const [patchOfferResult, patchOfferError] = await patchOffer({
-      offerId: offer.id!,
+      offerId: offer.id,
       returnAddress,
     })
     if (patchOfferResult) {

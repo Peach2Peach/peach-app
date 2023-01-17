@@ -15,7 +15,7 @@ import { useHeaderSetup } from '../../hooks'
 import { isDefined } from '../../utils/array/isDefined'
 import { HeaderConfig } from '../../components/header/store'
 
-const validate = (offer: BuyOffer) =>
+const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
   && hasMopsConfigured(offer)
   && getSelectedPaymentDataIds().map(getPaymentData)
