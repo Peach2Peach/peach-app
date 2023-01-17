@@ -1,14 +1,12 @@
 import React, { ReactElement } from 'react'
-import { Pressable, View } from 'react-native'
-import { BitcoinAddress, Loading, PeachScrollView, PrimaryButton, SatsFormat, Text } from '../../components'
-import { MediumSatsFormat } from '../../components/text'
+import { View } from 'react-native'
+import { BitcoinAddress, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { offerIdToHex } from '../../utils/offer'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { FundingSatsFormat } from './components/FundingSatsFormat'
-import FundingView from './components/FundingView'
 import NoEscrowFound from './components/NoEscrowFound'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 
@@ -41,13 +39,13 @@ export default (): ReactElement => {
           />
         </View>
       </PeachScrollView>
-      <View style={tw`w-full flex items-center mb-4`}>
+      <View style={tw`w-full flex items-center my-4`}>
         <PrimaryButton testID="navigation-next" disabled iconId="download">
           {sellOffer.funding.status === 'MEMPOOL'
             ? i18n('sell.escrow.waitingForConfirmation')
             : i18n('sell.escrow.fundToContinue')}
         </PrimaryButton>
-        {false && showRegtestButton && (
+        {showRegtestButton && (
           <PrimaryButton testID="escrow-fund" style={tw`mt-1`} onPress={fundEscrowAddress} narrow>
             {'Fund escrow'}
           </PrimaryButton>

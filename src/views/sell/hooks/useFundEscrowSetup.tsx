@@ -1,29 +1,33 @@
 import { NETWORK } from '@env'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { HelpIcon } from '../../../components/icons'
+import { CancelIcon, HelpIcon, WalletIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
-import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
 import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
+import { ConfirmCancelOffer } from '../../../overlays/ConfirmCancelOffer'
+import { EscrowRefunded } from '../../../overlays/EscrowRefunded'
+import { OfferCanceled } from '../../../overlays/OfferCanceled'
 import Refund from '../../../overlays/Refund'
+import { updateTradingLimit } from '../../../utils/account'
+import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
-import { saveOffer } from '../../../utils/offer'
-import { fundEscrow, generateBlock } from '../../../utils/peachAPI'
+import { cancelAndSaveOffer, initiateEscrowRefund, saveOffer } from '../../../utils/offer'
+import { fundEscrow, generateBlock, getTradingLimit } from '../../../utils/peachAPI'
 import createEscrowEffect from '../effects/createEscrowEffect'
 
+// eslint-disable-next-line max-statements
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateMessage] = useContext(MessageContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
   const showHelp = useShowHelp('escrow')
-
+  const showError = useShowErrorBanner()
   const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
   const [showRegtestButton, setShowRegtestButton] = useState(
@@ -33,29 +37,24 @@ export const useFundEscrowSetup = () => {
   const [fundingError, setFundingError] = useState<FundingError>('')
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(sellOffer.funding)
   const fundingAmount = Math.round(sellOffer.amount)
+  const cancelOffer = useCancelOffer(sellOffer)
 
   useHeaderSetup(
     useMemo(
       () => ({
         title: i18n('sell.escrow.title'),
         hideGoBackButton: true,
-        icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        icons: [
+          { iconComponent: <CancelIcon />, onPress: cancelOffer },
+          { iconComponent: <WalletIcon />, onPress: showHelp },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ],
       }),
-      [showHelp],
+      [cancelOffer, showHelp],
     ),
   )
 
-  const navigateToOffer = () => navigation.replace('offer', { offerId: sellOffer.id! })
   const navigateToYourTrades = useCallback(() => navigation.replace('yourTrades'), [navigation])
-
-  const cancelOffer = () =>
-    updateOverlay({
-      content: <ConfirmCancelOffer {...{ offer: sellOffer, navigate: navigateToOffer }} />,
-      visible: true,
-    })
-
-  const subtitle
-    = fundingStatus.status === 'MEMPOOL' ? i18n('sell.escrow.subtitle.mempool') : i18n('sell.escrow.subtitle')
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setSellOffer(offerData)
@@ -94,16 +93,7 @@ export const useFundEscrowSetup = () => {
             funding: result.funding,
           })
         },
-        onError: (err) =>
-          updateMessage({
-            msgKey: err.error || 'CREATE_ESCROW_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          }),
+        onError: (err) => showError(err.error || 'CREATE_ESCROW_ERROR'),
       })
       : () => {},
     [sellOffer.id],
@@ -125,15 +115,7 @@ export const useFundEscrowSetup = () => {
         setFundingError(() => result.error || '')
       },
       onError: (err) => {
-        updateMessage({
-          msgKey: err.error || 'GENERAL_ERROR',
-          level: 'ERROR',
-          action: {
-            callback: () => navigation.navigate('contact'),
-            label: i18n('contactUs'),
-            icon: 'mail',
-          },
-        })
+        showError(err.error || 'GENERAL_ERROR')
       },
     }),
     [sellOffer.id, sellOffer.escrow],
