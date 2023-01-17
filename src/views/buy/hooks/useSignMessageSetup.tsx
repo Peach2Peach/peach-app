@@ -3,7 +3,7 @@ import shallow from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useOfferDetailsQuery } from '../../../hooks/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -19,7 +19,7 @@ export const useSignMessageSetup = () => {
   const route = useRoute<'signMessage'>()
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
-  const { offer } = useOfferDetailsQuery(route.params.offerId)
+  const { offer } = useOfferDetailsQuery<BuyOffer>(route.params.offerId)
   const [, updateMessage] = useContext(MessageContext)
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
   const [signature, setSignature] = useState('')

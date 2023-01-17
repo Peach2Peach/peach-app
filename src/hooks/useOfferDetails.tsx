@@ -1,20 +1,20 @@
 import { useQuery } from '@tanstack/react-query'
 import { getOfferDetails } from '../utils/peachAPI'
 
-const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }): Promise<BuyOffer> => {
+const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, offerId] = queryKey
   const [offer] = await getOfferDetails({ offerId })
 
-  return offer as BuyOffer
+  return offer
 }
 
-type OfferDetailsQueryResponse = {
-  offer?: BuyOffer
+type OfferDetailsQueryResponse<T> = {
+  offer: T | null
   isLoading: boolean
   error: unknown
 }
-export const useOfferDetailsQuery = (id: string): OfferDetailsQueryResponse => {
+export const useOfferDetailsQuery = <T = BuyOffer | SellOffer, >(id: string): OfferDetailsQueryResponse<T> => {
   const { data, isLoading, error } = useQuery(['offer', id], getOfferQuery)
 
-  return { offer: data, isLoading, error }
+  return { offer: data as T | null, isLoading, error }
 }
