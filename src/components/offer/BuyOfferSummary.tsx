@@ -24,7 +24,10 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
     <Card style={[tw`px-5 pb-8 pt-7`, style]}>
       <Headline style={tw`normal-case text-grey-2`}>{i18n('offer.summary.youAreBuying')}</Headline>
       <Text style={tw`text-center`}>
-        <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
+        <SatsFormat sats={offer.amount[0]} color={tw`text-grey-2`} />
+      </Text>
+      <Text style={tw`text-center`}>
+        <SatsFormat sats={offer.amount[1]} color={tw`text-grey-2`} />
       </Text>
       <HorizontalLine style={tw`mt-4`} />
       <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.in')}</Headline>

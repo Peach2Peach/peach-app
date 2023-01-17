@@ -87,7 +87,7 @@ const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfi
 
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
-  { name: 'contractChat', component: ContractChat, ...defaultConfig, showHeader: false, showFooter: false },
+  { name: 'contractChat', component: ContractChat, ...defaultConfig },
   { name: 'tradeComplete', component: TradeComplete, ...defaultConfig },
 ]
 

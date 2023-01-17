@@ -1,7 +1,7 @@
 import { BLOCKEXPLORER } from '@env'
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { APPVERSION } from '../constants'
+import { APPVERSION, MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../constants'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
 type SettingsStore = Settings & {
@@ -34,6 +34,8 @@ export const defaultSettings: Settings = {
   appVersion: APPVERSION,
   displayCurrency: 'EUR',
   locale: 'en',
+  minAmount: MINTRADINGAMOUNT,
+  maxAmount: MAXTRADINGAMOUNT,
   preferredPaymentMethods: {},
   meansOfPayment: {},
   showBackupReminder: true,

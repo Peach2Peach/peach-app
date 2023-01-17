@@ -8,15 +8,14 @@ import ReleaseAddress from './ReleaseAddress'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
-import { BUCKETS } from '../../constants'
+import { useMatchStore } from '../../components/matches/store'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
 import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-import { useNavigation, useRoute } from '../../hooks'
-import { useMatchStore } from '../../components/matches/store'
+import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
 
 export type BuyViewProps = {
   offer: BuyOffer
@@ -24,19 +23,22 @@ export type BuyViewProps = {
   setStepValid: (isValid: boolean) => void
 }
 
-const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
+const getDefaultBuyOffer = (amount: [number, number]): BuyOffer => ({
   online: false,
   type: 'bid',
   creationDate: new Date(),
+  lastModified: new Date(),
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
+  releaseAddress: '',
   originalPaymentData: [],
   kyc: account.settings.kyc || false,
-  amount: amount || account.settings.amount || BUCKETS[0],
+  amount: amount || [account.settings.minAmount, account.settings.maxAmount],
   matches: [],
   seenMatches: [],
   matched: [],
   doubleMatched: false,
+  tradeStatus: 'messageSigningRequired',
 })
 
 type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
@@ -98,14 +100,14 @@ export default (): ReactElement => {
 
     scroll?.scrollTo({ x: 0 })
   }
-  const back = () => {
+  const back = useCallback(() => {
     if (page === 0) {
       navigation.goBack()
       return
     }
     setPage(page - 1)
     scroll?.scrollTo({ x: 0 })
-  }
+  }, [navigation, page, scroll])
 
   useFocusEffect(
     useCallback(() => {
@@ -121,7 +123,7 @@ export default (): ReactElement => {
         setUpdatePending(true)
 
         await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer(offer)
+        const [result, err] = await postBuyOffer(offer)
 
         if (result) {
           getTradingLimit({}).then(([tradingLimit]) => {
@@ -151,7 +153,7 @@ export default (): ReactElement => {
         if (err?.error === 'TRADING_LIMIT_REACHED') back()
       }
     })()
-  }, [page])
+  }, [back, matchStoreSetOffer, navigation, offer, page, updateMessage])
 
   return (
     <View testID="view-buy" style={tw`flex-1`}>

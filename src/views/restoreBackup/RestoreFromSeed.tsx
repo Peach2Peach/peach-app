@@ -1,6 +1,6 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
 import { Keyboard, View } from 'react-native'
-import { Fade, Input, PeachScrollView, Text } from '../../components'
+import { Fade, PeachScrollView, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { MessageContext } from '../../contexts/message'
 import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
@@ -13,8 +13,9 @@ import { parseError } from '../../utils/system'
 import RestoreBackupError from './RestoreBackupError'
 import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
+import { SeedPhraseInput } from './SeedPhraseInput'
 
-const bip39WordRules = {
+export const bip39WordRules = {
   required: true,
   bip39Word: true,
 }
@@ -28,12 +29,15 @@ export default ({ style }: ComponentProps): ReactElement => {
   const keyboardOpen = useKeyboard()
   const navigation = useNavigation()
 
-  const seedPhrase: ReturnType<typeof useValidatedState>[] = []
+  const [words, setWords] = useState<string[]>(new Array(12).fill(''))
   const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
-
-  for (let i = 12; i > 0; i--) {
-    seedPhrase.push(useValidatedState<string>('', bip39WordRules))
-  }
+  const allWordsAreSet = useMemo(() => {
+    const allSet = words.every((word) => !!word)
+    if (allSet) {
+      setMnemonic(words.join(' '))
+    }
+    return allSet
+  }, [setMnemonic, words])
 
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -54,7 +58,6 @@ export default ({ style }: ComponentProps): ReactElement => {
     [updateMessage],
   )
 
-  const allWordsSet = () => seedPhrase.every(([word]) => word)
   const submit = async () => {
     Keyboard.dismiss()
     setLoading(true)
@@ -85,27 +88,6 @@ export default ({ style }: ComponentProps): ReactElement => {
     }
   }
 
-  const mapSeedWordToInput
-    = (offset: number) =>
-      ([word, setWord, , errorMessage]: ReturnType<typeof useValidatedState>, i: number) =>
-        (
-          <Input
-            {...{
-              key: i,
-              theme: 'inverted',
-              onChange: setWord,
-              onSubmit: setWord,
-              errorMessage,
-              placeholder: `${i + 1 + offset}.`,
-              value: word,
-            }}
-          />
-        )
-
-  useEffect(() => {
-    setMnemonic(seedPhrase.map(([word]) => word).join(' '))
-  }, [seedPhrase, setMnemonic])
-
   if (loading) return <RestoreBackupLoading />
   if (error) return <RestoreBackupError err={error} />
   if (restored) return <RestoreSuccess />
@@ -120,12 +102,18 @@ export default ({ style }: ComponentProps): ReactElement => {
             {i18n('restoreBackup.seedPhrase.enter')}
           </Text>
           <View style={tw`flex flex-row px-6 mt-4`}>
-            <View style={tw`w-1/2 pr-2`}>{seedPhrase.slice(0, 6).map((word, i) => mapSeedWordToInput(0)(word, i))}</View>
+            <View style={tw`w-1/2 pr-2`}>
+              {[0, 1, 2, 3, 4, 5].map((index) => (
+                <SeedPhraseInput key={`seedPhraseInput-${index}`} {...{ index, setWords }} />
+              ))}
+            </View>
             <View style={tw`w-1/2 pl-2`}>
-              {seedPhrase.slice(6, 12).map((word, i) => mapSeedWordToInput(6)(word, i))}
+              {[6, 7, 8, 9, 10, 11].map((index) => (
+                <SeedPhraseInput key={`seedPhraseInput-${index}`} {...{ index, setWords }} />
+              ))}
             </View>
           </View>
-          {allWordsSet() && !isMnemonicValid && (
+          {allWordsAreSet && !isMnemonicValid && (
             <Text style={[tw`mt-2 text-center tooltip text-primary-background-light`]}>{i18n('form.bip39.error')}</Text>
           )}
         </PeachScrollView>

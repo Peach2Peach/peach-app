@@ -14,6 +14,12 @@ export const rules = {
     return !required || value
   },
   number: /^\d+$/u,
+  min (min: number, value: number) {
+    return value >= min
+  },
+  max (max: number, value: number) {
+    return value <= max
+  },
   account (_: boolean, value: object) {
     return value && typeof value === 'object'
   },

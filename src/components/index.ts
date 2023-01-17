@@ -1,6 +1,6 @@
 export { AvoidKeyboard } from './AvoidKeyboard'
 export { PeachScrollView } from './PeachScrollView'
-export { BitcoinAddress } from './bitcoin'
+export { BitcoinPriceStats, BitcoinAddress } from './bitcoin'
 
 export { PrimaryButton, InfoButton, OptionButton, GoBackButton } from './buttons'
 export { Card } from './Card'
@@ -14,7 +14,6 @@ export { IconButton } from './IconButton'
 export { Hint } from './Hint'
 export {
   Checkbox,
-  Dropdown,
   FileInput,
   Input,
   LanguageSelect,

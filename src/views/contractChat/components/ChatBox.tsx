@@ -75,7 +75,7 @@ export default ({
       initialNumToRender={PAGE_SIZE}
       onRefresh={loadMore}
       refreshing={loading}
-      contentContainerStyle={tw`pb-20`}
+      contentContainerStyle={tw`pb-5`}
     />
   )
 }

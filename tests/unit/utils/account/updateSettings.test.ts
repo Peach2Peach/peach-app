@@ -36,6 +36,8 @@ describe('updateSettings', () => {
     updateSettings({ meansOfPayment })
     deepStrictEqual(account.settings, {
       appVersion: APPVERSION,
+      minAmount: 200000,
+      maxAmount: 5000000,
       displayCurrency: 'EUR',
       locale: 'en',
       meansOfPayment: {

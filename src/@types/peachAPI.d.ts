@@ -69,9 +69,6 @@ declare type TradingLimit = {
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
-declare type Buckets = {
-  [key: string]: number
-}
 declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
@@ -124,8 +121,8 @@ declare type GetInfoResponse = {
   fees: {
     escrow: number
   }
-  buckets: number[]
-  deprecatedBuckets: number[]
+  minAmount: number
+  maxAmount: number
   paymentMethods: PaymentMethodInfo[]
   latestAppVersion: string
   minAppVersion: string
@@ -146,6 +143,7 @@ declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
+  | 'messageSigningRequired'
   | 'returnAddressRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
@@ -165,12 +163,12 @@ declare type Offer = {
   oldOfferId?: string
   newOfferId?: string
   creationDate: Date
+  lastModified?: Date
   publishingDate?: Date
   online: boolean
   user?: User
   publicKey?: string
   type: 'bid' | 'ask'
-  amount: number
   premium?: number
   prices?: Pricebook
   meansOfPayment: MeansOfPayment
@@ -186,7 +184,7 @@ declare type Offer = {
   originalPaymentData: PaymentData[]
   kyc: boolean
   kycType?: KYCType
-  returnAddress?: string
+  returnAddress: string
   escrow?: string
   refunded?: boolean
   funding?: FundingStatus
@@ -194,7 +192,6 @@ declare type Offer = {
   doubleMatched: boolean
   contractId?: string
   tradeStatus: TradeStatus
-  lastModified: Date
 }
 
 declare type PostOfferResponse = {
