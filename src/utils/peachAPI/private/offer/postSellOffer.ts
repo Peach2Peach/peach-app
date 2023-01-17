@@ -10,7 +10,6 @@ type PostOfferProps = RequestProps & {
   amount: number
   meansOfPayment: MeansOfPayment
   paymentData: SellOffer['paymentData']
-  amount: number
 }
 
 /**
