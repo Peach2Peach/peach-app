@@ -25,8 +25,6 @@ declare type BuyOfferDraft = OfferDraft & {
   amount: [number, number]
   type: 'bid'
   releaseAddress: string
-  matched: Offer['id'][]
-  seenMatches: Offer['id'][]
 }
 
 declare type BuyOffer = BuyOfferDraft &

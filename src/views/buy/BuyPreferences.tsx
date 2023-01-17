@@ -24,7 +24,6 @@ export type BuyViewProps = {
 }
 
 const getDefaultBuyOffer = (amount: [number, number]): BuyOfferDraft => ({
-  online: false,
   type: 'bid',
   creationDate: new Date(),
   lastModified: new Date(),
