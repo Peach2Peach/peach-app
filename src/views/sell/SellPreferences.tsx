@@ -44,6 +44,13 @@ const getDefaultSellOffer = (amount?: number): SellOfferDraft => ({
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
   originalPaymentData: [],
+  funding: {
+    status: 'NULL',
+    txIds: [],
+    vouts: [],
+    amounts: [],
+    expiry: 537,
+  },
   amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
   returnAddress: account.settings.returnAddress,
   kyc: account.settings.kyc || false,

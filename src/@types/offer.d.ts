@@ -4,6 +4,7 @@ declare type SellOfferDraft = OfferDraft & {
   premium: number
   kycType?: KYCType
   returnAddress?: string
+  funding: FundingStatus
 }
 declare type SellOffer = SellOfferDraft &
   Offer & {
@@ -11,7 +12,6 @@ declare type SellOffer = SellOfferDraft &
     returnAddressSet?: boolean
     returnAddressRequired?: boolean
     escrow?: string
-    funding: FundingStatus
     tx?: string
     refundTx?: string // base 64 encoded psbt
     txId?: string
