@@ -22,7 +22,7 @@ export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, 
   if (offer.tradeStatus === 'returnAddressRequired') {
     return ['setReturnAddress', { offer: getOffer(offer.id) }]
   }
-  if (offer.tradeStatus === 'fundEscrow') {
+  if (offer.tradeStatus === 'fundEscrow' || offer.tradeStatus === 'escrowWaitingForConfirmation') {
     return ['fundEscrow', { offer: getOffer(offer.id) }]
   }
   if (/searchingForPeer|hasMatchesAvailable/u.test(offer.tradeStatus)) {
