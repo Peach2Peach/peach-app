@@ -204,7 +204,7 @@
   "sell.escrow.sendSats.2": "to:",
   "sell.escrow.fundToContinue": "fund to continue",
   "sell.escrow.waitingForConfirmation": "waiting for confirmation",
-  "settings.escrow.paymentRequest.label": "Peach Escrow - offer $0",
+  "settings.escrow.paymentRequest.label": "Peach Escrow - offer",
   "escrow.viewInExplorer": "view escrow in explorer",
   "transaction.viewInExplorer": "view transaction in explorer",
   "escrow.refund": "refund",
