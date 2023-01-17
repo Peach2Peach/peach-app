@@ -9,9 +9,9 @@ import { badges } from './badges'
 
 export const MyBadges = () => {
   const { user, isLoading } = useUserQuery(account.publicKey)
+  const openPeachBadgesPopup = useShowHelp('myBadges')
   if (!user || isLoading) return null
   const { medals: unlockedBadges } = user
-  const openPeachBadgesPopup = useShowHelp('myBadges')
 
   return (
     <TouchableOpacity style={tw`flex-row items-center`} onPress={openPeachBadgesPopup}>
