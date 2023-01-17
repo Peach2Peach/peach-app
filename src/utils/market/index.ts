@@ -1,1 +1,1 @@
-export { getExchangeRate } from './getExchangeRate'
+export { useExchangeRate } from './useExchangeRate'
