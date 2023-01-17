@@ -2,23 +2,23 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { Progress, Text } from '../../../components'
+import { useExchangeRate } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { getExchangeRate } from '../../../utils/market'
-import { priceFormat } from '../../../utils/string'
+import { priceFormat, thousands } from '../../../utils/string'
 
 export const DailyTradingLimit = (props: ComponentProps) => {
   const { dailyAmount, daily } = account.tradingLimit
   const { displayCurrency } = account.settings
-  const exchangeRate = getExchangeRate(displayCurrency, 'CHF')
+  const exchangeRate = useExchangeRate(displayCurrency, 'CHF')
   const amount = Math.round(dailyAmount * exchangeRate * 100) / 100
   const limit = Math.round(exchangeRate * daily)
 
   return (
     <View {...props}>
       <Text style={tw`self-center mt-1 body-s text-black-2`}>
-        {i18n('profile.tradingLimits.daily', displayCurrency, priceFormat(amount), priceFormat(limit))}
+        {i18n('profile.tradingLimits.daily', displayCurrency, priceFormat(amount), thousands(limit))}
       </Text>
       <Progress
         style={tw`h-1 rounded-none`}

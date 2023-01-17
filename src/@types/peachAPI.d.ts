@@ -184,7 +184,7 @@ declare type Offer = {
   originalPaymentData: PaymentData[]
   kyc: boolean
   kycType?: KYCType
-  returnAddress?: string
+  returnAddress: string
   escrow?: string
   refunded?: boolean
   funding?: FundingStatus

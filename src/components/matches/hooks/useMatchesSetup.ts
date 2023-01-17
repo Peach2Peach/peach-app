@@ -1,5 +1,4 @@
-import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import shallow from 'zustand/shallow'
 import { unique } from '../../../utils/array'
 import { saveOffer } from '../../../utils/offer'
@@ -14,12 +13,10 @@ export const useMatchesSetup = () => {
     shallow,
   )
 
-  useFocusEffect(
-    useCallback(() => {
-      setCurrentIndex(0)
-      return () => setCurrentIndex(0)
-    }, [setCurrentIndex]),
-  )
+  useEffect(() => {
+    setCurrentIndex(0)
+    return () => setCurrentIndex(0)
+  }, [setCurrentIndex])
 
   useEffect(() => {
     const seenMatches = (offer.seenMatches || []).concat([matches[currentIndex]?.offerId]).filter(unique())

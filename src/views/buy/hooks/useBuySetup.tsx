@@ -18,6 +18,4 @@ export const useBuySetup = () => {
       [showHelp],
     ),
   )
-
-  return {}
 }
