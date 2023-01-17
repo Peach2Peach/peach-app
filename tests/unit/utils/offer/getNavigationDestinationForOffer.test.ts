@@ -62,6 +62,16 @@ describe('getNavigationDestinationForOffer', () => {
 
     expect(destination).toBe('fundEscrow')
     expect(params).toEqual({ offer })
+
+    const offerSummary2: Partial<OfferSummary> = {
+      id: '3',
+      tradeStatus: 'escrowWaitingForConfirmation',
+    }
+
+    const [destination2, params2] = getNavigationDestinationForOffer(offerSummary2 as OfferSummary)
+
+    expect(destination2).toBe('fundEscrow')
+    expect(params2).toEqual({ offer })
   })
   it('should navigate to yourTrades as fallback', () => {
     const offerSummary: Partial<OfferSummary> = {
