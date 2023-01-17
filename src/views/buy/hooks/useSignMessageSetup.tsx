@@ -39,17 +39,20 @@ export const useSignMessageSetup = () => {
   const signatureValid = signatureError.length === 0
 
   const showHelp = useShowHelp('addressSigning')
-  if (!peachWalletActive) {
-    useHeaderSetup(
-      useMemo(
-        () => ({
-          title: i18n('buy.addressSigning.title'),
-          icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
-        }),
-        [showHelp],
-      ),
-    )
-  }
+  useHeaderSetup(
+    useMemo(
+      () =>
+        peachWalletActive
+          ? {
+            title: i18n('buy.releaseAddress.title'),
+          }
+          : {
+            title: i18n('buy.addressSigning.title'),
+            icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+          },
+      [showHelp, peachWalletActive],
+    ),
+  )
 
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 

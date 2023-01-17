@@ -238,6 +238,7 @@
   "buy.meansOfPayment": "how would you like to pay?",
   "buy.kyc": "do you want to accept offers that require KYC?",
   "buy.releaseAddress": "what's your bitcoin address?",
+  "buy.releaseAddress.title": "release address",
   "buy.addressSigning.title": "sign your address",
   "buy.addressSigning.yourAddress": "your address",
   "buy.addressSigning.message": "message",
