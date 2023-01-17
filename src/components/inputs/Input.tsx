@@ -168,6 +168,7 @@ export const Input = ({
             inputStyle ? inputStyle : {},
           ]}
           {...{
+            value,
             ref: reference ? reference : null,
             placeholderTextColor: colors.placeholder.color,
             allowFontScaling: false,

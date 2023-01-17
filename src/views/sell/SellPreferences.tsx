@@ -15,7 +15,7 @@ import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Loading, Navigation, PeachScrollView } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import pgp from '../../init/pgp'
@@ -23,11 +23,12 @@ import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
+import { getTradingLimit, postSellOffer } from '../../utils/peachAPI'
 import { useNavigation, useRoute } from '../../hooks'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useSettingsStore } from '../../store/settingsStore'
 import shallow from 'zustand/shallow'
+import Premium from './Premium'
 
 export type SellViewProps = {
   offer: SellOffer
@@ -46,7 +47,7 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   paymentData: {},
   originalPaymentData: [],
   amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
-  returnAddress: account.settings.returnAddress,
+  returnAddress: account.settings.returnAddress || '',
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
   funding: {
@@ -68,14 +69,22 @@ type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
 const screens = [
   {
+    id: 'premium',
+    view: Premium,
+    scrollable: true,
+    showPrice: true,
+  },
+  {
     id: 'offerDetails',
     view: OfferDetails,
     scrollable: true,
+    showPrice: false,
   },
   {
     id: 'summary',
     view: Summary,
     scrollable: false,
+    showPrice: false,
   },
 ]
 
@@ -151,9 +160,12 @@ export default (): ReactElement => {
 
       await pgp() // make sure pgp has been sent
 
-      const [result, err] = await postOffer({
-        ...offer,
-        amount: undefined,
+      const [result, err] = await postSellOffer({
+        type: offer.type,
+        premium: offer.premium,
+        meansOfPayment: offer.meansOfPayment,
+        paymentData: offer.paymentData,
+        returnAddress: offer.returnAddress,
       })
       if (result) {
         info('Posted offer', result)
@@ -195,6 +207,12 @@ export default (): ReactElement => {
         </View>
       ) : (
         <>
+          {currentScreen.showPrice && (
+            <View style={tw`px-8`}>
+              <HorizontalLine style={tw`mb-2`} />
+              <BitcoinPriceStats />
+            </View>
+          )}
           <PeachScrollView
             scrollRef={(ref) => (scroll = ref)}
             disable={!scrollable}

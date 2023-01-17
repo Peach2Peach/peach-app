@@ -1,6 +1,6 @@
-import { useMarketPrices } from '../../hooks'
+import { useMarketPrices } from '.'
 
-export const getExchangeRate = (currency1: Currency, currency2: Currency) => {
+export const useExchangeRate = (currency1: Currency, currency2: Currency) => {
   const { data: marketPrices } = useMarketPrices()
   if (!marketPrices) return 1
 

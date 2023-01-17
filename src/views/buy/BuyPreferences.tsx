@@ -8,15 +8,14 @@ import ReleaseAddress from './ReleaseAddress'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
-import { MINTRADINGAMOUNT, MAXTRADINGAMOUNT } from '../../constants'
+import { useMatchStore } from '../../components/matches/store'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
 import { account, updateTradingLimit } from '../../utils/account'
 import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-import { useNavigation, useRoute } from '../../hooks'
-import { useMatchStore } from '../../components/matches/store'
+import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
 
 export type BuyViewProps = {
   offer: BuyOffer
@@ -31,6 +30,7 @@ const getDefaultBuyOffer = (amount: [number, number]): BuyOffer => ({
   lastModified: new Date(),
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
+  releaseAddress: '',
   originalPaymentData: [],
   kyc: account.settings.kyc || false,
   amount: amount || [account.settings.minAmount, account.settings.maxAmount],
@@ -123,7 +123,7 @@ export default (): ReactElement => {
         setUpdatePending(true)
 
         await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer(offer)
+        const [result, err] = await postBuyOffer(offer)
 
         if (result) {
           getTradingLimit({}).then(([tradingLimit]) => {
