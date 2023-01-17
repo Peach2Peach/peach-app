@@ -7,6 +7,7 @@ import { fetchAccessToken } from '../user'
 type PostOfferProps = RequestProps & {
   type: 'ask'
   premium: number
+  amount: number
   meansOfPayment: MeansOfPayment
   paymentData: SellOffer['paymentData']
   returnAddress: string

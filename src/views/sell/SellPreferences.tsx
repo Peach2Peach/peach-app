@@ -162,6 +162,7 @@ export default (): ReactElement => {
 
       const [result, err] = await postSellOffer({
         type: offer.type,
+        amount: offer.amount,
         premium: offer.premium,
         meansOfPayment: offer.meansOfPayment,
         paymentData: offer.paymentData,
