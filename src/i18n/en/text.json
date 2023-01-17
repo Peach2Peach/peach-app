@@ -1,4 +1,5 @@
 {
+  "bitcoin": "Bitcoin",
   "i18n.test": "Variable test: $0 $1 $2",
   "i18n.test.fallback.1": "Fallback Test 1 en",
   "i18n.test.fallback.2": "Fallback Test 2 en",
