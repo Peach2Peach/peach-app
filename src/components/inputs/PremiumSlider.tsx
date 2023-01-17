@@ -1,20 +1,13 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { Shadow, Text } from '..'
+import { Shadow } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { innerShadow } from '../../utils/layout'
 import { round } from '../../utils/math'
 import Icon from '../Icon'
 import { ToolTip } from '../ui/ToolTip'
-
-type SliderLabelProps = ComponentProps & { position: number }
-const SliderLabel = ({ position, style, children }: SliderLabelProps): ReactElement => (
-  <View style={[tw`absolute items-center w-full`, { left: position }, style]}>
-    <View style={tw`w-[2px] h-[10px] bg-black-1`} />
-    <Text style={tw`mt-0.5 font-semibold text-center`}>{children}</Text>
-  </View>
-)
+import { SliderLabel } from './SliderLabel'
 
 type PremiumSliderProps = ComponentProps & {
   value: number
@@ -96,8 +89,8 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width)
 
   return (
-    <View {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
-      <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`, style]}>
+    <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
+      <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`]}>
         <Shadow shadow={innerShadow} style={tw`w-full p-0.5 rounded`}>
           <View {...{ onLayout }}>
             <Animated.View

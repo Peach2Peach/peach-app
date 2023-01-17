@@ -23,6 +23,4 @@ export const useSellSetup = ({ help, hideGoBackButton }: UseSellSetupProps) => {
       [hideGoBackButton, showHelp],
     ),
   )
-
-  return {}
 }

@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { innerShadow } from '../../utils/layout'
 import Icon from '../Icon'
-import { Text } from '../text'
 import { Shadow } from '../ui'
 import Input from './Input'
 

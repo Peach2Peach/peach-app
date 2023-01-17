@@ -1,8 +1,6 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { Animated, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { textShadow } from '../../utils/layout'
-import { Text } from '../text'
 
 type ProgressProps = ComponentProps & {
   percent: number
