@@ -57,7 +57,7 @@ type MessageStyling = {
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
   const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-2`
   const bgColor = !message.message
-    ? tw`bg-error-background` // TODO : Which color for error
+    ? tw`bg-error-background`
     : meta.isMediator || meta.isSystemMessage
       ? tw`bg-primary-mild-1`
       : meta.isYou
