@@ -75,7 +75,6 @@ export const rules = {
     return wordlists.english.includes(value)
   },
   signature ([btcAddress, message]: [string, string], value: string) {
-    console.log(btcAddress, message, value)
     try {
       return verify(message, btcAddress, value, undefined, true)
     } catch (e) {
