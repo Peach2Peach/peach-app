@@ -159,7 +159,6 @@ export default (): ReactElement => {
         premium: offer.premium,
         meansOfPayment: offer.meansOfPayment,
         paymentData: offer.paymentData,
-        amount: offer.amount,
       })
       if (result) {
         info('Posted offer', result)
