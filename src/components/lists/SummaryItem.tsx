@@ -78,7 +78,7 @@ export const SummaryItem = ({
           </View>
         </View>
         <View style={tw`items-end`}>
-          <SatsFormat {...{ sats: amount1 }} />
+          {!!amount1 && <SatsFormat {...{ sats: amount1 }} />}
           {amount2 ? (
             <View>
               <Text style={tw`absolute w-full overflow-visible text-center bottom-3 text-3xs text-black-3`}>~</Text>
