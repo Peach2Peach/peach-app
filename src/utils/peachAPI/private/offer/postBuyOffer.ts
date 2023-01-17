@@ -5,34 +5,26 @@ import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
 type PostOfferProps = RequestProps & {
-  type: OfferType
-  amount?: [number, number]
-  premium?: number
+  type: 'bid'
+  amount: [number, number]
   meansOfPayment: MeansOfPayment
-  paymentData?: SellOffer['paymentData']
-  kyc: boolean
-  returnAddress?: string
-  releaseAddress?: string
+  paymentData: Offer['paymentData']
+  releaseAddress: string
 }
 
 /**
  * @description Method to post offer
  * @param type ask or bid
  * @param amount Amount in sats (250k 500k 1M 2M 5M)
- * @param premium Premium in % (default: 0)
  * @param meansOfPayment mapping of currency and payment methods
- * @param kyc If true, require KYC
- * @param returnAddress Bitcoin address to return funds to in case of cancellation
+ * @param releaseAddress Bitcoin address to send sats to
  * @returns PostOfferResponse
  */
-export const postOffer = async ({
+export const postBuyOffer = async ({
   type,
   amount,
-  premium = 0,
   meansOfPayment,
   paymentData,
-  kyc,
-  returnAddress,
   releaseAddress,
   timeout,
 }: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
@@ -46,11 +38,8 @@ export const postOffer = async ({
     body: JSON.stringify({
       type,
       amount,
-      premium,
       meansOfPayment,
       paymentData,
-      kyc,
-      returnAddress,
       releaseAddress,
     }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
