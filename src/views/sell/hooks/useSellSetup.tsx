@@ -3,21 +3,24 @@ import { HelpIcon } from '../../../components/icons'
 
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
+import { HelpType } from '../../../overlays/helpOverlays'
 import SellTitleComponent from '../components/SellTitleComponent'
 
-export const useSellSetup = () => {
-  const showHelp = useShowHelp('buyingAndSelling')
+type UseSellSetupProps = {
+  help: HelpType
+  hideGoBackButton?: boolean
+}
+export const useSellSetup = ({ help, hideGoBackButton }: UseSellSetupProps) => {
+  const showHelp = useShowHelp(help)
 
   useHeaderSetup(
     useMemo(
       () => ({
         titleComponent: <SellTitleComponent />,
-        hideGoBackButton: true,
+        hideGoBackButton,
         icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
       }),
-      [showHelp],
+      [hideGoBackButton, showHelp],
     ),
   )
-
-  return {}
 }

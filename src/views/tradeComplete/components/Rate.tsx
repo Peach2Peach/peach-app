@@ -90,7 +90,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
         </View>
       </Card>
       <PrimaryButton style={tw`self-center mt-4`} disabled={!vote} onPress={rate} narrow>
-        title={i18n('rate.rateAndFinish')}
+        {i18n('rate.rateAndFinish')}
       </PrimaryButton>
     </View>
   )
