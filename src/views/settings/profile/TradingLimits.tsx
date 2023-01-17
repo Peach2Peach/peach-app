@@ -2,10 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { Progress, Text } from '../../../components'
+import { useExchangeRate } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { useExchangeRate } from '../../../utils/market'
 import { priceFormat } from '../../../utils/string'
 
 export const TradingLimits = (props: ComponentProps) => {
