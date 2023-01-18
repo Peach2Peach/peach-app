@@ -1,3 +1,4 @@
+import { isPastOffer } from './isPastOffer'
 import { ColorValue } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
@@ -8,6 +9,10 @@ export const getThemeForPastTrade = (
   trade: ContractSummary | OfferSummary,
 ): { icon: IconType; level: SummaryItemLevel; color: ColorValue | undefined } => {
   const level = getOfferLevel(trade)
+
+  if (!isPastOffer) {
+    return { level, icon: 'x' as IconType, color: '' }
+  }
 
   if (isContractSummary(trade)) {
     // DISPUTE LOST
