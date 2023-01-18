@@ -5,7 +5,6 @@ import { cancelOffer } from '../peachAPI'
 export const cancelAndSaveOffer = async (
   offer: BuyOffer | SellOffer,
 ): Promise<[CancelOfferResponse | null, APIError | null]> => {
-  console.log(offer)
   if (!offer.id) return [null, { error: 'GENERAL_ERROR' }]
 
   const [result, err] = await cancelOffer({

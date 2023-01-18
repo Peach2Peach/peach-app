@@ -15,7 +15,6 @@ import { saveOffer } from '../../../utils/offer'
 import { fundEscrow, generateBlock } from '../../../utils/peachAPI'
 import createEscrowEffect from '../effects/createEscrowEffect'
 
-// eslint-disable-next-line max-statements
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const navigation = useNavigation()
