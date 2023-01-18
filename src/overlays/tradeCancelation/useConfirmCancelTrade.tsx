@@ -1,18 +1,30 @@
 import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
-import { getContract } from '../../utils/contract'
 import { Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, saveContract, getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
 import { account } from '../../utils/account'
 import { ContractCanceled } from './ContractCanceled'
+
+declare type ConfirmCancelTradeProps = {
+  contract: Contract
+}
+
+const ConfirmCancelTrade = ({ contract }: ConfirmCancelTradeProps): ReactElement => (
+  <>
+    <Text style={tw`mb-3 body-m`}>{i18n('contract.cancel.text')}</Text>
+    <Text style={tw`body-m`}>
+      {i18n(`contract.cancel.${account.publicKey === contract.seller.id ? 'seller' : 'buyer'}`)}
+    </Text>
+  </>
+)
 
 /**
  * @description Overlay the seller sees when requesting cancelation
@@ -130,16 +142,3 @@ export const useConfirmCancelTrade = (contractId: string) => {
   }, [updateOverlay, contract, navigation])
   return showOverlay
 }
-
-declare type ConfirmCancelTradeProps = {
-  contract: Contract
-}
-
-const ConfirmCancelTrade = ({ contract }: ConfirmCancelTradeProps): ReactElement => (
-  <>
-    <Text style={tw`mb-3 body-m`}>{i18n('contract.cancel.text')}</Text>
-    <Text style={tw`body-m`}>
-      {i18n(`contract.cancel.${account.publicKey === contract.seller.id ? 'seller' : 'buyer'}`)}
-    </Text>
-  </>
-)
