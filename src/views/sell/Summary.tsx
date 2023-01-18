@@ -8,10 +8,10 @@ import { SellViewProps } from './SellPreferences'
 export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
   useSellSummarySetup()
 
-  useEffect(() => setStepValid(true))
+  useEffect(() => setStepValid(true), [setStepValid])
 
   return (
-    <View style={tw`flex-col justify-center h-full px-6`}>
+    <View style={tw`flex-col justify-center h-full px-8`}>
       <SellOfferSummary offer={offer} style={tw`flex-shrink-0`} />
     </View>
   )

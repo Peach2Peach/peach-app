@@ -8,7 +8,7 @@ import { Headline, SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 type BuyOfferSummaryProps = ComponentProps & {
-  offer: BuyOffer
+  offer: BuyOffer | BuyOfferDraft
 }
 export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
   const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
@@ -46,6 +46,9 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         }))}
         style={tw`mt-2`}
       />
+      <HorizontalLine style={tw`mt-4`} />
+      <Text style={tw`mt-4 text-center text-black-2`}>{i18n('to')}</Text>
+      <Text style={tw`text-center subtitle-1`}>{offer.releaseAddress}</Text>
     </Card>
   )
 }
