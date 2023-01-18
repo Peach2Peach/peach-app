@@ -8,13 +8,8 @@ const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   return offer
 }
 
-type OfferDetailsQueryResponse = {
-  offer: BuyOffer | SellOffer | null
-  isLoading: boolean
-  error: unknown
-}
-export const useOfferDetailsQuery = (id: string): OfferDetailsQueryResponse => {
+export const useOfferDetails = (id: string) => {
   const { data, isLoading, error } = useQuery(['offer', id], getOfferQuery)
 
-  return { offer: data as T | null, isLoading, error }
+  return { offer: data, isLoading, error }
 }
