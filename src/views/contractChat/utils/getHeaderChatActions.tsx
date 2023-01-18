@@ -4,7 +4,7 @@ import { ConfirmRaiseDispute } from '../../../overlays/ConfirmRaiseDispute'
 import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'
 
-// eslint-disable max-params
+/* eslint max-params: ["error", 4]*/
 export const getHeaderChatActions = (
   contract: Contract,
   view: 'buyer' | 'seller' | '',
@@ -28,7 +28,7 @@ export const getHeaderChatActions = (
       })
       : null
 
-  return [
+  const icons: HeaderConfig['icons'] = [
     {
       iconComponent: <Icon style={!canCancel && tw`opacity-50`} id="xCircle" color={tw`text-error-main`.color} />,
       onPress: openCancelTrade,
@@ -40,4 +40,5 @@ export const getHeaderChatActions = (
       onPress: raiseDispute,
     },
   ]
+  return icons
 }
