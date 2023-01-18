@@ -1,50 +1,40 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { Progress, Text } from '../../../components'
-import { useExchangeRate } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { priceFormat } from '../../../utils/string'
+import { useTradingLimits } from '../../../hooks'
+import { Progress } from '../../../components'
+import { TradingLimitAmount } from './TradingLimitAmount'
 
 export const TradingLimits = (props: ComponentProps) => {
-  const { dailyAmount, daily, yearlyAmount, yearly } = account.tradingLimit
-  const { displayCurrency } = account.settings
-  const monthlyAmount = 0
-  const monthly = 1000
+  const {
+    limits: { dailyAmount, daily, monthlyAnonymous, monthlyAnonymousAmount, yearlyAmount, yearly },
+  } = useTradingLimits()
   const limits = [
     [dailyAmount, daily],
-    [monthlyAmount, monthly],
+    [monthlyAnonymousAmount, monthlyAnonymous],
     [yearlyAmount, yearly],
   ]
-  const exchangeRate = useExchangeRate(displayCurrency, 'CHF')
+  const { displayCurrency } = account.settings
 
   return (
     <View {...props}>
-      {limits.map(([amount, limit], index) => {
-        amount = Math.round(amount * exchangeRate * 100) / 100
-        limit = Math.round(exchangeRate * limit)
-        return (
-          <View style={tw`mb-4`}>
-            <Progress
-              key={`myProfile-tradingLimits-${index}`}
-              percent={amount / limit}
-              style={tw`h-[6px]`}
-              backgroundStyle={tw`bg-primary-background-dark`}
-              barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background-light`}
-            />
-            <Text style={tw`self-center mt-1 body-s text-black-2`}>
-              {i18n(
-                'profile.tradingLimits.' + ['daily', 'monthly', 'yearly'][index],
-                displayCurrency,
-                priceFormat(amount),
-                priceFormat(limit),
-              )}
-            </Text>
-          </View>
-        )
-      })}
+      {limits.map(([amount, limit], index) => (
+        <View style={tw`mb-4`} key={`myProfile-tradingLimits-${index}`}>
+          <Progress
+            percent={amount / limit}
+            style={tw`h-[6px]`}
+            backgroundStyle={tw`bg-primary-mild-1`}
+            barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background`}
+          />
+          <TradingLimitAmount
+            style={tw`pl-2 mt-1`}
+            type={(['daily', 'monthly', 'yearly'] as const)[index]}
+            {...{ amount, limit, displayCurrency }}
+          />
+        </View>
+      ))}
     </View>
   )
 }
