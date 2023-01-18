@@ -32,5 +32,5 @@ export const navigateToOffer = async ({
     if (offr) matchStoreSetOffer(offr)
   }
 
-  return navigation.navigate('offerPublished', params)
+  return navigation.navigate(screen, params)
 }
