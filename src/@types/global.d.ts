@@ -74,7 +74,7 @@ declare type AmazonGiftCardData = {
 }
 declare type CashData = {}
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
@@ -134,6 +134,7 @@ declare type DrawerState = {
   title: string
   content: ReactNode | null
   show: boolean
+  previousDrawer: Partial<DrawerState>
   onClose: () => void
 }
 declare type BitcoinState = {

@@ -4,6 +4,7 @@ import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
 
 import { DrawerContext } from '../contexts/drawer'
 import tw from '../styles/tailwind'
+import { info } from '../utils/log'
 
 const animConfig = {
   duration: 300,
@@ -20,7 +21,7 @@ let touchY = 0
  * @example
  * <Drawer title="Title" content={<Text>Drawer content</Text>} />
  */
-export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactElement => {
+export const Drawer = ({ title, content, show, previousDrawer, onClose }: DrawerState): ReactElement => {
   const [, updateDrawer] = useContext(DrawerContext)
   const [{ height }] = useState(() => Dimensions.get('window'))
   const slideAnim = useRef(new Animated.Value(height)).current
@@ -59,6 +60,10 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (previousDrawer) {
+        updateDrawer({ show: false })
+        return true
+      }
       if (content) {
         updateDrawer({ show: false })
         return true
@@ -75,6 +80,12 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
     updateDrawer({ show: false })
   }
 
+  const goBack = () => {
+    info('tap')
+    info(JSON.stringify(previousDrawer))
+    updateDrawer(previousDrawer)
+  }
+
   const registerTouchStart = (e: GestureResponderEvent) => (touchY = e.nativeEvent.pageY)
   const registerTouchMove = (e: GestureResponderEvent) => (touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null)
 
@@ -85,8 +96,13 @@ export const Drawer = ({ title, content, show, onClose }: DrawerState): ReactEle
       </Animated.View>
       <Animated.View testID="drawer" style={tw`flex-shrink-0 w-full bg-primary-background-light rounded-t-3xl -mt-7`}>
         <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
+          {Object.keys(previousDrawer).length !== 0 && (
+            <Pressable onPress={goBack} style={tw`absolute z-10 p-3 left-4 top-3`}>
+              <Icon id="chevronLeft" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
+            </Pressable>
+          )}
           <Text style={tw`text-center drawer-title`}>{title}</Text>
-          <Pressable onPress={closeDrawer} style={tw`absolute right-7 top-6`}>
+          <Pressable onPress={closeDrawer} style={tw`absolute p-3 right-4 top-3`}>
             <Icon id="xSquare" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
           </Pressable>
         </View>
