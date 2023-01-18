@@ -86,4 +86,17 @@ export const settingsStore = createStore(
   ),
 )
 
+settingsStore.subscribe((state) => {
+  const cleanState = (Object.keys(state) as (keyof Settings)[])
+    .filter((key) => typeof state[key] !== 'function')
+    .reduce(
+      (obj: Settings, key) => ({
+        ...obj,
+        [key]: state[key],
+      }),
+      {} as Settings,
+    )
+  storeSettings(cleanState)
+})
+
 export const useSettingsStore = create(settingsStore)
