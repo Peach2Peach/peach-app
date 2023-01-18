@@ -8,7 +8,7 @@ export const useOfferPublishedSetup = () => {
   const navigation = useNavigation()
   const goBackHome = () => navigation.navigate(isBuyOffer(offer) ? 'buy' : 'sell')
 
-  useHeaderSetup({ title: '', hideGoBackButton: true })
+  useHeaderSetup({ hideGoBackButton: true })
 
   useEffect(() => {
     if (hasMatches) navigation.replace('search')
