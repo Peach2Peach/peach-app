@@ -18,9 +18,7 @@ export const getHeaderChatActions = (
     && ((!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
       || (view === 'seller' && contract.cancelationRequested))
 
-  const openCancelTrade = () => {
-    canCancel ? showCancelOverlay() : null
-  }
+  const openCancelTrade = canCancel ? showCancelOverlay : () => {}
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = () =>
     canDispute
