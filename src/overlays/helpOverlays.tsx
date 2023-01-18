@@ -7,6 +7,7 @@ import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
+import { Mempool } from './info/Mempool'
 import { MyBadges } from './info/MyBadges'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { Premium } from './info/Premium'
@@ -28,6 +29,7 @@ export const helpOverlays: Record<string, HelpContent> = {
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
+  mempool: { title: i18n('help.mempool.title'), content: Mempool },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },

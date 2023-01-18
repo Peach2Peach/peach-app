@@ -22,6 +22,7 @@ export const useFundEscrowSetup = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
   const showHelp = useShowHelp('escrow')
+  const showMempoolHelp = useShowHelp('mempool')
   const showError = useShowErrorBanner()
   const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
@@ -36,16 +37,23 @@ export const useFundEscrowSetup = () => {
 
   useHeaderSetup(
     useMemo(
-      () => ({
-        title: i18n('sell.escrow.title'),
-        hideGoBackButton: true,
-        icons: [
-          { iconComponent: <CancelIcon />, onPress: cancelOffer },
-          { iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectRefundWallet') },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
-        ],
-      }),
-      [cancelOffer, navigation, showHelp],
+      () =>
+        fundingStatus.status === 'MEMPOOL'
+          ? {
+            title: i18n('sell.funding.mempool.title'),
+            hideGoBackButton: true,
+            icons: [{ iconComponent: <HelpIcon />, onPress: showMempoolHelp }],
+          }
+          : {
+            title: i18n('sell.escrow.title'),
+            hideGoBackButton: true,
+            icons: [
+              { iconComponent: <CancelIcon />, onPress: cancelOffer },
+              { iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectRefundWallet') },
+              { iconComponent: <HelpIcon />, onPress: showHelp },
+            ],
+          },
+      [fundingStatus, cancelOffer, navigation, showHelp, showMempoolHelp],
     ),
   )
 
