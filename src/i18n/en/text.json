@@ -336,6 +336,8 @@
   "country.PT": "Portugal",
   "country.SE": "Sweden",
   "country.UK": "United Kingdom",
+  "paymentSection.remote": "remote",
+  "paymentSection.meetups": "meetups",
   "paymentCategory.globalOptions": "global options",
   "paymentCategory.bankTransfer": "bank transfer",
   "paymentCategory.onlineWallet": "online wallets",

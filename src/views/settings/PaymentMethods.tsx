@@ -10,14 +10,14 @@ import { useHeaderSetup } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 
 export default (): ReactElement => {
-  const showHelp = useShowHelp('paymentMethods')
   const headerConfig = useMemo(
     () => ({
       title: i18n('form.paymentMethod.edit'),
     }),
-    [showHelp],
+    [],
   )
   useHeaderSetup(useMemo(() => headerConfig, [headerConfig]))
 
@@ -26,7 +26,7 @@ export default (): ReactElement => {
 
   return (
     <PeachScrollView style={tw`w-full h-full`} contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}>
-      <PaymentDetails paymentData={account.paymentData} setMeansOfPayment={dummy} editing={true}/>
+      <PaymentDetails paymentData={account.paymentData} setMeansOfPayment={dummy} editing={true} />
       <View style={tw`bg-black-5 h-0.3 m-5`} />
       <AddPaymentMethodButton origin={['paymentMethods', {}]} />
     </PeachScrollView>
