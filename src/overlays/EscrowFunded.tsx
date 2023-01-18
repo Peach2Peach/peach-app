@@ -26,11 +26,11 @@ export default ({ offerId }: Props): ReactElement => {
   }
 
   const goToOffer = async (): Promise<void> => {
-    if (!offer) return closeOverlay()
+    if (!offer?.id) return closeOverlay()
     if (isSellOffer(offer) && offer.returnAddressRequired) {
       navigation.navigate('setReturnAddress', { offer })
     } else {
-      navigation.navigate({ name: 'offer', merge: false, params: { offer } })
+      navigation.navigate('offer', { offerId: offer.id })
     }
     return closeOverlay()
   }

@@ -27,6 +27,9 @@ declare type RootStackParamList = {
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
     originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   }
+  signMessage: {
+    offerId: string
+  }
   fundEscrow: {
     offer: SellOffer
   }
@@ -66,8 +69,8 @@ declare type RootStackParamList = {
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
-  refundAddress: undefined
   payoutAddress: undefined
+  walletSettings: undefined
   paymentMethods: undefined
   deleteAccount: undefined
   peachFees: undefined

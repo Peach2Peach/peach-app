@@ -1,4 +1,4 @@
-import React, { ReactElement, Ref, useMemo, useState } from 'react'
+import React, { ReactElement, Ref, useEffect, useMemo, useState } from 'react'
 import {
   NativeSyntheticEvent,
   Pressable,
@@ -115,7 +115,13 @@ export const Input = ({
     [icons, secureTextEntry, showSecret],
   )
 
-  const onChangeText = (val: string) => (onChange ? onChange(val) : null)
+  useEffect(() => {
+    if (value) setTouched(true)
+  }, [value])
+
+  const onChangeText = (val: string) => {
+    if (onChange) onChange(val)
+  }
   const onSubmitEditing
     = onSubmit && !disableSubmit
       ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
@@ -127,7 +133,6 @@ export const Input = ({
     = onChange && !disableOnEndEditing
       ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
         onChange(e.nativeEvent.text?.trim())
-        setTouched(true)
       }
       : () => null
   const onFocusHandler = () => (onFocus ? onFocus() : null)

@@ -5,16 +5,20 @@ import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetw
 import { PeachWallet } from '../wallet/PeachWallet'
 import { setPeachWallet } from '../wallet/setWallet'
 
+export const defaultLimits = {
+  daily: 1000,
+  dailyAmount: 0,
+  monthlyAnonymous: 1000,
+  monthlyAnonymousAmount: 0,
+  yearly: 100000,
+  yearlyAmount: 0,
+}
+
 export const defaultAccount: Account = {
   publicKey: '',
   settings: defaultSettings,
   paymentData: [],
-  tradingLimit: {
-    daily: 1000,
-    dailyAmount: 0,
-    yearly: 100000,
-    yearlyAmount: 0,
-  },
+  tradingLimit: defaultLimits,
   offers: [],
   contracts: [],
   chats: {},
@@ -47,14 +51,14 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   settingsStore.getState().updateSettings(account.settings)
   setLocaleQuiet(account.settings.locale || 'en')
 
-  const peachWallet = new PeachWallet({})
-  peachWallet.loadWallet(account.mnemonic)
-  setPeachWallet(peachWallet)
-
   const { wallet } = account.mnemonic
     ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
     : await createRandomWallet(getNetwork())
   setWallet(wallet)
   const firstAddress = getMainAddress(wallet)
   setPeachAccount(firstAddress)
+
+  const peachWallet = new PeachWallet({ wallet })
+  peachWallet.loadWallet(account.mnemonic)
+  setPeachWallet(peachWallet)
 }

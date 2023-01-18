@@ -65,6 +65,8 @@ declare type TradingLimit = {
   dailyAmount: number
   yearly: number
   yearlyAmount: number
+  monthlyAnonymous: number
+  monthlyAnonymousAmount: number
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
@@ -158,19 +160,10 @@ declare type TradeStatus =
   | 'tradeCanceled'
   | 'waiting'
 
-declare type Offer = {
-  id: string
-  oldOfferId?: string
-  newOfferId?: string
+declare type OfferDraft = {
   creationDate: Date
   lastModified?: Date
-  publishingDate?: Date
-  online: boolean
-  user?: User
-  publicKey?: string
   type: 'bid' | 'ask'
-  premium?: number
-  prices?: Pricebook
   meansOfPayment: MeansOfPayment
   paymentData: Partial<
     Record<
@@ -184,8 +177,19 @@ declare type Offer = {
   originalPaymentData: PaymentData[]
   kyc: boolean
   kycType?: KYCType
+  tradeStatus?: TradeStatus
+}
+declare type Offer = OfferDraft & {
+  id: string
+  oldOfferId?: string
+  newOfferId?: string
+  publishingDate?: Date
+  online: boolean
+  user?: User
+  publicKey?: string
+  premium?: number
+  prices?: Pricebook
   returnAddress: string
-  escrow?: string
   refunded?: boolean
   funding?: FundingStatus
   matches: Offer['id'][]

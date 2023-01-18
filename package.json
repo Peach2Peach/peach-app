@@ -53,6 +53,7 @@
     "bip32": "^3.0.1",
     "bip39": "^3.0.4",
     "bitcoinjs-lib": "^6.0.2",
+    "bitcoinjs-message": "^2.2.0",
     "buffer": "^6.0.3",
     "ecpair": "^2.0.1",
     "events": "^3.3.0",

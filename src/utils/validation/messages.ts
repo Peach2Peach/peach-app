@@ -22,5 +22,6 @@ export const getMessages = () => ({
   url: i18n('form.invalid.error'),
   bip39: i18n('form.bip39.error'),
   bip39Word: i18n('form.bip39Word.error'),
+  signature: i18n('form.signature.error'),
   feeRate: i18n('form.feeRate.error'),
 })

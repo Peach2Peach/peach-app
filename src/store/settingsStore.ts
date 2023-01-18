@@ -1,3 +1,4 @@
+import { BLOCKEXPLORER } from '@env'
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { APPVERSION, MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../constants'
@@ -9,7 +10,6 @@ type SettingsStore = Settings & {
   setEnableAnalytics: (enableAnalytics: boolean) => void
   setLocale: (locale: string) => void
   setAmount: (amount: number) => void
-  setReturnAddress: (returnAddress: string) => void
   setPayoutAddress: (payoutAddress: string) => void
   setDerivationPath: (derivationPath: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
@@ -25,6 +25,7 @@ type SettingsStore = Settings & {
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setShowDisputeDisclaimer: (showDisputeDisclaimer: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
+  setNodeURL: (url: string) => void
   setCustomFeeRate: (customFeeRate: number) => void
   setSelectedFeeRate: (selectedFeeRate: FeeRate) => void
 }
@@ -40,6 +41,7 @@ export const defaultSettings: Settings = {
   showBackupReminder: true,
   showDisputeDisclaimer: true,
   peachWalletActive: true,
+  nodeURL: BLOCKEXPLORER,
   customFeeRate: 1,
   selectedFeeRate: 'halfHourFee',
 }
@@ -55,7 +57,6 @@ export const settingsStore = createStore(
       setEnableAnalytics: (enableAnalytics: boolean) => set((state) => ({ ...state, enableAnalytics })),
       setLocale: (locale: string) => set((state) => ({ ...state, locale })),
       setAmount: (amount: number) => set((state) => ({ ...state, amount })),
-      setReturnAddress: (returnAddress: string) => set((state) => ({ ...state, returnAddress })),
       setPayoutAddress: (payoutAddress: string) => set((state) => ({ ...state, payoutAddress })),
       setDerivationPath: (derivationPath: string) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
@@ -73,6 +74,7 @@ export const settingsStore = createStore(
       setShowDisputeDisclaimer: (showDisputeDisclaimer: boolean) =>
         set((state) => ({ ...state, showDisputeDisclaimer })),
       setPeachWalletActive: (peachWalletActive: boolean) => set((state) => ({ ...state, peachWalletActive })),
+      setNodeURL: (nodeURL: string) => set((state) => ({ ...state, nodeURL })),
       setCustomFeeRate: (customFeeRate: number) => set((state) => ({ ...state, customFeeRate })),
       setSelectedFeeRate: (selectedFeeRate: FeeRate) => set((state) => ({ ...state, selectedFeeRate })),
     }),

@@ -31,13 +31,12 @@ import shallow from 'zustand/shallow'
 import Premium from './Premium'
 
 export type SellViewProps = {
-  offer: SellOffer
-  updateOffer: (offer: SellOffer) => void
+  offer: SellOfferDraft
+  updateOffer: (offer: SellOfferDraft) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
 }
 
-const getDefaultSellOffer = (amount?: number): SellOffer => ({
-  online: false,
+const getDefaultSellOffer = (amount?: number): SellOfferDraft => ({
   type: 'ask',
   creationDate: new Date(),
   lastModified: new Date(),
@@ -46,23 +45,17 @@ const getDefaultSellOffer = (amount?: number): SellOffer => ({
   meansOfPayment: account.settings.meansOfPayment || {},
   paymentData: {},
   originalPaymentData: [],
+  funding: {
+    status: 'NULL',
+    txIds: [],
+    vouts: [],
+    amounts: [],
+    expiry: 537,
+  },
   amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
   returnAddress: account.settings.returnAddress || '',
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
-  funding: {
-    status: 'NULL',
-    txIds: [],
-    amounts: [],
-    vouts: [],
-    expiry: 4320,
-  },
-  matches: [],
-  seenMatches: [],
-  matched: [],
-  doubleMatched: false,
-  refunded: false,
-  released: false,
 })
 
 type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
@@ -122,11 +115,18 @@ export default (): ReactElement => {
 
   useEffect(() => {
     ;(async () => {
-      if (!peachWalletActive || offer.returnAddress) return
-      setOffer({
-        ...offer,
-        returnAddress: (await peachWallet.getReceivingAddress()) || '',
-      })
+      if (offer.returnAddress) return
+      if (peachWalletActive) {
+        setOffer({
+          ...offer,
+          returnAddress: (await peachWallet.getReceivingAddress()) || '',
+        })
+      } else {
+        setOffer({
+          ...offer,
+          returnAddress: account.settings.payoutAddress || '',
+        })
+      }
     })()
   }, [offer, peachWalletActive])
 
@@ -166,7 +166,6 @@ export default (): ReactElement => {
         premium: offer.premium,
         meansOfPayment: offer.meansOfPayment,
         paymentData: offer.paymentData,
-        returnAddress: offer.returnAddress,
       })
       if (result) {
         info('Posted offer', result)
@@ -177,8 +176,8 @@ export default (): ReactElement => {
           }
         })
 
-        saveAndUpdate({ ...offer, id: result.offerId })
-        navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } })
+        saveAndUpdate({ ...offer, id: result.offerId } as SellOffer)
+        navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } as SellOffer })
       } else if (err) {
         error('Error', err)
         updateMessage({

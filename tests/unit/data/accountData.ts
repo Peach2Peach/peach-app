@@ -18,6 +18,7 @@ export const recoveredAccount: Account = {
     showBackupReminder: false,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -28,6 +29,8 @@ export const recoveredAccount: Account = {
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
+    monthlyAnonymous: 1000,
+    monthlyAnonymousAmount: 0,
     yearly: 100000,
     yearlyAmount: 0,
   },
@@ -59,6 +62,8 @@ export const account1: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -66,6 +71,8 @@ export const account1: Account = {
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
+    monthlyAnonymous: 1000,
+    monthlyAnonymousAmount: 0,
     yearly: 100000,
     yearlyAmount: 0,
   },
@@ -100,6 +107,8 @@ export const seller: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -107,6 +116,8 @@ export const seller: Account = {
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
+    monthlyAnonymous: 1000,
+    monthlyAnonymousAmount: 0,
     yearly: 100000,
     yearlyAmount: 0,
   },
@@ -141,6 +152,8 @@ export const buyer: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -148,6 +161,8 @@ export const buyer: Account = {
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
+    monthlyAnonymous: 1000,
+    monthlyAnonymousAmount: 0,
     yearly: 100000,
     yearlyAmount: 0,
   },
@@ -184,6 +199,8 @@ export const userWithNoTrades: Account = {
     showBackupReminder: true,
     showDisputeDisclaimer: true,
     peachWalletActive: true,
+    nodeURL: 'https://localhost:3000/',
+
     customFeeRate: 1,
     selectedFeeRate: 'halfHourFee',
   },
@@ -191,6 +208,8 @@ export const userWithNoTrades: Account = {
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
+    monthlyAnonymous: 1000,
+    monthlyAnonymousAmount: 0,
     yearly: 100000,
     yearlyAmount: 0,
   },
