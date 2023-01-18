@@ -5,6 +5,27 @@ import tw from '../../../styles/tailwind'
 import { getOfferLevel } from './getOfferLevel'
 import { isContractSummary } from './isContractSummary'
 
+const getDisputeResult = (
+  youWon: boolean,
+  tradeType: 'bid' | 'ask',
+): {
+  icon: IconType
+  level: SummaryItemLevel
+  color: ColorValue | undefined
+} => {
+  if (youWon) {
+    if (tradeType === 'bid') {
+      return { icon: 'buy', level: 'SUCCESS', color: tw`text-success-main`.color }
+    }
+    return { icon: 'sell', level: 'APP', color: tw`text-primary-main`.color }
+  }
+  return {
+    icon: 'alertOctagon',
+    level: 'WARN',
+    color: tw`text-warning-main`.color,
+  }
+}
+
 export const getThemeForPastTrade = (
   trade: ContractSummary | OfferSummary,
 ): { icon: IconType; level: SummaryItemLevel; color: ColorValue | undefined } => {
@@ -15,22 +36,11 @@ export const getThemeForPastTrade = (
   }
 
   if (isContractSummary(trade)) {
-    // DISPUTE LOST
-    if (
-      (trade.disputeWinner === 'seller' && trade.type === 'bid')
-      || (trade.disputeWinner === 'buyer' && trade.type === 'ask')
-    ) return {
-      icon: 'alertOctagon',
-      level: 'WARN',
-      color: tw`text-warning-main`.color,
-    }
-    // DISPUTE WON AND YOU ARE THE BUYER
-    if (trade.disputeWinner === 'buyer' && trade.type === 'bid') {
-      return { icon: 'buy', level: 'SUCCESS', color: tw`text-success-main`.color }
-    }
-    // DISPUTE WON AND YOU ARE THE SELLER
-    if (trade.disputeWinner === 'seller' && trade.type === 'ask') {
-      return { icon: 'sell', level: 'APP', color: tw`text-primary-main`.color }
+    if (trade.disputeWinner) {
+      const youWon
+        = (trade.disputeWinner === 'seller' && trade.type === 'ask')
+        || (trade.disputeWinner === 'buyer' && trade.type === 'bid')
+      return getDisputeResult(youWon, trade.type)
     }
     if (trade.tradeStatus === 'tradeCanceled') {
       return {
