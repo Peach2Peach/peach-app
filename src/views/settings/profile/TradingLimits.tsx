@@ -25,7 +25,7 @@ export const TradingLimits = (props: ComponentProps) => {
           <Progress
             percent={amount / limit}
             style={tw`h-[6px]`}
-            backgroundStyle={tw`bg-primary-background-dark`}
+            backgroundStyle={tw`bg-primary-mild-1`}
             barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background`}
           />
           <TradingLimitAmount

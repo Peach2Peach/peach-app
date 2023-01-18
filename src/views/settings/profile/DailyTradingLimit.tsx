@@ -19,7 +19,7 @@ export const DailyTradingLimit = (props: ComponentProps) => {
       <Progress
         style={tw`h-1 rounded-none`}
         percent={amount / limit}
-        backgroundStyle={tw`rounded-none bg-primary-background-dark`}
+        backgroundStyle={tw`rounded-none bg-primary-mild-1`}
         barStyle={tw`h-1 border-r-2 rounded-none bg-primary-main border-primary-background-light`}
       />
     </View>
