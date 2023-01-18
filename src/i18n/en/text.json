@@ -142,7 +142,8 @@
   "sell.wallet.select.title": "select refund wallet",
   "sell.wallet.select.description": "By default you'll be refunded into your Peach wallet. If you want to be refunded to another address or wallet, you can select so here.",
   "sell.wallet.select.setRefundWallet": "set refund wallet",
-
+  "offer.published.title": "offer published!",
+  "offer.published.description": "We'll send you a notification when there are matches available.",
   "offer.summary.youAreSelling": "you're selling",
   "offer.summary.youAreBuying": "you're buying",
   "offer.summary.for": "for",

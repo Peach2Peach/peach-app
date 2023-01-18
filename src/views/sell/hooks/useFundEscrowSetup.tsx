@@ -137,7 +137,7 @@ export const useFundEscrowSetup = () => {
         navigation.replace('setReturnAddress', { offer: sellOffer })
       } else {
         matchStoreSetOffer(sellOffer)
-        navigation.replace('search')
+        navigation.replace('offerPublished')
       }
     }
   }, [fundingStatus, matchStoreSetOffer, navigateToYourTrades, navigation, sellOffer, updateOverlay])
