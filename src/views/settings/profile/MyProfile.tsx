@@ -5,7 +5,7 @@ import { PeachScrollView } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useUserQuery } from '../../../hooks/useUserQuery'
+import { useUser } from '../../../hooks/useUserQuery'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -15,7 +15,7 @@ import { MyProfileOverview } from './profileOverview/MyProfileOverview'
 import { TradingLimits } from './TradingLimits'
 
 export default () => {
-  const { user, isLoading } = useUserQuery(account.publicKey)
+  const { user, isLoading } = useUser(account.publicKey)
   const openTradingLimitsPopup = useShowHelp('tradingLimit')
   useHeaderSetup(
     useMemo(
