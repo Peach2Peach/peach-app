@@ -10,7 +10,7 @@ import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromC
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { thousands } from '../../utils/string'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation

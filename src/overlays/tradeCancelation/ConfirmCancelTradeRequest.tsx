@@ -10,7 +10,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 import { ContractCanceled } from './ContractCanceled'
 
 /**

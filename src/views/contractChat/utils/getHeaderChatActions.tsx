@@ -1,6 +1,5 @@
 import React from 'react'
 import { Icon } from '../../../components'
-import { ConfirmCancelTrade } from '../../../overlays/ConfirmCancelTrade'
 import { ConfirmRaiseDispute } from '../../../overlays/ConfirmRaiseDispute'
 import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'
@@ -9,6 +8,7 @@ import { HeaderConfig } from '../../../components/header/store'
 export const getHeaderChatActions = (
   contract: Contract,
   view: 'buyer' | 'seller' | '',
+  showCancelOverlay: () => void,
   updateOverlay: React.Dispatch<OverlayState>,
 ): HeaderConfig['icons'] => {
   const canCancel
@@ -18,13 +18,9 @@ export const getHeaderChatActions = (
     && ((!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
       || (view === 'seller' && contract.cancelationRequested))
 
-  const openCancelTrade = () =>
-    canCancel
-      ? updateOverlay({
-        content: <ConfirmCancelTrade contract={contract} />,
-        visible: true,
-      })
-      : null
+  const openCancelTrade = () => {
+    canCancel ? showCancelOverlay() : null
+  }
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = () =>
     canDispute
