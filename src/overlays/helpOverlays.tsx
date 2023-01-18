@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 
 import i18n from '../utils/i18n'
+import { PayoutAddressPopup } from '../views/settings/components/PayoutAddressPopup'
 import { FileBackupPopup } from './FileBackupPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
@@ -28,6 +29,7 @@ export const helpOverlays: Record<string, HelpContent> = {
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
+  payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   premium: { title: i18n('help.premium.title'), content: Premium },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },

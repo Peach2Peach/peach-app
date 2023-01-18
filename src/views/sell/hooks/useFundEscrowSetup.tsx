@@ -8,16 +8,11 @@ import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { ConfirmCancelOffer } from '../../../overlays/ConfirmCancelOffer'
-import { EscrowRefunded } from '../../../overlays/EscrowRefunded'
-import { OfferCanceled } from '../../../overlays/OfferCanceled'
 import Refund from '../../../overlays/Refund'
-import { updateTradingLimit } from '../../../utils/account'
-import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
-import { cancelAndSaveOffer, initiateEscrowRefund, saveOffer } from '../../../utils/offer'
-import { fundEscrow, generateBlock, getTradingLimit } from '../../../utils/peachAPI'
+import { saveOffer } from '../../../utils/offer'
+import { fundEscrow, generateBlock } from '../../../utils/peachAPI'
 import createEscrowEffect from '../effects/createEscrowEffect'
 
 // eslint-disable-next-line max-statements
@@ -46,11 +41,11 @@ export const useFundEscrowSetup = () => {
         hideGoBackButton: true,
         icons: [
           { iconComponent: <CancelIcon />, onPress: cancelOffer },
-          { iconComponent: <WalletIcon />, onPress: showHelp },
+          { iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectRefundWallet') },
           { iconComponent: <HelpIcon />, onPress: showHelp },
         ],
       }),
-      [cancelOffer, showHelp],
+      [cancelOffer, navigation, showHelp],
     ),
   )
 
