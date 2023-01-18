@@ -88,7 +88,7 @@ export default (): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const next = () => {
     if (page >= screens.length - 1) return
@@ -105,13 +105,11 @@ export default (): ReactElement => {
     scroll?.scrollTo({ x: 0 })
   }, [navigation, page, scroll])
 
-  useFocusEffect(
-    useCallback(() => {
-      setOffer(getDefaultBuyOffer(route.params.amount))
-      setUpdatePending(false)
-      setPage(() => 0)
-    }, [route]),
-  )
+  useEffect(() => {
+    setOffer(getDefaultBuyOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(() => 0)
+  }, [route])
 
   useEffect(() => {
     ;(async () => {
