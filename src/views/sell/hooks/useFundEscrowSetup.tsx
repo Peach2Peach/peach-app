@@ -48,7 +48,10 @@ export const useFundEscrowSetup = () => {
             hideGoBackButton: true,
             icons: [
               { iconComponent: <CancelIcon />, onPress: cancelOffer },
-              { iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectRefundWallet') },
+              {
+                iconComponent: <WalletIcon />,
+                onPress: () => navigation.navigate('selectWallet', { type: 'refund' }),
+              },
               { iconComponent: <HelpIcon />, onPress: showHelp },
             ],
           },
