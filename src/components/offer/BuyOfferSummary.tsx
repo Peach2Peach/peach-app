@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
@@ -46,9 +47,13 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         }))}
         style={tw`mt-2`}
       />
-      <HorizontalLine style={tw`mt-4`} />
-      <Text style={tw`mt-4 text-center text-black-2`}>{i18n('to')}</Text>
-      <Text style={tw`text-center subtitle-1`}>{offer.releaseAddress}</Text>
+      {offer.walletLabel && (
+        <View>
+          <HorizontalLine style={tw`mt-4`} />
+          <Text style={tw`mt-4 text-center text-black-2`}>{i18n('to')}</Text>
+          <Text style={tw`text-center subtitle-1`}>{offer.walletLabel}</Text>
+        </View>
+      )}
     </Card>
   )
 }

@@ -177,6 +177,7 @@ declare type OfferDraft = {
   originalPaymentData: PaymentData[]
   kyc: boolean
   kycType?: KYCType
+  walletLabel?: string
   tradeStatus?: TradeStatus
 }
 declare type Offer = OfferDraft & {
