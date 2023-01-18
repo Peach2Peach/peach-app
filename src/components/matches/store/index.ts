@@ -29,11 +29,16 @@ const defaultBuyOffer: BuyOffer = {
   paymentData: {},
   originalPaymentData: [],
   kyc: false,
-  amount: 0,
+  amount: [200000, 1000000],
   matches: [],
   seenMatches: [],
   matched: [],
   doubleMatched: false,
+  releaseAddress: '',
+  id: '0',
+  returnAddress: '',
+  tradeStatus: 'waiting', // TODO: decide on a default here
+  message: '', // TODO: decide on a default here
 }
 
 const defaultState: MatchState = {
@@ -46,11 +51,7 @@ const defaultState: MatchState = {
 export const useMatchStore = create<MatchStore>()(
   immer((set, get) => ({
     ...defaultState,
-    setOffer: (offer) =>
-      set((state) => ({
-        ...state,
-        offer,
-      })),
+    setOffer: (offer) => set((state) => ({ ...state, offer })),
     setSelectedCurrency: (currency, matchId) => {
       const currentMatch = get().matchSelectors[matchId]
       const newMethods = getAvailableMethods(currentMatch.meansOfPayment, currency, currentMatch.mopsInCommon)

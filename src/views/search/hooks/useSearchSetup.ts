@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import shallow from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation } from '../../../hooks'
+import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -12,6 +12,8 @@ export const useSearchSetup = () => {
 
   const [, updateMessage] = useContext(MessageContext)
   const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
+  // TODO: finish header
+  useHeaderSetup({ title: 'offer ' + offer.id, hideGoBackButton: true })
 
   const { allMatches: matches, error, refetch } = useOfferMatches()
   const resetStore = useMatchStore((state) => state.resetStore)

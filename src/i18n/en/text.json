@@ -258,7 +258,7 @@
   "search.searchingForAPeer": "peach is searching for a peer",
   "search.matchesAreWaiting": "matches are waiting for you",
   "search.youGotAMatch": "you've got a match!",
-  "search.youGotAMatches": "you've got matches!",
+  "search.youGotMatches": "you've got matches!",
   "search.weWillNotifyYou": "we'll notify you when we've found a match!",
   "search.buyOffer": "for buying",
   "search.sellOffer": "for selling",
