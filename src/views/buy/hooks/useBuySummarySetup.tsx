@@ -8,11 +8,12 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 
 export const useBuySummarySetup = () => {
   const navigation = useNavigation()
-  const [peachWalletActive, payoutAddress] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress],
+  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
   const [releaseAddress, setReleaseAddress] = useState('')
+  const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
   useHeaderSetup(
     useMemo(
@@ -34,5 +35,5 @@ export const useBuySummarySetup = () => {
     })()
   }, [payoutAddress, peachWalletActive])
 
-  return { releaseAddress }
+  return { releaseAddress, walletLabel }
 }

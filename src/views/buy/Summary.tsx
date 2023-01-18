@@ -6,7 +6,7 @@ import { BuyViewProps } from './BuyPreferences'
 import { BuyOfferSummary } from '../../components'
 
 export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElement => {
-  const { releaseAddress } = useBuySummarySetup()
+  const { releaseAddress, walletLabel } = useBuySummarySetup()
 
   useEffect(() => {
     setStepValid(!!releaseAddress)
@@ -16,6 +16,13 @@ export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElemen
       releaseAddress,
     })
   }, [releaseAddress, setStepValid, updateOffer])
+
+  useEffect(() => {
+    if (walletLabel) updateOffer({
+      ...offer,
+      walletLabel,
+    })
+  }, [walletLabel, updateOffer])
 
   return (
     <View style={tw`flex-col justify-center h-full px-8`}>
