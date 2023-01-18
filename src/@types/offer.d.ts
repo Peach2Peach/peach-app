@@ -17,6 +17,7 @@ declare type SellOffer = SellOfferDraft &
     refundTx?: string // base 64 encoded psbt
     txId?: string
     released: boolean
+    returnAddress: string
     matched: Offer['id'][]
     seenMatches: Offer['id'][]
   }

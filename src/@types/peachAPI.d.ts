@@ -189,7 +189,6 @@ declare type Offer = OfferDraft & {
   publicKey?: string
   premium?: number
   prices?: Pricebook
-  returnAddress: string
   refunded?: boolean
   funding?: FundingStatus
   matches: Offer['id'][]
