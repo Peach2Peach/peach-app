@@ -18,7 +18,10 @@ const addressRules = { required: true, bitcoinAddress: true }
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
+  const [peachWalletActive, payoutAddress] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress],
+    shallow,
+  )
 
   const [address, setAddress, addressIsValid, addressErrors] = useValidatedState(
     offer.releaseAddress || '',
@@ -60,12 +63,12 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   useEffect(() => {
     ;(async () => {
       if (!peachWalletActive) {
-        setAddress(account.settings.payoutAddress || '')
+        setAddress(payoutAddress || '')
       } else {
         setAddress((await peachWallet.getReceivingAddress()) || '')
       }
     })()
-  }, [peachWalletActive, setAddress])
+  }, [payoutAddress, peachWalletActive, setAddress])
 
   return (
     <PeachScrollView style={tw`flex-shrink h-full`} contentContainerStyle={tw`h-full px-6`}>

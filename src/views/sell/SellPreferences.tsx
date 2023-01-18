@@ -85,7 +85,10 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
+  const [peachWalletActive, payoutAddress] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress],
+    shallow,
+  )
 
   const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -124,11 +127,11 @@ export default (): ReactElement => {
       } else {
         setOffer({
           ...offer,
-          returnAddress: account.settings.payoutAddress || '',
+          returnAddress: payoutAddress || '',
         })
       }
     })()
-  }, [offer, peachWalletActive])
+  }, [offer, peachWalletActive, payoutAddress])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
