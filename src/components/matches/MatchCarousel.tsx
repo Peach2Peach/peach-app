@@ -1,13 +1,10 @@
-import React, { useRef } from 'react'
-import { Dimensions, View } from 'react-native'
+import React from 'react'
+import { Dimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
 import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
-import { Loading } from '../animation'
-import { PrevButton, NextButton } from './buttons'
 import Match from './Match'
 import { useMatchStore } from './store'
-import shallow from 'zustand/shallow'
 
 const { width } = Dimensions.get('window')
 const carouselConfig = {
@@ -25,43 +22,15 @@ const carouselConfig = {
   keyExtractor: (item: any, index: number) => `${item.offerId}-${index}`,
 }
 
-const onStartShouldSetResponder = () => true
-const shouldRenderShadow = (currentIndex: number, index: number) =>
-  (currentIndex + 1 <= index && currentIndex + 5 >= index) || currentIndex === index
+const renderItem = ({ item }: any) => <Match match={item} style={tw`px-4 py-4 -mx-4 bg-transparent`} />
 
 export default () => {
-  const $carousel = useRef<Carousel<any>>(null)
-  const { allMatches: matches, isLoading, isFetchingNextPage } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches()
 
-  const snapToPrev = () => $carousel.current?.snapToPrev()
-  const snapToNext = () => $carousel.current?.snapToNext()
-  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
-
+  const setCurrentIndex = useMatchStore((state) => state.setCurrentIndex)
   const onBeforeSnapToItem = (index: number) => {
-    // ensure that index can't be higher than available matches
     setCurrentIndex(Math.min(index, matches.length - 1))
   }
 
-  return (
-    <View style={tw`flex-row items-center justify-center overflow-visible`}>
-      {matches[currentIndex - 1] !== undefined && <PrevButton onPress={snapToPrev} />}
-      {matches[currentIndex] !== undefined && (
-        <Carousel
-          ref={$carousel}
-          data={matches}
-          {...{ ...carouselConfig, onBeforeSnapToItem }}
-          renderItem={({ item, index }) => (
-            <View {...{ onStartShouldSetResponder }} style={tw`px-4 py-4 -mx-4 bg-transparent`}>
-              <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
-            </View>
-          )}
-        />
-      )}
-      {matches[currentIndex + 1] !== undefined ? (
-        <NextButton onPress={snapToNext} />
-      ) : (
-        (isLoading || isFetchingNextPage) && <Loading style={tw`absolute z-10 w-4 h-4 right-4`} size="small" />
-      )}
-    </View>
-  )
+  return <Carousel data={matches} {...{ ...carouselConfig, onBeforeSnapToItem, renderItem }} />
 }
