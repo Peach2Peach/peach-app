@@ -37,19 +37,20 @@ export default (): ReactElement => {
   return (
     <View testID="view-sell" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8 mb-2`} />
-      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
+      <View style={tw`flex-shrink h-full px-8`}>
         <BitcoinPriceStats />
-        <View style={tw`flex h-full pb-8 pt-7`}>
-          <View style={tw`z-10 flex justify-center flex-shrink h-full`}>
-            <View>
-              <Text style={tw`h6`}>
-                {i18n('sell.subtitle')}
-                <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
-              </Text>
-              <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
-              <SelectAmount min={MINTRADINGAMOUNT} max={MAXTRADINGAMOUNT} value={amount} onChange={setAmount} />
-            </View>
-          </View>
+        <View style={tw`justify-between flex-shrink h-full pb-8 pt-7`}>
+          <Text style={tw`h6`}>
+            {i18n('sell.subtitle')}
+            <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
+          </Text>
+          <SelectAmount
+            style={tw`mt-4`}
+            min={MINTRADINGAMOUNT}
+            max={MAXTRADINGAMOUNT}
+            value={amount}
+            onChange={setAmount}
+          />
           {showBackupReminder && (
             <Hint
               style={tw`self-center max-w-xs mt-2`}
@@ -61,7 +62,7 @@ export default (): ReactElement => {
             />
           )}
         </View>
-      </PeachScrollView>
+      </View>
       <PrimaryButton
         disabled={!amountValid}
         testID="navigation-next"
