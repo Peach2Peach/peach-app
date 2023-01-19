@@ -121,13 +121,7 @@ const App: React.FC = () => {
 
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [
-    {
-      title: drawerTitle,
-      content: drawerContent,
-      show: showDrawer,
-      previousDrawer,
-      onClose: onCloseDrawer,
-    },
+    { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
     updateDrawer,
   ] = useReducer(setDrawer, getDrawer())
   const [overlayState, updateOverlay] = useOverlay()

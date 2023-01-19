@@ -94,7 +94,10 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
       <Animated.View style={[tw`flex-grow w-full bg-black-1`, { opacity: fadeAnim, height: slideAnim }]}>
         <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
       </Animated.View>
-      <Animated.View testID="drawer" style={tw`flex-shrink-0 w-full bg-primary-background-light rounded-t-3xl -mt-7`}>
+      <Animated.View
+        testID="drawer"
+        style={tw`flex-shrink-0 w-full max-h-3/4 bg-primary-background-light rounded-t-3xl -mt-7`}
+      >
         <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
           {Object.keys(previousDrawer).length !== 0 && (
             <Pressable onPress={goBack} style={tw`absolute z-10 p-3 left-4 top-3`}>

@@ -90,8 +90,22 @@ declare type PaymentMethod =
   | 'bizum'
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
-  | 'cash'
-  | `cash.${Location}`
+
+declare type MeetupEventsResponse = {
+  error: null // TODO there will be error codes
+  status: 'online' // TODO there will be other stati
+  serverTime: number
+}
+
+declare type MeetupEvent = {
+  id: string
+  country: Country
+  city: string
+  name: string
+  url: string
+  address?: string
+  logo?: string // path to the logo
+}
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
