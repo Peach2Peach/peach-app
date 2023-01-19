@@ -21,6 +21,7 @@ import checkSquare from './checkSquare.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
+import chevronsLeft from './chevronsLeft.svg'
 import chevronsRight from './chevronsRight.svg'
 import chevronsUp from './chevronsUp.svg'
 import circle from './circle.svg'
@@ -127,6 +128,7 @@ const Icons = {
   chevronLeft,
   chevronRight,
   chevronsDown,
+  chevronsLeft,
   chevronsRight,
   chevronsUp,
   circle,

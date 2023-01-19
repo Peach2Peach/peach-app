@@ -1,15 +1,15 @@
-import React, { Dispatch, ReactElement, SetStateAction, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import { Animated, LayoutChangeEvent, View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { getTranslateY, innerShadow } from '../../../utils/layout'
+import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
 import { Text } from '../../text'
-import { Shadow } from '../../ui'
 import { createPanResponder } from './helpers/createPanResponder'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 
 import { KNOBHEIGHT, SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
+import { TrackMarkers } from './TrackMarkers'
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -54,8 +54,9 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   const onLayout = (event: LayoutChangeEvent) => setTrackHeight(event.nativeEvent.layout.height - KNOBHEIGHT)
 
   return (
-    <View style={style} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end`, style]} {...{ onStartShouldSetResponder }}>
       <SliderTrack {...{ onLayout }}>
+        <TrackMarkers {...{ trackHeight }} />
         <Animated.View
           {...panResponder.panHandlers}
           {...{ onStartShouldSetResponder }}

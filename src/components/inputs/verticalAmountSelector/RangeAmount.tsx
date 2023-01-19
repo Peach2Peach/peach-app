@@ -1,14 +1,14 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { getTranslateY, innerShadow } from '../../../utils/layout'
+import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
 import { Text } from '../../text'
-import { Shadow } from '../../ui'
 import { createPanResponder } from './helpers/createPanResponder'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { KNOBHEIGHT, SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
+import { TrackMarkers } from './TrackMarkers'
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -80,11 +80,12 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   const onLayout = (event: LayoutChangeEvent) => setTrackHeight(event.nativeEvent.layout.height - KNOBHEIGHT)
 
   return (
-    <View style={style} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end`, style]} {...{ onStartShouldSetResponder }}>
       <SliderTrack {...{ onLayout }}>
+        <TrackMarkers {...{ trackHeight }} />
         <Animated.View
           style={[
-            tw`absolute left-0 right-0 bg-primary-mild-2`,
+            tw`absolute left-0 right-0 opacity-50 bg-primary-main`,
             { height: rangeHeight, top: KNOBHEIGHT / 2 },
             getTranslateY(panMin, trackRangeMin),
           ]}
