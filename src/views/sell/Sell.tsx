@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { BitcoinPriceStats, Hint, HorizontalLine, PeachScrollView, PrimaryButton, Text } from '../../components'
-import { SelectAmount } from '../../components/inputs/SelectAmount'
+import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { account, updateSettings } from '../../utils/account'
