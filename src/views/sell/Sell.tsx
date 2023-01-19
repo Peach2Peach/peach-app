@@ -35,7 +35,7 @@ export default (): ReactElement => {
   }
 
   return (
-    <View testID="view-sell" style={tw`flex h-full`}>
+    <View testID="view-sell" style={tw`flex h-full`} onStartShouldSetResponder={() => true}>
       <HorizontalLine style={tw`mx-8 mb-2`} />
       <View style={tw`flex-shrink h-full px-8`}>
         <BitcoinPriceStats />

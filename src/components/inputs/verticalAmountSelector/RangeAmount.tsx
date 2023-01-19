@@ -42,12 +42,18 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   const panMaxResponder = useRef(createPanResponder(panMax)).current
   const panMinResponder = useRef(createPanResponder(panMin)).current
 
+  const setMaximumRounded = (val: number) => {
+    setMaximum(round(val, -4))
+  }
+  const setMinimumRounded = (val: number) => {
+    setMinimum(round(val, -4))
+  }
   useEffect(
-    () => panListener(panMax, [max, min], trackRange, setMaximum, trackRangeMax),
+    () => panListener(panMax, [max, min], trackRange, setMaximumRounded, trackRangeMax),
     [max, min, panMax, trackRange, trackRangeMax],
   )
   useEffect(
-    () => panListener(panMin, [max, min], trackRange, setMinimum, trackRangeMin),
+    () => panListener(panMin, [max, min], trackRange, setMinimumRounded, trackRangeMin),
     [max, min, panMin, trackRange, trackRangeMin],
   )
 

@@ -1,12 +1,11 @@
-import { Dispatch, SetStateAction } from 'react'
 import { Animated } from 'react-native'
-import { interpolate, round } from '../../../../utils/math'
+import { interpolate } from '../../../../utils/math'
 
 export const panListener = (
   pan: Animated.Value,
   range: [number, number],
   trackRange: [number, number],
-  setValue: Dispatch<SetStateAction<number>>,
+  setValue: (val: number) => void,
   restrictRange = trackRange,
   // eslint-disable-next-line max-params
 ) => {
@@ -21,7 +20,7 @@ export const panListener = (
     if (v !== props.value) pan.setOffset(v)
 
     const val = interpolate(v, trackRange, range)
-    setValue(round(val, -4))
+    setValue(val)
   })
 
   return () => pan.removeAllListeners()
