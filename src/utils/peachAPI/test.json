@@ -67,7 +67,6 @@
             }
         },
         "online": false,
-        "returnAddressRequired": true,
         "doubleMatched": false,
         "released": false,
         "amount": 50000,

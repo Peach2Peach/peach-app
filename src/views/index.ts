@@ -22,7 +22,6 @@ import FundEscrow from './sell/FundEscrow'
 import SelectRefundWallet from './sell/SelectRefundWallet'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
-import SetReturnAddress from './sell/SetReturnAddress'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
@@ -86,7 +85,6 @@ const sellFlow: ViewType[] = [
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'selectRefundWallet', component: SelectRefundWallet, ...defaultConfig },
-  { name: 'setReturnAddress', component: SetReturnAddress, ...defaultConfig },
 ]
 
 const search: ViewType[] = [
