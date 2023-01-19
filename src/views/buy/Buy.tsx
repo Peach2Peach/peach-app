@@ -40,25 +40,20 @@ export default (): ReactElement => {
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8 mb-2`} />
-      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
+      <PeachScrollView style={tw`flex-shrink h-full`} contentContainerStyle={tw`px-8`}>
         <BitcoinPriceStats />
         <View style={tw`flex h-full pb-8 pt-7`}>
-          <View style={tw`z-10 flex justify-center flex-shrink h-full`}>
-            <View>
-              <Text style={tw`h6`}>
-                {i18n('buy.subtitle')}
-                <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
-              </Text>
-              <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
-              <RangeAmount
-                style={tw`flex-shrink h-full`}
-                min={MINTRADINGAMOUNT}
-                max={MAXTRADINGAMOUNT}
-                value={[minAmount, maxAmount]}
-                onChange={setSelectedRange}
-              />
-            </View>
-          </View>
+          <Text style={tw`h6`}>
+            {i18n('buy.subtitle')}
+            <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
+          </Text>
+          <RangeAmount
+            style={tw`h-[300px] flex-shrink`}
+            min={MINTRADINGAMOUNT}
+            max={MAXTRADINGAMOUNT}
+            value={[minAmount, maxAmount]}
+            onChange={setSelectedRange}
+          />
           {showBackupReminder && (
             <Hint
               style={tw`self-center max-w-xs mt-2`}

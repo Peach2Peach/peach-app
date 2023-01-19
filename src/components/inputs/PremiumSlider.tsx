@@ -86,7 +86,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
               style={[
                 { width: KNOBWIDTH },
                 tw`z-10 flex items-center rounded-full bg-primary-main`,
-                getTranslateX(pan, trackWidth),
+                getTranslateX(pan, [0, trackWidth]),
               ]}
             >
               {isSliding && <ToolTip style={tw`absolute bottom-10`}>{premium}%</ToolTip>}

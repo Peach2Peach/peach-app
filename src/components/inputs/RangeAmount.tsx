@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, SetStateAction, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, ReactElement, SetStateAction, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { getTranslateY, innerShadow } from '../../utils/layout'
@@ -55,6 +55,11 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   const [maximum, setMaximum] = useState(value[1])
   const minY = interpolate(minimum, [min, max], [0, trackHeight])
   const maxY = interpolate(maximum, [min, max], [0, trackHeight])
+  const trackRangeMin: [number, number] = useMemo(() => [0, Math.max(0, maxY - KNOBHEIGHT)], [maxY])
+  const trackRangeMax: [number, number] = useMemo(
+    () => [Math.min(minY + KNOBHEIGHT, trackHeight), trackHeight],
+    [minY, trackHeight],
+  )
   const rangeHeight = maxY - minY
   const panMin = useRef(new Animated.Value(minY)).current
   const panMax = useRef(new Animated.Value(maxY)).current
@@ -64,40 +69,38 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   useEffect(() => {
     panMin.extractOffset()
     panMin.addListener((props) => {
-      if (props.value < 0) {
-        panMin.setOffset(0)
-      } else if (props.value > maxY) {
-        panMin.setOffset(maxY)
-      } else if (props.value > trackHeight) {
-        panMin.setOffset(trackHeight)
+      let v = props.value
+      if (v < trackRangeMin[0]) {
+        v = trackRangeMin[0]
+      } else if (v > trackRangeMin[1]) {
+        v = trackRangeMin[1]
       }
+      if (v !== props.value) panMin.setOffset(v)
 
-      const boundedY = props.value < 0 ? 0 : Math.min(props.value, trackHeight)
-      const val = round((boundedY / trackHeight) * delta + min, -4)
-      setMinimum(val)
+      const val = interpolate(v, [0, trackHeight], [min, max])
+      setMinimum(round(val, -4))
     })
 
     return () => panMin.removeAllListeners()
-  }, [delta, maxY, min, panMin, trackHeight])
+  }, [delta, max, maxY, min, panMin, trackHeight, trackRangeMin])
 
   useEffect(() => {
     panMax.extractOffset()
     panMax.addListener((props) => {
-      if (props.value < 0) {
-        panMax.setOffset(0)
-      } else if (props.value < minY) {
-        panMax.setOffset(minY)
-      } else if (props.value > trackHeight) {
-        panMax.setOffset(trackHeight)
+      let v = props.value
+      if (v < trackRangeMax[0]) {
+        v = trackRangeMax[0]
+      } else if (v > trackRangeMax[1]) {
+        v = trackRangeMax[1]
       }
+      if (v !== props.value) panMax.setOffset(v)
 
-      const boundedY = props.value < 0 ? 0 : Math.min(props.value, trackHeight)
-      const val = round((boundedY / trackHeight) * delta + min, -4)
-      setMaximum(val)
+      const val = interpolate(v, [0, trackHeight], [min, max])
+      setMaximum(round(val, -4))
     })
 
     return () => panMax.removeAllListeners()
-  }, [delta, minY, min, panMax, trackHeight])
+  }, [delta, minY, min, max, panMax, trackHeight, trackRangeMax])
 
   useEffect(() => {
     onChange([minimum, maximum])
@@ -114,13 +117,13 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
               style={[
                 tw`absolute left-0 right-0 bg-primary-mild-2`,
                 { height: rangeHeight, top: KNOBHEIGHT / 2 },
-                getTranslateY(panMin, trackHeight),
+                getTranslateY(panMin, trackRangeMin),
               ]}
             />
             <Animated.View
               {...panMinResponder.panHandlers}
               {...{ onStartShouldSetResponder }}
-              style={[tw`absolute top-0`, getTranslateY(panMin, trackHeight)]}
+              style={[tw`absolute top-0`, getTranslateY(panMin, trackRangeMin)]}
             >
               <SliderKnob />
             </Animated.View>
@@ -128,7 +131,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
             <Animated.View
               {...panMaxResponder.panHandlers}
               {...{ onStartShouldSetResponder }}
-              style={[tw`absolute top-0`, getTranslateY(panMax, trackHeight)]}
+              style={[tw`absolute top-0`, getTranslateY(panMax, trackRangeMax)]}
             >
               <SliderKnob />
             </Animated.View>

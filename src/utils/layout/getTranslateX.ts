@@ -1,11 +1,11 @@
 import { Animated } from 'react-native'
 
-export const getTranslateX = (pan: Animated.Value, trackWidth: number) => ({
+export const getTranslateX = (pan: Animated.Value, range: [number, number]) => ({
   transform: [
     {
       translateX: pan.interpolate({
-        inputRange: [0, trackWidth],
-        outputRange: [0, trackWidth],
+        inputRange: range,
+        outputRange: range,
         extrapolate: 'clamp',
       }),
     },
