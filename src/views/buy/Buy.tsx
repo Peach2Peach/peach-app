@@ -40,15 +40,15 @@ export default (): ReactElement => {
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8 mb-2`} />
-      <PeachScrollView style={tw`flex-shrink h-full`} contentContainerStyle={tw`px-8`}>
+      <View style={tw`flex-shrink h-full px-8`}>
         <BitcoinPriceStats />
-        <View style={tw`flex h-full pb-8 pt-7`}>
+        <View style={tw`flex-shrink h-full pb-8 pt-7`}>
           <Text style={tw`h6`}>
             {i18n('buy.subtitle')}
             <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
           </Text>
           <RangeAmount
-            style={tw`h-[300px] flex-shrink`}
+            style={tw`flex-shrink h-full mt-4`}
             min={MINTRADINGAMOUNT}
             max={MAXTRADINGAMOUNT}
             value={[minAmount, maxAmount]}
@@ -65,7 +65,7 @@ export default (): ReactElement => {
             />
           )}
         </View>
-      </PeachScrollView>
+      </View>
       <PrimaryButton
         disabled={!minAmountValid || !maxAmountValid}
         testID="navigation-next"

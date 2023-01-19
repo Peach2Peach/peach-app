@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { Shadow } from '..'
+import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getTranslateX, innerShadow } from '../../utils/layout'
@@ -89,7 +89,11 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
                 getTranslateX(pan, [0, trackWidth]),
               ]}
             >
-              {isSliding && <ToolTip style={tw`absolute bottom-10`}>{premium}%</ToolTip>}
+              {isSliding && (
+                <ToolTip style={tw`absolute py-2 bottom-10`}>
+                  <Text style={tw`w-16 font-semibold text-center`}>{premium}%</Text>
+                </ToolTip>
+              )}
               <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
             </Animated.View>
           </View>

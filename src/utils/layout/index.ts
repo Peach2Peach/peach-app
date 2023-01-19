@@ -4,6 +4,7 @@ export { primaryGradient, whiteGradient } from './gradients'
 export {
   dropShadow,
   dropShadowMild,
+  dropShadowStrong,
   dropShadowRed,
   footerShadow,
   innerShadow,

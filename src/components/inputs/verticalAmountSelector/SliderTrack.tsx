@@ -5,11 +5,10 @@ import { innerShadow } from '../../../utils/layout'
 import { Shadow } from '../../ui'
 
 export const SliderTrack = ({ children, onLayout }: ComponentProps) => (
-  <View style={tw`w-6 h-full overflow-hidden rounded-full bg-primary-background-dark`}>
-    <Shadow shadow={innerShadow} style={tw`w-full p-0.5 h-full rounded-full`}>
-      <View style={tw`h-full`} {...{ onLayout }}>
-        {children}
-      </View>
-    </Shadow>
+  <View style={tw`w-6 h-full rounded-full bg-primary-background-dark`}>
+    <Shadow shadow={innerShadow} style={tw`absolute w-full h-full overflow-hidden rounded-full`}></Shadow>
+    <View style={tw`h-full m-0.5`} {...{ onLayout }}>
+      {children}
+    </View>
   </View>
 )

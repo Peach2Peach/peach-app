@@ -3,7 +3,9 @@ import { Animated, LayoutChangeEvent, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
-import { Text } from '../../text'
+import { BitcoinPrice } from '../../bitcoin'
+import { SatsFormat, Text } from '../../text'
+import { ToolTip } from '../../ui/ToolTip'
 import { createPanResponder } from './helpers/createPanResponder'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 
@@ -21,13 +23,12 @@ type RangeAmountProps = ComponentProps & {
 export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
   const delta = max - min
   const [trackHeight, setTrackHeight] = useState(260)
-  const [isSliding, setIsSliding] = useState(false)
   const [amount, setAmount] = useState(value)
   const y = interpolate(amount, [min, max], [0, trackHeight])
   const trackRange: [number, number] = useMemo(() => [0, trackHeight], [trackHeight])
 
   const pan = useRef(new Animated.Value(y)).current
-  const panResponder = useRef(createPanResponder(pan, setIsSliding)).current
+  const panResponder = useRef(createPanResponder(pan)).current
 
   useEffect(() => {
     pan.extractOffset()
@@ -60,12 +61,15 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
         <Animated.View
           {...panResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0`, getTranslateY(pan, trackRange)]}
+          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(pan, trackRange)]}
         >
           <SliderKnob />
+          <ToolTip style={tw`absolute px-3 py-2 right-10 w-[165px]`}>
+            <SatsFormat sats={amount} />
+            <BitcoinPrice sats={amount} style={tw`ml-4 body-s text-black-3`} />
+          </ToolTip>
         </Animated.View>
       </SliderTrack>
-      <Text>{value}</Text>
     </View>
   )
 }

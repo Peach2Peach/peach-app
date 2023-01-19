@@ -3,7 +3,9 @@ import { Animated, LayoutChangeEvent, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
-import { Text } from '../../text'
+import { BitcoinPrice } from '../../bitcoin'
+import { PriceFormat, SatsFormat, Text } from '../../text'
+import { ToolTip } from '../../ui/ToolTip'
 import { createPanResponder } from './helpers/createPanResponder'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { KNOBHEIGHT, SliderKnob } from './SliderKnob'
@@ -20,8 +22,6 @@ type RangeAmountProps = ComponentProps & {
 export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
   const delta = max - min
   const [trackHeight, setTrackHeight] = useState(260)
-  const [isMinSliding, setIsMinSliding] = useState(false)
-  const [isMaxSliding, setIsMaxSliding] = useState(false)
   const [minimum, setMinimum] = useState(value[0])
   const [maximum, setMaximum] = useState(value[1])
   const minY = interpolate(minimum, [min, max], [0, trackHeight])
@@ -34,8 +34,8 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   const rangeHeight = maxY - minY
   const panMin = useRef(new Animated.Value(minY)).current
   const panMax = useRef(new Animated.Value(maxY)).current
-  const panMinResponder = useRef(createPanResponder(panMin, setIsMinSliding)).current
-  const panMaxResponder = useRef(createPanResponder(panMax, setIsMaxSliding)).current
+  const panMinResponder = useRef(createPanResponder(panMin)).current
+  const panMaxResponder = useRef(createPanResponder(panMax)).current
 
   useEffect(() => {
     panMin.extractOffset()
@@ -93,20 +93,27 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         <Animated.View
           {...panMinResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0`, getTranslateY(panMin, trackRangeMin)]}
+          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMin, trackRangeMin)]}
         >
           <SliderKnob />
+          <ToolTip style={tw`absolute px-3 py-2 right-10 w-[165px]`}>
+            <SatsFormat sats={minimum} />
+            <BitcoinPrice sats={minimum} style={tw`ml-4 body-s text-black-3`} />
+          </ToolTip>
         </Animated.View>
 
         <Animated.View
           {...panMaxResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0`, getTranslateY(panMax, trackRangeMax)]}
+          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMax, trackRangeMax)]}
         >
           <SliderKnob />
+          <ToolTip style={tw`absolute px-3 py-2 right-10 w-[165px]`}>
+            <SatsFormat sats={maximum} />
+            <BitcoinPrice sats={maximum} style={tw`ml-4 body-s text-black-3`} />
+          </ToolTip>
         </Animated.View>
       </SliderTrack>
-      <Text>{value.join('-')}</Text>
     </View>
   )
 }

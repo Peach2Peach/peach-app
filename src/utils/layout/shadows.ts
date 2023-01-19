@@ -36,6 +36,14 @@ export const dropShadowMild: ShadowType = {
   offsetY: 0,
 }
 
+export const dropShadowStrong: ShadowType = {
+  blur: 8,
+  color: '#2B1911',
+  opacity: 0.32,
+  offsetX: 0,
+  offsetY: 0,
+}
+
 export const mildShadowOrange = {
   blur: 14,
   color: '#F57940',
