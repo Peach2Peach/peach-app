@@ -35,11 +35,11 @@ export default (): ReactElement => {
   }
 
   return (
-    <View testID="view-sell" style={tw`flex h-full`} onStartShouldSetResponder={() => true}>
+    <View testID="view-sell" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8 mb-2`} />
-      <View style={tw`flex-shrink h-full px-8`}>
+      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
         <BitcoinPriceStats />
-        <View style={tw`justify-between flex-shrink h-full pb-8 pt-7`}>
+        <View style={tw`flex-shrink h-full pb-8 pt-7`}>
           <Text style={tw`h6`}>
             {i18n('sell.subtitle')}
             <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
@@ -62,7 +62,7 @@ export default (): ReactElement => {
             />
           )}
         </View>
-      </View>
+      </PeachScrollView>
       <PrimaryButton
         disabled={!amountValid}
         testID="navigation-next"
