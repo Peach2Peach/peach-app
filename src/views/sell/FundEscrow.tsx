@@ -43,9 +43,7 @@ export default (): ReactElement => {
       </PeachScrollView>
       <View style={tw`flex items-center w-full my-4`}>
         <PrimaryButton testID="navigation-next" disabled iconId="download">
-          {sellOffer.funding.status === 'MEMPOOL'
-            ? i18n('sell.escrow.waitingForConfirmation')
-            : i18n('sell.escrow.fundToContinue')}
+          {i18n('sell.escrow.fundToContinue')}
         </PrimaryButton>
         {showRegtestButton && (
           <PrimaryButton testID="escrow-fund" style={tw`mt-1`} onPress={fundEscrowAddress} narrow>
