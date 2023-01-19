@@ -1,22 +1,76 @@
 import React from 'react'
+import { ImageStyle, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import shallow from 'zustand/shallow'
+import { IconType } from '../../../assets/icons'
+import { useTradingLimits } from '../../../hooks'
+import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isBuyOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
-import { PrimaryButton } from '../../buttons'
+import Icon from '../../Icon'
+import { Text } from '../../text'
 import { useMatchOffer } from '../hooks'
 import { useMatchStore } from '../store'
 
+const options = {
+  missingSelection: {
+    iconId: 'plusSquare',
+    backgroundColor: tw`bg-primary-mild-1`,
+    text: 'search.matchButton.matchOffer',
+  },
+  tradingLimitReached: {
+    iconId: 'pauseCircle',
+    backgroundColor: tw`bg-primary-mild-1`,
+    text: 'search.matchButton.tradingLimitReached',
+  },
+  matchOffer: { iconId: 'plusSquare', backgroundColor: tw`bg-primary-main`, text: 'search.matchButton.matchOffer' },
+  acceptMatch: { iconId: 'checkSquare', backgroundColor: tw`bg-primary-main`, text: 'search.matchButton.acceptMatch' },
+  offerMatched: {
+    iconId: 'checkSquare',
+    backgroundColor: tw`bg-primary-main`,
+    text: 'search.matchButton.offerMatched',
+  },
+} as const
+
 export const MatchOfferButton = () => {
   const { allMatches: matches } = useOfferMatches()
-  const [offer, currentIndex] = useMatchStore((state) => [state.offer, state.currentIndex], shallow)
+  const [offer, currentIndex, selectedPaymentMethod] = useMatchStore(
+    (state) => [
+      state.offer,
+      state.currentIndex,
+      state.matchSelectors[matches[state.currentIndex].offerId].selectedPaymentMethod,
+    ],
+    shallow,
+  )
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
+  const { canMatchOffer } = useTradingLimits()
+
+  const tradingLimitReached = canMatchOffer(currentMatch.matchedPrice, selectedPaymentMethod)
+  const missingSelection = false
+  const matched = currentMatch?.matched
+  const buyOffer = true
+
+  const currentOptionName = tradingLimitReached
+    ? 'tradingLimitReached'
+    : matched
+      ? 'offerMatched'
+      : missingSelection
+        ? 'missingSelection'
+        : buyOffer
+          ? 'matchOffer'
+          : 'acceptMatch'
+  const currentOption = options[currentOptionName]
 
   return (
-    <PrimaryButton narrow disabled={currentMatch.matched || isLoading} loading={isLoading} onPress={() => matchOffer()}>
-      {i18n(`search.${isBuyOffer(offer) ? (currentMatch.matched ? 'waitingForSeller' : 'matchOffer') : 'acceptMatch'}`)}
-    </PrimaryButton>
+    <TouchableOpacity
+      style={[tw`flex-row items-center justify-center py-2 rounded-b-xl`, currentOption.backgroundColor]}
+      onPress={() => matchOffer()}
+      disabled={!['matchOffer', 'acceptMatch'].includes(currentOptionName)}
+    >
+      <Text style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</Text>
+      <Icon id={currentOption.iconId} color={tw`text-primary-background-light`.color} style={tw`w-6 h-6 ml-[10px]`} />
+    </TouchableOpacity>
   )
 }
