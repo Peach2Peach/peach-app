@@ -70,7 +70,6 @@
         "doubleMatched": false,
         "released": false,
         "amount": 50000,
-        "returnAddressSet": false,
         "refunded": false,
         "publicKey": "02fba3bd2c150e1886083a28b6279bc675a7dfdfc2af9a417384f12e728960fafb",
         "escrowNotifiedUser": "true",
