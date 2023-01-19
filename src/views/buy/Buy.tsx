@@ -23,7 +23,6 @@ export default (): ReactElement => {
   const setSelectedRange = ([min, max]: [number, number]) => {
     setMinAmount(min)
     setMaxAmount(max)
-    updateSettings({ minAmount, maxAmount }, true)
   }
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
@@ -34,6 +33,7 @@ export default (): ReactElement => {
   }
 
   const next = () => {
+    updateSettings({ minAmount, maxAmount }, true)
     navigation.navigate('buyPreferences', { amount: [minAmount, maxAmount] })
   }
 
@@ -51,6 +51,7 @@ export default (): ReactElement => {
               </Text>
               <View style={tw`absolute z-10 flex-row items-start justify-center w-full px-6 mt-3`}></View>
               <RangeAmount
+                style={tw`flex-shrink h-full`}
                 min={MINTRADINGAMOUNT}
                 max={MAXTRADINGAMOUNT}
                 value={[minAmount, maxAmount]}

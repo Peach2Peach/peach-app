@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -22,10 +22,6 @@ export default (): ReactElement => {
   const [amount, setAmount, amountValid] = useValidatedState(account.settings.minAmount, rangeRules)
   const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
 
-  useEffect(() => {
-    updateSettings({ minAmount: amount }, true)
-  }, [amount])
-
   const goToBackups = () => navigation.navigate('backups')
   const dismissBackupReminder = () => {
     updateSettings({ showBackupReminder: false }, true)
@@ -33,6 +29,8 @@ export default (): ReactElement => {
   }
 
   const next = () => {
+    updateSettings({ minAmount: amount }, true)
+
     navigation.navigate('sellPreferences', { amount })
   }
 
