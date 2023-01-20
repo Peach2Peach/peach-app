@@ -45,9 +45,11 @@ export const useSignMessageSetup = () => {
         peachWalletActive
           ? {
             title: i18n('buy.releaseAddress.title'),
+            hideGoBackButton: true,
           }
           : {
             title: i18n('buy.addressSigning.title'),
+            hideGoBackButton: true,
             icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
           },
       [showHelp, peachWalletActive],
