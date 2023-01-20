@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { useCallback } from 'react'
 import { useMarketPrices } from '.'
 import { account } from '../utils/account'
 import { defaultLimits } from '../utils/account/account'
@@ -31,26 +30,5 @@ export const useTradingLimits = () => {
     }
     : defaultLimits
 
-  const canMatchOffer = useCallback(
-    (amount: number, isAnonymous = false) => {
-      if (!limits) {
-        return true
-      }
-      const remainingDaily = limits.daily - limits.dailyAmount
-      const remainingYearly = limits.yearly - limits.yearlyAmount
-      if (amount > remainingDaily || amount > remainingYearly) {
-        return false
-      }
-      if (isAnonymous) {
-        const remainingMonthly = limits.monthlyAnonymous - limits.monthlyAnonymousAmount
-        if (amount > remainingMonthly) {
-          return false
-        }
-      }
-      return true
-    },
-    [limits],
-  )
-
-  return { limits: roundedDisplayLimits, canMatchOffer }
+  return { limits: roundedDisplayLimits }
 }

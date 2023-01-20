@@ -1,11 +1,9 @@
 import React from 'react'
-import { ImageStyle, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import shallow from 'zustand/shallow'
-import { IconType } from '../../../assets/icons'
-import { useTradingLimits } from '../../../hooks'
+import { ANONYMOUS_PAYMENTCATEGORIES } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { isBuyOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import Icon from '../../Icon'
 import { Text } from '../../text'
@@ -38,16 +36,21 @@ export const MatchOfferButton = () => {
     (state) => [
       state.offer,
       state.currentIndex,
-      state.matchSelectors[matches[state.currentIndex].offerId].selectedPaymentMethod,
+      state.matchSelectors[matches[state.currentIndex].offerId]?.selectedPaymentMethod,
     ],
     shallow,
   )
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
-  const { canMatchOffer } = useTradingLimits()
 
-  const tradingLimitReached = canMatchOffer(currentMatch.matchedPrice, selectedPaymentMethod)
+  const tradingLimitReached
+    = currentMatch?.exceedsLimit?.length === 3
+    || (selectedPaymentMethod
+      && ((ANONYMOUS_PAYMENTCATEGORIES.includes(selectedPaymentMethod)
+        && currentMatch?.exceedsLimit?.includes('monthly'))
+        || !!currentMatch?.exceedsLimit?.length))
+
   const missingSelection = false
   const matched = currentMatch?.matched
   const buyOffer = true
