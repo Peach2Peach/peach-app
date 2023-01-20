@@ -12,7 +12,7 @@ type Props = {
 
 export const PaymentMethodSelectorText = ({ isSelected, isVerified, name }: Props) => (
   <>
-    <Text style={[tw`self-center py-[2px] button-medium text-black-3`, isSelected && tw`text-primary-background-light`]}>
+    <Text style={[tw`self-center button-medium text-black-3`, isSelected && tw`text-primary-background-light`]}>
       {i18n(`paymentMethod.${name}`)}
     </Text>
     {isVerified && (
