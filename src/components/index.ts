@@ -4,6 +4,7 @@ export { BitcoinPriceStats, BitcoinAddress } from './bitcoin'
 
 export { PrimaryButton, InfoButton, OptionButton, GoBackButton } from './buttons'
 export { Card } from './Card'
+export { ConditionalWrapper } from './ConditionalWrapper'
 export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
