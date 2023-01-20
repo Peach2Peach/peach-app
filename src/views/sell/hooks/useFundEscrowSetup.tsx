@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { CancelIcon, HelpIcon, WalletIcon } from '../../../components/icons'
+import { CancelIcon, HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
@@ -48,7 +48,6 @@ export const useFundEscrowSetup = () => {
             hideGoBackButton: true,
             icons: [
               { iconComponent: <CancelIcon />, onPress: cancelOffer },
-              { iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectRefundWallet') },
               { iconComponent: <HelpIcon />, onPress: showHelp },
             ],
           },
@@ -110,8 +109,6 @@ export const useFundEscrowSetup = () => {
         saveAndUpdate({
           ...sellOffer,
           funding: result.funding,
-          returnAddress: result.returnAddress,
-          returnAddressRequired: result.returnAddressRequired,
         })
         setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
@@ -133,12 +130,8 @@ export const useFundEscrowSetup = () => {
     }
 
     if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
-      if (sellOffer.returnAddressRequired) {
-        navigation.replace('setReturnAddress', { offer: sellOffer })
-      } else {
-        matchStoreSetOffer(sellOffer)
-        navigation.replace('offerPublished')
-      }
+      matchStoreSetOffer(sellOffer)
+      navigation.replace('offerPublished')
     }
   }, [fundingStatus, matchStoreSetOffer, navigateToYourTrades, navigation, sellOffer, updateOverlay])
 

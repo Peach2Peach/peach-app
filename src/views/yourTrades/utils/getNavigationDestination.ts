@@ -19,9 +19,6 @@ export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, 
     return ['offer', { offerId: offer.id }]
   }
 
-  if (offer.tradeStatus === 'returnAddressRequired') {
-    return ['setReturnAddress', { offer: getOffer(offer.id) }]
-  }
   if (offer.tradeStatus === 'fundEscrow' || offer.tradeStatus === 'escrowWaitingForConfirmation') {
     return ['fundEscrow', { offer: getOffer(offer.id) }]
   }

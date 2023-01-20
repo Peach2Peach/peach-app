@@ -34,9 +34,6 @@ declare type RootStackParamList = {
     offer: SellOffer
   }
   selectRefundWallet: undefined
-  setReturnAddress: {
-    offer: SellOffer
-  }
   offerPublished: undefined
   search: undefined
   contract: {

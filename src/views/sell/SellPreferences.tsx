@@ -105,16 +105,11 @@ export default (): ReactElement => {
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
-  useFocusEffect(
-    useCallback(
-      () => () => {
-        setOffer(getDefaultSellOffer(route.params.amount))
-        setUpdatePending(false)
-        setPage(0)
-      },
-      [route],
-    ),
-  )
+  useEffect(() => {
+    setOffer(getDefaultSellOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(0)
+  }, [route])
 
   useEffect(() => {
     ;(async () => {
@@ -169,6 +164,7 @@ export default (): ReactElement => {
         premium: offer.premium,
         meansOfPayment: offer.meansOfPayment,
         paymentData: offer.paymentData,
+        returnAddress: offer.returnAddress,
       })
       if (result) {
         info('Posted offer', result)
