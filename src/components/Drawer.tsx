@@ -110,7 +110,7 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
           </Pressable>
         </View>
         <HorizontalLine />
-        <PeachScrollView style={tw`flex-shrink h-full`} contentContainerStyle={tw`px-4 py-6`}>
+        <PeachScrollView style={tw`flex-shrink`} contentContainerStyle={tw`px-4 py-6`}>
           {content}
         </PeachScrollView>
       </Animated.View>
