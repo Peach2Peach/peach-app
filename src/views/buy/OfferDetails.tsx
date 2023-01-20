@@ -2,17 +2,17 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { BuyViewProps } from './BuyPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import i18n from '../../utils/i18n'
 import { Icon } from '../../components'
+import { HeaderConfig } from '../../components/header/store'
+import { EditIcon, HelpIcon } from '../../components/icons'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useHeaderSetup } from '../../hooks'
+import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
+import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import PaymentDetails from '../../components/payment/PaymentDetails'
-import { EditIcon, HelpIcon } from '../../components/icons'
-import { useHeaderSetup } from '../../hooks'
-import { isDefined } from '../../utils/array/isDefined'
-import { HeaderConfig } from '../../components/header/store'
+import { BuyViewProps } from './BuyPreferences'
 
 const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
@@ -51,6 +51,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         }
         return obj
       }, {} as Offer['paymentData'])
+    console.log(paymentData)
     updateOffer({
       ...offer,
       meansOfPayment,
@@ -66,7 +67,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     )
   }, [meansOfPayment])
 
-  useEffect(() => setStepValid(validate(offer)), [offer])
+  validate(offer)
+  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
 
   return (
     <View>

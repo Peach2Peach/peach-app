@@ -83,7 +83,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
         .map(getPaymentData)
         .filter(isDefined)
-        .filter((data) => getPaymentMethodInfo(data.type))
+        .filter((data) => data.type === 'cashTrade' || getPaymentMethodInfo(data.type))
         .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
   }
@@ -99,8 +99,8 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     updateSettings(
       {
         preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
-          const method = paymentData.find((d) => d.id === id)!.type
-          obj[method] = id
+          const method = paymentData.find((d) => d.id === id)?.type
+          if (method) obj[method] = id
           return obj
         }, {} as Settings['preferredPaymentMethods']),
       },
