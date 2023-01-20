@@ -13,6 +13,7 @@ export const saveMeetupEvents = async () => {
       } else {
         eventsByCountry[event.country] = [event]
       }
+      return eventsByCountry
     })
     sessionStorage.setMap('meetupEvents', eventsByCountry)
   }

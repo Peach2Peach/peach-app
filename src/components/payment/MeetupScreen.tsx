@@ -16,7 +16,8 @@ import { HelpIcon } from '../icons'
 import { DeleteIcon } from '../icons/DeleteIcon'
 
 /**
- * @description Screen for meetup event details. Shows info for the specified event and takes care of adding to paymentMethods
+ * @description Screen for meetup event details.
+ * Shows info for the specified event and takes care of adding to paymentMethods
  */
 
 export default (): ReactElement => {
@@ -101,7 +102,7 @@ export default (): ReactElement => {
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full h-40 mb-5`} resizeMode={'contain'} />
         )}
         <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.name)}</Text>
-        {event.address != '' && (
+        {event.address !== '' && (
           <>
             <Text style={tw`mt-8 body-l text-black-1`}>{i18n('meetup.address')}</Text>
             <Text style={tw`body-l text-black-1`}>{event.address}</Text>

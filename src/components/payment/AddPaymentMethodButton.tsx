@@ -19,8 +19,6 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
   const navigation = useNavigation()
   const [, updateDrawer] = useContext(DrawerContext)
 
-  const [country, setCountry] = useState<FlagType>()
-
   const addPaymentMethods = () => {
     navigation.push('addPaymentMethod', { origin })
   }
@@ -35,29 +33,30 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
       navigation.push('meetupScreen', { event })
     }
 
-    const selectCountry = (country: FlagType) => {
-      setCountry(country)
+    const selectCountry = (selected: FlagType) => {
       updateDrawer({
         title: i18n('meetup.select'),
         content: (
           <View>
-            {eventsByCountry[country].map((event) => (
+            {eventsByCountry[selected].map((event) => (
               <MeetupSummary event={event} onPress={() => goToEventDetails(event)} />
             ))}
           </View>
         ),
-        previousDrawer: countryDrawer,
+        previousDrawer: {
+          title: i18n('country.select'),
+          content: <CountrySelect countries={Object.keys(eventsByCountry) as FlagType[]} onSelect={selectCountry} />,
+          show: true,
+        },
         show: true,
       })
     }
 
-    const countryDrawer = {
+    updateDrawer({
       title: i18n('country.select'),
       content: <CountrySelect countries={Object.keys(eventsByCountry) as FlagType[]} onSelect={selectCountry} />,
       show: true,
-    }
-
-    updateDrawer(countryDrawer)
+    })
   }
 
   return (
