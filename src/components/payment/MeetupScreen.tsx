@@ -19,9 +19,7 @@ import { DeleteIcon } from '../icons/DeleteIcon'
  * @description Screen for meetup event details. Shows info for the specified event and takes care of adding to paymentMethods
  */
 
-export default (): ReactElement =>
-// TODO : function to add to payment method
-{
+export default (): ReactElement => {
   const route = useRoute<'meetupScreen'>()
   const event = route.params.event
   const deletable = route.params.deletable ?? false
@@ -94,10 +92,14 @@ export default (): ReactElement =>
       [],
     ),
   )
+
+  info(API_URL + event.logo)
   return (
     <>
       <View style={tw`p-8`}>
-        {!!event.logo && <Image source={{ uri: API_URL + event.logo }} style={tw`w-full, h-undefined`} />}
+        {event.logo !== undefined && (
+          <Image source={{ uri: API_URL + event.logo }} style={tw`w-full h-40 mb-5`} resizeMode={'contain'} />
+        )}
         <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.name)}</Text>
         {event.address != '' && (
           <>
