@@ -77,7 +77,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
           <SliderKnob />
           {custom ? (
             <View style={tw`absolute w-[170px] right-10 top-8`}>
-              <ToolTip style={tw`absolute px-3 py-2 w-[175px]`}>
+              <ToolTip style={tw`absolute w-[175px]`}>
                 <View style={tw`absolute top-0 left-0 right-0 z-10`}>
                   <Input
                     style={tw`w-full h-10 opacity-0`}
@@ -92,7 +92,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
               </ToolTip>
             </View>
           ) : (
-            <ToolTip style={tw`absolute px-3 py-2 right-10 w-[165px]`}>
+            <ToolTip style={tw`absolute right-10 w-[165px]`}>
               <SatsFormat sats={amount} />
               <BitcoinPrice sats={amount} style={tw`ml-4 body-s text-black-3`} />
             </ToolTip>

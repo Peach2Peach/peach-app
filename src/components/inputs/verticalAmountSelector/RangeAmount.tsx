@@ -80,7 +80,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMax, trackRangeMax)]}
         >
           <SliderKnob />
-          <ToolTip style={tw`absolute px-3 py-2 right-8 w-[165px]`}>
+          <ToolTip style={tw`absolute right-8 w-[165px]`}>
             <SatsFormat sats={maximum} />
             <BitcoinPrice sats={maximum} style={tw`ml-4 body-s text-black-3`} />
           </ToolTip>
@@ -91,7 +91,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMin, trackRangeMin)]}
         >
           <SliderKnob />
-          <ToolTip style={tw`absolute px-3 py-2 right-8 w-[165px]`}>
+          <ToolTip style={tw`absolute right-8 w-[165px]`}>
             <SatsFormat sats={minimum} />
             <BitcoinPrice sats={minimum} style={tw`ml-4 body-s text-black-3`} />
           </ToolTip>
