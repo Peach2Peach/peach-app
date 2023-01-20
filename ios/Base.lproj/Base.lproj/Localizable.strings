@@ -3,7 +3,7 @@
 "notification.title.offer.fundingAmountDifferent" = "Different amount funded";
 "notification.body.offer.fundingAmountDifferent" = "You sent a different amount to the escrow than you indicated. Please select in the app if you want to continue the or want to be refunded.";
 "notification.title.offer.wrongFundingAmount" = "Escrow not funded";
-"notification.body.offer.wrongFundingAmount" = "Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.";
+"notification.body.offer.wrongFundingAmount" = "The amount you sent to the escrow is higher or lower than the single trade limit. You’ll be refunded, please re-create your offer.";
 "notification.title.offer.notFunded" = "Offer canceled";
 "notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days 😞 We are deleting this offer.";
 "notification.title.offer.expired" = "No match";
