@@ -18,6 +18,7 @@ export {
   signMessageToPublish,
   patchOffer,
   createEscrow,
+  confirmEscrow,
   getFundingStatus,
   cancelOffer,
   getMatches,
