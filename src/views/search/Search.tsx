@@ -8,7 +8,7 @@ import { CancelOfferButton, GoHomeButton, MatchInformation, NoMatchesYet } from 
 import { useSearchSetup } from './hooks/useSearchSetup'
 
 export default (): ReactElement => {
-  const hasMatches = useSearchSetup()
+  const { hasMatches } = useSearchSetup()
 
   return (
     <PeachScrollView>

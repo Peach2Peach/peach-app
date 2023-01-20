@@ -6,6 +6,7 @@ declare type Settings = {
   maxAmount: number
   returnAddress?: string
   payoutAddress?: string
+  payoutAddressLabel?: string
   derivationPath?: string
   displayCurrency: Currency
   country?: string

@@ -24,12 +24,6 @@ export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, 
     settingsStore.getState().setPeachWalletActive(false)
     return ['signMessage', { offerId: offer.id }]
   }
-  if (offer.tradeStatus === 'returnAddressRequired') {
-    return ['setReturnAddress', { offer: getOffer(offer.id) }]
-  }
-  if (offer.tradeStatus === 'fundEscrow' || offer.tradeStatus === 'escrowWaitingForConfirmation') {
-    return ['fundEscrow', { offer: getOffer(offer.id) }]
-  }
   if (/searchingForPeer|hasMatchesAvailable/u.test(offer.tradeStatus)) {
     return ['search', undefined]
   }
