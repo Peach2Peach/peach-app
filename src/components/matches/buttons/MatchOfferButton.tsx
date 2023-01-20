@@ -32,11 +32,12 @@ const options = {
 
 export const MatchOfferButton = () => {
   const { allMatches: matches } = useOfferMatches()
-  const [offer, currentIndex, selectedPaymentMethod] = useMatchStore(
+  const [offer, currentIndex, selectedPaymentMethod, selectedCurrency] = useMatchStore(
     (state) => [
       state.offer,
       state.currentIndex,
       state.matchSelectors[matches[state.currentIndex].offerId]?.selectedPaymentMethod,
+      state.matchSelectors[matches[state.currentIndex].offerId]?.selectedCurrency,
     ],
     shallow,
   )
@@ -51,7 +52,7 @@ export const MatchOfferButton = () => {
         && currentMatch?.exceedsLimit?.includes('monthly'))
         || !!currentMatch?.exceedsLimit?.length))
 
-  const missingSelection = false
+  const missingSelection = !selectedPaymentMethod || !selectedCurrency
   const matched = currentMatch?.matched
   const buyOffer = true
 
