@@ -89,11 +89,6 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
                 getTranslateX(pan, [0, trackWidth]),
               ]}
             >
-              {isSliding && (
-                <ToolTip style={tw`absolute py-2 bottom-10`}>
-                  <Text style={tw`w-16 font-semibold text-center`}>{premium}%</Text>
-                </ToolTip>
-              )}
               <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
             </Animated.View>
           </View>

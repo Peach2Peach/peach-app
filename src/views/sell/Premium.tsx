@@ -66,7 +66,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           ({i18n('sell.premium.currently', i18n(`currency.format.${displayCurrency}`, priceFormat(currentPrice)))})
         </Text>
       )}
-      <PremiumSlider style={tw`mt-22`} value={Number(premium)} onChange={updatePremium} />
+      <PremiumSlider style={tw`mt-6`} value={Number(premium)} onChange={updatePremium} />
     </View>
   )
 }
