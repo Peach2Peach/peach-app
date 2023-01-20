@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { SectionHeader } from './components/SectionHeader'
 import { TradeItem } from './components/TradeItem'
-import { useYourTradesSetup } from './useYourTradesSetup'
+import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { getCategories } from './utils/getCategories'
 
 const tabs: TabbedNavigationItem[] = [

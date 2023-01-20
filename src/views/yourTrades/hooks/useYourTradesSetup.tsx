@@ -2,12 +2,12 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 
-import { useHeaderSetup } from '../../hooks'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import i18n from '../../utils/i18n'
-import { getContractSummaries, getOfferSummaries } from '../../utils/peachAPI'
-import { hasDoubleMatched, isOpenOffer, isPastOffer } from './utils'
+import { useHeaderSetup } from '../../../hooks'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
+import i18n from '../../../utils/i18n'
+import { getContractSummaries, getOfferSummaries } from '../../../utils/peachAPI'
+import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
 
 const sortByDate = (a: TradeSummary, b: TradeSummary) => {
   if (!a.paymentMade?.getTime()) return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
