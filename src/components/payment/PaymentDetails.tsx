@@ -72,7 +72,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [paymentData, setPaymentData] = useState(account.paymentData)
 
-  const cashPaymentData: PaymentData[] = paymentData.filter((item) => item.type === 'cash')
+  const cashPaymentData: PaymentData[] = paymentData.filter((item) => item.type.includes('cash'))
 
   useFocusEffect(() => {
     setPaymentData(account.paymentData)
@@ -83,7 +83,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
         .map(getPaymentData)
         .filter(isDefined)
-        .filter((data) => data.type === 'cash' || getPaymentMethodInfo(data.type))
+        .filter((data) => getPaymentMethodInfo(data.type))
         .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
   }
@@ -115,7 +115,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }
 
   const editItem = (data: PaymentData) => {
-    if (data.type === 'cash') {
+    if (data.type.includes('cash')) {
       const eventsByCountry: Record<string, MeetupEvent[]> = sessionStorage.getMap('meetupEvents') ?? {}
       const event = eventsByCountry[data.country!].find((value) => value.id === data.id.replace('cash.', ''))
       if (event) {

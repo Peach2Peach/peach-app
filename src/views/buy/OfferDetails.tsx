@@ -51,7 +51,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         }
         return obj
       }, {} as Offer['paymentData'])
-    console.log(paymentData)
+
     updateOffer({
       ...offer,
       meansOfPayment,

@@ -89,6 +89,10 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
+  PAYMENTCATEGORIES.cash = [
+    ...PAYMENTCATEGORIES.cash,
+    ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
+  ]
 }
 
 export let MINTRADINGAMOUNT = 200000

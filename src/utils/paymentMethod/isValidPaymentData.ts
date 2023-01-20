@@ -7,7 +7,6 @@ import { paymentMethodAllowedForCurrencies, somePaymentDataExists } from '.'
  * @TODO check actual fields for validity
  */
 export const isValidPaymentData = (data: PaymentData) => {
-  if (data.type === 'cash') return true
   if (!paymentMethodAllowedForCurrencies(data.type, data.currencies)) return false
 
   return somePaymentDataExists(data)
