@@ -14,7 +14,7 @@ export const TrackMarkers = ({ trackHeight, labels }: TrackMarkersProps) => {
     <View style={tw`absolute top-0 w-full`}>
       {Array.from({ length: Math.ceil(trackHeight / knobHeight) }, (_, i) => (
         <View
-          key={i}
+          key={'trackMarker-' + i}
           style={[
             tw`absolute left-2 right-2 h-[2px] bg-primary-mild-1 justify-center rounded-full`,
             { top: (i + 1) * knobHeight - knobHeight / 2 - i },
