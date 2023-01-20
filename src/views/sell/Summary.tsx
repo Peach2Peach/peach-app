@@ -23,8 +23,9 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       walletLabel,
     })
   }, [walletLabel, updateOffer])
+
   return (
-    <View style={tw`flex-col justify-center h-full px-6`}>
+    <View style={tw`flex-col justify-center h-full px-8`}>
       <SellOfferSummary offer={offer} style={tw`flex-shrink-0`} />
     </View>
   )

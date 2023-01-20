@@ -51,7 +51,7 @@ export const useFundEscrowSetup = () => {
               { iconComponent: <HelpIcon />, onPress: showHelp },
             ],
           },
-      [fundingStatus, cancelOffer, navigation, showHelp, showMempoolHelp],
+      [fundingStatus, cancelOffer, showHelp, showMempoolHelp],
     ),
   )
 

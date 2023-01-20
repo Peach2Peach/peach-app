@@ -177,6 +177,7 @@ declare type OfferDraft = {
   kyc: boolean
   walletLabel?: string
   kycType?: KYCType
+  walletLabel?: string
   tradeStatus?: TradeStatus
 }
 declare type Offer = OfferDraft & {

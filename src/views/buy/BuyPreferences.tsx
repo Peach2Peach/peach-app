@@ -4,7 +4,6 @@ import tw from '../../styles/tailwind'
 
 import i18n from '../../utils/i18n'
 import OfferDetails from './OfferDetails'
-import ReleaseAddress from './ReleaseAddress'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
@@ -15,6 +14,7 @@ import { account, updateTradingLimit } from '../../utils/account'
 import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
+import Summary from './Summary'
 
 export type BuyViewProps = {
   offer: BuyOfferDraft
@@ -44,9 +44,10 @@ const screens = [
     scrollable: true,
   },
   {
-    id: 'releaseAddress',
-    view: ReleaseAddress,
+    id: 'summary',
+    view: Summary,
     scrollable: false,
+    showPrice: false,
   },
   {
     id: 'search',
@@ -85,7 +86,7 @@ export default (): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const next = () => {
     if (page >= screens.length - 1) return
@@ -102,13 +103,11 @@ export default (): ReactElement => {
     scroll?.scrollTo({ x: 0 })
   }, [navigation, page, scroll])
 
-  useFocusEffect(
-    useCallback(() => {
-      setOffer(getDefaultBuyOffer(route.params.amount))
-      setUpdatePending(false)
-      setPage(() => 0)
-    }, [route]),
-  )
+  useEffect(() => {
+    setOffer(getDefaultBuyOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(() => 0)
+  }, [route])
 
   useEffect(() => {
     ;(async () => {
