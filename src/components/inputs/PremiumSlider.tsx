@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { Shadow } from '..'
+import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { innerShadow } from '../../utils/layout'
+import { getTranslateX, innerShadow } from '../../utils/layout'
 import { round } from '../../utils/math'
 import Icon from '../Icon'
 import { ToolTip } from '../ui/ToolTip'
@@ -20,17 +20,6 @@ const DELTA = MAX - MIN
 const KNOBWIDTH = tw`w-8`.width as number
 
 const onStartShouldSetResponder = () => true
-const getTransform = (pan: Animated.Value, trackWidth: number, knobWidth: number) => ({
-  transform: [
-    {
-      translateX: pan.interpolate({
-        inputRange: [0, trackWidth],
-        outputRange: [0, trackWidth - knobWidth],
-        extrapolate: 'clamp',
-      }),
-    },
-  ],
-})
 
 export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): ReactElement => {
   const [isSliding, setIsSliding] = useState(false)
@@ -78,15 +67,16 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   }, [pan, trackWidth])
 
   useEffect(() => {
-    if (isNaN(value)) return
+    if (isSliding || isNaN(value)) return
     pan.setOffset(((value - MIN) / DELTA) * trackWidth)
-  }, [pan, trackWidth, value])
+  }, [isSliding, pan, trackWidth, value])
 
   useEffect(() => {
-    if (!isSliding) onChange(premium)
+    if (!isSliding) return
+    onChange(premium)
   }, [isSliding, onChange, premium])
 
-  const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width)
+  const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width - KNOBWIDTH)
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
@@ -97,10 +87,9 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
               style={[
                 { width: KNOBWIDTH },
                 tw`z-10 flex items-center rounded-full bg-primary-main`,
-                getTransform(pan, trackWidth, KNOBWIDTH),
+                getTranslateX(pan, [0, trackWidth]),
               ]}
             >
-              {isSliding && <ToolTip style={tw`absolute bottom-10`}>{premium}%</ToolTip>}
               <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
             </Animated.View>
           </View>
