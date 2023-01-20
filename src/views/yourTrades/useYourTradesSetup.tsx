@@ -7,7 +7,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import i18n from '../../utils/i18n'
 import { getContractSummaries, getOfferSummaries } from '../../utils/peachAPI'
-import { hasDoubleMatched } from './utils'
+import { hasDoubleMatched, isOpenOffer, isPastOffer } from './utils'
 
 const sortByDate = (a: TradeSummary, b: TradeSummary) => {
   if (!a.paymentMade?.getTime()) return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
@@ -19,6 +19,18 @@ export const useYourTradesSetup = () => {
   const [offers, setOffers, contracts, setContracts] = useTradeSummaryStore(
     (state) => [state.offers, state.setOffers, state.contracts, state.setContracts],
     shallow,
+  )
+
+  const trades = [...offers, ...contracts].sort(sortByDate).reverse()
+
+  const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
+  const openOffers = {
+    buy: allOpenOffers.filter(({ type }) => type === 'bid'),
+    sell: allOpenOffers.filter(({ type }) => type === 'ask'),
+  }
+
+  const pastOffers = trades.filter(
+    ({ tradeStatus, type }) => isPastOffer(tradeStatus) && (type === 'ask' || tradeStatus !== 'offerCanceled'),
   )
 
   useHeaderSetup(
@@ -50,7 +62,9 @@ export const useYourTradesSetup = () => {
   )
 
   return {
-    trades: [...offers, ...contracts].sort(sortByDate).reverse(),
     getTradeSummary,
+    allOpenOffers,
+    openOffers,
+    pastOffers,
   }
 }

@@ -3,6 +3,8 @@ import { IconType } from '../../../assets/icons'
 export const statusIcons: Record<TradeStatus, IconType> = {
   fundEscrow: 'downloadCloud',
   searchingForPeer: 'search',
+  fundingAmountDifferent: 'uploadCloud',
+  messageSigningRequired: 'edit3',
   escrowWaitingForConfirmation: 'clock',
   hasMatchesAvailable: 'checkCircle',
   refundTxSignatureRequired: 'alertOctagon',

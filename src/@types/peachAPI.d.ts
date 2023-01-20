@@ -145,6 +145,7 @@ declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
+  | 'fundingAmountDifferent'
   | 'messageSigningRequired'
   | 'returnAddressRequired'
   | 'searchingForPeer'

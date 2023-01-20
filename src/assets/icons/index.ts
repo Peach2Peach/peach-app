@@ -92,6 +92,7 @@ import trash from './trash.svg'
 import trendingUp from './trendingUp.svg'
 import unlock from './unlock.svg'
 import upload from './upload.svg'
+import uploadCloud from './uploadCloud.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
 import userX from './userX.svg'
@@ -199,6 +200,7 @@ const Icons = {
   trendingUp,
   unlock,
   upload,
+  uploadCloud,
   user,
   userCheck,
   userX,
