@@ -1,15 +1,10 @@
-import {
-  getMatchCurrency,
-  getMatchPaymentMethod,
-  getAvailableCurrencies,
-  getAvailableMethods,
-} from '../../../utils/match'
-import { hasMoPsInCommon, getMoPsInCommon } from '../../../utils/paymentMethod'
+import { getAvailableCurrencies } from '../../../utils/match'
+import { hasMoPsInCommon, getMoPsInCommon, getPaymentMethods } from '../../../utils/paymentMethod'
 
 export type MatchSelectors = {
   [id: Match['offerId']]: {
-    selectedCurrency: Currency
-    selectedPaymentMethod: PaymentMethod
+    selectedCurrency?: Currency
+    selectedPaymentMethod?: PaymentMethod
     availableCurrencies: Currency[]
     availablePaymentMethods: PaymentMethod[]
     mopsInCommon: MeansOfPayment
@@ -19,16 +14,15 @@ export type MatchSelectors = {
 
 export const createMatchSelectors = (matches: Match[], offerMeansOfPayment: MeansOfPayment) =>
   matches.reduce((acc: MatchSelectors, match) => {
-    const defaultCurrency = getMatchCurrency(offerMeansOfPayment, match.meansOfPayment)
-    const defaultPaymentMethod = getMatchPaymentMethod(offerMeansOfPayment, match.meansOfPayment) || ''
     const mopsInCommon = hasMoPsInCommon(offerMeansOfPayment, match.meansOfPayment)
       ? getMoPsInCommon(offerMeansOfPayment, match.meansOfPayment)
       : match.meansOfPayment
+
     acc[match.offerId] = {
-      selectedCurrency: defaultCurrency,
-      selectedPaymentMethod: defaultPaymentMethod,
+      selectedCurrency: undefined,
+      selectedPaymentMethod: undefined,
       availableCurrencies: getAvailableCurrencies(mopsInCommon, match.meansOfPayment),
-      availablePaymentMethods: getAvailableMethods(match.meansOfPayment, defaultCurrency, mopsInCommon),
+      availablePaymentMethods: getPaymentMethods(mopsInCommon),
       mopsInCommon,
       meansOfPayment: match.meansOfPayment,
     }
