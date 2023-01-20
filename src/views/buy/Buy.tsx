@@ -1,39 +1,41 @@
-import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { BitcoinPriceStats, Hint, HorizontalLine, PeachScrollView, PrimaryButton, Text } from '../../components'
+import shallow from 'zustand/shallow'
+import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { account, updateSettings } from '../../utils/account'
+import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
+import { useShowWarning } from '../../hooks/useShowWarning'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
 export default (): ReactElement => {
   const navigation = useNavigation()
+  const showBackupsWarning = useShowWarning('backups')
+
   useBuySetup()
 
-  const [minAmount, setMinAmount, minAmountValid] = useValidatedState(account.settings.minAmount, rangeRules)
-  const [maxAmount, setMaxAmount, maxAmountValid] = useValidatedState(account.settings.maxAmount, rangeRules)
+  const [showBackupReminder, minAmount, setMinAmount, maxAmount, setMaxAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount, state.maxAmount, state.setMaxAmount],
+    shallow,
+  )
+  const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minAmount, rangeRules)
+  const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxAmount, rangeRules)
   const setSelectedRange = ([min, max]: [number, number]) => {
-    setMinAmount(min)
-    setMaxAmount(max)
-  }
-  const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
-
-  const goToBackups = () => navigation.navigate('backups')
-  const dismissBackupReminder = () => {
-    updateSettings({ showBackupReminder: false }, true)
-    setShowBackupReminder(false)
+    setCurrentMinAmount(min)
+    setCurrentMaxAmount(max)
   }
 
   const next = () => {
-    updateSettings({ minAmount, maxAmount }, true)
+    setMinAmount(currentMinAmount)
+    setMaxAmount(currentMaxAmount)
     navigation.navigate('buyPreferences', { amount: [minAmount, maxAmount] })
   }
 
@@ -51,30 +53,23 @@ export default (): ReactElement => {
             style={tw`self-center mt-4`}
             min={MINTRADINGAMOUNT}
             max={MAXTRADINGAMOUNT}
-            value={[minAmount, maxAmount]}
+            value={[currentMinAmount, currentMaxAmount]}
             onChange={setSelectedRange}
           />
-          {showBackupReminder && (
-            <Hint
-              style={tw`self-center max-w-xs mt-2`}
-              title={i18n('hint.backup.title')}
-              text={i18n('hint.backup.text')}
-              icon="lock"
-              onPress={goToBackups}
-              onDismiss={dismissBackupReminder}
-            />
-          )}
         </View>
       </View>
-      <PrimaryButton
-        disabled={!minAmountValid || !maxAmountValid}
-        testID="navigation-next"
-        style={[tw`self-center mx-6 mt-4 mb-1 bg-white-1`, tw.md`mb-10`]}
-        onPress={next}
-        narrow
-      >
-        {i18n('next')}
-      </PrimaryButton>
+      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
+        <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
+          {i18n('next')}
+        </PrimaryButton>
+        {showBackupReminder && (
+          <View style={tw`justify-center`}>
+            <TouchableOpacity style={tw`absolute left-4`} onPress={showBackupsWarning}>
+              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
       <DailyTradingLimit />
     </View>
   )

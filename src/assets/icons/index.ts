@@ -53,7 +53,6 @@ import inbox from './inbox.svg'
 import info from './info.svg'
 import link from './link.svg'
 import list from './list.svg'
-import lock from './lock.svg'
 import mail from './mail.svg'
 import map from './map.svg'
 import messageCircle from './messageCircle.svg'
@@ -160,7 +159,6 @@ const Icons = {
   info,
   link,
   list,
-  lock,
   mail,
   map,
   messageCircle,

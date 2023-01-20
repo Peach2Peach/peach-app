@@ -1,35 +1,34 @@
-import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { BitcoinPriceStats, Hint, HorizontalLine, PeachScrollView, PrimaryButton, Text } from '../../components'
+import shallow from 'zustand/shallow'
+import { BitcoinPriceStats, HorizontalLine, Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { account, updateSettings } from '../../utils/account'
+import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
+import { useShowWarning } from '../../hooks/useShowWarning'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
 export default (): ReactElement => {
   const navigation = useNavigation()
-
+  const showBackupsWarning = useShowWarning('backups')
   useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 
-  const [amount, setAmount, amountValid] = useValidatedState(account.settings.minAmount, rangeRules)
-  const [showBackupReminder, setShowBackupReminder] = useState(account.settings.showBackupReminder !== false)
-
-  const goToBackups = () => navigation.navigate('backups')
-  const dismissBackupReminder = () => {
-    updateSettings({ showBackupReminder: false }, true)
-    setShowBackupReminder(false)
-  }
+  const [showBackupReminder, minAmount, setMinAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount],
+    shallow,
+  )
+  const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
 
   const next = () => {
-    updateSettings({ minAmount: amount }, true)
+    setMinAmount(amount)
 
     navigation.navigate('sellPreferences', { amount })
   }
@@ -51,27 +50,20 @@ export default (): ReactElement => {
             value={amount}
             onChange={setAmount}
           />
-          {showBackupReminder && (
-            <Hint
-              style={tw`self-center max-w-xs mt-2`}
-              title={i18n('hint.backup.title')}
-              text={i18n('hint.backup.text')}
-              icon="lock"
-              onPress={goToBackups}
-              onDismiss={dismissBackupReminder}
-            />
-          )}
         </View>
       </PeachScrollView>
-      <PrimaryButton
-        disabled={!amountValid}
-        testID="navigation-next"
-        style={[tw`self-center mx-6 mt-4 mb-1 bg-white-1`, tw.md`mb-10`]}
-        onPress={next}
-        narrow
-      >
-        {i18n('next')}
-      </PrimaryButton>
+      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
+        <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
+          {i18n('next')}
+        </PrimaryButton>
+        {showBackupReminder && (
+          <View style={tw`justify-center`}>
+            <TouchableOpacity style={tw`absolute left-4`} onPress={showBackupsWarning}>
+              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
       <DailyTradingLimit />
     </View>
   )
