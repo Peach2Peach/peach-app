@@ -26,10 +26,7 @@ export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => 
     value: c,
     display: (
       <Text
-        style={[
-          tw`self-center py-[2px] button-medium text-black-3`,
-          c === selectedValue && tw`text-primary-background-light`,
-        ]}
+        style={[tw`self-center button-medium text-black-3`, c === selectedValue && tw`text-primary-background-light`]}
       >
         {c}
       </Text>

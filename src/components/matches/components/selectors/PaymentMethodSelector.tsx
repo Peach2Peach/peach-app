@@ -10,10 +10,11 @@ import { CustomSelector } from './CustomSelector'
 import { PaymentMethodSelectorText } from './PaymentMethodSelectorText'
 
 export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer, selectedValue, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
+  const { offer, selectedValue, selectedCurrency, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
     (state) => ({
       offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedPaymentMethod,
+      selectedCurrency: state.matchSelectors[matchId]?.selectedCurrency,
       setSelectedPaymentMethod: state.setSelectedPaymentMethod,
       availablePaymentMethods: state.matchSelectors[matchId]?.availablePaymentMethods || [],
     }),
@@ -24,6 +25,7 @@ export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }
   }
 
   const isVerified = false
+  const disabled = !selectedCurrency
   const items = availablePaymentMethods.map((p) => ({
     value: p,
     display: <PaymentMethodSelectorText isSelected={p === selectedValue} isVerified={isVerified} name={p} />,
@@ -34,7 +36,7 @@ export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }
       <Text style={tw`self-center mb-1`}>
         {i18n(isBuyOffer(offer) ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}
       </Text>
-      <CustomSelector style={tw`mb-6`} {...{ selectedValue, items, onChange }} />
+      <CustomSelector style={tw`mb-6`} {...{ selectedValue, items, onChange, disabled }} />
     </>
   )
 }
