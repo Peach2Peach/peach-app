@@ -33,12 +33,10 @@ declare type RootStackParamList = {
   fundEscrow: {
     offer: SellOffer
   }
-  setReturnAddress: {
-    offer: SellOffer
-  }
   selectWallet: {
     type: 'refund' | 'payout'
   }
+  offerPublished: undefined
   search: undefined
   contract: {
     contractId: Contract['id']

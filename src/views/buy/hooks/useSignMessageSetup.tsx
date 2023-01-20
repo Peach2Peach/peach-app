@@ -75,7 +75,7 @@ export const useSignMessageSetup = () => {
         saveOffer(patchedOffer)
         if (patchedOffer.online) {
           matchStoreSetOffer(patchedOffer)
-          navigation.navigate('search')
+          navigation.navigate('offerPublished')
         }
       } else if (signMessageToPublishError) {
         showErrorBanner(signMessageToPublishError.error)

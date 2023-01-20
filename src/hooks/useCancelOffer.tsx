@@ -41,7 +41,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer) => {
         icon: 'plusSquare',
         callback: () => {
           closeOverlay()
-          navigation.navigate(isBuyOffer(offer) ? 'buy' : 'sell')
+          navigation.replace(isBuyOffer(offer) ? 'buy' : 'sell')
         },
       },
     })

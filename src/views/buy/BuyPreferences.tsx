@@ -7,7 +7,6 @@ import OfferDetails from './OfferDetails'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
-import { useMatchStore } from '../../components/matches/store'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
@@ -60,7 +59,6 @@ export default (): ReactElement => {
   const route = useRoute<'buyPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState<BuyOfferDraft>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -126,7 +124,6 @@ export default (): ReactElement => {
             }
           })
           saveAndUpdate({ ...offer, id: result.offerId } as BuyOffer)
-          matchStoreSetOffer({ ...offer, id: result.offerId } as BuyOffer)
           navigation.replace('signMessage', { offerId: result.offerId })
           return
         }
@@ -147,7 +144,7 @@ export default (): ReactElement => {
         if (err?.error === 'TRADING_LIMIT_REACHED') back()
       }
     })()
-  }, [back, matchStoreSetOffer, navigation, offer, page, updateMessage])
+  }, [back, navigation, offer, page, updateMessage])
 
   return (
     <View testID="view-buy" style={tw`flex-1`}>

@@ -29,7 +29,7 @@ const defaultBuyOffer: BuyOffer = {
   paymentData: {},
   originalPaymentData: [],
   kyc: false,
-  amount: 0,
+  amount: [0, 0],
   matches: [],
   seenMatches: [],
   matched: [],
