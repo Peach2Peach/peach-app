@@ -43,7 +43,7 @@ export default (): ReactElement => {
     const meetup: PaymentData = {
       id: meetupInfo.id,
       label: event.name,
-      type: 'cash',
+      type: meetupInfo.id,
       currencies: meetupInfo.currencies,
       country: meetupInfo.countries ? meetupInfo.countries[0] : undefined,
     }

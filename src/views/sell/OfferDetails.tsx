@@ -65,7 +65,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       meansOfPayment,
       paymentData,
     })
-  }, [meansOfPayment])
+  }, [meansOfPayment, updateOffer])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 

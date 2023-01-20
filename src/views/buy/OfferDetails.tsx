@@ -65,7 +65,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       },
       true,
     )
-  }, [meansOfPayment])
+  }, [meansOfPayment, updateOffer])
 
   validate(offer)
   useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
