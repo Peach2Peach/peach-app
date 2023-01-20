@@ -42,13 +42,13 @@ export default (): ReactElement => {
       <HorizontalLine style={tw`mx-8 mb-2`} />
       <View style={tw`flex-shrink h-full px-8`}>
         <BitcoinPriceStats />
-        <View style={tw`justify-between flex-shrink h-full pb-8 pt-7`}>
-          <Text style={tw`h6`}>
+        <View style={[tw`justify-between flex-shrink h-full pt-4 pb-8`, tw.md`pt-7`]}>
+          <Text style={[tw`hidden h6`, tw.md`flex`]}>
             {i18n('buy.subtitle')}
             <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
           </Text>
           <RangeAmount
-            style={tw`mt-4`}
+            style={tw`self-center mt-4`}
             min={MINTRADINGAMOUNT}
             max={MAXTRADINGAMOUNT}
             value={[minAmount, maxAmount]}
@@ -69,7 +69,7 @@ export default (): ReactElement => {
       <PrimaryButton
         disabled={!minAmountValid || !maxAmountValid}
         testID="navigation-next"
-        style={tw`self-center mx-6 mt-4 mb-10 bg-white-1`}
+        style={[tw`self-center mx-6 mt-4 mb-1 bg-white-1`, tw.md`mb-10`]}
         onPress={next}
         narrow
       >

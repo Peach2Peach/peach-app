@@ -1,22 +1,22 @@
-import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
 import { BitcoinPrice } from '../../bitcoin'
-import { SatsFormat, Text } from '../../text'
+import { SatsFormat } from '../../text'
 import { ToolTip } from '../../ui/ToolTip'
 import Input from '../Input'
 import { createPanResponder } from './helpers/createPanResponder'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { panListener } from './helpers/panListener'
+import { useKnobHeight } from './hooks/useKnobHeight'
 
-import { KNOBHEIGHT, SliderKnob } from './SliderKnob'
+import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
 
-const trackHeight = KNOBHEIGHT * 10
 const labels = { 0: i18n('custom'), 1: i18n('max'), 9: i18n('min') }
 
 type RangeAmountProps = ComponentProps & {
@@ -27,23 +27,30 @@ type RangeAmountProps = ComponentProps & {
 }
 
 export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
+  const knobHeight = useKnobHeight()
+  const trackHeight = knobHeight * 10
+
   const [custom, setCustom] = useState(false)
   const [amount, setAmount] = useState(value)
   const y = interpolate(amount, [min, max], [trackHeight, 0])
-  const trackRange: [number, number] = useMemo(() => [KNOBHEIGHT, trackHeight - KNOBHEIGHT], [])
+  const trackRange: [number, number] = useMemo(() => [knobHeight, trackHeight - knobHeight], [knobHeight, trackHeight])
 
   const pan = useRef(new Animated.Value(y)).current
   const panResponder = useRef(createPanResponder(pan)).current
 
-  const updateAmount = (val: number) => {
-    if (val === max + 1) {
-      setCustom(true)
-      return
-    }
-    setCustom(false)
+  const updateAmount = useCallback(
+    (val: number) => {
+      if (val === max + 1) {
+        setCustom(true)
+        return
+      }
+      setCustom(false)
 
-    setAmount(round(val, -4))
-  }
+      setAmount(round(val, -4))
+    },
+    [max],
+  )
+
   const updateCustomAmount = (val: string) => {
     const num = Number(val)
     if (isNaN(num)) {
@@ -52,14 +59,14 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
       setAmount(Math.max(0, Math.min(max, num)))
     }
   }
-  useEffect(() => panListener(pan, [max + 1, min], trackRange, updateAmount), [max, min, pan, trackRange])
+  useEffect(() => panListener(pan, [max + 1, min], trackRange, updateAmount), [max, min, pan, trackRange, updateAmount])
 
   useEffect(() => {
     onChange(amount)
   }, [onChange, amount])
 
   return (
-    <View style={[tw`items-end`, style]} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end w-[210px]`, style]} {...{ onStartShouldSetResponder }}>
       <SliderTrack style={{ height: trackHeight }}>
         <TrackMarkers {...{ trackHeight, labels }} />
         <Animated.View

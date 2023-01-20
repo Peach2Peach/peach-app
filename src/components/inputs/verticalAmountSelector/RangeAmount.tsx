@@ -10,12 +10,10 @@ import { ToolTip } from '../../ui/ToolTip'
 import { createPanResponder } from './helpers/createPanResponder'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { panListener } from './helpers/panListener'
-import { KNOBHEIGHT, SliderKnob } from './SliderKnob'
+import { useKnobHeight } from './hooks/useKnobHeight'
+import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
-
-const trackHeight = KNOBHEIGHT * 10
-const knobTrackHeight = trackHeight - KNOBHEIGHT
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -25,15 +23,19 @@ type RangeAmountProps = ComponentProps & {
 }
 
 export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
+  const knobHeight = useKnobHeight()
+  const trackHeight = knobHeight * 10
+  const knobTrackHeight = trackHeight - knobHeight
+
   const [maximum, setMaximum] = useState(value[1])
   const [minimum, setMinimum] = useState(value[0])
   const maxY = interpolate(maximum, [max, min], [0, knobTrackHeight])
   const minY = interpolate(minimum, [max, min], [0, knobTrackHeight])
-  const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [])
-  const trackRangeMax: [number, number] = useMemo(() => [0, Math.max(0, minY - KNOBHEIGHT)], [minY])
+  const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
+  const trackRangeMax: [number, number] = useMemo(() => [0, Math.max(0, minY - knobHeight)], [knobHeight, minY])
   const trackRangeMin: [number, number] = useMemo(
-    () => [Math.min(maxY + KNOBHEIGHT, knobTrackHeight), knobTrackHeight],
-    [maxY],
+    () => [Math.min(maxY + knobHeight, knobTrackHeight), knobTrackHeight],
+    [knobHeight, knobTrackHeight, maxY],
   )
   const rangeHeight = minY - maxY
   const panMax = useRef(new Animated.Value(maxY)).current
@@ -62,13 +64,13 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   }, [onChange, minimum, maximum])
 
   return (
-    <View style={[tw`items-end`, style]} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end w-[210px]`, style]} {...{ onStartShouldSetResponder }}>
       <SliderTrack style={{ height: trackHeight }}>
         <TrackMarkers {...{ trackHeight }} labels={{ 0: i18n('max'), 9: i18n('min') }} />
         <Animated.View
           style={[
             tw`absolute left-0 right-0 opacity-50 bg-primary-main`,
-            { height: rangeHeight, top: KNOBHEIGHT / 2 },
+            { height: rangeHeight, top: knobHeight / 2 },
             getTranslateY(panMax, trackRangeMax),
           ]}
         />
@@ -78,7 +80,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMax, trackRangeMax)]}
         >
           <SliderKnob />
-          <ToolTip style={tw`absolute px-3 py-2 right-10 w-[165px]`}>
+          <ToolTip style={tw`absolute px-3 py-2 right-8 w-[165px]`}>
             <SatsFormat sats={maximum} />
             <BitcoinPrice sats={maximum} style={tw`ml-4 body-s text-black-3`} />
           </ToolTip>
@@ -89,7 +91,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMin, trackRangeMin)]}
         >
           <SliderKnob />
-          <ToolTip style={tw`absolute px-3 py-2 right-10 w-[165px]`}>
+          <ToolTip style={tw`absolute px-3 py-2 right-8 w-[165px]`}>
             <SatsFormat sats={minimum} />
             <BitcoinPrice sats={minimum} style={tw`ml-4 body-s text-black-3`} />
           </ToolTip>
