@@ -19,7 +19,12 @@ export const useSellSummarySetup = () => {
       () => ({
         title: i18n('sell.summary.title'),
         hideGoBackButton: true,
-        icons: [{ iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectRefundWallet') }],
+        icons: [
+          {
+            iconComponent: <WalletIcon />,
+            onPress: () => navigation.navigate('selectWallet', { type: 'refund' }),
+          },
+        ],
       }),
       [navigation],
     ),
