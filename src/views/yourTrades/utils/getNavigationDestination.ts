@@ -24,6 +24,9 @@ export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, 
     settingsStore.getState().setPeachWalletActive(false)
     return ['signMessage', { offerId: offer.id }]
   }
+  if (offer.tradeStatus === 'fundEscrow') {
+    return ['fundEscrow', { offerId: offer }]
+  }
   if (/searchingForPeer|hasMatchesAvailable/u.test(offer.tradeStatus)) {
     return ['search', undefined]
   }
