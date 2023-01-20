@@ -13,6 +13,7 @@ declare type ComponentProps = {
   forwardRef?: RefObject<unknown>
   children?: ReactNode
   style?: ViewStyle | ViewStyle[]
+  onLayout?: (event: LayoutChangeEvent) => void
 }
 
 declare type AnyObject = {

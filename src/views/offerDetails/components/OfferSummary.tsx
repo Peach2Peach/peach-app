@@ -1,10 +1,5 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import ConfirmCancelOffer from '../../../overlays/ConfirmCancelOffer'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
-import { useOfferSummarySetup } from './useOfferSummarySetup'
 import {
   BuyOfferSummary,
   PeachScrollView,
@@ -14,22 +9,20 @@ import {
   Text,
   Title,
 } from '../../../components'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCancelOffer } from '../../../hooks'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
+import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
+import { useOfferSummarySetup } from './useOfferSummarySetup'
 
 type OfferSummaryProps = {
   offer: BuyOffer | SellOffer
 }
 
 export default ({ offer }: OfferSummaryProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
   const [amount1, amount2] = isBuyOffer(offer) ? offer.amount : [offer.amount]
   const { title, navigation } = useOfferSummarySetup(offer)
-
-  const cancelOffer = () =>
-    updateOverlay({
-      content: <ConfirmCancelOffer {...{ offer, navigate: () => {}, navigation }} />,
-      visible: true,
-    })
+  const cancelOffer = useCancelOffer(offer)
 
   const goToOffer = () => {
     if (!offer.newOfferId) return

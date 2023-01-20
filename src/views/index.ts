@@ -17,11 +17,12 @@ import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
+import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import FundEscrow from './sell/FundEscrow'
+import SelectWallet from './selectWallet/SelectWallet'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
-import SetReturnAddress from './sell/SetReturnAddress'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
@@ -56,9 +57,10 @@ type ViewType = {
   background: BackgroundConfig
 }
 
-const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined } }
-
 const onboardingConfig = { showHeader: true, showFooter: false, background: { color: 'primaryGradient' } } as const
+const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined } }
+const invertedThemeConfig = { showHeader: false, showFooter: false, background: { color: 'primaryGradient' } } as const
+
 const onboarding: ViewType[] = [
   { name: 'welcome', component: Welcome, ...onboardingConfig },
   { name: 'home', component: Welcome, ...onboardingConfig },
@@ -83,10 +85,13 @@ const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig },
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
-  { name: 'setReturnAddress', component: SetReturnAddress, ...defaultConfig },
+  { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
 ]
 
-const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
+const search: ViewType[] = [
+  { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'search', component: Search, ...defaultConfig },
+]
 
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },

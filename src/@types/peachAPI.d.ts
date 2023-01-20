@@ -162,7 +162,6 @@ declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
   | 'messageSigningRequired'
-  | 'returnAddressRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
@@ -192,7 +191,9 @@ declare type OfferDraft = {
   >
   originalPaymentData: PaymentData[]
   kyc: boolean
+  walletLabel?: string
   kycType?: KYCType
+  walletLabel?: string
   tradeStatus?: TradeStatus
 }
 declare type Offer = OfferDraft & {
@@ -205,7 +206,6 @@ declare type Offer = OfferDraft & {
   publicKey?: string
   premium?: number
   prices?: Pricebook
-  returnAddress: string
   refunded?: boolean
   funding?: FundingStatus
   matches: Offer['id'][]
@@ -231,7 +231,6 @@ declare type FundingStatusResponse = {
   funding: FundingStatus
   error?: FundingError
   returnAddress: string
-  returnAddressRequired: boolean
 }
 
 declare type CancelOfferRequest = {
