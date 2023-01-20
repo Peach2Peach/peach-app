@@ -24,6 +24,6 @@ export const validCashData: PaymentData = {
   id: 'cash-1669721660451',
   label: 'Cash EUR',
   type: 'cashTrade',
-  disclaimerAcknowledged: true,
   currencies: ['EUR'],
+  country: 'ES',
 }
