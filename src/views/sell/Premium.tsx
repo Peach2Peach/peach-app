@@ -18,7 +18,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [premium, setPremium] = useState(offer.premium.toString())
   const { data: marketPrice } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = marketPrice ? getOfferPrice({ ...offer, prices: marketPrice } as SellOffer, displayCurrency) : 0
+  const currentPrice = marketPrice ? getOfferPrice(offer.amount, offer.premium, marketPrice, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
     if (!value) return setPremium('')
