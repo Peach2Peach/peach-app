@@ -4,11 +4,9 @@ import tw from '../../styles/tailwind'
 
 import i18n from '../../utils/i18n'
 import OfferDetails from './OfferDetails'
-import ReleaseAddress from './ReleaseAddress'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
-import { useMatchStore } from '../../components/matches/store'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
@@ -16,6 +14,7 @@ import { account, updateTradingLimit } from '../../utils/account'
 import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
+import Summary from './Summary'
 
 export type BuyViewProps = {
   offer: BuyOfferDraft
@@ -45,9 +44,10 @@ const screens = [
     scrollable: true,
   },
   {
-    id: 'releaseAddress',
-    view: ReleaseAddress,
+    id: 'summary',
+    view: Summary,
     scrollable: false,
+    showPrice: false,
   },
   {
     id: 'search',
@@ -59,7 +59,6 @@ export default (): ReactElement => {
   const route = useRoute<'buyPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState<BuyOfferDraft>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -87,7 +86,7 @@ export default (): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const next = () => {
     if (page >= screens.length - 1) return
@@ -104,13 +103,11 @@ export default (): ReactElement => {
     scroll?.scrollTo({ x: 0 })
   }, [navigation, page, scroll])
 
-  useFocusEffect(
-    useCallback(() => {
-      setOffer(getDefaultBuyOffer(route.params.amount))
-      setUpdatePending(false)
-      setPage(() => 0)
-    }, [route]),
-  )
+  useEffect(() => {
+    setOffer(getDefaultBuyOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(() => 0)
+  }, [route])
 
   useEffect(() => {
     ;(async () => {
@@ -127,7 +124,6 @@ export default (): ReactElement => {
             }
           })
           saveAndUpdate({ ...offer, id: result.offerId } as BuyOffer)
-          matchStoreSetOffer({ ...offer, id: result.offerId } as BuyOffer)
           navigation.replace('signMessage', { offerId: result.offerId })
           return
         }
@@ -148,7 +144,7 @@ export default (): ReactElement => {
         if (err?.error === 'TRADING_LIMIT_REACHED') back()
       }
     })()
-  }, [back, matchStoreSetOffer, navigation, offer, page, updateMessage])
+  }, [back, navigation, offer, page, updateMessage])
 
   return (
     <View testID="view-buy" style={tw`flex-1`}>

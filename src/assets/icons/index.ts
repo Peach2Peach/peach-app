@@ -17,6 +17,7 @@ import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
 import checkboxMark from './checkboxMark.svg'
 import checkCircle from './checkCircle.svg'
+import checkCircleInverted from './checkCircleInverted.svg'
 import checkSquare from './checkSquare.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
@@ -65,6 +66,7 @@ import offline from './offline.svg'
 import paperclip from './paperclip.svg'
 import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
+import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
@@ -124,6 +126,7 @@ const Icons = {
   check,
   checkboxMark,
   checkCircle,
+  checkCircleInverted,
   checkSquare,
   chevronLeft,
   chevronRight,
@@ -172,6 +175,7 @@ const Icons = {
   paperclip,
   percent,
   plusCircle,
+  plusSquare,
   prev,
   radioSelected,
   refreshCcw,
