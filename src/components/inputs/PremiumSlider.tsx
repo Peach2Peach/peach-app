@@ -81,7 +81,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
       <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`]}>
-        <Shadow shadow={innerShadow} style={tw`w-full p-0.5 rounded`}>
+        <Shadow shadow={innerShadow} style={tw`w-full p-0.5 rounded overflow-hidden`}>
           <View {...{ onLayout }}>
             <Animated.View
               style={[
