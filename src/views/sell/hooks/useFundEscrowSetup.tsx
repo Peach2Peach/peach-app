@@ -107,14 +107,15 @@ export const useFundEscrowSetup = () => {
       sellOffer,
       onSuccess: (result) => {
         info('Checked funding status', result)
-
-        saveAndUpdate({
+        const updatedOffer = {
           ...sellOffer,
           funding: result.funding,
-        })
+        }
+
+        saveAndUpdate(updatedOffer)
         setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
-        if (result.userConfirmationRequired) showEscrowConfirmOverlay(sellOffer)
+        if (result.userConfirmationRequired) showEscrowConfirmOverlay(updatedOffer)
       },
       onError: (err) => {
         showError(err.error || 'GENERAL_ERROR')
