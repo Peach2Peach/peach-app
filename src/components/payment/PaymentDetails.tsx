@@ -12,13 +12,13 @@ import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '
 import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
-import Meetups from './Meetups'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
   onlineWallet: 'cloud',
   giftCard: 'creditCard',
   localOption: 'flag',
+  cash: '',
   cryptoCurrency: '',
 }
 
@@ -66,6 +66,8 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
   const navigation = useNavigation()
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
   const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const cashPaymentData: PaymentData[] = paymentData.filter((item) => item.type === 'cashTrade')
 
   const update = () => {
     setMeansOfPayment(
@@ -182,7 +184,17 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
           </View>
         )
       ) : (
-        <Meetups />
+        cashPaymentData.map(mapPaymentDataToCheckboxes).map((item, i) => (
+          <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
+            <PaymentDetailsCheckbox
+              onPress={() => (editing ? editItem(item.data) : select(item.value))}
+              item={item}
+              checked={isSelected(item)}
+              editing={editing}
+            />
+            <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
+          </View>
+        ))
       )}
     </>
   )

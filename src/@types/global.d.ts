@@ -74,7 +74,7 @@ declare type AmazonGiftCardData = {
 }
 declare type CashData = {}
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency'
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }

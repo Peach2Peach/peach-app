@@ -88,6 +88,7 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
+  | 'cashTrade'
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
 
@@ -112,6 +113,7 @@ declare type PaymentMethodInfo = {
   currencies: Currency[]
   countries?: Country[]
   rounded?: boolean
+  annonymous: boolean
 }
 
 declare type KYCType = 'iban' | 'id'

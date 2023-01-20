@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 
 import i18n from '../utils/i18n'
+import { CashTrades } from './CashTrades'
 import { FileBackupPopup } from './FileBackupPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
@@ -34,6 +35,7 @@ export const helpOverlays: Record<string, HelpContent> = {
   useYourOwnNode: { title: i18n('help.useYourOwnNode.title'), content: UseYourOwnNode },
   withdrawingFunds: { title: i18n('wallet.withdraw.help.title'), content: WithdrawingFundsHelp },
   yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPasswordPopup },
+  cashTrades: { title: i18n('tradingCash'), content: CashTrades },
 }
 
 export type HelpType = keyof typeof helpOverlays

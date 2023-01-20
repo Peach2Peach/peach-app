@@ -65,7 +65,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
       const applicableCountries = Object.keys(LOCALPAYMENTMETHODS[currency]!) as FlagType[]
       return updateDrawer({
         title: i18n(`paymentCategory.${category}`),
-        content: <CountrySelect countries={applicableCountries} selectedCountry={country} onSelect={selectCountry} />,
+        content: <CountrySelect countries={applicableCountries} onSelect={selectCountry} />,
         show: true,
         onClose: () => {
           if (!country) setPaymentCategory(undefined)
