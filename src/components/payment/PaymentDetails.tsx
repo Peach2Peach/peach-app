@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { Icon, PeachScrollView, Text } from '..'
+import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../constants'
 import { useNavigation } from '../../hooks'
@@ -146,14 +146,17 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }, [paymentData])
 
   return (
-    <>
+    <View style={style}>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}>
+      <PeachScrollView
+        style={tw`flex-shrink h-full`}
+        contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}
+      >
         {currentTab.id === 'remote' ? ( // TODO : Extract component into remote
           paymentData.length === 0 ? (
             <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
           ) : (
-            <View style={[tw`px-4`, style]}>
+            <View style={tw`px-4`}>
               <View testID={'checkboxes-buy-mops'}>
                 {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
                   .map((category) => ({
@@ -214,9 +217,9 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
             </View>
           ))
         )}
+        <HorizontalLine style={tw`w-auto m-5 bg-black-5`} />
+        <AddPaymentMethodButton origin={origin} isCash={currentTab.id === 'meetups'} />
       </PeachScrollView>
-      <View style={tw`bg-black-5 h-0.3 m-5`} />
-      <AddPaymentMethodButton origin={origin} isCash={currentTab.id === 'meetups'} />
-    </>
+    </View>
   )
 }

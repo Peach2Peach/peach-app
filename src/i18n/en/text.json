@@ -366,7 +366,7 @@
   "paymentCategory.cryptoCurrency": "crypto",
   "paymentCategory.cash": "cash",
   "paymentMethod.empty": "none yet!",
-  "paymentMethod.select.button.remote": "add new currency / payment method",
+  "paymentMethod.select.button.remote": "add new currency /\npayment method",
   "paymentMethod.select.button.cash": "add new cash option",
   "paymentMethod.select": "add payment method",
   "paymentMethod.select.title": "add $0 details",
