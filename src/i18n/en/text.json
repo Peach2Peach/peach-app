@@ -398,7 +398,7 @@
   "paymentMethod.mbWay": "MB Way",
   "paymentMethod.bizum": "Bizum",
   "paymentMethod.tether": "Tether",
-  "paymentMethod.cashTrade": "Cash",
+  "paymentMethod.cash": "Cash",
   "paymentMethod.currency.select.title": "select $0 currencies",
   "medal.fastTrader": "#FastTrader",
   "medal.superTrader": "#SuperTrader",

@@ -88,7 +88,7 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
-  | 'cashTrade'
+  | 'cash'
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
 
