@@ -11,22 +11,24 @@ import { priceFormat } from '../../utils/string'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
 
-const validate = (offer: SellOffer) => offer.premium >= -21 && offer.premium <= 21
+const validate = (offer: SellOfferDraft) => offer.premium >= -21 && offer.premium <= 21
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
   const [premium, setPremium] = useState(offer.premium.toString())
   const { data: marketPrice } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = marketPrice ? getOfferPrice({ ...offer, prices: marketPrice }, displayCurrency) : 0
+  const currentPrice = marketPrice ? getOfferPrice({ ...offer, prices: marketPrice } as SellOffer, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
     if (!value) return setPremium('')
+
     const number = Number(value)
-    if (isNaN(number)) return setPremium(String(value) || '')
+    if (isNaN(number)) return setPremium(String(value).trim() || '')
     if (number < -21) return setPremium('-21')
     if (number > 21) return setPremium('21')
-    return setPremium(String(value))
+    return setPremium(String(value).trim()
+      .replace(/^0/u, ''))
   }
 
   useEffect(() => {
@@ -53,10 +55,11 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         </Text>
         <View style={tw`h-10 ml-2`}>
           <Input
-            style={tw`w-16`}
-            inputStyle={tw`text-center`}
-            value={premium.toString() || '0'}
+            style={tw`w-24`}
+            inputStyle={tw`text-right`}
+            value={premium || '0'}
             onChange={updatePremium}
+            icons={[['percent', () => {}]]}
             keyboardType={'numeric'}
           />
         </View>

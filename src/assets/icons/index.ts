@@ -63,6 +63,7 @@ import noNetwork from './noNetwork.svg'
 import notification from './notification.svg'
 import offline from './offline.svg'
 import paperclip from './paperclip.svg'
+import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
@@ -169,6 +170,7 @@ const Icons = {
   notification,
   offline,
   paperclip,
+  percent,
   plusCircle,
   prev,
   radioSelected,
