@@ -9,7 +9,8 @@ type SettingsStore = Settings & {
   setAppVersion: (appVersion: string) => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
   setLocale: (locale: string) => void
-  setAmount: (amount: number) => void
+  setMinAmount: (amount: number) => void
+  setMaxAmount: (amount: number) => void
   setPayoutAddress: (payoutAddress: string) => void
   setDerivationPath: (derivationPath: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
@@ -56,7 +57,8 @@ export const settingsStore = createStore(
       setAppVersion: (appVersion: string) => set((state) => ({ ...state, appVersion })),
       setEnableAnalytics: (enableAnalytics: boolean) => set((state) => ({ ...state, enableAnalytics })),
       setLocale: (locale: string) => set((state) => ({ ...state, locale })),
-      setAmount: (amount: number) => set((state) => ({ ...state, amount })),
+      setMinAmount: (minAmount: number) => set((state) => ({ ...state, minAmount })),
+      setMaxAmount: (maxAmount: number) => set((state) => ({ ...state, maxAmount })),
       setPayoutAddress: (payoutAddress: string) => set((state) => ({ ...state, payoutAddress })),
       setDerivationPath: (derivationPath: string) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),

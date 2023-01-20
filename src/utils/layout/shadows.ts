@@ -1,4 +1,4 @@
-import { ShadowType } from '../components/ui/Shadow'
+import { ShadowType } from '../../components/ui/Shadow'
 
 export const noShadow: ShadowType = {
   blur: 0,
@@ -32,6 +32,14 @@ export const dropShadowMild: ShadowType = {
   blur: 16,
   color: '#2B1911',
   opacity: 0.24,
+  offsetX: 0,
+  offsetY: 0,
+}
+
+export const dropShadowStrong: ShadowType = {
+  blur: 8,
+  color: '#2B1911',
+  opacity: 0.32,
   offsetX: 0,
   offsetY: 0,
 }
@@ -87,37 +95,8 @@ export const innerShadow: ShadowType = {
   offsetY: 2,
 }
 
-export const whiteGradient = [
-  { offset: '0%', color: '#FCFCFD', opacity: '1' },
-  { offset: '100%', color: '#FCFCFD', opacity: '0' },
-]
-
-export const primaryGradient = [
-  { offset: '0%', color: '#FFA24C', opacity: '1' },
-  { offset: '50.25%', color: '#FF7A50', opacity: '1' },
-  { offset: '100%', color: '#FF4D42', opacity: '1' },
-]
-
 export const textShadow = {
   textShadowColor: 'rgba(0, 0, 0, 0.15)',
   textShadowOffset: { width: 0, height: 2 },
   textShadowRadius: 2,
-}
-
-/**
- * @description Method to convert short hex colors (3 digits) to long hex colors (6 digits)
- * @param hex hex color (e.g.: #000 or #000000)
- * @returns 6 digit hex color
- */
-export const shortToLongHex = (color: string) => {
-  const hex = color.replace('#', '')
-  const longHex
-    = hex.length === 3
-      ? hex
-        .split('')
-        .map((h) => h + h)
-        .join('')
-      : hex
-
-  return '#' + longHex
 }

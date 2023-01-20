@@ -21,6 +21,7 @@ import checkSquare from './checkSquare.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
+import chevronsLeft from './chevronsLeft.svg'
 import chevronsRight from './chevronsRight.svg'
 import chevronsUp from './chevronsUp.svg'
 import circle from './circle.svg'
@@ -52,7 +53,6 @@ import inbox from './inbox.svg'
 import info from './info.svg'
 import link from './link.svg'
 import list from './list.svg'
-import lock from './lock.svg'
 import mail from './mail.svg'
 import map from './map.svg'
 import messageCircle from './messageCircle.svg'
@@ -63,6 +63,7 @@ import noNetwork from './noNetwork.svg'
 import notification from './notification.svg'
 import offline from './offline.svg'
 import paperclip from './paperclip.svg'
+import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
@@ -127,6 +128,7 @@ const Icons = {
   chevronLeft,
   chevronRight,
   chevronsDown,
+  chevronsLeft,
   chevronsRight,
   chevronsUp,
   circle,
@@ -158,7 +160,6 @@ const Icons = {
   info,
   link,
   list,
-  lock,
   mail,
   map,
   messageCircle,
@@ -169,6 +170,7 @@ const Icons = {
   notification,
   offline,
   paperclip,
+  percent,
   plusCircle,
   prev,
   radioSelected,

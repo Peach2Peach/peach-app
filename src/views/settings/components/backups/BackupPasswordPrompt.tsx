@@ -1,13 +1,15 @@
 import React, { ReactElement, useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
+import shallow from 'zustand/shallow'
 
 import { Input, PeachScrollView, Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import { HelpIcon } from '../../../../components/icons'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../../hooks'
 import { useShowHelp } from '../../../../hooks/useShowHelp'
+import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
-import { account, backupAccount, updateSettings } from '../../../../utils/account'
+import { backupAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 
 const passwordRules = { required: true, password: true }
@@ -15,6 +17,10 @@ const passwordRules = { required: true, password: true }
 export default ({ toggle }: { toggle: () => void }): ReactElement => {
   const navigation = useNavigation()
 
+  const [showBackupReminder, setShowBackupReminder, lastBackupDate, setLastBackupDate] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.setShowBackupReminder, state.lastBackupDate, state.setLastBackupDate],
+    shallow,
+  )
   const showPopup = useShowHelp('yourPassword')
   useHeaderSetup({
     title: i18n('settings.backups.fileBackup.title'),
@@ -40,25 +46,29 @@ export default ({ toggle }: { toggle: () => void }): ReactElement => {
 
     Keyboard.dismiss()
 
-    const previousDate = account.settings.lastBackupDate
-    const previousShowBackupReminder = account.settings.showBackupReminder
+    const previousDate = lastBackupDate || Date.now()
+    const previousShowBackupReminder = showBackupReminder
     setIsBackingUp(true)
-    updateSettings({ lastBackupDate: new Date().getTime(), showBackupReminder: false }, true)
+    setLastBackupDate(Date.now())
+    setShowBackupReminder(false)
     backupAccount({
       password,
       onSuccess: () => {
         setIsBackingUp(false)
-        updateSettings({ lastBackupDate: new Date().getTime(), showBackupReminder: false }, true)
+        setLastBackupDate(Date.now())
+        setShowBackupReminder(false)
         toggle()
         navigation.navigate('backupCreated')
       },
       onCancel: () => {
         setIsBackingUp(false)
-        updateSettings({ lastBackupDate: previousDate, showBackupReminder: previousShowBackupReminder }, true)
+        setLastBackupDate(previousDate)
+        setShowBackupReminder(previousShowBackupReminder)
       },
       onError: () => {
         setIsBackingUp(false)
-        updateSettings({ lastBackupDate: previousDate, showBackupReminder: previousShowBackupReminder }, true)
+        setLastBackupDate(previousDate)
+        setShowBackupReminder(previousShowBackupReminder)
       },
     })
   }
