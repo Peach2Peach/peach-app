@@ -14,6 +14,7 @@ export const useConfirmEscrowOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const showStartRefundOverlay = useStartRefundOverlay()
+  const closeOverlay = () => updateOverlay({ visible: false })
   return (sellOffer: SellOffer) =>
     updateOverlay({
       title: i18n('warning.fundingAmountDifferent.title'),
@@ -27,11 +28,17 @@ export const useConfirmEscrowOverlay = () => {
         icon: 'arrowRightCircle',
         callback: async () => {
           const [confirmEscrowResult, confirmEscrowErr] = await confirmEscrow({ offerId: sellOffer.id })
+          closeOverlay()
+
           if (!confirmEscrowResult || confirmEscrowErr) {
             showError(confirmEscrowErr?.error)
             return
           }
-          navigation.navigate('offer', { offerId: sellOffer.id })
+          if (sellOffer.funding.status === 'FUNDED') {
+            navigation.replace('offer', { offerId: sellOffer.id })
+          } else {
+            navigation.replace('fundEscrow', { offer: sellOffer })
+          }
         },
       },
       action2: {
