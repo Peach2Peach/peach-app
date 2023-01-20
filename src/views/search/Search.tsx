@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Matches, PeachScrollView } from '../../components'
-import { CancelOfferButton, GoHomeButton, MatchInformation, NoMatchesYet } from './components'
+import { GoHomeButton, MatchInformation, NoMatchesYet } from './components'
 import { useSearchSetup } from './hooks/useSearchSetup'
 import { useMatchStore } from '../../components/matches/store'
 
@@ -19,10 +19,7 @@ export default (): ReactElement => {
           {hasMatches && type === 'ask' && <MatchInformation />}
           {!hasMatches && <NoMatchesYet />}
         </View>
-        <View style={tw`flex-col justify-end flex-shrink h-full`}>
-          {hasMatches ? <Matches /> : <GoHomeButton />}
-          <CancelOfferButton />
-        </View>
+        <View style={tw`flex-col justify-end flex-shrink h-full`}>{hasMatches ? <Matches /> : <GoHomeButton />}</View>
       </View>
     </PeachScrollView>
   )
