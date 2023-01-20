@@ -12,9 +12,10 @@ import MeetupSummary from './MeetupSummary'
 
 type AddPaymentMethodProps = ComponentProps & {
   origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+  isCash: boolean
 }
 
-export default ({ origin, style }: AddPaymentMethodProps): ReactElement => {
+export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateDrawer] = useContext(DrawerContext)
 
@@ -62,9 +63,15 @@ export default ({ origin, style }: AddPaymentMethodProps): ReactElement => {
   return (
     <View style={style}>
       <View style={tw`flex items-center`}>
-        <Pressable testID="buy-add-mop" onPress={addCashPaymentMethods} style={tw`flex flex-row items-center`}>
+        <Pressable
+          testID="buy-add-mop"
+          onPress={isCash ? addCashPaymentMethods : addPaymentMethods}
+          style={tw`flex flex-row items-center`}
+        >
           <Icon id="plusCircle" style={tw`mr-3 w-7 h-7`} color={tw`text-primary-main`.color} />
-          <Text style={tw`h6 text-primary-main`}>{i18n('paymentMethod.select.button')}</Text>
+          <Text style={tw`h6 text-primary-main`}>
+            {i18n(`paymentMethod.select.button.${isCash ? 'cash' : 'remote'}`)}
+          </Text>
         </Pressable>
       </View>
     </View>

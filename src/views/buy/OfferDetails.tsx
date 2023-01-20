@@ -9,7 +9,6 @@ import { Icon } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import PaymentDetails from '../../components/payment/PaymentDetails'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import { useHeaderSetup } from '../../hooks'
 import { isDefined } from '../../utils/array/isDefined'
@@ -76,9 +75,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
+        origin={['buyPreferences', { amount: offer.amount }]}
       />
-      <View style={tw`bg-black-5 h-0.3 m-5`} />
-      <AddPaymentMethodButton origin={['buyPreferences', { amount: offer.amount }]} />
     </View>
   )
 }
