@@ -1,16 +1,19 @@
 import { API_URL } from '@env'
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { View, Image, Text, Pressable, Linking } from 'react-native'
+import { OverlayContext } from '../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
+import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
 import tw from '../../styles/tailwind'
-import { addPaymentData } from '../../utils/account'
+import { addPaymentData, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { error } from '../../utils/log'
+import { error, info } from '../../utils/log'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { PrimaryButton } from '../buttons'
 import Icon from '../Icon'
 import { HelpIcon } from '../icons'
+import { DeleteIcon } from '../icons/DeleteIcon'
 
 /**
  * @description Screen for meetup event details. Shows info for the specified event and takes care of adding to paymentMethods
@@ -21,6 +24,7 @@ export default (): ReactElement =>
 {
   const route = useRoute<'meetupScreen'>()
   const event = route.params.event
+  const deletable = route.params.deletable ?? false
   const navigation = useNavigation()
 
   const showHelp = useShowHelp('cashTrades')
@@ -48,11 +52,44 @@ export default (): ReactElement =>
     navigation.goBack()
   }
 
+  const [, updateOverlay] = useContext(OverlayContext)
+
+  const deletePaymentMethod = () => {
+    updateOverlay({
+      title: i18n('help.paymentMethodDelete.title'),
+      content: <DeletePaymentMethodConfirm />,
+      visible: true,
+      level: 'ERROR',
+      action1: {
+        callback: () => updateOverlay({ visible: false }),
+        icon: 'xSquare',
+        label: i18n('neverMind'),
+      },
+      action2: {
+        callback: () => {
+          removePaymentData('cash.' + event.id)
+          updateOverlay({ visible: false })
+          navigation.goBack()
+        },
+        icon: 'info',
+        label: i18n('delete'),
+      },
+    })
+  }
+
+  const icons = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+  if (deletable) {
+    icons[1] = {
+      iconComponent: <DeleteIcon />,
+      onPress: deletePaymentMethod,
+    }
+  }
+
   useHeaderSetup(
     useMemo(
       () => ({
         title: event.name,
-        icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        icons,
       }),
       [],
     ),
@@ -73,9 +110,11 @@ export default (): ReactElement =>
           <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
         </Pressable>
       </View>
-      <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
-        {i18n('meetup.add')}
-      </PrimaryButton>
+      {!deletable && (
+        <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
+          {i18n('meetup.add')}
+        </PrimaryButton>
+      )}
     </>
   )
 }

@@ -74,6 +74,7 @@ declare type RootStackParamList = {
   paymentMethods: undefined
   meetupScreen: {
     event: MeetupEvent
+    deletable?: boolean
   }
   deleteAccount: undefined
   peachFees: undefined

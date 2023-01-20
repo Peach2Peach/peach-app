@@ -12,6 +12,8 @@ import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '
 import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
+import { sessionStorage } from '../../utils/session'
+import { useFocusEffect } from '@react-navigation/native'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
@@ -61,13 +63,18 @@ type PaymentDetailsProps = ComponentProps & {
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
   editing: boolean
 }
-export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetailsProps): ReactElement => {
+export default ({ setMeansOfPayment, editing, style }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
   const navigation = useNavigation()
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
   const [currentTab, setCurrentTab] = useState(tabs[0])
+  const [paymentData, setPaymentData] = useState(account.paymentData)
 
   const cashPaymentData: PaymentData[] = paymentData.filter((item) => item.type === 'cashTrade')
+
+  useFocusEffect(() => {
+    setPaymentData(account.paymentData)
+  })
 
   const update = () => {
     setMeansOfPayment(
@@ -106,10 +113,18 @@ export default ({ paymentData, setMeansOfPayment, editing, style }: PaymentDetai
   }
 
   const editItem = (data: PaymentData) => {
-    navigation.push('paymentDetails', {
-      paymentData: data,
-      origin: ['paymentMethods', {}],
-    })
+    if (data.type === 'cashTrade') {
+      const eventsByCountry: Record<string, MeetupEvent[]> = sessionStorage.getMap('meetupEvents') ?? {}
+      const event = eventsByCountry[data.country!].find((value) => value.id === data.id.replace('cash.', ''))
+      if (event) {
+        navigation.push('meetupScreen', { event, deletable: true })
+      }
+    } else {
+      navigation.push('paymentDetails', {
+        paymentData: data,
+        origin: ['paymentMethods', {}],
+      })
+    }
   }
 
   const select = (value: string) => {
