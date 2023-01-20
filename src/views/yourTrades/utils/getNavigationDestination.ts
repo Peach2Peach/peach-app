@@ -1,3 +1,4 @@
+import { settingsStore } from '../../../store/settingsStore'
 import { getContract, getOfferIdFromContract } from '../../../utils/contract'
 import { getOffer } from '../../../utils/offer'
 import { shouldGoToOfferSummary } from './'
@@ -19,6 +20,10 @@ export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, 
     return ['offer', { offerId: offer.id }]
   }
 
+  if (offer.tradeStatus === 'messageSigningRequired') {
+    settingsStore.getState().setPeachWalletActive(false)
+    return ['signMessage', { offerId: offer.id }]
+  }
   if (offer.tradeStatus === 'returnAddressRequired') {
     return ['setReturnAddress', { offer: getOffer(offer.id) }]
   }
