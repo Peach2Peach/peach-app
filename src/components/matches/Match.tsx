@@ -8,10 +8,7 @@ import { dropShadowMild } from '../../utils/layout'
 import { MatchOfferButton, UnmatchButton } from './buttons'
 import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo, EscrowLink } from './components'
 
-type MatchProps = ComponentProps & {
-  match: Match
-  renderShadow?: boolean
-}
+type MatchProps = ComponentProps & { match: Match }
 
 const onStartShouldSetResponder = () => true
 
