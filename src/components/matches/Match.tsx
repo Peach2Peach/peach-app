@@ -33,7 +33,7 @@ export const Match = ({ match, style }: MatchProps): ReactElement => (
           <PriceInfo match={match} />
           <CurrencySelector matchId={match.offerId} />
           <PaymentMethodSelector matchId={match.offerId} />
-          <EscrowLink txId={match?.txId || '0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098'} />
+          <EscrowLink address={match?.escrowAddress || ''} />
         </View>
         <MatchOfferButton />
       </View>
