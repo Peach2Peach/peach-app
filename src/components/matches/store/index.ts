@@ -19,6 +19,8 @@ export type MatchStore = MatchState & {
   setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
   resetStore: () => void
   addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
+  setShowCurrencyPulse: (matchId: Match['offerId'], show?: boolean) => void
+  setShowPaymentMethodPulse: (matchId: Match['offerId'], show?: boolean) => void
 }
 
 const defaultBuyOffer: BuyOffer = {
@@ -61,11 +63,13 @@ export const useMatchStore = create<MatchStore>()(
         get().setSelectedPaymentMethod(undefined, matchId)
       }
       return set((state) => {
+        state.matchSelectors[matchId].showCurrencyPulse = false
         state.matchSelectors[matchId].selectedCurrency = currency
       })
     },
     setSelectedPaymentMethod: (paymentMethod, matchId) =>
       set((state) => {
+        state.matchSelectors[matchId].showPaymentMethodPulse = false
         state.matchSelectors[matchId].selectedPaymentMethod = paymentMethod
       }),
     setCurrentIndex: (newIndex) =>
@@ -84,5 +88,13 @@ export const useMatchStore = create<MatchStore>()(
         matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
       }))
     },
+    setShowCurrencyPulse: (matchId, show = true) =>
+      set((state) => {
+        state.matchSelectors[matchId].showCurrencyPulse = show
+      }),
+    setShowPaymentMethodPulse: (matchId, show = true) =>
+      set((state) => {
+        state.matchSelectors[matchId].showPaymentMethodPulse = show
+      }),
   })),
 )

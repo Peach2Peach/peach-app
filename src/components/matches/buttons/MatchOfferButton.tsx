@@ -30,17 +30,20 @@ const options = {
   },
 } as const
 
-export const MatchOfferButton = () => {
+export const MatchOfferButton = ({ matchId }: { matchId: string }) => {
   const { allMatches: matches } = useOfferMatches()
-  const [offer, currentIndex, selectedPaymentMethod, selectedCurrency] = useMatchStore(
-    (state) => [
-      state.offer,
-      state.currentIndex,
-      state.matchSelectors[matches[state.currentIndex].offerId]?.selectedPaymentMethod,
-      state.matchSelectors[matches[state.currentIndex].offerId]?.selectedCurrency,
-    ],
-    shallow,
-  )
+  const [offer, currentIndex, selectedPaymentMethod, selectedCurrency, setShowCurrencyPulse, setShowPaymentMethodPulse]
+    = useMatchStore(
+      (state) => [
+        state.offer,
+        state.currentIndex,
+        state.matchSelectors[matchId]?.selectedPaymentMethod,
+        state.matchSelectors[matchId]?.selectedCurrency,
+        state.setShowCurrencyPulse,
+        state.setShowPaymentMethodPulse,
+      ],
+      shallow,
+    )
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
@@ -67,11 +70,19 @@ export const MatchOfferButton = () => {
           : 'acceptMatch'
   const currentOption = options[currentOptionName]
 
+  const onPress = () => {
+    if (['matchOffer', 'acceptMatch'].includes(currentOptionName)) {
+      matchOffer()
+    } else if (currentOptionName === 'missingSelection') {
+      setShowCurrencyPulse(matchId, !selectedCurrency)
+      setShowPaymentMethodPulse(matchId, !selectedPaymentMethod)
+    }
+  }
+
   return (
     <TouchableOpacity
       style={[tw`flex-row items-center justify-center py-2 rounded-b-xl`, currentOption.backgroundColor]}
-      onPress={() => matchOffer()}
-      disabled={!['matchOffer', 'acceptMatch'].includes(currentOptionName)}
+      onPress={onPress}
     >
       <Text style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</Text>
       <Icon id={currentOption.iconId} color={tw`text-primary-background-light`.color} style={tw`w-6 h-6 ml-[10px]`} />

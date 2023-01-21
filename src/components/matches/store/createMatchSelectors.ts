@@ -9,6 +9,8 @@ export type MatchSelectors = {
     availablePaymentMethods: PaymentMethod[]
     mopsInCommon: MeansOfPayment
     meansOfPayment: MeansOfPayment
+    showCurrencyPulse: boolean
+    showPaymentMethodPulse: boolean
   }
 }
 
@@ -18,13 +20,18 @@ export const createMatchSelectors = (matches: Match[], offerMeansOfPayment: Mean
       ? getMoPsInCommon(offerMeansOfPayment, match.meansOfPayment)
       : match.meansOfPayment
 
+    const availableCurrencies = getAvailableCurrencies(mopsInCommon, match.meansOfPayment)
+    const availablePaymentMethods = getPaymentMethods(mopsInCommon)
+
     acc[match.offerId] = {
-      selectedCurrency: undefined,
-      selectedPaymentMethod: undefined,
-      availableCurrencies: getAvailableCurrencies(mopsInCommon, match.meansOfPayment),
-      availablePaymentMethods: getPaymentMethods(mopsInCommon),
+      selectedCurrency: availableCurrencies.length === 1 ? availableCurrencies[0] : undefined,
+      selectedPaymentMethod: availablePaymentMethods.length === 1 ? availablePaymentMethods[0] : undefined,
+      availableCurrencies,
+      availablePaymentMethods,
       mopsInCommon,
       meansOfPayment: match.meansOfPayment,
+      showCurrencyPulse: false,
+      showPaymentMethodPulse: false,
     }
     return acc
   }, {})

@@ -7,14 +7,16 @@ import { useMatchStore } from '../../store'
 import shallow from 'zustand/shallow'
 import { isBuyOffer } from '../../../../utils/offer'
 import { CustomSelector } from './CustomSelector'
+import { PulsingText } from './PulsingText'
 
 export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer, selectedValue, setSelectedCurrency, availableCurrencies } = useMatchStore(
+  const { offer, selectedValue, setSelectedCurrency, availableCurrencies, showCurrencyPulse } = useMatchStore(
     (state) => ({
       offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedCurrency,
       setSelectedCurrency: state.setSelectedCurrency,
       availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],
+      showCurrencyPulse: state.matchSelectors[matchId]?.showCurrencyPulse || false,
     }),
     shallow,
   )
@@ -35,7 +37,9 @@ export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => 
   return (
     <>
       <HorizontalLine style={tw`mb-4 bg-black-5`} />
-      <Text style={tw`self-center mb-1`}>{i18n(isBuyOffer(offer) ? 'form.currency' : 'match.selectedCurrency')}</Text>
+      <PulsingText style={tw`self-center mb-1`} showPulse={showCurrencyPulse}>
+        {i18n(isBuyOffer(offer) ? 'form.currency' : 'match.selectedCurrency')}
+      </PulsingText>
       <CustomSelector style={tw`mb-6`} {...{ selectedValue, items, onChange }} />
     </>
   )
