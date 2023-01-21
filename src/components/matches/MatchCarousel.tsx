@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
 import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
-import Match from './Match'
+import { Match } from './Match'
 import { useMatchStore } from './store'
 
 const { width } = Dimensions.get('window')

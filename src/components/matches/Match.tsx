@@ -37,5 +37,3 @@ export const Match = ({ match, style }: MatchProps): ReactElement => (
     </Shadow>
   </View>
 )
-
-export default Match
