@@ -22,13 +22,23 @@ export const PriceInfo = ({ match }: PriceInfoProps) => {
     shallow,
   )
   const displayPrice = getDisplayPrice(match, selectedPaymentMethod, selectedCurrency)
+  const color = match.premium < 0 ? tw`text-success-main` : match.premium > 0 ? tw`text-primary-main` : tw`text-black-4`
   return (
     <>
-      <HorizontalLine style={[tw`mt-3`, tw.md`mt-4`]} />
-      <SatsFormat sats={match.matchedPrice} />
-      <Text style={tw`text-xl text-center font-baloo leading-xl text-peach-1`}>
+      <HorizontalLine style={tw`mb-2 bg-black-5`} />
+      <SatsFormat
+        sats={match?.amount || 0}
+        containerStyle={tw`self-center justify-center`}
+        satsStyle={tw`subtitle-1`}
+        style={tw` h5 leading-3xl`}
+        bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
+      />
+      <Text style={tw`self-center mb-2 subtitle-1`}>
         {i18n(`currency.format.${selectedCurrency}`, displayPrice)}{' '}
-        <Text style={tw`ml-2 text-lg text-center leading-lg text-grey-2`}>({String(match.premium)}% )</Text>
+        <Text style={[tw`subtitle-1`, color]}>
+          ({match.premium > 0 ? '+' : ''}
+          {String(match.premium)}%)
+        </Text>
       </Text>
     </>
   )

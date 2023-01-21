@@ -32,7 +32,7 @@ export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }
   }))
   return (
     <>
-      <HorizontalLine style={tw`mb-4`} />
+      <HorizontalLine style={tw`mb-4 bg-black-5`} />
       <Text style={tw`self-center mb-1`}>
         {i18n(isBuyOffer(offer) ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}
       </Text>

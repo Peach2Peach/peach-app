@@ -34,7 +34,7 @@ export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => 
   }))
   return (
     <>
-      <HorizontalLine style={tw`my-4`} />
+      <HorizontalLine style={tw`mb-4 bg-black-5`} />
       <Text style={tw`self-center mb-1`}>{i18n(isBuyOffer(offer) ? 'form.currency' : 'match.selectedCurrency')}</Text>
       <CustomSelector style={tw`mb-6`} {...{ selectedValue, items, onChange }} />
     </>
