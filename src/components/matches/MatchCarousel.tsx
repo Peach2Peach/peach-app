@@ -22,7 +22,7 @@ const carouselConfig = {
   keyExtractor: (item: any, index: number) => `${item.offerId}-${index}`,
 }
 
-const renderItem = ({ item }: any) => <Match match={item} style={tw`px-4 py-4 -mx-4 bg-transparent`} />
+const renderItem = ({ item }: { item: Match }) => <Match match={item} style={tw`px-4 py-4 -mx-4 bg-transparent`} />
 
 export default () => {
   const { allMatches: matches } = useOfferMatches()
