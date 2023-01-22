@@ -36,6 +36,14 @@ export const dropShadowMild: ShadowType = {
   offsetY: 0,
 }
 
+export const dropShadowStrong: ShadowType = {
+  blur: 8,
+  color: '#2B1911',
+  opacity: 0.32,
+  offsetX: 0,
+  offsetY: 0,
+}
+
 export const mildShadowOrange = {
   blur: 14,
   color: '#F57940',
@@ -93,6 +101,12 @@ export const whiteGradient = [
 ]
 
 export const primaryGradient = [
+  { offset: '0%', color: '#FFA24C', opacity: '1' },
+  { offset: '50.25%', color: '#FF7A50', opacity: '1' },
+  { offset: '100%', color: '#FF4D42', opacity: '1' },
+]
+
+export const peachyGradient = [
   { offset: '0%', color: '#FFA24C', opacity: '1' },
   { offset: '50.25%', color: '#FF7A50', opacity: '1' },
   { offset: '100%', color: '#FF4D42', opacity: '1' },
