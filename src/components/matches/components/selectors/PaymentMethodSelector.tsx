@@ -53,7 +53,7 @@ export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }
         <PulsingText style={tw`self-center mb-1`} showPulse={showPaymentMethodPulse}>
           {i18n(isBuyOffer(offer) ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}
         </PulsingText>
-        <CustomSelector style={tw`mb-6`} {...{ selectedValue, items, onChange }} />
+        <CustomSelector style={tw`self-center mb-6`} {...{ selectedValue, items, onChange }} />
       </View>
     </>
   )
