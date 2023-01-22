@@ -1,22 +1,62 @@
-import React from 'react'
-import { Pressable, View } from 'react-native'
-import tw from '../../../styles/tailwind'
-import { dropShadowRed } from '../../../utils/layout'
-import Icon from '../../Icon'
+import React, { useCallback, useEffect, useRef } from 'react'
+import { Animated } from 'react-native'
+import { useToggleBoolean } from '../../../hooks'
+
+import i18n from '../../../utils/i18n'
+import { dropShadowStrong } from '../../../utils/layout'
+import { PrimaryButton } from '../../buttons'
 import { Shadow } from '../../ui'
 import { useUnmatchOffer } from '../hooks'
 import { useMatchStore } from '../store'
+import { UndoButton } from './UndoButton'
 
-export const UnmatchButton = ({ match }: { match: Match }) => {
+type Props = {
+  match: Match
+  interruptMatching: () => void
+  showUnmatchedCard: () => void
+}
+
+export const UnmatchButton = ({ match, interruptMatching, showUnmatchedCard }: Props) => {
   const offer = useMatchStore((state) => state.offer)
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
+
+  const [showUnmatch, toggle] = useToggleBoolean(match.matched)
+  const timer = useRef(new Animated.Value(5)).current
+
+  const startTimer = useCallback(() => {
+    Animated.timing(timer, {
+      toValue: 0,
+      duration: 5000,
+      useNativeDriver: false,
+    }).start(({ finished }) => {
+      if (!finished) return
+      toggle()
+    })
+  }, [timer, toggle])
+
+  useEffect(() => {
+    if (!showUnmatch) startTimer()
+  }, [showUnmatch, startTimer])
+
+  const onUnmatchPress = () => {
+    showUnmatchedCard()
+    unmatch()
+  }
+
+  const onUndoPress = () => {
+    showUnmatchedCard()
+    interruptMatching()
+  }
+
   return (
-    <Pressable onPress={() => unmatch()} style={tw`absolute top-0 right-0 z-10 p-2`}>
-      <Shadow shadow={dropShadowRed} style={tw`rounded-full`}>
-        <View style={tw`bg-white-1 rounded-full p-0.5`}>
-          <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color} />
-        </View>
-      </Shadow>
-    </Pressable>
+    <Shadow shadow={dropShadowStrong}>
+      {showUnmatch ? (
+        <PrimaryButton onPress={onUnmatchPress} iconId="minusCircle" white narrow>
+          {i18n('search.unmatch')}
+        </PrimaryButton>
+      ) : (
+        <UndoButton onPress={onUndoPress} timer={timer} inputRange={[0, 5]} />
+      )}
+    </Shadow>
   )
 }

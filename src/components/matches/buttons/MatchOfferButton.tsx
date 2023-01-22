@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import shallow from 'zustand/shallow'
 import { ANONYMOUS_PAYMENTCATEGORIES } from '../../../constants'
@@ -7,7 +7,6 @@ import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import Icon from '../../Icon'
 import { Text } from '../../text'
-import { useMatchOffer } from '../hooks'
 import { useMatchStore } from '../store'
 
 const options = {
@@ -30,12 +29,17 @@ const options = {
   },
 } as const
 
-export const MatchOfferButton = ({ matchId }: { matchId: string }) => {
+type Props = {
+  matchId: string
+  matchOffer: () => void
+  pretendIsMatched: boolean
+}
+
+export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched }: Props) => {
   const { allMatches: matches } = useOfferMatches()
-  const [offer, currentIndex, selectedPaymentMethod, selectedCurrency, setShowCurrencyPulse, setShowPaymentMethodPulse]
+  const [currentIndex, selectedPaymentMethod, selectedCurrency, setShowCurrencyPulse, setShowPaymentMethodPulse]
     = useMatchStore(
       (state) => [
-        state.offer,
         state.currentIndex,
         state.matchSelectors[matchId]?.selectedPaymentMethod,
         state.matchSelectors[matchId]?.selectedCurrency,
@@ -46,8 +50,6 @@ export const MatchOfferButton = ({ matchId }: { matchId: string }) => {
     )
   const currentMatch = matches[currentIndex]
 
-  const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
-
   const tradingLimitReached
     = currentMatch?.exceedsLimit?.length === 3
     || (selectedPaymentMethod
@@ -56,18 +58,22 @@ export const MatchOfferButton = ({ matchId }: { matchId: string }) => {
         || !!currentMatch?.exceedsLimit?.length))
 
   const missingSelection = !selectedPaymentMethod || !selectedCurrency
-  const matched = currentMatch?.matched
-  const buyOffer = true
+  const isMatched = currentMatch?.matched || pretendIsMatched
+  const isBuyOffer = true // TODO
 
-  const currentOptionName = tradingLimitReached
-    ? 'tradingLimitReached'
-    : matched
-      ? 'offerMatched'
-      : missingSelection
-        ? 'missingSelection'
-        : buyOffer
-          ? 'matchOffer'
-          : 'acceptMatch'
+  const currentOptionName = useMemo(
+    () =>
+      isMatched
+        ? 'offerMatched'
+        : tradingLimitReached
+          ? 'tradingLimitReached'
+          : missingSelection
+            ? 'missingSelection'
+            : isBuyOffer
+              ? 'matchOffer'
+              : 'acceptMatch',
+    [isBuyOffer, isMatched, missingSelection, tradingLimitReached],
+  )
   const currentOption = options[currentOptionName]
 
   const onPress = () => {
