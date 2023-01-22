@@ -4,6 +4,7 @@ import { Shadow } from '..'
 
 import tw from '../../styles/tailwind'
 import { dropShadowMild, peachyGradient } from '../../utils/layout'
+import { isBuyOffer } from '../../utils/offer'
 import { GradientBorder } from '../../views/TestView/GradientBorder'
 import { MatchOfferButton, UnmatchButton } from './buttons'
 import { useInterruptibleFunction } from './buttons/useInterruptibleFunction'
@@ -71,7 +72,12 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
               )}
             </View>
           </GradientBorder>
-          <MatchOfferButton matchId={match.offerId} matchOffer={onMatchPress} pretendIsMatched={showMatchedCard} />
+          <MatchOfferButton
+            matchId={match.offerId}
+            matchOffer={onMatchPress}
+            pretendIsMatched={showMatchedCard}
+            isBuyOffer={isBuyOffer(offer)}
+          />
         </>
       </Shadow>
     </View>

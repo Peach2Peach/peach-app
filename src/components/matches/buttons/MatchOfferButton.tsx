@@ -33,9 +33,10 @@ type Props = {
   matchId: string
   matchOffer: () => void
   pretendIsMatched: boolean
+  isBuyOffer: boolean
 }
 
-export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched }: Props) => {
+export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched, isBuyOffer }: Props) => {
   const { allMatches: matches } = useOfferMatches()
   const [currentIndex, selectedPaymentMethod, selectedCurrency, setShowCurrencyPulse, setShowPaymentMethodPulse]
     = useMatchStore(
@@ -59,7 +60,6 @@ export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched }: Prop
 
   const missingSelection = !selectedPaymentMethod || !selectedCurrency
   const isMatched = currentMatch?.matched || pretendIsMatched
-  const isBuyOffer = true // TODO
 
   const currentOptionName = useMemo(
     () =>
