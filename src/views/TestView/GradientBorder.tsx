@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 const { RadialGradient } = require('react-native-gradients')
 
@@ -11,6 +11,7 @@ export const GradientBorder = ({
   style,
   borderStyle,
   showBorder = true,
+  backgroundColor = tw`bg-primary-background-light`,
 }: {
   children: any
   borderWidths: [number, number, number, number]
@@ -19,6 +20,7 @@ export const GradientBorder = ({
   style?: any
   borderStyle?: any
   showBorder?: boolean
+  backgroundColor?: ViewStyle & TextStyle & ImageStyle
 }) => {
   const [layout, setLayout] = useState({ width: 0, height: 0 })
   const width = layout.width - (borderWidths[1] + borderWidths[3])
@@ -35,8 +37,7 @@ export const GradientBorder = ({
         {showBorder ? (
           <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={gradient} />
         ) : (
-          // Note: this only hides the border for elements with 'bg-primary-background-light' background
-          <View style={tw`w-full h-full bg-primary-background-light`} />
+          <View style={[tw`w-full h-full`, backgroundColor]} />
         )}
       </View>
       <View
