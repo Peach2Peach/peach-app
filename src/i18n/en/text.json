@@ -266,6 +266,8 @@
   "search.atDiscount": "at a -$0% discount",
   "search.matchOffer": "match this offer",
   "search.declineMatch": "decline match",
+  "search.undo": "undo",
+  "search.unmatch": "unmatch",
   "search.acceptMatch": "accept match",
   "search.matched": "matched!",
   "search.waitingForSeller": "waiting for seller",
