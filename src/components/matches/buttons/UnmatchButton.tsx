@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import { Animated } from 'react-native'
 import { useToggleBoolean } from '../../../hooks'
+import tw from '../../../styles/tailwind'
 
 import i18n from '../../../utils/i18n'
 import { dropShadowStrong } from '../../../utils/layout'
@@ -51,7 +52,7 @@ export const UnmatchButton = ({ match, interruptMatching, showUnmatchedCard }: P
   return (
     <Shadow shadow={dropShadowStrong}>
       {showUnmatch ? (
-        <PrimaryButton onPress={onUnmatchPress} iconId="minusCircle" white narrow>
+        <PrimaryButton onPress={onUnmatchPress} iconId="minusCircle" textColor={tw`text-error-main`} white narrow>
           {i18n('search.unmatch')}
         </PrimaryButton>
       ) : (
