@@ -29,8 +29,12 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
   }, 5000)
 
   const onMatchPress = () => {
-    setShowMatchedCard(true)
-    matchFunction()
+    if (isBuyOffer(offer)) {
+      setShowMatchedCard(true)
+      matchFunction()
+    } else {
+      mutate()
+    }
   }
 
   return (
@@ -41,7 +45,7 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
             gradient={peachyGradient}
             borderWidths={[4, 4, 0, 4]}
             showBorder={showMatchedCard}
-            containerStyle={[tw`w-[313px] h-[414px] rounded-t-xl overflow-hidden`]}
+            containerStyle={[tw`w-[313px] h-[414px] rounded-t-xl overflow-hidden`, !isBuyOffer(offer) && tw`h-64`]}
             style={tw`overflow-hidden rounded-t-xl bg-primary-background-light`}
             borderStyle={tw`overflow-hidden rounded-t-2xl`}
           >
@@ -64,7 +68,7 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
                   </>
                 )}
               </View>
-              {showMatchedCard && !isBuyOffer(offer) && (
+              {showMatchedCard && isBuyOffer(offer) && (
                 <>
                   <View
                     style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}

@@ -11,7 +11,6 @@ import { PaymentMethodSelectorText } from './PaymentMethodSelectorText'
 import { PulsingText } from './PulsingText'
 
 const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
-  offer: state.offer,
   selectedValue: state.matchSelectors[matchId]?.selectedPaymentMethod,
   selectedCurrency: state.matchSelectors[matchId]?.selectedCurrency,
   setSelectedPaymentMethod: state.setSelectedPaymentMethod,
@@ -22,7 +21,6 @@ const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
 
 export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }) => {
   const {
-    offer,
     selectedValue,
     selectedCurrency,
     setSelectedPaymentMethod,
@@ -51,7 +49,7 @@ export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }
       <HorizontalLine style={tw`mb-4 bg-black-5`} />
       <View style={disabled && !showPaymentMethodPulse && tw`opacity-30`}>
         <PulsingText style={tw`self-center mb-1`} showPulse={showPaymentMethodPulse}>
-          {i18n(isBuyOffer(offer) ? 'form.paymentMethod' : 'match.selectedPaymentMethod')}
+          {i18n('form.paymentMethod')}
         </PulsingText>
         <CustomSelector style={tw`self-center mb-6`} {...{ selectedValue, items, onChange }} />
       </View>

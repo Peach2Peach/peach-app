@@ -38,7 +38,7 @@ export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => 
     <>
       <HorizontalLine style={tw`mb-4 bg-black-5`} />
       <PulsingText style={tw`self-center mb-1`} showPulse={showCurrencyPulse}>
-        {i18n(isBuyOffer(offer) ? 'form.currency' : 'match.selectedCurrency')}
+        {i18n('form.currency')}
       </PulsingText>
       <CustomSelector style={tw`self-center mb-6`} {...{ selectedValue, items, onChange }} />
     </>
