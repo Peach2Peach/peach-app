@@ -15,6 +15,7 @@ import Icon from '../Icon'
 import { HelpIcon } from '../icons'
 import { DeleteIcon } from '../icons/DeleteIcon'
 import { sessionStorage } from '../../utils/session'
+import { openAppLink } from '../../utils/web'
 
 /**
  * @description Screen for meetup event details.
@@ -34,18 +35,9 @@ export default (): ReactElement => {
     address: '',
     url: '',
   }
+  const openLink = () => (event.url ? openAppLink(event.url) : null)
 
   const showHelp = useShowHelp('cashTrades')
-
-  const openEventWebsite = () => {
-    Linking.canOpenURL(event.url).then((supported) => {
-      if (supported) {
-        Linking.openURL(event.url)
-      } else {
-        error('Can\'t open website')
-      }
-    })
-  }
 
   const addToPaymentMethods = () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
@@ -117,7 +109,7 @@ export default (): ReactElement => {
             <Text style={tw`body-l text-black-1`}>{event.address}</Text>
           </>
         )}
-        <Pressable style={tw`flex-row items-center mt-8`} onPress={openEventWebsite}>
+        <Pressable style={tw`flex-row items-center mt-8`} onPress={openLink}>
           <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
           <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
         </Pressable>
