@@ -1,5 +1,6 @@
 import { deepStrictEqual, strictEqual } from 'assert'
 import { account, defaultAccount, setAccount } from '../../../../src/utils/account'
+
 import { saveOffer } from '../../../../src/utils/offer'
 import * as accountData from '../../data/accountData'
 import * as offerData from '../../data/offerData'
@@ -16,7 +17,10 @@ describe('saveOffer', () => {
   })
 
   it('does not save offers without an ID', () => {
-    expect(() => saveOffer(offerData.buyOfferUnpublished)).toThrowError()
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    saveOffer(offerData.buyOfferUnpublished)
+    expect(errorSpy).toHaveBeenCalled()
+    expect(account.offers.length).toBe(0)
   })
   it('add a new offer to account', () => {
     saveOffer(offerData.buyOffer)

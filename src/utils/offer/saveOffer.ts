@@ -1,7 +1,7 @@
 import { account } from '../account'
 import { storeOffer } from '../account/storeAccount'
 import { sort } from '../array'
-import { info } from '../log'
+import { error, info } from '../log'
 import { isBuyOffer } from './isBuyOffer'
 import { isSellOffer } from './isSellOffer'
 import { offerExists } from './offerExists'
@@ -13,7 +13,10 @@ import { offerExists } from './offerExists'
  * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
  */
 export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shield = true): void => {
-  if (!offer.id) throw new Error('offerId is required')
+  if (!offer.id) {
+    error('saveOffer', 'offer.id is undefined')
+    return
+  }
 
   delete offer.user
 
