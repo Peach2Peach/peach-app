@@ -143,11 +143,11 @@ describe('navigateToOffer', () => {
     }
     navigateToOffer(navigateToOfferProps)
 
-    expect(navigation.navigate).toHaveBeenCalledWith('offer', { offer: mockOffer })
+    expect(navigation.navigate).toHaveBeenCalledWith('offer', { offerId: mockOffer.id })
 
-    getNavigationDestination.mockReturnValueOnce(['search', { offerI: mockOffer.id }])
+    getNavigationDestination.mockReturnValueOnce(['search', { offerId: mockOffer.id }])
     navigateToOffer(navigateToOfferProps)
 
-    expect(navigation.navigate).toHaveBeenCalledWith('search', { offer: mockOffer })
+    expect(navigation.navigate).toHaveBeenCalledWith('search', { offerId: mockOffer.id })
   })
 })
