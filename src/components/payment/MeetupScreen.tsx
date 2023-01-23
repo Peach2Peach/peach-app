@@ -27,7 +27,7 @@ export default (): ReactElement => {
   const deletable = route.params.deletable ?? false
   const navigation = useNavigation()
   const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
-  const event = Object.values(allEvents).find((item) => (item.id = eventId)) ?? {
+  const event = allEvents.find((item) => item.id === eventId) ?? {
     id: eventId,
     name: '',
     logo: '',
