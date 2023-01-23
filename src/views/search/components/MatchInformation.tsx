@@ -17,9 +17,9 @@ export const MatchInformation = () => {
           containerStyle={tw`items-center self-center`}
           sats={amount}
           color={tw`text-grey-2`}
-          style={tw`body-l`}
+          style={tw`leading-loose body-l`}
           bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-1`}
-          satsStyle={tw`subtitle-1 items-top`}
+          satsStyle={tw`subtitle-1`}
         />
       )}
     </>
