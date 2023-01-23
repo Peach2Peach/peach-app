@@ -1,5 +1,5 @@
 import { getContract } from '../../../../src/utils/contract'
-import { getNavigationDestinationForContract } from '../../../../src/views/yourTrades/utils/'
+import { getNavigationDestinationForContract } from '../../../../src/views/yourTrades/utils/getNavigationDestinationForContract'
 
 jest.mock('../../../../src/utils/contract', () => ({
   getContract: jest.fn(),

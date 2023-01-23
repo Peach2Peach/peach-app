@@ -1,5 +1,6 @@
 export { getDisputeResultTheme } from './getDisputeResultTheme'
-export { getNavigationDestinationForContract, getNavigationDestinationForOffer } from './getNavigationDestination'
+export { getNavigationDestinationForOffer } from './getNavigationDestinationForOffer'
+export { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 export { getOfferLevel } from './getOfferLevel'
 export { getThemeForPastTrade } from './getThemeForPastTrade'
 export { hasDoubleMatched } from './hasDoubleMatched'

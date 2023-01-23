@@ -4,7 +4,7 @@ import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverl
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
 import { isSellOffer } from '../../../utils/offer'
 import { getOfferDetails } from '../../../utils/peachAPI'
-import { getNavigationDestinationForOffer } from '../utils/getNavigationDestination'
+import { getNavigationDestinationForOffer } from '../utils/getNavigationDestinationForOffer'
 import { shouldOpenOverlay } from '../utils/shouldOpenOverlay'
 
 export const useNavigateToOffer = (offer: OfferSummary) => {
