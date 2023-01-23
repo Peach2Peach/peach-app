@@ -1,8 +1,11 @@
-import { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import shallow from 'zustand/shallow'
+import { Icon } from '../../../components'
+import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
+import tw from '../../../styles/tailwind'
 import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -13,7 +16,14 @@ export const useSearchSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
   // TODO: finish header
-  useHeaderSetup({ title: 'offer ' + offer.id, hideGoBackButton: true })
+  useHeaderSetup({
+    title: 'offer ' + offer.id,
+    hideGoBackButton: true,
+    icons: [
+      { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: () => {} },
+      { iconComponent: <HelpIcon />, onPress: () => {} },
+    ],
+  })
 
   const { allMatches: matches, error, refetch } = useOfferMatches()
   const resetStore = useMatchStore((state) => state.resetStore)
