@@ -10,11 +10,13 @@ export const MatchInformation = () => {
   const { allMatches: matches } = useOfferMatches()
   return (
     <>
-      <Text style={tw`text-center h4`}>{i18n(`search.youGot${matches.length === 1 ? 'AMatch' : 'Matches'}`)}</Text>
+      <Text style={tw`text-center h4 text-primary-main`}>
+        {i18n(`search.youGot${matches.length === 1 ? 'AMatch' : 'Matches'}`)}
+      </Text>
       <Text style={tw`text-center body-l text-black-2`}>{i18n('search.sellOffer')}:</Text>
       {typeof amount === 'number' && (
         <SatsFormat
-          containerStyle={tw`items-center self-center`}
+          containerStyle={tw`items-center self-center mt-2 mb-16`}
           sats={amount}
           color={tw`text-grey-2`}
           style={tw`leading-loose body-l`}
