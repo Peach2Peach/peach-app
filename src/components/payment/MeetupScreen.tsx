@@ -1,14 +1,12 @@
 import { API_URL } from '@env'
-import React, { ReactElement, useContext, useMemo } from 'react'
-import { View, Image, Text, Pressable, Linking } from 'react-native'
-import { OverlayContext } from '../../contexts/overlay'
+import React, { ReactElement, useMemo } from 'react'
+import { View, Image, Text, Pressable } from 'react-native'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
-import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
 import tw from '../../styles/tailwind'
-import { addPaymentData, removePaymentData } from '../../utils/account'
+import { addPaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { error, info } from '../../utils/log'
+import { info } from '../../utils/log'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { PrimaryButton } from '../buttons'
 import Icon from '../Icon'
@@ -16,6 +14,7 @@ import { HelpIcon } from '../icons'
 import { DeleteIcon } from '../icons/DeleteIcon'
 import { sessionStorage } from '../../utils/session'
 import { openAppLink } from '../../utils/web'
+import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
 
 /**
  * @description Screen for meetup event details.
@@ -38,6 +37,7 @@ export default (): ReactElement => {
   const openLink = () => (event.url ? openAppLink(event.url) : null)
 
   const showHelp = useShowHelp('cashTrades')
+  const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
 
   const addToPaymentMethods = () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
@@ -52,36 +52,11 @@ export default (): ReactElement => {
     navigation.goBack()
   }
 
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  const deletePaymentMethod = () => {
-    updateOverlay({
-      title: i18n('help.paymentMethodDelete.title'),
-      content: <DeletePaymentMethodConfirm />,
-      visible: true,
-      level: 'ERROR',
-      action1: {
-        callback: () => updateOverlay({ visible: false }),
-        icon: 'xSquare',
-        label: i18n('neverMind'),
-      },
-      action2: {
-        callback: () => {
-          removePaymentData('cash.' + event.id)
-          updateOverlay({ visible: false })
-          navigation.goBack()
-        },
-        icon: 'info',
-        label: i18n('delete'),
-      },
-    })
-  }
-
   const icons = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
   if (deletable) {
     icons[1] = {
       iconComponent: <DeleteIcon />,
-      onPress: deletePaymentMethod,
+      onPress: () => deletePaymentMethod(),
     }
   }
 
