@@ -92,12 +92,6 @@ declare type PaymentMethod =
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
 
-declare type MeetupEventsResponse = {
-  error: null // TODO there will be error codes
-  status: 'online' // TODO there will be other stati
-  serverTime: number
-}
-
 declare type MeetupEvent = {
   id: string
   country: Country
