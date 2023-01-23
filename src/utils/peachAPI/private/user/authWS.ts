@@ -8,8 +8,8 @@ import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
  * @param ws the websocket
  */
 export const authWS = (ws: WebSocket) => {
-  const message = getAuthenticationChallenge()
   const peachAccount = getPeachAccount()
+  const message = getAuthenticationChallenge()
 
   if (!peachAccount) {
     const authError = new Error('Peach Account not set')

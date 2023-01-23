@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 
 const phoneRules = { required: true, phone: true }
 export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
@@ -59,25 +60,18 @@ export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepV
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
-          onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            save()
-          }}
+      <View style={tw`mt-1`}>
+        <PhoneInput
+          onChange={setPhone}
+          onSubmit={save}
           reference={(el: any) => ($phone = el)}
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />

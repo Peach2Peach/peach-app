@@ -14,12 +14,12 @@ export const MatchHelpButton = () => {
   const openMatchHelp = () =>
     updateOverlay({
       content: isBuyOffer(offer) ? <MatchOverlay /> : <DoubleMatch />,
-      showCloseButton: true,
-      help: true,
+      visible: true,
+      level: 'INFO',
     })
   return (
     <Pressable onPress={openMatchHelp} style={tw`p-3`}>
-      <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color as string} />
+      <Icon id="help" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
     </Pressable>
   )
 }

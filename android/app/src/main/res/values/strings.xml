@@ -6,8 +6,6 @@
     <string name="notification.body.offer.wrongFundingAmount">Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.</string>
     <string name="notification.title.offer.notFunded">Offer canceled</string>
     <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %1$s days &#128542; We are deleting this offer.</string>
-    <string name="notification.title.offer.returnAddressRequired">Your sell offer is almost online!</string>
-    <string name="notification.body.offer.returnAddressRequired">To avoid losing funds, please provide an alternative address for refunds.</string>
     <string name="notification.title.offer.expired">No match</string>
     <string name="notification.body.offer.expired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>

@@ -1,26 +1,18 @@
 declare type RootStackParamList = {
-  [key: string]: {}
-  home: {}
+  home: undefined
   newUser: {
     referralCode?: string
   }
-  login: {}
-  restoreBackup: {}
-  buy: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
+  restoreBackup: undefined
+  wallet: undefined
+  transactionHistory: undefined
+  transactionDetails: {
+    txId: string
   }
-  buyPreferences: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
-  }
-  sell: {
-    amount: number
-    offer?: SellOffer
-    page?: number
-  }
+  buy: undefined
+  sell: undefined
+  buyPreferences: { amount: [number, number] }
+  sellPreferences: { amount: number }
   addPaymentMethod: {
     currencies?: Currency[]
     country?: Country
@@ -35,12 +27,16 @@ declare type RootStackParamList = {
     origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
     originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   }
+  signMessage: {
+    offerId: string
+  }
   fundEscrow: {
     offer: SellOffer
   }
-  setReturnAddress: {
-    offer: SellOffer
+  selectWallet: {
+    type: 'refund' | 'payout'
   }
+  offerPublished: undefined
   search: undefined
   contract: {
     contractId: Contract['id']
@@ -55,30 +51,46 @@ declare type RootStackParamList = {
   tradeComplete: {
     contract: Contract
   }
-  yourTrades: {}
+  yourTrades: undefined
   offer: {
     offerId: string
   }
-  settings: {}
-  contact: {}
+  settings: undefined
+  contact: undefined
   report: {
     reason: ContactReason
     topic?: string
     message?: string
     shareDeviceID?: boolean
   }
-  language: {}
-  currency: {}
-  profile: {
-    userId: User['id']
-    user?: User
-  }
-  referrals: {}
-  backups: {}
-  seedWords: {}
-  escrow: {}
-  paymentMethods: {}
-  deleteAccount: {}
-  fees: {}
-  socials: {}
+  language: undefined
+  currency: undefined
+  publicProfile: undefined
+  referrals: undefined
+  backups: undefined
+  backupCreated: undefined
+  seedWords: undefined
+  payoutAddress: undefined
+  walletSettings: undefined
+  paymentMethods: undefined
+  deleteAccount: undefined
+  peachFees: undefined
+  networkFees: undefined
+  aboutPeach: undefined
+  bitcoinProducts: undefined
+  socials: undefined
+  welcome: undefined
+  splashScreen: undefined
+  myProfile: undefined
+  testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
+  testViewMessages: undefined
+  testViewComponents: undefined
 }
+
+type KeysWithUndefined<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never
+}[keyof T]
+
+declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>

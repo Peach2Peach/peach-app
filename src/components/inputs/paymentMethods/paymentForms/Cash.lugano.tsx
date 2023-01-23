@@ -50,22 +50,22 @@ export const CashLugano = ({ forwardRef, data, currencies = [], onSubmit, setSte
         style={{ width: bannerWidth, height: bannerHeight }}
       />
 
-      <View style={tw`mt-4 px-6`}>
+      <View style={tw`px-6 mt-4`}>
         <Text style={tw`text-center text-white-1`}>
           {i18n('paymentMethod.cash.lugano.1')}
           {'\n\n'}
           {i18n('paymentMethod.cash.3')}
         </Text>
       </View>
-      <Pressable onPress={acknowledge} style={tw`flex flex-row justify-between items-center mt-10 px-6`}>
-        <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
+      <Pressable onPress={acknowledge} style={tw`flex flex-row items-center justify-between px-6 mt-10`}>
+        <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
           {disclaimerAcknowledged ? (
-            <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+            <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-peach-1`.color} />
           ) : (
-            <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
+            <View style={tw`w-4 h-4 border-2 rounded-sm border-grey-2`} />
           )}
         </View>
-        <Text style={tw`pl-7 flex-shrink text-white-1`}>{i18n('paymentMethod.cash.checkbox')}</Text>
+        <Text style={tw`flex-shrink pl-7 text-white-1`}>{i18n('paymentMethod.cash.checkbox')}</Text>
       </Pressable>
     </View>
   )

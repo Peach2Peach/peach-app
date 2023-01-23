@@ -17,7 +17,7 @@ const Flags = {
   PT,
   SE: null,
   UK: null,
-  US: null
+  US: null,
 }
 
 export type FlagType = keyof typeof Flags

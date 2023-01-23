@@ -1,6 +1,5 @@
 import { account } from '.'
-import { SATSINBTC } from '../../constants'
-import { getBitcoinContext } from '../../contexts/bitcoin'
+import { bitcoinStore } from '../../store/bitcoinStore'
 import { defaultAccount } from './account'
 import { storeTradingLimit } from './storeAccount'
 
@@ -8,7 +7,7 @@ import { storeTradingLimit } from './storeAccount'
  * @description Method to get trading limit of account
  */
 export const getTradingLimit = (currency?: Currency): TradingLimit => {
-  const { prices } = getBitcoinContext()
+  const { prices } = bitcoinStore.getState()
   let exchangeRate = 1
   const tradingLimit = account.tradingLimit || defaultAccount.tradingLimit
 
@@ -35,19 +34,3 @@ export const updateTradingLimit = async (tradingLimit: TradingLimit, save = true
   }
   if (save && account.publicKey) await storeTradingLimit(account.tradingLimit)
 }
-
-/**
- * @description Method to filter out buckets that are above user's trading limit
- * @param buckets buckets
- * @param price price in CHF
- * @param tradingLimit user trading limit
- * @returns filtered buckets
- */
-export const applyTradingLimit = (buckets: number[], price: number, tradingLimit: TradingLimit) =>
-  buckets.filter((bucket) => {
-    if (!price) return true
-
-    const amount = (bucket * price) / SATSINBTC
-
-    return amount < tradingLimit.daily && amount < tradingLimit.yearly
-  })

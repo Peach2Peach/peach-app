@@ -1,66 +1,29 @@
 import React, { ReactElement } from 'react'
-import {
-  TextStyle,
-  View,
-} from 'react-native'
+import { TextStyle, View } from 'react-native'
 import { Text } from '.'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { addOpacityToColor } from '../../utils/layout'
-import { padString } from '../../utils/string'
+import { getNumberFormatParts } from '../../utils/string'
+import PaymentLogo from '../payment/PaymentLogo'
 
-type SatsFormat = ComponentProps & {
-  sats: number,
-  format?: 'inline' | 'big',
-  color?: TextStyle,
+type SatsFormatProps = ComponentProps & {
+  sats: number
+  color?: TextStyle
 }
 
-/**
- * @description Component to display formatted sats
- * @param props Component properties
- * @param props.sats satoshis
- * @param props.color sats color
- * @example
- * <SatsFormat sats={5000}/>
- */
-export const SatsFormat = ({ sats, format = 'inline', color, style }: SatsFormat): ReactElement => {
-  const satsString = String(sats)
-  let btc = '0'
-  let sat = satsString.slice(-8, satsString.length)
-
-  if (sats >= SATSINBTC) {
-    btc = satsString.slice(0, -8)
-  }
-
-  sat = padString({
-    string: sat,
-    length: 8,
-    char: '0',
-    side: 'left'
-  })
-
-  const finalString = `${btc}.${sat.slice(-8, -6)} ${sat.slice(-6, -3)} ${sat.slice(-3, sat.length)}`
-  const cutIndex = satsString.length < 3
-    ? finalString.length - satsString.length
-    : satsString.length < 6
-      ? finalString.length - satsString.length - 1
-      : satsString.length < 9
-        ? finalString.length - satsString.length - 2
-        : 0
-  return format === 'inline'
-    ? <Text>
-      <Text style={[addOpacityToColor(color || tw`text-grey-2`, 0.5), style]}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={[color || tw`text-black-2`, style]}>
-        {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
+export const SatsFormat = ({ sats, color, style }: SatsFormatProps): ReactElement => {
+  const parts = getNumberFormatParts(sats / SATSINBTC)
+  return (
+    <View style={tw`flex flex-row items-center`}>
+      <PaymentLogo id="bitcoin" style={tw`w-3 h-3 mr-1 -mt-1`} />
+      <Text style={[tw`font-medium`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
+        {parts[0]}.{parts[1]}
       </Text>
-    </Text>
-    : <View style={[tw`flex-row justify-start items-center`, style]}>
-      <Text style={tw`font-mono text-grey-3`}>{finalString.slice(0, cutIndex)}</Text>
-      <Text style={tw`font-mono text-black-1`}>
-        {finalString.slice(cutIndex, finalString.length)} {i18n('currency.SATS')}
-      </Text>
+      <Text style={[tw`font-medium`, color || tw`text-black-1`, style]}>{parts[2]}</Text>
+      <Text style={[tw`body-s font-medium mt-0.5`, color || tw`text-black-1`, style]}> {i18n('currency.SATS')}</Text>
     </View>
+  )
 }
 
 export default SatsFormat

@@ -1,8 +1,9 @@
 import React, { ReactElement, useContext, useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
@@ -15,19 +16,19 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 /**
  * @description Overlay the seller sees when requesting cancelation
  */
-export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   const ok = async () => {
     setLoading(true)
     const [result, err] = await cancelContract({
       contractId: contract.id,
-      // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
     })
 
     if (result?.psbt) {
@@ -40,7 +41,7 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         })
         if (patchOfferResult) {
           closeOverlay()
-          navigation.navigate('yourTrades', {})
+          navigation.navigate('yourTrades')
           saveOffer({
             ...sellOffer,
             refundTx: psbt.toBase64(),
@@ -54,22 +55,37 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         } else if (patchOfferError) {
           error('Error', patchOfferError)
           updateMessage({
-            msgKey: patchOfferError?.error || 'error.general',
+            msgKey: patchOfferError?.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           })
         }
       } else if (checkRefundPSBTError) {
         error('Error', checkRefundPSBTError)
         updateMessage({
-          msgKey: checkRefundPSBTError || 'error.general',
+          msgKey: checkRefundPSBTError || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
       }
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
     setLoading(false)
@@ -77,10 +93,10 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>
+      <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n('contract.cancel.text')}
         {'\n\n'}
         {i18n('contract.cancel.seller.text.paymentMightBeDone')}
@@ -88,22 +104,12 @@ export const ConfirmCancelTradeSeller = ({ contract, navigation }: ConfirmCancel
         {i18n(`contract.cancel.seller.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
       </Text>
       <View>
-        <Button
-          style={tw`mt-8`}
-          title={i18n('contract.cancel.confirm.back')}
-          secondary={true}
-          wide={false}
-          loading={loading}
-          onPress={closeOverlay}
-        />
-        <Button
-          style={tw`mt-2`}
-          title={i18n('contract.cancel.confirm.ok')}
-          tertiary={true}
-          wide={false}
-          loading={loading}
-          onPress={ok}
-        />
+        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay} narrow>
+          {i18n('contract.cancel.confirm.back')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={ok} narrow>
+          {i18n('contract.cancel.confirm.ok')}
+        </PrimaryButton>
       </View>
     </View>
   )

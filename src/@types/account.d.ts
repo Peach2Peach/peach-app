@@ -2,23 +2,29 @@ declare type Settings = {
   appVersion: string
   enableAnalytics?: boolean
   locale: string
-  amount?: number
+  minAmount: number
+  maxAmount: number
   returnAddress?: string
+  payoutAddress?: string
+  payoutAddressLabel?: string
   derivationPath?: string
-  hdStartIndex?: number
   displayCurrency: Currency
   country?: string
   meansOfPayment: MeansOfPayment
   preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  preferredCurrencies: Currency[]
   premium?: number
   kyc?: boolean
   kycType?: KYCType
   pgpPublished?: boolean
   fcmToken?: string
   lastBackupDate?: number
+  lastSeedBackupDate?: number
   showBackupReminder: boolean
   showDisputeDisclaimer: boolean
+  peachWalletActive: boolean
+  nodeURL: string
+  customFeeRate: number
+  selectedFeeRate: FeeRate
 }
 
 declare type PGPKeychain = {

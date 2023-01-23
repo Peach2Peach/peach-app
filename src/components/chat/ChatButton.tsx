@@ -2,6 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Shadow } from '../../components'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getContractChatNotification } from '../../utils/chat'
 import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
@@ -12,9 +13,9 @@ export type Navigation = StackNavigationProp<RootStackParamList, keyof RootStack
 
 type ChatButtonProps = ComponentProps & {
   contract: Contract
-  navigation: Navigation
 }
-export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): ReactElement => {
+export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement => {
+  const navigation = useNavigation()
   const notifications = getContractChatNotification(contract)
   const shadow = contract.disputeActive ? mildShadowRed : mildShadowOrange
   const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
@@ -25,17 +26,17 @@ export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): Re
         <Pressable
           onPress={goToChat}
           style={[
-            tw`w-10 h-10 flex justify-center items-center rounded`,
+            tw`flex items-center justify-center w-10 h-10 rounded`,
             contract.disputeActive ? tw`bg-red` : tw`bg-peach-1`,
           ]}
         >
-          <Icon id="chat" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
+          <Icon id="messageCircle" style={tw`w-5 h-5`} color={tw`text-white-1`.color} />
           {notifications > 0 ? (
             <Bubble
-              color={tw`text-green`.color as string}
-              style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
+              color={tw`text-green`.color}
+              style={tw`absolute top-0 right-0 flex items-center justify-center w-4 -m-2`}
             >
-              <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+              <Text style={tw`text-xs text-center font-baloo text-white-1`} ellipsizeMode="head" numberOfLines={1}>
                 {notifications}
               </Text>
             </Bubble>

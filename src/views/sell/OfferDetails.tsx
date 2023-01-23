@@ -2,60 +2,53 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import { SellViewProps } from './SellPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import Premium from './components/Premium'
-import i18n from '../../utils/i18n'
-import { Headline, Title } from '../../components'
-import { hasMopsConfigured } from '../../utils/offer'
-import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
+import { EditIcon, HelpIcon } from '../../components/icons'
 import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
+import LanguageContext from '../../contexts/language'
+import { useHeaderSetup } from '../../hooks'
+import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
+import i18n from '../../utils/i18n'
+import { hasMopsConfigured } from '../../utils/offer'
+import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
+import { SellViewProps } from './SellPreferences'
 
 const validate = (offer: SellOffer) => {
-  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
-  const selectedPaymentMethods = Object.keys(offer.paymentData)
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentData(d!))
+  if (!offer.amount || !hasMopsConfigured(offer)) return false
 
-  return (
-    !!offer.amount
-    && hasMopsConfigured(offer)
-    && selectedPaymentMethods.length > 0
-    && paymentMethods.every((p) => offer.paymentData[p])
-    && paymentDataValid
-  )
+  const paymentMethods = getPaymentMethods(offer.meansOfPayment)
+  if (!paymentMethods.every((p) => offer.paymentData[p])) return false
+
+  const selectedPaymentMethods = Object.keys(offer.paymentData)
+  if (selectedPaymentMethods.length === 0) return false
+
+  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
+  return paymentDataValid
 }
 
-export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps): ReactElement => {
-  useContext(LanguageContext)
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+  const [editing, setEditing] = useState(false)
 
+  const headerConfig = {
+    title: i18n('form.paymentMethod'),
+    icons: [
+      {
+        iconComponent: <EditIcon />,
+        onPress: () => {
+          setEditing(!editing)
+        },
+      },
+      { iconComponent: <HelpIcon />, onPress: () => null },
+    ],
+  }
+  useContext(LanguageContext)
+  useHeaderSetup(headerConfig)
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
-  const [premium, setPremium] = useState(offer.premium)
-
-  const saveAndUpdate = (offr: SellOffer, shield = true) => {
-    updateOffer(
-      {
-        ...offr,
-        meansOfPayment,
-      },
-      shield,
-    )
-    updateSettings(
-      {
-        meansOfPayment: offr.meansOfPayment,
-        premium: offr.premium,
-        kyc: offr.kyc,
-        kycType: offr.kycType,
-      },
-      true,
-    )
-  }
 
   useEffect(() => {
     const paymentData = getSelectedPaymentDataIds()
@@ -68,33 +61,25 @@ export default ({ offer, updateOffer, setStepValid, navigation }: SellViewProps)
         }
         return obj
       }, {} as Offer['paymentData'])
-
-    saveAndUpdate(
-      {
-        ...offer,
-        meansOfPayment,
-        paymentData,
-        originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-        premium,
-      },
-      false,
-    )
-  }, [meansOfPayment, premium])
+    updateOffer({
+      ...offer,
+      meansOfPayment,
+      paymentData,
+    })
+  }, [meansOfPayment])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return (
-    <View style={tw`mb-16 px-6`}>
-      <Title title={i18n('sell.title')} />
-      <Headline style={tw`mt-16 text-grey-1`}>{i18n('sell.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['sellPreferences', { amount: offer.amount }]}
+    <View>
+      <PaymentDetails
         style={tw`mt-4`}
+        paymentData={account.paymentData}
+        setMeansOfPayment={setMeansOfPayment}
+        editing={editing}
       />
-
-      <Premium premium={premium} setPremium={setPremium} offer={offer} />
+      <View style={tw`bg-black-5 h-0.3 m-5`} />
+      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} />
     </View>
   )
 }

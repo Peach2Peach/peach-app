@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Text } from '../components'
+import { Headline, PrimaryButton, Text } from '../components'
 import LanguageContext from '../contexts/language'
 import { MessageContext } from '../contexts/message'
 import cancelOfferEffect from '../effects/cancelOfferEffect'
@@ -14,11 +14,11 @@ import { OverlayContext } from '../contexts/overlay'
 import { checkAndRefund, showTransaction } from '../utils/bitcoin'
 import { error, info } from '../utils/log'
 import { sum } from '../utils/math'
-import { Navigation } from '../utils/navigation'
 import { offerIdToHex, saveOffer } from '../utils/offer'
 import { thousands } from '../utils/string'
+import { useNavigation } from '../hooks'
 
-const textStyle = tw`text-white-1 text-center leading-5`
+const textStyle = tw`leading-5 text-center text-white-1`
 
 type WrongFundingAmountMessageProps = {
   sellOffer: SellOffer
@@ -26,7 +26,7 @@ type WrongFundingAmountMessageProps = {
 }
 
 const WrongFundingAmountMessage = ({ sellOffer, fundingStatus }: WrongFundingAmountMessageProps): ReactElement => (
-  <View style={tw`flex justify-center items-center`}>
+  <View style={tw`flex items-center justify-center`}>
     <Text style={textStyle}>{i18n(`refund.${fundingStatus}.description`)}</Text>
     <Text style={[textStyle, tw`mt-2`]}>
       {i18n(`refund.${fundingStatus}.youSent`)}: {thousands(sellOffer.funding.amounts.reduce(sum, 0))}
@@ -41,14 +41,10 @@ const WrongFundingAmountMessage = ({ sellOffer, fundingStatus }: WrongFundingAmo
 type ReturnAddressMismatchMessageProps = {
   sellOffer: SellOffer
   refundPSBT: Psbt
-  navigation: Navigation
 }
 
-const ReturnAddressMismatchMessage = ({
-  sellOffer,
-  refundPSBT,
-  navigation,
-}: ReturnAddressMismatchMessageProps): ReactElement => {
+const ReturnAddressMismatchMessage = ({ sellOffer, refundPSBT }: ReturnAddressMismatchMessageProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const goToContact = () => {
@@ -63,7 +59,7 @@ const ReturnAddressMismatchMessage = ({
         i18n('refund.RETURN_ADDRESS_MISMATCH.actual', refundPSBT?.txOutputs[0]?.address || 'null'),
       ].join('\n\n'),
     })
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
   return (
     <View>
@@ -76,14 +72,9 @@ const ReturnAddressMismatchMessage = ({
         {'\n\n'}
         {i18n('refund.RETURN_ADDRESS_MISMATCH.pleaseCheck')}
       </Text>
-      <View style={tw`flex justify-center items-center mt-2`}>
-        <Button
-          title={i18n('refund.RETURN_ADDRESS_MISMATCH.contactSupport')}
-          secondary={true}
-          wide={false}
-          onPress={goToContact}
-        />
-      </View>
+      <PrimaryButton style={tw`self-center mt-2`} onPress={goToContact} narrow>
+        {i18n('refund.RETURN_ADDRESS_MISMATCH.contactSupport')}
+      </PrimaryButton>
     </View>
   )
 }
@@ -91,10 +82,10 @@ const ReturnAddressMismatchMessage = ({
 type Props = {
   sellOffer: SellOffer
   navigate?: () => void
-  navigation: Navigation
 }
 
-export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
+export default ({ sellOffer, navigate }: Props): ReactElement => {
+  const navigation = useNavigation()
   useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -106,7 +97,7 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
 
   const closeOverlay = () => {
     if (navigate) navigate()
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   useEffect(
@@ -133,16 +124,26 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
           } else if (err) {
             error('Error', err)
             updateMessage({
-              msgKey: err || 'error.general',
+              msgKey: err || 'GENERAL_ERROR',
               level: 'ERROR',
+              action: {
+                callback: () => navigation.navigate('contact'),
+                label: i18n('contactUs'),
+                icon: 'mail',
+              },
             })
           }
         })()
       },
       onError: (err) => {
         updateMessage({
-          msgKey: err.error || 'error.general',
+          msgKey: err.error || 'GENERAL_ERROR',
           level: 'ERROR',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
       },
     }),
@@ -152,26 +153,28 @@ export default ({ sellOffer, navigate, navigation }: Props): ReactElement => {
   return (
     <View style={tw`px-6`}>
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n(`refund.${fundingStatus}.title`)}</Headline>
-      <View style={tw`flex justify-center items-center`}>
+      <View style={tw`flex items-center justify-center`}>
         {returnAddressMismatch ? (
-          !!refundPSBT && <ReturnAddressMismatchMessage {...{ sellOffer, refundPSBT, navigation }} />
+          !!refundPSBT && <ReturnAddressMismatchMessage {...{ sellOffer, refundPSBT }} />
         ) : fundingStatus === 'WRONG_FUNDING_AMOUNT' && sellOffer.funding ? (
           <WrongFundingAmountMessage {...{ sellOffer, fundingStatus }} />
         ) : (
-          <View style={tw`flex justify-center items-center`}>
+          <View style={tw`flex items-center justify-center`}>
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.description`)}</Text>
             <Text style={textStyle}>{i18n(`refund.${fundingStatus}.refund`)}</Text>
           </View>
         )}
-        <Button style={tw`mt-5`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
-        <Button
+        <PrimaryButton style={tw`mt-5`} onPress={closeOverlay} narrow>
+          {i18n('close')}
+        </PrimaryButton>
+        <PrimaryButton
           style={tw`mt-2`}
-          tertiary={true}
-          wide={false}
           disabled={!transactionId}
           onPress={() => showTransaction(transactionId, NETWORK)}
-          title={i18n('showTransaction')}
-        />
+          narrow
+        >
+          {i18n('showTransaction')}
+        </PrimaryButton>
       </View>
     </View>
   )

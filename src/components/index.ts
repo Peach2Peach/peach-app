@@ -1,20 +1,18 @@
 export { AvoidKeyboard } from './AvoidKeyboard'
 export { PeachScrollView } from './PeachScrollView'
-export { BitcoinAddress } from './bitcoin'
+export { BitcoinPriceStats, BitcoinAddress } from './bitcoin'
 
-export { Button } from './Button'
+export { PrimaryButton, InfoButton, OptionButton, GoBackButton } from './buttons'
 export { Card } from './Card'
 export { Fade, Loading } from './animation'
 export { MenuItem, Navigation } from './navigation'
 export { Footer } from './footer'
-export { Header } from './Header'
+export { Header } from './header/Header'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
-export { Hint } from './Hint'
 export {
-  Checkboxes,
-  Dropdown,
+  Checkbox,
   FileInput,
   Input,
   LanguageSelect,
@@ -32,6 +30,6 @@ export { Bubble, CopyAble, HorizontalLine, Progress, Shadow } from './ui'
 export { paymentDetailTemplates } from './payment/'
 export { PaymentLogo } from './payment/PaymentLogo'
 export { ScanQR } from './camera/ScanQR'
-export { BigTitle, Headline, SatsFormat, Text, TextLink, Timer, Title } from './text'
+export { BigTitle, Headline, PriceFormat, SatsFormat, Text, TextLink, Timer, Title } from './text'
 
 export type { FileData } from './types'

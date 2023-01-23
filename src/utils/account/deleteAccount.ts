@@ -8,16 +8,7 @@ import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { sessionStorage } from '../session'
 import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
 
-interface DeleteAccountProps {
-  onSuccess?: Function
-}
-
-/**
- * @description Method to delete account
- * @param props.onSuccess callback on success
- * @param props.onError callback on error
- */
-export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
+export const deleteAccount = async () => {
   info('Deleting account')
 
   setAccount(defaultAccount, true)
@@ -29,6 +20,5 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   deleteAccessToken()
   deletePeachAccount()
-  if (onSuccess) onSuccess()
   analytics().logEvent('account_deleted')
 }

@@ -1,29 +1,32 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { RouteProp } from '@react-navigation/native'
-import { Headline } from '../../components'
+import { HeaderConfig } from '../../components/header/store'
+import { HelpIcon } from '../../components/icons'
+import { DeleteIcon } from '../../components/icons/DeleteIcon'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
-import { addPaymentData } from '../../utils/account'
-import { StackNavigation } from '../../utils/navigation'
+import { OverlayContext } from '../../contexts/overlay'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
+import { addPaymentData, removePaymentData } from '../../utils/account'
+import { info } from '../../utils/log'
 import { specialTemplates } from './specialTemplates'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['paymentDetails'] }>
-  navigation: StackNavigation
-}
-
-const previousScreen: Record<keyof RootStackParamList, keyof RootStackParamList> = {
+const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
   sellPreferences: 'sell',
   paymentMethods: 'settings',
 }
 
-export default ({ route, navigation }: Props): ReactElement => {
-  const { paymentData: data } = route.params
+export default (): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
+  const route = useRoute<'paymentDetails'>()
+  const navigation = useNavigation()
+  const { paymentData: data, originOnCancel } = route.params
   const { type: paymentMethod, currencies } = data
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
@@ -31,43 +34,76 @@ export default ({ route, navigation }: Props): ReactElement => {
       index: 2,
       routes: [
         { name: 'home' },
-        { name: (previousScreen[origin[0]] as string) || 'home' },
+        { name: previousScreen[origin[0]] || 'home' },
         {
-          name: origin[0] as string,
+          name: origin[0],
           params: origin[1],
         },
       ],
     })
   }
 
-  const goToOriginOnCancel = () => goToOrigin(route.params.originOnCancel || route.params.origin)
+  const goToOriginOnCancel = () => goToOrigin(originOnCancel || route.params.origin)
 
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
     goToOrigin(route.params.origin)
   }
 
-  const onDelete = () => {
-    goToOrigin(route.params.origin)
+  const deletePaymentMethod = () => {
+    updateOverlay({
+      title: i18n('help.paymentMethodDelete.title'),
+      content: <DeletePaymentMethodConfirm />,
+      visible: true,
+      level: 'ERROR',
+      action1: {
+        callback: () => updateOverlay({ visible: false }),
+        icon: 'xSquare',
+        label: i18n('neverMind'),
+      },
+      action2: {
+        callback: () => {
+          if (!data?.id) return
+          removePaymentData(data.id)
+          updateOverlay({ visible: false })
+          navigation.goBack()
+        },
+        icon: 'info',
+        label: i18n('delete'),
+      },
+    })
   }
 
+  const showHelp = useShowHelp('currencies')
+
+  const headerIcons = () => {
+    const icons: HeaderConfig['icons'] = []
+    if (['revolut', 'wise', 'paypal'].includes(paymentMethod)) {
+      icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
+    }
+    if (data.id) {
+      icons[1] = { iconComponent: <DeleteIcon />, onPress: deletePaymentMethod }
+    }
+    info('icons' + icons)
+    return icons
+  }
+
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: data.id
+          ? i18n('paymentMethod.edit.title', i18n(`paymentMethod.${paymentMethod}`))
+          : i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
+        icons: headerIcons(),
+      }),
+      [paymentMethod, showHelp],
+    ),
+  )
+
   return (
-    <View
-      style={
-        specialTemplates[paymentMethod]
-          ? [tw`flex h-full`, specialTemplates[paymentMethod]!.style]
-          : tw`flex h-full mt-8`
-      }
-    >
-      {!specialTemplates[paymentMethod] && (
-        <Headline>{i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`))}</Headline>
-      )}
-      <View style={[tw`h-full flex-shrink flex justify-center`, !specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
-        <PaymentMethodForm
-          style={tw`h-full flex-shrink flex-col justify-between`}
-          back={goToOriginOnCancel}
-          {...{ paymentMethod, onSubmit, onDelete, navigation, currencies, data }}
-        />
+    <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
+      <View style={[!specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
+        <PaymentMethodForm back={goToOriginOnCancel} {...{ paymentMethod, onSubmit, currencies, data }} />
       </View>
     </View>
   )

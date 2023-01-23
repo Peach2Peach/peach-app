@@ -2,8 +2,7 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp } from '@react-navigation/native'
-import { Button, Fade, Input, SatsFormat, Text, Title } from '../../components'
+import { Fade, Input, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
 import { getContract } from '../../utils/contract'
@@ -13,17 +12,11 @@ import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
 import { error } from '../../utils/log'
-import { Navigation } from '../../utils/navigation'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useKeyboard } from '../../hooks'
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['dispute'] }>
-  navigation: Navigation
-}
+import { useValidatedState, useKeyboard, useRoute, useNavigation } from '../../hooks'
 
 const disputeReasonsSeller: DisputeReason[] = [
   'noPayment',
@@ -38,16 +31,18 @@ export const isEmailRequired = (reason: DisputeReason | '') =>
 
 const required = { required: true }
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'dispute'>()
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const keyboardOpen = useKeyboard()
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => getContract(contractId))
+  const [contract, setContract] = useState(getContract(contractId))
   const [start, setStart] = useState(false)
   const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
-  const emailRules = useMemo(() => ({ email: isEmailRequired(reason!), required: isEmailRequired(reason!) }), [reason])
+  const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
@@ -103,11 +98,11 @@ export default ({ route, navigation }: Props): ReactElement => {
       Keyboard.dismiss()
       updateOverlay({
         content: <RaiseDisputeSuccess />,
-        showCloseButton: false,
+        visible: true,
       })
       setTimeout(() => {
         navigation.navigate('contract', { contractId })
-        updateOverlay({ content: null, showCloseButton: true })
+        updateOverlay({ visible: false })
       }, 3000)
       setLoading(false)
 
@@ -117,18 +112,23 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
     setLoading(false)
   }
 
   return (
-    <View style={tw`h-full pt-6 px-6 flex-col justify-between items-center pb-10`}>
+    <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
       <View style={tw`mb-2`}>
         <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0} color={tw`text-grey-2`} />
         </Text>
       </View>
@@ -136,19 +136,20 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View style={tw`flex items-center`}>
           <Text style={tw`text-center`}>{i18n('dispute.whatIsTheDisputeAbout') + '\n'}</Text>
           {availableReasons.map((rsn, i) => (
-            <Button
+            <PrimaryButton
               key={rsn}
-              wide={false}
               onPress={() => setReason(rsn)}
               style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
-              title={i18n(`dispute.reason.${rsn}`)}
-            />
+              narrow
+            >
+              {i18n(`dispute.reason.${rsn}`)}
+            </PrimaryButton>
           ))}
         </View>
       ) : (
         <View style={tw`flex items-center`}>
-          <Text style={tw`text-center px-4`}>{i18n('dispute.provideExplanation')}</Text>
-          {isEmailRequired(reason!) ? (
+          <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
+          {isEmailRequired(reason) ? (
             <View style={tw`mt-4`}>
               <Input
                 onChange={setEmail}
@@ -156,7 +157,6 @@ export default ({ route, navigation }: Props): ReactElement => {
                 value={email}
                 label={i18n('form.userEmail')}
                 placeholder={i18n('form.userEmail.placeholder')}
-                isValid={emailIsValid}
                 autoCorrect={false}
                 errorMessage={displayErrors ? emailErrors : undefined}
               />
@@ -171,24 +171,20 @@ export default ({ route, navigation }: Props): ReactElement => {
               multiline={true}
               label={i18n('form.message')}
               placeholder={i18n('form.message.placeholder')}
-              isValid={messageIsValid}
               autoCorrect={false}
               errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
-          <Button
-            wide={false}
-            onPress={submit}
-            loading={loading}
-            disabled={loading}
-            style={tw`mt-2`}
-            title={i18n('confirm')}
-          />
+          <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
+            {i18n('confirm')}
+          </PrimaryButton>
         </View>
       )}
       <View style={tw`flex-col flex-shrink`}>
         <Fade show={start && !keyboardOpen} pointerEvents={start ? 'auto' : 'none'} displayNone={false}>
-          <Button secondary={true} wide={false} onPress={goBack} style={tw`mt-2`} title={i18n('back')} />
+          <PrimaryButton onPress={goBack} style={tw`mt-2`} narrow>
+            {i18n('back')}
+          </PrimaryButton>
         </Fade>
       </View>
     </View>

@@ -5,13 +5,12 @@ import { DrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { Flag, Headline, Icon, RadioButtons, Text } from '../../components'
+import { Flag, Icon, PrimaryButton, RadioButtons, Text } from '../../components'
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
 import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
 import { CountrySelect } from '../../drawers/CountrySelect'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { FlagType } from '../../components/flags'
-import { Navigation } from './components/Navigation'
 import { whiteGradient } from '../../utils/layout'
 
 const { LinearGradient } = require('react-native-gradients')
@@ -80,13 +79,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
 
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),
-      content: (
-        <PaymentMethodSelect
-          paymentMethods={applicablePaymentMethods}
-          showLogos={!/bankTransfer/u.test(category)}
-          onSelect={selectPaymentMethod}
-        />
-      ),
+      content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods} onSelect={selectPaymentMethod} />,
       show: true,
       onClose: () => {
         setPaymentCategory(undefined)
@@ -105,16 +98,15 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
 
   return (
     <View style={tw`flex h-full`}>
-      <Headline>{i18n('paymentMethod.select')}</Headline>
-      <View style={tw`h-full flex-shrink flex justify-center px-10`}>
+      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
         {!country ? (
           <RadioButtons items={paymentCategories} selectedValue={paymentCategory} onChange={setPaymentCategory} />
         ) : (
           <View>
             <Pressable style={tw`flex flex-row items-center px-8`} onPress={() => showDrawer('localOption')}>
               <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
-              <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`}>{i18n(`country.${country}`)}</Text>
-              <Icon id="change" style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
+              <Text style={tw`flex-shrink w-full uppercase drawer-title`}>{i18n(`country.${country}`)}</Text>
+              <Icon id="refreshCcw" style={tw`w-7 h-7`} color={tw`text-primary-main`.color} />
             </Pressable>
             <RadioButtons
               style={tw`mt-16`}
@@ -125,11 +117,13 @@ export default ({ currency, paymentMethod, setPaymentMethod, back, next }: Payme
           </View>
         )}
       </View>
-      <View style={tw`mt-4 px-6 flex items-center w-full bg-white-1`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
-        <Navigation back={country ? restoreDefaults : back} next={next} stepValid={stepValid} />
+        <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+          {i18n('next')}
+        </PrimaryButton>
       </View>
     </View>
   )

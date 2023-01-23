@@ -1,26 +1,26 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Button, Card, Text } from '../../../components'
+import { Card, PrimaryButton, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import AppContext from '../../../contexts/app'
 import { MessageContext } from '../../../contexts/message'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { getChatNotifications } from '../../../utils/chat'
-import { createUserRating } from '../../../utils/contract'
+import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { StackNavigation } from '../../../utils/navigation'
 import { getRequiredActionCount } from '../../../utils/offer'
 import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
   contract: Contract
   view: 'seller' | 'buyer' | ''
-  navigation: StackNavigation
   saveAndUpdate: (contract: Contract) => void
 }
 
-export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps): ReactElement => {
+export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
 
@@ -42,7 +42,15 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (err) {
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
+      })
       return
     }
     saveAndUpdate({
@@ -54,10 +62,9 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (rating.rating === 1) {
-      const offerId = contract.id.split('-')[view === 'seller' ? 0 : 1]
-      navigation.replace('offer', { offerId })
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
     } else {
-      navigation.replace('yourTrades', {})
+      navigation.replace('yourTrades')
     }
   }
   return (
@@ -68,23 +75,23 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
         <View style={tw`flex-row justify-center mt-4`}>
           <Pressable onPress={() => setVote('negative')}>
             <Icon
-              id="negative"
+              id="thumbsDown"
               style={[tw`w-6 h-6 mx-2`, vote !== 'negative' ? tw`opacity-30` : {}]}
-              color={tw`text-peach-1`.color as string}
+              color={tw`text-peach-1`.color}
             />
           </Pressable>
           <Pressable onPress={() => setVote('positive')}>
             <Icon
-              id="positive"
+              id="thumbsUp"
               style={[tw`w-6 h-6 mx-2`, vote !== 'positive' ? tw`opacity-30` : {}]}
-              color={tw`text-peach-1`.color as string}
+              color={tw`text-peach-1`.color}
             />
           </Pressable>
         </View>
       </Card>
-      <View style={tw`flex items-center mt-4`}>
-        <Button title={i18n('rate.rateAndFinish')} disabled={!vote} wide={false} onPress={rate} />
-      </View>
+      <PrimaryButton style={tw`self-center mt-4`} disabled={!vote} onPress={rate} narrow>
+        {i18n('rate.rateAndFinish')}
+      </PrimaryButton>
     </View>
   )
 }

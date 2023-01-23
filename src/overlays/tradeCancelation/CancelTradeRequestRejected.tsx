@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { contractIdToHex, saveContract } from '../../utils/contract'
@@ -13,7 +13,7 @@ import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
 
   useEffect(() => {
     saveContract({
@@ -32,9 +32,9 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
         {i18n('contract.cancel.seller.rejected.text.1', contractIdToHex(contract.id))}
       </Text>
       <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
-      <View>
-        <Button style={tw`mt-8`} title={i18n('close')} secondary={true} wide={false} onPress={closeOverlay} />
-      </View>
+      <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>
+        {i18n('close')}
+      </PrimaryButton>
     </View>
   )
 }

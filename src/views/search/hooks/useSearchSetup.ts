@@ -42,5 +42,5 @@ export const useSearchSetup = () => {
 
   useRefetchOnNotification(refetch, offer.id)
 
-  return !!matches.length
+  return { offer, hasMatches: !!matches.length }
 }

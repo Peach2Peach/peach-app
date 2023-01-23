@@ -1,8 +1,9 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { Button, Headline, Text } from '../../components'
+import { Headline, PrimaryButton, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { contractIdToHex, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -15,12 +16,13 @@ import { ContractCanceled } from './ContractCanceled'
 /**
  * @description Overlay the buyer sees after seller requested the cancelation of the trade
  */
-export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCancelTradeProps): ReactElement => {
+export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
 
-  const closeOverlay = () => updateOverlay({ content: null, showCloseButton: true })
+  const closeOverlay = () => updateOverlay({ visible: false })
   const confirm = async () => {
     setLoading(true)
     const [result, err] = await confirmContractCancelation({ contractId: contract.id })
@@ -31,13 +33,18 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
         canceled: true,
         cancelationRequested: false,
       })
-      updateOverlay({ content: <ContractCanceled contract={contract} navigation={navigation} /> })
-      navigation.navigate('yourTrades', {})
+      updateOverlay({ content: <ContractCanceled contract={contract} />, visible: true })
+      navigation.navigate('yourTrades')
     } else if (err) {
       error('Error', err)
       updateMessage({
-        msgKey: err?.error || 'error.general',
+        msgKey: err?.error || 'GENERAL_ERROR',
         level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
     }
     setLoading(false)
@@ -74,22 +81,12 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
       </Text>
       <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.request.text.2')}</Text>
       <View>
-        <Button
-          style={tw`mt-8`}
-          title={i18n('contract.cancel.request.ok')}
-          tertiary={true}
-          wide={false}
-          loading={loading}
-          onPress={confirm}
-        />
-        <Button
-          style={tw`mt-2`}
-          title={i18n('contract.cancel.request.back')}
-          secondary={true}
-          wide={false}
-          loading={loading}
-          onPress={reject}
-        />
+        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={confirm} narrow>
+          {i18n('contract.cancel.request.ok')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={reject} narrow>
+          {i18n('contract.cancel.request.back')}
+        </PrimaryButton>
       </View>
     </View>
   )

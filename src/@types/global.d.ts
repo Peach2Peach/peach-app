@@ -13,9 +13,7 @@ declare type ComponentProps = {
   forwardRef?: RefObject<unknown>
   children?: ReactNode
   style?: ViewStyle | ViewStyle[]
-}
-declare type PressableProps = {
-  onPress?: () => void
+  onLayout?: (event: LayoutChangeEvent) => void
 }
 
 declare type AnyObject = {
@@ -42,7 +40,6 @@ declare type SEPAData = {
   beneficiary: string
   iban: string
   bic?: string
-  address?: string
   reference?: string
 }
 declare type BizumData = {
@@ -106,21 +103,33 @@ declare type AppState = {
   notifications: number
 }
 
-declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
-declare type MessageState = {
-  template?: ReactNode
-  msgKey?: string
-  msg?: string
-  level: Level
-  close?: boolean
-  time?: number
+declare type Action = {
+  callback: () => void
+  label?: string
+  icon?: IconType
+  disabled?: boolean
 }
+
+declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+declare type SummaryItemLevel = Level | 'WAITING'
+
+declare type MessageState = {
+  level: Level
+  msgKey?: string
+  action?: Action
+  onClose?: Function
+  time?: number
+  keepAlive?: boolean
+}
+
 declare type OverlayState = {
-  content: ReactNode
-  showCloseIcon?: boolean
-  showCloseButton?: boolean
-  onClose?: () => void
-  help?: boolean
+  level?: Level
+  title?: string
+  content?: ReactNode
+  action1?: Action
+  action2?: Action
+  visible: boolean
+  requireUserAction?: boolean
 }
 declare type DrawerState = {
   title: string
@@ -140,7 +149,7 @@ declare type PeachWallet = {
   mnemonic: string
 }
 
-declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other' | 'newMethod'
+declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'sellMore' | 'other'
 
 declare type Expiry = {
   date: Date

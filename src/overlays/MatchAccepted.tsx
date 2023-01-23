@@ -3,11 +3,12 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Icon, Text } from '../components'
+import { Headline, Icon, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
+import { PrimaryButton } from '../components/buttons'
 
 type Props = {
   contractId: Contract['id']
@@ -15,10 +16,10 @@ type Props = {
 
 export default ({ contractId }: Props): ReactElement => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
 
+  const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToContract = () => {
@@ -31,7 +32,7 @@ export default ({ contractId }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('matchAccepted.title')}</Headline>
       <View style={tw`flex items-center mt-3`}>
         <View style={tw`flex items-center justify-center w-16 h-16 rounded-full bg-green`}>
-          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
         </View>
       </View>
       <Text style={tw`mt-5 text-center text-white-1`}>
@@ -40,8 +41,12 @@ export default ({ contractId }: Props): ReactElement => {
         {i18n('matchAccepted.description.2')}
       </Text>
       <View style={tw`flex items-center justify-center mt-5`}>
-        <Button title={i18n('goToMatch')} secondary={true} wide={false} onPress={goToContract} />
-        <Button title={i18n('later')} style={tw`mt-2`} tertiary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton onPress={goToContract} narrow>
+          {i18n('goToMatch')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('later')}
+        </PrimaryButton>
       </View>
     </View>
   )

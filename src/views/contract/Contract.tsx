@@ -1,38 +1,37 @@
+/* eslint-disable max-lines */
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
-import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
+import { useFocusEffect } from '@react-navigation/native'
+import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title, TradeSummary } from '../../components'
+import { ChatButton } from '../../components/chat/ChatButton'
 import { TIMERS } from '../../constants'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
+import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
+import { useNavigation, useRoute } from '../../hooks'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
-import { contractIdToHex, getContract, saveContract, signReleaseTx } from '../../utils/contract'
+import { contractIdToHex, getContract, getOfferIdFromContract, saveContract, signReleaseTx } from '../../utils/contract'
 import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
-import { getRequiredActionCount } from '../../utils/offer'
+import { getRequiredActionCount, saveOffer } from '../../utils/offer'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { ContractSummary } from '../yourTrades/components/ContractSummary'
 import ContractCTA from './components/ContractCTA'
+import { decryptContractData } from './helpers/decryptContractData'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
-import { parseContract } from './helpers/parseContract'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['contract'] }>
-  navigation: StackNavigation
-}
-
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'contract'>()
+  const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -40,7 +39,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const [loading, setLoading] = useState(false)
   const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState<Contract | null>(() => route.params.contract || getContract(contractId))
+  const [contract, setContract] = useState(route.params.contract || getContract(contractId))
   const [updatePending, setUpdatePending] = useState(!contract)
   const [view, setView] = useState<'seller' | 'buyer' | ''>(
     contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
@@ -112,7 +111,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
           setView(v)
 
-          const { symmetricKey, paymentData } = await parseContract({
+          const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
             symmetricKey: c?.symmetricKey,
             paymentData: c?.paymentData,
@@ -133,20 +132,47 @@ export default ({ route, navigation }: Props): ReactElement => {
               },
           )
 
-          handleOverlays({ contract: c, navigation, updateOverlay, view: v })
+          handleOverlays({ contract: c, updateOverlay, view: v })
         },
         onError: (err) =>
           updateMessage({
-            msgKey: err.error || 'error.general',
+            msgKey: err.error || 'GENERAL_ERROR',
             level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
           }),
       }),
       [contractId],
     ),
   )
 
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: contract ? getOfferIdFromContract(contract) : undefined,
+        onSuccess: async (result) => {
+          saveOffer(result, false)
+        },
+        onError: (err) =>
+          updateMessage({
+            msgKey: err.error || 'GENERAL_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          }),
+      }),
+      [contract],
+    ),
+  )
+
   useEffect(() => {
-    if (!contract || !view) return
+    if (!contract || !view || updatePending) return
 
     if (isTradeComplete(contract)) {
       if (
@@ -154,20 +180,19 @@ export default ({ route, navigation }: Props): ReactElement => {
         || (view === 'seller' && !contract.ratingBuyer)
       ) {
         navigation.replace('tradeComplete', { contract })
-      } else {
-        const offerId = contract.id.split('-')[view === 'seller' ? 0 : 1]
-        navigation.replace('offer', { offerId })
+        return
       }
+
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       return
     } else if (isTradeCanceled(contract)) {
-      const offerId = contract.id.split('-')[view === 'seller' ? 0 : 1]
-      navigation.replace('offer', { offerId })
+      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
       return
     }
 
     setRequiredAction(getRequiredAction(contract))
     setUpdatePending(false)
-  }, [contract])
+  }, [contract, navigation, updatePending, view])
 
   const postConfirmPaymentBuyer = async () => {
     if (!contract) return
@@ -176,7 +201,15 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
+      })
       return
     }
 
@@ -195,8 +228,13 @@ export default ({ route, navigation }: Props): ReactElement => {
     if (!tx) {
       setLoading(false)
       updateMessage({
-        msgKey: errorMsg!.join('\n'),
+        msgKey: errorMsg || 'GENERAL_ERROR',
         level: 'WARN',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
       })
       return
     }
@@ -207,7 +245,15 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (err) {
       error(err.error)
-      updateMessage({ msgKey: err.error || 'error.general', level: 'ERROR' })
+      updateMessage({
+        msgKey: err.error || 'GENERAL_ERROR',
+        level: 'ERROR',
+        action: {
+          callback: () => navigation.navigate('contact'),
+          label: i18n('contactUs'),
+          icon: 'mail',
+        },
+      })
       return
     }
 
@@ -221,12 +267,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   const openPaymentHelp = () =>
     updateOverlay({
       content: <Payment />,
-      showCloseButton: true,
-      help: true,
+      visible: true,
     })
 
   return !contract || updatePending ? (
-    <Loading />
+    <View style={tw`items-center justify-center w-full h-full`}>
+      <Loading />
+    </View>
   ) : (
     <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
@@ -237,7 +284,10 @@ export default ({ route, navigation }: Props): ReactElement => {
         <Text style={tw`mt-2 text-center text-grey-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
-            <ContractSummary contract={contract} view={view} navigation={navigation} />
+            <View>
+              <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
+              <TradeSummary {...{ contract, view }} />
+            </View>
             <View style={tw`flex-row justify-center mt-16`}>
               {/sendPayment/u.test(requiredAction) ? (
                 <View style={tw`absolute flex-row items-center mb-1 bottom-full`}>
@@ -249,18 +299,12 @@ export default ({ route, navigation }: Props): ReactElement => {
                   />
                   {view === 'buyer' && requiredAction === 'sendPayment' ? (
                     <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
-                      <Icon id="help" style={tw`w-4 h-4`} color={tw`text-blue-1`.color as string} />
+                      <Icon id="helpCircle" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
                     </Pressable>
                   ) : null}
                 </View>
               ) : null}
-              <ContractCTA
-                view={view}
-                requiredAction={requiredAction}
-                loading={loading}
-                postConfirmPaymentBuyer={postConfirmPaymentBuyer}
-                postConfirmPaymentSeller={postConfirmPaymentSeller}
-              />
+              <ContractCTA {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }} />
             </View>
           </View>
         ) : null}

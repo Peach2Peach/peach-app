@@ -3,24 +3,24 @@ import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
 
-import { Button, Headline, Icon, Text } from '../components'
+import { Headline, Icon, PrimaryButton, Text } from '../components'
 import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
-import { Navigation } from '../utils/navigation'
-import { contractIdToHex, getOfferIdfromContract } from '../utils/contract'
+import { useNavigation } from '../hooks'
+import { getOfferHexIdFromContract } from '../utils/contract'
 
 type Props = {
   contract: Contract
   date: number
-  navigation: Navigation
 }
 
-export default ({ contract, date, navigation }: Props): ReactElement => {
+export default ({ contract, date }: Props): ReactElement => {
+  const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = () => {
-    updateOverlay({ content: null, showCloseButton: true })
+    updateOverlay({ visible: false })
   }
 
   const goToContract = () => {
@@ -43,17 +43,21 @@ export default ({ contract, date, navigation }: Props): ReactElement => {
       <Headline style={tw`text-3xl leading-3xl text-white-1`}>{i18n('paymentMade.title')}</Headline>
       <View style={tw`flex items-center mt-3`}>
         <View style={tw`flex items-center justify-center w-16 h-16 rounded-full bg-green`}>
-          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color as string} />
+          <Icon id="check" style={tw`w-12 h-12`} color={tw`text-white-1`.color} />
         </View>
       </View>
       <Text style={tw`mt-5 text-center text-white-1`}>
-        {i18n('paymentMade.description.1', contractIdToHex(contract.id))}
+        {i18n('paymentMade.description.1', getOfferHexIdFromContract(contract))}
         {'\n\n'}
         {i18n('paymentMade.description.2')}
       </Text>
       <View style={tw`flex items-center justify-center mt-5`}>
-        <Button title={i18n('goToContract')} secondary={true} wide={false} onPress={goToContract} />
-        <Button title={i18n('later')} style={tw`mt-2`} tertiary={true} wide={false} onPress={closeOverlay} />
+        <PrimaryButton onPress={goToContract} narrow>
+          {i18n('goToContract')}
+        </PrimaryButton>
+        <PrimaryButton style={tw`mt-2`} onPress={closeOverlay} narrow>
+          {i18n('later')}
+        </PrimaryButton>
       </View>
     </View>
   )

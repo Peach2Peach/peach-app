@@ -3,6 +3,8 @@ import i18n from '../i18n'
 export const getMessages = () => ({
   required: i18n('form.required.error'),
   number: i18n('form.invalid.error'),
+  min: i18n('form.min.error'),
+  max: i18n('form.max.error'),
   phone: i18n('form.invalid.error'),
   email: i18n('form.email.error'),
   account: i18n('form.account.error'),
@@ -16,6 +18,10 @@ export const getMessages = () => ({
   ukSortCode: i18n('form.invalid.error'),
   ukBankAccount: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
+  revtag: i18n('form.invalid.error'),
   url: i18n('form.invalid.error'),
-  bip39: i18n('form.invalid.error'),
+  bip39: i18n('form.bip39.error'),
+  bip39Word: i18n('form.bip39Word.error'),
+  signature: i18n('form.signature.error'),
+  feeRate: i18n('form.feeRate.error'),
 })
