@@ -12,7 +12,6 @@ import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '
 import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
-import { sessionStorage } from '../../utils/session'
 import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
 
@@ -116,11 +115,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const editItem = (data: PaymentData) => {
     if (data.type.includes('cash')) {
-      const eventsByCountry: Record<string, MeetupEvent[]> = sessionStorage.getMap('meetupEvents') ?? {}
-      const event = eventsByCountry[data.country!].find((value) => value.id === data.id.replace('cash.', ''))
-      if (event) {
-        navigation.push('meetupScreen', { event, deletable: true })
-      }
+      navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true })
     } else {
       navigation.push('paymentDetails', {
         paymentData: data,

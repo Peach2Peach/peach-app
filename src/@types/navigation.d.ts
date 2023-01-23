@@ -74,7 +74,7 @@ declare type RootStackParamList = {
   walletSettings: undefined
   paymentMethods: undefined
   meetupScreen: {
-    event: MeetupEvent
+    eventId: string
     deletable?: boolean
   }
   deleteAccount: undefined

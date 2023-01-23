@@ -23,14 +23,26 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
     navigation.push('addPaymentMethod', { origin })
   }
 
+  const eventsByCountry: Record<string, MeetupEvent[]> = {}
+
   const addCashPaymentMethods = async () => {
-    const eventsByCountry: Record<string, MeetupEvent[]> = sessionStorage.getMap('meetupEvents') ?? {}
+    const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
+    if (!!allEvents) {
+      allEvents.map((event) => {
+        if (event.country in eventsByCountry) {
+          eventsByCountry[event.country] = [...eventsByCountry[event.country], event]
+        } else {
+          eventsByCountry[event.country] = [event]
+        }
+        return eventsByCountry
+      })
+    }
 
     const goToEventDetails = (event: MeetupEvent) => {
       updateDrawer({
         show: false,
       })
-      navigation.push('meetupScreen', { event })
+      navigation.push('meetupScreen', { eventId: event.id })
     }
 
     const selectCountry = (selected: FlagType) => {

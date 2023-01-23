@@ -5,16 +5,5 @@ import { sessionStorage } from '../utils/session'
 export const saveMeetupEvents = async () => {
   info('Getting meetup events...')
   const parsed = await getMeetupEvents({ timeout: 3 * 1000 })
-  const eventsByCountry: Record<string, MeetupEvent[]> = {}
-  if (!!parsed[0]) {
-    parsed[0].map((event) => {
-      if (event.country in eventsByCountry) {
-        eventsByCountry[event.country] = [...eventsByCountry[event.country], event]
-      } else {
-        eventsByCountry[event.country] = [event]
-      }
-      return eventsByCountry
-    })
-    sessionStorage.setMap('meetupEvents', eventsByCountry)
-  }
+  sessionStorage.setMap('meetupEvents', parsed[0] as MeetupEvent[])
 }

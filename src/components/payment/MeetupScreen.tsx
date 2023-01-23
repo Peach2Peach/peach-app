@@ -14,6 +14,7 @@ import { PrimaryButton } from '../buttons'
 import Icon from '../Icon'
 import { HelpIcon } from '../icons'
 import { DeleteIcon } from '../icons/DeleteIcon'
+import { sessionStorage } from '../../utils/session'
 
 /**
  * @description Screen for meetup event details.
@@ -22,9 +23,17 @@ import { DeleteIcon } from '../icons/DeleteIcon'
 
 export default (): ReactElement => {
   const route = useRoute<'meetupScreen'>()
-  const event = route.params.event
+  const eventId = route.params.eventId
   const deletable = route.params.deletable ?? false
   const navigation = useNavigation()
+  const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
+  const event = Object.values(allEvents).find((item) => (item.id = eventId)) ?? {
+    id: eventId,
+    name: '',
+    logo: '',
+    address: '',
+    url: '',
+  }
 
   const showHelp = useShowHelp('cashTrades')
 
