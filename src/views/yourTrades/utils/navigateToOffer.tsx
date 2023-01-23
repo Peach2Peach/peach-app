@@ -33,5 +33,5 @@ export const navigateToOffer = ({
     matchStoreSetOffer(offer)
   }
 
-  return navigation.navigate(...navigationDestination)
+  return navigation.replace(...navigationDestination)
 }

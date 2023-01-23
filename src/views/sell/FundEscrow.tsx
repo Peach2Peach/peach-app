@@ -52,7 +52,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       </Text>
     )
 
-  const navigateToOffer = () => navigation.replace('offer', { offer: sellOffer })
+  const navigateToOffer = () => (sellOffer.id ? navigation.replace('offer', { offerId: sellOffer.id }) : null)
   const navigateToYourTrades = useCallback(() => navigation.replace('yourTrades', {}), [navigation])
 
   const cancelOffer = () =>

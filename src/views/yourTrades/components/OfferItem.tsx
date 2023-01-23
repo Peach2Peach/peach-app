@@ -8,7 +8,7 @@ import { OverlayContext } from '../../../contexts/overlay'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
-import { getContract } from '../../../utils/contract'
+import { contractIdToHex, getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
@@ -78,16 +78,16 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
         onPress={navigate}
         style={[
           tw`rounded`,
-          isRedStatus ? tw`bg-red` : isOrangeStatus ? tw`bg-peach-1` : tw`bg-white-1 border border-grey-2`,
+          isRedStatus ? tw`bg-red` : isOrangeStatus ? tw`bg-peach-1` : tw`border bg-white-1 border-grey-2`,
           style,
         ]}
       >
         {extended ? (
           <View style={tw`px-4 py-2`}>
             <View style={tw`flex-row items-center`}>
-              <View style={tw`w-full flex-shrink`}>
-                <Headline style={[tw`text-lg font-bold normal-case text-left`, textColor1]}>
-                  {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
+              <View style={tw`flex-shrink w-full`}>
+                <Headline style={[tw`text-lg font-bold text-left normal-case`, textColor1]}>
+                  {i18n('trade')} {contract ? contractIdToHex(contract.id) : offerIdToHex(offer.id as Offer['id'])}
                 </Headline>
                 <View>
                   {isSellOffer(offer) && contract?.cancelationRequested ? (
@@ -116,7 +116,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
             ) : null}
           </View>
         ) : (
-          <View style={tw`flex-row justify-between items-center p-2`}>
+          <View style={tw`flex-row items-center justify-between p-2`}>
             <View style={tw`flex-row items-center`}>
               <Icon
                 id={isSellOffer(offer) ? 'sell' : 'buy'}
@@ -133,7 +133,7 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
               <Text
                 style={[tw`text-lg`, requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`]}
               >
-                {i18n('trade')} {offerIdToHex(offer.id as Offer['id'])}
+                {i18n('trade')} {contract ? contractIdToHex(contract.id) : offerIdToHex(offer.id as Offer['id'])}
               </Text>
             </View>
             <Icon
@@ -146,9 +146,9 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
         {notifications > 0 ? (
           <Bubble
             color={tw`text-green`.color as string}
-            style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
+            style={tw`absolute top-0 right-0 flex items-center justify-center w-4 -m-2`}
           >
-            <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
+            <Text style={tw`text-xs text-center font-baloo text-white-1`} ellipsizeMode="head" numberOfLines={1}>
               {notifications}
             </Text>
           </Bubble>

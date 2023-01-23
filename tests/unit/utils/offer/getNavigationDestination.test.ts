@@ -15,7 +15,7 @@ describe('getNavigationDestination', () => {
     const [destination, params] = getNavigationDestination(offer, offerStatus, contract)
 
     expect(destination).toBe('offer')
-    expect(params).toEqual({ offer })
+    expect(params).toEqual({ offerId: offer.id })
   })
 
   it('should navigate to contract', () => {

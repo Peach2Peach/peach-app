@@ -17,8 +17,10 @@ const mockOffer = {
 }
 
 const navigate = jest.fn()
+const replace = jest.fn()
 const navigation = {
   navigate,
+  replace,
 } as unknown as StackNavigation
 
 const updateOverlay = jest.fn()
@@ -32,7 +34,7 @@ const shouldOpenRefundOverlay = jest.fn()
 jest.mock('../../../../src/views/yourTrades/utils/shouldOpenRefundOverlay', () => ({
   shouldOpenRefundOverlay: () => shouldOpenRefundOverlay(),
 }))
-const getNavigationDestination = jest.fn((offer, offerStatus, contract) => ['offer', { offer: mockOffer }])
+const getNavigationDestination = jest.fn((offer, offerStatus, contract) => ['offer', { offerId: mockOffer.id }])
 jest.mock('../../../../src/views/yourTrades/utils/getNavigationDestination', () => ({
   getNavigationDestination: (offer: BuyOffer | SellOffer, offerStatus: TradeStatus, contract: Contract | null) =>
     getNavigationDestination(offer, offerStatus, contract),
@@ -132,7 +134,7 @@ describe('navigateToOffer', () => {
   })
 
   it('should navigate to the navigation destination', () => {
-    getNavigationDestination.mockReturnValueOnce(['offer', { offer: mockOffer }])
+    getNavigationDestination.mockReturnValueOnce(['offer', { offerId: mockOffer.id }])
     const navigateToOfferProps = {
       offer: mockOffer,
       requiredAction: mockOfferStatus.requiredAction,
@@ -143,11 +145,11 @@ describe('navigateToOffer', () => {
     }
     navigateToOffer(navigateToOfferProps)
 
-    expect(navigation.navigate).toHaveBeenCalledWith('offer', { offer: mockOffer })
+    expect(navigation.replace).toHaveBeenCalledWith('offer', { offerId: mockOffer.id })
 
-    getNavigationDestination.mockReturnValueOnce(['search', { offer: mockOffer }])
+    getNavigationDestination.mockReturnValueOnce(['search', { offerId: mockOffer.id }])
     navigateToOffer(navigateToOfferProps)
 
-    expect(navigation.navigate).toHaveBeenCalledWith('search', { offer: mockOffer })
+    expect(navigation.replace).toHaveBeenCalledWith('search', { offerId: mockOffer.id })
   })
 })
