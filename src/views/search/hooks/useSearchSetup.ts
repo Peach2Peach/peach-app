@@ -31,7 +31,7 @@ export const useSearchSetup = () => {
     if (error) {
       const errorMessage = parseError(error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
-        navigation.navigate('offer', { offer })
+        navigation.replace('offer', { offer })
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
