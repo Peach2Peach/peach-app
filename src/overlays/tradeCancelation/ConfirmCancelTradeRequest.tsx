@@ -4,7 +4,7 @@ import { Button, Headline, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
-import { getOfferIdfromContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
@@ -62,17 +62,17 @@ export const ConfirmCancelTradeRequest = ({ contract, navigation }: ConfirmCance
 
   return (
     <View style={tw`flex items-center`}>
-      <Headline style={tw`text-center text-white-1 font-baloo text-xl leading-8`}>
+      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
         {i18n('contract.cancel.request.title')}
       </Headline>
-      <Text style={tw`text-center text-white-1 mt-8`}>
+      <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n(
           'contract.cancel.request.text.1',
-          getOfferIdfromContract(contract),
+          contractIdToHex(contract.id),
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>
-      <Text style={tw`text-center text-white-1 mt-2`}>{i18n('contract.cancel.request.text.2')}</Text>
+      <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.request.text.2')}</Text>
       <View>
         <Button
           style={tw`mt-8`}
