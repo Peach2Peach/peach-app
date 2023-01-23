@@ -98,32 +98,34 @@ export default ({ route, navigation }: Props): ReactElement => {
     }, [contract, ws.connected]),
   )
 
-  useEffect(
-    getOfferDetailsEffect({
-      offerId: route.params.offerId,
-      interval: 30 * 1000,
-      onSuccess: (result) => {
-        const updatedOffer = {
-          ...(offer || {}),
-          ...result,
-        }
-        saveAndUpdate(updatedOffer)
+  useFocusEffect(
+    useCallback(
+      getOfferDetailsEffect({
+        offerId: route.params.offerId,
+        interval: 30 * 1000,
+        onSuccess: (result) => {
+          const updatedOffer = {
+            ...(offer || {}),
+            ...result,
+          }
+          saveAndUpdate(updatedOffer)
 
-        if (result.online && result.matches.length && !result.contractId) {
-          info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
-          matchStoreSetOffer(updatedOffer)
-          navigation.replace('search')
-        }
-      },
-      onError: (err) => {
-        error('Could not fetch offer information for offer', route.params.offerId)
-        updateMessage({
-          msgKey: err.error || 'error.general',
-          level: 'ERROR',
-        })
-      },
-    }),
-    [pnReceived, route],
+          if (result.online && result.matches.length && !result.contractId) {
+            info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
+            matchStoreSetOffer(updatedOffer)
+            navigation.replace('search')
+          }
+        },
+        onError: (err) => {
+          error('Could not fetch offer information for offer', route.params.offerId)
+          updateMessage({
+            msgKey: err.error || 'error.general',
+            level: 'ERROR',
+          })
+        },
+      }),
+      [pnReceived, route],
+    ),
   )
 
   useFocusEffect(
