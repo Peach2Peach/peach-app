@@ -57,7 +57,7 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
 
       if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
         return updateOverlay({
-          content: <MatchAccepted {...{ contractId: remoteMessage.data.contractId, navigation }} />,
+          content: <MatchAccepted {...{ contractId: remoteMessage.data.contractId }} />,
         })
       }
       if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {

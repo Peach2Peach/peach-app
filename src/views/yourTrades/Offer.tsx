@@ -161,7 +161,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           setPNReceived(Math.random())
         } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
           updateOverlay({
-            content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+            content: <MatchAccepted contractId={remoteMessage.data.contractId} />,
           })
         }
       })
@@ -171,7 +171,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   )
 
   return (
-    <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
+    <PeachScrollView contentContainerStyle={tw`px-6 pt-5 pb-10`}>
       {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status) ? (
         <OfferSummary offer={offer} status={offerStatus.status} navigation={navigation} />
       ) : null}
@@ -179,7 +179,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View>
           <Title title={i18n(`${isSellOffer(offer) ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (
-            <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+            <Text style={tw`leading-6 text-center text-grey-2`} onPress={goToOffer}>
               {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
             </Text>
           ) : null}
