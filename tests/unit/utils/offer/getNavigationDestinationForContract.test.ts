@@ -1,4 +1,5 @@
 import { getContract } from '../../../../src/utils/contract'
+// eslint-disable-next-line max-len
 import { getNavigationDestinationForContract } from '../../../../src/views/yourTrades/utils/getNavigationDestinationForContract'
 
 jest.mock('../../../../src/utils/contract', () => ({
