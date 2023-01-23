@@ -12,8 +12,6 @@ declare type MeetupSummaryProps = {
 }
 
 export default ({ event, onPress }: MeetupSummaryProps): ReactElement => (
-  // TODO : function to add to payment method
-
   <Pressable onPress={onPress}>
     <Text style={tw`pl-5 input-label text-black-1`}>{event.city.toLowerCase()}</Text>
     <Text style={tw`pl-5 body-s text-black-1`}>{event.name.toLowerCase()}</Text>
