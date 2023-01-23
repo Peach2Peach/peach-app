@@ -1,7 +1,6 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { getContract } from './contract'
-import { getOffer } from './offer'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
@@ -52,11 +51,8 @@ export const handlePushNotification = (
     return true
   }
   if (offerId) {
-    const offer = getOffer(offerId)
-    if (offer) {
-      navigationRef.reset({ index: 0, routes: [{ name: 'offer', params: { offer } }] })
-      return true
-    }
+    navigationRef.reset({ index: 0, routes: [{ name: 'offer', params: { offerId } }] })
+    return true
   }
 
   return false

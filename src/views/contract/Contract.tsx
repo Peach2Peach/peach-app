@@ -5,17 +5,19 @@ import tw from '../../styles/tailwind'
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { Icon, Loading, PeachScrollView, SatsFormat, Text, Timer, Title } from '../../components'
 import { TIMERS } from '../../constants'
+import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
+import { getChatNotifications } from '../../utils/chat'
 import { getContract, getOfferIdfromContract, saveContract, signReleaseTx } from '../../utils/contract'
+import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
-import { getOffer, getRequiredActionCount } from '../../utils/offer'
-import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
+import { getRequiredActionCount } from '../../utils/offer'
 import { confirmPayment } from '../../utils/peachAPI'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { ContractSummary } from '../yourTrades/components/ContractSummary'
@@ -24,8 +26,6 @@ import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
 import { handleOverlays } from './helpers/handleOverlays'
 import { parseContract } from './helpers/parseContract'
-import { getChatNotifications } from '../../utils/chat'
-import AppContext from '../../contexts/app'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['contract'] }>
@@ -155,13 +155,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       ) {
         navigation.replace('tradeComplete', { contract })
       } else {
-        const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-        navigation.replace('offer', { offer })
+        const offerId = contract.id.split('-')[view === 'seller' ? 0 : 1]
+        navigation.replace('offer', { offerId })
       }
       return
     } else if (isTradeCanceled(contract)) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-      navigation.replace('offer', { offer })
+      const offerId = contract.id.split('-')[view === 'seller' ? 0 : 1]
+      navigation.replace('offer', { offerId })
       return
     }
 
@@ -231,16 +231,16 @@ export default ({ route, navigation }: Props): ReactElement => {
     <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
       <View style={tw`pb-32`}>
         <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`text-grey-2 text-center -mt-1`}>
+        <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
-        <Text style={tw`text-center text-grey-2 mt-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
+        <Text style={tw`mt-2 text-center text-grey-2`}>{i18n('contract.trade', getOfferIdfromContract(contract))}</Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
             <ContractSummary contract={contract} view={view} navigation={navigation} />
-            <View style={tw`mt-16 flex-row justify-center`}>
+            <View style={tw`flex-row justify-center mt-16`}>
               {/sendPayment/u.test(requiredAction) ? (
-                <View style={tw`absolute bottom-full mb-1 flex-row items-center`}>
+                <View style={tw`absolute flex-row items-center mb-1 bottom-full`}>
                   <Timer
                     text={i18n(`contract.timer.${requiredAction}.${view}`)}
                     start={getTimerStart(contract, requiredAction)}

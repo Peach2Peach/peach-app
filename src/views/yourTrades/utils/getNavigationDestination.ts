@@ -8,7 +8,7 @@ export const getNavigationDestination = (
   contract: Contract | null,
 ): [string, object] => {
   if (shouldGoToOffer(offerStatus)) {
-    return ['offer', { offer }]
+    return ['offer', { offerId: offer.id }]
   }
 
   if (contract) {

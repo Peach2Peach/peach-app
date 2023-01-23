@@ -1,10 +1,10 @@
 import messaging from '@react-native-firebase/messaging'
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import { View } from 'react-native'
-import { Button, PeachScrollView, Text, Title } from '../../components'
+import { Button, Loading, PeachScrollView, Text, Title } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
@@ -38,14 +38,14 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
-  const offerId = route.params.offer.id as string
-  const offer = getOffer(offerId)!
-  const view = isSellOffer(offer) ? 'seller' : 'buyer'
+  const [offer, setOffer] = useState(() => getOffer(route.params.offerId))
+  const view = offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
   const [pnReceived, setPNReceived] = useState(0)
 
-  const offerStatus = getOfferStatus(offer)
+  const offerStatus = offer ? getOfferStatus(offer) : null
+
   const finishedDate = contract?.paymentConfirmed
   const subtitle = contract
     ? isTradeComplete(contract)
@@ -59,12 +59,20 @@ export default ({ route, navigation }: Props): ReactElement => {
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
+    setOffer(offerData)
+
+    const newOfferStatus = getOfferStatus(offerData)
+    if (offerData.contractId && !/tradeCompleted|tradeCanceled/u.test(newOfferStatus.status)) {
+      info('Offer.tsx - saveAndUpdate', `navigate to contract ${offerData.contractId}`)
+      navigation.replace('contract', { contractId: offerData.contractId })
+    } else if (offerData.contractId) {
+      setContractId(offerData.contractId)
+    }
   }
 
   const goToOffer = () => {
-    if (!offer.newOfferId) return
-    const offr = getOffer(offer.newOfferId)
-    if (offr) navigation.replace('offer', { offer: offr })
+    if (!offer?.newOfferId) return
+    navigation.replace('offer', { offerId: offer.newOfferId })
   }
 
   useFocusEffect(
@@ -90,41 +98,32 @@ export default ({ route, navigation }: Props): ReactElement => {
     }, [contract, ws.connected]),
   )
 
-  useFocusEffect(
-    useCallback(
-      getOfferDetailsEffect({
-        offerId,
-        interval: 30 * 1000,
-        onSuccess: (result) => {
-          if (!offer) return
+  useEffect(
+    getOfferDetailsEffect({
+      offerId: route.params.offerId,
+      interval: 30 * 1000,
+      onSuccess: (result) => {
+        const updatedOffer = {
+          ...(offer || {}),
+          ...result,
+        }
+        saveAndUpdate(updatedOffer)
 
-          saveAndUpdate({
-            ...offer,
-            ...result,
-          })
-
-          if (result.online && result.matches.length && !result.contractId) {
-            info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${offer.id}`)
-            matchStoreSetOffer(offer)
-            navigation.replace('search')
-          }
-          if (result.contractId && !/tradeCompleted|tradeCanceled/u.test(offerStatus.status)) {
-            info('Offer.tsx - getOfferDetailsEffect', `navigate to contract ${result.contractId}`)
-            navigation.replace('contract', { contractId: result.contractId })
-          } else if (result.contractId) {
-            setContractId(contractId)
-          }
-        },
-        onError: (err) => {
-          error('Could not fetch offer information for offer', offerId)
-          updateMessage({
-            msgKey: err.error || 'error.general',
-            level: 'ERROR',
-          })
-        },
-      }),
-      [pnReceived, offer],
-    ),
+        if (result.online && result.matches.length && !result.contractId) {
+          info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
+          matchStoreSetOffer(updatedOffer)
+          navigation.replace('search')
+        }
+      },
+      onError: (err) => {
+        error('Could not fetch offer information for offer', route.params.offerId)
+        updateMessage({
+          msgKey: err.error || 'error.general',
+          level: 'ERROR',
+        })
+      },
+    }),
+    [pnReceived, route],
   )
 
   useFocusEffect(
@@ -133,7 +132,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         contractId,
         onSuccess: async (result) => {
           const c = {
-            ...getContract(result.id),
+            ...(getContract(result.id) || {}),
             ...result,
           }
           setContract(c)
@@ -148,7 +147,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             level: 'ERROR',
           }),
       }),
-      [contractId],
+      [contractId, navigation, updateAppContext, updateMessage, updateOverlay, view],
     ),
   )
 
@@ -159,7 +158,10 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         if (remoteMessage.data.type === 'offer.matchSeller') {
           setPNReceived(Math.random())
-        } else if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
+        } else if (
+          remoteMessage.data.type === 'contract.contractCreated'
+          && remoteMessage.data.offerId !== route.params.offerId
+        ) {
           updateOverlay({
             content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
           })
@@ -167,11 +169,13 @@ export default ({ route, navigation }: Props): ReactElement => {
       })
 
       return unsubscribe
-    }, []),
+    }, [navigation, route, updateOverlay]),
   )
 
+  if (!offer || !offerStatus) return <Loading />
+
   return (
-    <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
+    <PeachScrollView contentContainerStyle={tw`px-6 pt-5 pb-10`}>
       {/offerPublished|searchingForPeer|offerCanceled/u.test(offerStatus.status) ? (
         <OfferSummary offer={offer} status={offerStatus.status} navigation={navigation} />
       ) : null}
@@ -179,7 +183,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         <View>
           <Title title={i18n(`${isSellOffer(offer) ? 'sell' : 'buy'}.title`)} subtitle={subtitle} />
           {offer.newOfferId ? (
-            <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+            <Text style={tw`leading-6 text-center text-grey-2`} onPress={goToOffer}>
               {i18n('yourTrades.offer.replaced', offerIdToHex(offer.newOfferId))}
             </Text>
           ) : null}

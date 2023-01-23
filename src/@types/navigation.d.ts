@@ -57,7 +57,7 @@ declare type RootStackParamList = {
   }
   yourTrades: {}
   offer: {
-    offer: SellOffer | BuyOffer
+    offerId: string
   }
   settings: {}
   contact: {}

@@ -10,7 +10,7 @@ import { getChatNotifications } from '../../../utils/chat'
 import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { StackNavigation } from '../../../utils/navigation'
-import { getOffer, getRequiredActionCount } from '../../../utils/offer'
+import { getRequiredActionCount } from '../../../utils/offer'
 import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
@@ -54,8 +54,8 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
     })
 
     if (rating.rating === 1) {
-      const offer = getOffer(contract.id.split('-')[view === 'seller' ? 0 : 1])!
-      navigation.replace('offer', { offer })
+      const offerId = contract.id.split('-')[view === 'seller' ? 0 : 1]
+      navigation.replace('offer', { offerId })
     } else {
       navigation.replace('yourTrades', {})
     }
@@ -63,9 +63,9 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
   return (
     <View style={style}>
       <Card style={tw`p-4`}>
-        <Text style={tw`mt-2 text-grey-2 text-center`}>{i18n('rate.subtitle')}</Text>
+        <Text style={tw`mt-2 text-center text-grey-2`}>{i18n('rate.subtitle')}</Text>
 
-        <View style={tw`mt-4 flex-row justify-center`}>
+        <View style={tw`flex-row justify-center mt-4`}>
           <Pressable onPress={() => setVote('negative')}>
             <Icon
               id="negative"
@@ -82,7 +82,7 @@ export default ({ contract, view, navigation, saveAndUpdate, style }: RateProps)
           </Pressable>
         </View>
       </Card>
-      <View style={tw`mt-4 flex items-center`}>
+      <View style={tw`flex items-center mt-4`}>
         <Button title={i18n('rate.rateAndFinish')} disabled={!vote} wide={false} onPress={rate} />
       </View>
     </View>
