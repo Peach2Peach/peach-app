@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import { Shadow } from '..'
+import { HorizontalLine, Shadow } from '..'
 
 import tw from '../../styles/tailwind'
 import { dropShadowMild, peachyGradient } from '../../utils/layout'
@@ -10,6 +10,8 @@ import { MatchOfferButton, UnmatchButton } from './buttons'
 import { useInterruptibleFunction } from './buttons/useInterruptibleFunction'
 import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo, EscrowLink } from './components'
 import { useMatchOffer } from './hooks'
+import { MatchPaymentDetails } from './MatchPaymentDetails'
+import { Price } from './Price'
 import { useMatchStore } from './store'
 
 const { RadialGradient } = require('react-native-gradients')
@@ -18,6 +20,7 @@ type MatchProps = ComponentProps & { match: Match }
 
 export const Match = ({ match, style }: MatchProps): ReactElement => {
   const offer = useMatchStore((state) => state.offer)
+
   const { mutate } = useMatchOffer(offer, match)
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
 
@@ -45,12 +48,23 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
             <View style={tw`w-full`}>
               <View style={tw`px-5 pt-5 pb-6`}>
                 <UserInfo user={match.user} style={tw`mb-5`} />
-                <PriceInfo match={match} />
-                <CurrencySelector matchId={match.offerId} />
-                <PaymentMethodSelector matchId={match.offerId} />
-                <EscrowLink address={match?.escrowAddress || ''} />
+                {isBuyOffer(offer) ? (
+                  <>
+                    <PriceInfo match={match} />
+                    <CurrencySelector matchId={match.offerId} />
+                    <PaymentMethodSelector matchId={match.offerId} />
+                    <EscrowLink address={match?.escrowAddress || ''} />
+                  </>
+                ) : (
+                  <>
+                    <HorizontalLine style={tw`bg-black-5`} />
+                    <Price match={match} fontStyle={tw`body-l`} isBuyOffer={false} style={tw`my-4`} />
+                    <HorizontalLine style={tw`bg-black-5`} />
+                    <MatchPaymentDetails match={match} />
+                  </>
+                )}
               </View>
-              {showMatchedCard && (
+              {showMatchedCard && !isBuyOffer(offer) && (
                 <>
                   <View
                     style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
