@@ -165,7 +165,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           && remoteMessage.data.offerId !== route.params.offerId
         ) {
           updateOverlay({
-            content: <MatchAccepted contractId={remoteMessage.data.contractId} navigation={navigation} />,
+            content: <MatchAccepted contractId={remoteMessage.data.contractId} />,
           })
         }
       })

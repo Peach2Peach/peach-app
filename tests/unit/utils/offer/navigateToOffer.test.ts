@@ -17,8 +17,10 @@ const mockOffer = {
 }
 
 const navigate = jest.fn()
+const replace = jest.fn()
 const navigation = {
   navigate,
+  replace,
 } as unknown as StackNavigation
 
 const updateOverlay = jest.fn()
@@ -143,11 +145,11 @@ describe('navigateToOffer', () => {
     }
     navigateToOffer(navigateToOfferProps)
 
-    expect(navigation.navigate).toHaveBeenCalledWith('offer', { offerId: mockOffer.id })
+    expect(navigation.replace).toHaveBeenCalledWith('offer', { offerId: mockOffer.id })
 
     getNavigationDestination.mockReturnValueOnce(['search', { offerId: mockOffer.id }])
     navigateToOffer(navigateToOfferProps)
 
-    expect(navigation.navigate).toHaveBeenCalledWith('search', { offerId: mockOffer.id })
+    expect(navigation.replace).toHaveBeenCalledWith('search', { offerId: mockOffer.id })
   })
 })
