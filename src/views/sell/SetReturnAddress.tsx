@@ -46,7 +46,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       saveOffer(patchedOffer)
       if (offer.online) {
         matchStoreSetOffer(patchedOffer)
-        navigation.navigate('search')
+        navigation.replace('search')
         return
       }
       navigation.navigate('fundEscrow', { offer: patchedOffer })
