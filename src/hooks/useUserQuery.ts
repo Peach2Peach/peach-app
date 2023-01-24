@@ -8,7 +8,7 @@ const getUserQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   return user
 }
 
-export const useUserQuery = (id: string) => {
+export const useUser = (id: string) => {
   const { data, isLoading, error } = useQuery(['user', id], getUserQuery)
 
   return { user: data, isLoading, error }

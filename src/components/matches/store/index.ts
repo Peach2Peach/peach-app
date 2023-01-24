@@ -38,7 +38,6 @@ const defaultBuyOffer: BuyOffer = {
   doubleMatched: false,
   releaseAddress: '',
   id: '0',
-  returnAddress: '',
   tradeStatus: 'waiting', // TODO: decide on a default here
   message: '', // TODO: decide on a default here
 }

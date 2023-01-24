@@ -14,11 +14,14 @@ import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
 import { handleOverlays } from '../contract/helpers/handleOverlays'
+import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
   const offerId = route.params.offerId
   const navigation = useNavigation()
+  const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
+
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
@@ -49,6 +52,8 @@ export const useOfferDetailsSetup = () => {
             info('useOfferDetailsSetup - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
             matchStoreSetOffer(updatedOffer)
             navigation.replace('search')
+          } else if (isSellOffer(updatedOffer) && result.tradeStatus === 'fundingAmountDifferent') {
+            showEscrowConfirmOverlay(updatedOffer)
           }
           if (result.contractId) setContractId(result.contractId)
         },

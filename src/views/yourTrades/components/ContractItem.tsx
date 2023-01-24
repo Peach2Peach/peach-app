@@ -5,8 +5,8 @@ import { SummaryItem } from '../../../components/lists/SummaryItem'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { offerIdToHex } from '../../../utils/offer'
 import { getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
 import { ChatMessages } from './ChatMessages'
 
@@ -40,7 +40,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
     })
 
   const sharedProps = {
-    title: i18n('trade') + ' ' + offerIdToHex(contract.offerId),
+    title: i18n('trade') + ' ' + contractIdToHex(contract.id),
     amount: contract.amount,
     currency,
     price,

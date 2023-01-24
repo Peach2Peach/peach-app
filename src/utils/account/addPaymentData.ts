@@ -1,4 +1,5 @@
 import { account } from '.'
+import { settingsStore } from '../../store/settingsStore'
 import { getPaymentData } from './getPaymentData'
 import { storePaymentData } from './storeAccount'
 import { updateSettings } from './updateSettings'
@@ -33,11 +34,7 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
     )
   }
 
-  updateSettings(
-    {
-      showBackupReminder: true,
-    },
-    true,
-  )
+  settingsStore.getState().setShowBackupReminder(true)
+
   if (save) await storePaymentData(account.paymentData)
 }

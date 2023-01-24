@@ -2,13 +2,13 @@ import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon } from '../../../../../components'
 import { useShowHelp } from '../../../../../hooks/useShowHelp'
-import { useUserQuery } from '../../../../../hooks/useUserQuery'
+import { useUser } from '../../../../../hooks/useUserQuery'
 import tw from '../../../../../styles/tailwind'
 import { account } from '../../../../../utils/account'
 import { badges } from './badges'
 
 export const MyBadges = () => {
-  const { user, isLoading } = useUserQuery(account.publicKey)
+  const { user, isLoading } = useUser(account.publicKey)
   const openPeachBadgesPopup = useShowHelp('myBadges')
   if (!user || isLoading) return null
   const { medals: unlockedBadges } = user

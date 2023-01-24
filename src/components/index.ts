@@ -12,7 +12,6 @@ export { Header } from './header/Header'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
-export { Hint } from './Hint'
 export {
   Checkbox,
   FileInput,

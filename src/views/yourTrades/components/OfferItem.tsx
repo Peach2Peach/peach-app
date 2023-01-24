@@ -1,14 +1,12 @@
-import React, { ReactElement, useContext, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { IconType } from '../../../assets/icons'
 import { Icon } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'
-import { useMatchStore } from '../../../components/matches/store'
-import { OverlayContext } from '../../../contexts/overlay'
-import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
-import { getOfferLevel, getThemeForPastTrade, isPastOffer, navigateToOffer, statusIcons } from '../utils'
+import { useNavigateToOffer } from '../hooks/useNavigateToOffer'
+import { getOfferLevel, getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
 
 type OfferItemProps = ComponentProps & {
   offer: OfferSummary
@@ -16,19 +14,8 @@ type OfferItemProps = ComponentProps & {
 }
 
 export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
-  const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
-
+  const navigateToOffer = useNavigateToOffer(offer)
   const theme = useMemo(() => getThemeForPastTrade(offer), [offer])
-
-  const navigate = () =>
-    navigateToOffer({
-      offer,
-      navigation,
-      updateOverlay,
-      matchStoreSetOffer,
-    })
 
   return isPastOffer(offer.tradeStatus) ? (
     <SummaryItem
@@ -39,7 +26,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
       date={new Date(offer.creationDate)}
       action={{
-        callback: navigate,
+        callback: navigateToOffer,
       }}
     />
   ) : (
@@ -49,7 +36,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       level={getOfferLevel(offer)}
       date={new Date(offer.creationDate)}
       action={{
-        callback: navigate,
+        callback: navigateToOffer,
         label: i18n(`offer.requiredAction.${offer.tradeStatus}`),
         icon: statusIcons[offer.tradeStatus],
       }}

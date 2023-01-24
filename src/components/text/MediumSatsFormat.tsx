@@ -17,7 +17,7 @@ export const MediumSatsFormat = ({ sats, color, style }: SatsFormat): ReactEleme
   return (
     <View style={tw`flex flex-row items-center`}>
       <PaymentLogo id="bitcoin" style={tw`w-5 h-5 mr-1`} />
-      <Text style={[tw`subtitle-1`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`]}>
+      <Text style={[tw`subtitle-1`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
         {parts[0]}.{parts[1]}
       </Text>
       <Text style={[tw`subtitle-1`, color || tw`text-black-1`, style]}>{parts[2]}</Text>

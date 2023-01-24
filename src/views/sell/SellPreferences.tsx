@@ -1,33 +1,22 @@
-import React, {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import { BackHandler, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import { useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postSellOffer } from '../../utils/peachAPI'
-import { useNavigation, useRoute } from '../../hooks'
-import { peachWallet } from '../../utils/wallet/setWallet'
-import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
 import Premium from './Premium'
 
 export type SellViewProps = {
@@ -85,7 +74,10 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
+  const [peachWalletActive, payoutAddress] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress],
+    shallow,
+  )
 
   const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -102,33 +94,11 @@ export default (): ReactElement => {
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
-  useFocusEffect(
-    useCallback(
-      () => () => {
-        setOffer(getDefaultSellOffer(route.params.amount))
-        setUpdatePending(false)
-        setPage(0)
-      },
-      [route],
-    ),
-  )
-
   useEffect(() => {
-    ;(async () => {
-      if (offer.returnAddress) return
-      if (peachWalletActive) {
-        setOffer({
-          ...offer,
-          returnAddress: (await peachWallet.getReceivingAddress()) || '',
-        })
-      } else {
-        setOffer({
-          ...offer,
-          returnAddress: account.settings.payoutAddress || '',
-        })
-      }
-    })()
-  }, [offer, peachWalletActive])
+    setOffer(getDefaultSellOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(0)
+  }, [route])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -166,6 +136,7 @@ export default (): ReactElement => {
         premium: offer.premium,
         meansOfPayment: offer.meansOfPayment,
         paymentData: offer.paymentData,
+        returnAddress: offer.returnAddress,
       })
       if (result) {
         info('Posted offer', result)

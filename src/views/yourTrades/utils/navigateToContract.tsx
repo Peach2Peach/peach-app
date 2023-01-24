@@ -2,8 +2,8 @@ import React from 'react'
 import Refund from '../../../overlays/Refund'
 import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 import { getOffer } from '../../../utils/offer'
-import { getNavigationDestinationForContract } from './getNavigationDestination'
-import { shouldOpenRefundOverlay } from './shouldOpenRefundOverlay'
+import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
+import { shouldOpenOverlay } from './shouldOpenOverlay'
 
 type NavigateToContractProps = {
   contract: ContractSummary
@@ -13,7 +13,7 @@ type NavigateToContractProps = {
 
 export const navigateToContract = ({ contract, navigation, updateOverlay }: NavigateToContractProps): void => {
   const [screen, params] = getNavigationDestinationForContract(contract)
-  if (shouldOpenRefundOverlay(contract.tradeStatus)) {
+  if (shouldOpenOverlay(contract.tradeStatus)) {
     const sellOffer = getOffer(contract.offerId) as SellOffer
     if (sellOffer) updateOverlay({
       content: <Refund {...{ sellOffer, navigation }} />,
@@ -21,5 +21,5 @@ export const navigateToContract = ({ contract, navigation, updateOverlay }: Navi
     })
   }
 
-  return navigation.navigate(screen, params)
+  return navigation.replace(screen, params)
 }

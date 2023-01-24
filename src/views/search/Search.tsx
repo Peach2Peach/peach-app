@@ -9,7 +9,7 @@ import { useSearchSetup } from './hooks/useSearchSetup'
 import { useMatchStore } from '../../components/matches/store'
 
 export default (): ReactElement => {
-  const hasMatches = useSearchSetup()
+  const { hasMatches } = useSearchSetup()
   const { type } = useMatchStore((state) => state.offer)
 
   return (

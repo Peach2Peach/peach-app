@@ -5,12 +5,10 @@ import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getOfferHexIdFromContract, saveContract } from '../../utils/contract'
-import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
+import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getOfferExpiry } from '../../utils/offer'
 import { thousands } from '../../utils/string'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation
@@ -40,7 +38,7 @@ export const CancelTradeRequestConfirmed = ({ contract }: ConfirmCancelTradeProp
       <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n(
           'contract.cancel.seller.confirmed.text.1',
-          getOfferHexIdFromContract(contract),
+          contractIdToHex(contract.id),
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>
