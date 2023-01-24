@@ -120,8 +120,10 @@ const App: React.FC = () => {
   const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
 
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
-  const [{ title: drawerTitle, content: drawerContent, show: showDrawer, onClose: onCloseDrawer }, updateDrawer]
-    = useReducer(setDrawer, getDrawer())
+  const [
+    { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
+    updateDrawer,
+  ] = useReducer(setDrawer, getDrawer())
   const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
@@ -247,7 +249,10 @@ const App: React.FC = () => {
               <AppContext.Provider value={[appContext, updateAppContext]}>
                 <MessageContext.Provider value={[messageState, updateMessage]}>
                   <DrawerContext.Provider
-                    value={[{ title: '', content: null, show: false, onClose: () => {} }, updateDrawer]}
+                    value={[
+                      { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
+                      updateDrawer,
+                    ]}
                   >
                     <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                       <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
@@ -257,6 +262,7 @@ const App: React.FC = () => {
                             content={drawerContent}
                             show={showDrawer}
                             onClose={onCloseDrawer}
+                            previousDrawer={previousDrawer}
                           />
                           <Overlay {...overlayState} />
                           <SafeAreaView>

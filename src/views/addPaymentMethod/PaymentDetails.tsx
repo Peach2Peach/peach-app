@@ -8,13 +8,12 @@ import { HeaderConfig } from '../../components/header/store'
 import { HelpIcon } from '../../components/icons'
 import { DeleteIcon } from '../../components/icons/DeleteIcon'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
-import { OverlayContext } from '../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
-import DeletePaymentMethodConfirm from '../../overlays/info/DeletePaymentMethodConfirm'
-import { addPaymentData, removePaymentData } from '../../utils/account'
+import { addPaymentData } from '../../utils/account'
 import { info } from '../../utils/log'
 import { specialTemplates } from './specialTemplates'
+import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
 
 const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
   buyPreferences: 'buy',
@@ -23,11 +22,11 @@ const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackPa
 }
 
 export default (): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
   const route = useRoute<'paymentDetails'>()
   const navigation = useNavigation()
   const { paymentData: data, originOnCancel } = route.params
   const { type: paymentMethod, currencies } = data
+  const deletePaymentMethod = useDeletePaymentMethod(data.id ?? '')
 
   const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
     navigation.reset({
@@ -50,30 +49,6 @@ export default (): ReactElement => {
     goToOrigin(route.params.origin)
   }
 
-  const deletePaymentMethod = () => {
-    updateOverlay({
-      title: i18n('help.paymentMethodDelete.title'),
-      content: <DeletePaymentMethodConfirm />,
-      visible: true,
-      level: 'ERROR',
-      action1: {
-        callback: () => updateOverlay({ visible: false }),
-        icon: 'xSquare',
-        label: i18n('neverMind'),
-      },
-      action2: {
-        callback: () => {
-          if (!data?.id) return
-          removePaymentData(data.id)
-          updateOverlay({ visible: false })
-          navigation.goBack()
-        },
-        icon: 'info',
-        label: i18n('delete'),
-      },
-    })
-  }
-
   const showHelp = useShowHelp('currencies')
 
   const headerIcons = () => {
@@ -82,7 +57,13 @@ export default (): ReactElement => {
       icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
     }
     if (data.id) {
-      icons[1] = { iconComponent: <DeleteIcon />, onPress: deletePaymentMethod }
+      icons[1] = {
+        iconComponent: <DeleteIcon />,
+        onPress: () => {
+          if (!data?.id) return
+          deletePaymentMethod()
+        },
+      }
     }
     info('icons' + icons)
     return icons

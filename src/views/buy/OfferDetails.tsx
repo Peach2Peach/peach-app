@@ -2,18 +2,17 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { BuyViewProps } from './BuyPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
-import i18n from '../../utils/i18n'
 import { Icon } from '../../components'
+import { HeaderConfig } from '../../components/header/store'
+import { EditIcon, HelpIcon } from '../../components/icons'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useHeaderSetup } from '../../hooks'
+import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
+import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import PaymentDetails from '../../components/payment/PaymentDetails'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
-import { EditIcon, HelpIcon } from '../../components/icons'
-import { useHeaderSetup } from '../../hooks'
-import { isDefined } from '../../utils/array/isDefined'
-import { HeaderConfig } from '../../components/header/store'
+import { BuyViewProps } from './BuyPreferences'
 
 const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
@@ -52,6 +51,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         }
         return obj
       }, {} as Offer['paymentData'])
+
     updateOffer({
       ...offer,
       meansOfPayment,
@@ -65,9 +65,10 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       },
       true,
     )
-  }, [meansOfPayment])
+  }, [meansOfPayment, updateOffer])
 
-  useEffect(() => setStepValid(validate(offer)), [offer])
+  validate(offer)
+  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
 
   return (
     <View>
@@ -76,9 +77,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
+        origin={['buyPreferences', { amount: offer.amount }]}
       />
-      <View style={tw`bg-black-5 h-0.3 m-5`} />
-      <AddPaymentMethodButton origin={['buyPreferences', { amount: offer.amount }]} />
     </View>
   )
 }

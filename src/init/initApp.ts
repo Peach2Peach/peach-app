@@ -5,6 +5,7 @@ import userUpdate from '../init/userUpdate'
 import { account, loadAccount } from '../utils/account'
 import { getPeachInfo } from './getPeachInfo'
 import { getTrades } from './getTrades'
+import { saveMeetupEvents } from './saveMeetupEvents'
 
 /**
  * @description Method to initialize app by retrieving app session and user account
@@ -15,6 +16,7 @@ export const initApp = async (): Promise<void> => {
 
   await loadAccount()
   await getPeachInfo(account)
+  await saveMeetupEvents()
   if (account?.publicKey) {
     getTrades()
     userUpdate()

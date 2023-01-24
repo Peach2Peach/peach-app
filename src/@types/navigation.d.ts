@@ -73,6 +73,10 @@ declare type RootStackParamList = {
   payoutAddress: undefined
   walletSettings: undefined
   paymentMethods: undefined
+  meetupScreen: {
+    eventId: string
+    deletable?: boolean
+  }
   deleteAccount: undefined
   peachFees: undefined
   networkFees: undefined

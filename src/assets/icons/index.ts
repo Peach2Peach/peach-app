@@ -98,6 +98,7 @@ import upload from './upload.svg'
 import uploadCloud from './uploadCloud.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
+import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
 import x from './x.svg'
@@ -209,6 +210,7 @@ const Icons = {
   uploadCloud,
   user,
   userCheck,
+  users,
   userX,
   wallet,
   x,

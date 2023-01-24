@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 
 import { BackgroundConfig } from '../components/background/Background'
+import MeetupScreen from '../components/payment/MeetupScreen'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import Buy from './buy/Buy'
@@ -122,8 +123,9 @@ const settings: ViewType[] = [
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
-  { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig, showFooter: false },
-  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig, showFooter: false },
+  { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
+  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
+  { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
