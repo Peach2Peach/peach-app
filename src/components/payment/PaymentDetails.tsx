@@ -35,10 +35,8 @@ const tabs: TabbedNavigationItem[] = [
   },
 ]
 
-const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) => {
-  if (category != 'cash') return PAYMENTCATEGORIES[category].includes(data.type)
-  return false
-}
+const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
+  PAYMENTCATEGORIES[category].includes(data.type)
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce((arr: string[], type: PaymentMethod) => {
@@ -72,8 +70,6 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [paymentData, setPaymentData] = useState(account.paymentData)
-
-  const cashPaymentData: PaymentData[] = paymentData.filter((item) => item.type.includes('cash'))
 
   useFocusEffect(() => {
     setPaymentData(account.paymentData)
@@ -143,7 +139,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }, [paymentData])
 
   const remotePaymentDetails = () =>
-    paymentData.length === 0 ? (
+    paymentData.filter((item) => !item.type.includes('cash')).length === 0 ? (
       <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
     ) : (
       <View style={tw`px-4`}>
@@ -152,6 +148,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
             .map((category) => ({
               category,
               checkboxes: paymentData
+                .filter((item) => !item.type.includes('cash'))
                 .filter(belongsToCategory(category))
                 .filter((data) => getPaymentMethodInfo(data.type))
                 .sort((a, b) => (a.id > b.id ? 1 : -1))
@@ -197,21 +194,26 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const meetupPaymentDetails = () => (
     <>
-      <LinedText style={tw`pb-3`}>
-        <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
-        <Icon color={tw`text-black-2`.color} id={'users'} />
-      </LinedText>
-      {cashPaymentData.map(mapPaymentDataToCheckboxes).map((item, i) => (
-        <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
-          <PaymentDetailsCheckbox
-            onPress={() => (editing ? editItem(item.data) : select(item.value))}
-            item={item}
-            checked={isSelected(item)}
-            editing={editing}
-          />
-          <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
-        </View>
-      ))}
+      {paymentData.filter((item) => item.type.includes('cash')).length !== 0 && (
+        <LinedText style={tw`pb-3`}>
+          <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
+          <Icon color={tw`text-black-2`.color} id={'users'} />
+        </LinedText>
+      )}
+      {paymentData
+        .filter((item) => item.type.includes('cash'))
+        .map(mapPaymentDataToCheckboxes)
+        .map((item, i) => (
+          <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
+            <PaymentDetailsCheckbox
+              onPress={() => (editing ? editItem(item.data) : select(item.value))}
+              item={item}
+              checked={isSelected(item)}
+              editing={editing}
+            />
+            <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
+          </View>
+        ))}
     </>
   )
 
