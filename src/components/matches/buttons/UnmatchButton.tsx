@@ -27,16 +27,16 @@ export const UnmatchButton = ({ match, interruptMatching, showUnmatchedCard }: P
 
   const showUnmatchPopup = useCallback(() => {
     updateOverlay({
-      title: i18n('search.popup.unmatch.title'),
+      title: i18n('search.popups.unmatch.title'),
       content: <UnmatchPopup />,
       visible: true,
       action1: {
-        label: i18n('search.popup.unmatch.neverMind'),
+        label: i18n('search.popups.unmatch.neverMind'),
         icon: 'xSquare',
         callback: () => updateOverlay({ visible: false }),
       },
       action2: {
-        label: i18n('search.popup.unmatch.confirm'),
+        label: i18n('search.popups.unmatch.confirm'),
         icon: 'minusCircle',
         callback: () => {
           updateOverlay({ visible: false })
