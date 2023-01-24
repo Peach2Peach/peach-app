@@ -1,5 +1,6 @@
 import i18n from '../utils/i18n'
 import { PayoutAddressPopup } from '../views/settings/components/PayoutAddressPopup'
+import { AcceptMatchPopup } from './AcceptMatchPopup'
 import { FileBackupPopup } from './FileBackupPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
@@ -19,6 +20,7 @@ import { YourPasswordPopup } from './YourPasswordPopup'
 
 export const helpOverlays = {
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
+  acceptMatch: { title: i18n('search.popups.acceptMatch.title'), content: AcceptMatchPopup },
   buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },

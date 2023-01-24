@@ -288,6 +288,8 @@
   "search.waitingForSeller": "waiting for seller",
   "search.popups.matchmatchmatch.title": "match, match & match again",
   "search.popups.matchmatchmatch.text": "You can match as many offers as you want! A trade will be created with the first Seller who matches you back.",
+  "search.popups.acceptMatch.title": "accept match = start trade",
+  "search.popups.acceptMatch.text": "You can only match one buyer when you sell. Once you've accepted a match, the trade is started. \n\nOnce started, you can only cancel a trade if the buyer agrees, and your reputation will be harmed.",
   "search.popups.unmatch.title": "unmatch?",
   "search.popups.unmatch.text": "Unmatching now will negatively affect your reputation score.",
   "search.popups.unmatch.neverMind": "never mind",

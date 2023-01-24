@@ -10,6 +10,7 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import { CancelOffer } from '../../../overlays/CancelOffer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { isBuyOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -20,7 +21,8 @@ export const useSearchSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
-  const showHelpPopup = useShowHelp('matchmatchmatch')
+  const showMatchPopup = useShowHelp('matchmatchmatch')
+  const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
   const showCancelPopup = () => {
     updateOverlay({
@@ -46,7 +48,7 @@ export const useSearchSetup = () => {
     hideGoBackButton: true,
     icons: [
       { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: showCancelPopup },
-      { iconComponent: <HelpIcon />, onPress: showHelpPopup },
+      { iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup },
     ],
   })
 
