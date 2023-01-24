@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { Animated } from 'react-native'
+import React from 'react'
 import { useToggleBoolean } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 
@@ -22,22 +21,6 @@ export const UnmatchButton = ({ match, interruptMatching, showUnmatchedCard }: P
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched)
-  const timer = useRef(new Animated.Value(5)).current
-
-  const startTimer = useCallback(() => {
-    Animated.timing(timer, {
-      toValue: 0,
-      duration: 5000,
-      useNativeDriver: false,
-    }).start(({ finished }) => {
-      if (!finished) return
-      toggle()
-    })
-  }, [timer, toggle])
-
-  useEffect(() => {
-    if (!showUnmatch) startTimer()
-  }, [showUnmatch, startTimer])
 
   const onUnmatchPress = () => {
     showUnmatchedCard()
@@ -56,7 +39,7 @@ export const UnmatchButton = ({ match, interruptMatching, showUnmatchedCard }: P
           {i18n('search.unmatch')}
         </PrimaryButton>
       ) : (
-        <UndoButton onPress={onUndoPress} timer={timer} inputRange={[0, 5]} />
+        <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
       )}
     </Shadow>
   )

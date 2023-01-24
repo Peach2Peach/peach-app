@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -6,22 +6,46 @@ import { Button } from '../../buttons'
 
 type Props = {
   onPress: () => void
-  timer: Animated.Value
-  inputRange: [number, number]
+  onTimerFinished: () => void
 }
 
-export const UndoButton = ({ onPress, timer, inputRange }: Props) => {
-  const narrow = Number(tw`w-39`.width)
-  const width = timer.interpolate({
-    inputRange,
-    outputRange: [0, narrow],
+const startTimer = (timer: Animated.Value, onTimerFinished: () => void) => {
+  Animated.timing(timer, {
+    toValue: 0,
+    duration: 5000,
+    useNativeDriver: false,
+  }).start(({ finished }) => {
+    if (!finished) return
+    onTimerFinished()
   })
-  const sharedProps = {
-    onPress,
-    iconId: 'rotateCounterClockwise',
-    narrow: true,
-    textColor: tw`text-black-1`,
-  } as const
+}
+const narrow = Number(tw`w-39`.width)
+
+export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
+  const timer = useRef(new Animated.Value(1)).current
+
+  useEffect(() => {
+    startTimer(timer, onTimerFinished)
+  }, [onTimerFinished, timer])
+
+  const width = useMemo(
+    () =>
+      timer.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, narrow],
+      }),
+    [timer],
+  )
+  const sharedProps = useMemo(
+    () =>
+      ({
+        onPress,
+        iconId: 'rotateCounterClockwise',
+        narrow: true,
+        textColor: tw`text-black-1`,
+      } as const),
+    [onPress],
+  )
 
   return (
     <View style={tw`items-center justify-center min-w-39`}>
