@@ -16,13 +16,7 @@ import { useNavigation, useRoute } from '../../hooks'
 import Payment from '../../overlays/info/Payment'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
-import {
-  getContract,
-  getOfferHexIdFromContract,
-  getOfferIdFromContract,
-  saveContract,
-  signReleaseTx,
-} from '../../utils/contract'
+import { contractIdToHex, getContract, getOfferIdFromContract, saveContract, signReleaseTx } from '../../utils/contract'
 import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
@@ -287,9 +281,7 @@ export default (): ReactElement => {
         <Text style={tw`-mt-1 text-center text-grey-2`}>
           {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
         </Text>
-        <Text style={tw`mt-2 text-center text-grey-2`}>
-          {i18n('contract.trade', getOfferHexIdFromContract(contract))}
-        </Text>
+        <Text style={tw`mt-2 text-center text-grey-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
         {!contract.canceled && !contract.paymentConfirmed ? (
           <View style={tw`mt-16`}>
             <View>

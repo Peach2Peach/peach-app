@@ -5,7 +5,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 
 /**
  * @description Overlay the buyer sees after succesful cancelation

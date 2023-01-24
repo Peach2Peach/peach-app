@@ -5,12 +5,12 @@ import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { getOfferHexIdFromContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 import { ContractCanceled } from './ContractCanceled'
 
 /**
@@ -75,7 +75,7 @@ export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeProps)
       <Text style={tw`mt-8 text-center text-white-1`}>
         {i18n(
           'contract.cancel.request.text.1',
-          getOfferHexIdFromContract(contract),
+          contractIdToHex(contract.id),
           i18n('currency.format.sats', thousands(contract.amount)),
         )}
       </Text>

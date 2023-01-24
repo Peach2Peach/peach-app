@@ -30,6 +30,6 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
       const [offr] = await getOfferDetails({ offerId: offer.id })
       if (offr) matchStoreSetOffer(offr)
     }
-    return navigation.navigate(screen, params)
+    return navigation.replace(screen, params)
   }
 }

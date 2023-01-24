@@ -3,9 +3,9 @@ import { View } from 'react-native'
 import { Headline, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
-import { getOfferHexIdFromContract, saveContract } from '../../utils/contract'
+import { contractIdToHex, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation
@@ -29,7 +29,7 @@ export const CancelTradeRequestRejected = ({ contract }: ConfirmCancelTradeProps
         {i18n('contract.cancel.seller.rejected.title')}
       </Headline>
       <Text style={tw`mt-8 text-center text-white-1`}>
-        {i18n('contract.cancel.seller.rejected.text.1', getOfferHexIdFromContract(contract))}
+        {i18n('contract.cancel.seller.rejected.text.1', contractIdToHex(contract.id))}
       </Text>
       <Text style={tw`mt-2 text-center text-white-1`}>{i18n('contract.cancel.seller.rejected.text.2')}</Text>
       <PrimaryButton style={tw`mt-8`} onPress={closeOverlay} narrow>

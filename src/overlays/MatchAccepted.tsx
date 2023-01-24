@@ -14,16 +14,16 @@ type Props = {
   contractId: Contract['id']
 }
 
-export default (props: Props): ReactElement => {
+export default ({ contractId }: Props): ReactElement => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
 
+  const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = () => {
     updateOverlay({ visible: false })
   }
 
   const goToContract = () => {
-    navigation.navigate({ name: 'contract', merge: false, params: props })
+    navigation.replace('contract', { contractId })
     closeOverlay()
   }
 

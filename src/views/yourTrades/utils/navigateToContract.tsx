@@ -21,5 +21,5 @@ export const navigateToContract = ({ contract, navigation, updateOverlay }: Navi
     })
   }
 
-  return navigation.navigate(screen, params)
+  return navigation.replace(screen, params)
 }
