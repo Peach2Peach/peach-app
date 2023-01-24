@@ -358,6 +358,7 @@
   "meetup.address": "This meetup is held at:",
   "meetup.website": "meetup website",
   "meetup.add": "add this meetup",
+  "view.maps": "view on maps",
   "paymentCategory.globalOptions": "global options",
   "paymentCategory.bankTransfer": "bank transfer",
   "paymentCategory.onlineWallet": "online wallets",
