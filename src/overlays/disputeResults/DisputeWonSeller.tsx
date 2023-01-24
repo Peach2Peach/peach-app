@@ -5,7 +5,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import Refund from '../Refund'
+import { useStartRefundOverlay } from '../useStartRefundOverlay'
 
 type DisputeWonSellerProps = {
   contract: Contract
@@ -15,7 +15,7 @@ type DisputeWonSellerProps = {
 
 export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSellerProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const startRefund = useStartRefundOverlay()
   const closeOverlay = () => {
     saveContract({
       ...contract,
@@ -30,10 +30,7 @@ export const DisputeWonSeller = ({ contract, offer, navigate }: DisputeWonSeller
       disputeResultAcknowledged: true,
       cancelConfirmationDismissed: true,
     })
-    updateOverlay({
-      content: <Refund {...{ sellOffer: offer, navigate }} />,
-      visible: true,
-    })
+    startRefund(offer)
   }
 
   return (
