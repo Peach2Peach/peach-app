@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { Input, Loading, PeachScrollView, PrimaryButton } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { isBuyOffer } from '../../utils/offer'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
 export default (): ReactElement => {
@@ -12,7 +13,7 @@ export default (): ReactElement => {
   const submitSignature = () => submit(signature)
 
   const copyAddress = () => {
-    if (!offer) return
+    if (!offer || !isBuyOffer(offer)) return
     Clipboard.setString(offer.releaseAddress)
   }
   const copyMessage = () => {
@@ -24,7 +25,7 @@ export default (): ReactElement => {
     setSignature(clipboard)
   }
 
-  return !offer || !message || peachWalletActive ? (
+  return !offer || !isBuyOffer(offer) || !message || peachWalletActive ? (
     <View style={tw`items-center justify-center h-full`}>
       <Loading />
     </View>

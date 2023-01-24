@@ -9,6 +9,7 @@ import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../.
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import Refund from '../../../overlays/Refund'
+import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
@@ -23,6 +24,7 @@ export const useFundEscrowSetup = () => {
   const showHelp = useShowHelp('escrow')
   const showMempoolHelp = useShowHelp('mempool')
   const showError = useShowErrorBanner()
+  const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
   const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
   const [showRegtestButton, setShowRegtestButton] = useState(
@@ -105,13 +107,15 @@ export const useFundEscrowSetup = () => {
       sellOffer,
       onSuccess: (result) => {
         info('Checked funding status', result)
-
-        saveAndUpdate({
+        const updatedOffer = {
           ...sellOffer,
           funding: result.funding,
-        })
+        }
+
+        saveAndUpdate(updatedOffer)
         setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
+        if (result.userConfirmationRequired) showEscrowConfirmOverlay(updatedOffer)
       },
       onError: (err) => {
         showError(err.error || 'GENERAL_ERROR')

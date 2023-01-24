@@ -28,11 +28,11 @@ export default (): ReactElement => {
     <View style={tw`h-full`}>
       <PeachScrollView style={tw`flex-shrink h-full`} contentContainerStyle={tw`pt-4 pb-4 px-7`}>
         <View style={tw`flex-shrink h-full`}>
-          <Text style={tw`text-center`}>
+          <View style={tw`flex-row items-center justify-center`}>
             <Text style={tw`settings`}>{i18n('sell.escrow.sendSats.1')} </Text>
-            <FundingSatsFormat style={tw`mt-0.5 pt-px`} sats={fundingAmount} />
+            <FundingSatsFormat sats={fundingAmount} />
             <Text style={tw`settings`}> {i18n('sell.escrow.sendSats.2')}</Text>
-          </Text>
+          </View>
           <BitcoinAddress
             style={tw`mt-4`}
             address={escrow}

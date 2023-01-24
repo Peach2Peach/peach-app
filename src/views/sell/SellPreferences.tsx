@@ -1,33 +1,22 @@
-import React, {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import { BackHandler, ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import { useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postSellOffer } from '../../utils/peachAPI'
-import { useNavigation, useRoute } from '../../hooks'
-import { peachWallet } from '../../utils/wallet/setWallet'
-import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
 import Premium from './Premium'
 
 export type SellViewProps = {
@@ -110,23 +99,6 @@ export default (): ReactElement => {
     setUpdatePending(false)
     setPage(0)
   }, [route])
-
-  useEffect(() => {
-    ;(async () => {
-      if (offer.returnAddress) return
-      if (peachWalletActive) {
-        setOffer({
-          ...offer,
-          returnAddress: (await peachWallet.getReceivingAddress()) || '',
-        })
-      } else {
-        setOffer({
-          ...offer,
-          returnAddress: payoutAddress || '',
-        })
-      }
-    })()
-  }, [offer, peachWalletActive, payoutAddress])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {

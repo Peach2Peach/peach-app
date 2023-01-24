@@ -6,8 +6,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { SectionHeader } from './components/SectionHeader'
 import { TradeItem } from './components/TradeItem'
-import { useYourTradesSetup } from './useYourTradesSetup'
-import { isOpenOffer, isPastOffer } from './utils'
+import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { getCategories } from './utils/getCategories'
 
 const tabs: TabbedNavigationItem[] = [
@@ -17,16 +16,8 @@ const tabs: TabbedNavigationItem[] = [
 ]
 
 export default (): ReactElement => {
-  const { trades, getTradeSummary } = useYourTradesSetup()
+  const { getTradeSummary, allOpenOffers, openOffers, pastOffers } = useYourTradesSetup()
 
-  const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
-  const openOffers = {
-    buy: allOpenOffers.filter(({ type }) => type === 'bid'),
-    sell: allOpenOffers.filter(({ type }) => type === 'ask'),
-  }
-  const pastOffers = trades.filter(
-    ({ tradeStatus, type }) => isPastOffer(tradeStatus) && (type === 'ask' || tradeStatus !== 'offerCanceled'),
-  )
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const switchTab = (tab: TabbedNavigationItem) => {

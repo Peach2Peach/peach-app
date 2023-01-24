@@ -1,5 +1,7 @@
 const prioritaryStatus = [
   'dispute',
+  'messageSigningRequired',
+  'fundingAmountDifferent',
   'confirmCancelation',
   'refundTxSignatureRequired',
   'tradeCompleted',

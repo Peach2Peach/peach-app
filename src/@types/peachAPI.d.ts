@@ -145,6 +145,7 @@ declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
+  | 'fundingAmountDifferent'
   | 'messageSigningRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
@@ -215,6 +216,7 @@ declare type FundingStatusResponse = {
   funding: FundingStatus
   error?: FundingError
   returnAddress: string
+  userConfirmationRequired: boolean
 }
 
 declare type CancelOfferRequest = {
