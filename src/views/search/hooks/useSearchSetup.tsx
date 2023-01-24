@@ -5,6 +5,7 @@ import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
@@ -15,13 +16,14 @@ export const useSearchSetup = () => {
 
   const [, updateMessage] = useContext(MessageContext)
   const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
+  const showPopup = useShowHelp('matchmatchmatch')
   // TODO: finish header
   useHeaderSetup({
     title: 'offer ' + offer.id,
     hideGoBackButton: true,
     icons: [
       { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: () => {} },
-      { iconComponent: <HelpIcon />, onPress: () => {} },
+      { iconComponent: <HelpIcon />, onPress: showPopup },
     ],
   })
 
