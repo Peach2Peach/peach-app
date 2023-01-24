@@ -9,12 +9,15 @@ import { contractIdToHex, getSellOfferFromContract, saveContract } from '../../u
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { thousands } from '../../utils/string'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
 import Refund from '../Refund'
 
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation
  */
+export type ConfirmCancelTradeProps = {
+  contract: Contract
+}
+
 export const BuyerCanceledTrade = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])

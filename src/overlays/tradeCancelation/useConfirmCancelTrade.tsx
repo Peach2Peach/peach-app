@@ -1,31 +1,60 @@
-import React, { ReactElement, useContext, useMemo, useState } from 'react'
-import { View } from 'react-native'
-import { Headline, PrimaryButton, Text } from '../../components'
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import { Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, saveContract, getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { account } from '../../utils/account'
+import { ContractCanceled } from './ContractCanceled'
+
+declare type ConfirmCancelTradeProps = {
+  contract: Contract
+}
+
+const ConfirmCancelTrade = ({ contract }: ConfirmCancelTradeProps): ReactElement => (
+  <>
+    <Text style={tw`mb-3 body-m`}>{i18n('contract.cancel.text')}</Text>
+    <Text style={tw`body-m`}>
+      {i18n(`contract.cancel.${account.publicKey === contract.seller.id ? 'seller' : 'buyer'}`)}
+    </Text>
+  </>
+)
 
 /**
  * @description Overlay the seller sees when requesting cancelation
  */
-export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
+export const useConfirmCancelTrade = (contractId: string) => {
+  const contract = getContract(contractId)!
+  const [, updateOverlay] = useContext(OverlayContext)
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [, updateOverlay] = useContext(OverlayContext)
   const [loading, setLoading] = useState(false)
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
-  const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
   const closeOverlay = () => updateOverlay({ visible: false })
+  const cancelBuyer = async () => {
+    setLoading(true)
+    const [result, err] = await cancelContract({
+      contractId,
+    })
 
-  const ok = async () => {
+    if (result) {
+      saveContract({
+        ...contract,
+        canceled: true,
+      })
+      updateOverlay({ content: <ContractCanceled contract={contract} />, visible: true })
+    } else if (err) {
+      error('Error', err)
+    }
+    setLoading(false)
+  }
+  const cancelSeller = async () => {
     setLoading(true)
     const [result, err] = await cancelContract({
       contractId: contract.id,
@@ -91,26 +120,23 @@ export const ConfirmCancelTradeSeller = ({ contract }: ConfirmCancelTradeProps):
     setLoading(false)
   }
 
-  return (
-    <View style={tw`flex items-center`}>
-      <Headline style={tw`text-xl leading-8 text-center text-white-1 font-baloo`}>
-        {i18n('contract.cancel.title')}
-      </Headline>
-      <Text style={tw`mt-8 text-center text-white-1`}>
-        {i18n('contract.cancel.text')}
-        {'\n\n'}
-        {i18n('contract.cancel.seller.text.paymentMightBeDone')}
-        {'\n\n'}
-        {i18n(`contract.cancel.seller.text.${expiry.isExpired ? 'refundEscrow' : 'backOnline'}`)}
-      </Text>
-      <View>
-        <PrimaryButton style={tw`mt-8`} loading={loading} onPress={closeOverlay} narrow>
-          {i18n('contract.cancel.confirm.back')}
-        </PrimaryButton>
-        <PrimaryButton style={tw`mt-2`} loading={loading} onPress={ok} narrow>
-          {i18n('contract.cancel.confirm.ok')}
-        </PrimaryButton>
-      </View>
-    </View>
-  )
+  const showOverlay = useCallback(() => {
+    updateOverlay({
+      title: i18n('contract.cancel.title'),
+      level: 'ERROR',
+      content: <ConfirmCancelTrade contract={contract} />,
+      visible: true,
+      action1: {
+        label: i18n('contract.cancel.title'),
+        icon: 'xCircle',
+        callback: account.publicKey === contract.seller.id ? cancelSeller : cancelBuyer,
+      },
+      action2: {
+        label: i18n('contract.cancel.confirm.back'),
+        icon: 'arrowLeftCircle',
+        callback: closeOverlay,
+      },
+    })
+  }, [updateOverlay, contract, navigation])
+  return showOverlay
 }

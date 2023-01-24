@@ -8,7 +8,7 @@ import { showAddress, showTransaction } from '../../utils/bitcoin'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
-import { ConfirmCancelTradeProps } from '../ConfirmCancelTrade'
+import { ConfirmCancelTradeProps } from './BuyerCanceledTrade'
 
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation

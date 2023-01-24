@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { Loading } from '../../components'
+import { Icon, Loading } from '../../components'
 import MessageInput from '../../components/inputs/MessageInput'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
@@ -25,6 +25,7 @@ import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { saveOffer } from '../../utils/offer'
 import { getHeaderChatActions } from './utils/getHeaderChatActions'
 import { useShowDisputeDisclaimer } from './utils/useShowDisputeDisclaimer'
+import { useConfirmCancelTrade } from '../../overlays/tradeCancelation/useConfirmCancelTrade'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -45,6 +46,9 @@ export default (): ReactElement => {
   const [newMessage, setNewMessage] = useState('')
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
+
+  // choose cancel overlay
+  const cancelTradeOverlay = useConfirmCancelTrade(contractId)
 
   // HEADER CONFIG
   const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
@@ -67,7 +71,9 @@ export default (): ReactElement => {
                 )}
               </Text>
             ),
-            icons: !contract?.disputeActive ? getHeaderChatActions(contract, view, updateOverlay) : [],
+            icons: !contract?.disputeActive
+              ? getHeaderChatActions(contract, view, cancelTradeOverlay, updateOverlay)
+              : [],
           }
           : {},
       [contract],
