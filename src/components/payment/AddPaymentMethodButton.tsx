@@ -51,7 +51,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
         content: (
           <View>
             {eventsByCountry[selected].map((event) => (
-              <MeetupSummary event={event} onPress={() => goToEventDetails(event)} />
+              <MeetupSummary key={event.id} event={event} onPress={() => goToEventDetails(event)} />
             ))}
           </View>
         ),

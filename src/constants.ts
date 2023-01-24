@@ -41,7 +41,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: 'sepa',
     currencies: ['EUR'],
-    annonymous: false,
+    anonymous: false,
   },
 ]
 
