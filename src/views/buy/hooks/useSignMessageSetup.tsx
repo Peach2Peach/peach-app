@@ -4,7 +4,7 @@ import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
-import { useOfferDetailsQuery } from '../../../hooks/useOfferDetails'
+import { useOfferDetails } from '../../../hooks/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
@@ -19,7 +19,7 @@ export const useSignMessageSetup = () => {
   const route = useRoute<'signMessage'>()
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
-  const { offer } = useOfferDetailsQuery(route.params.offerId)
+  const { offer } = useOfferDetails(route.params.offerId)
   const [, updateMessage] = useContext(MessageContext)
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
   const [signature, setSignature] = useState('')
@@ -45,9 +45,11 @@ export const useSignMessageSetup = () => {
         peachWalletActive
           ? {
             title: i18n('buy.releaseAddress.title'),
+            hideGoBackButton: true,
           }
           : {
             title: i18n('buy.addressSigning.title'),
+            hideGoBackButton: true,
             icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
           },
       [showHelp, peachWalletActive],
@@ -73,7 +75,7 @@ export const useSignMessageSetup = () => {
         saveOffer(patchedOffer)
         if (patchedOffer.online) {
           matchStoreSetOffer(patchedOffer)
-          navigation.navigate('search')
+          navigation.navigate('offerPublished')
         }
       } else if (signMessageToPublishError) {
         showErrorBanner(signMessageToPublishError.error)

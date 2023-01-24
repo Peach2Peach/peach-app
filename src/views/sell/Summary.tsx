@@ -5,13 +5,27 @@ import tw from '../../styles/tailwind'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offer, setStepValid }: SellViewProps): ReactElement => {
-  useSellSummarySetup()
+export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+  const { returnAddress, walletLabel } = useSellSummarySetup()
 
-  useEffect(() => setStepValid(true))
+  useEffect(() => {
+    setStepValid(!!returnAddress)
+
+    if (returnAddress) updateOffer({
+      ...offer,
+      returnAddress,
+    })
+  }, [returnAddress, setStepValid, updateOffer])
+
+  useEffect(() => {
+    if (walletLabel) updateOffer({
+      ...offer,
+      walletLabel,
+    })
+  }, [walletLabel, updateOffer])
 
   return (
-    <View style={tw`flex-col justify-center h-full px-6`}>
+    <View style={tw`flex-col justify-center h-full px-8`}>
       <SellOfferSummary offer={offer} style={tw`flex-shrink-0`} />
     </View>
   )

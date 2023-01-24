@@ -32,22 +32,6 @@ describe('getNavigationDestinationForOffer', () => {
     expect(destination).toBe('search')
     expect(params).toEqual(undefined)
   })
-  it('should navigate to setting return address', () => {
-    const offer = {
-      id: '3',
-    } as SellOffer
-    const offerSummary: Partial<OfferSummary> = {
-      id: '3',
-      tradeStatus: 'returnAddressRequired',
-    }
-
-    ;(<jest.Mock>getOffer).mockReturnValue(offer)
-
-    const [destination, params] = getNavigationDestinationForOffer(offerSummary as OfferSummary)
-
-    expect(destination).toBe('setReturnAddress')
-    expect(params).toEqual({ offer })
-  })
   it('should navigate to fundEscrow', () => {
     const offer = {
       id: '3',

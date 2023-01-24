@@ -1,26 +1,22 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
-import tw from '../../styles/tailwind'
+import { Linking } from 'react-native'
 
-import { Headline, Text } from '../../components'
+import { Text } from '../../components'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export default (): ReactElement => <View>
-  <Headline style={tw`text-3xl leading-3xl text-white-1`}>
-    {i18n('help.escrow.title')}
-  </Headline>
-  <View style={tw`flex items-center justify-center`}>
-    <Text style={tw`text-center text-white-1`}>
-      {i18n('help.escrow.description.1')}
-    </Text>
-    <Text style={tw`mt-2 text-center text-white-1`}>
+export const Escrow = (): ReactElement => {
+  const goToEscrowInfo = () => Linking.openURL('https://peachbitcoin.com/termsConditions.html')
+  return (
+    <Text>
+      {i18n('help.escrow.description.1')}{' '}
+      <Text style={tw`underline`} onPress={goToEscrowInfo}>
+        {i18n('help.escrow.description.1.link')}
+      </Text>
+      {'\n\n'}
       {i18n('help.escrow.description.2')}
-    </Text>
-    <Text style={tw`mt-2 text-center text-white-1`}>
+      {'\n\n'}
       {i18n('help.escrow.description.3')}
     </Text>
-    <Text style={tw`mt-2 text-center text-white-1`}>
-      {i18n('help.escrow.description.4')}
-    </Text>
-  </View>
-</View>
+  )
+}

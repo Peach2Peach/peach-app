@@ -85,7 +85,10 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
+  const [peachWalletActive, payoutAddress] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress],
+    shallow,
+  )
 
   const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -102,16 +105,11 @@ export default (): ReactElement => {
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
 
-  useFocusEffect(
-    useCallback(
-      () => () => {
-        setOffer(getDefaultSellOffer(route.params.amount))
-        setUpdatePending(false)
-        setPage(0)
-      },
-      [route],
-    ),
-  )
+  useEffect(() => {
+    setOffer(getDefaultSellOffer(route.params.amount))
+    setUpdatePending(false)
+    setPage(0)
+  }, [route])
 
   useEffect(() => {
     ;(async () => {
@@ -124,11 +122,11 @@ export default (): ReactElement => {
       } else {
         setOffer({
           ...offer,
-          returnAddress: account.settings.payoutAddress || '',
+          returnAddress: payoutAddress || '',
         })
       }
     })()
-  }, [offer, peachWalletActive])
+  }, [offer, peachWalletActive, payoutAddress])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -166,6 +164,7 @@ export default (): ReactElement => {
         premium: offer.premium,
         meansOfPayment: offer.meansOfPayment,
         paymentData: offer.paymentData,
+        returnAddress: offer.returnAddress,
       })
       if (result) {
         info('Posted offer', result)

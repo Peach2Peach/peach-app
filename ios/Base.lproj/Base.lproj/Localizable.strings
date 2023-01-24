@@ -4,8 +4,6 @@
 "notification.body.offer.wrongFundingAmount" = "Unfortunately, you sent the wrong amount to the escrow and your offer has been canceled. Please trigger a refund.";
 "notification.title.offer.notFunded" = "Offer canceled";
 "notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days 😞 We are deleting this offer.";
-"notification.title.offer.returnAddressRequired" = "Your sell offer is almost online!";
-"notification.body.offer.returnAddressRequired" = "To avoid losing funds, please provide an alternative address for refunds.";
 "notification.title.offer.expired" = "No match";
 "notification.body.offer.expired" = "It's been %@ days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";

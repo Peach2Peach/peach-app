@@ -19,6 +19,8 @@ export const useMatchesSetup = () => {
   }, [setCurrentIndex])
 
   useEffect(() => {
+    if (!offer.id) return
+
     const seenMatches = (offer.seenMatches || []).concat([matches[currentIndex]?.offerId]).filter(unique())
     saveOffer({
       ...offer,

@@ -58,7 +58,6 @@ export const useConfirmCancelTrade = (contractId: string) => {
     setLoading(true)
     const [result, err] = await cancelContract({
       contractId: contract.id,
-      // satsPerByte: 1 // TODO fetch fee rate from preferences, note prio suggestions,
     })
 
     if (result?.psbt) {

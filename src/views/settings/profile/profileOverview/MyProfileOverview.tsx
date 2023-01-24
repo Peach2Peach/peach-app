@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Rating } from './components/Rating'
-import { useUserQuery } from '../../../../hooks/useUserQuery'
+import { useUser } from '../../../../hooks/useUserQuery'
 import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
 import { MyBadges } from './components/MyBadges'
@@ -9,7 +9,7 @@ import { ProfileImage } from './components/ProfileImage'
 import { UserId } from './components/UserId'
 
 export const MyProfileOverview = ({ style }: ComponentProps) => {
-  const { user, isLoading } = useUserQuery(account.publicKey)
+  const { user, isLoading } = useUser(account.publicKey)
   if (isLoading || !user) return null
 
   return (
