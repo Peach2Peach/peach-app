@@ -16,14 +16,14 @@ export const useSearchSetup = () => {
 
   const [, updateMessage] = useContext(MessageContext)
   const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
-  const showPopup = useShowHelp('matchmatchmatch')
+  const showHelpPopup = useShowHelp('matchmatchmatch')
   // TODO: finish header
   useHeaderSetup({
     title: 'offer ' + offer.id,
     hideGoBackButton: true,
     icons: [
       { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: () => {} },
-      { iconComponent: <HelpIcon />, onPress: showPopup },
+      { iconComponent: <HelpIcon />, onPress: showHelpPopup },
     ],
   })
 
