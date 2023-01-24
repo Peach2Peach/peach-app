@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Fade, Input, PrimaryButton, SatsFormat, Text, Title } from '../../components'
+import { Fade, Input, OptionButton, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
 import { contractIdToHex, getContract, getOfferHexIdFromContract } from '../../utils/contract'
@@ -18,14 +18,8 @@ import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 
-const disputeReasonsSeller: DisputeReason[] = [
-  'noPayment',
-  'wrongPaymentAmount',
-  'buyerUnresponsive',
-  'buyerBehaviour',
-  'disputeOther',
-]
-const disputeReasonsBuyer: DisputeReason[] = ['satsNotReceived', 'sellerUnresponsive', 'sellerBehaviour', 'disputeOther']
+const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
+const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 export const isEmailRequired = (reason: DisputeReason | '') =>
   /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
@@ -136,11 +130,11 @@ export default (): ReactElement => {
 
   const reasonSelector = () => (
     <View style={tw`flex items-center`}>
-      <Text style={tw`text-center`}>{i18n('dispute.whatIsTheDisputeAbout') + '\n'}</Text>
+      <Text style={tw`h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
       {availableReasons.map((rsn, i) => (
-        <PrimaryButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]} narrow>
+        <OptionButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]} narrow>
           {i18n(`dispute.reason.${rsn}`)}
-        </PrimaryButton>
+        </OptionButton>
       ))}
     </View>
   )
@@ -182,12 +176,6 @@ export default (): ReactElement => {
 
   return (
     <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
-      <View style={tw`mb-2`}>
-        <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`-mt-1 text-center text-grey-2`}>
-          {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0} color={tw`text-grey-2`} />
-        </Text>
-      </View>
       {!reason ? reasonSelector() : disputeForm()}
       <View style={tw`flex-col flex-shrink`}>
         <Fade show={start && !keyboardOpen} pointerEvents={start ? 'auto' : 'none'} displayNone={false}>
