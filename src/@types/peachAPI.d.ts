@@ -107,7 +107,7 @@ declare type PaymentMethodInfo = {
   currencies: Currency[]
   countries?: Country[]
   rounded?: boolean
-  annonymous: boolean
+  anonymous: boolean
 }
 
 declare type KYCType = 'iban' | 'id'
