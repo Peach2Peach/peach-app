@@ -34,7 +34,7 @@ export default (): ReactElement => {
     address: '',
     url: '',
   }
-  const openLink = () => (event.url ? openAppLink(event.url) : null)
+  const openLink = (url: string) => (url ? openAppLink(url) : null)
 
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
@@ -70,7 +70,6 @@ export default (): ReactElement => {
     ),
   )
 
-  info(API_URL + event.logo)
   return (
     <>
       <View style={tw`p-8`}>
@@ -84,10 +83,21 @@ export default (): ReactElement => {
             <Text style={tw`body-l text-black-1`}>{event.address}</Text>
           </>
         )}
-        <Pressable style={tw`flex-row items-center mt-8`} onPress={openLink}>
-          <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
-          <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
-        </Pressable>
+        <View style={tw`mt-8`}>
+          {!!event.address && (
+            <Pressable
+              style={tw`flex-row items-center`}
+              onPress={() => openLink('http://maps.google.com/maps?daddr=' + event.address)}
+            >
+              <Text style={tw`underline button-large text-black-2`}>{i18n('view.maps')}</Text>
+              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
+            </Pressable>
+          )}
+          <Pressable style={tw`flex-row items-center mt-4`} onPress={() => openLink(event.url)}>
+            <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
+            <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
+          </Pressable>
+        </View>
       </View>
       {!deletable && (
         <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
