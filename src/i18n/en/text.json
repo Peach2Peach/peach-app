@@ -279,6 +279,8 @@
   "search.unmatch": "unmatch",
   "search.acceptMatch": "accept match",
   "search.matched": "matched!",
+  "search.popups.offerTaken.title": "offer taken...",
+  "search.popups.offerTaken.text": "sorry, someone else was faster!",
   "search.waitingForSeller": "waiting for seller",
   "search.matchAsManyAsYouWant.1": "You can match as many offers as you want!",
   "search.matchAsManyAsYouWant.2": "A trade will be created with the first seller who matches you back.",
