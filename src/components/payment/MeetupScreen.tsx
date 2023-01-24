@@ -15,6 +15,7 @@ import { DeleteIcon } from '../icons/DeleteIcon'
 import { sessionStorage } from '../../utils/session'
 import { openAppLink } from '../../utils/web'
 import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
+import PeachScrollView from '../PeachScrollView'
 
 /**
  * @description Screen for meetup event details.
@@ -72,7 +73,7 @@ export default (): ReactElement => {
 
   return (
     <>
-      <View style={tw`p-8`}>
+      <PeachScrollView contentContainerStyle={tw`p-8 pb-20`}>
         {event.logo !== undefined && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full h-40 mb-5`} resizeMode={'contain'} />
         )}
@@ -93,12 +94,14 @@ export default (): ReactElement => {
               <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
             </Pressable>
           )}
-          <Pressable style={tw`flex-row items-center mt-4`} onPress={() => openLink(event.url)}>
-            <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
-            <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
-          </Pressable>
+          {!!event.url && (
+            <Pressable style={tw`flex-row items-center mt-4`} onPress={() => openLink(event.url ?? '')}>
+              <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
+              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
+            </Pressable>
+          )}
         </View>
-      </View>
+      </PeachScrollView>
       {!deletable && (
         <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
           {i18n('meetup.add')}
