@@ -8,6 +8,7 @@ import { sort } from '../../../utils/array'
 import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { getTx } from '../../../utils/peachAPI'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
 
@@ -45,6 +46,10 @@ export const useTransactionDetailsSetup = () => {
 
     setTransaction(getTxSummary(tx))
   }, [currency, route, satsPerUnit, walletStore, walletStore.txOfferMap])
+
+  useEffect(() => {
+    peachWallet.syncWallet()
+  }, [])
 
   return {
     transaction,

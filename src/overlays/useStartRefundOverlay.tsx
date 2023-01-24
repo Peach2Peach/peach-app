@@ -4,6 +4,7 @@ import { Loading } from '../components'
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
+import { tradeSummaryStore } from '../store/tradeSummaryStore'
 import tw from '../styles/tailwind'
 import { checkAndRefund, showTransaction } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
@@ -37,6 +38,7 @@ export const useStartRefundOverlay = () => {
         txId,
         refunded: true,
       })
+      tradeSummaryStore.getState().setOffer(sellOffer.id, { txId })
       updateOverlay({
         title: i18n('refund.title'),
         content: <Refund isPeachWallet={isPeachWallet} />,
