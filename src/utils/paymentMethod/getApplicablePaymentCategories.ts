@@ -9,4 +9,4 @@ import { hasApplicablePaymentMethods } from '../paymentMethod'
 export const getApplicablePaymentCategories = (currency: Currency): PaymentCategory[] =>
   (Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
     .filter((category) => hasApplicablePaymentMethods(category, currency))
-    .filter((category) => category != 'cash')
+    .filter((category) => category !== 'cash')
