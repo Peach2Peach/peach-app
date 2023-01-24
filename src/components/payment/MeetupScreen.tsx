@@ -78,12 +78,12 @@ export default (): ReactElement => {
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full h-40 mb-5`} resizeMode={'contain'} />
         )}
         <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.name)}</Text>
-        {event.address !== '' && (
-          <>
-            <Text style={tw`mt-8 body-l text-black-1`}>{i18n('meetup.address')}</Text>
-            <Text style={tw`body-l text-black-1`}>{event.address}</Text>
-          </>
-        )}
+
+        <Text style={tw`mt-8 body-l text-black-1`}>{i18n('meetup.address')}</Text>
+        <Text style={tw`body-l text-black-1`}>
+          {!!event.address ? event.address : i18n('address.changingLocations')}
+        </Text>
+
         <View style={tw`mt-8`}>
           {!!event.address && (
             <Pressable
