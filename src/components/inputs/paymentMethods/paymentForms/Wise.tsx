@@ -97,9 +97,11 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'email' && (
-          <PhoneInput
+          <Input
             onChange={setEmail}
-            onSubmit={() => $phone?.focus()}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
             reference={(el: any) => ($email = el)}
             value={email}
             required={!phone}
@@ -109,11 +111,9 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           />
         )}
         {currentTab.id === 'phone' && (
-          <Input
+          <PhoneInput
             onChange={setPhone}
-            onSubmit={() => {
-              $reference?.focus()
-            }}
+            onSubmit={() => $phone?.focus()}
             reference={(el: any) => ($phone = el)}
             value={phone}
             required={!email}
