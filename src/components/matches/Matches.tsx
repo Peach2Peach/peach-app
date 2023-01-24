@@ -1,17 +1,38 @@
-import React, { ReactElement } from 'react'
-import MatchCarousel from './MatchCarousel'
-import { View } from 'react-native'
+import React from 'react'
+import { Dimensions } from 'react-native'
+import Carousel from 'react-native-snap-carousel'
 import tw from '../../styles/tailwind'
+import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
 import { useMatchesSetup } from './hooks'
+import { Match } from './Match'
+import { useMatchStore } from './store'
 
-export const Matches = (): ReactElement => {
-  useMatchesSetup()
-
-  return (
-    <View style={tw`flex-col justify-end flex-shrink h-full`}>
-      <MatchCarousel />
-    </View>
-  )
+const { width } = Dimensions.get('window')
+const carouselConfig = {
+  loop: false,
+  enableMomentum: false,
+  sliderWidth: width,
+  itemWidth: width - 80,
+  inactiveSlideScale: 0.9,
+  inactiveSlideOpacity: 0.7,
+  inactiveSlideShift: -10,
+  activeSlideAlignment: 'center' as 'center',
+  enableSnap: true,
+  shouldOptimizeUpdates: true,
+  lockScrollWhileSnapping: true,
+  keyExtractor: (item: any, index: number) => `${item.offerId}-${index}`,
 }
 
-export default Matches
+const renderItem = ({ item }: { item: Match }) => <Match match={item} style={tw`self-center px-4 py-4`} />
+
+export const Matches = () => {
+  useMatchesSetup()
+  const { allMatches: matches } = useOfferMatches()
+
+  const setCurrentIndex = useMatchStore((state) => state.setCurrentIndex)
+  const onBeforeSnapToItem = (index: number) => {
+    setCurrentIndex(Math.min(index, matches.length - 1))
+  }
+
+  return <Carousel data={matches} {...{ ...carouselConfig, onBeforeSnapToItem, renderItem }} />
+}
