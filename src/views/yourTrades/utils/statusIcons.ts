@@ -8,7 +8,6 @@ export const statusIcons: Record<TradeStatus, IconType> = {
   escrowWaitingForConfirmation: 'clock',
   hasMatchesAvailable: 'checkCircle',
   refundTxSignatureRequired: 'alertOctagon',
-  messageSigningRequired: 'alertOctagon',
   paymentRequired: 'dollarSign',
   confirmPaymentRequired: 'dollarSign',
   dispute: 'alertOctagon',
