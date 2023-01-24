@@ -1,60 +1,55 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { APPLINKS } from '../../constants'
-import { usePublicProfileNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { ProfileOverview } from '../../views/publicProfile/components'
 import { paymentDetailTemplates } from '../payment'
-import { Headline, Text } from '../text'
-import { HorizontalLine } from '../ui'
-import { TradeSummaryProps } from './TradeSummary'
-import { PaymentMethod } from './PaymentMethod'
+import { PriceFormat, Text } from '../text'
+import { CopyAble, HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
+import { PaymentMethod } from './PaymentMethod'
+import { TradeSummaryProps } from './TradeSummary'
 
 export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
-  const goToUserProfile = usePublicProfileNavigation(contract.seller.id)
   const appLink = APPLINKS[contract.paymentMethod]
 
   return (
-    <View style={tw`border rounded border-peach-1`}>
-      {contract.paymentMade ? (
-        <View style={tw`absolute top-0 left-0 z-20 w-full h-full`} pointerEvents="none">
-          <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
-          <Text style={tw`absolute w-full text-xs text-center bottom-full font-baloo text-peach-1`}>
-            {i18n('contract.payment.made')}
-          </Text>
+    <View>
+      <ProfileOverview user={contract.seller} />
+      <HorizontalLine style={tw`mt-7`} />
+      <View style={tw`flex-row justify-between items-center mt-6`}>
+        <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
+        <View style={tw`flex-row items-center`}>
+          <PriceFormat style={tw`subtitle-1`} amount={contract.price} currency={contract.currency} />
+          <CopyAble value={contract.price.toFixed(2)} style={tw`ml-2`} />
         </View>
-      ) : null}
-      <View style={tw`p-5`}>
-        <Headline style={tw`normal-case text-grey-2`}>{i18n('seller')}</Headline>
-        <Text onPress={goToUserProfile} style={tw`text-center text-grey-2`}>
-          Peach{contract.seller.id.substring(0, 8)}
-        </Text>
-        <HorizontalLine style={tw`mt-4`} />
-        <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('contract.youShouldPay')}</Headline>
-        <Text style={tw`text-center text-grey-2`}>
-          {i18n(`currency.format.${contract.currency}`, contract.price.toFixed(2))}
-        </Text>
-        <HorizontalLine style={tw`mt-4`} />
-        {contract.paymentData && PaymentTo ? (
-          <PaymentTo
-            paymentData={contract.paymentData}
-            country={contract.country}
-            appLink={appLink?.appLink}
-            fallbackUrl={appLink?.url}
-          />
-        ) : null}
-        <HorizontalLine style={tw`mt-4`} />
-        <PaymentMethod style={tw`mt-4`} paymentMethod={contract.paymentMethod} showLink={true} />
-
-        {contract.escrow || contract.releaseTxId ? (
-          <View>
-            <HorizontalLine style={tw`mt-4`} />
-            <Escrow style={tw`mt-4`} contract={contract} view={''} />
-          </View>
-        ) : null}
       </View>
+      <View style={tw`flex-row justify-between items-center mt-4`}>
+        <Text style={tw`text-black-2`}>
+          {i18n(contract.paymentMethod.includes('cash') ? 'contract.summary.in' : 'contract.summary.via')}
+        </Text>
+        <PaymentMethod paymentMethod={contract.paymentMethod} showLink={!!appLink} />
+      </View>
+
+      {!!contract.paymentData && !!PaymentTo && (
+        <PaymentTo
+          style={tw`mt-4`}
+          paymentData={contract.paymentData}
+          country={contract.country}
+          appLink={appLink?.appLink}
+          fallbackUrl={appLink?.url}
+          copyable
+        />
+      )}
+
+      {(!!contract.escrow || !!contract.releaseTxId) && (
+        <View style={tw`mt-6`}>
+          <HorizontalLine />
+          <Escrow style={tw`mt-6`} contract={contract} view={''} />
+        </View>
+      )}
     </View>
   )
 }
