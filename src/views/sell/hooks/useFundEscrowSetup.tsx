@@ -2,7 +2,6 @@ import { NETWORK } from '@env'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
-import { useMatchStore } from '../../../components/matches/store'
 import { OverlayContext } from '../../../contexts/overlay'
 import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
@@ -20,7 +19,6 @@ export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
   const showHelp = useShowHelp('escrow')
   const showMempoolHelp = useShowHelp('mempool')
   const showError = useShowErrorBanner()
@@ -134,10 +132,9 @@ export const useFundEscrowSetup = () => {
     }
 
     if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
-      matchStoreSetOffer(sellOffer)
-      navigation.replace('offerPublished')
+      navigation.replace('offerPublished', { offerId: sellOffer.id })
     }
-  }, [fundingStatus, matchStoreSetOffer, navigateToYourTrades, navigation, sellOffer, updateOverlay])
+  }, [fundingStatus, navigateToYourTrades, navigation, sellOffer, updateOverlay])
 
   return {
     sellOffer,

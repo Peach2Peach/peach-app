@@ -1,7 +1,6 @@
 import { useCallback, useContext, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
-import { useMatchStore } from '../../components/matches/store'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
@@ -25,7 +24,6 @@ export const useOfferDetailsSetup = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
   const [offer, setOffer] = useState(() => getOffer(offerId))
   const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
@@ -50,8 +48,7 @@ export const useOfferDetailsSetup = () => {
 
           if (result.online && result.matches.length && !result.contractId) {
             info('useOfferDetailsSetup - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
-            matchStoreSetOffer(updatedOffer)
-            navigation.replace('search')
+            navigation.replace('search', { offerId: updatedOffer.id })
           } else if (isSellOffer(updatedOffer) && result.tradeStatus === 'fundingAmountDifferent') {
             showEscrowConfirmOverlay(updatedOffer)
           }

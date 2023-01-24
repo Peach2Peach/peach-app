@@ -7,23 +7,18 @@ import { dropShadowMild, peachyGradient } from '../../utils/layout'
 import { isBuyOffer } from '../../utils/offer'
 import { GradientBorder } from '../../views/TestView/GradientBorder'
 import { MatchOfferButton, UnmatchButton } from './buttons'
-import { useInterruptibleFunction } from './buttons/useInterruptibleFunction'
 import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo, EscrowLink } from './components'
-import { useMatchOffer } from './hooks'
+import { useMatchOffer, useInterruptibleFunction } from './hooks'
 import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { Price } from './Price'
-import { useMatchStore } from './store'
 
 const { RadialGradient } = require('react-native-gradients')
 
-type MatchProps = ComponentProps & { match: Match }
+type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
 
-export const Match = ({ match, style }: MatchProps): ReactElement => {
-  const offer = useMatchStore((state) => state.offer)
-
+export const Match = ({ match, style, offer }: MatchProps): ReactElement => {
   const { mutate } = useMatchOffer(offer, match)
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
-
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
     mutate(undefined, { onError: () => setShowMatchedCard(false) })
   }, 5000)
@@ -81,7 +76,7 @@ export const Match = ({ match, style }: MatchProps): ReactElement => {
                     pointerEvents="box-none"
                   >
                     <UnmatchButton
-                      match={match}
+                      {...{ match, offer }}
                       interruptMatching={interruptMatchFunction}
                       showUnmatchedCard={() => setShowMatchedCard(false)}
                     />

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Dimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
+import { useRoute } from '../../hooks'
+import { useOfferDetails } from '../../hooks/useOfferDetails'
 import tw from '../../styles/tailwind'
 import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
 import { useMatchesSetup } from './hooks'
@@ -23,8 +25,6 @@ const carouselConfig = {
   keyExtractor: (item: any, index: number) => `${item.offerId}-${index}`,
 }
 
-const renderItem = ({ item }: { item: Match }) => <Match match={item} style={tw`self-center px-4 py-4`} />
-
 export const Matches = () => {
   useMatchesSetup()
   const { allMatches: matches } = useOfferMatches()
@@ -33,6 +33,15 @@ export const Matches = () => {
   const onBeforeSnapToItem = (index: number) => {
     setCurrentIndex(Math.min(index, matches.length - 1))
   }
+  const offerId = useRoute<'search'>().params.offerId
+  const { offer } = useOfferDetails(offerId)
+  if (!offer) return <></>
 
-  return <Carousel data={matches} {...{ ...carouselConfig, onBeforeSnapToItem, renderItem }} />
+  return (
+    <Carousel
+      data={matches}
+      renderItem={({ item }) => <Match match={item} style={tw`self-center px-4 py-4`} offer={offer} />}
+      {...{ ...carouselConfig, onBeforeSnapToItem }}
+    />
+  )
 }

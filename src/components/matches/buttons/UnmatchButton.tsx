@@ -9,18 +9,17 @@ import { dropShadowStrong } from '../../../utils/layout'
 import { PrimaryButton } from '../../buttons'
 import { Shadow } from '../../ui'
 import { useUnmatchOffer } from '../hooks'
-import { useMatchStore } from '../store'
 import { UndoButton } from './UndoButton'
 
 type Props = {
   match: Match
+  offer: BuyOffer | SellOffer
   interruptMatching: () => void
   showUnmatchedCard: () => void
 }
 
-export const UnmatchButton = ({ match, interruptMatching, showUnmatchedCard }: Props) => {
+export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCard }: Props) => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const offer = useMatchStore((state) => state.offer)
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched)

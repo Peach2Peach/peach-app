@@ -1,13 +1,19 @@
 import React from 'react'
 import { SatsFormat, Text } from '../../../components'
-import { useMatchStore } from '../../../components/matches/store'
+import { useRoute } from '../../../hooks'
+import { useOfferDetails } from '../../../hooks/useOfferDetails'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../hooks/useOfferMatches'
 
 export const MatchInformation = () => {
-  const { amount } = useMatchStore((state) => state.offer)
+  const { offerId } = useRoute<'search'>().params
+  const { offer } = useOfferDetails(offerId)
   const { allMatches: matches } = useOfferMatches()
+  if (!offer) return <></>
+
+  const { amount } = offer
+
   return (
     <>
       <Text style={tw`text-center h4 text-primary-main`}>

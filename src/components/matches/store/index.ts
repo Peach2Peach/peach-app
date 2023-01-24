@@ -5,14 +5,12 @@ import { createMatchSelectors, MatchSelectors } from './createMatchSelectors'
 import { updateMatchSelectors } from './updateMatchSelectors'
 
 type MatchState = {
-  offer: BuyOffer | SellOffer
   matchSelectors: MatchSelectors
   currentIndex: number
   currentPage: number
 }
 
 export type MatchStore = MatchState & {
-  setOffer: (offer: BuyOffer | SellOffer) => void
   setSelectedCurrency: (currency: Currency, matchId: Match['offerId']) => void
   setSelectedPaymentMethod: (paymentMethod: PaymentMethod | undefined, matchId: Match['offerId']) => void
   setCurrentIndex: (newIndex: number) => void
@@ -23,27 +21,7 @@ export type MatchStore = MatchState & {
   setShowPaymentMethodPulse: (matchId: Match['offerId'], show?: boolean) => void
 }
 
-const defaultBuyOffer: BuyOffer = {
-  online: false,
-  type: 'bid',
-  creationDate: new Date(),
-  meansOfPayment: {},
-  paymentData: {},
-  originalPaymentData: [],
-  kyc: false,
-  amount: [200000, 1000000],
-  matches: [],
-  seenMatches: [],
-  matched: [],
-  doubleMatched: false,
-  releaseAddress: '',
-  id: '0',
-  tradeStatus: 'waiting', // TODO: decide on a default here
-  message: '', // TODO: decide on a default here
-}
-
 const defaultState: MatchState = {
-  offer: defaultBuyOffer,
   currentIndex: 0,
   currentPage: 0,
   matchSelectors: {},
@@ -52,7 +30,6 @@ const defaultState: MatchState = {
 export const useMatchStore = create<MatchStore>()(
   immer((set, get) => ({
     ...defaultState,
-    setOffer: (offer) => set((state) => ({ ...state, offer })),
     setSelectedCurrency: (currency, matchId) => {
       const currentMatch = get().matchSelectors[matchId]
       const currentPaymentMethod = currentMatch.selectedPaymentMethod

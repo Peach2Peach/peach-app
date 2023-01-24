@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import shallow from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
-import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useOfferDetails } from '../../../hooks/useOfferDetails'
@@ -56,8 +55,6 @@ export const useSignMessageSetup = () => {
     ),
   )
 
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
-
   const submit = useCallback(
     async (sig: string) => {
       if (!offer || !isBuyOffer(offer)) return
@@ -74,14 +71,13 @@ export const useSignMessageSetup = () => {
         }
         saveOffer(patchedOffer)
         if (patchedOffer.online) {
-          matchStoreSetOffer(patchedOffer)
-          navigation.navigate('offerPublished')
+          navigation.navigate('offerPublished', { offerId: patchedOffer.id })
         }
       } else if (signMessageToPublishError) {
         showErrorBanner(signMessageToPublishError.error)
       }
     },
-    [matchStoreSetOffer, navigation, offer, route.params.offerId, showErrorBanner],
+    [navigation, offer, route.params.offerId, showErrorBanner],
   )
 
   useEffect(() => {

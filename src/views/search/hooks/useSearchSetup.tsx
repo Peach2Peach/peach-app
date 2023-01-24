@@ -5,7 +5,8 @@ import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useOfferDetails } from '../../../hooks/useOfferDetails'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { CancelOffer } from '../../../overlays/CancelOffer'
 import tw from '../../../styles/tailwind'
@@ -20,7 +21,10 @@ export const useSearchSetup = () => {
 
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
-  const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
+  const offerId = useRoute<'search'>().params.offerId
+  const { offer } = useOfferDetails(offerId)
+
+  const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
@@ -44,20 +48,21 @@ export const useSearchSetup = () => {
   }
 
   useHeaderSetup({
-    title: 'offer ' + offer.id,
+    title: 'offer ' + offerId,
     hideGoBackButton: true,
-    icons: [
-      { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: showCancelPopup },
-      { iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup },
-    ],
+    icons: offer
+      ? [
+        { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: showCancelPopup },
+        { iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup },
+      ]
+      : [],
   })
 
   const { allMatches: matches, error, refetch } = useOfferMatches()
-  const resetStore = useMatchStore((state) => state.resetStore)
 
   useEffect(() => {
-    addMatchSelectors(matches, offer.meansOfPayment)
-  }, [offer.meansOfPayment, addMatchSelectors, matches])
+    if (offer?.meansOfPayment) addMatchSelectors(matches, offer.meansOfPayment)
+  }, [addMatchSelectors, matches, offer?.meansOfPayment])
 
   useEffect(
     () => () => {
@@ -70,16 +75,16 @@ export const useSearchSetup = () => {
     if (error) {
       const errorMessage = parseError(error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
-        if (offer.id) navigation.replace('offer', { offerId: offer.id })
+        if (offerId) navigation.replace('offer', { offerId })
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
         updateMessage({ msgKey: errorMessage, level: 'ERROR' })
       }
     }
-  }, [error, navigation, offer, updateMessage])
+  }, [error, navigation, offerId, updateMessage])
 
-  useRefetchOnNotification(refetch, offer.id)
+  useRefetchOnNotification(refetch, offerId)
 
   return { offer, hasMatches: !!matches.length }
 }

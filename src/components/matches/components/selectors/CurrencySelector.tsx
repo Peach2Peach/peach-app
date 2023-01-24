@@ -5,14 +5,12 @@ import { Text } from '../../../text'
 import { HorizontalLine } from '../../../ui'
 import { useMatchStore } from '../../store'
 import shallow from 'zustand/shallow'
-import { isBuyOffer } from '../../../../utils/offer'
 import { CustomSelector } from './CustomSelector'
 import { PulsingText } from './PulsingText'
 
 export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer, selectedValue, setSelectedCurrency, availableCurrencies, showCurrencyPulse } = useMatchStore(
+  const { selectedValue, setSelectedCurrency, availableCurrencies, showCurrencyPulse } = useMatchStore(
     (state) => ({
-      offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedCurrency,
       setSelectedCurrency: state.setSelectedCurrency,
       availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],
