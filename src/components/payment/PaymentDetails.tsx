@@ -195,18 +195,25 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
       </View>
     )
 
-  const meetupPaymentDetails = () =>
-    cashPaymentData.map(mapPaymentDataToCheckboxes).map((item, i) => (
-      <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
-        <PaymentDetailsCheckbox
-          onPress={() => (editing ? editItem(item.data) : select(item.value))}
-          item={item}
-          checked={isSelected(item)}
-          editing={editing}
-        />
-        <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
-      </View>
-    ))
+  const meetupPaymentDetails = () => (
+    <>
+      <LinedText style={tw`pb-3`}>
+        <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
+        <Icon color={tw`text-black-2`.color} id={'users'} />
+      </LinedText>
+      {cashPaymentData.map(mapPaymentDataToCheckboxes).map((item, i) => (
+        <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
+          <PaymentDetailsCheckbox
+            onPress={() => (editing ? editItem(item.data) : select(item.value))}
+            item={item}
+            checked={isSelected(item)}
+            editing={editing}
+          />
+          <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
+        </View>
+      ))}
+    </>
+  )
 
   return (
     <View style={style}>

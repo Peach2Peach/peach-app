@@ -97,6 +97,7 @@ import unlock from './unlock.svg'
 import upload from './upload.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
+import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
 import x from './x.svg'
@@ -207,6 +208,7 @@ const Icons = {
   upload,
   user,
   userCheck,
+  users,
   userX,
   wallet,
   x,
