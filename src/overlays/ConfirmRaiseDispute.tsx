@@ -22,7 +22,7 @@ export const ConfirmRaiseDispute = ({ contract: { id: contractId } }: ConfirmRai
 
   const ok = async () => {
     closeOverlay()
-    navigation.navigate('dispute', { contractId })
+    navigation.navigate('disputeReasonSelector', { contractId })
   }
 
   const openExplainer = () =>

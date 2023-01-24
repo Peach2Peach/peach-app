@@ -45,8 +45,12 @@ declare type RootStackParamList = {
   contractChat: {
     contractId: Contract['id']
   }
-  dispute: {
+  disputeReasonSelector: {
     contractId: Contract['id']
+  }
+  disputeForm: {
+    contractId: Contract['id']
+    reason: DisputeReason
   }
   tradeComplete: {
     contract: Contract

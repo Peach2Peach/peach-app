@@ -17,16 +17,13 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
-
-const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
-const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 export const isEmailRequired = (reason: DisputeReason | '') =>
   /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
 const required = { required: true }
 
 export default (): ReactElement => {
-  const route = useRoute<'disputeReasonSelector'>()
+  const route = useRoute<'disputeForm'>()
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -44,7 +41,6 @@ export default (): ReactElement => {
   let $message = useRef<TextInput>(null).current
 
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
-  const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   // HEADER CONFIG
   useHeaderSetup(
@@ -128,17 +124,6 @@ export default (): ReactElement => {
     setLoading(false)
   }
 
-  const reasonSelector = () => (
-    <View style={tw`flex items-center`}>
-      <Text style={tw`h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
-      {availableReasons.map((rsn, i) => (
-        <OptionButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]} narrow>
-          {i18n(`dispute.reason.${rsn}`)}
-        </OptionButton>
-      ))}
-    </View>
-  )
-
   const disputeForm = () => (
     <View style={tw`flex items-center`}>
       <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
@@ -174,17 +159,11 @@ export default (): ReactElement => {
   return (
     <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
-        {!reason ? reasonSelector() : disputeForm()}
+        {disputeForm()}
       </PeachScrollView>
-      {!reason ? (
-        <PrimaryButton onPress={goBack} style={tw`mt-2`} narrow>
-          {i18n('back')}
-        </PrimaryButton>
-      ) : (
-        <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
-          {i18n('confirm')}
-        </PrimaryButton>
-      )}
+      <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
+        {i18n('confirm')}
+      </PrimaryButton>
     </View>
   )
 }
