@@ -36,7 +36,6 @@ export const useConfirmCancelTrade = (contractId: string) => {
   const [, updateMessage] = useContext(MessageContext)
   const [loading, setLoading] = useState(false)
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
-  const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
   const closeOverlay = () => updateOverlay({ visible: false })
   const cancelBuyer = async () => {
     setLoading(true)
