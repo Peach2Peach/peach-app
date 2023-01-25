@@ -27,7 +27,7 @@ export const handleMissingPaymentData = (
         currencies: [currency],
         country: /giftCard/u.test(paymentMethod) ? (paymentMethod.split('.').pop() as Country) : undefined,
       },
-      origin: ['search', {}],
+      origin: ['search', { offerId: offer.id }],
     })
   }
 
