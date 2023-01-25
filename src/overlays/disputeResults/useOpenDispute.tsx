@@ -16,7 +16,7 @@ export const useOpenDispute = (contractId: string) => {
 
   const ok = async () => {
     closeOverlay()
-    navigation.navigate('dispute', { contractId })
+    navigation.navigate('disputeReasonSelector', { contractId })
   }
 
   const showOverlay = useCallback(() => {
