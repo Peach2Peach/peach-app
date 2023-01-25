@@ -1,55 +1,58 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
+import { CancelIcon, HelpIcon } from '../../../components/icons'
 import AppContext from '../../../contexts/app'
 import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
 import getContractEffect from '../../../effects/getContractEffect'
-import getOfferDetailsEffect from '../../../effects/getOfferDetailsEffect'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useContractDetails } from '../../../hooks/useContractDetails'
+import { useOfferDetails } from '../../../hooks/useOfferDetails'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { account } from '../../../utils/account'
 import { getChatNotifications } from '../../../utils/chat'
 import {
   canCancelContract,
   getContract,
+  getContractViewer,
   getOfferIdFromContract,
   saveContract,
   signReleaseTx,
 } from '../../../utils/contract'
 import { isTradeCanceled, isTradeComplete } from '../../../utils/contract/status'
 import i18n from '../../../utils/i18n'
-import { error } from '../../../utils/log'
 import { getRequiredActionCount, saveOffer } from '../../../utils/offer'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
+import ContractTitle from '../components/ContractTitle'
 import { decryptContractData } from '../helpers/decryptContractData'
 import { getRequiredAction } from '../helpers/getRequiredAction'
 import { handleOverlays } from '../helpers/handleOverlays'
-import ContractTitle from '../components/ContractTitle'
-import { useShowHelp } from '../../../hooks/useShowHelp'
-import { CancelIcon, HelpIcon } from '../../../components/icons'
-import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
+  const { contractId } = route.params
+
   const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
-
-  const [loading, setLoading] = useState(false)
-  const [contractId, setContractId] = useState(route.params.contractId)
-  const [contract, setContract] = useState(route.params.contract || getContract(contractId))
-  const [updatePending, setUpdatePending] = useState(!contract)
-  const [view, setView] = useState<'seller' | 'buyer' | ''>(
-    contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
-  )
-  const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
-  const cancelContract = useConfirmCancelTrade(route.params.contractId)
+  const showError = useShowErrorBanner()
+  const cancelContract = useConfirmCancelTrade(contractId)
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
+
+  const [actionPending, setActionPending] = useState(false)
+  const { contract, isLoading } = useContractDetails(contractId)
+  const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
+  const [storedContract, setStoredContract] = useState(getContract(contractId))
+  const view = contract ? getContractViewer(contract, account) : undefined
+  const requiredAction = contract ? getRequiredAction(contract) : 'none'
 
   useHeaderSetup(
     useMemo(() => {
@@ -67,23 +70,15 @@ export const useContractSetup = () => {
         onPress: showConfirmPaymentHelp,
       })
       return {
-        titleComponent: <ContractTitle id={route.params.contractId} amount={contract?.amount} />,
+        titleComponent: <ContractTitle id={contractId} amount={contract?.amount} />,
         icons,
       }
-    }, [
-      cancelContract,
-      contract,
-      requiredAction,
-      route.params.contractId,
-      showConfirmPaymentHelp,
-      showMakePaymentHelp,
-      view,
-    ]),
+    }, [cancelContract, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
   )
+
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
 
-    setContract(contractData)
     saveContract(contractData)
     updateAppContext({
       notifications: getChatNotifications() + getRequiredActionCount(),
@@ -91,35 +86,22 @@ export const useContractSetup = () => {
     return contractData
   }
 
-  const initContract = () => {
-    if (contract?.id !== route.params.contractId) {
-      const c = route.params.contract || getContract(route.params.contractId)
-      setContractId(() => route.params.contractId)
-      setUpdatePending(!c)
-      setView(c ? (account.publicKey === c.seller.id ? 'seller' : 'buyer') : '')
-      setRequiredAction(c ? getRequiredAction(c) : 'none')
-      setContract(c)
-    }
-  }
-
-  useFocusEffect(useCallback(initContract, [route]))
-
   useFocusEffect(
     useCallback(() => {
       const contractUpdateHandler = async (update: ContractUpdate) => {
-        if (!contract || update.contractId !== contract.id || !update.event) return
-        setContract({
-          ...contract,
+        if (!storedContract || update.contractId !== contractId || !update.event) return
+        setStoredContract({
+          ...storedContract,
           [update.event]: new Date(update.data.date),
         })
       }
       const messageHandler = async (message: Message) => {
-        if (!contract) return
-        if (!message.message || message.roomId !== `contract-${contract.id}`) return
+        if (!storedContract) return
+        if (!message.message || message.roomId !== `contract-${contractId}`) return
 
-        setContract({
-          ...contract,
-          unreadMessages: contract.unreadMessages + 1,
+        setStoredContract({
+          ...storedContract,
+          unreadMessages: storedContract.unreadMessages + 1,
         })
       }
       const unsubscribe = () => {
@@ -133,7 +115,7 @@ export const useContractSetup = () => {
       ws.on('message', messageHandler)
 
       return unsubscribe
-    }, [contract, ws.connected]),
+    }, [contractId, storedContract, ws]),
   )
 
   useFocusEffect(
@@ -143,7 +125,6 @@ export const useContractSetup = () => {
         onSuccess: async (result) => {
           let c = getContract(result.id)
           const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
-          setView(v)
 
           const { symmetricKey, paymentData } = await decryptContractData({
             ...result,
@@ -183,30 +164,12 @@ export const useContractSetup = () => {
     ),
   )
 
-  useFocusEffect(
-    useCallback(
-      getOfferDetailsEffect({
-        offerId: contract ? getOfferIdFromContract(contract) : undefined,
-        onSuccess: async (result) => {
-          saveOffer(result, false)
-        },
-        onError: (err) =>
-          updateMessage({
-            msgKey: err.error || 'GENERAL_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          }),
-      }),
-      [contract],
-    ),
-  )
+  useEffect(() => {
+    if (offer) saveOffer(offer, false)
+  }, [offer])
 
   useEffect(() => {
-    if (!contract || !view || updatePending) return
+    if (!contract || !view || isLoading) return
 
     if (isTradeComplete(contract)) {
       if (
@@ -218,85 +181,63 @@ export const useContractSetup = () => {
       }
 
       navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
-      return
     } else if (isTradeCanceled(contract)) {
       navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
-      return
     }
+  }, [contract, isLoading, navigation, view])
 
-    setRequiredAction(getRequiredAction(contract))
-    setUpdatePending(false)
-  }, [contract, navigation, updatePending, view])
+  const postConfirmPaymentBuyer = useCallback(async () => {
+    if (!storedContract) return
 
-  const postConfirmPaymentBuyer = async () => {
-    if (!contract) return
-
-    const [, err] = await confirmPayment({ contractId: contract.id })
+    const [, err] = await confirmPayment({ contractId })
 
     if (err) {
-      error(err.error)
-      updateMessage({
-        msgKey: err.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      showError(err.error)
+
       return
     }
 
     saveAndUpdate({
-      ...contract,
+      ...storedContract,
       paymentMade: new Date(),
     })
-  }
+  }, [contractId, saveAndUpdate, showError, storedContract])
 
-  const postConfirmPaymentSeller = async () => {
-    if (!contract) return
-    setLoading(true)
+  const postConfirmPaymentSeller = useCallback(async () => {
+    if (!storedContract) return
+    setActionPending(true)
 
-    const [tx, errorMsg] = signReleaseTx(contract)
+    const [tx, errorMsg] = signReleaseTx(storedContract)
 
     if (!tx) {
-      setLoading(false)
-      updateMessage({
-        msgKey: errorMsg || 'GENERAL_ERROR',
-        level: 'WARN',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      setActionPending(false)
+      showError(errorMsg)
       return
     }
 
-    const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
+    const [result, err] = await confirmPayment({ contractId, releaseTransaction: tx })
 
-    setLoading(false)
+    setActionPending(false)
 
     if (err) {
-      error(err.error)
-      updateMessage({
-        msgKey: err.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      showError(err.error)
       return
     }
 
     saveAndUpdate({
-      ...contract,
+      ...storedContract,
       paymentConfirmed: new Date(),
       releaseTxId: result?.txId || '',
     })
-  }
+  }, [contractId, saveAndUpdate, showError, storedContract])
 
-  return { contract, updatePending, view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }
+  return {
+    contract: storedContract,
+    isLoading,
+    view,
+    requiredAction,
+    actionPending,
+    postConfirmPaymentBuyer,
+    postConfirmPaymentSeller,
+  }
 }

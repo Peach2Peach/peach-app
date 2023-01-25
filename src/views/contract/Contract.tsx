@@ -11,10 +11,10 @@ import { useContractSetup } from './hooks/useContractSetup'
 import i18n from '../../utils/i18n'
 
 export default (): ReactElement => {
-  const { contract, updatePending, view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }
+  const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
     = useContractSetup()
 
-  if (!contract || updatePending || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
+  if (!contract || isLoading || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
 
   return (
     <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8 pb-6`}>
@@ -34,7 +34,7 @@ export default (): ReactElement => {
         <ContractStatusInfo {...{ contract, requiredAction, view }} />
         <ContractCTA
           style={tw`mt-3`}
-          {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
+          {...{ view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
         />
       </View>
     </PeachScrollView>

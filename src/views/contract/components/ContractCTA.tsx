@@ -8,14 +8,14 @@ import i18n from '../../../utils/i18n'
 type ContractCTAProps = ComponentProps & {
   view?: ContractViewer
   requiredAction: ContractAction
-  loading: boolean
+  actionPending: boolean
   postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
 export default ({
   view,
   requiredAction,
-  loading,
+  actionPending,
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
   style,
@@ -34,7 +34,7 @@ export default ({
     {view === 'buyer' && requiredAction === 'sendPayment' && (
       <SlideToUnlock
         style={tw`w-[260px]`}
-        disabled={loading}
+        disabled={actionPending}
         onUnlock={postConfirmPaymentBuyer}
         label1={i18n('contract.payment.confirm')}
         label2={i18n('contract.payment.made')}
@@ -43,7 +43,7 @@ export default ({
     {view === 'seller' && requiredAction === 'confirmPayment' && (
       <SlideToUnlock
         style={tw`w-[260px]`}
-        disabled={loading}
+        disabled={actionPending}
         onUnlock={postConfirmPaymentSeller}
         label1={i18n('contract.payment.confirm')}
         label2={i18n('contract.payment.received')}
