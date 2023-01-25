@@ -24,7 +24,6 @@ const navigation = {
 } as unknown as StackNavigation
 
 const updateOverlay = jest.fn()
-const matchStoreSetOfferMock = jest.fn()
 
 const getContract = jest.fn()
 jest.mock('../../../../src/utils/contract/getContract', () => ({
@@ -52,7 +51,6 @@ describe('navigateToOffer', () => {
       status: mockOfferStatus.status,
       navigation,
       updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
     }
     navigateToOffer(navigateToOfferProps)
 
@@ -67,7 +65,6 @@ describe('navigateToOffer', () => {
       status: mockOfferStatus.status,
       navigation,
       updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
     }
     navigateToOffer(navigateToOfferProps)
 
@@ -82,7 +79,6 @@ describe('navigateToOffer', () => {
       status: mockOfferStatus.status,
       navigation,
       updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
     }
     navigateToOffer(navigateToOfferProps)
 
@@ -97,7 +93,6 @@ describe('navigateToOffer', () => {
       status: mockOfferStatus.status,
       navigation,
       updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
     }
     navigateToOffer(navigateToOfferProps)
 
@@ -112,25 +107,10 @@ describe('navigateToOffer', () => {
       status: mockOfferStatus.status,
       navigation,
       updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
     }
     navigateToOffer(navigateToOfferProps)
 
     expect(updateOverlay).not.toHaveBeenCalled()
-  })
-
-  it('should set the offer in the match store', () => {
-    getNavigationDestination.mockReturnValueOnce(['search'])
-    const navigateToOfferProps = {
-      offer: mockOffer,
-      navigation,
-      updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
-      requiredAction: 'acknowledgeDisputeResult' as const,
-      status: 'escrowWaitingForConfirmation' as const,
-    }
-    navigateToOffer(navigateToOfferProps)
-    expect(matchStoreSetOfferMock).toHaveBeenCalledWith(mockOffer)
   })
 
   it('should navigate to the navigation destination', () => {
@@ -141,7 +121,6 @@ describe('navigateToOffer', () => {
       status: mockOfferStatus.status,
       navigation,
       updateOverlay,
-      matchStoreSetOffer: matchStoreSetOfferMock,
     }
     navigateToOffer(navigateToOfferProps)
 

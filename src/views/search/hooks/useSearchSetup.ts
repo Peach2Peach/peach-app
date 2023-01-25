@@ -2,23 +2,24 @@ import { useContext, useEffect } from 'react'
 import shallow from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation } from '../../../hooks'
+import { useNavigation, useRoute, useOfferDetails } from '../../../hooks'
 import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
+  const { offerId } = useRoute<'search'>().params
+  const { offer } = useOfferDetails(offerId)
 
   const [, updateMessage] = useContext(MessageContext)
-  const [offer, addMatchSelectors] = useMatchStore((state) => [state.offer, state.addMatchSelectors], shallow)
+  const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
 
   const { allMatches: matches, error, refetch } = useOfferMatches()
-  const resetStore = useMatchStore((state) => state.resetStore)
 
   useEffect(() => {
-    addMatchSelectors(matches, offer.meansOfPayment)
-  }, [offer.meansOfPayment, addMatchSelectors, matches])
+    if (offer?.meansOfPayment) addMatchSelectors(matches, offer.meansOfPayment)
+  }, [offer?.meansOfPayment, addMatchSelectors, matches])
 
   useEffect(
     () => () => {
@@ -31,16 +32,16 @@ export const useSearchSetup = () => {
     if (error) {
       const errorMessage = parseError(error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
-        if (offer.id) navigation.replace('offer', { offerId: offer.id })
+        navigation.replace('offer', { offerId })
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
         updateMessage({ msgKey: errorMessage, level: 'ERROR' })
       }
     }
-  }, [error, navigation, offer, updateMessage])
+  }, [error, navigation, offerId, updateMessage])
 
-  useRefetchOnNotification(refetch, offer.id)
+  useRefetchOnNotification(refetch, offerId)
 
-  return !!matches.length
+  return { hasMatches: !!matches.length, offerId }
 }

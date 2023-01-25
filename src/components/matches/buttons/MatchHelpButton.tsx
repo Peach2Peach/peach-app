@@ -4,16 +4,13 @@ import { OverlayContext } from '../../../contexts/overlay'
 import DoubleMatch from '../../../overlays/info/DoubleMatch'
 import MatchOverlay from '../../../overlays/info/Match'
 import tw from '../../../styles/tailwind'
-import { isBuyOffer } from '../../../utils/offer'
 import Icon from '../../Icon'
-import { useMatchStore } from '../store'
 
-export const MatchHelpButton = () => {
+export const MatchHelpButton = ({ isBuyOffer }: { isBuyOffer: boolean }) => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const offer = useMatchStore((state) => state.offer)
   const openMatchHelp = () =>
     updateOverlay({
-      content: isBuyOffer(offer) ? <MatchOverlay /> : <DoubleMatch />,
+      content: isBuyOffer ? <MatchOverlay /> : <DoubleMatch />,
       showCloseButton: true,
       help: true,
     })

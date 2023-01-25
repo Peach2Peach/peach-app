@@ -11,7 +11,6 @@ type NavigateToOfferProps = {
   requiredAction: TradeStatus['requiredAction']
   navigation: StackNavigation
   updateOverlay: React.Dispatch<OverlayState>
-  matchStoreSetOffer: (offer: BuyOffer | SellOffer) => void
 }
 
 export const navigateToOffer = ({ offer, navigation, updateOverlay, ...offerStatus }: NavigateToOfferProps): void => {

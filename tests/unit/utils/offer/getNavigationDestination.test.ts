@@ -92,7 +92,7 @@ describe('getNavigationDestination', () => {
     const [destination, params] = getNavigationDestination(offer, offerStatus, contract)
 
     expect(destination).toBe('search')
-    expect(params).toEqual({})
+    expect(params).toEqual({ offerId: offer.id })
 
     const offer2 = {
       id: 'offerId',

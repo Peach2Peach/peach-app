@@ -5,15 +5,13 @@ import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
 import { useMatchOffer } from '../hooks'
 import { isBuyOffer } from '../../../utils/offer'
-import shallow from 'zustand/shallow'
 
-export const MatchOfferButton = () => {
+export const MatchOfferButton = ({ offer }: { offer: BuyOffer | SellOffer }) => {
   const { allMatches: matches } = useOfferMatches()
-  const [offer, currentIndex] = useMatchStore((state) => [state.offer, state.currentIndex], shallow)
+  const currentIndex = useMatchStore((state) => state.currentIndex)
   const currentMatch = matches[currentIndex]
 
   const { mutate: matchOffer, isLoading } = useMatchOffer(offer, currentMatch)
-
   return (
     <Button
       title={i18n(

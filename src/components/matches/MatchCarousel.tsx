@@ -29,7 +29,7 @@ const onStartShouldSetResponder = () => true
 const shouldRenderShadow = (currentIndex: number, index: number) =>
   (currentIndex + 1 <= index && currentIndex + 5 >= index) || currentIndex === index
 
-export default () => {
+export default ({ offerId }: { offerId: string }) => {
   const $carousel = useRef<Carousel<any>>(null)
   const { allMatches: matches, isLoading, isFetchingNextPage } = useOfferMatches()
 
@@ -51,8 +51,8 @@ export default () => {
           data={matches}
           {...{ ...carouselConfig, onBeforeSnapToItem }}
           renderItem={({ item, index }) => (
-            <View {...{ onStartShouldSetResponder }} style={tw`-mx-4 px-4 py-4 bg-transparent`}>
-              <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} />
+            <View {...{ onStartShouldSetResponder }} style={tw`px-4 py-4 -mx-4 bg-transparent`}>
+              <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} offerId={offerId} />
             </View>
           )}
         />
@@ -60,7 +60,7 @@ export default () => {
       {matches[currentIndex + 1] !== undefined ? (
         <NextButton onPress={snapToNext} />
       ) : (
-        (isLoading || isFetchingNextPage) && <Loading style={tw`w-4 h-4 absolute right-4 z-10`} size="small" />
+        (isLoading || isFetchingNextPage) && <Loading style={tw`absolute z-10 w-4 h-4 right-4`} size="small" />
       )}
     </View>
   )
