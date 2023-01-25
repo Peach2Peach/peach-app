@@ -9,34 +9,20 @@ type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[]
   onSelect: (method: PaymentMethod) => void
 }
-export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => {
-  const [selected, setSelected] = useState<PaymentMethod>(paymentMethods[0])
-
-  const select = (method: PaymentMethod) => {
-    setSelected(method)
-  }
-  const confirm = () => onSelect(selected)
-
-  return (
-    <View>
-      {paymentMethods.map((method, i) => (
-        <View key={method}>
-          <View style={tw`flex flex-row items-center px-8`}>
-            <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
-              <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
-            </View>
-            <Text style={tw`flex-shrink w-full subtitle-1`} onPress={() => select(method)}>
-              {i18n(`paymentMethod.${method}`)}
-            </Text>
-            {method === selected ? <Icon id="check" style={tw`w-7 h-7`} color={tw`text-primary-main`.color} /> : null}
+export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => (
+  <View>
+    {paymentMethods.map((method, i) => (
+      <View key={method}>
+        <View style={tw`flex flex-row items-center px-8`}>
+          <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
+            <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
           </View>
-          {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+          <Text style={tw`flex-shrink w-full subtitle-1`} onPress={() => onSelect(method)}>
+            {i18n(`paymentMethod.${method}`)}
+          </Text>
         </View>
-      ))}
-      <HorizontalLine style={tw`my-6`} />
-      <Text onPress={confirm} style={tw`text-center drawer-title text-primary-main`}>
-        {i18n('confirm')}
-      </Text>
-    </View>
-  )
-}
+        {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+      </View>
+    ))}
+  </View>
+)

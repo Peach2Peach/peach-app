@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { EditIcon, HelpIcon } from '../../components/icons'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import LanguageContext from '../../contexts/language'
 import { useHeaderSetup } from '../../hooks'
@@ -66,7 +65,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       meansOfPayment,
       paymentData,
     })
-  }, [meansOfPayment])
+  }, [meansOfPayment, updateOffer])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
@@ -77,9 +76,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
+        origin={['sellPreferences', { amount: offer.amount }]}
       />
-      <View style={tw`bg-black-5 h-0.3 m-5`} />
-      <AddPaymentMethodButton origin={['sellPreferences', { amount: offer.amount }]} />
     </View>
   )
 }

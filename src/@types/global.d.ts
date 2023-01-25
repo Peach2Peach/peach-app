@@ -135,6 +135,7 @@ declare type DrawerState = {
   title: string
   content: ReactNode | null
   show: boolean
+  previousDrawer: Partial<DrawerState>
   onClose: () => void
 }
 declare type BitcoinState = {
