@@ -89,7 +89,7 @@ export default (): ReactElement => {
 
     if (err) {
       error('Error', err)
-      useShowErrorBanner()
+      showError()
     }
     setLoading(false)
   }
