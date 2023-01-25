@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native'
 import { useContext, useEffect } from 'react'
 import shallow from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
@@ -11,6 +12,7 @@ export const useSearchSetup = () => {
   const navigation = useNavigation()
   const { offerId } = useRoute<'search'>().params
   const { offer } = useOfferDetails(offerId)
+  const isFocused = useIsFocused()
 
   const [, updateMessage] = useContext(MessageContext)
   const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
@@ -32,14 +34,14 @@ export const useSearchSetup = () => {
     if (error) {
       const errorMessage = parseError(error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
-        navigation.replace('offer', { offerId })
+        if (isFocused) navigation.replace('offer', { offerId })
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
         updateMessage({ msgKey: errorMessage, level: 'ERROR' })
       }
     }
-  }, [error, navigation, offerId, updateMessage])
+  }, [error, isFocused, navigation, offerId, updateMessage])
 
   useRefetchOnNotification(refetch, offerId)
 
