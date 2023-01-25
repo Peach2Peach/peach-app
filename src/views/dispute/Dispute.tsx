@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import { Fade, Input, PrimaryButton, SatsFormat, Text, Title } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
-import { getContract } from '../../utils/contract'
+import { getContract, getContractViewer } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
@@ -49,7 +49,7 @@ export default (): ReactElement => {
   const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
-  const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
+  const view = contract ? getContractViewer(contract, account) : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   useEffect(() => {

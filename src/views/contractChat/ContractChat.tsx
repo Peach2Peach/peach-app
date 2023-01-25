@@ -14,7 +14,13 @@ import { useHeaderSetup, useNavigation, useRoute, useThrottledEffect } from '../
 import { useConfirmCancelTrade } from '../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { account } from '../../utils/account'
 import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import { getContract, getOfferHexIdFromContract, getOfferIdFromContract, saveContract } from '../../utils/contract'
+import {
+  getContract,
+  getOfferHexIdFromContract,
+  getOfferIdFromContract,
+  getTradingPartner,
+  saveContract,
+} from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
@@ -40,7 +46,7 @@ export default (): ReactElement => {
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState(getContract(contractId))
   const [tradingPartner, setTradingPartner] = useState<User | null>(
-    contract ? (account.publicKey === contract.seller.id ? contract.buyer : contract.seller) : null,
+    contract ? getTradingPartner(contract, account) : null,
   )
   const [chat, setChat] = useState<Chat>(getChat(contractId))
   const [newMessage, setNewMessage] = useState('')
