@@ -41,6 +41,8 @@ export default (): ReactElement => {
   const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
+  const showError = useShowErrorBanner()
+
   useHeaderSetup(
     useMemo(
       () => ({
@@ -109,7 +111,7 @@ export default (): ReactElement => {
 
     if (err) {
       error('Error', err)
-      useShowErrorBanner()
+      showError()
     }
     setLoading(false)
   }
