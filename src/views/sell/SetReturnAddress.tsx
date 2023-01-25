@@ -11,7 +11,6 @@ import { saveOffer } from '../../utils/offer'
 import { patchOffer } from '../../utils/peachAPI'
 import { error } from '../../utils/log'
 import { MessageContext } from '../../contexts/message'
-import { useMatchStore } from '../../components/matches/store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['setReturnAddress'] }>
@@ -20,7 +19,6 @@ type Props = {
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState<SellOffer>(route.params.offer)
   const [returnAddress, setReturnAddress] = useState(route.params.offer.returnAddress)
@@ -45,8 +43,7 @@ export default ({ route, navigation }: Props): ReactElement => {
       }
       saveOffer(patchedOffer)
       if (offer.online) {
-        matchStoreSetOffer(patchedOffer)
-        navigation.replace('search')
+        navigation.replace('search', { offerId: patchedOffer.id })
         return
       }
       navigation.navigate('fundEscrow', { offer: patchedOffer })
@@ -60,13 +57,13 @@ export default ({ route, navigation }: Props): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
+    <View style={tw`flex items-stretch h-full px-6 pt-6 pb-10`}>
       <Title
         title={i18n('sell.title')}
         subtitle={i18n('offer.requiredAction.provideReturnAddress')}
         help={<ProvideRefundAddress />}
       />
-      <View style={tw`h-full flex-shrink mt-12`}>
+      <View style={tw`flex-shrink h-full mt-12`}>
         <ReturnAddress style={tw`mt-16`} returnAddress={returnAddress} required={true} update={setReturnAddress} />
       </View>
       <View style={tw`flex items-center mt-16`}>
@@ -77,7 +74,7 @@ export default ({ route, navigation }: Props): ReactElement => {
           wide={false}
           onPress={submit}
         />
-        <Button style={tw`w-52 mt-2`} title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
+        <Button style={tw`mt-2 w-52`} title={i18n('back')} wide={false} secondary={true} onPress={navigation.goBack} />
       </View>
     </View>
   )

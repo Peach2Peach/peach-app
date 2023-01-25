@@ -34,7 +34,7 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
       const type = remoteMessage.data?.type
       const args = remoteMessage.notification?.bodyLocArgs
       const currentPage = getCurrentPage() as string
-      const offer = remoteMessage.data.offerId ? (getOffer(remoteMessage.data.offerId) as SellOffer) : null
+      const offer = remoteMessage.data?.offerId ? (getOffer(remoteMessage.data.offerId) as SellOffer) : null
       let contract = remoteMessage.data.contractId ? getContract(remoteMessage.data.contractId) : null
 
       if (offer && type === 'offer.expired' && !/contract/u.test(currentPage)) {
@@ -51,7 +51,7 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
       }
       if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
         return updateOverlay({
-          content: <EscrowFunded {...{ offerId: remoteMessage.data.offerId, navigation }} />,
+          content: <EscrowFunded {...{ offerId: remoteMessage.data?.offerId, navigation }} />,
         })
       }
 

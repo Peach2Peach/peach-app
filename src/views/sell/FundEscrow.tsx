@@ -3,7 +3,6 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Button, Loading, PeachScrollView, SatsFormat, Text, Title } from '../../components'
-import { useMatchStore } from '../../components/matches/store'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import checkFundingStatusEffect from '../../effects/checkFundingStatusEffect'
@@ -28,7 +27,6 @@ type Props = {
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
@@ -145,11 +143,10 @@ export default ({ route, navigation }: Props): ReactElement => {
       if (sellOffer.returnAddressRequired) {
         navigation.replace('setReturnAddress', { offer: sellOffer })
       } else {
-        matchStoreSetOffer(sellOffer)
-        navigation.replace('search')
+        navigation.replace('search', { offerId: sellOffer.id })
       }
     }
-  }, [fundingStatus, matchStoreSetOffer, navigateToYourTrades, navigation, sellOffer, updateOverlay])
+  }, [fundingStatus, navigateToYourTrades, navigation, sellOffer, updateOverlay])
 
   return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`px-6 pt-7 pb-10`}>

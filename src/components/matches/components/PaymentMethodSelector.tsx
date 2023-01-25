@@ -8,10 +8,14 @@ import { Headline } from '../../text'
 import { HorizontalLine } from '../../ui'
 import { useMatchStore } from '../store'
 
-export const PaymentMethodSelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer, selectedValue, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
+type Props = {
+  matchId: Match['offerId']
+  offer: BuyOffer | SellOffer
+}
+
+export const PaymentMethodSelector = ({ matchId, offer }: Props) => {
+  const { selectedValue, setSelectedPaymentMethod, availablePaymentMethods } = useMatchStore(
     (state) => ({
-      offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedPaymentMethod,
       setSelectedPaymentMethod: state.setSelectedPaymentMethod,
       availablePaymentMethods: state.matchSelectors[matchId]?.availablePaymentMethods || [],

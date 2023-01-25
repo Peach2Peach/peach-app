@@ -7,7 +7,7 @@ import i18n from '../../../utils/i18n'
 
 export const GoHomeButton = () => {
   const navigation = useNavigation()
-  const goHome = () => navigation.navigate('home', {})
+  const goHome = () => navigation.replace('home', {})
   return (
     <View style={tw`flex items-center mt-6`}>
       <Button title={i18n('goBackHome')} wide={false} onPress={goHome} />

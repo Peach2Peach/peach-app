@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import shallow from 'zustand/shallow'
+import { useOfferDetails, useRoute } from '../../../hooks'
 import { unique } from '../../../utils/array'
 import { saveOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
@@ -7,11 +8,10 @@ import { useMatchStore } from '../store'
 
 export const useMatchesSetup = () => {
   const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches()
+  const { offerId } = useRoute<'search'>().params
+  const { offer } = useOfferDetails(offerId)
 
-  const [offer, currentIndex, setCurrentIndex] = useMatchStore(
-    (state) => [state.offer, state.currentIndex, state.setCurrentIndex],
-    shallow,
-  )
+  const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
 
   useEffect(() => {
     setCurrentIndex(0)
@@ -19,6 +19,7 @@ export const useMatchesSetup = () => {
   }, [setCurrentIndex])
 
   useEffect(() => {
+    if (!offer) return
     const seenMatches = (offer.seenMatches || []).concat([matches[currentIndex]?.offerId]).filter(unique())
     saveOffer({
       ...offer,

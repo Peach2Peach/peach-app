@@ -8,10 +8,9 @@ import { useMatchStore } from '../store'
 import shallow from 'zustand/shallow'
 import { isBuyOffer } from '../../../utils/offer'
 
-export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => {
-  const { offer, selectedValue, setSelectedCurrency, availableCurrencies } = useMatchStore(
+export const CurrencySelector = ({ matchId, offer }: { matchId: Match['offerId']; offer: BuyOffer | SellOffer }) => {
+  const { selectedValue, setSelectedCurrency, availableCurrencies } = useMatchStore(
     (state) => ({
-      offer: state.offer,
       selectedValue: state.matchSelectors[matchId]?.selectedCurrency,
       setSelectedCurrency: state.setSelectedCurrency,
       availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],

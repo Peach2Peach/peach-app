@@ -23,13 +23,13 @@ export const getNavigationDestination = (
       return ['setReturnAddress', { offer }]
     }
     if (isFunded(offer)) {
-      return ['search', {}]
+      return ['search', { offerId: offer.id }]
     }
     return ['fundEscrow', { offer }]
   }
 
   if (isBuyOffer(offer) && offer.online) {
-    return ['search', {}]
+    return ['search', { offerId: offer.id }]
   }
 
   return ['yourTrades', {}]
