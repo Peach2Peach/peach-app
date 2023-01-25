@@ -48,10 +48,7 @@ export default (): ReactElement => {
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
 
-  // choose cancel overlay
   const cancelTradeOverlay = useConfirmCancelTrade(contractId)
-
-  // choose cancel overlay
   const openDisputeOverlay = useOpenDispute(contractId)
 
   // HEADER CONFIG
