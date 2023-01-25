@@ -33,6 +33,7 @@ export default ({
     )}
     {view === 'buyer' && requiredAction === 'sendPayment' && (
       <SlideToUnlock
+        style={tw`w-[260px]`}
         disabled={loading}
         onUnlock={postConfirmPaymentBuyer}
         label1={i18n('contract.payment.confirm')}
@@ -41,6 +42,7 @@ export default ({
     )}
     {view === 'seller' && requiredAction === 'confirmPayment' && (
       <SlideToUnlock
+        style={tw`w-[260px]`}
         disabled={loading}
         onUnlock={postConfirmPaymentSeller}
         label1={i18n('contract.payment.confirm')}
