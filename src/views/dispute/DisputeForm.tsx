@@ -17,8 +17,8 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { useValidatedState, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
-export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 
+export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 const required = { required: true }
 
 export default (): ReactElement => {
@@ -30,16 +30,13 @@ export default (): ReactElement => {
   const reason = route.params.reason
   const contractId = route.params.contractId
   const [contract, setContract] = useState(getContract(contractId))
-  const [isFormValid, setIsFormValid] = useState(false)
 
   const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
-  const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
-  // HEADER CONFIG
   useHeaderSetup(
     useMemo(
       () => ({
@@ -50,11 +47,7 @@ export default (): ReactElement => {
   )
 
   const submit = async () => {
-    info('holi')
-    if (!contract?.symmetricKey) return
-    setDisplayErrors(true)
-    setIsFormValid(emailIsValid && messageIsValid)
-    if (!isFormValid || !reason || !message) return
+    if (!contract?.symmetricKey || !emailIsValid || !messageIsValid || !reason || !message) return
     setLoading(true)
 
     const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(contract.symmetricKey, PEACHPGPPUBLICKEY)
@@ -118,7 +111,7 @@ export default (): ReactElement => {
             value={email}
             placeholder={i18n('form.userEmail.placeholder')}
             autoCorrect={false}
-            errorMessage={displayErrors ? emailErrors : undefined}
+            errorMessage={emailErrors}
           />
         )}
         <Input value={i18n(`dispute.reason.${reason}`)} disabled />
@@ -130,13 +123,13 @@ export default (): ReactElement => {
           multiline={true}
           placeholder={i18n('form.message.placeholder')}
           autoCorrect={false}
-          errorMessage={displayErrors ? messageErrors : undefined}
+          errorMessage={messageErrors}
         />
       </View>
       <PrimaryButton
         onPress={submit}
         loading={loading}
-        disabled={loading}
+        disabled={loading || !emailIsValid || !messageIsValid}
         style={tw`absolute self-center bottom-8`}
         narrow
       >
