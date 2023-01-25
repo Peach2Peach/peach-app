@@ -183,6 +183,7 @@
   "contract.summary.from": "from",
   "contract.summary.via": "via",
   "contract.summary.location": "location agreed in chat",
+  "contract.summary.reference": "reference",
   "contract.cancel.title": "cancel trade",
   "contract.cancel.text": "Are you sure?",
   "contract.cancel.seller": "The buyer needs to agree to cancel the trade, since they might have already made the payment.",

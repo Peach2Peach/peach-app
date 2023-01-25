@@ -7,7 +7,7 @@ import i18n from '../../../utils/i18n'
 import { openAppLink } from '../../../utils/web'
 import { CopyAble } from '../../ui'
 
-const possibleFields = ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address', 'reference']
+const possibleFields = ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address']
 
 export const GeneralPaymentData = ({
   paymentData,
@@ -24,22 +24,35 @@ export const GeneralPaymentData = ({
   }
 
   return (
-    <View style={[tw`flex-row justify-between`, style]}>
-      <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
-      <View>
-        {possibleFields
-          .filter((field) => paymentData[field])
-          .map((field, i) => (
-            <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
-              <View style={tw`flex-row justify-end items-center`}>
-                <Text onPress={onInfoPress} style={tw`subtitle-1`}>
-                  {paymentData[field]}
-                </Text>
-                {copyable && <CopyAble value={paymentData[field]} style={tw`ml-2`} />}
+    <View style={style}>
+      <View style={tw`flex-row justify-between`}>
+        <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+        <View>
+          {possibleFields
+            .filter((field) => paymentData[field])
+            .map((field, i) => (
+              <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
+                <View style={tw`flex-row justify-end items-center`}>
+                  <Text onPress={onInfoPress} style={tw`subtitle-1`}>
+                    {paymentData[field]}
+                  </Text>
+                  {copyable && <CopyAble value={paymentData[field]} style={tw`ml-2`} />}
+                </View>
               </View>
-            </View>
-          ))}
+            ))}
+        </View>
       </View>
+      {!!paymentData.reference && (
+        <View style={[tw`flex-row justify-between mt-2`]}>
+          <Text style={tw`text-black-2`}>{i18n('contract.summary.reference')}</Text>
+          <View style={tw`flex-row justify-end items-center`}>
+            <Text onPress={onInfoPress} style={tw`subtitle-1`}>
+              {paymentData.reference}
+            </Text>
+            {copyable && <CopyAble value={paymentData.reference} style={tw`ml-2`} />}
+          </View>
+        </View>
+      )}
     </View>
   )
 }
