@@ -2,12 +2,13 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { PeachScrollView, Text, TradeSummary } from '../../components'
+import { Icon, PeachScrollView, Text, TradeSummary } from '../../components'
 import { ChatButton } from '../../components/chat/ChatButton'
 import LoadingScreen from '../loading/LoadingScreen'
 import ContractCTA from './components/ContractCTA'
 import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { useContractSetup } from './hooks/useContractSetup'
+import i18n from '../../utils/i18n'
 
 export default (): ReactElement => {
   const { contract, updatePending, view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }
@@ -18,7 +19,12 @@ export default (): ReactElement => {
   return (
     <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8 pb-6`}>
       <View>
-        <Text style={tw`text-center`}>{'info placeholder'}</Text>
+        {contract.disputeActive && (
+          <View style={tw`flex-row items-center justify-center`}>
+            <Text style={tw`subtitle-1 text-center`}>{i18n('contract.disputeActive')}</Text>
+            <Icon id="alertOctagon" style={tw`w-6 h-6 ml-1 -mt-0.5`} color={tw`text-warning-main`.color} />
+          </View>
+        )}
         <View style={tw`mt-8`}>
           <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
           <TradeSummary {...{ contract, view }} />
