@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import tw from '../../styles/tailwind'
 
 import { RouteProp, useFocusEffect } from '@react-navigation/native'
@@ -24,7 +24,6 @@ import AppContext from '../../contexts/app'
 import { getChatNotifications } from '../../utils/chat'
 import { getOfferStatus } from '../../utils/offer/status'
 import { isTradeComplete } from '../../utils/contract/status'
-import { useMatchStore } from '../../components/matches/store'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['offer'] }>
@@ -36,7 +35,6 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState(() => getOffer(route.params.offerId))
   const view = offer && isSellOffer(offer) ? 'seller' : 'buyer'
@@ -112,8 +110,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
           if (result.online && result.matches.length && !result.contractId) {
             info('Offer.tsx - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
-            matchStoreSetOffer(updatedOffer)
-            navigation.replace('search')
+            navigation.replace('search', { offerId: updatedOffer.id })
           }
         },
         onError: (err) => {

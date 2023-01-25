@@ -17,7 +17,6 @@ import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-import { useMatchStore } from '../../components/matches/store'
 
 const { LinearGradient } = require('react-native-gradients')
 
@@ -71,7 +70,6 @@ const screens = [
 
 export default ({ route, navigation }: Props): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
-  const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
 
   const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
@@ -139,8 +137,7 @@ export default ({ route, navigation }: Props): ReactElement => {
             }
           })
           saveAndUpdate({ ...offer, id: result.offerId })
-          matchStoreSetOffer({ ...offer, id: result.offerId })
-          navigation.replace('search')
+          navigation.replace('search', { offerId: result.offerId })
           return
         }
 
@@ -158,16 +155,16 @@ export default ({ route, navigation }: Props): ReactElement => {
   }, [page])
 
   return (
-    <View testID="view-buy" style={tw`h-full flex`}>
-      <View style={tw`h-full flex-shrink`}>
+    <View testID="view-buy" style={tw`flex h-full`}>
+      <View style={tw`flex-shrink h-full`}>
         <PeachScrollView
           scrollRef={(ref) => (scroll = ref)}
           disable={!scrollable}
-          contentContainerStyle={[tw`pt-7 flex flex-col`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
+          contentContainerStyle={[tw`flex flex-col pt-7`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
           style={tw`h-full`}
         >
-          <View style={tw`h-full flex`}>
-            <View style={tw`h-full flex-shrink`}>
+          <View style={tw`flex h-full`}>
+            <View style={tw`flex-shrink h-full`}>
               {updatePending ? <Loading /> : null}
               {!updatePending && CurrentView ? (
                 <CurrentView
@@ -181,7 +178,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               ) : null}
             </View>
             {scrollable && !updatePending ? (
-              <View style={tw`pt-8 px-6`}>
+              <View style={tw`px-6 pt-8`}>
                 <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
               </View>
             ) : null}
@@ -189,7 +186,7 @@ export default ({ route, navigation }: Props): ReactElement => {
         </PeachScrollView>
       </View>
       {!scrollable && !updatePending ? (
-        <View style={tw`mt-4 px-6 pb-10 flex items-center w-full bg-white-1`}>
+        <View style={tw`flex items-center w-full px-6 pb-10 mt-4 bg-white-1`}>
           <View style={tw`w-full h-8 -mt-8`}>
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>

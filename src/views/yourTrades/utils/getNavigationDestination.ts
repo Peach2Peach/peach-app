@@ -23,7 +23,7 @@ export const getNavigationDestination = (
       return ['setReturnAddress', { offer }]
     }
     if (isFunded(offer)) {
-      return ['search', {}]
+      return ['search', { offerId: offer.id }]
     }
     return ['fundEscrow', { offer }]
   }
