@@ -29,7 +29,7 @@ export const getNavigationDestination = (
   }
 
   if (isBuyOffer(offer) && offer.online) {
-    return ['search', {}]
+    return ['search', { offerId: offer.id }]
   }
 
   return ['yourTrades', {}]
