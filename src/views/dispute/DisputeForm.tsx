@@ -2,22 +2,22 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Fade, Input, OptionButton, PeachScrollView, PrimaryButton, SatsFormat, Text, Title } from '../../components'
+import { Input, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
-import { contractIdToHex, getContract, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
+import { useHeaderSetup, useKeyboard, useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
+import { getChat, saveChat } from '../../utils/chat'
+import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { error } from '../../utils/log'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
-import { getChat, saveChat } from '../../utils/chat'
-import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 export const isEmailRequired = (reason: DisputeReason | '') =>
   /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
