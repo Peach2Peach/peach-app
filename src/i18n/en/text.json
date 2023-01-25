@@ -210,6 +210,7 @@
   "contract.cancel.request.ok": "confirm & cancel",
   "contract.cancel.request.back": "don't cancel",
   "contract.cancel.confirm": "confirm cancel",
+  "contract.cancel.success": "trade canceled!",
   "sell.meansOfPayment": "how would you like to be paid?",
   "sell.kyc": "do you require KYC?",
   "sell.kyc.iban": "name/iban",
