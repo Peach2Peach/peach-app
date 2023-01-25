@@ -7,11 +7,11 @@ export const checkRefundPSBT = (
   offer: SellOffer,
 ): {
   isValid: boolean
-  psbt?: Psbt
+  psbt: Psbt
   err?: string | null
 } => {
-  if (!offer.id || !psbtBase64) return { isValid: false, err: 'NOT_FOUND' }
   const psbt = Psbt.fromBase64(psbtBase64, { network: getNetwork() })
+  if (!offer.id) return { isValid: false, psbt, err: 'NOT_FOUND' }
 
   if (!psbt || !offer || !offer.funding?.txIds) return { isValid: false, psbt, err: 'NOT_FOUND' }
 
@@ -22,7 +22,7 @@ export const checkRefundPSBT = (
   }
 
   // refunds should only have one output and this is the expected returnAddress
-  if (psbt.txOutputs.length > 1) return { isValid: false, err: 'INVALID_OUTPUT' }
+  if (psbt.txOutputs.length > 1) return { isValid: false, psbt, err: 'INVALID_OUTPUT' }
   if (psbt.txOutputs[0].address?.toLowerCase() !== offer.returnAddress?.toLowerCase()) {
     return { isValid: false, psbt, err: 'RETURN_ADDRESS_MISMATCH' }
   }

@@ -34,10 +34,3 @@ declare type BuyOffer = BuyOfferDraft &
     matched: Offer['id'][]
     seenMatches: Offer['id'][]
   }
-
-declare type RefundingStatus = {
-  psbt?: Psbt
-  tx?: string
-  txId?: string | null
-  err?: string | null
-}
