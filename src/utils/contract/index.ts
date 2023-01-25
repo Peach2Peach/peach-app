@@ -1,3 +1,5 @@
+export { canCancelContract } from './canCancelContract'
+export { canOpenDispute } from './canOpenDispute'
 export { contractExists } from './contractExists'
 export { contractIdToHex } from './contractIdToHex'
 export { createUserRating } from './createUserRating'
