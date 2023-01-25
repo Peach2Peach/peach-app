@@ -12,6 +12,7 @@ import ContractCTA from './components/ContractCTA'
 import { getTimerStart } from './helpers/getTimerStart'
 import { useContractSetup } from './hooks/useContractSetup'
 import { OverlayContext } from '../../contexts/overlay'
+import LoadingScreen from '../loading/LoadingScreen'
 
 export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
@@ -25,44 +26,27 @@ export default (): ReactElement => {
       visible: true,
     })
 
-  return !contract || updatePending ? (
-    <View style={tw`items-center justify-center w-full h-full`}>
-      <Loading />
-    </View>
-  ) : (
-    <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
-      <View style={tw`pb-32`}>
-        <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`-mt-1 text-center text-grey-2`}>
-          {i18n('contract.subtitle')} <SatsFormat sats={contract.amount} color={tw`text-grey-2`} />
-        </Text>
-        <Text style={tw`mt-2 text-center text-grey-2`}>{i18n('contract.trade', contractIdToHex(contract.id))}</Text>
-        {!contract.canceled && !contract.paymentConfirmed ? (
-          <View style={tw`mt-16`}>
-            <View>
-              <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
-              <TradeSummary {...{ contract, view }} />
-            </View>
-            <View style={tw`flex-row justify-center mt-16`}>
-              {/sendPayment/u.test(requiredAction) ? (
-                <View style={tw`absolute flex-row items-center mb-1 bottom-full`}>
-                  <Timer
-                    text={i18n(`contract.timer.${requiredAction}.${view}`)}
-                    start={getTimerStart(contract, requiredAction)}
-                    duration={TIMERS[requiredAction]}
-                    style={tw`flex-shrink`}
-                  />
-                  {view === 'buyer' && requiredAction === 'sendPayment' ? (
-                    <Pressable onPress={openPaymentHelp} style={tw`p-2`}>
-                      <Icon id="helpCircle" style={tw`w-4 h-4`} color={tw`text-blue-1`.color} />
-                    </Pressable>
-                  ) : null}
-                </View>
-              ) : null}
-              <ContractCTA {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }} />
-            </View>
-          </View>
-        ) : null}
+  if (!contract || updatePending || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
+
+  return (
+    <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8 pb-6`}>
+      <View>
+        <Text style={tw`text-center`}>{'info placeholder'}</Text>
+        <View style={tw`mt-8`}>
+          <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
+          <TradeSummary {...{ contract, view }} />
+        </View>
+      </View>
+      <View style={tw`flex items-center mt-12`}>
+        {/sendPayment/u.test(requiredAction) && (
+          <Timer
+            text={i18n(`contract.timer.${requiredAction}.${view}`)}
+            start={getTimerStart(contract, requiredAction)}
+            duration={TIMERS[requiredAction]}
+            style={tw`mb-1`}
+          />
+        )}
+        <ContractCTA {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }} />
       </View>
     </PeachScrollView>
   )
