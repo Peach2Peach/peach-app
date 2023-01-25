@@ -13,10 +13,6 @@ import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
 import PeachScrollView from '../../../PeachScrollView'
 import { Bizum } from './Bizum'
-import { Cash } from './Cash'
-import { CashAmsterdam } from './Cash.amsterdam'
-import { CashBelgianEmbassy } from './Cash.belgianEmbassy'
-import { CashLugano } from './Cash.lugano'
 import { GiftCardAmazon } from './giftCard.amazon'
 import { MBWay } from './MBWay'
 import { PayPal } from './PayPal'
@@ -57,10 +53,6 @@ export const PaymentMethodForms: PaymentMethodForms = {
   mbWay: MBWay,
   bizum: Bizum,
   'giftCard.amazon': GiftCardAmazon,
-  cash: Cash,
-  'cash.amsterdam': CashAmsterdam,
-  'cash.belgianEmbassy': CashBelgianEmbassy,
-  'cash.lugano': CashLugano,
 }
 COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
 
