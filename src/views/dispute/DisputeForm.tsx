@@ -114,7 +114,7 @@ export default (): ReactElement => {
     setLoading(false)
   }
 
-  const disputeForm = () => (
+  const DisputeForm = (): ReactElement => (
     <View style={tw`flex items-center`}>
       <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
       {isEmailRequired(reason) && (
@@ -149,7 +149,7 @@ export default (): ReactElement => {
   return (
     <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
-        {disputeForm()}
+        <DisputeForm />
       </PeachScrollView>
       <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
         {i18n('confirm')}
