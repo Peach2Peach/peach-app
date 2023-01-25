@@ -22,7 +22,7 @@ const carouselConfig = {
   enableSnap: true,
   shouldOptimizeUpdates: true,
   lockScrollWhileSnapping: true,
-  keyExtractor: (item: any, index: number) => `${item.offerId}-${index}`,
+  keyExtractor: (item: Match, index: number) => `${item.offerId}-${index}`,
 }
 
 const onStartShouldSetResponder = () => true
