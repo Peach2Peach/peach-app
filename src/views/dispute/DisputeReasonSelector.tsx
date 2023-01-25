@@ -19,7 +19,6 @@ export default (): ReactElement => {
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  // HEADER CONFIG
   useHeaderSetup(
     useMemo(
       () => ({
