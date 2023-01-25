@@ -17,6 +17,7 @@ import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 export const isEmailRequired = (reason: DisputeReason | '') =>
   /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
@@ -40,9 +41,6 @@ export default (): ReactElement => {
   const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
-  const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
-
-  // HEADER CONFIG
   useHeaderSetup(
     useMemo(
       () => ({
@@ -111,15 +109,7 @@ export default (): ReactElement => {
 
     if (err) {
       error('Error', err)
-      updateMessage({
-        msgKey: err?.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      useShowErrorBanner()
     }
     setLoading(false)
   }
