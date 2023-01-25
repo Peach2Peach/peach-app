@@ -40,12 +40,7 @@ export default (): ReactElement => {
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
         <Text style={tw`text-center h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
         {availableReasons.map((rsn, i) => (
-          <OptionButton
-            key={rsn}
-            onPress={() => setReason(rsn)}
-            style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
-            narrow
-          >
+          <OptionButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64 mt-4`]} narrow>
             {i18n(`dispute.reason.${rsn}`)}
           </OptionButton>
         ))}
