@@ -1,18 +1,9 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
-import { Text } from '../../components'
+import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
-import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { contract } from '../../../tests/unit/data/contractData'
-
-const OpenDispute = (): ReactElement => (
-  <>
-    <Text style={tw`mb-3 body-m text-black-1`}>{i18n('dispute.openDispute.text.1')}</Text>
-    <Text style={tw`mb-3 body-m text-black-1`}>{i18n('dispute.openDispute.text.2')}</Text>
-    <Text style={tw`body-m text-black-1`}>{i18n('dispute.openDispute.text.3')}</Text>
-  </>
-)
+import { OpenDispute } from './OpenDispute'
 
 /**
  * @description Overlay for opening dispute from chat
