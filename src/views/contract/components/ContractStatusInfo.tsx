@@ -9,7 +9,7 @@ import { getTimerStart } from '../helpers/getTimerStart'
 type ContractStatusInfoProps = {
   contract: Contract
   requiredAction: ContractAction
-  view: 'seller' | 'buyer' | ''
+  view?: ContractViewer
 }
 export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractStatusInfoProps): ReactElement => {
   if (contract.cancelationRequested) return (

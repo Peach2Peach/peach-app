@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 declare type ConfirmCancelTradeProps = {
-  view: 'seller' | 'buyer' | ''
+  view: ContractViewer
 }
 
 export const ConfirmCancelTrade = ({ view }: ConfirmCancelTradeProps): ReactElement => (

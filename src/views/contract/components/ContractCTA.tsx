@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
 type ContractCTAProps = ComponentProps & {
-  view: 'buyer' | 'seller' | ''
+  view?: ContractViewer
   requiredAction: ContractAction
   loading: boolean
   postConfirmPaymentBuyer: () => void
