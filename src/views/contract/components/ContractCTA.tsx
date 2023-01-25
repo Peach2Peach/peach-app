@@ -1,12 +1,11 @@
-import React, { ReactElement, useContext } from 'react'
-import { Pressable, View } from 'react-native'
-import { Icon, PrimaryButton } from '../../../components'
-import { OverlayContext } from '../../../contexts/overlay'
-import ConfirmPayment from '../../../overlays/info/ConfirmPayment'
+import React, { ReactElement } from 'react'
+import { View } from 'react-native'
+import { PrimaryButton } from '../../../components'
+import { SlideToUnlock } from '../../../components/inputs'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-type ContractCTAProps = {
+type ContractCTAProps = ComponentProps & {
   view: 'buyer' | 'seller' | ''
   requiredAction: ContractAction
   loading: boolean
@@ -19,37 +18,34 @@ export default ({
   loading,
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
-}: ContractCTAProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  const openConfirmPaymentHelp = () =>
-    updateOverlay({
-      content: <ConfirmPayment />,
-      visible: true,
-    })
-  return (
-    <View>
-      {!(view === 'buyer' && requiredAction === 'sendPayment')
-        && !(view === 'seller' && requiredAction === 'confirmPayment') && (
-        <PrimaryButton disabled={true} style={tw`w-52`} narrow>
-          {i18n(`contract.waitingFor.${view === 'buyer' ? 'seller' : 'buyer'}`)}
-        </PrimaryButton>
-      )}
-      {view === 'buyer' && requiredAction === 'sendPayment' && (
-        <PrimaryButton disabled={loading} style={tw`w-52`} onPress={postConfirmPaymentBuyer} narrow>
-          {i18n('contract.payment.made')}
-        </PrimaryButton>
-      )}
-      {view === 'seller' && requiredAction === 'confirmPayment' && (
-        <View style={tw`flex-row items-center justify-center pl-11`}>
-          <PrimaryButton style={tw`w-52`} disabled={loading} onPress={postConfirmPaymentSeller} narrow>
-            {i18n('contract.payment.received')}
-          </PrimaryButton>
-          <Pressable onPress={openConfirmPaymentHelp} style={tw`p-3`}>
-            <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
-          </Pressable>
-        </View>
-      )}
-    </View>
-  )
-}
+  style,
+}: ContractCTAProps): ReactElement => (
+  <View style={[tw`w-full items-center`, style]}>
+    {view === 'buyer' && requiredAction === 'confirmPayment' && (
+      <PrimaryButton disabled iconId="send">
+        {i18n('contract.payment.sent')}
+      </PrimaryButton>
+    )}
+    {view === 'seller' && requiredAction === 'sendPayment' && (
+      <PrimaryButton disabled iconId="watch">
+        {i18n('contract.payment.notYetSent')}
+      </PrimaryButton>
+    )}
+    {view === 'buyer' && requiredAction === 'sendPayment' && (
+      <SlideToUnlock
+        disabled={loading}
+        onUnlock={postConfirmPaymentBuyer}
+        label1={i18n('contract.payment.confirm')}
+        label2={i18n('contract.payment.made')}
+      />
+    )}
+    {view === 'seller' && requiredAction === 'confirmPayment' && (
+      <SlideToUnlock
+        disabled={loading}
+        onUnlock={postConfirmPaymentSeller}
+        label1={i18n('contract.payment.confirm')}
+        label2={i18n('contract.payment.received')}
+      />
+    )}
+  </View>
+)

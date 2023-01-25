@@ -37,16 +37,18 @@ export default (): ReactElement => {
           <TradeSummary {...{ contract, view }} />
         </View>
       </View>
-      <View style={tw`flex items-center mt-12`}>
-        {/sendPayment/u.test(requiredAction) && (
+      <View style={tw`w-full flex items-center mt-12`}>
+        {requiredAction === 'sendPayment' && (
           <Timer
             text={i18n(`contract.timer.${requiredAction}.${view}`)}
             start={getTimerStart(contract, requiredAction)}
             duration={TIMERS[requiredAction]}
-            style={tw`mb-1`}
           />
         )}
-        <ContractCTA {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }} />
+        <ContractCTA
+          style={tw`mt-3`}
+          {...{ view, requiredAction, loading, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
+        />
       </View>
     </PeachScrollView>
   )

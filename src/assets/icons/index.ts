@@ -101,6 +101,7 @@ import userCheck from './userCheck.svg'
 import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
+import watch from './watch.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
@@ -213,6 +214,7 @@ const Icons = {
   users,
   userX,
   wallet,
+  watch,
   x,
   xCircle,
   xSquare,
