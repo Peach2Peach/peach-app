@@ -1,24 +1,23 @@
-import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Fade, Input, OptionButton, PeachScrollView, PrimaryButton, SatsFormat, Text, Title } from '../../components'
+import { Input, PeachScrollView, PrimaryButton } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
-import { contractIdToHex, getContract, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
-import { error } from '../../utils/log'
+import { error, info } from '../../utils/log'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
-export const isEmailRequired = (reason: DisputeReason | '') =>
-  /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
+import { useValidatedState, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
+export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 
 const required = { required: true }
 
@@ -28,19 +27,17 @@ export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const keyboardOpen = useKeyboard()
-  const [contractId, setContractId] = useState(route.params.contractId)
+  const reason = route.params.reason
+  const contractId = route.params.contractId
   const [contract, setContract] = useState(getContract(contractId))
-  const [start, setStart] = useState(false)
-  const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
+  const [isFormValid, setIsFormValid] = useState(false)
+
   const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
-
-  const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
 
   // HEADER CONFIG
   useHeaderSetup(
@@ -52,24 +49,11 @@ export default (): ReactElement => {
     ),
   )
 
-  useEffect(() => {
-    setContractId(route.params.contractId)
-    setContract(getContract(route.params.contractId))
-    setStart(false)
-    setReason('')
-    setMessage('')
-    setLoading(false)
-  }, [route, setMessage, setReason])
-
-  const goBack = () => {
-    if (reason) return setReason('')
-    return setStart(false)
-  }
-
   const submit = async () => {
+    info('holi')
     if (!contract?.symmetricKey) return
     setDisplayErrors(true)
-    const isFormValid = reasonIsValid && emailIsValid && messageIsValid
+    setIsFormValid(emailIsValid && messageIsValid)
     if (!isFormValid || !reason || !message) return
     setLoading(true)
 
@@ -125,45 +109,43 @@ export default (): ReactElement => {
   }
 
   const disputeForm = () => (
-    <View style={tw`flex items-center`}>
-      <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
-      {isEmailRequired(reason) && (
-        <View style={tw`mt-4`}>
+    <>
+      <View style={tw`justify-center h-full p-6 pb-20`}>
+        {isEmailRequired(reason) && (
           <Input
             onChange={setEmail}
             onSubmit={() => $message?.focus()}
             value={email}
-            label={i18n('form.userEmail')}
             placeholder={i18n('form.userEmail.placeholder')}
             autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
-        </View>
-      )}
-      <View style={tw`mt-4`}>
+        )}
+        <Input value={i18n(`dispute.reason.${reason}`)} disabled />
         <Input
           style={tw`h-40`}
           reference={(el: any) => ($message = el)}
           onChange={setMessage}
           value={message}
           multiline={true}
-          label={i18n('form.message')}
           placeholder={i18n('form.message.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? messageErrors : undefined}
         />
       </View>
-    </View>
+      <PrimaryButton
+        onPress={submit}
+        loading={loading}
+        disabled={loading}
+        style={tw`absolute self-center bottom-8`}
+        narrow
+      >
+        {i18n('confirm')}
+      </PrimaryButton>
+    </>
   )
 
   return (
-    <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
-      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
-        {disputeForm()}
-      </PeachScrollView>
-      <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
-        {i18n('confirm')}
-      </PrimaryButton>
-    </View>
+    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>{disputeForm()}</PeachScrollView>
   )
 }
