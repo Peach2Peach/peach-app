@@ -9,7 +9,13 @@ import getOfferDetailsEffect from '../../../effects/getOfferDetailsEffect'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { account } from '../../../utils/account'
 import { getChatNotifications } from '../../../utils/chat'
-import { getContract, getOfferIdFromContract, saveContract, signReleaseTx } from '../../../utils/contract'
+import {
+  canCancelContract,
+  getContract,
+  getOfferIdFromContract,
+  saveContract,
+  signReleaseTx,
+} from '../../../utils/contract'
 import { isTradeCanceled, isTradeComplete } from '../../../utils/contract/status'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
@@ -22,6 +28,7 @@ import { handleOverlays } from '../helpers/handleOverlays'
 import ContractTitle from '../components/ContractTitle'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
+import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useContractSetup = () => {
@@ -40,19 +47,38 @@ export const useContractSetup = () => {
     contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
   )
   const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
-  const showHelp = useShowHelp('payUpQuick') // TODO
+  const cancelContract = useConfirmCancelTrade(route.params.contractId)
+  const showMakePaymentHelp = useShowHelp('makePayment')
+  const showConfirmPaymentHelp = useShowHelp('confirmPayment')
 
   useHeaderSetup(
-    useMemo(
-      () => ({
+    useMemo(() => {
+      const icons = []
+      if (contract && canCancelContract(contract)) icons.push({
+        iconComponent: <CancelIcon />,
+        onPress: cancelContract,
+      })
+      if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
+        iconComponent: <HelpIcon />,
+        onPress: showMakePaymentHelp,
+      })
+      if (view === 'seller' && requiredAction === 'confirmPayment') icons.push({
+        iconComponent: <HelpIcon />,
+        onPress: showConfirmPaymentHelp,
+      })
+      return {
         titleComponent: <ContractTitle id={route.params.contractId} amount={contract?.amount} />,
-        icons: [
-          { iconComponent: <CancelIcon />, onPress: showHelp },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
-        ],
-      }),
-      [contract?.amount, route.params.contractId, showHelp],
-    ),
+        icons,
+      }
+    }, [
+      cancelContract,
+      contract,
+      requiredAction,
+      route.params.contractId,
+      showConfirmPaymentHelp,
+      showMakePaymentHelp,
+      view,
+    ]),
   )
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)

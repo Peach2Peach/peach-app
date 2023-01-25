@@ -12,6 +12,7 @@ import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
 import { account } from '../../utils/account'
 import { ContractCanceled } from './ContractCanceled'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 
 declare type ConfirmCancelTradeProps = {
   contract: Contract
@@ -35,7 +36,7 @@ export const useConfirmCancelTrade = (contractId: string) => {
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const [loading, setLoading] = useState(false)
-  const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
+  const showError = useShowErrorBanner()
   const closeOverlay = () => updateOverlay({ visible: false })
   const cancelBuyer = async () => {
     setLoading(true)
@@ -61,6 +62,7 @@ export const useConfirmCancelTrade = (contractId: string) => {
     })
 
     if (result?.psbt) {
+      const sellOffer = getSellOfferFromContract(contract)
       const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, sellOffer)
       if (isValid && psbt) {
         const signedPSBT = signPSBT(psbt, sellOffer, false)
@@ -106,16 +108,7 @@ export const useConfirmCancelTrade = (contractId: string) => {
         })
       }
     } else if (err) {
-      error('Error', err)
-      updateMessage({
-        msgKey: err?.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      showError(err?.error)
     }
     setLoading(false)
   }
