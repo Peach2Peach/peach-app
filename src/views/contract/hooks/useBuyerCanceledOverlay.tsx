@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { BuyerCanceled } from '../../../overlays/tradeCancelation/BuyerCanceled'
+import { BuyerConfirmedCancelTrade } from '../../../overlays/tradeCancelation/BuyerConfirmedCancelTrade'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
 import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -23,7 +24,7 @@ export const useBuyerCanceledOverlay = () => {
     // TODO missing endpoint from server
   }
 
-  return (contract: Contract) => {
+  return (contract: Contract, mutualClose: boolean) => {
     const sellOffer = getSellOfferFromContract(contract)
     if (!sellOffer) return
 
@@ -49,8 +50,8 @@ export const useBuyerCanceledOverlay = () => {
     const action2 = expiry.isExpired ? undefined : refundAction
 
     updateOverlay({
-      title: i18n('contract.cancel.buyerCanceled.title'),
-      content: <BuyerCanceled />,
+      title: i18n(mutualClose ? 'contract.cancel.buyerConfirmed.title' : 'contract.cancel.buyerCanceled.title'),
+      content: mutualClose ? <BuyerConfirmedCancelTrade contract={contract} /> : <BuyerCanceled />,
       visible: true,
       level: 'WARN',
       requireUserAction: true,

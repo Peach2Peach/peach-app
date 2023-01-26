@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { DisputeResult } from '../../../overlays/DisputeResult'
 import { CancelTradeRequestConfirmed } from '../../../overlays/tradeCancelation/CancelTradeRequestConfirmed'
-import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/CancelTradeRequestRejected'
+import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/BuyerRejectedCancelTrade'
 import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import YouGotADispute from '../../../overlays/YouGotADispute'
 import { account } from '../../../utils/account'
@@ -15,12 +15,15 @@ import {
   shouldShowYouGotADispute,
 } from '../../../utils/overlay'
 import { useBuyerCanceledOverlay } from './useBuyerCanceledOverlay'
-import { useCancelTradeRequestRejectedOverlay } from './useCancelTradeRequestRejectedOverlay'
+import { useBuyerRejectedCancelTradeOverlay } from './useBuyerRejectedCancelTradeOverlay'
+import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOVerlay'
 
 export const useHandleOverlays = () => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showBuyerCanceled = useBuyerCanceledOverlay()
-  const showCancelTradeRequestRejected = useCancelTradeRequestRejectedOverlay()
+  const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+
   return (contract: Contract, view: ContractViewer) => {
     const contractId = contract.id
     if (shouldShowYouGotADispute(contract, account)) {
@@ -39,22 +42,10 @@ export const useHandleOverlays = () => {
       })
     }
 
-    if (shouldShowConfirmCancelTradeRequest(contract, view)) {
-      return updateOverlay({
-        content: <ConfirmCancelTradeRequest {...{ contract }} />,
-        visible: true,
-      })
-    }
-
-    if (shouldShowCancelTradeRequestConfirmed(contract, view)) {
-      return updateOverlay({
-        content: <CancelTradeRequestConfirmed {...{ contract }} />,
-        visible: true,
-      })
-    }
-
+    if (shouldShowConfirmCancelTradeRequest(contract, view)) return showConfirmTradeCancelation(contract)
+    if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract, false)
+    if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showBuyerCanceled(contract, true)
     if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
-    if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract)
 
     return null
   }

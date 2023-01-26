@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
-import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/CancelTradeRequestRejected'
+import { BuyerRejectedCancelTrade } from '../../../overlays/tradeCancelation/BuyerRejectedCancelTrade'
 import { saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 
-export const useCancelTradeRequestRejectedOverlay = () => {
+export const useBuyerRejectedCancelTradeOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const confirmOverlay = (contract: Contract) => {
@@ -19,7 +19,7 @@ export const useCancelTradeRequestRejectedOverlay = () => {
   return (contract: Contract) => {
     updateOverlay({
       title: i18n('contract.cancel.buyerRejected.title'),
-      content: <CancelTradeRequestRejected contract={contract} />,
+      content: <BuyerRejectedCancelTrade contract={contract} />,
       visible: true,
       requireUserAction: true,
       level: 'WARN',
