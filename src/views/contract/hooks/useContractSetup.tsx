@@ -3,9 +3,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { useFocusEffect } from '@react-navigation/native'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
 import AppContext from '../../../contexts/app'
-import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
-import getContractEffect from '../../../effects/getContractEffect'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useContractDetails } from '../../../hooks/useContractDetails'
 import { useOfferDetails } from '../../../hooks/useOfferDetails'
@@ -23,7 +21,6 @@ import {
   signReleaseTx,
 } from '../../../utils/contract'
 import { isTradeCanceled, isTradeComplete } from '../../../utils/contract/status'
-import i18n from '../../../utils/i18n'
 import { getRequiredActionCount, saveOffer } from '../../../utils/offer'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
@@ -32,7 +29,6 @@ import { decryptContractData } from '../helpers/decryptContractData'
 import { getRequiredAction } from '../helpers/getRequiredAction'
 import { handleOverlays } from '../helpers/handleOverlays'
 
-// eslint-disable-next-line max-lines-per-function, max-statements
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
@@ -40,7 +36,6 @@ export const useContractSetup = () => {
   const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
   const showError = useShowErrorBanner()
   const cancelContract = useConfirmCancelTrade(contractId)
@@ -76,21 +71,23 @@ export const useContractSetup = () => {
     }, [cancelContract, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
   )
 
-  const saveAndUpdate = (contractData: Contract): Contract => {
-    if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
-
-    saveContract(contractData)
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
-    return contractData
-  }
+  const saveAndUpdate = useCallback(
+    (contractData: Contract): Contract => {
+      setStoredContract(contractData)
+      saveContract(contractData)
+      updateAppContext({
+        notifications: getChatNotifications() + getRequiredActionCount(),
+      })
+      return contractData
+    },
+    [updateAppContext],
+  )
 
   useFocusEffect(
     useCallback(() => {
       const contractUpdateHandler = async (update: ContractUpdate) => {
         if (!storedContract || update.contractId !== contractId || !update.event) return
-        setStoredContract({
+        saveAndUpdate({
           ...storedContract,
           [update.event]: new Date(update.data.date),
         })
@@ -99,7 +96,7 @@ export const useContractSetup = () => {
         if (!storedContract) return
         if (!message.message || message.roomId !== `contract-${contractId}`) return
 
-        setStoredContract({
+        saveAndUpdate({
           ...storedContract,
           unreadMessages: storedContract.unreadMessages + 1,
         })
@@ -115,54 +112,39 @@ export const useContractSetup = () => {
       ws.on('message', messageHandler)
 
       return unsubscribe
-    }, [contractId, storedContract, ws]),
+    }, [contractId, saveAndUpdate, storedContract, ws]),
   )
 
-  useFocusEffect(
-    useCallback(
-      getContractEffect({
-        contractId,
-        onSuccess: async (result) => {
-          let c = getContract(result.id)
-          const v = account.publicKey === result.seller.id ? 'seller' : 'buyer'
+  useEffect(() => {
+    if (!contract) return
+    ;(async () => {
+      let c = getContract(contract.id)
+      const v = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
 
-          const { symmetricKey, paymentData } = await decryptContractData({
-            ...result,
-            symmetricKey: c?.symmetricKey,
-            paymentData: c?.paymentData,
-          })
+      const { symmetricKey, paymentData } = await decryptContractData({
+        ...contract,
+        symmetricKey: c?.symmetricKey,
+        paymentData: c?.paymentData,
+      })
 
-          c = saveAndUpdate(
-            c
-              ? {
-                ...c,
-                ...result,
-                symmetricKey,
-                paymentData,
-              }
-              : {
-                ...result,
-                symmetricKey,
-                paymentData,
-              },
-          )
+      c = saveAndUpdate(
+        c
+          ? {
+            ...c,
+            ...contract,
+            symmetricKey,
+            paymentData,
+          }
+          : {
+            ...contract,
+            symmetricKey,
+            paymentData,
+          },
+      )
 
-          handleOverlays({ contract: c, updateOverlay, view: v })
-        },
-        onError: (err) =>
-          updateMessage({
-            msgKey: err.error || 'GENERAL_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          }),
-      }),
-      [contractId],
-    ),
-  )
+      handleOverlays({ contract: c, updateOverlay, view: v })
+    })()
+  }, [contract, saveAndUpdate, updateOverlay])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)
