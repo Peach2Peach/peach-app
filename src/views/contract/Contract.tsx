@@ -2,13 +2,13 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Icon, PeachScrollView, Text, TradeSummary } from '../../components'
+import { Icon, Text, TradeSummary } from '../../components'
 import { ChatButton } from '../../components/chat/ChatButton'
+import i18n from '../../utils/i18n'
 import LoadingScreen from '../loading/LoadingScreen'
 import ContractCTA from './components/ContractCTA'
 import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { useContractSetup } from './hooks/useContractSetup'
-import i18n from '../../utils/i18n'
 
 export default (): ReactElement => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
