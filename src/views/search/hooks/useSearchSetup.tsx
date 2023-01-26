@@ -60,6 +60,7 @@ export const useSearchSetup = () => {
       const [txId, refundError] = await initiateEscrowRefund(offer, cancelResult)
       if (!txId || refundError) {
         showError(refundError || 'GENERAL_ERROR')
+        return
       }
     }
 
