@@ -11,6 +11,7 @@ export const submitRaiseDispute = async (
   reason: DisputeReason,
   email?: string,
   message?: string,
+  // eslint-disable-next-line max-params
 ) => {
   if (!contract || !contract.symmetricKey) return false
   const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(contract.symmetricKey, PEACHPGPPUBLICKEY)
@@ -37,6 +38,6 @@ export const submitRaiseDispute = async (
   }
   if (err) {
     error('Error', err)
-    return false
   }
+  return false
 }
