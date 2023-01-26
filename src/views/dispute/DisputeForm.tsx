@@ -8,6 +8,7 @@ import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { submitRaiseDispute } from './utils/submitRaiseDispute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
 
 export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 const required = { required: true }
@@ -25,6 +26,8 @@ export default (): ReactElement => {
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
   let $message = useRef<TextInput>(null).current
+
+  const disputeRaisedOverlay = useDisputeRaisedSuccess()
 
   const showError = useShowErrorBanner()
 
@@ -45,7 +48,7 @@ export default (): ReactElement => {
     setLoading(true)
     const disputeRaised = await submitRaiseDispute(contract, reason, email, message)
     if (disputeRaised) {
-      // todo : show dispute raised success
+      disputeRaisedOverlay()
       navigation.navigate('contractChat', { contractId })
     } else {
       showError()

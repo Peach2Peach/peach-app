@@ -682,6 +682,8 @@
   "dispute.startedOverlay.goToDispute": "go to dispute",
   "dispute.chat": "dispute chat",
   "trade.chat": "trade chat",
+  "dispute.opened": "dispute opened",
+  "dispute.raised.text": "The buyer and the mediator have been notified. Keep an eye on the chat!",
   "dispute.nonDispute": "dispute resolved!",
   "dispute.won": "dispute won",
   "dispute.lost": "dispute lost",
