@@ -65,13 +65,14 @@ export const useSearchSetup = () => {
     }
 
     showConfirmationPopup()
-    if (offerId) navigation.replace('offer', { offerId })
+    navigation.replace('offer', { offerId })
   }, [navigation, offer, offerId, showConfirmationPopup, showError])
 
   const showCancelPopup = () => {
+    if (!offer) return
     updateOverlay({
       title: i18n('search.popups.cancelOffer.title'),
-      content: <CancelOffer />,
+      content: <CancelOffer {...{ offer }} />,
       visible: true,
       level: 'ERROR',
       action1: {
