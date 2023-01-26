@@ -13,7 +13,7 @@ import i18n from '../utils/i18n'
 import { error } from '../utils/log'
 import { getContract as getContractAPI } from '../utils/peachAPI'
 import { acknowledgeDispute } from '../utils/peachAPI/private/contract'
-import { isEmailRequired } from '../views/dispute/Dispute'
+import { isEmailRequired } from '../views/dispute/DisputeForm'
 import SuccessOverlay from './SuccessOverlay'
 
 type YouGotADisputeProps = {
