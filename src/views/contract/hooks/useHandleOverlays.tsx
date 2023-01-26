@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { DisputeResult } from '../../../overlays/DisputeResult'
 import { CancelTradeRequestConfirmed } from '../../../overlays/tradeCancelation/CancelTradeRequestConfirmed'
 import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/CancelTradeRequestRejected'
-import { BuyerCanceledTrade } from '../../../overlays/tradeCancelation/BuyerCanceledTrade'
 import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import YouGotADispute from '../../../overlays/YouGotADispute'
 import { account } from '../../../utils/account'
@@ -15,10 +14,13 @@ import {
   shouldShowDisputeResult,
   shouldShowYouGotADispute,
 } from '../../../utils/overlay'
+import { useBuyerCanceledOverlay } from './useBuyerCanceledOverlay'
+import { useCancelTradeRequestRejectedOverlay } from './useCancelTradeRequestRejectedOverlay'
 
 export const useHandleOverlays = () => {
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const showBuyerCanceled = useBuyerCanceledOverlay()
+  const showCancelTradeRequestRejected = useCancelTradeRequestRejectedOverlay()
   return (contract: Contract, view: ContractViewer) => {
     const contractId = contract.id
     if (shouldShowYouGotADispute(contract, account)) {
@@ -51,19 +53,8 @@ export const useHandleOverlays = () => {
       })
     }
 
-    if (shouldShowCancelTradeRequestRejected(contract, view)) {
-      return updateOverlay({
-        content: <CancelTradeRequestRejected {...{ contract }} />,
-        visible: true,
-      })
-    }
-
-    if (shouldShowBuyerCanceledTrade(contract, view)) {
-      return updateOverlay({
-        content: <BuyerCanceledTrade {...{ contract }} />,
-        visible: true,
-      })
-    }
+    if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
+    if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract)
 
     return null
   }
