@@ -9,7 +9,7 @@ import { contractIdToHex, getSellOfferFromContract, saveContract } from '../../u
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { thousands } from '../../utils/string'
-import Refund from '../Refund'
+import { useStartRefundOverlay } from '../useStartRefundOverlay'
 
 /**
  * @description Overlay the seller sees when the buyer accepted cancelation
@@ -20,18 +20,14 @@ export type ConfirmCancelTradeProps = {
 
 export const BuyerCanceledTrade = ({ contract }: ConfirmCancelTradeProps): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const startRefund = useStartRefundOverlay()
   const sellOffer = useMemo(() => getSellOfferFromContract(contract), [contract])
   const expiry = useMemo(() => getOfferExpiry(sellOffer), [sellOffer])
 
   const closeOverlay = () => updateOverlay({ visible: false })
   const showEscrow = () =>
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
-  const refund = () => {
-    updateOverlay({
-      content: <Refund {...{ sellOffer, navigate: closeOverlay }} />,
-      visible: true,
-    })
-  }
+  const refund = () => startRefund(sellOffer)
 
   useEffect(() => {
     saveContract({

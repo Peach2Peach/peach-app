@@ -9,14 +9,14 @@ import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
-import { MessageContext } from '../../contexts/message'
+import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
-import { error, info } from '../../utils/log'
+import { error } from '../../utils/log'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 
 export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 const required = { required: true }
@@ -25,7 +25,6 @@ export default (): ReactElement => {
   const route = useRoute<'disputeForm'>()
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateMessage] = useContext(MessageContext)
 
   const reason = route.params.reason
   const contractId = route.params.contractId
@@ -36,6 +35,8 @@ export default (): ReactElement => {
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
   let $message = useRef<TextInput>(null).current
+
+  const showError = useShowErrorBanner()
 
   useHeaderSetup(
     useMemo(
@@ -88,20 +89,12 @@ export default (): ReactElement => {
 
     if (err) {
       error('Error', err)
-      updateMessage({
-        msgKey: err?.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      showError()
     }
     setLoading(false)
   }
 
-  const disputeForm = () => (
+  const DisputeForm = (): ReactElement => (
     <>
       <View style={tw`justify-center h-full p-6 pb-20`}>
         {isEmailRequired(reason) && (
@@ -139,6 +132,13 @@ export default (): ReactElement => {
   )
 
   return (
-    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>{disputeForm()}</PeachScrollView>
+    <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+        <DisputeForm />
+      </PeachScrollView>
+      <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
+        {i18n('confirm')}
+      </PrimaryButton>
+    </View>
   )
 }
