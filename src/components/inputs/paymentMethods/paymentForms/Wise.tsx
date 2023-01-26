@@ -85,7 +85,11 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => $email?.focus()}
+          onSubmit={() => {
+            if (currentTab.id === 'email') {
+              $email?.focus()
+            } else $phone?.focus()
+          }}
           value={label}
           required={!anyFieldSet}
           label={i18n('form.paymentMethodName')}
@@ -113,7 +117,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         {currentTab.id === 'phone' && (
           <PhoneInput
             onChange={setPhone}
-            onSubmit={() => $phone?.focus()}
+            onSubmit={() => $reference?.focus()}
             reference={(el: any) => ($phone = el)}
             value={phone}
             required={!email}
