@@ -27,8 +27,9 @@ import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import ContractTitle from '../components/ContractTitle'
 import { decryptContractData } from '../helpers/decryptContractData'
 import { getRequiredAction } from '../helpers/getRequiredAction'
-import { handleOverlays } from '../helpers/handleOverlays'
+import { useHandleOverlays } from './useHandleOverlays'
 
+// eslint-disable-next-line max-statements
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
@@ -41,6 +42,7 @@ export const useContractSetup = () => {
   const cancelContract = useConfirmCancelTrade(contractId)
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
+  const handleOverlays = useHandleOverlays()
 
   const [actionPending, setActionPending] = useState(false)
   const { contract, isLoading } = useContractDetails(contractId)
@@ -119,7 +121,6 @@ export const useContractSetup = () => {
     if (!contract) return
     ;(async () => {
       let c = getContract(contract.id)
-      const v = account.publicKey === contract.seller.id ? 'seller' : 'buyer'
 
       const { symmetricKey, paymentData } = await decryptContractData({
         ...contract,
@@ -142,9 +143,9 @@ export const useContractSetup = () => {
           },
       )
 
-      handleOverlays({ contract: c, updateOverlay, view: v })
+      handleOverlays(c, getContractViewer(contract, account))
     })()
-  }, [contract, saveAndUpdate, updateOverlay])
+  }, [contract, handleOverlays, saveAndUpdate, updateOverlay])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)
