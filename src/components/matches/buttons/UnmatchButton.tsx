@@ -1,6 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useToggleBoolean } from '../../../hooks'
+import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
@@ -46,9 +47,12 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
     })
   }, [showUnmatchedCard, unmatch, updateOverlay])
 
+  const showMatchUndonePopup = useShowAppPopup('matchUndone')
+
   const onUndoPress = () => {
     showUnmatchedCard()
     interruptMatching()
+    showMatchUndonePopup()
   }
 
   return (
