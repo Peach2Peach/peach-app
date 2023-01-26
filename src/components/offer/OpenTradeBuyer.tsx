@@ -19,7 +19,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
   return (
     <View style={tw`h-full`}>
       <ProfileOverview user={contract.seller} />
-      <HorizontalLine style={tw`mt-7`} />
+      <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row justify-between items-center mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
@@ -48,7 +48,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
 
         {(!!contract.escrow || !!contract.releaseTxId) && (
           <View style={tw`mt-6`}>
-            <HorizontalLine />
+            <HorizontalLine style={tw`bg-black-5`} />
             <Escrow style={tw`mt-6`} contract={contract} view={''} />
           </View>
         )}

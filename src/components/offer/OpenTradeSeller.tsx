@@ -25,8 +25,8 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
   const PaymentTo = !storedPaymentData && contract.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   return (
     <View style={tw`h-full`}>
-      <ProfileOverview user={contract.seller} />
-      <HorizontalLine style={tw`mt-7`} />
+      <ProfileOverview user={contract.buyer} />
+      <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row justify-between items-center mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.willPayYou')}</Text>
@@ -55,8 +55,8 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
 
         {(!!contract.escrow || !!contract.releaseTxId) && (
           <View style={tw`mt-6`}>
-            <HorizontalLine />
-            <Escrow style={tw`mt-6`} contract={contract} view={''} />
+            <HorizontalLine style={tw`bg-black-5`} />
+            <Escrow style={tw`mt-6`} contract={contract} />
           </View>
         )}
       </PeachScrollView>
