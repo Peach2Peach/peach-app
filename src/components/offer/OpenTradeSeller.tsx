@@ -24,7 +24,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
 
   const PaymentTo = !storedPaymentData && contract.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   return (
-    <View style={tw`h-full`}>
+    <View style={[tw`h-full`, tw.md`h-auto`]}>
       <ProfileOverview user={contract.buyer} />
       <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView showsVerticalScrollIndicator={false}>

@@ -17,10 +17,10 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
   const appLink = APPLINKS[contract.paymentMethod]
 
   return (
-    <View style={tw`h-full`}>
+    <View style={[tw`h-full`, tw.md`h-auto`]}>
       <ProfileOverview user={contract.seller} />
       <HorizontalLine style={tw`mt-7 bg-black-5`} />
-      <PeachScrollView showsVerticalScrollIndicator={false}>
+      <PeachScrollView style={tw`flex-shrink`} showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row justify-between items-center mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
           <View style={tw`flex-row items-center`}>
