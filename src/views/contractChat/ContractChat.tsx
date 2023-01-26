@@ -27,7 +27,7 @@ import { saveOffer } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
 import { decryptContractData } from '../contract/helpers/decryptContractData'
-import { useHandleOverlays } from '../contract/hooks/useHandleOverlays'
+import { useHandleContractOverlays } from '../../overlays/useHandleContractOverlays'
 import ChatBox from './components/ChatBox'
 import { getHeaderChatActions } from './utils/getHeaderChatActions'
 import getMessagesEffect from './utils/getMessagesEffect'
@@ -40,7 +40,7 @@ export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
-  const handleOverlays = useHandleOverlays()
+  const handleContractOverlays = useHandleContractOverlays()
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
@@ -265,7 +265,7 @@ export default (): ReactElement => {
               },
           )
 
-          handleOverlays(c, view)
+          handleContractOverlays(c, view)
         },
         onError: (err) =>
           updateMessage({

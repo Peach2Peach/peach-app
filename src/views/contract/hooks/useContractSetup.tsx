@@ -27,7 +27,7 @@ import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import ContractTitle from '../components/ContractTitle'
 import { decryptContractData } from '../helpers/decryptContractData'
 import { getRequiredAction } from '../helpers/getRequiredAction'
-import { useHandleOverlays } from './useHandleOverlays'
+import { useHandleContractOverlays } from '../../../overlays/useHandleContractOverlays'
 
 // eslint-disable-next-line max-statements
 export const useContractSetup = () => {
@@ -42,7 +42,7 @@ export const useContractSetup = () => {
   const cancelContract = useConfirmCancelTrade(contractId)
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
-  const handleOverlays = useHandleOverlays()
+  const handleContractOverlays = useHandleContractOverlays()
 
   const [actionPending, setActionPending] = useState(false)
   const { contract, isLoading } = useContractDetails(contractId)
@@ -143,9 +143,9 @@ export const useContractSetup = () => {
           },
       )
 
-      handleOverlays(c, getContractViewer(contract, account))
+      handleContractOverlays(c, getContractViewer(contract, account))
     })()
-  }, [contract, handleOverlays, saveAndUpdate, updateOverlay])
+  }, [contract, handleContractOverlays, saveAndUpdate, updateOverlay])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)

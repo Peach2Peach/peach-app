@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
-import { BuyerCanceled } from '../../../overlays/tradeCancelation/BuyerCanceled'
-import { BuyerConfirmedCancelTrade } from '../../../overlays/tradeCancelation/BuyerConfirmedCancelTrade'
-import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
-import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
-import { getOfferExpiry } from '../../../utils/offer'
+import { OverlayContext } from '../../contexts/overlay'
+import { BuyerCanceled } from './BuyerCanceled'
+import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
+import { useStartRefundOverlay } from '../useStartRefundOverlay'
+import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { getOfferExpiry } from '../../utils/offer'
 
 export const useBuyerCanceledOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)

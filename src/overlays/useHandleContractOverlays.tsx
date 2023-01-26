@@ -1,11 +1,6 @@
 import React, { useContext } from 'react'
-import { DisputeResult } from '../../../overlays/DisputeResult'
-import { CancelTradeRequestConfirmed } from '../../../overlays/tradeCancelation/CancelTradeRequestConfirmed'
-import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/BuyerRejectedCancelTrade'
-import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/ConfirmCancelTradeRequest'
-import YouGotADispute from '../../../overlays/YouGotADispute'
-import { account } from '../../../utils/account'
-import { OverlayContext } from '../../../contexts/overlay'
+import { OverlayContext } from '../contexts/overlay'
+import { account } from '../utils/account'
 import {
   shouldShowBuyerCanceledTrade,
   shouldShowCancelTradeRequestConfirmed,
@@ -13,12 +8,14 @@ import {
   shouldShowConfirmCancelTradeRequest,
   shouldShowDisputeResult,
   shouldShowYouGotADispute,
-} from '../../../utils/overlay'
-import { useBuyerCanceledOverlay } from './useBuyerCanceledOverlay'
-import { useBuyerRejectedCancelTradeOverlay } from './useBuyerRejectedCancelTradeOverlay'
-import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOVerlay'
+} from '../utils/overlay'
+import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
+import { DisputeResult } from './DisputeResult'
+import YouGotADispute from './YouGotADispute'
+import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
+import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 
-export const useHandleOverlays = () => {
+export const useHandleContractOverlays = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showBuyerCanceled = useBuyerCanceledOverlay()
