@@ -6,6 +6,7 @@ import { getPaymentDataByMethod } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
 import { ProfileOverview } from '../../views/publicProfile/components'
 import { paymentDetailTemplates } from '../payment'
+import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
@@ -23,10 +24,10 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
 
   const PaymentTo = !storedPaymentData && contract.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   return (
-    <View>
-      <View>
-        <ProfileOverview user={contract.seller} />
-        <HorizontalLine style={tw`mt-7`} />
+    <View style={tw`h-full`}>
+      <ProfileOverview user={contract.buyer} />
+      <HorizontalLine style={tw`mt-7 bg-black-5`} />
+      <PeachScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row justify-between items-center mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.willPayYou')}</Text>
           <View style={tw`flex-row items-center`}>
@@ -54,11 +55,11 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
 
         {(!!contract.escrow || !!contract.releaseTxId) && (
           <View style={tw`mt-6`}>
-            <HorizontalLine />
-            <Escrow style={tw`mt-6`} contract={contract} view={''} />
+            <HorizontalLine style={tw`bg-black-5`} />
+            <Escrow style={tw`mt-6`} contract={contract} />
           </View>
         )}
-      </View>
+      </PeachScrollView>
     </View>
   )
 }
