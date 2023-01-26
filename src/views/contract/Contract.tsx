@@ -17,17 +17,17 @@ export default (): ReactElement => {
   if (!contract || isLoading || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
 
   return (
-    <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8 pb-6`}>
-      <View>
+    <View style={tw`justify-between  h-full flex-shrink px-8 pb-6`}>
+      <View style={tw`justify-center h-full flex-shrink`}>
         {contract.disputeActive && (
           <View style={tw`flex-row items-center justify-center`}>
             <Text style={tw`subtitle-1 text-center`}>{i18n('contract.disputeActive')}</Text>
             <Icon id="alertOctagon" style={tw`w-6 h-6 ml-1 -mt-0.5`} color={tw`text-warning-main`.color} />
           </View>
         )}
-        <View style={tw`mt-8`}>
+        <View style={tw`mt-8 max-h-full flex-shrink`}>
           <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
-          <TradeSummary {...{ contract, view }} />
+          <TradeSummary style={tw`max-h-full`} {...{ contract, view }} />
         </View>
       </View>
       <View style={tw`w-full flex items-center mt-12`}>
@@ -37,6 +37,6 @@ export default (): ReactElement => {
           {...{ view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
         />
       </View>
-    </PeachScrollView>
+    </View>
   )
 }
