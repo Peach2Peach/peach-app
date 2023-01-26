@@ -8,7 +8,7 @@ type RaiseDisputeProps = RequestProps & {
   contractId: Contract['id']
   email?: string
   reason: DisputeReason
-  message: string
+  message?: string
   symmetricKeyEncrypted: string
 }
 
