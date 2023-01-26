@@ -27,7 +27,7 @@ import ContractCTA from './components/ContractCTA'
 import { decryptContractData } from './helpers/decryptContractData'
 import { getRequiredAction } from './helpers/getRequiredAction'
 import { getTimerStart } from './helpers/getTimerStart'
-import { handleOverlays } from './helpers/handleOverlays'
+import { useHandleOverlays } from './hooks/useHandleOverlays'
 
 export default (): ReactElement => {
   const route = useRoute<'contract'>()
@@ -45,6 +45,8 @@ export default (): ReactElement => {
     contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : '',
   )
   const [requiredAction, setRequiredAction] = useState<ContractAction>(contract ? getRequiredAction(contract) : 'none')
+
+  const handleOverlays = useHandleOverlays()
 
   const saveAndUpdate = (contractData: Contract): Contract => {
     if (typeof contractData.creationDate === 'string') contractData.creationDate = new Date(contractData.creationDate)
@@ -132,7 +134,7 @@ export default (): ReactElement => {
               },
           )
 
-          handleOverlays({ contract: c, updateOverlay, view: v })
+          handleOverlays(c, v)
         },
         onError: (err) =>
           updateMessage({

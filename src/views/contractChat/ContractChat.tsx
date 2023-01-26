@@ -17,7 +17,6 @@ import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
-import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { decryptContractData } from '../contract/helpers/decryptContractData'
 import ChatBox from './components/ChatBox'
 import getMessagesEffect from './utils/getMessagesEffect'
@@ -27,14 +26,16 @@ import { getHeaderChatActions } from './utils/getHeaderChatActions'
 import { useShowDisputeDisclaimer } from './utils/useShowDisputeDisclaimer'
 import { useConfirmCancelTrade } from '../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { useOpenDispute } from '../../overlays/dispute/hooks/useOpenDispute'
+import { useHandleOverlays } from '../contract/hooks/useHandleOverlays'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
   const route = useRoute<'contractChat'>()
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
+
+  const handleOverlays = useHandleOverlays()
 
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
@@ -260,7 +261,7 @@ export default (): ReactElement => {
               },
           )
 
-          handleOverlays({ contract: c, updateOverlay, view })
+          handleOverlays(c, view)
         },
         onError: (err) =>
           updateMessage({

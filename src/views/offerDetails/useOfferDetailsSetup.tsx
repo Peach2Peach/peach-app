@@ -13,8 +13,8 @@ import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
-import { handleOverlays } from '../contract/helpers/handleOverlays'
 import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
+import { useHandleOverlays } from '../contract/hooks/useHandleOverlays'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
@@ -30,6 +30,8 @@ export const useOfferDetailsSetup = () => {
   const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
+
+  const handleOverlays = useHandleOverlays()
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
@@ -92,7 +94,7 @@ export const useOfferDetailsSetup = () => {
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),
           })
-          handleOverlays({ contract: c, updateOverlay, view })
+          handleOverlays(c, view)
         },
         onError: (err) =>
           updateMessage({
