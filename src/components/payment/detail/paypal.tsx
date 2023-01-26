@@ -9,7 +9,7 @@ import { openAppLink } from '../../../utils/web'
 import { CopyAble } from '../../ui'
 
 const possibleFields = ['phone', 'userName', 'email']
-export const DetailRevolut = ({
+export const DetailPaypal = ({
   paymentData,
   appLink,
   fallbackUrl,
@@ -17,7 +17,7 @@ export const DetailRevolut = ({
   style,
 }: PaymentTemplateProps): ReactElement => {
   const openApp = () => (fallbackUrl ? openAppLink(fallbackUrl, appLink) : {})
-  const openUserLink = async () => openAppLink(`${APPLINKS.revolut.userLink}${paymentData.userName.replace('@', '')}`)
+  const openUserLink = async () => openAppLink(`${APPLINKS.paypal.userLink}${paymentData.userName.replace('@', '')}`)
   const onInfoPress = (field: string) => {
     if (field === 'userName') {
       openUserLink()
@@ -47,4 +47,4 @@ export const DetailRevolut = ({
     </View>
   )
 }
-export default DetailRevolut
+export default DetailPaypal

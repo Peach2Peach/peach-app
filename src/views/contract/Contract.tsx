@@ -275,7 +275,7 @@ export default (): ReactElement => {
       <Loading />
     </View>
   ) : (
-    <PeachScrollView style={tw`pt-6`} contentContainerStyle={tw`px-6`}>
+    <View style={tw`pt-6 px-6`}>
       <View style={tw`pb-32`}>
         <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
         <Text style={tw`-mt-1 text-center text-grey-2`}>
@@ -309,6 +309,6 @@ export default (): ReactElement => {
           </View>
         ) : null}
       </View>
-    </PeachScrollView>
+    </View>
   )
 }

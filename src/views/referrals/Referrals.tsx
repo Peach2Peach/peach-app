@@ -117,7 +117,7 @@ export default (): ReactElement => {
             <Text style={tw`text-center body-m text-black-2`}>{i18n('referrals.yourCode')}</Text>
             <View style={tw`flex-row justify-center`}>
               <Text style={tw`mr-1 text-center h4`}>{user.referralCode}</Text>
-              <CopyAble value={'p26'} />
+              <CopyAble value={user.referralCode} style={tw`w-7 h-7`} />
             </View>
           </>
         )}
