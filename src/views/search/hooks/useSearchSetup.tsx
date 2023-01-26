@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import shallow from 'zustand/shallow'
 import { Icon } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
@@ -7,17 +7,22 @@ import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useOfferDetails } from '../../../hooks/useOfferDetails'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { CancelOffer } from '../../../overlays/CancelOffer'
 import tw from '../../../styles/tailwind'
+import { updateTradingLimit } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { isBuyOffer } from '../../../utils/offer'
+import { cancelAndSaveOffer, initiateEscrowRefund, isBuyOffer } from '../../../utils/offer'
+import { getTradingLimit } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/system'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
+  const showError = useShowErrorBanner()
+  const { allMatches: matches, error, refetch } = useOfferMatches()
 
   const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
@@ -28,6 +33,40 @@ export const useSearchSetup = () => {
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
+  const showConfirmationPopup = useCallback(() => {
+    updateOverlay({
+      title: 'offer canceled!',
+      visible: true,
+      level: 'APP',
+    })
+  }, [updateOverlay])
+
+  const cancelOffer = useCallback(async () => {
+    if (!offer) return
+    const [cancelResult, cancelError] = await cancelAndSaveOffer(offer)
+
+    if (!cancelResult || cancelError) {
+      showError(cancelError?.error || 'GENERAL_ERROR')
+      return
+    }
+
+    getTradingLimit({}).then(([tradingLimit]) => {
+      if (tradingLimit) {
+        updateTradingLimit(tradingLimit)
+      }
+    })
+
+    if (!(isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0)) {
+      const [txId, refundError] = await initiateEscrowRefund(offer, cancelResult)
+      if (!txId || refundError) {
+        showError(refundError || 'GENERAL_ERROR')
+      }
+    }
+
+    showConfirmationPopup()
+    if (offerId) navigation.replace('offer', { offerId })
+  }, [navigation, offer, offerId, showConfirmationPopup, showError])
+
   const showCancelPopup = () => {
     updateOverlay({
       title: i18n('search.popups.cancelOffer.title'),
@@ -37,7 +76,7 @@ export const useSearchSetup = () => {
       action1: {
         icon: 'xCircle',
         label: i18n('search.popups.cancelOffer.cancelOffer'),
-        callback: () => updateOverlay({ visible: false }),
+        callback: cancelOffer,
       },
       action2: {
         icon: 'arrowLeftCircle',
@@ -57,8 +96,6 @@ export const useSearchSetup = () => {
       ]
       : [],
   })
-
-  const { allMatches: matches, error, refetch } = useOfferMatches()
 
   useEffect(() => {
     if (offer?.meansOfPayment) addMatchSelectors(matches, offer.meansOfPayment)
