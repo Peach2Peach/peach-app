@@ -30,6 +30,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
       title: i18n('search.popups.unmatch.title'),
       content: <UnmatchPopup />,
       visible: true,
+      level: 'WARN',
       action1: {
         label: i18n('search.popups.unmatch.neverMind'),
         icon: 'xSquare',
