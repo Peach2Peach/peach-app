@@ -1,9 +1,9 @@
 import React, { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../contexts/overlay'
-import { useNavigation } from '../../hooks'
-import i18n from '../../utils/i18n'
-import { contract } from '../../../tests/unit/data/contractData'
-import { OpenDispute } from './OpenDispute'
+import { OverlayContext } from '../../../contexts/overlay'
+import { useNavigation } from '../../../hooks'
+import i18n from '../../../utils/i18n'
+import { contract } from '../../../../tests/unit/data/contractData'
+import { OpenDispute } from '../components/OpenDispute'
 
 /**
  * @description Overlay for opening dispute from chat

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Text } from 'react-native'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
 export const OpenDispute = (): ReactElement => (
   <>

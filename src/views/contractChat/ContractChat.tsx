@@ -26,7 +26,7 @@ import { saveOffer } from '../../utils/offer'
 import { getHeaderChatActions } from './utils/getHeaderChatActions'
 import { useShowDisputeDisclaimer } from './utils/useShowDisputeDisclaimer'
 import { useConfirmCancelTrade } from '../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { useOpenDispute } from '../../overlays/disputeResults/useOpenDispute'
+import { useOpenDispute } from '../../overlays/dispute/hooks/useOpenDispute'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
