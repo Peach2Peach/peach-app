@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import shallow from 'zustand/shallow'
-import { ANONYMOUS_PAYMENTCATEGORIES } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import Icon from '../../Icon'
 import { Text } from '../../text'
 import { useMatchStore } from '../store'
+import { isLimitReached } from '../../../utils/match'
 
 const options = {
   missingSelection: {
@@ -51,12 +51,7 @@ export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched, isBuyO
     )
   const currentMatch = matches[currentIndex]
 
-  const tradingLimitReached
-    = currentMatch?.exceedsLimit?.length === 3
-    || (selectedPaymentMethod
-      && ((ANONYMOUS_PAYMENTCATEGORIES.includes(selectedPaymentMethod)
-        && currentMatch?.exceedsLimit?.includes('monthly'))
-        || !!currentMatch?.exceedsLimit?.length))
+  const tradingLimitReached = isLimitReached(currentMatch?.unavailable.exceedsLimit || [], selectedPaymentMethod)
 
   const missingSelection = !selectedPaymentMethod || !selectedCurrency
   const isMatched = currentMatch?.matched || pretendIsMatched
