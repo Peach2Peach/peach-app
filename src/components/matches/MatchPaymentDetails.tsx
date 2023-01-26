@@ -15,7 +15,7 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
     ],
     shallow,
   )
-  const methodIsVerified = true
+  const methodIsVerified = false
 
   return (
     <View style={style}>
