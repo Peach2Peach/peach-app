@@ -13,15 +13,15 @@ import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
-import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 import { useHandleOverlays } from '../contract/hooks/useHandleOverlays'
+import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
   const offerId = route.params.offerId
   const navigation = useNavigation()
   const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
-
+  const handleOverlays = useHandleOverlays()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
@@ -30,8 +30,6 @@ export const useOfferDetailsSetup = () => {
   const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
-
-  const handleOverlays = useHandleOverlays()
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)

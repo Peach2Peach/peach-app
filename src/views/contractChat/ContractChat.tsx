@@ -34,9 +34,7 @@ export default (): ReactElement => {
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
   const ws = useContext(PeachWSContext)
-
   const handleOverlays = useHandleOverlays()
-
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
   const [contractId, setContractId] = useState(route.params.contractId)
