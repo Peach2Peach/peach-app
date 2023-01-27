@@ -45,8 +45,12 @@ declare type RootStackParamList = {
   contractChat: {
     contractId: Contract['id']
   }
-  dispute: {
+  disputeReasonSelector: {
     contractId: Contract['id']
+  }
+  disputeForm: {
+    contractId: Contract['id']
+    reason: DisputeReason
   }
   tradeComplete: {
     contract: Contract
@@ -73,6 +77,10 @@ declare type RootStackParamList = {
   payoutAddress: undefined
   walletSettings: undefined
   paymentMethods: undefined
+  meetupScreen: {
+    eventId: string
+    deletable?: boolean
+  }
   deleteAccount: undefined
   peachFees: undefined
   networkFees: undefined

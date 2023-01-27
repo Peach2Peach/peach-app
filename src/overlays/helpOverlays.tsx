@@ -1,6 +1,7 @@
 import i18n from '../utils/i18n'
 import { PayoutAddressPopup } from '../views/settings/components/PayoutAddressPopup'
 import { AcceptMatchPopup } from './AcceptMatchPopup'
+import { CashTrades } from './CashTrades'
 import { FileBackupPopup } from './FileBackupPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
@@ -22,14 +23,15 @@ export const helpOverlays = {
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
   acceptMatch: { title: i18n('search.popups.acceptMatch.title'), content: AcceptMatchPopup },
   buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
+  cashTrades: { title: i18n('tradingCash'), content: CashTrades },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   matchmatchmatch: { title: i18n('search.popups.matchmatchmatch.title'), content: MatchMatchMatch },
   mempool: { title: i18n('help.mempool.title'), content: Mempool },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
-  payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
+  payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   premium: { title: i18n('help.premium.title'), content: Premium },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },

@@ -6,7 +6,7 @@ export const getDisplayPrice = (
   selectedPaymentMethod: PaymentMethod | undefined,
   selectedCurrency: Currency,
 ) => {
-  const paymentInfo = getPaymentMethodInfo(selectedPaymentMethod)
+  const paymentInfo = selectedPaymentMethod ? getPaymentMethodInfo(selectedPaymentMethod) : undefined
   let displayPrice = String(
     match.matched && match.matchedPrice
       ? match.matchedPrice

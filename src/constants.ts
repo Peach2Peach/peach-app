@@ -41,6 +41,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
   {
     id: 'sepa',
     currencies: ['EUR'],
+    anonymous: false,
   },
 ]
 
@@ -49,7 +50,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay'],
-  cash: ['cash', 'cash.amsterdam', 'cash.belgianEmbassy', 'cash.lugano'],
+  cash: [],
   cryptoCurrency: [],
 }
 
@@ -63,7 +64,7 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   },
 }
 
-export const APPLINKS: Partial<Record<PaymentMethod, { appLink?: string; url: string; userLink?: string }>> = {
+export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?: string }> = {
   paypal: {
     url: 'https://paypal.com/open_web',
     userLink: 'https://paypal.com/paypalme/',
@@ -90,6 +91,10 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
+  PAYMENTCATEGORIES.cash = [
+    ...PAYMENTCATEGORIES.cash,
+    ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
+  ]
 }
 
 export let MINTRADINGAMOUNT = 200000

@@ -88,16 +88,26 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
+  | `cash.${string}`
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
-  | 'cash'
-  | `cash.${Location}`
+
+declare type MeetupEvent = {
+  id: string
+  country: Country
+  city: string
+  name: string
+  url?: string
+  address?: string
+  logo?: string // path to the logo
+}
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
   countries?: Country[]
   rounded?: boolean
+  anonymous: boolean
 }
 
 declare type KYCType = 'iban' | 'id'

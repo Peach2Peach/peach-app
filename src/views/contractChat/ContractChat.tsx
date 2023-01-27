@@ -26,6 +26,7 @@ import { saveOffer } from '../../utils/offer'
 import { getHeaderChatActions } from './utils/getHeaderChatActions'
 import { useShowDisputeDisclaimer } from './utils/useShowDisputeDisclaimer'
 import { useConfirmCancelTrade } from '../../overlays/tradeCancelation/useConfirmCancelTrade'
+import { useOpenDispute } from '../../overlays/disputeResults/useOpenDispute'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -47,8 +48,8 @@ export default (): ReactElement => {
   const [page, setPage] = useState(0)
   const [disableSend, setDisableSend] = useState(false)
 
-  // choose cancel overlay
   const cancelTradeOverlay = useConfirmCancelTrade(contractId)
+  const openDisputeOverlay = useOpenDispute(contractId)
 
   // HEADER CONFIG
   const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
@@ -72,7 +73,7 @@ export default (): ReactElement => {
               </Text>
             ),
             icons: !contract?.disputeActive
-              ? getHeaderChatActions(contract, view, cancelTradeOverlay, updateOverlay)
+              ? getHeaderChatActions(contract, view, cancelTradeOverlay, openDisputeOverlay)
               : [],
           }
           : {},

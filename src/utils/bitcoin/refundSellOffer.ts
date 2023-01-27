@@ -3,12 +3,13 @@ import { postTx } from '../peachAPI'
 import { info } from '../log'
 import { signPSBT } from './signPSBT'
 
-/**
- * @description Method to refund sell offer
- * @param psbt psbt for refunding
- * @param offer sell offer to refund
- * @returns refunding status
- */
+export type RefundingStatus = {
+  psbt: Psbt
+  tx?: string
+  txId?: string | null
+  err?: string | null
+}
+
 export const refundSellOffer = async (psbt: Psbt, offer: SellOffer): Promise<RefundingStatus> => {
   const signedPSBT = signPSBT(psbt, offer)
   const tx = signedPSBT.extractTransaction().toHex()

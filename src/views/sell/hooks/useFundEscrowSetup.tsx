@@ -7,8 +7,8 @@ import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import Refund from '../../../overlays/Refund'
 import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
+import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
@@ -19,6 +19,7 @@ export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
+  const startRefund = useStartRefundOverlay()
   const showHelp = useShowHelp('escrow')
   const showMempoolHelp = useShowHelp('mempool')
   const showError = useShowErrorBanner()
@@ -54,8 +55,6 @@ export const useFundEscrowSetup = () => {
       [fundingStatus, cancelOffer, showHelp, showMempoolHelp],
     ),
   )
-
-  const navigateToYourTrades = useCallback(() => navigation.replace('yourTrades'), [navigation])
 
   const saveAndUpdate = (offerData: SellOffer, shield = true) => {
     setSellOffer(offerData)
@@ -124,17 +123,14 @@ export const useFundEscrowSetup = () => {
 
   useEffect(() => {
     if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
-      updateOverlay({
-        content: <Refund {...{ sellOffer, navigate: navigateToYourTrades }} />,
-        visible: true,
-      })
+      startRefund(sellOffer)
       return
     }
 
     if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
       navigation.replace('offerPublished', { offerId: sellOffer.id })
     }
-  }, [fundingStatus, navigateToYourTrades, navigation, sellOffer, updateOverlay])
+  }, [fundingStatus, navigation, sellOffer, startRefund, updateOverlay])
 
   return {
     sellOffer,

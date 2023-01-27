@@ -20,9 +20,9 @@ export const CopyAble = ({ value, color, style }: CopyAbleProps): ReactElement =
     setTimeout(() => setShowCopied(false), 500)
   }
   return (
-    <Pressable onPress={copy} style={[tw`flex-row flex-shrink`, style]}>
-      <Icon id="copy" style={tw`w-7 h-7`} color={color || tw`text-primary-main`.color} />
-      <Fade show={showCopied} duration={300} delay={0} style={tw`absolute ml-9`}>
+    <Pressable onPress={copy} style={[tw`flex-row flex-shrink w-4 h-4 justify-center`, style]}>
+      <Icon id="copy" style={tw`w-full h-full`} color={color || tw`text-primary-main`.color} />
+      <Fade show={showCopied} duration={300} delay={0} style={tw`absolute top-full mt-1`}>
         <Text style={[tw`tooltip text-primary-main`]}>{i18n('copied')}</Text>
       </Fade>
     </Pressable>

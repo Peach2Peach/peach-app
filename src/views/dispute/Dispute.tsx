@@ -2,10 +2,10 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Fade, Input, PrimaryButton, SatsFormat, Text, Title } from '../../components'
+import { Input, OptionButton, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
-import { getContract } from '../../utils/contract'
+import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
@@ -16,23 +16,17 @@ import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useKeyboard, useRoute, useNavigation } from '../../hooks'
+import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 
-const disputeReasonsSeller: DisputeReason[] = [
-  'noPayment',
-  'wrongPaymentAmount',
-  'buyerUnresponsive',
-  'buyerBehaviour',
-  'disputeOther',
-]
-const disputeReasonsBuyer: DisputeReason[] = ['satsNotReceived', 'sellerUnresponsive', 'sellerBehaviour', 'disputeOther']
+const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
+const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 export const isEmailRequired = (reason: DisputeReason | '') =>
   /noPayment|wrongPaymentAmount|satsNotReceived/u.test(reason)
 
 const required = { required: true }
 
 export default (): ReactElement => {
-  const route = useRoute<'dispute'>()
+  const route = useRoute<'disputeReasonSelector'>()
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
@@ -51,6 +45,15 @@ export default (): ReactElement => {
 
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
+
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: i18n('dispute.disputeForTrade', !!contract ? getOfferHexIdFromContract(contract) : ''),
+      }),
+      [contract],
+    ),
+  )
 
   useEffect(() => {
     setContractId(route.params.contractId)
@@ -124,69 +127,63 @@ export default (): ReactElement => {
     setLoading(false)
   }
 
-  return (
-    <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
-      <View style={tw`mb-2`}>
-        <Title title={i18n(view === 'buyer' ? 'buy.title' : 'sell.title')} />
-        <Text style={tw`-mt-1 text-center text-grey-2`}>
-          {i18n('contract.subtitle')} <SatsFormat sats={contract?.amount || 0} color={tw`text-grey-2`} />
-        </Text>
-      </View>
-      {!reason ? (
-        <View style={tw`flex items-center`}>
-          <Text style={tw`text-center`}>{i18n('dispute.whatIsTheDisputeAbout') + '\n'}</Text>
-          {availableReasons.map((rsn, i) => (
-            <PrimaryButton
-              key={rsn}
-              onPress={() => setReason(rsn)}
-              style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]}
-              narrow
-            >
-              {i18n(`dispute.reason.${rsn}`)}
-            </PrimaryButton>
-          ))}
-        </View>
-      ) : (
-        <View style={tw`flex items-center`}>
-          <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
-          {isEmailRequired(reason) ? (
-            <View style={tw`mt-4`}>
-              <Input
-                onChange={setEmail}
-                onSubmit={() => $message?.focus()}
-                value={email}
-                label={i18n('form.userEmail')}
-                placeholder={i18n('form.userEmail.placeholder')}
-                autoCorrect={false}
-                errorMessage={displayErrors ? emailErrors : undefined}
-              />
-            </View>
-          ) : null}
-          <View style={tw`mt-4`}>
-            <Input
-              style={tw`h-40`}
-              reference={(el: any) => ($message = el)}
-              onChange={setMessage}
-              value={message}
-              multiline={true}
-              label={i18n('form.message')}
-              placeholder={i18n('form.message.placeholder')}
-              autoCorrect={false}
-              errorMessage={displayErrors ? messageErrors : undefined}
-            />
-          </View>
-          <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
-            {i18n('confirm')}
-          </PrimaryButton>
+  const reasonSelector = () => (
+    <View style={tw`flex items-center`}>
+      <Text style={tw`h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
+      {availableReasons.map((rsn, i) => (
+        <OptionButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64`, i === 0 ? tw`mt-5` : tw`mt-2`]} narrow>
+          {i18n(`dispute.reason.${rsn}`)}
+        </OptionButton>
+      ))}
+    </View>
+  )
+
+  const disputeForm = () => (
+    <View style={tw`flex items-center`}>
+      <Text style={tw`px-4 text-center`}>{i18n('dispute.provideExplanation')}</Text>
+      {isEmailRequired(reason) && (
+        <View style={tw`mt-4`}>
+          <Input
+            onChange={setEmail}
+            onSubmit={() => $message?.focus()}
+            value={email}
+            label={i18n('form.userEmail')}
+            placeholder={i18n('form.userEmail.placeholder')}
+            autoCorrect={false}
+            errorMessage={displayErrors ? emailErrors : undefined}
+          />
         </View>
       )}
-      <View style={tw`flex-col flex-shrink`}>
-        <Fade show={start && !keyboardOpen} pointerEvents={start ? 'auto' : 'none'} displayNone={false}>
-          <PrimaryButton onPress={goBack} style={tw`mt-2`} narrow>
-            {i18n('back')}
-          </PrimaryButton>
-        </Fade>
+      <View style={tw`mt-4`}>
+        <Input
+          style={tw`h-40`}
+          reference={(el: any) => ($message = el)}
+          onChange={setMessage}
+          value={message}
+          multiline={true}
+          label={i18n('form.message')}
+          placeholder={i18n('form.message.placeholder')}
+          autoCorrect={false}
+          errorMessage={displayErrors ? messageErrors : undefined}
+        />
       </View>
+    </View>
+  )
+
+  return (
+    <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+        {!reason ? reasonSelector() : disputeForm()}
+      </PeachScrollView>
+      {!reason ? (
+        <PrimaryButton onPress={goBack} style={tw`mt-2`} narrow>
+          {i18n('back')}
+        </PrimaryButton>
+      ) : (
+        <PrimaryButton onPress={submit} loading={loading} disabled={loading} style={tw`mt-2`} narrow>
+          {i18n('confirm')}
+        </PrimaryButton>
+      )}
     </View>
   )
 }
