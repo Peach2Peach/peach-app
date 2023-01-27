@@ -90,7 +90,9 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
 
       if (contract) {
         if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
-        if (type === 'contract.cancelationRequest' && !contract.disputeActive) return showConfirmTradeCancelation(contract)
+        if (type === 'contract.cancelationRequest' && !contract.disputeActive) {
+          return showConfirmTradeCancelation(contract)
+        }
         if (type === 'contract.cancelationRequestAccepted') return showBuyerCanceled(contract, true)
         if (type === 'contract.cancelationRequestRejected') return showCancelTradeRequestRejected(contract)
       }
