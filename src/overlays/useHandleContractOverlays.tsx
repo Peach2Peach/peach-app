@@ -17,7 +17,6 @@ import YouGotADispute from './YouGotADispute'
 
 export const useHandleContractOverlays = () => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
@@ -40,14 +39,13 @@ export const useHandleContractOverlays = () => {
         })
       }
 
-      if (shouldShowConfirmCancelTradeRequest(contract, view)) return showConfirmTradeCancelation(contract)
       if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract, false)
       if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showBuyerCanceled(contract, true)
       if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
 
       return null
     },
-    [showBuyerCanceled, showCancelTradeRequestRejected, showConfirmTradeCancelation, updateOverlay],
+    [showBuyerCanceled, showCancelTradeRequestRejected, updateOverlay],
   )
 
   return handleContractOverlays

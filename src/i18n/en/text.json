@@ -506,6 +506,7 @@
   "contract.payment.made": "payment made",
   "contract.payment.sent": "payment sent",
   "contract.payment.received": "payment received",
+  "contract.respond": "respond",
   "contract.disputeActive": "trade in dispute",
   "contract.timer.kycResponse.buyer": "KYC should be reviewed by seller within",
   "contract.timer.kycResponse.seller": "KYC should be reviewed within",
