@@ -26,7 +26,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
     const [cancelResult, cancelError] = await cancelAndSaveOffer(offer)
 
     if (!cancelResult || cancelError) {
-      showError(cancelError?.error || 'GENERAL_ERROR')
+      showError(cancelError?.error)
       return
     }
 
@@ -42,7 +42,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
     } else {
       const [txId, refundError] = await initiateEscrowRefund(offer, cancelResult)
       if (!txId || refundError) {
-        showError(refundError || 'GENERAL_ERROR')
+        showError(refundError)
         return
       }
       showOfferCanceled()
