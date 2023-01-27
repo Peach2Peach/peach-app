@@ -1,10 +1,7 @@
-import { NETWORK } from '@env'
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { CancelOffer } from '../overlays/CancelOffer'
-import { EscrowRefunded } from '../overlays/EscrowRefunded'
 import { updateTradingLimit } from '../utils/account'
-import { showTransaction } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer, initiateEscrowRefund, isBuyOffer } from '../utils/offer'
 import { getTradingLimit } from '../utils/peachAPI'
@@ -19,9 +16,8 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const navigateToOffer = useCallback(() => {
-    closeOverlay()
     if (offer?.id) navigation.replace('offer', { offerId: offer.id })
-  }, [closeOverlay, navigation, offer?.id])
+  }, [navigation, offer?.id])
 
   const showOfferCanceled = useShowAppPopup('offerCanceled')
 
@@ -42,30 +38,17 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
 
     if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
       showOfferCanceled()
-      navigation.replace('offer', { offerId: offer.id })
+      navigateToOffer()
     } else {
       const [txId, refundError] = await initiateEscrowRefund(offer, cancelResult)
       if (!txId || refundError) {
         showError(refundError || 'GENERAL_ERROR')
         return
       }
-      updateOverlay({
-        title: i18n('offer.refunded.popup.title'),
-        content: <EscrowRefunded />,
-        visible: true,
-        action2: {
-          label: i18n('showTx'),
-          icon: 'externalLink',
-          callback: () => showTransaction(txId, NETWORK),
-        },
-        action1: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: navigateToOffer,
-        },
-      })
+      showOfferCanceled()
+      navigateToOffer()
     }
-  }, [navigateToOffer, navigation, offer, showError, showOfferCanceled, updateOverlay])
+  }, [navigateToOffer, offer, showError, showOfferCanceled])
 
   const cancelOffer = useCallback(() => {
     if (!offer) return
