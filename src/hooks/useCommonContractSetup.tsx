@@ -35,14 +35,15 @@ export const useCommonContractSetup = (contractId: string) => {
   const [decryptionError, setDecryptionError] = useState(false)
 
   const saveAndUpdate = useCallback(
-    (contractData: Contract): Contract => {
-      setStoredContract(contractData)
-      saveContract(contractData)
+    (contractData: Partial<Contract>) => {
+      setStoredContract((prev) => {
+        const updatedContract = prev ? { ...prev, ...contractData } : contractData
+        saveContract(updatedContract as Contract)
+        return updatedContract as Contract
+      })
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
-
-      return contractData
     },
     [updateAppContext],
   )
@@ -52,7 +53,6 @@ export const useCommonContractSetup = (contractId: string) => {
       const contractUpdateHandler = async (update: ContractUpdate) => {
         if (!storedContract || update.contractId !== contractId || !update.event) return
         saveAndUpdate({
-          ...storedContract,
           [update.event]: new Date(update.data.date),
         })
       }
@@ -61,7 +61,6 @@ export const useCommonContractSetup = (contractId: string) => {
         if (!message.message || message.roomId !== `contract-${contractId}`) return
 
         saveAndUpdate({
-          ...storedContract,
           unreadMessages: storedContract.unreadMessages + 1,
         })
       }
@@ -80,7 +79,11 @@ export const useCommonContractSetup = (contractId: string) => {
   )
 
   useEffect(() => {
-    if (!contract || (storedContract?.symmetricKey && storedContract?.paymentData)) return
+    if (!contract) return
+    if (storedContract?.symmetricKey && storedContract?.paymentData) {
+      saveAndUpdate(contract)
+      return
+    }
     if (decryptionError) return
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
@@ -89,19 +92,22 @@ export const useCommonContractSetup = (contractId: string) => {
         return showError()
       }
 
-      const updatedContract = {
-        ...contract,
-        symmetricKey,
-        paymentData,
-      }
-      return saveAndUpdate(updatedContract)
+      return saveAndUpdate({ ...contract, symmetricKey, paymentData })
     })()
-  }, [contract, decryptionError, saveAndUpdate, showError, storedContract, updateOverlay])
+  }, [
+    contract,
+    decryptionError,
+    saveAndUpdate,
+    showError,
+    storedContract?.paymentData,
+    storedContract?.symmetricKey,
+    updateOverlay,
+  ])
 
   useEffect(() => {
-    if (!contract) return
-    handleContractOverlays(contract, getContractViewer(contract, account))
-  }, [contract, handleContractOverlays, updateOverlay])
+    if (!storedContract) return
+    handleContractOverlays(storedContract, getContractViewer(storedContract, account))
+  }, [storedContract, handleContractOverlays])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)

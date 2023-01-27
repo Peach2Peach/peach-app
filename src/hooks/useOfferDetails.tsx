@@ -12,6 +12,6 @@ const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
 
 export const useOfferDetails = (id: string) => {
   const { data, isLoading, error } = useQuery(['offer', id], getOfferQuery)
-
+  console.log(id, !!data)
   return { offer: data, isLoading, error }
 }

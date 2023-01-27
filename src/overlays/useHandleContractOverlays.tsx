@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { account } from '../utils/account'
 import {
@@ -21,29 +21,34 @@ export const useHandleContractOverlays = () => {
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
-  return (contract: Contract, view: ContractViewer) => {
-    const contractId = contract.id
-    if (shouldShowYouGotADispute(contract, account)) {
-      return updateOverlay({
-        content: (
-          <YouGotADispute {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason! }} />
-        ),
-        visible: true,
-      })
-    }
+  const handleContractOverlays = useCallback(
+    (contract: Contract, view: ContractViewer) => {
+      const contractId = contract.id
+      if (shouldShowYouGotADispute(contract, account)) {
+        return updateOverlay({
+          content: (
+            <YouGotADispute {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason! }} />
+          ),
+          visible: true,
+        })
+      }
 
-    if (shouldShowDisputeResult(contract)) {
-      return updateOverlay({
-        content: <DisputeResult {...{ contractId }} />,
-        visible: true,
-      })
-    }
+      if (shouldShowDisputeResult(contract)) {
+        return updateOverlay({
+          content: <DisputeResult {...{ contractId }} />,
+          visible: true,
+        })
+      }
 
-    if (shouldShowConfirmCancelTradeRequest(contract, view)) return showConfirmTradeCancelation(contract)
-    if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract, false)
-    if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showBuyerCanceled(contract, true)
-    if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
+      if (shouldShowConfirmCancelTradeRequest(contract, view)) return showConfirmTradeCancelation(contract)
+      if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract, false)
+      if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showBuyerCanceled(contract, true)
+      if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
 
-    return null
-  }
+      return null
+    },
+    [showBuyerCanceled, showCancelTradeRequestRejected, showConfirmTradeCancelation, updateOverlay],
+  )
+
+  return handleContractOverlays
 }
