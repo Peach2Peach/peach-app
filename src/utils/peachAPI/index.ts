@@ -24,6 +24,7 @@ export {
   getMatches,
   matchOffer,
   unmatchOffer,
+  reviveSellOffer,
 } from './private/offer'
 export {
   cancelContract,

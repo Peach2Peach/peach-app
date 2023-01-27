@@ -208,6 +208,8 @@
   "contract.cancel.tradeCanceled.text.refunded": "Your sats from the escrow have been released back to you.",
   "contract.cancel.tradeCanceled.refund": "refund me",
   "contract.cancel.tradeCanceled.republish": "re-publish offer",
+  "contract.cancel.offerRepublished.title": "offer re-published",
+  "contract.cancel.offerRepublished.text": "Your offer has been re-published. We're looking for a new match!",
   "contract.cancel.confirm": "confirm cancel",
   "contract.cancel.success": "trade canceled!",
   "sell.meansOfPayment": "how would you like to be paid?",

@@ -6,26 +6,66 @@ import { useStartRefundOverlay } from '../useStartRefundOverlay'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
+import { reviveSellOffer } from '../../utils/peachAPI'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useNavigation } from '../../hooks'
+import { OfferRepublished } from './OfferRepublished'
 
 export const useBuyerCanceledOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const startRefund = useStartRefundOverlay()
+  const showError = useShowErrorBanner()
+  const navigation = useNavigation()
 
+  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const confirmOverlay = useCallback(
     (contract: Contract) => {
-      updateOverlay({ visible: false })
+      closeOverlay()
       saveContract({
         ...contract,
         cancelConfirmationDismissed: true,
         cancelConfirmationPending: false,
       })
     },
-    [updateOverlay],
+    [closeOverlay],
   )
 
-  const republishOffer = useCallback((sellOffer: SellOffer) => {
-    // TODO missing endpoint from server
-  }, [])
+  const republishOffer = useCallback(
+    async (sellOffer: SellOffer) => {
+      const [reviveSellOfferResult, err] = await reviveSellOffer({ offerId: sellOffer.id })
+
+      if (!reviveSellOfferResult || err) {
+        showError(err?.error)
+        closeOverlay()
+        return
+      }
+
+      updateOverlay({
+        title: i18n('contract.cancel.offerRepublished.title'),
+        content: <OfferRepublished />,
+        visible: true,
+        level: 'APP',
+        requireUserAction: true,
+        action1: {
+          label: i18n('goToOffer'),
+          icon: 'arrowRightCircle',
+          callback: () => {
+            navigation.replace('offer', { offerId: reviveSellOfferResult.newOfferId })
+            closeOverlay()
+          },
+        },
+        action2: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            navigation.replace('offer', { offerId: sellOffer.id })
+            closeOverlay()
+          },
+        },
+      })
+    },
+    [closeOverlay, navigation, showError, updateOverlay],
+  )
 
   const showBuyerCanceled = useCallback(
     (contract: Contract, mutualClose: boolean) => {
@@ -46,10 +86,7 @@ export const useBuyerCanceledOverlay = () => {
         : {
           label: i18n('contract.cancel.tradeCanceled.republish'),
           icon: 'refreshCw',
-          callback: () => {
-            confirmOverlay(contract)
-            republishOffer(sellOffer)
-          },
+          callback: () => republishOffer(sellOffer),
         }
       const action2 = expiry.isExpired ? undefined : refundAction
 

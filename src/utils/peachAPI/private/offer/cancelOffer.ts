@@ -12,7 +12,6 @@ type CancelOfferProps = RequestProps &
 /**
  * @description Method to get cancel offer and get refunding information
  * @param offerId offer id
- * @returns FundingStatus
  */
 export const cancelOffer = async ({
   offerId,
@@ -31,5 +30,5 @@ export const cancelOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<CancelOfferResponse>(response, 'refundEscrow')
+  return await parseResponse<CancelOfferResponse>(response, 'cancelOffer')
 }
