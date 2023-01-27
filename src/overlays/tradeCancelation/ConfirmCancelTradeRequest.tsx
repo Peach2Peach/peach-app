@@ -10,10 +10,6 @@ type ConfirmCancelTradeRequestProps = {
 
 export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeRequestProps): ReactElement => (
   <Text>
-    {i18n(
-      'contract.cancel.sellerWantsToCancel.text',
-      contractIdToHex(contract.id),
-      i18n('currency.format.sats', thousands(contract.amount)),
-    )}
+    {i18n('contract.cancel.sellerWantsToCancel.text', contractIdToHex(contract.id), thousands(contract.amount))}
   </Text>
 )

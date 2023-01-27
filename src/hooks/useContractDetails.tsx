@@ -8,8 +8,10 @@ const getContractQuery = async ({ queryKey }: { queryKey: [string, string] }) =>
   return contract
 }
 
-export const useContractDetails = (id: string) => {
-  const { data, isLoading, error } = useQuery(['contract', id], getContractQuery)
+export const useContractDetails = (id: string, refetchInterval?: number) => {
+  const { data, isLoading, error } = useQuery(['contract', id], getContractQuery, {
+    refetchInterval,
+  })
 
   return { contract: data, isLoading, error }
 }
