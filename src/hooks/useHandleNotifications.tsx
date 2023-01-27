@@ -1,5 +1,5 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { DisputeResult } from '../overlays/DisputeResult'
 import EscrowFunded from '../overlays/EscrowFunded'
@@ -25,84 +25,93 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
-  // eslint-disable-next-line max-statements, complexity
-  const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
-    info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
-    if (!remoteMessage.data) return null
+  useEffect(() => {
+    // eslint-disable-next-line max-statements, complexity
+    const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
+      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
+      if (!remoteMessage.data) return null
 
-    const { offerId, contractId } = remoteMessage.data
-    const type = remoteMessage.data?.type
-    const args = remoteMessage.notification?.bodyLocArgs
-    const currentPage = getCurrentPage() as string
-    const offer = offerId ? (getOffer(offerId) as SellOffer) : null
-    const storedContract = contractId ? getContract(contractId) : null
-    let [contract] = contractId ? await getContractAPI({ contractId }) : [null]
-    if (contract && storedContract) contract = { ...contract, ...storedContract }
+      const { offerId, contractId } = remoteMessage.data
+      const type = remoteMessage.data?.type
+      const args = remoteMessage.notification?.bodyLocArgs
+      const currentPage = getCurrentPage() as string
+      const offer = offerId ? (getOffer(offerId) as SellOffer) : null
+      const storedContract = contractId ? getContract(contractId) : null
+      let [contract] = contractId ? await getContractAPI({ contractId }) : [null]
+      if (contract && storedContract) contract = { ...contract, ...storedContract }
 
-    if (offer && type === 'offer.expired' && !/contract/u.test(currentPage)) {
-      const days = args ? args[0] || '15' : '15'
-      return updateOverlay({
-        content: <OfferExpired {...{ offer, days, navigation }} />,
-        visible: true,
-      })
-    }
-    if (offer && type === 'offer.notFunded' && !/sell|contract/u.test(currentPage)) {
-      const days = args ? args[0] || '7' : '7'
-      return updateOverlay({
-        content: <OfferNotFunded {...{ offer, days, navigation }} />,
-        visible: true,
-      })
-    }
-    if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
-      return updateOverlay({
-        content: <EscrowFunded {...{ offerId, navigation }} />,
-        visible: true,
-      })
+      if (offer && type === 'offer.expired' && !/contract/u.test(currentPage)) {
+        const days = args ? args[0] || '15' : '15'
+        return updateOverlay({
+          content: <OfferExpired {...{ offer, days, navigation }} />,
+          visible: true,
+        })
+      }
+      if (offer && type === 'offer.notFunded' && !/sell|contract/u.test(currentPage)) {
+        const days = args ? args[0] || '7' : '7'
+        return updateOverlay({
+          content: <OfferNotFunded {...{ offer, days, navigation }} />,
+          visible: true,
+        })
+      }
+      if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
+        return updateOverlay({
+          content: <EscrowFunded {...{ offerId, navigation }} />,
+          visible: true,
+        })
+      }
+
+      if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
+        return updateOverlay({
+          content: <MatchAccepted {...{ contractId }} />,
+          visible: true,
+        })
+      }
+      if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
+        const date = remoteMessage.sentTime || Date.now()
+        return updateOverlay({
+          content: <PaymentMade {...{ contract, date, navigation }} />,
+          visible: true,
+        })
+      }
+      if (type === 'contract.disputeRaised') {
+        const { message, reason } = remoteMessage.data
+        return updateOverlay({
+          content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
+          visible: true,
+        })
+      }
+      if (type === 'contract.disputeResolved') {
+        return updateOverlay({
+          content: <DisputeResult {...{ contractId, navigation }} />,
+          visible: true,
+        })
+      }
+
+      if (contract) {
+        if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
+        if (type === 'contract.cancelationRequest' && !contract.disputeActive) return showConfirmTradeCancelation(contract)
+        if (type === 'contract.cancelationRequestAccepted') return showBuyerCanceled(contract, true)
+        if (type === 'contract.cancelationRequestRejected') return showCancelTradeRequestRejected(contract)
+      }
+      return null
     }
 
-    if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
-      return updateOverlay({
-        content: <MatchAccepted {...{ contractId }} />,
-        visible: true,
-      })
-    }
-    if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-      const date = remoteMessage.sentTime || Date.now()
-      return updateOverlay({
-        content: <PaymentMade {...{ contract, date, navigation }} />,
-        visible: true,
-      })
-    }
-    if (type === 'contract.disputeRaised') {
-      const { message, reason } = remoteMessage.data
-      return updateOverlay({
-        content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
-        visible: true,
-      })
-    }
-    if (type === 'contract.disputeResolved') {
-      return updateOverlay({
-        content: <DisputeResult {...{ contractId, navigation }} />,
-        visible: true,
-      })
-    }
+    info('Subscribe to push notifications')
+    try {
+      const unsubscribe = messaging().onMessage(onMessageHandler)
 
-    if (contract) {
-      if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
-      if (type === 'contract.cancelationRequest' && !contract.disputeActive) return showConfirmTradeCancelation(contract)
-      if (type === 'contract.cancelationRequestAccepted') return showBuyerCanceled(contract, true)
-      if (type === 'contract.cancelationRequestRejected') return showCancelTradeRequestRejected(contract)
+      return unsubscribe
+    } catch (e) {
+      error('messaging().onMessage - Push notifications not supported', parseError(e))
+      return () => {}
     }
-    return null
-  }
-
-  info('Subscribe to push notifications')
-  try {
-    const unsubscribe = messaging().onMessage(onMessageHandler)
-
-    return unsubscribe
-  } catch (e) {
-    error('messaging().onMessage - Push notifications not supported', parseError(e))
-    return () => {}
-  }
+  }, [
+    getCurrentPage,
+    navigation,
+    showBuyerCanceled,
+    showCancelTradeRequestRejected,
+    showConfirmTradeCancelation,
+    updateOverlay,
+  ])
 }
