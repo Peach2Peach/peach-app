@@ -47,6 +47,10 @@ describe('getTxSummary', () => {
           type: 'bid',
         },
       ],
+      getOffer: () => ({
+        id: '16',
+        type: 'bid',
+      }),
     })
   })
 

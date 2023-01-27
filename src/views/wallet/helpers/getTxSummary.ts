@@ -6,7 +6,7 @@ import { walletStore } from '../../../utils/wallet/walletStore'
 
 export const getTxSummary = (tx: ConfirmedTransaction | PendingTransaction) => {
   const offerId = walletStore.getState().txOfferMap[tx.txid]
-  const offer = tradeSummaryStore.getState().offers.find((o) => o.id === offerId)
+  const offer = tradeSummaryStore.getState().getOffer(offerId)
   const sats = Math.abs(tx.received - tx.sent)
   const price = sats / bitcoinStore.getState().satsPerUnit
   const type = getTransactionType(tx, offer)

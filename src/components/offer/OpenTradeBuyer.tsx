@@ -21,14 +21,14 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
       <ProfileOverview user={contract.seller} />
       <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView style={tw`flex-shrink`} showsVerticalScrollIndicator={false}>
-        <View style={tw`flex-row justify-between items-center mt-6`}>
+        <View style={tw`flex-row items-center justify-between mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
           <View style={tw`flex-row items-center`}>
             <PriceFormat style={tw`subtitle-1`} amount={contract.price} currency={contract.currency} />
             <CopyAble value={contract.price.toFixed(2)} style={tw`ml-2`} />
           </View>
         </View>
-        <View style={tw`flex-row justify-between items-center mt-4`}>
+        <View style={tw`flex-row items-center justify-between mt-4`}>
           <Text style={tw`text-black-2`}>
             {i18n(contract.paymentMethod.includes('cash') ? 'contract.summary.in' : 'contract.summary.via')}
           </Text>
@@ -49,7 +49,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
         {(!!contract.escrow || !!contract.releaseTxId) && (
           <View style={tw`mt-6`}>
             <HorizontalLine style={tw`bg-black-5`} />
-            <Escrow style={tw`mt-6`} contract={contract} view={''} />
+            <Escrow style={tw`mt-6`} contract={contract} />
           </View>
         )}
       </PeachScrollView>

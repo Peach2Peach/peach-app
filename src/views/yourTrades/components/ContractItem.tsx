@@ -7,7 +7,8 @@ import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getThemeForPastTrade, isPastOffer, navigateToContract, statusIcons } from '../utils'
+import { useNavigateToContract } from '../hooks/useNavigateToContract'
+import { getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
 import { ChatMessages } from './ChatMessages'
 
 type OfferItemProps = { contract: ContractSummary }
@@ -23,21 +24,12 @@ export const colors: Record<SummaryItemLevel, ViewStyle> = {
 }
 
 export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
-  const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
   const currency = contract.currency
   const price = contract.price
-
+  const navigate = useNavigateToContract(contract)
   const theme = useMemo(() => getThemeForPastTrade(contract), [contract])
   const status = theme.level === 'WAITING' ? 'waiting' : contract.tradeStatus
   const counterparty = contract.type === 'bid' ? 'seller' : 'buyer'
-
-  const navigate = () =>
-    navigateToContract({
-      contract,
-      navigation,
-      updateOverlay,
-    })
 
   const sharedProps = {
     title: i18n('trade') + ' ' + contractIdToHex(contract.id),
