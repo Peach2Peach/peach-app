@@ -8,7 +8,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { canCancelContract, getOfferIdFromContract, signReleaseTx } from '../../../utils/contract'
-import { isTradeCanceled, isTradeComplete } from '../../../utils/contract/status'
+import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment } from '../../../utils/peachAPI'
 
 // eslint-disable-next-line max-statements
