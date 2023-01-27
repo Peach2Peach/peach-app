@@ -9,14 +9,15 @@ import {
   shouldShowDisputeResult,
   shouldShowYouGotADispute,
 } from '../utils/overlay'
+import { useDisputeRaisedNotice } from './dispute/hooks/useDisputeRaisedNotice'
 import { DisputeResult } from './DisputeResult'
 import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
-import YouGotADispute from './YouGotADispute'
 
 export const useHandleContractOverlays = () => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const showDisputeRaisedNotice = useDisputeRaisedNotice()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
@@ -24,14 +25,7 @@ export const useHandleContractOverlays = () => {
   const handleContractOverlays = useCallback(
     (contract: Contract, view: ContractViewer) => {
       const contractId = contract.id
-      if (shouldShowYouGotADispute(contract, account)) {
-        return updateOverlay({
-          content: (
-            <YouGotADispute {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason! }} />
-          ),
-          visible: true,
-        })
-      }
+      if (shouldShowYouGotADispute(contract, account)) showDisputeRaisedNotice(contract, view)
 
       if (shouldShowDisputeResult(contract)) {
         return updateOverlay({

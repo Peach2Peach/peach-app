@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import { OptionButton, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { account } from '../../utils/account'
-import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -17,7 +17,7 @@ export default (): ReactElement => {
   const route = useRoute<'disputeReasonSelector'>()
   const contract = getContract(route.params.contractId)
 
-  const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
+  const view = contract ? getContractViewer(contract, account) : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   const disputeRaisedOverlay = useDisputeRaisedSuccess()

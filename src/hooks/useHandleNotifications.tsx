@@ -10,7 +10,10 @@ import PaymentMade from '../overlays/PaymentMade'
 import { useBuyerCanceledOverlay } from '../overlays/tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from '../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import YouGotADispute from '../overlays/YouGotADispute'
+// import { BuyerCanceledTrade } from '../overlays/tradeCancelation/BuyerCanceledTrade'
+// import { CancelTradeRequestConfirmed } from '../overlays/tradeCancelation/CancelTradeRequestConfirmed'
+// import { BuyerRejectedCancelTrade } from '../overlays/tradeCancelation/BuyerRejectedCancelTrade'
+import { ConfirmCancelTradeRequest } from '../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import { getContract } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
@@ -75,11 +78,11 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
         })
       }
       if (type === 'contract.disputeRaised') {
-        const { message, reason } = remoteMessage.data
-        return updateOverlay({
-          content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
-          visible: true,
-        })
+        // const { contractId, message, reason } = remoteMessage.data
+        // return updateOverlay({
+        //   content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
+        //   visible: true,
+        // })
       }
       if (type === 'contract.disputeResolved') {
         return updateOverlay({
