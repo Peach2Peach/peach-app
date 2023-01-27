@@ -1,37 +1,12 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { Text, View } from 'react-native'
+import React, { ReactElement } from 'react'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { useFocusEffect } from '@react-navigation/native'
 import { Loading } from '../../components'
 import MessageInput from '../../components/inputs/MessageInput'
-import { MessageContext } from '../../contexts/message'
-import { OverlayContext } from '../../contexts/overlay'
-import getContractEffect from '../../effects/getContractEffect'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { useHeaderSetup, useNavigation, useRoute, useThrottledEffect } from '../../hooks'
-import { useConfirmCancelTrade } from '../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { account } from '../../utils/account'
-import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../utils/chat'
-import {
-  getContract,
-  getOfferHexIdFromContract,
-  getOfferIdFromContract,
-  getTradingPartner,
-  saveContract,
-} from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { error, info } from '../../utils/log'
-import { saveOffer } from '../../utils/offer'
-import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
-import { decryptContractData } from '../../utils/contract/decryptContractData'
-import { handleOverlays } from '../../overlays/handleOverlays'
 import ChatBox from './components/ChatBox'
-import { getHeaderChatActions } from './utils/getHeaderChatActions'
-import getMessagesEffect from './utils/getMessagesEffect'
-import { useShowDisputeDisclaimer } from './utils/useShowDisputeDisclaimer'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
