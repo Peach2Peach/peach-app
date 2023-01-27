@@ -9,7 +9,6 @@ export { getPaymentDataByOfferAndMethod } from './getPaymentDataByOfferAndMethod
 export { getRequiredActionCount } from './getRequiredActionCount'
 export { hasMopsConfigured } from './hasMopsConfigured'
 export { hexToOfferId } from './hexToOfferId'
-export { initiateEscrowRefund } from './initiateEscrowRefund'
 export { isBuyOffer } from './isBuyOffer'
 export { isSellOffer } from './isSellOffer'
 export { offerExists } from './offerExists'

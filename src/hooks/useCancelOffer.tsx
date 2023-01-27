@@ -1,9 +1,10 @@
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { CancelOffer } from '../overlays/CancelOffer'
+import { useStartRefundOverlay } from '../overlays/useStartRefundOverlay'
 import { updateTradingLimit } from '../utils/account'
 import i18n from '../utils/i18n'
-import { cancelAndSaveOffer, initiateEscrowRefund, isBuyOffer } from '../utils/offer'
+import { cancelAndSaveOffer, isBuyOffer } from '../utils/offer'
 import { getTradingLimit } from '../utils/peachAPI'
 import { useNavigation } from './useNavigation'
 import { useShowAppPopup } from './useShowAppPopup'
@@ -20,6 +21,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
   }, [navigation, offer?.id])
 
   const showOfferCanceled = useShowAppPopup('offerCanceled')
+  const startRefund = useStartRefundOverlay()
 
   const confirmCancelOffer = useCallback(async () => {
     if (!offer) return
@@ -40,15 +42,9 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
       showOfferCanceled()
       navigateToOffer()
     } else {
-      const [txId, refundError] = await initiateEscrowRefund(offer, cancelResult)
-      if (!txId || refundError) {
-        showError(refundError)
-        return
-      }
-      showOfferCanceled()
-      navigateToOffer()
+      startRefund(offer)
     }
-  }, [navigateToOffer, offer, showError, showOfferCanceled])
+  }, [navigateToOffer, offer, showError, showOfferCanceled, startRefund])
 
   const cancelOffer = useCallback(() => {
     if (!offer) return
