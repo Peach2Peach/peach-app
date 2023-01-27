@@ -326,7 +326,6 @@
   "offer.cancel.popup.title": "cancel offer",
   "offer.cancel.popup.description": "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
   "offer.canceled.popup.title": "offer canceled!",
-  "offer.canceled.popup.description": "Make a new offer?",
   "offer.refunded.popup.title": "refunding escrow",
   "offer.refunded.popup.description": "The escrow has been refunded to your address.",
   "cancelOffer": "cancel offer",

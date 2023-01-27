@@ -10,7 +10,7 @@ export const useShowAppPopup = (id: AppPopupId) => {
 
     updateOverlay({
       title: appOverlays[id].title,
-      content: <Content />,
+      content: !!Content ? <Content /> : undefined,
       visible: true,
       level: 'APP',
     })
