@@ -60,8 +60,6 @@ export const useContractSetup = () => {
       }
 
       navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
-    } else if (isTradeCanceled(contract)) {
-      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
     }
   }, [contract, isLoading, navigation, view])
 

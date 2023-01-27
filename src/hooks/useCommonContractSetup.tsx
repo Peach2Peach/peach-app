@@ -27,7 +27,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
 
-  const { contract, isLoading } = useContractDetails(contractId)
+  const { contract, isLoading } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
@@ -38,7 +38,7 @@ export const useCommonContractSetup = (contractId: string) => {
     (contractData: Partial<Contract>) => {
       setStoredContract((prev) => {
         const updatedContract = prev ? { ...prev, ...contractData } : contractData
-        saveContract(updatedContract as Contract)
+        if (updatedContract.id) saveContract(updatedContract as Contract)
         return updatedContract as Contract
       })
       updateAppContext({
@@ -77,6 +77,10 @@ export const useCommonContractSetup = (contractId: string) => {
       return unsubscribe
     }, [contractId, saveAndUpdate, storedContract, ws]),
   )
+
+  useEffect(() => {
+    setStoredContract(getContract(contractId))
+  }, [contractId])
 
   useEffect(() => {
     if (!contract) return

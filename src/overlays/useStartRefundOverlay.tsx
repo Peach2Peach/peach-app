@@ -21,40 +21,46 @@ export const useStartRefundOverlay = () => {
   const navigation = useNavigation()
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const goToWallet = (txId: string) => {
-    closeOverlay()
-    navigation.navigate('transactionDetails', { txId })
-  }
-
-  const refund = useCallback(async (sellOffer: SellOffer, rawPSBT: string) => {
-    info('Get refunding info', rawPSBT)
-    const { psbt, tx, txId, err } = await checkAndRefund(rawPSBT, sellOffer)
-    if (psbt && tx && txId) {
-      const address = psbt.txOutputs[0].address
-      const isPeachWallet = address ? !!peachWallet.findKeyPairByAddress(address) : false
-      saveOffer({
-        ...sellOffer,
-        tx,
-        txId,
-        refunded: true,
-      })
-      tradeSummaryStore.getState().setOffer(sellOffer.id, { txId })
-      updateOverlay({
-        title: i18n('refund.title'),
-        content: <Refund isPeachWallet={isPeachWallet} />,
-        visible: true,
-        action2: {
-          label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
-          icon: isPeachWallet ? 'wallet' : 'externalLink',
-          callback: () => (isPeachWallet ? goToWallet(txId) : showTransaction(txId, NETWORK)),
-        },
-        level: 'APP',
-      })
-    } else if (err) {
-      showError(err)
+  const goToWallet = useCallback(
+    (txId: string) => {
       closeOverlay()
-    }
-  }, [])
+      navigation.navigate('transactionDetails', { txId })
+    },
+    [closeOverlay, navigation],
+  )
+
+  const refund = useCallback(
+    async (sellOffer: SellOffer, rawPSBT: string) => {
+      info('Get refunding info', rawPSBT)
+      const { psbt, tx, txId, err } = await checkAndRefund(rawPSBT, sellOffer)
+      if (psbt && tx && txId) {
+        const address = psbt.txOutputs[0].address
+        const isPeachWallet = address ? !!peachWallet.findKeyPairByAddress(address) : false
+        saveOffer({
+          ...sellOffer,
+          tx,
+          txId,
+          refunded: true,
+        })
+        tradeSummaryStore.getState().setOffer(sellOffer.id, { txId })
+        updateOverlay({
+          title: i18n('refund.title'),
+          content: <Refund isPeachWallet={isPeachWallet} />,
+          visible: true,
+          action2: {
+            label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
+            icon: isPeachWallet ? 'wallet' : 'externalLink',
+            callback: () => (isPeachWallet ? goToWallet(txId) : showTransaction(txId, NETWORK)),
+          },
+          level: 'APP',
+        })
+      } else if (err) {
+        showError(err)
+        closeOverlay()
+      }
+    },
+    [closeOverlay, goToWallet, showError, updateOverlay],
+  )
 
   const startRefund = useCallback(
     async (sellOffer: SellOffer) => {
