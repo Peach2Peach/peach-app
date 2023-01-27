@@ -12,7 +12,7 @@ export const PriceInfo = ({ match }: PriceInfoProps) => (
   <>
     <HorizontalLine style={tw`mb-2 bg-black-5`} />
     <SatsFormat
-      sats={match?.amount || 0}
+      sats={match.amount}
       containerStyle={tw`self-center justify-center`}
       satsStyle={tw`subtitle-1`}
       style={tw`h5 leading-3xl`}

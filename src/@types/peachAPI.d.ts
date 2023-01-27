@@ -237,6 +237,8 @@ declare type MatchUnavailableReasons = {
 declare type Match = {
   user: User
   offerId: string
+  amount: number
+  escrow?: string
   prices: Pricebook
   matchedPrice: number | null
   premium: number
