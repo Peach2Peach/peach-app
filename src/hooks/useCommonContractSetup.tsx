@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import AppContext from '../contexts/app'
 import { OverlayContext } from '../contexts/overlay'
-import { handleOverlays } from '../overlays/handleOverlays'
+import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
 import { account } from '../utils/account'
 import { getChatNotifications } from '../utils/chat'
 import {
@@ -25,6 +25,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateAppContext] = useContext(AppContext)
   const showError = useShowErrorBanner()
+  const handleContractOverlays = useHandleContractOverlays()
 
   const { contract, isLoading } = useContractDetails(contractId)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
@@ -39,11 +40,11 @@ export const useCommonContractSetup = (contractId: string) => {
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
-      handleOverlays({ contract: contractData, updateOverlay, view: getContractViewer(contractData, account) })
+      handleContractOverlays(contractData, getContractViewer(contractData, account))
 
       return contractData
     },
-    [updateAppContext, updateOverlay],
+    [handleContractOverlays, updateAppContext],
   )
 
   useFocusEffect(
@@ -89,9 +90,7 @@ export const useCommonContractSetup = (contractId: string) => {
         symmetricKey,
         paymentData,
       }
-      saveAndUpdate(updatedContract)
-
-      return handleOverlays({ contract: updatedContract, updateOverlay, view: getContractViewer(contract, account) })
+      return saveAndUpdate(updatedContract)
     })()
   }, [contract, saveAndUpdate, showError, updateOverlay])
 
