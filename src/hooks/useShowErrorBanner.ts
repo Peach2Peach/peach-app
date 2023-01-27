@@ -10,7 +10,7 @@ export const useShowErrorBanner = () => {
   const [, updateMessage] = useContext(MessageContext)
 
   const showErrorBanner = useCallback(
-    (err?: Error | string) => {
+    (err?: Error | string | null) => {
       error('Error', err)
       updateMessage({
         msgKey: err ? parseError(err) : 'GENERAL_ERROR',

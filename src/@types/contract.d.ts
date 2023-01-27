@@ -65,3 +65,5 @@ declare type Contract = {
   cancelConfirmationPending?: boolean
   cancelConfirmationDismissed?: boolean
 }
+
+declare type ContractViewer = 'buyer' | 'seller'

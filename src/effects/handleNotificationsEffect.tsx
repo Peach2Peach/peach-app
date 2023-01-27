@@ -6,9 +6,9 @@ import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
 import OfferNotFunded from '../overlays/OfferNotFunded'
 import PaymentMade from '../overlays/PaymentMade'
-import { BuyerCanceledTrade } from '../overlays/tradeCancelation/BuyerCanceledTrade'
-import { CancelTradeRequestConfirmed } from '../overlays/tradeCancelation/CancelTradeRequestConfirmed'
-import { CancelTradeRequestRejected } from '../overlays/tradeCancelation/CancelTradeRequestRejected'
+// import { BuyerCanceledTrade } from '../overlays/tradeCancelation/BuyerCanceledTrade'
+// import { CancelTradeRequestConfirmed } from '../overlays/tradeCancelation/CancelTradeRequestConfirmed'
+// import { BuyerRejectedCancelTrade } from '../overlays/tradeCancelation/BuyerRejectedCancelTrade'
 import { ConfirmCancelTradeRequest } from '../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import YouGotADispute from '../overlays/YouGotADispute'
 import { getContract } from '../utils/contract'
@@ -90,10 +90,10 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
       if (contract && type === 'contract.canceled') {
         const [result] = await getContractAPI({ contractId: contract.id })
         if (result) contract = { ...result, ...contract }
-        return updateOverlay({
-          content: <BuyerCanceledTrade {...{ contract, navigation }} />,
-          visible: true,
-        })
+        // return updateOverlay({
+        //   content: <BuyerCanceledTrade {...{ contract, navigation }} />,
+        //   visible: true,
+        // })
       }
       if (contract && type === 'contract.cancelationRequest' && !contract.disputeActive) {
         return updateOverlay({
@@ -101,18 +101,18 @@ export default ({ getCurrentPage, updateOverlay, navigation }: HandleNotificatio
           visible: true,
         })
       }
-      if (contract && type === 'contract.cancelationRequestAccepted') {
-        return updateOverlay({
-          content: <CancelTradeRequestConfirmed {...{ contract, navigation }} />,
-          visible: true,
-        })
-      }
-      if (contract && type === 'contract.cancelationRequestRejected') {
-        return updateOverlay({
-          content: <CancelTradeRequestRejected {...{ contract, navigation }} />,
-          visible: true,
-        })
-      }
+      // if (contract && type === 'contract.cancelationRequestAccepted') {
+      //   return updateOverlay({
+      //     content: <CancelTradeRequestConfirmed {...{ contract, navigation }} />,
+      //     visible: true,
+      //   })
+      // }
+      // if (contract && type === 'contract.cancelationRequestRejected') {
+      //   return updateOverlay({
+      //     content: <BuyerRejectedCancelTrade {...{ contract, navigation }} />,
+      //     visible: true,
+      //   })
+      // }
       return null
     }
 

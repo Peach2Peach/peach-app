@@ -1,17 +1,17 @@
 import { ReactElement } from 'react'
-import GeneralPaymentDetails from './detail/generalPaymentDetails'
-import DetailSEPA from './detail/sepa'
-import DetailRevolut from './detail/revolut'
-import DetailWise from './detail/wise'
-import Cash from './detail/cash'
 import { COUNTRIES } from '../../constants'
+import Cash from './detail/cash'
+import GeneralPaymentDetails from './detail/generalPaymentDetails'
+import DetailPaypal from './detail/paypal'
+import DetailRevolut from './detail/revolut'
 
-export type PaymentTemplateProps = {
+export type PaymentTemplateProps = ComponentProps & {
   paymentData: PaymentData
   country?: Country
   appLink?: string
   fallbackUrl?: string
   userLink?: string
+  copyable?: boolean
 }
 
 export type PaymentDetailTemplates = {
@@ -19,10 +19,10 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  sepa: DetailSEPA,
-  paypal: GeneralPaymentDetails,
+  sepa: GeneralPaymentDetails,
+  paypal: DetailPaypal,
   revolut: DetailRevolut,
-  wise: DetailWise,
+  wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
   satispay: GeneralPaymentDetails,
@@ -30,8 +30,6 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   bizum: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
   cash: Cash,
-  'cash.amsterdam': Cash,
-  'cash.lugano': Cash,
 }
 
 COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))

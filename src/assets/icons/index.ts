@@ -70,6 +70,7 @@ import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
+import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
 import search from './search.svg'
@@ -101,6 +102,7 @@ import userCheck from './userCheck.svg'
 import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
+import watch from './watch.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
@@ -181,6 +183,7 @@ const Icons = {
   prev,
   radioSelected,
   refreshCcw,
+  refreshCw,
   rotateCounterClockwise,
   save,
   search,
@@ -213,6 +216,7 @@ const Icons = {
   users,
   userX,
   wallet,
+  watch,
   x,
   xCircle,
   xSquare,
