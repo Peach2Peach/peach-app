@@ -31,6 +31,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = contract ? getRequiredAction(contract) : 'none'
+  const [decryptionError, setDecryptionError] = useState(false)
 
   const saveAndUpdate = useCallback(
     (contractData: Contract): Contract => {
@@ -79,28 +80,30 @@ export const useCommonContractSetup = (contractId: string) => {
   )
 
   useEffect(() => {
-    if (!contract || !storedContract || (storedContract.symmetricKey && storedContract.paymentData)) return
+    if (!contract || (storedContract?.symmetricKey && storedContract?.paymentData)) return
+    if (decryptionError) return
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
-      if (!symmetricKey || !paymentData) return showError()
+      if (!symmetricKey || !paymentData) {
+        setDecryptionError(true)
+        return showError()
+      }
 
       const updatedContract = {
-        ...storedContract,
+        ...contract,
         symmetricKey,
         paymentData,
       }
-      saveAndUpdate(updatedContract)
-
-      return handleOverlays({ contract: updatedContract, updateOverlay, view: getContractViewer(contract, account) })
+      return saveAndUpdate(updatedContract)
     })()
-  }, [contract, saveAndUpdate, showError, updateOverlay])
+  }, [contract, decryptionError, saveAndUpdate, showError, storedContract, updateOverlay])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)
   }, [offer])
 
   return {
-    contract: storedContract,
+    contract: storedContract || contract,
     saveAndUpdate,
     isLoading,
     view,
