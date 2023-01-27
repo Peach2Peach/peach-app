@@ -32,6 +32,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = contract ? getRequiredAction(contract) : 'none'
+  const [decryptionError, setDecryptionError] = useState(false)
 
   const saveAndUpdate = useCallback(
     (contractData: Contract): Contract => {
@@ -40,11 +41,10 @@ export const useCommonContractSetup = (contractId: string) => {
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
-      handleContractOverlays(contractData, getContractViewer(contractData, account))
 
       return contractData
     },
-    [handleContractOverlays, updateAppContext],
+    [updateAppContext],
   )
 
   useFocusEffect(
@@ -80,26 +80,35 @@ export const useCommonContractSetup = (contractId: string) => {
   )
 
   useEffect(() => {
-    if (!contract || !storedContract || (storedContract.symmetricKey && storedContract.paymentData)) return
+    if (!contract || (storedContract?.symmetricKey && storedContract?.paymentData)) return
+    if (decryptionError) return
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
-      if (!symmetricKey || !paymentData) return showError()
+      if (!symmetricKey || !paymentData) {
+        setDecryptionError(true)
+        return showError()
+      }
 
       const updatedContract = {
-        ...storedContract,
+        ...contract,
         symmetricKey,
         paymentData,
       }
       return saveAndUpdate(updatedContract)
     })()
-  }, [contract, saveAndUpdate, showError, updateOverlay])
+  }, [contract, decryptionError, saveAndUpdate, showError, storedContract, updateOverlay])
+
+  useEffect(() => {
+    if (!contract) return
+    handleContractOverlays(contract, getContractViewer(contract, account))
+  }, [contract, handleContractOverlays, updateOverlay])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)
   }, [offer])
 
   return {
-    contract: storedContract,
+    contract: storedContract || contract,
     saveAndUpdate,
     isLoading,
     view,
