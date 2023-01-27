@@ -1,9 +1,9 @@
 import React from 'react'
-import { Text } from '../../../components'
-import tw from '../../../styles/tailwind'
-import { contractIdToHex } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
-import { formatNumberWithSuffix } from '../../../utils/string'
+import { Text } from '..'
+import tw from '../../styles/tailwind'
+import { contractIdToHex } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { formatNumberWithSuffix } from '../../utils/string'
 
 type ContractTitleProps = {
   id: string

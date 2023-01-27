@@ -13,7 +13,7 @@ import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
-import { handleOverlays } from '../contract/helpers/handleOverlays'
+import { handleOverlays } from '../../overlays/handleOverlays'
 import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 
 export const useOfferDetailsSetup = () => {

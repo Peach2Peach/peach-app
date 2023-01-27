@@ -1,11 +1,11 @@
 import React from 'react'
-import { DisputeResult } from '../../../overlays/DisputeResult'
-import { CancelTradeRequestConfirmed } from '../../../overlays/tradeCancelation/CancelTradeRequestConfirmed'
-import { CancelTradeRequestRejected } from '../../../overlays/tradeCancelation/CancelTradeRequestRejected'
-import { BuyerCanceledTrade } from '../../../overlays/tradeCancelation/BuyerCanceledTrade'
-import { ConfirmCancelTradeRequest } from '../../../overlays/tradeCancelation/ConfirmCancelTradeRequest'
-import YouGotADispute from '../../../overlays/YouGotADispute'
-import { account } from '../../../utils/account'
+import { DisputeResult } from './DisputeResult'
+import { CancelTradeRequestConfirmed } from './tradeCancelation/CancelTradeRequestConfirmed'
+import { CancelTradeRequestRejected } from './tradeCancelation/CancelTradeRequestRejected'
+import { BuyerCanceledTrade } from './tradeCancelation/BuyerCanceledTrade'
+import { ConfirmCancelTradeRequest } from './tradeCancelation/ConfirmCancelTradeRequest'
+import YouGotADispute from './YouGotADispute'
+import { account } from '../utils/account'
 
 type HandleOverlaysProps = {
   contract: Contract
