@@ -11,17 +11,14 @@ import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 export default (): ReactElement => {
   const { hasMatches, offer } = useSearchSetup()
   if (!offer) return <></>
-
   return (
     <>
-      <PeachScrollView>
-        <View style={tw`flex-col h-full pt-5 pb-6`}>
-          <View style={tw`px-6`}>
-            {hasMatches && offer.type === 'ask' && <MatchInformation />}
-            {!hasMatches && <NoMatchesYet />}
-          </View>
-          <View style={tw`flex-col justify-end flex-shrink h-full`}>{hasMatches ? <Matches /> : <GoHomeButton />}</View>
+      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`min-h-full justify-center pt-5 pb-6`}>
+        <View style={tw`flex-grow px-6`}>
+          {hasMatches && offer.type === 'ask' && <MatchInformation />}
+          {!hasMatches && <NoMatchesYet />}
         </View>
+        {hasMatches ? <Matches /> : <GoHomeButton />}
       </PeachScrollView>
       <DailyTradingLimit />
     </>

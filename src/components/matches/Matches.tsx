@@ -14,7 +14,7 @@ const carouselConfig = {
   loop: false,
   enableMomentum: false,
   sliderWidth: width,
-  itemWidth: width - 80,
+  itemWidth: width - 64,
   inactiveSlideScale: 0.9,
   inactiveSlideOpacity: 0.7,
   inactiveSlideShift: -10,
@@ -40,7 +40,7 @@ export const Matches = () => {
   return (
     <Carousel
       data={matches}
-      renderItem={({ item }) => <Match match={item} style={tw`self-center px-4 py-4`} offer={offer} />}
+      renderItem={({ item }) => <Match match={item} style={tw`self-center p-4`} offer={offer} />}
       {...{ ...carouselConfig, onBeforeSnapToItem }}
     />
   )
