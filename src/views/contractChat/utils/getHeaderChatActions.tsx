@@ -8,9 +8,9 @@ import { canCancelContract, canOpenDispute } from '../../../utils/contract'
 /* eslint max-params: ["error", 4]*/
 export const getHeaderChatActions = (
   contract: Contract,
-  view: 'buyer' | 'seller' | '',
   showCancelOverlay: () => void,
   updateOverlay: React.Dispatch<OverlayState>,
+  view?: ContractViewer,
 ): HeaderConfig['icons'] => {
   const canCancel = canCancelContract(contract)
   const canDispute = canOpenDispute(contract, view)
