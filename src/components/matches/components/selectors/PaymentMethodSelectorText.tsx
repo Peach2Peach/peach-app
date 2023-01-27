@@ -2,7 +2,6 @@ import React from 'react'
 import tw from '../../../../styles/tailwind'
 import { getEventName } from '../../../../utils/events'
 import i18n from '../../../../utils/i18n'
-import { sessionStorage } from '../../../../utils/session'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 
