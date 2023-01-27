@@ -9,11 +9,11 @@ import {
   shouldShowDisputeResult,
   shouldShowYouGotADispute,
 } from '../utils/overlay'
-import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
 import { DisputeResult } from './DisputeResult'
-import YouGotADispute from './YouGotADispute'
-import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
+import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
+import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
+import YouGotADispute from './YouGotADispute'
 
 export const useHandleContractOverlays = () => {
   const [, updateOverlay] = useContext(OverlayContext)
