@@ -40,11 +40,10 @@ export const useCommonContractSetup = (contractId: string) => {
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
       })
-      handleOverlays({ contract: contractData, updateOverlay, view: getContractViewer(contractData, account) })
 
       return contractData
     },
-    [updateAppContext, updateOverlay],
+    [updateAppContext],
   )
 
   useFocusEffect(
@@ -97,6 +96,11 @@ export const useCommonContractSetup = (contractId: string) => {
       return saveAndUpdate(updatedContract)
     })()
   }, [contract, decryptionError, saveAndUpdate, showError, storedContract, updateOverlay])
+
+  useEffect(() => {
+    if (!contract) return
+    handleOverlays({ contract, updateOverlay, view: getContractViewer(contract, account) })
+  }, [contract, updateOverlay])
 
   useEffect(() => {
     if (offer) saveOffer(offer, false)
