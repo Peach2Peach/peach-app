@@ -15,7 +15,7 @@ type ContractStatusInfoProps = {
 export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractStatusInfoProps): ReactElement => {
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <View style={tw`flex-row items-center justify-center`}>
-      <Text style={tw`button-medium text-center text-warning-dark-2`}>
+      <Text style={tw`text-center button-medium text-warning-dark-2`}>
         {i18n('offer.requiredAction.confirmCancelation')}
       </Text>
     </View>
@@ -23,25 +23,35 @@ export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractS
 
   if (contract.cancelationRequested) return (
     <View style={tw`flex-row items-center justify-center`}>
-      <Text style={tw`button-medium text-center`}>{i18n('contract.cancelationPending')}</Text>
+      <Text style={tw`text-center button-medium`}>{i18n('contract.cancelationPending')}</Text>
       <Icon id="xCircle" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-black-3`.color} />
     </View>
   )
-  if (requiredAction === 'sendPayment') return (
-    <Timer
-      text={i18n(`contract.timer.${requiredAction}.${view}`)}
-      start={getTimerStart(contract, requiredAction)}
-      duration={TIMERS[requiredAction]}
-    />
-  )
+  if (requiredAction === 'sendPayment') {
+    if (getTimerStart(contract, requiredAction) > Date.now()) {
+      return (
+        <Timer
+          text={i18n(`contract.timer.${requiredAction}.${view}`)}
+          start={getTimerStart(contract, requiredAction)}
+          duration={TIMERS[requiredAction]}
+        />
+      )
+    }
+    return (
+      <View style={tw`flex-row items-center`}>
+        <Text style={tw`uppercase button-medium`}>{i18n('contract.timer.paymentTimeExpired.buyer')}</Text>
+        <Icon id={'clock'} style={tw`w-5 h-5 ml-1`} />
+      </View>
+    )
+  }
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
     <View style={tw`flex-row items-center justify-center`}>
-      <Text style={tw`button-medium text-center`}>{i18n('contract.timer.confirmPayment.buyer')}</Text>
+      <Text style={tw`text-center button-medium`}>{i18n('contract.timer.confirmPayment.buyer')}</Text>
     </View>
   )
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <View style={tw`flex-row items-center justify-center`}>
-      <Text style={tw`button-medium text-center`}>{i18n('contract.timer.confirmPayment.seller')}</Text>
+      <Text style={tw`text-center button-medium`}>{i18n('contract.timer.confirmPayment.seller')}</Text>
       <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-success-main`.color} />
     </View>
   )
