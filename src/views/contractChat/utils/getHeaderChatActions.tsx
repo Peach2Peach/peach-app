@@ -11,6 +11,8 @@ export const getHeaderChatActions = (
   showOpenDisputeOverlay: () => void,
   view?: ContractViewer,
 ): HeaderConfig['icons'] => {
+  if (contract?.disputeActive) return []
+
   const canCancel = canCancelContract(contract)
   const canDispute = canOpenDispute(contract, view)
 
