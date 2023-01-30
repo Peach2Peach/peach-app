@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import shallow from 'zustand/shallow'
 import { useRoute } from '../../../hooks'
-import { useOfferDetails } from '../../../hooks/useOfferDetails'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { unique } from '../../../utils/array'
 import { saveOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'

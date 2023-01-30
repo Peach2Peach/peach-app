@@ -1,7 +1,7 @@
 import React from 'react'
 import { SatsFormat, Text } from '../../../components'
 import { useRoute } from '../../../hooks'
-import { useOfferDetails } from '../../../hooks/useOfferDetails'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../hooks/useOfferMatches'

@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMatchStore } from '../../../components/matches/store'
 import { getMatchesFn } from '../getMatches'
 import { useRoute } from '../../../hooks'
-import { useOfferDetails } from '../../../hooks/useOfferDetails'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useIsFocused } from '@react-navigation/native'
 
 const FIFTEEN_SECONDS = 15 * 1000
