@@ -1,3 +1,4 @@
+import { NETWORK } from '@env'
 import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
@@ -8,6 +9,7 @@ import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import tw from '../../../styles/tailwind'
+import { showAddress, showTransaction } from '../../../utils/bitcoin'
 import { getChatNotifications } from '../../../utils/chat'
 import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -60,6 +62,8 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
       navigation.replace('yourTrades')
     }
   }
+  const viewInExplorer = () =>
+    contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
 
   const showTradeBreakdown = () => {
     updateOverlay({
@@ -69,7 +73,7 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
       level: 'APP',
       action2: {
         label: i18n('tradeComplete.popup.tradeBreakdown.explorer'),
-        callback: () => updateOverlay({ visible: false }),
+        callback: viewInExplorer,
         icon: 'externalLink',
       },
     })
