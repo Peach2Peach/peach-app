@@ -7,8 +7,8 @@ import { account } from '../../utils/account'
 import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useRoute, useNavigation, useHeaderSetup } from '../../hooks'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { submitRaiseDispute } from './utils/submitRaiseDispute'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
 const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 
@@ -19,8 +19,9 @@ export default (): ReactElement => {
   const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
-  const navigation = useNavigation()
   const showError = useShowErrorBanner()
+
+  const navigation = useNavigation()
 
   useHeaderSetup(
     useMemo(
@@ -37,12 +38,10 @@ export default (): ReactElement => {
     if (reason === 'noPayment.buyer' || reason === 'noPayment.seller') {
       navigation.navigate('disputeForm', { contractId: contract.id, reason })
     } else {
-      const disputeRaised = await submitRaiseDispute(contract, reason)
+      const disputeRaised = await submitRaiseDispute(contract, reason, showError)
       if (disputeRaised) {
         // todo : show dispute raised success
         navigation.goBack()
-      } else {
-        showError()
       }
     }
   }
@@ -51,7 +50,7 @@ export default (): ReactElement => {
     <View style={tw`flex-col items-center justify-between h-full px-6 pt-6 pb-10`}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
         <Text style={tw`text-center h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
-        {availableReasons.map((rsn, i) => (
+        {availableReasons.map((rsn) => (
           <OptionButton key={rsn} onPress={() => setReason(rsn)} style={[tw`w-64 mt-4`]} narrow>
             {i18n(`dispute.reason.${rsn}`)}
           </OptionButton>

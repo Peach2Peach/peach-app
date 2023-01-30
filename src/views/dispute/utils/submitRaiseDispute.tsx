@@ -9,6 +9,7 @@ import { error } from '../../../utils/log'
 export const submitRaiseDispute = async (
   contract: Contract | undefined,
   reason: DisputeReason,
+  showError: (err?: string | Error | undefined) => void,
   email?: string,
   message?: string,
   // eslint-disable-next-line max-params
@@ -38,6 +39,7 @@ export const submitRaiseDispute = async (
   }
   if (err) {
     error('Error', err)
+    showError()
   }
   return false
 }
