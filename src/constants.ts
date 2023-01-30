@@ -16,6 +16,8 @@ export const MAXMININGFEE = 20000
 // time go automatically restart app when calling app from background after this time has passed
 export const TIMETORESTART = 1000 * 60 * 5
 
+export const MAXTRADESWITHOUTHBACKUP = 3
+
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
 
