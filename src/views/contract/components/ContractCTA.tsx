@@ -1,55 +1,62 @@
-import React, { ReactElement, useContext } from 'react'
-import { Pressable, View } from 'react-native'
-import { Icon, PrimaryButton } from '../../../components'
-import { OverlayContext } from '../../../contexts/overlay'
-import ConfirmPayment from '../../../overlays/info/ConfirmPayment'
+import React, { ReactElement } from 'react'
+import { View } from 'react-native'
+import { PrimaryButton } from '../../../components'
+import { WarningButton } from '../../../components/buttons'
+import { SlideToUnlock } from '../../../components/inputs'
+import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 
-type ContractCTAProps = {
-  view: 'buyer' | 'seller' | ''
+type ContractCTAProps = ComponentProps & {
+  contract: Contract
+  view: ContractViewer
   requiredAction: ContractAction
-  loading: boolean
+  actionPending: boolean
   postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
 export default ({
+  contract,
   view,
   requiredAction,
-  loading,
+  actionPending,
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
 }: ContractCTAProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  const openConfirmPaymentHelp = () =>
-    updateOverlay({
-      content: <ConfirmPayment />,
-      visible: true,
-    })
-  return (
-    <View>
-      {!(view === 'buyer' && requiredAction === 'sendPayment')
-        && !(view === 'seller' && requiredAction === 'confirmPayment') && (
-        <PrimaryButton disabled={true} style={tw`w-52`} narrow>
-          {i18n(`contract.waitingFor.${view === 'buyer' ? 'seller' : 'buyer'}`)}
-        </PrimaryButton>
-      )}
-      {view === 'buyer' && requiredAction === 'sendPayment' && (
-        <PrimaryButton disabled={loading} style={tw`w-52`} onPress={postConfirmPaymentBuyer} narrow>
-          {i18n('contract.payment.made')}
-        </PrimaryButton>
-      )}
-      {view === 'seller' && requiredAction === 'confirmPayment' && (
-        <View style={tw`flex-row items-center justify-center pl-11`}>
-          <PrimaryButton style={tw`w-52`} disabled={loading} onPress={postConfirmPaymentSeller} narrow>
-            {i18n('contract.payment.received')}
-          </PrimaryButton>
-          <Pressable onPress={openConfirmPaymentHelp} style={tw`p-3`}>
-            <Icon id="helpCircle" style={tw`w-5 h-5`} color={tw`text-blue-1`.color} />
-          </Pressable>
-        </View>
-      )}
-    </View>
+  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
+  if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
+    <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
+  if (view === 'buyer' && requiredAction === 'confirmPayment') return (
+    <PrimaryButton disabled iconId="send">
+      {i18n('contract.payment.sent')}
+    </PrimaryButton>
+  )
+
+  if (view === 'seller' && requiredAction === 'sendPayment') return (
+    <PrimaryButton disabled iconId="watch">
+      {i18n('contract.payment.notYetSent')}
+    </PrimaryButton>
+  )
+  if (view === 'buyer' && requiredAction === 'sendPayment') return (
+    <SlideToUnlock
+      style={tw`w-[260px]`}
+      disabled={actionPending}
+      onUnlock={postConfirmPaymentBuyer}
+      label1={i18n('contract.payment.confirm')}
+      label2={i18n('contract.payment.made')}
+    />
+  )
+  if (view === 'seller' && requiredAction === 'confirmPayment') return (
+    <SlideToUnlock
+      style={tw`w-[260px]`}
+      disabled={actionPending}
+      onUnlock={postConfirmPaymentSeller}
+      label1={i18n('contract.payment.confirm')}
+      label2={i18n('contract.payment.received')}
+    />
+  )
+
+  return <></>
 }

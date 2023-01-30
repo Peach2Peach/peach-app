@@ -45,6 +45,9 @@ declare type RootStackParamList = {
   contractChat: {
     contractId: Contract['id']
   }
+  paymentMade: {
+    contractId: Contract['id']
+  }
   disputeReasonSelector: {
     contractId: Contract['id']
   }

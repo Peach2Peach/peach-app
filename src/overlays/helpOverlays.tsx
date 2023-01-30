@@ -5,9 +5,11 @@ import { CashTrades } from './CashTrades'
 import { FileBackupPopup } from './FileBackupPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
+import { ConfirmPayment } from './info/ConfirmPayment'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
 import { MatchMatchMatch } from './info/MatchMatchMatch'
+import { MakePayment } from './info/MakePayment'
 import { Mempool } from './info/Mempool'
 import { MyBadges } from './info/MyBadges'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
@@ -24,10 +26,12 @@ export const helpOverlays = {
   acceptMatch: { title: i18n('search.popups.acceptMatch.title'), content: AcceptMatchPopup },
   buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
   cashTrades: { title: i18n('tradingCash'), content: CashTrades },
+  confirmPayment: { title: i18n('help.confirmPayment.title'), content: ConfirmPayment },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   matchmatchmatch: { title: i18n('search.popups.matchmatchmatch.title'), content: MatchMatchMatch },
+  makePayment: { title: i18n('help.makePayment.title'), content: MakePayment },
   mempool: { title: i18n('help.mempool.title'), content: Mempool },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },

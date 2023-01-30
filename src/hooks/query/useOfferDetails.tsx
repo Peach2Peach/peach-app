@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getOfferDetails } from '../utils/peachAPI'
+import { getOfferDetails } from '../../utils/peachAPI'
 
 const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, offerId] = queryKey
+  if (!offerId) return null
+
   const [offer] = await getOfferDetails({ offerId })
 
   return offer
