@@ -294,7 +294,12 @@ const App: React.FC = () => {
                                 </Stack.Navigator>
                               </View>
                               {showFooter && (
-                                <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
+                                <Footer
+                                  style={tw`z-10`}
+                                  active={currentPage}
+                                  setCurrentPage={setCurrentPage}
+                                  theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
+                                />
                               )}
                             </View>
                           </SafeAreaView>
