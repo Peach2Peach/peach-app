@@ -3,7 +3,7 @@ import analytics from '@react-native-firebase/analytics'
 
 import tw from '../../styles/tailwind'
 
-import { Icon, Text } from '../../components'
+import { Icon, Shadow, Text } from '../../components'
 import { account, updateTradingLimit } from '../../utils/account'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -11,6 +11,7 @@ import { getTradingLimit } from '../../utils/peachAPI'
 import { Rate } from './components/Rate'
 import { useRoute } from '../../hooks'
 import { TouchableOpacity, View } from 'react-native'
+import { dropShadowMild } from '../../utils/layout'
 
 export default (): ReactElement => {
   const route = useRoute<'tradeComplete'>()
@@ -52,7 +53,8 @@ export default (): ReactElement => {
           {i18n(`tradeComplete.title.${view}.default`)}
         </Text>
       </View>
-      <View>
+
+      <Shadow shadow={dropShadowMild}>
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</Text>
         <View style={tw`flex-row justify-center mt-4`}>
           <TouchableOpacity
@@ -84,7 +86,7 @@ export default (): ReactElement => {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </Shadow>
       <Rate {...{ contract, view, vote, saveAndUpdate }} style={tw`self-stretch px-11`} />
     </View>
   )
