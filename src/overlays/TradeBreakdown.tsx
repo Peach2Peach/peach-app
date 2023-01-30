@@ -20,7 +20,7 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
 
   return (
     <View>
-      <View style={tw`flex-row items-center justify-between mt-4`}>
+      <View style={tw`flex-row items-center justify-between mt-3`}>
         <Text style={tw`subtitle-1 text-black-2`}>{i18n('tradeComplete.popup.tradeBreakdown.escrow')}</Text>
         <SatsFormat
           containerStyle={tw`items-start justify-between h-5 w-45`}
