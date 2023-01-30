@@ -18,20 +18,21 @@ import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
 import getMessagesEffect from '../utils/getMessagesEffect'
 import { useShowDisputeDisclaimer } from '../utils/useShowDisputeDisclaimer'
+import { useOpenDispute } from '../../../overlays/disputeResults/useOpenDispute'
 
 // eslint-disable-next-line max-statements
 export const useContractChatSetup = () => {
   const route = useRoute<'contractChat'>()
   const { contractId } = route.params
-  const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
   const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const { contract, view, saveAndUpdate } = useCommonContractSetup(contractId)
 
-  const cancelContract = useConfirmCancelTrade(contractId)
+  const cancelTradeOverlay = useConfirmCancelTrade(contractId)
   const showDisclaimer = useShowDisputeDisclaimer()
+  const openDisputeOverlay = useOpenDispute(contractId)
 
   const [updatePending, setUpdatePending] = useState(true)
   const [loadingMessages, setLoadingMessages] = useState(true)
@@ -45,9 +46,9 @@ export const useContractChatSetup = () => {
     useMemo(
       () => ({
         titleComponent: <ContractTitle id={contractId} amount={contract?.amount} />,
-        icons: contract ? getHeaderChatActions(contract, cancelContract, updateOverlay, view) : [],
+        icons: contract ? getHeaderChatActions(contract, cancelTradeOverlay, openDisputeOverlay, view) : [],
       }),
-      [contractId, contract, view, cancelContract, updateOverlay],
+      [contractId, contract, cancelTradeOverlay, openDisputeOverlay, view],
     ),
   )
 

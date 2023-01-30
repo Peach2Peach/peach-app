@@ -10,7 +10,7 @@ import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
-import { useHeaderSetup, useKeyboard, useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
 import { getChat, saveChat } from '../../utils/chat'
 import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
@@ -31,10 +31,8 @@ export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const keyboardOpen = useKeyboard()
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState(getContract(contractId))
-  const [start, setStart] = useState(false)
   const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
   const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
@@ -58,15 +56,13 @@ export default (): ReactElement => {
   useEffect(() => {
     setContractId(route.params.contractId)
     setContract(getContract(route.params.contractId))
-    setStart(false)
     setReason('')
     setMessage('')
     setLoading(false)
   }, [route, setMessage, setReason])
 
   const goBack = () => {
-    if (reason) return setReason('')
-    return setStart(false)
+    if (reason) setReason('')
   }
 
   const submit = async () => {

@@ -49,6 +49,7 @@ export const useConfirmCancelTrade = (contractId: string) => {
       saveContract({
         ...contract,
         canceled: true,
+        cancelConfirmationDismissed: false,
       })
       navigation.replace('offer', { offerId: getBuyOfferIdFromContract(contract) })
       updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })

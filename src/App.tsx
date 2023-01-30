@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { useContext, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -38,7 +38,7 @@ import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
-import handleNotificationsEffect from './effects/handleNotificationsEffect'
+import { useHandleNotifications } from './hooks/useHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
@@ -69,6 +69,14 @@ const queryClient = new QueryClient()
 
 let goHomeTimeout: NodeJS.Timer
 
+type HandlerProps = {
+  getCurrentPage: () => keyof RootStackParamList | undefined
+}
+const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
+  useHandleNotifications(getCurrentPage)
+
+  return <></>
+}
 const usePartialAppSetup = () => {
   const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
@@ -210,15 +218,6 @@ const App: React.FC = () => {
     })()
   }, [])
 
-  useEffect(
-    handleNotificationsEffect({
-      getCurrentPage,
-      updateOverlay,
-      navigation: navigationRef,
-    }),
-    [currentPage],
-  )
-
   useEffect(websocket(updatePeachWS, updateMessage), [])
   usePartialAppSetup()
 
@@ -256,6 +255,7 @@ const App: React.FC = () => {
                   >
                     <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                       <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                        <Handlers {...{ getCurrentPage }} />
                         <Background config={backgroundConfig}>
                           <Drawer
                             title={drawerTitle}

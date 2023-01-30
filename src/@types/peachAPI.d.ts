@@ -343,3 +343,7 @@ declare type GetFeeEstimateResponse = FeeRecommendation
 declare type TradeSummary = (OfferSummary | ContractSummary) & {
   paymentMade?: Date
 }
+
+declare type ReviveSellOfferResponseBody = {
+  newOfferId: Offer['id']
+}

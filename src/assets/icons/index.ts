@@ -70,6 +70,7 @@ import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
+import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
 import search from './search.svg'
@@ -182,6 +183,7 @@ const Icons = {
   prev,
   radioSelected,
   refreshCcw,
+  refreshCw,
   rotateCounterClockwise,
   save,
   search,
