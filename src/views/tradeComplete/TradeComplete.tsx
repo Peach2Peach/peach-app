@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 
 import { Icon, Shadow, Text } from '../../components'
 import { account, updateTradingLimit } from '../../utils/account'
-import { saveContract } from '../../utils/contract'
+import { getContractViewer, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getTradingLimit } from '../../utils/peachAPI'
 import { Rate } from './components/Rate'
@@ -16,7 +16,7 @@ import { dropShadowMild } from '../../utils/layout'
 export default (): ReactElement => {
   const route = useRoute<'tradeComplete'>()
   const [contract, setContract] = useState<Contract>(route.params.contract)
-  const view = account.publicKey === route.params.contract.seller.id ? 'seller' : 'buyer'
+  const view = getContractViewer(route.params.contract, account)
 
   const [vote, setVote] = useState<'positive' | 'negative'>()
 
