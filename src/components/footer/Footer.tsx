@@ -62,11 +62,14 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
           <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-3xs`]}>{i18n(`footer.${id}`)}</Text>
         </View>
         {notifications ? (
-          <Icon
-            id="notification"
-            style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
-            color={tw`text-success-main`.color}
-          />
+          <View
+            style={[
+              tw`absolute w-5 h-5 -top-2 left-1/2 mt-.5 bg-info-light items-center justify-center`,
+              tw`border-2 rounded-full border-primary-background`,
+            ]}
+          >
+            <Text style={tw`body-s text-primary-background`}>{notifications}</Text>
+          </View>
         ) : null}
       </View>
     </Pressable>
