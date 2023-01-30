@@ -1,14 +1,12 @@
 declare type ContractAction = 'none' | 'kycResponse' | 'sendPayment' | 'confirmPayment'
 
 declare type DisputeReason =
-  | 'wrongPaymentAmount'
-  | 'noPayment'
-  | 'buyerUnresponsive'
-  | 'buyerBehaviour'
-  | 'satsNotReceived'
-  | 'sellerUnresponsive'
-  | 'sellerBehaviour'
-  | 'disputeOther'
+  | 'noPayment.buyer'
+  | 'noPayment.seller'
+  | 'unresponsive.buyer'
+  | 'unresponsive.seller'
+  | 'abusive'
+  | 'other'
 
 declare type Contract = {
   creationDate: Date

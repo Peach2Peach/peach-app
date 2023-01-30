@@ -48,6 +48,8 @@ import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
+import DisputeReasonSelector from './dispute/DisputeReasonSelector'
+import DisputeForm from './dispute/DisputeForm'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -109,7 +111,8 @@ const contact = (hasAccount: boolean): ViewType[] =>
     ? [
       { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
       { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
-      { name: 'dispute', component: Dispute, ...defaultConfig, showFooter: hasAccount },
+      { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
+      { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
     ]
     : [
       { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
