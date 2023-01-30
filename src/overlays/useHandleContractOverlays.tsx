@@ -1,5 +1,4 @@
-import React, { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback } from 'react'
 import { account } from '../utils/account'
 import {
   shouldShowBuyerCanceledTrade,
@@ -16,7 +15,6 @@ import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerR
 import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
 
 export const useHandleContractOverlays = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
   const showDisputeRaisedNotice = useDisputeRaisedNotice()
   const showDisputeResults = useDisputeResults()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
@@ -35,7 +33,14 @@ export const useHandleContractOverlays = () => {
 
       return null
     },
-    [showBuyerCanceled, showCancelTradeRequestRejected, showConfirmTradeCancelation, updateOverlay],
+    // eslint-disable-next-line max-len
+    [
+      showBuyerCanceled,
+      showCancelTradeRequestRejected,
+      showConfirmTradeCancelation,
+      showDisputeRaisedNotice,
+      showDisputeResults,
+    ],
   )
 
   return handleContractOverlays
