@@ -6,7 +6,6 @@ import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
 import OfferNotFunded from '../overlays/OfferNotFunded'
-import PaymentMade from '../overlays/PaymentMade'
 import { useBuyerCanceledOverlay } from '../overlays/tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from '../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
@@ -26,6 +25,20 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
   useEffect(() => {
+    // TODO : Activate when get pay up quick notification
+    // updateOverlay({
+    //   title: i18n('help.makePayment.title'),
+    //   content: <Text>You only have 4 more hours to make the payment for the trade PF1E.</Text>,
+    //   visible: true,
+    //   level: 'APP',
+    //   action1: {
+    //     icon: 'arrowRightCircle',
+    //     callback: () => {
+    //       navigation.navigate('contract', { contractId: contractid })
+    //     },
+    //     label: i18n('help.checkTrade'),
+    //   },
+    // })
     // eslint-disable-next-line max-statements, complexity
     const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
