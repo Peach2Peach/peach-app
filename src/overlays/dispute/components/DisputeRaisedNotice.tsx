@@ -45,13 +45,11 @@ export default ({
           ? view === 'seller'
             ? i18n(
               'dispute.opened.counterparty.text.1.withEmail.seller',
-              i18n(view),
               contractIdToHex(contract.id),
               contract.amount.toString(),
             )
             : i18n(
               'dispute.opened.counterparty.text.1.withEmail.buyer',
-              i18n(view),
               contractIdToHex(contract.id),
               contract.amount.toString(),
             )

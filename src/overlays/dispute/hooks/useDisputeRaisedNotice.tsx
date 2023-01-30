@@ -122,7 +122,6 @@ export const useDisputeRaisedNotice = () => {
           : {
             label: i18n('goToChat'),
             icon: 'messageCircle',
-
             callback: goToChat,
           },
       }),
