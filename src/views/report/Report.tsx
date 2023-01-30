@@ -52,12 +52,8 @@ export default (): ReactElement => {
       message: messageToSend,
     })
     if (result) {
+      navigation.navigate('settings')
       showReportSuccess(updateOverlay)
-      // Clear all fields
-      setEmail('')
-      setTopic(route.params.topic || '')
-      setMessage(route.params.message || '')
-      setShareDeviceID(false)
       return
     }
 
