@@ -1,9 +1,7 @@
-import React, { ReactElement, useContext, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { View, ViewStyle } from 'react-native'
 import { Icon } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'
-import { OverlayContext } from '../../../contexts/overlay'
-import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -16,7 +14,7 @@ type OfferItemProps = { contract: ContractSummary }
 export const colors: Record<SummaryItemLevel, ViewStyle> = {
   APP: tw`text-primary-main`,
   SUCCESS: tw`text-success-main`,
-  WARN: tw`text-warning-main`,
+  WARN: tw`text-warning-dark-2`,
   ERROR: tw`text-error-main`,
   INFO: tw`text-info-light`,
   DEFAULT: tw`text-black-2`,

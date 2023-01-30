@@ -28,5 +28,26 @@ export const getContract = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetContractResponse>(response, 'getContract')
+  const parsedResponse = await parseResponse<GetContractResponse>(response, 'getContract')
+
+  if (parsedResponse[0]) {
+    parsedResponse[0].creationDate = new Date(parsedResponse[0].creationDate)
+    if (parsedResponse[0].kycResponseDate) {
+      parsedResponse[0].kycResponseDate = new Date(parsedResponse[0].kycResponseDate)
+    }
+    if (parsedResponse[0].paymentMade) {
+      parsedResponse[0].paymentMade = new Date(parsedResponse[0].paymentMade)
+    }
+    if (parsedResponse[0].paymentConfirmed) {
+      parsedResponse[0].paymentConfirmed = new Date(parsedResponse[0].paymentConfirmed)
+    }
+    if (parsedResponse[0].disputeDate) {
+      parsedResponse[0].disputeDate = new Date(parsedResponse[0].disputeDate)
+    }
+    if (parsedResponse[0].disputeResolvedDate) {
+      parsedResponse[0].disputeResolvedDate = new Date(parsedResponse[0].disputeResolvedDate)
+    }
+  }
+
+  return parsedResponse
 }
