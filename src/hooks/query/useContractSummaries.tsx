@@ -8,7 +8,7 @@ const getContractSummariesQuery = async () => {
 }
 
 export const useContractSummaries = () => {
-  const { data, isLoading, error } = useQuery(['contractSummaries'], getContractSummariesQuery)
+  const { data, isLoading, error, refetch } = useQuery(['contractSummaries'], getContractSummariesQuery)
 
-  return { contracts: data, isLoading, error }
+  return { contracts: data, isLoading, error, refetch }
 }

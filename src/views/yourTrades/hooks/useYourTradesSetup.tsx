@@ -1,12 +1,13 @@
 import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 
 import { useHeaderSetup } from '../../../hooks'
+import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import i18n from '../../../utils/i18n'
-import { getContractSummaries, getOfferSummaries } from '../../../utils/peachAPI'
+import { parseError } from '../../../utils/system'
 import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
 
 const sortByDate = (a: TradeSummary, b: TradeSummary) => {
@@ -20,6 +21,7 @@ export const useYourTradesSetup = () => {
     (state) => [state.offers, state.setOffers, state.contracts, state.setContracts],
     shallow,
   )
+  const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
 
   const trades = [...offers, ...contracts].sort(sortByDate).reverse()
 
@@ -43,26 +45,18 @@ export const useYourTradesSetup = () => {
     ),
   )
 
-  const getTradeSummary = useCallback(async () => {
-    const [getOffersResult, getOffersErr] = await getOfferSummaries({})
-    const [getContractsResult, getContractsErr] = await getContractSummaries({})
-    if (getOffersResult && getContractsResult) {
-      setOffers(getOffersResult.filter((offer) => !hasDoubleMatched(offer.tradeStatus)))
-      setContracts(getContractsResult)
+  useEffect(() => {
+    if (isLoading) return
+    if (offersUpdate && contractsUpdate) {
+      setOffers(offersUpdate.filter((offer) => !hasDoubleMatched(offer.tradeStatus)))
+      setContracts(contractsUpdate)
     }
-    if (getOffersErr || getContractsErr) {
-      showErrorBanner((getOffersErr || getContractsErr)!.error)
-    }
-  }, [setContracts, setOffers, showErrorBanner])
-
-  useFocusEffect(
-    useCallback(() => {
-      getTradeSummary()
-    }, [getTradeSummary]),
-  )
+    if (error) showErrorBanner(parseError(error))
+  }, [isLoading, offersUpdate, contractsUpdate, error, showErrorBanner, setOffers, setContracts])
 
   return {
-    getTradeSummary,
+    isLoading,
+    refetch,
     allOpenOffers,
     openOffers,
     pastOffers,

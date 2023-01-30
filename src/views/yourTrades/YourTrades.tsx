@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { SectionList, View } from 'react-native'
+import { Loading } from '../../components'
 
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
@@ -16,13 +17,13 @@ const tabs: TabbedNavigationItem[] = [
 ]
 
 export default (): ReactElement => {
-  const { getTradeSummary, allOpenOffers, openOffers, pastOffers } = useYourTradesSetup()
+  const { allOpenOffers, openOffers, pastOffers, isLoading, refetch } = useYourTradesSetup()
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const switchTab = (tab: TabbedNavigationItem) => {
     setCurrentTab(tab)
-    getTradeSummary()
+    refetch()
   }
 
   const getCurrentData = () => {
@@ -41,13 +42,20 @@ export default (): ReactElement => {
       <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
       {allOpenOffers.length + pastOffers.length > 0 && (
         <SectionList
+          contentContainerStyle={[tw`py-10`, isLoading && tw`opacity-60`]}
+          onRefresh={refetch}
+          refreshing={false}
           showsVerticalScrollIndicator={false}
           sections={getCategories(getCurrentData())}
           renderSectionHeader={SectionHeader}
           renderItem={TradeItem}
           ItemSeparatorComponent={() => <View style={tw`h-6`} />}
-          contentContainerStyle={tw`py-10`}
         />
+      )}
+      {isLoading && (
+        <View style={tw`absolute inset-0 justify-center items-center`} pointerEvents="none">
+          <Loading />
+        </View>
       )}
     </View>
   )
