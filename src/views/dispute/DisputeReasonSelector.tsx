@@ -38,10 +38,12 @@ export default (): ReactElement => {
     if (reason === 'noPayment.buyer' || reason === 'noPayment.seller') {
       navigation.navigate('disputeForm', { contractId: contract.id, reason })
     } else {
-      const disputeRaised = await submitRaiseDispute(contract, reason, showError)
-      if (disputeRaised) {
+      const [success, error] = await submitRaiseDispute(contract, reason)
+      if (success) {
         // todo : show dispute raised success
         navigation.goBack()
+      } else {
+        showError(error ? error?.error : null)
       }
     }
   }
