@@ -49,7 +49,6 @@ import { useBitcoinStore } from './store/bitcoinStore'
 import { account, getAccount } from './utils/account'
 import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
-import { getRequiredActionCount } from './utils/offer'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
 
@@ -91,7 +90,7 @@ const usePartialAppSetup = () => {
           if (account?.publicKey) {
             getTrades()
             updateAppContext({
-              notifications: getChatNotifications() + getRequiredActionCount(),
+              notifications: getChatNotifications(),
             })
           }
           analytics().logAppOpen()
@@ -186,7 +185,7 @@ const App: React.FC = () => {
       await initialNavigation(navigationRef, updateMessage)
 
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
+        notifications: getChatNotifications(),
       })
       if (typeof account.settings.enableAnalytics === 'undefined') {
         showAnalyticsPrompt(updateOverlay)

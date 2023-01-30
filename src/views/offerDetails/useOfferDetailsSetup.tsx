@@ -13,7 +13,7 @@ import { getChatNotifications } from '../../utils/chat'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
-import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
+import { getOffer, isSellOffer, saveOffer } from '../../utils/offer'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
@@ -88,7 +88,7 @@ export const useOfferDetailsSetup = () => {
             navigation.replace('contract', { contractId: result.id })
           }
           updateAppContext({
-            notifications: getChatNotifications() + getRequiredActionCount(),
+            notifications: getChatNotifications(),
           })
           handleContractOverlays(c, view)
         },

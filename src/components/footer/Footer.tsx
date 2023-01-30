@@ -10,7 +10,6 @@ import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { footerShadow } from '../../utils/layout'
-import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../../assets/icons'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -105,7 +104,7 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
 
   useEffect(() => {
     updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
+      notifications: getChatNotifications(),
     })
   }, [updateAppContext])
 
@@ -119,7 +118,7 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
         [update.event]: new Date(update.data.date),
       })
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
+        notifications: getChatNotifications(),
       })
     }
     const messageHandler = async (message: Message) => {
@@ -132,7 +131,7 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
         unreadMessages: contract.unreadMessages + 1,
       })
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
+        notifications: getChatNotifications(),
       })
     }
     const unsubscribe = () => {

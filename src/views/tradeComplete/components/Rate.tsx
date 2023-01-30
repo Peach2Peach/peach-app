@@ -10,7 +10,6 @@ import tw from '../../../styles/tailwind'
 import { getChatNotifications } from '../../../utils/chat'
 import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getRequiredActionCount } from '../../../utils/offer'
 import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
@@ -58,7 +57,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
       [ratedUser]: true,
     })
     updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
+      notifications: getChatNotifications(),
     })
 
     if (rating.rating === 1) {

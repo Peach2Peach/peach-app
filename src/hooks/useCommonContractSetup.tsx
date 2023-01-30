@@ -14,7 +14,7 @@ import {
   getRequiredAction,
   saveContract,
 } from '../utils/contract'
-import { getRequiredActionCount, saveOffer } from '../utils/offer'
+import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './useContractDetails'
 import { useOfferDetails } from './useOfferDetails'
@@ -42,7 +42,7 @@ export const useCommonContractSetup = (contractId: string) => {
         return updatedContract as Contract
       })
       updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
+        notifications: getChatNotifications(),
       })
     },
     [updateAppContext],

@@ -3,7 +3,6 @@ import { FlatList, Keyboard, ViewToken } from 'react-native'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { getChat, getChatNotifications } from '../../../utils/chat'
-import { getRequiredActionCount } from '../../../utils/offer'
 import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 21
@@ -42,16 +41,19 @@ export default ({
   const onContentSizeChange = () =>
     page === 0 ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50) : () => {}
 
-  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    const lastItem = viewableItems.pop()?.item as Message
-    const savedChat = getChat(chat.id)
-    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
+  const onViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+      const lastItem = viewableItems.pop()?.item as Message
+      const savedChat = getChat(chat.id)
+      if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
-  }, [])
+      setAndSaveChat(chat.id, { lastSeen: lastItem.date })
+      updateAppContext({
+        notifications: getChatNotifications(),
+      })
+    },
+    [chat.id, setAndSaveChat, updateAppContext],
+  )
 
   return (
     <FlatList
