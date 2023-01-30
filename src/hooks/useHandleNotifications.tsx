@@ -1,7 +1,6 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { useContext, useEffect } from 'react'
 import { OverlayContext } from '../contexts/overlay'
-import { DisputeResult } from '../overlays/DisputeResult'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
@@ -13,7 +12,7 @@ import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/
 // import { BuyerCanceledTrade } from '../overlays/tradeCancelation/BuyerCanceledTrade'
 // import { CancelTradeRequestConfirmed } from '../overlays/tradeCancelation/CancelTradeRequestConfirmed'
 // import { BuyerRejectedCancelTrade } from '../overlays/tradeCancelation/BuyerRejectedCancelTrade'
-import { ConfirmCancelTradeRequest } from '../overlays/tradeCancelation/ConfirmCancelTradeRequest'
+// import { ConfirmCancelTradeRequest } from '../overlays/tradeCancelation/ConfirmCancelTradeRequest'
 import { getContract } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
@@ -85,10 +84,10 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
         // })
       }
       if (type === 'contract.disputeResolved') {
-        return updateOverlay({
-          content: <DisputeResult {...{ contractId, navigation }} />,
-          visible: true,
-        })
+        // return updateOverlay({
+        //   content: <DisputeResult {...{ contractId, navigation }} />,
+        //   visible: true,
+        // })
       }
 
       if (contract) {

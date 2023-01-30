@@ -34,7 +34,6 @@ export const useDisputeRaisedNotice = () => {
   }
 
   const submit = async (contract: Contract, reason: DisputeReason) => {
-    info('holi')
     info(email)
     const isFormValid = isEmailValid
     if (!isFormValid) return
