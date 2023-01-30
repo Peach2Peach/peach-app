@@ -41,12 +41,26 @@ export default ({
   return (
     <>
       <Text style={tw`mb-3 body-m text-black-1`}>
-        {i18n(
-          'dispute.opened.counterparty.text.1',
-          i18n(view),
-          contractIdToHex(contract.id),
-          contract.amount.toString(),
-        )}
+        {isEmailRequired(disputeReason)
+          ? view === 'seller'
+            ? i18n(
+              'dispute.opened.counterparty.text.1.withEmail.seller',
+              i18n(view),
+              contractIdToHex(contract.id),
+              contract.amount.toString(),
+            )
+            : i18n(
+              'dispute.opened.counterparty.text.1.withEmail.buyer',
+              i18n(view),
+              contractIdToHex(contract.id),
+              contract.amount.toString(),
+            )
+          : i18n(
+            'dispute.opened.counterparty.text.1.withoutEmail',
+            i18n(view),
+            contractIdToHex(contract.id),
+            contract.amount.toString(),
+          )}
       </Text>
       <Text style={tw`body-m text-black-1`}>
         {isEmailRequired(disputeReason)
