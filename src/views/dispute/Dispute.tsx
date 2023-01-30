@@ -5,18 +5,18 @@ import tw from '../../styles/tailwind'
 import { Input, OptionButton, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { account } from '../../utils/account'
-import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 
 import { PEACHPGPPUBLICKEY } from '../../constants'
 import { MessageContext } from '../../contexts/message'
+import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import RaiseDisputeSuccess from '../../overlays/RaiseDisputeSuccess'
+import { getChat, saveChat } from '../../utils/chat'
+import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
 import { error } from '../../utils/log'
 import { raiseDispute } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp'
-import { getChat, saveChat } from '../../utils/chat'
-import { initDisputeSystemMessages } from '../../utils/chat/createDisputeSystemMessages'
-import { useValidatedState, useKeyboard, useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 
 const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
 const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
@@ -31,10 +31,8 @@ export default (): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const [, updateMessage] = useContext(MessageContext)
 
-  const keyboardOpen = useKeyboard()
   const [contractId, setContractId] = useState(route.params.contractId)
   const [contract, setContract] = useState(getContract(contractId))
-  const [start, setStart] = useState(false)
   const [reason, setReason, reasonIsValid] = useValidatedState<DisputeReason | ''>('', required)
   const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
@@ -43,7 +41,7 @@ export default (): ReactElement => {
   const [displayErrors, setDisplayErrors] = useState(false)
   let $message = useRef<TextInput>(null).current
 
-  const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
+  const view = contract ? getContractViewer(contract, account) : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
   useHeaderSetup(
@@ -58,15 +56,13 @@ export default (): ReactElement => {
   useEffect(() => {
     setContractId(route.params.contractId)
     setContract(getContract(route.params.contractId))
-    setStart(false)
     setReason('')
     setMessage('')
     setLoading(false)
   }, [route, setMessage, setReason])
 
   const goBack = () => {
-    if (reason) return setReason('')
-    return setStart(false)
+    if (reason) setReason('')
   }
 
   const submit = async () => {

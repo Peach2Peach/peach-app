@@ -2,17 +2,15 @@ import { useCallback, useContext, useMemo, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
 import { useNavigation } from '../../../hooks'
-import { getBuyOfferFromContract } from '../../../utils/contract'
-import { isSellOffer } from '../../../utils/offer'
+import { getBuyOfferFromContract, getContractViewer } from '../../../utils/contract'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
-
-type View = 'seller' | 'buyer'
+import { account } from '../../../utils/account'
 
 export const useContractSummarySetup = (contract: Contract) => {
   const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const offer = useMemo(() => getBuyOfferFromContract(contract), [contract])
-  const view: View = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
+  const view = getContractViewer(contract, account)
   const [unreadMessages, setUnreadMessages] = useState(contract.unreadMessages)
 
   useFocusEffect(

@@ -8,7 +8,7 @@ import { OpenTrade } from './OpenTrade'
 
 export type TradeSummaryProps = ComponentProps & {
   contract: Contract
-  view: 'seller' | 'buyer' | ''
+  view?: ContractViewer
 }
 
 export const TradeSummary = ({ contract, view, style }: TradeSummaryProps): ReactElement => (

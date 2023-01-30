@@ -80,7 +80,7 @@ export const SlideToUnlock = ({
         },
         onShouldBlockNativeResponder: () => true,
       }),
-    [disabled, onUnlock, pan, trackWidth],
+    [disabled, onUnlock, pan, widthToSlide],
   )
 
   return (
@@ -99,7 +99,9 @@ export const SlideToUnlock = ({
           style={[tw`flex flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}
         >
           <Animated.View style={[tw`absolute right-full`, { width: widthToSlide, opacity: pan }]}>
-            <Text style={tw`text-center button-large`}>{label2}</Text>
+            <Text style={tw`text-center button-large`} numberOfLines={1}>
+              {label2}
+            </Text>
           </Animated.View>
           <Animated.View
             style={[
@@ -111,7 +113,9 @@ export const SlideToUnlock = ({
             <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw`text-primary-background`.color} />
           </Animated.View>
           <Animated.View style={{ width: widthToSlide, opacity: getLabel1Opacity(pan) }}>
-            <Text style={tw`text-center button-large`}>{label1}</Text>
+            <Text style={tw`text-center button-large`} numberOfLines={1}>
+              {label1}
+            </Text>
           </Animated.View>
         </Animated.View>
       </Shadow>

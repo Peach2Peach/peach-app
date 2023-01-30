@@ -2,20 +2,17 @@ import React from 'react'
 import { Icon } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'
+import { canCancelContract, canOpenDispute } from '../../../utils/contract'
 
 /* eslint max-params: ["error", 4]*/
 export const getHeaderChatActions = (
   contract: Contract,
-  view: 'buyer' | 'seller' | '',
   showCancelOverlay: () => void,
   showOpenDisputeOverlay: () => void,
+  view?: ContractViewer,
 ): HeaderConfig['icons'] => {
-  const canCancel
-    = !contract.disputeActive && !contract.paymentMade && !contract.canceled && !contract.cancelationRequested
-  const canDispute
-    = contract.symmetricKey
-    && ((!contract.disputeActive && !/cash/u.test(contract.paymentMethod))
-      || (view === 'seller' && contract.cancelationRequested))
+  const canCancel = canCancelContract(contract)
+  const canDispute = canOpenDispute(contract, view)
 
   const openCancelTrade = canCancel ? showCancelOverlay : () => {}
   // const extendTime = () => alert('todo extend time')
