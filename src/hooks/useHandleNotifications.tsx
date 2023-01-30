@@ -68,11 +68,7 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
         })
       }
       if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-        const date = remoteMessage.sentTime || Date.now()
-        return updateOverlay({
-          content: <PaymentMade {...{ contract, date, navigation }} />,
-          visible: true,
-        })
+        return navigation.navigate('paymentMade', { contractId: contract.id })
       }
       if (type === 'contract.disputeRaised') {
         const { message, reason } = remoteMessage.data
