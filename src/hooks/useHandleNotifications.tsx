@@ -70,11 +70,7 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
         })
       }
       if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-        const date = remoteMessage.sentTime || Date.now()
-        return updateOverlay({
-          content: <PaymentMade {...{ contract, date, navigation }} />,
-          visible: true,
-        })
+        return navigation.navigate('paymentMade', { contractId: contract.id })
       }
       if (type === 'contract.disputeRaised') {
         // const { contractId, message, reason } = remoteMessage.data
@@ -92,8 +88,9 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
 
       if (contract) {
         if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
-        // eslint-disable-next-line max-len
-        if (type === 'contract.cancelationRequest' && !contract.disputeActive) return showConfirmTradeCancelation(contract)
+        if (type === 'contract.cancelationRequest' && !contract.disputeActive) {
+          return showConfirmTradeCancelation(contract)
+        }
         if (type === 'contract.cancelationRequestAccepted') return showBuyerCanceled(contract, true)
         if (type === 'contract.cancelationRequestRejected') return showCancelTradeRequestRejected(contract)
       }

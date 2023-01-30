@@ -7,8 +7,8 @@ describe('canOpenDispute', () => {
       disputeActive: false,
       paymentMethod: 'paypal',
     }
-    const view = ''
-    expect(canOpenDispute(contract as Contract, view)).toBe(false)
+
+    expect(canOpenDispute(contract as Contract)).toBe(false)
   })
 
   it('returns false if dispute is already active', () => {
@@ -17,8 +17,8 @@ describe('canOpenDispute', () => {
       disputeActive: true,
       paymentMethod: 'paypal',
     }
-    const view = ''
-    expect(canOpenDispute(contract as Contract, view)).toBe(false)
+
+    expect(canOpenDispute(contract as Contract)).toBe(false)
   })
 
   it('returns false if payment method is cash', () => {
@@ -27,8 +27,8 @@ describe('canOpenDispute', () => {
       disputeActive: false,
       paymentMethod: 'cash.de.berlin.einundzwanzig',
     }
-    const view = ''
-    expect(canOpenDispute(contract as Contract, view)).toBe(false)
+
+    expect(canOpenDispute(contract as Contract)).toBe(false)
   })
 
   it('returns true if view is seller and cancelation has been requested', () => {
@@ -48,7 +48,7 @@ describe('canOpenDispute', () => {
       disputeActive: false,
       paymentMethod: 'paypal',
     }
-    const view = ''
-    expect(canOpenDispute(contract as Contract, view)).toBe(true)
+
+    expect(canOpenDispute(contract as Contract)).toBe(true)
   })
 })

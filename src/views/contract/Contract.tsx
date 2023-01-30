@@ -14,7 +14,7 @@ export default (): ReactElement => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
     = useContractSetup()
 
-  if (!contract || isLoading || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
+  if (!contract || !view || isLoading || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
 
   return (
     <View style={tw`justify-between flex-shrink h-full px-8 pb-6`}>
@@ -32,10 +32,11 @@ export default (): ReactElement => {
       </View>
       <View style={tw`flex items-center w-full mt-12`}>
         <ContractStatusInfo {...{ contract, requiredAction, view }} />
-        <ContractCTA
-          style={tw`mt-3`}
-          {...{ view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
-        />
+        <View style={[tw`w-full items-center mt-3`]}>
+          <ContractCTA
+            {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
+          />
+        </View>
       </View>
     </View>
   )

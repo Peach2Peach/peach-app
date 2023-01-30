@@ -36,6 +36,7 @@ import creditCard from './creditCard.svg'
 import crossOutlined from './crossOutlined.svg'
 import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
+import dollarSignCircleInverted from './dollarSignCircleInverted.svg'
 import download from './download.svg'
 import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
@@ -149,6 +150,7 @@ const Icons = {
   cryptotag,
   creditCard,
   dollarSign,
+  dollarSignCircleInverted,
   download,
   downloadCloud,
   edit,

@@ -4,14 +4,23 @@ import { Icon, Text, Timer } from '../../../components'
 import { TIMERS } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 import { getTimerStart } from '../helpers/getTimerStart'
 
 type ContractStatusInfoProps = {
   contract: Contract
   requiredAction: ContractAction
-  view?: ContractViewer
+  view: ContractViewer
 }
 export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractStatusInfoProps): ReactElement => {
+  if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
+    <View style={tw`flex-row items-center justify-center`}>
+      <Text style={tw`button-medium text-center text-warning-dark-2`}>
+        {i18n('offer.requiredAction.confirmCancelation')}
+      </Text>
+    </View>
+  )
+
   if (contract.cancelationRequested) return (
     <View style={tw`flex-row items-center justify-center`}>
       <Text style={tw`button-medium text-center`}>{i18n('contract.cancelationPending')}</Text>
