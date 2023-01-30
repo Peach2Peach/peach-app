@@ -87,7 +87,7 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
 
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'wallet' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
     navigation.navigate(page)
   }
