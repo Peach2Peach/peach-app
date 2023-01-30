@@ -23,7 +23,8 @@ export const useYourTradesSetup = () => {
   )
   const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
 
-  const trades = [...offers, ...contracts].sort(sortByDate).reverse()
+  const filteredOffers = offers.filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
+  const trades = [...filteredOffers, ...contracts].sort(sortByDate).reverse()
 
   const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
   const openOffers = {
@@ -48,7 +49,7 @@ export const useYourTradesSetup = () => {
   useEffect(() => {
     if (isLoading) return
     if (offersUpdate && contractsUpdate) {
-      setOffers(offersUpdate.filter((offer) => !hasDoubleMatched(offer.tradeStatus)))
+      setOffers(offersUpdate)
       setContracts(contractsUpdate)
     }
     if (error) showErrorBanner(parseError(error))
