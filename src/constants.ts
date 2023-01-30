@@ -54,6 +54,8 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   cryptoCurrency: [],
 }
 
+export const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(PAYMENTCATEGORIES.giftCard)
+
 export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   EUR: {
     IT: ['satispay'],

@@ -8,7 +8,7 @@ export type PrimaryButtonProps = {
 } & Partial<ButtonProps>
 
 export const PrimaryButton = (props: PrimaryButtonProps) => {
-  const { white, border, disabled } = props
+  const { white, border, disabled, textColor: propTextColor } = props
 
   const color = disabled
     ? tw`bg-primary-mild-1`
@@ -17,7 +17,12 @@ export const PrimaryButton = (props: PrimaryButtonProps) => {
       : !border
         ? tw`bg-primary-main`
         : undefined
-  const textColor = (!border && white) || (border && !white) ? tw`text-primary-main` : tw`text-primary-background-light`
+  const textColor
+    = propTextColor !== undefined
+      ? propTextColor
+      : (!border && white) || (border && !white)
+        ? tw`text-primary-main`
+        : tw`text-primary-background-light`
   const borderColor = border ? (white ? tw`border-primary-background-light` : tw`border-primary-main`) : undefined
 
   return <Button {...{ ...props, color, textColor, borderColor }} />

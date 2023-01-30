@@ -65,6 +65,7 @@ import noNetwork from './noNetwork.svg'
 import notification from './notification.svg'
 import offline from './offline.svg'
 import paperclip from './paperclip.svg'
+import pauseCircle from './pauseCircle.svg'
 import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
@@ -179,6 +180,7 @@ const Icons = {
   notification,
   offline,
   paperclip,
+  pauseCircle,
   percent,
   plusCircle,
   plusSquare,

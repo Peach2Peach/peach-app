@@ -1,22 +1,70 @@
-import React from 'react'
-import { Pressable, View } from 'react-native'
+import React, { useCallback, useContext } from 'react'
+import { OverlayContext } from '../../../contexts/overlay'
+import { useToggleBoolean } from '../../../hooks'
+import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
+import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
 import tw from '../../../styles/tailwind'
-import { dropShadowRed } from '../../../utils/layout'
-import Icon from '../../Icon'
+
+import i18n from '../../../utils/i18n'
+import { dropShadowStrong } from '../../../utils/layout'
+import { PrimaryButton } from '../../buttons'
 import { Shadow } from '../../ui'
 import { useUnmatchOffer } from '../hooks'
-import { useMatchStore } from '../store'
+import { UndoButton } from './UndoButton'
 
-export const UnmatchButton = ({ match }: { match: Match }) => {
-  const offer = useMatchStore((state) => state.offer)
+type Props = {
+  match: Match
+  offer: BuyOffer | SellOffer
+  interruptMatching: () => void
+  showUnmatchedCard: () => void
+}
+
+export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCard }: Props) => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
+
+  const [showUnmatch, toggle] = useToggleBoolean(match.matched)
+
+  const showUnmatchPopup = useCallback(() => {
+    updateOverlay({
+      title: i18n('search.popups.unmatch.title'),
+      content: <UnmatchPopup />,
+      visible: true,
+      level: 'WARN',
+      action1: {
+        label: i18n('search.popups.unmatch.neverMind'),
+        icon: 'xSquare',
+        callback: () => updateOverlay({ visible: false }),
+      },
+      action2: {
+        label: i18n('search.popups.unmatch.confirm'),
+        icon: 'minusCircle',
+        callback: () => {
+          updateOverlay({ visible: false })
+          showUnmatchedCard()
+          unmatch()
+        },
+      },
+    })
+  }, [showUnmatchedCard, unmatch, updateOverlay])
+
+  const showMatchUndonePopup = useShowAppPopup('matchUndone')
+
+  const onUndoPress = () => {
+    showUnmatchedCard()
+    interruptMatching()
+    showMatchUndonePopup()
+  }
+
   return (
-    <Pressable onPress={() => unmatch()} style={tw`absolute top-0 right-0 z-10 p-2`}>
-      <Shadow shadow={dropShadowRed} style={tw`rounded-full`}>
-        <View style={tw`bg-white-1 rounded-full p-0.5`}>
-          <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color} />
-        </View>
-      </Shadow>
-    </Pressable>
+    <Shadow shadow={dropShadowStrong}>
+      {showUnmatch ? (
+        <PrimaryButton onPress={showUnmatchPopup} iconId="minusCircle" textColor={tw`text-error-main`} white narrow>
+          {i18n('search.unmatch')}
+        </PrimaryButton>
+      ) : (
+        <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
+      )}
+    </Shadow>
   )
 }

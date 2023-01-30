@@ -1,20 +1,23 @@
 import { settingsStore } from '../../../store/settingsStore'
 import { shouldGoToOfferSummary } from '.'
 
-export const getNavigationDestinationForOffer = (offer: OfferSummary): [string, object | undefined] => {
-  if (shouldGoToOfferSummary(offer.tradeStatus)) {
-    return ['offer', { offerId: offer.id }]
+export const getNavigationDestinationForOffer = ({
+  tradeStatus,
+  id: offerId,
+}: OfferSummary): [string, object | undefined] => {
+  if (shouldGoToOfferSummary(tradeStatus)) {
+    return ['offer', { offerId }]
   }
 
-  if (offer.tradeStatus === 'messageSigningRequired') {
+  if (tradeStatus === 'messageSigningRequired') {
     settingsStore.getState().setPeachWalletActive(false)
-    return ['signMessage', { offerId: offer.id }]
+    return ['signMessage', { offerId }]
   }
-  if (offer.tradeStatus === 'fundEscrow' || offer.tradeStatus === 'escrowWaitingForConfirmation') {
-    return ['fundEscrow', { offerId: offer.id }]
+  if (tradeStatus === 'fundEscrow' || tradeStatus === 'escrowWaitingForConfirmation') {
+    return ['fundEscrow', { offerId }]
   }
-  if (/searchingForPeer|hasMatchesAvailable/u.test(offer.tradeStatus)) {
-    return ['search', undefined]
+  if (/searchingForPeer|hasMatchesAvailable/u.test(tradeStatus)) {
+    return ['search', { offerId }]
   }
 
   return ['yourTrades', undefined]

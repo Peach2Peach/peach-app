@@ -1,6 +1,6 @@
 export { getTranslateY } from './getTranslateY'
 export { getTranslateX } from './getTranslateX'
-export { primaryGradient, whiteGradient } from './gradients'
+export { primaryGradient, whiteGradient, peachyGradient } from './gradients'
 export {
   dropShadow,
   dropShadowMild,
