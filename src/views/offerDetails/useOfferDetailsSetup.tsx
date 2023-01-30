@@ -4,25 +4,23 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useMatchStore } from '../../components/matches/store'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
-import { OverlayContext } from '../../contexts/overlay'
 import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { useNavigation, useRoute } from '../../hooks'
+import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
+import { useHandleContractOverlays } from '../../overlays/useHandleContractOverlays'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
-import { handleOverlays } from '../contract/helpers/handleOverlays'
-import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
   const offerId = route.params.offerId
   const navigation = useNavigation()
   const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
-
-  const [, updateOverlay] = useContext(OverlayContext)
+  const handleContractOverlays = useHandleContractOverlays()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
   const matchStoreSetOffer = useMatchStore((state) => state.setOffer)
@@ -92,7 +90,7 @@ export const useOfferDetailsSetup = () => {
           updateAppContext({
             notifications: getChatNotifications() + getRequiredActionCount(),
           })
-          handleOverlays({ contract: c, updateOverlay, view })
+          handleContractOverlays(c, view)
         },
         onError: (err) =>
           updateMessage({

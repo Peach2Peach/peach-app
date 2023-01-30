@@ -18,7 +18,7 @@ import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
   contract: Contract
-  view: 'seller' | 'buyer' | ''
+  view: ContractViewer
   vote: 'positive' | 'negative' | undefined
   saveAndUpdate: (contract: Contract) => void
 }

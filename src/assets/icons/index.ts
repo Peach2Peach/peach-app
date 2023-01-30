@@ -36,6 +36,7 @@ import creditCard from './creditCard.svg'
 import crossOutlined from './crossOutlined.svg'
 import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
+import dollarSignCircleInverted from './dollarSignCircleInverted.svg'
 import download from './download.svg'
 import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
@@ -70,6 +71,7 @@ import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
 import radioSelected from './radioSelected.svg'
 import refreshCcw from './refreshCcw.svg'
+import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
 import search from './search.svg'
@@ -101,6 +103,7 @@ import userCheck from './userCheck.svg'
 import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
+import watch from './watch.svg'
 import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
@@ -148,6 +151,7 @@ const Icons = {
   cryptotag,
   creditCard,
   dollarSign,
+  dollarSignCircleInverted,
   download,
   downloadCloud,
   edit,
@@ -182,6 +186,7 @@ const Icons = {
   prev,
   radioSelected,
   refreshCcw,
+  refreshCw,
   rotateCounterClockwise,
   save,
   search,
@@ -214,6 +219,7 @@ const Icons = {
   users,
   userX,
   wallet,
+  watch,
   x,
   xCircle,
   xSquare,
