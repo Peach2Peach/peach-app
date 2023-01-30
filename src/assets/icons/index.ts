@@ -73,6 +73,7 @@ import refreshCcw from './refreshCcw.svg'
 import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
+import saveCircleInverted from './saveCircleInverted.svg'
 import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
@@ -186,6 +187,7 @@ const Icons = {
   refreshCw,
   rotateCounterClockwise,
   save,
+  saveCircleInverted,
   search,
   selectClosed,
   selectOpen,
