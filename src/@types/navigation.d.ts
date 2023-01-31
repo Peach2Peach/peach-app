@@ -74,6 +74,11 @@ declare type RootStackParamList = {
   currency: undefined
   publicProfile: undefined
   referrals: undefined
+  backupTime: {
+    view: 'buyer' | 'seller'
+    nextScreen?: keyof RootStackParamList
+    [key: string]: any
+  }
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
