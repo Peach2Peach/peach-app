@@ -13,9 +13,13 @@ type Props = ComponentProps & {
 }
 
 export const Price = ({ match, fontStyle, isBuyOffer, style }: Props) => {
-  const selectedCurrency = useMatchStore((state) => state.matchSelectors[match.offerId]?.selectedCurrency)
+  const selectedCurrency = useMatchStore(
+    (state) =>
+      state.matchSelectors[match.offerId]?.selectedCurrency
+      || state.matchSelectors[match.offerId]?.availableCurrencies[0],
+  )
   const selectedPaymentMethod = useMatchStore((state) => state.matchSelectors[match.offerId]?.selectedPaymentMethod)
-  const displayPrice = getDisplayPrice(match, selectedPaymentMethod, selectedCurrency || 'EUR')
+  const displayPrice = getDisplayPrice(match, selectedPaymentMethod, selectedCurrency)
 
   const colors = [tw`text-success-main`, tw`text-black-4`, tw`text-primary-main`]
 
