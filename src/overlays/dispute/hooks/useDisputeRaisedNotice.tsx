@@ -6,10 +6,9 @@ import { account } from '../../../utils/account'
 import { getChat, saveChat } from '../../../utils/chat'
 import { initDisputeSystemMessages } from '../../../utils/chat/createDisputeSystemMessages'
 import i18n from '../../../utils/i18n'
-import { error, info } from '../../../utils/log'
+import { error } from '../../../utils/log'
 import { acknowledgeDispute } from '../../../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../../../views/dispute/DisputeForm'
-import SuccessOverlay from '../../SuccessOverlay'
 import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
 import { getContract as getContractAPI } from '../../../utils/peachAPI'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -30,17 +29,15 @@ export const useDisputeRaisedNotice = () => {
 
   const goToChat = useCallback(
     (contractId: string) => {
-      closeOverlay()
       navigation.navigate('contractChat', { contractId })
     },
-    [closeOverlay, navigation],
+    [navigation],
   )
 
   const submit = useCallback(
     async (contract: Contract, reason: DisputeReason) => {
-      info(email)
       const isFormValid = isEmailValid
-      if (!isFormValid) return
+      if (!isFormValid && isEmailRequired(reason)) return
 
       setLoading(true)
       const [acknowledgeDisputeResult, getContractResult] = await Promise.all([
@@ -65,15 +62,8 @@ export const useDisputeRaisedNotice = () => {
         })
         if (isEmailRequired(reason)) {
           Keyboard.dismiss()
-          updateOverlay({
-            content: <SuccessOverlay />,
-            visible: true,
-          })
-          setTimeout(closeOverlay, 3000)
-        } else {
-          navigation.push('contractChat', { contractId: contract.id })
-          closeOverlay()
         }
+        closeOverlay()
         return
       }
 
@@ -83,7 +73,7 @@ export const useDisputeRaisedNotice = () => {
       }
       setLoading(false)
     },
-    [closeOverlay, email, isEmailValid, navigation, showError, updateOverlay],
+    [closeOverlay, email, isEmailValid, showError],
   )
 
   return useCallback(
@@ -106,7 +96,9 @@ export const useDisputeRaisedNotice = () => {
         action2: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: closeOverlay,
+          callback: () => {
+            submit(contract, contract.disputeReason ?? 'other')
+          },
         },
         action1: isEmailRequired(contract.disputeReason ?? 'other')
           ? {
@@ -114,14 +106,18 @@ export const useDisputeRaisedNotice = () => {
             icon: 'arrowRightCircle',
             callback: () => {
               submit(contract, contract.disputeReason ?? 'other')
+              goToChat(contract.id)
             },
           }
           : {
             label: i18n('goToChat'),
             icon: 'messageCircle',
-            callback: () => goToChat(contract.id),
+            callback: () => {
+              submit(contract, contract.disputeReason ?? 'other')
+              goToChat(contract.id)
+            },
           },
       }),
-    [closeOverlay, email, emailErrors, goToChat, setEmail, submit, updateOverlay],
+    [email, emailErrors, goToChat, setEmail, submit, updateOverlay],
   )
 }
