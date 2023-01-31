@@ -6,7 +6,7 @@ import DisputeRaisedSuccess from '../components/DisputeRaisedSuccess'
 /**
  * @description Overlay appearing after raising dispute
  */
-export const useDisputeRaisedSuccess = () => {
+export const useDisputeRaisedSuccess = (view: ContractViewer) => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = useCallback(() => {
@@ -17,7 +17,7 @@ export const useDisputeRaisedSuccess = () => {
     updateOverlay({
       title: i18n('dispute.opened'),
       level: 'ERROR',
-      content: <DisputeRaisedSuccess />,
+      content: <DisputeRaisedSuccess view={view} />,
       visible: true,
       action1: {
         label: i18n('close'),
@@ -25,6 +25,6 @@ export const useDisputeRaisedSuccess = () => {
         callback: closeOverlay,
       },
     })
-  }, [updateOverlay, closeOverlay])
+  }, [updateOverlay, view, closeOverlay])
   return showOverlay
 }

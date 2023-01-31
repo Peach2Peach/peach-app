@@ -690,7 +690,7 @@
   "dispute.chat": "dispute chat",
   "trade.chat": "trade chat",
   "dispute.opened": "dispute opened",
-  "dispute.raised.text": "The buyer and the mediator have been notified. Keep an eye on the chat!",
+  "dispute.raised.text": "The $0 and the mediator have been notified. Keep an eye on the chat!",
   "dispute.nonDispute": "dispute resolved!",
   "dispute.won": "dispute won!",
   "dispute.won.text.1": "We’ve ruled in favour of your side in the dispute for trade $0.",
