@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
-import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { account } from '../../../utils/account'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -15,7 +15,8 @@ import NonDispute from '../components/NonDispute'
 export const useDisputeResults = () => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateMessage] = useContext(MessageContext)
+
+  const showError = useShowErrorBanner()
 
   return useCallback(
     (contract: Contract, view: ContractViewer) => {
@@ -46,29 +47,13 @@ export const useDisputeResults = () => {
       const release = async () => {
         const [tx, errorMsg] = signReleaseTx(contract)
         if (!tx) {
-          updateMessage({
-            msgKey: errorMsg || 'GENERAL_ERROR',
-            level: 'WARN',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          })
+          showError(errorMsg || 'GENERAL_ERROR')
           return
         }
         const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
         if (err) {
           error(err.error)
-          updateMessage({
-            msgKey: err.error || 'GENERAL_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          })
+          showError(err.error)
           return
         }
         saveContract({
@@ -145,6 +130,6 @@ export const useDisputeResults = () => {
           },
         })
     },
-    [navigation, updateMessage, updateOverlay],
+    [navigation, showError, updateOverlay],
   )
 }
