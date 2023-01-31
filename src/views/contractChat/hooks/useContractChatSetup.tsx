@@ -1,45 +1,43 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
-import { useFocusEffect } from '@react-navigation/native'
 import ContractTitle from '../../../components/titles/ContractTitle'
-import { MessageContext } from '../../../contexts/message'
-import { OverlayContext } from '../../../contexts/overlay'
-import { useHeaderSetup, useNavigation, useRoute, useThrottledEffect } from '../../../hooks'
+import { useHeaderSetup, useRoute, useThrottledEffect } from '../../../hooks'
+import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useOpenDispute } from '../../../overlays/disputeResults/useOpenDispute'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { account } from '../../../utils/account'
-import { decryptMessage, getChat, popUnsentMessages, saveChat } from '../../../utils/chat'
+import { getChat, popUnsentMessages, saveChat } from '../../../utils/chat'
 import { getTradingPartner } from '../../../utils/contract'
-import { decryptContractData } from '../../../utils/contract/decryptContractData'
-import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
+import { parseError } from '../../../utils/system'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
-import getMessagesEffect from '../utils/getMessagesEffect'
 import { useShowDisputeDisclaimer } from '../utils/useShowDisputeDisclaimer'
-import { useOpenDispute } from '../../../overlays/disputeResults/useOpenDispute'
 
 // eslint-disable-next-line max-statements
 export const useContractChatSetup = () => {
   const route = useRoute<'contractChat'>()
   const { contractId } = route.params
-  const [, updateMessage] = useContext(MessageContext)
 
-  const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
-  const { contract, view, saveAndUpdate } = useCommonContractSetup(contractId)
-
+  const { contract, view } = useCommonContractSetup(contractId)
+  const {
+    messages,
+    isLoading,
+    error: messagesError,
+    fetchNextPage,
+    hasNextPage,
+  } = useChatMessages(contractId, contract?.symmetricKey)
+  const showError = useShowErrorBanner()
   const cancelTradeOverlay = useConfirmCancelTrade(contractId)
   const showDisclaimer = useShowDisputeDisclaimer()
   const openDisputeOverlay = useOpenDispute(contractId)
-
-  const [updatePending, setUpdatePending] = useState(true)
-  const [loadingMessages, setLoadingMessages] = useState(true)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState<Chat>(getChat(contractId))
-  const [newMessage, setNewMessage] = useState('')
-  const [page, setPage] = useState(0)
+  const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
 
   useHeaderSetup(
@@ -115,132 +113,65 @@ export const useContractChatSetup = () => {
     setNewMessage(message)
   }
 
-  const loadMore = () => {
-    setLoadingMessages(true)
-    setPage((p) => p + 1)
-  }
+  useEffect(() => {
+    const unsentMessages = popUnsentMessages(chat.id)
+    if (ws.connected && unsentMessages.length) {
+      unsentMessages.forEach((unsent) => {
+        sendMessage(unsent.message || '')
+      })
+    }
 
-  useFocusEffect(
-    useCallback(() => {
-      setNewMessage(chat.draftMessage)
-      if (contract?.id !== contractId) {
-        setUpdatePending(true)
-        setLoadingMessages(true)
-        setPage(0)
-        setChat(getChat(contractId) || {})
+    const messageHandler = async (message: Message) => {
+      if (!contract || !contract.symmetricKey) return
+      if (!message.message || message.roomId !== `contract-${contract.id}`) return
+
+      let messageBody = ''
+      try {
+        messageBody = await decryptSymmetric(message.message, contract.symmetricKey)
+      } catch {
+        error(new Error(`Could not decrypt message for contract ${contract.id}`))
       }
-    }, [contract?.id, contractId]),
-  )
-
-  useFocusEffect(
-    useCallback(() => {
-      const unsentMessages = popUnsentMessages(chat.id)
-      if (ws.connected && unsentMessages.length) {
-        unsentMessages.forEach((unsent) => {
-          sendMessage(unsent.message || '')
-        })
+      const decryptedMessage = {
+        ...message,
+        date: new Date(message.date),
+        message: messageBody,
       }
-
-      const messageHandler = async (message: Message) => {
-        if (!contract || !contract.symmetricKey) return
-        if (!message.message || message.roomId !== `contract-${contract.id}`) return
-
-        let messageBody = ''
-        try {
-          messageBody = await decryptSymmetric(message.message, contract.symmetricKey)
-        } catch {
-          error(new Error(`Could not decrypt message for contract ${contract.id}`))
-        }
-        const decryptedMessage = {
-          ...message,
-          date: new Date(message.date),
-          message: messageBody,
-        }
-        setAndSaveChat(contractId, {
-          messages: [decryptedMessage],
-        })
-        if (!message.readBy.includes(account.publicKey)) {
-          ws.send(
-            JSON.stringify({
-              path: '/v1/contract/chat/received',
-              contractId: contract.id,
-              start: message.date,
-              end: message.date,
-            }),
-          )
-        }
+      setAndSaveChat(contractId, {
+        messages: [decryptedMessage],
+      })
+      if (!message.readBy.includes(account.publicKey)) {
+        ws.send(
+          JSON.stringify({
+            path: '/v1/contract/chat/received',
+            contractId: contract.id,
+            start: message.date,
+            end: message.date,
+          }),
+        )
       }
-      const unsubscribe = () => {
-        ws.off('message', messageHandler)
-      }
+    }
+    const unsubscribe = () => {
+      ws.off('message', messageHandler)
+    }
 
-      if (!ws.connected) return unsubscribe
-      ws.on('message', messageHandler)
-      return unsubscribe
-    }, [chat.id, contract, contractId, sendMessage, ws]),
-  )
+    if (!ws.connected) return unsubscribe
+    ws.on('message', messageHandler)
+    return unsubscribe
+  }, [chat.id, contract, contractId, sendMessage, ws])
 
   useEffect(() => {
-    if (!contract) return
-    getMessagesEffect({
-      contractId: contract.id,
-      page,
-      onSuccess: async (result) => {
-        if (!contract || !contract.symmetricKey) {
-          setUpdatePending(false)
-          return
-        }
-        let decryptedMessages = await Promise.all(result.map(decryptMessage(chat, contract.symmetricKey)))
-
-        if (decryptedMessages.some((m) => m.message === null)) {
-          // delete symmetric key to let app decrypt actual one
-          const { symmetricKey } = await decryptContractData({
-            ...contract,
-            symmetricKey: undefined,
-          })
-
-          if (!symmetricKey) return
-
-          saveAndUpdate({
-            ...contract,
-            unreadMessages: 0,
-            symmetricKey,
-          })
-
-          decryptedMessages = await Promise.all(decryptedMessages.map(decryptMessage(chat, symmetricKey)))
-        }
-
-        if (decryptedMessages.some((m) => m.message === null)) {
-          error('Could not decrypt all messages', contract.id)
-        }
-
-        setAndSaveChat(contractId, {
-          messages: decryptedMessages,
-        })
-        setLoadingMessages(false)
-        setUpdatePending(false)
-      },
-      onError: (err) => {
-        setUpdatePending(false)
-        setLoadingMessages(false)
-        updateMessage({
-          msgKey: err.error || 'GENERAL_ERROR',
-          level: 'ERROR',
-          action: {
-            callback: () => navigation.navigate('contact'),
-            label: i18n('contactUs'),
-            icon: 'mail',
-          },
-        })
-      },
-    })()
-  }, [contract, contractId, navigation, page, updateMessage])
+    if (messages) setAndSaveChat(contractId, { messages })
+  }, [contractId, messages])
 
   useEffect(() => {
-    if (contract && !updatePending && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
+    if (messagesError) showError(parseError(messagesError))
+  }, [messagesError, showError])
+
+  useEffect(() => {
+    if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
       showDisclaimer()
     }
-  }, [contract, showDisclaimer, updatePending])
+  }, [contract, showDisclaimer])
 
   return {
     contract,
@@ -248,9 +179,9 @@ export const useContractChatSetup = () => {
     setAndSaveChat,
     tradingPartner,
     ws,
-    page,
-    loadMore,
-    loadingMessages,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
     onChangeMessage,
     submit,
     disableSend,
