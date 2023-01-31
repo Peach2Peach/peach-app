@@ -17,9 +17,8 @@ export default (): ReactElement => {
     setAndSaveChat,
     tradingPartner,
     ws,
-    page,
-    loadMore,
-    loadingMessages,
+    fetchNextPage,
+    isLoading,
     onChangeMessage,
     submit,
     disableSend,
@@ -37,9 +36,8 @@ export default (): ReactElement => {
           setAndSaveChat={setAndSaveChat}
           tradingPartner={tradingPartner?.id || ''}
           online={ws.connected}
-          page={page}
-          loadMore={loadMore}
-          loading={loadingMessages}
+          onRefresh={fetchNextPage}
+          loading={isLoading}
         />
       </View>
       {!contract.canceled || contract.disputeActive ? (

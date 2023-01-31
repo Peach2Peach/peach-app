@@ -1,5 +1,5 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
-import { FlatList, Keyboard, ViewToken } from 'react-native'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { FlatList, Keyboard, NativeScrollEvent, NativeSyntheticEvent, ViewToken } from 'react-native'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
 import { getChat, getChatNotifications } from '../../../utils/chat'
@@ -12,24 +12,15 @@ type ChatBoxProps = ComponentProps & {
   chat: Chat
   setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void
   tradingPartner: User['id']
-  page: number
-  loadMore: () => void
+  onRefresh: () => void
   loading: boolean
   online: boolean
 }
 
-export default ({
-  chat,
-  setAndSaveChat,
-  tradingPartner,
-  page,
-  loadMore,
-  loading,
-  online,
-}: ChatBoxProps): ReactElement => {
+export default ({ chat, setAndSaveChat, tradingPartner, onRefresh, loading, online }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
+  const [scrollOffset, setScrollOffset] = useState(0)
   const scroll = useRef<FlatList<Message>>(null)
-  const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 
   useEffect(() => {
     setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
@@ -39,8 +30,9 @@ export default ({
     Keyboard.addListener('keyboardDidShow', () => () => scroll.current?.scrollToEnd({ animated: false }))
   }, [])
 
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => setScrollOffset(event.nativeEvent.contentOffset.y)
   const onContentSizeChange = () =>
-    page === 0 ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50) : () => {}
+    scrollOffset === 0 ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50) : () => {}
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     const lastItem = viewableItems.pop()?.item as Message
@@ -56,8 +48,9 @@ export default ({
   return (
     <FlatList
       ref={scroll}
-      data={visibleChatMessages}
+      data={chat.messages}
       onContentSizeChange={onContentSizeChange}
+      onScroll={onScroll}
       onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
       onViewableItemsChanged={onViewableItemsChanged}
       keyExtractor={(item) =>
@@ -67,13 +60,13 @@ export default ({
         <ChatMessage
           item={item}
           index={index}
-          chatMessages={visibleChatMessages}
+          chatMessages={chat.messages}
           tradingPartner={tradingPartner}
           online={online}
         />
       )}
       initialNumToRender={PAGE_SIZE}
-      onRefresh={loadMore}
+      onRefresh={onRefresh}
       refreshing={loading}
       contentContainerStyle={tw`pb-5`}
     />
