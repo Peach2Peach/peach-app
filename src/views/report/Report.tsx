@@ -6,7 +6,6 @@ import tw from '../../styles/tailwind'
 import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import LanguageContext from '../../contexts/language'
-import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
@@ -22,7 +21,6 @@ export default (): ReactElement => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
   useContext(LanguageContext)
-  const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
@@ -55,7 +53,8 @@ export default (): ReactElement => {
       message: messageToSend,
     })
     if (result) {
-      navigation.navigate('settings')
+      navigation.goBack()
+      navigation.goBack()
       showReportSuccess(updateOverlay)
       return
     }
