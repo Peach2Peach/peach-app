@@ -2,16 +2,15 @@ import React, { useCallback, useContext, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { account } from '../../../utils/account'
 import { getChat, saveChat } from '../../../utils/chat'
 import { initDisputeSystemMessages } from '../../../utils/chat/createDisputeSystemMessages'
 import i18n from '../../../utils/i18n'
-import { error } from '../../../utils/log'
+import { getContract as getContractAPI } from '../../../utils/peachAPI'
 import { acknowledgeDispute } from '../../../utils/peachAPI/private/contract'
 import { isEmailRequired } from '../../../views/dispute/DisputeForm'
 import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
-import { getContract as getContractAPI } from '../../../utils/peachAPI'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 
 const emailRules = { required: true, email: true }
 
@@ -67,10 +66,7 @@ export const useDisputeRaisedNotice = () => {
         return
       }
 
-      if (err) {
-        error('Error', err)
-        showError(err?.error || 'GENERAL_ERROR')
-      }
+      if (err) showError(err?.error)
       setLoading(false)
     },
     [closeOverlay, email, isEmailValid, showError],
