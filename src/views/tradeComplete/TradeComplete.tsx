@@ -60,7 +60,7 @@ export default (): ReactElement => {
           <TouchableOpacity
             onPress={() => setVote('negative')}
             style={[
-              tw`px-4 pb-[13px] pt-[19px] items-center justify-center mr-6`,
+              tw`px-4 pb-[13px] pt-[19px] w-16 h-16 items-center justify-center mr-6`,
               tw`border-[3px] border-primary-background-light rounded-[21px]`,
               vote === 'negative' && tw`bg-primary-background-light`,
             ]}
@@ -74,7 +74,7 @@ export default (): ReactElement => {
           <TouchableOpacity
             onPress={() => setVote('positive')}
             style={[
-              tw`px-4 pt-[13px] pb-[19px] items-center justify-center ml-6`,
+              tw`px-4 pt-[13px] pb-[19px] w-16 h-16 items-center justify-center ml-6`,
               tw`border-[3px] border-primary-background-light rounded-[21px]`,
               vote === 'positive' && tw`bg-primary-background-light`,
             ]}
