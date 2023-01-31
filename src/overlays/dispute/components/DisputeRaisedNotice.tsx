@@ -24,48 +24,45 @@ export default ({
   email,
   setEmail,
   emailErrors,
-}: DisputeRaisedNoticeProps): ReactElement => (
-  <>
-    <Text style={tw`mb-3 body-m text-black-1`}>
-      {isEmailRequired(disputeReason)
-        ? view === 'seller'
+}: DisputeRaisedNoticeProps): ReactElement => {
+  const counterView = view === 'seller' ? 'buyer' : 'seller'
+  return (
+    <>
+      <Text style={tw`mb-3 body-m text-black-1`}>
+        {isEmailRequired(disputeReason)
           ? i18n(
-            'dispute.opened.counterparty.text.1.withEmail.seller',
+            `dispute.opened.counterparty.text.1.withEmail.${counterView}`,
             contractIdToHex(contract.id),
             contract.amount.toString(),
           )
           : i18n(
-            'dispute.opened.counterparty.text.1.withEmail.buyer',
+            'dispute.opened.counterparty.text.1.withoutEmail',
+            i18n(counterView),
             contractIdToHex(contract.id),
             contract.amount.toString(),
-          )
-        : i18n(
-          'dispute.opened.counterparty.text.1.withoutEmail',
-          i18n(view),
-          contractIdToHex(contract.id),
-          contract.amount.toString(),
-        )}
-    </Text>
-    <Text style={tw`body-m text-black-1`}>
-      {isEmailRequired(disputeReason)
-        ? i18n('dispute.opened.counterparty.text.2.withEmail')
-        : i18n('dispute.opened.counterparty.text.2.withoutEmail')}
-    </Text>
+          )}
+      </Text>
+      <Text style={tw`body-m text-black-1`}>
+        {isEmailRequired(disputeReason)
+          ? i18n('dispute.opened.counterparty.text.2.withEmail')
+          : i18n('dispute.opened.counterparty.text.2.withoutEmail')}
+      </Text>
 
-    {isEmailRequired(disputeReason) && (
-      <View style={tw`mt-4`}>
-        <Input
-          style={tw`bg-warning-background`}
-          onChange={setEmail}
-          onSubmit={() => {
-            submit(contract, contract.disputeReason)
-          }}
-          value={email}
-          placeholder={i18n('form.email.placeholder')}
-          autoCorrect={false}
-          errorMessage={emailErrors}
-        />
-      </View>
-    )}
-  </>
-)
+      {isEmailRequired(disputeReason) && (
+        <View style={tw`mt-4`}>
+          <Input
+            style={tw`bg-warning-background`}
+            onChange={setEmail}
+            onSubmit={() => {
+              submit(contract, contract.disputeReason)
+            }}
+            value={email}
+            placeholder={i18n('form.email.placeholder')}
+            autoCorrect={false}
+            errorMessage={emailErrors}
+          />
+        </View>
+      )}
+    </>
+  )
+}
