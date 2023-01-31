@@ -13,6 +13,7 @@ import { showReportSuccess } from '../../overlays/showReportSuccess'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -29,6 +30,8 @@ export default (): ReactElement => {
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
   const reason = route.params.reason
+
+  const showError = useShowErrorBanner()
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
@@ -59,15 +62,7 @@ export default (): ReactElement => {
 
     if (err) {
       error('Error', err)
-      updateMessage({
-        msgKey: err?.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
+      showError(err?.error || 'GENERAL_ERROR')
     }
   }
 
