@@ -1,9 +1,6 @@
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
-import { useNavigation } from '../../../hooks'
 import i18n from '../../../utils/i18n'
-import { contract } from '../../../../tests/unit/data/contractData'
-import { OpenDispute } from '../components/OpenDispute'
 import DisputeRaisedSuccess from '../components/DisputeRaisedSuccess'
 
 /**
@@ -12,7 +9,9 @@ import DisputeRaisedSuccess from '../components/DisputeRaisedSuccess'
 export const useDisputeRaisedSuccess = () => {
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ visible: false })
+  const closeOverlay = useCallback(() => {
+    updateOverlay({ visible: false })
+  }, [updateOverlay])
 
   const showOverlay = useCallback(() => {
     updateOverlay({
@@ -26,6 +25,6 @@ export const useDisputeRaisedSuccess = () => {
         callback: closeOverlay,
       },
     })
-  }, [updateOverlay, contract])
+  }, [updateOverlay, closeOverlay])
   return showOverlay
 }

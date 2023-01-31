@@ -30,10 +30,10 @@ export const useDisputeRaisedNotice = () => {
 
   const goToChat = useCallback(
     (contractId: string) => {
-      updateOverlay({ visible: false })
+      closeOverlay()
       navigation.navigate('contractChat', { contractId })
     },
-    [updateOverlay, navigation],
+    [closeOverlay, navigation],
   )
 
   const submit = useCallback(
