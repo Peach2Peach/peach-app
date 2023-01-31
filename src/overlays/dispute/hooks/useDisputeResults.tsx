@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react'
-import { View } from 'react-native'
 import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
@@ -8,9 +7,10 @@ import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/con
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
 import { confirmPayment } from '../../../utils/peachAPI'
-import { DisputeLostBuyer } from '../DisputeLostBuyer'
-import { DisputeLostSeller } from '../DisputeLostSeller'
-import DisputeWon from '../DisputeWon'
+import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
+import { DisputeLostSeller } from '../components/DisputeLostSeller'
+import DisputeWon from '../components/DisputeWon'
+import NonDispute from '../components/NonDispute'
 
 export const useDisputeResults = () => {
   const navigation = useNavigation()
@@ -19,7 +19,15 @@ export const useDisputeResults = () => {
 
   return useCallback(
     (contract: Contract, view: ContractViewer) => {
-      const goToChat = () => navigation.navigate('contractChat', { contractId: contract.id })
+      const goToChat = () => {
+        saveContract({
+          ...contract,
+          disputeResultAcknowledged: true,
+          cancelConfirmationDismissed: true,
+        })
+        navigation.navigate('contractChat', { contractId: contract.id })
+        updateOverlay({ visible: false })
+      }
 
       const goToContract = () => {
         navigation.navigate('contract', { contractId: contract.id })
@@ -33,7 +41,6 @@ export const useDisputeResults = () => {
           cancelConfirmationDismissed: true,
         })
         goToContract()
-        updateOverlay({ visible: false })
       }
 
       const release = async () => {
@@ -122,10 +129,20 @@ export const useDisputeResults = () => {
               },
             })
         : updateOverlay({
-          title: i18n('dispute.opened'),
+          title: i18n('dispute.closed'),
           level: 'WARN',
-          content: <View></View>,
+          content: <NonDispute tradeId={tradeId} />,
           visible: true,
+          action2: {
+            label: i18n('close'),
+            icon: 'xSquare',
+            callback: closeOverlay,
+          },
+          action1: {
+            label: i18n('goToChat'),
+            icon: 'messageCircle',
+            callback: goToChat,
+          },
         })
     },
     [navigation, updateMessage, updateOverlay],
