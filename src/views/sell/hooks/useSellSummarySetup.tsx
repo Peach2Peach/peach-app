@@ -8,8 +8,8 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 
 export const useSellSummarySetup = () => {
   const navigation = useNavigation()
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
   const [returnAddress, setReturnAddress] = useState('')
@@ -38,6 +38,12 @@ export const useSellSummarySetup = () => {
       }
     })()
   }, [payoutAddress, peachWalletActive])
+
+  useEffect(() => {
+    if (!peachWalletActive && !payoutAddress && !payoutAddressLabel) {
+      setPeachWalletActive(true)
+    }
+  }, [payoutAddress, payoutAddressLabel, peachWalletActive, setPeachWalletActive])
 
   return { returnAddress, walletLabel }
 }
