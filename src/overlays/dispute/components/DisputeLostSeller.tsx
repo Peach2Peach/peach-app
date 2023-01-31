@@ -9,8 +9,8 @@ type DisputeLostSellerProps = {
 
 export const DisputeLostSeller = ({ tradeId }: DisputeLostSellerProps): ReactElement => (
   <>
-    <Text style={tw`mb-3 body-m text-black-1`}>{i18n('dispute.seller.lost.text.1', tradeId)}</Text>
-    <Text style={tw`mb-3 body-m text-black-1`}>{i18n('dispute.seller.lost.text.2')}</Text>
-    <Text style={tw`mb-3 body-m text-black-1`}>{i18n('dispute.seller.lost.text.3')}</Text>
+    <Text style={tw`body-m text-black-1`}>{i18n('dispute.seller.lost.text.1', tradeId)}</Text>
+    <Text style={tw`mt-3 body-m text-black-1`}>{i18n('dispute.seller.lost.text.2')}</Text>
+    <Text style={tw`mt-3 body-m text-black-1`}>{i18n('dispute.seller.lost.text.3')}</Text>
   </>
 )
