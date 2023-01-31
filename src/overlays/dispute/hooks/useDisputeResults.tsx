@@ -5,7 +5,6 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { account } from '../../../utils/account'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { error } from '../../../utils/log'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
@@ -46,23 +45,18 @@ export const useDisputeResults = () => {
 
       const release = async () => {
         const [tx, errorMsg] = signReleaseTx(contract)
-        if (!tx) {
-          showError(errorMsg)
-          return
-        }
+        if (!tx) return showError(errorMsg)
+
         const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
-        if (err) {
-          error(err.error)
-          showError(err.error)
-          return
-        }
+        if (err) return showError(err.error)
+
         saveContract({
           ...contract,
           paymentConfirmed: new Date(),
           releaseTxId: result?.txId || '',
           disputeResultAcknowledged: true,
         })
-        closeOverlay()
+        return closeOverlay()
       }
 
       const tradeId = contractIdToHex(contract.id)
