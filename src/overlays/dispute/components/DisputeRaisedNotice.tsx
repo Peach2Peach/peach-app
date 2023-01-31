@@ -4,6 +4,7 @@ import { Input } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
+import { thousands } from '../../../utils/string'
 import { isEmailRequired } from '../../../views/dispute/DisputeForm'
 
 declare type DisputeRaisedNoticeProps = {
@@ -33,13 +34,13 @@ export default ({
           ? i18n(
             `dispute.opened.counterparty.text.1.withEmail.${counterView}`,
             contractIdToHex(contract.id),
-            contract.amount.toString(),
+            thousands(contract.amount),
           )
           : i18n(
             'dispute.opened.counterparty.text.1.withoutEmail',
             i18n(counterView),
             contractIdToHex(contract.id),
-            contract.amount.toString(),
+            thousands(contract.amount),
           )}
       </Text>
       <Text style={tw`body-m text-black-1`}>
