@@ -87,7 +87,8 @@ declare type Message = {
   roomId: string
   from: User['id']
   date: Date
-  message?: string | null
+  message: string
+  decrypted?: boolean
   readBy: string[]
   signature: string
 }
