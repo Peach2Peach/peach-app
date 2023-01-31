@@ -47,7 +47,7 @@ export const useDisputeResults = () => {
       const release = async () => {
         const [tx, errorMsg] = signReleaseTx(contract)
         if (!tx) {
-          showError(errorMsg || 'GENERAL_ERROR')
+          showError(errorMsg)
           return
         }
         const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
