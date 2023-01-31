@@ -4,13 +4,16 @@ import { BackgroundConfig } from '../components/background/Background'
 import MeetupScreen from '../components/payment/MeetupScreen'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
+import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
 import BuyPreferences from './buy/BuyPreferences'
 import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
+import PaymentMade from './contract/PaymentMade'
 import ContractChat from './contractChat/ContractChat'
-import Dispute from './dispute/Dispute'
+import DisputeForm from './dispute/DisputeForm'
+import DisputeReasonSelector from './dispute/DisputeReasonSelector'
 import NewUser from './newUser/NewUser'
 import OfferDetails from './offerDetails/OfferDetails'
 import PublicProfile from './publicProfile/PublicProfile'
@@ -19,8 +22,8 @@ import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
-import FundEscrow from './sell/FundEscrow'
 import SelectWallet from './selectWallet/SelectWallet'
+import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
@@ -48,8 +51,6 @@ import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
-import DisputeReasonSelector from './dispute/DisputeReasonSelector'
-import DisputeForm from './dispute/DisputeForm'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -98,6 +99,7 @@ const search: ViewType[] = [
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
   { name: 'contractChat', component: ContractChat, ...defaultConfig },
+  { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
   { name: 'tradeComplete', component: TradeComplete, ...defaultConfig },
 ]
 
@@ -132,6 +134,7 @@ const settings: ViewType[] = [
   { name: 'language', component: Language, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
   {
     name: 'backupCreated',

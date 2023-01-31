@@ -36,6 +36,7 @@ import creditCard from './creditCard.svg'
 import crossOutlined from './crossOutlined.svg'
 import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
+import dollarSignCircleInverted from './dollarSignCircleInverted.svg'
 import download from './download.svg'
 import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
@@ -64,6 +65,7 @@ import noNetwork from './noNetwork.svg'
 import notification from './notification.svg'
 import offline from './offline.svg'
 import paperclip from './paperclip.svg'
+import pauseCircle from './pauseCircle.svg'
 import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
@@ -73,6 +75,7 @@ import refreshCcw from './refreshCcw.svg'
 import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
+import saveCircleInverted from './saveCircleInverted.svg'
 import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
@@ -149,6 +152,7 @@ const Icons = {
   cryptotag,
   creditCard,
   dollarSign,
+  dollarSignCircleInverted,
   download,
   downloadCloud,
   edit,
@@ -177,6 +181,7 @@ const Icons = {
   notification,
   offline,
   paperclip,
+  pauseCircle,
   percent,
   plusCircle,
   plusSquare,
@@ -186,6 +191,7 @@ const Icons = {
   refreshCw,
   rotateCounterClockwise,
   save,
+  saveCircleInverted,
   search,
   selectClosed,
   selectOpen,

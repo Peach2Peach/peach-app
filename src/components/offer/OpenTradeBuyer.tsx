@@ -18,7 +18,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
 
   return (
     <View style={[tw`h-full`, tw.md`h-auto`]}>
-      <ProfileOverview user={contract.seller} />
+      <ProfileOverview user={contract.seller} clickableID />
       <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView style={tw`flex-shrink`} showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row items-center justify-between mt-6`}>

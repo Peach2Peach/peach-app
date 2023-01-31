@@ -61,9 +61,9 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
     })
 
     if (rating.rating === 1) {
-      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
+      navigation.replace('backupTime', { view, nextScreen: 'offer', offerId: getOfferIdFromContract(contract) })
     } else {
-      navigation.replace('yourTrades')
+      navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
     }
   }
   return (

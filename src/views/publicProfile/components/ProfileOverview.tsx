@@ -7,12 +7,17 @@ import { Rating } from '../../settings/profile/profileOverview/components/Rating
 import { UserId } from '../../settings/profile/profileOverview/components/UserId'
 import { Badges } from './Badges'
 
-export const ProfileOverview = ({ style, user }: ComponentProps & { user: User }) => (
+type Props = ComponentProps & {
+  user: User
+  clickableID?: boolean
+}
+
+export const ProfileOverview = ({ style, user, clickableID = false }: Props) => (
   <View style={[tw`flex-row justify-between`, style]}>
     <View style={tw`flex-row items-center`}>
       <ProfileImage />
       <View style={tw`ml-2`}>
-        <UserId id={user.id} />
+        <UserId id={user.id} showInfo={clickableID} />
         <Rating rating={user.rating} />
       </View>
     </View>

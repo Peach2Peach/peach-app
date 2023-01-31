@@ -36,13 +36,16 @@ declare type RootStackParamList = {
   selectWallet: {
     type: 'refund' | 'payout'
   }
-  offerPublished: undefined
-  search: undefined
+  offerPublished: { offerId: string }
+  search: { offerId: string }
   contract: {
     contractId: Contract['id']
     contract?: Contract
   }
   contractChat: {
+    contractId: Contract['id']
+  }
+  paymentMade: {
     contractId: Contract['id']
   }
   disputeReasonSelector: {
@@ -71,6 +74,11 @@ declare type RootStackParamList = {
   currency: undefined
   publicProfile: undefined
   referrals: undefined
+  backupTime: {
+    view: 'buyer' | 'seller'
+    nextScreen?: keyof RootStackParamList
+    [key: string]: any
+  }
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
