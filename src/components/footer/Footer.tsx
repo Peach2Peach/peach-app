@@ -6,7 +6,6 @@ import AppContext from '../../contexts/app'
 import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
-import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { footerShadow, noShadow } from '../../utils/layout'
@@ -17,6 +16,7 @@ import shallow from 'zustand/shallow'
 
 import PeachOrange from '../../assets/logo/peachOrange.svg'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
+import { useCheckTradeNotifications } from '../../hooks/useCheckTradeNotifications'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -107,9 +107,11 @@ const FooterItem = ({
  */
 export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: FooterProps): ReactElement => {
   const navigation = useNavigation()
-  const [{ notifications }, updateAppContext] = useContext(AppContext)
+  const [{ notifications }] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
+
+  const checkTradeNotifications = useCheckTradeNotifications()
 
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
@@ -129,12 +131,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   }
 
   useEffect(() => {
-    updateAppContext({
-      notifications: getChatNotifications(),
-    })
-  }, [updateAppContext])
-
-  useEffect(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
       const contract = getContractFromDevice(update.contractId)
 
@@ -143,9 +139,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
         ...contract,
         [update.event]: new Date(update.data.date),
       })
-      updateAppContext({
-        notifications: getChatNotifications(),
-      })
+      checkTradeNotifications()
     }
     const messageHandler = async (message: Message) => {
       if (!message.message || !message.roomId || message.from === account.publicKey) return
@@ -156,9 +150,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
         ...contract,
         unreadMessages: contract.unreadMessages + 1,
       })
-      updateAppContext({
-        notifications: getChatNotifications(),
-      })
+      checkTradeNotifications()
     }
     const unsubscribe = () => {
       ws.off('message', contractUpdateHandler)
@@ -171,7 +163,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [updateAppContext, ws, ws.connected])
+  }, [checkTradeNotifications, ws, ws.connected])
 
   return !keyboardOpen ? (
     <View style={[tw`flex-row items-start w-full`, style]}>

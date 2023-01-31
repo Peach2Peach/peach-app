@@ -1,8 +1,8 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, ViewToken } from 'react-native'
-import AppContext from '../../../contexts/app'
+import { useCheckTradeNotifications } from '../../../hooks/useCheckTradeNotifications'
 import tw from '../../../styles/tailwind'
-import { getChat, getChatNotifications } from '../../../utils/chat'
+import { getChat } from '../../../utils/chat'
 import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 21
@@ -26,9 +26,9 @@ export default ({
   loading,
   online,
 }: ChatBoxProps): ReactElement => {
-  const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
+  const checkTradeNotifications = useCheckTradeNotifications()
 
   useEffect(() => {
     setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
@@ -48,11 +48,9 @@ export default ({
       if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
       setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-      updateAppContext({
-        notifications: getChatNotifications(),
-      })
+      checkTradeNotifications()
     },
-    [chat.id, setAndSaveChat, updateAppContext],
+    [chat.id, checkTradeNotifications, setAndSaveChat],
   )
 
   return (

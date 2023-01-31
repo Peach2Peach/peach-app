@@ -3,11 +3,10 @@ import { Pressable, View } from 'react-native'
 
 import { Card, PrimaryButton, Text } from '../../../components'
 import Icon from '../../../components/Icon'
-import AppContext from '../../../contexts/app'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
+import { useCheckTradeNotifications } from '../../../hooks/useCheckTradeNotifications'
 import tw from '../../../styles/tailwind'
-import { getChatNotifications } from '../../../utils/chat'
 import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { rateUser } from '../../../utils/peachAPI'
@@ -21,7 +20,7 @@ type RateProps = ComponentProps & {
 export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactElement => {
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [, updateAppContext] = useContext(AppContext)
+  const checkTradeNotifications = useCheckTradeNotifications()
 
   const [vote, setVote] = useState('')
 
@@ -56,9 +55,7 @@ export default ({ contract, view, saveAndUpdate, style }: RateProps): ReactEleme
       ...contract,
       [ratedUser]: true,
     })
-    updateAppContext({
-      notifications: getChatNotifications(),
-    })
+    checkTradeNotifications()
 
     if (rating.rating === 1) {
       navigation.replace('backupTime', { view, nextScreen: 'offer', offerId: getOfferIdFromContract(contract) })

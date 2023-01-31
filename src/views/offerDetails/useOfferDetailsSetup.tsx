@@ -1,18 +1,17 @@
 import { useCallback, useContext, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
-import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import getContractEffect from '../../effects/getContractEffect'
 import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { useNavigation, useRoute } from '../../hooks'
 import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 import { useHandleContractOverlays } from '../../overlays/useHandleContractOverlays'
-import { getChatNotifications } from '../../utils/chat'
 import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, isSellOffer, saveOffer } from '../../utils/offer'
+import { useCheckTradeNotifications } from '../../hooks/useCheckTradeNotifications'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
@@ -21,11 +20,11 @@ export const useOfferDetailsSetup = () => {
   const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
   const handleContractOverlays = useHandleContractOverlays()
   const [, updateMessage] = useContext(MessageContext)
-  const [, updateAppContext] = useContext(AppContext)
   const [offer, setOffer] = useState(() => getOffer(offerId))
   const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
+  const checkTradeNotifications = useCheckTradeNotifications()
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
@@ -84,9 +83,7 @@ export const useOfferDetailsSetup = () => {
             info('useOfferDetailsSetup - getContractEffect', `navigate to contract ${result.id}`)
             navigation.replace('contract', { contractId: result.id })
           }
-          updateAppContext({
-            notifications: getChatNotifications(),
-          })
+          checkTradeNotifications()
           handleContractOverlays(c, view)
         },
         onError: (err) =>

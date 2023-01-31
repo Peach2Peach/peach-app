@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useContext, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -47,10 +47,10 @@ import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { account, getAccount } from './utils/account'
-import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 
 enableScreens()
 
@@ -77,9 +77,9 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   return <></>
 }
 const usePartialAppSetup = () => {
-  const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
+  const checkTradeNotifications = useCheckTradeNotifications()
 
   useEffect(
     appStateEffect({
@@ -89,9 +89,7 @@ const usePartialAppSetup = () => {
           getPeachInfo(getAccount())
           if (account?.publicKey) {
             getTrades()
-            updateAppContext({
-              notifications: getChatNotifications(),
-            })
+            checkTradeNotifications()
           }
           analytics().logAppOpen()
 
@@ -143,6 +141,8 @@ const App: React.FC = () => {
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
+  const checkTradeNotifications = useCheckTradeNotifications()
+
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
     updateMessage({
@@ -181,12 +181,11 @@ const App: React.FC = () => {
 
     ;(async () => {
       await initApp()
+      checkTradeNotifications()
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
 
-      updateAppContext({
-        notifications: getChatNotifications(),
-      })
+      checkTradeNotifications()
       if (typeof account.settings.enableAnalytics === 'undefined') {
         showAnalyticsPrompt(updateOverlay)
       }

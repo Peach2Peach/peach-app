@@ -1,11 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
-import AppContext from '../contexts/app'
 import { OverlayContext } from '../contexts/overlay'
 import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
 import { account } from '../utils/account'
-import { getChatNotifications } from '../utils/chat'
 import {
   decryptContractData,
   getContract,
@@ -19,11 +17,11 @@ import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
+import { useCheckTradeNotifications } from './useCheckTradeNotifications'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateAppContext] = useContext(AppContext)
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
 
@@ -33,6 +31,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = contract ? getRequiredAction(contract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
+  const checkTradeNotifications = useCheckTradeNotifications()
 
   const saveAndUpdate = useCallback(
     (contractData: Partial<Contract>) => {
@@ -41,11 +40,9 @@ export const useCommonContractSetup = (contractId: string) => {
         if (updatedContract.id) saveContract(updatedContract as Contract)
         return updatedContract as Contract
       })
-      updateAppContext({
-        notifications: getChatNotifications(),
-      })
+      checkTradeNotifications()
     },
-    [updateAppContext],
+    [checkTradeNotifications],
   )
 
   useFocusEffect(
