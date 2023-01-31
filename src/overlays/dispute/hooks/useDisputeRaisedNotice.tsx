@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { MessageContext } from '../../../contexts/message'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { account } from '../../../utils/account'
@@ -13,6 +12,7 @@ import { isEmailRequired } from '../../../views/dispute/DisputeForm'
 import SuccessOverlay from '../../SuccessOverlay'
 import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
 import { getContract as getContractAPI } from '../../../utils/peachAPI'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 
 const emailRules = { required: true, email: true }
 
@@ -20,8 +20,9 @@ export const useDisputeRaisedNotice = () => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const [, setLoading] = useState(false)
-  const [, updateMessage] = useContext(MessageContext)
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState<string>('', emailRules)
+
+  const showError = useShowErrorBanner()
 
   const closeOverlay = useCallback(() => {
     updateOverlay({ visible: false })
@@ -78,19 +79,11 @@ export const useDisputeRaisedNotice = () => {
 
       if (err) {
         error('Error', err)
-        updateMessage({
-          msgKey: err?.error || 'GENERAL_ERROR',
-          level: 'ERROR',
-          action: {
-            callback: () => navigation.navigate('contact'),
-            label: i18n('contactUs'),
-            icon: 'mail',
-          },
-        })
+        showError(err?.error || 'GENERAL_ERROR')
       }
       setLoading(false)
     },
-    [closeOverlay, email, isEmailValid, navigation, updateMessage, updateOverlay],
+    [closeOverlay, email, isEmailValid, navigation, showError, updateOverlay],
   )
 
   return useCallback(
