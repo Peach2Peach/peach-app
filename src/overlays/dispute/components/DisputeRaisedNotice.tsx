@@ -29,7 +29,7 @@ export default ({
   const counterView = view === 'seller' ? 'buyer' : 'seller'
   return (
     <>
-      <Text style={tw`mb-3 body-m text-black-1`}>
+      <Text>
         {isEmailRequired(disputeReason)
           ? i18n(
             `dispute.opened.counterparty.text.1.withEmail.${counterView}`,
@@ -43,7 +43,7 @@ export default ({
             thousands(contract.amount),
           )}
       </Text>
-      <Text style={tw`body-m text-black-1`}>
+      <Text style={tw`mt-3`}>
         {isEmailRequired(disputeReason)
           ? i18n('dispute.opened.counterparty.text.2.withEmail')
           : i18n('dispute.opened.counterparty.text.2.withoutEmail')}
