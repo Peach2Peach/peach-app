@@ -52,6 +52,14 @@ export const useShowPaymentTimerHasRunOut = () => {
         icon: 'xSquare',
         callback: () => closeOverlay(),
       }
+      const goToContract: Action = {
+        label: i18n('checkTrade'),
+        icon: 'arrowLeftCircle',
+        callback: () => {
+          closeOverlay()
+          navigation.navigate('contract', { contractId: contract.id })
+        },
+      }
       const cancelTrade: Action = {
         label: i18n('contract.seller.paymentTimerHasRunOut.cancelTrade'),
         icon: 'xSquare',
@@ -86,11 +94,11 @@ export const useShowPaymentTimerHasRunOut = () => {
         content: <PaymentTimerHasRunOut {...{ contract, view: 'seller' }} />,
         visible: true,
         level: 'WARN',
-        action1: inTrade ? extraTime : closeAction,
+        action1: inTrade ? extraTime : goToContract,
         action2: inTrade ? cancelTrade : closeAction,
       })
     },
-    [cancelSeller, closeOverlay, showError, updateOverlay],
+    [cancelSeller, closeOverlay, navigation, showError, updateOverlay],
   )
 
   const showPaymentTimerHasRunOut = useCallback(
