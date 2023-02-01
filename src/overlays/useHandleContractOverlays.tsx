@@ -5,14 +5,12 @@ import {
   shouldShowBuyerCanceledTrade,
   shouldShowCancelTradeRequestConfirmed,
   shouldShowCancelTradeRequestRejected,
-  shouldShowConfirmCancelTradeRequest,
   shouldShowDisputeResult,
   shouldShowYouGotADispute,
 } from '../utils/overlay'
 import { DisputeResult } from './DisputeResult'
 import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
-import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
 import YouGotADispute from './YouGotADispute'
 
 export const useHandleContractOverlays = () => {

@@ -40,6 +40,7 @@ declare type Contract = {
   paymentConfirmed: Date | null
   paymentExpectedBy?: Date
   lastReminderSent?: PaymentReminder
+  lastReminderDismissed?: PaymentReminder
 
   escrow: string
   releaseAddress: string

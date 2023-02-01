@@ -1,44 +1,25 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { useContext, useEffect } from 'react'
 import { OverlayContext } from '../contexts/overlay'
-import { DisputeResult } from '../overlays/DisputeResult'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
 import OfferNotFunded from '../overlays/OfferNotFunded'
-import { useBuyerCanceledOverlay } from '../overlays/tradeCancelation/useBuyerCanceledOverlay'
-import { useBuyerRejectedCancelTradeOverlay } from '../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
-import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import YouGotADispute from '../overlays/YouGotADispute'
 import { getContract } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
 import { getContract as getContractAPI } from '../utils/peachAPI'
 import { parseError } from '../utils/system'
+import { useHandleContractNotifications } from './useHandleContractNotifications'
 import { useNavigation } from './useNavigation'
 
 export const useHandleNotifications = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
-  const showBuyerCanceled = useBuyerCanceledOverlay()
-  const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+
+  useHandleContractNotifications()
 
   useEffect(() => {
-    // TODO : Activate when get pay up quick notification
-    // updateOverlay({
-    //   title: i18n('help.makePayment.title'),
-    //   content: <Text>You only have 4 more hours to make the payment for the trade PF1E.</Text>,
-    //   visible: true,
-    //   level: 'APP',
-    //   action1: {
-    //     icon: 'arrowRightCircle',
-    //     callback: () => {
-    //       navigation.navigate('contract', { contractId: contractid })
-    //     },
-    //     label: i18n('help.checkTrade'),
-    //   },
-    // })
     // eslint-disable-next-line max-statements, complexity
     const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
@@ -80,31 +61,11 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
           visible: true,
         })
       }
+
       if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
         return navigation.navigate('paymentMade', { contractId: contract.id })
       }
-      if (type === 'contract.disputeRaised') {
-        const { message, reason } = remoteMessage.data
-        return updateOverlay({
-          content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
-          visible: true,
-        })
-      }
-      if (type === 'contract.disputeResolved') {
-        return updateOverlay({
-          content: <DisputeResult {...{ contractId, navigation }} />,
-          visible: true,
-        })
-      }
 
-      if (contract) {
-        if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
-        if (type === 'contract.cancelationRequest' && !contract.disputeActive) {
-          return showConfirmTradeCancelation(contract)
-        }
-        if (type === 'contract.cancelationRequestAccepted') return showBuyerCanceled(contract, true)
-        if (type === 'contract.cancelationRequestRejected') return showCancelTradeRequestRejected(contract)
-      }
       return null
     }
 
@@ -117,12 +78,5 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
       error('messaging().onMessage - Push notifications not supported', parseError(e))
       return () => {}
     }
-  }, [
-    getCurrentPage,
-    navigation,
-    showBuyerCanceled,
-    showCancelTradeRequestRejected,
-    showConfirmTradeCancelation,
-    updateOverlay,
-  ])
+  }, [getCurrentPage, navigation, updateOverlay])
 }

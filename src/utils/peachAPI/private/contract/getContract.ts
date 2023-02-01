@@ -38,6 +38,9 @@ export const getContract = async ({
     if (parsedResponse[0].paymentMade) {
       parsedResponse[0].paymentMade = new Date(parsedResponse[0].paymentMade)
     }
+    if (parsedResponse[0].paymentExpectedBy) {
+      parsedResponse[0].paymentExpectedBy = new Date(parsedResponse[0].paymentExpectedBy)
+    }
     if (parsedResponse[0].paymentConfirmed) {
       parsedResponse[0].paymentConfirmed = new Date(parsedResponse[0].paymentConfirmed)
     }
