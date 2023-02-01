@@ -16,8 +16,8 @@ import {
 } from '../utils/contract'
 import { getRequiredActionCount, saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
-import { useContractDetails } from './useContractDetails'
-import { useOfferDetails } from './useOfferDetails'
+import { useContractDetails } from './query/useContractDetails'
+import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useCommonContractSetup = (contractId: string) => {

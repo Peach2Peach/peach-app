@@ -47,6 +47,14 @@ export const useStartRefundOverlay = () => {
           title: i18n('refund.title'),
           content: <Refund isPeachWallet={isPeachWallet} />,
           visible: true,
+          action1: {
+            label: i18n('close'),
+            icon: 'xSquare',
+            callback: () => {
+              closeOverlay()
+              navigation.navigate('offer', { offerId: sellOffer.id })
+            },
+          },
           action2: {
             label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
             icon: isPeachWallet ? 'wallet' : 'externalLink',
@@ -59,7 +67,7 @@ export const useStartRefundOverlay = () => {
         closeOverlay()
       }
     },
-    [closeOverlay, goToWallet, showError, updateOverlay],
+    [closeOverlay, goToWallet, navigation, showError, updateOverlay],
   )
 
   const startRefund = useCallback(

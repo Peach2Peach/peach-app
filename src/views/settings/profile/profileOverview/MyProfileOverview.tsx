@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Rating } from './components/Rating'
-import { useUser } from '../../../../hooks/useUserQuery'
+import { useUser } from '../../../../hooks/query/useUserQuery'
 import tw from '../../../../styles/tailwind'
 import { account } from '../../../../utils/account'
 import { MyBadges } from './components/MyBadges'

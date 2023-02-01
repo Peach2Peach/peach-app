@@ -9,6 +9,7 @@ export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
 export { getPaymentDataByType } from './getPaymentDataByType'
 export { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
+export { isBackupMandatory } from './isBackupMandatory'
 export {
   loadAccount,
   loadChat,
