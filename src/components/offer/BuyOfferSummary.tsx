@@ -11,6 +11,7 @@ import { HorizontalLine } from '../ui'
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
 }
+// TODO: Unify with Summary.tsx of the buy flow
 export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
   const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])

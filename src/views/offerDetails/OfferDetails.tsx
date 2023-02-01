@@ -1,22 +1,12 @@
 import React, { ReactElement } from 'react'
+import { isSellOffer } from '../../utils/offer'
 
-import ContractSummary from './components/ContractSummary'
 import OfferLoading from '../loading/LoadingScreen'
 import OfferSummary from './components/OfferSummary'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 
-const statusToShowOfferSummary = ['offerPublished', 'searchingForPeer', 'offerCanceled']
-const statusToShowContractSummary = ['tradeCompleted', 'tradeCanceled', 'dispute']
-
 export default (): ReactElement => {
-  const { offer, contract } = useOfferDetailsSetup()
+  const { offer } = useOfferDetailsSetup()
 
-  if (!offer) return <OfferLoading />
-  if (statusToShowOfferSummary.includes(offer.tradeStatus)) {
-    return <OfferSummary offer={offer} />
-  }
-  if (contract && statusToShowContractSummary.includes(offer.tradeStatus)) {
-    return <ContractSummary contract={contract} />
-  }
-  return <OfferLoading />
+  return offer?.tradeStatus === 'offerCanceled' && isSellOffer(offer) ? <OfferSummary offer={offer} /> : <OfferLoading />
 }

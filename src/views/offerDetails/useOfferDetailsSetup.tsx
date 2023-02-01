@@ -1,10 +1,9 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import AppContext from '../../contexts/app'
 import { MessageContext } from '../../contexts/message'
 import getContractEffect from '../../effects/getContractEffect'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
 import { useNavigation, useRoute } from '../../hooks'
 import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
 import { useHandleContractOverlays } from '../../overlays/useHandleContractOverlays'
@@ -13,6 +12,11 @@ import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, getRequiredActionCount, isSellOffer, saveOffer } from '../../utils/offer'
+import { useQuery, QueryFunctionContext } from '@tanstack/react-query'
+import { getOfferQuery } from '../../hooks/query/useOfferDetails'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+
+const THIRTY_SECONDS = 30 * 1000
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
@@ -22,52 +26,42 @@ export const useOfferDetailsSetup = () => {
   const handleContractOverlays = useHandleContractOverlays()
   const [, updateMessage] = useContext(MessageContext)
   const [, updateAppContext] = useContext(AppContext)
-  const [offer, setOffer] = useState(() => getOffer(offerId))
+  const isFocused = useIsFocused()
+  const { data: offer, error: offerDetailsError } = useQuery({
+    queryKey: ['offer', offerId],
+    queryFn: (args: QueryFunctionContext<[string, string], any>) => {
+      info('Get offer details for', offerId)
+      return getOfferQuery(args)
+    },
+    refetchInterval: THIRTY_SECONDS,
+    initialData: getOffer(offerId),
+    enabled: isFocused,
+  })
   const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
 
-  const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
-    saveOffer(offerData)
-    setOffer(offerData)
-  }
+  const showErrorBanner = useShowErrorBanner()
 
-  useFocusEffect(
-    useCallback(
-      getOfferDetailsEffect({
-        offerId,
-        interval: 30 * 1000,
-        onSuccess: (result) => {
-          const updatedOffer = {
-            ...(offer || {}),
-            ...result,
-          }
-          saveAndUpdate(updatedOffer)
+  useEffect(() => {
+    if (offerDetailsError) {
+      error('Could not fetch offer information for offer', offerId)
+      showErrorBanner(offerDetailsError?.error)
+    }
+  }, [offerDetailsError, offerId, showErrorBanner])
 
-          if (result.online && result.matches.length && !result.contractId) {
-            info('useOfferDetailsSetup - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
-            navigation.replace('search', { offerId: updatedOffer.id })
-          } else if (isSellOffer(updatedOffer) && result.tradeStatus === 'fundingAmountDifferent') {
-            showEscrowConfirmOverlay(updatedOffer)
-          }
-          if (result.contractId) setContractId(result.contractId)
-        },
-        onError: (err) => {
-          error('Could not fetch offer information for offer', offerId)
-          updateMessage({
-            msgKey: err.error || 'GENERAL_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          })
-        },
-      }),
-      [offerId],
-    ),
-  )
+  useEffect(() => {
+    if (offer) {
+      saveOffer(offer)
+      if (offer.online && offer.matches.length && !offer.contractId) {
+        info('useOfferDetailsSetup - getOfferDetailsEffect', `navigate to search ${offer.id}`)
+        navigation.replace('search', { offerId: offer.id })
+      } else if (isSellOffer(offer) && offer.tradeStatus === 'fundingAmountDifferent') {
+        showEscrowConfirmOverlay(offer)
+      }
+      if (offer.contractId) setContractId(offer.contractId)
+    }
+  }, [navigation, offer, showEscrowConfirmOverlay])
 
   useFocusEffect(
     useCallback(
