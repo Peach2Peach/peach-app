@@ -135,8 +135,10 @@ export const ChatMessage = ({
             onPress={() => resendMessage(message)}
             style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
           >
-            <Text style={tw`text-error-main mr-1`}>{i18n('chat.failedToSend')}</Text>
-            <Icon id="refreshCw" style={tw`w-3 h-3`} color={tw`text-error-main`.color} />
+            <Text style={tw`text-error-main mr-1`}>
+              {i18n('chat.failedToSend')} <Text style={tw`text-error-main underline`}>{i18n('retry')}</Text>
+            </Text>
+            <Icon id="refreshCcw" style={tw`w-3 h-3`} color={tw`text-error-main`.color} />
           </TouchableOpacity>
         )}
       </View>
