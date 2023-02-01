@@ -15,11 +15,10 @@ export const useDisputeRaisedSuccess = () => {
 
   const showOverlay = useCallback(
     (view: ContractViewer) => {
-      const counterView = view === 'seller' ? 'buyer' : 'seller'
       updateOverlay({
         title: i18n('dispute.opened'),
         level: 'ERROR',
-        content: <DisputeRaisedSuccess view={counterView} />,
+        content: <DisputeRaisedSuccess view={view} />,
         visible: true,
         action1: {
           label: i18n('close'),
