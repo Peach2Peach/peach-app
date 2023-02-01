@@ -2,7 +2,6 @@ import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { account } from '../../../utils/account'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
@@ -62,7 +61,7 @@ export const useDisputeResults = () => {
       const tradeId = contractIdToHex(contract.id)
 
       return !!contract.disputeWinner
-        ? contract.disputeWinner === account.publicKey
+        ? contract.disputeWinner === view
           ? updateOverlay({
             title: i18n('dispute.won'),
             level: 'SUCCESS',
