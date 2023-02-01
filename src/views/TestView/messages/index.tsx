@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react'
-import { GoBackButton, PeachScrollView, PrimaryButton } from '../../../components'
+import { PeachScrollView, PrimaryButton } from '../../../components'
 import { MessageContext } from '../../../contexts/message'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -22,7 +22,7 @@ export default () => {
   return (
     <PeachScrollView
       style={tw`h-full bg-primary-mild-1`}
-      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
+      contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
       <PrimaryButton onPress={() => openMessage('SUCCESS')}>ok message</PrimaryButton>
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('ERROR')}>
@@ -40,7 +40,6 @@ export default () => {
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('WARN', { action: undefined })}>
         message without action
       </PrimaryButton>
-      <GoBackButton white wide style={tw`mt-8`} />
     </PeachScrollView>
   )
 }
