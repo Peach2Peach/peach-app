@@ -20,7 +20,6 @@ import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import { getViews } from './views'
 
-import AppContext, { getAppContext, setAppContext } from './contexts/app'
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
@@ -122,8 +121,6 @@ const usePartialAppSetup = () => {
 
 // eslint-disable-next-line max-statements
 const App: React.FC = () => {
-  const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
-
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
@@ -242,70 +239,68 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
             <PeachWSContext.Provider value={peachWS}>
-              <AppContext.Provider value={[appContext, updateAppContext]}>
-                <MessageContext.Provider value={[messageState, updateMessage]}>
-                  <DrawerContext.Provider
-                    value={[
-                      { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
-                      updateDrawer,
-                    ]}
-                  >
-                    <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                      <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                        <Handlers {...{ getCurrentPage }} />
-                        <Background config={backgroundConfig}>
-                          <Drawer
-                            title={drawerTitle}
-                            content={drawerContent}
-                            show={showDrawer}
-                            onClose={onCloseDrawer}
-                            previousDrawer={previousDrawer}
-                          />
-                          <Overlay {...overlayState} />
-                          <SafeAreaView>
-                            <View style={tw`flex-col h-full`}>
-                              {!!messageState.msgKey && (
-                                <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                                  <Message {...messageState} />
-                                </Animated.View>
-                              )}
-                              <View style={tw`flex-shrink h-full`}>
-                                <Stack.Navigator
-                                  detachInactiveScreens={true}
-                                  screenOptions={{
-                                    gestureEnabled: false,
-                                    headerShown: false,
-                                  }}
-                                >
-                                  {views.map(({ name, component, showHeader }) => (
-                                    <Stack.Screen
-                                      {...{ name, component }}
-                                      key={name}
-                                      options={{
-                                        animationEnabled: false,
-                                        headerShown: showHeader,
-                                        header: () => <Header />,
-                                      }}
-                                    />
-                                  ))}
-                                </Stack.Navigator>
-                              </View>
-                              {showFooter && (
-                                <Footer
-                                  style={tw`z-10`}
-                                  active={currentPage}
-                                  setCurrentPage={setCurrentPage}
-                                  theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
-                                />
-                              )}
+              <MessageContext.Provider value={[messageState, updateMessage]}>
+                <DrawerContext.Provider
+                  value={[
+                    { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
+                    updateDrawer,
+                  ]}
+                >
+                  <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
+                    <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                      <Handlers {...{ getCurrentPage }} />
+                      <Background config={backgroundConfig}>
+                        <Drawer
+                          title={drawerTitle}
+                          content={drawerContent}
+                          show={showDrawer}
+                          onClose={onCloseDrawer}
+                          previousDrawer={previousDrawer}
+                        />
+                        <Overlay {...overlayState} />
+                        <SafeAreaView>
+                          <View style={tw`flex-col h-full`}>
+                            {!!messageState.msgKey && (
+                              <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                <Message {...messageState} />
+                              </Animated.View>
+                            )}
+                            <View style={tw`flex-shrink h-full`}>
+                              <Stack.Navigator
+                                detachInactiveScreens={true}
+                                screenOptions={{
+                                  gestureEnabled: false,
+                                  headerShown: false,
+                                }}
+                              >
+                                {views.map(({ name, component, showHeader }) => (
+                                  <Stack.Screen
+                                    {...{ name, component }}
+                                    key={name}
+                                    options={{
+                                      animationEnabled: false,
+                                      headerShown: showHeader,
+                                      header: () => <Header />,
+                                    }}
+                                  />
+                                ))}
+                              </Stack.Navigator>
                             </View>
-                          </SafeAreaView>
-                        </Background>
-                      </NavigationContainer>
-                    </OverlayContext.Provider>
-                  </DrawerContext.Provider>
-                </MessageContext.Provider>
-              </AppContext.Provider>
+                            {showFooter && (
+                              <Footer
+                                style={tw`z-10`}
+                                active={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
+                              />
+                            )}
+                          </View>
+                        </SafeAreaView>
+                      </Background>
+                    </NavigationContainer>
+                  </OverlayContext.Provider>
+                </DrawerContext.Provider>
+              </MessageContext.Provider>
             </PeachWSContext.Provider>
           </LanguageContext.Provider>
         </QueryClientProvider>
