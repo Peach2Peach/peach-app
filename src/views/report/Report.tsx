@@ -8,12 +8,11 @@ import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import { OverlayContext } from '../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
-import { showReportSuccess } from '../../overlays/showReportSuccess'
-import i18n from '../../utils/i18n'
-import { error } from '../../utils/log'
-import { sendReport } from '../../utils/peachAPI'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { showReportSuccess } from '../../overlays/showReportSuccess'
 import { account } from '../../utils/account'
+import i18n from '../../utils/i18n'
+import { sendReport } from '../../utils/peachAPI'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -63,10 +62,7 @@ export default (): ReactElement => {
       return
     }
 
-    if (err) {
-      error('Error', err)
-      showError()
-    }
+    if (err) showError()
   }
 
   return (
