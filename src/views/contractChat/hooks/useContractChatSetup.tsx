@@ -30,7 +30,7 @@ export const useContractChatSetup = () => {
   const ws = useContext(PeachWSContext)
   const { contract, view, saveAndUpdate } = useCommonContractSetup(contractId)
 
-  const cancelTradeOverlay = useConfirmCancelTrade(contractId)
+  const cancelTradeOverlay = useConfirmCancelTrade()
   const showDisclaimer = useShowDisputeDisclaimer()
   const openDisputeOverlay = useOpenDispute(contractId)
 
@@ -46,7 +46,9 @@ export const useContractChatSetup = () => {
     useMemo(
       () => ({
         titleComponent: <ContractTitle id={contractId} amount={contract?.amount} />,
-        icons: contract ? getHeaderChatActions(contract, cancelTradeOverlay, openDisputeOverlay, view) : [],
+        icons: contract
+          ? getHeaderChatActions(contract, () => cancelTradeOverlay(contract), openDisputeOverlay, view)
+          : [],
       }),
       [contractId, contract, cancelTradeOverlay, openDisputeOverlay, view],
     ),

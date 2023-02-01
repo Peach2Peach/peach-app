@@ -19,7 +19,7 @@ export const useContractSetup = () => {
   const { contract, saveAndUpdate, isLoading, view, requiredAction } = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const cancelContract = useConfirmCancelTrade(contractId)
+  const cancelContract = useConfirmCancelTrade()
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
 
@@ -30,7 +30,7 @@ export const useContractSetup = () => {
       const icons = []
       if (contract && canCancelContract(contract)) icons.push({
         iconComponent: <CancelIcon />,
-        onPress: cancelContract,
+        onPress: () => cancelContract(contract),
       })
       if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
         iconComponent: <HelpIcon />,
