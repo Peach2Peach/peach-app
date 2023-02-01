@@ -4,7 +4,6 @@ import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { info } from '../../../utils/log'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
@@ -24,6 +23,7 @@ export const useDisputeResults = () => {
           ...contract,
           disputeResultAcknowledged: true,
           cancelConfirmationDismissed: true,
+          disputeResolvedDate: new Date(),
         })
         navigation.navigate('contractChat', { contractId: contract.id })
         updateOverlay({ visible: false })
@@ -39,6 +39,7 @@ export const useDisputeResults = () => {
           ...contract,
           disputeResultAcknowledged: true,
           cancelConfirmationDismissed: true,
+          disputeResolvedDate: new Date(),
         })
         goToContract()
       }
@@ -55,13 +56,12 @@ export const useDisputeResults = () => {
           paymentConfirmed: new Date(),
           releaseTxId: result?.txId || '',
           disputeResultAcknowledged: true,
+          disputeResolvedDate: new Date(),
         })
         return closeOverlay()
       }
 
       const tradeId = contractIdToHex(contract.id)
-
-      info('contract -> ' + contract.disputeResultAcknowledged)
 
       return !!contract.disputeWinner
         ? contract.disputeWinner === view
