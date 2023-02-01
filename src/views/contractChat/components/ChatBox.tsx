@@ -50,7 +50,7 @@ export default ({
       setAndSaveChat(chat.id, { lastSeen: lastItem.date })
       checkTradeNotifications()
     },
-    [chat.id, checkTradeNotifications, setAndSaveChat],
+    [chat.id, setAndSaveChat],
   )
 
   return (

@@ -33,17 +33,14 @@ export const useCommonContractSetup = (contractId: string) => {
   const [decryptionError, setDecryptionError] = useState(false)
   const checkTradeNotifications = useCheckTradeNotifications()
 
-  const saveAndUpdate = useCallback(
-    (contractData: Partial<Contract>) => {
-      setStoredContract((prev) => {
-        const updatedContract = prev ? { ...prev, ...contractData } : contractData
-        if (updatedContract.id) saveContract(updatedContract as Contract)
-        return updatedContract as Contract
-      })
-      checkTradeNotifications()
-    },
-    [checkTradeNotifications],
-  )
+  const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
+    setStoredContract((prev) => {
+      const updatedContract = prev ? { ...prev, ...contractData } : contractData
+      if (updatedContract.id) saveContract(updatedContract as Contract)
+      return updatedContract as Contract
+    })
+    checkTradeNotifications()
+  }, [])
 
   useFocusEffect(
     useCallback(() => {

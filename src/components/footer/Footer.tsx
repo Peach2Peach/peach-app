@@ -163,7 +163,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [checkTradeNotifications, ws, ws.connected])
+  }, [ws, ws.connected])
 
   return !keyboardOpen ? (
     <View style={[tw`flex-row items-start w-full`, style]}>
