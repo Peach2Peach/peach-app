@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-import AppContext from '../contexts/app'
+import { useNotificationsState } from '../components/footer/notificationsStore'
 import { tradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
 
@@ -13,7 +12,7 @@ export const statusWithRequiredAction = [
 ]
 
 export const useCheckTradeNotifications = () => {
-  const [, updateAppContext] = useContext(AppContext)
+  const setNotificationsState = useNotificationsState((state) => state.setNotifications)
 
   return () => {
     let notifications = 0
@@ -29,7 +28,7 @@ export const useCheckTradeNotifications = () => {
 
     info('notis -> ' + notifications)
 
-    updateAppContext({
+    setNotificationsState({
       notifications,
     })
     info(notifications)

@@ -2,7 +2,6 @@ import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Icon, Shadow, Text } from '..'
-import AppContext from '../../contexts/app'
 import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
@@ -16,6 +15,7 @@ import shallow from 'zustand/shallow'
 
 import PeachOrange from '../../assets/logo/peachOrange.svg'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
+import { useNotificationsState } from './notificationsStore'
 import { useCheckTradeNotifications } from '../../hooks/useCheckTradeNotifications'
 
 type FooterProps = ComponentProps & {
@@ -107,10 +107,10 @@ const FooterItem = ({
  */
 export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: FooterProps): ReactElement => {
   const navigation = useNavigation()
-  const [{ notifications }] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
 
+  const { notifications } = useNotificationsState()
   const checkTradeNotifications = useCheckTradeNotifications()
 
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
