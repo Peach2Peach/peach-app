@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text, Timer } from '../../../components'
-import { TIMERS } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
-import { getTimerStart } from '../helpers/getTimerStart'
+import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
 
 type ContractStatusInfoProps = {
   contract: Contract
@@ -28,14 +27,9 @@ export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractS
     </View>
   )
   if (requiredAction === 'sendPayment') {
-    if (getTimerStart(contract, requiredAction) > Date.now()) {
-      return (
-        <Timer
-          text={i18n(`contract.timer.${requiredAction}.${view}`)}
-          start={getTimerStart(contract, requiredAction)}
-          duration={TIMERS[requiredAction]}
-        />
-      )
+    const paymentExpectedBy = getPaymentExpectedBy(contract)
+    if (Date.now() < paymentExpectedBy) {
+      return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
     }
     return (
       <View style={tw`flex-row items-center`}>

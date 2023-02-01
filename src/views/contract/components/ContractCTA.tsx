@@ -7,6 +7,7 @@ import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOve
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
+import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
 import { getTimerStart } from '../helpers/getTimerStart'
 
 type ContractCTAProps = ComponentProps & {
@@ -42,7 +43,8 @@ export default ({
     </PrimaryButton>
   )
   if (view === 'buyer' && requiredAction === 'sendPayment') {
-    if (getTimerStart(contract, requiredAction) > Date.now()) {
+    const paymentExpectedBy = getPaymentExpectedBy(contract)
+    if (Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
           style={tw`w-[260px]`}
