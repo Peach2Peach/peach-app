@@ -1,15 +1,9 @@
+import {
+  statusWithRequiredAction,
+  statusWithRequiredActionForBuyer,
+  statusWithRequiredActionForSeller,
+} from '../../hooks/useCheckTradeNotifications'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
-
-const statusWithRequiredAction = [
-  'fundEscrow',
-  'hasMatchesAvailable',
-  'refundTxSignatureRequired',
-  'dispute',
-  'rateUser',
-  'confirmCancelation',
-]
-const statusWithRequiredActionForBuyer = ['paymentRequired']
-const statusWithRequiredActionForSeller = ['confirmPaymentRequired']
 
 /**
  * @description Method to sum up all required actions on current offers

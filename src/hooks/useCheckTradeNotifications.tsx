@@ -10,20 +10,23 @@ export const statusWithRequiredAction = [
   'rateUser',
   'confirmCancelation',
 ]
+export const statusWithRequiredActionForBuyer = ['paymentRequired']
+export const statusWithRequiredActionForSeller = ['confirmPaymentRequired']
 
 export const useCheckTradeNotifications = () => {
   const setNotificationsState = useNotificationsState((state) => state.setNotifications)
 
+  const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
+    statusWithRequiredAction.includes(offer.tradeStatus)
+    || (offer.type === 'bid' && statusWithRequiredActionForBuyer.includes(offer.tradeStatus))
+    || (offer.type === 'ask' && statusWithRequiredActionForSeller.includes(offer.tradeStatus))
+
   return () => {
     let notifications = 0
-    const offersWithAction = tradeSummaryStore
-      .getState()
-      .offers.filter((offer) => statusWithRequiredAction.includes(offer.tradeStatus)).length
+    const offersWithAction = tradeSummaryStore.getState().offers.filter((offer) => hasRequiredAction(offer)).length
     const contractsWithAction = tradeSummaryStore
       .getState()
-      .contracts.filter(
-        (contract) => statusWithRequiredAction.includes(contract.tradeStatus) || contract.unreadMessages > 0,
-      ).length
+      .contracts.filter((contract) => hasRequiredAction(contract) || contract.unreadMessages > 0).length
     notifications = offersWithAction + contractsWithAction
 
     info('notis -> ' + notifications)
