@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { Text } from '../../../../components'
-import { GoBackButton, PrimaryButton } from '../../../../components/buttons'
+import { PrimaryButton } from '../../../../components/buttons'
 import { HelpIcon } from '../../../../components/icons'
 import { useHeaderSetup } from '../../../../hooks'
 import { useShowHelp } from '../../../../hooks/useShowHelp'
@@ -35,7 +35,6 @@ export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElem
           {i18n('settings.backups.fileBackup.createNew')}
         </PrimaryButton>
       </View>
-      <GoBackButton style={tw`my-6`} />
     </View>
   )
 }

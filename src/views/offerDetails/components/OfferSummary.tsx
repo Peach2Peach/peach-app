@@ -1,14 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import {
-  BuyOfferSummary,
-  PeachScrollView,
-  PrimaryButton,
-  SatsFormat,
-  SellOfferSummary,
-  Text,
-  Title,
-} from '../../../components'
+import { BuyOfferSummary, PeachScrollView, SatsFormat, SellOfferSummary, Text, Title } from '../../../components'
 import { useCancelOffer } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -54,9 +46,6 @@ export default ({ offer }: OfferSummaryProps): ReactElement => {
         <View style={[tw`mt-7`, offer.tradeStatus === 'offerCanceled' ? tw`opacity-50` : {}]}>
           {isSellOffer(offer) ? <SellOfferSummary offer={offer} /> : <BuyOfferSummary offer={offer} />}
         </View>
-        <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades')} narrow>
-          {i18n('back')}
-        </PrimaryButton>
         {offer.tradeStatus !== 'offerCanceled' ? (
           <Pressable style={tw`mt-3`} onPress={cancelOffer}>
             {/* TODO use TextLink component and add bold mode */}
