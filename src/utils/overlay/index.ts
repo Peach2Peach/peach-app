@@ -3,4 +3,5 @@ export { shouldShowCancelTradeRequestConfirmed } from './shouldShowCancelTradeRe
 export { shouldShowCancelTradeRequestRejected } from './shouldShowCancelTradeRequestRejected'
 export { shouldShowConfirmCancelTradeRequest } from './shouldShowConfirmCancelTradeRequest'
 export { shouldShowDisputeResult } from './shouldShowDisputeResult'
+export { shouldShowPaymentTimerHasRunOut } from './shouldShowPaymentTimerHasRunOut'
 export { shouldShowYouGotADispute } from './shouldShowYouGotADispute'
