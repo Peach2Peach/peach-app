@@ -98,13 +98,16 @@ export const useDisputeResults = () => {
             : updateOverlay({
               title: i18n('dispute.lost'),
               level: 'WARN',
-              content: <DisputeLostSeller tradeId={tradeId} />,
+              content: <DisputeLostSeller tradeId={tradeId} isCompleted={!!contract.releaseTxId || contract.canceled} />,
               visible: true,
-              action1: {
-                label: i18n('dispute.seller.lost.button'),
-                icon: 'sell',
-                callback: release,
-              },
+              action1:
+                !contract.releaseTxId && !contract.canceled
+                  ? {
+                    label: i18n('dispute.seller.lost.button'),
+                    icon: 'sell',
+                    callback: release,
+                  }
+                  : undefined,
             })
         : updateOverlay({
           title: i18n('dispute.closed'),
