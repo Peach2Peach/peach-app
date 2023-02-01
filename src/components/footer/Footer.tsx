@@ -9,7 +9,7 @@ import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { footerShadow } from '../../utils/layout'
+import { footerShadow, noShadow } from '../../utils/layout'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import { IconType } from '../../assets/icons'
@@ -22,35 +22,60 @@ import PeachBorder from '../../assets/logo/peachBorder.svg'
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
+  theme?: 'default' | 'inverted'
 }
 type FooterItemProps = ComponentProps & {
   id: IconType
   active: boolean
   onPress: () => void
+  theme?: 'default' | 'inverted'
   notifications?: number
 }
 
 // eslint-disable-next-line max-len
 const isSettings
-  = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
+  = /settings|contact|report|language|currency|backup|paymentMethods|deleteAccount|fees|socials|seedWords/u
 const isWallet = /wallet|transactionHistory|transactionDetails/u
 
 const isBuy = /buy|buyPreferences|home/u
 
 const isSell = /sell|sellPreferences/u
 
+const themes = {
+  default: {
+    text: tw`text-black-5`,
+    textSelected: tw`text-black-1`,
+    textSelectedSettings: tw`text-primary-main`,
+    bg: tw`bg-primary-background`,
+  },
+  inverted: {
+    text: tw`text-primary-mild-2`,
+    textSelected: tw`text-primary-background-light`,
+    textSelectedSettings: tw`text-primary-background-light`,
+    bg: tw`bg-transparent`,
+  },
+}
+
 /**
  * @description Component to display the Footer Item
  * @example
  * <FooterItem id="sell" active={true} />
  */
-const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-5`
+const FooterItem = ({
+  id,
+  active,
+  onPress,
+  notifications = 0,
+  theme = 'default',
+  style,
+}: FooterItemProps): ReactElement => {
+  const colors = themes[theme || 'default']
+  const color = active ? (id === 'settings' ? colors.textSelectedSettings : colors.textSelected) : colors.text
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
         <View style={tw`flex items-center`}>
-          {id === 'settings' ? (
+          {id === 'settings' && theme === 'default' ? (
             active ? (
               <PeachOrange style={tw`w-6 h-6`} />
             ) : (
@@ -61,7 +86,7 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
           )}
           <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-3xs`]}>{i18n(`footer.${id}`)}</Text>
         </View>
-        {notifications ? (
+        {theme === 'default' && notifications ? (
           <Icon
             id="notification"
             style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
@@ -78,10 +103,11 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
  * @example
  * <Footer active={'home'} />
  */
-export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactElement => {
+export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: FooterProps): ReactElement => {
   const navigation = useNavigation()
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
+  const colors = themes[theme || 'default']
 
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
@@ -148,18 +174,21 @@ export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactEle
   return !keyboardOpen ? (
     <View style={[tw`flex-row items-start w-full`, style]}>
       <View style={tw`relative flex-grow`}>
-        <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`flex-row items-center justify-between px-5 py-4 bg-primary-background`}>
-            <FooterItem id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
-            <FooterItem id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
-            {peachWalletActive && <FooterItem id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />}
+        <Shadow shadow={theme === 'default' ? footerShadow : noShadow} style={tw`w-full`}>
+          <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
+            <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
+            <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
+            {peachWalletActive && (
+              <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
+            )}
             <FooterItem
+              theme={theme}
               id="yourTrades"
               active={active === 'yourTrades' || /contract/u.test(active)}
               onPress={navigate.yourTrades}
               notifications={notifications}
             />
-            <FooterItem id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
+            <FooterItem theme={theme} id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
           </View>
         </Shadow>
       </View>

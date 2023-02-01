@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getUser } from '../utils/peachAPI'
+import { getUser } from '../../utils/peachAPI'
 
 const getUserQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, userId] = queryKey

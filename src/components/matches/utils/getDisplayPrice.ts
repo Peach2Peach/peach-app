@@ -1,8 +1,12 @@
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { padString } from '../../../utils/string'
 
-export const getDisplayPrice = (match: Match, selectedPaymentMethod: PaymentMethod, selectedCurrency: Currency) => {
-  const paymentInfo = getPaymentMethodInfo(selectedPaymentMethod)
+export const getDisplayPrice = (
+  match: Match,
+  selectedPaymentMethod: PaymentMethod | undefined,
+  selectedCurrency: Currency,
+) => {
+  const paymentInfo = selectedPaymentMethod ? getPaymentMethodInfo(selectedPaymentMethod) : undefined
   let displayPrice = String(
     match.matched && match.matchedPrice
       ? match.matchedPrice

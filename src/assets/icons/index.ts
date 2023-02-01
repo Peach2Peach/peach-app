@@ -65,6 +65,7 @@ import noNetwork from './noNetwork.svg'
 import notification from './notification.svg'
 import offline from './offline.svg'
 import paperclip from './paperclip.svg'
+import pauseCircle from './pauseCircle.svg'
 import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
@@ -74,6 +75,7 @@ import refreshCcw from './refreshCcw.svg'
 import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
+import saveCircleInverted from './saveCircleInverted.svg'
 import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
@@ -179,6 +181,7 @@ const Icons = {
   notification,
   offline,
   paperclip,
+  pauseCircle,
   percent,
   plusCircle,
   plusSquare,
@@ -188,6 +191,7 @@ const Icons = {
   refreshCw,
   rotateCounterClockwise,
   save,
+  saveCircleInverted,
   search,
   selectClosed,
   selectOpen,

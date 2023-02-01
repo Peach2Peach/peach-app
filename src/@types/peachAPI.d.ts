@@ -240,9 +240,15 @@ declare type CancelOfferResponse = {
   satsPerByte: number
 }
 
+declare type MatchUnavailableReasons = {
+  exceedsLimit: (keyof TradingLimit)[]
+}
+
 declare type Match = {
   user: User
   offerId: string
+  amount: number
+  escrow?: string
   prices: Pricebook
   matchedPrice: number | null
   premium: number
@@ -255,6 +261,7 @@ declare type Match = {
   symmetricKeyEncrypted: string
   symmetricKeySignature: string
   matched: boolean
+  unavailable: MatchUnavailableReasons
 }
 declare type GetMatchesResponse = {
   offerId: string

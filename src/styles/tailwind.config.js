@@ -1,4 +1,4 @@
-const { plugin } = require("twrnc");
+const { plugin } = require('twrnc')
 
 module.exports = {
   theme: {
@@ -12,7 +12,7 @@ module.exports = {
       },
       inset: {
         px: '1px',
-        '1/2': '50%'
+        '1/2': '50%',
       },
       colors: {
         transparent: 'transparent',
@@ -29,12 +29,12 @@ module.exports = {
         primary: {
           dark: {
             1: '#C45104',
-            2:'#963600'
+            2: '#963600',
           },
           main: '#F56522',
           mild: {
             1: '#FCCCB6',
-            2: '#FFA171'
+            2: '#FFA171',
           },
           background: '#FFF9F6',
           'background-dark': '#FEEDE5',
@@ -43,7 +43,7 @@ module.exports = {
         success: {
           dark: {
             1: '#016736',
-            2: '#008847'
+            2: '#008847',
           },
           main: '#008847',
           mild: '#88E2B7',
@@ -80,11 +80,11 @@ module.exports = {
         '4xl': '48px',
         '3xl': '34px',
         '2xl': '24px',
-        'xl': '20px',
-        'lg': '18px',
-        'base': '16px',
-        'sm': '15px',
-        'xs': '14px',
+        xl: '20px',
+        lg: '18px',
+        base: '16px',
+        sm: '15px',
+        xs: '14px',
         '2xs': '13px',
         '3xs': '12px',
       },
@@ -94,11 +94,11 @@ module.exports = {
         '4xl': '56px',
         '3xl': '42px',
         '2xl': '32px',
-        'xl': '28px',
-        'lg': '26px',
-        'base': '24px',
-        'sm': '22px',
-        'xs': '20px',
+        xl: '28px',
+        lg: '26px',
+        base: '24px',
+        sm: '22px',
+        xs: '20px',
       },
       letterSpacing: {
         tightest: '-0.016em',
@@ -110,7 +110,7 @@ module.exports = {
         widest: '0.1em',
       },
       minHeight: {
-        '10': '40px'
+        10: '40px',
       },
       width: {
         '1/8': '12.5%',
@@ -121,7 +121,7 @@ module.exports = {
         '6/8': '75%',
         '7/8': '87.5%',
         '8/8': '100%',
-      }
+      },
     },
     fontFamily: {
       baloo: ['Baloo2-Regular', 'sans-serif'],
@@ -130,41 +130,42 @@ module.exports = {
       'baloo-bold': ['Baloo2-Bold', 'sans-serif'],
     },
     screens: {
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px'
-    }
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
   },
   variants: {},
   corePlugins: {},
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
-        'h1': `font-baloo-bold text-6xl leading-6xl tracking-tightest`,
-        'h2': `font-baloo-bold text-5xl leading-5xl tracking-tighter`,
-        'h3': `font-baloo-bold text-4xl leading-5xl tracking-tight`,
-        'h4': `font-baloo-bold text-3xl leading-3xl tracking-normal`,
-        'h5': `font-baloo-bold text-2xl leading-2xl tracking-normal`,
-        'h6': `font-baloo-bold text-xl leading-2xl tracking-normal`,
+        h1: `font-baloo-bold text-6xl leading-6xl tracking-tightest`,
+        h2: `font-baloo-bold text-5xl leading-5xl tracking-tighter`,
+        h3: `font-baloo-bold text-4xl leading-5xl tracking-tight`,
+        h4: `font-baloo-bold text-3xl leading-3xl tracking-normal`,
+        h5: `font-baloo-bold text-2xl leading-2xl tracking-normal`,
+        h6: `font-baloo-bold text-xl leading-2xl tracking-normal`,
         'drawer-title': `font-baloo-bold text-base leading-relaxed tracking-widest uppercase`,
         'subtitle-1': `font-baloo-semibold text-base leading-xl tracking-normal`,
         'subtitle-2': `font-baloo-semibold text-xs leading-sm tracking-normal`,
-        'avatar': `font-baloo text-xs leading-xs tracking-normal`,
+        avatar: `font-baloo text-xs leading-xs tracking-normal`,
         'body-l': `font-baloo text-xl leading-xl tracking-normal`,
         'body-m': `font-baloo text-base leading-base tracking-normal`,
         'body-s': `font-baloo text-xs leading-xs tracking-normal`,
         'button-large': `font-baloo-semibold text-sm leading-lg tracking-wider uppercase`,
         'button-medium': `font-baloo-semibold text-xs leading-base tracking-wider uppercase`,
         'button-small': `font-baloo-semibold text-2xs leading-sm tracking-wider uppercase`,
-        'settings': 'font-baloo-semibold text-xl lowercase leading-2xl tracking-normal',
-        'caption': `font-baloo text-xs leading-xs tracking-wide`,
+        settings: 'font-baloo-semibold text-xl lowercase leading-2xl tracking-normal',
+        caption: `font-baloo text-xs leading-xs tracking-wide`,
         'helper-text': `font-baloo text-xs leading-xs tracking-wide`,
         'input-label': `font-baloo-bold text-base leading-xs tracking-normal`,
-        'overline': `font-baloo text-xs leading-xs tracking-normal`,
+        overline: `font-baloo text-xs leading-xs tracking-normal`,
         'input-text': `font-baloo text-lg leading-relaxed tracking-normal`,
-        'tooltip': `font-baloo-medium text-xs leading-xs tracking-normal`,
-      });
+        tooltip: `font-baloo-medium text-xs leading-xs tracking-normal`,
+      })
     }),
-  ]}
+  ],
+}
