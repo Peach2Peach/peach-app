@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { ColorValue, View, ViewStyle } from 'react-native'
+import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
@@ -85,9 +85,17 @@ type ChatMessageProps = {
   item: Message
   index: number
   online: boolean
+  resendMessage: (message: Message) => void
 }
 
-export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online }: ChatMessageProps): ReactElement => {
+export const ChatMessage = ({
+  chatMessages,
+  tradingPartner,
+  item,
+  index,
+  online,
+  resendMessage,
+}: ChatMessageProps): ReactElement => {
   const message = item
   const meta = getMessageMeta({
     message,
@@ -122,6 +130,12 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
             )}
           </Text>
         </View>
+        {message.failedToSend && (
+          <TouchableOpacity onPress={() => resendMessage(message)} style={tw`flex-row justify-end items-center mt-1`}>
+            <Text style={tw`text-error-main mr-1`}>{i18n('chat.failedToSend')}</Text>
+            <Icon id="refreshCw" style={tw`w-3 h-3`} color={tw`text-error-main`.color} />
+          </TouchableOpacity>
+        )}
       </View>
     </>
   )

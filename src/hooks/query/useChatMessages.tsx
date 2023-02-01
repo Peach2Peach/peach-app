@@ -44,8 +44,8 @@ const getDecryptedChat
     }
 
 export const useChatMessages = (id: string, symmetricKey?: string) => {
-  const { data, isLoading, error, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ['contract', `${id}-${symmetricKey}`],
+  const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery(
+    ['contract-chat', id],
     symmetricKey ? getDecryptedChat(symmetricKey) : () => [],
     {
       keepPreviousData: true,
@@ -54,5 +54,13 @@ export const useChatMessages = (id: string, symmetricKey?: string) => {
 
   const messages = useMemo(() => (data?.pages || []).flat(), [data?.pages])
 
-  return { messages, isLoading, error, fetchNextPage, hasNextPage }
+  return {
+    messages,
+    isLoading,
+    error,
+    page: (data?.pages.length || 1) - 1,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  }
 }

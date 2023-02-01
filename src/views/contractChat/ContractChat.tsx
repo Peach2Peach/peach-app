@@ -14,9 +14,11 @@ export default (): ReactElement => {
   const {
     contract,
     chat,
+    resendMessage,
     setAndSaveChat,
     tradingPartner,
-    ws,
+    connected,
+    page,
     fetchNextPage,
     isLoading,
     onChangeMessage,
@@ -32,12 +34,9 @@ export default (): ReactElement => {
     <View style={[tw`flex-col h-full`]}>
       <View style={[tw`flex-shrink w-full h-full`, !contract.symmetricKey ? tw`opacity-50` : {}]}>
         <ChatBox
-          chat={chat}
-          setAndSaveChat={setAndSaveChat}
           tradingPartner={tradingPartner?.id || ''}
-          online={ws.connected}
-          onRefresh={fetchNextPage}
-          loading={isLoading}
+          online={connected}
+          {...{ chat, setAndSaveChat, resendMessage, page, fetchNextPage, isLoading }}
         />
       </View>
       {!contract.canceled || contract.disputeActive ? (

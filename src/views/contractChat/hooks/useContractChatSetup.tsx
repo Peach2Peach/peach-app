@@ -1,17 +1,18 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import ContractTitle from '../../../components/titles/ContractTitle'
-import { useHeaderSetup, useRoute, useThrottledEffect } from '../../../hooks'
+import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useOpenDispute } from '../../../overlays/disputeResults/useOpenDispute'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { account } from '../../../utils/account'
-import { getChat, popUnsentMessages, saveChat } from '../../../utils/chat'
+import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
 import { getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
+import { debounce } from '../../../utils/performance'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { parseError } from '../../../utils/system'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
@@ -21,15 +22,16 @@ import { useShowDisputeDisclaimer } from '../utils/useShowDisputeDisclaimer'
 export const useContractChatSetup = () => {
   const route = useRoute<'contractChat'>()
   const { contractId } = route.params
+  const chatId = contractId
 
-  const ws = useContext(PeachWSContext)
+  const { connected, send, off, on } = useContext(PeachWSContext)
   const { contract, view } = useCommonContractSetup(contractId)
   const {
     messages,
     isLoading,
     error: messagesError,
+    page,
     fetchNextPage,
-    hasNextPage,
   } = useChatMessages(contractId, contract?.symmetricKey)
   const showError = useShowErrorBanner()
   const cancelTradeOverlay = useConfirmCancelTrade(contractId)
@@ -52,27 +54,24 @@ export const useContractChatSetup = () => {
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
 
-  useThrottledEffect(
-    () => {
-      setAndSaveChat(contractId, {
-        draftMessage: newMessage,
-      })
-    },
-    2000,
-    [contractId, newMessage],
-  )
-
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !message) return
+      if (!tradingPartner || !contract?.symmetricKey || !message) return
 
       const encryptedResult = await signAndEncryptSymmetric(message, contract.symmetricKey)
-
-      if (ws.connected) {
-        ws.send(
+      const messageObject: Message = {
+        roomId: `contract-${contractId}`,
+        from: account.publicKey,
+        date: new Date(),
+        readBy: [],
+        message,
+        signature: encryptedResult.signature,
+      }
+      if (connected) {
+        send(
           JSON.stringify({
             path: '/v1/contract/chat',
-            contractId: contract.id,
+            contractId,
             message: encryptedResult.encrypted,
             signature: encryptedResult.signature,
           }),
@@ -80,47 +79,62 @@ export const useContractChatSetup = () => {
       }
 
       setAndSaveChat(
-        chat.id,
+        chatId,
         {
-          messages: [
-            {
-              roomId: `contract-${contract.id}`,
-              from: account.publicKey,
-              date: new Date(),
-              readBy: [],
-              message,
-              signature: encryptedResult.signature,
-            },
-          ],
+          messages: [messageObject],
           lastSeen: new Date(),
         },
         false,
       )
     },
-    [chat.id, contract, tradingPartner, ws],
+    [chatId, connected, contract?.symmetricKey, contractId, send, tradingPartner],
   )
+  const resendMessage = (message: Message) => {
+    if (!connected) return
+    deleteMessage(chatId, message)
+    sendMessage(message.message)
+  }
 
   const submit = async () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !ws || !newMessage) return
+    if (!contract || !tradingPartner || !contract.symmetricKey || !newMessage) return
     setDisableSend(true)
     setTimeout(() => setDisableSend(false), 300)
 
     sendMessage(newMessage)
     setNewMessage('')
+    setAndSaveChat(contractId, {
+      draftMessage: '',
+    })
   }
+
+  const saveChatDebounced = useCallback(
+    debounce((message: string) => {
+      setAndSaveChat(contractId, {
+        draftMessage: message,
+      })
+    }, 2000),
+    [],
+  )
 
   const onChangeMessage = (message: string) => {
     setNewMessage(message)
+    saveChatDebounced(message)
   }
 
   useEffect(() => {
-    const unsentMessages = popUnsentMessages(chat.id)
-    if (ws.connected && unsentMessages.length) {
-      unsentMessages.forEach((unsent) => {
-        sendMessage(unsent.message || '')
-      })
-    }
+    const timeout = setTimeout(() => {
+      const unsentMessages = getUnsentMessages(chat.messages)
+      if (unsentMessages.length === 0) return
 
+      setAndSaveChat(chatId, {
+        messages: unsentMessages.map((message) => ({ ...message, failedToSend: true })),
+      })
+    }, 5000)
+
+    return () => clearTimeout(timeout)
+  }, [chatId, chat.messages, sendMessage])
+
+  useEffect(() => {
     const messageHandler = async (message: Message) => {
       if (!contract || !contract.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
@@ -140,7 +154,7 @@ export const useContractChatSetup = () => {
         messages: [decryptedMessage],
       })
       if (!message.readBy.includes(account.publicKey)) {
-        ws.send(
+        send(
           JSON.stringify({
             path: '/v1/contract/chat/received',
             contractId: contract.id,
@@ -151,13 +165,13 @@ export const useContractChatSetup = () => {
       }
     }
     const unsubscribe = () => {
-      ws.off('message', messageHandler)
+      off('message', messageHandler)
     }
 
-    if (!ws.connected) return unsubscribe
-    ws.on('message', messageHandler)
+    if (!connected) return unsubscribe
+    on('message', messageHandler)
     return unsubscribe
-  }, [chat.id, contract, contractId, sendMessage, ws])
+  }, [contract, contractId, connected, on, send, off])
 
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages })
@@ -176,13 +190,14 @@ export const useContractChatSetup = () => {
   return {
     contract,
     chat,
+    connected,
     setAndSaveChat,
     tradingPartner,
-    ws,
+    page,
     fetchNextPage,
-    hasNextPage,
     isLoading,
     onChangeMessage,
+    resendMessage,
     submit,
     disableSend,
     newMessage,

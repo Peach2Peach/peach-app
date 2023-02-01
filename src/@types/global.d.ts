@@ -91,6 +91,7 @@ declare type Message = {
   decrypted?: boolean
   readBy: string[]
   signature: string
+  failedToSend?: boolean
 }
 
 declare type Chat = {
