@@ -13,6 +13,7 @@ import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { account } from '../../utils/account'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -53,8 +54,11 @@ export default (): ReactElement => {
       message: messageToSend,
     })
     if (result) {
-      navigation.goBack()
-      navigation.goBack()
+      if (!!account?.publicKey) {
+        navigation.navigate('settings')
+      } else {
+        navigation.navigate('welcome')
+      }
       showReportSuccess(updateOverlay)
       return
     }
