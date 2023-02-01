@@ -4,6 +4,7 @@ import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
+import { info } from '../../../utils/log'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
@@ -59,6 +60,8 @@ export const useDisputeResults = () => {
       }
 
       const tradeId = contractIdToHex(contract.id)
+
+      info('contract -> ' + contract.disputeResultAcknowledged)
 
       return !!contract.disputeWinner
         ? contract.disputeWinner === view
