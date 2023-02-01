@@ -14,8 +14,8 @@
 "notification.body.offer.matchSeller" = "The faster you accept, the better your Peach Reputation score will be.";
 "notification.title.contract.contractCreated" = "Your match got accepted:";
 "notification.body.contract.contractCreated" = "proceed to payment! The faster you pay, the better your Peach score will be";
-"notification.title.contract.buyer.paymentReminderFourHours" = ""
-"notification.body.contract.buyer.paymentReminderFourHours" = "You only have six hours left to confirm that you made the payment!"
+"notification.title.contract.buyer.paymentReminderSixHours" = ""
+"notification.body.contract.buyer.paymentReminderSixHours" = "You only have six hours left to confirm that you made the payment!"
 "notification.title.contract.buyer.paymentReminderOneHour" = ""
 "notification.body.contract.buyer.paymentReminderOneHour" = "You only have one hour left to confirm that you made the payment! If you don't do this in time, the seller can cancel the trade."
 "notification.title.contract.buyer.paymentTimerHasRunOut" = ""
