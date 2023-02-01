@@ -9,6 +9,7 @@ import i18n from '../../utils/i18n'
 import { useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 import { submitRaiseDispute } from './utils/submitRaiseDispute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
 const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
 const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 
@@ -21,6 +22,8 @@ export default (): ReactElement => {
 
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
+
+  const disputeRaisedOverlay = useDisputeRaisedSuccess()
 
   useHeaderSetup(
     useMemo(
@@ -39,7 +42,9 @@ export default (): ReactElement => {
     } else {
       const [success, error] = await submitRaiseDispute(contract, reason)
       if (success) {
-        // todo : show dispute raised success
+        if (view) {
+          disputeRaisedOverlay(view)
+        }
         navigation.goBack()
       } else {
         showError(error ? error?.error : null)
