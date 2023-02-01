@@ -6,7 +6,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getBuyOfferIdFromContract, getContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getBuyOfferIdFromContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
@@ -100,7 +100,7 @@ export const useConfirmCancelTrade = () => {
     [closeOverlay, navigation, showError, showLoading],
   )
 
-  const showOverlay = useCallback(
+  const showConfirmOverlay = useCallback(
     (contract: Contract) => {
       const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
 
@@ -124,5 +124,5 @@ export const useConfirmCancelTrade = () => {
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
 
-  return showOverlay
+  return { showConfirmOverlay, cancelSeller, cancelBuyer }
 }

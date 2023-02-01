@@ -12,7 +12,7 @@ import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 export const useShowPaymentTimerHasRunOut = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const navigation = useNavigation()
-  const cancelTradeOverlay = useConfirmCancelTrade()
+  const { cancelSeller } = useConfirmCancelTrade()
   const showError = useShowErrorBanner()
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
@@ -55,7 +55,7 @@ export const useShowPaymentTimerHasRunOut = () => {
       const cancelTrade: Action = {
         label: i18n('contract.seller.paymentTimerHasRunOut.cancelTrade'),
         icon: 'xSquare',
-        callback: () => cancelTradeOverlay(contract),
+        callback: () => cancelSeller(contract),
       }
       const extraTime: Action = {
         label: i18n('contract.seller.paymentTimerHasRunOut.extraTime'),
@@ -90,7 +90,7 @@ export const useShowPaymentTimerHasRunOut = () => {
         action2: inTrade ? cancelTrade : closeAction,
       })
     },
-    [cancelTradeOverlay, closeOverlay, showError, updateOverlay],
+    [cancelSeller, closeOverlay, showError, updateOverlay],
   )
 
   const showPaymentTimerHasRunOut = useCallback(

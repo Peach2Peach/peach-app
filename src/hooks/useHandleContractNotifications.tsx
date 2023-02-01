@@ -6,7 +6,7 @@ import { useShowPaymentReminder } from '../overlays/paymentTimer/useShowPaymentR
 import { useShowPaymentTimerExtended } from '../overlays/paymentTimer/useShowPaymentTimerExtended'
 import { useShowPaymentTimerHasRunOut } from '../overlays/paymentTimer/useShowPaymentTimerHasRunOut'
 import { useShowPaymentTimerSellerCanceled } from '../overlays/paymentTimer/useShowPaymentTimerSellerCanceled'
-import { useBuyerCanceledOverlay } from '../overlays/tradeCancelation/useBuyerCanceledOverlay'
+import { useTradeCanceledOverlay } from '../overlays/tradeCancelation/useTradeCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from '../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
 import { account } from '../utils/account'
@@ -15,14 +15,14 @@ import { error, info } from '../utils/log'
 import { getContract as getContractAPI } from '../utils/peachAPI'
 import { parseError } from '../utils/system'
 
-const paymentReminders = ['contract.buyer.paymentReminderFourHours', 'contract.buyer.paymentReminderOneHour']
+const paymentReminders = ['contract.buyer.paymentReminderSixHours', 'contract.buyer.paymentReminderOneHour']
 
 export const useHandleContractNotifications = (currentContractId?: string) => {
   const showDisputeRaisedNotice = useDisputeRaisedNotice()
   const showDisputeResults = useDisputeResults()
 
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
-  const showBuyerCanceled = useBuyerCanceledOverlay()
+  const showTradeCanceled = useTradeCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
   const showPaymentReminder = useShowPaymentReminder()
@@ -31,6 +31,7 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
   const showPaymentTimerExtended = useShowPaymentTimerExtended()
 
   const onMessageHandler = useCallback(
+    // eslint-disable-next-line max-statements
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
       info('useHandleContractNotifications - A new FCM message arrived! ' + JSON.stringify(remoteMessage))
       if (!remoteMessage.data) return null
@@ -42,15 +43,17 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
 
       if (!contract) return null
 
-      if (type === 'contract.disputeRaised') return showDisputeRaisedNotice(contract, getContractViewer(contract, account))
+      if (type === 'contract.disputeRaised') {
+        return showDisputeRaisedNotice(contract, getContractViewer(contract, account))
+      }
       if (type === 'contract.disputeResolved') return showDisputeResults(contract, getContractViewer(contract, account))
 
-      if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
+      if (type === 'contract.canceled') return showTradeCanceled(contract, false)
       if (type === 'contract.cancelationRequest' && !contract.disputeActive) {
         return showConfirmTradeCancelation(contract)
       }
       if (type === 'contract.cancelationRequestAccepted') {
-        return showBuyerCanceled(contract, true)
+        return showTradeCanceled(contract, true)
       }
       if (type === 'contract.cancelationRequestRejected') {
         return showCancelTradeRequestRejected(contract)
@@ -61,24 +64,26 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
       if (type === 'contract.buyer.paymentTimerHasRunOut') {
         return showPaymentTimerHasRunOut(contract, 'buyer', currentContractId === contractId)
       }
+      if (type === 'contract.seller.paymentTimerHasRunOut') {
+        return showPaymentTimerHasRunOut(contract, 'seller', currentContractId === contractId)
+      }
       if (type === 'contract.buyer.paymentTimerSellerCanceled') {
         return showPaymentTimerSellerCanceled(contract, currentContractId === contractId)
       }
       if (type === 'contract.buyer.paymentTimerExtended') {
         return showPaymentTimerExtended(contract, currentContractId === contractId)
       }
-      if (type === 'contract.seller.paymentTimerHasRunOut') {
-        return showPaymentTimerHasRunOut(contract, 'seller', currentContractId === contractId)
-      }
+
       return null
     },
     [
       showDisputeRaisedNotice,
       showDisputeResults,
+      showTradeCanceled,
       showConfirmTradeCancelation,
-      showBuyerCanceled,
       showCancelTradeRequestRejected,
       showPaymentReminder,
+      currentContractId,
       showPaymentTimerHasRunOut,
       showPaymentTimerSellerCanceled,
       showPaymentTimerExtended,

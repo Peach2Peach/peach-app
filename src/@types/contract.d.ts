@@ -58,7 +58,7 @@ declare type Contract = {
 
   cancelationRequested: boolean
   canceled: boolean
-
+  canceledBy?: 'buyer' | 'seller' | 'mediator'
   ratingBuyer: 1 | 0 | -1
   ratingSeller: 1 | 0 | -1
 
