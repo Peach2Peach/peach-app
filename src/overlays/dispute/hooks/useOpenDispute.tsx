@@ -12,12 +12,12 @@ export const useOpenDispute = (contractId: string) => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const closeOverlay = () => updateOverlay({ visible: false })
+  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
 
-  const ok = async () => {
+  const ok = useCallback(async () => {
     closeOverlay()
     navigation.navigate('disputeReasonSelector', { contractId })
-  }
+  }, [closeOverlay, contractId, navigation])
 
   const showOverlay = useCallback(() => {
     updateOverlay({
@@ -36,6 +36,6 @@ export const useOpenDispute = (contractId: string) => {
         callback: ok,
       },
     })
-  }, [updateOverlay, contract, navigation])
+  }, [updateOverlay, closeOverlay, ok])
   return showOverlay
 }

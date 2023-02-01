@@ -78,8 +78,8 @@ export const useDisputeRaisedNotice = () => {
     [closeOverlay, email, isEmailValid, showError, updateOverlay],
   )
 
-  return useCallback(
-    (contract: Contract, view: ContractViewer) =>
+  const showDisputeRaisedNotice = useCallback(
+    (contract: Contract, view: ContractViewer) => {
       updateOverlay({
         title: i18n('dispute.opened'),
         level: 'WARN',
@@ -95,20 +95,19 @@ export const useDisputeRaisedNotice = () => {
           />
         ),
         visible: true,
-        action2: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: () => {
-            submit(contract, contract.disputeReason ?? 'other')
-          },
-        },
+        action2: !isEmailRequired(contract.disputeReason ?? 'other')
+          ? {
+            label: i18n('close'),
+            icon: 'xSquare',
+            callback: () => submit(contract, contract.disputeReason ?? 'other'),
+          }
+          : undefined,
         action1: isEmailRequired(contract.disputeReason ?? 'other')
           ? {
             label: i18n('send'),
             icon: 'arrowRightCircle',
             callback: () => {
               submit(contract, contract.disputeReason ?? 'other')
-              goToChat(contract.id)
             },
           }
           : {
@@ -119,7 +118,10 @@ export const useDisputeRaisedNotice = () => {
               goToChat(contract.id)
             },
           },
-      }),
+      })
+    },
     [email, emailErrors, goToChat, setEmail, submit, updateOverlay],
   )
+
+  return showDisputeRaisedNotice
 }

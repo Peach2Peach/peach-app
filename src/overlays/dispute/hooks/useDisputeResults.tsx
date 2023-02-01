@@ -1,7 +1,9 @@
 import React, { useCallback, useContext } from 'react'
+import { Loading } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import tw from '../../../styles/tailwind'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
@@ -16,44 +18,55 @@ export const useDisputeResults = () => {
 
   const showError = useShowErrorBanner()
 
-  return useCallback(
+  const showDisputeResults = useCallback(
     (contract: Contract, view: ContractViewer) => {
-      const goToChat = () => {
+      const saveAcknowledgeMent = () => {
         saveContract({
           ...contract,
           disputeResultAcknowledged: true,
           cancelConfirmationDismissed: true,
           disputeResolvedDate: new Date(),
         })
-        navigation.navigate('contractChat', { contractId: contract.id })
-        updateOverlay({ visible: false })
       }
-
-      const goToContract = () => {
-        navigation.navigate('contract', { contractId: contract.id })
-        updateOverlay({ visible: false })
-      }
-
       const closeOverlay = () => {
-        saveContract({
-          ...contract,
-          disputeResultAcknowledged: true,
-          cancelConfirmationDismissed: true,
-          disputeResolvedDate: new Date(),
-        })
-        goToContract()
+        updateOverlay({ visible: false })
+      }
+
+      const goToChat = () => {
+        saveAcknowledgeMent()
+        closeOverlay()
+        navigation.navigate('contractChat', { contractId: contract.id })
       }
 
       const release = async () => {
+        updateOverlay({
+          title: i18n('dispute.lost'),
+          content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
+          level: 'WARN',
+          visible: true,
+          requireUserAction: true,
+          action1: {
+            label: i18n('loading'),
+            icon: 'clock',
+            callback: () => {},
+          },
+        })
         const [tx, errorMsg] = signReleaseTx(contract)
-        if (!tx) return showError(errorMsg)
+        if (!tx) {
+          closeOverlay()
+          return showError(errorMsg)
+        }
 
         const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
-        if (err) return showError(err.error)
+        if (err) {
+          closeOverlay()
+          return showError(err.error)
+        }
 
         saveContract({
           ...contract,
           paymentConfirmed: new Date(),
+          cancelConfirmationDismissed: true,
           releaseTxId: result?.txId || '',
           disputeResultAcknowledged: true,
           disputeResolvedDate: new Date(),
@@ -63,72 +76,88 @@ export const useDisputeResults = () => {
 
       const tradeId = contractIdToHex(contract.id)
 
-      return !!contract.disputeWinner
-        ? contract.disputeWinner === view
-          ? updateOverlay({
-            title: i18n('dispute.won'),
-            level: 'SUCCESS',
-            content: <DisputeWon tradeId={tradeId} />,
-            visible: true,
-            action2: {
+      if (!contract.disputeWinner) return updateOverlay({
+        title: i18n('dispute.closed'),
+        level: 'WARN',
+        content: <NonDispute tradeId={tradeId} />,
+        visible: true,
+        action2: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            saveAcknowledgeMent()
+            closeOverlay()
+          },
+        },
+        action1: {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: goToChat,
+        },
+      })
+
+      if (contract.disputeWinner === view) return updateOverlay({
+        title: i18n('dispute.won'),
+        level: 'SUCCESS',
+        content: <DisputeWon tradeId={tradeId} />,
+        visible: true,
+        action2: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            saveAcknowledgeMent()
+            closeOverlay()
+          },
+        },
+        action1: {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: goToChat,
+        },
+      })
+      if (view === 'buyer') return updateOverlay({
+        title: i18n('dispute.lost'),
+        level: 'WARN',
+        content: <DisputeLostBuyer tradeId={tradeId} />,
+        visible: true,
+        action2: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            saveAcknowledgeMent()
+            closeOverlay()
+          },
+        },
+        action1: {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: goToChat,
+        },
+      })
+      return updateOverlay({
+        title: i18n('dispute.lost'),
+        level: 'WARN',
+        content: <DisputeLostSeller tradeId={tradeId} isCompleted={!!contract.releaseTxId || contract.canceled} />,
+        visible: true,
+        action1:
+          !contract.releaseTxId && !contract.canceled
+            ? {
+              label: i18n('dispute.seller.lost.button'),
+              icon: 'sell',
+              callback: release,
+            }
+            : {
               label: i18n('close'),
               icon: 'xSquare',
-              callback: closeOverlay,
-            },
-            action1: {
-              label: i18n('goToChat'),
-              icon: 'messageCircle',
-              callback: goToChat,
-            },
-          })
-          : view === 'buyer'
-            ? updateOverlay({
-              title: i18n('dispute.lost'),
-              level: 'WARN',
-              content: <DisputeLostBuyer tradeId={tradeId} />,
-              visible: true,
-              action2: {
-                label: i18n('close'),
-                icon: 'xSquare',
-                callback: closeOverlay,
+              callback: () => {
+                saveAcknowledgeMent()
+                closeOverlay()
               },
-              action1: {
-                label: i18n('goToChat'),
-                icon: 'messageCircle',
-                callback: goToChat,
-              },
-            })
-            : updateOverlay({
-              title: i18n('dispute.lost'),
-              level: 'WARN',
-              content: <DisputeLostSeller tradeId={tradeId} isCompleted={!!contract.releaseTxId || contract.canceled} />,
-              visible: true,
-              action1:
-                !contract.releaseTxId && !contract.canceled
-                  ? {
-                    label: i18n('dispute.seller.lost.button'),
-                    icon: 'sell',
-                    callback: release,
-                  }
-                  : undefined,
-            })
-        : updateOverlay({
-          title: i18n('dispute.closed'),
-          level: 'WARN',
-          content: <NonDispute tradeId={tradeId} />,
-          visible: true,
-          action2: {
-            label: i18n('close'),
-            icon: 'xSquare',
-            callback: closeOverlay,
-          },
-          action1: {
-            label: i18n('goToChat'),
-            icon: 'messageCircle',
-            callback: goToChat,
-          },
-        })
+            },
+      })
     },
     [navigation, showError, updateOverlay],
   )
+
+  return showDisputeResults
 }
