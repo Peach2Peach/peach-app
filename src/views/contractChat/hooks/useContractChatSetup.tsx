@@ -132,7 +132,7 @@ export const useContractChatSetup = () => {
     }, 5000)
 
     return () => clearTimeout(timeout)
-  }, [chatId, chat.messages, sendMessage])
+  }, [chatId, chat.messages])
 
   useEffect(() => {
     const messageHandler = async (message: Message) => {
