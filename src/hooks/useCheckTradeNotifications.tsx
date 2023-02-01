@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { useNotificationsState } from '../components/footer/notificationsStore'
 import { tradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
+import { hasDoubleMatched } from '../views/yourTrades/utils'
 
 export const statusWithRequiredAction: TradeStatus[] = [
   'fundEscrow',
@@ -25,10 +26,13 @@ export const useCheckTradeNotifications = () => {
   const setNotificationsState = useNotificationsState((state) => state.setNotifications)
 
   const checkTradeNotifications = useCallback(() => {
-    const offersWithAction = tradeSummaryStore.getState().offers.filter((offer) => hasRequiredAction(offer)).length
-    const contractsWithAction = tradeSummaryStore
-      .getState()
-      .contracts.filter((contract) => hasRequiredAction(contract) || contract.unreadMessages > 0).length
+    const { offers, contracts } = tradeSummaryStore.getState()
+    const offersWithAction = offers
+      .filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
+      .filter((offer) => hasRequiredAction(offer)).length
+    const contractsWithAction = contracts.filter(
+      (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
+    ).length
     const notifications = offersWithAction + contractsWithAction
 
     info('checkTradeNotifications', notifications)
