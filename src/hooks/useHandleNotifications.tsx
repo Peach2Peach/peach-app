@@ -5,10 +5,8 @@ import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
 import OfferNotFunded from '../overlays/OfferNotFunded'
-import { getContract } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
-import { getContract as getContractAPI } from '../utils/peachAPI'
 import { parseError } from '../utils/system'
 import { useHandleContractNotifications } from './useHandleContractNotifications'
 import { useNavigation } from './useNavigation'
@@ -30,9 +28,6 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
       const args = remoteMessage.notification?.bodyLocArgs
       const currentPage = getCurrentPage() as string
       const offer = offerId ? (getOffer(offerId) as SellOffer) : null
-      const storedContract = contractId ? getContract(contractId) : null
-      let [contract] = contractId ? await getContractAPI({ contractId }) : [null]
-      if (contract && storedContract) contract = { ...contract, ...storedContract }
 
       if (offer && type === 'offer.expired' && !/contract/u.test(currentPage)) {
         const days = args ? args[0] || '15' : '15'
@@ -62,8 +57,8 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
         })
       }
 
-      if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-        return navigation.navigate('paymentMade', { contractId: contract.id })
+      if (type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
+        return navigation.navigate('paymentMade', { contractId })
       }
 
       return null

@@ -18,7 +18,7 @@ import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
 import getMessagesEffect from '../utils/getMessagesEffect'
 import { useShowDisputeDisclaimer } from '../utils/useShowDisputeDisclaimer'
-import { useOpenDispute } from '../../../overlays/disputeResults/useOpenDispute'
+import { useOpenDispute } from '../../../overlays/dispute/hooks/useOpenDispute'
 
 // eslint-disable-next-line max-statements
 export const useContractChatSetup = () => {
