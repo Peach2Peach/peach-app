@@ -1,4 +1,4 @@
-import { isEmailRequired } from '../../views/dispute/Dispute'
+import { isEmailRequired } from '../../views/dispute/DisputeForm'
 import { contractIdToHex } from '../contract'
 import i18n from '../i18n'
 import { createSystemMessage } from './createSystemMessage'

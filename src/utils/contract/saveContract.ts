@@ -19,7 +19,7 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
         disputeResultAcknowledged: contract.disputeActive
           ? false
           : contract.disputeResultAcknowledged || c.disputeResultAcknowledged,
-        disputeAcknowledgedByCounterParty: contract.disputeActive
+        disputeAcknowledgedByCounterParty: !contract.disputeActive
           ? false
           : contract.disputeAcknowledgedByCounterParty || c.disputeAcknowledgedByCounterParty,
       }

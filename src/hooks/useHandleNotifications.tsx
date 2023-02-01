@@ -1,17 +1,17 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { useContext, useEffect } from 'react'
 import { OverlayContext } from '../contexts/overlay'
-import { DisputeResult } from '../overlays/DisputeResult'
+import { useDisputeRaisedNotice } from '../overlays/dispute/hooks/useDisputeRaisedNotice'
+import { useDisputeResults } from '../overlays/dispute/hooks/useDisputeResults'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
 import OfferExpired from '../overlays/OfferExpired'
 import OfferNotFunded from '../overlays/OfferNotFunded'
-import PaymentMade from '../overlays/PaymentMade'
 import { useBuyerCanceledOverlay } from '../overlays/tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from '../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import YouGotADispute from '../overlays/YouGotADispute'
-import { getContract } from '../utils/contract'
+import { account } from '../utils/account'
+import { getContract, getContractViewer } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
 import { getContract as getContractAPI } from '../utils/peachAPI'
@@ -24,6 +24,8 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+  const showDisputeRaisedNotice = useDisputeRaisedNotice()
+  const showDisputeResults = useDisputeResults()
 
   useEffect(() => {
     // eslint-disable-next-line max-statements, complexity
@@ -70,18 +72,13 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
       if (contract && type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
         return navigation.navigate('paymentMade', { contractId: contract.id })
       }
-      if (type === 'contract.disputeRaised') {
-        const { message, reason } = remoteMessage.data
-        return updateOverlay({
-          content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
-          visible: true,
-        })
+      if (type === 'contract.disputeRaised' && contract) {
+        const view = getContractViewer(contract, account)
+        return showDisputeRaisedNotice(contract, view)
       }
-      if (type === 'contract.disputeResolved') {
-        return updateOverlay({
-          content: <DisputeResult {...{ contractId, navigation }} />,
-          visible: true,
-        })
+      if (type === 'contract.disputeResolved' && contract) {
+        const view = getContractViewer(contract, account)
+        return showDisputeResults(contract, view)
       }
 
       if (contract) {
@@ -110,6 +107,8 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
     showBuyerCanceled,
     showCancelTradeRequestRejected,
     showConfirmTradeCancelation,
+    showDisputeRaisedNotice,
+    showDisputeResults,
     updateOverlay,
   ])
 }
