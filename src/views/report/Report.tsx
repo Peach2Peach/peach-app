@@ -65,7 +65,7 @@ export default (): ReactElement => {
 
     if (err) {
       error('Error', err)
-      showError(err?.error || 'GENERAL_ERROR')
+      showError()
     }
   }
 
