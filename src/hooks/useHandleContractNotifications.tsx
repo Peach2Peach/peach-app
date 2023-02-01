@@ -1,6 +1,5 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { useContext, useEffect } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback, useEffect } from 'react'
 import { useDisputeRaisedNotice } from '../overlays/dispute/hooks/useDisputeRaisedNotice'
 import { useDisputeResults } from '../overlays/dispute/hooks/useDisputeResults'
 import { useShowPaymentReminder } from '../overlays/paymentTimer/useShowPaymentReminder'
@@ -15,14 +14,10 @@ import { getContract, getContractViewer } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getContract as getContractAPI } from '../utils/peachAPI'
 import { parseError } from '../utils/system'
-import { useNavigation } from './useNavigation'
 
 const paymentReminders = ['contract.buyer.paymentReminderFourHours', 'contract.buyer.paymentReminderOneHour']
 
 export const useHandleContractNotifications = (currentContractId?: string) => {
-  const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
-
   const showDisputeRaisedNotice = useDisputeRaisedNotice()
   const showDisputeResults = useDisputeResults()
 
@@ -35,13 +30,12 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
   const showPaymentTimerSellerCanceled = useShowPaymentTimerSellerCanceled()
   const showPaymentTimerExtended = useShowPaymentTimerExtended()
 
-  useEffect(() => {
-    // eslint-disable-next-line max-statements
-    const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
+  const onMessageHandler = useCallback(
+    async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
       info('useHandleContractNotifications - A new FCM message arrived! ' + JSON.stringify(remoteMessage))
       if (!remoteMessage.data) return null
 
-      const { contractId, message, reason, type } = remoteMessage.data
+      const { contractId, type } = remoteMessage.data
       const storedContract = contractId ? getContract(contractId) : null
       let [contract] = contractId ? await getContractAPI({ contractId }) : [null]
       if (contract && storedContract) contract = { ...contract, ...storedContract }
@@ -77,8 +71,21 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
         return showPaymentTimerHasRunOut(contract, 'seller', currentContractId === contractId)
       }
       return null
-    }
+    },
+    [
+      showDisputeRaisedNotice,
+      showDisputeResults,
+      showConfirmTradeCancelation,
+      showBuyerCanceled,
+      showCancelTradeRequestRejected,
+      showPaymentReminder,
+      showPaymentTimerHasRunOut,
+      showPaymentTimerSellerCanceled,
+      showPaymentTimerExtended,
+    ],
+  )
 
+  useEffect(() => {
     info('useHandleContractNotifications - Subscribe to push notifications')
     try {
       const unsubscribe = messaging().onMessage(onMessageHandler)
@@ -88,5 +95,5 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
       error('useHandleContractNotifications - messaging().onMessage - Push notifications not supported', parseError(e))
       return () => {}
     }
-  }, [])
+  }, [onMessageHandler])
 }

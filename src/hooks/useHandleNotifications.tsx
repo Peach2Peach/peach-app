@@ -1,5 +1,5 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import EscrowFunded from '../overlays/EscrowFunded'
 import MatchAccepted from '../overlays/MatchAccepted'
@@ -17,9 +17,8 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
 
   useHandleContractNotifications()
 
-  useEffect(() => {
-    // eslint-disable-next-line max-statements, complexity
-    const onMessageHandler = async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
+  const onMessageHandler = useCallback(
+    async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
       if (!remoteMessage.data) return null
 
@@ -62,8 +61,11 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
       }
 
       return null
-    }
+    },
+    [getCurrentPage, navigation, updateOverlay],
+  )
 
+  useEffect(() => {
     info('Subscribe to push notifications')
     try {
       const unsubscribe = messaging().onMessage(onMessageHandler)
@@ -73,5 +75,5 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
       error('messaging().onMessage - Push notifications not supported', parseError(e))
       return () => {}
     }
-  }, [getCurrentPage, navigation, updateOverlay])
+  }, [onMessageHandler])
 }
