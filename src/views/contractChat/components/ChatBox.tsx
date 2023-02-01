@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { FlatList, Keyboard, ViewToken } from 'react-native'
 import AppContext from '../../../contexts/app'
 import tw from '../../../styles/tailwind'
@@ -11,20 +11,22 @@ const PAGE_SIZE = 21
 type ChatBoxProps = ComponentProps & {
   chat: Chat
   setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void
+  resendMessage: (message: Message) => void
   tradingPartner: User['id']
   page: number
-  loadMore: () => void
-  loading: boolean
+  fetchNextPage: () => void
+  isLoading: boolean
   online: boolean
 }
 
 export default ({
   chat,
   setAndSaveChat,
+  resendMessage,
   tradingPartner,
   page,
-  loadMore,
-  loading,
+  fetchNextPage,
+  isLoading,
   online,
 }: ChatBoxProps): ReactElement => {
   const [, updateAppContext] = useContext(AppContext)
@@ -57,24 +59,17 @@ export default ({
     <FlatList
       ref={scroll}
       data={visibleChatMessages}
-      onContentSizeChange={onContentSizeChange}
+      {...{ onContentSizeChange, onViewableItemsChanged }}
       onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
-      onViewableItemsChanged={onViewableItemsChanged}
       keyExtractor={(item) =>
         item.date.getTime() + item.signature.substring(0, 16) + item.signature.substring(128, 128 + 32)
       }
       renderItem={({ item, index }) => (
-        <ChatMessage
-          item={item}
-          index={index}
-          chatMessages={visibleChatMessages}
-          tradingPartner={tradingPartner}
-          online={online}
-        />
+        <ChatMessage chatMessages={visibleChatMessages} {...{ item, index, tradingPartner, online, resendMessage }} />
       )}
       initialNumToRender={PAGE_SIZE}
-      onRefresh={loadMore}
-      refreshing={loading}
+      onRefresh={fetchNextPage}
+      refreshing={isLoading}
       contentContainerStyle={tw`pb-5`}
     />
   )
