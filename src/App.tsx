@@ -181,7 +181,6 @@ const App: React.FC = () => {
 
     ;(async () => {
       await initApp()
-      checkTradeNotifications()
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
 
