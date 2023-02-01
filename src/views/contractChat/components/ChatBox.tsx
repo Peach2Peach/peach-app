@@ -41,17 +41,14 @@ export default ({
   const onContentSizeChange = () =>
     page === 0 ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50) : () => {}
 
-  const onViewableItemsChanged = useCallback(
-    ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-      const lastItem = viewableItems.pop()?.item as Message
-      const savedChat = getChat(chat.id)
-      if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+    const lastItem = viewableItems.pop()?.item as Message
+    const savedChat = getChat(chat.id)
+    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-      setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-      checkTradeNotifications()
-    },
-    [chat.id, setAndSaveChat],
-  )
+    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
+    checkTradeNotifications()
+  }, [])
 
   return (
     <FlatList
