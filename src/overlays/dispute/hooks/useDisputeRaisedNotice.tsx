@@ -64,12 +64,12 @@ export const useDisputeRaisedNotice = () => {
         if (isEmailRequired(reason)) {
           Keyboard.dismiss()
         }
-        closeOverlay()
         return
       }
 
       if (err) showError(err?.error)
       setLoading(false)
+      closeOverlay()
     },
     [closeOverlay, email, isEmailValid, loading, showError],
   )
