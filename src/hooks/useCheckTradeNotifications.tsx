@@ -36,7 +36,6 @@ export const useCheckTradeNotifications = () => {
     setNotificationsState({
       notifications,
     })
-    info(notifications)
 
     return notifications
   }, [setNotificationsState])
