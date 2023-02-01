@@ -6,8 +6,8 @@
 "notification.body.offer.wrongFundingAmount" = "The amount you sent to the escrow is higher or lower than the single trade limit. You'll be refunded, please re-create your offer.";
 "notification.title.offer.notFunded" = "Offer canceled";
 "notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days 😞 We are deleting this offer.";
-"notification.title.offer.expired" = "No match";
-"notification.body.offer.expired" = "It's been %@ days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.";
+"notification.title.offer.sellOfferExpired" = "No match";
+"notification.body.offer.sellOfferExpired" = "It's been %@ days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";
 "notification.body.offer.matchBuyer" = "The faster you accept, the better your Peach Reputation score will be.";
 "notification.title.offer.matchSeller" = "Matches are waiting for you!";

@@ -8,8 +8,8 @@
     <string name="notification.body.offer.wrongFundingAmount">The amount you sent to the escrow is higher or lower than the single trade limit. You\'ll be refunded, please re-create your offer.</string>
     <string name="notification.title.offer.notFunded">Offer canceled</string>
     <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %1$s days &#128542; We are deleting this offer.</string>
-    <string name="notification.title.offer.expired">No match</string>
-    <string name="notification.body.offer.expired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
+    <string name="notification.title.offer.sellOfferExpired">No match</string>
+    <string name="notification.body.offer.sellOfferExpired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
     <string name="notification.body.offer.matchBuyer">The faster you accept, the better your Peach Reputation score will be.</string>
     <string name="notification.title.offer.matchSeller">Matches are waiting for you!</string>

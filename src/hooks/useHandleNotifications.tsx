@@ -28,7 +28,7 @@ export const useHandleNotifications = (getCurrentPage: () => keyof RootStackPara
       const currentPage = getCurrentPage() as string
       const offer = offerId ? (getOffer(offerId) as SellOffer) : null
 
-      if (offer && type === 'offer.expired' && !/contract/u.test(currentPage)) {
+      if (offer && type === 'offer.sellOfferExpired' && !/contract/u.test(currentPage)) {
         const days = args ? args[0] || '15' : '15'
         return updateOverlay({
           content: <OfferExpired {...{ offer, days, navigation }} />,
