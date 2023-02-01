@@ -5,10 +5,12 @@ import {
   shouldShowCancelTradeRequestConfirmed,
   shouldShowCancelTradeRequestRejected,
   shouldShowDisputeResult,
+  shouldShowPaymentTimerHasRunOut,
   shouldShowYouGotADispute,
 } from '../utils/overlay'
 import { useDisputeRaisedNotice } from './dispute/hooks/useDisputeRaisedNotice'
 import { useDisputeResults } from './dispute/hooks/useDisputeResults'
+import { useShowPaymentTimerHasRunOut } from './paymentTimer/useShowPaymentTimerHasRunOut'
 import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 
@@ -18,6 +20,8 @@ export const useHandleContractOverlays = () => {
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
+  const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
+
   const handleContractOverlays = useCallback(
     (contract: Contract, view: ContractViewer) => {
       if (shouldShowYouGotADispute(contract, account)) return showDisputeRaisedNotice(contract, view)
@@ -26,11 +30,18 @@ export const useHandleContractOverlays = () => {
       if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract, false)
       if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showBuyerCanceled(contract, true)
       if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
-
+      if (view === 'seller' && shouldShowPaymentTimerHasRunOut(contract)) {
+        return showPaymentTimerHasRunOut(contract, view, true)
+      }
       return null
     },
-    // eslint-disable-next-line max-len
-    [showBuyerCanceled, showCancelTradeRequestRejected, showDisputeRaisedNotice, showDisputeResults],
+    [
+      showBuyerCanceled,
+      showCancelTradeRequestRejected,
+      showDisputeRaisedNotice,
+      showDisputeResults,
+      showPaymentTimerHasRunOut,
+    ],
   )
 
   return handleContractOverlays
