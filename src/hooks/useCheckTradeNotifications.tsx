@@ -1,35 +1,37 @@
+import { useCallback } from 'react'
 import { useNotificationsState } from '../components/footer/notificationsStore'
 import { tradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
 
-export const statusWithRequiredAction = [
+export const statusWithRequiredAction: TradeStatus[] = [
   'fundEscrow',
+  'fundingAmountDifferent',
   'hasMatchesAvailable',
+  'messageSigningRequired',
   'refundTxSignatureRequired',
   'dispute',
   'rateUser',
   'confirmCancelation',
 ]
-export const statusWithRequiredActionForBuyer = ['paymentRequired']
-export const statusWithRequiredActionForSeller = ['confirmPaymentRequired']
+export const statusWithRequiredActionForBuyer: TradeStatus[] = ['paymentRequired']
+export const statusWithRequiredActionForSeller: TradeStatus[] = ['confirmPaymentRequired']
+
+const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
+  statusWithRequiredAction.includes(offer.tradeStatus)
+  || (offer.type === 'bid' && statusWithRequiredActionForBuyer.includes(offer.tradeStatus))
+  || (offer.type === 'ask' && statusWithRequiredActionForSeller.includes(offer.tradeStatus))
 
 export const useCheckTradeNotifications = () => {
   const setNotificationsState = useNotificationsState((state) => state.setNotifications)
 
-  const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
-    statusWithRequiredAction.includes(offer.tradeStatus)
-    || (offer.type === 'bid' && statusWithRequiredActionForBuyer.includes(offer.tradeStatus))
-    || (offer.type === 'ask' && statusWithRequiredActionForSeller.includes(offer.tradeStatus))
-
-  return () => {
-    let notifications = 0
+  const checkTradeNotifications = useCallback(() => {
     const offersWithAction = tradeSummaryStore.getState().offers.filter((offer) => hasRequiredAction(offer)).length
     const contractsWithAction = tradeSummaryStore
       .getState()
       .contracts.filter((contract) => hasRequiredAction(contract) || contract.unreadMessages > 0).length
-    notifications = offersWithAction + contractsWithAction
+    const notifications = offersWithAction + contractsWithAction
 
-    info('notis -> ' + notifications)
+    info('checkTradeNotifications', notifications)
 
     setNotificationsState({
       notifications,
@@ -37,5 +39,7 @@ export const useCheckTradeNotifications = () => {
     info(notifications)
 
     return notifications
-  }
+  }, [setNotificationsState])
+
+  return checkTradeNotifications
 }
