@@ -1,7 +1,8 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { OverlayContext } from '../contexts/overlay'
-import { DisputeResult } from '../overlays/DisputeResult'
+import { useDisputeRaisedNotice } from '../overlays/dispute/hooks/useDisputeRaisedNotice'
+import { useDisputeResults } from '../overlays/dispute/hooks/useDisputeResults'
 import { useShowPaymentReminder } from '../overlays/paymentTimer/useShowPaymentReminder'
 import { useShowPaymentTimerExtended } from '../overlays/paymentTimer/useShowPaymentTimerExtended'
 import { useShowPaymentTimerHasRunOut } from '../overlays/paymentTimer/useShowPaymentTimerHasRunOut'
@@ -9,8 +10,8 @@ import { useShowPaymentTimerSellerCanceled } from '../overlays/paymentTimer/useS
 import { useBuyerCanceledOverlay } from '../overlays/tradeCancelation/useBuyerCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from '../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import YouGotADispute from '../overlays/YouGotADispute'
-import { getContract } from '../utils/contract'
+import { account } from '../utils/account'
+import { getContract, getContractViewer } from '../utils/contract'
 import { error, info } from '../utils/log'
 import { getContract as getContractAPI } from '../utils/peachAPI'
 import { parseError } from '../utils/system'
@@ -22,9 +23,13 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
+  const showDisputeRaisedNotice = useDisputeRaisedNotice()
+  const showDisputeResults = useDisputeResults()
+
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showBuyerCanceled = useBuyerCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+
   const showPaymentReminder = useShowPaymentReminder()
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
   const showPaymentTimerSellerCanceled = useShowPaymentTimerSellerCanceled()
@@ -36,26 +41,15 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
       info('useHandleContractNotifications - A new FCM message arrived! ' + JSON.stringify(remoteMessage))
       if (!remoteMessage.data) return null
 
-      const { contractId } = remoteMessage.data
-      const type = remoteMessage.data?.type
+      const { contractId, message, reason, type } = remoteMessage.data
       const storedContract = contractId ? getContract(contractId) : null
       let [contract] = contractId ? await getContractAPI({ contractId }) : [null]
       if (contract && storedContract) contract = { ...contract, ...storedContract }
 
-      if (type === 'contract.disputeRaised') {
-        const { message, reason } = remoteMessage.data
-        return updateOverlay({
-          content: <YouGotADispute {...{ contractId, message, reason: reason as DisputeReason, navigation }} />,
-          visible: true,
-        })
-      }
-      if (type === 'contract.disputeResolved') {
-        return updateOverlay({
-          content: <DisputeResult {...{ contractId, navigation }} />,
-          visible: true,
-        })
-      }
       if (!contract) return null
+
+      if (type === 'contract.disputeRaised') return showDisputeRaisedNotice(contract, getContractViewer(contract, account))
+      if (type === 'contract.disputeResolved') return showDisputeResults(contract, getContractViewer(contract, account))
 
       if (type === 'contract.canceled') return showBuyerCanceled(contract, false)
       if (type === 'contract.cancelationRequest' && !contract.disputeActive) {
@@ -94,16 +88,5 @@ export const useHandleContractNotifications = (currentContractId?: string) => {
       error('useHandleContractNotifications - messaging().onMessage - Push notifications not supported', parseError(e))
       return () => {}
     }
-  }, [
-    currentContractId,
-    navigation,
-    showBuyerCanceled,
-    showCancelTradeRequestRejected,
-    showConfirmTradeCancelation,
-    showPaymentReminder,
-    showPaymentTimerExtended,
-    showPaymentTimerHasRunOut,
-    showPaymentTimerSellerCanceled,
-    updateOverlay,
-  ])
+  }, [])
 }
