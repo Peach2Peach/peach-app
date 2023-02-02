@@ -20,8 +20,8 @@ type SettingsStore = Settings & {
   setMeansOfPayment: (meansOfPayment: MeansOfPayment) => void
   setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) => void
   setPremium: (premium: number) => void
-  setKyc: (kyc: boolean) => void
-  setKycType: (kycType: KYCType) => void
+  setKYC: (kyc: boolean) => void
+  setKYCType: (kycType: KYCType) => void
   setPgpPublished: (pgpPublished: boolean) => void
   setFcmToken: (fcmToken: string) => void
   setLastBackupDate: (lastBackupDate: number) => void
@@ -41,6 +41,7 @@ export const defaultSettings: Settings = {
   maxAmount: MAXTRADINGAMOUNT,
   preferredPaymentMethods: {},
   meansOfPayment: {},
+  premium: 1.5,
   showBackupReminder: true,
   showDisputeDisclaimer: true,
   peachWalletActive: true,
@@ -70,8 +71,8 @@ export const settingsStore = createStore(
       setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) =>
         set((state) => ({ ...state, preferredPaymentMethods })),
       setPremium: (premium: number) => set((state) => ({ ...state, premium })),
-      setKyc: (kyc: boolean) => set((state) => ({ ...state, kyc })),
-      setKycType: (kycType: KYCType) => set((state) => ({ ...state, kycType })),
+      setKYC: (kyc: boolean) => set((state) => ({ ...state, kyc })),
+      setKYCType: (kycType: KYCType) => set((state) => ({ ...state, kycType })),
       setPgpPublished: (pgpPublished: boolean) => set((state) => ({ ...state, pgpPublished })),
       setFcmToken: (fcmToken: string) => set((state) => ({ ...state, fcmToken })),
       setLastBackupDate: (lastBackupDate: number) => set((state) => ({ ...state, lastBackupDate })),

@@ -9,10 +9,10 @@ import { BitcoinPriceStats, HorizontalLine, Icon, PeachScrollView, PrimaryButton
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useShowWarning } from '../../hooks/useShowWarning'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
-import { useShowWarning } from '../../hooks/useShowWarning'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
@@ -29,8 +29,7 @@ export default (): ReactElement => {
 
   const next = () => {
     setMinAmount(amount)
-
-    navigation.navigate('sellPreferences', { amount })
+    navigation.navigate('sellPreferences')
   }
 
   return (

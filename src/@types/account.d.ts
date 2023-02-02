@@ -12,7 +12,7 @@ declare type Settings = {
   country?: string
   meansOfPayment: MeansOfPayment
   preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  premium?: number
+  premium: number
   kyc?: boolean
   kycType?: KYCType
   pgpPublished?: boolean

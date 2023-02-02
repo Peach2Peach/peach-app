@@ -9,10 +9,10 @@ import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '..
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useShowWarning } from '../../hooks/useShowWarning'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
-import { useShowWarning } from '../../hooks/useShowWarning'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
@@ -36,7 +36,7 @@ export default (): ReactElement => {
   const next = () => {
     setMinAmount(currentMinAmount)
     setMaxAmount(currentMaxAmount)
-    navigation.navigate('buyPreferences', { amount: [minAmount, maxAmount] })
+    navigation.navigate('buyPreferences')
   }
 
   return (
