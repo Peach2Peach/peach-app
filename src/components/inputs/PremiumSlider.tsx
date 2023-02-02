@@ -1,11 +1,10 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
-import { mildShadow } from '../../utils/layout'
-import { Shadow, Text } from '..'
-import { debounce } from '../../utils/performance'
 import i18n from '../../utils/i18n'
+import { debounce } from '../../utils/performance'
+import Icon from '../Icon'
 
 type PremiumSliderProps = ComponentProps & {
   value: number
@@ -80,7 +79,7 @@ export const PremiumSlider = ({ value, min, max, onChange, displayUpdate, style 
 
   return (
     <View {...panResponder.panHandlers} style={style}>
-      <Shadow shadow={mildShadow} style={tw`w-full`}>
+      <View style={tw`w-full`}>
         <View style={tw`p-5 pt-3 bg-white-1 border border-grey-4 rounded`}>
           <View style={tw`w-full flex-row justify-between`}>
             <Text style={tw`font-baloo text-xs text-red`}>{min}%</Text>
@@ -109,7 +108,7 @@ export const PremiumSlider = ({ value, min, max, onChange, displayUpdate, style 
             </Animated.View>
           </View>
         </View>
-      </Shadow>
+      </View>
     </View>
   )
 }

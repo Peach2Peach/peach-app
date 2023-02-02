@@ -2,9 +2,6 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../styles/tailwind'
-import { mildShadow } from '../utils/layout'
-
-import { Shadow } from '.'
 
 type CardProps = ComponentProps
 
@@ -18,9 +15,7 @@ type CardProps = ComponentProps
  * </Card>
  */
 export const Card = ({ children, style }: CardProps): ReactElement => (
-  <Shadow shadow={mildShadow}>
-    <View style={[tw`w-full border border-grey-4 rounded bg-white-1`, style]}>{children}</View>
-  </Shadow>
+  <View style={[tw`w-full border border-grey-4 rounded bg-white-1`, style]}>{children}</View>
 )
 
 export default Card
