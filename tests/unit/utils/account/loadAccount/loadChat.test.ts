@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount, storeChats } from '../../../../../src/utils/account'
-import { chatStorage } from '../../../../../src/utils/account/accountStorage'
+import { chatStorage } from '../../../../../src/utils/account/chatStorage'
 import { loadChat } from '../../../../../src/utils/account/loadAccount'
 import * as accountData from '../../../data/accountData'
 import { resetStorage } from '../../../prepare'
