@@ -1,5 +1,5 @@
 import { defaultAccount, setAccount } from '../../../../../src/utils/account'
-import { contractStorage } from '../../../../../src/utils/account/accountStorage'
+import { contractStorage } from '../../../../../src/utils/account/contractStorage'
 import { storeContracts } from '../../../../../src/utils/account/storeAccount'
 import * as accountData from '../../../data/accountData'
 import * as contractData from '../../../data/contractData'
