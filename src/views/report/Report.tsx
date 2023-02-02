@@ -6,12 +6,12 @@ import tw from '../../styles/tailwind'
 import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import LanguageContext from '../../contexts/language'
-import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
+import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
 
 const emailRules = { email: true, required: true }
@@ -21,7 +21,6 @@ export default (): ReactElement => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
   useContext(LanguageContext)
-  const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
@@ -29,6 +28,8 @@ export default (): ReactElement => {
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
   const reason = route.params.reason
+
+  const showError = useShowErrorBanner()
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
@@ -52,27 +53,16 @@ export default (): ReactElement => {
       message: messageToSend,
     })
     if (result) {
+      if (!!account?.publicKey) {
+        navigation.navigate('settings')
+      } else {
+        navigation.navigate('welcome')
+      }
       showReportSuccess(updateOverlay)
-      // Clear all fields
-      setEmail('')
-      setTopic(route.params.topic || '')
-      setMessage(route.params.message || '')
-      setShareDeviceID(false)
       return
     }
 
-    if (err) {
-      error('Error', err)
-      updateMessage({
-        msgKey: err?.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
-    }
+    if (err) showError()
   }
 
   return (

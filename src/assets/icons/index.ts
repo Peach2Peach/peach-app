@@ -111,6 +111,7 @@ import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
 import zap from './zap.svg'
+import { LogoIcons } from '../logo'
 
 const Icons = {
   activity,
@@ -228,6 +229,7 @@ const Icons = {
   xSquare,
   yourTrades,
   zap,
+  ...LogoIcons,
 }
 
 export type IconType = keyof typeof Icons

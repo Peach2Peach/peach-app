@@ -2,7 +2,7 @@ export { AvoidKeyboard } from './AvoidKeyboard'
 export { PeachScrollView } from './PeachScrollView'
 export { BitcoinPriceStats, BitcoinAddress } from './bitcoin'
 
-export { PrimaryButton, InfoButton, OptionButton, GoBackButton } from './buttons'
+export { PrimaryButton, InfoButton, OptionButton } from './buttons'
 export { Card } from './Card'
 export { ConditionalWrapper } from './ConditionalWrapper'
 export { Fade, Loading } from './animation'

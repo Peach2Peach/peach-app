@@ -18,7 +18,7 @@ describe('getUnsentMessages', () => {
 
   it('gets unsent messages from a chat', () => {
     saveChat(chatData.chatWithUnsentMessages.id, chatData.chatWithUnsentMessages)
-    const unsentMessages = getUnsentMessages(chatData.chatWithUnsentMessages)
+    const unsentMessages = getUnsentMessages(chatData.chatWithUnsentMessages.messages)
     deepStrictEqual(
       unsentMessages.map((m) => m.message),
       ['Test', 'D'],

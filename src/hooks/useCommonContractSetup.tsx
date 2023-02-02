@@ -77,10 +77,11 @@ export const useCommonContractSetup = (contractId: string) => {
       return unsubscribe
     }, [contractId, saveAndUpdate, storedContract, ws]),
   )
-
-  useEffect(() => {
-    setStoredContract(getContract(contractId))
-  }, [contractId])
+  useFocusEffect(
+    useCallback(() => {
+      setStoredContract(getContract(contractId))
+    }, [contractId]),
+  )
 
   useEffect(() => {
     if (!contract) return

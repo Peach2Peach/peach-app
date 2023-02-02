@@ -3,7 +3,6 @@ import tw from '../../../styles/tailwind'
 
 import { View } from 'react-native'
 import { PeachScrollView, Text, Title, TradeSummary } from '../../../components'
-import { PrimaryButton } from '../../../components/buttons'
 import { ChatButton } from '../../../components/chat/ChatButton'
 import i18n from '../../../utils/i18n'
 import { getOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
@@ -37,22 +36,19 @@ export default ({ contract }: ContractSummaryProps): ReactElement => {
     if (offr?.id) navigation.replace('offer', { offerId: offr.id })
   }
   return (
-    <PeachScrollView contentContainerStyle={tw`pt-5 pb-10 px-6`}>
+    <PeachScrollView contentContainerStyle={tw`px-6 pt-5 pb-10`}>
       <View>
         <Title title={title} subtitle={subtitle} />
         {!!newOfferId && (
-          <Text style={tw`text-center leading-6 text-grey-2`} onPress={goToOffer}>
+          <Text style={tw`leading-6 text-center text-grey-2`} onPress={goToOffer}>
             {i18n('yourTrades.offer.replaced', offerIdToHex(newOfferId))}
           </Text>
         )}
         <View style={tw`mt-7`}>
           <View>
-            <ChatButton contract={{ ...contract, unreadMessages }} style={tw`absolute top-4 right-0 -mr-4 z-10`} />
+            <ChatButton contract={{ ...contract, unreadMessages }} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
             <TradeSummary {...{ contract, view }} />
           </View>
-          <PrimaryButton style={tw`self-center mt-4`} onPress={() => navigation.navigate('yourTrades')} narrow>
-            {i18n('back')}
-          </PrimaryButton>
         </View>
       </View>
     </PeachScrollView>

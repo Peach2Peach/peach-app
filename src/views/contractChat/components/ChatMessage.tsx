@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { ColorValue, View, ViewStyle } from 'react-native'
+import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
@@ -85,9 +85,17 @@ type ChatMessageProps = {
   item: Message
   index: number
   online: boolean
+  resendMessage: (message: Message) => void
 }
 
-export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online }: ChatMessageProps): ReactElement => {
+export const ChatMessage = ({
+  chatMessages,
+  tradingPartner,
+  item,
+  index,
+  online,
+  resendMessage,
+}: ChatMessageProps): ReactElement => {
   const message = item
   const meta = getMessageMeta({
     message,
@@ -113,7 +121,7 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
         {meta.showName && !meta.isYou ? <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text> : null}
         <View style={[tw`px-3 py-2 mt-2 rounded-lg`, bgColor]}>
           <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
-          <Text style={tw`pt-1 ml-auto leading-5 text-right `}>
+          <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
             <Text style={tw`body-s text-black-3`}>{toTimeFormat(message.date)}</Text>
             {meta.isYou && (
               <View style={tw`pl-1`}>
@@ -122,6 +130,17 @@ export const ChatMessage = ({ chatMessages, tradingPartner, item, index, online 
             )}
           </Text>
         </View>
+        {message.failedToSend && (
+          <TouchableOpacity
+            onPress={() => resendMessage(message)}
+            style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
+          >
+            <Text style={tw`text-error-main mr-1`}>
+              {i18n('chat.failedToSend')} <Text style={tw`text-error-main underline`}>{i18n('retry')}</Text>
+            </Text>
+            <Icon id="refreshCcw" style={tw`w-3 h-3`} color={tw`text-error-main`.color} />
+          </TouchableOpacity>
+        )}
       </View>
     </>
   )

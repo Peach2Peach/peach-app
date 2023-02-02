@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoBackButton, OptionButton, PeachScrollView } from '../../components'
+import { OptionButton, PeachScrollView } from '../../components'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 const headerConfig = { title: 'test view' }
@@ -26,7 +26,6 @@ export default () => {
       <OptionButton style={tw`mt-4`} onPress={goToComponents}>
         Components
       </OptionButton>
-      <GoBackButton white wide style={tw`mt-8`} />
     </PeachScrollView>
   )
 }
