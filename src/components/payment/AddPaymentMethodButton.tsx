@@ -11,7 +11,7 @@ import { sessionStorage } from '../../utils/session'
 import MeetupSummary from './MeetupSummary'
 
 type AddPaymentMethodProps = ComponentProps & {
-  origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+  origin: keyof RootStackParamList
   isCash: boolean
 }
 

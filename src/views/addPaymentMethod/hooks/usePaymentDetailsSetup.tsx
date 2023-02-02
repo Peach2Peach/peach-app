@@ -6,39 +6,18 @@ import { HeaderConfig } from '../../../components/header/store'
 import { HelpIcon } from '../../../components/icons'
 import { DeleteIcon } from '../../../components/icons/DeleteIcon'
 import { useDeletePaymentMethod } from '../../../components/payment/hooks/useDeletePaymentMethod'
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { addPaymentData } from '../../../utils/account'
 import { info } from '../../../utils/log'
 
-const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
-  buyPreferences: 'buy',
-  sellPreferences: 'sell',
-  paymentMethods: 'settings',
-}
-
 export const usePaymentDetailsSetup = () => {
   const route = useRoute<'paymentDetails'>()
-  const navigation = useNavigation()
-  const { paymentData: data, originOnCancel } = route.params
+  const goToOrigin = useGoToOrigin()
+  const { paymentData: data } = route.params
   const { type: paymentMethod, currencies } = data
   const deletePaymentMethod = useDeletePaymentMethod(data.id ?? '')
-
-  const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
-    navigation.reset({
-      index: 2,
-      routes: [
-        { name: 'home' },
-        { name: previousScreen[origin[0]] || 'home' },
-        {
-          name: origin[0],
-          params: origin[1],
-        },
-      ],
-    })
-  }
-
-  const goToOriginOnCancel = () => goToOrigin(originOnCancel || route.params.origin)
 
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
@@ -77,5 +56,5 @@ export const usePaymentDetailsSetup = () => {
     ),
   )
 
-  return { paymentMethod, goToOriginOnCancel, onSubmit, currencies, data }
+  return { paymentMethod, onSubmit, currencies, data }
 }

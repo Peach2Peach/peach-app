@@ -8,12 +8,12 @@ import { specialTemplates } from './specialTemplates'
 import { usePaymentDetailsSetup } from './hooks/usePaymentDetailsSetup'
 
 export default (): ReactElement => {
-  const { paymentMethod, goToOriginOnCancel, onSubmit, currencies, data } = usePaymentDetailsSetup()
+  const { paymentMethod, onSubmit, currencies, data } = usePaymentDetailsSetup()
 
   return (
     <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
       <View style={[!specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
-        <PaymentMethodForm back={goToOriginOnCancel} {...{ paymentMethod, onSubmit, currencies, data }} />
+        <PaymentMethodForm {...{ paymentMethod, onSubmit, currencies, data }} />
       </View>
     </View>
   )

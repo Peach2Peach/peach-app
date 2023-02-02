@@ -76,7 +76,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
-        origin={['sellPreferences', { amount: offer.amount }]}
+        origin="sellPreferences"
       />
     </View>
   )

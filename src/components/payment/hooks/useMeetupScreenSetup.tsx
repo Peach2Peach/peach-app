@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { addPaymentData } from '../../../utils/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
@@ -9,17 +10,11 @@ import { HelpIcon } from '../../icons'
 import { DeleteIcon } from '../../icons/DeleteIcon'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 
-const previousScreen: Partial<Record<keyof RootStackParamList, keyof RootStackParamList>> = {
-  buyPreferences: 'buy',
-  sellPreferences: 'sell',
-  paymentMethods: 'settings',
-}
-
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
-  const navigation = useNavigation()
+  const goToOrigin = useGoToOrigin()
   const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
   const event = allEvents.find((item) => item.id === eventId) ?? {
     id: eventId,
@@ -29,19 +24,6 @@ export const useMeetupScreenSetup = () => {
     url: '',
   }
 
-  const goToOrigin = (origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]) => {
-    navigation.reset({
-      index: 2,
-      routes: [
-        { name: 'home' },
-        { name: previousScreen[origin[0]] || 'home' },
-        {
-          name: origin[0],
-          params: origin[1],
-        },
-      ],
-    })
-  }
   const openLink = (url: string) => (url ? openAppLink(url) : null)
 
   const showHelp = useShowHelp('cashTrades')

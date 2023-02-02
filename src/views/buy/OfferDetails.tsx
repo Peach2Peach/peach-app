@@ -77,7 +77,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
-        origin={['buyPreferences', { amount: offer.amount }]}
+        origin="buyPreferences"
       />
     </View>
   )
