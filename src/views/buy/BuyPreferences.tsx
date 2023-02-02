@@ -16,36 +16,13 @@ import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
 import Summary from './Summary'
+import { getDefaultBuyOffer } from './helpers/getDefaultBuyOffer'
 
 export type BuyViewProps = {
   offer: BuyOfferDraft
   updateOffer: (data: BuyOfferDraft, shield?: boolean) => void
   setStepValid: (isValid: boolean) => void
 }
-
-type DefaultOfferProps = {
-  minAmount: number
-  maxAmount: number
-  meansOfPayment?: MeansOfPayment
-  kyc?: boolean
-}
-const getDefaultBuyOffer = ({
-  minAmount,
-  maxAmount,
-  meansOfPayment = {},
-  kyc = false,
-}: DefaultOfferProps): BuyOfferDraft => ({
-  type: 'bid',
-  creationDate: new Date(),
-  lastModified: new Date(),
-  amount: [minAmount, maxAmount],
-  meansOfPayment,
-  paymentData: {},
-  releaseAddress: '',
-  originalPaymentData: [],
-  kyc,
-  tradeStatus: 'messageSigningRequired',
-})
 
 type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
 
