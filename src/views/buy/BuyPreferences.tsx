@@ -15,6 +15,8 @@ import { error } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
 import Summary from './Summary'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 export type BuyViewProps = {
   offer: BuyOfferDraft
@@ -59,7 +61,10 @@ export default (): ReactElement => {
   const route = useRoute<'buyPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
   const [offer, setOffer] = useState<BuyOfferDraft>(getDefaultBuyOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
@@ -89,6 +94,12 @@ export default (): ReactElement => {
   }, [page])
 
   const next = () => {
+    if (page === 0) {
+      // summary screen (pages should be refactored into single views)
+      if (!peachWalletActive && !payoutAddress && !payoutAddressLabel) {
+        setPeachWalletActive(true)
+      }
+    }
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
