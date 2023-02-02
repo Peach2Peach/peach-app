@@ -66,7 +66,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   }, [onChange, amount])
 
   return (
-    <View style={[tw`items-end w-[210px]`, style]} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end w-[210px] pr-5`, style]} {...{ onStartShouldSetResponder }}>
       <SliderTrack style={{ height: trackHeight }}>
         <TrackMarkers {...{ trackHeight, labels }} />
         <Animated.View
@@ -76,23 +76,21 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
         >
           <SliderKnob />
           {custom ? (
-            <View style={tw`absolute w-[170px] right-10 top-8`}>
-              <ToolTip style={tw`absolute w-[175px]`}>
-                <View style={tw`absolute top-0 left-0 right-0 z-10`}>
-                  <Input
-                    style={tw`w-full h-10 opacity-0`}
-                    keyboardType="number-pad"
-                    {...{ value: value.toString(), onChange: updateCustomAmount }}
-                  />
-                </View>
-                <View style={tw`p-1 border rounded-lg border-black-4`}>
-                  <SatsFormat sats={amount} />
-                </View>
-                <BitcoinPrice sats={amount} style={tw`mt-1 ml-4 body-s text-black-3`} />
-              </ToolTip>
-            </View>
+            <ToolTip style={tw`absolute right-8 w-[175px]`}>
+              <View style={tw`absolute top-0 left-0 right-0 z-10`}>
+                <Input
+                  style={tw`w-full h-10 opacity-0`}
+                  keyboardType="number-pad"
+                  {...{ value: value.toString(), onChange: updateCustomAmount }}
+                />
+              </View>
+              <View style={tw`p-1 border rounded-lg border-black-4`}>
+                <SatsFormat sats={amount} />
+              </View>
+              <BitcoinPrice sats={amount} style={tw`mt-1 ml-4 body-s text-black-3`} />
+            </ToolTip>
           ) : (
-            <ToolTip style={tw`absolute right-10 w-[165px]`}>
+            <ToolTip style={tw`absolute right-8 w-[165px]`}>
               <SatsFormat sats={amount} />
               <BitcoinPrice sats={amount} style={tw`ml-4 body-s text-black-3`} />
             </ToolTip>
