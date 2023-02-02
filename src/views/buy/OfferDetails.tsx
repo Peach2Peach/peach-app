@@ -7,12 +7,14 @@ import { HeaderConfig } from '../../components/header/store'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
+import { useSettingsStore } from '../../store/settingsStore'
+import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
+import shallow from 'zustand/shallow'
 
 const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
@@ -23,7 +25,7 @@ const validate = (offer: BuyOfferDraft) =>
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
-
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
   const headerIcons = [
     account.paymentData.length !== 0 && {
       iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
@@ -58,14 +60,8 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
     })
-    updateSettings(
-      {
-        meansOfPayment,
-        kyc: offer.kyc,
-      },
-      true,
-    )
-  }, [meansOfPayment, updateOffer])
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
 
   validate(offer)
   useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])

@@ -1,8 +1,10 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 
 import { Input, PremiumSlider, Text } from '../../components'
 import { useMarketPrices } from '../../hooks'
+import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
@@ -15,7 +17,8 @@ const validate = (offer: SellOfferDraft) => offer.premium >= -21 && offer.premiu
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
-  const [premium, setPremium] = useState(offer.premium.toString())
+  const [premiumStore, setPremiumStore] = useSettingsStore((state) => [state.premium, state.setPremium], shallow)
+  const [premium, setPremium] = useState(premiumStore.toString())
   const { data: marketPrice } = useMarketPrices()
   const { displayCurrency } = account.settings
   const currentPrice = marketPrice ? getOfferPrice(offer.amount, offer.premium, marketPrice, displayCurrency) : 0
@@ -33,6 +36,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
 
   useEffect(() => {
     setPremium(premium)
+    setPremiumStore(Number(premium))
     updateOffer({
       ...offer,
       premium: Number(premium),

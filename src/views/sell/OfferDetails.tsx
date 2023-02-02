@@ -12,6 +12,8 @@ import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { SellViewProps } from './SellPreferences'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 const validate = (offer: SellOffer) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
@@ -30,6 +32,7 @@ const validate = (offer: SellOffer) => {
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
 
   const headerConfig = {
     title: i18n('form.paymentMethod'),
@@ -65,7 +68,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       meansOfPayment,
       paymentData,
     })
-  }, [meansOfPayment, updateOffer])
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
