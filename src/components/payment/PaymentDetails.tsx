@@ -113,11 +113,11 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const editItem = (data: PaymentData) => {
     if (data.type.includes('cash')) {
-      navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true })
+      navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true, origin })
     } else {
       navigation.push('paymentDetails', {
         paymentData: data,
-        origin: ['paymentMethods', {}],
+        origin,
       })
     }
   }

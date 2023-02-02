@@ -88,6 +88,8 @@ declare type RootStackParamList = {
   meetupScreen: {
     eventId: string
     deletable?: boolean
+    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+    originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
   }
   deleteAccount: undefined
   peachFees: undefined

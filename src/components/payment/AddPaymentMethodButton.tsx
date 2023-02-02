@@ -42,7 +42,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
       updateDrawer({
         show: false,
       })
-      navigation.push('meetupScreen', { eventId: event.id.replace('cash.', '') })
+      navigation.push('meetupScreen', { eventId: event.id.replace('cash.', ''), origin })
     }
 
     const selectCountry = (selected: FlagType) => {
