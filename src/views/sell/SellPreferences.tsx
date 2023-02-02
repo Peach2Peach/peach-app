@@ -5,13 +5,11 @@ import tw from '../../styles/tailwind'
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
-import { useSettingsStore } from '../../store/settingsStore'
 import { account, updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
@@ -74,10 +72,6 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [peachWalletActive, payoutAddress] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress],
-    shallow,
-  )
 
   const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
   const [stepValid, setStepValid] = useState(false)

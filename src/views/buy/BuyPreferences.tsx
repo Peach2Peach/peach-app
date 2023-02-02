@@ -5,7 +5,6 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import OfferDetails from './OfferDetails'
 
-import { useFocusEffect } from '@react-navigation/native'
 import { Loading, Navigation, PeachScrollView } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useRoute } from '../../hooks'
