@@ -38,6 +38,7 @@ describe('updateSettings', () => {
       appVersion: APPVERSION,
       minAmount: 200000,
       maxAmount: 5000000,
+      premium: 1.5,
       displayCurrency: 'EUR',
       locale: 'en',
       meansOfPayment: {

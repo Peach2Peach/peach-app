@@ -9,6 +9,7 @@ export const recoveredAccount: Account = {
     displayCurrency: 'EUR',
     minAmount: 200000,
     maxAmount: 5000000,
+    premium: 1.5,
     appVersion: '0.1.0',
     meansOfPayment: {
       EUR: ['sepa'],
@@ -52,6 +53,7 @@ export const account1: Account = {
     locale: 'en',
     minAmount: 200000,
     maxAmount: 5000000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
@@ -97,6 +99,7 @@ export const seller: Account = {
     locale: 'en',
     minAmount: 200000,
     maxAmount: 5000000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
@@ -142,6 +145,7 @@ export const buyer: Account = {
     locale: 'en',
     minAmount: 200000,
     maxAmount: 5000000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
@@ -189,6 +193,7 @@ export const userWithNoTrades: Account = {
     locale: 'en',
     minAmount: 200000,
     maxAmount: 5000000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
