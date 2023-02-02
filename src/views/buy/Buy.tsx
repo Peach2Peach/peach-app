@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import shallow from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -42,9 +42,9 @@ export default (): ReactElement => {
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8 mb-2`} />
-      <View style={tw`flex-shrink h-full px-8`}>
+      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
         <BitcoinPriceStats />
-        <View style={[tw`justify-between flex-shrink h-full pt-4 pb-8`, tw.md`pt-7`]}>
+        <View style={[tw`flex-shrink h-full pt-4 pb-8`, tw.md`pt-7`]}>
           <Text style={[tw`hidden h6`, tw.md`flex`]}>
             {i18n('buy.subtitle')}
             <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
@@ -57,7 +57,7 @@ export default (): ReactElement => {
             onChange={setSelectedRange}
           />
         </View>
-      </View>
+      </PeachScrollView>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
