@@ -8,10 +8,9 @@ import {
   TextInputSubmitEditingEventData,
   View,
 } from 'react-native'
-import { Shadow, Text } from '..'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { innerShadow } from '../../utils/layout'
 import Icon from '../Icon'
 import { IconType } from '../icons'
 
@@ -119,8 +118,7 @@ export const Input = ({
         </Text>
       ) : null}
       <View style={tw`overflow-hidden rounded`}>
-        <Shadow
-          shadow={innerShadow}
+        <View
           style={[
             tw`w-full flex flex-row items-center h-8 border border-grey-4 rounded pl-4 pr-3 bg-white-1`,
             tw.md`h-10`,
@@ -167,7 +165,7 @@ export const Input = ({
               <Icon id={icon} style={tw`w-5 h-5`} />
             </Pressable>
           ) : null}
-        </Shadow>
+        </View>
       </View>
 
       {errorMessage.length > 0 && errorMessage[0] && touched ? (

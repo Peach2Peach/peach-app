@@ -5,16 +5,17 @@ import tw from '../../styles/tailwind'
 
 import { RouteProp } from '@react-navigation/native'
 import { Button, Icon, Input, PeachScrollView, Text, Title } from '../../components'
+import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
+import { useValidatedState } from '../../hooks'
 import ReportSuccess from '../../overlays/ReportSuccess'
+import { sendErrors } from '../../utils/analytics/openCrashReportPrompt'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
 import { StackNavigation } from '../../utils/navigation'
 import { sendReport } from '../../utils/peachAPI'
-import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
-import { useValidatedState } from '../../hooks'
 
 type Props = {
   route: RouteProp<{ params: RootStackParamList['report'] }>
@@ -33,6 +34,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
+  const [shareLogs, setShareLogs] = useState(false)
   const [displayErrors, setDisplayErrors] = useState(false)
   const reason = route.params.reason
 
@@ -40,6 +42,7 @@ export default ({ route, navigation }: Props): ReactElement => {
   let $message = useRef<TextInput>(null).current
 
   const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
+  const toggleShareLogs = () => setShareLogs((b) => !b)
 
   const submit = async () => {
     setDisplayErrors(true)
@@ -57,6 +60,8 @@ export default ({ route, navigation }: Props): ReactElement => {
       message: messageToSend,
     })
     if (result) {
+      if (shareLogs) sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+
       updateOverlay({
         content: <ReportSuccess navigation={navigation} />,
       })
@@ -116,7 +121,7 @@ export default ({ route, navigation }: Props): ReactElement => {
               errorMessage={displayErrors ? messageErrors : undefined}
             />
           </View>
-          <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row justify-center items-center mt-5`}>
+          <Pressable onPress={toggleDeviceIDSharing} style={tw`flex flex-row items-center mt-5`}>
             <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
               {shareDeviceID ? (
                 <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
@@ -125,6 +130,16 @@ export default ({ route, navigation }: Props): ReactElement => {
               )}
             </View>
             <Text style={tw`pl-2 flex-shrink text-black-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+          </Pressable>
+          <Pressable onPress={toggleShareLogs} style={tw`flex flex-row items-center mt-5`}>
+            <View style={tw`w-5 h-5 flex items-center justify-center ml-4`}>
+              {shareLogs ? (
+                <Icon id="checkbox" style={tw`w-5 h-5`} color={tw`text-peach-1`.color as string} />
+              ) : (
+                <View style={tw`w-4 h-4 rounded-sm border-2 border-grey-2`} />
+              )}
+            </View>
+            <Text style={tw`pl-2 flex-shrink text-black-1`}>{i18n('form.shareLogs')}</Text>
           </Pressable>
         </View>
         <View style={tw`flex items-center mt-16`}>

@@ -1,21 +1,20 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Shadow, Text } from '..'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { footerShadow } from '../../utils/layout'
-import Icon from '../Icon'
+import { Text } from '..'
 import AppContext from '../../contexts/app'
+import { useKeyboard } from '../../hooks'
+import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { Navigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
+import Icon from '../Icon'
 import { IconType } from '../icons'
 import { Bubble } from '../ui'
-import { Navigation } from '../../utils/navigation'
-import { useKeyboard } from '../../hooks'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -141,30 +140,23 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
   return !keyboardOpen ? (
     <View style={[tw`w-full flex-row items-start`, { height }, style]}>
       <View style={tw`h-full flex-grow relative`}>
-        <Shadow shadow={footerShadow} style={tw`w-full`}>
-          <View style={tw`h-full flex-row items-center justify-between bg-white-2`}>
-            <FooterItem
-              id="buy"
-              style={tw`w-1/4`}
-              active={active === 'buy' || active === 'home'}
-              onPress={navigate.buy}
-            />
-            <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
-            <FooterItem
-              id="yourTrades"
-              style={tw`w-1/4`}
-              active={active === 'yourTrades' || /contract/u.test(active as string)}
-              onPress={navigate.yourTrades}
-              notifications={notifications}
-            />
-            <FooterItem
-              id="settings"
-              style={tw`w-1/4`}
-              active={isSettings.test(active as string)}
-              onPress={navigate.settings}
-            />
-          </View>
-        </Shadow>
+        <View style={tw`w-full h-full flex-row items-center justify-between bg-white-2`}>
+          <FooterItem id="buy" style={tw`w-1/4`} active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
+          <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
+          <FooterItem
+            id="yourTrades"
+            style={tw`w-1/4`}
+            active={active === 'yourTrades' || /contract/u.test(active as string)}
+            onPress={navigate.yourTrades}
+            notifications={notifications}
+          />
+          <FooterItem
+            id="settings"
+            style={tw`w-1/4`}
+            active={isSettings.test(active as string)}
+            onPress={navigate.settings}
+          />
+        </View>
       </View>
     </View>
   ) : (

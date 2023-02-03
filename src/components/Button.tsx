@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from 'react'
-import { View, Pressable, GestureResponderEvent } from 'react-native'
+import { GestureResponderEvent, Pressable, View } from 'react-native'
 import { Style } from 'twrnc/dist/esm/types'
-import { Loading, Shadow, Text } from '.'
+import { Loading, Text } from '.'
 import tw from '../styles/tailwind'
-import { mildShadowOrange } from '../utils/layout'
 
 type ButtonProps = ComponentProps & {
   title: string | JSX.Element
@@ -133,25 +132,7 @@ export const Button = ({
 }: ButtonProps): ReactElement => {
   const viewStyle = [tw`rounded`, wide ? tw`w-full` : tw`w-40`, disabled ? tw`opacity-50` : {}, style || {}]
 
-  return !secondary && !tertiary && !grey && !help ? (
-    <Shadow shadow={mildShadowOrange} style={viewStyle}>
-      <ButtonContent
-        testID={testID}
-        secondary={secondary}
-        tertiary={tertiary}
-        grey={grey}
-        help={help}
-        red={red}
-        activeBgColor={activeBgColor}
-        textColor={textColor}
-        bgColor={bgColor}
-        disabled={disabled}
-        title={title}
-        loading={loading}
-        onPress={onPress}
-      />
-    </Shadow>
-  ) : (
+  return (
     <View style={viewStyle}>
       <ButtonContent
         testID={testID}

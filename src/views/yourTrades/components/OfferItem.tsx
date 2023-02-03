@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import { Bubble, Button, Headline, SatsFormat, Shadow, Text } from '../../../components'
+import { Bubble, Button, Headline, SatsFormat, Text } from '../../../components'
 import Icon from '../../../components/Icon'
 import { IconType } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
@@ -9,7 +9,6 @@ import { account } from '../../../utils/account'
 import { getContractChatNotification } from '../../../utils/chat'
 import { contractIdToHex, getContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { mildShadow } from '../../../utils/layout'
 import { StackNavigation } from '../../../utils/navigation'
 import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { getOfferStatus } from '../../../utils/offer/status'
@@ -70,87 +69,83 @@ export const OfferItem = ({ offer, extended = true, navigation, style }: OfferIt
       updateOverlay,
     })
   return (
-    <Shadow shadow={mildShadow}>
-      <Pressable
-        onPress={navigate}
-        style={[
-          tw`rounded`,
-          isRedStatus ? tw`bg-red` : isOrangeStatus ? tw`bg-peach-1` : tw`border bg-white-1 border-grey-2`,
-          style,
-        ]}
-      >
-        {extended ? (
-          <View style={tw`px-4 py-2`}>
-            <View style={tw`flex-row items-center`}>
-              <View style={tw`flex-shrink w-full`}>
-                <Headline style={[tw`text-lg font-bold text-left normal-case`, textColor1]}>
-                  {i18n('trade')} {contract ? contractIdToHex(contract.id) : offerIdToHex(offer.id as Offer['id'])}
-                </Headline>
-                <View>
-                  {isSellOffer(offer) && contract?.cancelationRequested ? (
-                    <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
-                  ) : (
-                    <Text style={textColor2}>
-                      <SatsFormat sats={offer.amount} color={textColor2} />
-                      {' - '}
-                      {i18n(`currency.format.${currency}`, price)}
-                    </Text>
-                  )}
-                </View>
-              </View>
-              <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
-            </View>
-            {requiredAction && !contract?.disputeActive && (isBuyOffer(offer) || !contract?.cancelationRequested) ? (
-              <View style={tw`flex items-center mt-3 mb-1`}>
-                <Button
-                  title={i18n(`offer.requiredAction.${requiredAction}`)}
-                  onPress={navigate}
-                  secondary={!isRedStatus}
-                  red={isRedStatus}
-                  wide={false}
-                />
-              </View>
-            ) : null}
-          </View>
-        ) : (
-          <View style={tw`flex-row items-center justify-between p-2`}>
-            <View style={tw`flex-row items-center`}>
-              <Icon
-                id={isSellOffer(offer) ? 'sell' : 'buy'}
-                style={tw`w-5 h-5 mr-2`}
-                color={
-                  (requiredAction || contract?.disputeActive
-                    ? tw`text-white-1`
-                    : isSellOffer(offer)
-                      ? tw`text-red`
-                      : tw`text-green`
-                  ).color as string
-                }
-              />
-              <Text
-                style={[tw`text-lg`, requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`]}
-              >
+    <Pressable
+      onPress={navigate}
+      style={[
+        tw`rounded`,
+        isRedStatus ? tw`bg-red` : isOrangeStatus ? tw`bg-peach-1` : tw`border bg-white-1 border-grey-2`,
+        style,
+      ]}
+    >
+      {extended ? (
+        <View style={tw`px-4 py-2`}>
+          <View style={tw`flex-row items-center`}>
+            <View style={tw`flex-shrink w-full`}>
+              <Headline style={[tw`text-lg font-bold text-left normal-case`, textColor1]}>
                 {i18n('trade')} {contract ? contractIdToHex(contract.id) : offerIdToHex(offer.id as Offer['id'])}
-              </Text>
+              </Headline>
+              <View>
+                {isSellOffer(offer) && contract?.cancelationRequested ? (
+                  <Text style={[tw`text-lg`, textColor1]}>{i18n('contract.cancel.pending')}</Text>
+                ) : (
+                  <Text style={textColor2}>
+                    <SatsFormat sats={offer.amount} color={textColor2} />
+                    {' - '}
+                    {i18n(`currency.format.${currency}`, price)}
+                  </Text>
+                )}
+              </View>
             </View>
-            <Icon
-              id={icon || 'help'}
-              style={tw`w-5 h-5`}
-              color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
-            />
+            <Icon id={icon || 'help'} style={tw`w-7 h-7`} color={textColor1.color as string} />
           </View>
-        )}
-        {notifications > 0 ? (
-          <Bubble
-            color={tw`text-green`.color as string}
-            style={tw`absolute top-0 right-0 flex items-center justify-center w-4 -m-2`}
-          >
-            <Text style={tw`text-xs text-center font-baloo text-white-1`} ellipsizeMode="head" numberOfLines={1}>
-              {notifications}
+          {requiredAction && !contract?.disputeActive && (isBuyOffer(offer) || !contract?.cancelationRequested) ? (
+            <View style={tw`flex items-center mt-3 mb-1`}>
+              <Button
+                title={i18n(`offer.requiredAction.${requiredAction}`)}
+                onPress={navigate}
+                secondary={!isRedStatus}
+                red={isRedStatus}
+                wide={false}
+              />
+            </View>
+          ) : null}
+        </View>
+      ) : (
+        <View style={tw`flex-row items-center justify-between p-2`}>
+          <View style={tw`flex-row items-center`}>
+            <Icon
+              id={isSellOffer(offer) ? 'sell' : 'buy'}
+              style={tw`w-5 h-5 mr-2`}
+              color={
+                (requiredAction || contract?.disputeActive
+                  ? tw`text-white-1`
+                  : isSellOffer(offer)
+                    ? tw`text-red`
+                    : tw`text-green`
+                ).color as string
+              }
+            />
+            <Text style={[tw`text-lg`, requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-1`]}>
+              {i18n('trade')} {contract ? contractIdToHex(contract.id) : offerIdToHex(offer.id as Offer['id'])}
             </Text>
-          </Bubble>
-        ) : null}
-      </Pressable>
-    </Shadow>
+          </View>
+          <Icon
+            id={icon || 'help'}
+            style={tw`w-5 h-5`}
+            color={(requiredAction || contract?.disputeActive ? tw`text-white-1` : tw`text-grey-2`).color as string}
+          />
+        </View>
+      )}
+      {notifications > 0 ? (
+        <Bubble
+          color={tw`text-green`.color as string}
+          style={tw`absolute top-0 right-0 flex items-center justify-center w-4 -m-2`}
+        >
+          <Text style={tw`text-xs text-center font-baloo text-white-1`} ellipsizeMode="head" numberOfLines={1}>
+            {notifications}
+          </Text>
+        </Bubble>
+      ) : null}
+    </Pressable>
   )
 }
