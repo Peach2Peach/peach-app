@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
-
-import { Icon, Shadow, Text } from '..'
+import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
 import AppContext from '../../contexts/app'
 import { useKeyboard, useNavigation } from '../../hooks'
@@ -10,7 +9,6 @@ import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { footerShadow, noShadow } from '../../utils/layout'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 
@@ -173,21 +171,19 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   return !keyboardOpen ? (
     <View style={[tw`flex-row items-start w-full`, style]}>
       <View style={tw`relative flex-grow`}>
-        <Shadow shadow={theme === 'default' ? footerShadow : noShadow} style={tw`w-full`}>
-          <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
-            <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
-            <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
-            <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
-            <FooterItem
-              theme={theme}
-              id="yourTrades"
-              active={active === 'yourTrades' || /contract/u.test(active)}
-              onPress={navigate.yourTrades}
-              notifications={notifications}
-            />
-            <FooterItem theme={theme} id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
-          </View>
-        </Shadow>
+        <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
+          <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
+          <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
+          <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
+          <FooterItem
+            theme={theme}
+            id="yourTrades"
+            active={active === 'yourTrades' || /contract/u.test(active)}
+            onPress={navigate.yourTrades}
+            notifications={notifications}
+          />
+          <FooterItem theme={theme} id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
+        </View>
       </View>
     </View>
   ) : (

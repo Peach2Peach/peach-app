@@ -1,14 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { Icon, Shadow } from '../../components'
+import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getContractChatNotification } from '../../utils/chat'
-import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
 import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
-import { Text } from '../text'
-import { Bubble } from '../ui'
 
 export type Navigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
