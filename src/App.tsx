@@ -52,6 +52,7 @@ import { error, info } from './utils/log'
 import { getRequiredActionCount } from './utils/offer'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import requestUserPermissions from './init/requestUserPermissions'
 
 enableScreens()
 
@@ -184,6 +185,7 @@ const App: React.FC = () => {
       await initApp()
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
+      requestUserPermissions()
 
       updateAppContext({
         notifications: getChatNotifications() + getRequiredActionCount(),
