@@ -28,7 +28,6 @@ declare type Contract = {
   paymentDataEncrypted?: string
   paymentData?: PaymentData
   paymentDataSignature?: string
-  paymentMade?: Date
 
   kycRequired: boolean
   kycType?: KYCType
