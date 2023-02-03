@@ -15,14 +15,15 @@ const tabs: TabbedNavigationItem[] = [
   { id: 'sell', display: i18n('yourTrades.sell') },
   { id: 'history', display: i18n('yourTrades.history') },
 ]
+const getTabById = (id: string) => tabs.find((t) => t.id === id)
 
 export default (): ReactElement => {
-  const { allOpenOffers, openOffers, pastOffers, isLoading, refetch } = useYourTradesSetup()
+  const { allOpenOffers, openOffers, pastOffers, isLoading, refetch, tab } = useYourTradesSetup()
 
-  const [currentTab, setCurrentTab] = useState(tabs[0])
+  const [currentTab, setCurrentTab] = useState(getTabById(tab) || tabs[0])
 
-  const switchTab = (tab: TabbedNavigationItem) => {
-    setCurrentTab(tab)
+  const switchTab = (t: TabbedNavigationItem) => {
+    setCurrentTab(t)
     refetch()
   }
 

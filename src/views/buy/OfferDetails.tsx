@@ -15,6 +15,7 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
 import shallow from 'zustand/shallow'
+import { useShowHelp } from '../../hooks/useShowHelp'
 
 const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
@@ -26,6 +27,8 @@ const validate = (offer: BuyOfferDraft) =>
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
   const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
+  const showHelp = useShowHelp('paymentMethods')
+
   const headerIcons = [
     account.paymentData.length !== 0 && {
       iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
@@ -33,7 +36,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         setEditing(!editing)
       },
     },
-    { iconComponent: <HelpIcon />, onPress: () => null },
+    { iconComponent: <HelpIcon />, onPress: showHelp },
   ]
   const headerConfig = { title: i18n('form.paymentMethod'), icons: headerIcons } as HeaderConfig
 
@@ -73,7 +76,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
-        origin={['buyPreferences', { amount: offer.amount }]}
+        origin="buyPreferences"
       />
     </View>
   )

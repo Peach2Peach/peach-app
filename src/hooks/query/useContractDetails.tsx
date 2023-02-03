@@ -11,10 +11,10 @@ const getContractQuery = async ({ queryKey }: { queryKey: [string, string] }) =>
 
 export const useContractDetails = (id: string, refetchInterval?: number) => {
   const isFocused = useIsFocused()
-  const { data, isLoading, error } = useQuery(['contract', id], getContractQuery, {
+  const { data, isLoading, refetch, error } = useQuery(['contract', id], getContractQuery, {
     refetchInterval,
     enabled: isFocused,
   })
 
-  return { contract: data, isLoading, error }
+  return { contract: data, isLoading, refetch, error }
 }

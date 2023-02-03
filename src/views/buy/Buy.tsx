@@ -41,22 +41,23 @@ export default (): ReactElement => {
 
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
-      <HorizontalLine style={tw`mx-8 mb-2`} />
-      <View style={tw`flex-shrink h-full px-8`}>
+      <HorizontalLine style={tw`mx-8`} />
+      <View style={tw`mt-2 px-8`}>
         <BitcoinPriceStats />
-        <View style={[tw`justify-between flex-shrink h-full pt-4 pb-8`, tw.md`pt-7`]}>
+        <View style={tw`pt-4`}>
           <Text style={[tw`hidden h6`, tw.md`flex`]}>
             {i18n('buy.subtitle')}
             <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
           </Text>
-          <RangeAmount
-            style={tw`self-center mt-4`}
-            min={MINTRADINGAMOUNT}
-            max={MAXTRADINGAMOUNT}
-            value={[currentMinAmount, currentMaxAmount]}
-            onChange={setSelectedRange}
-          />
         </View>
+      </View>
+      <View style={tw`flex-grow items-center justify-center`}>
+        <RangeAmount
+          min={MINTRADINGAMOUNT}
+          max={MAXTRADINGAMOUNT}
+          value={[currentMinAmount, currentMaxAmount]}
+          onChange={setSelectedRange}
+        />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>

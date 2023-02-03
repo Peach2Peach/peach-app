@@ -2,18 +2,19 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import shallow from 'zustand/shallow'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import LanguageContext from '../../contexts/language'
 import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { SellViewProps } from './SellPreferences'
-import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
 
 const validate = (offer: SellOffer) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
@@ -34,6 +35,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const [editing, setEditing] = useState(false)
   const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
 
+  const showHelp = useShowHelp('paymentMethods')
   const headerConfig = {
     title: i18n('form.paymentMethod'),
     icons: [
@@ -43,7 +45,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           setEditing(!editing)
         },
       },
-      { iconComponent: <HelpIcon />, onPress: () => null },
+      { iconComponent: <HelpIcon />, onPress: showHelp },
     ],
   }
   useContext(LanguageContext)
@@ -80,7 +82,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
         paymentData={account.paymentData}
         setMeansOfPayment={setMeansOfPayment}
         editing={editing}
-        origin={['sellPreferences', { amount: offer.amount }]}
+        origin="sellPreferences"
       />
     </View>
   )

@@ -19,11 +19,15 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
         if (offer.tradeStatus === 'refundTxSignatureRequired') showStartRefundOverlay(sellOffer)
         if (offer.tradeStatus === 'fundingAmountDifferent') showConfirmEscrowOverlay(sellOffer)
       }
+      return
     }
     if (screen === 'fundEscrow') {
       const [sellOffer] = await getOfferDetails({ offerId: offer.id })
-      if (sellOffer && isSellOffer(sellOffer)) return navigation.navigate(screen, { offer: sellOffer })
+      if (sellOffer && isSellOffer(sellOffer)) {
+        navigation.navigate(screen, { offer: sellOffer })
+        return
+      }
     }
-    return navigation.replace(screen, params)
+    navigation.navigate(screen, params)
   }
 }

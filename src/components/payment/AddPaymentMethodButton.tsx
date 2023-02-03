@@ -11,7 +11,7 @@ import { sessionStorage } from '../../utils/session'
 import MeetupSummary from './MeetupSummary'
 
 type AddPaymentMethodProps = ComponentProps & {
-  origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+  origin: keyof RootStackParamList
   isCash: boolean
 }
 
@@ -42,7 +42,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
       updateDrawer({
         show: false,
       })
-      navigation.push('meetupScreen', { eventId: event.id.replace('cash.', '') })
+      navigation.push('meetupScreen', { eventId: event.id.replace('cash.', ''), origin })
     }
 
     const selectCountry = (selected: FlagType) => {

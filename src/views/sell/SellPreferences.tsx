@@ -1,11 +1,11 @@
 import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import { BackHandler, ScrollView, View } from 'react-native'
+import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation } from '../../hooks'
@@ -16,8 +16,8 @@ import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postSellOffer } from '../../utils/peachAPI'
-import Premium from './Premium'
 import { getDefaultSellOffer } from './helpers/getDefaultSellOffer'
+import Premium from './Premium'
 
 export type SellViewProps = {
   offer: SellOfferDraft
@@ -62,6 +62,10 @@ export default (): ReactElement => {
     }),
     shallow,
   )
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
 
   const [offer, setOffer] = useState(getDefaultSellOffer(partialSettings))
   const [stepValid, setStepValid] = useState(false)
@@ -102,6 +106,12 @@ export default (): ReactElement => {
   }
 
   const next = async () => {
+    if (page === 1) {
+      // summary screen (pages should be refactored into single views)
+      if (!peachWalletActive && !payoutAddress && !payoutAddressLabel) {
+        setPeachWalletActive(true)
+      }
+    }
     if (page >= screens.length - 1) {
       setUpdatePending(true)
       info('Posting offer ', JSON.stringify(offer))

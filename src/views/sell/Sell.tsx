@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import shallow from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -33,24 +33,20 @@ export default (): ReactElement => {
   }
 
   return (
-    <View testID="view-sell" style={tw`flex h-full`}>
-      <HorizontalLine style={tw`mx-8 mb-2`} />
-      <PeachScrollView style={tw`flex-shrink h-full px-8`}>
+    <View testID="view-sell" style={tw`h-full`}>
+      <HorizontalLine style={tw`mx-8`} />
+      <View style={tw`mt-2 px-8`}>
         <BitcoinPriceStats />
-        <View style={[tw`flex-shrink h-full pt-4 pb-8`, tw.md`pt-7`]}>
+        <View style={tw`pt-4`}>
           <Text style={[tw`hidden h6`, tw.md`flex`]}>
             {i18n('sell.subtitle')}
             <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
           </Text>
-          <SelectAmount
-            style={tw`self-center mt-4`}
-            min={MINTRADINGAMOUNT}
-            max={MAXTRADINGAMOUNT}
-            value={amount}
-            onChange={setAmount}
-          />
         </View>
-      </PeachScrollView>
+      </View>
+      <View style={tw`flex-grow items-center justify-center`}>
+        <SelectAmount min={MINTRADINGAMOUNT} max={MAXTRADINGAMOUNT} value={amount} onChange={setAmount} />
+      </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
