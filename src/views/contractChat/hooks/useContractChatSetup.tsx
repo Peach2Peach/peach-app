@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
+import { useFocusEffect } from '@react-navigation/native'
 import ContractTitle from '../../../components/titles/ContractTitle'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
@@ -12,7 +13,6 @@ import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../ut
 import { getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
-import { debounce } from '../../../utils/performance'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { parseError } from '../../../utils/system'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
@@ -107,18 +107,18 @@ export const useContractChatSetup = () => {
     })
   }
 
-  const saveChatDebounced = useCallback(
-    debounce((message: string) => {
+  useEffect(
+    () => () => {
+      // save draft message if screen is unmounted
       setAndSaveChat(contractId, {
-        draftMessage: message,
+        draftMessage: newMessage,
       })
-    }, 2000),
-    [],
+    },
+    [contractId, newMessage],
   )
 
   const onChangeMessage = (message: string) => {
     setNewMessage(message)
-    saveChatDebounced(message)
   }
 
   useEffect(() => {
