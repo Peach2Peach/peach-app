@@ -1,12 +1,14 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
 import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
+import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOverlay'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
+import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
+import { getTimerStart } from '../helpers/getTimerStart'
 
 type ContractCTAProps = ComponentProps & {
   contract: Contract
@@ -24,6 +26,7 @@ export default ({
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
 }: ContractCTAProps): ReactElement => {
+  const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
@@ -39,15 +42,25 @@ export default ({
       {i18n('contract.payment.notYetSent')}
     </PrimaryButton>
   )
-  if (view === 'buyer' && requiredAction === 'sendPayment') return (
-    <SlideToUnlock
-      style={tw`w-[260px]`}
-      disabled={actionPending}
-      onUnlock={postConfirmPaymentBuyer}
-      label1={i18n('contract.payment.confirm')}
-      label2={i18n('contract.payment.made')}
-    />
-  )
+  if (view === 'buyer' && requiredAction === 'sendPayment') {
+    const paymentExpectedBy = getPaymentExpectedBy(contract)
+    if (Date.now() < paymentExpectedBy) {
+      return (
+        <SlideToUnlock
+          style={tw`w-[260px]`}
+          disabled={actionPending}
+          onUnlock={postConfirmPaymentBuyer}
+          label1={i18n('contract.payment.confirm')}
+          label2={i18n('contract.payment.made')}
+        />
+      )
+    }
+    return (
+      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon">
+        {i18n('contract.timer.paymentTimeExpired.button.buyer')}
+      </WarningButton>
+    )
+  }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <SlideToUnlock
       style={tw`w-[260px]`}
