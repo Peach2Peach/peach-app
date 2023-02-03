@@ -907,7 +907,7 @@
   "settings.testView": "Open TestView",
   "settings.socials": "socials",
   "settings.socials.subtitle": "socials",
-  "settings.payoutAddress": "payout & refund",
+  "settings.payoutAddress": "payout address",
   "settings.payoutAddress.title": "set custom address",
   "settings.payoutAddress.success": "address set",
   "settings.payoutAddress.confirm": "confirm",
