@@ -45,7 +45,11 @@ export default (): ReactElement => {
           </Text>
         </View>
       </View>
-      <PeachScrollView style={[tw`h-full`]} contentContainerStyle={tw`flex-grow items-center justify-center`}>
+      <PeachScrollView
+        bounces={false}
+        style={[tw`h-full overflow-visible`]}
+        contentContainerStyle={tw`flex-grow items-center justify-center`}
+      >
         <SelectAmount min={MINTRADINGAMOUNT} max={MAXTRADINGAMOUNT} value={amount} onChange={setAmount} />
       </PeachScrollView>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
