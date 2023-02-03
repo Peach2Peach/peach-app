@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react'
 import { Platform, Pressable, View } from 'react-native'
-import { error } from '../../utils/log'
 import DocumentPicker from 'react-native-document-picker'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import Icon from '../Icon'
-import { Shadow, Text } from '..'
-import { innerShadow } from '../../utils/layout'
 import { readFileInChunks } from '../../utils/file'
+import i18n from '../../utils/i18n'
+import { error } from '../../utils/log'
+import Icon from '../Icon'
 
 export type FileData = {
   name: string
@@ -91,10 +90,7 @@ export const FileInput = ({ fileName, isValid, style, errorMessage = [], onChang
       ]}
       onPress={async () => (onChange ? onChange(await selectFile()) : null)}
     >
-      <Shadow
-        shadow={innerShadow}
-        style={[tw`w-full flex flex-row items-center justify-between h-8 pl-4 pr-3 py-2 rounded`, tw.md`h-10`]}
-      >
+      <View style={[tw`w-full flex flex-row items-center justify-between h-8 pl-4 pr-3 py-2 rounded`, tw.md`h-10`]}>
         <Text
           style={[
             tw`flex-grow-0 flex-shrink font-baloo text-xs uppercase`,
@@ -106,7 +102,7 @@ export const FileInput = ({ fileName, isValid, style, errorMessage = [], onChang
           {fileName || i18n('form.file')}
         </Text>
         <Icon id="file" style={tw`flex-shrink-0 w-5 h-5`} color={tw`text-peach-1`.color as string} />
-      </Shadow>
+      </View>
     </Pressable>
 
     {errorMessage.length > 0 ? (
