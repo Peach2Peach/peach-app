@@ -13,6 +13,7 @@ import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
+import { useShowHelp } from '../../hooks/useShowHelp'
 
 const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
@@ -23,6 +24,7 @@ const validate = (offer: BuyOfferDraft) =>
 
 export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
+  const showHelp = useShowHelp('paymentMethods')
 
   const headerIcons = [
     account.paymentData.length !== 0 && {
@@ -31,7 +33,7 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         setEditing(!editing)
       },
     },
-    { iconComponent: <HelpIcon />, onPress: () => null },
+    { iconComponent: <HelpIcon />, onPress: showHelp },
   ]
   const headerConfig = { title: i18n('form.paymentMethod'), icons: headerIcons } as HeaderConfig
 
