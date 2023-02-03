@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import { HorizontalLine } from '..'
+import { ConditionalWrapper, HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
 import { peachyGradient } from '../../utils/layout'
@@ -40,7 +40,7 @@ export const Match = ({ match, style, offer }: MatchProps): ReactElement => {
         showBorder={showMatchedCard}
         containerStyle={[tw`w-[313px] h-[414px] rounded-t-xl overflow-hidden`, !isBuyOffer(offer) && tw`h-64`]}
         style={tw`overflow-hidden rounded-t-xl bg-primary-background-light`}
-        borderStyle={tw`overflow-hidden rounded-t-2xl border border-black-5 border-b-0`}
+        borderStyle={[tw`overflow-hidden rounded-t-2xl`, !showMatchedCard && tw`border border-primary-main border-b-0`]}
       >
         <View style={tw`w-full`}>
           <View style={tw`px-5 pt-5 pb-6`}>

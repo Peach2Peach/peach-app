@@ -11,7 +11,7 @@ export const GradientBorder = ({
   style,
   borderStyle,
   showBorder = true,
-  backgroundColor = tw`bg-primary-background-light`,
+  backgroundColor = tw`bg-transparent`,
 }: {
   children: any
   borderWidths: [number, number, number, number]
