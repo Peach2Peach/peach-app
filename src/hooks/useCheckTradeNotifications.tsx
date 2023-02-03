@@ -1,8 +1,10 @@
-import { useCallback, useEffect } from 'react'
+import NotificationBadge from '@msml/react-native-notification-badge'
+import { useEffect } from 'react'
 import shallow from 'zustand/shallow'
-import { useNotificationsState } from '../components/footer/notificationsStore'
+import { notificationStore } from '../components/footer/notificationsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
+import { isIOS } from '../utils/system'
 import { hasDoubleMatched } from '../views/yourTrades/utils'
 
 export const statusWithRequiredAction: TradeStatus[] = [
@@ -25,7 +27,7 @@ const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
 
 export const useCheckTradeNotifications = () => {
   const [offers, contracts] = useTradeSummaryStore((state) => [state.offers, state.contracts], shallow)
-  const setNotificationsState = useNotificationsState((state) => state.setNotifications)
+  const setNotifications = notificationStore((state) => state.setNotifications, shallow)
 
   useEffect(() => {
     const offersWithAction = offers
@@ -38,8 +40,8 @@ export const useCheckTradeNotifications = () => {
 
     info('checkTradeNotifications', notifications)
 
-    setNotificationsState({
-      notifications,
-    })
-  }, [setNotificationsState, offers, contracts])
+    if (isIOS()) NotificationBadge.setNumber(notifications)
+
+    setNotifications(notifications)
+  }, [setNotifications, offers, contracts])
 }
