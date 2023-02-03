@@ -20,9 +20,8 @@ export const TrackMarkers = ({ trackHeight, labels }: TrackMarkersProps) => {
             { top: (i + 1) * knobHeight - knobHeight / 2 - i },
           ]}
         >
-          <View style={tw`absolute h-px w-[145px] right-10 bg-primary-background-dark`} />
           {!!labels && !!labels[i] && (
-            <Text style={tw`absolute w-20 text-right subtitle-2 text-black-2 right-10`}>{labels[i]}</Text>
+            <Text style={tw`absolute w-20 subtitle-2 text-black-2 left-full ml-5`}>{labels[i]}</Text>
           )}
         </View>
       ))}

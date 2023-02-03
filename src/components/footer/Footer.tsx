@@ -115,7 +115,10 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
 
   const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
-    navigation.navigate(page)
+    navigation.reset({
+      index: 0,
+      routes: [{ name: page }],
+    })
   }
   const navigate = {
     home: () => navTo('home'),

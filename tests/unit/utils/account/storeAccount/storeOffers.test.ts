@@ -1,5 +1,5 @@
 import { defaultAccount, setAccount } from '../../../../../src/utils/account'
-import { offerStorage } from '../../../../../src/utils/account/accountStorage'
+import { offerStorage } from '../../../../../src/utils/account/offerStorage'
 import { storeOffers } from '../../../../../src/utils/account/storeAccount'
 import * as accountData from '../../../data/accountData'
 import * as offerData from '../../../data/offerData'
