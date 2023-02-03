@@ -58,7 +58,11 @@ declare type RootStackParamList = {
   tradeComplete: {
     contract: Contract
   }
-  yourTrades: undefined
+  yourTrades:
+    | {
+        tab?: 'buy' | 'sell' | 'history'
+      }
+    | undefined
   offer: {
     offerId: string
   }
