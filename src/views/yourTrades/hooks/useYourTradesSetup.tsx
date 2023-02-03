@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 
-import { useHeaderSetup } from '../../../hooks'
+import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
@@ -15,6 +15,8 @@ const sortByDate = (a: TradeSummary, b: TradeSummary) => {
   return a.paymentMade.getTime() > b.paymentMade.getTime() ? 1 : -1
 }
 export const useYourTradesSetup = () => {
+  const route = useRoute<'yourTrades'>()
+  const { tab = 'buy' } = route.params || {}
   const showErrorBanner = useShowErrorBanner()
   const [offers, setOffers, contracts, setContracts] = useTradeSummaryStore(
     (state) => [state.offers, state.setOffers, state.contracts, state.setContracts],
@@ -60,5 +62,6 @@ export const useYourTradesSetup = () => {
     allOpenOffers,
     openOffers,
     pastOffers,
+    tab,
   }
 }

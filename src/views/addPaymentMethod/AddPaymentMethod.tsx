@@ -41,15 +41,6 @@ export default (): ReactElement => {
     navigation.push('paymentDetails', {
       paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
       origin: route.params.origin,
-      originOnCancel: [
-        'addPaymentMethod',
-        {
-          currencies: data.currencies,
-          country: undefined,
-          paymentMethod: undefined,
-          origin: route.params.origin,
-        },
-      ],
     })
   }
 

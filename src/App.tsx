@@ -50,6 +50,7 @@ import { account, getAccount } from './utils/account'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import requestUserPermissions from './init/requestUserPermissions'
 
 enableScreens()
 
@@ -177,6 +178,7 @@ const App: React.FC = () => {
       await initApp()
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
+      requestUserPermissions()
 
       if (typeof account.settings.enableAnalytics === 'undefined') {
         showAnalyticsPrompt(updateOverlay)

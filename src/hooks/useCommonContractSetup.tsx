@@ -17,6 +17,7 @@ import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
+import { getPaymentExpectedBy } from '../views/contract/helpers/getPaymentExpectedBy'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
@@ -24,7 +25,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
 
-  const { contract, isLoading } = useContractDetails(contractId, 15 * 1000)
+  const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
@@ -99,6 +100,17 @@ export const useCommonContractSetup = (contractId: string) => {
     storedContract?.symmetricKey,
     updateOverlay,
   ])
+
+  useEffect(() => {
+    if (!contract) return () => {}
+    const whenToFetch = getPaymentExpectedBy(contract) - Date.now()
+    if (whenToFetch <= 0) return () => {}
+    const timeout = setTimeout(refetch, whenToFetch)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [contract, refetch])
 
   useEffect(() => {
     if (!storedContract) return

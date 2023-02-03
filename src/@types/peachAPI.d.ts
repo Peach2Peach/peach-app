@@ -354,3 +354,5 @@ declare type TradeSummary = (OfferSummary | ContractSummary) & {
 declare type ReviveSellOfferResponseBody = {
   newOfferId: Offer['id']
 }
+
+declare type ExtendPaymentTimerResponseBody = APISuccess

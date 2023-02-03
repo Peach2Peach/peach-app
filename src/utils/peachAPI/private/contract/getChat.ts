@@ -30,5 +30,14 @@ export const getChat = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<GetChatResponse>(response, 'getChat')
+  const parsedResponse = await parseResponse<GetChatResponse>(response, 'getChat')
+
+  if (parsedResponse[0]) {
+    parsedResponse[0] = parsedResponse[0].map((message) => ({
+      ...message,
+      date: new Date(message.date),
+    }))
+  }
+
+  return parsedResponse
 }

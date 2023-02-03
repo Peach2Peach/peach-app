@@ -1,8 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import { Text, Icon, Shadow } from '..'
+import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
-import { mildShadow } from '../../utils/layout'
 
 export type RadioButtonItem<T> = {
   value: T
@@ -65,13 +64,7 @@ export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: Rad
     {items.map((item, i) => (
       <View key={i} style={[tw`flex-row items-center`, i > 0 ? tw`mt-2` : {}]}>
         <Pressable style={tw`w-full`} onPress={() => (onChange && !item.disabled ? onChange(item.value) : null)}>
-          {item.value === selectedValue ? (
-            <Shadow shadow={mildShadow}>
-              <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
-            </Shadow>
-          ) : (
-            <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
-          )}
+          <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
         </Pressable>
       </View>
     ))}
