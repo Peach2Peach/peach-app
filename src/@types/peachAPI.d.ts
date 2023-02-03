@@ -281,7 +281,7 @@ declare type OfferSummary = {
   type: 'bid' | 'ask'
   creationDate: Date
   lastModified: Date
-  amount: number
+  amount: number | [number, number]
   matches: string[]
   prices: Pricebook
   tradeStatus: TradeStatus

@@ -1,19 +1,19 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
+
 import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
-import AppContext from '../../contexts/app'
 import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
-import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 
+import shallow from 'zustand/shallow'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
 import PeachOrange from '../../assets/logo/peachOrange.svg'
+import { notificationStore } from './notificationsStore'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -83,11 +83,14 @@ const FooterItem = ({
           <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-3xs`]}>{i18n(`footer.${id}`)}</Text>
         </View>
         {theme === 'default' && notifications ? (
-          <Icon
-            id="notification"
-            style={tw`w-5 h-5 absolute -top-2 left-1/2 mt-.5`}
-            color={tw`text-success-main`.color}
-          />
+          <View
+            style={[
+              tw`absolute w-5 h-5 -top-2 left-1/2 mt-.5 bg-primary-main items-center justify-center`,
+              tw`border-2 rounded-full border-primary-background`,
+            ]}
+          >
+            <Text style={tw`body-s text-primary-background`}>{Math.min(99, notifications)}</Text>
+          </View>
         ) : null}
       </View>
     </Pressable>
@@ -101,9 +104,10 @@ const FooterItem = ({
  */
 export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: FooterProps): ReactElement => {
   const navigation = useNavigation()
-  const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
+
+  const notifications = notificationStore((state) => state.notifications, shallow)
 
   const keyboardOpen = useKeyboard()
 
@@ -124,12 +128,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   }
 
   useEffect(() => {
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
-  }, [updateAppContext])
-
-  useEffect(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
       const contract = getContractFromDevice(update.contractId)
 
@@ -137,9 +135,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
       saveContract({
         ...contract,
         [update.event]: new Date(update.data.date),
-      })
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
       })
     }
     const messageHandler = async (message: Message) => {
@@ -150,9 +145,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
       saveContract({
         ...contract,
         unreadMessages: contract.unreadMessages + 1,
-      })
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
       })
     }
     const unsubscribe = () => {
@@ -166,7 +158,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [updateAppContext, ws, ws.connected])
+  }, [ws, ws.connected])
 
   return !keyboardOpen ? (
     <View style={[tw`flex-row items-start w-full`, style]}>

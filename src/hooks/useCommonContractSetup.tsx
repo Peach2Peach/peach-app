@@ -1,11 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
-import AppContext from '../contexts/app'
 import { OverlayContext } from '../contexts/overlay'
 import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
 import { account } from '../utils/account'
-import { getChatNotifications } from '../utils/chat'
 import {
   decryptContractData,
   getContract,
@@ -14,7 +12,7 @@ import {
   getRequiredAction,
   saveContract,
 } from '../utils/contract'
-import { getRequiredActionCount, saveOffer } from '../utils/offer'
+import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
@@ -24,7 +22,6 @@ import { getPaymentExpectedBy } from '../views/contract/helpers/getPaymentExpect
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateAppContext] = useContext(AppContext)
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
 
@@ -35,19 +32,13 @@ export const useCommonContractSetup = (contractId: string) => {
   const requiredAction = contract ? getRequiredAction(contract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
 
-  const saveAndUpdate = useCallback(
-    (contractData: Partial<Contract>) => {
-      setStoredContract((prev) => {
-        const updatedContract = prev ? { ...prev, ...contractData } : contractData
-        if (updatedContract.id) saveContract(updatedContract as Contract)
-        return updatedContract as Contract
-      })
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
-      })
-    },
-    [updateAppContext],
-  )
+  const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
+    setStoredContract((prev) => {
+      const updatedContract = prev ? { ...prev, ...contractData } : contractData
+      if (updatedContract.id) saveContract(updatedContract as Contract)
+      return updatedContract as Contract
+    })
+  }, [])
 
   useFocusEffect(
     useCallback(() => {

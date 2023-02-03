@@ -42,6 +42,9 @@ declare type Contract = {
   lastReminderSent?: PaymentReminder
   lastReminderDismissed?: PaymentReminder
 
+  tradeStatus: TradeStatus
+  lastModified: Date
+
   escrow: string
   releaseAddress: string
   releaseTransaction: string
