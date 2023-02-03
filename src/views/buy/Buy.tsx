@@ -5,14 +5,14 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import shallow from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useShowWarning } from '../../hooks/useShowWarning'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
-import { useShowWarning } from '../../hooks/useShowWarning'
 
 const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
@@ -51,18 +51,14 @@ export default (): ReactElement => {
           </Text>
         </View>
       </View>
-      <PeachScrollView
-        bounces={false}
-        style={[tw`h-full overflow-visible`]}
-        contentContainerStyle={tw`flex-grow items-center justify-center`}
-      >
+      <View style={tw`flex-grow items-center justify-center`}>
         <RangeAmount
           min={MINTRADINGAMOUNT}
           max={MAXTRADINGAMOUNT}
           value={[currentMinAmount, currentMaxAmount]}
           onChange={setSelectedRange}
         />
-      </PeachScrollView>
+      </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
