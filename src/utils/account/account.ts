@@ -1,4 +1,5 @@
-import { defaultSettings, settingsStore } from '../../store/settingsStore'
+import { defaultSettings } from '../../store/defaults'
+import { settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'

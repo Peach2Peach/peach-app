@@ -2,7 +2,7 @@ import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { OptionButton, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { OptionButton, PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
 import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -62,9 +62,6 @@ export default (): ReactElement => {
           </OptionButton>
         ))}
       </PeachScrollView>
-      <PrimaryButton onPress={navigation.goBack} style={tw`mt-2`} narrow>
-        {i18n('back')}
-      </PrimaryButton>
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { GoBackButton, PeachScrollView } from '../../../components'
+import { PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { PriceFormats } from './PriceFormats'
@@ -16,8 +16,6 @@ export default () => {
       <PriceFormats />
       <SummaryItems />
       <SlideToUnlockTests />
-
-      <GoBackButton white wide style={tw`mt-8`} />
     </PeachScrollView>
   )
 }

@@ -23,5 +23,5 @@ export const initApp = async (): Promise<void> => {
     await dataMigrationAfterLoadingAccount()
   }
 
-  await requestUserPermissions()
+  requestUserPermissions()
 }
