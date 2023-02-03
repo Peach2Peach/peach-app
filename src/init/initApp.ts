@@ -1,6 +1,5 @@
 import { dataMigrationAfterLoadingAccount, dataMigrationBeforeLoadingAccount } from '../init/dataMigration'
 import events from '../init/events'
-import requestUserPermissions from '../init/requestUserPermissions'
 import userUpdate from '../init/userUpdate'
 import { account, loadAccount } from '../utils/account'
 import { getPeachInfo } from './getPeachInfo'
@@ -16,12 +15,10 @@ export const initApp = async (): Promise<void> => {
 
   await loadAccount()
   await getPeachInfo(account)
-  await saveMeetupEvents()
   if (account?.publicKey) {
     getTrades()
     userUpdate()
     await dataMigrationAfterLoadingAccount()
   }
-
-  requestUserPermissions()
+  saveMeetupEvents()
 }

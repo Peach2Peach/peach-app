@@ -1,6 +1,6 @@
-import { shouldShowBuyerCanceledTrade } from '../../../../src/utils/overlay'
+import { shouldShowTradeCanceled } from '../../../../src/utils/overlay'
 
-describe('shouldShowBuyerCanceledTrade', () => {
+describe('shouldShowTradeCanceled', () => {
   it('returns true if buyer canceled trade', () => {
     const contract: Partial<Contract> = {
       canceled: true,
@@ -8,7 +8,7 @@ describe('shouldShowBuyerCanceledTrade', () => {
       paymentConfirmed: null,
     }
     const view = 'seller'
-    expect(shouldShowBuyerCanceledTrade(contract as Contract, view)).toBe(true)
+    expect(shouldShowTradeCanceled(contract as Contract, view)).toBe(true)
   })
 
   it('returns false if contract is not canceled', () => {
@@ -18,7 +18,7 @@ describe('shouldShowBuyerCanceledTrade', () => {
       paymentConfirmed: null,
     }
     const view = 'seller'
-    expect(shouldShowBuyerCanceledTrade(contract as Contract, view)).toBe(false)
+    expect(shouldShowTradeCanceled(contract as Contract, view)).toBe(false)
   })
 
   it('returns false if view is not "seller"', () => {
@@ -28,7 +28,7 @@ describe('shouldShowBuyerCanceledTrade', () => {
       paymentConfirmed: null,
     }
     const view = 'buyer'
-    expect(shouldShowBuyerCanceledTrade(contract as Contract, view)).toBe(false)
+    expect(shouldShowTradeCanceled(contract as Contract, view)).toBe(false)
   })
 
   it('returns false if cancel confirmation is dismissed', () => {
@@ -38,7 +38,7 @@ describe('shouldShowBuyerCanceledTrade', () => {
       paymentConfirmed: null,
     }
     const view = 'seller'
-    expect(shouldShowBuyerCanceledTrade(contract as Contract, view)).toBe(false)
+    expect(shouldShowTradeCanceled(contract as Contract, view)).toBe(false)
   })
 
   it('returns false if payment is confirmed', () => {
@@ -48,6 +48,6 @@ describe('shouldShowBuyerCanceledTrade', () => {
       paymentConfirmed: new Date(),
     }
     const view = 'seller'
-    expect(shouldShowBuyerCanceledTrade(contract as Contract, view)).toBe(false)
+    expect(shouldShowTradeCanceled(contract as Contract, view)).toBe(false)
   })
 })

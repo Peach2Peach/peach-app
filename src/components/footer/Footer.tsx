@@ -1,12 +1,9 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
-
-import shallow from 'zustand/shallow'
 import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
 import AppContext from '../../contexts/app'
 import { useKeyboard, useNavigation } from '../../hooks'
-import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
@@ -108,11 +105,9 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
 
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
-
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'wallet' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
     navigation.reset({
       index: 0,
@@ -179,9 +174,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
         <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
           <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
           <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
-          {peachWalletActive && (
-            <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
-          )}
+          <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
           <FooterItem
             theme={theme}
             id="yourTrades"
