@@ -28,6 +28,7 @@ declare type Contract = {
   paymentDataEncrypted?: string
   paymentData?: PaymentData
   paymentDataSignature?: string
+  paymentMade?: Date
 
   kycRequired: boolean
   kycType?: KYCType
@@ -36,6 +37,9 @@ declare type Contract = {
   kycResponseDate?: Date | null
   paymentMade: Date | null
   paymentConfirmed: Date | null
+
+  tradeStatus: TradeStatus
+  lastModified: Date
 
   escrow: string
   releaseAddress: string

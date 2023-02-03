@@ -17,6 +17,7 @@ import PeachOrange from '../../assets/logo/peachOrange.svg'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
 import { useNotificationsState } from './notificationsStore'
 import { useCheckTradeNotifications } from '../../hooks/useCheckTradeNotifications'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -109,9 +110,17 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
+  const [offers, contracts] = useTradeSummaryStore(
+    (state) => [state.offers, state.setOffer, state.contracts, state.setContract],
+    shallow,
+  )
+  const checkTradeNotifications = useCheckTradeNotifications()
+
+  useEffect(() => {
+    checkTradeNotifications()
+  }, [contracts, offers])
 
   const { notifications } = useNotificationsState()
-  const checkTradeNotifications = useCheckTradeNotifications()
 
   const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
 
