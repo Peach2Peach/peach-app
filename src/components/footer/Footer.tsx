@@ -2,6 +2,7 @@ import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Icon, Shadow, Text } from '..'
+import { IconType } from '../../assets/icons'
 import AppContext from '../../contexts/app'
 import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -12,12 +13,9 @@ import i18n from '../../utils/i18n'
 import { footerShadow, noShadow } from '../../utils/layout'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { IconType } from '../../assets/icons'
-import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
 
-import PeachOrange from '../../assets/logo/peachOrange.svg'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
+import PeachOrange from '../../assets/logo/peachOrange.svg'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -109,11 +107,9 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
 
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
-
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'wallet' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
     navigation.reset({
       index: 0,
@@ -181,9 +177,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
           <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
             <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
             <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
-            {peachWalletActive && (
-              <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
-            )}
+            <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
             <FooterItem
               theme={theme}
               id="yourTrades"
