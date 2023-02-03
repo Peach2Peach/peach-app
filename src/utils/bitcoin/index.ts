@@ -1,4 +1,3 @@
-export { checkAndRefund } from './checkAndRefund'
 export { checkRefundPSBT } from './checkRefundPSBT'
 export { getBitcoinAddressParts } from './getBitcoinAddressParts'
 export { getTradeBreakdown } from './getTradeBreakdown'
