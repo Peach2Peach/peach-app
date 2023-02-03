@@ -18,7 +18,6 @@ export const useSellSummarySetup = () => {
     useMemo(
       () => ({
         title: i18n('sell.summary.title'),
-        hideGoBackButton: true,
         icons: [
           {
             iconComponent: <WalletIcon />,
