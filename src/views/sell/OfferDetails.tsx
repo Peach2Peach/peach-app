@@ -12,6 +12,7 @@ import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { SellViewProps } from './SellPreferences'
+import { useShowHelp } from '../../hooks/useShowHelp'
 
 const validate = (offer: SellOffer) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
@@ -30,7 +31,7 @@ const validate = (offer: SellOffer) => {
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
-
+  const showHelp = useShowHelp('paymentMethods')
   const headerConfig = {
     title: i18n('form.paymentMethod'),
     icons: [
@@ -40,7 +41,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
           setEditing(!editing)
         },
       },
-      { iconComponent: <HelpIcon />, onPress: () => null },
+      { iconComponent: <HelpIcon />, onPress: showHelp },
     ],
   }
   useContext(LanguageContext)
