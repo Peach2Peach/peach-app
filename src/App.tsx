@@ -9,7 +9,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef,
+  useNavigationContainerRef
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
@@ -37,6 +37,7 @@ import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
+import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { useHandleNotifications } from './hooks/useHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
@@ -49,7 +50,6 @@ import { account, getAccount } from './utils/account'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 
 enableScreens()
 
@@ -78,7 +78,7 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
 const usePartialAppSetup = () => {
   const [active, setActive] = useState(true)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
-  const checkTradeNotifications = useCheckTradeNotifications()
+  useCheckTradeNotifications()
 
   useEffect(
     appStateEffect({
@@ -88,7 +88,6 @@ const usePartialAppSetup = () => {
           getPeachInfo(getAccount())
           if (account?.publicKey) {
             getTrades()
-            checkTradeNotifications()
           }
           analytics().logAppOpen()
 
@@ -138,8 +137,6 @@ const App: React.FC = () => {
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
-  const checkTradeNotifications = useCheckTradeNotifications()
-
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
     updateMessage({
@@ -181,7 +178,6 @@ const App: React.FC = () => {
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
 
-      checkTradeNotifications()
       if (typeof account.settings.enableAnalytics === 'undefined') {
         showAnalyticsPrompt(updateOverlay)
       }

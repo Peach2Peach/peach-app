@@ -1,23 +1,21 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
+import shallow from 'zustand/shallow'
 import { Icon, Shadow, Text } from '..'
+import { IconType } from '../../assets/icons'
 import { useKeyboard, useNavigation } from '../../hooks'
+import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { footerShadow, noShadow } from '../../utils/layout'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import { IconType } from '../../assets/icons'
-import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
 
-import PeachOrange from '../../assets/logo/peachOrange.svg'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
+import PeachOrange from '../../assets/logo/peachOrange.svg'
 import { useNotificationsState } from './notificationsStore'
-import { useCheckTradeNotifications } from '../../hooks/useCheckTradeNotifications'
-import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -110,15 +108,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
-  const [offers, contracts] = useTradeSummaryStore(
-    (state) => [state.offers, state.setOffer, state.contracts, state.setContract],
-    shallow,
-  )
-  const checkTradeNotifications = useCheckTradeNotifications()
-
-  useEffect(() => {
-    checkTradeNotifications()
-  }, [contracts, offers])
 
   const { notifications } = useNotificationsState()
 
@@ -148,7 +137,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
         ...contract,
         [update.event]: new Date(update.data.date),
       })
-      checkTradeNotifications()
     }
     const messageHandler = async (message: Message) => {
       if (!message.message || !message.roomId || message.from === account.publicKey) return
@@ -159,7 +147,6 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
         ...contract,
         unreadMessages: contract.unreadMessages + 1,
       })
-      checkTradeNotifications()
     }
     const unsubscribe = () => {
       ws.off('message', contractUpdateHandler)

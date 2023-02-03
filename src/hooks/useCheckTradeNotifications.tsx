@@ -1,6 +1,7 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import shallow from 'zustand/shallow'
 import { useNotificationsState } from '../components/footer/notificationsStore'
-import { tradeSummaryStore } from '../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
 import { hasDoubleMatched } from '../views/yourTrades/utils'
 
@@ -23,10 +24,10 @@ const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
   || (offer.type === 'ask' && statusWithRequiredActionForSeller.includes(offer.tradeStatus))
 
 export const useCheckTradeNotifications = () => {
+  const [offers, contracts] = useTradeSummaryStore((state) => [state.offers, state.contracts], shallow)
   const setNotificationsState = useNotificationsState((state) => state.setNotifications)
 
-  const checkTradeNotifications = useCallback(() => {
-    const { offers, contracts } = tradeSummaryStore.getState()
+  useEffect(() => {
     const offersWithAction = offers
       .filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
       .filter((offer) => hasRequiredAction(offer)).length
@@ -40,9 +41,5 @@ export const useCheckTradeNotifications = () => {
     setNotificationsState({
       notifications,
     })
-
-    return notifications
-  }, [setNotificationsState])
-
-  return checkTradeNotifications
+  }, [setNotificationsState, offers, contracts])
 }

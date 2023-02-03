@@ -17,7 +17,6 @@ import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
-import { useCheckTradeNotifications } from './useCheckTradeNotifications'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
@@ -31,7 +30,6 @@ export const useCommonContractSetup = (contractId: string) => {
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = contract ? getRequiredAction(contract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
-  const checkTradeNotifications = useCheckTradeNotifications()
 
   const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
     setStoredContract((prev) => {
@@ -39,7 +37,6 @@ export const useCommonContractSetup = (contractId: string) => {
       if (updatedContract.id) saveContract(updatedContract as Contract)
       return updatedContract as Contract
     })
-    checkTradeNotifications()
   }, [])
 
   useFocusEffect(

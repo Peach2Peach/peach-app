@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, ViewToken } from 'react-native'
-import { useCheckTradeNotifications } from '../../../hooks/useCheckTradeNotifications'
 import tw from '../../../styles/tailwind'
 import { getChat } from '../../../utils/chat'
 import { ChatMessage } from './ChatMessage'
@@ -28,7 +27,6 @@ export default ({
 }: ChatBoxProps): ReactElement => {
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
-  const checkTradeNotifications = useCheckTradeNotifications()
 
   useEffect(() => {
     setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
@@ -47,7 +45,6 @@ export default ({
     if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
     setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-    checkTradeNotifications()
   }, [])
 
   return (

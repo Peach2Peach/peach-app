@@ -11,7 +11,6 @@ import { getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { getOffer, isSellOffer, saveOffer } from '../../utils/offer'
-import { useCheckTradeNotifications } from '../../hooks/useCheckTradeNotifications'
 
 export const useOfferDetailsSetup = () => {
   const route = useRoute<'offer'>()
@@ -24,7 +23,6 @@ export const useOfferDetailsSetup = () => {
   const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
   const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
   const [contractId, setContractId] = useState(offer?.contractId)
-  const checkTradeNotifications = useCheckTradeNotifications()
 
   const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
     saveOffer(offerData)
@@ -83,7 +81,6 @@ export const useOfferDetailsSetup = () => {
             info('useOfferDetailsSetup - getContractEffect', `navigate to contract ${result.id}`)
             navigation.replace('contract', { contractId: result.id })
           }
-          checkTradeNotifications()
           handleContractOverlays(c, view)
         },
         onError: (err) =>

@@ -5,7 +5,6 @@ import { View } from 'react-native'
 import { PrimaryButton } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
-import { useCheckTradeNotifications } from '../../../hooks/useCheckTradeNotifications'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import tw from '../../../styles/tailwind'
@@ -25,8 +24,6 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
-  const checkTradeNotifications = useCheckTradeNotifications()
-
 
   const rate = async () => {
     if (!view || !vote) return
@@ -51,7 +48,6 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
       ...contract,
       [ratedUser]: true,
     })
-    checkTradeNotifications()
 
     if (rating.rating === 1) {
       navigation.replace('backupTime', { view, nextScreen: 'offer', offerId: getOfferIdFromContract(contract) })
