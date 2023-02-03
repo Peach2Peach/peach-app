@@ -1,5 +1,4 @@
-import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 
 import { useHeaderSetup } from '../../../hooks'
