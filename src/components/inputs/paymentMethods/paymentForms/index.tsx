@@ -34,7 +34,6 @@ export type PaymentMethodFormProps = ComponentProps & {
   currencies?: Currency[]
   onSubmit: (data: PaymentData) => void
   onDelete?: () => void
-  back?: () => void
 }
 export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
 

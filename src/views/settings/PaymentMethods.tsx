@@ -17,11 +17,6 @@ export default (): ReactElement => {
   const dummy = () => setUpdate(Math.random())
 
   return (
-    <PaymentDetails
-      origin={['paymentMethods', {}]}
-      paymentData={account.paymentData}
-      setMeansOfPayment={dummy}
-      editing={true}
-    />
+    <PaymentDetails origin="paymentMethods" paymentData={account.paymentData} setMeansOfPayment={dummy} editing={true} />
   )
 }
