@@ -516,6 +516,7 @@
   "form.paymentMethod.update": "update method",
   "form.paymentMethod.remove": "remove payment method",
   "form.includeDeviceIDHash": "include device ID hash",
+  "form.shareLogs": "include app logs",
   "refund.title": "escrow refunded",
   "refund.loading.title": "refunding escrow",
   "refund.text.externalWallet": "The escrow has been refunded to the specified address.",
