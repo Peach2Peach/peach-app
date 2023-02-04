@@ -7,7 +7,7 @@ import { isCanceledOffer } from './helpers/isCanceledOffer'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 
 export default (): ReactElement => {
-  const { offer } = useOfferDetailsSetup()
+  const offer = useOfferDetailsSetup()
 
   return isCanceledOffer(offer) && isSellOffer(offer) ? <OfferSummary offer={offer} /> : <OfferLoading />
 }
