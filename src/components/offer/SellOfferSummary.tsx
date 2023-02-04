@@ -5,59 +5,51 @@ import tw from '../../styles/tailwind'
 import { showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
-import Card from '../Card'
 import Icon from '../Icon'
-import { Selector } from '../inputs'
-import { Headline, SatsFormat, Text } from '../text'
+import { PaymentMethod } from '../matches/PaymentMethod'
+import { TabbedNavigation } from '../navigation/TabbedNavigation'
+import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer | SellOfferDraft
 }
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
-  const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
+  const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [paymentMethods, setPaymentMethods] = useState(offer.meansOfPayment[selectedCurrency]!)
-
-  const setCurrency = (c: string) => {
-    setSelectedCurrency(c as Currency)
-    setPaymentMethods(offer.meansOfPayment[c as Currency]!)
-  }
-
   return (
-    <Card style={[tw`p-5`, style]}>
-      <Headline style={tw`normal-case text-grey-2`}>{i18n('offer.summary.youAreSelling')}</Headline>
-      <Text style={tw`text-center`}>
-        <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
-      </Text>
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.for')}</Headline>
+    <View style={[tw`border border-black-5 rounded-2xl py-7 px-5`, style]}>
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.youAreSelling')}</Text>
+      <SatsFormat
+        sats={offer.amount}
+        color={tw`text-grey-2`}
+        containerStyle={tw`self-center`}
+        bitcoinLogoStyle={tw`h-4 w-4 mr-1`}
+        style={tw`subtitle-1`}
+        satsStyle={tw`body-s`}
+      />
+      <HorizontalLine style={tw`my-4 bg-black-5`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withA')}</Text>
       <Text style={tw`text-center`}>
         {i18n(offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount', String(Math.abs(offer.premium)))}
       </Text>
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.in')}</Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedCurrency}
-        onChange={setCurrency}
-        items={getCurrencies(offer.meansOfPayment).map((c) => ({ value: c, display: c }))}
+      <HorizontalLine style={tw`my-4 bg-black-5`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
+      <TabbedNavigation
+        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
+        selected={{ id: selectedCurrency, display: selectedCurrency }}
+        select={(c) => setSelectedCurrency(c.id as Currency)}
       />
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.via')}</Headline>
-      <Selector
-        items={paymentMethods.map((p) => ({
-          value: p,
-          display: i18n(`paymentMethod.${p}`).toLowerCase(),
-        }))}
-        style={tw`mt-2`}
-      />
-      {offer.funding.txIds.length > 0 ? (
+      <View style={tw`items-center mt-3 mb-2 flex-row justify-center`}>
+        {offer.meansOfPayment[selectedCurrency]?.map((p, i) => (
+          <PaymentMethod key={`sellOfferMethod-${p}`} paymentMethodName={p} style={[i > 0 && tw`ml-1`]} />
+        ))}
+      </View>
+
+      {offer.funding.txIds.length > 0 && (
         <View>
-          <HorizontalLine style={tw`mt-4`} />
-          <Headline style={tw`mt-4 normal-case text-grey-2`}>
-            {i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}
-          </Headline>
+          <HorizontalLine style={tw`my-4 bg-black-5`} />
+          <Text style={tw`self-center`}>{i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}</Text>
           <Pressable
             style={tw`flex-row items-center justify-center`}
             onPress={() => showTransaction(offer.txId || (offer.funding.txIds[0] as string), NETWORK)}
@@ -66,7 +58,14 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
             <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color} />
           </Pressable>
         </View>
-      ) : null}
-    </Card>
+      )}
+      {!!offer.walletLabel && (
+        <>
+          <HorizontalLine style={tw`my-4 bg-black-5`} />
+          <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
+          <Text style={tw`self-center subtitle-1`}>{offer.walletLabel}</Text>
+        </>
+      )}
+    </View>
   )
 }
