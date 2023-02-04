@@ -53,6 +53,8 @@ export const useSearchSetup = () => {
     if (error) {
       const errorMessage = parseError(error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
+        // questionable if this is the right place to go
+
         if (offerId) navigation.replace('offer', { offerId })
         return
       }

@@ -58,6 +58,7 @@ export const useContractSetup = () => {
         navigation.replace('tradeComplete', { contract })
         return
       }
+      // questionable if this is the right place to go
 
       navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
     }

@@ -42,6 +42,8 @@ export const handlePushNotification = (
     return true
   }
   if (offerId) {
+    // questionable if this is the right place to go
+
     navigationRef.navigate('offer', { offerId })
 
     return true

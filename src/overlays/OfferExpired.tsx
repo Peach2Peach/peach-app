@@ -24,6 +24,7 @@ export default ({ offer, days }: Props): ReactElement => {
   }
 
   const goToOffer = () => {
+    // questionable if this is the right place to go
     if (offer.id) navigation.navigate('offer', { offerId: offer.id })
     closeOverlay()
   }

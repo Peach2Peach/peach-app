@@ -35,6 +35,7 @@ export const useConfirmEscrowOverlay = () => {
             return
           }
           if (sellOffer.funding.status === 'FUNDED') {
+            // questionable if this is the right place to go
             navigation.replace('offer', { offerId: sellOffer.id })
           } else {
             navigation.replace('fundEscrow', { offer: sellOffer })

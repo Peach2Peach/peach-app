@@ -50,6 +50,7 @@ export const useBuyerCanceledOverlay = () => {
           label: i18n('goToOffer'),
           icon: 'arrowRightCircle',
           callback: () => {
+            // questionable if this is the right place to go
             navigation.replace('offer', { offerId: reviveSellOfferResult.newOfferId })
             closeOverlay()
           },
@@ -58,6 +59,7 @@ export const useBuyerCanceledOverlay = () => {
           label: i18n('close'),
           icon: 'xSquare',
           callback: () => {
+            // questionable if this is the right place to go
             navigation.replace('offer', { offerId: sellOffer.id })
             closeOverlay()
           },

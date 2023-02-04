@@ -27,6 +27,7 @@ export default ({ offerId }: Props): ReactElement => {
 
   const goToOffer = async (): Promise<void> => {
     if (!offer?.id) return closeOverlay()
+    // todo probably we want ot go to offerPublished here
     navigation.navigate('offer', { offerId: offer.id })
     return closeOverlay()
   }
