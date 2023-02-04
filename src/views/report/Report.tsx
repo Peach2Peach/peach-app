@@ -6,13 +6,14 @@ import tw from '../../styles/tailwind'
 import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../constants'
 import LanguageContext from '../../contexts/language'
-import { MessageContext } from '../../contexts/message'
 import { OverlayContext } from '../../contexts/overlay'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
+import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { error } from '../../utils/log'
 import { sendReport } from '../../utils/peachAPI'
+import { sendErrors } from '../../utils/analytics/openCrashReportPrompt'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -21,21 +22,21 @@ export default (): ReactElement => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
   useContext(LanguageContext)
-  const [, updateMessage] = useContext(MessageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
-  const [shareDeviceID, setShareDeviceID] = useState(route.params.shareDeviceID || false)
+  const [shareDeviceID, toggleDeviceIDSharing] = useToggleBoolean(route.params.shareDeviceID || false)
+  const [shareLogs, toggleShareLogs] = useToggleBoolean(false)
   const reason = route.params.reason
+
+  const showError = useShowErrorBanner()
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
 
   useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
-
-  const toggleDeviceIDSharing = () => setShareDeviceID((b) => !b)
 
   const submit = async () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid
@@ -51,33 +52,23 @@ export default (): ReactElement => {
       topic,
       message: messageToSend,
     })
+    if (shareLogs) sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
     if (result) {
+      if (!!account?.publicKey) {
+        navigation.navigate('settings')
+      } else {
+        navigation.navigate('welcome')
+      }
       showReportSuccess(updateOverlay)
-      // Clear all fields
-      setEmail('')
-      setTopic(route.params.topic || '')
-      setMessage(route.params.message || '')
-      setShareDeviceID(false)
       return
     }
 
-    if (err) {
-      error('Error', err)
-      updateMessage({
-        msgKey: err?.error || 'GENERAL_ERROR',
-        level: 'ERROR',
-        action: {
-          callback: () => navigation.navigate('contact'),
-          label: i18n('contactUs'),
-          icon: 'mail',
-        },
-      })
-    }
+    if (err) showError()
   }
 
   return (
     <PeachScrollView contentContainerStyle={tw`flex-grow`}>
-      <View style={tw`items-center justify-end h-full px-6 pt-6 pb-10`}>
+      <View style={tw`justify-end h-full px-6 pt-6 pb-10`}>
         <Input
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
@@ -105,18 +96,33 @@ export default (): ReactElement => {
           autoCorrect={false}
           errorMessage={messageErrors}
         />
-        <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center justify-center my-5`}>
-          <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
+        <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
+          <View style={tw`flex items-center justify-center w-5 h-5`}>
             {shareDeviceID ? (
               <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
             ) : (
               <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
             )}
           </View>
-          <Text style={tw`flex-shrink pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+          <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+        </Pressable>
+        <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
+          <View style={tw`flex items-center justify-center w-5 h-5`}>
+            {shareLogs ? (
+              <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+            ) : (
+              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
+            )}
+          </View>
+          <Text style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</Text>
         </Pressable>
 
-        <PrimaryButton onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)} narrow>
+        <PrimaryButton
+          style={tw`mt-10 self-center`}
+          onPress={submit}
+          disabled={!(isEmailValid && isTopicValid && isMessageValid)}
+          narrow
+        >
           {i18n('report.sendReport')}
         </PrimaryButton>
       </View>

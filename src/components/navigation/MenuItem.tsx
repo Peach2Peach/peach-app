@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
-import { Pressable } from 'react-native'
+import { Pressable, View } from 'react-native'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
-import { Shadow, Text } from '..'
-import { mildShadow } from '../../utils/layout'
 
 type MenuItemProps = ComponentProps & {
   text: string
@@ -20,14 +19,14 @@ type MenuItemProps = ComponentProps & {
  * />
  */
 export const MenuItem = ({ style, text, onPress }: MenuItemProps): ReactElement => (
-  <Shadow shadow={mildShadow} style={[tw`w-full border rounded border-grey-4`, style || {}]}>
+  <View style={[tw`w-full border rounded border-grey-4`, style || {}]}>
     <Pressable
       onPress={() => onPress()}
       style={[tw`flex flex-row items-center justify-between h-8 pl-4 pr-2 bg-white-1`, tw.md`h-10`]}
     >
       <Text>{text}</Text>
     </Pressable>
-  </Shadow>
+  </View>
 )
 
 export default MenuItem

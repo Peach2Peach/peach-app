@@ -1,9 +1,8 @@
-import { BLOCKEXPLORER } from '@env'
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { APPVERSION, MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../constants'
 import { storeSettings } from '../utils/account'
 import { createStorage, toZustandStorage } from '../utils/storage'
+import { defaultSettings } from './defaults'
 
 type SettingsStore = Settings & {
   updateSettings: (settings: Settings) => void
@@ -31,22 +30,6 @@ type SettingsStore = Settings & {
   setNodeURL: (url: string) => void
   setCustomFeeRate: (customFeeRate: number) => void
   setSelectedFeeRate: (selectedFeeRate: FeeRate) => void
-}
-
-export const defaultSettings: Settings = {
-  appVersion: APPVERSION,
-  displayCurrency: 'EUR',
-  locale: 'en',
-  minAmount: MINTRADINGAMOUNT,
-  maxAmount: MAXTRADINGAMOUNT,
-  preferredPaymentMethods: {},
-  meansOfPayment: {},
-  showBackupReminder: true,
-  showDisputeDisclaimer: true,
-  peachWalletActive: true,
-  nodeURL: BLOCKEXPLORER,
-  customFeeRate: 1,
-  selectedFeeRate: 'halfHourFee',
 }
 
 export const settingsStorage = createStorage('settings')

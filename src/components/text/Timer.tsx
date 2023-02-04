@@ -7,16 +7,15 @@ import { msToTimer } from '../../utils/string'
 
 type TimerProps = ComponentProps & {
   text: string
-  start: number
-  duration: number
+  end: number
 }
 
-export const Timer = ({ text, start, duration, style }: TimerProps): ReactElement => {
-  const [timer, setTimer] = useState(0)
+export const Timer = ({ text, end, style }: TimerProps): ReactElement => {
+  const [timer, setTimer] = useState(end - Date.now())
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const timeLeft = duration - (Date.now() - start)
+      const timeLeft = end - Date.now()
 
       setTimer(timeLeft > 0 ? timeLeft : 0)
     }, 1000)
@@ -24,7 +23,7 @@ export const Timer = ({ text, start, duration, style }: TimerProps): ReactElemen
     return () => {
       clearInterval(interval)
     }
-  }, [start, duration])
+  }, [end])
 
   return (
     <View style={[tw`flex-row justify-center`, style]}>

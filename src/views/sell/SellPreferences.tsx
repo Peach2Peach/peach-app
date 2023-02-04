@@ -1,11 +1,11 @@
 import React, { Dispatch, ReactElement, SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import { BackHandler, ScrollView, View } from 'react-native'
+import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
 import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
@@ -74,8 +74,8 @@ export default (): ReactElement => {
   const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
-  const [peachWalletActive, payoutAddress] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress],
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
 
@@ -124,6 +124,12 @@ export default (): ReactElement => {
   }
 
   const next = async () => {
+    if (page === 1) {
+      // summary screen (pages should be refactored into single views)
+      if (!peachWalletActive && !payoutAddress && !payoutAddressLabel) {
+        setPeachWalletActive(true)
+      }
+    }
     if (page >= screens.length - 1) {
       setUpdatePending(true)
       info('Posting offer ', JSON.stringify(offer))

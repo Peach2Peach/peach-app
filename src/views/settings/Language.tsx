@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { GoBackButton, PrimaryButton, Title } from '../../components'
+import { PrimaryButton, Title } from '../../components'
 import LanguageContext from '../../contexts/language'
 import i18n from '../../utils/i18n'
 import { updateSettings } from '../../utils/account'
@@ -30,7 +30,6 @@ export default (): ReactElement => {
           </PrimaryButton>
         ))}
       </View>
-      <GoBackButton style={tw`self-center mt-16`} />
     </View>
   )
 }

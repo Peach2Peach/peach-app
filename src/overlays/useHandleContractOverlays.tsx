@@ -1,51 +1,47 @@
-import React, { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback } from 'react'
 import { account } from '../utils/account'
 import {
-  shouldShowBuyerCanceledTrade,
+  shouldShowTradeCanceled,
   shouldShowCancelTradeRequestConfirmed,
   shouldShowCancelTradeRequestRejected,
-  shouldShowConfirmCancelTradeRequest,
   shouldShowDisputeResult,
+  shouldShowPaymentTimerHasRunOut,
   shouldShowYouGotADispute,
 } from '../utils/overlay'
-import { DisputeResult } from './DisputeResult'
-import { useBuyerCanceledOverlay } from './tradeCancelation/useBuyerCanceledOverlay'
+import { useDisputeRaisedNotice } from './dispute/hooks/useDisputeRaisedNotice'
+import { useDisputeResults } from './dispute/hooks/useDisputeResults'
+import { useShowPaymentTimerHasRunOut } from './paymentTimer/useShowPaymentTimerHasRunOut'
+import { useTradeCanceledOverlay } from './tradeCancelation/useTradeCanceledOverlay'
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
-import { useConfirmTradeCancelationOverlay } from './tradeCancelation/useConfirmTradeCancelationOverlay'
-import YouGotADispute from './YouGotADispute'
 
 export const useHandleContractOverlays = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
-  const showBuyerCanceled = useBuyerCanceledOverlay()
+  const showDisputeRaisedNotice = useDisputeRaisedNotice()
+  const showDisputeResults = useDisputeResults()
+  const showTradeCanceled = useTradeCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+
+  const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
 
   const handleContractOverlays = useCallback(
     (contract: Contract, view: ContractViewer) => {
-      const contractId = contract.id
-      if (shouldShowYouGotADispute(contract, account)) {
-        return updateOverlay({
-          content: (
-            <YouGotADispute {...{ contractId, message: contract.disputeClaim!, reason: contract.disputeReason! }} />
-          ),
-          visible: true,
-        })
-      }
+      if (shouldShowYouGotADispute(contract, account)) return showDisputeRaisedNotice(contract, view)
+      if (shouldShowDisputeResult(contract)) return showDisputeResults(contract, view)
 
-      if (shouldShowDisputeResult(contract)) {
-        return updateOverlay({
-          content: <DisputeResult {...{ contractId }} />,
-          visible: true,
-        })
-      }
-
-      if (shouldShowBuyerCanceledTrade(contract, view)) return showBuyerCanceled(contract, false)
-      if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showBuyerCanceled(contract, true)
+      if (shouldShowTradeCanceled(contract, view)) return showTradeCanceled(contract, false)
+      if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showTradeCanceled(contract, true)
       if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
-
+      if (view === 'seller' && shouldShowPaymentTimerHasRunOut(contract)) {
+        return showPaymentTimerHasRunOut(contract, view, true)
+      }
       return null
     },
-    [showBuyerCanceled, showCancelTradeRequestRejected, updateOverlay],
+    [
+      showTradeCanceled,
+      showCancelTradeRequestRejected,
+      showDisputeRaisedNotice,
+      showDisputeResults,
+      showPaymentTimerHasRunOut,
+    ],
   )
 
   return handleContractOverlays

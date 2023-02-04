@@ -1,6 +1,7 @@
 export { checkAndRefund } from './checkAndRefund'
 export { checkRefundPSBT } from './checkRefundPSBT'
 export { getBitcoinAddressParts } from './getBitcoinAddressParts'
+export { getTradeBreakdown } from './getTradeBreakdown'
 export { openInWallet } from './openInWallet'
 export { parseBitcoinRequest } from './parseBitcoinRequest'
 export { refundSellOffer } from './refundSellOffer'

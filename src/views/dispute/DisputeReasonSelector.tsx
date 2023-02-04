@@ -2,13 +2,14 @@ import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { OptionButton, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { OptionButton, PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
-import { getContract, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 import { submitRaiseDispute } from './utils/submitRaiseDispute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
 const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
 const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 
@@ -16,12 +17,13 @@ export default (): ReactElement => {
   const route = useRoute<'disputeReasonSelector'>()
   const contract = getContract(route.params.contractId)
 
-  const view = contract ? (account.publicKey === contract.seller.id ? 'seller' : 'buyer') : ''
+  const view = contract ? getContractViewer(contract, account) : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
 
+  const navigation = useNavigation()
   const showError = useShowErrorBanner()
 
-  const navigation = useNavigation()
+  const disputeRaisedOverlay = useDisputeRaisedSuccess()
 
   useHeaderSetup(
     useMemo(
@@ -40,7 +42,9 @@ export default (): ReactElement => {
     } else {
       const [success, error] = await submitRaiseDispute(contract, reason)
       if (success) {
-        // todo : show dispute raised success
+        if (view) {
+          disputeRaisedOverlay(view)
+        }
         navigation.goBack()
       } else {
         showError(error ? error?.error : null)
@@ -58,9 +62,6 @@ export default (): ReactElement => {
           </OptionButton>
         ))}
       </PeachScrollView>
-      <PrimaryButton onPress={navigation.goBack} style={tw`mt-2`} narrow>
-        {i18n('back')}
-      </PrimaryButton>
     </View>
   )
 }

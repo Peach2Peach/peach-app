@@ -16,6 +16,8 @@ export const MAXMININGFEE = 20000
 // time go automatically restart app when calling app from background after this time has passed
 export const TIMETORESTART = 1000 * 60 * 5
 
+export const MAXTRADESWITHOUTHBACKUP = 3
+
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
 
@@ -101,18 +103,6 @@ export let MINTRADINGAMOUNT = 200000
 export let MAXTRADINGAMOUNT = 5000000
 export const setMinTradingAmount = (amount: number) => (MINTRADINGAMOUNT = amount)
 export const setMaxTradingAmount = (amount: number) => (MAXTRADINGAMOUNT = amount)
-
-type Timers = {
-  [key in ContractAction]: number
-}
-
-// Time in ms
-export const TIMERS: Timers = {
-  none: 0,
-  kycResponse: 1000 * 60 * 60 * 12,
-  sendPayment: 1000 * 60 * 60 * 12,
-  confirmPayment: 1000 * 60 * 60 * 12,
-}
 
 // Reputation
 export const GOLDMEDAL = 0.9

@@ -62,7 +62,7 @@ type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[]
   setMeansOfPayment: React.Dispatch<React.SetStateAction<Offer['meansOfPayment']>> | (() => void)
   editing: boolean
-  origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+  origin: keyof RootStackParamList
 }
 export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
@@ -113,11 +113,11 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const editItem = (data: PaymentData) => {
     if (data.type.includes('cash')) {
-      navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true })
+      navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true, origin })
     } else {
       navigation.push('paymentDetails', {
         paymentData: data,
-        origin: ['paymentMethods', {}],
+        origin,
       })
     }
   }

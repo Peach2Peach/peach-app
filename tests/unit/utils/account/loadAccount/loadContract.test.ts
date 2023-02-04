@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount, storeContracts } from '../../../../../src/utils/account'
-import { contractStorage } from '../../../../../src/utils/account/accountStorage'
+import { contractStorage } from '../../../../../src/utils/account/contractStorage'
 import { loadContract } from '../../../../../src/utils/account/loadAccount'
 import * as accountData from '../../../data/accountData'
 import { resetStorage } from '../../../prepare'

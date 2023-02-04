@@ -17,15 +17,14 @@ declare type RootStackParamList = {
     currencies?: Currency[]
     country?: Country
     paymentMethod?: PaymentMethod
-    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+    origin: keyof RootStackParamList
   }
   paymentDetails: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod
       currencies: Currency[]
     }
-    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
-    originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+    origin: keyof RootStackParamList
   }
   signMessage: {
     offerId: string
@@ -58,7 +57,11 @@ declare type RootStackParamList = {
   tradeComplete: {
     contract: Contract
   }
-  yourTrades: undefined
+  yourTrades:
+    | {
+        tab?: 'buy' | 'sell' | 'history'
+      }
+    | undefined
   offer: {
     offerId: string
   }
@@ -74,6 +77,11 @@ declare type RootStackParamList = {
   currency: undefined
   publicProfile: undefined
   referrals: undefined
+  backupTime: {
+    view: 'buyer' | 'seller'
+    nextScreen?: keyof RootStackParamList
+    [key: string]: any
+  }
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
@@ -83,6 +91,7 @@ declare type RootStackParamList = {
   meetupScreen: {
     eventId: string
     deletable?: boolean
+    origin: keyof RootStackParamList
   }
   deleteAccount: undefined
   peachFees: undefined

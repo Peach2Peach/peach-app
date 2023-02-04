@@ -4,6 +4,7 @@ import { BackgroundConfig } from '../components/background/Background'
 import MeetupScreen from '../components/payment/MeetupScreen'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
+import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
 import BuyPreferences from './buy/BuyPreferences'
 import SignMessage from './buy/SignMessage'
@@ -99,7 +100,7 @@ const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
   { name: 'contractChat', component: ContractChat, ...defaultConfig },
   { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
-  { name: 'tradeComplete', component: TradeComplete, ...defaultConfig },
+  { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig },
 ]
 
 const tradeHistory: ViewType[] = [
@@ -133,6 +134,7 @@ const settings: ViewType[] = [
   { name: 'language', component: Language, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
   {
     name: 'backupCreated',

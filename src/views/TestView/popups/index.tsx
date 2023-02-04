@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { View } from 'react-native'
-import { GoBackButton, PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -45,7 +45,7 @@ export default () => {
   return (
     <PeachScrollView
       style={tw`h-full bg-primary-mild-1`}
-      contentContainerStyle={tw`w-full py-10 px-6 flex items-center`}
+      contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
       <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { action1: undefined, action2: undefined })}>
@@ -69,7 +69,6 @@ export default () => {
       <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
         Info Overlay
       </PrimaryButton>
-      <GoBackButton white style={tw`mt-8`} />
     </PeachScrollView>
   )
 }

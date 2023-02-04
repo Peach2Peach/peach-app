@@ -52,9 +52,7 @@ export const useStartRefundOverlay = () => {
             icon: 'xSquare',
             callback: () => {
               closeOverlay()
-              // questionable if this is the right place to go
-
-              navigation.navigate('offer', { offerId: sellOffer.id })
+              navigation.navigate('yourTrades', { tab: 'sell' })
             },
           },
           action2: {

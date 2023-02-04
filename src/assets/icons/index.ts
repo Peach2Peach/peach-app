@@ -75,6 +75,7 @@ import refreshCcw from './refreshCcw.svg'
 import refreshCw from './refreshCw.svg'
 import rotateCounterClockwise from './rotateCounterClockwise.svg'
 import save from './save.svg'
+import saveCircleInverted from './saveCircleInverted.svg'
 import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
@@ -110,6 +111,7 @@ import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
 import zap from './zap.svg'
+import { LogoIcons } from '../logo'
 
 const Icons = {
   activity,
@@ -190,6 +192,7 @@ const Icons = {
   refreshCw,
   rotateCounterClockwise,
   save,
+  saveCircleInverted,
   search,
   selectClosed,
   selectOpen,
@@ -226,6 +229,7 @@ const Icons = {
   xSquare,
   yourTrades,
   zap,
+  ...LogoIcons,
 }
 
 export type IconType = keyof typeof Icons

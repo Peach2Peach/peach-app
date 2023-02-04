@@ -9,5 +9,6 @@ export const parseContract = (contract: Contract): Contract => {
   if (parsed.paymentConfirmed) parsed.paymentConfirmed = new Date(parsed.paymentConfirmed)
   if (parsed.disputeDate) parsed.disputeDate = new Date(parsed.disputeDate)
   if (parsed.disputeResolvedDate) parsed.disputeResolvedDate = new Date(parsed.disputeResolvedDate)
+  if (parsed.paymentExpectedBy) parsed.paymentExpectedBy = new Date(parsed.paymentExpectedBy)
   return parsed
 }

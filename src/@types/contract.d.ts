@@ -8,6 +8,8 @@ declare type DisputeReason =
   | 'abusive'
   | 'other'
 
+declare type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
+
 declare type Contract = {
   creationDate: Date
   id: string
@@ -36,6 +38,12 @@ declare type Contract = {
   kycResponseDate?: Date | null
   paymentMade: Date | null
   paymentConfirmed: Date | null
+  paymentExpectedBy?: Date
+  lastReminderSent?: PaymentReminder
+  lastReminderDismissed?: PaymentReminder
+
+  tradeStatus: TradeStatus
+  lastModified: Date
 
   escrow: string
   releaseAddress: string
@@ -53,7 +61,7 @@ declare type Contract = {
 
   cancelationRequested: boolean
   canceled: boolean
-
+  canceledBy?: 'buyer' | 'seller' | 'mediator'
   ratingBuyer: 1 | 0 | -1
   ratingSeller: 1 | 0 | -1
 
