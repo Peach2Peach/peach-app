@@ -42,7 +42,11 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       />
       <View style={tw`items-center mt-3 mb-2 flex-row justify-center`}>
         {offer.meansOfPayment[selectedCurrency]?.map((p, i) => (
-          <PaymentMethod key={`sellOfferMethod-${p}`} paymentMethodName={p} style={[i > 0 && tw`ml-1`]} />
+          <PaymentMethod
+            key={`sellOfferMethod-${p}`}
+            paymentMethodName={i18n(`paymentMethod.${p}`)}
+            style={[i > 0 && tw`ml-1`]}
+          />
         ))}
       </View>
 
