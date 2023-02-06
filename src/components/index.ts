@@ -12,17 +12,7 @@ export { Header } from './header/Header'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
-export {
-  Checkbox,
-  FileInput,
-  Input,
-  LanguageSelect,
-  PremiumSlider,
-  RadioButtons,
-  Select,
-  Selector,
-  SelectorBig,
-} from './inputs'
+export { Checkbox, FileInput, Input, PremiumSlider, RadioButtons, Selector, SelectorBig } from './inputs'
 
 export { Match, Matches } from './matches'
 export { BuyOfferSummary, SellOfferSummary, TradeSummary } from './offer'
