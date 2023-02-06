@@ -25,11 +25,11 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
     () => ({
-      minus21: KNOBWIDTH / 2 - trackWidth / 2,
-      minus10: round((11 / DELTA) * trackWidth) - trackWidth / 2 + KNOBWIDTH / 3,
+      minus21: -trackWidth / 2,
+      minus10: round((11 / DELTA) * trackWidth) - trackWidth / 2,
       zero: 0,
-      plus10: round((32 / DELTA) * trackWidth) - trackWidth / 2 - KNOBWIDTH / 2,
-      plus21: trackWidth - KNOBWIDTH / 2 - trackWidth / 2,
+      plus10: round((32 / DELTA) * trackWidth) - trackWidth / 2,
+      plus21: trackWidth - trackWidth / 2,
     }),
     [trackWidth],
   )
@@ -83,7 +83,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
-      <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`]}>
+      <View style={[tw`w-full max-w-full border rounded-full bg-primary-background-dark border-primary-mild-1`]}>
         <View {...{ onLayout }} style={tw`w-full p-0.5 rounded overflow-hidden`}>
           <Animated.View
             style={[
