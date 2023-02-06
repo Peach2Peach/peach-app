@@ -35,6 +35,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   )
 
   const pan = useRef(new Animated.Value(((value - MIN) / DELTA) * trackWidth)).current
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
@@ -74,7 +75,11 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
     onChange(premium)
   }, [isSliding, onChange, premium])
 
-  const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width - KNOBWIDTH)
+  const onLayout = (event: LayoutChangeEvent) => {
+    const newTrackWidth = event.nativeEvent.layout.width - KNOBWIDTH
+    pan.setOffset(((value - MIN) / DELTA) * newTrackWidth)
+    setTrackWidth(newTrackWidth)
+  }
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
