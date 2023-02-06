@@ -8,7 +8,7 @@ import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
-import { useNavigation, useValidatedState } from '../../hooks'
+import { useNavigation, useOnUnmount, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
@@ -19,6 +19,7 @@ const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: tru
 export default (): ReactElement => {
   const navigation = useNavigation()
   const showBackupsWarning = useShowWarning('backups')
+
   useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 
   const [showBackupReminder, minAmount, setMinAmount] = useSettingsStore(
@@ -27,15 +28,16 @@ export default (): ReactElement => {
   )
   const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
 
-  const next = () => {
-    setMinAmount(amount)
-    navigation.navigate('sellPreferences')
-  }
+  const next = () => navigation.navigate('sellPreferences')
+
+  useOnUnmount((value: number) => {
+    setMinAmount(value)
+  }, amount)
 
   return (
     <View testID="view-sell" style={tw`h-full`}>
       <HorizontalLine style={tw`mx-8`} />
-      <View style={tw`mt-2 px-8`}>
+      <View style={tw`px-8 mt-2`}>
         <BitcoinPriceStats />
         <View style={tw`pt-4`}>
           <Text style={[tw`hidden h6`, tw.md`flex`]}>
@@ -44,7 +46,7 @@ export default (): ReactElement => {
           </Text>
         </View>
       </View>
-      <View style={tw`flex-grow items-center justify-center`}>
+      <View style={tw`items-center justify-center flex-grow`}>
         <SelectAmount min={MINTRADINGAMOUNT} max={MAXTRADINGAMOUNT} value={amount} onChange={setAmount} />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>

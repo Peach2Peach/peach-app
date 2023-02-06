@@ -8,7 +8,7 @@ import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
-import { useNavigation, useValidatedState } from '../../hooks'
+import { useNavigation, useOnUnmount, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
@@ -33,16 +33,19 @@ export default (): ReactElement => {
     setCurrentMaxAmount(max)
   }
 
-  const next = () => {
-    setMinAmount(currentMinAmount)
-    setMaxAmount(currentMaxAmount)
-    navigation.navigate('buyPreferences')
-  }
+  const next = () => navigation.navigate('buyPreferences')
+
+  useOnUnmount((value: number) => {
+    setMinAmount(value)
+  }, currentMinAmount)
+  useOnUnmount((value: number) => {
+    setMaxAmount(value)
+  }, currentMaxAmount)
 
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8`} />
-      <View style={tw`mt-2 px-8`}>
+      <View style={tw`px-8 mt-2`}>
         <BitcoinPriceStats />
         <View style={tw`pt-4`}>
           <Text style={[tw`hidden h6`, tw.md`flex`]}>
@@ -51,7 +54,7 @@ export default (): ReactElement => {
           </Text>
         </View>
       </View>
-      <View style={tw`flex-grow items-center justify-center`}>
+      <View style={tw`items-center justify-center flex-grow`}>
         <RangeAmount
           min={MINTRADINGAMOUNT}
           max={MAXTRADINGAMOUNT}
