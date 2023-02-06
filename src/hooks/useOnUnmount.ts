@@ -10,7 +10,6 @@ export const useOnUnmount = <T>(callback: (val: T) => void, dep: T) => {
 
   useEffect(
     () => () => {
-      console.log(callback.toString(), valueRef.current)
       callback(valueRef.current)
     },
     [callback],
