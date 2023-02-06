@@ -83,8 +83,8 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
-      <View style={[tw`w-full max-w-full border rounded-full bg-primary-background-dark border-primary-mild-1`]}>
-        <View {...{ onLayout }} style={tw`w-full p-0.5 rounded overflow-hidden`}>
+      <View style={[tw`w-full max-w-full border p-0.5 rounded-full bg-primary-background-dark border-primary-mild-1`]}>
+        <View {...{ onLayout }}>
           <Animated.View
             style={[
               { width: KNOBWIDTH },
