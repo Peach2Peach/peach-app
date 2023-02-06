@@ -417,6 +417,8 @@
   "paymentCategory.localOption": "national options",
   "paymentCategory.cryptoCurrency": "crypto",
   "paymentCategory.cash": "cash",
+  "paymentMethods.title": "payment methods",
+  "paymentMethods.edit.title": "edit payment methods",
   "paymentMethod.empty": "none yet!",
   "paymentMethod.select.button.remote": "add new currency /\npayment method",
   "paymentMethod.select.button.cash": "add new cash option",
