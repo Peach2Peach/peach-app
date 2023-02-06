@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 
-import { useRoute } from '../../hooks'
+import { useHeaderSetup, useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import i18n from '../../utils/i18n'
 
 export const useOfferDetailsSetup = () => {
   const { offerId } = useRoute<'offer'>().params
@@ -15,6 +16,8 @@ export const useOfferDetailsSetup = () => {
       showErrorBanner(error?.error)
     }
   }, [error, offerId, showErrorBanner])
+
+  useHeaderSetup({ title: `${i18n('offer')} ${offerId}` })
 
   return offer
 }
