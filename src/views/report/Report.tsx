@@ -118,7 +118,7 @@ export default (): ReactElement => {
         </Pressable>
 
         <PrimaryButton
-          style={tw`mt-10 self-center`}
+          style={tw`self-center mt-10`}
           onPress={submit}
           disabled={!(isEmailValid && isTopicValid && isMessageValid)}
           narrow

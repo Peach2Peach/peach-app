@@ -87,7 +87,6 @@ export const Input = ({
   iconColor,
   required = true,
   multiline = false,
-  autoCorrect = false,
   disabled = false,
   disableSubmit = false,
   disableOnEndEditing = false,
@@ -143,34 +142,34 @@ export const Input = ({
 
   return (
     <View>
-      {label ? (
+      {!!label && (
         <Text style={[tw`input-label`, colors.text]}>
           {label}
           <Text style={[tw`font-medium input-label`, colors.placeholder]}>
             {!required ? ` (${i18n('form.optional')})` : ''}
           </Text>
         </Text>
-      ) : null}
+      )}
       <View
         style={[
           tw`flex flex-row items-center justify-between w-full px-3`,
           tw`overflow-hidden border rounded-xl`,
           disabled ? colors.bgDisabled : colors.bg,
           disabled ? colors.borderDisabled : colors.border,
-          showError ? colors.bgError : {},
-          showError ? colors.borderError : {},
-          showError ? tw`border-2` : {},
-          style ? style : {},
+          showError && colors.bgError,
+          showError && colors.borderError,
+          showError && tw`border-2`,
+          style,
         ]}
       >
         <TextInput
           style={[
             tw`flex-shrink w-full h-10 py-0 input-text`,
             value ? colors.text : colors.placeholder,
-            showError ? colors.textError : {},
-            !showError ? tw`border border-transparent` : {},
-            multiline ? tw`h-full pt-2` : {},
-            inputStyle ? inputStyle : {},
+            showError && colors.textError,
+            !showError && tw`border border-transparent`,
+            multiline && tw`flex justify-start h-full pt-2`,
+            !!inputStyle && inputStyle,
           ]}
           {...{
             value,
@@ -180,6 +179,7 @@ export const Input = ({
             removeClippedSubviews: false,
             editable: !disabled,
             onChangeText,
+            multiline,
             textAlignVertical: multiline ? 'top' : 'center',
             onEndEditing,
             onSubmitEditing,
@@ -188,7 +188,6 @@ export const Input = ({
             onBlur: onBlurHandler,
             onPressIn,
             secureTextEntry: secureTextEntry && !showSecret,
-            autoCorrect,
             autoCapitalize: autoCapitalize || 'none',
             ...inputProps,
           }}
