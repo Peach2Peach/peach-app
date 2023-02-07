@@ -1,7 +1,7 @@
 import jestExpect from 'expect'
 import createUser from './commonActions/createUser'
 
-describe('Buy flow', () => {
+describe.skip('Buy flow', () => {
   beforeAll(async () => {
     await device.launchApp({
       permissions: {

@@ -3,7 +3,7 @@ module.exports = {
   testRunner: {
     $0: 'jest',
     ars: {
-      config: './test/e2e/jest.config.js',
+      config: './tests/e2e/jest.config.js',
       _: ['e2e']
     }
   },
@@ -16,8 +16,7 @@ module.exports = {
     'ios.debug': {
       type: 'ios.app',
       binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/peach.app',
-      build: 'xcodebuild -workspace ios/peach.xcworkspace -configuration Debug -scheme peach -sdk iphonesimulator -derivedDataPath ios/build'
-
+      build: 'xcodebuild -workspace ios/peach.xcworkspace -scheme peach -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
     },
     'android.debug': {
       type: 'android.apk',
