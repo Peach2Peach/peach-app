@@ -8,11 +8,13 @@ import mbWay from '../components/payment/logos/mbWay.svg'
 import bizum from '../components/payment/logos/bizum.svg'
 import { SvgProps } from 'react-native-svg'
 
+type OptionItem = {
+  value: PaymentMethod
+  display: string
+}
+
 type LocalOptionsProps = {
-  local: {
-    value: PaymentMethod
-    display: string
-  }[]
+  local: OptionItem[]
   onSelect: (localOption: PaymentMethod) => void
 }
 
@@ -24,27 +26,19 @@ const icons: Record<string, FC<SvgProps>> = {
 
 export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): ReactElement => (
   <View>
-    {local.map(
-      (
-        localOption: {
-          value: Partial<PaymentMethod>
-          display: string
-        },
-        i,
-      ) => {
-        const SVG = icons[localOption.value]
-        return (
-          <Pressable key={i} onPress={() => onSelect(localOption.value)}>
-            <View style={tw`flex flex-row items-center px-8`}>
-              {SVG ? <SVG style={[tw`w-8 h-8 mr-4`]} /> : <Text>❌</Text>}
-              <Text style={tw`flex-shrink w-full subtitle-1`}>
-                {i18n(`paymentMethod.${localOption.value}`).toLowerCase()}
-              </Text>
-            </View>
-            {i < local.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
-          </Pressable>
-        )
-      },
-    )}
+    {local.map((localOption: OptionItem, i) => {
+      const SVG = icons[localOption.value]
+      return (
+        <Pressable key={localOption.value} onPress={() => onSelect(localOption.value)}>
+          <View style={tw`flex flex-row items-center px-8`}>
+            {SVG ? <SVG style={[tw`w-8 h-8 mr-4`]} /> : <Text>❌</Text>}
+            <Text style={tw`flex-shrink w-full subtitle-1`}>
+              {i18n(`paymentMethod.${localOption.value}`).toLowerCase()}
+            </Text>
+          </View>
+          {i < local.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+        </Pressable>
+      )
+    })}
   </View>
 )
