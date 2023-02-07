@@ -12,10 +12,11 @@ import PeerToPeer from './PeerToPeer'
 import PrivacyFirst from './PrivacyFirst'
 import { useWelcomeHeader } from './useWelcomeHeader'
 import { useKeyboard } from '../../hooks'
+import AWalletYouControl from './AWalletYouControl'
 
 const onStartShouldSetResponder = () => true
 
-const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, LetsGetStarted]
+const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 
 export default (): ReactElement => {
   useWelcomeHeader()
