@@ -26,7 +26,5 @@ export const useMeetupEvents = () => {
     },
   })
 
-  console.log(data)
-
   return { meetupEvents: data, isLoading, error }
 }
