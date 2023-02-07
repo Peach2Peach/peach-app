@@ -22,6 +22,8 @@
   "welcome.welcomeToPeach.title": "welcome to peach!",
   "welcome.peerToPeer.title": "peer to peer",
   "welcome.peerToPeer.description": "With Peach, you don't buy from us, but from other people. It's like a marketplace for bitcoin!",
+  "welcome.aWalletYouControl.title": "a wallet you control",
+  "welcome.aWalletYouControl.description": "Peach has a built-in wallet, so you can get started right away. No third-party apps required!",
   "welcome.peachOfMind.title": "peach of mind",
   "welcome.peachOfMind.description": "We'll guarantee you get your part of the deal thanks to our advanced escrow and in-app support.",
   "welcome.privacyFirst.title": "privacy first",
