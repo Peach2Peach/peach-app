@@ -64,8 +64,6 @@ export const useContractSetup = () => {
   }, [contract, isLoading, navigation, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
-    if (!contract) return
-
     const [, err] = await confirmPayment({ contractId })
 
     if (err) {
@@ -75,10 +73,9 @@ export const useContractSetup = () => {
     }
 
     saveAndUpdate({
-      ...contract,
       paymentMade: new Date(),
     })
-  }, [contractId, saveAndUpdate, showError, contract])
+  }, [contractId, saveAndUpdate, showError])
 
   const postConfirmPaymentSeller = useCallback(async () => {
     if (!contract) return
@@ -102,11 +99,10 @@ export const useContractSetup = () => {
     }
 
     saveAndUpdate({
-      ...contract,
       paymentConfirmed: new Date(),
       releaseTxId: result?.txId || '',
     })
-  }, [contractId, saveAndUpdate, showError, contract])
+  }, [contractId, contract, saveAndUpdate, showError])
 
   return {
     contract,
