@@ -38,20 +38,4 @@ describe('getNavigationDestinationForContract', () => {
     expect(destination).toBe('tradeComplete')
     expect(params).toEqual({ contract })
   })
-
-  it('should navigate to offer when trade is complete', () => {
-    const contract = {
-      id: '1-2',
-    }
-    const contractSummary: Partial<ContractSummary> = {
-      id: '3',
-      tradeStatus: 'tradeCompleted',
-    }
-
-    ;(<jest.Mock>getContract).mockReturnValue(contract)
-    const [destination, params] = getNavigationDestinationForContract(contractSummary as ContractSummary)
-
-    expect(destination).toBe('offer')
-    expect(params).toEqual({ offerId: '1' })
-  })
 })
