@@ -16,7 +16,6 @@ export const TradeSummary = ({ contract, view, style }: TradeSummaryProps): Reac
     {!isTradeComplete(contract) && !isTradeCanceled(contract) ? (
       <OpenTrade {...{ contract, view }} />
     ) : (
-      // todo: shouldn't this be a contract item or a cancelled offer
       <ClosedTrade {...{ contract, view }} />
     )}
   </Card>
