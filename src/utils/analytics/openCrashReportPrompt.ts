@@ -5,7 +5,7 @@ import { appendFile } from '../file'
 import i18n from '../i18n'
 import { info } from '../log'
 
-const sendErrors = async (errors: Error[]) => {
+export const sendErrors = async (errors: Error[]) => {
   if (isAirplaneModeSync()) {
     await appendFile('/error.log', errors.map((e) => e.message).join('\n'), true)
     return

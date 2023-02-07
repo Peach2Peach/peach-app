@@ -66,7 +66,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   }, [onChange, amount])
 
   return (
-    <View style={[tw`items-end w-[210px] pr-5`, style]} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end w-[210px] pr-5`, style]}>
       <SliderTrack style={{ height: trackHeight }}>
         <TrackMarkers {...{ trackHeight, labels }} />
         <Animated.View

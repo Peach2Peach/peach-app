@@ -281,7 +281,7 @@ declare type OfferSummary = {
   type: 'bid' | 'ask'
   creationDate: Date
   lastModified: Date
-  amount: number
+  amount: number | [number, number]
   matches: string[]
   prices: Pricebook
   tradeStatus: TradeStatus
@@ -354,3 +354,5 @@ declare type TradeSummary = (OfferSummary | ContractSummary) & {
 declare type ReviveSellOfferResponseBody = {
   newOfferId: Offer['id']
 }
+
+declare type ExtendPaymentTimerResponseBody = APISuccess

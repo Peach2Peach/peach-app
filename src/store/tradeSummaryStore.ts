@@ -10,6 +10,7 @@ export type TradeSummaryState = {
 type TradeSummaryStore = TradeSummaryState & {
   setOffers: (offers: OfferSummary[]) => void
   setOffer: (offerId: string, data: Partial<OfferSummary>) => void
+  setContract: (contractId: string, data: Partial<ContractSummary>) => void
   setContracts: (contracts: ContractSummary[]) => void
   getOffer: (offerId: string) => OfferSummary | undefined
 }
@@ -26,15 +27,41 @@ export const tradeSummaryStore = createStore(
       ...defaultState,
       setOffers: (offers) => set((state) => ({ ...state, offers })),
       setOffer: (offerId, data) => {
+        let itemFound = false
         const offers = get().offers.map((offer) => {
-          if (offer.id === offerId) offer = {
-            ...offer,
-            ...data,
+          if (offer.id === offerId) {
+            offer = {
+              ...offer,
+              ...data,
+            }
+            itemFound = true
           }
           return offer
         })
 
+        if (!itemFound) {
+          offers.push(data as OfferSummary)
+        }
+
         return set((state) => ({ ...state, offers }))
+      },
+      setContract: (contractId, data) => {
+        let itemFound = false
+        const contracts = get().contracts.map((contract) => {
+          if (contract.id === contractId) {
+            contract = {
+              ...contract,
+              ...data,
+            }
+            itemFound = true
+          }
+          return contract
+        })
+        if (!itemFound) {
+          contracts.push(data as ContractSummary)
+        }
+
+        return set((state) => ({ ...state, contracts }))
       },
       getOffer: (offerId) => get().offers.find(({ id }) => id === offerId),
       setContracts: (contracts) => set((state) => ({ ...state, contracts })),

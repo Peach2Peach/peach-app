@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../contexts/overlay'
-import { BuyerCanceled } from './BuyerCanceled'
+import { ContractCanceled } from './ContractCanceled'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
 import { useStartRefundOverlay } from '../useStartRefundOverlay'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
@@ -11,7 +11,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useNavigation } from '../../hooks'
 import { OfferRepublished } from './OfferRepublished'
 
-export const useBuyerCanceledOverlay = () => {
+export const useTradeCanceledOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const startRefund = useStartRefundOverlay()
   const showError = useShowErrorBanner()
@@ -67,7 +67,7 @@ export const useBuyerCanceledOverlay = () => {
     [closeOverlay, navigation, showError, updateOverlay],
   )
 
-  const showBuyerCanceled = useCallback(
+  const showTradeCanceled = useCallback(
     (contract: Contract, mutualClose: boolean) => {
       const sellOffer = getSellOfferFromContract(contract)
       if (!sellOffer) return
@@ -91,8 +91,14 @@ export const useBuyerCanceledOverlay = () => {
       const action2 = expiry.isExpired ? undefined : refundAction
 
       updateOverlay({
-        title: i18n(mutualClose ? 'contract.cancel.buyerConfirmed.title' : 'contract.cancel.buyerCanceled.title'),
-        content: mutualClose ? <BuyerConfirmedCancelTrade contract={contract} /> : <BuyerCanceled />,
+        title: i18n(
+          mutualClose ? 'contract.cancel.buyerConfirmed.title' : `contract.cancel.${contract.canceledBy}.canceled.title`,
+        ),
+        content: mutualClose ? (
+          <BuyerConfirmedCancelTrade contract={contract} />
+        ) : (
+          <ContractCanceled contract={contract} />
+        ),
         visible: true,
         level: 'WARN',
         requireUserAction: true,
@@ -103,5 +109,5 @@ export const useBuyerCanceledOverlay = () => {
     [confirmOverlay, republishOffer, startRefund, updateOverlay],
   )
 
-  return showBuyerCanceled
+  return showTradeCanceled
 }

@@ -6,9 +6,7 @@ import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
 import i18n from '../../../utils/i18n'
-import { dropShadowStrong } from '../../../utils/layout'
 import { PrimaryButton } from '../../buttons'
-import { Shadow } from '../../ui'
 import { useUnmatchOffer } from '../hooks'
 import { UndoButton } from './UndoButton'
 
@@ -56,15 +54,11 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
     showMatchUndonePopup()
   }
 
-  return (
-    <Shadow shadow={dropShadowStrong}>
-      {showUnmatch ? (
-        <PrimaryButton onPress={showUnmatchPopup} iconId="minusCircle" textColor={tw`text-error-main`} white narrow>
-          {i18n('search.unmatch')}
-        </PrimaryButton>
-      ) : (
-        <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
-      )}
-    </Shadow>
+  return showUnmatch ? (
+    <PrimaryButton onPress={showUnmatchPopup} iconId="minusCircle" textColor={tw`text-error-main`} white narrow>
+      {i18n('search.unmatch')}
+    </PrimaryButton>
+  ) : (
+    <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
   )
 }

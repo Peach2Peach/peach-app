@@ -1,3 +1,5 @@
+import { getSummaryFromContract } from './getSummaryFromContract'
+import { tradeSummaryStore } from './../../store/tradeSummaryStore'
 import { contractExists } from '.'
 import { account } from '../account'
 import { storeContract } from '../account/storeAccount'
@@ -32,6 +34,7 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
     info('saveContract', contract.id)
     storeContract(contract)
   }
+  tradeSummaryStore.getState().setContract(contract.id, getSummaryFromContract(contract))
 }
 
 /**
