@@ -71,7 +71,7 @@ export const useStartRefundOverlay = () => {
         level: 'APP',
       })
 
-      const [, postTXError] = await postTx({ tx })
+      const [, postTXError] = await postTx({ tx, timeout: 15 * 1000 })
       if (postTXError) {
         showError(postTXError.error)
         closeOverlay()
@@ -95,7 +95,7 @@ export const useStartRefundOverlay = () => {
         },
       })
 
-      const [cancelResult, cancelError] = await cancelOffer({ offerId: sellOffer.id })
+      const [cancelResult, cancelError] = await cancelOffer({ offerId: sellOffer.id, timeout: 15 * 1000 })
 
       if (cancelResult) {
         await refund(sellOffer, cancelResult.psbt)
