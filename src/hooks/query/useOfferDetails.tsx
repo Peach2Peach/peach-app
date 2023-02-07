@@ -22,6 +22,7 @@ export const useOfferDetails = (id: string) => {
     error: offerDetailsError,
   } = useQuery(['offer', id], getOfferQuery, {
     initialData: getOffer(id),
+    enabled: !!id,
     onSuccess (offer) {
       if (offer) saveOffer(offer)
     },
