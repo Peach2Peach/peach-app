@@ -1,8 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 import shallow from 'zustand/shallow'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
-import { getEventName } from '../../utils/events'
 import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { Text } from '../text'
@@ -16,9 +16,10 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
     ],
     shallow,
   )
+  const getMeetupEventName = useMeetupEventsStore((state) => state.getMeetupEventName)
   const methodIsVerified = false
   const paymentMethodName = selectedPaymentMethod?.includes('cash')
-    ? getEventName(selectedPaymentMethod.replace('cash.', ''))
+    ? getMeetupEventName(selectedPaymentMethod.replace('cash.', ''))
     : i18n(`paymentMethod.${selectedPaymentMethod}`)
   return (
     <View style={style}>

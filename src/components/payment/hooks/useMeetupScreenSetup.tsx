@@ -2,9 +2,9 @@ import React, { useMemo } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { addPaymentData } from '../../../utils/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { sessionStorage } from '../../../utils/session'
 import { openAppLink } from '../../../utils/web'
 import { HelpIcon } from '../../icons'
 import { DeleteIcon } from '../../icons/DeleteIcon'
@@ -15,8 +15,8 @@ export const useMeetupScreenSetup = () => {
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
-  const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
-  const event = allEvents.find((item) => item.id === eventId) ?? {
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+  const event = getMeetupEvent(eventId) || {
     id: eventId,
     name: '',
     logo: '',

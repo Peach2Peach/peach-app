@@ -1,6 +1,6 @@
 import React from 'react'
+import { useMeetupEventsStore } from '../../../../store/meetupEventsStore'
 import tw from '../../../../styles/tailwind'
-import { getEventName } from '../../../../utils/events'
 import i18n from '../../../../utils/i18n'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
@@ -12,8 +12,9 @@ type Props = {
 }
 
 export const PaymentMethodSelectorText = ({ isSelected, isVerified, name }: Props) => {
+  const getMeetupEventName = useMeetupEventsStore((state) => state.getMeetupEventName)
   const paymentMethodName = name.includes('cash')
-    ? getEventName(name.replace('cash.', ''))
+    ? getMeetupEventName(name.replace('cash.', ''))
     : i18n(`paymentMethod.${name}`)
   return (
     <>

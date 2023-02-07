@@ -9,7 +9,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef
+  useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
