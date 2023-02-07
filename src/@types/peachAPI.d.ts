@@ -75,7 +75,24 @@ declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
-declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
+declare type Country =
+  | 'BE'
+  | 'CA'
+  | 'CH'
+  | 'DE'
+  | 'DE'
+  | 'ES'
+  | 'FR'
+  | 'GB'
+  | 'GR'
+  | 'IT'
+  | 'NL'
+  | 'PL'
+  | 'PT'
+  | 'SE'
+  | 'SI'
+  | 'UK'
+  | 'US'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -101,6 +118,7 @@ declare type MeetupEvent = {
   address?: string
   logo?: string // path to the logo
 }
+declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
