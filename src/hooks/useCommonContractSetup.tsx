@@ -29,7 +29,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
-  const requiredAction = contract ? getRequiredAction(contract) : 'none'
+  const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
 
   const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
