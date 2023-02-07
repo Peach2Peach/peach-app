@@ -21,7 +21,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
 
       <SatsFormat sats={offer.amount[0]} containerStyle={tw`self-center`} />
-      <Text style={tw`subtitle-1 self-center leading-tight text-black-4`}>~</Text>
+      <Text style={tw`self-center text-black-2`}>&</Text>
       <SatsFormat sats={offer.amount[1]} containerStyle={tw`self-center`} />
 
       <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />
