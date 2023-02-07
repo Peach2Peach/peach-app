@@ -14,13 +14,17 @@ export const useOfferMatches = () => {
   const currentPage = useMatchStore((state) => state.currentPage)
   const isFocused = useIsFocused()
 
-  const queryData = useInfiniteQuery(['matches', offerId], getMatchesFn, {
-    refetchInterval: FIFTEEN_SECONDS,
-    enabled:
-      isFocused && !!offer?.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
-    getNextPageParam: (lastPage) => (lastPage?.remainingMatches > 0 ? currentPage + 1 : undefined),
-    keepPreviousData: true,
-  })
+  const queryData = useInfiniteQuery<GetMatchesResponse, APIError, GetMatchesResponse, [string, string]>(
+    ['matches', offerId],
+    getMatchesFn,
+    {
+      refetchInterval: FIFTEEN_SECONDS,
+      enabled:
+        isFocused && !!offer?.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
+      getNextPageParam: (lastPage) => (lastPage?.remainingMatches > 0 ? currentPage + 1 : undefined),
+      keepPreviousData: true,
+    },
+  )
 
   const allMatches = useMemo(
     () => (queryData.data?.pages || []).flatMap((page) => page.matches),

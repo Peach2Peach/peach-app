@@ -51,11 +51,14 @@ export const useSearchSetup = () => {
 
   useEffect(() => {
     if (error) {
-      const errorMessage = parseError(error)
+      const errorMessage = parseError(error?.error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
-        // questionable if this is the right place to go
-
-        if (offerId) navigation.replace('offer', { offerId })
+        if (
+          typeof error.details === 'object'
+          && error.details
+          && 'contractId' in error.details
+          && typeof error.details.contractId === 'string'
+        ) navigation.replace('contract', { contractId: error.details.contractId })
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {

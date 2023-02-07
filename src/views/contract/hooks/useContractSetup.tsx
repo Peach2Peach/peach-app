@@ -7,11 +7,10 @@ import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { canCancelContract, getOfferIdFromContract, signReleaseTx } from '../../../utils/contract'
+import { canCancelContract, signReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment } from '../../../utils/peachAPI'
 
-// eslint-disable-next-line max-statements
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
@@ -56,11 +55,7 @@ export const useContractSetup = () => {
         || (view === 'seller' && !contract.ratingBuyer)
       ) {
         navigation.replace('tradeComplete', { contract })
-        return
       }
-      // questionable if this is the right place to go
-
-      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
     }
   }, [contract, isLoading, navigation, view])
 

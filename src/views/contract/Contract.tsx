@@ -13,8 +13,7 @@ import { useContractSetup } from './hooks/useContractSetup'
 export default (): ReactElement => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
     = useContractSetup()
-
-  if (!contract || !view || isLoading || contract.canceled || contract.paymentConfirmed) return <LoadingScreen />
+  if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
     <View style={tw`justify-between flex-shrink h-full px-8 pb-6`}>
