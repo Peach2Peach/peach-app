@@ -96,7 +96,7 @@ export default (): ReactElement => {
       <Text style={tw`pl-2 tooltip text-black-2`}>
         {i18n('referrals.points')}: <Text style={tw`font-bold tooltip text-black-2`}>{pointsBalance}</Text>
       </Text>
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-1 pb-10`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow pb-10`}>
         <Text style={tw`my-4 text-center body-m mx-7`}>
           {i18n(
             !user.referredTradingAmount ? 'referrals.notTraded' : 'referrals.alreadyTraded',
