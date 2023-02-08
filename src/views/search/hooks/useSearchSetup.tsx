@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 import { Icon } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
@@ -15,10 +15,10 @@ import useRefetchOnNotification from './useRefetchOnNotification'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
-  const { allMatches: matches, error, refetch } = useOfferMatches()
+  const { offerId } = useRoute<'search'>().params
+  const { allMatches: matches, error, refetch } = useOfferMatches(offerId)
 
   const [, updateMessage] = useContext(MessageContext)
-  const offerId = useRoute<'search'>().params.offerId
   const { offer } = useOfferDetails(offerId)
 
   const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
@@ -26,16 +26,18 @@ export const useSearchSetup = () => {
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
   const cancelOffer = useCancelOffer(offer)
-
+  const headerIcons = useMemo(() => {
+    if (!offer) return undefined
+    const icons = [{ iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: cancelOffer }]
+    if (offer.matches.length > 0) {
+      icons.push({ iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
+    }
+    return icons
+  }, [cancelOffer, offer, showAcceptMatchPopup, showMatchPopup])
   useHeaderSetup({
     title: 'offer ' + offerId,
     hideGoBackButton: true,
-    icons: offer
-      ? [
-        { iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: cancelOffer },
-        { iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup },
-      ]
-      : undefined,
+    icons: headerIcons,
   })
 
   useEffect(() => {

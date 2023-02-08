@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { useOfferPublishedSetup } from './hooks/useOfferPublishedSetup'
 
 export default (): ReactElement => {
-  const { goBackHome } = useOfferPublishedSetup()
+  const goBackHome = useOfferPublishedSetup()
 
   return (
     <View style={tw`items-center justify-between h-full px-6 pb-7`}>

@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Matches, PeachScrollView } from '../../components'
-import { GoHomeButton, MatchInformation, NoMatchesYet } from './components'
+import { MatchInformation, NoMatchesYet } from './components'
 import { useSearchSetup } from './hooks/useSearchSetup'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 
@@ -13,12 +13,12 @@ export default (): ReactElement => {
   if (!offer) return <></>
   return (
     <>
-      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`min-h-full justify-center pt-5 pb-6`}>
+      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`h-full justify-center pt-5 pb-6`}>
         <View style={tw`flex-grow px-6`}>
           {hasMatches && offer.type === 'ask' && <MatchInformation />}
-          {!hasMatches && <NoMatchesYet />}
+          {!hasMatches && <NoMatchesYet offer={offer} style={tw`mx-2 items-center`} />}
         </View>
-        {hasMatches ? <Matches /> : <GoHomeButton />}
+        {hasMatches && <Matches />}
       </PeachScrollView>
       <DailyTradingLimit />
     </>

@@ -9,7 +9,7 @@ import { useOfferMatches } from '../hooks/useOfferMatches'
 export const MatchInformation = () => {
   const { offerId } = useRoute<'search'>().params
   const { offer } = useOfferDetails(offerId)
-  const { allMatches: matches } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches(offerId)
   if (!offer) return <></>
 
   const { amount } = offer
