@@ -1,7 +1,9 @@
 import { SATSINBTC } from '../../constants'
-import { round } from '../math'
+import { ceil, floor } from '../math'
 
 const rangeInCHF = [20, 800]
 
-export const getTradingAmountLimits = (price: number) =>
-  rangeInCHF.map((chf) => round(Math.floor((chf / price) * SATSINBTC), -4))
+export const getTradingAmountLimits = (price: number) => [
+  ceil((rangeInCHF[0] / price) * SATSINBTC, -4),
+  floor((rangeInCHF[1] / price) * SATSINBTC, -4),
+]
