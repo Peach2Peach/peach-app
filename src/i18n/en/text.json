@@ -478,7 +478,7 @@
   "form.userName.placeholder": "username",
   "form.revtag": "revtag",
   "form.revtag.placeholder": "revtag",
-  "form.email": "email",
+  "form.email": "your email",
   "form.email.placeholder": "example@provider.com",
   "form.email.error": "email is not valid",
   "form.topic": "topic",
