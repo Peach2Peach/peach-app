@@ -1,30 +1,33 @@
+import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { isDefined } from '../array/isDefined'
 import { getContract } from '../contract'
+import { getOfferDetails } from '../peachAPI'
+import { shouldGoToContract } from './shouldGoToContract'
+import { shouldGoToContractChat } from './shouldGoToContractChat'
+import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
+import { shouldGoToSell } from './shouldGoToSell'
+import { shouldGoToSearch } from './shouldGoToSearch'
+import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
 
-type PushNotification = {
+export type PushNotification = {
   offerId?: string
   contractId?: string
   isChat?: string
 }
 
-/**
- * @description Method to handle push notifications by navigating to corresponding view
- * @param navigationRef reference to navigation
- * @param data push notification data
- * @param sentTime time pn has been sent
- * @returns true if push notification has been handled by navigating to corresponding view
- */
-export const handlePushNotification = (
+export const handlePushNotification = async (
   navigationRef: Navigation,
-  data: PushNotification,
-  sentTime?: number,
-): boolean => {
-  const { offerId, contractId, isChat } = data
-  if (contractId && isChat !== 'true') {
+  remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PushNotification },
+): Promise<boolean> => {
+  if (shouldGoToContract(remoteMessage)) {
+    const {
+      data: { contractId, sentTime },
+    } = remoteMessage
     const contract = getContract(contractId)
     navigationRef.navigate('contract', {
       contract: contract
@@ -35,17 +38,31 @@ export const handlePushNotification = (
         : undefined,
       contractId,
     })
-    return true
-  }
-  if (contractId && isChat === 'true') {
+  } else if (shouldGoToContractChat(remoteMessage)) {
+    const {
+      data: { contractId },
+    } = remoteMessage
+
     navigationRef.navigate('contractChat', { contractId })
-    return true
+  } else if (shouldGoToYourTradesSell(remoteMessage)) {
+    navigationRef.navigate('yourTrades', { tab: 'sell' })
+  } else if (shouldGoToSell(remoteMessage)) {
+    navigationRef.navigate('sell')
+  } else if (isDefined(remoteMessage.data.offerId)) {
+    const [offer] = await getOfferDetails({ offerId: remoteMessage.data.offerId })
+    const {
+      data: { offerId },
+    } = remoteMessage
+    if (shouldGoToSearch(remoteMessage.messageType, !!(offer?.matches && offer.matches.length > 0))) {
+      navigationRef.navigate('search', { offerId })
+    } else if (shouldGoToOfferPublished(remoteMessage.messageType)) {
+      navigationRef.navigate('offerPublished', { offerId })
+    } else {
+      navigationRef.navigate('offer', { offerId })
+    }
+  } else {
+    return false
   }
-  if (offerId) {
-    navigationRef.navigate('offer', { offerId })
 
-    return true
-  }
-
-  return false
+  return true
 }

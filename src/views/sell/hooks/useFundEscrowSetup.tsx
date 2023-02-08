@@ -1,8 +1,7 @@
 import { NETWORK } from '@env'
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
-import { OverlayContext } from '../../../contexts/overlay'
 import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -14,12 +13,12 @@ import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { fundEscrow, generateBlock } from '../../../utils/peachAPI'
+import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 import createEscrowEffect from '../effects/createEscrowEffect'
 
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
 
   const startRefund = useStartRefundOverlay()
   const showHelp = useShowHelp('escrow')
@@ -38,6 +37,7 @@ export const useFundEscrowSetup = () => {
   const [fundingStatus, setFundingStatus] = useState<FundingStatus>(sellOffer.funding)
   const fundingAmount = Math.round(sellOffer.amount)
   const cancelOffer = useCancelOffer(sellOffer)
+  const { refetch } = useOfferMatches(sellOffer.id)
 
   useHeaderSetup(
     useMemo(
@@ -120,7 +120,17 @@ export const useFundEscrowSetup = () => {
         if (result.funding.status === 'CANCELED') return startRefund(sellOffer)
         if (result.funding.status === 'WRONG_FUNDING_AMOUNT') return showWronglyFundedOverlay(updatedOffer)
         if (result.userConfirmationRequired) return showEscrowConfirmOverlay(updatedOffer)
-        if (result.funding.status === 'FUNDED') return navigation.replace('offerPublished', { offerId: sellOffer.id })
+        if (result.funding.status === 'FUNDED') {
+          refetch().then(({ data }) => {
+            const allMatches = (data?.pages || []).flatMap((page) => page.matches)
+            const hasMatches = allMatches.length > 0
+            if (hasMatches) {
+              navigation.replace('search', { offerId: sellOffer.id })
+            } else {
+              navigation.replace('offerPublished', { offerId: sellOffer.id })
+            }
+          })
+        }
         return undefined
       },
       onError: (err) => {

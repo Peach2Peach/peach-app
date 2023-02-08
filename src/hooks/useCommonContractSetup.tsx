@@ -123,6 +123,7 @@ export const useCommonContractSetup = (contractId: string) => {
 
   return {
     contract: storedContract || contract,
+    newOfferId: offer?.newOfferId,
     saveAndUpdate,
     isLoading,
     view,

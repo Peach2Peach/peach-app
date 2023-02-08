@@ -10,8 +10,9 @@ import Icon from '../Icon'
 type CopyAbleProps = ComponentProps & {
   value: string
   color?: string
+  disabled?: boolean
 }
-export const CopyAble = ({ value, color, style }: CopyAbleProps): ReactElement => {
+export const CopyAble = ({ value, color, disabled, style }: CopyAbleProps): ReactElement => {
   const [showCopied, setShowCopied] = useState(false)
 
   const copy = () => {
@@ -20,9 +21,9 @@ export const CopyAble = ({ value, color, style }: CopyAbleProps): ReactElement =
     setTimeout(() => setShowCopied(false), 500)
   }
   return (
-    <Pressable onPress={copy} style={[tw`flex-row flex-shrink w-4 h-4 justify-center`, style]}>
+    <Pressable onPress={copy} disabled={disabled} style={[tw`flex-row justify-center flex-shrink w-4 h-4`, style]}>
       <Icon id="copy" style={tw`w-full h-full`} color={color || tw`text-primary-main`.color} />
-      <Fade show={showCopied} duration={300} delay={0} style={tw`absolute top-full mt-1`}>
+      <Fade show={showCopied} duration={300} delay={0} style={tw`absolute mt-1 top-full`}>
         <Text style={[tw`tooltip text-primary-main`]}>{i18n('copied')}</Text>
       </Fade>
     </Pressable>
