@@ -27,14 +27,14 @@ const carouselConfig = {
 
 export const Matches = () => {
   useMatchesSetup()
-  const { allMatches: matches } = useOfferMatches()
+  const { offerId } = useRoute<'search'>().params
+  const { offer } = useOfferDetails(offerId)
+  const { allMatches: matches } = useOfferMatches(offerId)
 
   const setCurrentIndex = useMatchStore((state) => state.setCurrentIndex)
   const onBeforeSnapToItem = (index: number) => {
     setCurrentIndex(Math.min(index, matches.length - 1))
   }
-  const offerId = useRoute<'search'>().params.offerId
-  const { offer } = useOfferDetails(offerId)
   if (!offer) return <></>
 
   return (

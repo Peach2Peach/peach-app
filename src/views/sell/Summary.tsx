@@ -1,5 +1,4 @@
 import React, { ReactElement, useEffect } from 'react'
-import { View } from 'react-native'
 import { SellOfferSummary } from '../../components'
 import tw from '../../styles/tailwind'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'
@@ -24,9 +23,5 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     })
   }, [walletLabel, updateOffer])
 
-  return (
-    <View style={tw`flex-col justify-center h-full px-8`}>
-      <SellOfferSummary offer={offer} style={tw`flex-shrink-0`} />
-    </View>
-  )
+  return <SellOfferSummary offer={offer} style={tw`mx-8 mt-15`} />
 }

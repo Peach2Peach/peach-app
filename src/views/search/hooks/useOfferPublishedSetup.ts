@@ -1,19 +1,12 @@
-import { useEffect } from 'react'
 import { useNavigation, useRoute } from '../../../hooks'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { isBuyOffer } from '../../../utils/offer'
-import { useSearchSetup } from './useSearchSetup'
 
 export const useOfferPublishedSetup = () => {
-  const offerId = useRoute<'offerPublished'>().params?.offerId
-
-  // TODO Reconsider using useSearchSetup here
-  const { offer, hasMatches } = useSearchSetup()
+  const { offerId } = useRoute<'offerPublished'>().params
+  const { offer } = useOfferDetails(offerId)
   const navigation = useNavigation()
   const goBackHome = () => offer && navigation.replace(isBuyOffer(offer) ? 'buy' : 'sell')
 
-  useEffect(() => {
-    if (hasMatches) navigation.replace('search', { offerId })
-  }, [hasMatches, navigation, offerId])
-
-  return { goBackHome }
+  return goBackHome
 }

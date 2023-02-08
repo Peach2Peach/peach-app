@@ -26,6 +26,14 @@ const waitForNavigation = async (
   }
 }
 
+const dataIsDefined = (
+  remoteMessage: FirebaseMessagingTypes.RemoteMessage,
+): remoteMessage is FirebaseMessagingTypes.RemoteMessage & {
+  data: {
+    [key: string]: string
+  }
+} => !!remoteMessage.data
+
 /**
  * @description Method to init navigation and check where to navigate to first after opening the app
  */
@@ -45,12 +53,8 @@ export const initialNavigation = async (
   if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
-    if (initialNotification.data) {
-      const handledNotification = handlePushNotification(
-        navigationRef,
-        initialNotification.data,
-        initialNotification.sentTime,
-      )
+    if (dataIsDefined(initialNotification)) {
+      const handledNotification = await handlePushNotification(navigationRef, initialNotification)
       if (!handledNotification) {
         navigationRef.navigate(account?.publicKey ? 'home' : 'welcome')
       }
@@ -60,7 +64,7 @@ export const initialNavigation = async (
   messaging().onNotificationOpenedApp((remoteMessage) => {
     info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
 
-    if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
+    if (dataIsDefined(remoteMessage)) handlePushNotification(navigationRef, remoteMessage)
   })
 
   SplashScreen.hide()

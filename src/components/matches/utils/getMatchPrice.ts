@@ -11,5 +11,5 @@ export const getMatchPrice = (
     ? match.matchedPrice
     : paymentInfo?.rounded
       ? Math.round(match.prices[selectedCurrency]!)
-      : match.prices[selectedCurrency]
+      : match.prices[selectedCurrency]!
 }
