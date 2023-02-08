@@ -9,33 +9,24 @@ import LoadingScreen from '../loading/LoadingScreen'
 import ContractCTA from './components/ContractCTA'
 import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { useContractSetup } from './hooks/useContractSetup'
-import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../yourTrades/utils'
-import { useNavigation } from '../../hooks'
 
 export default (): ReactElement => {
-  const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
-    = useContractSetup()
-  const navigation = useNavigation()
+  const {
+    contract,
+    isLoading,
+    view,
+    requiredAction,
+    actionPending,
+    postConfirmPaymentBuyer,
+    postConfirmPaymentSeller,
+    hasNewOffer,
+    goToNewOffer,
+  } = useContractSetup()
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   const displayDate = new Date(contract.lastModified).toLocaleDateString('en-GB')
     .split('/')
     .join(' / ')
-
-  // todo!
-  const hasNewOffer = contract.tradeStatus === 'tradeCanceled'
-
-  const goToNewOffer = () => {
-    // todo!
-    const isOfferItem = true
-    let navigationDestination
-    if (isOfferItem) {
-      navigationDestination = getNavigationDestinationForOffer({ tradeStatus: 'TODO', id: 'TODO' })
-    } else {
-      navigationDestination = getNavigationDestinationForContract({ tradeStatus: 'TODO', id: 'TODO' })
-    }
-    navigation.navigate(navigationDestination)
-  }
 
   return (
     <View style={tw`justify-between flex-shrink h-full px-8 pb-6`}>

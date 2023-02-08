@@ -9,13 +9,14 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { canCancelContract, signReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
-import { confirmPayment } from '../../../utils/peachAPI'
+import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
+import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
 
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
 
-  const { contract, saveAndUpdate, isLoading, view, requiredAction } = useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId } = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const { showConfirmOverlay } = useConfirmCancelTrade()
@@ -104,13 +105,26 @@ export const useContractSetup = () => {
     })
   }, [contractId, saveAndUpdate, showError, contract])
 
+  const goToNewOffer = useCallback(async () => {
+    if (!newOfferId) return
+    const newOffer = await getOfferDetails({ offerId: newOfferId })
+    if (newOffer[0]?.contractId) {
+      const newContract = await getContract({ contractId: newOffer[0].contractId })
+      navigation.replace(...getNavigationDestinationForContract(newContract[0]))
+    } else {
+      navigation.replace(...getNavigationDestinationForOffer(newOffer[0]))
+    }
+  }, [newOfferId, navigation])
+
   return {
     contract,
     isLoading,
     view,
     requiredAction,
     actionPending,
+    hasNewOffer: !!newOfferId,
     postConfirmPaymentBuyer,
     postConfirmPaymentSeller,
+    goToNewOffer,
   }
 }
