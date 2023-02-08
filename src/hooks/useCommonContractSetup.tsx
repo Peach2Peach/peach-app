@@ -50,7 +50,7 @@ export const useCommonContractSetup = (contractId: string) => {
       }
       const messageHandler = async (message: Message) => {
         if (!storedContract) return
-        if (!message.message || message.roomId !== `contract-${contractId}`) return
+        if (!message.message || message.roomId !== `contract-${contractId}` || message.from === account.publicKey) return
 
         saveAndUpdate({
           unreadMessages: storedContract.unreadMessages + 1,

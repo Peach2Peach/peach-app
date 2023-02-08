@@ -28,7 +28,7 @@ export default (): ReactElement => {
           },
         ],
       }),
-      [],
+      [showHelp],
     ),
   )
   const [user, setUser] = useState<User>()
@@ -43,7 +43,7 @@ export default (): ReactElement => {
     ([reward, pointsRequired, cost]) =>
       ({
         value: reward,
-        disabled: true /* pointsRequired > pointsBalance || reward === 'sats'*/,
+        disabled: pointsRequired > pointsBalance || reward === 'sats',
         display: (
           <View style={tw`flex-row items-center justify-between py-1`}>
             <Text style={tw`subtitle-1`}>{i18n(`referrals.reward.${reward}`)}</Text>
@@ -89,7 +89,7 @@ export default (): ReactElement => {
     <View style={tw`flex h-full px-7 `}>
       <Progress
         style={tw`h-3 rounded`}
-        backgroundStyle={tw`border-2 bg-primary-main border-primary-background`}
+        backgroundStyle={tw`border-2 bg-primary-mild-1 border-primary-background`}
         barStyle={tw`border-2 bg-primary-main border-primary-background`}
         percent={pointsBalance / BARLIMIT}
       />
