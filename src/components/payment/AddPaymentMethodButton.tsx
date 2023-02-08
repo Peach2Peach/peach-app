@@ -9,6 +9,7 @@ import i18n from '../../utils/i18n'
 import { FlagType } from '../flags'
 import { sessionStorage } from '../../utils/session'
 import MeetupSummary from './MeetupSummary'
+import { sortAlphabetically } from '../../utils/sortAlphabetically'
 
 type AddPaymentMethodProps = ComponentProps & {
   origin: keyof RootStackParamList
@@ -50,9 +51,11 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
         title: i18n('meetup.select'),
         content: (
           <View>
-            {eventsByCountry[selected].map((event) => (
-              <MeetupSummary key={event.id} event={event} onPress={() => goToEventDetails(event)} />
-            ))}
+            {eventsByCountry[selected]
+              .sort((a, b) => sortAlphabetically(a.city, b.city))
+              .map((event) => (
+                <MeetupSummary key={event.id} event={event} onPress={() => goToEventDetails(event)} />
+              ))}
           </View>
         ),
         previousDrawer: {
@@ -66,7 +69,12 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
 
     updateDrawer({
       title: i18n('country.select'),
-      content: <CountrySelect countries={Object.keys(eventsByCountry) as FlagType[]} onSelect={selectCountry} />,
+      content: (
+        <CountrySelect
+          countries={Object.keys(eventsByCountry).sort((a, b) => sortAlphabetically(a, b)) as FlagType[]}
+          onSelect={selectCountry}
+        />
+      ),
       show: true,
     })
   }
