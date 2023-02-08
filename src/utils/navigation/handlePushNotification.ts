@@ -1,14 +1,16 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { isDefined } from '../array/isDefined'
 import { getContract } from '../contract'
+import { getOfferDetails } from '../peachAPI'
 import {
   shouldGoToContract,
   shouldGoToContractChat,
-  shouldGoToOffer,
   shouldGoToYourTradesSell,
   shouldGoToSearch,
   shouldGoToSell,
+  shouldGoToOfferPublished,
 } from './utils'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
@@ -20,10 +22,10 @@ export type PushNotification = {
   isChat?: string
 }
 
-export const handlePushNotification = (
+export const handlePushNotification = async (
   navigationRef: Navigation,
   remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PushNotification },
-): boolean => {
+): Promise<boolean> => {
   if (shouldGoToContract(remoteMessage)) {
     const {
       data: { contractId, sentTime },
@@ -48,16 +50,18 @@ export const handlePushNotification = (
     navigationRef.navigate('yourTrades', { tab: 'sell' })
   } else if (shouldGoToSell(remoteMessage)) {
     navigationRef.navigate('sell')
-  } else if (shouldGoToSearch(remoteMessage)) {
+  } else if (isDefined(remoteMessage.data.offerId)) {
+    const [offer] = await getOfferDetails({ offerId: remoteMessage.data.offerId })
     const {
       data: { offerId },
     } = remoteMessage
-    navigationRef.navigate('search', { offerId })
-  } else if (shouldGoToOffer(remoteMessage)) {
-    const {
-      data: { offerId },
-    } = remoteMessage
-    navigationRef.navigate('offer', { offerId })
+    if (shouldGoToSearch(remoteMessage.messageType, !!(offer?.matches && offer.matches.length > 0))) {
+      navigationRef.navigate('search', { offerId })
+    } else if (shouldGoToOfferPublished(remoteMessage)) {
+      navigationRef.navigate('offerPublished', { offerId })
+    } else {
+      navigationRef.navigate('offer', { offerId })
+    }
   } else {
     return false
   }

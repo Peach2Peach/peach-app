@@ -11,11 +11,6 @@ export const shouldGoToContractChat = (
 ): remoteMessage is FirebaseMessagingTypes.RemoteMessage & { data: PushNotification & { contractId: string } } =>
   !!remoteMessage.data.contractId && remoteMessage.data.isChat === 'true'
 
-export const shouldGoToOffer = (
-  remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PushNotification },
-): remoteMessage is FirebaseMessagingTypes.RemoteMessage & { data: PushNotification & { offerId: string } } =>
-  !!remoteMessage.data.offerId
-
 export const shouldGoToYourTradesSell = (
   remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PushNotification },
 ) =>
@@ -28,9 +23,14 @@ export const shouldGoToSell = (remoteMessage: FirebaseMessagingTypes.RemoteMessa
   !!remoteMessage.data.offerId && remoteMessage.messageType === 'offer.notFunded'
 
 export const shouldGoToSearch = (
+  messageType: FirebaseMessagingTypes.RemoteMessage['messageType'],
+  hasMatches: boolean,
+) =>
+  messageType === 'offer.matchBuyer'
+  || messageType === 'offer.matchSeller'
+  || (messageType === 'offer.escrowFunded' && hasMatches)
+
+export const shouldGoToOfferPublished = (
   remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PushNotification },
 ): remoteMessage is FirebaseMessagingTypes.RemoteMessage & { data: PushNotification & { offerId: string } } =>
-  !!remoteMessage.data.offerId
-  && (remoteMessage.messageType === 'offer.matchBuyer'
-    || remoteMessage.messageType === 'offer.matchSeller'
-    || remoteMessage.messageType === 'offer.escrowFunded')
+  remoteMessage.messageType === 'offer.escrowFunded'

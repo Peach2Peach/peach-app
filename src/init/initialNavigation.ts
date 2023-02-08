@@ -54,7 +54,7 @@ export const initialNavigation = async (
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
     if (dataIsDefined(initialNotification)) {
-      const handledNotification = handlePushNotification(navigationRef, initialNotification)
+      const handledNotification = await handlePushNotification(navigationRef, initialNotification)
       if (!handledNotification) {
         navigationRef.navigate(account?.publicKey ? 'home' : 'welcome')
       }
