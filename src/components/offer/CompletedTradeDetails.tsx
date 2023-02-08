@@ -36,7 +36,7 @@ export const CompletedTradeDetails = ({
           sats={amount}
           style={tw`subtitle-1 font-semibold`}
           bitcoinLogoStyle={tw`w-4 h-4 mr-1`}
-          satsStyle={tw`body-s`}
+          satsStyle={tw`body-s font-normal`}
         />
       </View>
 

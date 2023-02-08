@@ -32,7 +32,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
         sats={offer.amount}
         containerStyle={tw`self-center`}
         bitcoinLogoStyle={tw`h-4 w-4 mr-1`}
-        style={tw`subtitle-1`}
+        style={tw`subtitle-1 font-semibold`}
         satsStyle={tw`body-s font-normal`}
       />
       <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />
