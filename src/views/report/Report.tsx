@@ -96,16 +96,18 @@ export default (): ReactElement => {
           autoCorrect={false}
           errorMessage={messageErrors}
         />
-        <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
-          <View style={tw`flex items-center justify-center w-5 h-5`}>
-            {shareDeviceID ? (
-              <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
-            ) : (
-              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
-            )}
-          </View>
-          <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
-        </Pressable>
+        {!account.publicKey && (
+          <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
+            <View style={tw`flex items-center justify-center w-5 h-5`}>
+              {shareDeviceID ? (
+                <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+              ) : (
+                <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
+              )}
+            </View>
+            <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+          </Pressable>
+        )}
         <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
           <View style={tw`flex items-center justify-center w-5 h-5`}>
             {shareLogs ? (
@@ -118,7 +120,7 @@ export default (): ReactElement => {
         </Pressable>
 
         <PrimaryButton
-          style={tw`mt-10 self-center`}
+          style={tw`self-center mt-10`}
           onPress={submit}
           disabled={!(isEmailValid && isTopicValid && isMessageValid)}
           narrow
