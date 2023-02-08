@@ -10,6 +10,7 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import { isBuyOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
+import { shouldGoToContract } from '../shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 
@@ -55,12 +56,7 @@ export const useSearchSetup = () => {
     if (error) {
       const errorMessage = parseError(error?.error)
       if (errorMessage === 'CANCELED' || errorMessage === 'CONTRACT_EXISTS') {
-        if (
-          typeof error.details === 'object'
-          && error.details
-          && 'contractId' in error.details
-          && typeof error.details.contractId === 'string'
-        ) navigation.replace('contract', { contractId: error.details.contractId })
+        if (shouldGoToContract(error)) navigation.replace('contract', { contractId: error.details.contractId })
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
