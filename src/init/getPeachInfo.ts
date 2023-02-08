@@ -11,14 +11,7 @@ import { calculateClientServerTimeDifference } from './calculateClientServerTime
 export const getPeachInfo = async (account?: Account) => {
   await calculateClientServerTimeDifference()
 
-  const {
-    setLatestAppVersion,
-    setMaxTradingAmount,
-    setMinAppVersion,
-    setMinTradingAmount,
-    setPeachFee,
-    setPeachPGPPublicKey,
-  } = configStore.getState()
+  const { setLatestAppVersion, setMinAppVersion, setPeachFee, setPeachPGPPublicKey } = configStore.getState()
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
     getInfo({ timeout: 10000 }),
     account?.publicKey ? getTradingLimit({ timeout: 10000 }) : [defaultAccount.tradingLimit, null],
@@ -33,8 +26,6 @@ export const getPeachInfo = async (account?: Account) => {
   if (peachInfoResponse) {
     setPeachPGPPublicKey(peachInfoResponse.peach.pgpPublicKey)
     setPaymentMethods(peachInfoResponse.paymentMethods)
-    setMinTradingAmount(peachInfoResponse.minAmount)
-    setMaxTradingAmount(peachInfoResponse.maxAmount)
     setPeachFee(peachInfoResponse.fees.escrow)
     setLatestAppVersion(peachInfoResponse.latestAppVersion)
     setMinAppVersion(peachInfoResponse.minAppVersion)
