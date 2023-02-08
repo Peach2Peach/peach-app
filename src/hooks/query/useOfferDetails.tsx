@@ -9,9 +9,10 @@ export const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }
 
   const [offer, err] = await getOfferDetails({ offerId })
   if (err) {
+    error('Could not fetch offer information for offer', offerId, err.error)
     throw new Error(err.error)
   }
-
+  if (offer) saveOffer(offer)
   return offer
 }
 
@@ -23,12 +24,6 @@ export const useOfferDetails = (id: string) => {
   } = useQuery(['offer', id], getOfferQuery, {
     initialData: getOffer(id),
     enabled: !!id,
-    onSuccess (offer) {
-      if (offer) saveOffer(offer)
-    },
-    onError (err) {
-      error('Could not fetch offer information for offer', id, err)
-    },
   })
 
   return { offer: data, isLoading, error: offerDetailsError }
