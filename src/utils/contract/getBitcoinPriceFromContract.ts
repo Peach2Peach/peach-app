@@ -9,4 +9,4 @@ export const getBitcoinPriceFromContract = ({
   price: Contract['price']
   premium: Contract['premium']
   amount: Contract['amount']
-}) => round(((price - premium) / amount) * SATSINBTC, 2)
+}) => round((((price / amount) * SATSINBTC) / (premium + 100)) * 100, 2)

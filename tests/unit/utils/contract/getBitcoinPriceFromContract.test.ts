@@ -2,10 +2,11 @@ import { getBitcoinPriceFromContract } from '../../../../src/utils/contract'
 
 describe('getBitcoinPriceFromContract', () => {
   it('returns the correct price', () => {
-    const price = 100
-    const premium = 10
-    const amount = 100000
+    const expectedBitconPrice = 1000000
+    const price = 21
+    const amount = 1000
+    const premium = 110
     const bitcoinPrice = getBitcoinPriceFromContract({ price, premium, amount })
-    expect(bitcoinPrice).toEqual(90000)
+    expect(bitcoinPrice).toEqual(expectedBitconPrice)
   })
 })
