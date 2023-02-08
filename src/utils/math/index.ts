@@ -1,5 +1,4 @@
 export { getNormalized } from './getNormalized'
 export { interpolate } from './interpolate'
-export { isValueWithinRange } from './isValueWithinRange'
 export { round } from './round'
 export { sum } from './sum'
