@@ -7,6 +7,7 @@ import i18n from '../../utils/i18n'
 import { isBuyOffer } from '../../utils/offer'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 import { Text } from '../../components/text'
+import { useKeyboard } from '../../hooks'
 
 export default (): ReactElement => {
   const { offer, message, peachWalletActive, submit, signature, setSignature, signatureValid, signatureError }
@@ -26,13 +27,15 @@ export default (): ReactElement => {
     setSignature(clipboard)
   }
 
+  const keyboardOpen = useKeyboard()
+
   return !offer || !isBuyOffer(offer) || !message || peachWalletActive ? (
     <View style={tw`items-center justify-center h-full`}>
       <Loading />
     </View>
   ) : (
-    <PeachScrollView contentContainerStyle={tw`flex-grow px-8 `}>
-      <View style={tw`h-full`}>
+    <>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8`}>
         <View style={tw`flex-1 mt-3`}>
           <Text style={[tw`pl-2 input-label text-black-1`]}>{i18n('buy.addressSigning.yourAddress')}</Text>
           <View style={[tw`flex-row items-center px-3 py-2 mb-5`, tw`border rounded-xl`]}>
@@ -60,12 +63,12 @@ export default (): ReactElement => {
             }}
           />
         </View>
-        <View style={tw`items-center mb-3`}>
-          <PrimaryButton style={tw`w-52`} disabled={!signatureValid} onPress={submitSignature} narrow>
-            {i18n('confirm')}
-          </PrimaryButton>
-        </View>
-      </View>
-    </PeachScrollView>
+      </PeachScrollView>
+      {!keyboardOpen && (
+        <PrimaryButton style={tw`self-center mb-4 w-52`} disabled={!signatureValid} onPress={submitSignature} narrow>
+          {i18n('confirm')}
+        </PrimaryButton>
+      )}
+    </>
   )
 }
