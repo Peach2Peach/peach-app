@@ -2,7 +2,7 @@ import { strictEqual } from 'assert'
 import { ceil } from '../../../../src/utils/math'
 
 describe('ceil', () => {
-  it('ceils values to integers', async () => {
+  it('ceils values to integers', () => {
     strictEqual(ceil(1.348), 2)
     strictEqual(ceil(1.5), 2)
     strictEqual(ceil(1.501), 2)
@@ -10,7 +10,7 @@ describe('ceil', () => {
     strictEqual(ceil(10.501), 11)
   })
 
-  it('ceils values to one digit after the comma', async () => {
+  it('ceils values to one digit after the comma', () => {
     strictEqual(ceil(1.348, 1), 1.4)
     strictEqual(ceil(1.5, 1), 1.5)
     strictEqual(ceil(1.501, 1), 1.6)
@@ -18,7 +18,7 @@ describe('ceil', () => {
     strictEqual(ceil(10.501, 1), 10.6)
   })
 
-  it('ceils values to two digits after the comma', async () => {
+  it('ceils values to two digits after the comma', () => {
     strictEqual(ceil(1.348, 2), 1.35)
     strictEqual(ceil(1.5, 2), 1.5)
     strictEqual(ceil(1.501, 2), 1.51)
@@ -26,7 +26,7 @@ describe('ceil', () => {
     strictEqual(ceil(10.501, 2), 10.51)
   })
 
-  it('ceils values to three and above digits after the comma', async () => {
+  it('ceils values to three and above digits after the comma', () => {
     strictEqual(ceil(1.348, 3), 1.348)
     strictEqual(ceil(1.5, 3), 1.5)
     strictEqual(ceil(1.501, 3), 1.501)
@@ -42,7 +42,7 @@ describe('ceil', () => {
     strictEqual(ceil(10.501298740982, 9), 10.501298741)
   })
 
-  it('ceils values to desired power of 10', async () => {
+  it('ceils values to desired power of 10', () => {
     strictEqual(ceil(1.348, -1), 10)
     strictEqual(ceil(5, -1), 10)
     strictEqual(ceil(10.348, -1), 20)
