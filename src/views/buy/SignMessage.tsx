@@ -34,16 +34,16 @@ export default (): ReactElement => {
     <PeachScrollView contentContainerStyle={tw`flex-grow px-8 `}>
       <View style={tw`h-full`}>
         <View style={tw`flex-1 mt-3`}>
-          <Text style={[tw`input-label text-black-1`]}>{i18n('buy.addressSigning.yourAddress')}</Text>
+          <Text style={[tw`pl-2 input-label text-black-1`]}>{i18n('buy.addressSigning.yourAddress')}</Text>
           <View style={[tw`flex-row items-center px-3 py-2 mb-5`, tw`border rounded-xl`]}>
-            <Text style={tw`w-60`}>{offer.releaseAddress}</Text>
+            <Text style={tw`w-60 input-text`}>{offer.releaseAddress}</Text>
             <Pressable onPress={copyAddress}>
               <Icon id={'copy'} style={tw`w-5 h-5 ml-4`} color={tw`text-black-1`.color} />
             </Pressable>
           </View>
-          <Text style={[tw`input-label text-black-1`]}>{i18n('buy.addressSigning.message')}</Text>
+          <Text style={[tw`pl-2 input-label text-black-1`]}>{i18n('buy.addressSigning.message')}</Text>
           <View style={[tw`flex-row items-center px-3 py-2 mb-5`, tw`border rounded-xl`]}>
-            <Text style={tw`w-60`}>{message}</Text>
+            <Text style={tw`w-60 input-text`}>{message}</Text>
             <Pressable onPress={copyMessage}>
               <Icon id={'copy'} style={tw`w-5 h-5 ml-4`} color={tw`text-black-1`.color} />
             </Pressable>
@@ -53,6 +53,7 @@ export default (): ReactElement => {
               onChange: setSignature,
               value: signature,
               label: i18n('buy.addressSigning.signature'),
+              placeholder: i18n('buy.addressSigning.signature'),
               autoCorrect: false,
               errorMessage: signatureError,
               icons: [['clipboard', pasteSignature]],
