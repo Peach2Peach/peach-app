@@ -5,7 +5,7 @@ import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
 import { PaymentMethod } from '../matches/PaymentMethod'
-import { SatsFormat, Text } from '../text'
+import { PriceFormat, SatsFormat, Text } from '../text'
 import { getBitcoinPriceFromContract } from '../../utils/contract'
 
 export const CompletedTradeDetails = ({
@@ -23,14 +23,12 @@ export const CompletedTradeDetails = ({
   )
   return (
     <View>
-      <View style={tw`flex-row justify-between`}>
+      <View style={tw`flex-row justify-between items-center`}>
         <Text style={tw`text-black-2`}>{i18n(`contract.summary.${isBuyer ? 'youPaid' : 'hasPaidYou'}`)}</Text>
-        <Text style={tw`subtitle-1`}>
-          {currency} {price.toLocaleString()}
-        </Text>
+        <PriceFormat currency={currency} amount={price} style={tw`subtitle-1`} />
       </View>
 
-      <View style={tw`flex-row justify-between my-3`}>
+      <View style={tw`flex-row justify-between items-center my-3`}>
         <Text style={tw`text-black-2`}>{i18n('contract.summary.for')}</Text>
         <SatsFormat
           sats={amount}
@@ -40,7 +38,7 @@ export const CompletedTradeDetails = ({
         />
       </View>
 
-      <View style={tw`flex-row justify-between`}>
+      <View style={tw`flex-row justify-between items-center`}>
         <Text style={tw`text-black-2`}>{i18n(`contract.summary.${isBuyer ? 'via' : 'to'}`)}</Text>
         {isBuyer || !paymentMethodLabel ? (
           <PaymentMethod paymentMethodName={paymentMethod} />
@@ -50,11 +48,13 @@ export const CompletedTradeDetails = ({
       </View>
 
       {!isBuyer && (
-        <View style={tw`flex-row justify-between mt-3`}>
+        <View style={tw`flex-row justify-between items-center mt-3`}>
           <Text style={tw`text-black-2`}>{i18n('contract.summary.btcPrice')}</Text>
-          <Text style={tw`subtitle-1`}>
-            {currency} {getBitcoinPriceFromContract({ price, premium, amount }).toLocaleString()}
-          </Text>
+          <PriceFormat
+            style={tw`subtitle-1`}
+            currency={currency}
+            amount={getBitcoinPriceFromContract({ price, premium, amount })}
+          />
         </View>
       )}
     </View>
