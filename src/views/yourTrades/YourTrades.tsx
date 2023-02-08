@@ -54,7 +54,7 @@ export default (): ReactElement => {
         />
       )}
       {isLoading && (
-        <View style={tw`absolute inset-0 justify-center items-center`} pointerEvents="none">
+        <View style={tw`absolute inset-0 items-center justify-center`} pointerEvents="none">
           <Loading />
         </View>
       )}
