@@ -1,10 +1,10 @@
-import { raiseDispute } from '../../../utils/peachAPI'
-import { signAndEncrypt } from '../../../utils/pgp'
-import { PEACHPGPPUBLICKEY } from '../../../constants'
+import { configStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { getChat, saveChat } from '../../../utils/chat'
 import { initDisputeSystemMessages } from '../../../utils/chat/createDisputeSystemMessages'
 import { error } from '../../../utils/log'
+import { raiseDispute } from '../../../utils/peachAPI'
+import { signAndEncrypt } from '../../../utils/pgp'
 
 export const submitRaiseDispute = async (
   contract: Contract | undefined,
@@ -14,7 +14,10 @@ export const submitRaiseDispute = async (
   // eslint-disable-next-line max-params
 ): Promise<[boolean, APIError | null]> => {
   if (!contract || !contract.symmetricKey) return [false, null]
-  const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(contract.symmetricKey, PEACHPGPPUBLICKEY)
+  const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(
+    contract.symmetricKey,
+    configStore.getState().peachPGPPublicKey,
+  )
   const [result, err] = await raiseDispute({
     contractId: contract.id,
     email,

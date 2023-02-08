@@ -9,7 +9,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef
+  useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
@@ -35,7 +35,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
-import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
+import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { useHandleNotifications } from './hooks/useHandleNotifications'
@@ -43,14 +43,15 @@ import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
+import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
+import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import requestUserPermissions from './init/requestUserPermissions'
 
 enableScreens()
 
@@ -131,7 +132,10 @@ const App: React.FC = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-
+  const [minAppVersion, latestAppVersion] = useConfigStore(
+    (state) => [state.minAppVersion, state.latestAppVersion],
+    shallow,
+  )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = () => currentPage
   const views = getViews(!!account?.publicKey)
@@ -184,7 +188,7 @@ const App: React.FC = () => {
         showAnalyticsPrompt(updateOverlay)
       }
 
-      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+      if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({
           msgKey: 'CRITICAL_UPDATE_AVAILABLE',
           level: 'ERROR',
@@ -195,7 +199,7 @@ const App: React.FC = () => {
             icon: 'download',
           },
         })
-      } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
+      } else if (!compatibilityCheck(APPVERSION, latestAppVersion)) {
         updateMessage({
           msgKey: 'UPDATE_AVAILABLE',
           level: 'WARN',
