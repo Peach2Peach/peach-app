@@ -2,11 +2,11 @@ import React, { useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { round } from '../../utils/math'
 import { getPaymentDataByMethod } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
 import { PaymentMethod } from '../matches/PaymentMethod'
 import { SatsFormat, Text } from '../text'
+import { getBitcoinPriceFromContract } from '../../utils/contract'
 
 export const CompletedTradeDetails = ({
   currency,
@@ -21,7 +21,6 @@ export const CompletedTradeDetails = ({
     () => (paymentData ? getPaymentDataByMethod(paymentMethod, hashPaymentData(paymentData))?.label : null),
     [paymentData, paymentMethod],
   )
-  const bitcoinPrice = round(((price - premium) / amount) * 100000000, 2)
   return (
     <View>
       <View style={tw`flex-row justify-between`}>
@@ -49,7 +48,7 @@ export const CompletedTradeDetails = ({
         <View style={tw`flex-row justify-between mt-3`}>
           <Text style={tw`text-black-2`}>{i18n('contract.summary.btcPrice')}</Text>
           <Text style={tw`subtitle-1`}>
-            {currency} {bitcoinPrice.toLocaleString()}
+            {currency} {getBitcoinPriceFromContract({ price, premium, amount }).toLocaleString()}
           </Text>
         </View>
       )}
