@@ -259,6 +259,7 @@
   "wallet.withdrawAll": "withdraw all",
   "wallet.openWalletApp": "open wallet app",
   "wallet.transactionHistory": "transaction history",
+  "wallet.transactionHistory.empty": "nothing yet...",
   "wallet.trade": "trade $0",
   "wallet.withdrawal": "withdrawal",
   "wallet.deposit": "deposit",
