@@ -15,9 +15,9 @@ import tw from '../../styles/tailwind'
  */
 export const LinedText = ({ style, children }: ComponentProps): ReactElement => (
   <View style={[tw`flex-row items-center justify-center `, style]}>
-    <View style={tw`flex-1 bg-black-5 h-0.5 mr-2`} />
+    <View style={tw`flex-1 bg-black-5 h-0.2 mr-2`} />
     {children}
-    <View style={tw`flex-1 bg-black-5 h-0.5 ml-2`} />
+    <View style={tw`flex-1 bg-black-5 h-0.2 ml-2`} />
   </View>
 )
 
