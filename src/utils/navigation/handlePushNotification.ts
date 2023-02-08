@@ -4,14 +4,12 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { isDefined } from '../array/isDefined'
 import { getContract } from '../contract'
 import { getOfferDetails } from '../peachAPI'
-import {
-  shouldGoToContract,
-  shouldGoToContractChat,
-  shouldGoToYourTradesSell,
-  shouldGoToSearch,
-  shouldGoToSell,
-  shouldGoToOfferPublished,
-} from './utils'
+import { shouldGoToContract } from './shouldGoToContract'
+import { shouldGoToContractChat } from './shouldGoToContractChat'
+import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
+import { shouldGoToSell } from './shouldGoToSell'
+import { shouldGoToSearch } from './shouldGoToSearch'
+import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
@@ -57,7 +55,7 @@ export const handlePushNotification = async (
     } = remoteMessage
     if (shouldGoToSearch(remoteMessage.messageType, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })
-    } else if (shouldGoToOfferPublished(remoteMessage)) {
+    } else if (shouldGoToOfferPublished(remoteMessage.messageType)) {
       navigationRef.navigate('offerPublished', { offerId })
     } else {
       navigationRef.navigate('offer', { offerId })
