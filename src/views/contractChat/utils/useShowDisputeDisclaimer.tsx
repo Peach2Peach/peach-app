@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react'
-import { Text } from 'react-native'
+import { Text } from '../../../components/text'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -20,7 +20,17 @@ export const useShowDisputeDisclaimer = () => {
     updateOverlay({
       title: i18n('trade.chat'),
       level: 'INFO',
-      content: <Text style={tw`body-s text-black-1`}>{i18n('chat.disputeDisclaimer')}</Text>,
+      content: (
+        <>
+          <Text>{i18n('chat.disputeDisclaimer.1')}</Text>
+          <Text style={tw`mt-3`}>
+            {i18n('chat.disputeDisclaimer.2')}
+            <Text style={tw`underline`}>{i18n('chat.disputeDisclaimer.3')}</Text>
+            {i18n('chat.disputeDisclaimer.4')}
+          </Text>
+          <Text style={tw`mt-3`}>{i18n('chat.disputeDisclaimer.5')}</Text>
+        </>
+      ),
       visible: true,
       action1: {
         callback: () => {
