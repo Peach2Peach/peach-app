@@ -8,8 +8,8 @@ import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { ConfirmPayment } from './info/ConfirmPayment'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
-import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { MakePayment } from './info/MakePayment'
+import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { Mempool } from './info/Mempool'
 import { MyBadges } from './info/MyBadges'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
@@ -19,7 +19,7 @@ import { SeedPhrasePopup } from './info/SeedPhrasePopup'
 import { TradingLimit } from './info/TradingLimit'
 import { UseYourOwnNode } from './info/UseYourOwnNode'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
-import { YourPasswordPopup } from './YourPasswordPopup'
+import { YourPassword } from './info/YourPassword'
 
 export const helpOverlays = {
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
@@ -42,7 +42,7 @@ export const helpOverlays = {
   tradingLimit: { title: i18n('help.tradingLimit.title'), content: TradingLimit },
   useYourOwnNode: { title: i18n('help.useYourOwnNode.title'), content: UseYourOwnNode },
   withdrawingFunds: { title: i18n('wallet.withdraw.help.title'), content: WithdrawingFundsHelp },
-  yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPasswordPopup },
+  yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPassword },
 }
 
 export type HelpType = keyof typeof helpOverlays
