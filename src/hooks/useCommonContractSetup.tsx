@@ -34,9 +34,9 @@ export const useCommonContractSetup = (contractId: string) => {
 
   const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
     setStoredContract((prev) => {
-      const updatedContract = prev ? { ...prev, ...contractData } : contractData
-      if (updatedContract.id) saveContract(updatedContract as Contract)
-      return updatedContract as Contract
+      const updatedContract = prev ? { ...prev, ...contractData } : (contractData as Contract)
+      if (updatedContract.id) saveContract(updatedContract)
+      return updatedContract
     })
   }, [])
 
