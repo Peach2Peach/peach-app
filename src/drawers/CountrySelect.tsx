@@ -12,13 +12,13 @@ type CountryProps = {
 }
 export const CountrySelect = ({ countries, onSelect }: CountryProps): ReactElement => (
   <View>
-    {countries.map((country, i) => (
+    {countries.map((country) => (
       <Pressable key={country} onPress={() => onSelect(country)}>
         <View style={tw`flex flex-row items-center px-8`}>
           <Flag id={country} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
-          <Text style={tw`flex-shrink w-full subtitle-1`}>{i18n(`country.${country}`).toLowerCase()}</Text>
+          <Text style={tw`flex-shrink w-full subtitle-1`}>{i18n(`country.${country}`)}</Text>
         </View>
-        {i < countries.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+        <HorizontalLine style={tw`my-6`} />
       </Pressable>
     ))}
   </View>

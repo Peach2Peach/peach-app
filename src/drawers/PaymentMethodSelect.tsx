@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { HorizontalLine, Icon, PaymentLogo, Text } from '../components'
+import { HorizontalLine, PaymentLogo, Text } from '../components'
 import { PaymentLogoType } from '../components/payment/logos'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -11,7 +11,7 @@ type PaymentMethodSelectProps = {
 }
 export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => (
   <View>
-    {paymentMethods.map((method, i) => (
+    {paymentMethods.map((method) => (
       <View key={method}>
         <View style={tw`flex flex-row items-center px-8`}>
           <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
@@ -21,7 +21,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
             {i18n(`paymentMethod.${method}`)}
           </Text>
         </View>
-        {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+        <HorizontalLine style={tw`my-6`} />
       </View>
     ))}
   </View>
