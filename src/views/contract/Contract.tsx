@@ -31,12 +31,6 @@ export default (): ReactElement => {
   return (
     <View style={tw`justify-between flex-shrink h-full px-8 pb-6`}>
       <View style={tw`justify-center flex-shrink h-full`}>
-        {contract.disputeActive && (
-          <View style={tw`flex-row items-center justify-center`}>
-            <Text style={tw`text-center subtitle-1`}>{i18n('contract.disputeActive')}</Text>
-            <Icon id="alertOctagon" style={tw`w-6 h-6 ml-1 -mt-0.5`} color={tw`text-warning-main`.color} />
-          </View>
-        )}
         {contract.tradeStatus === 'tradeCompleted' && (
           <View style={tw`flex-row items-center justify-center`}>
             <Text style={tw`text-center subtitle-1`}>

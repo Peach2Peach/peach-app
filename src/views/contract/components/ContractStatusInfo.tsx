@@ -12,6 +12,11 @@ type ContractStatusInfoProps = {
   view: ContractViewer
 }
 export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractStatusInfoProps): ReactElement => {
+  if (contract.disputeActive) return (
+    <View style={tw`flex-row items-center justify-center`}>
+      <Text style={tw`text-center button-medium`}>{i18n('contract.checkTheChat')}</Text>
+    </View>
+  )
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <View style={tw`flex-row items-center justify-center`}>
       <Text style={tw`text-center button-medium text-warning-dark-2`}>
