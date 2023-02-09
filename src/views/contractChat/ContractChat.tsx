@@ -40,7 +40,7 @@ export default (): ReactElement => {
         />
       </View>
       {!contract.canceled || contract.disputeActive ? (
-        <View style={tw`w-full bg-white-1`}>
+        <View style={tw`w-full`}>
           <MessageInput
             onChange={onChangeMessage}
             onSubmit={submit}
