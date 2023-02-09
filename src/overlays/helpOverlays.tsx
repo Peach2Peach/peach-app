@@ -12,6 +12,7 @@ import { MakePayment } from './info/MakePayment'
 import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { Mempool } from './info/Mempool'
 import { MyBadges } from './info/MyBadges'
+import { NetworkFees } from './info/NetworkFees'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { Premium } from './info/Premium'
 import { ReferralsHelp } from './info/ReferralsHelp'
@@ -34,6 +35,7 @@ export const helpOverlays = {
   makePayment: { title: i18n('help.makePayment.title'), content: MakePayment },
   mempool: { title: i18n('help.mempool.title'), content: Mempool },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
+  networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   premium: { title: i18n('help.premium.title'), content: Premium },
