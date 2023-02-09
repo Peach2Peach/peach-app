@@ -17,6 +17,7 @@ export const useShowDisputeDisclaimer = () => {
       })
       navigation.navigate('contact')
     }
+    updateSettings({ showDisputeDisclaimer: false }, true)
     updateOverlay({
       title: i18n('trade.chat'),
       level: 'INFO',
@@ -34,7 +35,6 @@ export const useShowDisputeDisclaimer = () => {
       visible: true,
       action1: {
         callback: () => {
-          updateSettings({ showDisputeDisclaimer: false }, true)
           updateOverlay({ visible: false })
         },
         label: i18n('close'),
