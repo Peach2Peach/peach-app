@@ -1,9 +1,9 @@
 import { sortAlphabetically } from '../../../src/utils/sortAlphabetically'
 
 describe('sortAlphabetically', () => {
-  it('should sort an array of strings alphabetically', () => {
-    const inputA = 'dog'
-    const inputB = 'cat'
+  it('should return -1 if the second string is greater than the first string', () => {
+    const inputA = 'cat'
+    const inputB = 'dog'
 
     const expectedOutput = -1
 
