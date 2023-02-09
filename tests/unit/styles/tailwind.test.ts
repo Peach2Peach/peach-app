@@ -26,7 +26,7 @@ describe('tailwind', () => {
       height: 700,
     })
     deepStrictEqual(tw.md`mt-4`, {})
-    deepStrictEqual(tw.lg`text-xl text-red`, {})
+    deepStrictEqual(tw.lg`text-xl text-error-main`, {})
   })
 
   it('does return styles for sm and md when on md', () => {
@@ -34,7 +34,7 @@ describe('tailwind', () => {
       width: 600,
       height: 840,
     })
-    deepStrictEqual(tw.lg`text-xl text-red`, {})
+    deepStrictEqual(tw.lg`text-xl text-error-main`, {})
     deepStrictEqual([tw`mt-2`, tw.md`mt-4`], [{ marginTop: 8 }, { marginTop: 16 }])
     deepStrictEqual([tw`mt-2`, tw.md`mt-4`, tw.lg`mt-6`], [{ marginTop: 8 }, { marginTop: 16 }, {}])
   })
