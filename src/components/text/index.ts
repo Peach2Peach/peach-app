@@ -1,5 +1,4 @@
 export { BigSatsFormat } from './BigSatsFormat'
-export { BigTitle } from './BigTitle'
 export { BulletPoint } from './BulletPoint'
 export { Headline } from './Headline'
 export { MediumSatsFormat } from './MediumSatsFormat'

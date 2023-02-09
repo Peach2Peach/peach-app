@@ -103,9 +103,3 @@ export let MINTRADINGAMOUNT = 200000
 export let MAXTRADINGAMOUNT = 5000000
 export const setMinTradingAmount = (amount: number) => (MINTRADINGAMOUNT = amount)
 export const setMaxTradingAmount = (amount: number) => (MAXTRADINGAMOUNT = amount)
-
-// Reputation
-export const GOLDMEDAL = 0.9
-export const SILVERMEDAL = 0.7
-
-export const MEDALS = ['fastTrader', 'superTrader', 'ambassador']
