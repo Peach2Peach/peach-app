@@ -50,11 +50,8 @@ export const useContractSetup = () => {
   useEffect(() => {
     if (!contract || !view || isLoading) return
 
-    if (isTradeComplete(contract)) {
-      if (
-        (!contract.disputeWinner && view === 'buyer' && !contract.ratingSeller && !contract.canceled)
-        || (view === 'seller' && !contract.ratingBuyer)
-      ) {
+    if (isTradeComplete(contract) && !contract.disputeWinner && !contract.canceled) {
+      if ((view === 'buyer' && !contract.ratingSeller) || (view === 'seller' && !contract.ratingBuyer)) {
         navigation.replace('tradeComplete', { contract })
       }
     }
