@@ -19,7 +19,7 @@ type TextLinkProps = ComponentProps & {
  * </TextLink>
  */
 export const TextLink = ({ style, children, onPress }: TextLinkProps): ReactElement => (
-  <Text onPress={onPress} style={[tw`underline text-peach-1`, style]}>
+  <Text onPress={onPress} style={[tw`underline text-black-1`, style]}>
     {children}
   </Text>
 )
