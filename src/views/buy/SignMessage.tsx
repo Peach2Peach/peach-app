@@ -38,15 +38,27 @@ export default (): ReactElement => {
       <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8`}>
         <View style={tw`flex-1 mt-3`}>
           <Text style={[tw`pl-2 input-label text-black-1`]}>{i18n('buy.addressSigning.yourAddress')}</Text>
-          <View style={[tw`flex-row items-center px-3 py-2 mb-5`, tw`border rounded-xl`]}>
-            <Text style={tw`w-60 input-text`}>{offer.releaseAddress}</Text>
+          <View
+            style={[
+              tw`flex-row items-center justify-between px-3 py-2 mb-5`,
+              tw`border rounded-xl`,
+              tw`bg-primary-background-light`,
+            ]}
+          >
+            <Text style={tw`flex-1 input-text`}>{offer.releaseAddress}</Text>
             <Pressable onPress={copyAddress}>
-              <Icon id={'copy'} style={tw`w-5 h-5 ml-4`} color={tw`text-black-1`.color} />
+              <Icon id={'copy'} style={tw`w-5 h-5`} color={tw`text-black-1`.color} />
             </Pressable>
           </View>
           <Text style={[tw`pl-2 input-label text-black-1`]}>{i18n('buy.addressSigning.message')}</Text>
-          <View style={[tw`flex-row items-center px-3 py-2 mb-5`, tw`border rounded-xl`]}>
-            <Text style={tw`w-60 input-text`}>{message}</Text>
+          <View
+            style={[
+              tw`flex-row items-center justify-between px-3 py-2 mb-5`,
+              tw`border rounded-xl`,
+              tw`bg-primary-background-light`,
+            ]}
+          >
+            <Text style={tw`flex-1 input-text`}>{message}</Text>
             <Pressable onPress={copyMessage}>
               <Icon id={'copy'} style={tw`w-5 h-5 ml-4`} color={tw`text-black-1`.color} />
             </Pressable>
