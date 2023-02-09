@@ -5,6 +5,7 @@ import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
 import { ProfileOverview } from '../../views/publicProfile/components'
+import { ChatButton } from '../chat/ChatButton'
 import { paymentDetailTemplates } from '../payment'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
@@ -28,13 +29,13 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
       <ProfileOverview user={contract.buyer} clickableID />
       <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView showsVerticalScrollIndicator={false}>
-        <View style={tw`flex-row justify-between items-center mt-6`}>
+        <View style={tw`flex-row items-center justify-between mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.willPayYou')}</Text>
           <View style={tw`flex-row items-center`}>
             <PriceFormat style={tw`subtitle-1`} amount={contract.price} currency={contract.currency} />
           </View>
         </View>
-        <View style={tw`flex-row justify-between items-center mt-4`}>
+        <View style={tw`flex-row items-center justify-between mt-4`}>
           <Text style={tw`text-black-2`}>
             {i18n(contract.paymentMethod.includes('cash') ? 'contract.summary.in' : 'contract.summary.via')}
           </Text>
@@ -42,7 +43,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
         </View>
 
         {storedPaymentData && (
-          <View style={tw`flex-row justify-between items-center mt-4`}>
+          <View style={tw`flex-row items-center justify-between mt-4`}>
             <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
             <View style={tw`flex-row items-center`}>
               <Text style={tw`subtitle-1`}>{storedPaymentData.label}</Text>
@@ -53,12 +54,11 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           <PaymentTo style={tw`mt-4`} paymentData={contract.paymentData} country={contract.country} copyable={false} />
         )}
 
-        {(!!contract.escrow || !!contract.releaseTxId) && (
-          <View style={tw`mt-6`}>
-            <HorizontalLine style={tw`bg-black-5`} />
-            <Escrow style={tw`mt-6`} contract={contract} />
-          </View>
-        )}
+        <HorizontalLine style={tw`mt-6 bg-black-5`} />
+        <View style={tw`flex-row justify-center mt-6`}>
+          {(!!contract.escrow || !!contract.releaseTxId) && <Escrow contract={contract} style={tw`mr-3 min-w-24`} />}
+          <ChatButton contract={contract} style={tw`min-w-24`} />
+        </View>
       </PeachScrollView>
     </View>
   )

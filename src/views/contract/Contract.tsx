@@ -55,20 +55,17 @@ export default (): ReactElement => {
             </View>
             {hasNewOffer && (
               <TouchableOpacity style={tw`flex-row items-center justify-center mt-2`} onPress={goToNewOffer}>
-                <Text style={tw`text-center tooltip text-black-2 underline`}>{i18n('contract.goToNewOffer')}</Text>
+                <Text style={tw`text-center underline tooltip text-black-2`}>{i18n('contract.goToNewOffer')}</Text>
                 <Icon id="externalLink" style={tw`w-4 h-4 ml-1`} color={tw`text-primary-main`.color} />
               </TouchableOpacity>
             )}
           </>
         )}
-        <View style={tw`flex-shrink max-h-full mt-8`}>
-          <ChatButton contract={contract} style={tw`absolute right-0 z-10 -mr-4 top-4`} />
-          <TradeSummary style={tw`max-h-full`} {...{ contract, view }} />
-        </View>
+        <TradeSummary style={tw`flex-shrink max-h-full mt-8`} {...{ contract, view }} />
       </View>
       <View style={tw`flex items-center w-full mt-12`}>
         <ContractStatusInfo {...{ contract, requiredAction, view }} />
-        <View style={[tw`w-full items-center mt-3`]}>
+        <View style={[tw`items-center w-full mt-3`]}>
           <ContractCTA
             {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
           />

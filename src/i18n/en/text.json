@@ -793,6 +793,7 @@
   "seller": "seller",
   "trade": "trade",
   "offer": "offer",
+  "escrow": "escrow",
   "default": "default",
   "amount": "amount",
   "fees": "fees",
