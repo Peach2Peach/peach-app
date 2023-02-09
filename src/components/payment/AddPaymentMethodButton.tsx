@@ -69,12 +69,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
 
     updateDrawer({
       title: i18n('country.select'),
-      content: (
-        <CountrySelect
-          countries={Object.keys(eventsByCountry).sort((a, b) => sortAlphabetically(a, b)) as FlagType[]}
-          onSelect={selectCountry}
-        />
-      ),
+      content: <CountrySelect countries={Object.keys(eventsByCountry) as FlagType[]} onSelect={selectCountry} />,
       show: true,
     })
   }

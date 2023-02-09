@@ -13,7 +13,7 @@ type PaymentMethodSelectProps = {
 export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => (
   <View>
     {paymentMethods
-      .sort((a, b) => sortAlphabetically(a, b))
+      .sort((a, b) => sortAlphabetically(i18n(`paymentMethod.${a}`), i18n(`paymentMethod.${b}`)))
       .map((method, i) => (
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
