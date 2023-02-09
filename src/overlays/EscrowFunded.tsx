@@ -8,7 +8,7 @@ import i18n from '../utils/i18n'
 
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
-import { getOffer, isSellOffer } from '../utils/offer'
+import { getOffer } from '../utils/offer'
 import { getOfferDetails } from '../utils/peachAPI'
 import { PrimaryButton } from '../components/buttons'
 
@@ -27,7 +27,7 @@ export default ({ offerId }: Props): ReactElement => {
 
   const goToOffer = async (): Promise<void> => {
     if (!offer?.id) return closeOverlay()
-    navigation.navigate('offer', { offerId: offer.id })
+    navigation.navigate('search', { offerId: offer.id })
     return closeOverlay()
   }
 

@@ -71,7 +71,12 @@ export const useSignMessageSetup = () => {
         }
         saveOffer(patchedOffer)
         if (patchedOffer.online) {
-          navigation.navigate('offerPublished', { offerId: patchedOffer.id })
+          const hasMatches = patchedOffer.matches.length > 0
+          if (hasMatches) {
+            navigation.navigate('search', { offerId: patchedOffer.id })
+          } else {
+            navigation.navigate('offerPublished', { offerId: patchedOffer.id })
+          }
         }
       } else if (signMessageToPublishError) {
         showErrorBanner(signMessageToPublishError.error)

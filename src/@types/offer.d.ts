@@ -9,13 +9,11 @@ declare type SellOfferDraft = OfferDraft & {
 declare type SellOffer = SellOfferDraft &
   Offer & {
     id: string
-    returnAddress: string
     escrow?: string
     tx?: string
     refundTx?: string // base 64 encoded psbt
     txId?: string
     released: boolean
-    returnAddress: string
     matched: Offer['id'][]
     seenMatches: Offer['id'][]
   }

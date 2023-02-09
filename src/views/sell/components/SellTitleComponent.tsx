@@ -5,7 +5,7 @@ import i18n from '../../../utils/i18n'
 
 export const SellTitleComponent = () => (
   <Text style={tw`h6`}>
-    <Text style={[tw`h6 text-primary-dark-1`]}>{i18n('sell')}</Text> {i18n('bitcoin')}
+    <Text style={[tw`h6 text-primary-main`]}>{i18n('sell')}</Text> {i18n('bitcoin')}
   </Text>
 )
 
