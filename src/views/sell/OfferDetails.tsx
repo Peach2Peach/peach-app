@@ -1,18 +1,18 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import { Icon } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
-import LanguageContext from '../../contexts/language'
 import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { SellViewProps } from './SellPreferences'
-import { useShowHelp } from '../../hooks/useShowHelp'
 
 const validate = (offer: SellOffer) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
@@ -32,20 +32,22 @@ const validate = (offer: SellOffer) => {
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
   const showHelp = useShowHelp('paymentMethods')
-  const headerConfig = {
-    title: i18n('form.paymentMethod'),
-    icons: [
-      {
-        iconComponent: <EditIcon />,
-        onPress: () => {
-          setEditing(!editing)
-        },
-      },
-      { iconComponent: <HelpIcon />, onPress: showHelp },
-    ],
-  }
-  useContext(LanguageContext)
-  useHeaderSetup(headerConfig)
+
+  useHeaderSetup({
+    title: i18n(editing ? 'paymentMethods.edit.title' : 'paymentMethods.title'),
+    icons:
+      account.paymentData.length !== 0
+        ? [
+          {
+            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            onPress: () => {
+              setEditing(!editing)
+            },
+          },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ]
+        : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+  })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )

@@ -85,7 +85,7 @@ const FooterItem = ({
         {theme === 'default' && notifications ? (
           <View
             style={[
-              tw`absolute w-5 h-5 -top-2 left-1/2 mt-.5 bg-primary-main items-center justify-center`,
+              tw`absolute items-center content-center justify-center w-5 h-5 -top-2 left-1/2 bg-primary-main`,
               tw`border-2 rounded-full border-primary-background`,
             ]}
           >

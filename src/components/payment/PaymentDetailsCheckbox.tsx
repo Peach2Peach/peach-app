@@ -2,6 +2,7 @@ import React, { ReactElement, ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon } from '..'
 import tw from '../../styles/tailwind'
+import { Text } from '../text'
 
 export type CheckboxType = {
   value: string | number
@@ -32,7 +33,7 @@ export const PaymentDetailsCheckbox = ({
       style,
     ]}
   >
-    {item.display}
+    <Text style={tw`flex-1`}>{item.display}</Text>
     {!item.disabled ? (
       <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
         {editing ? (
