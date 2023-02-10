@@ -4,8 +4,8 @@ import shallow from 'zustand/shallow'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import Icon from '../Icon'
 import { Text } from '../text'
+import { PaymentMethod } from './PaymentMethod'
 import { useMatchStore } from './store'
 
 export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: Match }) => {
@@ -17,7 +17,6 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
     shallow,
   )
   const getMeetupEventName = useMeetupEventsStore((state) => state.getMeetupEventName)
-  const methodIsVerified = false
   const paymentMethodName = selectedPaymentMethod?.includes('cash')
     ? getMeetupEventName(selectedPaymentMethod.replace('cash.', ''))
     : i18n(`paymentMethod.${selectedPaymentMethod}`)
@@ -29,10 +28,7 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
       </View>
       <View style={tw`flex-row justify-between`}>
         <Text style={tw`text-black-2`}>{i18n('match.selectedPaymentMethod')}</Text>
-        <View style={tw`flex-row items-center px-2 border rounded-lg border-black-1 button-medium`}>
-          <Text style={tw`button-medium`}>{paymentMethodName}</Text>
-          {methodIsVerified && <Icon id="userCheck" style={tw`w-3 h-3 ml-1`} color={tw`text-black-1`.color} />}
-        </View>
+        <PaymentMethod paymentMethodName={paymentMethodName} />
       </View>
     </View>
   )

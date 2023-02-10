@@ -29,14 +29,14 @@ export const useCommonContractSetup = (contractId: string) => {
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
-  const requiredAction = contract ? getRequiredAction(contract) : 'none'
+  const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
 
   const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
     setStoredContract((prev) => {
-      const updatedContract = prev ? { ...prev, ...contractData } : contractData
-      if (updatedContract.id) saveContract(updatedContract as Contract)
-      return updatedContract as Contract
+      const updatedContract = prev ? { ...prev, ...contractData } : (contractData as Contract)
+      if (updatedContract.id) saveContract(updatedContract)
+      return updatedContract
     })
   }, [])
 
@@ -50,7 +50,7 @@ export const useCommonContractSetup = (contractId: string) => {
       }
       const messageHandler = async (message: Message) => {
         if (!storedContract) return
-        if (!message.message || message.roomId !== `contract-${contractId}`) return
+        if (!message.message || message.roomId !== `contract-${contractId}` || message.from === account.publicKey) return
 
         saveAndUpdate({
           unreadMessages: storedContract.unreadMessages + 1,
@@ -123,6 +123,7 @@ export const useCommonContractSetup = (contractId: string) => {
 
   return {
     contract: storedContract || contract,
+    newOfferId: offer?.newOfferId,
     saveAndUpdate,
     isLoading,
     view,

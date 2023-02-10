@@ -16,6 +16,6 @@ export const FundingAmountDifferent = ({ amount, actualAmount }: FundingAmountDi
     <SatsFormat style={tw`text-warning-mild`} color={tw`text-black-1`} sats={actualAmount} />
     <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.2')}</Text>
     <SatsFormat style={tw`text-warning-mild`} color={tw`text-black-1`} sats={amount} />
-    <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.3', thousands(amount))}</Text>
+    <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.3', thousands(actualAmount))}</Text>
   </View>
 )

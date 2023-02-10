@@ -32,12 +32,13 @@ const options = {
 type Props = {
   matchId: string
   matchOffer: () => void
+  offerId: string
   pretendIsMatched: boolean
   isBuyOffer: boolean
 }
 
-export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched, isBuyOffer }: Props) => {
-  const { allMatches: matches } = useOfferMatches()
+export const MatchOfferButton = ({ matchId, matchOffer, offerId, pretendIsMatched, isBuyOffer }: Props) => {
+  const { allMatches: matches } = useOfferMatches(offerId)
   const [currentIndex, selectedPaymentMethod, selectedCurrency, setShowCurrencyPulse, setShowPaymentMethodPulse]
     = useMatchStore(
       (state) => [

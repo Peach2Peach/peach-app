@@ -5,13 +5,9 @@ jest.mock('../../../../src/utils/offer', () => ({
   getOffer: jest.fn(),
 }))
 
-const setPeachWalletActive = jest.fn()
-jest.mock('../../../../src/store/settingsStore', () => ({
-  settingsStore: {
-    getState: () => ({
-      setPeachWalletActive,
-    }),
-  },
+const shouldGoToOfferSummaryMock = jest.fn(() => false)
+jest.mock('../../../../src/views/yourTrades/utils/shouldGoToOfferSummary', () => ({
+  shouldGoToOfferSummary: () => shouldGoToOfferSummaryMock(),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -24,7 +20,7 @@ describe('getNavigationDestinationForOffer', () => {
       id: '3',
       tradeStatus: 'searchingForPeer',
     }
-
+    shouldGoToOfferSummaryMock.mockReturnValueOnce(true)
     const [destination, params] = getNavigationDestinationForOffer(offerSummary as OfferSummary)
 
     expect(destination).toBe('offer')
@@ -80,7 +76,6 @@ describe('getNavigationDestinationForOffer', () => {
 
     expect(destination).toBe('signMessage')
     expect(params).toEqual({ offerId: offer.id })
-    expect(setPeachWalletActive).toBeCalledWith(false)
   })
   it('should navigate to yourTrades as fallback', () => {
     const offerSummary: Partial<OfferSummary> = {

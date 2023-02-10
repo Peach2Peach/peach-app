@@ -8,6 +8,10 @@
 "notification.body.offer.notFunded" = "You haven't funded your escrow in %@ days 😞 We are deleting this offer.";
 "notification.title.offer.sellOfferExpired" = "No match";
 "notification.body.offer.sellOfferExpired" = "It's been %@ days and still no match! As we don't want to keep your escrow for too long, your offer has been taken offline.";
+"notification.title.offer.buyOfferEminentExpiry" = "Offer hasn't received a match for 23 days.";
+"notification.body.offer.buyOfferEminentExpiry" = "Your buy offer still hasn't received a match - it will be removed in a week.";
+"notification.title.offer.buyOfferExpired" = "Offer hasn't received a match for %@ days.";
+"notification.body.offer.buyOfferExpired" = "Your buy offer hasn't received a match after %@ days and has been removed.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";
 "notification.body.offer.matchBuyer" = "The faster you accept, the better your Peach Reputation score will be.";
 "notification.title.offer.matchSeller" = "Matches are waiting for you!";
