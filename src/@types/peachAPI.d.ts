@@ -133,8 +133,6 @@ declare type GetInfoResponse = {
   fees: {
     escrow: number
   }
-  minAmount: number
-  maxAmount: number
   paymentMethods: PaymentMethodInfo[]
   latestAppVersion: string
   minAppVersion: string

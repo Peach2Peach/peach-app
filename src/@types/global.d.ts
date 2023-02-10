@@ -106,3 +106,12 @@ declare type Expiry = {
   ttl: number
   isExpired: boolean
 }
+
+declare type Config = {
+  peachPGPPublicKey: string
+  peachFee: number
+  minAppVersion: string
+  latestAppVersion: string
+  minTradingAmount: number
+  maxTradingAmount: number
+}
