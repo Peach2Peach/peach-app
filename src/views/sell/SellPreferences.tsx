@@ -7,7 +7,6 @@ import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
-import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
 import { useNavigation, useRoute } from '../../hooks'
 import pgp from '../../init/pgp'
@@ -41,7 +40,7 @@ const getDefaultSellOffer = (amount?: number): SellOfferDraft => ({
     amounts: [],
     expiry: 537,
   },
-  amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
+  amount: amount || account.settings.minAmount,
   returnAddress: account.settings.returnAddress || '',
   kyc: account.settings.kyc || false,
   kycType: account.settings.kycType || 'iban',
