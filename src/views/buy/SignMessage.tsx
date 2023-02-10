@@ -2,21 +2,20 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Input, Loading, PeachScrollView, PrimaryButton } from '../../components'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { isBuyOffer } from '../../utils/offer'
-import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 import { Text } from '../../components/text'
 import { useKeyboard } from '../../hooks'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
 export default (): ReactElement => {
-  const { offer, message, peachWalletActive, submit, signature, setSignature, signatureValid, signatureError }
+  const { address, message, peachWalletActive, submit, signature, setSignature, signatureValid, signatureError }
     = useSignMessageSetup()
   const submitSignature = () => submit(signature)
 
   const copyAddress = () => {
-    if (!offer || !isBuyOffer(offer)) return
-    Clipboard.setString(offer.releaseAddress)
+    if (!address) return
+    Clipboard.setString(address)
   }
   const copyMessage = () => {
     if (!message) return
@@ -29,7 +28,7 @@ export default (): ReactElement => {
 
   const keyboardOpen = useKeyboard()
 
-  return !offer || !isBuyOffer(offer) || !message || peachWalletActive ? (
+  return !address || !message || peachWalletActive ? (
     <View style={tw`items-center justify-center h-full`}>
       <Loading />
     </View>
@@ -45,7 +44,7 @@ export default (): ReactElement => {
               tw`bg-primary-background-light`,
             ]}
           >
-            <Text style={tw`flex-1 input-text`}>{offer.releaseAddress}</Text>
+            <Text style={tw`flex-1 input-text`}>{address}</Text>
             <Pressable onPress={copyAddress}>
               <Icon id={'copy'} style={tw`w-5 h-5`} color={tw`text-black-1`.color} />
             </Pressable>

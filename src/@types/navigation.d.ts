@@ -26,9 +26,7 @@ declare type RootStackParamList = {
     }
     origin: keyof RootStackParamList
   }
-  signMessage: {
-    offerId: string
-  }
+  signMessage: undefined
   fundEscrow: {
     offer: SellOffer
   }

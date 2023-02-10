@@ -7,6 +7,7 @@ declare type Settings = {
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string
+  messageSignature?: string
   derivationPath?: string
   displayCurrency: Currency
   country?: string

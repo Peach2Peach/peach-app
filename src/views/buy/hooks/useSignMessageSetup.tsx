@@ -1,41 +1,33 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import shallow from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
-import { MessageContext } from '../../../contexts/message'
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
-import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { isBuyOffer, saveOffer } from '../../../utils/offer'
-import { signMessageToPublish } from '../../../utils/peachAPI'
-import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { getErrorsInField } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
 export const useSignMessageSetup = () => {
-  const route = useRoute<'signMessage'>()
-  const navigation = useNavigation()
-  const showErrorBanner = useShowErrorBanner()
-  const { offer } = useOfferDetails(route.params.offerId)
-  const [, updateMessage] = useContext(MessageContext)
-  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
-  const [signature, setSignature] = useState('')
-
-  const signatureRules = useMemo(
-    () =>
-      offer && isBuyOffer(offer)
-        ? {
-          signature: [offer.releaseAddress, offer.message],
-          required: true,
-        }
-        : { required: true },
-    [offer],
+  const [address, messageSignature, setMessageSignature] = useSettingsStore(
+    (state) => [state.payoutAddress, state.messageSignature, state.setMessageSignature],
+    shallow,
   )
-
-  const signatureError = useMemo(() => getErrorsInField(signature, signatureRules), [signature, signatureRules])
-  const signatureValid = signatureError.length === 0
+  const navigation = useNavigation()
+  const [peachWalletActive] = useSettingsStore((state) => [state.peachWalletActive], shallow)
+  const message = address ? getMessageToSignForAddress(account.publicKey, address) : undefined
+  const signatureRules = useMemo(
+    () => ({
+      signature: [address, message],
+      required: true,
+    }),
+    [address, message],
+  )
+  const [signature, setSignature, signatureValid, signatureError] = useValidatedState(
+    messageSignature || '',
+    signatureRules,
+  )
 
   const showHelp = useShowHelp('addressSigning')
   useHeaderSetup(
@@ -56,50 +48,26 @@ export const useSignMessageSetup = () => {
   )
 
   const submit = useCallback(
-    async (sig: string) => {
-      if (!offer || !isBuyOffer(offer)) return
-
-      const [signMessageToPublishResult, signMessageToPublishError] = await signMessageToPublish({
-        offerId: route.params.offerId,
-        signature: sig,
-      })
-      if (signMessageToPublishResult) {
-        const patchedOffer: BuyOffer = {
-          ...offer,
-          online: true,
-          messageSignature: sig,
-        }
-        saveOffer(patchedOffer)
-        if (patchedOffer.online) {
-          const hasMatches = patchedOffer.matches.length > 0
-          if (hasMatches) {
-            navigation.navigate('search', { offerId: patchedOffer.id })
-          } else {
-            navigation.navigate('offerPublished', { offerId: patchedOffer.id })
-          }
-        }
-      } else if (signMessageToPublishError) {
-        showErrorBanner(signMessageToPublishError.error)
-      }
+    (sig: string) => {
+      setMessageSignature(sig)
     },
-    [navigation, offer, route.params.offerId, showErrorBanner],
+    [setMessageSignature],
   )
 
   useEffect(() => {
-    if (!offer || !isBuyOffer(offer) || !offer.message || !peachWalletActive) return
-    const peachAccount = getPeachAccount()
+    if (!message || !address || !peachWalletActive) return
 
-    if (!peachAccount) {
-      showErrorBanner(new Error('Peach Account not set'))
-      return
-    }
-    const sig = peachWallet.signMessage(offer.message, offer.releaseAddress)
+    const sig = peachWallet.signMessage(message, address)
     submit(sig)
-  }, [peachWalletActive, updateMessage, navigation, submit, showErrorBanner, offer])
+  }, [address, message, peachWalletActive, submit])
+
+  useEffect(() => {
+    if (!address) navigation.replace('payoutAddress')
+  }, [address, navigation])
 
   return {
-    offer,
-    message: offer && isBuyOffer(offer) ? offer?.message : '',
+    address,
+    message,
     peachWalletActive,
     submit,
     signature,
