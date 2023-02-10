@@ -15,15 +15,15 @@ export const sortByDate = (a: TradeSummary, b: TradeSummary) => {
   } else if (b.paymentConfirmed && !a.paymentConfirmed) {
     return 1
   } else if (a.paymentConfirmed && b.paymentConfirmed) {
-    return b.paymentConfirmed.getTime() - a.paymentConfirmed.getTime()
+    return a.paymentConfirmed.getTime() > b.paymentConfirmed.getTime() ? 1 : -1
   } else if (a.paymentMade && !b.paymentMade) {
     return -1
   } else if (b.paymentMade && !a.paymentMade) {
     return 1
   } else if (a.paymentMade && b.paymentMade) {
-    return b.paymentMade.getTime() - a.paymentMade.getTime()
+    return a.paymentMade.getTime() > b.paymentMade.getTime() ? 1 : -1
   }
-  return b.creationDate.getTime() - a.creationDate.getTime()
+  return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
 }
 
 export const useYourTradesSetup = () => {
