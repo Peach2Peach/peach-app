@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { Text } from '../'
+import { Icon, Text } from '../'
 
 const themes = {
   default: {
@@ -26,20 +26,47 @@ type TabbedNavigationProps = ComponentProps & {
   selected: TabbedNavigationItem
   select: (item: TabbedNavigationItem) => void
   theme?: 'default' | 'inverted'
+  messages: { buy: number; sell: number; past: number }
 }
 
-export const TabbedNavigation = ({ items, selected, select, theme = 'default', style }: TabbedNavigationProps) => {
+export const TabbedNavigation = ({
+  items,
+  selected,
+  select,
+  theme = 'default',
+  style,
+  messages,
+}: TabbedNavigationProps) => {
   const colors = themes[theme]
   return (
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
-        <Pressable style={tw`px-2`} key={item.id} onPress={() => select(item)}>
-          <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
-            {item.display}
-          </Text>
-          {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
-        </Pressable>
+        <>
+          <Pressable style={tw`px-2`} key={item.id} onPress={() => select(item)}>
+            <View style={tw`flex-row items-center`}>
+              <Text style={[tw`px-2 my-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
+                {item.display}
+              </Text>
+              {messages[item.id as 'buy' | 'sell' | 'past'] > 0 && (
+                <View style={tw`justify-center mb-2 w-18px h-18px`}>
+                  <Icon id={'messageFull'} color={tw`text-primary-main`.color} style={tw`w-18px h-18px`} />
+                  <Text
+                    style={[
+                      tw`absolute w-full font-bold text-center pb-0.5 text-10px`,
+                      tw`text-primary-background-light`,
+                    ]}
+                  >
+                    {messages[item.id as 'buy' | 'sell' | 'past']}
+                  </Text>
+                </View>
+              )}
+            </View>
+            {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
+          </Pressable>
+        </>
       ))}
     </View>
   )
 }
+
+// messages[item.id as 'buy' | 'sell' | 'past']

@@ -38,9 +38,32 @@ export default (): ReactElement => {
     }
   }
 
+  const checkMessages = () => {
+    let buyMessages = 0
+    let sellMessages = 0
+    let pastMessages = 0
+
+    openOffers.buy.forEach((trade) => {
+      if ((trade as ContractSummary).unreadMessages) {
+        buyMessages += (trade as ContractSummary).unreadMessages
+      }
+    })
+    openOffers.sell.forEach((trade) => {
+      if ((trade as ContractSummary).unreadMessages) {
+        sellMessages += (trade as ContractSummary).unreadMessages
+      }
+    })
+    openOffers.sell.forEach((trade) => {
+      if ((trade as ContractSummary).unreadMessages) {
+        pastMessages += (trade as ContractSummary).unreadMessages
+      }
+    })
+    return { buy: buyMessages, sell: sellMessages, past: pastMessages }
+  }
+
   return (
     <View style={tw`h-full px-8`}>
-      <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
+      <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} messages={checkMessages()} />
       {allOpenOffers.length + pastOffers.length > 0 && (
         <SectionList
           contentContainerStyle={[tw`py-10`, isLoading && tw`opacity-60`]}
