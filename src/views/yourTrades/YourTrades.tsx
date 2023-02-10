@@ -53,12 +53,12 @@ export default (): ReactElement => {
         sellMessages += (trade as ContractSummary).unreadMessages
       }
     })
-    openOffers.sell.forEach((trade) => {
+    pastOffers.forEach((trade) => {
       if ((trade as ContractSummary).unreadMessages) {
         pastMessages += (trade as ContractSummary).unreadMessages
       }
     })
-    return { buy: buyMessages, sell: sellMessages, past: pastMessages }
+    return { buy: buyMessages, sell: sellMessages, history: pastMessages }
   }
 
   return (
