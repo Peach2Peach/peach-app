@@ -10,17 +10,14 @@ import { parseError } from '../../../utils/system'
 import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
 
 export const sortByDate = (a: TradeSummary, b: TradeSummary) => {
-  if (a.paymentConfirmed && !b.paymentConfirmed) {
-    return -1
-  } else if (b.paymentConfirmed && !a.paymentConfirmed) {
-    return 1
-  } else if (a.paymentConfirmed && b.paymentConfirmed) {
+  if (a.paymentConfirmed && !b.paymentConfirmed) return 1
+  if (b.paymentConfirmed && !a.paymentConfirmed) return -1
+  if (a.paymentConfirmed && b.paymentConfirmed) {
     return a.paymentConfirmed.getTime() > b.paymentConfirmed.getTime() ? 1 : -1
-  } else if (a.paymentMade && !b.paymentMade) {
-    return -1
-  } else if (b.paymentMade && !a.paymentMade) {
-    return 1
-  } else if (a.paymentMade && b.paymentMade) {
+  }
+  if (a.paymentMade && !b.paymentMade) return 1
+  if (b.paymentMade && !a.paymentMade) return -1
+  if (a.paymentMade && b.paymentMade) {
     return a.paymentMade.getTime() > b.paymentMade.getTime() ? 1 : -1
   }
   return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
@@ -37,7 +34,7 @@ export const useYourTradesSetup = () => {
   const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
 
   const filteredOffers = offers.filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
-  const trades = [...filteredOffers, ...contracts].sort(sortByDate)
+  const trades = [...filteredOffers, ...contracts].sort(sortByDate).reverse()
 
   const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
   const openOffers = {
