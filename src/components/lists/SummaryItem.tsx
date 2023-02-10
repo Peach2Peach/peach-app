@@ -77,7 +77,7 @@ export const SummaryItem = ({
             <Text style={tw`text-xs text-black-2`}>{toDateFormat(date)}</Text>
           </View>
         </View>
-        <View style={tw`items-end`}>
+        <View>
           {!!amount1 && <SatsFormat sats={amount1} />}
           {amount2 ? (
             <View>
