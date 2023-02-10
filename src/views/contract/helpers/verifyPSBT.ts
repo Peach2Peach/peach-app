@@ -1,5 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { MAXMININGFEE, PEACHFEE } from '../../../constants'
+import { MAXMININGFEE } from '../../../constants'
 import { configStore } from '../../../store/configStore'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
 
