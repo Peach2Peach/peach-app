@@ -8,15 +8,9 @@ import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getOfferPrice } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
+import { validatePremiumStep } from './helpers/validatePremiumStep'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
-
-const validate = (offer: SellOfferDraft, marketPrice?: Pricebook | null) => {
-  if (offer.premium > 21 && offer.premium < -21) return false
-  if (!marketPrice) return false
-  const currentPriceInCHF = getOfferPrice(offer.amount, offer.premium, marketPrice, 'CHF')
-  return currentPriceInCHF < account.tradingLimit.daily
-}
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
@@ -44,7 +38,10 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     })
   }, [premium, setPremium, setStepValid, updateOffer])
 
-  useEffect(() => setStepValid(validate(offer, marketPrice)), [offer, setStepValid])
+  useEffect(
+    () => setStepValid(validatePremiumStep(offer, marketPrice, account.tradingLimit)),
+    [marketPrice, offer, setStepValid],
+  )
 
   return (
     <View>
