@@ -1,5 +1,5 @@
 type DefaultOfferProps = {
-  minAmount: number
+  sellAmount: number
   premium: number
   meansOfPayment?: MeansOfPayment
   payoutAddress?: string
@@ -8,7 +8,7 @@ type DefaultOfferProps = {
 }
 
 export const getDefaultSellOffer = ({
-  minAmount,
+  sellAmount,
   premium,
   meansOfPayment = {},
   payoutAddress = '',
@@ -30,7 +30,7 @@ export const getDefaultSellOffer = ({
     amounts: [],
     expiry: 537,
   },
-  amount: minAmount,
+  amount: sellAmount,
   returnAddress: payoutAddress,
   kyc,
   kycType,

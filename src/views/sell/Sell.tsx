@@ -20,8 +20,8 @@ export default (): ReactElement => {
 
   useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 
-  const [showBackupReminder, minAmount, setMinAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount],
+  const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -32,10 +32,10 @@ export default (): ReactElement => {
     () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
     [minTradingAmount, maxTradingAmount],
   )
-  const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
+  const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
   const setSelectedAmount = (value: number) => {
-    setMinAmount(value)
+    setSellAmount(value)
     setAmount(value)
   }
   const next = () => navigation.navigate('sellPreferences')

@@ -1,19 +1,19 @@
 type DefaultOfferProps = {
-  minAmount: number
-  maxAmount: number
+  minBuyAmount: number
+  maxBuyAmount: number
   meansOfPayment?: MeansOfPayment
   kyc?: boolean
 }
 export const getDefaultBuyOffer = ({
-  minAmount,
-  maxAmount,
+  minBuyAmount,
+  maxBuyAmount,
   meansOfPayment = {},
   kyc = false,
 }: DefaultOfferProps): BuyOfferDraft => ({
   type: 'bid',
   creationDate: new Date(),
   lastModified: new Date(),
-  amount: [minAmount, maxAmount],
+  amount: [minBuyAmount, maxBuyAmount],
   meansOfPayment,
   paymentData: {},
   releaseAddress: '',
