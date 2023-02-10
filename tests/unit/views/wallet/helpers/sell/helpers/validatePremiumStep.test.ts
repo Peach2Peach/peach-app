@@ -40,16 +40,12 @@ describe('validatePremiumStep', () => {
     expect(validatePremiumStep(offer1 as SellOfferDraft, marketPrice2, tradingLimit as TradingLimit)).toBe(true)
   })
 
-  it('should return false if the calculated price in CHF is equal to or greater than the trading limit', () => {
+  it('should return false if the calculated price in CHF is greater than the trading limit', () => {
     const offer1: Partial<SellOfferDraft> = {
-      premium: 0,
-      amount: 1000000,
-    }
-    const offer2: Partial<SellOfferDraft> = {
       premium: 1,
       amount: 1000000,
     }
-    const offer3: Partial<SellOfferDraft> = {
+    const offer2: Partial<SellOfferDraft> = {
       premium: -2,
       amount: 1200000,
     }
@@ -58,6 +54,5 @@ describe('validatePremiumStep', () => {
     }
     expect(validatePremiumStep(offer1 as SellOfferDraft, marketPrice2, tradingLimit as TradingLimit)).toBe(false)
     expect(validatePremiumStep(offer2 as SellOfferDraft, marketPrice2, tradingLimit as TradingLimit)).toBe(false)
-    expect(validatePremiumStep(offer3 as SellOfferDraft, marketPrice2, tradingLimit as TradingLimit)).toBe(false)
   })
 })
