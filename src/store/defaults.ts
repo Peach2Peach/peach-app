@@ -19,7 +19,6 @@ export const defaultSettings: Settings = {
   preferredPaymentMethods: {},
   meansOfPayment: {},
   showBackupReminder: true,
-  showDisputeDisclaimer: true,
   peachWalletActive: true,
   nodeURL: BLOCKEXPLORER,
   customFeeRate: 1,

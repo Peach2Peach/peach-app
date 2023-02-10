@@ -20,7 +20,6 @@ declare type Settings = {
   lastBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
-  showDisputeDisclaimer: boolean
   peachWalletActive: boolean
   nodeURL: string
   customFeeRate: number

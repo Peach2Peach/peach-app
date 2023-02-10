@@ -25,7 +25,6 @@ type SettingsStore = Settings & {
   setFcmToken: (fcmToken: string) => void
   setLastBackupDate: (lastBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
-  setShowDisputeDisclaimer: (showDisputeDisclaimer: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   setNodeURL: (url: string) => void
   setCustomFeeRate: (customFeeRate: number) => void
@@ -59,8 +58,6 @@ export const settingsStore = createStore(
       setFcmToken: (fcmToken: string) => set((state) => ({ ...state, fcmToken })),
       setLastBackupDate: (lastBackupDate: number) => set((state) => ({ ...state, lastBackupDate })),
       setShowBackupReminder: (showBackupReminder: boolean) => set((state) => ({ ...state, showBackupReminder })),
-      setShowDisputeDisclaimer: (showDisputeDisclaimer: boolean) =>
-        set((state) => ({ ...state, showDisputeDisclaimer })),
       setPeachWalletActive: (peachWalletActive: boolean) => set((state) => ({ ...state, peachWalletActive })),
       setNodeURL: (nodeURL: string) => set((state) => ({ ...state, nodeURL })),
       setCustomFeeRate: (customFeeRate: number) => set((state) => ({ ...state, customFeeRate })),
