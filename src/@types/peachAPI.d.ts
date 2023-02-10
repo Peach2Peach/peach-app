@@ -298,6 +298,7 @@ declare type ContractSummary = {
   creationDate: Date
   lastModified: Date
   paymentMade?: Date
+  paymentConfirmed?: Date
   tradeStatus: TradeStatus
   amount: number
   price: number
