@@ -4,13 +4,13 @@ import { Loading } from '../components'
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
-import { tradeSummaryStore } from '../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import tw from '../styles/tailwind'
-import { checkAndRefund, showTransaction } from '../utils/bitcoin'
+import { checkRefundPSBT, showTransaction, signPSBT } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
-import { cancelOffer } from '../utils/peachAPI'
+import { cancelOffer, postTx } from '../utils/peachAPI'
 import { peachWallet } from '../utils/wallet/setWallet'
 
 import Refund from './Refund'
@@ -28,46 +28,57 @@ export const useStartRefundOverlay = () => {
     },
     [closeOverlay, navigation],
   )
+  const setOffer = useTradeSummaryStore((state) => state.setOffer)
 
   const refund = useCallback(
     async (sellOffer: SellOffer, rawPSBT: string) => {
       info('Get refunding info', rawPSBT)
-      const { psbt, tx, txId, err } = await checkAndRefund(rawPSBT, sellOffer)
-      if (psbt && tx && txId) {
-        const address = psbt.txOutputs[0].address
-        const isPeachWallet = address ? !!peachWallet.findKeyPairByAddress(address) : false
-        saveOffer({
-          ...sellOffer,
-          tx,
-          txId,
-          refunded: true,
-        })
-        tradeSummaryStore.getState().setOffer(sellOffer.id, { txId })
-        updateOverlay({
-          title: i18n('refund.title'),
-          content: <Refund isPeachWallet={isPeachWallet} />,
-          visible: true,
-          action1: {
-            label: i18n('close'),
-            icon: 'xSquare',
-            callback: () => {
-              closeOverlay()
-              navigation.navigate('yourTrades', { tab: 'sell' })
-            },
-          },
-          action2: {
-            label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
-            icon: isPeachWallet ? 'wallet' : 'externalLink',
-            callback: () => (isPeachWallet ? goToWallet(txId) : showTransaction(txId, NETWORK)),
-          },
-          level: 'APP',
-        })
-      } else if (err) {
+      const { psbt, err } = checkRefundPSBT(rawPSBT, sellOffer)
+
+      if (!psbt || err) {
         showError(err)
+        closeOverlay()
+        return
+      }
+      const signedTx = signPSBT(psbt, sellOffer).extractTransaction()
+      const [tx, txId] = [signedTx.toHex(), signedTx.getId()]
+
+      const address = psbt.txOutputs[0].address
+      const isPeachWallet = address ? !!peachWallet.findKeyPairByAddress(address) : false
+      saveOffer({
+        ...sellOffer,
+        tx,
+        txId,
+        refunded: true,
+      })
+      setOffer(sellOffer.id, { txId })
+      updateOverlay({
+        title: i18n('refund.title'),
+        content: <Refund isPeachWallet={isPeachWallet} />,
+        visible: true,
+        action1: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            closeOverlay()
+            navigation.navigate('yourTrades', { tab: 'sell' })
+          },
+        },
+        action2: {
+          label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
+          icon: isPeachWallet ? 'wallet' : 'externalLink',
+          callback: () => (isPeachWallet ? goToWallet(txId) : showTransaction(txId, NETWORK)),
+        },
+        level: 'APP',
+      })
+
+      const [, postTXError] = await postTx({ tx, timeout: 15 * 1000 })
+      if (postTXError) {
+        showError(postTXError.error)
         closeOverlay()
       }
     },
-    [closeOverlay, goToWallet, navigation, showError, updateOverlay],
+    [closeOverlay, goToWallet, navigation, setOffer, showError, updateOverlay],
   )
 
   const startRefund = useCallback(
@@ -85,7 +96,7 @@ export const useStartRefundOverlay = () => {
         },
       })
 
-      const [cancelResult, cancelError] = await cancelOffer({ offerId: sellOffer.id })
+      const [cancelResult, cancelError] = await cancelOffer({ offerId: sellOffer.id, timeout: 15 * 1000 })
 
       if (cancelResult) {
         await refund(sellOffer, cancelResult.psbt)

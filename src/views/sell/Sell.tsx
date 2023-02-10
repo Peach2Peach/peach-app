@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,14 +7,12 @@ import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
-import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useOnUnmount, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
+import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
-
-const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -25,6 +23,14 @@ export default (): ReactElement => {
   const [showBackupReminder, minAmount, setMinAmount] = useSettingsStore(
     (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount],
     shallow,
+  )
+  const [minTradingAmount, maxTradingAmount] = useConfigStore(
+    (state) => [state.minTradingAmount, state.maxTradingAmount],
+    shallow,
+  )
+  const rangeRules = useMemo(
+    () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
+    [minTradingAmount, maxTradingAmount],
   )
   const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
 
@@ -47,7 +53,7 @@ export default (): ReactElement => {
         </View>
       </View>
       <View style={tw`items-center justify-center flex-grow`}>
-        <SelectAmount min={MINTRADINGAMOUNT} max={MAXTRADINGAMOUNT} value={amount} onChange={setAmount} />
+        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setAmount} />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>

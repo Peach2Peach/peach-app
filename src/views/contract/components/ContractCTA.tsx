@@ -2,13 +2,13 @@ import React, { ReactElement } from 'react'
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
+import { useNavigation } from '../../../hooks'
 import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
 import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOverlay'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
-import { getTimerStart } from '../helpers/getTimerStart'
 
 type ContractCTAProps = ComponentProps & {
   contract: Contract
@@ -26,8 +26,16 @@ export default ({
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
 }: ContractCTAProps): ReactElement => {
+  const navigation = useNavigation()
+  const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
+
+  if (contract.disputeActive) return (
+    <WarningButton onPress={goToChat} iconId="alertOctagon">
+      {i18n('contract.disputeActive')}
+    </WarningButton>
+  )
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )

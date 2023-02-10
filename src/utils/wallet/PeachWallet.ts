@@ -103,6 +103,7 @@ export class PeachWallet {
   }
 
   updateStore (): void {
+    walletStore.getState().setAddresses(this.addresses)
     walletStore.getState().setGapLimit(this.gapLimit)
     walletStore.getState().setSynced(this.synced)
     walletStore.getState().setBalance(this.balance)

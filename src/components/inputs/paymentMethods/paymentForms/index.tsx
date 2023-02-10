@@ -115,7 +115,7 @@ export const PaymentMethodForm = ({
         )}
         <View style={tw`items-center flex-grow `}>
           <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
-            {i18n(!data.id ? 'next' : 'confirm')}
+            {i18n('confirm')}
           </PrimaryButton>
         </View>
       </Fade>

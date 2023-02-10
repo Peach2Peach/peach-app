@@ -66,7 +66,7 @@ export const SummaryItem = ({
 
   return (
     <TouchableOpacity
-      style={[tw`w-full rounded-xl`, tw`border`, levelColorMap.border[level], style]}
+      style={[tw`w-full rounded-xl bg-primary-background-light`, tw`border`, levelColorMap.border[level], style]}
       onPress={action?.callback}
     >
       <View style={tw`flex flex-row items-center justify-between px-4 py-3 rounded-xl`}>
