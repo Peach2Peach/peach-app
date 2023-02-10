@@ -58,6 +58,7 @@ export const useTradeCanceledOverlay = () => {
           label: i18n('close'),
           icon: 'xSquare',
           callback: () => {
+            navigation.replace('contract', { contractId: contract.id })
             confirmOverlay(contract)
           },
         },
