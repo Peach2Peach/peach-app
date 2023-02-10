@@ -47,7 +47,10 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
           {...sharedProps}
           action={{
             callback: navigate,
-            label: i18n(`offer.requiredAction.${status}`, i18n(counterparty)),
+            label:
+              status === 'waiting'
+                ? i18n(`offer.requiredAction.${status}.${counterparty}`)
+                : i18n(`offer.requiredAction.${status}`),
             icon: statusIcons[status],
           }}
         />
