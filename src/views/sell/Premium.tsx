@@ -8,17 +8,16 @@ import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getOfferPrice } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
+import { validatePremiumStep } from './helpers/validatePremiumStep'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
-
-const validate = (offer: SellOfferDraft) => offer.premium >= -21 && offer.premium <= 21
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
   const [premium, setPremium] = useState(offer.premium.toString())
-  const { data: marketPrice } = useMarketPrices()
+  const { data: priceBook } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = marketPrice ? getOfferPrice(offer.amount, offer.premium, marketPrice, displayCurrency) : 0
+  const currentPrice = priceBook ? getOfferPrice(offer.amount, offer.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
     if (!value) return setPremium('')
@@ -39,7 +38,10 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     })
   }, [premium, setPremium, setStepValid, updateOffer])
 
-  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
+  useEffect(
+    () => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)),
+    [priceBook, offer, setStepValid],
+  )
 
   return (
     <View>
@@ -66,7 +68,7 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       </View>
       {!!currentPrice && (
         <Text style={tw`mt-1 text-center text-black-2`}>
-          ({i18n('sell.premium.currently', i18n(`currency.format.${displayCurrency}`, priceFormat(currentPrice)))})
+          ({i18n('sell.premium.currently', `${displayCurrency} ${priceFormat(currentPrice)}`)})
         </Text>
       )}
       <PremiumSlider style={tw`mt-6`} value={Number(premium)} onChange={updatePremium} />

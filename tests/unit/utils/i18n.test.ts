@@ -18,7 +18,7 @@ describe('getLocales', () => {
   it('returns all registered locales', () => {
     ok('en', i18n.getLocales()[0])
     ok(i18n.getLocales().length > 2)
-    ok(i18n.getLocales().every(locale => typeof locale === 'string'))
+    ok(i18n.getLocales().every((locale) => typeof locale === 'string'))
   })
 })
 
@@ -55,11 +55,11 @@ describe('i18n', () => {
     i18n.setLocale(null, { locale: 'en' })
     strictEqual('Variable test: Hello John $2', i18n('i18n.test', 'Hello', 'John'))
     strictEqual('Variable test: Hello John Doe', i18n('i18n.test', 'Hello', 'John', 'Doe'))
-    strictEqual('100000 sats', i18n('currency.format.sats', '100000'))
+    strictEqual('100000 sats', i18n('currency.format.sats', '100000'))
 
     i18n.setLocale(null, { locale: 'de' })
     strictEqual('Variablen test: Hello John Doe', i18n('i18n.test', 'Hello', 'John', 'Doe'))
-    strictEqual('1000 sats', i18n('currency.format.sats', '1000'))
+    strictEqual('1000 sats', i18n('currency.format.sats', '1000'))
   })
 
   it('avoids orphans for 4 or more words', () => {

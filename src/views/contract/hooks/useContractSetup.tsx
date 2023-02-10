@@ -7,16 +7,17 @@ import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { canCancelContract, getOfferIdFromContract, signReleaseTx } from '../../../utils/contract'
+import { canCancelContract, contractIdToHex, signReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
-import { confirmPayment } from '../../../utils/peachAPI'
+import i18n from '../../../utils/i18n'
+import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
+import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
 
-// eslint-disable-next-line max-statements
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
 
-  const { contract, saveAndUpdate, isLoading, view, requiredAction } = useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId } = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const { showConfirmOverlay } = useConfirmCancelTrade()
@@ -41,7 +42,7 @@ export const useContractSetup = () => {
         onPress: showConfirmPaymentHelp,
       })
       return {
-        titleComponent: <ContractTitle id={contractId} amount={contract?.amount} />,
+        titleComponent: <ContractTitle id={contractId} />,
         icons,
       }
     }, [showConfirmOverlay, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
@@ -50,22 +51,14 @@ export const useContractSetup = () => {
   useEffect(() => {
     if (!contract || !view || isLoading) return
 
-    if (isTradeComplete(contract)) {
-      if (
-        (!contract.disputeWinner && view === 'buyer' && !contract.ratingSeller && !contract.canceled)
-        || (view === 'seller' && !contract.ratingBuyer)
-      ) {
+    if (isTradeComplete(contract) && !contract.disputeWinner && !contract.canceled) {
+      if ((view === 'buyer' && !contract.ratingSeller) || (view === 'seller' && !contract.ratingBuyer)) {
         navigation.replace('tradeComplete', { contract })
-        return
       }
-
-      navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
     }
   }, [contract, isLoading, navigation, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
-    if (!contract) return
-
     const [, err] = await confirmPayment({ contractId })
 
     if (err) {
@@ -75,10 +68,9 @@ export const useContractSetup = () => {
     }
 
     saveAndUpdate({
-      ...contract,
       paymentMade: new Date(),
     })
-  }, [contractId, saveAndUpdate, showError, contract])
+  }, [contractId, saveAndUpdate, showError])
 
   const postConfirmPaymentSeller = useCallback(async () => {
     if (!contract) return
@@ -102,11 +94,21 @@ export const useContractSetup = () => {
     }
 
     saveAndUpdate({
-      ...contract,
       paymentConfirmed: new Date(),
       releaseTxId: result?.txId || '',
     })
-  }, [contractId, saveAndUpdate, showError, contract])
+  }, [contractId, contract, saveAndUpdate, showError])
+
+  const goToNewOffer = useCallback(async () => {
+    if (!newOfferId) return
+    const newOffer = await getOfferDetails({ offerId: newOfferId })
+    if (newOffer[0]?.contractId) {
+      const newContract = await getContract({ contractId: newOffer[0].contractId })
+      navigation.replace(...getNavigationDestinationForContract(newContract[0]))
+    } else {
+      navigation.replace(...getNavigationDestinationForOffer(newOffer[0]))
+    }
+  }, [newOfferId, navigation])
 
   return {
     contract,
@@ -114,7 +116,9 @@ export const useContractSetup = () => {
     view,
     requiredAction,
     actionPending,
+    hasNewOffer: !!newOfferId,
     postConfirmPaymentBuyer,
     postConfirmPaymentSeller,
+    goToNewOffer,
   }
 }

@@ -9,7 +9,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import tw from '../../../styles/tailwind'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
-import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
+import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { rateUser } from '../../../utils/peachAPI'
 
@@ -50,7 +50,7 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
     })
 
     if (rating.rating === 1) {
-      navigation.replace('backupTime', { view, nextScreen: 'offer', offerId: getOfferIdFromContract(contract) })
+      navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
     } else {
       navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
     }

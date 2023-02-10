@@ -35,7 +35,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: string | string[]
+  details?: unknown
 }
 
 declare type User = {
@@ -133,8 +133,6 @@ declare type GetInfoResponse = {
   fees: {
     escrow: number
   }
-  minAmount: number
-  maxAmount: number
   paymentMethods: PaymentMethodInfo[]
   latestAppVersion: string
   minAppVersion: string
