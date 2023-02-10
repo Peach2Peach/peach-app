@@ -26,6 +26,19 @@ export default (): ReactElement => {
     disableSend,
     newMessage,
   } = useContractChatSetup()
+
+  const showChatInput = () => {
+    const thirtyDays = 30 * 24 * 60 * 60 * 1000
+    const now = new Date().getTime()
+
+    if (!contract) return false
+    return (
+      (!contract.paymentConfirmed || now - contract.paymentConfirmed.getTime() <= thirtyDays)
+      && (!contract.paymentMade || now - contract.paymentMade.getTime() <= thirtyDays)
+      && (!contract.creationDate || now - contract.creationDate.getTime() <= thirtyDays)
+    )
+  }
+
   return !contract ? (
     <View style={tw`items-center justify-center w-full h-full`}>
       <Loading />
@@ -39,7 +52,7 @@ export default (): ReactElement => {
           {...{ chat, setAndSaveChat, resendMessage, page, fetchNextPage, isLoading }}
         />
       </View>
-      {!contract.canceled || contract.disputeActive ? (
+      {showChatInput() || contract.disputeActive ? (
         <View style={tw`w-full bg-white-1`}>
           <MessageInput
             onChange={onChangeMessage}
