@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,7 +7,7 @@ import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
-import { useNavigation, useOnUnmount, useValidatedState } from '../../hooks'
+import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -38,28 +38,11 @@ export default (): ReactElement => {
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)
     setCurrentMaxAmount(max)
+    setMinAmount(min)
+    setMaxAmount(max)
   }
 
   const next = () => navigation.navigate('buyPreferences')
-
-  useOnUnmount(
-    useCallback(
-      (value: number) => {
-        setMinAmount(value)
-      },
-      [setMinAmount],
-    ),
-    currentMinAmount,
-  )
-  useOnUnmount(
-    useCallback(
-      (value: number) => {
-        setMaxAmount(value)
-      },
-      [setMaxAmount],
-    ),
-    currentMaxAmount,
-  )
 
   return (
     <View testID="view-buy" style={tw`flex h-full`}>

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,7 +7,7 @@ import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
-import { useNavigation, useOnUnmount, useValidatedState } from '../../hooks'
+import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -34,17 +34,11 @@ export default (): ReactElement => {
   )
   const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
 
+  const setSelectedAmount = (value: number) => {
+    setMinAmount(value)
+    setAmount(value)
+  }
   const next = () => navigation.navigate('sellPreferences')
-
-  useOnUnmount(
-    useCallback(
-      (value: number) => {
-        setMinAmount(value)
-      },
-      [setMinAmount],
-    ),
-    amount,
-  )
 
   return (
     <View testID="view-sell" style={tw`h-full`}>
@@ -59,7 +53,7 @@ export default (): ReactElement => {
         </View>
       </View>
       <View style={tw`items-center justify-center flex-grow`}>
-        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setAmount} />
+        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setSelectedAmount} />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
