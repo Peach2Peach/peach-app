@@ -15,9 +15,9 @@ import { SellViewProps } from './SellPreferences'
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
   const [premium, setPremium] = useState(offer.premium.toString())
-  const { data: marketPrice } = useMarketPrices()
+  const { data: priceBook } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = marketPrice ? getOfferPrice(offer.amount, offer.premium, marketPrice, displayCurrency) : 0
+  const currentPrice = priceBook ? getOfferPrice(offer.amount, offer.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
     if (!value) return setPremium('')
@@ -39,8 +39,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   }, [premium, setPremium, setStepValid, updateOffer])
 
   useEffect(
-    () => setStepValid(validatePremiumStep(offer, marketPrice, account.tradingLimit)),
-    [marketPrice, offer, setStepValid],
+    () => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)),
+    [priceBook, offer, setStepValid],
   )
 
   return (
