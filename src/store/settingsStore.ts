@@ -36,14 +36,20 @@ export const settingsStorage = createStorage('settings')
 
 export const settingsStore = createStore(
   persist<SettingsStore>(
-    (set) => ({
+    (set, get) => ({
       ...defaultSettings,
       updateSettings: (settings: Settings) => set({ ...settings }),
       setAppVersion: (appVersion: string) => set((state) => ({ ...state, appVersion })),
       setEnableAnalytics: (enableAnalytics: boolean) => set((state) => ({ ...state, enableAnalytics })),
       setLocale: (locale: string) => set((state) => ({ ...state, locale })),
-      setMinAmount: (minAmount: number) => set((state) => ({ ...state, minAmount })),
-      setMaxAmount: (maxAmount: number) => set((state) => ({ ...state, maxAmount })),
+      setMinAmount: (minAmount: number) => {
+        const maxAmount = Math.max(minAmount, get().maxAmount)
+        set((state) => ({ ...state, minAmount, maxAmount }))
+      },
+      setMaxAmount: (maxAmount: number) => {
+        const minAmount = Math.min(maxAmount, get().minAmount)
+        set((state) => ({ ...state, minAmount, maxAmount }))
+      },
       setPayoutAddress: (payoutAddress: string) => set((state) => ({ ...state, payoutAddress })),
       setPayoutAddressLabel: (payoutAddressLabel: string) => set((state) => ({ ...state, payoutAddressLabel })),
       setDerivationPath: (derivationPath: string) => set((state) => ({ ...state, derivationPath })),
