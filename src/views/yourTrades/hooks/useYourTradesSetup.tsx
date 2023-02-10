@@ -9,11 +9,23 @@ import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/system'
 import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
 
-const sortByDate = (a: TradeSummary, b: TradeSummary) => {
-  if (!a.paymentMade?.getTime()) return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
-  if (!b.paymentMade?.getTime()) return a.paymentMade.getTime() > b.creationDate.getTime() ? 1 : -1
-  return a.paymentMade.getTime() > b.paymentMade.getTime() ? 1 : -1
+export const sortByDate = (a: TradeSummary, b: TradeSummary) => {
+  if (a.paymentConfirmed && !b.paymentConfirmed) {
+    return -1
+  } else if (b.paymentConfirmed && !a.paymentConfirmed) {
+    return 1
+  } else if (a.paymentConfirmed && b.paymentConfirmed) {
+    return b.paymentConfirmed.getTime() - a.paymentConfirmed.getTime()
+  } else if (a.paymentMade && !b.paymentMade) {
+    return -1
+  } else if (b.paymentMade && !a.paymentMade) {
+    return 1
+  } else if (a.paymentMade && b.paymentMade) {
+    return b.paymentMade.getTime() - a.paymentMade.getTime()
+  }
+  return b.creationDate.getTime() - a.creationDate.getTime()
 }
+
 export const useYourTradesSetup = () => {
   const route = useRoute<'yourTrades'>()
   const { tab = 'buy' } = route.params || {}
