@@ -41,15 +41,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
   return (
     <View>
       {isPastOffer(contract.tradeStatus) ? (
-        <SummaryItem
-          {...sharedProps}
-          icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />}
-          action={{
-            callback: navigate,
-            label: contract.unreadMessages > 0 ? ' ' : undefined,
-            icon: contract.unreadMessages > 0 ? 'info' : undefined,
-          }}
-        />
+        <SummaryItem {...sharedProps} icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />} />
       ) : (
         <SummaryItem
           {...sharedProps}
@@ -60,7 +52,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
           }}
         />
       )}
-      {contract.unreadMessages > 0 && (
+      {contract.unreadMessages > 0 && !isPastOffer(contract.tradeStatus) && (
         <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
           <ChatMessages messages={contract.unreadMessages} level={theme.level} />
         </View>

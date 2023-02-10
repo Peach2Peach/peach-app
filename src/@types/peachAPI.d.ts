@@ -347,6 +347,7 @@ declare type FeeRecommendation = {
 declare type GetFeeEstimateResponse = FeeRecommendation
 declare type TradeSummary = (OfferSummary | ContractSummary) & {
   paymentMade?: Date
+  unreadMessages?: number
 }
 
 declare type ReviveSellOfferResponseBody = {

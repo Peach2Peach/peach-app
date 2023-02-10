@@ -355,6 +355,7 @@
   "yourTrades.offer.replaced": "offer has been replaced by $0",
   "yourTrades.openActions": "open actions",
   "yourTrades.waiting": "waiting",
+  "yourTrades.newMessages": "new chat message",
   "offer.cancel.popup.title": "cancel offer",
   "offer.cancel.popup.description": "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
   "offer.canceled.popup.title": "offer canceled!",
