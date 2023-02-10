@@ -55,5 +55,8 @@ describe('ceil', () => {
     strictEqual(ceil(15.348, -2), 100)
     strictEqual(ceil(143, -2), 200)
     strictEqual(ceil(153, -2), 200)
+
+    strictEqual(ceil(9999, -4), 10000)
+    strictEqual(ceil(15321, -4), 20000)
   })
 })
