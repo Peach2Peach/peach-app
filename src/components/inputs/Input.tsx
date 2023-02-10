@@ -98,6 +98,7 @@ export const Input = ({
   onPressIn,
   secureTextEntry,
   autoCapitalize,
+  autoCorrect = false,
   style,
   inputStyle,
   theme = 'default',
@@ -189,6 +190,7 @@ export const Input = ({
             onPressIn,
             secureTextEntry: secureTextEntry && !showSecret,
             autoCapitalize: autoCapitalize || 'none',
+            autoCorrect,
             ...inputProps,
           }}
         />
