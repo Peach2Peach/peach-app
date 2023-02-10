@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -42,12 +42,24 @@ export default (): ReactElement => {
 
   const next = () => navigation.navigate('buyPreferences')
 
-  useOnUnmount((value: number) => {
-    setMinAmount(value)
-  }, currentMinAmount)
-  useOnUnmount((value: number) => {
-    setMaxAmount(value)
-  }, currentMaxAmount)
+  useOnUnmount(
+    useCallback(
+      (value: number) => {
+        setMinAmount(value)
+      },
+      [setMinAmount],
+    ),
+    currentMinAmount,
+  )
+  useOnUnmount(
+    useCallback(
+      (value: number) => {
+        setMaxAmount(value)
+      },
+      [setMaxAmount],
+    ),
+    currentMaxAmount,
+  )
 
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
