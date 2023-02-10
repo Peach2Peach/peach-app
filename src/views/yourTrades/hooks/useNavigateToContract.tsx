@@ -13,7 +13,6 @@ export const useNavigateToContract = (contract: ContractSummary) => {
     if (shouldOpenOverlay(contract.tradeStatus)) {
       const sellOffer = getOffer(contract.offerId) as SellOffer
       if (sellOffer) startRefund(sellOffer)
-      return
     }
 
     navigation.navigate(screen, params)
