@@ -6,7 +6,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getBuyOfferIdFromContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
@@ -48,7 +48,7 @@ export const useConfirmCancelTrade = () => {
           canceled: true,
           cancelConfirmationDismissed: false,
         })
-        navigation.replace('offer', { offerId: getBuyOfferIdFromContract(contract) })
+        navigation.replace('contract', { contractId: contract.id, contract })
         updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
       } else if (err) {
         closeOverlay()
@@ -124,5 +124,5 @@ export const useConfirmCancelTrade = () => {
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
 
-  return { showConfirmOverlay, cancelSeller, cancelBuyer }
+  return { showConfirmOverlay, cancelSeller }
 }

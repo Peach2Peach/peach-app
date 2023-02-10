@@ -144,7 +144,7 @@ export const Input = ({
   return (
     <View>
       {!!label && (
-        <Text style={[tw`input-label`, colors.text]}>
+        <Text style={[tw`pl-2 input-label`, colors.text]}>
           {label}
           <Text style={[tw`font-medium input-label`, colors.placeholder]}>
             {!required ? ` (${i18n('form.optional')})` : ''}

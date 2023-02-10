@@ -9,7 +9,7 @@ import { useOfferMatches } from '../hooks/useOfferMatches'
 export const MatchInformation = () => {
   const { offerId } = useRoute<'search'>().params
   const { offer } = useOfferDetails(offerId)
-  const { allMatches: matches } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches(offerId)
   if (!offer) return <></>
 
   const { amount } = offer
@@ -24,7 +24,6 @@ export const MatchInformation = () => {
         <SatsFormat
           containerStyle={tw`items-center self-center mt-2 mb-16`}
           sats={amount}
-          color={tw`text-grey-2`}
           style={tw`leading-loose body-l`}
           bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-1`}
           satsStyle={tw`subtitle-1`}

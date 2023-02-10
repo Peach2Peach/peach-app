@@ -8,7 +8,7 @@ import i18n from '../../../utils/i18n'
 import { openAppLink } from '../../../utils/web'
 import { CopyAble } from '../../ui'
 
-const possibleFields = ['phone', 'userName', 'email']
+const possibleFields: (keyof PaypalData)[] = ['phone', 'userName', 'email']
 export const DetailPaypal = ({
   paymentData,
   appLink,
@@ -35,7 +35,7 @@ export const DetailPaypal = ({
           .filter((field) => paymentData[field])
           .map((field, i) => (
             <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
-              <View style={tw`flex-row justify-end items-center`}>
+              <View style={tw`flex-row items-center justify-end`}>
                 <Text onPress={() => onInfoPress(field)} style={tw`subtitle-1`}>
                   {paymentData[field]}
                 </Text>

@@ -50,17 +50,14 @@ export const useTradeCanceledOverlay = () => {
           label: i18n('goToOffer'),
           icon: 'arrowRightCircle',
           callback: () => {
-            navigation.replace('offer', { offerId: reviveSellOfferResult.newOfferId })
+            navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
             closeOverlay()
           },
         },
         action2: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: () => {
-            navigation.replace('offer', { offerId: sellOffer.id })
-            closeOverlay()
-          },
+          callback: closeOverlay,
         },
       })
     },

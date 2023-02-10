@@ -83,6 +83,7 @@ export const Match = ({ match, style, offer }: MatchProps): ReactElement => {
       <MatchOfferButton
         matchId={match.offerId}
         matchOffer={onMatchPress}
+        offerId={offer.id}
         pretendIsMatched={showMatchedCard}
         isBuyOffer={isBuyOffer(offer)}
       />
