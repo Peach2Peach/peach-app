@@ -72,6 +72,7 @@ export default (): ReactElement => {
           showsVerticalScrollIndicator={false}
           sections={getCategories(getCurrentData())}
           renderSectionHeader={SectionHeader}
+          renderSectionFooter={() => <View style={tw`h-7`} />}
           renderItem={TradeItem}
           ItemSeparatorComponent={() => <View style={tw`h-6`} />}
         />
