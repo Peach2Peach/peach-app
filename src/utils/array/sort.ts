@@ -8,14 +8,8 @@ type SortingFunction = (a: any, b: any) => number
  */
 export const sort = (key?: string): SortingFunction => {
   if (key) {
-    return (a: AnyObject, b: AnyObject) => a[key] === b[key]
-      ? 0
-      : a[key] > b[key] ? 1 : -1
+    return (a: AnyObject, b: AnyObject) => (a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
   }
 
-  return (a: string|number, b: string|number) => a === b
-    ? 0
-    : a > b ? 1 : -1
+  return (a: string | number, b: string | number) => (a === b ? 0 : a > b ? 1 : -1)
 }
-
-export default sort

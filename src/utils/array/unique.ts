@@ -7,10 +7,8 @@
 export const unique = (key?: string) => {
   if (key) {
     return (obj: any, index: number, self: any[]) =>
-      obj[key] && self.findIndex(s => s[key].toString() === obj[key].toString()) === index
+      obj[key] && self.findIndex((s) => s[key].toString() === obj[key].toString()) === index
   }
 
-  return (obj: any, index: number, self: any[]) => self.findIndex(s => s === obj) === index
+  return (obj: any, index: number, self: any[]) => self.findIndex((s) => s === obj) === index
 }
-
-export default unique
