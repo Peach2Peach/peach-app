@@ -4,7 +4,7 @@ import { Flag, HorizontalLine, Text } from '../components'
 import { FlagType } from '../components/flags'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { sortAlphabetically } from '../utils/sortAlphabetically'
+import { sortAlphabetically } from '../utils/array/sortAlphabetically'
 
 type CountryProps = {
   countries: FlagType[]
