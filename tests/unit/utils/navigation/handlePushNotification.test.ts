@@ -18,7 +18,7 @@ describe('handlePushNotification', () => {
     navigate: jest.fn(),
   }
 
-  afterAll(() => {
+  afterEach(() => {
     jest.resetAllMocks()
   })
 
