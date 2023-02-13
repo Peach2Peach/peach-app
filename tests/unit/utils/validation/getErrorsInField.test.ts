@@ -18,7 +18,7 @@ describe('getErrorsInField', () => {
   })
   it('should return errors for invalid values', () => {
     const isValid
-      = getErrorsInField(paymentData.bitcoinTestnet.base58Check.invalid[0] as string, {
+      = getErrorsInField(paymentData.bitcoinTestnet.base58Check.invalid[0], {
         bitcoinAddress: true,
         required: true,
       }).length === 0

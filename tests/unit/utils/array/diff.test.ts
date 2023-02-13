@@ -2,7 +2,7 @@ import { deepStrictEqual } from 'assert'
 import { diff } from '../../../../src/utils/array'
 
 describe('diff', () => {
-  it('filters duplicated items in an array', () => {
+  it('filters all items from array A that also exist in array B', () => {
     const arrayA1 = [1, 2, 3, 5]
     const arrayA2 = [1, 3, 5, 6]
     const expectedA = [2]
