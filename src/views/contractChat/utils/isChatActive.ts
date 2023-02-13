@@ -3,7 +3,7 @@ import { isDisputeActive } from '../../../utils/contract/status/isDisputeActive'
 
 const THIRTYDAYSINMS = 2592000000
 
-export const isChatActive = (contract: Contract): boolean =>
+export const isChatActive = (contract: Contract | null): boolean =>
   !!contract
   && (isDisputeActive(contract)
     || (!isTradeCanceled(contract) && !isTradeComplete(contract))
