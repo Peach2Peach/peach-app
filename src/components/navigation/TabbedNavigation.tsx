@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { Icon, Text } from '../'
+import { Text } from '../'
+import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 
 const themes = {
   default: {
@@ -48,17 +49,12 @@ export const TabbedNavigation = ({
                 {item.display}
               </Text>
               {!!messages && messages[item.id as 'buy' | 'sell' | 'history'] > 0 && (
-                <View style={tw`justify-center mb-2 w-18px h-18px`}>
-                  <Icon id={'messageFull'} color={tw`text-primary-main`.color} style={tw`w-18px h-18px`} />
-                  <Text
-                    style={[
-                      tw`absolute w-full font-bold text-center pb-0.5 text-10px`,
-                      tw`text-primary-background-light`,
-                    ]}
-                  >
-                    {messages[item.id as 'buy' | 'sell' | 'history']}
-                  </Text>
-                </View>
+                <ChatMessages
+                  style={tw`mb-1 -mt-px w-18px h-18px`}
+                  textStyle={tw`text-[10px] text-primary-background-light`}
+                  iconColor={tw`text-primary-main`.color}
+                  messages={messages[item.id as 'buy' | 'sell' | 'history']}
+                />
               )}
             </View>
             {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
