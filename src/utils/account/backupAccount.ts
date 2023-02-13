@@ -52,6 +52,7 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
           onCancel()
         } else {
           error(e)
+          onError()
         }
       })
   } catch (e) {
