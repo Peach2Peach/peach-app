@@ -3,13 +3,12 @@ import { Pressable, View } from 'react-native'
 
 import { Text } from '..'
 import AppContext from '../../contexts/app'
-import { useKeyboard } from '../../hooks'
+import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { Navigation } from '../../utils/navigation'
 import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import Icon from '../Icon'
@@ -19,7 +18,6 @@ import { Bubble } from '../ui'
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
   setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>
-  navigation: Navigation
 }
 type FooterItemProps = ComponentProps & {
   id: IconType
@@ -74,15 +72,19 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
  * @example
  * <Footer active={'home'} />
  */
-export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
+export const Footer = ({ active, style, setCurrentPage }: FooterProps): ReactElement => {
   const [{ notifications }, updateAppContext] = useContext(AppContext)
   const ws = useContext(PeachWSContext)
+  const navigation = useNavigation()
 
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: keyof RootStackParamList) => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
-    navigation.navigate(page as string, {})
+    navigation.reset({
+      index: 0,
+      routes: [{ name: page }],
+    })
   }
   const navigate = {
     home: () => navTo('home'),

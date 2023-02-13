@@ -222,16 +222,11 @@ const App: React.FC = () => {
                                     />
                                   ))}
                                 </Stack.Navigator>
+                                {showFooter(currentPage) ? (
+                                  <Footer style={tw`z-10`} active={currentPage} setCurrentPage={setCurrentPage} />
+                                ) : null}
                               </NavigationContainer>
                             </View>
-                            {showFooter(currentPage) ? (
-                              <Footer
-                                style={tw`z-10`}
-                                active={currentPage}
-                                navigation={navigationRef}
-                                setCurrentPage={setCurrentPage}
-                              />
-                            ) : null}
                           </View>
                         </OverlayContext.Provider>
                       </DrawerContext.Provider>

@@ -26,8 +26,6 @@ const carouselConfig = {
 }
 
 const onStartShouldSetResponder = () => true
-const shouldRenderShadow = (currentIndex: number, index: number) =>
-  (currentIndex + 1 <= index && currentIndex + 5 >= index) || currentIndex === index
 
 export default ({ offerId }: { offerId: string }) => {
   const $carousel = useRef<Carousel<any>>(null)
@@ -50,9 +48,9 @@ export default ({ offerId }: { offerId: string }) => {
           ref={$carousel}
           data={matches}
           {...{ ...carouselConfig, onBeforeSnapToItem }}
-          renderItem={({ item, index }) => (
+          renderItem={({ item }) => (
             <View {...{ onStartShouldSetResponder }} style={tw`px-4 py-4 -mx-4 bg-transparent`}>
-              <Match renderShadow={shouldRenderShadow(currentIndex, index)} match={item} offerId={offerId} />
+              <Match match={item} offerId={offerId} />
             </View>
           )}
         />
