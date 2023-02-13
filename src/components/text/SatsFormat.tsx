@@ -29,7 +29,7 @@ export const SatsFormat = ({
   return (
     <View style={[tw`flex flex-row items-center`, containerStyle]}>
       <PaymentLogo id="bitcoin" style={[bitcoinLogoStyle || tw`w-3 h-3 mr-1 -mt-1`]} />
-      <View style={[tw`flex-row`, satsContainerStyle]}>
+      <View style={[tw`flex-row items-center`, satsContainerStyle]}>
         <Text style={[tw`font-medium`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
           {parts[0]}.{parts[1]}
         </Text>
