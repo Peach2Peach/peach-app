@@ -2,7 +2,7 @@ import { deepStrictEqual } from 'assert'
 import { intersect } from '../../../../src/utils/array'
 
 describe('intersect', () => {
-  it('filters duplicated items in an array', () => {
+  it('returns the intersection of two arrays', () => {
     const arrayA1 = [1, 2, 3, 5]
     const arrayA2 = [1, 3, 5, 6]
     const expectedA = [1, 3, 5]
