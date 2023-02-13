@@ -8,6 +8,7 @@ import MessageInput from '../../components/inputs/MessageInput'
 import i18n from '../../utils/i18n'
 import ChatBox from './components/ChatBox'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
+import { isChatActive } from './utils/isChatActive'
 
 // eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
@@ -26,6 +27,7 @@ export default (): ReactElement => {
     disableSend,
     newMessage,
   } = useContractChatSetup()
+
   return !contract ? (
     <View style={tw`items-center justify-center w-full h-full`}>
       <Loading />
@@ -39,7 +41,7 @@ export default (): ReactElement => {
           {...{ chat, setAndSaveChat, resendMessage, page, fetchNextPage, isLoading }}
         />
       </View>
-      {!contract.canceled || contract.disputeActive ? (
+      {isChatActive(contract) ? (
         <View style={tw`w-full bg-white-1`}>
           <MessageInput
             onChange={onChangeMessage}

@@ -5,15 +5,11 @@ import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
+import { sortContractsByDate } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/system'
 import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
 
-const sortByDate = (a: TradeSummary, b: TradeSummary) => {
-  if (!a.paymentMade?.getTime()) return a.creationDate.getTime() > b.creationDate.getTime() ? 1 : -1
-  if (!b.paymentMade?.getTime()) return a.paymentMade.getTime() > b.creationDate.getTime() ? 1 : -1
-  return a.paymentMade.getTime() > b.paymentMade.getTime() ? 1 : -1
-}
 export const useYourTradesSetup = () => {
   const route = useRoute<'yourTrades'>()
   const { tab = 'buy' } = route.params || {}
@@ -25,7 +21,7 @@ export const useYourTradesSetup = () => {
   const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
 
   const filteredOffers = offers.filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
-  const trades = [...filteredOffers, ...contracts].sort(sortByDate).reverse()
+  const trades = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
 
   const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
   const openOffers = {
