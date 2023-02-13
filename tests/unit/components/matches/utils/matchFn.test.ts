@@ -25,7 +25,6 @@ const generateMatchOfferDataMock = jest.fn(() => [defaultOfferData, undefined])
 jest.mock('../../../../../src/components/matches/utils/generateMatchOfferData', () => ({
   generateMatchOfferData: () => generateMatchOfferDataMock(),
 }))
-// mock matchOffer
 const matchOfferMock = jest.fn(() => [offer.paymentData[selectedPaymentMethod], undefined])
 jest.mock('../../../../../src/utils/peachAPI/private/offer/matchOffer', () => ({
   matchOffer: () => matchOfferMock(),
@@ -38,8 +37,9 @@ describe('matchFn', () => {
   })
 
   it('should throw an error if no offer id', async () => {
-    const offerWithoutId: Partial<SellOffer> = { ...offer, id: undefined }
+    const offerWithoutId = { ...offer, id: undefined }
     await expect(
+      // @ts-expect-error
       matchFn(match, offerWithoutId as SellOffer, selectedCurrency, selectedPaymentMethod, updateMessage),
     ).rejects.toThrow()
   })
