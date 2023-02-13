@@ -89,9 +89,7 @@ const FooterItem = ({
               tw`border-2 rounded-full border-primary-background`,
             ]}
           >
-            <Text style={tw`self-center body-s text-14px text-primary-background`}>
-              {2 /* Math.min(99, notifications)*/}
-            </Text>
+            <Text style={tw`self-center body-s text-14px text-primary-background`}>{Math.min(99, notifications)}</Text>
           </View>
         ) : null}
       </View>
