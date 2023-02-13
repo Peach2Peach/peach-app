@@ -3,37 +3,21 @@ import { isOpenAction } from './isOpenAction'
 import { isPrioritary } from './isPrioritary'
 import { isWaiting } from './isWaiting'
 
-export const getCategories = (trades: TradeSummary[]) => {
-  const categories: { title: any; data: any }[] = []
-
-  const addCategory = (title: string, data: TradeSummary[]) => {
-    if (data.length > 0) {
-      categories.push({ title, data })
-    }
-  }
-
-  addCategory(
-    'priority',
-    trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus)),
-  )
-  addCategory(
-    'openActions',
-    trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)),
-  )
-  addCategory(
-    'waiting',
-    trades.filter(({ type, tradeStatus }) => isWaiting(type, tradeStatus)),
-  )
-
-  const pastOffers = trades.filter(({ tradeStatus }) => isPastOffer(tradeStatus))
-  addCategory(
-    'newMessages',
-    pastOffers.filter(({ unreadMessages }) => unreadMessages && unreadMessages > 0),
-  )
-  addCategory(
-    'history',
-    pastOffers.filter(({ unreadMessages }) => !unreadMessages || unreadMessages <= 0),
-  )
-
-  return categories
-}
+export const getCategories = (trades: TradeSummary[]) =>
+  [
+    { title: 'priority', data: trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus)) },
+    { title: 'openActions', data: trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)) },
+    { title: 'waiting', data: trades.filter(({ type, tradeStatus }) => isWaiting(type, tradeStatus)) },
+    {
+      title: 'newMessages',
+      data: trades
+        .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+        .filter(({ unreadMessages }) => unreadMessages && unreadMessages > 0),
+    },
+    {
+      title: 'history',
+      data: trades
+        .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
+        .filter(({ unreadMessages }) => unreadMessages === 0),
+    },
+  ].filter(({ data }) => data.length > 0)
