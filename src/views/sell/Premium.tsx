@@ -10,6 +10,7 @@ import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getOfferPrice } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
+import { parsePremiumToString } from './helpers/parsePremiumToString'
 import { validatePremiumStep } from './helpers/validatePremiumStep'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
@@ -23,24 +24,16 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const currentPrice = priceBook ? getOfferPrice(offer.amount, offer.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
-    if (!value) return setPremium('')
-
-    const number = Number(value)
-    if (isNaN(number)) return setPremium(String(value).trim() || '')
-    if (number < -21) return setPremium('-21')
-    if (number > 21) return setPremium('21')
-    return setPremium(String(value).trim()
-      .replace(/^0/u, ''))
+    setPremium(parsePremiumToString(value))
+    setPremiumStore(Number(premium))
   }
 
   useEffect(() => {
-    setPremium(premium)
-    setPremiumStore(Number(premium))
     updateOffer({
       ...offer,
       premium: Number(premium),
     })
-  }, [premium, setPremium, setStepValid, updateOffer])
+  }, [premium, updateOffer])
 
   useEffect(
     () => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)),
