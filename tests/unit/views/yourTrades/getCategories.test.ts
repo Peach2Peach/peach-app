@@ -5,7 +5,7 @@ describe('getCategories', () => {
     const trades: Partial<TradeSummary>[] = [
       { type: 'bid', tradeStatus: 'rateUser', unreadMessages: 1 },
       { type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 },
-      { type: 'bid', tradeStatus: 'waiting', unreadMessages: 2 },
+      { type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
       { type: 'ask', tradeStatus: 'tradeCanceled', unreadMessages: 3 },
       { type: 'bid', tradeStatus: 'tradeCompleted', unreadMessages: 0 },
     ]
@@ -23,7 +23,7 @@ describe('getCategories', () => {
       },
       {
         title: 'waiting',
-        data: [{ type: 'bid', tradeStatus: 'waiting', unreadMessages: 2 }],
+        data: [{ type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 }],
       },
       {
         title: 'newMessages',
@@ -40,7 +40,7 @@ describe('getCategories', () => {
     const trades: Partial<TradeSummary>[] = [
       { type: 'bid', tradeStatus: 'rateUser', unreadMessages: 1 },
       { type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 },
-      { type: 'bid', tradeStatus: 'waiting', unreadMessages: 2 },
+      { type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
     ]
 
     const result = getCategories(trades as TradeSummary[])
@@ -56,7 +56,7 @@ describe('getCategories', () => {
       },
       {
         title: 'waiting',
-        data: [{ type: 'bid', tradeStatus: 'waiting', unreadMessages: 2 }],
+        data: [{ type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 }],
       },
     ])
   })
