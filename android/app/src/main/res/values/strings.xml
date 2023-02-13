@@ -10,6 +10,12 @@
     <string name="notification.body.offer.returnAddressRequired">To avoid losing funds, please provide an alternative address for refunds.</string>
     <string name="notification.title.offer.expired">No match</string>
     <string name="notification.body.offer.expired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
+    <string name="notification.title.offer.sellOfferExpired">No match</string>
+    <string name="notification.body.offer.sellOfferExpired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
+    <string name="notification.title.offer.buyOfferImminentExpiry">Offer hasn\'t received a match for 23 days.</string>
+    <string name="notification.body.offer.buyOfferImminentExpiry">Your buy offer still hasn\'t received a match - it will be removed in a week.</string>
+    <string name="notification.title.offer.buyOfferExpired">Offer hasn\'t received a match for %1$s days.</string>
+    <string name="notification.body.offer.buyOfferExpired">Your buy offer hasn\'t received a match after %1$s days and has been removed.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
     <string name="notification.body.offer.matchBuyer">The faster you accept, the better your Peach Reputation score will be.</string>
     <string name="notification.title.offer.matchSeller">Matches are waiting for you!</string>
