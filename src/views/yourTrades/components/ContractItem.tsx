@@ -48,7 +48,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
           action={{
             callback: navigate,
             label:
-              status === 'waiting'
+              status === 'waiting' || status === 'rateUser'
                 ? i18n(`offer.requiredAction.${status}.${counterparty}`)
                 : i18n(`offer.requiredAction.${status}`),
             icon: statusIcons[status],
