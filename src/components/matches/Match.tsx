@@ -11,11 +11,10 @@ import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo } from './
 
 type MatchProps = ComponentProps & {
   match: Match
-  renderShadow?: boolean
   offerId: string
 }
 
-export const Match = ({ match, renderShadow, offerId }: MatchProps): ReactElement => {
+export const Match = ({ match, offerId }: MatchProps): ReactElement => {
   const { offer } = useOfferDetails(offerId)
   if (!offer) return <></>
 
