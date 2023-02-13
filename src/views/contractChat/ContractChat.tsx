@@ -41,7 +41,7 @@ export default (): ReactElement => {
           {...{ chat, setAndSaveChat, resendMessage, page, fetchNextPage, isLoading }}
         />
       </View>
-      {isChatActive(contract) || contract.disputeActive ? (
+      {isChatActive(contract) ? (
         <View style={tw`w-full bg-white-1`}>
           <MessageInput
             onChange={onChangeMessage}
