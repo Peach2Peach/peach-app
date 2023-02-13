@@ -2,6 +2,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { getContract } from '../../../../src/utils/contract'
 import { handlePushNotification } from '../../../../src/utils/navigation'
+import { getOfferDetails } from '../../../../src/utils/peachAPI'
 import { contract } from '../../data/contractData'
 import { sellOffer } from '../../data/offerData'
 
@@ -9,11 +10,6 @@ jest.mock('../../../../src/utils/contract', () => ({
   getContract: jest.fn(),
 }))
 describe('handlePushNotification', () => {
-  const getOfferDetailsMock = jest.fn()
-  jest.mock('../../../../src/utils/peachAPI', () => ({
-    getOfferDetails: getOfferDetailsMock,
-  }))
-
   const navigationRef: any = {
     navigate: jest.fn(),
   }
@@ -121,11 +117,12 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to search when shouldGoToSearch is true and offer is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([
+    ;(getOfferDetails as jest.Mock).mockResolvedValue([
       {
         ...sellOffer,
         matches: ['2'],
       },
+      null,
     ])
 
     const remoteMessage = {
@@ -141,7 +138,7 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to offerPublished when shouldGoToOfferPublished is true and offerId is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer])
+    ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       messageType: 'offer.escrowFunded',
       data: {
@@ -155,7 +152,7 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to offer when offerId is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer])
+    ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       messageType: 'offer.canceled',
       data: {
@@ -165,18 +162,17 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('offer', { offerId: sellOffer.id })
   })
 
   it('should do nothing and return false in any other case', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer])
+    ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       messageType: 'unhandled.messageType',
       data: {},
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    await handlePushNotification(navigationRef, remoteMessage)
-
-    expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id })
+    const result = await handlePushNotification(navigationRef, remoteMessage)
+    expect(result).toEqual(false)
   })
 })
