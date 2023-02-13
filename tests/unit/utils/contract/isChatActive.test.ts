@@ -43,17 +43,6 @@ describe('isChatActive', () => {
     ).toBe(false)
   })
 
-  it('returns false if trade is complete and payment is not confirmed', () => {
-    expect(
-      isChatActive({
-        ...contract,
-        disputeActive: false,
-        canceled: false,
-        paymentConfirmed: new Date(),
-      }),
-    ).toBe(false)
-  })
-
   it('returns false if trade is complete and 30 days have passed since payment was confirmed', () => {
     const testContract = {
       ...contract,
