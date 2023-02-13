@@ -55,6 +55,8 @@ describe('floor', () => {
     strictEqual(floor(15.348, -2), 0)
     strictEqual(floor(143, -2), 100)
     strictEqual(floor(153, -2), 100)
+    strictEqual(floor(3924309.873318372, -4), 3920000)
+    strictEqual(floor(3924309.873318372, 4), 3924309.8733)
 
     strictEqual(floor(9999, -4), 0)
     strictEqual(floor(15321, -4), 10000)
