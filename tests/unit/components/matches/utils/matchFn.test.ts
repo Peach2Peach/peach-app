@@ -40,7 +40,7 @@ describe('matchFn', () => {
     const offerWithoutId = { ...offer, id: undefined }
     await expect(
       // @ts-expect-error
-      matchFn(match, offerWithoutId as SellOffer, selectedCurrency, selectedPaymentMethod, updateMessage),
+      matchFn(match, offerWithoutId, selectedCurrency, selectedPaymentMethod, updateMessage),
     ).rejects.toThrow()
   })
 
