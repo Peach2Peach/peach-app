@@ -13,7 +13,7 @@ describe('parsePremiumToString', () => {
     expect(parsePremiumToString(22)).toBe('21')
   })
 
-  test('returns "-21" if the input number is less than -21', () => {
+    expect(parsePremiumToString('      21    ')).toBe('21')
     expect(parsePremiumToString(-22)).toBe('-21')
   })
 
