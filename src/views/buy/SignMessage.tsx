@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import { Icon, Input, Loading, PeachScrollView, PrimaryButton } from '../../components'
+import { Icon, Input, PeachScrollView, PrimaryButton } from '../../components'
 import { Text } from '../../components/text'
 import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -9,8 +9,8 @@ import i18n from '../../utils/i18n'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
 export default (): ReactElement => {
-  const { address, message, peachWalletActive, submit, signature, setSignature, signatureValid, signatureError }
-    = useSignMessageSetup()
+  const { address, message, submit, signature, setSignature, signatureValid, signatureError } = useSignMessageSetup()
+
   const submitSignature = () => submit(signature)
 
   const copyAddress = () => {
@@ -28,11 +28,7 @@ export default (): ReactElement => {
 
   const keyboardOpen = useKeyboard()
 
-  return !address || !message || peachWalletActive ? (
-    <View style={tw`items-center justify-center h-full`}>
-      <Loading />
-    </View>
-  ) : (
+  return (
     <>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8`}>
         <View style={tw`flex-1 mt-3`}>
