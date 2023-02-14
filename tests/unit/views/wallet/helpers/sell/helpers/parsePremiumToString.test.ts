@@ -19,8 +19,8 @@ describe('parsePremiumToString', () => {
 
   test('returns the trimmed string representation of the input number if it is between -21 and 21', () => {
     expect(parsePremiumToString(21)).toBe('21')
-    expect(parsePremiumToString(-21)).toBe('-21')
-  })
+    expect(parsePremiumToString('   01  ')).toBe('1')
+    expect(parsePremiumToString('  00  ')).toBe('0')
 
   test('returns the trimmed string representation of the input number without leading zeros', () => {
     expect(parsePremiumToString('01')).toBe('1')
