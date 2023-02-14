@@ -2,7 +2,9 @@ import { useMemo } from 'react'
 import shallow from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { isValidBitcoinSignature } from '../../../utils/validation'
 
 export const useSelectWalletSetup = () => {
   const route = useRoute<'selectWallet'>()
@@ -37,9 +39,17 @@ export const useSelectWalletSetup = () => {
 
   const goToSetRefundWallet = () => navigation.navigate('payoutAddress')
 
-  const selectAndContinue = () => {
-    navigation.goBack()
+  const selectAndContinue = (): void | undefined => {
+    if (type === 'refund' || peachWalletActive) return navigation.goBack()
+
+    if (!payoutAddress) return undefined
+    const message = getMessageToSignForAddress(account.publicKey, payoutAddress)
+    if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
+      return navigation.navigate('signMessage')
+    }
+    return undefined
   }
+
   return {
     wallets,
     type,
