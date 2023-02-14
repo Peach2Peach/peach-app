@@ -46,7 +46,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   }
   const phoneRules = { required: !email && !userName, phone: true }
   const emailRules = { required: !phone && !userName, email: true }
-  const userNameRules = { required: !phone && !email, userName: true }
+  const userNameRules = { required: !phone && !email, paypalUserName: true }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
@@ -133,7 +133,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
         <View style={tw`mt-2`}>
           <UsernameInput
             {...{
-              maxLength: 17,
+              maxLength: 21,
               required: true,
               onChange: setUserName,
               onSubmit: $reference?.focus,
