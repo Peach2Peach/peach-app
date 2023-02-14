@@ -2,8 +2,9 @@ declare type Settings = {
   appVersion: string
   enableAnalytics?: boolean
   locale: string
-  minAmount: number
-  maxAmount: number
+  minBuyAmount: number
+  maxBuyAmount: number
+  sellAmount: number
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string

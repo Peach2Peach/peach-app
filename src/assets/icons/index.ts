@@ -11,6 +11,7 @@ import award from './award.svg'
 import bellSmall from './bellSmall.svg'
 import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
+import calendar from './calendar.svg'
 import camera from './camera.svg'
 import cameraOff from './cameraOff.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
@@ -128,6 +129,7 @@ const Icons = {
   bitcoin,
   bitbox,
   buy: download,
+  calendar,
   camera,
   cameraOff,
   chatDoubleCheck,

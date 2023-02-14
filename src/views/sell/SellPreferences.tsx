@@ -53,7 +53,7 @@ export default (): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const partialSettings = useSettingsStore(
     (state) => ({
-      minAmount: state.minAmount,
+      sellAmount: state.sellAmount,
       premium: state.premium,
       meansOfPayment: state.meansOfPayment,
       payoutAddress: state.payoutAddress,

@@ -33,7 +33,6 @@ import Socials from './settings/aboutPeach/Socials'
 import Backups from './settings/Backups'
 import BackupCreated from './settings/components/backups/BackupCreated'
 import Currency from './settings/Currency'
-import Language from './settings/Language'
 import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
@@ -131,7 +130,6 @@ const settings: ViewType[] = [
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
   { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
-  { name: 'language', component: Language, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },

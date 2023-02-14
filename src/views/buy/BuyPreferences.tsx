@@ -50,8 +50,8 @@ export default (): ReactElement => {
 
   const partialSettings = useSettingsStore(
     (state) => ({
-      minAmount: state.minAmount,
-      maxAmount: state.maxAmount,
+      minBuyAmount: state.minBuyAmount,
+      maxBuyAmount: state.maxBuyAmount,
       meansOfPayment: state.meansOfPayment,
       kyc: state.kyc,
     }),

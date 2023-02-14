@@ -2,11 +2,12 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import shallow from 'zustand/shallow'
 import { Icon } from '../../components'
-import { HeaderConfig } from '../../components/header/store'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { useSettingsStore } from '../../store/settingsStore'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
@@ -14,8 +15,6 @@ import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
-import shallow from 'zustand/shallow'
-import { useShowHelp } from '../../hooks/useShowHelp'
 
 const validate = (offer: BuyOfferDraft) =>
   !!offer.amount
@@ -29,18 +28,21 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
   const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
   const showHelp = useShowHelp('paymentMethods')
 
-  const headerIcons = [
-    account.paymentData.length !== 0 && {
-      iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
-      onPress: () => {
-        setEditing(!editing)
-      },
-    },
-    { iconComponent: <HelpIcon />, onPress: showHelp },
-  ]
-  const headerConfig = { title: i18n('form.paymentMethod'), icons: headerIcons } as HeaderConfig
-
-  useHeaderSetup(headerConfig)
+  useHeaderSetup({
+    title: i18n(editing ? 'paymentMethods.edit.title' : 'paymentMethods.title'),
+    icons:
+      account.paymentData.length !== 0
+        ? [
+          {
+            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            onPress: () => {
+              setEditing(!editing)
+            },
+          },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ]
+        : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+  })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
@@ -66,7 +68,6 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
     setMeansOfPaymentStore(meansOfPayment)
   }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
 
-  validate(offer)
   useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
 
   return (
