@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import shallow from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, Loading, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
@@ -14,6 +14,7 @@ import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
 import { debounce } from '../../utils/performance'
+import LoadingScreen from '../loading/LoadingScreen'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -59,7 +60,9 @@ export default (): ReactElement => {
 
   const next = () => navigation.navigate('buyPreferences')
 
-  return (
+  return currentMaxAmount === Infinity ? (
+    <LoadingScreen />
+  ) : (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>

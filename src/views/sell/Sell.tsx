@@ -14,6 +14,7 @@ import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
 import { debounce } from '../../utils/performance'
+import LoadingScreen from '../loading/LoadingScreen'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -48,7 +49,9 @@ export default (): ReactElement => {
   }
   const next = () => navigation.navigate('sellPreferences')
 
-  return (
+  return minTradingAmount === 0 ? (
+    <LoadingScreen />
+  ) : (
     <View testID="view-sell" style={tw`h-full`}>
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>
