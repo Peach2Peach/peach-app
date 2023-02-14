@@ -1,22 +1,7 @@
-import crashlytics from '@react-native-firebase/crashlytics'
 import { Alert, Linking } from 'react-native'
-import { isAirplaneModeSync } from 'react-native-device-info'
-import { appendFile } from '../file'
 import i18n from '../i18n'
-import { info } from '../log'
-
-export const sendErrors = async (errors: Error[]) => {
-  if (isAirplaneModeSync()) {
-    await appendFile('/error.log', errors.map((e) => e.message).join('\n'), true)
-    return
-  }
-
-  info('Crashlytics is enabled, sending crash reports', errors.length)
-
-  errors.forEach((err) => {
-    crashlytics().recordError(err)
-  })
-}
+import { deleteUnsentReports } from './deleteUnsentReports'
+import { sendErrors } from './sendErrors'
 
 export const openCrashReportPrompt = (errors: Error[]): void => {
   Alert.alert(
@@ -35,16 +20,12 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
       },
       {
         text: i18n('crashReport.requestPermission.deny'),
-        onPress: () => {
-          crashlytics().deleteUnsentReports()
-        },
+        onPress: deleteUnsentReports,
         style: 'default',
       },
       {
         text: i18n('crashReport.requestPermission.sendReport'),
-        onPress: () => {
-          sendErrors(errors)
-        },
+        onPress: () => sendErrors(errors),
         style: 'default',
       },
     ],

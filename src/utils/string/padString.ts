@@ -1,9 +1,9 @@
 type Side = 'left' | 'right'
 
 type PadStringProps = {
-  string: string,
-  length: number,
-  char?: string,
+  string: string
+  length: number
+  char?: string
   side?: Side
 }
 
@@ -26,5 +26,3 @@ export const padString = ({ string = '', length, char = '0', side = 'left' }: Pa
   }
   return string
 }
-
-export default padString

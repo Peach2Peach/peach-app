@@ -4,7 +4,7 @@ import { HorizontalLine, PaymentLogo, Text } from '../components'
 import { PaymentLogoType } from '../components/payment/logos'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { sortAlphabetically } from '../utils/sortAlphabetically'
+import { sortAlphabetically } from '../utils/array/sortAlphabetically'
 
 type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[]
