@@ -39,7 +39,7 @@ export default (): ReactElement => {
     debounce((value: number) => {
       setAmount(value)
     }, 400),
-    [],
+    [setAmount],
   )
 
   const setSelectedAmount = (value: number) => {

@@ -7,7 +7,7 @@ export const defaultConfig: Config = {
   minAppVersion: APPVERSION,
   latestAppVersion: APPVERSION,
   minTradingAmount: 200000,
-  maxTradingAmount: 5000000,
+  maxTradingAmount: 2000000,
 }
 
 export const defaultSettings: Settings = {

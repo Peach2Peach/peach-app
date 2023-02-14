@@ -48,11 +48,12 @@ export default (): ReactElement => {
       setMinBuyAmount(min)
       setMaxBuyAmount(max)
     }, 400),
-    [],
+    [setMinBuyAmount, setMaxBuyAmount],
   )
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)
     setCurrentMaxAmount(max)
+
     updateStore(min, max)
   }
 
