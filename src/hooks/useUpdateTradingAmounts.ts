@@ -5,8 +5,15 @@ import { useSettingsStore } from '../store/settingsStore'
 import { getTradingAmountLimits } from '../utils/market'
 
 export const useUpdateTradingAmounts = () => {
-  const [minAmount, setMinAmount, maxAmount, setMaxAmount] = useSettingsStore(
-    (state) => [state.minAmount, state.setMinAmount, state.maxAmount, state.setMaxAmount],
+  const [sellAmount, setSellAmount, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
+    (state) => [
+      state.sellAmount,
+      state.setSellAmount,
+      state.minBuyAmount,
+      state.setMinBuyAmount,
+      state.maxBuyAmount,
+      state.setMaxBuyAmount,
+    ],
     shallow,
   )
   const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
@@ -19,10 +26,20 @@ export const useUpdateTradingAmounts = () => {
       const [newMinAmount, newMaxAmount] = getTradingAmountLimits(priceCHF)
       setMinTradingAmount(newMinAmount)
       setMaxTradingAmount(newMaxAmount)
-      if (minAmount < newMinAmount) setMinAmount(newMinAmount)
-      if (maxAmount > newMaxAmount) setMaxAmount(newMaxAmount)
+      if (sellAmount < newMinAmount) setSellAmount(newMinAmount)
+      if (minBuyAmount < newMinAmount) setMinBuyAmount(newMinAmount)
+      if (maxBuyAmount > newMaxAmount) setMaxBuyAmount(newMaxAmount)
     },
-    [maxAmount, minAmount, setMaxAmount, setMaxTradingAmount, setMinAmount, setMinTradingAmount],
+    [
+      maxBuyAmount,
+      minBuyAmount,
+      sellAmount,
+      setMaxBuyAmount,
+      setMaxTradingAmount,
+      setMinBuyAmount,
+      setMinTradingAmount,
+      setSellAmount,
+    ],
   )
 
   return updateTradingAmounts

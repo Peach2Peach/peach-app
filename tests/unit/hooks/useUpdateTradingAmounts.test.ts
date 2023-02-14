@@ -32,8 +32,9 @@ describe('useUpdateTradingAmounts', () => {
     const { result: settingsStoreResult } = renderHook(() => useSettingsStore())
 
     act(() => {
-      settingsStoreResult.current.setMinAmount(5)
-      settingsStoreResult.current.setMaxAmount(200)
+      settingsStoreResult.current.setSellAmount(5)
+      settingsStoreResult.current.setMinBuyAmount(5)
+      settingsStoreResult.current.setMaxBuyAmount(200)
     })
 
     act(() => {
@@ -41,8 +42,9 @@ describe('useUpdateTradingAmounts', () => {
     })
 
     expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
-    expect(settingsStoreResult.current.minAmount).toEqual(10)
-    expect(settingsStoreResult.current.maxAmount).toEqual(100)
+    expect(settingsStoreResult.current.sellAmount).toEqual(10)
+    expect(settingsStoreResult.current.minBuyAmount).toEqual(10)
+    expect(settingsStoreResult.current.maxBuyAmount).toEqual(100)
   })
 
   it('does not update selected amounts if they do not fall out of range', async () => {
@@ -50,8 +52,9 @@ describe('useUpdateTradingAmounts', () => {
     const { result: settingsStoreResult } = renderHook(() => useSettingsStore())
 
     act(() => {
-      settingsStoreResult.current.setMinAmount(20)
-      settingsStoreResult.current.setMaxAmount(40)
+      settingsStoreResult.current.setSellAmount(20)
+      settingsStoreResult.current.setMinBuyAmount(20)
+      settingsStoreResult.current.setMaxBuyAmount(40)
     })
 
     act(() => {
@@ -59,7 +62,8 @@ describe('useUpdateTradingAmounts', () => {
     })
 
     expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
-    expect(settingsStoreResult.current.minAmount).toEqual(20)
-    expect(settingsStoreResult.current.maxAmount).toEqual(40)
+    expect(settingsStoreResult.current.sellAmount).toEqual(20)
+    expect(settingsStoreResult.current.minBuyAmount).toEqual(20)
+    expect(settingsStoreResult.current.maxBuyAmount).toEqual(40)
   })
 })
