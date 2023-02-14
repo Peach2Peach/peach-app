@@ -17,10 +17,11 @@ import { useSellSetup } from './hooks/useSellSetup'
 export default (): ReactElement => {
   const navigation = useNavigation()
   const showBackupsWarning = useShowWarning('backups')
+
   useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 
-  const [showBackupReminder, minAmount, setMinAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount],
+  const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -31,13 +32,13 @@ export default (): ReactElement => {
     () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
     [minTradingAmount, maxTradingAmount],
   )
-  const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
+  const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
-  const next = () => {
-    setMinAmount(amount)
-
-    navigation.navigate('sellPreferences', { amount })
+  const setSelectedAmount = (value: number) => {
+    setSellAmount(value)
+    setAmount(value)
   }
+  const next = () => navigation.navigate('sellPreferences')
 
   return (
     <View testID="view-sell" style={tw`h-full`}>
@@ -52,7 +53,7 @@ export default (): ReactElement => {
         </View>
       </View>
       <View style={tw`items-center justify-center flex-grow`}>
-        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setAmount} />
+        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setSelectedAmount} />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>

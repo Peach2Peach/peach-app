@@ -11,8 +11,8 @@ declare type RootStackParamList = {
   }
   buy: undefined
   sell: undefined
-  buyPreferences: { amount: [number, number] }
-  sellPreferences: { amount: number }
+  buyPreferences: undefined
+  sellPreferences: undefined
   addPaymentMethod: {
     currencies?: Currency[]
     country?: Country

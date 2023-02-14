@@ -9,8 +9,9 @@ type SettingsStore = Settings & {
   setAppVersion: (appVersion: string) => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
   setLocale: (locale: string) => void
-  setMinAmount: (amount: number) => void
-  setMaxAmount: (amount: number) => void
+  setMinBuyAmount: (minBuyAmount: number) => void
+  setMaxBuyAmount: (maxBuyAmount: number) => void
+  setSellAmount: (sellAmount: number) => void
   setPayoutAddress: (payoutAddress: string) => void
   setPayoutAddressLabel: (payoutAddressLabel: string) => void
   setDerivationPath: (derivationPath: string) => void
@@ -19,8 +20,8 @@ type SettingsStore = Settings & {
   setMeansOfPayment: (meansOfPayment: MeansOfPayment) => void
   setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) => void
   setPremium: (premium: number) => void
-  setKyc: (kyc: boolean) => void
-  setKycType: (kycType: KYCType) => void
+  setKYC: (kyc: boolean) => void
+  setKYCType: (kycType: KYCType) => void
   setPgpPublished: (pgpPublished: boolean) => void
   setFcmToken: (fcmToken: string) => void
   setLastBackupDate: (lastBackupDate: number) => void
@@ -38,33 +39,32 @@ export const settingsStore = createStore(
   persist<SettingsStore>(
     (set) => ({
       ...defaultSettings,
-      updateSettings: (settings: Settings) => set({ ...settings }),
-      setAppVersion: (appVersion: string) => set((state) => ({ ...state, appVersion })),
-      setEnableAnalytics: (enableAnalytics: boolean) => set((state) => ({ ...state, enableAnalytics })),
-      setLocale: (locale: string) => set((state) => ({ ...state, locale })),
-      setMinAmount: (minAmount: number) => set((state) => ({ ...state, minAmount })),
-      setMaxAmount: (maxAmount: number) => set((state) => ({ ...state, maxAmount })),
-      setPayoutAddress: (payoutAddress: string) => set((state) => ({ ...state, payoutAddress })),
-      setPayoutAddressLabel: (payoutAddressLabel: string) => set((state) => ({ ...state, payoutAddressLabel })),
-      setDerivationPath: (derivationPath: string) => set((state) => ({ ...state, derivationPath })),
+      updateSettings: (settings) => set({ ...settings }),
+      setAppVersion: (appVersion) => set((state) => ({ ...state, appVersion })),
+      setEnableAnalytics: (enableAnalytics) => set((state) => ({ ...state, enableAnalytics })),
+      setLocale: (locale) => set((state) => ({ ...state, locale })),
+      setMinBuyAmount: (minBuyAmount) => set((state) => ({ ...state, minBuyAmount })),
+      setMaxBuyAmount: (maxBuyAmount) => set((state) => ({ ...state, maxBuyAmount })),
+      setSellAmount: (sellAmount) => set((state) => ({ ...state, sellAmount })),
+      setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
+      setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
+      setDerivationPath: (derivationPath) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
       setCountry: (country: Country) => set((state) => ({ ...state, country })),
-      setMeansOfPayment: (meansOfPayment: MeansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
-      setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) =>
-        set((state) => ({ ...state, preferredPaymentMethods })),
-      setPremium: (premium: number) => set((state) => ({ ...state, premium })),
-      setKyc: (kyc: boolean) => set((state) => ({ ...state, kyc })),
-      setKycType: (kycType: KYCType) => set((state) => ({ ...state, kycType })),
-      setPgpPublished: (pgpPublished: boolean) => set((state) => ({ ...state, pgpPublished })),
-      setFcmToken: (fcmToken: string) => set((state) => ({ ...state, fcmToken })),
-      setLastBackupDate: (lastBackupDate: number) => set((state) => ({ ...state, lastBackupDate })),
-      setShowBackupReminder: (showBackupReminder: boolean) => set((state) => ({ ...state, showBackupReminder })),
-      setShowDisputeDisclaimer: (showDisputeDisclaimer: boolean) =>
-        set((state) => ({ ...state, showDisputeDisclaimer })),
-      setPeachWalletActive: (peachWalletActive: boolean) => set((state) => ({ ...state, peachWalletActive })),
-      setNodeURL: (nodeURL: string) => set((state) => ({ ...state, nodeURL })),
-      setCustomFeeRate: (customFeeRate: number) => set((state) => ({ ...state, customFeeRate })),
-      setSelectedFeeRate: (selectedFeeRate: FeeRate) => set((state) => ({ ...state, selectedFeeRate })),
+      setMeansOfPayment: (meansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
+      setPreferredPaymentMethods: (preferredPaymentMethods) => set((state) => ({ ...state, preferredPaymentMethods })),
+      setPremium: (premium) => set((state) => ({ ...state, premium })),
+      setKYC: (kyc) => set((state) => ({ ...state, kyc })),
+      setKYCType: (kycType) => set((state) => ({ ...state, kycType })),
+      setPgpPublished: (pgpPublished) => set((state) => ({ ...state, pgpPublished })),
+      setFcmToken: (fcmToken) => set((state) => ({ ...state, fcmToken })),
+      setLastBackupDate: (lastBackupDate) => set((state) => ({ ...state, lastBackupDate })),
+      setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
+      setShowDisputeDisclaimer: (showDisputeDisclaimer) => set((state) => ({ ...state, showDisputeDisclaimer })),
+      setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
+      setNodeURL: (nodeURL) => set((state) => ({ ...state, nodeURL })),
+      setCustomFeeRate: (customFeeRate) => set((state) => ({ ...state, customFeeRate })),
+      setSelectedFeeRate: (selectedFeeRate) => set((state) => ({ ...state, selectedFeeRate })),
     }),
     {
       name: 'settings',
