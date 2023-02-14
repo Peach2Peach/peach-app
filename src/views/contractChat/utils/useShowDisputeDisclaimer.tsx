@@ -3,7 +3,6 @@ import { Text } from '../../../components/text'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
-import { saveChat } from '../../../utils/chat'
 import i18n from '../../../utils/i18n'
 
 export const useShowDisputeDisclaimer = () => {
@@ -11,15 +10,14 @@ export const useShowDisputeDisclaimer = () => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const showDisclaimer = useCallback(
-    async (chat: Chat) => {
+    async (chat: Chat, setAndSaveChat: Function) => {
       const goToHelp = () => {
         updateOverlay({
           visible: false,
         })
         navigation.navigate('contact')
       }
-      chat.seenDisputeDisclaimer = true
-      saveChat(chat.id, { seenDisputeDisclaimer: true })
+      setAndSaveChat(chat.id, { seenDisputeDisclaimer: true })
       updateOverlay({
         title: i18n('trade.chat'),
         level: 'INFO',
