@@ -9,8 +9,8 @@ import i18n from '../../../utils/i18n'
 
 export const useSignMessageSetup = () => {
   const navigation = useNavigation()
-  const [address, payoutAddressSignature, setPayoutAddressSignature] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressSignature, state.setPayoutAddressSignature],
+  const [address, setPayoutAddressSignature] = useSettingsStore(
+    (state) => [state.payoutAddress, state.setPayoutAddressSignature],
     shallow,
   )
   const message = address ? getMessageToSignForAddress(account.publicKey, address) : undefined
@@ -21,10 +21,7 @@ export const useSignMessageSetup = () => {
     }),
     [address, message],
   )
-  const [signature, setSignature, signatureValid, signatureError] = useValidatedState(
-    payoutAddressSignature || '',
-    signatureRules,
-  )
+  const [signature, setSignature, signatureValid, signatureError] = useValidatedState('', signatureRules)
 
   const showHelp = useShowHelp('addressSigning')
   useHeaderSetup(
