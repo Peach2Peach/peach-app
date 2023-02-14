@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { enforcePhonePattern } from '../../utils/format'
+import { enforcePhoneFormat } from '../../utils/format'
 import Input, { InputProps } from './Input'
 
 export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
@@ -8,12 +8,12 @@ export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps): ReactE
       ...props,
       onChange: onChange
         ? (number: string) => {
-          onChange(enforcePhonePattern(number))
+          onChange(enforcePhoneFormat(number))
         }
         : undefined,
       onSubmit: onSubmit
         ? (number: string) => {
-          onSubmit(enforcePhonePattern(number))
+          onSubmit(enforcePhoneFormat(number))
         }
         : undefined,
     }}
