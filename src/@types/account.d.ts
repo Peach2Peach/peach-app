@@ -2,8 +2,9 @@ declare type Settings = {
   appVersion: string
   enableAnalytics?: boolean
   locale: string
-  minAmount: number
-  maxAmount: number
+  minBuyAmount: number
+  maxBuyAmount: number
+  sellAmount: number
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string
@@ -12,7 +13,7 @@ declare type Settings = {
   country?: string
   meansOfPayment: MeansOfPayment
   preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  premium?: number
+  premium: number
   kyc?: boolean
   kycType?: KYCType
   pgpPublished?: boolean

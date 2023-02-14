@@ -2,11 +2,13 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import shallow from 'zustand/shallow'
 import { Icon } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
@@ -14,7 +16,7 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { SellViewProps } from './SellPreferences'
 
-const validate = (offer: SellOffer) => {
+const validate = (offer: SellOfferDraft) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
 
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -31,6 +33,8 @@ const validate = (offer: SellOffer) => {
 
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
+
   const showHelp = useShowHelp('paymentMethods')
 
   useHeaderSetup({
@@ -68,7 +72,8 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       meansOfPayment,
       paymentData,
     })
-  }, [meansOfPayment, updateOffer])
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 

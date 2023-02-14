@@ -9,10 +9,10 @@ import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '..
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
+import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
-import { useConfigStore } from '../../store/configStore'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -20,8 +20,14 @@ export default (): ReactElement => {
 
   useBuySetup()
 
-  const [showBackupReminder, minAmount, setMinAmount, maxAmount, setMaxAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount, state.maxAmount, state.setMaxAmount],
+  const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
+    (state) => [
+      state.showBackupReminder,
+      state.minBuyAmount,
+      state.setMinBuyAmount,
+      state.maxBuyAmount,
+      state.setMaxBuyAmount,
+    ],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -33,18 +39,16 @@ export default (): ReactElement => {
     [minTradingAmount, maxTradingAmount],
   )
 
-  const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minAmount, rangeRules)
-  const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxAmount, rangeRules)
+  const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
+  const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxBuyAmount, rangeRules)
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)
     setCurrentMaxAmount(max)
+    setMinBuyAmount(min)
+    setMaxBuyAmount(max)
   }
 
-  const next = () => {
-    setMinAmount(currentMinAmount)
-    setMaxAmount(currentMaxAmount)
-    navigation.navigate('buyPreferences', { amount: [minAmount, maxAmount] })
-  }
+  const next = () => navigation.navigate('buyPreferences')
 
   return (
     <View testID="view-buy" style={tw`flex h-full`}>
