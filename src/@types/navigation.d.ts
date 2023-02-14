@@ -83,7 +83,11 @@ declare type RootStackParamList = {
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
-  payoutAddress: undefined
+  payoutAddress:
+    | {
+        type: 'refund' | 'payout'
+      }
+    | undefined
   walletSettings: undefined
   paymentMethods: undefined
   meetupScreen: {

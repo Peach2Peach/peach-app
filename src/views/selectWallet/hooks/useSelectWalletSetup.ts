@@ -37,7 +37,7 @@ export const useSelectWalletSetup = () => {
     setPeachWalletActive(selected === 'peachWallet')
   }
 
-  const goToSetRefundWallet = () => navigation.navigate('payoutAddress')
+  const goToSetRefundWallet = () => navigation.navigate('payoutAddress', { type: 'payout' })
 
   const selectAndContinue = (): void | undefined => {
     if (type === 'refund' || peachWalletActive) return navigation.goBack()
@@ -47,7 +47,7 @@ export const useSelectWalletSetup = () => {
     if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
       return navigation.navigate('signMessage')
     }
-    return undefined
+    return navigation.goBack()
   }
 
   return {
