@@ -12,6 +12,7 @@ type SatsFormatProps = ComponentProps & {
   color?: TextStyle
   containerStyle?: ViewStyle
   bitcoinLogoStyle?: ViewStyle
+  satsContainerStyle?: ViewStyle
   satsStyle?: TextStyle
 }
 
@@ -20,6 +21,7 @@ export const SatsFormat = ({
   color,
   style,
   containerStyle,
+  satsContainerStyle,
   bitcoinLogoStyle,
   satsStyle,
 }: SatsFormatProps): ReactElement => {
@@ -27,14 +29,16 @@ export const SatsFormat = ({
   return (
     <View style={[tw`flex flex-row items-center`, containerStyle]}>
       <PaymentLogo id="bitcoin" style={[bitcoinLogoStyle || tw`w-3 h-3 mr-1 -mt-1`]} />
-      <Text style={[tw`font-medium`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
-        {parts[0]}.{parts[1]}
-      </Text>
-      <Text style={[tw`font-medium`, style, color || tw`text-black-1`]}>{parts[2]}</Text>
-      <Text style={[tw`body-s font-medium mt-0.5`, satsStyle || style, color || tw`text-black-1`]}>
-        {' '}
-        {i18n('currency.SATS')}
-      </Text>
+      <View style={[tw`flex-row items-center`, satsContainerStyle]}>
+        <Text style={[tw`font-medium`, parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`, style]}>
+          {parts[0]}.{parts[1]}
+        </Text>
+        <Text style={[tw`font-medium`, style, color || tw`text-black-1`]}>{parts[2]}</Text>
+        <Text style={[tw`body-s font-medium mt-0.5`, satsStyle || style, color || tw`text-black-1`]}>
+          {' '}
+          {i18n('currency.SATS')}
+        </Text>
+      </View>
     </View>
   )
 }
