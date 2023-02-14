@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,6 +13,7 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
+import { debounce } from '../../utils/performance'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -41,11 +42,18 @@ export default (): ReactElement => {
 
   const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
   const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxBuyAmount, rangeRules)
+
+  const updateStore = useCallback(
+    debounce((min: number, max: number) => {
+      setMinBuyAmount(min)
+      setMaxBuyAmount(max)
+    }, 400),
+    [],
+  )
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)
     setCurrentMaxAmount(max)
-    setMinBuyAmount(min)
-    setMaxBuyAmount(max)
+    updateStore(min, max)
   }
 
   const next = () => navigation.navigate('buyPreferences')

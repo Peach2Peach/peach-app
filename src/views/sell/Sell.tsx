@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,6 +13,7 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
+import { debounce } from '../../utils/performance'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -34,9 +35,16 @@ export default (): ReactElement => {
   )
   const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
+  const updateStore = useCallback(
+    debounce((value: number) => {
+      setAmount(value)
+    }, 400),
+    [],
+  )
+
   const setSelectedAmount = (value: number) => {
     setSellAmount(value)
-    setAmount(value)
+    updateStore(value)
   }
   const next = () => navigation.navigate('sellPreferences')
 
