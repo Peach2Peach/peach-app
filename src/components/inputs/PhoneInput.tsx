@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
+import { enforcePhonePattern } from '../../utils/format/enforcePhonePattern'
 import Input, { InputProps } from './Input'
-
-const enforcePhonePattern = (number: string) =>
-  number.length && !/^\+/gu.test(number) ? `+${number}` : number.replace(/[^0-9+]/gu, '')
 
 export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
   <Input
