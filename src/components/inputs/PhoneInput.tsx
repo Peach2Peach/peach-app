@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { enforcePhonePattern } from '../../utils/format/enforcePhonePattern'
+import { enforcePhonePattern } from '../../utils/format'
 import Input, { InputProps } from './Input'
 
 export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (

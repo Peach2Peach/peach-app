@@ -1,0 +1,1 @@
+export { enforcePhonePattern } from './enforcePhonePattern'
