@@ -26,7 +26,7 @@ describe('parsePremiumToString', () => {
     expect(parsePremiumToString('01')).toBe('1')
     expect(parsePremiumToString('00')).toBe('0')
   })
-  test('returns empty string for 0', () => {
-    expect(parsePremiumToString(0)).toBe('')
+  test('returns empty string for "0"', () => {
+    expect(parsePremiumToString('0')).toBe('')
   })
 })
