@@ -26,14 +26,11 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   const updatePremium = (value: string | number) => {
     setPremium(parsePremiumToString(value))
     setPremiumStore(Number(premium))
-  }
-
-  useEffect(() => {
     updateOffer({
       ...offer,
       premium: Number(premium),
     })
-  }, [premium, updateOffer])
+  }
 
   useEffect(
     () => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)),
