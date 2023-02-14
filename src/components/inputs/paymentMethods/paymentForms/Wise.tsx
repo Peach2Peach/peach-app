@@ -6,6 +6,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
@@ -101,7 +102,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'email' && (
-          <Input
+          <EmailInput
             onChange={setEmail}
             onSubmit={() => {
               $reference?.focus()
@@ -110,7 +111,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
             value={email}
             required={!phone}
             placeholder={i18n('form.email.placeholder')}
-            autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
         )}
