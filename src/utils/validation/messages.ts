@@ -14,6 +14,7 @@ export const getMessages = () => ({
   tetherAddress: i18n('form.address.error'),
   duplicate: i18n('form.duplicate.error'),
   iban: i18n('form.iban.error'),
+  isEUIBAN: i18n('form.iban.nonEUError'),
   bic: i18n('form.bic.error'),
   ukSortCode: i18n('form.invalid.error'),
   ukBankAccount: i18n('form.invalid.error'),

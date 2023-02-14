@@ -3,6 +3,7 @@ import { address } from 'bitcoinjs-lib'
 import { verify } from 'bitcoinjs-message'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
+import { isEUIBAN } from './isEUIBAN'
 
 const emailRegex
   = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
@@ -48,6 +49,9 @@ export const rules = {
   iban (_: boolean, value: string | null) {
     if (!value) return false
     return IBAN.isValid(value)
+  },
+  isEUIBAN (_: boolean, value: string) {
+    return isEUIBAN(value)
   },
   bic: bicRegex,
   ukSortCode: /^(?!(?:0{6}|00-00-00))(?:\d{6}|\d\d-\d\d-\d\d)$/u,
