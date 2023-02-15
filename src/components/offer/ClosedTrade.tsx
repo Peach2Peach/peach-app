@@ -13,7 +13,7 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement
   const tradingPartner = view === 'seller' ? contract.buyer : contract.seller
 
   return (
-    <View>
+    <View style={tw`px-7`}>
       <UserInfo user={tradingPartner} />
 
       <HorizontalLine style={tw`my-6 bg-black-5`} />
