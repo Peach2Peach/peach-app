@@ -477,7 +477,7 @@
   "peachBadges.fastTrader.description": "A fast trader is as quick as the lightning network. They accept matches and make or confirm payments almost instantly.",
   "peachBadges.ambassador.description": "These fine people have been with us from the very beginning!",
   "scanQR": "scan QR",
-  "scanBTCAddress": "scan your Bitcoin address QR",
+  "scanBTCAddress": "scan QR code",
   "paste": "paste",
   "form.optional": "optional",
   "form.phone": "phone",
