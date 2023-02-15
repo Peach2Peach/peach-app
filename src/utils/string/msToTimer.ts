@@ -1,4 +1,4 @@
-import padString from './padString'
+import { padString } from './padString'
 
 /**
  * @description Method to turn a countdown in ms to a human readable timer
@@ -24,5 +24,3 @@ export const msToTimer = (ms: number): string => {
     )
     .join(':')
 }
-
-export default msToTimer

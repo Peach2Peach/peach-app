@@ -9,8 +9,9 @@ type SettingsStore = Settings & {
   setAppVersion: (appVersion: string) => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
   setLocale: (locale: string) => void
-  setMinAmount: (amount: number) => void
-  setMaxAmount: (amount: number) => void
+  setMinBuyAmount: (minBuyAmount: number) => void
+  setMaxBuyAmount: (maxBuyAmount: number) => void
+  setSellAmount: (sellAmount: number) => void
   setPayoutAddress: (payoutAddress: string) => void
   setPayoutAddressLabel: (payoutAddressLabel: string) => void
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
@@ -20,8 +21,8 @@ type SettingsStore = Settings & {
   setMeansOfPayment: (meansOfPayment: MeansOfPayment) => void
   setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) => void
   setPremium: (premium: number) => void
-  setKyc: (kyc: boolean) => void
-  setKycType: (kycType: KYCType) => void
+  setKYC: (kyc: boolean) => void
+  setKYCType: (kycType: KYCType) => void
   setPgpPublished: (pgpPublished: boolean) => void
   setFcmToken: (fcmToken: string) => void
   setLastBackupDate: (lastBackupDate: number) => void
@@ -43,20 +44,20 @@ export const settingsStore = createStore(
       setAppVersion: (appVersion) => set((state) => ({ ...state, appVersion })),
       setEnableAnalytics: (enableAnalytics) => set((state) => ({ ...state, enableAnalytics })),
       setLocale: (locale) => set((state) => ({ ...state, locale })),
-      setMinAmount: (minAmount) => set((state) => ({ ...state, minAmount })),
-      setMaxAmount: (maxAmount) => set((state) => ({ ...state, maxAmount })),
+      setMinBuyAmount: (minBuyAmount) => set((state) => ({ ...state, minBuyAmount })),
+      setMaxBuyAmount: (maxBuyAmount) => set((state) => ({ ...state, maxBuyAmount })),
+      setSellAmount: (sellAmount) => set((state) => ({ ...state, sellAmount })),
       setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
       setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
       setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),
       setDerivationPath: (derivationPath) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
-      setCountry: (country) => set((state) => ({ ...state, country })),
-      setMeansOfPayment: (meansOfPayment: MeansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
-      setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) =>
-        set((state) => ({ ...state, preferredPaymentMethods })),
+      setCountry: (country: Country) => set((state) => ({ ...state, country })),
+      setMeansOfPayment: (meansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
+      setPreferredPaymentMethods: (preferredPaymentMethods) => set((state) => ({ ...state, preferredPaymentMethods })),
       setPremium: (premium) => set((state) => ({ ...state, premium })),
-      setKyc: (kyc) => set((state) => ({ ...state, kyc })),
-      setKycType: (kycType) => set((state) => ({ ...state, kycType })),
+      setKYC: (kyc) => set((state) => ({ ...state, kyc })),
+      setKYCType: (kycType) => set((state) => ({ ...state, kycType })),
       setPgpPublished: (pgpPublished) => set((state) => ({ ...state, pgpPublished })),
       setFcmToken: (fcmToken) => set((state) => ({ ...state, fcmToken })),
       setLastBackupDate: (lastBackupDate) => set((state) => ({ ...state, lastBackupDate })),
@@ -65,7 +66,7 @@ export const settingsStore = createStore(
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       setNodeURL: (nodeURL) => set((state) => ({ ...state, nodeURL })),
       setCustomFeeRate: (customFeeRate) => set((state) => ({ ...state, customFeeRate })),
-      setSelectedFeeRate: (selectedFeeRate: FeeRate) => set((state) => ({ ...state, selectedFeeRate })),
+      setSelectedFeeRate: (selectedFeeRate) => set((state) => ({ ...state, selectedFeeRate })),
     }),
     {
       name: 'settings',

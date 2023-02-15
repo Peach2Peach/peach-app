@@ -1,5 +1,5 @@
-import { matchFn } from '../../../src/components/matches/utils'
-import * as offerData from '../data/offerData'
+import { matchFn } from '../../../../../src/components/matches/utils'
+import * as offerData from '../../../data/offerData'
 
 const selectedCurrency: Currency = 'EUR'
 const selectedPaymentMethod: PaymentMethod = 'sepa'
@@ -22,12 +22,11 @@ const defaultOfferData = {
 }
 
 const generateMatchOfferDataMock = jest.fn(() => [defaultOfferData, undefined])
-jest.mock('../../../src/components/matches/utils/generateMatchOfferData', () => ({
+jest.mock('../../../../../src/components/matches/utils/generateMatchOfferData', () => ({
   generateMatchOfferData: () => generateMatchOfferDataMock(),
 }))
-// mock matchOffer
 const matchOfferMock = jest.fn(() => [offer.paymentData[selectedPaymentMethod], undefined])
-jest.mock('../../../src/utils/peachAPI/private/offer/matchOffer', () => ({
+jest.mock('../../../../../src/utils/peachAPI/private/offer/matchOffer', () => ({
   matchOffer: () => matchOfferMock(),
 }))
 
@@ -40,6 +39,7 @@ describe('matchFn', () => {
   it('should throw an error if no offer id', async () => {
     const offerWithoutId = { ...offer, id: undefined }
     await expect(
+      // @ts-expect-error
       matchFn(match, offerWithoutId, selectedCurrency, selectedPaymentMethod, updateMessage),
     ).rejects.toThrow()
   })

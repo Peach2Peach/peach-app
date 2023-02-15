@@ -9,7 +9,7 @@ import i18n from '../../utils/i18n'
 import { FlagType } from '../flags'
 import { sessionStorage } from '../../utils/session'
 import MeetupSummary from './MeetupSummary'
-import { sortAlphabetically } from '../../utils/sortAlphabetically'
+import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
 
 type AddPaymentMethodProps = ComponentProps & {
   origin: keyof RootStackParamList

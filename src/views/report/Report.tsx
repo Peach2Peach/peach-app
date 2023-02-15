@@ -11,9 +11,9 @@ import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidated
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
 import { account } from '../../utils/account'
+import { sendErrors } from '../../utils/analytics'
 import i18n from '../../utils/i18n'
 import { sendReport } from '../../utils/peachAPI'
-import { sendErrors } from '../../utils/analytics/openCrashReportPrompt'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }

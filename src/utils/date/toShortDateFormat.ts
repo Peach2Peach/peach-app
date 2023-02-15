@@ -44,5 +44,3 @@ export const toShortDateFormat = (date: Date, showTime = false) =>
     }),
     date.getFullYear(),
   ].join('/') + (showTime ? ' ' + toTimeFormat(date) : '')
-
-export default toShortDateFormat

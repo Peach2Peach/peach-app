@@ -1,14 +1,14 @@
 import { NETWORK } from '@env'
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
-import { OverlayContext } from '../../../contexts/overlay'
 import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
+import { useWronglyFundedOverlay } from '../../../overlays/useWronglyFundedOverlay'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
@@ -19,12 +19,14 @@ import createEscrowEffect from '../effects/createEscrowEffect'
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
+
   const startRefund = useStartRefundOverlay()
   const showHelp = useShowHelp('escrow')
   const showMempoolHelp = useShowHelp('mempool')
   const showError = useShowErrorBanner()
+  const showWronglyFundedOverlay = useWronglyFundedOverlay()
   const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
+
   const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
   const [showRegtestButton, setShowRegtestButton] = useState(
@@ -95,7 +97,7 @@ export const useFundEscrowSetup = () => {
             funding: result.funding,
           })
         },
-        onError: (err) => showError(err.error || 'CREATE_ESCROW_ERROR'),
+        onError: (err) => showError(err.error),
       })
       : () => {},
     [sellOffer.id],
@@ -114,33 +116,29 @@ export const useFundEscrowSetup = () => {
         saveAndUpdate(updatedOffer)
         setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
-        if (result.userConfirmationRequired) showEscrowConfirmOverlay(updatedOffer)
+
+        if (result.funding.status === 'CANCELED') return startRefund(sellOffer)
+        if (result.funding.status === 'WRONG_FUNDING_AMOUNT') return showWronglyFundedOverlay(updatedOffer)
+        if (result.userConfirmationRequired) return showEscrowConfirmOverlay(updatedOffer)
+        if (result.funding.status === 'FUNDED') {
+          refetch().then(({ data }) => {
+            const allMatches = (data?.pages || []).flatMap((page) => page.matches)
+            const hasMatches = allMatches.length > 0
+            if (hasMatches) {
+              navigation.replace('search', { offerId: sellOffer.id })
+            } else {
+              navigation.replace('offerPublished', { offerId: sellOffer.id })
+            }
+          })
+        }
+        return undefined
       },
       onError: (err) => {
-        showError(err.error || 'GENERAL_ERROR')
+        showError(err.error)
       },
     }),
     [sellOffer.id, sellOffer.escrow],
   )
-
-  useEffect(() => {
-    if (/WRONG_FUNDING_AMOUNT|CANCELED/u.test(fundingStatus.status)) {
-      startRefund(sellOffer)
-      return
-    }
-
-    if (fundingStatus && /FUNDED/u.test(fundingStatus.status)) {
-      refetch().then(({ data }) => {
-        const allMatches = (data?.pages || []).flatMap((page) => page.matches)
-        const hasMatches = allMatches.length > 0
-        if (hasMatches) {
-          navigation.replace('search', { offerId: sellOffer.id })
-        } else {
-          navigation.replace('offerPublished', { offerId: sellOffer.id })
-        }
-      })
-    }
-  }, [fundingStatus, navigation, refetch, sellOffer, startRefund, updateOverlay])
 
   return {
     sellOffer,

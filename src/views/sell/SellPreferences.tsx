@@ -7,16 +7,16 @@ import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
 import { BitcoinPriceStats, HorizontalLine, Loading, Navigation, PeachScrollView } from '../../components'
-import { MINTRADINGAMOUNT } from '../../constants'
 import { MessageContext } from '../../contexts/message'
-import { useNavigation, useRoute } from '../../hooks'
+import { useNavigation } from '../../hooks'
 import pgp from '../../init/pgp'
 import { useSettingsStore } from '../../store/settingsStore'
-import { account, updateTradingLimit } from '../../utils/account'
+import { updateTradingLimit } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { error, info } from '../../utils/log'
 import { saveOffer } from '../../utils/offer'
 import { getTradingLimit, postSellOffer } from '../../utils/peachAPI'
+import { getDefaultSellOffer } from './helpers/getDefaultSellOffer'
 import Premium from './Premium'
 
 export type SellViewProps = {
@@ -24,28 +24,6 @@ export type SellViewProps = {
   updateOffer: (offer: SellOfferDraft) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
 }
-
-const getDefaultSellOffer = (amount?: number): SellOfferDraft => ({
-  type: 'ask',
-  creationDate: new Date(),
-  lastModified: new Date(),
-  tradeStatus: 'fundEscrow',
-  premium: account.settings.premium || 1.5,
-  meansOfPayment: account.settings.meansOfPayment || {},
-  paymentData: {},
-  originalPaymentData: [],
-  funding: {
-    status: 'NULL',
-    txIds: [],
-    vouts: [],
-    amounts: [],
-    expiry: 537,
-  },
-  amount: amount || account.settings.minAmount || MINTRADINGAMOUNT,
-  returnAddress: account.settings.returnAddress || '',
-  kyc: account.settings.kyc || false,
-  kycType: account.settings.kycType || 'iban',
-})
 
 type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
@@ -71,15 +49,25 @@ const screens = [
 ]
 
 export default (): ReactElement => {
-  const route = useRoute<'sellPreferences'>()
   const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
+  const partialSettings = useSettingsStore(
+    (state) => ({
+      sellAmount: state.sellAmount,
+      premium: state.premium,
+      meansOfPayment: state.meansOfPayment,
+      payoutAddress: state.payoutAddress,
+      kyc: state.kyc,
+      kycType: state.kycType,
+    }),
+    shallow,
+  )
   const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
 
-  const [offer, setOffer] = useState(getDefaultSellOffer(route.params.amount))
+  const [offer, setOffer] = useState(getDefaultSellOffer(partialSettings))
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -93,12 +81,6 @@ export default (): ReactElement => {
     setOffer(offerData)
     if (offerData.id) saveOffer(offerData, undefined, shield)
   }
-
-  useEffect(() => {
-    setOffer(getDefaultSellOffer(route.params.amount))
-    setUpdatePending(false)
-    setPage(0)
-  }, [route])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
