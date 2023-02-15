@@ -7,16 +7,9 @@ export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps): ReactE
       ...props,
       keyboardType: 'email-address',
       autoCorrect: false,
-      onChange: onChange
-        ? (email: string) => {
-          onChange(email.toLowerCase())
-        }
-        : undefined,
-      onSubmit: onSubmit
-        ? (email: string) => {
-          onSubmit(email.toLowerCase())
-        }
-        : undefined,
+      onChange,
+      onEndEditing: onChange ? (email: string) => onChange(email.toLowerCase()) : undefined,
+      onSubmit: onSubmit ? (email: string) => onSubmit(email.toLowerCase()) : undefined,
     }}
   />
 )

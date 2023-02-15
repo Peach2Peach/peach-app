@@ -6,16 +6,9 @@ export const UsernameInput = ({ onChange, onSubmit, ...props }: InputProps): Rea
   <Input
     {...{
       ...props,
-      onChange: onChange
-        ? (usr: string) => {
-          onChange(enforceUsernameFormat(usr))
-        }
-        : undefined,
-      onSubmit: onSubmit
-        ? (usr: string) => {
-          onSubmit(enforceUsernameFormat(usr))
-        }
-        : undefined,
+      onChange,
+      onEndEditing: onChange ? (usr: string) => onChange(enforceUsernameFormat(usr)) : undefined,
+      onSubmit: onSubmit ? (usr: string) => onSubmit(enforceUsernameFormat(usr)) : undefined,
     }}
   />
 )

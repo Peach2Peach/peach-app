@@ -6,16 +6,9 @@ export const BICInput = ({ onChange, onSubmit, ...props }: InputProps): ReactEle
   <Input
     {...{
       ...props,
-      onChange: onChange
-        ? (bic: string) => {
-          onChange(enforceBICFormat(bic))
-        }
-        : undefined,
-      onSubmit: onSubmit
-        ? (bic: string) => {
-          onSubmit(enforceBICFormat(bic))
-        }
-        : undefined,
+      onChange,
+      onEndEditing: onChange ? (bic: string) => onChange(enforceBICFormat(bic)) : undefined,
+      onSubmit: onSubmit ? (bic: string) => onSubmit(enforceBICFormat(bic)) : undefined,
     }}
   />
 )

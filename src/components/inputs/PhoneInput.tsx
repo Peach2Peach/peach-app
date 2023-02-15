@@ -6,16 +6,9 @@ export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps): ReactE
   <Input
     {...{
       ...props,
-      onChange: onChange
-        ? (number: string) => {
-          onChange(enforcePhoneFormat(number))
-        }
-        : undefined,
-      onSubmit: onSubmit
-        ? (number: string) => {
-          onSubmit(enforcePhoneFormat(number))
-        }
-        : undefined,
+      keyboardType: 'phone-pad',
+      onChange: onChange ? (number: string) => onChange(enforcePhoneFormat(number)) : undefined,
+      onSubmit: onSubmit ? (number: string) => onSubmit(enforcePhoneFormat(number)) : undefined,
     }}
   />
 )
