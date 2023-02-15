@@ -21,8 +21,7 @@ export const useSignMessageSetup = () => {
     }),
     [address, message],
   )
-  const [signature, setSignature, signatureValid, signatureError] = useValidatedState('', signatureRules)
-
+  const [signature, setSignature, signatureValid, signatureError] = useValidatedState<string>('', signatureRules)
   const showHelp = useShowHelp('addressSigning')
   useHeaderSetup(
     useMemo(
