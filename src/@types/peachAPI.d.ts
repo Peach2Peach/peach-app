@@ -384,3 +384,10 @@ declare type NotificationType =
   | 'contract.cancelationRequestRejected' // PN-S16
   | 'offer.buyOfferImminentExpiry' // PN-B10
   | 'offer.buyOfferExpired' // PN-B11
+
+declare type PNData = {
+  offerId?: string
+  contractId: string
+  isChat?: boolean
+  type?: NotificationType
+}
