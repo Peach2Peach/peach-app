@@ -423,6 +423,7 @@
   "meetup.address": "This meetup is held at:",
   "meetup.website": "meetup website",
   "meetup.add": "add this meetup",
+  "meetup.date": "Meetup date",
   "view.maps": "view on maps",
   "address.changingLocations": "changing locations - get in touch with organizers",
   "paymentCategory.globalOptions": "global options",
