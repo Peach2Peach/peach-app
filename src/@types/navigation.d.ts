@@ -86,7 +86,6 @@ declare type RootStackParamList = {
   backupCreated: undefined
   seedWords: undefined
   payoutAddress: undefined
-  walletSettings: undefined
   paymentMethods: undefined
   meetupScreen: {
     eventId: string
