@@ -10,7 +10,7 @@ describe('isPaypalUsername', () => {
   })
 
   it('should return false for an invalid paypal username', () => {
-    const invalidUsernames = ['@Alphanumeric1', '@', 'alphanumeric1', '@A1', '']
+    const invalidUsernames = ['@double@double', '@Alphanumeric1', '@', 'alphanumeric1', '@A1', '']
 
     invalidUsernames.forEach((username) => {
       expect(isPaypalUsername(username)).toBe(false)
