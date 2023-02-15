@@ -1,68 +1,126 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import React, { useCallback, useContext, useEffect } from 'react'
-import { OverlayContext } from '../contexts/overlay'
-import EscrowFunded from '../overlays/EscrowFunded'
-import MatchAccepted from '../overlays/MatchAccepted'
-import OfferExpired from '../overlays/OfferExpired'
-import OfferNotFunded from '../overlays/OfferNotFunded'
+import { useCallback, useContext, useEffect, useMemo } from 'react'
+import { MessageContext } from '../contexts/message'
+import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
+import { useConfirmEscrowOverlay } from '../overlays/useConfirmEscrowOverlay'
+import { useWronglyFundedOverlay } from '../overlays/useWronglyFundedOverlay'
+import { getContract } from '../utils/contract'
+import i18n from '../utils/i18n'
 import { error, info } from '../utils/log'
 import { getOffer } from '../utils/offer'
+import { getContract as getContractAPI } from '../utils/peachAPI'
 import { parseError } from '../utils/system'
 import { useHandleContractNotifications } from './useHandleContractNotifications'
 import { useNavigation } from './useNavigation'
 
+// PN-A03
+// contract.chat
+// I’d say the notification icon is enough
+
+const offerSummaryEvents = ['offer.notFunded', 'offer.sellOfferExpired', 'offer.buyOfferExpired']
+const searchEvents = ['offer.matchBuyer', 'offer.matchSeller', 'offer.buyOfferImminentExpiry']
+
+type PNData = {
+  offerId?: string
+  contractId: string
+  isChat?: boolean
+  type?: NotificationType
+}
+
+type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
 export const useHandleNotifications = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateMessage] = useContext(MessageContext)
+  const confirmEscrowOverlay = useConfirmEscrowOverlay()
+  const wronglyFundedOverlay = useWronglyFundedOverlay()
+  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
+
+  const overlayEvents: PNEventHandlers = useMemo(
+    () => ({
+      // PN-S03
+      'offer.escrowFunded': ({ offerId }: PNData) =>
+        offerId ? navigation.navigate('offerPublished', { offerId }) : null,
+    }),
+    [navigation],
+  )
+
+  const popupEvents: PNEventHandlers = useMemo(
+    () => ({
+      // PN-S07
+      'offer.fundingAmountDifferent': ({ offerId }: PNData) => {
+        const sellOffer = offerId ? (getOffer(offerId) as SellOffer) : null
+
+        if (!sellOffer) return
+        confirmEscrowOverlay(sellOffer)
+      },
+      // PN-S08
+      'offer.wrongFundingAmount': ({ offerId }: PNData) => {
+        const sellOffer = offerId ? (getOffer(offerId) as SellOffer) : null
+
+        if (!sellOffer) return
+        wronglyFundedOverlay(sellOffer)
+      },
+      // PN-B08
+      'contract.cancelationRequest': async ({ contractId }: PNData) => {
+        const storedContract = contractId ? getContract(contractId) : null
+        let [contract] = contractId ? await getContractAPI({ contractId }) : [null]
+        if (contract && storedContract) contract = { ...contract, ...storedContract }
+
+        if (!contract || contract.disputeActive) return
+        showConfirmTradeCancelation(contract)
+      },
+    }),
+    [confirmEscrowOverlay, showConfirmTradeCancelation, wronglyFundedOverlay],
+  )
+  const goToScreen = ({ type, contractId, isChat, offerId }: PNData): Action | undefined => {
+    if (contractId && isChat) return {
+      label: i18n('goToChat'),
+      icon: 'arrowCircleLeft',
+      callback: () => navigation.navigate('contractChat', { contractId }),
+    }
+    if (contractId) return {
+      label: i18n('goToContract'),
+      icon: 'arrowCircleLeft',
+      callback: () => navigation.navigate('contract', { contractId }),
+    }
+    if (offerId && type && offerSummaryEvents.includes(type)) return {
+      label: i18n('goToOffer'),
+      icon: 'arrowCircleLeft',
+      callback: () => navigation.navigate('offer', { offerId }),
+    }
+    if (offerId && type && searchEvents.includes(type)) return {
+      label: i18n('goToOffer'),
+      icon: 'arrowCircleLeft',
+      callback: () => navigation.navigate('search', { offerId }),
+    }
+    return undefined
+  }
 
   useHandleContractNotifications()
 
   const onMessageHandler = useCallback(
-    async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<null | void> => {
+    async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
       info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
-      if (!remoteMessage.data) return null
+      if (!remoteMessage.data) return
 
-      const { offerId, contractId } = remoteMessage.data
-      const type = remoteMessage.data?.type
-      const args = remoteMessage.notification?.bodyLocArgs
-      const currentPage = getCurrentPage() as string
-      const offer = offerId ? (getOffer(offerId) as SellOffer) : null
+      const data = remoteMessage.data as unknown as PNData
+      const { type } = data
+      if (!type) return
 
-      if (offer && type === 'offer.sellOfferExpired' && !/contract/u.test(currentPage)) {
-        const days = args ? args[0] || '15' : '15'
-        return updateOverlay({
-          content: <OfferExpired {...{ offer, days, navigation }} />,
-          visible: true,
+      if (overlayEvents[type]) {
+        overlayEvents[type]?.(data)
+      } else if (popupEvents[type]) {
+        popupEvents[type]?.(data)
+      } else {
+        updateMessage({
+          msgKey: 'notification.' + type,
+          bodyArgs: remoteMessage.notification?.bodyLocArgs,
+          level: 'APP',
+          action: goToScreen(data),
         })
       }
-      if (offer && type === 'offer.notFunded' && !/sell|contract/u.test(currentPage)) {
-        const days = args ? args[0] || '7' : '7'
-        return updateOverlay({
-          content: <OfferNotFunded {...{ offer, days, navigation }} />,
-          visible: true,
-        })
-      }
-      if (type === 'offer.escrowFunded' && !/sell|contract/u.test(currentPage)) {
-        return updateOverlay({
-          content: <EscrowFunded {...{ offerId, navigation }} />,
-          visible: true,
-        })
-      }
-
-      if (type === 'contract.contractCreated' && !/contract|search/u.test(currentPage)) {
-        return updateOverlay({
-          content: <MatchAccepted {...{ contractId }} />,
-          visible: true,
-        })
-      }
-
-      if (type === 'contract.paymentMade' && !/contract/u.test(currentPage)) {
-        return navigation.navigate('paymentMade', { contractId })
-      }
-
-      return null
     },
-    [getCurrentPage, navigation, updateOverlay],
+    [getCurrentPage, goToScreen, overlayEvents, popupEvents, updateMessage],
   )
 
   useEffect(() => {
