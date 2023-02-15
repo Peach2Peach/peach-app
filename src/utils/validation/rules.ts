@@ -1,6 +1,5 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
-import { verify } from 'bitcoinjs-message'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
