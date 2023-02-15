@@ -14,6 +14,7 @@ import { account } from '../../utils/account'
 import { sendErrors } from '../../utils/analytics'
 import i18n from '../../utils/i18n'
 import { sendReport } from '../../utils/peachAPI'
+import { EmailInput } from '../../components/inputs/EmailInput'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -69,12 +70,11 @@ export default (): ReactElement => {
   return (
     <PeachScrollView contentContainerStyle={tw`flex-grow`}>
       <View style={tw`justify-end h-full px-6 pt-6 pb-10`}>
-        <Input
+        <EmailInput
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
-          autoCorrect={false}
           errorMessage={emailErrors}
         />
         <Input
