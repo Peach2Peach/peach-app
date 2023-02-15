@@ -11,22 +11,22 @@ export const useGetPNActionHandler = () => {
     ({ type, contractId, isChat, offerId }: PNData): Action | undefined => {
       if (contractId && isChat) return {
         label: i18n('goToChat'),
-        icon: 'arrowCircleLeft',
+        icon: 'arrowLeftCircle',
         callback: () => navigation.navigate('contractChat', { contractId }),
       }
       if (contractId) return {
         label: i18n('goToContract'),
-        icon: 'arrowCircleLeft',
+        icon: 'arrowLeftCircle',
         callback: () => navigation.navigate('contract', { contractId }),
       }
       if (offerId && type && offerSummaryEvents.includes(type)) return {
         label: i18n('goToOffer'),
-        icon: 'arrowCircleLeft',
+        icon: 'arrowLeftCircle',
         callback: () => navigation.navigate('offer', { offerId }),
       }
       if (offerId && type && searchEvents.includes(type)) return {
         label: i18n('goToOffer'),
-        icon: 'arrowCircleLeft',
+        icon: 'arrowLeftCircle',
         callback: () => navigation.navigate('search', { offerId }),
       }
       return undefined

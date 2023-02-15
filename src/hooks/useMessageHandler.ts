@@ -20,7 +20,7 @@ const useOverLayEvents = () => {
     () => ({
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
-        offerId ? navigation.navigate('offerPublished', { offerId }) : null,
+        offerId ? navigation.navigate('offerPublished', { offerId, shouldGoBack: true }) : null,
     }),
     [navigation],
   )
@@ -84,7 +84,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         updateMessage({
           msgKey: 'notification.' + type,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
-          level: 'APP',
+          level: 'DEFAULT',
           action: getPNActionHandler(data),
         })
       }

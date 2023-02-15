@@ -1,0 +1,277 @@
+import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import React, { useMemo, useState } from 'react'
+import { FlatList, View } from 'react-native'
+import { PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
+import { useHeaderSetup } from '../../../hooks'
+import { useContractMessageHandler } from '../../../hooks/useContractMessageHandler'
+import { useMessageHandler } from '../../../hooks/useMessageHandler'
+import tw from '../../../styles/tailwind'
+import { account } from '../../../utils/account'
+import { isBuyOffer, isSellOffer } from '../../../utils/offer'
+
+const useFakePNs = () => {
+  const firstSellOffer = useMemo(() => account.offers.find(isSellOffer), [])
+  const firstBuyOffer = useMemo(() => account.offers.find(isBuyOffer), [])
+  const firstContract = useMemo(() => account.contracts[0], [])
+  const sellOfferId = firstSellOffer?.id || '1'
+  const buyOfferId = firstBuyOffer?.id || '1'
+  const contractId = firstContract?.id || '1-2'
+
+  const fakeGlobalPNs = [
+    {
+      data: {
+        type: 'offer.escrowFunded',
+        offerId: sellOfferId,
+      },
+    },
+    {
+      data: {
+        type: 'offer.notFunded',
+        offerId: sellOfferId,
+      },
+      notification: {
+        bodyLocArgs: ['7'],
+      },
+    },
+    {
+      data: {
+        type: 'offer.fundingAmountDifferent',
+        offerId: sellOfferId,
+      },
+    },
+    {
+      data: {
+        type: 'offer.wrongFundingAmount',
+        offerId: sellOfferId,
+      },
+    },
+    {
+      data: {
+        type: 'offer.sellOfferExpired',
+        offerId: sellOfferId,
+      },
+      notification: {
+        bodyLocArgs: ['14'],
+      },
+    },
+    {
+      data: {
+        type: 'offer.buyOfferImminentExpiry',
+        offerId: buyOfferId,
+      },
+      notification: {
+        bodyLocArgs: ['P123'],
+      },
+    },
+    {
+      data: {
+        type: 'offer.buyOfferExpired',
+        offerId: buyOfferId,
+      },
+      notification: {
+        bodyLocArgs: ['P123'],
+      },
+    },
+    {
+      data: {
+        type: 'offer.matchBuyer',
+        offerId: buyOfferId,
+      },
+    },
+    {
+      data: {
+        type: 'offer.matchSeller',
+        offerId: sellOfferId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.contractCreated',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.inactiveBuyerCancel',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.paymentMade',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.tradeCompleted',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.chat',
+        contractId,
+        isChat: 'true',
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+  ]
+  const fakeContractPNs = [
+    {
+      data: {
+        type: 'contract.buyer.disputeRaised',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456', '200000'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.disputeRaised',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456', '200000'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.disputeResolved',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.canceled',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.cancelationRequest',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.cancelationRequestAccepted',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.cancelationRequestRejected',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentReminderSixHours',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentReminderOneHour',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentTimerHasRunOut',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentTimerSellerCanceled',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentTimerExtended',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.paymentTimerHasRunOut',
+        contractId,
+      },
+    },
+  ]
+  return { fakeGlobalPNs, fakeContractPNs }
+}
+
+export default () => {
+  useHeaderSetup(useMemo(() => ({ title: 'test view - pns' }), []))
+  const messageHandler = useMessageHandler(() => 'testViewPNs')
+  const contractMessageHandler = useContractMessageHandler()
+  const { fakeGlobalPNs, fakeContractPNs } = useFakePNs()
+  const tabs = [
+    { id: 'global', display: 'global' },
+    { id: 'contract', display: 'contract' },
+  ]
+  const [currentTab, setCurrentTab] = useState(tabs[0])
+  return (
+    <View style={tw`py-10`}>
+      <TabbedNavigation style={tw`mb-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
+      {currentTab.id === 'global' && (
+        <FlatList
+          contentContainerStyle={tw`px-6 `}
+          data={fakeGlobalPNs}
+          renderItem={({ item }) => (
+            <PrimaryButton onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
+              {item.data.type}
+            </PrimaryButton>
+          )}
+          ItemSeparatorComponent={() => <View style={tw`h-2`} />}
+        />
+      )}
+      {currentTab.id === 'contract' && (
+        <FlatList
+          contentContainerStyle={tw`px-6 `}
+          data={fakeContractPNs}
+          renderItem={({ item }) => (
+            <PrimaryButton
+              onPress={() => contractMessageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}
+            >
+              {item.data.type}
+            </PrimaryButton>
+          )}
+          ItemSeparatorComponent={() => <View style={tw`h-2`} />}
+        />
+      )}
+    </View>
+  )
+}

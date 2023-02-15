@@ -42,6 +42,7 @@ import WalletSettings from './settings/WalletSettings'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
+import TestViewPNs from './TestView/pns'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
@@ -155,6 +156,7 @@ const testViews: ViewType[] = [
   { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
+  { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

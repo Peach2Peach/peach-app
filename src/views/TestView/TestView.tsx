@@ -10,6 +10,7 @@ export default () => {
   const goToPopups = () => navigation.navigate('testViewPopups')
   const goToMessages = () => navigation.navigate('testViewMessages')
   const goToComponents = () => navigation.navigate('testViewComponents')
+  const goToPNTesting = () => navigation.navigate('testViewPNs')
 
   return (
     <PeachScrollView
@@ -25,6 +26,9 @@ export default () => {
       </OptionButton>
       <OptionButton style={tw`mt-4`} onPress={goToComponents}>
         Components
+      </OptionButton>
+      <OptionButton style={tw`mt-4`} onPress={goToPNTesting}>
+        Push notifications
       </OptionButton>
     </PeachScrollView>
   )
