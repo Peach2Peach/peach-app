@@ -1,3 +1,5 @@
-export { rules } from './rules'
-export { getMessages } from './messages'
 export { getErrorsInField } from './getErrorsInField'
+export { isUsername } from './isUsername'
+export { isPaypalUsername } from './isPaypalUsername'
+export { getMessages } from './messages'
+export { rules } from './rules'

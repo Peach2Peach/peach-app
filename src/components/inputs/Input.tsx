@@ -50,7 +50,7 @@ const themes = {
 
 type IconActionPair = [IconType, () => void]
 export type InputProps = ComponentProps &
-  Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
+  Omit<TextInputProps, 'onChange' | 'onEndEditing' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
@@ -59,9 +59,9 @@ export type InputProps = ComponentProps &
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
-    disableOnEndEditing?: boolean
     errorMessage?: string[]
     onChange?: Function
+    onEndEditing?: Function
     onSubmit?: Function
     onFocus?: Function
     onBlur?: Function
@@ -89,12 +89,12 @@ export const Input = ({
   multiline = false,
   disabled = false,
   disableSubmit = false,
-  disableOnEndEditing = false,
   errorMessage = [],
   onChange,
   onSubmit,
   onFocus,
   onBlur,
+  onEndEditing,
   onPressIn,
   secureTextEntry,
   autoCapitalize,
@@ -122,6 +122,12 @@ export const Input = ({
   const onChangeText = (val: string) => {
     if (onChange) onChange(val)
   }
+  const onEndEditingHandler = onEndEditing
+    ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+      onEndEditing(e.nativeEvent.text?.trim())
+      setTouched(true)
+    }
+    : () => null
   const onSubmitEditing
     = onSubmit && !disableSubmit
       ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
@@ -129,16 +135,10 @@ export const Input = ({
         setTouched(true)
       }
       : () => null
-  const onEndEditing
-    = onChange && !disableOnEndEditing
-      ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
-        onChange(e.nativeEvent.text?.trim())
-      }
-      : () => null
   const onFocusHandler = () => (onFocus ? onFocus() : null)
   const onBlurHandler = () => {
     if (onChange && value) onChange(value.trim())
-    if (onBlur) onBlur()
+    if (onBlur) onBlur(value)
   }
 
   return (
@@ -182,7 +182,7 @@ export const Input = ({
             onChangeText,
             multiline,
             textAlignVertical: multiline ? 'top' : 'center',
-            onEndEditing,
+            onEndEditing: onEndEditingHandler,
             onSubmitEditing,
             blurOnSubmit: false,
             onFocus: onFocusHandler,

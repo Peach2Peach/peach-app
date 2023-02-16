@@ -20,7 +20,7 @@ export const useMeetupScreenSetup = () => {
     id: eventId,
     longName: '',
     shortName: '',
-    country: 'ES',
+    country: 'DE',
     city: '',
   }
 
@@ -42,21 +42,24 @@ export const useMeetupScreenSetup = () => {
     goToOrigin(route.params.origin)
   }
 
-  const icons = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
-  if (deletable) {
-    icons[1] = {
-      iconComponent: <DeleteIcon />,
-      onPress: () => deletePaymentMethod(),
+  const icons = useMemo(() => {
+    const icns = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+    if (deletable) {
+      icns[1] = {
+        iconComponent: <DeleteIcon />,
+        onPress: () => deletePaymentMethod(),
+      }
     }
-  }
+    return icns
+  }, [deletable, deletePaymentMethod, showHelp])
 
   useHeaderSetup(
     useMemo(
       () => ({
-        title: event.longName,
+        title: event.shortName,
         icons,
       }),
-      [event.longName, icons],
+      [event.shortName, icons],
     ),
   )
 
