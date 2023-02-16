@@ -166,6 +166,8 @@
   "offer.summary.escrow": "escrow",
   "offer.summary.refundTx": "refund tx",
   "offer.summary.refundWallet": "refund wallet:",
+  "offer.summary.customPayoutAddress": "custom payout address",
+  "offer.summary.customRefundAddress": "custom refund address",
   "offer.requiredAction.fundEscrow": "fund escrow",
   "offer.requiredAction.fundingAmountDifferent": "wrong amount funded",
   "offer.requiredAction.escrowWaitingForConfirmation": "waiting for network",
