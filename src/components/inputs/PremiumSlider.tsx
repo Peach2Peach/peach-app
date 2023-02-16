@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getTranslateX } from '../../utils/layout'
