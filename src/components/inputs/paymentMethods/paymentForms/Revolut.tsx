@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { UsernameInput } from '../../UsernameInput'
@@ -104,13 +105,12 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'email' && (
-          <Input
+          <EmailInput
             onChange={setEmail}
             onSubmit={$reference?.focus}
             value={email}
             required={!anyFieldSet}
             placeholder={i18n('form.email.placeholder')}
-            autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
         )}

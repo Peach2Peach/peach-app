@@ -88,7 +88,6 @@ declare type RootStackParamList = {
         type: 'refund' | 'payout'
       }
     | undefined
-  walletSettings: undefined
   paymentMethods: undefined
   meetupScreen: {
     eventId: string
