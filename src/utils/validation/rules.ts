@@ -1,6 +1,7 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
+import { isPhoneHighRisk } from '../country'
 import { getNetwork } from '../wallet'
 import { isPaypalUsername } from './isPaypalUsername'
 import { isUsername } from './isUsername'
@@ -75,6 +76,9 @@ export const rules = {
   },
   feeRate (_: boolean, value: string) {
     return /^[0-9]*$/u.test(value) && Number(value) >= 1
+  },
+  phoneIsNotHighRisk (_: boolean, value: string) {
+    return !isPhoneHighRisk(value)
   },
 }
 
