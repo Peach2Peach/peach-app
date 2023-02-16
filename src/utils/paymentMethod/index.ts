@@ -5,6 +5,7 @@ export { getApplicablePaymentCategories } from './getApplicablePaymentCategories
 export { getCurrencies } from './getCurrencies'
 export { getMoPsInCommon } from './getMoPsInCommon'
 export { getPaymentMethodInfo } from './getPaymentMethodInfo'
+export { getPaymentMethodName } from './getPaymentMethodName'
 export { getPaymentMethods } from './getPaymentMethods'
 export { hasApplicablePaymentMethods } from './hasApplicablePaymentMethods'
 export { hashPaymentData } from './hashPaymentData'
