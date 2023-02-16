@@ -1,3 +1,4 @@
+import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 
 const accessToken: AccessToken = {

@@ -378,7 +378,8 @@ declare type NotificationType =
   | 'contract.paymentMade' // PN-S11
   | 'contract.tradeCompleted' // PN-B09
   | 'contract.chat' // PN-A03
-  | 'contract.disputeRaised' // PN-D01
+  | 'contract.buyer.disputeRaised' // PN-D01
+  | 'contract.seller.disputeRaised' // PN-D01
   | 'contract.disputeResolved' // PN-D02 PN-D03
   | 'contract.canceled' // PN-S13
   | 'contract.cancelationRequest' // PN-B08
@@ -389,7 +390,7 @@ declare type NotificationType =
 
 declare type PNData = {
   offerId?: string
-  contractId: string
-  isChat?: boolean
+  contractId?: string
+  isChat?: string
   type?: NotificationType
 }

@@ -2,7 +2,7 @@ import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
 import { Animated } from 'react-native'
 
 const state: MessageState = {
-  level: 'OK',
+  level: 'DEFAULT',
   keepAlive: false,
   time: 0,
 }
