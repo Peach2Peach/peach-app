@@ -92,7 +92,9 @@ export const useTradeCanceledOverlay = () => {
 
       updateOverlay({
         title: i18n(
-          mutualClose ? 'contract.cancel.buyerConfirmed.title' : `contract.cancel.${contract.canceledBy}.canceled.title`,
+          mutualClose
+            ? 'contract.cancel.buyerConfirmed.title'
+            : `contract.cancel.${contract.canceledBy || 'buyer'}.canceled.title`,
         ),
         content: mutualClose ? (
           <BuyerConfirmedCancelTrade contract={contract} />
