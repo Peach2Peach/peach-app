@@ -1,4 +1,4 @@
-import { default as React, default as React, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import tw from '../../../../styles/tailwind'
 import { getPaymentMethodName } from '../../../../utils/paymentMethod'
 import Icon from '../../../Icon'
