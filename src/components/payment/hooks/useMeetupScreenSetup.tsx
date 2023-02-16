@@ -18,7 +18,8 @@ export const useMeetupScreenSetup = () => {
   const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
   const event = allEvents.find((item) => item.id === eventId) ?? {
     id: eventId,
-    name: '',
+    shortName: '',
+    longName: '',
     logo: '',
     address: '',
     url: '',
@@ -33,7 +34,7 @@ export const useMeetupScreenSetup = () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
       id: meetupInfo.id,
-      label: event.name,
+      label: event.shortName,
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
       country: meetupInfo.countries ? meetupInfo.countries[0] : undefined,
@@ -53,10 +54,10 @@ export const useMeetupScreenSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        title: event.name,
+        title: event.shortName,
         icons,
       }),
-      [event.name, icons],
+      [event.shortName, icons],
     ),
   )
 

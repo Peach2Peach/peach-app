@@ -96,7 +96,8 @@ declare type MeetupEvent = {
   id: string
   country: Country
   city: string
-  name: string
+  shortName: string
+  longName: string
   url?: string
   address?: string
   logo?: string // path to the logo
