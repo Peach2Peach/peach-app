@@ -180,6 +180,7 @@
   "offer.requiredAction.confirmCancelation": "seller wants to cancel",
   "offer.requiredAction.dispute": "dispute started",
   "offer.requiredAction.waiting": "waiting for $0",
+  "offer.publish": "publish offer",
   "contract.trade": "trade $0",
   "contract.tradeCompleted": "trade completed",
   "contract.tradeCanceled": "trade canceled",

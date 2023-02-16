@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 import { PrimaryButton } from '..'
 import { useKeyboard } from '../../hooks'
+import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { whiteGradient } from '../../utils/layout'
@@ -17,9 +19,12 @@ type NavigationProps = {
 
 export const Navigation = ({ screen, next, stepValid }: NavigationProps): ReactElement => {
   const keyboardOpen = useKeyboard()
-  let buttonText = i18n('next')
-
-  if (/returnAddress/u.test(screen)) buttonText = i18n('lookForAMatch')
+  const [peachWalletActive, payoutAddress, payoutAddressSignature] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressSignature],
+    shallow,
+  )
+  const canPublish = screen === 'summary' && (peachWalletActive || (payoutAddress && payoutAddressSignature))
+  const buttonText = canPublish ? i18n('offer.publish') : i18n('next')
 
   return (
     <Fade
@@ -31,7 +36,12 @@ export const Navigation = ({ screen, next, stepValid }: NavigationProps): ReactE
         <LinearGradient colorList={whiteGradient} angle={90} />
       </View>
       <View style={tw`flex items-center w-full`}>
-        <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+        <PrimaryButton
+          testID="navigation-next"
+          disabled={!stepValid}
+          onPress={next}
+          iconId={canPublish ? 'uploadCloud' : undefined}
+        >
           {buttonText}
         </PrimaryButton>
       </View>
