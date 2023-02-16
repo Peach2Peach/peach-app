@@ -5,8 +5,10 @@ import { useShowPaymentReminder } from '../../../overlays/paymentTimer/useShowPa
 import { useShowPaymentTimerExtended } from '../../../overlays/paymentTimer/useShowPaymentTimerExtended'
 import { useShowPaymentTimerHasRunOut } from '../../../overlays/paymentTimer/useShowPaymentTimerHasRunOut'
 import { useShowPaymentTimerSellerCanceled } from '../../../overlays/paymentTimer/useShowPaymentTimerSellerCanceled'
-import { useBuyerRejectedCancelTradeOverlay } from '../../../overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay'
-import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
+import {
+  useBuyerRejectedCancelTradeOverlay,
+  useConfirmTradeCancelationOverlay,
+} from '../../../overlays/tradeCancelation'
 import { useTradeCanceledOverlay } from '../../../overlays/tradeCancelation/useTradeCanceledOverlay'
 import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'
