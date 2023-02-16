@@ -25,16 +25,17 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
     () => ({
-      minus21: KNOBWIDTH / 2 - trackWidth / 2,
-      minus10: round((11 / DELTA) * trackWidth) - trackWidth / 2 + KNOBWIDTH / 3,
+      minus21: -trackWidth / 2,
+      minus10: round((11 / DELTA) * trackWidth) - trackWidth / 2,
       zero: 0,
-      plus10: round((32 / DELTA) * trackWidth) - trackWidth / 2 - KNOBWIDTH / 2,
-      plus21: trackWidth - KNOBWIDTH / 2 - trackWidth / 2,
+      plus10: round((31 / DELTA) * trackWidth) - trackWidth / 2,
+      plus21: trackWidth - trackWidth / 2,
     }),
     [trackWidth],
   )
 
   const pan = useRef(new Animated.Value(((value - MIN) / DELTA) * trackWidth)).current
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
@@ -74,12 +75,16 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
     onChange(premium)
   }, [isSliding, onChange, premium])
 
-  const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width - KNOBWIDTH)
+  const onLayout = (event: LayoutChangeEvent) => {
+    const newTrackWidth = event.nativeEvent.layout.width - KNOBWIDTH
+    pan.setOffset(((value - MIN) / DELTA) * newTrackWidth)
+    setTrackWidth(newTrackWidth)
+  }
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
-      <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`]}>
-        <View {...{ onLayout }} style={tw`w-full p-0.5 rounded overflow-hidden`}>
+      <View style={[tw`w-full max-w-full border p-0.5 rounded-full bg-primary-background-dark border-primary-mild-1`]}>
+        <View {...{ onLayout }}>
           <Animated.View
             style={[
               { width: KNOBWIDTH },
