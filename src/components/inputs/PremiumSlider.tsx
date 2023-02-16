@@ -28,7 +28,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
       minus21: -trackWidth / 2,
       minus10: round((11 / DELTA) * trackWidth) - trackWidth / 2,
       zero: 0,
-      plus10: round((32 / DELTA) * trackWidth) - trackWidth / 2,
+      plus10: round((31 / DELTA) * trackWidth) - trackWidth / 2,
       plus21: trackWidth - trackWidth / 2,
     }),
     [trackWidth],
