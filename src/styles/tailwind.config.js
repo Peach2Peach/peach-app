@@ -51,8 +51,8 @@ module.exports = {
         },
         warning: {
           dark: {
-            1: '#F19E12',
-            2: '#F3B71A',
+            2: '#F19E12',
+            1: '#F3B71A',
           },
           main: '#F5CE22',
           mild: '#DFD79A',
@@ -68,10 +68,10 @@ module.exports = {
         info: {
           dark: '#005E89',
           main: '#037DB5',
-          mild: '#BDD1DA',
           light: '#099DE2',
+          mild: '#93D6F5',
           background: '#D7F2FE',
-          'background-light': 'rgba(215, 242, 254, 0.1)',
+          // 'background-light': 'rgba(215, 242, 254, 0.1)',
         },
       },
       fontSize: {
