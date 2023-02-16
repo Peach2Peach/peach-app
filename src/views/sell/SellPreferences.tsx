@@ -43,7 +43,7 @@ const screens = [
   {
     id: 'summary',
     view: Summary,
-    scrollable: false,
+    scrollable: true,
     showPrice: false,
   },
 ]
@@ -175,7 +175,7 @@ export default (): ReactElement => {
           <PeachScrollView
             scrollRef={(ref) => (scroll = ref)}
             disable={!scrollable}
-            contentContainerStyle={[tw`justify-center flex-grow p-5 pb-30`]}
+            contentContainerStyle={[tw`items-center justify-center flex-grow p-5 pb-30`]}
           >
             {CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, setStepValid }} />}
           </PeachScrollView>
