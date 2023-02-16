@@ -26,7 +26,7 @@ const icons: Record<string, FC<SvgProps>> = {
 
 export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): ReactElement => (
   <View>
-    {local.map((localOption: OptionItem, i) => {
+    {local.map((localOption: OptionItem) => {
       const SVG = icons[localOption.value]
       return (
         <Pressable key={localOption.value} onPress={() => onSelect(localOption.value)}>
@@ -36,7 +36,7 @@ export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): Reac
               {i18n(`paymentMethod.${localOption.value}`).toLowerCase()}
             </Text>
           </View>
-          {i < local.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+          <HorizontalLine style={tw`my-6`} />
         </Pressable>
       )
     })}

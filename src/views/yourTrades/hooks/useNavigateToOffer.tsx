@@ -1,7 +1,6 @@
 import { useNavigation } from '../../../hooks'
 import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
-import { useSettingsStore } from '../../../store/settingsStore'
 import { isSellOffer } from '../../../utils/offer'
 import { getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForOffer } from '../utils/getNavigationDestinationForOffer'
@@ -11,7 +10,6 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
   const navigation = useNavigation()
   const showStartRefundOverlay = useStartRefundOverlay()
   const showConfirmEscrowOverlay = useConfirmEscrowOverlay()
-  const setPeachWalletActive = useSettingsStore((state) => state.setPeachWalletActive)
 
   return async () => {
     const [screen, params] = getNavigationDestinationForOffer(offer)
@@ -30,8 +28,6 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
         return
       }
     }
-
-    if (screen === 'signMessage') setPeachWalletActive(false)
 
     navigation.navigate(screen, params)
   }

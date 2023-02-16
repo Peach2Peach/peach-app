@@ -47,7 +47,6 @@ describe('updateSettings', () => {
       },
       preferredPaymentMethods: {},
       showBackupReminder: true,
-      showDisputeDisclaimer: true,
       peachWalletActive: true,
       nodeURL: 'https://localhost:3000/',
       customFeeRate: 1,

@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { UsernameInput } from '../../UsernameInput'
@@ -45,7 +46,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   }
   const phoneRules = { required: !email && !userName, phone: true }
   const emailRules = { required: !phone && !userName, email: true }
-  const userNameRules = { required: !phone && !email, userName: true }
+  const userNameRules = { required: !phone && !email, paypalUserName: true }
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
@@ -98,10 +99,9 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
-
-      {currentTab.id === 'phone' && (
-        <View style={tw`mt-2`}>
+      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} buttonStyle={tw`p-0`} />
+      <View style={tw`mt-2`}>
+        {currentTab.id === 'phone' && (
           <PhoneInput
             onChange={setPhone}
             onSubmit={() => {
@@ -113,27 +113,21 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
             autoCorrect={false}
             errorMessage={displayErrors ? phoneErrors : undefined}
           />
-        </View>
-      )}
-
-      {currentTab.id === 'email' && (
-        <View style={tw`mt-2`}>
-          <Input
+        )}
+        {currentTab.id === 'email' && (
+          <EmailInput
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
             required={true}
             value={email}
             placeholder={i18n('form.email.placeholder')}
-            autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
-        </View>
-      )}
-      {currentTab.id === 'userName' && (
-        <View style={tw`mt-2`}>
+        )}
+        {currentTab.id === 'userName' && (
           <UsernameInput
             {...{
-              maxLength: 17,
+              maxLength: 21,
               required: true,
               onChange: setUserName,
               onSubmit: $reference?.focus,
@@ -143,8 +137,9 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
               errorMessage: displayErrors ? userNameErrors : undefined,
             }}
           />
-        </View>
-      )}
+        )}
+      </View>
+
       <Input
         onChange={setReference}
         onSubmit={save}

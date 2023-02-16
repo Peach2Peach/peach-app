@@ -20,17 +20,16 @@ export const getHeaderChatActions = (
   // const extendTime = () => alert('todo extend time')
   const raiseDispute = canDispute ? showOpenDisputeOverlay : () => {}
 
-  const icons: HeaderConfig['icons'] = [
-    {
+  const icons: HeaderConfig['icons'] = []
+  if (!contract.paymentMade) {
+    icons.push({
       iconComponent: <Icon style={!canCancel && tw`opacity-50`} id="xCircle" color={tw`text-error-main`.color} />,
       onPress: openCancelTrade,
-    },
-    {
-      iconComponent: (
-        <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-warning-main`.color} />
-      ),
-      onPress: raiseDispute,
-    },
-  ]
+    })
+  }
+  icons.push({
+    iconComponent: <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-warning-main`.color} />,
+    onPress: raiseDispute,
+  })
   return icons
 }

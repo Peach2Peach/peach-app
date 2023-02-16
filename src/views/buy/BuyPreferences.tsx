@@ -125,7 +125,7 @@ export default (): ReactElement => {
             }
           })
           saveAndUpdate({ ...offer, id: result.offerId } as BuyOffer)
-          navigation.replace('signMessage', { offerId: result.offerId })
+          navigation.replace('offerPublished', { offerId: result.offerId })
           return
         }
 

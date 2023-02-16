@@ -1,8 +1,10 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
-import { verify } from 'bitcoinjs-message'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
+import { isPaypalUsername } from './isPaypalUsername'
+import { isUsername } from './isUsername'
+import { isValidBitcoinSignature } from './isValidBitcoinSignature'
 
 const emailRegex
   = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
@@ -52,9 +54,11 @@ export const rules = {
   bic: bicRegex,
   ukSortCode: /^(?!(?:0{6}|00-00-00))(?:\d{6}|\d\d-\d\d-\d\d)$/u,
   ukBankAccount: /^\d{8}$/u,
-  userName (_: boolean, value: string | null) {
-    if (!value) return false
-    return value !== '@' && /^@[a-z0-9]*/iu.test(value)
+  userName (_: boolean, value: string) {
+    return isUsername(value)
+  },
+  paypalUserName (_: boolean, value: string) {
+    return isPaypalUsername(value)
   },
   revtag (_: boolean, value: string | null) {
     if (!value) return false
@@ -67,11 +71,7 @@ export const rules = {
     return wordlists.english.includes(value)
   },
   signature ([btcAddress, message]: [string, string], value: string) {
-    try {
-      return verify(message, btcAddress, value, undefined, true)
-    } catch (e) {
-      return false
-    }
+    return isValidBitcoinSignature(message, btcAddress, value)
   },
   feeRate (_: boolean, value: string) {
     return /^[0-9]*$/u.test(value) && Number(value) >= 1
