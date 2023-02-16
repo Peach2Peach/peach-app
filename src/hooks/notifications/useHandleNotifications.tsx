@@ -1,7 +1,7 @@
 import messaging from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
-import { error, info } from '../utils/log'
-import { parseError } from '../utils/system'
+import { error, info } from '../../utils/log'
+import { parseError } from '../../utils/system'
 import { useHandleContractNotifications } from './useHandleContractNotifications'
 import { useMessageHandler } from './useMessageHandler'
 
