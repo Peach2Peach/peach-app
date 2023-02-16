@@ -19,5 +19,4 @@ export const getDefaultBuyOffer = ({
   releaseAddress: '',
   originalPaymentData: [],
   kyc,
-  tradeStatus: 'messageSigningRequired',
 })

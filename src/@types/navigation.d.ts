@@ -26,9 +26,7 @@ declare type RootStackParamList = {
     }
     origin: keyof RootStackParamList
   }
-  signMessage: {
-    offerId: string
-  }
+  signMessage: undefined
   fundEscrow: {
     offer: SellOffer
   }
@@ -85,7 +83,11 @@ declare type RootStackParamList = {
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
-  payoutAddress: undefined
+  payoutAddress:
+    | {
+        type: 'refund' | 'payout'
+      }
+    | undefined
   paymentMethods: undefined
   meetupScreen: {
     eventId: string

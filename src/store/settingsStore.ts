@@ -14,6 +14,7 @@ type SettingsStore = Settings & {
   setSellAmount: (sellAmount: number) => void
   setPayoutAddress: (payoutAddress: string) => void
   setPayoutAddressLabel: (payoutAddressLabel: string) => void
+  setPayoutAddressSignature: (payoutAddressSignature: string) => void
   setDerivationPath: (derivationPath: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   setCountry: (country: Country) => void
@@ -47,6 +48,7 @@ export const settingsStore = createStore(
       setSellAmount: (sellAmount) => set((state) => ({ ...state, sellAmount })),
       setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
       setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
+      setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),
       setDerivationPath: (derivationPath) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
       setCountry: (country: Country) => set((state) => ({ ...state, country })),

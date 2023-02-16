@@ -157,7 +157,6 @@ declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
-  | 'messageSigningRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
