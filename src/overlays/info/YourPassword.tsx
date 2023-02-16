@@ -1,11 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { Text } from '../components'
-import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
+import { Text } from '../../components'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
-export const YourPasswordPopup = () => (
+export const YourPassword = () => (
   <>
     <Text>{i18n('settings.backups.fileBackup.popup2.content.1')}</Text>
 

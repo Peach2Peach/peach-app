@@ -86,9 +86,3 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
   ]
 }
-
-// Reputation
-export const GOLDMEDAL = 0.9
-export const SILVERMEDAL = 0.7
-
-export const MEDALS = ['fastTrader', 'superTrader', 'ambassador']

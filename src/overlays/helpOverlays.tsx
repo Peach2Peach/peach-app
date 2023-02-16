@@ -8,17 +8,18 @@ import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { ConfirmPayment } from './info/ConfirmPayment'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
-import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { MakePayment } from './info/MakePayment'
+import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { Mempool } from './info/Mempool'
 import { MyBadges } from './info/MyBadges'
+import { NetworkFees } from './info/NetworkFees'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { Premium } from './info/Premium'
 import { ReferralsHelp } from './info/ReferralsHelp'
 import { SeedPhrasePopup } from './info/SeedPhrasePopup'
 import { TradingLimit } from './info/TradingLimit'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
-import { YourPasswordPopup } from './YourPasswordPopup'
+import { YourPassword } from './info/YourPassword'
 
 export const helpOverlays = {
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
@@ -33,6 +34,7 @@ export const helpOverlays = {
   makePayment: { title: i18n('help.makePayment.title'), content: MakePayment },
   mempool: { title: i18n('help.mempool.title'), content: Mempool },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
+  networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   premium: { title: i18n('help.premium.title'), content: Premium },
@@ -40,7 +42,7 @@ export const helpOverlays = {
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },
   tradingLimit: { title: i18n('help.tradingLimit.title'), content: TradingLimit },
   withdrawingFunds: { title: i18n('wallet.withdraw.help.title'), content: WithdrawingFundsHelp },
-  yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPasswordPopup },
+  yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPassword },
 }
 
 export type HelpType = keyof typeof helpOverlays

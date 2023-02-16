@@ -1,1 +1,0 @@
-export { ExtraMedals } from './ExtraMedals'

@@ -5,6 +5,7 @@ import tw from '../../../styles/tailwind'
 import { InfoButtons } from './InfoButtons'
 import { OptionButtons } from './OptionButtons'
 import { PrimaryButtons } from './PrimaryButtons'
+import { WarningButtons } from './WarningButtons'
 
 const headerConfig = { title: 'test view - buttons' }
 
@@ -17,6 +18,7 @@ export default () => {
     >
       <PrimaryButtons />
       <InfoButtons />
+      <WarningButtons />
       <OptionButtons />
     </PeachScrollView>
   )

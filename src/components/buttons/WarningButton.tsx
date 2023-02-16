@@ -7,9 +7,9 @@ export type WarningButtonProps = Partial<ButtonProps>
 export const WarningButton = (props: WarningButtonProps) => {
   const { disabled } = props
 
-  const color = disabled ? tw`bg-warning-mild` : tw`bg-warning-dark-2`
+  const color = disabled ? tw`bg-warning-mild` : tw`bg-warning-dark-1`
   const textColor = tw`text-primary-background-light`
-  const borderColor = tw`border-warning-dark-2`
+  const borderColor = disabled ? tw`border-warning-mild` : tw`border-warning-dark-1`
 
   return <Button {...{ ...props, color, textColor, borderColor }} />
 }
