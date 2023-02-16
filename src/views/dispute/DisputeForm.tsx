@@ -10,6 +10,7 @@ import { submitRaiseDispute } from './utils/submitRaiseDispute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../utils/account'
+import { EmailInput } from '../../components/inputs/EmailInput'
 
 export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 const required = { required: true }
@@ -60,12 +61,11 @@ export default (): ReactElement => {
   return (
     <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
       <View style={tw`justify-center h-full p-6 pb-20`}>
-        <Input
+        <EmailInput
           onChange={setEmail}
           onSubmit={() => $message?.focus()}
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
-          autoCorrect={false}
           errorMessage={emailErrors}
         />
         <Input value={i18n(`dispute.reason.${reason}`)} disabled />

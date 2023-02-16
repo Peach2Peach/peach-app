@@ -1,14 +1,10 @@
 import messaging from '@react-native-firebase/messaging'
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
-import MatchAccepted from '../../../overlays/MatchAccepted'
+import { useCallback } from 'react'
 
 const updaterPNs = ['offer.matchSeller', 'contract.contractCreated']
 
-export default (refetch: Function, offerId: string | undefined) => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
+export default (refetch: Function) => {
   useFocusEffect(
     useCallback(() => {
       const unsubscribe = messaging().onMessage(async (remoteMessage): Promise<null | void> => {
@@ -17,15 +13,9 @@ export default (refetch: Function, offerId: string | undefined) => {
         if (updaterPNs.includes(remoteMessage.data.type)) {
           refetch()
         }
-
-        if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
-          updateOverlay({
-            content: <MatchAccepted contractId={remoteMessage.data.contractId} />,
-          })
-        }
       })
 
       return unsubscribe
-    }, [offerId, refetch, updateOverlay]),
+    }, [refetch]),
   )
 }

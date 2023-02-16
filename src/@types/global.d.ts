@@ -46,6 +46,7 @@ declare type Chat = {
   lastSeen: Date
   messages: Message[]
   draftMessage: string
+  seenDisputeDisclaimer: boolean
 }
 
 declare type AppState = {
@@ -65,6 +66,7 @@ declare type SummaryItemLevel = Level | 'WAITING'
 declare type MessageState = {
   level: Level
   msgKey?: string
+  bodyArgs?: string[]
   action?: Action
   onClose?: Function
   time?: number
@@ -105,4 +107,13 @@ declare type Expiry = {
   date: Date
   ttl: number
   isExpired: boolean
+}
+
+declare type Config = {
+  peachPGPPublicKey: string
+  peachFee: number
+  minAppVersion: string
+  latestAppVersion: string
+  minTradingAmount: number
+  maxTradingAmount: number
 }

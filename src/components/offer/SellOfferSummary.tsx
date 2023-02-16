@@ -3,6 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
+import { getEventName } from '../../utils/events'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
 import Icon from '../Icon'
@@ -31,9 +32,9 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       <SatsFormat
         sats={offer.amount}
         containerStyle={tw`self-center`}
-        bitcoinLogoStyle={tw`h-4 w-4 mr-1`}
-        style={tw`subtitle-1 font-semibold`}
-        satsStyle={tw`body-s font-normal`}
+        bitcoinLogoStyle={tw`w-4 h-4 mr-1`}
+        style={tw`font-semibold subtitle-1`}
+        satsStyle={tw`font-normal body-s`}
       />
       <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withA')}</Text>
@@ -48,13 +49,9 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
         selected={{ id: selectedCurrency, display: selectedCurrency }}
         select={(c) => setSelectedCurrency(c.id as Currency)}
       />
-      <View style={tw`items-center mt-3 mb-2 flex-row justify-center`}>
+      <View style={tw`flex-row items-center justify-center mt-3 mb-2`}>
         {offer.meansOfPayment[selectedCurrency]?.map((p, i) => (
-          <PaymentMethod
-            key={`sellOfferMethod-${p}`}
-            paymentMethodName={i18n(`paymentMethod.${p}`)}
-            style={[i > 0 && tw`ml-1`]}
-          />
+          <PaymentMethod key={`sellOfferMethod-${p}`} paymentMethod={p} style={[i > 0 && tw`ml-1`]} />
         ))}
       </View>
 

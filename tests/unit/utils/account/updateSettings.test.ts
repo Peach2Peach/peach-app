@@ -36,8 +36,10 @@ describe('updateSettings', () => {
     updateSettings({ meansOfPayment })
     deepStrictEqual(account.settings, {
       appVersion: APPVERSION,
-      minAmount: 200000,
-      maxAmount: 5000000,
+      minBuyAmount: 200000,
+      maxBuyAmount: 5000000,
+      sellAmount: 200000,
+      premium: 1.5,
       displayCurrency: 'EUR',
       locale: 'en',
       meansOfPayment: {
@@ -45,7 +47,6 @@ describe('updateSettings', () => {
       },
       preferredPaymentMethods: {},
       showBackupReminder: true,
-      showDisputeDisclaimer: true,
       peachWalletActive: true,
       nodeURL: 'https://localhost:3000/',
       customFeeRate: 1,

@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import ContractChatTitle from '../../../components/titles/ContractChatTitle'
 
-import { useFocusEffect } from '@react-navigation/native'
-import ContractTitle from '../../../components/titles/ContractTitle'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
@@ -45,7 +44,7 @@ export const useContractChatSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        titleComponent: <ContractTitle id={contractId} amount={contract?.amount} />,
+        titleComponent: <ContractChatTitle id={contractId} />,
         icons: contract
           ? getHeaderChatActions(contract, () => showConfirmOverlay(contract), openDisputeOverlay, view)
           : [],
@@ -184,10 +183,10 @@ export const useContractChatSetup = () => {
   }, [messagesError, showError])
 
   useEffect(() => {
-    if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
-      showDisclaimer()
+    if (contract && !contract.disputeActive && !chat.seenDisputeDisclaimer) {
+      showDisclaimer(chat, setAndSaveChat)
     }
-  }, [contract, showDisclaimer])
+  }, [chat, contract, showDisclaimer])
 
   return {
     contract,

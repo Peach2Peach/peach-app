@@ -6,5 +6,5 @@ type ContractCanceledProps = {
   contract: Contract
 }
 export const ContractCanceled = ({ contract }: ContractCanceledProps): ReactElement => (
-  <Text>{i18n(`contract.cancel.${contract.canceledBy}.canceled.text`)}</Text>
+  <Text>{i18n(`contract.cancel.${contract.canceledBy || 'buyer'}.canceled.text`)}</Text>
 )

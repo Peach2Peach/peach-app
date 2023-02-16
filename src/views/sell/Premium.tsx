@@ -1,45 +1,41 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 
 import { Input, PremiumSlider, Text } from '../../components'
 import { useMarketPrices } from '../../hooks'
+import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getOfferPrice } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
+import { parsePremiumToString } from './helpers/parsePremiumToString'
+import { validatePremiumStep } from './helpers/validatePremiumStep'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
 
-const validate = (offer: SellOfferDraft) => offer.premium >= -21 && offer.premium <= 21
-
 export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
-  const [premium, setPremium] = useState(offer.premium.toString())
-  const { data: marketPrice } = useMarketPrices()
+  const [premiumStore, setPremiumStore] = useSettingsStore((state) => [state.premium, state.setPremium], shallow)
+  const [premium, setPremium] = useState(premiumStore.toString())
+  const { data: priceBook } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = marketPrice ? getOfferPrice(offer.amount, offer.premium, marketPrice, displayCurrency) : 0
+  const currentPrice = priceBook ? getOfferPrice(offer.amount, offer.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
-    if (!value) return setPremium('')
-
-    const number = Number(value)
-    if (isNaN(number)) return setPremium(String(value).trim() || '')
-    if (number < -21) return setPremium('-21')
-    if (number > 21) return setPremium('21')
-    return setPremium(String(value).trim()
-      .replace(/^0/u, ''))
-  }
-
-  useEffect(() => {
-    setPremium(premium)
+    setPremium(parsePremiumToString(value))
+    setPremiumStore(Number(premium))
     updateOffer({
       ...offer,
       premium: Number(premium),
     })
-  }, [premium, setPremium, setStepValid, updateOffer])
+  }
 
-  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
+  useEffect(
+    () => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)),
+    [priceBook, offer, setStepValid],
+  )
 
   return (
     <View>
