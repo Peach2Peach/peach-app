@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { getEventName } from '../../utils/events'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
 import { PaymentMethod } from '../matches/PaymentMethod'

@@ -1,23 +1,33 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import tw from '../../styles/tailwind'
 import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 import { BuyViewProps } from './BuyPreferences'
-import { BuyOfferSummary } from '../../components'
+import { BuyOfferSummary, PrimaryButton } from '../../components'
 import { isValidBitcoinSignature } from '../../utils/validation'
+import i18n from '../../utils/i18n'
+import { View } from 'react-native'
 
-export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElement => {
-  const { releaseAddress, walletLabel, message, messageSignature } = useBuySummarySetup()
+export default ({ offer, updateOffer }: BuyViewProps): ReactElement => {
+  const {
+    releaseAddress,
+    walletLabel,
+    message,
+    messageSignature,
+    canPublish,
+    publishOffer,
+    isPublishing,
+    goToSetupPayoutWallet,
+  } = useBuySummarySetup()
+  const publishBuyOffer = () => publishOffer(offer)
 
   useEffect(() => {
-    setStepValid(isValidBitcoinSignature(message, releaseAddress, messageSignature))
-
     if (releaseAddress) updateOffer({
       ...offer,
       releaseAddress,
       message,
       messageSignature,
     })
-  }, [releaseAddress, message, messageSignature, setStepValid, updateOffer])
+  }, [releaseAddress, message, messageSignature, updateOffer])
 
   useEffect(() => {
     if (walletLabel) updateOffer({
@@ -26,5 +36,20 @@ export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElemen
     })
   }, [walletLabel, updateOffer])
 
-  return <BuyOfferSummary offer={offer} style={tw`mx-8 mt-15`} />
+  return (
+    <View style={tw`items-center flex-shrink h-full px-8 pb-8`}>
+      <View style={tw`justify-center flex-grow`}>
+        <BuyOfferSummary offer={offer} />
+      </View>
+      <PrimaryButton
+        testID="navigation-next"
+        narrow={!canPublish}
+        onPress={canPublish ? publishBuyOffer : goToSetupPayoutWallet}
+        iconId={canPublish ? 'uploadCloud' : undefined}
+        loading={isPublishing}
+      >
+        {i18n(canPublish ? 'offer.publish' : 'next')}
+      </PrimaryButton>
+    </View>
+  )
 }
