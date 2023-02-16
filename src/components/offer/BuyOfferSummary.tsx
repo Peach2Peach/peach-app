@@ -43,8 +43,8 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         select={(c) => setSelectedCurrency(c.id as Currency)}
       />
       <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
-        {offer.meansOfPayment[selectedCurrency]?.map((p, i) => (
-          <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={[i > 0 && tw`mx-1 my-1`]} />
+        {offer.meansOfPayment[selectedCurrency]?.map((p) => (
+          <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
         ))}
       </View>
       {!!offer.walletLabel && (
