@@ -28,16 +28,16 @@ module.exports = {
         },
         primary: {
           dark: {
-            1: '#C45104',
             2: '#963600',
+            1: '#C45104',
           },
           main: '#F56522',
           mild: {
-            1: '#FCCCB6',
             2: '#FFA171',
+            1: '#FCCCB6',
           },
-          background: '#FFF9F6',
           'background-dark': '#FEEDE5',
+          background: '#FFF9F6',
           'background-light': '#FFFCFA',
         },
         success: {
