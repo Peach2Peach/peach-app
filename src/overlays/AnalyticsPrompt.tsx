@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Linking, View } from 'react-native'
+import { Linking } from 'react-native'
 import { Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
