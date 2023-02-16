@@ -29,8 +29,7 @@ type SettingsStore = Settings & {
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   setNodeURL: (url: string) => void
-  setCustomFeeRate: (customFeeRate: number) => void
-  setSelectedFeeRate: (selectedFeeRate: FeeRate) => void
+  setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
 }
 
 export const settingsStorage = createStorage('settings')
@@ -63,8 +62,7 @@ export const settingsStore = createStore(
       setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       setNodeURL: (nodeURL) => set((state) => ({ ...state, nodeURL })),
-      setCustomFeeRate: (customFeeRate) => set((state) => ({ ...state, customFeeRate })),
-      setSelectedFeeRate: (selectedFeeRate) => set((state) => ({ ...state, selectedFeeRate })),
+      setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),
     }),
     {
       name: 'settings',
