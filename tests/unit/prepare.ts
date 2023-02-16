@@ -108,7 +108,6 @@ jest.mock('react-native-device-info', () => ({
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
-jest.mock('react-native-canvas')
 jest.mock('react-native-webview')
 jest.mock('react-native-permissions', () => ({
   checkNotifications: jest.fn(),
