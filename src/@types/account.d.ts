@@ -8,6 +8,7 @@ declare type Settings = {
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string
+  payoutAddressSignature?: string
   derivationPath?: string
   displayCurrency: Currency
   country?: string
@@ -21,7 +22,6 @@ declare type Settings = {
   lastBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
-  showDisputeDisclaimer: boolean
   peachWalletActive: boolean
   nodeURL: string
   customFeeRate: number

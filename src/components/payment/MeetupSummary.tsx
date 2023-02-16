@@ -14,7 +14,7 @@ declare type MeetupSummaryProps = {
 export default ({ event, onPress }: MeetupSummaryProps): ReactElement => (
   <Pressable onPress={onPress}>
     <Text style={tw`pl-5 input-label text-black-1`}>{event.city.toLowerCase()}</Text>
-    <Text style={tw`pl-5 body-s text-black-1`}>{event.name.toLowerCase()}</Text>
+    <Text style={tw`pl-5 body-s text-black-1`}>{event.longName.toLowerCase()}</Text>
     <HorizontalLine style={tw`my-6`} />
   </Pressable>
 )

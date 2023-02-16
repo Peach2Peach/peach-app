@@ -1,3 +1,6 @@
-export { rules } from './rules'
-export { getMessages } from './messages'
 export { getErrorsInField } from './getErrorsInField'
+export { isPaypalUsername } from './isPaypalUsername'
+export { isUsername } from './isUsername'
+export { isValidBitcoinSignature } from './isValidBitcoinSignature'
+export { getMessages } from './messages'
+export { rules } from './rules'
