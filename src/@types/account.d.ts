@@ -24,8 +24,7 @@ declare type Settings = {
   showBackupReminder: boolean
   peachWalletActive: boolean
   nodeURL: string
-  customFeeRate: number
-  selectedFeeRate: FeeRate
+  feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
 }
 
 declare type PGPKeychain = {
