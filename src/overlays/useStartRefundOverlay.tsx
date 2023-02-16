@@ -61,7 +61,7 @@ export const useStartRefundOverlay = () => {
           icon: 'xSquare',
           callback: () => {
             closeOverlay()
-            navigation.navigate('yourTrades', { tab: 'sell' })
+            navigation.navigate('yourTrades', { tab: 'history' })
           },
         },
         action2: {
@@ -76,6 +76,8 @@ export const useStartRefundOverlay = () => {
       if (postTXError) {
         showError(postTXError.error)
         closeOverlay()
+      } else {
+        peachWallet.syncWallet()
       }
     },
     [closeOverlay, goToWallet, navigation, setOffer, showError, updateOverlay],

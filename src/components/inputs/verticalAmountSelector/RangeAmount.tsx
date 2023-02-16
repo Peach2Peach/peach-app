@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -29,39 +29,71 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
 
   const [maximum, setMaximum] = useState(value[1])
   const [minimum, setMinimum] = useState(value[0])
-  const maxY = interpolate(maximum, [max, min], [0, knobTrackHeight])
-  const minY = interpolate(minimum, [max, min], [0, knobTrackHeight])
-  const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
-  const trackRangeMax: [number, number] = useMemo(() => [0, Math.max(0, minY - knobHeight)], [knobHeight, minY])
-  const trackRangeMin: [number, number] = useMemo(
-    () => [Math.min(maxY + knobHeight, knobTrackHeight), knobTrackHeight],
-    [knobHeight, knobTrackHeight, maxY],
+  const maxY = useMemo(
+    () => interpolate(maximum, [max, min], [0, knobTrackHeight]),
+    [knobTrackHeight, max, maximum, min],
   )
+  const minY = useMemo(
+    () => interpolate(minimum, [max, min], [0, knobTrackHeight]),
+    [knobTrackHeight, max, min, minimum],
+  )
+  const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
+  const trackRangeMax: [number, number] = useMemo(() => [0, knobTrackHeight - knobHeight], [knobHeight, knobTrackHeight])
+  const trackRangeMin: [number, number] = useMemo(() => [knobHeight, knobTrackHeight], [knobHeight, knobTrackHeight])
   const rangeHeight = minY - maxY
+  const minSatsDistance = useMemo(
+    () => round(interpolate(knobHeight, [0, knobTrackHeight], [0, max - min]), -4),
+    [knobHeight, knobTrackHeight, max, min],
+  )
   const panMax = useRef(new Animated.Value(maxY)).current
   const panMin = useRef(new Animated.Value(minY)).current
 
   const panMaxResponder = useRef(createPanResponder(panMax)).current
   const panMinResponder = useRef(createPanResponder(panMin)).current
 
-  const setMaximumRounded = (val: number) => {
-    setMaximum(round(val, -4))
-  }
-  const setMinimumRounded = (val: number) => {
-    setMinimum(round(val, -4))
-  }
+  const setMaximumRounded = useCallback(
+    (val: number, abs: number) => {
+      const roundedVal = round(val, -4)
+
+      if (roundedVal - minimum < minSatsDistance) {
+        panMin.setOffset(abs + knobHeight)
+        setMinimum(roundedVal - minSatsDistance)
+      }
+      setMaximum(roundedVal)
+    },
+    [knobHeight, minSatsDistance, minimum, panMin],
+  )
+
+  const setMinimumRounded = useCallback(
+    (val: number, abs: number) => {
+      const roundedVal = round(val, -4)
+
+      if (maximum - roundedVal < minSatsDistance) {
+        panMax.setOffset(abs - knobHeight)
+        setMaximum(roundedVal + minSatsDistance)
+      }
+      setMinimum(roundedVal)
+    },
+    [knobHeight, minSatsDistance, maximum, panMax],
+  )
+
   useEffect(
     () => panListener(panMax, [max, min], trackRange, setMaximumRounded, trackRangeMax),
-    [max, min, panMax, trackRange, trackRangeMax],
+    [max, min, panMax, setMaximumRounded, trackRange, trackRangeMax],
   )
   useEffect(
     () => panListener(panMin, [max, min], trackRange, setMinimumRounded, trackRangeMin),
-    [max, min, panMin, trackRange, trackRangeMin],
+    [max, min, panMin, setMinimumRounded, trackRange, trackRangeMin],
   )
 
   useEffect(() => {
     onChange([minimum, maximum])
   }, [onChange, minimum, maximum])
+
+  useEffect(() => {
+    panMin.extractOffset()
+    panMax.extractOffset()
+  }, [panMin, panMax])
 
   return (
     <View style={[tw`items-end w-[210px] pr-5`, style]}>

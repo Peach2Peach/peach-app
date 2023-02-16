@@ -6,8 +6,8 @@ export const defaultConfig: Config = {
   peachFee: 0.015,
   minAppVersion: APPVERSION,
   latestAppVersion: APPVERSION,
-  minTradingAmount: 200000,
-  maxTradingAmount: 5000000,
+  minTradingAmount: 0,
+  maxTradingAmount: Infinity,
 }
 
 export const defaultSettings: Settings = {
@@ -21,7 +21,6 @@ export const defaultSettings: Settings = {
   meansOfPayment: {},
   premium: 1.5,
   showBackupReminder: true,
-  showDisputeDisclaimer: true,
   peachWalletActive: true,
   nodeURL: BLOCKEXPLORER,
   customFeeRate: 1,

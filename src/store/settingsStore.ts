@@ -14,6 +14,7 @@ type SettingsStore = Settings & {
   setSellAmount: (sellAmount: number) => void
   setPayoutAddress: (payoutAddress: string) => void
   setPayoutAddressLabel: (payoutAddressLabel: string) => void
+  setPayoutAddressSignature: (payoutAddressSignature: string) => void
   setDerivationPath: (derivationPath: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   setCountry: (country: Country) => void
@@ -26,11 +27,9 @@ type SettingsStore = Settings & {
   setFcmToken: (fcmToken: string) => void
   setLastBackupDate: (lastBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
-  setShowDisputeDisclaimer: (showDisputeDisclaimer: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   setNodeURL: (url: string) => void
-  setCustomFeeRate: (customFeeRate: number) => void
-  setSelectedFeeRate: (selectedFeeRate: FeeRate) => void
+  setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
 }
 
 export const settingsStorage = createStorage('settings')
@@ -48,6 +47,7 @@ export const settingsStore = createStore(
       setSellAmount: (sellAmount) => set((state) => ({ ...state, sellAmount })),
       setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
       setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
+      setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),
       setDerivationPath: (derivationPath) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
       setCountry: (country: Country) => set((state) => ({ ...state, country })),
@@ -60,11 +60,9 @@ export const settingsStore = createStore(
       setFcmToken: (fcmToken) => set((state) => ({ ...state, fcmToken })),
       setLastBackupDate: (lastBackupDate) => set((state) => ({ ...state, lastBackupDate })),
       setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
-      setShowDisputeDisclaimer: (showDisputeDisclaimer) => set((state) => ({ ...state, showDisputeDisclaimer })),
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       setNodeURL: (nodeURL) => set((state) => ({ ...state, nodeURL })),
-      setCustomFeeRate: (customFeeRate) => set((state) => ({ ...state, customFeeRate })),
-      setSelectedFeeRate: (selectedFeeRate) => set((state) => ({ ...state, selectedFeeRate })),
+      setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),
     }),
     {
       name: 'settings',
