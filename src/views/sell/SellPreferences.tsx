@@ -1,12 +1,12 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { BackHandler, ScrollView, View } from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { BackHandler, View } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 import Summary from './Summary'
 
-import { BitcoinPriceStats, HorizontalLine, Loading } from '../../components'
+import { BitcoinPriceStats, HorizontalLine } from '../../components'
 import { useSettingsStore } from '../../store/settingsStore'
 import { getDefaultSellOffer } from './helpers/getDefaultSellOffer'
 import Premium from './Premium'
@@ -55,7 +55,6 @@ export default (): ReactElement => {
 
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
-  const scroll = useRef<ScrollView>(null).current
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -72,8 +71,6 @@ export default (): ReactElement => {
 
   const next = async () => {
     setPage(page + 1)
-
-    scroll?.scrollTo({ x: 0 })
   }
 
   return (
