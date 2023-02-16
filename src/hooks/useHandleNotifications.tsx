@@ -5,10 +5,6 @@ import { parseError } from '../utils/system'
 import { useHandleContractNotifications } from './useHandleContractNotifications'
 import { useMessageHandler } from './useMessageHandler'
 
-// PN-A03
-// contract.chat
-// I’d say the notification icon is enough
-
 export const useHandleNotifications = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
   useHandleContractNotifications()
   const messageHandler = useMessageHandler(getCurrentPage)

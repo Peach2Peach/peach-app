@@ -1,9 +1,11 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useCallback, useContext, useMemo } from 'react'
+import shallow from 'zustand/shallow'
 import { MessageContext } from '../contexts/message'
 import { useConfirmTradeCancelationOverlay } from '../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
 import { useConfirmEscrowOverlay } from '../overlays/useConfirmEscrowOverlay'
 import { useWronglyFundedOverlay } from '../overlays/useWronglyFundedOverlay'
+import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { getContract } from '../utils/contract'
 import { info } from '../utils/log'
 import { getOffer } from '../utils/offer'
@@ -25,6 +27,25 @@ const useOverLayEvents = () => {
     [navigation],
   )
   return overlayEvents
+}
+const useStateUpdateEvents = () => {
+  const [getContractSummary, setContract] = useTradeSummaryStore(
+    (state) => [state.getContract, state.setContract],
+    shallow,
+  )
+  const stateUpdateEvents: PNEventHandlers = useMemo(
+    () => ({
+      // PN-A03
+      'contract.chat': ({ contractId }: PNData) => {
+        if (!contractId) return
+        const contract = getContractSummary(contractId)
+        if (!contract) return
+        setContract(contractId, { unreadMessages: contract.unreadMessages + 1 })
+      },
+    }),
+    [getContractSummary, setContract],
+  )
+  return stateUpdateEvents
 }
 const usePopupEvents = () => {
   const confirmEscrowOverlay = useConfirmEscrowOverlay()
@@ -66,6 +87,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
   const getPNActionHandler = useGetPNActionHandler()
   const overlayEvents = useOverLayEvents()
   const popupEvents = usePopupEvents()
+  const stateUpdateEvents = useStateUpdateEvents()
 
   const onMessageHandler = useCallback(
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
@@ -80,6 +102,8 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         overlayEvents[type]?.(data)
       } else if (popupEvents[type]) {
         popupEvents[type]?.(data)
+      } else if (stateUpdateEvents[type]) {
+        stateUpdateEvents[type]?.(data)
       } else {
         updateMessage({
           msgKey: 'notification.' + type,
@@ -89,7 +113,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         })
       }
     },
-    [getCurrentPage, getPNActionHandler, overlayEvents, popupEvents, updateMessage],
+    [getCurrentPage, getPNActionHandler, overlayEvents, popupEvents, stateUpdateEvents, updateMessage],
   )
   return onMessageHandler
 }
