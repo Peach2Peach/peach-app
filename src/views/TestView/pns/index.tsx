@@ -1,7 +1,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { PrimaryButton } from '../../../components'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
 import { useHeaderSetup } from '../../../hooks'
 import { useContractMessageHandler } from '../../../hooks/notifications/useContractMessageHandler'

@@ -30,27 +30,39 @@ export const useContractPopupEvents = (currentContractId?: string) => {
 
   const contractPopupEvents: PNEventHandlers = useMemo(
     () => ({
+      // PN-D01
       'contract.buyer.disputeRaised': (contract: Contract) =>
         showDisputeRaisedNotice(contract, getContractViewer(contract, account)),
       'contract.seller.disputeRaised': (contract: Contract) =>
         showDisputeRaisedNotice(contract, getContractViewer(contract, account)),
+      // PN-D02 PN-D03
       'contract.disputeResolved': (contract: Contract) =>
         showDisputeResults(contract, getContractViewer(contract, account)),
+      // PN-S13
       'contract.canceled': (contract: Contract) => showTradeCanceled(contract, false),
+      // PN-B08
       'contract.cancelationRequest': (contract: Contract) =>
         !contract.disputeActive ? showConfirmTradeCancelation(contract) : null,
+      // PN-S15
       'contract.cancelationRequestAccepted': (contract: Contract) => showTradeCanceled(contract, true),
+      // PN-S16
       'contract.cancelationRequestRejected': (contract: Contract) => showCancelTradeRequestRejected(contract),
+      // PN-B12
       'contract.buyer.paymentTimerHasRunOut': (contract: Contract, { contractId }: PNData) =>
         showPaymentTimerHasRunOut(contract, 'buyer', currentContractId === contractId),
+      // PN-S12
       'contract.seller.paymentTimerHasRunOut': (contract: Contract, { contractId }: PNData) =>
         showPaymentTimerHasRunOut(contract, 'seller', currentContractId === contractId),
+      // PN-B06
       'contract.buyer.paymentTimerSellerCanceled': (contract: Contract, { contractId }: PNData) =>
         showPaymentTimerSellerCanceled(contract, currentContractId === contractId),
+      // PN-B07
       'contract.buyer.paymentTimerExtended': (contract: Contract, { contractId }: PNData) =>
         showPaymentTimerExtended(contract, currentContractId === contractId),
+      // PN-B04
       'contract.buyer.paymentReminderSixHours': (contract: Contract, { contractId }: PNData) =>
         showPaymentReminder(contract, currentContractId === contractId),
+      // PN-B05
       'contract.buyer.paymentReminderOneHour': (contract: Contract, { contractId }: PNData) =>
         showPaymentReminder(contract, currentContractId === contractId),
     }),
