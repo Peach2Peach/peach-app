@@ -42,10 +42,10 @@ module.exports = {
         },
         success: {
           dark: {
-            1: '#016736',
-            2: '#008847',
+            2: '#016736',
+            1: '#008847',
           },
-          main: '#008847',
+          main: '#05A85A',
           mild: '#88E2B7',
           background: '#C9FFE5',
         },
