@@ -71,7 +71,6 @@ module.exports = {
           light: '#099DE2',
           mild: '#93D6F5',
           background: '#D7F2FE',
-          // 'background-light': 'rgba(215, 242, 254, 0.1)',
         },
       },
       fontSize: {
