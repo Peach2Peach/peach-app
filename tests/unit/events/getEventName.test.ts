@@ -3,8 +3,8 @@ import { sessionStorage } from '../../../src/utils/session'
 
 describe('getEventName', () => {
   const meetupEvents = [
-    { id: '1', name: 'event 1' },
-    { id: '2', name: 'event 2' },
+    { id: '1', shortName: 'event 1' },
+    { id: '2', shortName: 'event 2' },
   ]
   sessionStorage.setMap('meetupEvents', meetupEvents)
 

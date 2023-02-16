@@ -18,7 +18,6 @@ export const recoveredAccount: Account = {
     },
     preferredPaymentMethods: {},
     showBackupReminder: false,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
     customFeeRate: 1,
@@ -64,7 +63,6 @@ export const account1: Account = {
     preferredPaymentMethods: {},
     kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
@@ -111,7 +109,6 @@ export const seller: Account = {
     preferredPaymentMethods: {},
     kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
@@ -158,7 +155,6 @@ export const buyer: Account = {
     preferredPaymentMethods: {},
     kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
@@ -207,7 +203,6 @@ export const userWithNoTrades: Account = {
     preferredPaymentMethods: {},
     kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
