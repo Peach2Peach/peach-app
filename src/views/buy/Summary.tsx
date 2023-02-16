@@ -1,11 +1,10 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import tw from '../../styles/tailwind'
-import { useBuySummarySetup } from './hooks/useBuySummarySetup'
-import { BuyViewProps } from './BuyPreferences'
-import { BuyOfferSummary, PrimaryButton } from '../../components'
-import { isValidBitcoinSignature } from '../../utils/validation'
-import i18n from '../../utils/i18n'
+import React, { ReactElement, useEffect } from 'react'
 import { View } from 'react-native'
+import { BuyOfferSummary, PrimaryButton } from '../../components'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { BuyViewProps } from './BuyPreferences'
+import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 
 export default ({ offer, updateOffer }: BuyViewProps): ReactElement => {
   const {
