@@ -11,6 +11,7 @@ import { PhoneInput } from '../../PhoneInput'
 const phoneRules = {
   required: true,
   phone: true,
+  phoneIsNotHighRisk: true,
 }
 
 export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
