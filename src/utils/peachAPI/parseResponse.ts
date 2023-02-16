@@ -1,5 +1,4 @@
 import { error } from '../log'
-import { parseError } from '../system'
 import { getResponseError } from './getResponseError'
 
 /**
@@ -29,10 +28,8 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
     }
     return [data, null]
   } catch (e) {
-    const err = parseError(e)
-
     error(`peachAPI - ${caller}`, e)
 
-    return [null, { error: err }]
+    return [null, { error: 'INTERNAL_SERVER_ERROR' }]
   }
 }

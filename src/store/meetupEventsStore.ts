@@ -11,7 +11,6 @@ type MeetupEventsStore = MeetupEventsState & {
   setMeetupEvents: (events: MeetupEvent[]) => void
   getLastModified: () => Date
   getMeetupEvent: (eventId: string) => MeetupEvent | undefined
-  getMeetupEventName: (eventId: string) => string
 }
 
 const defaultState: MeetupEventsState = {
@@ -26,7 +25,6 @@ export const meetupEventsStore = createStore(
       setMeetupEvents: (meetupEvents) => set((state) => ({ ...state, meetupEvents, lastModified: new Date() })),
       getLastModified: () => new Date(get().lastModified || 0),
       getMeetupEvent: (eventId) => get().meetupEvents.find(({ id }) => id === eventId),
-      getMeetupEventName: (eventId: string) => get().getMeetupEvent(eventId)?.name || eventId,
     }),
     {
       name: 'meetupEvents',

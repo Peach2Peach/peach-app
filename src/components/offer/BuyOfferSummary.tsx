@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
+import { getEventName } from '../../utils/events'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
 import { PaymentMethod } from '../matches/PaymentMethod'
@@ -24,14 +25,14 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         sats={offer.amount[0]}
         containerStyle={tw`self-center`}
         style={tw`font-semibold subtitle-1`}
-        satsStyle={tw`body-s font-normal`}
+        satsStyle={tw`font-normal body-s`}
       />
       <Text style={tw`self-center text-black-2`}>&</Text>
       <SatsFormat
         sats={offer.amount[1]}
         containerStyle={tw`self-center`}
         style={tw`font-semibold subtitle-1`}
-        satsStyle={tw`body-s font-normal`}
+        satsStyle={tw`font-normal body-s`}
       />
 
       <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />
@@ -42,13 +43,9 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         selected={{ id: selectedCurrency, display: selectedCurrency }}
         select={(c) => setSelectedCurrency(c.id as Currency)}
       />
-      <View style={tw`items-center mt-3 mb-2 flex-row justify-center`}>
+      <View style={tw`flex-row items-center justify-center mt-3 mb-2`}>
         {offer.meansOfPayment[selectedCurrency]?.map((p, i) => (
-          <PaymentMethod
-            key={`sellOfferMethod-${p}`}
-            paymentMethodName={i18n(`paymentMethod.${p}`)}
-            style={[i > 0 && tw`ml-1`]}
-          />
+          <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={[i > 0 && tw`ml-1`]} />
         ))}
       </View>
       {!!offer.walletLabel && (

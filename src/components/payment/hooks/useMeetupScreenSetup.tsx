@@ -18,10 +18,10 @@ export const useMeetupScreenSetup = () => {
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
   const event = getMeetupEvent(eventId) || {
     id: eventId,
-    name: '',
-    logo: '',
-    address: '',
-    url: '',
+    longName: '',
+    shortName: '',
+    country: 'DE',
+    city: '',
   }
 
   const openLink = (url: string) => (url ? openAppLink(url) : null)
@@ -32,31 +32,34 @@ export const useMeetupScreenSetup = () => {
   const addToPaymentMethods = () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
-      id: meetupInfo.id,
-      label: event.name,
+      id: 'cash.' + meetupInfo.id,
+      label: event.shortName,
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
-      country: meetupInfo.countries ? meetupInfo.countries[0] : undefined,
+      country: event.country,
     }
     addPaymentData(meetup)
     goToOrigin(route.params.origin)
   }
 
-  const icons = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
-  if (deletable) {
-    icons[1] = {
-      iconComponent: <DeleteIcon />,
-      onPress: () => deletePaymentMethod(),
+  const icons = useMemo(() => {
+    const icns = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+    if (deletable) {
+      icns[1] = {
+        iconComponent: <DeleteIcon />,
+        onPress: () => deletePaymentMethod(),
+      }
     }
-  }
+    return icns
+  }, [deletable, deletePaymentMethod, showHelp])
 
   useHeaderSetup(
     useMemo(
       () => ({
-        title: event.name,
+        title: event.shortName,
         icons,
       }),
-      [event.name, icons],
+      [event.shortName, icons],
     ),
   )
 

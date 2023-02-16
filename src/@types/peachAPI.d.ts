@@ -110,12 +110,15 @@ declare type PaymentMethod =
   | `giftCard.amazon.${Country}`
 
 declare type MeetupEvent = {
+  // BitcoinEvent in backend
   id: string
   country: Country
   city: string
-  name: string
+  shortName: string
+  longName: string
   url?: string
   address?: string
+  frequency?: string
   logo?: string // path to the logo
 }
 declare type CountryEventsMap = Record<Country, MeetupEvent[]>
@@ -172,7 +175,6 @@ declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
-  | 'messageSigningRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
