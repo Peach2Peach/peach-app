@@ -1,4 +1,3 @@
-import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
@@ -6,8 +5,7 @@ import { account } from '../utils/account'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { sessionStorage } from '../utils/session'
-import { isIOS, parseError } from '../utils/system'
+import { parseError } from '../utils/system'
 
 /**
  * @description Method to wait up to 10 seconds for navigation to initialise.
@@ -28,6 +26,14 @@ const waitForNavigation = async (
   }
 }
 
+const dataIsDefined = (
+  remoteMessage: FirebaseMessagingTypes.RemoteMessage,
+): remoteMessage is FirebaseMessagingTypes.RemoteMessage & {
+  data: {
+    [key: string]: string
+  }
+} => !!remoteMessage.data
+
 /**
  * @description Method to init navigation and check where to navigate to first after opening the app
  */
@@ -47,17 +53,8 @@ export const initialNavigation = async (
   if (initialNotification) {
     info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
-    let notifications = sessionStorage.getInt('notifications') || 0
-    if (notifications > 0) notifications -= 1
-    if (isIOS()) NotificationBadge.setNumber(notifications)
-    sessionStorage.setInt('notifications', notifications)
-
-    if (initialNotification.data) {
-      const handledNotification = handlePushNotification(
-        navigationRef,
-        initialNotification.data,
-        initialNotification.sentTime,
-      )
+    if (dataIsDefined(initialNotification)) {
+      const handledNotification = await handlePushNotification(navigationRef, initialNotification)
       if (!handledNotification) {
         navigationRef.navigate(account?.publicKey ? 'home' : 'welcome')
       }
@@ -67,12 +64,7 @@ export const initialNavigation = async (
   messaging().onNotificationOpenedApp((remoteMessage) => {
     info('Notification caused app to open from background state:', JSON.stringify(remoteMessage))
 
-    let notifications = sessionStorage.getInt('notifications') || 0
-    if (notifications > 0) notifications -= 1
-    if (isIOS()) NotificationBadge.setNumber(notifications)
-    sessionStorage.setInt('notifications', notifications)
-
-    if (remoteMessage.data) handlePushNotification(navigationRef, remoteMessage.data, remoteMessage.sentTime)
+    if (dataIsDefined(remoteMessage)) handlePushNotification(navigationRef, remoteMessage)
   })
 
   SplashScreen.hide()

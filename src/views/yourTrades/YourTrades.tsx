@@ -1,28 +1,20 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { SectionList, View } from 'react-native'
 import { Loading } from '../../components'
 
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
 import { SectionHeader } from './components/SectionHeader'
 import { TradeItem } from './components/TradeItem'
 import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { getCategories } from './utils/getCategories'
 
-const tabs: TabbedNavigationItem[] = [
-  { id: 'buy', display: i18n('yourTrades.buy') },
-  { id: 'sell', display: i18n('yourTrades.sell') },
-  { id: 'history', display: i18n('yourTrades.history') },
-]
-
 export default (): ReactElement => {
-  const { allOpenOffers, openOffers, pastOffers, isLoading, refetch } = useYourTradesSetup()
+  const { allOpenOffers, openOffers, pastOffers, isLoading, refetch, tabs, currentTab, setCurrentTab }
+    = useYourTradesSetup()
 
-  const [currentTab, setCurrentTab] = useState(tabs[0])
-
-  const switchTab = (tab: TabbedNavigationItem) => {
-    setCurrentTab(tab)
+  const switchTab = (t: TabbedNavigationItem) => {
+    setCurrentTab(t)
     refetch()
   }
 
@@ -53,7 +45,7 @@ export default (): ReactElement => {
         />
       )}
       {isLoading && (
-        <View style={tw`absolute inset-0 justify-center items-center`} pointerEvents="none">
+        <View style={tw`absolute inset-0 items-center justify-center`} pointerEvents="none">
           <Loading />
         </View>
       )}

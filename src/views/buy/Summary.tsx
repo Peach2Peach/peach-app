@@ -1,21 +1,23 @@
 import React, { ReactElement, useEffect } from 'react'
-import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 import { BuyViewProps } from './BuyPreferences'
 import { BuyOfferSummary } from '../../components'
+import { isValidBitcoinSignature } from '../../utils/validation'
 
 export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElement => {
-  const { releaseAddress, walletLabel } = useBuySummarySetup()
+  const { releaseAddress, walletLabel, message, messageSignature } = useBuySummarySetup()
 
   useEffect(() => {
-    setStepValid(!!releaseAddress)
+    setStepValid(isValidBitcoinSignature(message, releaseAddress, messageSignature))
 
     if (releaseAddress) updateOffer({
       ...offer,
       releaseAddress,
+      message,
+      messageSignature,
     })
-  }, [releaseAddress, setStepValid, updateOffer])
+  }, [releaseAddress, message, messageSignature, setStepValid, updateOffer])
 
   useEffect(() => {
     if (walletLabel) updateOffer({
@@ -24,9 +26,5 @@ export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElemen
     })
   }, [walletLabel, updateOffer])
 
-  return (
-    <View style={tw`flex-col justify-center h-full px-8`}>
-      <BuyOfferSummary offer={offer} style={tw`flex-shrink-0`} />
-    </View>
-  )
+  return <BuyOfferSummary offer={offer} style={tw`mx-8 mt-15`} />
 }

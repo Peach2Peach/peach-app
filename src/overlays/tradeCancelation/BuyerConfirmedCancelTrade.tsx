@@ -8,5 +8,5 @@ type BuyerConfirmedCancelTradeProps = {
   contract: Contract
 }
 export const BuyerConfirmedCancelTrade = ({ contract }: BuyerConfirmedCancelTradeProps): ReactElement => (
-  <Text>{i18n('contract.cancel.buyerConfirmed.text', contractIdToHex(contract.id), thousands(contract.amount))}</Text>
+  <Text>{i18n('contract.cancel.buyer.canceled.text', contractIdToHex(contract.id), thousands(contract.amount))}</Text>
 )

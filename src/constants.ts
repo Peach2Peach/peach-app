@@ -5,12 +5,6 @@ import { sha256 } from './utils/crypto/sha256'
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
 
-export let PEACHPGPPUBLICKEY = ''
-export const setPeachPGPPublicKey = (pgpPublicKey: string) => (PEACHPGPPUBLICKEY = pgpPublicKey)
-
-export let PEACHFEE = 0.015
-export const setPeachFee = (fee: number) => (PEACHFEE = fee)
-
 export const MAXMININGFEE = 20000
 
 // time go automatically restart app when calling app from background after this time has passed
@@ -27,12 +21,6 @@ export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIME
 export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueId())
-
-export let MINAPPVERSION = APPVERSION
-export const setMinAppVersion = (ver: string) => (MINAPPVERSION = ver)
-
-export let LATESTAPPVERSION = APPVERSION
-export const setLatestAppVersion = (ver: string) => (LATESTAPPVERSION = ver)
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK']
 
@@ -97,23 +85,6 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     ...PAYMENTCATEGORIES.cash,
     ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
   ]
-}
-
-export let MINTRADINGAMOUNT = 200000
-export let MAXTRADINGAMOUNT = 5000000
-export const setMinTradingAmount = (amount: number) => (MINTRADINGAMOUNT = amount)
-export const setMaxTradingAmount = (amount: number) => (MAXTRADINGAMOUNT = amount)
-
-type Timers = {
-  [key in ContractAction]: number
-}
-
-// Time in ms
-export const TIMERS: Timers = {
-  none: 0,
-  kycResponse: 1000 * 60 * 60 * 12,
-  sendPayment: 1000 * 60 * 60 * 12,
-  confirmPayment: 1000 * 60 * 60 * 12,
 }
 
 // Reputation

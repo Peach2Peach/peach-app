@@ -1,5 +1,4 @@
 export { cutOffAddress } from './cutOffAddress'
-export { formatNumberWithSuffix } from './formatNumberWithSuffix'
 export { getNumberFormatParts } from './getNumberFormatParts'
 export { groupChars } from './groupChars'
 export { msToTimer } from './msToTimer'

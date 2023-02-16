@@ -1,11 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { useFocusEffect } from '@react-navigation/native'
-import AppContext from '../contexts/app'
 import { OverlayContext } from '../contexts/overlay'
 import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
 import { account } from '../utils/account'
-import { getChatNotifications } from '../utils/chat'
 import {
   decryptContractData,
   getContract,
@@ -14,39 +12,33 @@ import {
   getRequiredAction,
   saveContract,
 } from '../utils/contract'
-import { getRequiredActionCount, saveOffer } from '../utils/offer'
+import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
+import { getPaymentExpectedBy } from '../views/contract/helpers/getPaymentExpectedBy'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
-  const [, updateAppContext] = useContext(AppContext)
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
 
-  const { contract, isLoading } = useContractDetails(contractId, 15 * 1000)
+  const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
-  const requiredAction = contract ? getRequiredAction(contract) : 'none'
+  const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
 
-  const saveAndUpdate = useCallback(
-    (contractData: Partial<Contract>) => {
-      setStoredContract((prev) => {
-        const updatedContract = prev ? { ...prev, ...contractData } : contractData
-        if (updatedContract.id) saveContract(updatedContract as Contract)
-        return updatedContract as Contract
-      })
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
-      })
-    },
-    [updateAppContext],
-  )
+  const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
+    setStoredContract((prev) => {
+      const updatedContract = prev ? { ...prev, ...contractData } : (contractData as Contract)
+      if (updatedContract.id) saveContract(updatedContract)
+      return updatedContract
+    })
+  }, [])
 
   useFocusEffect(
     useCallback(() => {
@@ -58,7 +50,7 @@ export const useCommonContractSetup = (contractId: string) => {
       }
       const messageHandler = async (message: Message) => {
         if (!storedContract) return
-        if (!message.message || message.roomId !== `contract-${contractId}`) return
+        if (!message.message || message.roomId !== `contract-${contractId}` || message.from === account.publicKey) return
 
         saveAndUpdate({
           unreadMessages: storedContract.unreadMessages + 1,
@@ -110,6 +102,17 @@ export const useCommonContractSetup = (contractId: string) => {
   ])
 
   useEffect(() => {
+    if (!contract) return () => {}
+    const whenToFetch = getPaymentExpectedBy(contract) - Date.now()
+    if (whenToFetch <= 0) return () => {}
+    const timeout = setTimeout(refetch, whenToFetch)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [contract, refetch])
+
+  useEffect(() => {
     if (!storedContract) return
     handleContractOverlays(storedContract, getContractViewer(storedContract, account))
   }, [storedContract, handleContractOverlays])
@@ -120,6 +123,7 @@ export const useCommonContractSetup = (contractId: string) => {
 
   return {
     contract: storedContract || contract,
+    newOfferId: offer?.newOfferId,
     saveAndUpdate,
     isLoading,
     view,

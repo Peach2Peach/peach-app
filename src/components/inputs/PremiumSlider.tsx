@@ -1,12 +1,10 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { Shadow, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { getTranslateX, innerShadow } from '../../utils/layout'
+import { getTranslateX } from '../../utils/layout'
 import { round } from '../../utils/math'
 import Icon from '../Icon'
-import { ToolTip } from '../ui/ToolTip'
 import { SliderLabel } from './SliderLabel'
 
 type PremiumSliderProps = ComponentProps & {
@@ -81,19 +79,17 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
       <View style={[tw`w-full max-w-full rounded-full bg-primary-background-dark`]}>
-        <Shadow shadow={innerShadow} style={tw`w-full p-0.5 rounded overflow-hidden`}>
-          <View {...{ onLayout }}>
-            <Animated.View
-              style={[
-                { width: KNOBWIDTH },
-                tw`z-10 flex items-center rounded-full bg-primary-main`,
-                getTranslateX(pan, [0, trackWidth]),
-              ]}
-            >
-              <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
-            </Animated.View>
-          </View>
-        </Shadow>
+        <View {...{ onLayout }} style={tw`w-full p-0.5 rounded overflow-hidden`}>
+          <Animated.View
+            style={[
+              { width: KNOBWIDTH },
+              tw`z-10 flex items-center rounded-full bg-primary-main`,
+              getTranslateX(pan, [0, trackWidth]),
+            ]}
+          >
+            <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
+          </Animated.View>
+        </View>
       </View>
       <View style={tw`w-full h-10 mt-1`}>
         <SliderLabel position={labelPosition.minus21}>{MIN}%</SliderLabel>

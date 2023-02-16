@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import ContractChatTitle from '../../../components/titles/ContractChatTitle'
 
-import { useFocusEffect } from '@react-navigation/native'
-import ContractTitle from '../../../components/titles/ContractTitle'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
@@ -34,7 +33,7 @@ export const useContractChatSetup = () => {
     fetchNextPage,
   } = useChatMessages(contractId, contract?.symmetricKey)
   const showError = useShowErrorBanner()
-  const cancelTradeOverlay = useConfirmCancelTrade(contractId)
+  const { showConfirmOverlay } = useConfirmCancelTrade()
   const showDisclaimer = useShowDisputeDisclaimer()
   const openDisputeOverlay = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
@@ -45,10 +44,12 @@ export const useContractChatSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        titleComponent: <ContractTitle id={contractId} amount={contract?.amount} />,
-        icons: contract ? getHeaderChatActions(contract, cancelTradeOverlay, openDisputeOverlay, view) : [],
+        titleComponent: <ContractChatTitle id={contractId} />,
+        icons: contract
+          ? getHeaderChatActions(contract, () => showConfirmOverlay(contract), openDisputeOverlay, view)
+          : [],
       }),
-      [contractId, contract, cancelTradeOverlay, openDisputeOverlay, view],
+      [contractId, contract, showConfirmOverlay, openDisputeOverlay, view],
     ),
   )
 
@@ -182,10 +183,10 @@ export const useContractChatSetup = () => {
   }, [messagesError, showError])
 
   useEffect(() => {
-    if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
-      showDisclaimer()
+    if (contract && !contract.disputeActive && !chat.seenDisputeDisclaimer) {
+      showDisclaimer(chat, setAndSaveChat)
     }
-  }, [contract, showDisclaimer])
+  }, [chat, contract, showDisclaimer])
 
   return {
     contract,

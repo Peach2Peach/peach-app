@@ -1,20 +1,17 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import tw from '../../../../styles/tailwind'
-import { getEventName } from '../../../../utils/events'
-import i18n from '../../../../utils/i18n'
+import { getPaymentMethodName } from '../../../../utils/paymentMethod'
 import Icon from '../../../Icon'
 import { Text } from '../../../text'
 
 type Props = {
   isSelected: boolean
   isVerified: boolean
-  name: string
+  name: PaymentMethod
 }
 
 export const PaymentMethodSelectorText = ({ isSelected, isVerified, name }: Props) => {
-  const paymentMethodName = name.includes('cash')
-    ? getEventName(name.replace('cash.', ''))
-    : i18n(`paymentMethod.${name}`)
+  const paymentMethodName = useMemo(() => (name ? getPaymentMethodName(name) : 'undefined'), [name])
   return (
     <>
       <Text style={[tw`self-center button-medium text-black-3`, isSelected && tw`text-primary-background-light`]}>

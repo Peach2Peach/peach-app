@@ -1,14 +1,12 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { Icon, Shadow } from '../../components'
+import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getContractChatNotification } from '../../utils/chat'
-import { mildShadowOrange, mildShadowRed } from '../../utils/layout'
+import i18n from '../../utils/i18n'
 import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 import { Text } from '../text'
-import { Bubble } from '../ui'
 
 export type Navigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
@@ -23,13 +21,10 @@ export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement =
   return (
     <TouchableOpacity
       onPress={goToChat}
-      style={[
-        tw`items-center justify-center w-10 h-10 rounded-xl `,
-        contract.disputeActive ? tw`bg-warning-dark-2` : tw`bg-primary-main`,
-        style,
-      ]}
+      style={[tw`flex-row items-center justify-center px-2 rounded-lg bg-primary-main`, style]}
     >
-      <ChatMessages messages={notifications} level={contract.disputeActive ? 'WARN' : 'APP'} />
+      <Text style={tw`button-medium text-primary-background-light`}>{i18n('chat')}</Text>
+      <ChatMessages style={tw`w-4 h-4 ml-1 -mt-px`} textStyle={tw`text-[10px]`} messages={notifications} level="APP" />
     </TouchableOpacity>
   )
 }

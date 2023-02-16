@@ -35,7 +35,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: string | string[]
+  details?: unknown
 }
 
 declare type User = {
@@ -93,12 +93,15 @@ declare type PaymentMethod =
   | `giftCard.amazon.${Country}`
 
 declare type MeetupEvent = {
+  // BitcoinEvent in backend
   id: string
   country: Country
   city: string
-  name: string
+  shortName: string
+  longName: string
   url?: string
   address?: string
+  frequency?: string
   logo?: string // path to the logo
 }
 
@@ -133,8 +136,6 @@ declare type GetInfoResponse = {
   fees: {
     escrow: number
   }
-  minAmount: number
-  maxAmount: number
   paymentMethods: PaymentMethodInfo[]
   latestAppVersion: string
   minAppVersion: string
@@ -156,7 +157,6 @@ declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
-  | 'messageSigningRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
@@ -281,7 +281,7 @@ declare type OfferSummary = {
   type: 'bid' | 'ask'
   creationDate: Date
   lastModified: Date
-  amount: number
+  amount: number | [number, number]
   matches: string[]
   prices: Pricebook
   tradeStatus: TradeStatus
@@ -300,6 +300,7 @@ declare type ContractSummary = {
   creationDate: Date
   lastModified: Date
   paymentMade?: Date
+  paymentConfirmed?: Date
   tradeStatus: TradeStatus
   amount: number
   price: number
@@ -349,8 +350,11 @@ declare type FeeRecommendation = {
 declare type GetFeeEstimateResponse = FeeRecommendation
 declare type TradeSummary = (OfferSummary | ContractSummary) & {
   paymentMade?: Date
+  paymentConfirmed?: Date
 }
 
 declare type ReviveSellOfferResponseBody = {
   newOfferId: Offer['id']
 }
+
+declare type ExtendPaymentTimerResponseBody = APISuccess

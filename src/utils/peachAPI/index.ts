@@ -15,7 +15,6 @@ export {
   postBuyOffer,
   postSellOffer,
   getOfferDetails,
-  signMessageToPublish,
   patchOffer,
   createEscrow,
   confirmEscrow,
@@ -38,6 +37,7 @@ export {
   getChat,
   postChat,
   raiseDispute,
+  extendPaymentTimer,
 } from './private/contract'
 
 export { fundEscrow, generateBlock } from './regtest'

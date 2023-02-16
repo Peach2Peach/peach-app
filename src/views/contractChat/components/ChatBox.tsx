@@ -1,9 +1,7 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { FlatList, Keyboard, ViewToken } from 'react-native'
-import AppContext from '../../../contexts/app'
+import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
+import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { getChat, getChatNotifications } from '../../../utils/chat'
-import { getRequiredActionCount } from '../../../utils/offer'
+import { getChat } from '../../../utils/chat'
 import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 21
@@ -29,7 +27,6 @@ export default ({
   isLoading,
   online,
 }: ChatBoxProps): ReactElement => {
-  const [, updateAppContext] = useContext(AppContext)
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 
@@ -50,9 +47,6 @@ export default ({
     if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
     setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
   }, [])
 
   return (
@@ -68,9 +62,9 @@ export default ({
         <ChatMessage chatMessages={visibleChatMessages} {...{ item, index, tradingPartner, online, resendMessage }} />
       )}
       initialNumToRender={PAGE_SIZE}
+      ListFooterComponent={<View style={tw`h-2`}></View>}
       onRefresh={fetchNextPage}
       refreshing={isLoading}
-      contentContainerStyle={tw`pb-5`}
     />
   )
 }

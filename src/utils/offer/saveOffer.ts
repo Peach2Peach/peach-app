@@ -1,3 +1,5 @@
+import { getSummaryFromOffer } from './../contract/getSummaryFromOffer'
+import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { account } from '../account'
 import { storeOffer } from '../account/storeAccount'
 import { sort } from '../array'
@@ -27,7 +29,6 @@ export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shie
       if (shield) {
         if (o.paymentData) offer.paymentData = o.paymentData
         if (isSellOffer(offer)) {
-          if (o.returnAddress) offer.returnAddress = o.returnAddress
         } else if (isBuyOffer(o) && o.releaseAddress) {
           offer.releaseAddress = o.releaseAddress
         }
@@ -46,6 +47,7 @@ export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shie
     storeOffer(offer)
     info('saveOffer', offer.id)
   }
+  tradeSummaryStore.getState().setOffer(offer.id, getSummaryFromOffer(offer))
 }
 
 /**

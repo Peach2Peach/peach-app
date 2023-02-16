@@ -3,17 +3,14 @@ import React, { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 
 import { PrimaryButton } from '../../../components'
-import AppContext from '../../../contexts/app'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import tw from '../../../styles/tailwind'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
-import { getChatNotifications } from '../../../utils/chat'
-import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
+import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getRequiredActionCount } from '../../../utils/offer'
 import { rateUser } from '../../../utils/peachAPI'
 
 type RateProps = ComponentProps & {
@@ -25,7 +22,6 @@ type RateProps = ComponentProps & {
 
 export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps): ReactElement => {
   const navigation = useNavigation()
-  const [, updateAppContext] = useContext(AppContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
 
@@ -52,12 +48,9 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
       ...contract,
       [ratedUser]: true,
     })
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
 
     if (rating.rating === 1) {
-      navigation.replace('backupTime', { view, nextScreen: 'offer', offerId: getOfferIdFromContract(contract) })
+      navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
     } else {
       navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
     }

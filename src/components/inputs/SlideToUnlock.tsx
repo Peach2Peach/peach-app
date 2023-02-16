@@ -1,8 +1,7 @@
 import React, { ReactElement, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { Shadow, Text } from '..'
+import { Text } from '..'
 import tw from '../../styles/tailwind'
-import { innerShadow } from '../../utils/layout'
 import { getNormalized } from '../../utils/math'
 import Icon from '../Icon'
 
@@ -93,32 +92,30 @@ export const SlideToUnlock = ({
         style,
       ]}
     >
-      <Shadow shadow={innerShadow}>
-        <Animated.View
-          {...{ onStartShouldSetResponder }}
-          style={[tw`flex flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}
-        >
-          <Animated.View style={[tw`absolute right-full`, { width: widthToSlide, opacity: pan }]}>
-            <Text style={tw`text-center button-large`} numberOfLines={1}>
-              {label2}
-            </Text>
-          </Animated.View>
-          <Animated.View
-            style={[
-              { width: knobWidth, backgroundColor: getBackgroundColor(pan) },
-              tw`flex flex-row justify-center py-2 my-1 rounded-full `,
-            ]}
-          >
-            <Icon id="checkCircle" style={tw`w-6 h-6`} color={tw`text-primary-background`.color} />
-            <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw`text-primary-background`.color} />
-          </Animated.View>
-          <Animated.View style={{ width: widthToSlide, opacity: getLabel1Opacity(pan) }}>
-            <Text style={tw`text-center button-large`} numberOfLines={1}>
-              {label1}
-            </Text>
-          </Animated.View>
+      <Animated.View
+        {...{ onStartShouldSetResponder }}
+        style={[tw`flex flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}
+      >
+        <Animated.View style={[tw`absolute right-full`, { width: widthToSlide, opacity: pan }]}>
+          <Text style={tw`text-center button-large`} numberOfLines={1}>
+            {label2}
+          </Text>
         </Animated.View>
-      </Shadow>
+        <Animated.View
+          style={[
+            { width: knobWidth, backgroundColor: getBackgroundColor(pan) },
+            tw`flex flex-row justify-center py-2 my-1 rounded-full `,
+          ]}
+        >
+          <Icon id="checkCircle" style={tw`w-6 h-6`} color={tw`text-primary-background`.color} />
+          <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw`text-primary-background`.color} />
+        </Animated.View>
+        <Animated.View style={{ width: widthToSlide, opacity: getLabel1Opacity(pan) }}>
+          <Text style={tw`text-center button-large`} numberOfLines={1}>
+            {label1}
+          </Text>
+        </Animated.View>
+      </Animated.View>
     </View>
   )
 }

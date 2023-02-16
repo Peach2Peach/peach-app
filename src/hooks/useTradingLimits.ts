@@ -21,12 +21,12 @@ export const useTradingLimits = () => {
 
   const roundedDisplayLimits = limits
     ? {
-      dailyAmount: Math.round(Math.round(limits.dailyAmount * exchangeRate * 100) / 100),
-      daily: Math.round(exchangeRate * limits.daily),
-      monthlyAnonymous: Math.round(Math.round(limits?.monthlyAnonymous * exchangeRate * 100) / 100),
-      monthlyAnonymousAmount: Math.round(exchangeRate * limits?.monthlyAnonymousAmount),
-      yearlyAmount: Math.round(Math.round(limits.yearlyAmount * exchangeRate * 100) / 100),
-      yearly: Math.round(exchangeRate * limits.yearly),
+      dailyAmount: limits.dailyAmount * exchangeRate,
+      daily: exchangeRate * limits.daily,
+      monthlyAnonymous: limits?.monthlyAnonymous * exchangeRate,
+      monthlyAnonymousAmount: exchangeRate * limits?.monthlyAnonymousAmount,
+      yearlyAmount: limits.yearlyAmount * exchangeRate,
+      yearly: exchangeRate * limits.yearly,
     }
     : defaultLimits
 

@@ -66,7 +66,7 @@ export const SummaryItem = ({
 
   return (
     <TouchableOpacity
-      style={[tw`w-full rounded-xl`, tw`border`, levelColorMap.border[level], style]}
+      style={[tw`w-full rounded-xl bg-primary-background-light`, tw`border`, levelColorMap.border[level], style]}
       onPress={action?.callback}
     >
       <View style={tw`flex flex-row items-center justify-between px-4 py-3 rounded-xl`}>
@@ -77,12 +77,12 @@ export const SummaryItem = ({
             <Text style={tw`text-xs text-black-2`}>{toDateFormat(date)}</Text>
           </View>
         </View>
-        <View style={tw`items-end`}>
+        <View>
           {!!amount1 && <SatsFormat sats={amount1} />}
           {amount2 ? (
             <View>
               <Text style={tw`absolute w-full overflow-visible text-center bottom-3 text-3xs text-black-3`}>~</Text>
-              <SatsFormat sats={amount2} />
+              <SatsFormat sats={amount2} containerStyle={tw`w-35`} satsContainerStyle={tw`justify-end flex-1`} />
             </View>
           ) : !!price && !!currency ? (
             <PriceFormat style={tw`text-right text-black-2`} {...{ amount: price, currency }} />

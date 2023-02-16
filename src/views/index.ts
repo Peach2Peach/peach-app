@@ -33,13 +33,11 @@ import Socials from './settings/aboutPeach/Socials'
 import Backups from './settings/Backups'
 import BackupCreated from './settings/components/backups/BackupCreated'
 import Currency from './settings/Currency'
-import Language from './settings/Language'
 import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
 import Settings from './settings/Settings'
-import WalletSettings from './settings/WalletSettings'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
@@ -131,7 +129,6 @@ const settings: ViewType[] = [
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
   { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
-  { name: 'language', component: Language, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
@@ -144,7 +141,6 @@ const settings: ViewType[] = [
     background: { color: 'primaryGradient' },
   },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
-  { name: 'walletSettings', component: WalletSettings, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },

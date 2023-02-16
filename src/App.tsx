@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useContext, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -20,7 +20,6 @@ import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import { getViews } from './views'
 
-import AppContext, { getAppContext, setAppContext } from './contexts/app'
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
@@ -36,23 +35,24 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
-import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
+import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
+import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { useHandleNotifications } from './hooks/useHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
+import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
 import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
+import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
-import { getChatNotifications } from './utils/chat'
 import { error, info } from './utils/log'
-import { getRequiredActionCount } from './utils/offer'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import requestUserPermissions from './init/requestUserPermissions'
+import { getTradingAmountLimits } from './utils/market'
 
 enableScreens()
 
@@ -79,9 +79,13 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   return <></>
 }
 const usePartialAppSetup = () => {
-  const [, updateAppContext] = useContext(AppContext)
   const [active, setActive] = useState(true)
+  const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
+    (state) => [state.setMinTradingAmount, state.setMaxTradingAmount],
+    shallow,
+  )
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
+  useCheckTradeNotifications()
 
   useEffect(
     appStateEffect({
@@ -91,9 +95,6 @@ const usePartialAppSetup = () => {
           getPeachInfo(getAccount())
           if (account?.publicKey) {
             getTrades()
-            updateAppContext({
-              notifications: getChatNotifications() + getRequiredActionCount(),
-            })
           }
           analytics().logAppOpen()
 
@@ -113,6 +114,11 @@ const usePartialAppSetup = () => {
     const checkingFunction = async () => {
       const [prices] = await marketPrices({ timeout: checkingInterval })
       if (prices) setPrices(prices)
+      if (prices?.CHF) {
+        const [minAmount, maxAmount] = getTradingAmountLimits(prices.CHF)
+        setMinTradingAmount(minAmount)
+        setMaxTradingAmount(maxAmount)
+      }
     }
     const interval = setInterval(checkingFunction, checkingInterval)
     setCurrency(account.settings.displayCurrency)
@@ -126,8 +132,6 @@ const usePartialAppSetup = () => {
 
 // eslint-disable-next-line max-statements
 const App: React.FC = () => {
-  const [appContext, updateAppContext] = useReducer(setAppContext, getAppContext())
-
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
@@ -138,7 +142,10 @@ const App: React.FC = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-
+  const [minAppVersion, latestAppVersion] = useConfigStore(
+    (state) => [state.minAppVersion, state.latestAppVersion],
+    shallow,
+  )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = () => currentPage
   const views = getViews(!!account?.publicKey)
@@ -187,14 +194,11 @@ const App: React.FC = () => {
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
-      })
       if (typeof account.settings.enableAnalytics === 'undefined') {
         showAnalyticsPrompt(updateOverlay)
       }
 
-      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+      if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({
           msgKey: 'CRITICAL_UPDATE_AVAILABLE',
           level: 'ERROR',
@@ -205,7 +209,7 @@ const App: React.FC = () => {
             icon: 'download',
           },
         })
-      } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
+      } else if (!compatibilityCheck(APPVERSION, latestAppVersion)) {
         updateMessage({
           msgKey: 'UPDATE_AVAILABLE',
           level: 'WARN',
@@ -247,70 +251,68 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
             <PeachWSContext.Provider value={peachWS}>
-              <AppContext.Provider value={[appContext, updateAppContext]}>
-                <MessageContext.Provider value={[messageState, updateMessage]}>
-                  <DrawerContext.Provider
-                    value={[
-                      { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
-                      updateDrawer,
-                    ]}
-                  >
-                    <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                      <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                        <Handlers {...{ getCurrentPage }} />
-                        <Background config={backgroundConfig}>
-                          <Drawer
-                            title={drawerTitle}
-                            content={drawerContent}
-                            show={showDrawer}
-                            onClose={onCloseDrawer}
-                            previousDrawer={previousDrawer}
-                          />
-                          <Overlay {...overlayState} />
-                          <SafeAreaView>
-                            <View style={tw`flex-col h-full`}>
-                              {!!messageState.msgKey && (
-                                <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                                  <Message {...messageState} />
-                                </Animated.View>
-                              )}
-                              <View style={tw`flex-shrink h-full`}>
-                                <Stack.Navigator
-                                  detachInactiveScreens={true}
-                                  screenOptions={{
-                                    gestureEnabled: false,
-                                    headerShown: false,
-                                  }}
-                                >
-                                  {views.map(({ name, component, showHeader }) => (
-                                    <Stack.Screen
-                                      {...{ name, component }}
-                                      key={name}
-                                      options={{
-                                        animationEnabled: false,
-                                        headerShown: showHeader,
-                                        header: () => <Header />,
-                                      }}
-                                    />
-                                  ))}
-                                </Stack.Navigator>
-                              </View>
-                              {showFooter && (
-                                <Footer
-                                  style={tw`z-10`}
-                                  active={currentPage}
-                                  setCurrentPage={setCurrentPage}
-                                  theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
-                                />
-                              )}
+              <MessageContext.Provider value={[messageState, updateMessage]}>
+                <DrawerContext.Provider
+                  value={[
+                    { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
+                    updateDrawer,
+                  ]}
+                >
+                  <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
+                    <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                      <Handlers {...{ getCurrentPage }} />
+                      <Background config={backgroundConfig}>
+                        <Drawer
+                          title={drawerTitle}
+                          content={drawerContent}
+                          show={showDrawer}
+                          onClose={onCloseDrawer}
+                          previousDrawer={previousDrawer}
+                        />
+                        <Overlay {...overlayState} />
+                        <SafeAreaView>
+                          <View style={tw`flex-col h-full`}>
+                            {!!messageState.msgKey && (
+                              <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                                <Message {...messageState} />
+                              </Animated.View>
+                            )}
+                            <View style={tw`flex-shrink h-full`}>
+                              <Stack.Navigator
+                                detachInactiveScreens={true}
+                                screenOptions={{
+                                  gestureEnabled: false,
+                                  headerShown: false,
+                                }}
+                              >
+                                {views.map(({ name, component, showHeader }) => (
+                                  <Stack.Screen
+                                    {...{ name, component }}
+                                    key={name}
+                                    options={{
+                                      animationEnabled: false,
+                                      headerShown: showHeader,
+                                      header: () => <Header />,
+                                    }}
+                                  />
+                                ))}
+                              </Stack.Navigator>
                             </View>
-                          </SafeAreaView>
-                        </Background>
-                      </NavigationContainer>
-                    </OverlayContext.Provider>
-                  </DrawerContext.Provider>
-                </MessageContext.Provider>
-              </AppContext.Provider>
+                            {showFooter && (
+                              <Footer
+                                style={tw`z-10`}
+                                active={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
+                              />
+                            )}
+                          </View>
+                        </SafeAreaView>
+                      </Background>
+                    </NavigationContainer>
+                  </OverlayContext.Provider>
+                </DrawerContext.Provider>
+              </MessageContext.Provider>
             </PeachWSContext.Provider>
           </LanguageContext.Provider>
         </QueryClientProvider>

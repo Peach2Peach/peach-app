@@ -51,6 +51,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
     [max],
   )
 
+  const clearCustomAmount = () => setAmount(0)
   const updateCustomAmount = (val: string) => {
     const num = Number(val)
     if (isNaN(num)) {
@@ -66,7 +67,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   }, [onChange, amount])
 
   return (
-    <View style={[tw`items-end w-[210px] pr-5`, style]} {...{ onStartShouldSetResponder }}>
+    <View style={[tw`items-end w-[210px] pr-5`, style]}>
       <SliderTrack style={{ height: trackHeight }}>
         <TrackMarkers {...{ trackHeight, labels }} />
         <Animated.View
@@ -81,7 +82,9 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
                 <Input
                   style={tw`w-full h-10 opacity-0`}
                   keyboardType="number-pad"
-                  {...{ value: value.toString(), onChange: updateCustomAmount }}
+                  value={value.toString()}
+                  onChange={updateCustomAmount}
+                  onFocus={clearCustomAmount}
                 />
               </View>
               <View style={tw`p-1 border rounded-lg border-black-4`}>

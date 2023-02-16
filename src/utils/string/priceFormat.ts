@@ -1,7 +1,7 @@
 import { groupChars } from './groupChars'
 
-export const priceFormat = (amount: number) => {
+export const priceFormat = (amount: number, round?: boolean) => {
   const [integer, decimal] = amount.toFixed(2).split('.')
 
-  return [groupChars(integer, 3), decimal].join('.')
+  return round ? groupChars(amount.toFixed(), 3) : [groupChars(integer, 3), decimal].join('.')
 }
