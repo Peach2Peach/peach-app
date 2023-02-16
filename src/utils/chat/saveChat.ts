@@ -16,6 +16,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
       messages: [],
       id,
       draftMessage: '',
+      seenDisputeDisclaimer: false,
       ...chat,
     }
   }
