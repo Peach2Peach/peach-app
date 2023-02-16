@@ -1,18 +1,14 @@
-/**
- * @description Method to parse contract data into a usable format
- * @param contract contract to parse
- * @returns parsed contract
- */
 export const parseContract = (contract: Contract): Contract => {
-  contract.creationDate = new Date(contract.creationDate)
-  contract.buyer.creationDate = new Date(contract.buyer.creationDate)
-  contract.seller.creationDate = new Date(contract.seller.creationDate)
+  const parsed = { ...contract }
 
-  if (contract.kycResponseDate) contract.kycResponseDate = new Date(contract.kycResponseDate)
-  if (contract.paymentMade) contract.paymentMade = new Date(contract.paymentMade)
-  if (contract.paymentConfirmed) contract.paymentConfirmed = new Date(contract.paymentConfirmed)
-  if (contract.disputeDate) contract.disputeDate = new Date(contract.disputeDate)
-  if (contract.disputeResolvedDate) contract.disputeResolvedDate = new Date(contract.disputeResolvedDate)
-
-  return contract
+  parsed.creationDate = new Date(parsed.creationDate)
+  if (parsed.buyer?.creationDate) parsed.buyer.creationDate = new Date(parsed.buyer.creationDate)
+  if (parsed.seller?.creationDate) parsed.seller.creationDate = new Date(parsed.seller.creationDate)
+  if (parsed.kycResponseDate) parsed.kycResponseDate = new Date(parsed.kycResponseDate)
+  if (parsed.paymentMade) parsed.paymentMade = new Date(parsed.paymentMade)
+  if (parsed.paymentConfirmed) parsed.paymentConfirmed = new Date(parsed.paymentConfirmed)
+  if (parsed.disputeDate) parsed.disputeDate = new Date(parsed.disputeDate)
+  if (parsed.disputeResolvedDate) parsed.disputeResolvedDate = new Date(parsed.disputeResolvedDate)
+  if (parsed.paymentExpectedBy) parsed.paymentExpectedBy = new Date(parsed.paymentExpectedBy)
+  return parsed
 }

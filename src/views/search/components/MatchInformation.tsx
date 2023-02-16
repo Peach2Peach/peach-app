@@ -1,32 +1,34 @@
 import React from 'react'
-import { View } from 'react-native'
-import { Headline, SatsFormat, Text } from '../../../components'
-import { useOfferDetails } from '../../../hooks'
+import { SatsFormat, Text } from '../../../components'
+import { useRoute } from '../../../hooks'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../hooks/useOfferMatches'
 
-export const MatchInformation = ({ offerId }: { offerId: string }) => {
+export const MatchInformation = () => {
+  const { offerId } = useRoute<'search'>().params
   const { offer } = useOfferDetails(offerId)
-  const { allMatches: matches } = useOfferMatches()
+  const { allMatches: matches } = useOfferMatches(offerId)
   if (!offer) return <></>
-  const { type, amount, premium } = offer
+
+  const { amount } = offer
+
   return (
     <>
-      <Headline style={[tw`text-2xl text-center uppercase leading-2xl text-peach-1`, tw.md`text-3xl leading-3xl`]}>
-        {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
-      </Headline>
-      <View>
-        <Text style={tw`-mt-1 text-center text-grey-2`}>
-          {i18n(`search.${type === 'bid' ? 'buyOffer' : 'sellOffer'}`)}{' '}
-          <SatsFormat sats={amount} color={tw`text-grey-2`} />
-        </Text>
-        {type !== 'bid' && (
-          <Text style={tw`text-center text-grey-2`}>
-            {i18n(premium > 0 ? 'search.atPremium' : 'search.atDiscount', String(Math.abs(premium)))}
-          </Text>
-        )}
-      </View>
+      <Text style={tw`text-center h4 text-primary-main`}>
+        {i18n(`search.youGot${matches.length === 1 ? 'AMatch' : 'Matches'}`)}
+      </Text>
+      <Text style={tw`text-center body-l text-black-2`}>{i18n('search.sellOffer')}:</Text>
+      {typeof amount === 'number' && (
+        <SatsFormat
+          containerStyle={tw`items-center self-center mt-2 mb-16`}
+          sats={amount}
+          style={tw`leading-loose body-l`}
+          bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-1`}
+          satsStyle={tw`subtitle-1`}
+        />
+      )}
     </>
   )
 }

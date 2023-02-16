@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 declare type WSCallback = (message?: any) => void
 declare type PeachWS = {
   ws?: WebSocket
@@ -34,7 +35,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: string | string[]
+  details?: unknown
 }
 
 declare type User = {
@@ -64,13 +65,12 @@ declare type TradingLimit = {
   dailyAmount: number
   yearly: number
   yearlyAmount: number
+  monthlyAnonymous: number
+  monthlyAnonymousAmount: number
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
-declare type Buckets = {
-  [key: string]: number
-}
 declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
@@ -88,16 +88,29 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
+  | `cash.${string}`
   | 'giftCard.amazon'
   | `giftCard.amazon.${Country}`
-  | 'cash'
-  | `cash.${Location}`
+
+declare type MeetupEvent = {
+  // BitcoinEvent in backend
+  id: string
+  country: Country
+  city: string
+  shortName: string
+  longName: string
+  url?: string
+  address?: string
+  frequency?: string
+  logo?: string // path to the logo
+}
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
   countries?: Country[]
   rounded?: boolean
+  anonymous: boolean
 }
 
 declare type KYCType = 'iban' | 'id'
@@ -123,8 +136,6 @@ declare type GetInfoResponse = {
   fees: {
     escrow: number
   }
-  buckets: number[]
-  deprecatedBuckets: number[]
   paymentMethods: PaymentMethodInfo[]
   latestAppVersion: string
   minAppVersion: string
@@ -142,19 +153,28 @@ declare type PeachPairInfo = {
 }
 declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
-declare type Offer = {
-  id: string
-  oldOfferId?: string
-  newOfferId?: string
+declare type TradeStatus =
+  | 'fundEscrow'
+  | 'escrowWaitingForConfirmation'
+  | 'fundingAmountDifferent'
+  | 'messageSigningRequired'
+  | 'searchingForPeer'
+  | 'hasMatchesAvailable'
+  | 'offerCanceled'
+  | 'refundTxSignatureRequired'
+  | 'paymentRequired'
+  | 'confirmPaymentRequired'
+  | 'dispute'
+  | 'rateUser'
+  | 'confirmCancelation'
+  | 'tradeCompleted'
+  | 'tradeCanceled'
+  | 'waiting'
+
+declare type OfferDraft = {
   creationDate: Date
-  publishingDate?: Date
-  online: boolean
-  user?: User
-  publicKey?: string
+  lastModified?: Date
   type: 'bid' | 'ask'
-  amount: number
-  premium?: number
-  prices?: Pricebook
   meansOfPayment: MeansOfPayment
   paymentData: Partial<
     Record<
@@ -167,14 +187,27 @@ declare type Offer = {
   >
   originalPaymentData: PaymentData[]
   kyc: boolean
+  walletLabel?: string
   kycType?: KYCType
-  returnAddress?: string
-  escrow?: string
+  walletLabel?: string
+  tradeStatus?: TradeStatus
+}
+declare type Offer = OfferDraft & {
+  id: string
+  oldOfferId?: string
+  newOfferId?: string
+  publishingDate?: Date
+  online: boolean
+  user?: User
+  publicKey?: string
+  premium?: number
+  prices?: Pricebook
   refunded?: boolean
   funding?: FundingStatus
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
+  tradeStatus: TradeStatus
 }
 
 declare type PostOfferResponse = {
@@ -194,7 +227,7 @@ declare type FundingStatusResponse = {
   funding: FundingStatus
   error?: FundingError
   returnAddress: string
-  returnAddressRequired: boolean
+  userConfirmationRequired: boolean
 }
 
 declare type CancelOfferRequest = {
@@ -208,9 +241,15 @@ declare type CancelOfferResponse = {
   satsPerByte: number
 }
 
+declare type MatchUnavailableReasons = {
+  exceedsLimit: (keyof TradingLimit)[]
+}
+
 declare type Match = {
   user: User
   offerId: string
+  amount: number
+  escrow?: string
   prices: Pricebook
   matchedPrice: number | null
   premium: number
@@ -223,6 +262,7 @@ declare type Match = {
   symmetricKeyEncrypted: string
   symmetricKeySignature: string
   matched: boolean
+  unavailable: MatchUnavailableReasons
 }
 declare type GetMatchesResponse = {
   offerId: string
@@ -236,8 +276,43 @@ declare type MatchResponse = {
   contractId?: string
   refundTx?: string
 }
+
+declare type OfferSummary = {
+  id: string
+  type: 'bid' | 'ask'
+  creationDate: Date
+  lastModified: Date
+  amount: number | [number, number]
+  matches: string[]
+  prices: Pricebook
+  tradeStatus: TradeStatus
+  contractId?: string
+  txId?: string
+}
+declare type GetOffersResponse = (BuyOffer | SellOffer)[]
+declare type GetOfferSummariesResponse = OfferSummary[]
+
 declare type GetContractResponse = Contract
+
+declare type ContractSummary = {
+  id: string
+  offerId: string
+  type: 'bid' | 'ask'
+  creationDate: Date
+  lastModified: Date
+  paymentMade?: Date
+  paymentConfirmed?: Date
+  tradeStatus: TradeStatus
+  amount: number
+  price: number
+  currency: Currency
+  disputeWinner?: Contract['disputeWinner']
+  unreadMessages: number
+  releaseTxId?: string
+}
 declare type GetContractsResponse = Contract[]
+declare type GetContractSummariesResponse = ContractSummary[]
+
 declare type ConfirmPaymentResponse = {
   success: true
   txId?: string
@@ -263,3 +338,24 @@ declare type FundEscrowResponse = {
 declare type GenerateBlockResponse = {
   txId: string
 }
+
+declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
+
+declare type FeeRecommendation = {
+  fastestFee: number
+  halfHourFee: number
+  hourFee: number
+  economyFee: number
+  minimumFee: number
+}
+declare type GetFeeEstimateResponse = FeeRecommendation
+declare type TradeSummary = (OfferSummary | ContractSummary) & {
+  paymentMade?: Date
+  paymentConfirmed?: Date
+}
+
+declare type ReviveSellOfferResponseBody = {
+  newOfferId: Offer['id']
+}
+
+declare type ExtendPaymentTimerResponseBody = APISuccess

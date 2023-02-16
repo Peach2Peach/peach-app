@@ -5,21 +5,26 @@ export type RequestProps = {
 
 export { getStatus, getInfo } from './public/system'
 export { sendReport } from './public/contact'
-export { getTx, postTx } from './public/bitcoin'
+export { getFeeEstimate, getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { getUser } from './public/user'
 export { auth, getUserPrivate, fetchAccessToken, updateUser, getTradingLimit, logoutUser } from './private/user'
 export {
   getOffers,
-  postOffer,
+  getOfferSummaries,
+  postBuyOffer,
+  postSellOffer,
   getOfferDetails,
+  signMessageToPublish,
   patchOffer,
   createEscrow,
+  confirmEscrow,
   getFundingStatus,
   cancelOffer,
   getMatches,
   matchOffer,
   unmatchOffer,
+  reviveSellOffer,
 } from './private/offer'
 export {
   cancelContract,
@@ -27,11 +32,13 @@ export {
   rejectContractCancelation,
   getContract,
   getContracts,
+  getContractSummaries,
   confirmPayment,
   rateUser,
   getChat,
   postChat,
   raiseDispute,
+  extendPaymentTimer,
 } from './private/contract'
 
 export { fundEscrow, generateBlock } from './regtest'

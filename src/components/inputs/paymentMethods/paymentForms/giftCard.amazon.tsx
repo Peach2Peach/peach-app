@@ -7,6 +7,7 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 
 const emailRules = {
@@ -71,13 +72,12 @@ export const GiftCardAmazon = ({
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
+      <View style={tw`mt-1`}>
+        <EmailInput
           onChange={setEmail}
           onSubmit={save}
           reference={(el: any) => ($email = el)}
@@ -85,8 +85,6 @@ export const GiftCardAmazon = ({
           value={email}
           label={i18n('form.email')}
           placeholder={i18n('form.email.placeholder')}
-          isValid={emailIsValid}
-          autoCorrect={false}
           errorMessage={displayErrors ? emailErrors : undefined}
         />
       </View>

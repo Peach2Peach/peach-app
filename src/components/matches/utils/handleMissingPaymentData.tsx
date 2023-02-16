@@ -2,9 +2,7 @@ import i18n from '../../../utils/i18n'
 
 import { getPaymentDataByType } from '../../../utils/account'
 import { error } from '../../../utils/log'
-import { StackNavigation } from '../../../utils/navigation'
-import React from 'react'
-import { PaymentDataMissing } from '../../../messageBanners/PaymentDataMissing'
+import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 
 export const handleMissingPaymentData = (
   offer: BuyOffer | SellOffer,
@@ -16,7 +14,7 @@ export const handleMissingPaymentData = (
 ) => {
   error('Payment data could not be found for offer', offer.id)
   const openAddPaymentMethodDialog = () => {
-    updateMessage({ template: null, level: 'ERROR' })
+    updateMessage({ msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
     const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
 
@@ -32,7 +30,12 @@ export const handleMissingPaymentData = (
   }
 
   updateMessage({
-    template: <PaymentDataMissing {...{ openAddPaymentMethodDialog }} />,
+    msgKey: 'PAYMENT_DATA_MISSING',
     level: 'ERROR',
+    action: {
+      callback: openAddPaymentMethodDialog,
+      label: i18n('PAYMENT_DATA_MISSING.action'),
+    },
+    keepAlive: true,
   })
 }

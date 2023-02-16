@@ -1,12 +1,11 @@
-import { Style } from 'twrnc/dist/esm/types'
 import tw from '../../styles/tailwind'
-import { ViewStyle } from 'react-native'
+import { TextStyle, ViewStyle } from 'react-native'
 
 type SpecialTemplate = {
   style: ViewStyle
   button?: {
-    textColor: Style
-    bgColor: Style
+    textColor: TextStyle
+    bgColor: ViewStyle
   }
 }
 export const specialTemplates: Partial<Record<PaymentMethod, SpecialTemplate>> = {

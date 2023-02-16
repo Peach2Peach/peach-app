@@ -4,25 +4,23 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Matches, PeachScrollView } from '../../components'
-import { CancelOfferButton, GoHomeButton, MatchInformation, NoMatchesYet } from './components'
+import { MatchInformation, NoMatchesYet } from './components'
 import { useSearchSetup } from './hooks/useSearchSetup'
-import { useOfferDetails } from '../../hooks'
+import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 
 export default (): ReactElement => {
-  const { hasMatches, offerId } = useSearchSetup()
-  const { offer } = useOfferDetails(offerId)
-  if (!offer) {
-    return <View />
-  }
+  const { hasMatches, offer } = useSearchSetup()
+  if (!offer) return <></>
   return (
-    <PeachScrollView>
-      <View style={tw`flex-col h-full pt-5 pb-6`}>
-        <View style={tw`px-6`}>{hasMatches ? <MatchInformation offerId={offerId} /> : <NoMatchesYet />}</View>
-        <View style={tw`flex-col justify-end flex-shrink h-full`}>
-          {hasMatches ? <Matches offerId={offerId} /> : <GoHomeButton />}
-          <CancelOfferButton offerId={offerId} />
+    <>
+      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center h-full pt-5 pb-6`}>
+        <View style={tw`flex-grow px-6`}>
+          {hasMatches && offer.type === 'ask' && <MatchInformation />}
+          {!hasMatches && <NoMatchesYet offer={offer} style={tw`items-center mx-2`} />}
         </View>
-      </View>
-    </PeachScrollView>
+        {hasMatches && <Matches />}
+      </PeachScrollView>
+      <DailyTradingLimit />
+    </>
   )
 }

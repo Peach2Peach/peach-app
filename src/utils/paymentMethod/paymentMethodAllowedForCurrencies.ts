@@ -7,6 +7,6 @@ import { PAYMENTMETHODINFOS } from '../../constants'
  * @returns true if payment method supports at least one of the selected currencies
  */
 export const paymentMethodAllowedForCurrencies = (paymentMethod: PaymentMethod, currencies: Currency[]) => {
-  const paymentMethodInfo = PAYMENTMETHODINFOS.find(info => info.id === paymentMethod)
-  return paymentMethodInfo?.currencies.some(c => currencies.indexOf(c) !== -1)
+  const paymentMethodInfo = PAYMENTMETHODINFOS.find((info) => info.id === paymentMethod)
+  return paymentMethodInfo?.currencies.some((c) => currencies.includes(c))
 }

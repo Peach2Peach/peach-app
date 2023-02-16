@@ -1,23 +1,34 @@
-import { wordlists } from 'bip39'
+import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
+import { verify } from 'bitcoinjs-message'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
+import { isPaypalUsername } from './isPaypalUsername'
+import { isUsername } from './isUsername'
 
 const emailRegex
   = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/u // eslint-disable-line prefer-named-capture-group, max-len
+const urlRegex = /^(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/u // eslint-disable-line prefer-named-capture-group, max-len
+
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
-
 export const rules = {
   required (required: boolean, value: string | number | null) {
     return !required || value
   },
   number: /^\d+$/u,
+  min (min: number, value: number) {
+    return value >= min
+  },
+  max (max: number, value: number) {
+    return value <= max
+  },
   account (_: boolean, value: object) {
     return value && typeof value === 'object'
   },
   phone: /^\+[1-9][0-9]{7,}$/u,
   email: emailRegex,
+  url: urlRegex,
   bitcoinAddress (_: boolean, value: string) {
     let valid = false
     try {
@@ -43,22 +54,31 @@ export const rules = {
   bic: bicRegex,
   ukSortCode: /^(?!(?:0{6}|00-00-00))(?:\d{6}|\d\d-\d\d-\d\d)$/u,
   ukBankAccount: /^\d{8}$/u,
-  userName (_: boolean, value: string | null) {
-    if (!value) return false
-    return value !== '@' && /^@[a-z0-9]*/iu.test(value)
+  userName (_: boolean, value: string) {
+    return isUsername(value)
   },
-  url (_: boolean, value: string) {
+  paypalUserName (_: boolean, value: string) {
+    return isPaypalUsername(value)
+  },
+  revtag (_: boolean, value: string | null) {
     if (!value) return false
+    return value !== '@' && /^@[a-z0-9]{3,16}$/u.test(value)
+  },
+  bip39 (_: boolean, value: string) {
+    return validateMnemonic(value)
+  },
+  bip39Word (_: boolean, value: string) {
+    return wordlists.english.includes(value)
+  },
+  signature ([btcAddress, message]: [string, string], value: string) {
     try {
-      const link = /http/u.test(value) ? value : `http://${value}`
-      const url = new URL(link)
-      return !!url
+      return verify(message, btcAddress, value, undefined, true)
     } catch (e) {
       return false
     }
   },
-  bip39 (_: boolean, value: string) {
-    return wordlists.english.includes(value)
+  feeRate (_: boolean, value: string) {
+    return /^[0-9]*$/u.test(value) && Number(value) >= 1
   },
 }
 

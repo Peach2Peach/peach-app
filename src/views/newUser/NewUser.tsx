@@ -1,63 +1,55 @@
-import { RouteProp } from '@react-navigation/native'
-import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
-import { View } from 'react-native'
-import Logo from '../../assets/logo/peachLogo.svg'
-import { Loading, Text } from '../../components'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 
-import LanguageContext from '../../contexts/language'
 import { MessageContext } from '../../contexts/message'
-import { OverlayContext } from '../../contexts/overlay'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import userUpdate from '../../init/userUpdate'
-import tw from '../../styles/tailwind'
 import { account, createAccount, deleteAccount } from '../../utils/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
 import { auth } from '../../utils/peachAPI'
 import { parseError } from '../../utils/system'
+import CreateAccountError from './CreateAccountError'
+import CreateAccountLoading from './CreateAccountLoading'
+import CreateAccountSuccess from './CreateAccountSuccess'
 
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['newUser'] }>
-  navigation: StackNavigation
-}
+const headerConfig = { title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' as const }
 
-// eslint-disable-next-line complexity
-export default ({ route, navigation }: Props): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
-  useContext(LanguageContext)
+export default (): ReactElement => {
+  useHeaderSetup(headerConfig)
+  const route = useRoute<'newUser'>()
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
+
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   const onError = useCallback(
     (err?: string) => {
-      updateMessage({
-        msgKey: err || 'AUTHENTICATION_FAILURE',
-        level: 'ERROR',
-      })
-      if (err === 'REGISTRATION_DENIED') navigation.replace('welcome', {})
-      deleteAccount({
-        onSuccess: () => {
-          updateOverlay({ content: null })
-        },
-      })
-      navigation.goBack()
+      const errorMsg = err || 'UNKNOWN_ERROR'
+      setError(errorMsg)
+      if (errorMsg !== 'REGISTRATION_DENIED') {
+        updateMessage({
+          msgKey: errorMsg,
+          level: 'ERROR',
+        })
+      }
+      deleteAccount()
     },
-    [navigation, updateMessage, updateOverlay],
+    [updateMessage],
   )
 
   const onSuccess = useCallback(async () => {
-    try {
-      const [result, authError] = await auth({})
-      if (result) {
-        await userUpdate(route.params.referralCode)
-        storeAccount(account)
+    const [result, authError] = await auth({})
+    if (result) {
+      await userUpdate(route.params.referralCode)
+      storeAccount(account)
+      setSuccess(true)
 
-        navigation.replace('home', {})
-      } else {
-        onError(authError?.error)
-      }
-    } catch (e) {
-      onError(parseError(e))
+      setTimeout(() => {
+        navigation.replace('home')
+      }, 1500)
+    } else {
+      onError(authError?.error)
     }
   }, [navigation, onError, route.params.referralCode])
 
@@ -73,25 +65,8 @@ export default ({ route, navigation }: Props): ReactElement => {
     })
   }, [onError, onSuccess])
 
-  return (
-    <View style={tw`h-full flex justify-center px-6`}>
-      <View style={tw`h-full flex-shrink p-6 flex-col items-center justify-between`}>
-        <View />
-        {/* dummy for layout */}
-        <View style={tw`h-full flex-shrink flex-col items-center justify-end mt-10 pb-10`}>
-          <Logo style={[tw`flex-shrink max-w-full w-96 max-h-96 h-full`, { minHeight: 48 }]} />
-        </View>
-        <View style={tw`w-full`}>
-          <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
-            {i18n('newUser.title.create')}
-          </Text>
-          <View style={tw`h-1/2`}>
-            <Loading />
-          </View>
-        </View>
-        <View />
-        {/* dummy for layout */}
-      </View>
-    </View>
-  )
+  if (success) return <CreateAccountSuccess />
+  if (error) return <CreateAccountError err={error} />
+
+  return <CreateAccountLoading />
 }

@@ -5,4 +5,4 @@ import { PAYMENTMETHODINFOS } from '../../constants'
  * @param id payment method id
  * @returns payment method info
  */
-export const getPaymentMethodInfo = (id: PaymentMethod): PaymentMethodInfo => PAYMENTMETHODINFOS.find(p => p.id === id)!
+export const getPaymentMethodInfo = (id: string): PaymentMethodInfo => PAYMENTMETHODINFOS.find((p) => p.id === id)!

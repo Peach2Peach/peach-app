@@ -35,6 +35,7 @@ export type UpdateUserProps = RequestProps & {
   pgp?: PGPKeychain
   fcmToken?: string
   referralCode?: string
+  feeRate?: FeeRate | number
 }
 
 /**
@@ -48,6 +49,7 @@ export const updateUser = async ({
   pgp,
   fcmToken,
   referralCode,
+  feeRate,
   timeout,
 }: UpdateUserProps): Promise<[APISuccess | null, APIError | null]> => {
   const peachAccount = getPeachAccount()
@@ -64,6 +66,7 @@ export const updateUser = async ({
       ...(await getPGPUpdatePayload(pgp)),
       fcmToken,
       referralCode,
+      feeRate,
     }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })

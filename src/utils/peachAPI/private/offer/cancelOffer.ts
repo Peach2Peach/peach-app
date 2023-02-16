@@ -12,17 +12,12 @@ type CancelOfferProps = RequestProps &
 /**
  * @description Method to get cancel offer and get refunding information
  * @param offerId offer id
- * @param satsPerByte transaction fees per byte
- * @returns FundingStatus
  */
 export const cancelOffer = async ({
   offerId,
-  satsPerByte,
   timeout,
 }: CancelOfferProps): Promise<[CancelOfferResponse | null, APIError | null]> => {
   const data: CancelOfferRequest = {}
-
-  if (satsPerByte) data.satsPerByte = satsPerByte
 
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/cancel`, {
     headers: {
@@ -35,5 +30,5 @@ export const cancelOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<CancelOfferResponse>(response, 'refundEscrow')
+  return await parseResponse<CancelOfferResponse>(response, 'cancelOffer')
 }

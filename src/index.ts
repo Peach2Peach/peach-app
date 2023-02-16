@@ -1,11 +1,12 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging from '@react-native-firebase/messaging'
 import { AppRegistry, LogBox } from 'react-native'
+import shallow from 'zustand/shallow'
 import App from './App'
 import { name as appName } from './app.json'
+import { notificationStore } from './components/footer/notificationsStore'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
-import { sessionStorage } from './utils/session'
 import { isIOS, isProduction, parseError } from './utils/system'
 
 // TODO check if these messages have a fix
@@ -27,11 +28,14 @@ LogBox.ignoreAllLogs(isProduction())
 
 try {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    let notifications = sessionStorage.getInt('notifications') || 0
-    notifications += 1
+    const [notifications, setNotifications] = notificationStore(
+      (state) => [state.notifications, state.setNotifications],
+      shallow,
+    )
+    const notifs = notifications + 1
 
-    if (isIOS()) NotificationBadge.setNumber(notifications)
-    sessionStorage.setInt('notifications', notifications)
+    if (isIOS()) NotificationBadge.setNumber(notifs)
+    setNotifications(notifs)
 
     info('Message handled in the background!', remoteMessage)
   })

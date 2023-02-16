@@ -1,27 +1,22 @@
 module.exports = {
   root: true,
-  extends: [
-    'plugin:jest/recommended'
-  ],
+  extends: ['plugin:jest/recommended'],
   env: {
-    'jest/globals': true
+    'jest/globals': true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-    'react-hooks'
-  ],
-  'parserOptions': {
-    'ecmaVersion': 12,
-    'sourceType': 'module'
+  plugins: ['@typescript-eslint', 'react-hooks'],
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module',
   },
-  'globals': {
-    'self': true,
-    'caches': true,
-    'jest': true,
-    'Buffer': true
+  globals: {
+    self: true,
+    caches: true,
+    jest: true,
+    Buffer: true,
   },
-  'ignorePatterns': [
+  ignorePatterns: [
     'tests/unit/data/*.ts',
     '.eslintrc.js',
     'index.js',
@@ -38,7 +33,7 @@ module.exports = {
     'tests/e2e/**/*.js',
     'src/sw.js',
   ],
-  'rules': {
+  rules: {
     'accessor-pairs': 'error',
     'array-bracket-newline': 'error',
     'array-bracket-spacing': 'error',
@@ -49,9 +44,9 @@ module.exports = {
     'arrow-spacing': [
       'error',
       {
-        'after': true,
-        'before': true
-      }
+        after: true,
+        before: true,
+      },
     ],
     'block-scoped-var': 'error',
     'block-spacing': 'error',
@@ -62,37 +57,28 @@ module.exports = {
     'comma-spacing': [
       'error',
       {
-        'after': true,
-        'before': false
-      }
+        after: true,
+        before: false,
+      },
     ],
-    'comma-style': [
-      'error',
-      'last'
-    ],
-    'complexity': [
-      'error',
-      21
-    ],
+    'comma-style': ['error', 'last'],
+    complexity: ['error', 21],
     'computed-property-spacing': 'error',
     'consistent-return': 'error',
     'consistent-this': 'error',
-    'curly': 'off',
+    curly: 'off',
     'default-case': 'error',
     'default-case-last': 'error',
     'default-param-last': 'error',
-    'dot-location': [
-      'error',
-      'property'
-    ],
+    'dot-location': ['error', 'property'],
     'dot-notation': [
       'error',
       {
-        'allowKeywords': true
-      }
+        allowKeywords: true,
+      },
     ],
     'eol-last': 'off',
-    'eqeqeq': 'error',
+    eqeqeq: 'error',
     'func-call-spacing': 'error',
     'func-name-matching': 'error',
     'func-names': 'error',
@@ -105,27 +91,18 @@ module.exports = {
     'id-length': 'off',
     'id-match': 'error',
     'implicit-arrow-linebreak': 'off',
-    'indent': [
-      'error',
-      2
-    ],
+    indent: ['error', 2],
     'init-declarations': 'off',
     'jsx-quotes': 'error',
     'key-spacing': 'error',
     'keyword-spacing': 'error',
     'line-comment-position': 'off',
-    'linebreak-style': [
-      'error',
-      'unix'
-    ],
+    'linebreak-style': ['error', 'unix'],
     'lines-around-comment': 'error',
     'lines-between-class-members': 'error',
     'max-classes-per-file': 'error',
     'max-depth': 'error',
-    'max-len': [
-      'error',
-      121
-    ],
+    'max-len': ['error', 121],
     'max-lines': 'error',
     'max-lines-per-function': ['error', 70],
     'max-nested-callbacks': 'error',
@@ -225,26 +202,20 @@ module.exports = {
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': 'error',
     'object-curly-newline': 'off',
-    'object-curly-spacing': [
-      'error',
-      'always'
-    ],
+    'object-curly-spacing': ['error', 'always'],
     'object-property-newline': 'off',
     'object-shorthand': 'error',
     'one-var': 'off',
     'one-var-declaration-per-line': 'error',
     'operator-assignment': 'error',
-    'operator-linebreak': [
-      'error',
-      'before'
-    ],
+    'operator-linebreak': ['error', 'before'],
     'padded-blocks': 'off',
     'padding-line-between-statements': 'error',
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
     'prefer-destructuring': 'off',
     'prefer-exponentiation-operator': 'error',
-    'prefer-named-capture-group': 'error',
+    'prefer-named-capture-group': 'off',
     'prefer-numeric-literals': 'error',
     'prefer-object-spread': 'error',
     'prefer-promise-reject-errors': 'error',
@@ -254,71 +225,54 @@ module.exports = {
     'prefer-template': 'off',
     'prettier/prettier': 'off',
     'quote-props': 'off',
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'radix': 'error',
+    quotes: ['error', 'single'],
+    radix: 'error',
     'require-atomic-updates': 'error',
     'require-await': 'off',
     'require-unicode-regexp': 'error',
     'rest-spread-spacing': 'error',
-    'semi': [
-      'error',
-      'never'
-    ],
+    semi: ['error', 'never'],
     'semi-spacing': 'error',
-    'semi-style': [
-      'error',
-      'first'
-    ],
+    'semi-style': ['error', 'first'],
     'sort-keys': 'off',
     'sort-vars': 'error',
     'space-before-blocks': 'error',
     'space-before-function-paren': 'error',
-    'space-in-parens': [
-      'error',
-      'never'
-    ],
+    'space-in-parens': ['error', 'never'],
     'space-infix-ops': 'error',
     'space-unary-ops': 'error',
-    'spaced-comment': [
-      'error',
-      'always'
-    ],
-    'strict': 'error',
+    'spaced-comment': ['error', 'always'],
+    strict: 'error',
     'switch-colon-spacing': 'error',
     'symbol-description': 'error',
     'template-curly-spacing': 'error',
     'template-tag-spacing': 'error',
-    'unicode-bom': [
-      'error',
-      'never'
-    ],
+    'unicode-bom': ['error', 'never'],
     'vars-on-top': 'error',
     'wrap-iife': 'error',
     'wrap-regex': 'off',
     'yield-star-spacing': 'error',
-    'yoda': 'error',
+    yoda: 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-non-null-assertion': 'warn',
     'jest/expect-expect': 'off',
+    'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    'react-native/no-inline-styles': 'off'
+    'react-native/no-inline-styles': 'off',
   },
-  'overrides': [
+  overrides: [
     {
-      'files': [ '*.tsx' ],
-      'rules': {
+      files: ['*.tsx'],
+      rules: {
         'max-lines-per-function': ['error', 300],
         'max-statements': ['error', 25],
-      }
+      },
     },
     {
-      'files': [ 'src/utils/log.ts' ],
-      'rules': {
+      files: ['src/utils/log.ts'],
+      rules: {
         'no-console': 'off',
-      }
-    }
-  ]
+      },
+    },
+  ],
 }

@@ -4,50 +4,25 @@ import tw from '../../styles/tailwind'
 
 import i18n from '../../utils/i18n'
 import OfferDetails from './OfferDetails'
-import ReleaseAddress from './ReleaseAddress'
 
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import shallow from 'zustand/shallow'
 import { Loading, Navigation, PeachScrollView } from '../../components'
-import { BUCKETS } from '../../constants'
 import { MessageContext } from '../../contexts/message'
+import { useNavigation } from '../../hooks'
 import pgp from '../../init/pgp'
-import { account, updateTradingLimit } from '../../utils/account'
-import { whiteGradient } from '../../utils/layout'
+import { useSettingsStore } from '../../store/settingsStore'
+import { updateTradingLimit } from '../../utils/account'
 import { error } from '../../utils/log'
-import { StackNavigation } from '../../utils/navigation'
 import { saveOffer } from '../../utils/offer'
-import { getTradingLimit, postOffer } from '../../utils/peachAPI'
-
-const { LinearGradient } = require('react-native-gradients')
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['buyPreferences'] }>
-  navigation: StackNavigation
-}
+import { getTradingLimit, postBuyOffer } from '../../utils/peachAPI'
+import { getDefaultBuyOffer } from './helpers/getDefaultBuyOffer'
+import Summary from './Summary'
 
 export type BuyViewProps = {
-  offer: BuyOffer
-  updateOffer: (data: BuyOffer, shield?: boolean) => void
+  offer: BuyOfferDraft
+  updateOffer: (data: BuyOfferDraft, shield?: boolean) => void
   setStepValid: (isValid: boolean) => void
-  back: () => void
-  next: () => void
-  navigation: StackNavigation
 }
-
-const getDefaultBuyOffer = (amount?: number): BuyOffer => ({
-  online: false,
-  type: 'bid',
-  creationDate: new Date(),
-  meansOfPayment: account.settings.meansOfPayment || {},
-  paymentData: {},
-  originalPaymentData: [],
-  kyc: account.settings.kyc || false,
-  amount: amount || account.settings.amount || BUCKETS[0],
-  matches: [],
-  seenMatches: [],
-  matched: [],
-  doubleMatched: false,
-})
 
 type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
 
@@ -58,9 +33,10 @@ const screens = [
     scrollable: true,
   },
   {
-    id: 'releaseAddress',
-    view: ReleaseAddress,
+    id: 'summary',
+    view: Summary,
     scrollable: false,
+    showPrice: false,
   },
   {
     id: 'search',
@@ -68,10 +44,24 @@ const screens = [
   },
 ]
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const navigation = useNavigation()
   const [, updateMessage] = useContext(MessageContext)
 
-  const [offer, setOffer] = useState<BuyOffer>(getDefaultBuyOffer(route.params.amount))
+  const partialSettings = useSettingsStore(
+    (state) => ({
+      minBuyAmount: state.minBuyAmount,
+      maxBuyAmount: state.maxBuyAmount,
+      meansOfPayment: state.meansOfPayment,
+      kyc: state.kyc,
+    }),
+    shallow,
+  )
+  const [offer, setOffer] = useState<BuyOfferDraft>(getDefaultBuyOffer(partialSettings))
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
   const [stepValid, setStepValid] = useState(false)
   const [updatePending, setUpdatePending] = useState(false)
   const [page, setPage] = useState(0)
@@ -97,38 +87,36 @@ export default ({ route, navigation }: Props): ReactElement => {
     return () => {
       listener.remove()
     }
-  })
+  }, [page])
 
   const next = () => {
+    if (page === 0) {
+      // summary screen (pages should be refactored into single views)
+      if (!peachWalletActive && !payoutAddress && !payoutAddressLabel) {
+        setPeachWalletActive(true)
+      }
+    }
     if (page >= screens.length - 1) return
     setPage(page + 1)
 
     scroll?.scrollTo({ x: 0 })
   }
-  const back = () => {
+  const back = useCallback(() => {
     if (page === 0) {
       navigation.goBack()
       return
     }
     setPage(page - 1)
     scroll?.scrollTo({ x: 0 })
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      setOffer(getDefaultBuyOffer(route.params.amount))
-      setUpdatePending(false)
-      setPage(() => 0)
-    }, [route]),
-  )
+  }, [navigation, page, scroll])
 
   useEffect(() => {
     ;(async () => {
-      if (screens[page].id === 'search' && !offer.id) {
+      if (screens[page].id === 'search' && !('id' in offer)) {
         setUpdatePending(true)
 
         await pgp() // make sure pgp has been sent
-        const [result, err] = await postOffer(offer)
+        const [result, err] = await postBuyOffer(offer)
 
         if (result) {
           getTradingLimit({}).then(([tradingLimit]) => {
@@ -136,8 +124,8 @@ export default ({ route, navigation }: Props): ReactElement => {
               updateTradingLimit(tradingLimit)
             }
           })
-          saveAndUpdate({ ...offer, id: result.offerId })
-          navigation.replace('search', { offerId: result.offerId })
+          saveAndUpdate({ ...offer, id: result.offerId } as BuyOffer)
+          navigation.replace('signMessage', { offerId: result.offerId })
           return
         }
 
@@ -145,54 +133,39 @@ export default ({ route, navigation }: Props): ReactElement => {
 
         error('Error', err)
         updateMessage({
-          msg: i18n(err?.error || 'error.postOffer', ((err?.details as string[]) || []).join(', ')),
+          msgKey: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
           level: 'ERROR',
+          action: {
+            callback: () => navigation.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
         })
 
         if (err?.error === 'TRADING_LIMIT_REACHED') back()
       }
     })()
-  }, [page])
+  }, [back, navigation, offer, page, updateMessage])
 
   return (
-    <View testID="view-buy" style={tw`flex h-full`}>
-      <View style={tw`flex-shrink h-full`}>
-        <PeachScrollView
-          scrollRef={(ref) => (scroll = ref)}
-          disable={!scrollable}
-          contentContainerStyle={[tw`flex flex-col pt-7`, !scrollable ? tw`h-full` : tw`min-h-full pb-10`]}
-          style={tw`h-full`}
-        >
-          <View style={tw`flex h-full`}>
-            <View style={tw`flex-shrink h-full`}>
-              {updatePending ? <Loading /> : null}
-              {!updatePending && CurrentView ? (
-                <CurrentView
-                  offer={offer}
-                  updateOffer={setOffer}
-                  setStepValid={setStepValid}
-                  back={back}
-                  next={next}
-                  navigation={navigation}
-                />
-              ) : null}
-            </View>
-            {scrollable && !updatePending ? (
-              <View style={tw`px-6 pt-8`}>
-                <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
-              </View>
-            ) : null}
-          </View>
-        </PeachScrollView>
-      </View>
-      {!scrollable && !updatePending ? (
-        <View style={tw`flex items-center w-full px-6 pb-10 mt-4 bg-white-1`}>
-          <View style={tw`w-full h-8 -mt-8`}>
-            <LinearGradient colorList={whiteGradient} angle={90} />
-          </View>
-          <Navigation screen={currentScreen.id} back={back} next={next} stepValid={stepValid} />
+    <View testID="view-buy" style={tw`flex-1`}>
+      {updatePending ? (
+        <View style={tw`absolute items-center justify-center w-full h-full`}>
+          <Loading />
         </View>
-      ) : null}
+      ) : (
+        <>
+          <PeachScrollView
+            scrollRef={(ref) => (scroll = ref)}
+            disable={!scrollable}
+            contentContainerStyle={[tw`justify-center flex-grow p-5 pb-30`]}
+          >
+            {CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, setStepValid }} />}
+          </PeachScrollView>
+
+          <Navigation screen={currentScreen.id} {...{ next, stepValid }} />
+        </>
+      )}
     </View>
   )
 }

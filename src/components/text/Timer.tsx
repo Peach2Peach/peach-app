@@ -6,24 +6,16 @@ import tw from '../../styles/tailwind'
 import { msToTimer } from '../../utils/string'
 
 type TimerProps = ComponentProps & {
-  text: string,
-  start: number
-  duration: number
+  text: string
+  end: number
 }
 
-/**
- * @TODO add case for 0 time left
- * @param text text to display
- * @param start start date as unix timestamp
- * @param duration max time in ms
- */
-export const Timer = ({ text, start, duration, style }: TimerProps): ReactElement => {
-  const [timer, setTimer] = useState(0)
+export const Timer = ({ text, end, style }: TimerProps): ReactElement => {
+  const [timer, setTimer] = useState(end - Date.now())
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = (new Date()).getTime()
-      const timeLeft = duration - (now - start)
+      const timeLeft = end - Date.now()
 
       setTimer(timeLeft > 0 ? timeLeft : 0)
     }, 1000)
@@ -31,12 +23,16 @@ export const Timer = ({ text, start, duration, style }: TimerProps): ReactElemen
     return () => {
       clearInterval(interval)
     }
-  }, [start, duration])
+  }, [end])
 
-  return <View style={[tw`flex-row justify-center`, style]}>
-    <Text style={tw`font-baloo text-sm`}>{text}</Text>
-    <Text style={tw`w-16 pl-1 font-baloo text-sm text-peach-1`}>{msToTimer(timer)}</Text>
-  </View>
+  return (
+    <View style={[tw`flex-row justify-center`, style]}>
+      <Text style={tw`button-medium uppercase`}>{text}</Text>
+      <Text style={[tw`w-18 pl-1 button-medium`, timer > 0 ? tw`text-black-3` : tw`text-error-main`]}>
+        {msToTimer(timer)}
+      </Text>
+    </View>
+  )
 }
 
 export default Timer

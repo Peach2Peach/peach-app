@@ -1,42 +1,92 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import { Text } from '..'
-import { useOfferDetails } from '../../hooks'
+import { HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { isSellOffer } from '../../utils/offer'
-import { UnmatchButton } from './buttons'
-import { CurrencySelector, PaymentMethodSelector, PriceInfo, UserInfo } from './components'
+import { peachyGradient } from '../../utils/layout'
+import { isBuyOffer } from '../../utils/offer'
+import { GradientBorder } from '../../views/TestView/GradientBorder'
+import { MatchOfferButton, UnmatchButton } from './buttons'
+import { CurrencySelector, EscrowLink, PaymentMethodSelector, PriceInfo, UserInfo } from './components'
+import { useInterruptibleFunction, useMatchOffer } from './hooks'
+import { MatchPaymentDetails } from './MatchPaymentDetails'
+import { Price } from './Price'
 
-type MatchProps = ComponentProps & {
-  match: Match
-  offerId: string
-}
+const { RadialGradient } = require('react-native-gradients')
 
-export const Match = ({ match, offerId }: MatchProps): ReactElement => {
-  const { offer } = useOfferDetails(offerId)
-  if (!offer) return <></>
+type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
+
+export const Match = ({ match, style, offer }: MatchProps): ReactElement => {
+  const { mutate } = useMatchOffer(offer, match)
+  const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
+  const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
+    mutate(undefined, { onError: () => setShowMatchedCard(false) })
+  }, 5000)
+
+  const onMatchPress = () => {
+    if (isBuyOffer(offer)) {
+      setShowMatchedCard(true)
+      matchFunction()
+    } else {
+      mutate()
+    }
+  }
 
   return (
-    <View style={[tw`w-full my-5 border rounded-md border-grey-4 bg-white-1`, match.matched ? tw`border-peach-1` : {}]}>
-      {match.matched && (
-        <View style={tw`absolute top-0 left-0 z-20 w-full h-full`}>
-          <UnmatchButton {...{ match, offer }} />
-          <View style={tw`w-full h-full bg-peach-translucent opacity-30`} />
-          <Text style={tw`absolute w-full text-xs text-center bottom-full font-baloo text-peach-1`}>
-            {i18n('search.matched')}
-          </Text>
+    <View onStartShouldSetResponder={() => true} style={style}>
+      <GradientBorder
+        gradient={peachyGradient}
+        borderWidths={[4, 4, 0, 4]}
+        showBorder={showMatchedCard}
+        containerStyle={[tw`w-[313px] h-[414px] rounded-t-xl overflow-hidden`, !isBuyOffer(offer) && tw`h-64`]}
+        style={tw`overflow-hidden rounded-t-xl bg-primary-background-light`}
+        borderStyle={[tw`overflow-hidden rounded-t-2xl`, !showMatchedCard && tw`border border-b-0 border-primary-main`]}
+      >
+        <View style={tw`w-full`}>
+          <View style={tw`px-5 pt-5 pb-6`}>
+            <UserInfo user={match.user} style={tw`mb-5`} />
+            {isBuyOffer(offer) ? (
+              <>
+                <PriceInfo match={match} />
+                <CurrencySelector matchId={match.offerId} />
+                <PaymentMethodSelector matchId={match.offerId} />
+                <EscrowLink address={match.escrow || ''} />
+              </>
+            ) : (
+              <>
+                <HorizontalLine style={tw`bg-black-5`} />
+                <Price match={match} fontStyle={tw`body-l`} isBuyOffer={false} style={tw`my-4`} />
+                <HorizontalLine style={tw`bg-black-5`} />
+                <MatchPaymentDetails match={match} />
+              </>
+            )}
+          </View>
+          {showMatchedCard && isBuyOffer(offer) && (
+            <>
+              <View
+                style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
+                pointerEvents="none"
+              >
+                <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={peachyGradient} />
+              </View>
+              <View style={tw`absolute top-0 left-0 items-center justify-center w-full h-full`} pointerEvents="box-none">
+                <UnmatchButton
+                  {...{ match, offer }}
+                  interruptMatching={interruptMatchFunction}
+                  showUnmatchedCard={() => setShowMatchedCard(false)}
+                />
+              </View>
+            </>
+          )}
         </View>
-      )}
-      <View style={tw`px-5 pt-5 pb-8`}>
-        <UserInfo user={match.user} isSellOffer={isSellOffer(offer)} />
-        <PriceInfo match={match} />
-        <CurrencySelector matchId={match.offerId} offer={offer} />
-        <PaymentMethodSelector matchId={match.offerId} offer={offer} />
-      </View>
+      </GradientBorder>
+      <MatchOfferButton
+        matchId={match.offerId}
+        matchOffer={onMatchPress}
+        offerId={offer.id}
+        pretendIsMatched={showMatchedCard}
+        isBuyOffer={isBuyOffer(offer)}
+      />
     </View>
   )
 }
-
-export default Match

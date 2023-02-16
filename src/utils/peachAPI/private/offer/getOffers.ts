@@ -13,7 +13,7 @@ type GetOfferProps = RequestProps
 export const getOffers = async ({
   timeout,
   abortSignal,
-}: GetOfferProps): Promise<[(SellOffer | BuyOffer)[] | null, APIError | null]> => {
+}: GetOfferProps): Promise<[GetOffersResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offers`, {
     headers: {
       Authorization: await fetchAccessToken(),
@@ -24,5 +24,5 @@ export const getOffers = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<(SellOffer | BuyOffer)[]>(response, 'getOffers')
+  return await parseResponse<GetOffersResponse>(response, 'getOffers')
 }

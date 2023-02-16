@@ -8,5 +8,4 @@ const map: Record<Currency, FlagType[]> = {
   USD: ['US'],
 }
 
-export const countrySupportsCurrency = (currency: Currency) => (country: FlagType) =>
-  map[currency].indexOf(country) !== -1
+export const countrySupportsCurrency = (currency: Currency) => (country: FlagType) => map[currency].includes(country)

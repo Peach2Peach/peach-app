@@ -5,9 +5,22 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import { HorizontalLine } from '../../../ui'
+import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
+
+const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'email',
+    display: i18n('form.email'),
+  },
+  {
+    id: 'phone',
+    display: i18n('form.phone'),
+  },
+]
 
 export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -16,6 +29,8 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const [reference, setReference] = useState(data?.reference || '')
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
+
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   let $email = useRef<TextInput>(null).current
   let $phone = useRef<TextInput>(null).current
@@ -71,51 +86,48 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => $email?.focus()}
+          onSubmit={() => {
+            if (currentTab.id === 'email') {
+              $email?.focus()
+            } else $phone?.focus()
+          }}
           value={label}
           required={!anyFieldSet}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={setEmail}
-          onSubmit={() => $phone?.focus()}
-          reference={(el: any) => ($email = el)}
-          value={email}
-          required={!phone}
-          label={i18n('form.email')}
-          placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? emailErrors : undefined}
-        />
+      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
+      <View style={tw`mt-2`}>
+        {currentTab.id === 'email' && (
+          <EmailInput
+            onChange={setEmail}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
+            reference={(el: any) => ($email = el)}
+            value={email}
+            required={!phone}
+            placeholder={i18n('form.email.placeholder')}
+            errorMessage={displayErrors ? emailErrors : undefined}
+          />
+        )}
+        {currentTab.id === 'phone' && (
+          <PhoneInput
+            onChange={setPhone}
+            onSubmit={() => $reference?.focus()}
+            reference={(el: any) => ($phone = el)}
+            value={phone}
+            required={!email}
+            placeholder={i18n('form.phone.placeholder')}
+            autoCorrect={false}
+            errorMessage={displayErrors ? phoneErrors : undefined}
+          />
+        )}
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
-          onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            $reference?.focus()
-          }}
-          reference={(el: any) => ($phone = el)}
-          value={phone}
-          required={!email}
-          label={i18n('form.phone')}
-          placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? phoneErrors : undefined}
-        />
-      </View>
-      <HorizontalLine style={tw`mt-6`} />
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setReference}
           onSubmit={save}
@@ -129,7 +141,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       </View>
       <CurrencySelection
         style={tw`mt-6`}
-        paymentMethod="paypal"
+        paymentMethod="wise"
         selectedCurrencies={selectedCurrencies}
         onToggle={onCurrencyToggle}
       />

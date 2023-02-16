@@ -1,32 +1,47 @@
-import React, { ReactElement } from 'react'
-import MatchCarousel from './MatchCarousel'
-import { View } from 'react-native'
+import React from 'react'
+import { Dimensions } from 'react-native'
+import Carousel from 'react-native-snap-carousel'
+import { useRoute } from '../../hooks'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
-import { MatchOfferButton, MatchHelpButton } from './buttons'
-import { useMatchesSetup } from './hooks'
-import { useOfferDetails } from '../../hooks'
-import { isBuyOffer } from '../../utils/offer'
-import { useMatchStore } from './store'
 import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
+import { useMatchesSetup } from './hooks'
+import { Match } from './Match'
+import { useMatchStore } from './store'
 
-export const Matches = ({ offerId }: { offerId: string }): ReactElement => {
-  useMatchesSetup()
-  const { allMatches: matches } = useOfferMatches()
-  const currentIndex = useMatchStore((state) => state.currentIndex)
-  const currentMatch = matches[currentIndex] as Match | undefined
-
-  const { offer } = useOfferDetails(offerId)
-  if (!offer || !currentMatch) return <></>
-
-  return (
-    <View style={tw`flex-col justify-end flex-shrink h-full`}>
-      <MatchCarousel offerId={offerId} />
-      <View style={tw`flex-row items-center justify-center pl-11`}>
-        <MatchOfferButton {...{ offer, currentMatch }} />
-        <MatchHelpButton isBuyOffer={isBuyOffer(offer)} />
-      </View>
-    </View>
-  )
+const { width } = Dimensions.get('window')
+const carouselConfig = {
+  loop: false,
+  enableMomentum: false,
+  sliderWidth: width,
+  itemWidth: width - 64,
+  inactiveSlideScale: 0.9,
+  inactiveSlideOpacity: 0.7,
+  inactiveSlideShift: -10,
+  activeSlideAlignment: 'center' as 'center',
+  enableSnap: true,
+  shouldOptimizeUpdates: true,
+  lockScrollWhileSnapping: true,
+  keyExtractor: (item: any, index: number) => `${item.offerId}-${index}`,
 }
 
-export default Matches
+export const Matches = () => {
+  useMatchesSetup()
+  const { offerId } = useRoute<'search'>().params
+  const { offer } = useOfferDetails(offerId)
+  const { allMatches: matches } = useOfferMatches(offerId)
+
+  const setCurrentIndex = useMatchStore((state) => state.setCurrentIndex)
+  const onBeforeSnapToItem = (index: number) => {
+    setCurrentIndex(Math.min(index, matches.length - 1))
+  }
+  if (!offer) return <></>
+
+  return (
+    <Carousel
+      data={matches}
+      renderItem={({ item }) => <Match match={item} style={tw`self-center p-4`} offer={offer} />}
+      {...{ ...carouselConfig, onBeforeSnapToItem }}
+    />
+  )
+}

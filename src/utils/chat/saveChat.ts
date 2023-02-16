@@ -16,6 +16,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
       messages: [],
       id,
       draftMessage: '',
+      seenDisputeDisclaimer: false,
       ...chat,
     }
   }
@@ -31,7 +32,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
         ...m,
         date: new Date(m.date),
       }))
-      .filter((message) => message.roomId.indexOf(id) !== -1)
+      .filter((message) => message.roomId.includes(id))
       .filter(unique('signature')) // signatures are unique even if the same message is being sent 2x (user intention)
       .sort((a, b) => a.date.getTime() - b.date.getTime()),
   }

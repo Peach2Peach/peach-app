@@ -7,6 +7,7 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 const phoneRules = {
   required: true,
   phone: true,
@@ -67,28 +68,23 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           placeholder={i18n('form.paymentMethodName.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
-          isValid={labelErrors.length === 0}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
+      <View style={tw`mt-1`}>
+        <PhoneInput
+          onChange={setPhone}
           onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
             $beneficiary?.focus()
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
           onSubmit={save}

@@ -1,27 +1,22 @@
 import analytics from '@react-native-firebase/analytics'
 
 import { defaultAccount, setAccount } from '.'
+import { settingsStorage } from '../../store/settingsStore'
 import { info } from '../log'
 import { logoutUser } from '../peachAPI'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { sessionStorage } from '../session'
-import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
+import { accountStorage } from './accountStorage'
+import { chatStorage } from './chatStorage'
+import { contractStorage } from './contractStorage'
+import { offerStorage } from './offerStorage'
 
-interface DeleteAccountProps {
-  onSuccess?: Function
-}
-
-/**
- * @description Method to delete account
- * @param props.onSuccess callback on success
- * @param props.onError callback on error
- */
-export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
+export const deleteAccount = async () => {
   info('Deleting account')
 
   setAccount(defaultAccount, true)
-  ;[accountStorage, offerStorage, contractStorage, chatStorage, sessionStorage].forEach((storage) =>
+  ;[accountStorage, offerStorage, contractStorage, chatStorage, sessionStorage, settingsStorage].forEach((storage) =>
     storage.clearStore(),
   )
 
@@ -29,6 +24,5 @@ export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
 
   deleteAccessToken()
   deletePeachAccount()
-  if (onSuccess) onSuccess()
   analytics().logEvent('account_deleted')
 }

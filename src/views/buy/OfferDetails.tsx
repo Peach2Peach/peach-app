@@ -1,27 +1,48 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import { BuyViewProps } from './BuyPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
+import shallow from 'zustand/shallow'
+import { Icon } from '../../components'
+import { EditIcon, HelpIcon } from '../../components/icons'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSettingsStore } from '../../store/settingsStore'
+import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
-import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import PaymentDetails from '../../components/payment/PaymentDetails'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import { BuyViewProps } from './BuyPreferences'
 
-const validate = (offer: BuyOffer) => {
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentData(d!))
-  return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
-}
+const validate = (offer: BuyOfferDraft) =>
+  !!offer.amount
+  && hasMopsConfigured(offer)
+  && getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
 
-export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
-  useContext(LanguageContext)
+export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+  const [editing, setEditing] = useState(false)
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
+  const showHelp = useShowHelp('paymentMethods')
+
+  useHeaderSetup({
+    title: i18n(editing ? 'paymentMethods.edit.title' : 'paymentMethods.title'),
+    icons:
+      account.paymentData.length !== 0
+        ? [
+          {
+            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            onPress: () => {
+              setEditing(!editing)
+            },
+          },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ]
+        : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+  })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
     offer.meansOfPayment || account.settings.meansOfPayment,
   )
@@ -37,32 +58,26 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
         }
         return obj
       }, {} as Offer['paymentData'])
+
     updateOffer({
       ...offer,
       meansOfPayment,
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
     })
-    updateSettings(
-      {
-        meansOfPayment,
-        kyc: offer.kyc,
-      },
-      true,
-    )
-  }, [meansOfPayment])
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
 
-  useEffect(() => setStepValid(validate(offer)), [offer])
+  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
 
   return (
-    <View style={tw`mb-16 px-6`}>
-      <Title title={i18n('buy.title')} />
-      <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['buyPreferences', { amount: offer.amount }]}
+    <View>
+      <PaymentDetails
         style={tw`mt-4`}
+        paymentData={account.paymentData}
+        setMeansOfPayment={setMeansOfPayment}
+        editing={editing}
+        origin="buyPreferences"
       />
     </View>
   )
