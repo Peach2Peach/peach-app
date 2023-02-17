@@ -19,4 +19,7 @@ describe('getCountryCodeByPhone', () => {
   it('returns undefined if country could not be found', () => {
     expect(getCountryCodeByPhone('+99029384')).toEqual(undefined)
   })
+  it('returns the US country code correctly', () => {
+    expect(getCountryCodeByPhone('+11230984')).toEqual('US')
+  })
 })
