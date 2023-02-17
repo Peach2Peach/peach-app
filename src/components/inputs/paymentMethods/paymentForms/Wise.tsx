@@ -21,7 +21,7 @@ const tabs: TabbedNavigationItem[] = [
     display: i18n('form.email'),
   },
 ]
-const phoneRules = { required: true, phone: true, phoneIsNotHighRisk: true }
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')

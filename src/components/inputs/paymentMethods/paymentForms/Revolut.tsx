@@ -28,7 +28,7 @@ const tabs: TabbedNavigationItem[] = [
   },
 ]
 const referenceRules = { required: false }
-const phoneRules = { phone: true, phoneIsNotHighRisk: true, required: true }
+const phoneRules = { phone: true, isPhoneAllowed: true, required: true }
 
 export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')

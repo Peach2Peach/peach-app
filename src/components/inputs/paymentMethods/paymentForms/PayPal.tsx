@@ -28,7 +28,7 @@ const tabs: TabbedNavigationItem[] = [
   },
 ]
 const referenceRules = { required: false }
-const phoneRules = { required: true, phone: true, phoneIsNotHighRisk: true }
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')

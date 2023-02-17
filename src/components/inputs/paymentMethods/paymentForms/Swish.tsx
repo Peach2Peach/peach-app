@@ -9,7 +9,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 
-const phoneRules = { required: true, phone: true, phoneIsNotHighRisk: true }
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const Swish = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')

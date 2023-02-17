@@ -498,7 +498,7 @@ export const countryMap = {
   IR: {
     name: 'Iran, Islamic Republic of Persian Gulf',
     dialCode: '+98',
-    highRisk: false,
+    highRisk: true,
   },
   IQ: {
     name: 'Iraq',
@@ -563,12 +563,12 @@ export const countryMap = {
   KP: {
     name: 'Korea, Democratic People\'s Republic of Korea',
     dialCode: '+850',
-    highRisk: false,
+    highRisk: true,
   },
   KR: {
     name: 'Korea, Republic of South Korea',
     dialCode: '+82',
-    highRisk: false,
+    highRisk: true,
   },
   KW: {
     name: 'Kuwait',

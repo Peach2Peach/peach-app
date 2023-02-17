@@ -16,7 +16,7 @@ export const getMessages = () => ({
   password: i18n('form.password.error'),
   paypalUserName: i18n('form.invalid.error'),
   phone: i18n('form.invalid.error'),
-  phoneIsNotHighRisk: i18n('form.phone.highRisk'),
+  isPhoneAllowed: i18n('form.phone.highRisk'),
   referralCode: i18n('form.invalid.error'),
   required: i18n('form.required.error'),
   revtag: i18n('form.invalid.error'),
