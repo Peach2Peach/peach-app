@@ -2,7 +2,7 @@ import { settingsStore } from '../../../store/settingsStore'
 import { getNewPreferredPaymentMethods, updatePaymentData } from '../../../utils/account'
 
 export const checkSupportedPaymentMethods = (paymentData: PaymentData[], paymentInfo: PaymentMethodInfo[]) => {
-  const updateDatedPaymentData = [...paymentData].map((data) => ({
+  const updateDatedPaymentData = paymentData.map((data) => ({
     ...data,
     hidden: !paymentInfo.some((info) => data.type === info.id),
   }))
