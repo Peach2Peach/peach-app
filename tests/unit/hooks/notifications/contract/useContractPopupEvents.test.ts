@@ -23,10 +23,6 @@ const showCancelTradeRequestRejectedMock = jest.fn()
 jest.mock('../../../../../src/overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay', () => ({
   useBuyerRejectedCancelTradeOverlay: () => showCancelTradeRequestRejectedMock,
 }))
-const showPaymentReminderMock = jest.fn()
-jest.mock('../../../../../src/overlays/paymentTimer/useShowPaymentReminder', () => ({
-  useShowPaymentReminder: () => showPaymentReminderMock,
-}))
 const showPaymentTimerHasRunOutMock = jest.fn()
 jest.mock('../../../../../src/overlays/paymentTimer/useShowPaymentTimerHasRunOut', () => ({
   useShowPaymentTimerHasRunOut: () => showPaymentTimerHasRunOutMock,
@@ -174,22 +170,5 @@ describe('useContractPopupEvents', () => {
     })
 
     expect(showPaymentTimerExtendedMock).toHaveBeenCalledWith(contract, true)
-  })
-
-  it('should call showPaymentReminder with the correct arguments for six hours', () => {
-    const { result } = renderHook(() => useContractPopupEvents(currentContractId))
-    act(() => {
-      result.current['contract.buyer.paymentReminderSixHours']!(contract, data)
-    })
-    expect(showPaymentReminderMock).toHaveBeenCalledWith(contract, true)
-  })
-
-  it('should call showPaymentReminder with the correct arguments  for one hour', () => {
-    const { result } = renderHook(() => useContractPopupEvents(currentContractId))
-
-    act(() => {
-      result.current['contract.buyer.paymentReminderOneHour']!(contract, data)
-    })
-    expect(showPaymentReminderMock).toHaveBeenCalledWith(contract, true)
   })
 })

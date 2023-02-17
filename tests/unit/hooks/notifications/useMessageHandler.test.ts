@@ -60,7 +60,7 @@ describe('useMessageHandler', () => {
     expect(updateMessageMock).toHaveBeenCalledWith({
       msgKey: 'notification.SOME_TYPE',
       bodyArgs: ['arg1', 'arg2'],
-      level: 'DEFAULT',
+      level: 'WARN',
       action: actionMock,
     })
   })

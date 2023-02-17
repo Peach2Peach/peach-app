@@ -9,7 +9,7 @@ import { calculateClientServerTimeDifference } from './calculateClientServerTime
  * @description Method to fetch peach info and user trading limit and store values in constants
  */
 export const getPeachInfo = async (account?: Account) => {
-  await calculateClientServerTimeDifference()
+  const canReachServer = await calculateClientServerTimeDifference()
 
   const { setLatestAppVersion, setMinAppVersion, setPeachFee, setPeachPGPPublicKey } = configStore.getState()
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
