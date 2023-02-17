@@ -483,6 +483,7 @@
   "form.optional": "optional",
   "form.phone": "phone",
   "form.phone.placeholder": "phone number",
+  "form.phone.highRisk": "numbers from this country are not allowed",
   "form.userEmail": "email",
   "form.userEmail.placeholder": "user@email.com",
   "form.userName": "username",

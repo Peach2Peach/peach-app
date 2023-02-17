@@ -18,7 +18,7 @@ export const initApp = async (): Promise<void> => {
   if (account?.publicKey) {
     getTrades()
     userUpdate()
-    await dataMigrationAfterLoadingAccount()
+    await dataMigrationAfterLoadingAccount(account)
   }
   saveMeetupEvents()
 }

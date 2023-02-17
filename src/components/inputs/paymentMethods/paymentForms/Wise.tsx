@@ -13,14 +13,15 @@ import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
   {
-    id: 'email',
-    display: i18n('form.email'),
-  },
-  {
     id: 'phone',
     display: i18n('form.phone'),
   },
+  {
+    id: 'email',
+    display: i18n('form.email'),
+  },
 ]
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -38,12 +39,14 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
 
   const anyFieldSet = !!(email || phone)
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
-  const phoneRules = { required: !email, phone: true }
-  const emailRules = { required: !phone, email: true }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
+  const emailRules = useMemo(() => ({ required: !phone, email: true }), [phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
@@ -101,6 +104,18 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       </View>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
+        {currentTab.id === 'phone' && (
+          <PhoneInput
+            onChange={setPhone}
+            onSubmit={() => $reference?.focus()}
+            reference={(el: any) => ($phone = el)}
+            value={phone}
+            required={!email}
+            placeholder={i18n('form.phone.placeholder')}
+            autoCorrect={false}
+            errorMessage={displayErrors ? phoneErrors : undefined}
+          />
+        )}
         {currentTab.id === 'email' && (
           <EmailInput
             onChange={setEmail}
@@ -112,18 +127,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
             required={!phone}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
-          />
-        )}
-        {currentTab.id === 'phone' && (
-          <PhoneInput
-            onChange={setPhone}
-            onSubmit={() => $reference?.focus()}
-            reference={(el: any) => ($phone = el)}
-            value={phone}
-            required={!email}
-            placeholder={i18n('form.phone.placeholder')}
-            autoCorrect={false}
-            errorMessage={displayErrors ? phoneErrors : undefined}
           />
         )}
       </View>
