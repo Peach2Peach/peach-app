@@ -85,7 +85,7 @@ export const useCommonContractSetup = (contractId: string) => {
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
       if (!symmetricKey || !paymentData) {
-        setDecryptionError(true)
+        return setDecryptionError(true)
       }
 
       return saveAndUpdate({ ...contract, symmetricKey, paymentData })
