@@ -50,4 +50,6 @@ declare type WiseData = {
 declare type AmazonGiftCardData = {
   email: string
 }
-declare type CashData = {}
+declare type CashData = {
+  userId: string
+}
