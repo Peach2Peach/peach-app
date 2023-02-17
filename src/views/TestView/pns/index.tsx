@@ -31,7 +31,7 @@ const useFakePNs = () => {
         offerId: sellOfferId,
       },
       notification: {
-        bodyLocArgs: ['7'],
+        bodyLocArgs: ['P123', '7'],
       },
     },
     {
@@ -52,7 +52,7 @@ const useFakePNs = () => {
         offerId: sellOfferId,
       },
       notification: {
-        bodyLocArgs: ['14'],
+        bodyLocArgs: ['P123', '14'],
       },
     },
     {
@@ -70,7 +70,7 @@ const useFakePNs = () => {
         offerId: buyOfferId,
       },
       notification: {
-        bodyLocArgs: ['P123'],
+        bodyLocArgs: ['P123', '30'],
       },
     },
     {
@@ -88,6 +88,7 @@ const useFakePNs = () => {
     {
       data: {
         type: 'contract.contractCreated',
+        offerId: buyOfferId,
         contractId,
       },
     },
@@ -123,9 +124,6 @@ const useFakePNs = () => {
         type: 'contract.chat',
         contractId,
         isChat: 'true',
-      },
-      notification: {
-        bodyLocArgs: ['PC-123-456'],
       },
     },
   ]

@@ -7,13 +7,13 @@
     <string name="notification.title.offer.wrongFundingAmount">Escrow not funded</string>
     <string name="notification.body.offer.wrongFundingAmount">The amount you sent to the escrow is higher or lower than the single trade limit. You\'ll be refunded, please re-create your offer.</string>
     <string name="notification.title.offer.notFunded">Offer canceled</string>
-    <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %1$s days &#128542; We are deleting this offer.</string>
+    <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %2$s days &#128542; We are deleting this offer.</string>
     <string name="notification.title.offer.sellOfferExpired">No match</string>
-    <string name="notification.body.offer.sellOfferExpired">It\'s been %1$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
+    <string name="notification.body.offer.sellOfferExpired">It\'s been %2$s days and still no match! As we don\'t want to keep your escrow for too long, your offer has been taken offline.</string>
     <string name="notification.title.offer.buyOfferEminentExpiry">Offer hasn\'t received a match for 23 days.</string>
     <string name="notification.body.offer.buyOfferEminentExpiry">Your buy offer still hasn\'t received a match - it will be removed in a week.</string>
-    <string name="notification.title.offer.buyOfferExpired">Offer hasn\'t received a match for %1$s days.</string>
-    <string name="notification.body.offer.buyOfferExpired">Your buy offer hasn\'t received a match after %1$s days and has been removed.</string>
+    <string name="notification.title.offer.buyOfferExpired">Offer hasn\'t received a match for %2$s days.</string>
+    <string name="notification.body.offer.buyOfferExpired">Your buy offer %1$s hasn\'t received a match after %2$s days and has been removed.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
     <string name="notification.body.offer.matchBuyer">The faster you accept, the better your Peach Reputation score will be.</string>
     <string name="notification.title.offer.matchSeller">Matches are waiting for you!</string>
@@ -41,7 +41,7 @@
     <string name="notification.title.contract.disputeRaised">Dispute</string>
     <string name="notification.body.contract.disputeRaised">Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.</string>
     <string name="notification.title.contract.disputeResolved">Dispute</string>
-    <string name="notification.body.contract.disputeResolved">A decision about a dispute has been made!</string>
+    <string name="notification.body.contract.disputeResolved">The dispute for trade %1$s has been resolved. Please check the message from your mediator in the trade chat to see what's next.</string>
     <string name="notification.title.contract.canceled">Trade cancelation</string>
     <string name="notification.body.contract.canceled">Your Buyer has canceled Trade %1$s.</string>
     <string name="notification.title.contract.cancelationRequest">Trade cancelation</string>
