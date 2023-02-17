@@ -29,10 +29,8 @@ export default ({
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const CTADisabled = actionPending || contract.disputeActive
 
-  if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
-    <WarningButton disabled={contract.disputeActive} onPress={() => showConfirmTradeCancelation(contract)}>
-      {i18n('contract.respond')}
-    </WarningButton>
+  if (!contract.disputeActive && shouldShowConfirmCancelTradeRequest(contract, view)) return (
+    <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
     <PrimaryButton disabled iconId="send">
@@ -47,7 +45,7 @@ export default ({
   )
   if (view === 'buyer' && requiredAction === 'sendPayment') {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
-    if (Date.now() < paymentExpectedBy) {
+    if (contract.disputeActive || Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
           style={tw`w-[260px]`}
