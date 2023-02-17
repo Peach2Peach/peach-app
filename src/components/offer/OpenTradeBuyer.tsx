@@ -8,7 +8,7 @@ import { ChatButton } from '../chat/ChatButton'
 import { paymentDetailTemplates } from '../payment'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
-import { CopyAble, HorizontalLine } from '../ui'
+import { CopyAble, ErrorBox, HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
 import { TradeSummaryProps } from './TradeSummary'
@@ -46,6 +46,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
             copyable
           />
         )}
+        {!contract.paymentData && <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>}
 
         <HorizontalLine style={tw`mt-6 bg-black-5`} />
         <View style={tw`flex-row justify-center mt-6`}>
