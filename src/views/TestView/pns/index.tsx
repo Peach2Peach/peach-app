@@ -103,6 +103,18 @@ const useFakePNs = () => {
     },
     {
       data: {
+        type: 'contract.buyer.paymentReminderSixHours',
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentReminderOneHour',
+        contractId,
+      },
+    },
+    {
+      data: {
         type: 'contract.paymentMade',
         contractId,
       },
@@ -198,18 +210,6 @@ const useFakePNs = () => {
       },
       notification: {
         bodyLocArgs: ['PC-123-456'],
-      },
-    },
-    {
-      data: {
-        type: 'contract.buyer.paymentReminderSixHours',
-        contractId,
-      },
-    },
-    {
-      data: {
-        type: 'contract.buyer.paymentReminderOneHour',
-        contractId,
       },
     },
     {

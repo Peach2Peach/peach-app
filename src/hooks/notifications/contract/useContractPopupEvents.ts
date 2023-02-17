@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { useDisputeRaisedNotice } from '../../../overlays/dispute/hooks/useDisputeRaisedNotice'
 import { useDisputeResults } from '../../../overlays/dispute/hooks/useDisputeResults'
-import { useShowPaymentReminder } from '../../../overlays/paymentTimer/useShowPaymentReminder'
 import { useShowPaymentTimerExtended } from '../../../overlays/paymentTimer/useShowPaymentTimerExtended'
 import { useShowPaymentTimerHasRunOut } from '../../../overlays/paymentTimer/useShowPaymentTimerHasRunOut'
 import { useShowPaymentTimerSellerCanceled } from '../../../overlays/paymentTimer/useShowPaymentTimerSellerCanceled'
@@ -23,7 +22,6 @@ export const useContractPopupEvents = (currentContractId?: string) => {
   const showTradeCanceled = useTradeCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
-  const showPaymentReminder = useShowPaymentReminder()
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
   const showPaymentTimerSellerCanceled = useShowPaymentTimerSellerCanceled()
   const showPaymentTimerExtended = useShowPaymentTimerExtended()
@@ -61,12 +59,6 @@ export const useContractPopupEvents = (currentContractId?: string) => {
       // PN-B07
       'contract.buyer.paymentTimerExtended': (contract: Contract, { contractId }: PNData) =>
         showPaymentTimerExtended(contract, currentContractId === contractId),
-      // PN-B04
-      'contract.buyer.paymentReminderSixHours': (contract: Contract, { contractId }: PNData) =>
-        showPaymentReminder(contract, currentContractId === contractId),
-      // PN-B05
-      'contract.buyer.paymentReminderOneHour': (contract: Contract, { contractId }: PNData) =>
-        showPaymentReminder(contract, currentContractId === contractId),
     }),
     [
       currentContractId,
@@ -74,7 +66,6 @@ export const useContractPopupEvents = (currentContractId?: string) => {
       showConfirmTradeCancelation,
       showDisputeRaisedNotice,
       showDisputeResults,
-      showPaymentReminder,
       showPaymentTimerExtended,
       showPaymentTimerHasRunOut,
       showPaymentTimerSellerCanceled,
