@@ -40,6 +40,8 @@ export const useContractPopupEvents = (currentContractId?: string) => {
         showDisputeResults(contract, getContractViewer(contract, account)),
       // PN-S13
       'contract.canceled': (contract: Contract) => showTradeCanceled(contract, false),
+      // PN-S14
+      'seller.canceledAfterEscrowExpiry': (contract: Contract) => showTradeCanceled(contract, false),
       // PN-B08
       'contract.cancelationRequest': (contract: Contract) =>
         !contract.disputeActive ? showConfirmTradeCancelation(contract) : null,

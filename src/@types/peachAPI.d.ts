@@ -382,6 +382,7 @@ declare type NotificationType =
   | 'contract.seller.disputeRaised' // PN-D01
   | 'contract.disputeResolved' // PN-D02 PN-D03
   | 'contract.canceled' // PN-S13
+  | 'seller.canceledAfterEscrowExpiry' // PN-S14
   | 'contract.cancelationRequest' // PN-B08
   | 'contract.cancelationRequestAccepted' // PN-S15
   | 'contract.cancelationRequestRejected' // PN-S16

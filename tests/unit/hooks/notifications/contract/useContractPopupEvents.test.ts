@@ -88,6 +88,15 @@ describe('useContractPopupEvents', () => {
 
     expect(showTradeCanceledMock).toHaveBeenCalledWith(contract, false)
   })
+  it('should handle "seller.canceledAfterEscrowExpiry" event', () => {
+    const { result } = renderHook(() => useContractPopupEvents(currentContractId))
+
+    act(() => {
+      result.current['seller.canceledAfterEscrowExpiry']!(contract, data)
+    })
+
+    expect(showTradeCanceledMock).toHaveBeenCalledWith(contract, false)
+  })
 
   it('should handle "contract.cancelationRequest" event when dispute is not active', () => {
     const { result } = renderHook(() => useContractPopupEvents(currentContractId))

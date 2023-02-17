@@ -166,6 +166,15 @@ const useFakePNs = () => {
     },
     {
       data: {
+        type: 'seller.canceledAfterEscrowExpiry',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
         type: 'contract.cancelationRequest',
         contractId,
       },

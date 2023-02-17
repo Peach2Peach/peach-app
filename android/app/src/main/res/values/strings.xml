@@ -44,6 +44,8 @@
     <string name="notification.body.contract.disputeResolved">The dispute for trade %1$s has been resolved. Please check the message from your mediator in the trade chat to see what's next.</string>
     <string name="notification.title.contract.canceled">Trade cancelation</string>
     <string name="notification.body.contract.canceled">Your Buyer has canceled Trade %1$s.</string>
+    <string name="notification.title.contract.seller.canceledAfterEscrowExpiry">Trade cancelation</string>
+    <string name="notification.body.contract.seller.canceledAfterEscrowExpiry">The buyer for trade %1$s has canceled. Please open the app to arrange your refund.</string>
     <string name="notification.title.contract.cancelationRequest">Trade cancelation</string>
     <string name="notification.body.contract.cancelationRequest">Your Seller wants to cancel the Trade %1$s. Accepting the cancelation will release the escrowed sats back to them, so don\'t do this if you\'ve already sent the payment!</string>
     <string name="notification.title.contract.cancelationRequestAccepted">Trade canceled</string>
