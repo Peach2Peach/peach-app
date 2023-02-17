@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMarketPrices } from '.'
-import { account } from '../utils/account'
-import { defaultLimits } from '../utils/account/account'
-import { getTradingLimit } from '../utils/peachAPI'
+import { useMarketPrices } from '..'
+import { account } from '../../utils/account'
+import { defaultLimits } from '../../utils/account/account'
+import { getTradingLimit } from '../../utils/peachAPI'
 
 const tradingLimitQuery = async () => {
   const [result, err] = await getTradingLimit({})
