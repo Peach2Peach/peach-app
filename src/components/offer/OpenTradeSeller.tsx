@@ -9,7 +9,7 @@ import { ChatButton } from '../chat/ChatButton'
 import { paymentDetailTemplates } from '../payment'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
-import { HorizontalLine } from '../ui'
+import { ErrorBox, HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
 import { TradeSummaryProps } from './TradeSummary'
@@ -53,11 +53,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo style={tw`mt-4`} paymentData={contract.paymentData} country={contract.country} copyable={false} />
         )}
-        {!contract.paymentData && (
-          <Text style={tw`mt-4 text-center text-error-main subtitle-1`}>
-            {i18n('contract.paymentData.decyptionFailed')}
-          </Text>
-        )}
+        {!contract.paymentData && <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>}
 
         <HorizontalLine style={tw`mt-6 bg-black-5`} />
         <View style={tw`flex-row justify-center mt-6`}>
