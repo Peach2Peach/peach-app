@@ -5,6 +5,7 @@ declare type PaymentData = {
   type: PaymentMethod
   currencies: Currency[]
   country?: PaymentMethodCountry
+  hidden?: boolean
 }
 
 declare type PaypalData = {

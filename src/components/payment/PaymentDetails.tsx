@@ -148,6 +148,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
             .map((category) => ({
               category,
               checkboxes: paymentData
+                .filter((item) => !item.hidden)
                 .filter((item) => !item.type.includes('cash'))
                 .filter(belongsToCategory(category))
                 .filter((data) => getPaymentMethodInfo(data.type))
@@ -201,6 +202,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
         </LinedText>
       )}
       {paymentData
+        .filter((item) => !item.hidden)
         .filter((item) => item.type.includes('cash'))
         .map(mapPaymentDataToCheckboxes)
         .map((item, i) => (
