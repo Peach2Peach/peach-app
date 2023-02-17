@@ -3,11 +3,13 @@ import { persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
 export type TradeSummaryState = {
+  lastModified?: Date
   offers: OfferSummary[]
   contracts: ContractSummary[]
 }
 
 type TradeSummaryStore = TradeSummaryState & {
+  getLastModified: () => Date
   setOffers: (offers: OfferSummary[]) => void
   setOffer: (offerId: string, data: Partial<OfferSummary>) => void
   setContract: (contractId: string, data: Partial<ContractSummary>) => void
@@ -25,7 +27,8 @@ export const tradeSummaryStore = createStore(
   persist<TradeSummaryStore>(
     (set, get) => ({
       ...defaultState,
-      setOffers: (offers) => set((state) => ({ ...state, offers })),
+      getLastModified: () => new Date(get().lastModified || 0),
+      setOffers: (offers) => set((state) => ({ ...state, offers, lastModified: new Date() })),
       setOffer: (offerId, data) => {
         let itemFound = false
         const offers = get().offers.map((offer) => {
@@ -64,12 +67,31 @@ export const tradeSummaryStore = createStore(
         return set((state) => ({ ...state, contracts }))
       },
       getOffer: (offerId) => get().offers.find(({ id }) => id === offerId),
-      setContracts: (contracts) => set((state) => ({ ...state, contracts })),
+      setContracts: (contracts) => set((state) => ({ ...state, contracts, lastModified: new Date() })),
     }),
     {
       name: 'tradeSummary',
       version: 0,
       getStorage: () => toZustandStorage(tradeSummaryStorage),
+      onRehydrateStorage: () => (state) => {
+        if (!state) return
+        state.setOffers(
+          state.offers.map((offer) => ({
+            ...offer,
+            creationDate: new Date(offer.creationDate),
+            lastModified: new Date(offer.lastModified),
+          })),
+        )
+        state.setContracts(
+          state.contracts.map((contract) => ({
+            ...contract,
+            creationDate: new Date(contract.creationDate),
+            lastModified: new Date(contract.lastModified),
+            paymentMade: contract.paymentMade ? new Date(contract.paymentMade) : undefined,
+            paymentConfirmed: contract.paymentConfirmed ? new Date(contract.paymentConfirmed) : undefined,
+          })),
+        )
+      },
     },
   ),
 )
