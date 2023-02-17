@@ -1,5 +1,12 @@
 /* eslint-disable max-lines */
-export const countryMap = {
+type CountryData = {
+  name: string
+  dialCode: string
+  phoneAreaCodes?: string[]
+  highRisk: boolean
+}
+
+export const countryMap: Record<string, CountryData> = {
   AF: {
     name: 'Afghanistan',
     dialCode: '+93',
@@ -188,6 +195,44 @@ export const countryMap = {
   CA: {
     name: 'Canada',
     dialCode: '+1',
+    phoneAreaCodes: [
+      '204',
+      '226',
+      '236',
+      '249',
+      '250',
+      '289',
+      '306',
+      '343',
+      '365',
+      '403',
+      '416',
+      '418',
+      '431',
+      '437',
+      '438',
+      '450',
+      '506',
+      '514',
+      '519',
+      '579',
+      '581',
+      '587',
+      '604',
+      '613',
+      '639',
+      '647',
+      '705',
+      '709',
+      '778',
+      '780',
+      '807',
+      '819',
+      '867',
+      '873',
+      '902',
+      '905',
+    ],
     highRisk: false,
   },
   CV: {
