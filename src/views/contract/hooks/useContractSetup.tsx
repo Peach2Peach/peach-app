@@ -16,8 +16,7 @@ export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
 
-  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, decryptionError }
-    = useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId } = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const { showConfirmOverlay } = useConfirmCancelTrade()
