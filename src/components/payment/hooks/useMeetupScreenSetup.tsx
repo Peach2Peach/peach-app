@@ -3,7 +3,7 @@ import { UNIQUEID } from '../../../constants'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { addPaymentData } from '../../../utils/account'
+import { account, addPaymentData } from '../../../utils/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { sessionStorage } from '../../../utils/session'
 import { openAppLink } from '../../../utils/web'
@@ -35,7 +35,7 @@ export const useMeetupScreenSetup = () => {
     const meetup: PaymentData = {
       id: 'cash.' + meetupInfo.id,
       label: event.shortName,
-      nonce: UNIQUEID,
+      nonce: account.publicKey,
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
       country: event.country,

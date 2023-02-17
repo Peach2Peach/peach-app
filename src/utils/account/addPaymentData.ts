@@ -10,7 +10,6 @@ import { updateSettings } from './updateSettings'
  * @param save if true save on account
  */
 export const addPaymentData = async (data: PaymentData, save = true) => {
-  console.log(data)
   if (getPaymentData(data.id)) {
     // existing payment data, update
     account.paymentData = account.paymentData.map((d) => {
