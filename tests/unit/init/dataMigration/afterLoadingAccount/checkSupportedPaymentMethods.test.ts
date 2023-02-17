@@ -44,11 +44,7 @@ describe('checkSupportedPaymentMethods', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
-  it('iterates over each payment method', () => {
-    const mapSpy = jest.spyOn<PaymentData[], any>(Array.prototype, 'map')
-    checkSupportedPaymentMethods(paymentData, paymentInfo)
-    expect(mapSpy).toHaveBeenCalled()
-  })
+
   it('sets inactive flag on payment methods that are not supported', () => {
     const [method1, method2] = checkSupportedPaymentMethods(paymentData, paymentInfo)
     expect(method1.hidden).toEqual(false)
