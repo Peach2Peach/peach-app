@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,6 +13,8 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
+import { debounce } from '../../utils/performance'
+import LoadingScreen from '../loading/LoadingScreen'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -34,13 +36,22 @@ export default (): ReactElement => {
   )
   const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
+  const updateStore = useCallback(
+    debounce((value: number) => {
+      setAmount(value)
+    }, 400),
+    [setAmount],
+  )
+
   const setSelectedAmount = (value: number) => {
     setSellAmount(value)
-    setAmount(value)
+    updateStore(value)
   }
   const next = () => navigation.navigate('sellPreferences')
 
-  return (
+  return minTradingAmount === 0 ? (
+    <LoadingScreen />
+  ) : (
     <View testID="view-sell" style={tw`h-full`}>
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>

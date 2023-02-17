@@ -8,6 +8,7 @@ declare type Settings = {
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string
+  payoutAddressSignature?: string
   derivationPath?: string
   displayCurrency: Currency
   country?: string
@@ -23,8 +24,7 @@ declare type Settings = {
   showBackupReminder: boolean
   peachWalletActive: boolean
   nodeURL: string
-  customFeeRate: number
-  selectedFeeRate: FeeRate
+  feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
 }
 
 declare type PGPKeychain = {
