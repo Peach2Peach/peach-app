@@ -14,6 +14,8 @@ export const getCountryCodeByPhone = (phone: string): Country | undefined => {
 
       if (!phoneAreaCodes) return false
       return phoneAreaCodes.some((areaCode) => phone.includes(dialCode + areaCode))
-    }) || candidates[0]
+    })
+    || candidates.find((country) => !countryMap[country].phoneAreaCodes)
+    || candidates[0]
   )
 }
