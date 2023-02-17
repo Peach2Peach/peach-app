@@ -35,7 +35,7 @@ export const useMeetupScreenSetup = () => {
     const meetup: PaymentData = {
       id: 'cash.' + meetupInfo.id,
       label: event.shortName,
-      nonce: account.publicKey,
+      userId: account.publicKey,
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
       country: event.country,

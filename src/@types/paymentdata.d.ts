@@ -50,5 +50,5 @@ declare type AmazonGiftCardData = {
   email: string
 }
 declare type CashData = {
-  nonce: string
+  userId: string
 }
