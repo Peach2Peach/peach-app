@@ -4,7 +4,7 @@ declare type PaymentData = {
   label: string
   type: PaymentMethod
   currencies: Currency[]
-  country?: Country
+  country?: PaymentMethodCountry
   hidden?: boolean
 }
 
