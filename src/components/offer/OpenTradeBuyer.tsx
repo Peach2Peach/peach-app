@@ -23,7 +23,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
   }, [scroll])
 
   return (
-    <View style={[tw`h-full`, tw.md`h-auto`]}>
+    <View style={tw`max-h-full`}>
       <View style={tw`px-7`}>
         <ProfileOverview user={contract.seller} clickableID />
         <HorizontalLine style={tw`mt-7 bg-black-5`} />
