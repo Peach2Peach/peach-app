@@ -17,7 +17,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
   return (
-    <View style={[tw`border border-black-5 rounded-2xl p-7`, style]}>
+    <View style={[tw`w-full border border-black-5 rounded-2xl p-7`, style]}>
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
 
       <SatsFormat
@@ -42,9 +42,9 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         selected={{ id: selectedCurrency, display: selectedCurrency }}
         select={(c) => setSelectedCurrency(c.id as Currency)}
       />
-      <View style={tw`flex-row items-center justify-center mt-3 mb-2`}>
-        {offer.meansOfPayment[selectedCurrency]?.map((p, i) => (
-          <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={[i > 0 && tw`ml-1`]} />
+      <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
+        {offer.meansOfPayment[selectedCurrency]?.map((p) => (
+          <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
         ))}
       </View>
       <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />

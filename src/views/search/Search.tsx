@@ -13,7 +13,7 @@ export default (): ReactElement => {
   if (!offer) return <></>
   return (
     <>
-      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center h-full pt-5 pb-6`}>
+      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center flex-grow pt-5 pb-6`}>
         <View style={tw`flex-grow px-6`}>
           {hasMatches && offer.type === 'ask' && <MatchInformation />}
           {!hasMatches && <NoMatchesYet offer={offer} style={tw`items-center mx-2`} />}
