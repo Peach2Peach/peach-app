@@ -1,6 +1,6 @@
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { storeSettings } from '../utils/account'
+import { updateSettings } from '../utils/account'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 
@@ -82,7 +82,7 @@ settingsStore.subscribe((state) => {
       }),
       {} as Settings,
     )
-  storeSettings(cleanState)
+  updateSettings(cleanState, true)
 })
 
 export const useSettingsStore = create(settingsStore)
