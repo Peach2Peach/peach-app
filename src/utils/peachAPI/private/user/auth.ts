@@ -69,8 +69,7 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
     error('peachAPI - auth - FAILED', tokenNotFoundError)
     return [null, tokenNotFoundError as APIError]
   } catch (e) {
-    const err = parseError(e)
-    error('peachAPI - auth', err)
-    return [null, { error: err }]
+    error('peachAPI - auth', e)
+    return [null, { error: 'INTERNAL_SERVER_ERROR' }]
   }
 }

@@ -1,5 +1,6 @@
 export { getErrorsInField } from './getErrorsInField'
 export { isPaypalUsername } from './isPaypalUsername'
+export { isPhoneAllowed } from './isPhoneAllowed'
 export { isUsername } from './isUsername'
 export { isValidBitcoinSignature } from './isValidBitcoinSignature'
 export { getMessages } from './messages'

@@ -24,7 +24,7 @@ export const UNIQUEID = sha256(getUniqueId())
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK']
 
-export let COUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
+export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -78,7 +78,7 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
   COUNTRIES = paymentMethodInfos
-    .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
+    .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
   PAYMENTCATEGORIES.cash = [

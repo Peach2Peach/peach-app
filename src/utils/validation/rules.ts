@@ -3,6 +3,7 @@ import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
 import { isPaypalUsername } from './isPaypalUsername'
+import { isPhoneAllowed } from './isPhoneAllowed'
 import { isUsername } from './isUsername'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
 
@@ -75,6 +76,9 @@ export const rules = {
   },
   feeRate (_: boolean, value: string) {
     return /^[0-9]*$/u.test(value) && Number(value) >= 1
+  },
+  isPhoneAllowed (_: boolean, value: string) {
+    return isPhoneAllowed(value)
   },
 }
 

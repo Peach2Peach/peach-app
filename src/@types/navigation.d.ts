@@ -15,7 +15,7 @@ declare type RootStackParamList = {
   sellPreferences: undefined
   addPaymentMethod: {
     currencies?: Currency[]
-    country?: Country
+    country?: PaymentMethodCountry
     paymentMethod?: PaymentMethod
     origin: keyof RootStackParamList
   }
