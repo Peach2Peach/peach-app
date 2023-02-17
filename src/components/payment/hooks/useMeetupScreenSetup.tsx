@@ -3,6 +3,7 @@ import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { addPaymentData } from '../../../utils/account'
+import { getRandom } from '../../../utils/crypto'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { sessionStorage } from '../../../utils/session'
 import { openAppLink } from '../../../utils/web'
@@ -29,11 +30,12 @@ export const useMeetupScreenSetup = () => {
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
 
-  const addToPaymentMethods = () => {
+  const addToPaymentMethods = async () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
       id: 'cash.' + meetupInfo.id,
       label: event.shortName,
+      nonce: (await getRandom(16)).toString('hex'),
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
       country: event.country,
