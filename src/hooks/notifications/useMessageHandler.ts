@@ -33,7 +33,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         updateMessage({
           msgKey: 'notification.' + type,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
-          level: 'DEFAULT',
+          level: 'WARN',
           action: getPNActionHandler(data),
         })
       }
