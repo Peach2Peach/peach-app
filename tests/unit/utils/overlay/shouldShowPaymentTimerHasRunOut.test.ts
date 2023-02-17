@@ -1,13 +1,14 @@
 import { shouldShowPaymentTimerHasRunOut } from '../../../../src/utils/overlay'
 
+// eslint-disable-next-line max-lines-per-function
 describe('shouldShowPaymentTimerHasRunOut', () => {
   it('returns true when the payment timer has run out', () => {
     const contract: Partial<Contract> = {
       paymentExpectedBy: new Date(Date.now() - 3600000),
-      paymentMade: false,
+      paymentMade: null,
       canceled: false,
       disputeActive: false,
-      disputeWinner: false,
+      disputeWinner: undefined,
     }
 
     expect(shouldShowPaymentTimerHasRunOut(contract as Contract)).toBe(true)
@@ -16,10 +17,10 @@ describe('shouldShowPaymentTimerHasRunOut', () => {
   it('returns false when the payment timer has not run out', () => {
     const contract: Partial<Contract> = {
       paymentExpectedBy: new Date(Date.now() + 3600000),
-      paymentMade: false,
+      paymentMade: null,
       canceled: false,
       disputeActive: false,
-      disputeWinner: false,
+      disputeWinner: undefined,
     }
 
     expect(shouldShowPaymentTimerHasRunOut(contract as Contract)).toBe(false)
@@ -28,10 +29,10 @@ describe('shouldShowPaymentTimerHasRunOut', () => {
   it('returns false when the payment has been made', () => {
     const contract: Partial<Contract> = {
       paymentExpectedBy: new Date(Date.now() - 3600000),
-      paymentMade: true,
+      paymentMade: new Date(),
       canceled: false,
       disputeActive: false,
-      disputeWinner: false,
+      disputeWinner: undefined,
     }
 
     expect(shouldShowPaymentTimerHasRunOut(contract as Contract)).toBe(false)
@@ -40,10 +41,10 @@ describe('shouldShowPaymentTimerHasRunOut', () => {
   it('returns false when the contract has been canceled', () => {
     const contract: Partial<Contract> = {
       paymentExpectedBy: new Date(Date.now() - 3600000),
-      paymentMade: false,
+      paymentMade: null,
       canceled: true,
       disputeActive: false,
-      disputeWinner: false,
+      disputeWinner: undefined,
     }
 
     expect(shouldShowPaymentTimerHasRunOut(contract as Contract)).toBe(false)
@@ -52,10 +53,10 @@ describe('shouldShowPaymentTimerHasRunOut', () => {
   it('returns false when a dispute is active', () => {
     const contract: Partial<Contract> = {
       paymentExpectedBy: new Date(Date.now() - 3600000),
-      paymentMade: false,
+      paymentMade: null,
       canceled: false,
       disputeActive: true,
-      disputeWinner: false,
+      disputeWinner: undefined,
     }
 
     expect(shouldShowPaymentTimerHasRunOut(contract as Contract)).toBe(false)
@@ -64,10 +65,10 @@ describe('shouldShowPaymentTimerHasRunOut', () => {
   it('returns false when a dispute has been resolved', () => {
     const contract: Partial<Contract> = {
       paymentExpectedBy: new Date(Date.now() - 3600000),
-      paymentMade: false,
+      paymentMade: null,
       canceled: false,
       disputeActive: false,
-      disputeWinner: true,
+      disputeWinner: 'seller',
     }
 
     expect(shouldShowPaymentTimerHasRunOut(contract as Contract)).toBe(false)
