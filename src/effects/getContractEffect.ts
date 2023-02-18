@@ -1,5 +1,4 @@
 import { EffectCallback } from 'react'
-import { parseContract } from '../utils/contract'
 import { getAbortWithTimeout } from '../utils/fetch'
 import { error, info } from '../utils/log'
 import { getContract } from '../utils/peachAPI'
@@ -27,7 +26,7 @@ export default ({ contractId, onSuccess, onError }: GetContractEffectProps): Eff
       })
 
       if (result) {
-        onSuccess(parseContract(result))
+        onSuccess(result)
       } else if (err) {
         error('Error', err)
         onError(err)

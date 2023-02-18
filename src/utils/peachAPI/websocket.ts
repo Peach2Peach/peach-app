@@ -2,6 +2,7 @@ import { createContext, ReducerState } from 'react'
 import { API_URL } from '@env'
 import { info } from '../log'
 import { authWS } from './private/user'
+import { dateTimeReviver } from '../system'
 
 let ws: WebSocket
 let peachWS: PeachWS = {
@@ -36,7 +37,7 @@ const onOpenHandler = () => {
 }
 
 const onMessageHandler = (msg: WebSocketMessageEvent) => {
-  const message = JSON.parse(msg.data)
+  const message = JSON.parse(msg.data, dateTimeReviver)
 
   if (!peachWS.authenticated && message.accessToken) {
     info('Peach WS API - authenticated')
