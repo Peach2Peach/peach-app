@@ -1,4 +1,4 @@
-import { getSummaryFromOffer } from './../contract/getSummaryFromOffer'
+import { getSummaryFromOffer } from './getSummaryFromOffer'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { account } from '../account'
 import { storeOffer } from '../account/storeAccount'
