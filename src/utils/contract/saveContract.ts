@@ -5,10 +5,6 @@ import { account } from '../account'
 import { storeContract } from '../account/storeAccount'
 import { info } from '../log'
 
-/**
- * @description Method to add contract to contract list
- * @param contract the contract
- */
 export const saveContract = (contract: Contract, disableSave = false): void => {
   if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
 

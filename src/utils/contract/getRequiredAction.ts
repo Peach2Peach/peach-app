@@ -1,9 +1,4 @@
-/**
- * @description Method to determine required action based on contract data
- * @param contract contract
- * @returns required action on contract
- */
-export const getRequiredAction = (contract: Contract|null): ContractAction => {
+export const getRequiredAction = (contract: Contract | null): ContractAction => {
   if (!contract || contract.canceled) return 'none'
 
   if (contract.kycRequired && !contract.kycConfirmed) {
