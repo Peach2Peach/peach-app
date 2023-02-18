@@ -36,13 +36,3 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
   }
   tradeSummaryStore.getState().setContract(contract.id, getSummaryFromContract(contract))
 }
-
-/**
- * @description Method to save multiple contracts
- * @param contracts the contracts
- */
-export const saveContracts = (contracts: Contract[]) => {
-  info('saveContracts', contracts.length)
-
-  contracts.map((contract) => saveContract(contract, true))
-}
