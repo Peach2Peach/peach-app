@@ -10,6 +10,10 @@ describe('getContract', () => {
   })
 
   it('returns undefined when the contract does not exist', () => {
+    setAccount(account1)
+    expect(getContract('56-78')).toBeUndefined()
+  })
+  it('returns undefined when account has no contracts', () => {
     setAccount({ ...account1, contracts: [] })
     expect(getContract('56-78')).toBeUndefined()
   })

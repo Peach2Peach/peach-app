@@ -1,7 +1,7 @@
 import { getSellOfferIdFromContract } from '../../../../src/utils/contract'
 
 describe('getSellOfferIdFromContract', () => {
-  it('should return the correct buy offer id', () => {
+  it('should return the correct sell offer id', () => {
     const contract: Partial<Contract> = {
       id: '123-456',
     }

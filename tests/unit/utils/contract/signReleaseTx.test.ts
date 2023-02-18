@@ -1,5 +1,4 @@
 import { getSellOfferFromContract, signReleaseTx } from '../../../../src/utils/contract'
-import { getEscrowWallet, getWallet } from '../../../../src/utils/wallet'
 import { verifyPSBT } from '../../../../src/views/contract/helpers/verifyPSBT'
 
 jest.mock('../../../../src/utils/contract/getSellOfferFromContract', () => ({

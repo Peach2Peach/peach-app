@@ -6,7 +6,7 @@ jest.mock('../../../../src/utils/offer', () => ({
 }))
 
 describe('getSellOfferFromContract', () => {
-  it('should return the correct buy offer', () => {
+  it('should return the correct sell offer', () => {
     const contract: Partial<Contract> = {
       id: '123-456',
     }
