@@ -6,8 +6,6 @@ import { storeContract } from '../account/storeAccount'
 import { info } from '../log'
 
 export const saveContract = (contract: Contract, disableSave = false): void => {
-  if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
-
   if (contractExists(contract.id)) {
     account.contracts = account.contracts.map((c) => {
       if (c.id !== contract.id) return c
