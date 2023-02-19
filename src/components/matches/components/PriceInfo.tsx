@@ -1,7 +1,6 @@
 import React from 'react'
 import tw from '../../../styles/tailwind'
 import { SatsFormat } from '../../text'
-import { HorizontalLine } from '../../ui'
 import { Price } from '../Price'
 
 type PriceInfoProps = {
@@ -10,7 +9,6 @@ type PriceInfoProps = {
 
 export const PriceInfo = ({ match }: PriceInfoProps) => (
   <>
-    <HorizontalLine style={tw`mb-2 bg-black-5`} />
     <SatsFormat
       sats={match.amount}
       containerStyle={tw`self-center justify-center`}
