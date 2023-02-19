@@ -1,7 +1,18 @@
 import React from 'react'
-import { ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
+import { ImageStyle, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
-import { RadialGradient } from './RadialGradient'
+import { ColorItem, RadialGradient } from './RadialGradient'
+
+type Props = {
+  children: React.ReactNode
+  gradientBorderWidths: [number, number, number, number]
+  defaultBorderWidths: [number, number, number, number]
+  gradient: ColorItem[]
+  containerStyle?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
+  showBorder?: boolean
+  backgroundColor?: ViewStyle & TextStyle & ImageStyle
+}
 
 export const GradientBorder = ({
   children,
@@ -11,16 +22,7 @@ export const GradientBorder = ({
   containerStyle,
   style,
   showBorder = true,
-}: {
-  children: any
-  gradientBorderWidths: [number, number, number, number]
-  defaultBorderWidths: [number, number, number, number]
-  gradient: any
-  containerStyle?: any
-  style?: any
-  showBorder?: boolean
-  backgroundColor?: ViewStyle & TextStyle & ImageStyle
-}) => (
+}: Props) => (
   <View style={containerStyle}>
     {showBorder ? (
       <View>
