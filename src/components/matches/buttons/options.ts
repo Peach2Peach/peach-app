@@ -27,7 +27,7 @@ export const options = {
   },
   offerMatched: {
     iconId: 'checkSquare',
-    backgroundColor: tw`bg-primary-main`,
+    backgroundColor: tw`bg-gradient-red`,
     borderColor: tw`border-primary-main`,
     text: 'search.matchButton.offerMatched',
   },
