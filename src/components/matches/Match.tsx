@@ -43,11 +43,10 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
           tw`flex-shrink overflow-hidden rounded-t-2xl`,
           !showMatchedCard && tw`border border-b-0 border-primary-main`,
         ]}
-        style={tw`p-4 rounded-t-xl bg-primary-background-light`}
-        borderStyle={tw`absolute`}
+        style={tw`rounded-t-xl bg-primary-background-light`}
       >
         <>
-          <>
+          <View style={tw`p-4`}>
             <MatchCardCounterparty user={match.user} />
             <HorizontalLine style={tw`my-4 bg-black-5`} />
 
@@ -66,7 +65,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
                 <MatchPaymentDetails match={match} />
               </>
             )}
-          </>
+          </View>
           {showMatchedCard && isBuyOffer(offer) && (
             <>
               <View

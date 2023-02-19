@@ -1,5 +1,6 @@
 import React from 'react'
 import { ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
+import tw from '../styles/tailwind'
 import { RadialGradient } from './RadialGradient'
 
 export const GradientBorder = ({
@@ -9,7 +10,6 @@ export const GradientBorder = ({
   gradient,
   containerStyle,
   style,
-  borderStyle,
   showBorder = true,
 }: {
   children: any
@@ -18,14 +18,13 @@ export const GradientBorder = ({
   gradient: any
   containerStyle?: any
   style?: any
-  borderStyle?: any
   showBorder?: boolean
   backgroundColor?: ViewStyle & TextStyle & ImageStyle
 }) => (
   <View style={containerStyle}>
     {showBorder ? (
       <View>
-        <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={gradient} style={borderStyle} />
+        <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={gradient} style={tw`absolute`} />
         <View
           style={[
             {
