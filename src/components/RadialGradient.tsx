@@ -5,7 +5,7 @@ import Svg, { Defs, NumberProp, RadialGradient as SVGRadialGradient, Rect, Stop 
 type ColorItem = {
   offset: string
   color: string
-  opacity: number
+  opacity: string
 }
 
 type Props = {
