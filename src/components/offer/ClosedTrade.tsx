@@ -14,7 +14,7 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement
 
   return (
     <View>
-      <MatchCardCounterparty user={tradingPartner} style={tw`items-center`} />
+      <MatchCardCounterparty user={tradingPartner} />
 
       <HorizontalLine style={tw`my-6 bg-black-5`} />
 
