@@ -1,18 +1,20 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { HorizontalLine } from '..'
 
 import tw from '../../styles/tailwind'
 import { peachyGradient } from '../../utils/layout'
+import { isLimitReached } from '../../utils/match'
 import { isBuyOffer } from '../../utils/offer'
 import { GradientBorder } from '../GradientBorder'
 import { RadialGradient } from '../RadialGradient'
 import { MatchOfferButton, UnmatchButton } from './buttons'
-import { CurrencySelector, EscrowLink, PaymentMethodSelector, PriceInfo } from './components'
-import { MatchCardCounterparty } from './components/UserInfo'
+import { options } from './buttons/options'
+import { EscrowLink, PriceInfo, PaymentMethodSelector, MatchCardCounterparty } from './components'
 import { useInterruptibleFunction, useMatchOffer } from './hooks'
 import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { Price } from './Price'
+import { useMatchStore } from './store'
 
 type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
 
@@ -32,6 +34,27 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
     }
   }
 
+  const selectedPaymentMethod = useMatchStore((state) => state.matchSelectors[match.offerId]?.selectedPaymentMethod)
+
+  const tradingLimitReached = isLimitReached(match.unavailable.exceedsLimit || [], selectedPaymentMethod)
+
+  const missingSelection = !selectedPaymentMethod
+  const isMatched = match.matched || showMatchedCard
+
+  const currentOptionName = useMemo(
+    () =>
+      isMatched
+        ? 'offerMatched'
+        : tradingLimitReached
+          ? 'tradingLimitReached'
+          : missingSelection
+            ? 'missingSelection'
+            : isBuyOffer(offer)
+              ? 'matchOffer'
+              : 'acceptMatch',
+    [isMatched, missingSelection, offer, tradingLimitReached],
+  )
+
   return (
     <View onStartShouldSetResponder={() => true} style={tw`flex-shrink`}>
       <GradientBorder
@@ -41,7 +64,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
         showBorder={showMatchedCard}
         containerStyle={[
           tw`flex-shrink overflow-hidden rounded-t-2xl`,
-          !showMatchedCard && tw`border border-b-0 border-primary-main`,
+          !showMatchedCard && [tw`border border-b-0`, options[currentOptionName].borderColor],
         ]}
         style={tw`rounded-t-xl bg-primary-background-light`}
       >
@@ -53,16 +76,16 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
             {isBuyOffer(offer) ? (
               <>
                 <PriceInfo match={match} />
-                <CurrencySelector matchId={match.offerId} />
-                <PaymentMethodSelector matchId={match.offerId} />
+                <HorizontalLine style={tw`my-4 bg-black-5`} />
+                <PaymentMethodSelector matchId={match.offerId} disabled={currentOptionName === 'tradingLimitReached'} />
+                <HorizontalLine style={tw`my-4 bg-black-5`} />
                 <EscrowLink address={match.escrow || ''} />
               </>
             ) : (
               <>
-                <HorizontalLine style={tw`bg-black-5`} />
-                <Price match={match} fontStyle={tw`body-l`} isBuyOffer={false} style={tw`my-4`} />
-                <HorizontalLine style={tw`bg-black-5`} />
-                <MatchPaymentDetails match={match} />
+                <Price match={match} />
+                <HorizontalLine style={tw`my-4 bg-black-5`} />
+                <MatchPaymentDetails match={match} style={tw`mb-2`} />
               </>
             )}
           </View>
@@ -85,13 +108,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
           )}
         </>
       </GradientBorder>
-      <MatchOfferButton
-        matchId={match.offerId}
-        matchOffer={onMatchPress}
-        offerId={offer.id}
-        pretendIsMatched={showMatchedCard}
-        isBuyOffer={isBuyOffer(offer)}
-      />
+      <MatchOfferButton matchId={match.offerId} matchOffer={onMatchPress} optionName={currentOptionName} />
     </View>
   )
 }

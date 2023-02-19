@@ -12,31 +12,7 @@ export const Badges = ({ user }: { user: User }) => {
   const { medals: unlockedBadges } = user
 
   return (
-    <TouchableOpacity style={tw`flex-row items-center`} onPress={openPeachBadgesPopup}>
-      {badges.map(([iconId, badgeName]) => (
-        <View
-          key={`profileOverviewIcon-${iconId}`}
-          style={[
-            unlockedBadges.includes(badgeName) ? tw`bg-primary-main` : tw`bg-primary-mild-1`,
-            tw`ml-2 p-[3px] rounded-full`,
-          ]}
-        >
-          <Icon id={iconId} color={tw`text-primary-background-light`.color} style={tw`w-3 h-3`} />
-        </View>
-      ))}
-    </TouchableOpacity>
-  )
-}
-
-export const NewBadges = ({ user }: { user: User }) => {
-  const openPeachBadgesPopup = useShowHelp('myBadges')
-  const { medals: unlockedBadges } = user
-
-  return (
-    <TouchableOpacity
-      style={tw`flex-row flex-wrap items-center self-center justify-center`}
-      onPress={openPeachBadgesPopup}
-    >
+    <TouchableOpacity style={tw`flex-row flex-wrap items-center justify-center`} onPress={openPeachBadgesPopup}>
       {badges.map(([iconId, badgeName]) => (
         <View key={`profileOverviewIcon-${iconId}`} style={tw`flex-row items-center mr-2`}>
           <View

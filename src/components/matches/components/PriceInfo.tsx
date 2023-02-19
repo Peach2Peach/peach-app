@@ -16,6 +16,6 @@ export const PriceInfo = ({ match }: PriceInfoProps) => (
       style={tw`h5 leading-3xl`}
       bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
     />
-    <Price match={match} fontStyle={tw`subtitle-1`} isBuyOffer />
+    <Price match={match} />
   </>
 )

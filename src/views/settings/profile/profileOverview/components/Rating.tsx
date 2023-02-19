@@ -12,32 +12,7 @@ type RatingProps = ComponentProps & {
   isNewUser?: boolean
 }
 
-export const Rating = ({ rating, style }: RatingProps) => (
-  <View style={[tw`flex-row items-center`, style]}>
-    <View style={tw`flex-row`}>
-      {[1, 2, 3, 4, 5].map((peach) => (
-        <RatingPeach
-          key={`rating-peach-background-${peach}`}
-          style={[tw`w-4 h-4 opacity-50`, peach !== 5 && tw`mr-1`]}
-        />
-      ))}
-      <View
-        style={[
-          tw`absolute flex-row self-center overflow-hidden`,
-          { width: `${interpolate(rating, [-1, 1], [0, 100])}%` },
-        ]}
-      >
-        {[1, 2, 3, 4, 5].map((peach) => (
-          <RatingPeach key={`rating-peach-colored-${peach}`} style={[tw`w-4 h-4`, peach !== 5 && tw`mr-1`]} />
-        ))}
-      </View>
-    </View>
-
-    <Text style={tw`ml-1 text-black-2 button-small`}>{interpolate(rating, [-1, 1], [0, 5]).toFixed(1)}/5</Text>
-  </View>
-)
-
-export const NewRating = ({ rating, style, isNewUser }: RatingProps) =>
+export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
   isNewUser ? (
     <Text style={tw`subtitle-2 text-black-2`}>{i18n('newUser')}</Text>
   ) : (

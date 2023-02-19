@@ -3,8 +3,8 @@ import { View } from 'react-native'
 import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { ProfileOverview } from '../../views/publicProfile/components'
 import { ChatButton } from '../chat/ChatButton'
+import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
@@ -19,7 +19,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
 
   return (
     <View style={[tw`h-full`, tw.md`h-auto`]}>
-      <ProfileOverview user={contract.seller} clickableID />
+      <MatchCardCounterparty user={contract.seller} style={tw`items-center`} />
       <HorizontalLine style={tw`mt-7 bg-black-5`} />
       <PeachScrollView style={tw`flex-shrink`} showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row items-center justify-between mt-6`}>

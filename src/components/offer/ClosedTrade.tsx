@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { ChatButton } from '../chat/ChatButton'
-import { UserInfo } from '../matches/components'
+import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { HorizontalLine } from '../ui'
 import { CanceledTradeDetails } from './CanceledTradeDetails'
 import { CompletedTradeDetails } from './CompletedTradeDetails'
@@ -14,7 +14,7 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps): ReactElement
 
   return (
     <View>
-      <UserInfo user={tradingPartner} />
+      <MatchCardCounterparty user={tradingPartner} style={tw`items-center`} />
 
       <HorizontalLine style={tw`my-6 bg-black-5`} />
 
