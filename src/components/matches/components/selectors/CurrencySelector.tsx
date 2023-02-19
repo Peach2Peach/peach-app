@@ -34,7 +34,7 @@ export const CurrencySelector = ({ matchId }: { matchId: Match['offerId'] }) => 
   }))
   return (
     <>
-      <HorizontalLine style={tw`mb-4 bg-black-5`} />
+      <HorizontalLine style={tw`mb-4`} />
       <PulsingText style={tw`self-center mb-1`} showPulse={showCurrencyPulse}>
         {i18n('form.currency')}
       </PulsingText>

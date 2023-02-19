@@ -8,7 +8,7 @@ import i18n from '../../../utils/i18n'
 
 export const EscrowLink = ({ address }: { address: string }) => (
   <>
-    <HorizontalLine style={tw`mb-4 bg-black-5`} />
+    <HorizontalLine style={tw`mb-4`} />
     <TouchableOpacity style={tw`flex-row items-end self-center`} onPress={() => showAddress(address, NETWORK)}>
       <Text style={tw`underline tooltip text-black-2`}>{i18n('match.viewInEscrow')}</Text>
       <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw`text-primary-main`.color} />
