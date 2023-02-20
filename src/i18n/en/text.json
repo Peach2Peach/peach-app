@@ -523,6 +523,7 @@
   "form.address.label.placeholder": "address label",
   "form.address.btc.placeholder": "bc1q ...",
   "form.address.btc.error": "bitcoin address is invalid",
+  "form.address.taproot.error": "direct taproot payouts are not supported",
   "form.bip39Word.error": "invalid word",
   "form.bip39.error": "the seed phrase is invalid",
   "form.feeRate.error": "invalid fee rate",
