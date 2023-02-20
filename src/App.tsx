@@ -50,6 +50,7 @@ import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
+import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
@@ -274,18 +275,22 @@ const App: React.FC = () => {
                               <Stack.Navigator
                                 detachInactiveScreens={true}
                                 screenOptions={{
-                                  gestureEnabled: false,
                                   headerShown: false,
                                 }}
                               >
-                                {views.map(({ name, component, showHeader }) => (
+                                {views.map(({ name, component, showHeader, animationEnabled }) => (
                                   <Stack.Screen
                                     {...{ name, component }}
                                     key={name}
                                     options={{
-                                      animationEnabled: false,
                                       headerShown: showHeader,
+                                      animationEnabled,
+                                      cardStyle: tw`bg-primary-background-light`,
                                       header: () => <Header />,
+                                      transitionSpec: {
+                                        open: screenTransition,
+                                        close: screenTransition,
+                                      },
                                     }}
                                   />
                                 ))}
