@@ -5,7 +5,6 @@ import { notificationStore } from '../components/footer/notificationsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
 import { isIOS } from '../utils/system'
-import { hasDoubleMatched } from '../views/yourTrades/utils'
 
 export const statusWithRequiredAction: TradeStatus[] = [
   'fundEscrow',
@@ -31,7 +30,7 @@ export const useCheckTradeNotifications = () => {
 
   useEffect(() => {
     const offersWithAction = offers
-      .filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
+      .filter(({ contractId }) => !contractId)
       .filter((offer) => hasRequiredAction(offer)).length
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,

@@ -9,7 +9,7 @@ import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { sortContractsByDate } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/system'
-import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
+import { isOpenOffer, isPastOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
 
 const tabs: TabbedNavigationItem[] = [
@@ -30,7 +30,7 @@ export const useYourTradesSetup = () => {
 
   const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
 
-  const filteredOffers = offers.filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
+  const filteredOffers = offers.filter(({ contractId }) => !contractId)
   const trades = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
 
   const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))

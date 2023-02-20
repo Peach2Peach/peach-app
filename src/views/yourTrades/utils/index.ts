@@ -3,7 +3,6 @@ export { getNavigationDestinationForContract } from './getNavigationDestinationF
 export { getNavigationDestinationForOffer } from './getNavigationDestinationForOffer'
 export { getOfferLevel } from './getOfferLevel'
 export { getThemeForPastTrade } from './getThemeForPastTrade'
-export { hasDoubleMatched } from './hasDoubleMatched'
 export { isContractSummary } from './isContractSummary'
 export { isError } from './isError'
 export { isOpenAction } from './isOpenAction'
