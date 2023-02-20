@@ -11,7 +11,10 @@ import { calculateClientServerTimeDifference } from './calculateClientServerTime
 export const getPeachInfo = async (account?: Account) => {
   const statusResponse = await calculateClientServerTimeDifference()
 
-  if (!statusResponse || statusResponse.error) return error('Server not available', statusResponse)
+  if (!statusResponse || statusResponse.error) {
+    error('Server not available', statusResponse)
+    return
+  }
 
   const { setLatestAppVersion, setMinAppVersion, setPeachFee, setPeachPGPPublicKey } = configStore.getState()
   const [[peachInfoResponse, err], [tradingLimit, tradingLimitErr]] = await Promise.all([
