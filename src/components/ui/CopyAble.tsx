@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Pressable } from 'react-native'
+import { ColorValue, Pressable } from 'react-native'
 import { Fade } from '../animation'
 import { Text } from '../text'
 import i18n from '../../utils/i18n'
@@ -9,7 +9,7 @@ import Icon from '../Icon'
 
 type CopyAbleProps = ComponentProps & {
   value: string
-  color?: string
+  color?: ColorValue
   disabled?: boolean
 }
 export const CopyAble = ({ value, color, disabled, style }: CopyAbleProps): ReactElement => {

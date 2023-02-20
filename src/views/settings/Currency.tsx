@@ -1,31 +1,15 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { useNavigation } from '@react-navigation/native'
-import shallow from 'zustand/shallow'
 import { PrimaryButton, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
-import { useHeaderSetup } from '../../hooks'
-import { useBitcoinStore } from '../../store/bitcoinStore'
-import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { useCurrencySetup } from './hooks/useCurrencySetup'
 
 export default (): ReactElement => {
-  const navigation = useNavigation()
-  const [currency, setCurrency] = useBitcoinStore((state) => [state.currency, state.setCurrency], shallow)
-  const [loading, setLoading] = useState(false)
-
-  useHeaderSetup(useMemo(() => ({ title: i18n('currency') }), []))
-
-  const updateCurrency = (c: Currency) => {
-    setLoading(true)
-    updateSettings({ displayCurrency: c }, true)
-    setCurrency(c)
-    setLoading(false)
-    navigation.goBack()
-  }
+  const { currency, setCurrency, updateCurrency } = useCurrencySetup()
 
   return (
     <View style={tw`flex h-full px-6 pt-6 pb-10 bg-primary-background`}>
@@ -37,11 +21,7 @@ export default (): ReactElement => {
           onChange={setCurrency}
         />
       </View>
-      <PrimaryButton
-        onPress={() => updateCurrency(currency)}
-        style={tw`absolute bottom-0 self-center mb-6`}
-        loading={loading}
-      >
+      <PrimaryButton onPress={() => updateCurrency(currency)} style={tw`absolute bottom-0 self-center mb-6`}>
         {i18n('confirm')}
       </PrimaryButton>
     </View>

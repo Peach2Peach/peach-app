@@ -38,7 +38,6 @@ import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
 import Settings from './settings/Settings'
-import WalletSettings from './settings/WalletSettings'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
@@ -142,7 +141,6 @@ const settings: ViewType[] = [
     background: { color: 'primaryGradient' },
   },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
-  { name: 'walletSettings', component: WalletSettings, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },

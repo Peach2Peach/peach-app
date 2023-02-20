@@ -1,6 +1,7 @@
+import { isAirplaneModeSync } from 'react-native-device-info'
 import { sendErrors } from '../../../../src/utils/analytics'
 import { appendFile } from '../../../../src/utils/file'
-import { isAirplaneModeSyncMock, recordErrorMock } from '../../prepare'
+import { recordErrorMock } from '../../prepare'
 
 jest.mock('../../../../src/utils/file', () => ({
   appendFile: jest.fn(),
@@ -11,7 +12,7 @@ describe('sendErrors function', () => {
     jest.resetAllMocks()
   })
   it('should append the error messages to a file when airplane mode is enabled', async () => {
-    isAirplaneModeSyncMock.mockReturnValue(true)
+    ;(isAirplaneModeSync as jest.Mock).mockReturnValue(true)
     const errors = [new Error('error 1'), new Error('error 2')]
 
     await sendErrors(errors)
@@ -21,7 +22,7 @@ describe('sendErrors function', () => {
   })
 
   it('should send crash reports to Crashlytics when airplane mode is not enabled', async () => {
-    isAirplaneModeSyncMock.mockReturnValue(false)
+    ;(isAirplaneModeSync as jest.Mock).mockReturnValue(false)
     const errors = [new Error('error 1'), new Error('error 2')]
 
     await sendErrors(errors)

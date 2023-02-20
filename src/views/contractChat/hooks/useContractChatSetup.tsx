@@ -183,10 +183,10 @@ export const useContractChatSetup = () => {
   }, [messagesError, showError])
 
   useEffect(() => {
-    if (contract && !contract.disputeActive && account.settings.showDisputeDisclaimer) {
-      showDisclaimer()
+    if (contract && !contract.disputeActive && !chat.seenDisputeDisclaimer) {
+      showDisclaimer(chat, setAndSaveChat)
     }
-  }, [contract, showDisclaimer])
+  }, [chat, contract, showDisclaimer])
 
   return {
     contract,
