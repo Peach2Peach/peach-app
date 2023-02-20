@@ -2,6 +2,7 @@ export const parseContract = (contract: Contract): Contract => {
   const parsed = { ...contract }
 
   parsed.creationDate = new Date(parsed.creationDate)
+  parsed.lastModified = new Date(parsed.lastModified)
   if (parsed.buyer?.creationDate) parsed.buyer.creationDate = new Date(parsed.buyer.creationDate)
   if (parsed.seller?.creationDate) parsed.seller.creationDate = new Date(parsed.seller.creationDate)
   if (parsed.kycResponseDate) parsed.kycResponseDate = new Date(parsed.kycResponseDate)

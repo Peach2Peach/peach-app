@@ -17,12 +17,14 @@ export const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }
 }
 
 export const useOfferDetails = (id: string) => {
+  const initialOffer = getOffer(id)
   const {
     data,
     isLoading,
     error: offerDetailsError,
   } = useQuery(['offer', id], getOfferQuery, {
-    initialData: getOffer(id),
+    initialData: initialOffer,
+    initialDataUpdatedAt: initialOffer?.lastModified?.getTime(),
     enabled: !!id,
   })
 
