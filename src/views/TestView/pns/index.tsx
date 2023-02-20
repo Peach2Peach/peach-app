@@ -94,6 +94,42 @@ const useFakePNs = () => {
     },
     {
       data: {
+        type: 'contract.buyer.disputeRaised',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456', '200000'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.disputeRaised',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456', '200000'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.cancelationRequestAccepted',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.cancelationRequestRejected',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
         type: 'contract.seller.inactiveBuyerCancel',
         contractId,
       },
@@ -103,8 +139,32 @@ const useFakePNs = () => {
     },
     {
       data: {
+        type: 'contract.buyer.paymentTimerSellerCanceled',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.paymentTimerExtended',
+        contractId,
+      },
+    },
+    {
+      data: {
         type: 'contract.buyer.paymentReminderSixHours',
         contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.paymentTimerHasRunOut',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
       },
     },
     {
@@ -242,8 +302,10 @@ const useFakePNs = () => {
 
 export default () => {
   useHeaderSetup(useMemo(() => ({ title: 'test view - pns' }), []))
+  const firstContract = useMemo(() => account.contracts[0], [])
+  const contractId = firstContract?.id || '1-2'
   const messageHandler = useMessageHandler(() => 'testViewPNs')
-  const contractMessageHandler = useContractMessageHandler()
+  const contractMessageHandler = useContractMessageHandler(contractId)
   const { fakeGlobalPNs, fakeContractPNs } = useFakePNs()
   const tabs = [
     { id: 'global', display: 'global' },

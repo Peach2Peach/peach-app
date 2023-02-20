@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDisputeRaisedNotice } from '../../../overlays/dispute/hooks/useDisputeRaisedNotice'
 import { useDisputeResults } from '../../../overlays/dispute/hooks/useDisputeResults'
 import { useShowPaymentTimerExtended } from '../../../overlays/paymentTimer/useShowPaymentTimerExtended'
@@ -13,6 +13,16 @@ import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'
 
 type PNEventHandlers = Partial<Record<NotificationType, (contract: Contract, data: PNData) => void>>
+
+const contractIgnoreGlobalEvents: NotificationType[] = [
+  'contract.buyer.disputeRaised',
+  'contract.seller.disputeRaised',
+  'contract.cancelationRequestAccepted',
+  'contract.cancelationRequestRejected',
+  'contract.seller.paymentTimerHasRunOut',
+  'contract.buyer.paymentTimerSellerCanceled',
+  'contract.buyer.paymentTimerExtended',
+]
 
 export const useContractPopupEvents = (currentContractId?: string) => {
   const showDisputeRaisedNotice = useDisputeRaisedNotice()
@@ -29,9 +39,9 @@ export const useContractPopupEvents = (currentContractId?: string) => {
   const contractPopupEvents: PNEventHandlers = useMemo(
     () => ({
       // PN-D01
-      'contract.buyer.disputeRaised': (contract: Contract) =>
+      'contract.buyer.disputeRaised': (contract: Contract, { contractId }: PNData) =>
         showDisputeRaisedNotice(contract, getContractViewer(contract, account)),
-      'contract.seller.disputeRaised': (contract: Contract) =>
+      'contract.seller.disputeRaised': (contract: Contract, { contractId }: PNData) =>
         showDisputeRaisedNotice(contract, getContractViewer(contract, account)),
       // PN-D02 PN-D03
       'contract.disputeResolved': (contract: Contract) =>
@@ -51,14 +61,13 @@ export const useContractPopupEvents = (currentContractId?: string) => {
       'contract.buyer.paymentTimerHasRunOut': (contract: Contract, { contractId }: PNData) =>
         showPaymentTimerHasRunOut(contract, 'buyer', currentContractId === contractId),
       // PN-S12
-      'contract.seller.paymentTimerHasRunOut': (contract: Contract, { contractId }: PNData) =>
-        showPaymentTimerHasRunOut(contract, 'seller', currentContractId === contractId),
+      'contract.seller.paymentTimerHasRunOut': (contract: Contract) =>
+        showPaymentTimerHasRunOut(contract, 'seller', true),
       // PN-B06
-      'contract.buyer.paymentTimerSellerCanceled': (contract: Contract, { contractId }: PNData) =>
-        showPaymentTimerSellerCanceled(contract, currentContractId === contractId),
+      'contract.buyer.paymentTimerSellerCanceled': (contract: Contract) =>
+        showPaymentTimerSellerCanceled(contract, true),
       // PN-B07
-      'contract.buyer.paymentTimerExtended': (contract: Contract, { contractId }: PNData) =>
-        showPaymentTimerExtended(contract, currentContractId === contractId),
+      'contract.buyer.paymentTimerExtended': (contract: Contract) => showPaymentTimerExtended(contract, true),
     }),
     [
       currentContractId,
@@ -72,5 +81,15 @@ export const useContractPopupEvents = (currentContractId?: string) => {
       showTradeCanceled,
     ],
   )
-  return contractPopupEvents
+
+  const ignoreGlobalEvent = useCallback(
+    (contract: Contract, contractId: string, type: NotificationType) =>
+      contract.id !== contractId && contractIgnoreGlobalEvents.includes(type),
+    [],
+  )
+
+  return {
+    contractPopupEvents,
+    ignoreGlobalEvent,
+  }
 }
