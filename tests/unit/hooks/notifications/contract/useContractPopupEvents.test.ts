@@ -141,4 +141,12 @@ describe('useContractPopupEvents', () => {
 
     expect(showPaymentTimerSellerCanceledMock).toHaveBeenCalledWith(contract, true)
   })
+
+  it('should not ingore global events when not viewing current contract', async () => {
+    const { result } = renderHook(() => useContractPopupEvents())
+
+    expect(result.current.ignoreGlobalEvent('contract.buyer.disputeRaised', '1', '2')).toBe(true)
+    expect(result.current.ignoreGlobalEvent('contract.buyer.disputeRaised', '1', '1')).toBe(false)
+    expect(result.current.ignoreGlobalEvent('contract.canceled', '1', '2')).toBe(false)
+  })
 })
