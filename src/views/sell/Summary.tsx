@@ -1,20 +1,22 @@
 import React, { ReactElement, useEffect } from 'react'
-import { SellOfferSummary } from '../../components'
+import { View } from 'react-native'
+import { PrimaryButton, SellOfferSummary } from '../../components'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
-  const { returnAddress, walletLabel } = useSellSummarySetup()
+export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
+  const { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
+    = useSellSummarySetup()
+  const publishSellOffer = () => publishOffer(offer)
 
   useEffect(() => {
-    setStepValid(!!returnAddress)
-
     if (returnAddress) updateOffer({
       ...offer,
       returnAddress,
     })
-  }, [returnAddress, setStepValid, updateOffer])
+  }, [returnAddress, updateOffer])
 
   useEffect(() => {
     if (walletLabel) updateOffer({
@@ -23,5 +25,20 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
     })
   }, [walletLabel, updateOffer])
 
-  return <SellOfferSummary offer={offer} style={tw`mx-8 mt-15`} />
+  return (
+    <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
+      <View style={tw`justify-center flex-grow`}>
+        <SellOfferSummary offer={offer} />
+      </View>
+      <PrimaryButton
+        testID="navigation-next"
+        narrow={!canPublish}
+        onPress={canPublish ? publishSellOffer : goToSetupRefundWallet}
+        iconId={canPublish ? 'uploadCloud' : undefined}
+        loading={isPublishing}
+      >
+        {i18n(canPublish ? 'offer.publish' : 'next')}
+      </PrimaryButton>
+    </View>
+  )
 }

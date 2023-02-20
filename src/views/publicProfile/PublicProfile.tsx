@@ -5,7 +5,7 @@ import { useCurrentUser, useHeaderSetup } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { AccountInfo } from '../settings/profile/accountInfo/AccountInfo'
-import { ProfileOverview } from './components/ProfileOverview'
+import { ProfileOverview } from './components'
 
 const headerConfig = { title: i18n('profile.user.title') }
 
@@ -16,7 +16,7 @@ export default () => {
 
   return (
     <View style={tw`h-full px-8`}>
-      <ProfileOverview style={tw`mt-[48.5px]`} user={user} />
+      <ProfileOverview style={tw`mt-[48.5px] items-start`} user={user} />
       <AccountInfo style={tw`ml-1 mt-13`} user={user} />
     </View>
   )

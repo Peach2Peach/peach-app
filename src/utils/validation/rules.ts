@@ -4,6 +4,7 @@ import IBAN from 'iban'
 import { getNetwork } from '../wallet'
 import { isPaypalUsername } from './isPaypalUsername'
 import { isPhoneAllowed } from './isPhoneAllowed'
+import { isTaproot } from './isTaproot'
 import { isUsername } from './isUsername'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
 
@@ -13,6 +14,7 @@ const urlRegex = /^(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:
 
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
+
 export const rules = {
   required (required: boolean, value: string | number | null) {
     return !required || value
@@ -38,6 +40,9 @@ export const rules = {
     } catch (e) {}
 
     return valid
+  },
+  blockTaprootAddress (_: boolean, value: string) {
+    return !isTaproot(value)
   },
   duplicate (existingValue: any) {
     return !existingValue

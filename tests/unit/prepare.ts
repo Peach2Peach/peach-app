@@ -1,5 +1,4 @@
 import * as accountData from './data/accountData'
-const { version } = require('../../package.json')
 
 export const resetMocks = (...mocks: any) => mocks.forEach((mock: jest.Mock) => (<jest.Mock>mock).mockReset())
 
@@ -98,12 +97,11 @@ jest.mock('@react-native-firebase/analytics', () => () => ({
   logEvent: jest.fn(),
 }))
 
-export const isAirplaneModeSyncMock = jest.fn()
 jest.mock('react-native-device-info', () => ({
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
-  getVersion: () => version,
-  isAirplaneModeSync: isAirplaneModeSyncMock,
+  getVersion: () => '0.2.0',
+  isAirplaneModeSync: jest.fn(),
   isEmulatorSync: () => true,
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')

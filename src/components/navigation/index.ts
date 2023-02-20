@@ -1,1 +1,2 @@
-export { Navigation } from './Navigation'
+export { NewTabbedNavigation } from './NewTabbedNavigation'
+export { TabbedNavigation } from './TabbedNavigation'

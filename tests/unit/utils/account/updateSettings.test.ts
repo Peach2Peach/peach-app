@@ -49,8 +49,7 @@ describe('updateSettings', () => {
       showBackupReminder: true,
       peachWalletActive: true,
       nodeURL: 'https://localhost:3000/',
-      customFeeRate: 1,
-      selectedFeeRate: 'halfHourFee',
+      feeRate: 'halfHourFee',
     })
   })
 })

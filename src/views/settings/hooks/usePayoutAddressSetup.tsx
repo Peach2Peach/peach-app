@@ -7,7 +7,7 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
 
-const addressRules = { bitcoinAddress: true, required: true }
+const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
 const labelRules = { required: true }
 
 export const usePayoutAddressSetup = () => {
