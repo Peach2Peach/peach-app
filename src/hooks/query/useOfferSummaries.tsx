@@ -16,11 +16,11 @@ export const useOfferSummaries = () => {
     (state) => [state.offers, state.setOffers, state.getLastModified],
     shallow,
   )
-  const { data, isLoading, error, refetch } = useQuery<OfferSummary[]>(['offerSummaries'], getOfferSummariesQuery, {
+  const { data, isLoading, error, refetch } = useQuery(['offerSummaries'], getOfferSummariesQuery, {
     initialData: offers,
     initialDataUpdatedAt: getLastModified().getTime(),
     onSuccess: (result) => {
-      setOffers(result as OfferSummary[])
+      setOffers(result)
     },
   })
 
