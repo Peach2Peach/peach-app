@@ -227,7 +227,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
         contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}
       >
         {currentTab.id === 'remote' ? remotePaymentDetails() : meetupPaymentDetails()}
-        <HorizontalLine style={tw`w-auto m-5 bg-black-5`} />
+        <HorizontalLine style={tw`w-auto m-5`} />
         <AddPaymentMethodButton origin={origin} isCash={currentTab.id === 'meetups'} />
       </PeachScrollView>
     </View>
