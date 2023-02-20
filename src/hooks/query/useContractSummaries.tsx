@@ -16,17 +16,13 @@ export const useContractSummaries = () => {
     (state) => [state.contracts, state.setContracts, state.getLastModified],
     shallow,
   )
-  const { data, isLoading, error, refetch } = useQuery<ContractSummary[]>(
-    ['contractSummaries'],
-    getContractSummariesQuery,
-    {
-      initialData: contracts,
-      initialDataUpdatedAt: getLastModified().getTime(),
-      onSuccess: (result) => {
-        setContracts(result as ContractSummary[])
-      },
+  const { data, isLoading, error, refetch } = useQuery(['contractSummaries'], getContractSummariesQuery, {
+    initialData: contracts,
+    initialDataUpdatedAt: getLastModified().getTime(),
+    onSuccess: (result) => {
+      setContracts(result)
     },
-  )
+  })
 
   return { contracts: data, isLoading, error, refetch }
 }
