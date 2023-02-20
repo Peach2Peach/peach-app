@@ -13,6 +13,8 @@ const urlRegex = /^(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:
 
 // eslint-disable-next-line prefer-named-capture-group
 const bicRegex = /^[A-Z]{4}\s*[A-Z]{2}\s*[A-Z0-9]{2}\s*([A-Z0-9]{3})?$/u
+const taprootRegex = /^bc1p/iu
+
 export const rules = {
   required (required: boolean, value: string | number | null) {
     return !required || value
@@ -36,8 +38,10 @@ export const rules = {
       address.toOutputScript(value, getNetwork())
       valid = true
     } catch (e) {}
-
     return valid
+  },
+  blockTaprootAddress (_: boolean, value: string) {
+    return taprootRegex.test(value) === false
   },
   duplicate (existingValue: any) {
     return !existingValue
