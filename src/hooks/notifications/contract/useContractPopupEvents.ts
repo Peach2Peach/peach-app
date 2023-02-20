@@ -57,9 +57,6 @@ export const useContractPopupEvents = (currentContractId?: string) => {
       'contract.cancelationRequestAccepted': (contract: Contract) => showTradeCanceled(contract, true),
       // PN-S16
       'contract.cancelationRequestRejected': (contract: Contract) => showCancelTradeRequestRejected(contract),
-      // PN-B12
-      'contract.buyer.paymentTimerHasRunOut': (contract: Contract, { contractId }: PNData) =>
-        showPaymentTimerHasRunOut(contract, 'buyer', currentContractId === contractId),
       // PN-S12
       'contract.seller.paymentTimerHasRunOut': (contract: Contract) =>
         showPaymentTimerHasRunOut(contract, 'seller', true),

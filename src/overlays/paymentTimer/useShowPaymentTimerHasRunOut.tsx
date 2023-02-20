@@ -17,34 +17,6 @@ export const useShowPaymentTimerHasRunOut = () => {
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
 
-  const showPaymentTimerHasRunOutForBuyer = useCallback(
-    (contract: Contract, inTrade: boolean) => {
-      const closeAction: Action = {
-        label: i18n('close'),
-        icon: 'xSquare',
-        callback: () => closeOverlay(),
-      }
-      const goToContract: Action = {
-        label: i18n('checkTrade'),
-        icon: 'arrowLeftCircle',
-        callback: () => {
-          closeOverlay()
-          navigation.navigate('contract', { contractId: contract.id })
-        },
-      }
-
-      updateOverlay({
-        title: i18n('contract.buyer.paymentTimerHasRunOut.title'),
-        content: <PaymentTimerHasRunOut {...{ contract, view: 'buyer' }} />,
-        visible: true,
-        level: 'APP',
-        action1: inTrade ? closeAction : goToContract,
-        action2: inTrade ? undefined : closeAction,
-      })
-    },
-    [closeOverlay, navigation, updateOverlay],
-  )
-
   const showPaymentTimerHasRunOutForSeller = useCallback(
     (contract: Contract, inTrade: boolean) => {
       const closeAction: Action = {
@@ -91,7 +63,7 @@ export const useShowPaymentTimerHasRunOut = () => {
 
       updateOverlay({
         title: i18n('contract.seller.paymentTimerHasRunOut.title'),
-        content: <PaymentTimerHasRunOut {...{ contract, view: 'seller' }} />,
+        content: <PaymentTimerHasRunOut {...{ contract }} />,
         visible: true,
         level: 'WARN',
         action1: inTrade ? extraTime : goToContract,
@@ -102,11 +74,8 @@ export const useShowPaymentTimerHasRunOut = () => {
   )
 
   const showPaymentTimerHasRunOut = useCallback(
-    (contract: Contract, view: ContractViewer, inTrade: boolean) =>
-      view === 'buyer'
-        ? showPaymentTimerHasRunOutForBuyer(contract, inTrade)
-        : showPaymentTimerHasRunOutForSeller(contract, inTrade),
-    [showPaymentTimerHasRunOutForBuyer, showPaymentTimerHasRunOutForSeller],
+    (contract: Contract, inTrade: boolean) => showPaymentTimerHasRunOutForSeller(contract, inTrade),
+    [showPaymentTimerHasRunOutForSeller],
   )
 
   return showPaymentTimerHasRunOut

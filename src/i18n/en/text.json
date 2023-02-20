@@ -203,8 +203,6 @@
   "contract.cancel.offerRepublished.text": "Your offer has been re-published. We're looking for a new match!",
   "contract.cancel.confirm": "confirm cancel",
   "contract.cancel.success": "trade canceled!",
-  "contract.buyer.paymentTimerHasRunOut.title": "time's up!",
-  "contract.buyer.paymentTimerHasRunOut.text": "You didn't indicate you made the payment for trade $0, and the timer ran out! The seller now needs to decide how to proceed - please chat with them to resolve the issue.",
   "contract.buyer.paymentTimerSellerCanceled.title": "seller canceled trade",
   "contract.buyer.paymentTimerSellerCanceled.text": "You didn't make the payment on time for trade $0, and the seller decided to cancel the trade. Your reputation has been negatively affected.",
   "contract.buyer.paymentTimerExtended.title": "seller extended time",
