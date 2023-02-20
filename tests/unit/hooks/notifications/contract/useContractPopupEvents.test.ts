@@ -142,6 +142,25 @@ describe('useContractPopupEvents', () => {
     expect(showPaymentTimerSellerCanceledMock).toHaveBeenCalledWith(contract, true)
   })
 
+  it('should handle "contract.seller.paymentTimerHasRunOut" event', () => {
+    const { result } = renderHook(() => useContractPopupEvents())
+
+    act(() => {
+      result.current.contractPopupEvents['contract.seller.paymentTimerHasRunOut']!(contract)
+    })
+
+    expect(showPaymentTimerHasRunOutMock).toHaveBeenCalledWith(contract, true)
+  })
+  it('should handle "contract.buyer.paymentTimerExtended" event', () => {
+    const { result } = renderHook(() => useContractPopupEvents())
+
+    act(() => {
+      result.current.contractPopupEvents['contract.buyer.paymentTimerExtended']!(contract)
+    })
+
+    expect(showPaymentTimerExtendedMock).toHaveBeenCalledWith(contract, true)
+  })
+
   it('should not ingore global events when not viewing current contract', async () => {
     const { result } = renderHook(() => useContractPopupEvents())
 
