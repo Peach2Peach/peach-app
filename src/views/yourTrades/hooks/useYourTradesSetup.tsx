@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native'
 import { useEffect, useMemo, useState } from 'react'
 import shallow from 'zustand/shallow'
 import { TabbedNavigationItem } from '../../../components/navigation/TabbedNavigation'
@@ -52,6 +53,8 @@ export const useYourTradesSetup = () => {
       [],
     ),
   )
+
+  useFocusEffect(refetch)
 
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])
