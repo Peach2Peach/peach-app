@@ -19,7 +19,7 @@ export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
     <View style={[tw`flex-row items-center`, style]}>
       <View style={tw`flex-row`}>
         {[1, 2, 3, 4, 5].map((peach) => (
-          <RatingPeach key={`rating-peach-background-${peach}`} style={tw`w-4 h-4 mr-1 opacity-50`} />
+          <RatingPeach key={`rating-peach-background-${peach}`} style={tw`w-3 h-3 mr-1 opacity-50`} />
         ))}
         <View
           style={[
@@ -28,7 +28,7 @@ export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
           ]}
         >
           {[1, 2, 3, 4, 5].map((peach) => (
-            <RatingPeach key={`rating-peach-colored-${peach}`} style={tw`w-4 h-4 mr-1`} />
+            <RatingPeach key={`rating-peach-colored-${peach}`} style={tw`w-3 h-3 mr-1`} />
           ))}
         </View>
       </View>
