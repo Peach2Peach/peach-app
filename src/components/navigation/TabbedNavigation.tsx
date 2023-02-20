@@ -3,7 +3,7 @@ import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../'
 
-const themes = {
+export const themes = {
   default: {
     text: tw`text-black-2`,
     textSelected: tw`text-black-1`,

@@ -4,8 +4,8 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
-import { ProfileOverview } from '../../views/publicProfile/components'
 import { ChatButton } from '../chat/ChatButton'
+import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
@@ -26,7 +26,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
   const PaymentTo = !storedPaymentData && contract.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   return (
     <View style={[tw`h-full`, tw.md`h-auto`]}>
-      <ProfileOverview user={contract.buyer} clickableID />
+      <MatchCardCounterparty user={contract.buyer} />
       <HorizontalLine style={tw`mt-7`} />
       <PeachScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row items-center justify-between mt-6`}>

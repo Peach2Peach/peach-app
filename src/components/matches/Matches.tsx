@@ -40,7 +40,7 @@ export const Matches = () => {
   return (
     <Carousel
       data={matches}
-      renderItem={({ item }) => <Match match={item} style={tw`self-center p-4`} offer={offer} />}
+      renderItem={({ item }) => <Match match={item} offer={offer} />}
       {...{ ...carouselConfig, onBeforeSnapToItem }}
     />
   )

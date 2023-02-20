@@ -4,11 +4,11 @@ module.exports = {
   theme: {
     extend: {
       maxHeight: {
-        '0': '0',
-       '1/4': '25%',
-       '1/2': '50%',
-       '3/4': '75%',
-       'full': '100%',
+        0: '0',
+        '1/4': '25%',
+        '1/2': '50%',
+        '3/4': '75%',
+        full: '100%',
       },
       inset: {
         px: '1px',
@@ -101,6 +101,7 @@ module.exports = {
         xs: '20px',
       },
       letterSpacing: {
+        superTightest: '-0.03em',
         tightest: '-0.016em',
         tighter: '-0.01em',
         tight: '0m',
@@ -165,6 +166,7 @@ module.exports = {
         overline: `font-baloo text-xs leading-xs tracking-normal`,
         'input-text': `font-baloo text-lg leading-relaxed tracking-normal`,
         tooltip: `font-baloo-medium text-xs leading-xs tracking-normal`,
+        notification: `font-baloo text-3xs font-semibold tracking-superTightest leading-sm text-center`,
       })
     }),
   ],
