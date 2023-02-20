@@ -6,9 +6,10 @@ import { getContract as getContractAPI } from '../../../../src/utils/peachAPI'
 import { contract } from '../../data/contractData'
 
 const contractPopupEventHandlerMock = jest.fn()
+const ignoreGlobalEventMock = jest.fn().mockReturnValue(false)
 const contractPopupEvents = { contractPopupEvent: contractPopupEventHandlerMock }
 jest.mock('../../../../src/hooks/notifications/contract/useContractPopupEvents', () => ({
-  useContractPopupEvents: () => contractPopupEvents,
+  useContractPopupEvents: () => ({ contractPopupEvents, ignoreGlobalEvent: ignoreGlobalEventMock }),
 }))
 jest.mock('../../../../src/utils/contract', () => ({
   getContract: jest.fn(),
@@ -44,7 +45,7 @@ describe('useContractMessageHandler', () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(contractPopupEventHandlerMock).toHaveBeenCalledWith(contract, mockRemoteMessage.data)
+    expect(contractPopupEventHandlerMock).toHaveBeenCalledWith(contract)
   })
 
   it('should not call popup event when type is not found in popupEvents', async () => {
@@ -57,7 +58,7 @@ describe('useContractMessageHandler', () => {
         bodyLocArgs: ['arg1', 'arg2'],
       },
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useContractMessageHandler(contractId))
+    const { result: onMessageHandler } = renderHook(() => useContractMessageHandler())
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })

@@ -6,7 +6,7 @@ import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useContractPopupEvents } from './contract/useContractPopupEvents'
 
 export const useContractMessageHandler = (currentContractId?: string) => {
-  const { contractPopupEvents, ignoreGlobalEvent } = useContractPopupEvents(currentContractId)
+  const { contractPopupEvents, ignoreGlobalEvent } = useContractPopupEvents()
 
   const onMessageHandler = useCallback(
     // eslint-disable-next-line max-statements
@@ -23,11 +23,11 @@ export const useContractMessageHandler = (currentContractId?: string) => {
 
       if (!contract) return
 
-      if (contractPopupEvents[type] && !ignoreGlobalEvent(contract, contractId, type)) {
-        contractPopupEvents[type]?.(contract, data)
+      if (contractPopupEvents[type] && !ignoreGlobalEvent(type, contractId, currentContractId)) {
+        contractPopupEvents[type]?.(contract)
       }
     },
-    [contractPopupEvents, ignoreGlobalEvent],
+    [contractPopupEvents, currentContractId, ignoreGlobalEvent],
   )
 
   return onMessageHandler

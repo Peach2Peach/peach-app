@@ -1,4 +1,4 @@
-export { Fade, Fade, Loading, Loading } from './animation'
+export { Fade, Loading } from './animation'
 export { AvoidKeyboard } from './AvoidKeyboard'
 export { BitcoinAddress, BitcoinPriceStats } from './bitcoin'
 export { InfoButton, OptionButton, PrimaryButton } from './buttons'
