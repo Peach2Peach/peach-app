@@ -26,7 +26,7 @@ export const useDeletePaymentMethod = (id: string) => {
           updateOverlay({ visible: false })
           navigation.goBack()
         },
-        icon: 'info',
+        icon: 'trash',
         label: i18n('delete'),
       },
     })
