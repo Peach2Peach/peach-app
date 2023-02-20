@@ -84,7 +84,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
             ) : (
               <>
                 <Price match={match} />
-                <HorizontalLine style={tw`my-4 bg-black-5`} />
+                <HorizontalLine style={tw`my-4`} />
                 <MatchPaymentDetails match={match} style={tw`mb-2`} />
               </>
             )}
