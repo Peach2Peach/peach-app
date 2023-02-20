@@ -1,4 +1,5 @@
 import { isContractSummary } from './isContractSummary'
+import { isError } from './isError'
 import { isPastOffer } from './isPastOffer'
 import { isPrioritary } from './isPrioritary'
 import { isWaiting } from './isWaiting'
@@ -11,6 +12,7 @@ export const getOfferLevel = (trade: TradeSummary): SummaryItemLevel => {
     if (trade.type === 'ask') return 'APP'
     if (trade.type === 'bid') return 'SUCCESS'
   }
+  if (isError(trade.tradeStatus)) return 'ERROR'
   if (isPrioritary(trade.tradeStatus)) return 'WARN'
   if (isWaiting(trade.type, trade.tradeStatus)) return 'WAITING'
 
