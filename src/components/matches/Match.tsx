@@ -71,14 +71,14 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
         <>
           <View style={tw`p-4`}>
             <MatchCardCounterparty user={match.user} />
-            <HorizontalLine style={tw`my-4 bg-black-5`} />
+            <HorizontalLine style={tw`my-4`} />
 
             {isBuyOffer(offer) ? (
               <>
                 <PriceInfo match={match} />
-                <HorizontalLine style={tw`my-4 bg-black-5`} />
+                <HorizontalLine style={tw`my-4`} />
                 <PaymentMethodSelector matchId={match.offerId} disabled={currentOptionName === 'tradingLimitReached'} />
-                <HorizontalLine style={tw`my-4 bg-black-5`} />
+                <HorizontalLine style={tw`my-4`} />
                 <EscrowLink address={match.escrow || ''} />
               </>
             ) : (
