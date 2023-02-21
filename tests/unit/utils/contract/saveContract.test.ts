@@ -11,7 +11,7 @@ jest.mock('react-native-fs', () => ({
 
 // eslint-disable-next-line max-lines-per-function
 describe('saveContract', () => {
-  it('add a new contract to account', async () => {
+  it('adds a new contract to account', async () => {
     await setAccount({ ...defaultAccount, contracts: [] })
 
     saveContract(contractData.contract)
