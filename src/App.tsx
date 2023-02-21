@@ -285,7 +285,7 @@ const App: React.FC = () => {
                                     options={{
                                       headerShown: showHeader,
                                       animationEnabled,
-                                      cardStyle: !background.color && tw`bg-primary-background-light`,
+                                      cardStyle: !background.color && tw`bg-primary-background`,
                                       header: () => <Header />,
                                       transitionSpec: {
                                         open: screenTransition,
