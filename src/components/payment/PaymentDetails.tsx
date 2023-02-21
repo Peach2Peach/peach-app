@@ -14,7 +14,7 @@ import LinedText from '../ui/LinedText'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
-import { settingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
@@ -71,6 +71,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [paymentData, setPaymentData] = useState(account.paymentData)
+  const setPreferredPaymentMethods = useSettingsStore((state) => state.setPreferredPaymentMethods)
 
   useFocusEffect(() => {
     setPaymentData(account.paymentData)
@@ -93,13 +94,13 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     data,
   })
 
-  const setPreferredPaymentMethods = (ids: string[]) => {
+  const setPaymentMethods = (ids: string[]) => {
     const newPreferredPaymentMethods = (ids as PaymentData['id'][]).reduce((obj, id) => {
       const method = paymentData.find((d) => d.id === id)?.type
       if (method) obj[method] = id
       return obj
     }, {} as Settings['preferredPaymentMethods'])
-    settingsStore.getState().setPreferredPaymentMethods(newPreferredPaymentMethods)
+    setPreferredPaymentMethods(newPreferredPaymentMethods)
     update()
   }
 
@@ -126,7 +127,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     } else {
       newValues.push(value)
     }
-    setPreferredPaymentMethods(newValues)
+    setPaymentMethods(newValues)
   }
 
   const isSelected = (itm: CheckboxType) => selectedPaymentData.includes(itm.value as string)
