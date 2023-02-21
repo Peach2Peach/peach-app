@@ -62,8 +62,6 @@ export default ({ toggle }: { toggle: () => void }): ReactElement => {
       },
       onCancel: () => {
         setIsBackingUp(false)
-        setLastBackupDate(previousDate)
-        setShowBackupReminder(previousShowBackupReminder)
       },
       onError: () => {
         setIsBackingUp(false)

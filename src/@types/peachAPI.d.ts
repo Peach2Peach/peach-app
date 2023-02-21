@@ -75,7 +75,24 @@ declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
-declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
+declare type PaymentMethodCountry =
+  | 'BE'
+  | 'CA'
+  | 'CH'
+  | 'DE'
+  | 'DE'
+  | 'ES'
+  | 'FR'
+  | 'GB'
+  | 'GR'
+  | 'IT'
+  | 'NL'
+  | 'PL'
+  | 'PT'
+  | 'SE'
+  | 'SI'
+  | 'UK'
+  | 'US'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -90,22 +107,26 @@ declare type PaymentMethod =
   | 'bizum'
   | `cash.${string}`
   | 'giftCard.amazon'
-  | `giftCard.amazon.${Country}`
+  | `giftCard.amazon.${PaymentMethodCountry}`
 
 declare type MeetupEvent = {
+  // BitcoinEvent in backend
   id: string
-  country: Country
+  country: PaymentMethodCountry
   city: string
-  name: string
+  shortName: string
+  longName: string
   url?: string
   address?: string
+  frequency?: string
   logo?: string // path to the logo
 }
+declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
-  countries?: Country[]
+  countries?: PaymentMethodCountry[]
   rounded?: boolean
   anonymous: boolean
 }
@@ -154,7 +175,6 @@ declare type TradeStatus =
   | 'fundEscrow'
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
-  | 'messageSigningRequired'
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
@@ -178,7 +198,7 @@ declare type OfferDraft = {
       PaymentMethod,
       {
         hash: string
-        country?: Country
+        country?: PaymentMethodCountry
       }
     >
   >

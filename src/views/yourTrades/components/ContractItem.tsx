@@ -30,7 +30,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
   const counterparty = contract.type === 'bid' ? 'seller' : 'buyer'
 
   const sharedProps = {
-    title: i18n('trade') + ' ' + contractIdToHex(contract.id),
+    title: contractIdToHex(contract.id),
     amount: contract.amount,
     currency,
     price,

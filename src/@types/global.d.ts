@@ -46,6 +46,7 @@ declare type Chat = {
   lastSeen: Date
   messages: Message[]
   draftMessage: string
+  seenDisputeDisclaimer: boolean
 }
 
 declare type AppState = {

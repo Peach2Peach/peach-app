@@ -11,9 +11,6 @@ export const getNavigationDestinationForOffer = ({
     return ['offer', { offerId }]
   }
 
-  if (tradeStatus === 'messageSigningRequired') {
-    return ['signMessage', { offerId }]
-  }
   if (tradeStatus === 'fundEscrow' || tradeStatus === 'escrowWaitingForConfirmation') {
     return ['fundEscrow', { offerId }]
   }

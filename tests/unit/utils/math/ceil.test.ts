@@ -1,4 +1,5 @@
 import { strictEqual } from 'assert'
+import { SATSINBTC } from '../../../../src/constants'
 import { ceil } from '../../../../src/utils/math'
 
 describe('ceil', () => {
@@ -40,6 +41,7 @@ describe('ceil', () => {
     strictEqual(ceil(10.501, 4), 10.501)
 
     strictEqual(ceil(10.501298740982, 9), 10.501298741)
+    strictEqual(ceil(0.000981077468329593 * SATSINBTC, -4), 100000)
   })
 
   it('ceils values to desired power of 10', () => {

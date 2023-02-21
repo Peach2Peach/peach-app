@@ -37,6 +37,7 @@ import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
+import { useUpdateTradingAmounts } from './hooks'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { useHandleNotifications } from './hooks/useHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
@@ -52,7 +53,6 @@ import { account, getAccount } from './utils/account'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
-import { getTradingAmountLimits } from './utils/market'
 
 enableScreens()
 
@@ -80,10 +80,7 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
 }
 const usePartialAppSetup = () => {
   const [active, setActive] = useState(true)
-  const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
-    (state) => [state.setMinTradingAmount, state.setMaxTradingAmount],
-    shallow,
-  )
+  const updateTradingAmounts = useUpdateTradingAmounts()
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   useCheckTradeNotifications()
 
@@ -114,11 +111,7 @@ const usePartialAppSetup = () => {
     const checkingFunction = async () => {
       const [prices] = await marketPrices({ timeout: checkingInterval })
       if (prices) setPrices(prices)
-      if (prices?.CHF) {
-        const [minAmount, maxAmount] = getTradingAmountLimits(prices.CHF)
-        setMinTradingAmount(minAmount)
-        setMaxTradingAmount(maxAmount)
-      }
+      if (prices?.CHF) updateTradingAmounts(prices.CHF)
     }
     const interval = setInterval(checkingFunction, checkingInterval)
     setCurrency(account.settings.displayCurrency)
@@ -127,7 +120,7 @@ const usePartialAppSetup = () => {
     return () => {
       clearInterval(interval)
     }
-  }, [active, setCurrency, setPrices])
+  }, [active, setCurrency, setPrices, updateTradingAmounts])
 }
 
 // eslint-disable-next-line max-statements

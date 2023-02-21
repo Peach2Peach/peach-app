@@ -5,11 +5,10 @@ export const panListener = (
   pan: Animated.Value,
   range: [number, number],
   trackRange: [number, number],
-  setValue: (val: number) => void,
+  setValue: (val: number, abs: number) => void,
   restrictRange = trackRange,
   // eslint-disable-next-line max-params
 ) => {
-  pan.extractOffset()
   pan.addListener((props) => {
     let v = props.value
     if (v < restrictRange[0]) {
@@ -20,7 +19,7 @@ export const panListener = (
     if (v !== props.value) pan.setOffset(v)
 
     const val = interpolate(v, trackRange, range)
-    setValue(val)
+    setValue(val, v)
   })
 
   return () => pan.removeAllListeners()

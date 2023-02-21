@@ -30,11 +30,11 @@ export default (): ReactElement => {
             <Icon id="chevronsDown" style={tw`w-6 h-6 mt-1`} color={tw`text-primary-background-light`.color} />
           </View>
         )}
-        <PrimaryButton white narrow onPress={goToBackups}>
+        <PrimaryButton white onPress={goToBackups}>
           {i18n('backupTime.makeABackup')}
         </PrimaryButton>
         {!isMandatory && (
-          <PrimaryButton style={tw`mt-3`} white border narrow onPress={skip}>
+          <PrimaryButton style={tw`mt-3`} white border onPress={skip}>
             {i18n('backupTime.skipForNow')}
           </PrimaryButton>
         )}

@@ -15,6 +15,6 @@ export const useNavigateToContract = (contract: ContractSummary) => {
       if (sellOffer) startRefund(sellOffer)
     }
 
-    return navigation.replace(screen, params)
+    navigation.navigate(screen, params)
   }
 }

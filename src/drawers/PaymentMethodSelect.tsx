@@ -4,7 +4,7 @@ import { HorizontalLine, PaymentLogo, Text } from '../components'
 import { PaymentLogoType } from '../components/payment/logos'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { sortAlphabetically } from '../utils/sortAlphabetically'
+import { sortAlphabetically } from '../utils/array/sortAlphabetically'
 
 type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[]
@@ -14,7 +14,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
   <View>
     {paymentMethods
       .sort((a, b) => sortAlphabetically(i18n(`paymentMethod.${a}`), i18n(`paymentMethod.${b}`)))
-      .map((method, i) => (
+      .map((method) => (
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
             <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
@@ -24,7 +24,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
               {i18n(`paymentMethod.${method}`)}
             </Text>
           </View>
-          {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+          <HorizontalLine style={tw`my-6`} />
         </View>
       ))}
   </View>
