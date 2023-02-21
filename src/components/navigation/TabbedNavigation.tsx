@@ -50,12 +50,12 @@ export const TabbedNavigation = ({
               <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
                 {item.display}
               </Text>
-              {!!messages && messages[item.id as 'buy' | 'sell' | 'history'] > 0 && (
+              {!!messages && messages[item.id as TradeTab] > 0 && (
                 <ChatMessages
                   style={tw`mb-1 -mt-px w-18px h-18px`}
                   textStyle={tw`text-[10px] text-primary-background-light`}
                   iconColor={tw`text-primary-main`.color}
-                  messages={messages[item.id as 'buy' | 'sell' | 'history']}
+                  messages={messages[item.id as TradeTab]}
                 />
               )}
             </View>
@@ -66,5 +66,3 @@ export const TabbedNavigation = ({
     </View>
   )
 }
-
-// messages[item.id as 'buy' | 'sell' | 'past']
