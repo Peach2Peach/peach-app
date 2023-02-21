@@ -15,6 +15,7 @@ describe('enforceFormatOnPaymentData', () => {
     }
     const expected: PaymentData & SEPAData = {
       id: 'sepa-1',
+      version: '0.2.0',
       label: 'Sepa',
       type: 'sepa',
       currencies: ['EUR'],
@@ -37,6 +38,7 @@ describe('enforceFormatOnPaymentData', () => {
     }
     const expected: PaymentData & PaypalData = {
       id: 'paypal-1',
+      version: '0.2.0',
       label: 'Paypal',
       type: 'paypal',
       currencies: ['EUR'],
