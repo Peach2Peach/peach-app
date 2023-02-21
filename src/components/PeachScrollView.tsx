@@ -46,6 +46,7 @@ export const PeachScrollView = ({
         showsHorizontalScrollIndicator,
         showsVerticalScrollIndicator,
         persistentScrollbar,
+        indicatorStyle: 'black',
         ...scrollViewProps,
       }}
       onLayout={onContainerLayout}

@@ -42,6 +42,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
         style={tw`flex-shrink`}
         contentContainerStyle={tw`px-7`}
         showsVerticalScrollIndicator
+        persistentScrollbar
       >
         <View style={tw`flex-row items-center justify-between mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.willPayYou')}</Text>
