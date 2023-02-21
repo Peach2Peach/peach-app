@@ -283,6 +283,7 @@ const App: React.FC = () => {
                                     {...{ name, component }}
                                     key={name}
                                     options={{
+                                      headerMode: 'float',
                                       headerShown: showHeader,
                                       animationEnabled,
                                       cardStyle: !background.color && tw`bg-primary-background`,
