@@ -78,7 +78,7 @@ describe('saveContract', () => {
     })
     expect(account.contracts[0].disputeResultAcknowledged).toEqual(true)
   })
-  it('ensures that disputeAcknowledgedByCounterParty is false when dispute is  not active', async () => {
+  it('ensures that disputeAcknowledgedByCounterParty is false when dispute is not active', async () => {
     await setAccount({
       ...defaultAccount,
       contracts: [{ ...contractData.contract, disputeAcknowledgedByCounterParty: true }],
