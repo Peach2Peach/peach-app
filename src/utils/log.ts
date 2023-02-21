@@ -36,9 +36,3 @@ export const error = (...args: any[]) => {
     if (errors.length) openCrashReportPrompt(errors)
   }
 }
-
-export default {
-  info,
-  log,
-  error,
-}

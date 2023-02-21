@@ -66,6 +66,10 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
     onChange(amount)
   }, [onChange, amount])
 
+  useEffect(() => {
+    pan.extractOffset()
+  }, [pan])
+
   return (
     <View style={[tw`items-end w-[210px] pr-5`, style]}>
       <SliderTrack style={{ height: trackHeight }}>

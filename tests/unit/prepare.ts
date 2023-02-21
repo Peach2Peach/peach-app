@@ -1,5 +1,4 @@
 import * as accountData from './data/accountData'
-const { version } = require('../../package.json')
 
 export const resetMocks = (...mocks: any) => mocks.forEach((mock: jest.Mock) => (<jest.Mock>mock).mockReset())
 
@@ -82,24 +81,31 @@ jest.mock('@react-native-firebase/messaging', () => {
   }
   return messaging
 })
+
+export const deleteUnsentReportsMock = jest.fn()
+export const recordErrorMock = jest.fn()
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
+  deleteUnsentReports: deleteUnsentReportsMock,
   log: jest.fn(),
+  recordError: recordErrorMock,
 }))
+
 jest.mock('@react-native-firebase/analytics', () => () => ({
   logAppOpen: jest.fn(),
   logScreenView: jest.fn(),
   setAnalyticsCollectionEnabled: jest.fn(),
   logEvent: jest.fn(),
 }))
+
 jest.mock('react-native-device-info', () => ({
-  getVersion: () => version,
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
+  getVersion: () => '0.2.0',
+  isAirplaneModeSync: jest.fn(),
   isEmulatorSync: () => true,
 }))
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
-jest.mock('react-native-canvas')
 jest.mock('react-native-webview')
 jest.mock('react-native-permissions', () => ({
   checkNotifications: jest.fn(),

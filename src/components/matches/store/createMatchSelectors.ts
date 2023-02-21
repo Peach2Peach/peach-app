@@ -3,13 +3,12 @@ import { hasMoPsInCommon, getMoPsInCommon, getPaymentMethods } from '../../../ut
 
 export type MatchSelectors = {
   [id: Match['offerId']]: {
-    selectedCurrency?: Currency
+    selectedCurrency: Currency
     selectedPaymentMethod?: PaymentMethod
     availableCurrencies: Currency[]
     availablePaymentMethods: PaymentMethod[]
     mopsInCommon: MeansOfPayment
     meansOfPayment: MeansOfPayment
-    showCurrencyPulse: boolean
     showPaymentMethodPulse: boolean
   }
 }
@@ -24,13 +23,12 @@ export const createMatchSelectors = (matches: Match[], offerMeansOfPayment: Mean
     const availablePaymentMethods = getPaymentMethods(mopsInCommon)
 
     acc[match.offerId] = {
-      selectedCurrency: availableCurrencies.length === 1 ? availableCurrencies[0] : undefined,
+      selectedCurrency: availableCurrencies[0],
       selectedPaymentMethod: availablePaymentMethods.length === 1 ? availablePaymentMethods[0] : undefined,
       availableCurrencies,
       availablePaymentMethods,
       mopsInCommon,
       meansOfPayment: match.meansOfPayment,
-      showCurrencyPulse: false,
       showPaymentMethodPulse: false,
     }
     return acc

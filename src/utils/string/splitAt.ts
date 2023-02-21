@@ -5,5 +5,3 @@
  * @returns split string
  */
 export const splitAt = (str: string, index: number): string[] => [str.slice(0, index), str.slice(index, str.length)]
-
-export default splitAt

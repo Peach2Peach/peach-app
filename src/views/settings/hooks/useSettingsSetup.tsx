@@ -120,7 +120,7 @@ export const useSettingsSetup = () => {
         iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
         enabled: peachWalletActive,
       },
-      { title: peachWalletActive ? 'walletSettings' : 'payoutAddress' },
+      { title: 'payoutAddress' },
       { title: 'currency', onPress: goToCurrencySettings },
     ],
     [togglePeachWallet, peachWalletActive, analyticsOn, notificationClick, goToCurrencySettings],

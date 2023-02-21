@@ -5,11 +5,13 @@ import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
+import { BICInput } from '../../BICInput'
+import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const ibanRules = { required: false, iban: true }
+const ibanRules = { required: false, iban: true, isEUIBAN: true }
 const bicRules = { required: false, bic: true }
 
 export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
@@ -89,7 +91,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <Input
+      <IBANInput
         onChange={setIBAN}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
@@ -99,7 +101,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         autoCorrect={false}
         errorMessage={displayErrors ? ibanErrors : undefined}
       />
-      <Input
+      <BICInput
         onChange={setBIC}
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => ($bic = el)}

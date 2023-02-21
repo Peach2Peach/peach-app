@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../'
 import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 
-const themes = {
+export const themes = {
   default: {
     text: tw`text-black-2`,
     textSelected: tw`text-black-1`,
@@ -26,6 +26,7 @@ type TabbedNavigationProps = ComponentProps & {
   items: TabbedNavigationItem[]
   selected: TabbedNavigationItem
   select: (item: TabbedNavigationItem) => void
+  buttonStyle?: ViewStyle
   theme?: 'default' | 'inverted'
   messages?: { buy: number; sell: number; history: number }
 }
@@ -36,6 +37,7 @@ export const TabbedNavigation = ({
   select,
   theme = 'default',
   style,
+  buttonStyle,
   messages,
 }: TabbedNavigationProps) => {
   const colors = themes[theme]
@@ -43,9 +45,9 @@ export const TabbedNavigation = ({
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
         <>
-          <Pressable style={tw`px-2`} key={item.id} onPress={() => select(item)}>
+          <Pressable style={[tw`px-2`, buttonStyle]} key={item.id} onPress={() => select(item)}>
             <View style={tw`flex-row items-center`}>
-              <Text style={[tw`px-2 my-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
+              <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
                 {item.display}
               </Text>
               {!!messages && messages[item.id as 'buy' | 'sell' | 'history'] > 0 && (

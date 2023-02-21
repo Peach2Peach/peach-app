@@ -1,5 +1,4 @@
 import { account } from '../account'
-import { parseContract } from './parseContract'
 
 /**
  * @description Method to get saved contract
@@ -11,5 +10,5 @@ export const getContract = (id: string): Contract | undefined => {
 
   if (!contract) return undefined
 
-  return parseContract(contract)
+  return contract
 }

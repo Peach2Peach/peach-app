@@ -11,6 +11,7 @@ import { PhoneInput } from '../../PhoneInput'
 const phoneRules = {
   required: true,
   phone: true,
+  isPhoneAllowed: true,
 }
 
 export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {

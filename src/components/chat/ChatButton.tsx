@@ -21,7 +21,11 @@ export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement =
   return (
     <TouchableOpacity
       onPress={goToChat}
-      style={[tw`flex-row items-center justify-center px-2 rounded-lg bg-primary-main`, style]}
+      style={[
+        tw`flex-row items-center justify-center px-2 rounded-lg bg-primary-main`,
+        contract.disputeActive && tw`bg-warning-main`,
+        style,
+      ]}
     >
       <Text style={tw`button-medium text-primary-background-light`}>{i18n('chat')}</Text>
       <ChatMessages style={tw`w-4 h-4 ml-1 -mt-px`} textStyle={tw`text-[10px]`} messages={notifications} />
