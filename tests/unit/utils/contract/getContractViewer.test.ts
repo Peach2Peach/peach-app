@@ -9,7 +9,7 @@ describe('getContractViewer', () => {
     expect(getContractViewer(contract as Contract, account as Account)).toBe('seller')
   })
 
-  it('returns "buyer" if account publicKey matches buyer id', () => {
+  it('returns "buyer" if account publicKey does not match seller id', () => {
     const account: Partial<Account> = { publicKey: '03abc' }
     const seller: Partial<User> = { id: '02def' }
     const buyer: Partial<User> = { id: '03abc' }
