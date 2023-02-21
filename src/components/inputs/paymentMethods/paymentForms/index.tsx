@@ -84,7 +84,7 @@ export const PaymentMethodForm = ({
             onSubmit(newPaymentData)
             updateOverlay({ visible: false })
           },
-          icon: 'info',
+          icon: 'edit3',
           label: i18n('help.paymentMethodEdit.editMethod'),
         },
       })

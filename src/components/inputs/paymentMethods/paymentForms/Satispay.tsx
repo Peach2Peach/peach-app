@@ -9,7 +9,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 
-const phoneRules = { required: true, phone: true }
+const phoneRules = { phone: true, isPhoneAllowed: true, required: true }
 export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
@@ -17,10 +17,13 @@ export const Satispay = ({ forwardRef, data, currencies = [], onSubmit, setStepV
 
   let $phone = useRef<TextInput>(null).current
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 

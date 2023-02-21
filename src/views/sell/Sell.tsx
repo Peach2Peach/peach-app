@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -13,14 +13,17 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
+import { debounce } from '../../utils/performance'
+import LoadingScreen from '../loading/LoadingScreen'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
   const showBackupsWarning = useShowWarning('backups')
+
   useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 
-  const [showBackupReminder, minAmount, setMinAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount],
+  const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -31,15 +34,24 @@ export default (): ReactElement => {
     () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
     [minTradingAmount, maxTradingAmount],
   )
-  const [amount, setAmount, amountValid] = useValidatedState(minAmount, rangeRules)
+  const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
-  const next = () => {
-    setMinAmount(amount)
+  const updateStore = useCallback(
+    debounce((value: number) => {
+      setAmount(value)
+    }, 400),
+    [setAmount],
+  )
 
-    navigation.navigate('sellPreferences', { amount })
+  const setSelectedAmount = (value: number) => {
+    setSellAmount(value)
+    updateStore(value)
   }
+  const next = () => navigation.navigate('sellPreferences')
 
-  return (
+  return minTradingAmount === 0 ? (
+    <LoadingScreen />
+  ) : (
     <View testID="view-sell" style={tw`h-full`}>
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>
@@ -52,7 +64,7 @@ export default (): ReactElement => {
         </View>
       </View>
       <View style={tw`items-center justify-center flex-grow`}>
-        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setAmount} />
+        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setSelectedAmount} />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>

@@ -8,7 +8,7 @@ import { DetailSEPA } from './detail/sepa'
 
 export type PaymentTemplateProps = ComponentProps & {
   paymentData: PaymentData
-  country?: Country
+  country?: PaymentMethodCountry
   appLink?: string
   fallbackUrl?: string
   userLink?: string

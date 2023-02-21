@@ -2,11 +2,13 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Icon } from '../../components'
+import shallow from 'zustand/shallow'
+import { Icon, PeachScrollView, PrimaryButton } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
@@ -14,7 +16,7 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { getPaymentMethods, hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { SellViewProps } from './SellPreferences'
 
-const validate = (offer: SellOffer) => {
+const validate = (offer: SellOfferDraft) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
 
   const paymentMethods = getPaymentMethods(offer.meansOfPayment)
@@ -29,8 +31,11 @@ const validate = (offer: SellOffer) => {
   return paymentDataValid
 }
 
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
+  const [stepValid, setStepValid] = useState(false)
+
   const showHelp = useShowHelp('paymentMethods')
 
   useHeaderSetup({
@@ -68,19 +73,25 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
       meansOfPayment,
       paymentData,
     })
-  }, [meansOfPayment, updateOffer])
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
 
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return (
-    <View>
-      <PaymentDetails
-        style={tw`mt-4`}
-        paymentData={account.paymentData}
-        setMeansOfPayment={setMeansOfPayment}
-        editing={editing}
-        origin="sellPreferences"
-      />
+    <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>
+      <PeachScrollView style={[tw`flex-shrink h-full mb-10`]}>
+        <PaymentDetails
+          style={tw`mt-4`}
+          paymentData={account.paymentData}
+          setMeansOfPayment={setMeansOfPayment}
+          editing={editing}
+          origin="sellPreferences"
+        />
+      </PeachScrollView>
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

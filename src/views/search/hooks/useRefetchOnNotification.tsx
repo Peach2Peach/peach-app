@@ -18,7 +18,7 @@ export default (refetch: Function, offerId: string | undefined) => {
           refetch()
         }
 
-        if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data.offerId !== offerId) {
+        if (remoteMessage.data.type === 'contract.contractCreated' && remoteMessage.data?.offerId !== offerId) {
           updateOverlay({
             content: <MatchAccepted contractId={remoteMessage.data.contractId} />,
           })

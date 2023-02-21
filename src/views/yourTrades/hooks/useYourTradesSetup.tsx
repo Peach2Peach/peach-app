@@ -1,5 +1,6 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import shallow from 'zustand/shallow'
+import { TabbedNavigationItem } from '../../../components/navigation/TabbedNavigation'
 
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
@@ -9,6 +10,13 @@ import { sortContractsByDate } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/system'
 import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
+import { getTabById } from '../utils/getTabById'
+
+const tabs: TabbedNavigationItem[] = [
+  { id: 'buy', display: i18n('yourTrades.buy') },
+  { id: 'sell', display: i18n('yourTrades.sell') },
+  { id: 'history', display: i18n('yourTrades.history') },
+]
 
 export const useYourTradesSetup = () => {
   const route = useRoute<'yourTrades'>()
@@ -18,6 +26,8 @@ export const useYourTradesSetup = () => {
     (state) => [state.offers, state.setOffers, state.contracts, state.setContracts],
     shallow,
   )
+  const [currentTab, setCurrentTab] = useState(getTabById(tabs, tab) || tabs[0])
+
   const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
 
   const filteredOffers = offers.filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
@@ -44,6 +54,10 @@ export const useYourTradesSetup = () => {
   )
 
   useEffect(() => {
+    if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])
+  }, [tab])
+
+  useEffect(() => {
     if (isLoading) return
     if (offersUpdate && contractsUpdate) {
       setOffers(offersUpdate)
@@ -58,6 +72,8 @@ export const useYourTradesSetup = () => {
     allOpenOffers,
     openOffers,
     pastOffers,
-    tab,
+    tabs,
+    currentTab,
+    setCurrentTab,
   }
 }

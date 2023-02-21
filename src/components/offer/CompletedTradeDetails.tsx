@@ -23,32 +23,32 @@ export const CompletedTradeDetails = ({
   )
   return (
     <View>
-      <View style={tw`flex-row justify-between items-center`}>
+      <View style={tw`flex-row items-center justify-between`}>
         <Text style={tw`text-black-2`}>{i18n(`contract.summary.${isBuyer ? 'youPaid' : 'hasPaidYou'}`)}</Text>
         <PriceFormat currency={currency} amount={price} style={tw`subtitle-1`} />
       </View>
 
-      <View style={tw`flex-row justify-between items-center my-3`}>
+      <View style={tw`flex-row items-center justify-between my-3`}>
         <Text style={tw`text-black-2`}>{i18n('contract.summary.for')}</Text>
         <SatsFormat
           sats={amount}
-          style={tw`subtitle-1 font-semibold`}
+          style={tw`font-semibold subtitle-1`}
           bitcoinLogoStyle={tw`w-4 h-4 mr-1`}
-          satsStyle={tw`body-s font-normal`}
+          satsStyle={tw`font-normal body-s`}
         />
       </View>
 
-      <View style={tw`flex-row justify-between items-center`}>
+      <View style={tw`flex-row items-center justify-between`}>
         <Text style={tw`text-black-2`}>{i18n(`contract.summary.${isBuyer ? 'via' : 'to'}`)}</Text>
         {isBuyer || !paymentMethodLabel ? (
-          <PaymentMethod paymentMethodName={paymentMethod} />
+          <PaymentMethod paymentMethod={paymentMethod} />
         ) : (
           <Text style={tw`subtitle-1`}>{paymentMethodLabel}</Text>
         )}
       </View>
 
       {!isBuyer && (
-        <View style={tw`flex-row justify-between items-center mt-3`}>
+        <View style={tw`flex-row items-center justify-between mt-3`}>
           <Text style={tw`text-black-2`}>{i18n('contract.summary.btcPrice')}</Text>
           <PriceFormat
             style={tw`subtitle-1`}

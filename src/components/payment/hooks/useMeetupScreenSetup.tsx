@@ -2,9 +2,9 @@ import React, { useMemo } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { addPaymentData } from '../../../utils/account'
+import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
+import { account, addPaymentData } from '../../../utils/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { sessionStorage } from '../../../utils/session'
 import { openAppLink } from '../../../utils/web'
 import { HelpIcon } from '../../icons'
 import { DeleteIcon } from '../../icons/DeleteIcon'
@@ -15,13 +15,13 @@ export const useMeetupScreenSetup = () => {
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
-  const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
-  const event = allEvents.find((item) => item.id === eventId) ?? {
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+  const event = getMeetupEvent(eventId) || {
     id: eventId,
-    name: '',
-    logo: '',
-    address: '',
-    url: '',
+    longName: '',
+    shortName: '',
+    country: 'DE',
+    city: '',
   }
 
   const openLink = (url: string) => (url ? openAppLink(url) : null)
@@ -29,34 +29,38 @@ export const useMeetupScreenSetup = () => {
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
 
-  const addToPaymentMethods = () => {
+  const addToPaymentMethods = async () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
-      id: meetupInfo.id,
-      label: event.name,
+      id: 'cash.' + meetupInfo.id,
+      label: event.shortName,
+      userId: account.publicKey,
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
-      country: meetupInfo.countries ? meetupInfo.countries[0] : undefined,
+      country: event.country,
     }
     addPaymentData(meetup)
     goToOrigin(route.params.origin)
   }
 
-  const icons = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
-  if (deletable) {
-    icons[1] = {
-      iconComponent: <DeleteIcon />,
-      onPress: () => deletePaymentMethod(),
+  const icons = useMemo(() => {
+    const icns = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+    if (deletable) {
+      icns[1] = {
+        iconComponent: <DeleteIcon />,
+        onPress: () => deletePaymentMethod(),
+      }
     }
-  }
+    return icns
+  }, [deletable, deletePaymentMethod, showHelp])
 
   useHeaderSetup(
     useMemo(
       () => ({
-        title: event.name,
+        title: event.shortName,
         icons,
       }),
-      [event.name, icons],
+      [event.shortName, icons],
     ),
   )
 

@@ -1,20 +1,32 @@
 import React, { ReactElement, useEffect } from 'react'
+import { View } from 'react-native'
+import { BuyOfferSummary, PrimaryButton } from '../../components'
 import tw from '../../styles/tailwind'
-import { useBuySummarySetup } from './hooks/useBuySummarySetup'
+import i18n from '../../utils/i18n'
 import { BuyViewProps } from './BuyPreferences'
-import { BuyOfferSummary } from '../../components'
+import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 
-export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElement => {
-  const { releaseAddress, walletLabel } = useBuySummarySetup()
+export default ({ offer, updateOffer }: BuyViewProps): ReactElement => {
+  const {
+    releaseAddress,
+    walletLabel,
+    message,
+    messageSignature,
+    canPublish,
+    publishOffer,
+    isPublishing,
+    goToSetupPayoutWallet,
+  } = useBuySummarySetup()
+  const publishBuyOffer = () => publishOffer(offer)
 
   useEffect(() => {
-    setStepValid(!!releaseAddress)
-
     if (releaseAddress) updateOffer({
       ...offer,
       releaseAddress,
+      message,
+      messageSignature,
     })
-  }, [releaseAddress, setStepValid, updateOffer])
+  }, [releaseAddress, message, messageSignature, updateOffer])
 
   useEffect(() => {
     if (walletLabel) updateOffer({
@@ -23,5 +35,20 @@ export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElemen
     })
   }, [walletLabel, updateOffer])
 
-  return <BuyOfferSummary offer={offer} style={tw`mx-8 mt-15`} />
+  return (
+    <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
+      <View style={tw`justify-center flex-grow`}>
+        <BuyOfferSummary offer={offer} />
+      </View>
+      <PrimaryButton
+        testID="navigation-next"
+        narrow={!canPublish}
+        onPress={canPublish ? publishBuyOffer : goToSetupPayoutWallet}
+        iconId={canPublish ? 'uploadCloud' : undefined}
+        loading={isPublishing}
+      >
+        {i18n(canPublish ? 'offer.publish' : 'next')}
+      </PrimaryButton>
+    </View>
+  )
 }

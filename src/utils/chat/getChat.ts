@@ -10,11 +10,12 @@ export const getChat = (id: string): Chat => {
   let messages = chat?.messages
   const draftMessage = chat?.draftMessage
 
-  if (!chat || !messages || !messages.length) return {
+  if (!chat || !messages) return {
     id,
     lastSeen: new Date(),
     messages: [],
     draftMessage,
+    seenDisputeDisclaimer: false,
   }
 
   messages = messages.map((message: Message) => ({

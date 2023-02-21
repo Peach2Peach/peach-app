@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../'
 
-const themes = {
+export const themes = {
   default: {
     text: tw`text-black-2`,
     textSelected: tw`text-black-1`,
@@ -25,15 +25,23 @@ type TabbedNavigationProps = ComponentProps & {
   items: TabbedNavigationItem[]
   selected: TabbedNavigationItem
   select: (item: TabbedNavigationItem) => void
+  buttonStyle?: ViewStyle
   theme?: 'default' | 'inverted'
 }
 
-export const TabbedNavigation = ({ items, selected, select, theme = 'default', style }: TabbedNavigationProps) => {
+export const TabbedNavigation = ({
+  items,
+  selected,
+  select,
+  theme = 'default',
+  style,
+  buttonStyle,
+}: TabbedNavigationProps) => {
   const colors = themes[theme]
   return (
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
-        <Pressable style={tw`px-2`} key={item.id} onPress={() => select(item)}>
+        <Pressable style={[tw`px-2`, buttonStyle]} key={item.id} onPress={() => select(item)}>
           <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
             {item.display}
           </Text>

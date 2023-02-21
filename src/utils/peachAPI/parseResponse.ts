@@ -1,5 +1,5 @@
 import { error } from '../log'
-import { parseError } from '../system'
+import { dateTimeReviver } from '../system'
 import { getResponseError } from './getResponseError'
 
 /**
@@ -14,7 +14,7 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
     if (responseError === 'ABORTED') return [null, null]
     if (responseError) return [null, { error: responseError }]
 
-    const data = await response.json()
+    const data = JSON.parse(await response.text(), dateTimeReviver)
 
     if (response.status !== 200) {
       error(
@@ -29,10 +29,8 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
     }
     return [data, null]
   } catch (e) {
-    const err = parseError(e)
-
     error(`peachAPI - ${caller}`, e)
 
-    return [null, { error: err }]
+    return [null, { error: 'INTERNAL_SERVER_ERROR' }]
   }
 }

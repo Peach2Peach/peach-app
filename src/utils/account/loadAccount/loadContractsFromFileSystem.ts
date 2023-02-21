@@ -1,7 +1,6 @@
-import { parseContract } from '../../contract'
 import { exists, readDir, readFile } from '../../file'
 import { error } from '../../log'
-import { parseError } from '../../system'
+import { dateTimeReviver, parseError } from '../../system'
 
 /**
  * @deprecated
@@ -13,7 +12,7 @@ export const loadContractsFromFileSystem = async (password: string): Promise<Acc
 
       const contracts = await Promise.all(contractFiles.map((file) => readFile(file, password)))
 
-      return contracts.map((contract) => JSON.parse(contract)).map(parseContract)
+      return contracts.map((contract) => JSON.parse(contract, dateTimeReviver))
     }
 
     // fallback to version 0.1.3
@@ -21,9 +20,9 @@ export const loadContractsFromFileSystem = async (password: string): Promise<Acc
     if (await exists('/peach-account-contracts.json')) {
       contracts = await readFile('/peach-account-contracts.json', password)
     }
-    const parsedContracts = contracts ? (JSON.parse(contracts) as Account['contracts']) : []
+    const parsedContracts = contracts ? (JSON.parse(contracts, dateTimeReviver) as Account['contracts']) : []
 
-    return parsedContracts.map(parseContract)
+    return parsedContracts
   } catch (e) {
     error('Could not load contracts', parseError(e))
     return []

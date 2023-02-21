@@ -3,12 +3,12 @@ import { View } from 'react-native'
 import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { ProfileOverview } from '../../views/publicProfile/components'
 import { ChatButton } from '../chat/ChatButton'
+import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
-import { CopyAble, HorizontalLine } from '../ui'
+import { CopyAble, ErrorBox, HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
 import { TradeSummaryProps } from './TradeSummary'
@@ -19,8 +19,8 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
 
   return (
     <View style={[tw`h-full`, tw.md`h-auto`]}>
-      <ProfileOverview user={contract.seller} clickableID />
-      <HorizontalLine style={tw`mt-7 bg-black-5`} />
+      <MatchCardCounterparty user={contract.seller} />
+      <HorizontalLine style={tw`mt-7`} />
       <PeachScrollView style={tw`flex-shrink`} showsVerticalScrollIndicator={false}>
         <View style={tw`flex-row items-center justify-between mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
@@ -46,8 +46,9 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
             copyable
           />
         )}
+        {!contract.paymentData && <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>}
 
-        <HorizontalLine style={tw`mt-6 bg-black-5`} />
+        <HorizontalLine style={tw`mt-6`} />
         <View style={tw`flex-row justify-center mt-6`}>
           {(!!contract.escrow || !!contract.releaseTxId) && <Escrow contract={contract} style={tw`mr-3 min-w-24`} />}
           <ChatButton contract={contract} style={tw`min-w-24`} />
