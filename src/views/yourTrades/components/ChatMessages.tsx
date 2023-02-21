@@ -10,7 +10,7 @@ type ChatMessagesProps = ComponentProps & {
   textStyle?: ViewStyle | ViewStyle[]
 }
 export const ChatMessages = ({ messages, iconColor, textStyle, style }: ChatMessagesProps): ReactElement => (
-  <View style={[tw`items-center justify-center w-5 h-5`, style]}>
+  <View style={[tw`items-center justify-center w-20px h-20px`, style]}>
     <Icon
       id={messages > 0 ? 'messageFull' : 'messageCircle'}
       style={tw`w-full h-full`}
@@ -20,7 +20,7 @@ export const ChatMessages = ({ messages, iconColor, textStyle, style }: ChatMess
       <Text
         numberOfLines={1}
         ellipsizeMode="clip"
-        style={[tw`absolute font-bold text-center body-s text-primary-main pb-0.5`, textStyle]}
+        style={[tw`absolute font-bold text-center body-s text-14px text-primary-main pb-2px pl-2px`, textStyle]}
       >
         {messages}
       </Text>
