@@ -37,8 +37,8 @@ export const TabbedNavigation = ({
   select,
   theme = 'default',
   style,
-  buttonStyle,
   messages,
+  buttonStyle,
 }: TabbedNavigationProps) => {
   const colors = themes[theme]
   return (
