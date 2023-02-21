@@ -3,11 +3,6 @@ import { verifyPSBT } from '../../views/contract/helpers/verifyPSBT'
 import { getEscrowWallet, getFinalScript, getNetwork, getWallet } from '../wallet'
 import { getSellOfferFromContract } from './getSellOfferFromContract'
 
-/**
- * @description Method to check and sign release tx
- * @param contract contract to release sats for
- * @returns tx as hex or array of error messages
- */
 export const signReleaseTx = (contract: Contract): [string | null, string | null] => {
   const sellOffer = getSellOfferFromContract(contract)
   const sellOfferId = sellOffer.oldOfferId || sellOffer.id
