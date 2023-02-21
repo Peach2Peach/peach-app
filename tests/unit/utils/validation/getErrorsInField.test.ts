@@ -47,4 +47,8 @@ describe('getErrorsInField', () => {
     const isValid = getErrorsInField('', { bitcoinAddress: true, required: false }).length === 0
     expect(isValid).toBeTruthy()
   })
+  it('should return errors for phone numbers from the US', () => {
+    const isValid = getErrorsInField('+12024523000', { phone: true, isPhoneAllowed: true, required: true }).length === 0
+    expect(isValid).toBeFalsy()
+  })
 })

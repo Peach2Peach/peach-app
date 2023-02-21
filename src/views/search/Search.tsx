@@ -7,6 +7,7 @@ import { Matches, PeachScrollView } from '../../components'
 import { MatchInformation, NoMatchesYet } from './components'
 import { useSearchSetup } from './hooks/useSearchSetup'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
+import { isSellOffer } from '../../utils/offer'
 
 export default (): ReactElement => {
   const { hasMatches, offer } = useSearchSetup()
@@ -15,7 +16,7 @@ export default (): ReactElement => {
     <>
       <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center flex-grow pt-5 pb-6`}>
         <View style={tw`flex-grow px-6`}>
-          {hasMatches && offer.type === 'ask' && <MatchInformation />}
+          {hasMatches && isSellOffer(offer) && <MatchInformation offer={offer} />}
           {!hasMatches && <NoMatchesYet offer={offer} style={tw`items-center mx-2`} />}
         </View>
         {hasMatches && <Matches />}

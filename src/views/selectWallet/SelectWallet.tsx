@@ -33,8 +33,8 @@ export default (): ReactElement => {
           </TouchableOpacity>
         )}
       </View>
-      <PrimaryButton testID="select-refund-wallet-confirm" onPress={selectAndContinue}>
-        {i18n('continue')}
+      <PrimaryButton testID="select-refund-wallet-confirm" onPress={selectAndContinue} style={tw`self-center`} narrow>
+        {i18n('confirm')}
       </PrimaryButton>
     </View>
   )

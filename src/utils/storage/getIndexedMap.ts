@@ -1,4 +1,5 @@
 import { MMKVInstance } from 'react-native-mmkv-storage'
+import { dateTimeReviver } from '../system'
 
 /**
  * @description indexer.maps.getAll() returns an object with keys 0, 1, 2 ... n
@@ -9,7 +10,7 @@ export const getIndexedMap = async (storage: MMKVInstance): Promise<Record<strin
   const map = await storage.indexer.maps.getAll()
 
   if (map) return Object.values(map).reduce((obj, [, val]) => {
-    obj[val.id] = val
+    obj[val.id] = JSON.parse(JSON.stringify(val), dateTimeReviver)
     return obj
   }, {})
 

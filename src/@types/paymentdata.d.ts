@@ -4,7 +4,8 @@ declare type PaymentData = {
   label: string
   type: PaymentMethod
   currencies: Currency[]
-  country?: Country
+  country?: PaymentMethodCountry
+  hidden?: boolean
 }
 
 declare type PaypalData = {
@@ -49,4 +50,6 @@ declare type WiseData = {
 declare type AmazonGiftCardData = {
   email: string
 }
-declare type CashData = {}
+declare type CashData = {
+  userId: string
+}

@@ -8,7 +8,7 @@ import { Text } from '../text'
 
 export type ButtonProps = {
   wide?: true
-  narrow?: true
+  narrow?: boolean
   option?: boolean
   children?: React.ReactNode
   noBackground?: true

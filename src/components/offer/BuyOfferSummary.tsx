@@ -34,7 +34,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         satsStyle={tw`font-normal body-s`}
       />
 
-      <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />
+      <HorizontalLine style={tw`w-64 my-4`} />
 
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
       <TabbedNavigation
@@ -47,14 +47,9 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
           <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
         ))}
       </View>
-      {!!offer.walletLabel && (
-        <>
-          <HorizontalLine style={tw`w-64 my-4 bg-black-5`} />
-
-          <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-          <Text style={tw`self-center subtitle-1`}>{offer.walletLabel}</Text>
-        </>
-      )}
+      <HorizontalLine style={tw`w-64 my-4`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
+      <Text style={tw`self-center subtitle-1`}>{offer.walletLabel || i18n('offer.summary.customPayoutAddress')}</Text>
     </View>
   )
 }

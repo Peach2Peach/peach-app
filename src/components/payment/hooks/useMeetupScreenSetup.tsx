@@ -2,9 +2,9 @@ import React, { useMemo } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { addPaymentData } from '../../../utils/account'
+import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
+import { account, addPaymentData } from '../../../utils/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { sessionStorage } from '../../../utils/session'
 import { openAppLink } from '../../../utils/web'
 import { HelpIcon } from '../../icons'
 import { DeleteIcon } from '../../icons/DeleteIcon'
@@ -15,8 +15,8 @@ export const useMeetupScreenSetup = () => {
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
-  const allEvents: MeetupEvent[] = sessionStorage.getMap('meetupEvents') ?? []
-  const event: MeetupEvent = allEvents.find((item) => item.id === eventId) ?? {
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+  const event = getMeetupEvent(eventId) || {
     id: eventId,
     longName: '',
     shortName: '',
@@ -29,11 +29,12 @@ export const useMeetupScreenSetup = () => {
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
 
-  const addToPaymentMethods = () => {
+  const addToPaymentMethods = async () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
       id: 'cash.' + meetupInfo.id,
       label: event.shortName,
+      userId: account.publicKey,
       type: meetupInfo.id,
       currencies: meetupInfo.currencies,
       country: event.country,

@@ -23,6 +23,5 @@ export const defaultSettings: Settings = {
   showBackupReminder: true,
   peachWalletActive: true,
   nodeURL: BLOCKEXPLORER,
-  customFeeRate: 1,
-  selectedFeeRate: 'halfHourFee',
+  feeRate: 'halfHourFee',
 }

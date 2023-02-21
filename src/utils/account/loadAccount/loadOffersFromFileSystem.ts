@@ -1,7 +1,6 @@
 import { exists, readDir, readFile } from '../../file'
 import { error } from '../../log'
-import { parseOffer } from '../../offer'
-import { parseError } from '../../system'
+import { dateTimeReviver, parseError } from '../../system'
 
 /**
  * @deprecated
@@ -12,7 +11,7 @@ export const loadOffersFromFileSystem = async (password: string): Promise<Accoun
       const offerFiles = await readDir('/peach-account-offers')
       const offers = await Promise.all(offerFiles.map((file) => readFile(file, password)))
 
-      return offers.map((offer) => JSON.parse(offer)).map(parseOffer)
+      return offers.map((offer) => JSON.parse(offer, dateTimeReviver))
     }
 
     // fallback to version 0.1.3
@@ -20,9 +19,9 @@ export const loadOffersFromFileSystem = async (password: string): Promise<Accoun
     if (await exists('/peach-account-offers.json')) {
       offers = await readFile('/peach-account-offers.json', password)
     }
-    const parsedOffers = offers ? (JSON.parse(offers) as Account['offers']) : []
+    const parsedOffers = offers ? (JSON.parse(offers, dateTimeReviver) as Account['offers']) : []
 
-    return parsedOffers.map(parseOffer)
+    return parsedOffers
   } catch (e) {
     error('Could not load offers', parseError(e))
     return []

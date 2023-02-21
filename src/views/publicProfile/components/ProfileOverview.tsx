@@ -2,9 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
-import { ProfileImage } from '../../settings/profile/profileOverview/components/ProfileImage'
-import { Rating } from '../../settings/profile/profileOverview/components/Rating'
-import { UserId } from '../../settings/profile/profileOverview/components/UserId'
+import { Rating, UserId } from '../../settings/profile/profileOverview/components'
 import { Badges } from './Badges'
 
 type Props = ComponentProps & {
@@ -12,14 +10,11 @@ type Props = ComponentProps & {
   clickableID?: boolean
 }
 
-export const ProfileOverview = ({ style, user, clickableID = false }: Props) => (
-  <View style={[tw`flex-row justify-between`, style]}>
-    <View style={tw`flex-row items-center`}>
-      <ProfileImage />
-      <View style={tw`ml-2`}>
-        <UserId id={user.id} showInfo={clickableID} />
-        <Rating rating={user.rating} />
-      </View>
+export const ProfileOverview = ({ user, clickableID = false, style }: Props) => (
+  <View style={[tw`px-1`, style]}>
+    <View style={tw`flex-row mb-[6px] items-center`}>
+      <UserId id={user.id} showInfo={clickableID} style={tw`mr-3`} />
+      <Rating rating={user.rating} isNewUser={user.trades <= 3} />
     </View>
     <Badges user={user} />
   </View>

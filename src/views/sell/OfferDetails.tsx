@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import shallow from 'zustand/shallow'
-import { Icon } from '../../components'
+import { Icon, PeachScrollView, PrimaryButton } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
@@ -31,9 +31,10 @@ const validate = (offer: SellOfferDraft) => {
   return paymentDataValid
 }
 
-export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactElement => {
+export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
   const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
+  const [stepValid, setStepValid] = useState(false)
 
   const showHelp = useShowHelp('paymentMethods')
 
@@ -78,14 +79,19 @@ export default ({ offer, updateOffer, setStepValid }: SellViewProps): ReactEleme
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return (
-    <View>
-      <PaymentDetails
-        style={tw`mt-4`}
-        paymentData={account.paymentData}
-        setMeansOfPayment={setMeansOfPayment}
-        editing={editing}
-        origin="sellPreferences"
-      />
+    <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>
+      <PeachScrollView style={[tw`flex-shrink h-full mb-10`]}>
+        <PaymentDetails
+          style={tw`mt-4`}
+          paymentData={account.paymentData}
+          setMeansOfPayment={setMeansOfPayment}
+          editing={editing}
+          origin="sellPreferences"
+        />
+      </PeachScrollView>
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

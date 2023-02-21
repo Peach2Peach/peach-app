@@ -1,6 +1,7 @@
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { storeSettings } from '../utils/account'
+import { updateSettings } from '../utils/account'
+import { Country } from '../utils/country/countryMap'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 
@@ -50,7 +51,7 @@ export const settingsStore = createStore(
       setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),
       setDerivationPath: (derivationPath) => set((state) => ({ ...state, derivationPath })),
       setDisplayCurrency: (displayCurrency: Currency) => set((state) => ({ ...state, displayCurrency })),
-      setCountry: (country: Country) => set((state) => ({ ...state, country })),
+      setCountry: (country: PaymentMethodCountry) => set((state) => ({ ...state, country })),
       setMeansOfPayment: (meansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
       setPreferredPaymentMethods: (preferredPaymentMethods) => set((state) => ({ ...state, preferredPaymentMethods })),
       setPremium: (premium) => set((state) => ({ ...state, premium })),
@@ -82,7 +83,7 @@ settingsStore.subscribe((state) => {
       }),
       {} as Settings,
     )
-  storeSettings(cleanState)
+  updateSettings(cleanState, true)
 })
 
 export const useSettingsStore = create(settingsStore)
