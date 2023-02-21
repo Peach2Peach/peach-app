@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { Icon } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 
@@ -6,14 +6,15 @@ import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { useSyncWallet } from './useSyncWallet'
 
 export const useWalletSetup = () => {
   const walletStore = useWalletState()
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
-  const [loading, setLoading] = useState(!peachWallet.synced)
+  const { refresh, loading } = useSyncWallet()
+
   useHeaderSetup(
     useMemo(
       () => ({
@@ -34,13 +35,6 @@ export const useWalletSetup = () => {
       [],
     ),
   )
-
-  const refresh = async () => {
-    if (loading) return
-    setLoading(true)
-    await peachWallet.syncWallet()
-    setLoading(false)
-  }
 
   return {
     walletStore,
