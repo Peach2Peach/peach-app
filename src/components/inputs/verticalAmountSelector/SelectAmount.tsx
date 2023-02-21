@@ -84,7 +84,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
             <ToolTip style={tw`absolute right-8 w-[175px]`}>
               <View style={tw`absolute top-0 left-0 right-0 z-10`}>
                 <Input
-                  style={tw`w-full h-10 opacity-0`}
+                  style={[tw`w-full h-10`, { opacity: 0.01 }]}
                   keyboardType="number-pad"
                   value={value.toString()}
                   onChange={updateCustomAmount}
