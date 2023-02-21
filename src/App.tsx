@@ -53,7 +53,7 @@ import { account, getAccount } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, linkToAppStore } from './utils/system'
+import { compatibilityCheck, isIOS, linkToAppStore } from './utils/system'
 
 enableScreens()
 
@@ -285,7 +285,7 @@ const App: React.FC = () => {
                                     options={{
                                       headerMode: 'float',
                                       headerShown: showHeader,
-                                      animationEnabled,
+                                      animationEnabled: isIOS() && animationEnabled,
                                       cardStyle: !background.color && tw`bg-primary-background`,
                                       header: () => <Header />,
                                       transitionSpec: {
