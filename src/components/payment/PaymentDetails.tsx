@@ -5,7 +5,7 @@ import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../constants'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
+import { account, getPaymentData, removePaymentData } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
@@ -14,6 +14,7 @@ import LinedText from '../ui/LinedText'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
+import { settingsStore } from '../../store/settingsStore'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
@@ -93,16 +94,12 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   })
 
   const setPreferredPaymentMethods = (ids: string[]) => {
-    updateSettings(
-      {
-        preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
-          const method = paymentData.find((d) => d.id === id)?.type
-          if (method) obj[method] = id
-          return obj
-        }, {} as Settings['preferredPaymentMethods']),
-      },
-      true,
-    )
+    const newPreferredPaymentMethods = (ids as PaymentData['id'][]).reduce((obj, id) => {
+      const method = paymentData.find((d) => d.id === id)?.type
+      if (method) obj[method] = id
+      return obj
+    }, {} as Settings['preferredPaymentMethods'])
+    settingsStore.getState().setPreferredPaymentMethods(newPreferredPaymentMethods)
     update()
   }
 
