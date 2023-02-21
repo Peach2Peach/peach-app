@@ -28,7 +28,7 @@ describe('saveContract', () => {
     expect(account.contracts.length).toEqual(1)
     expect(account.contracts[0].paymentMade).toEqual(now)
   })
-  it('does not falsely update an another contract on account', async () => {
+  it('does not falsely update another contract on account', async () => {
     const contract2 = { ...contractData.contract, id: '34-45' }
     await setAccount({
       ...defaultAccount,
