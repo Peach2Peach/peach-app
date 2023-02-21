@@ -278,14 +278,14 @@ const App: React.FC = () => {
                                   headerShown: false,
                                 }}
                               >
-                                {views.map(({ name, component, showHeader, animationEnabled }) => (
+                                {views.map(({ name, component, showHeader, background, animationEnabled }) => (
                                   <Stack.Screen
                                     {...{ name, component }}
                                     key={name}
                                     options={{
                                       headerShown: showHeader,
                                       animationEnabled,
-                                      cardStyle: tw`bg-primary-background-light`,
+                                      cardStyle: !background.color && tw`bg-primary-background-light`,
                                       header: () => <Header />,
                                       transitionSpec: {
                                         open: screenTransition,
