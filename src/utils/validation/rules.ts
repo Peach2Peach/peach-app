@@ -2,6 +2,7 @@ import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import IBAN from 'iban'
 import { getNetwork } from '../wallet'
+import { isEUIBAN } from './isEUIBAN'
 import { isPaypalUsername } from './isPaypalUsername'
 import { isPhoneAllowed } from './isPhoneAllowed'
 import { isTaproot } from './isTaproot'
@@ -56,6 +57,9 @@ export const rules = {
   iban (_: boolean, value: string | null) {
     if (!value) return false
     return IBAN.isValid(value)
+  },
+  isEUIBAN (_: boolean, value: string) {
+    return isEUIBAN(value)
   },
   bic: bicRegex,
   ukSortCode: /^(?!(?:0{6}|00-00-00))(?:\d{6}|\d\d-\d\d-\d\d)$/u,

@@ -530,6 +530,7 @@
   "form.iban": "iban",
   "form.iban.placeholder": "DE21 BTCD 1234 5678 9615",
   "form.iban.error": "this is not a valid iban",
+  "form.iban.nonEUError": "we only support EU-based accounts",
   "form.bic": "bic",
   "form.bic.placeholder": "DE21BTCD",
   "form.bic.error": "this is not a valid bic",
