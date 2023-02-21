@@ -12,6 +12,7 @@ export { Header } from './header/Header'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { IconButton } from './IconButton'
+export { GradientBorder } from './GradientBorder'
 export { Checkbox, FileInput, Input, PremiumSlider, RadioButtons, Selector, SelectorBig } from './inputs'
 
 export { Match, Matches } from './matches'

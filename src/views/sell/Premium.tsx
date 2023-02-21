@@ -40,7 +40,7 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
   useEffect(() => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)), [priceBook, offer])
 
   return (
-    <View style={tw`items-center flex-shrink h-full px-8 pb-8`}>
+    <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <Text style={tw`text-center h5`}>{i18n('sell.premium.title')}</Text>
         <View style={tw`flex-row items-center justify-center mt-8`}>

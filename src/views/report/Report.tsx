@@ -47,13 +47,18 @@ export default (): ReactElement => {
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
     messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`
 
+    if (shareLogs) {
+      sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+      messageToSend += '\n\nUser shared app logs, please check crashlytics'
+    }
+
     const [result, err] = await sendReport({
       email,
       reason: i18n(`contact.reason.${reason}`),
       topic,
       message: messageToSend,
     })
-    if (shareLogs) sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+
     if (result) {
       if (!!account?.publicKey) {
         navigation.navigate('settings')

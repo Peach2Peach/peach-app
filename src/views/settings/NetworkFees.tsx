@@ -79,7 +79,7 @@ export default (): ReactElement => {
             onChange: setSelectedFeeRate,
           }}
         />
-        <HorizontalLine style={tw`mt-8 bg-black-5`} />
+        <HorizontalLine style={tw`mt-8`} />
         <Text style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</Text>
         <Text style={tw`text-center subtitle-1`}>
           {i18n('settings.networkFees.xSatsPerByte', estimatedFees.economyFee.toString())}

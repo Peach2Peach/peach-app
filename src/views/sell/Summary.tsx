@@ -26,7 +26,7 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
   }, [walletLabel, updateOffer])
 
   return (
-    <View style={tw`items-center flex-shrink h-full px-8 pb-8`}>
+    <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <SellOfferSummary offer={offer} />
       </View>

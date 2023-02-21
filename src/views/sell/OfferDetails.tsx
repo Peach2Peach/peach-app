@@ -79,7 +79,7 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
   useEffect(() => setStepValid(validate(offer)), [offer])
 
   return (
-    <View style={tw`items-center flex-shrink h-full p-5 pb-8`}>
+    <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>
       <PeachScrollView style={[tw`flex-shrink h-full mb-10`]}>
         <PaymentDetails
           style={tw`mt-4`}

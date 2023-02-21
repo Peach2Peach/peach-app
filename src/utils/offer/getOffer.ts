@@ -1,6 +1,5 @@
 import { account } from '../account'
 import { isSellOffer } from './isSellOffer'
-import { parseOffer } from './parseOffer'
 
 /**
  * @description Method to get saved offer
@@ -19,5 +18,5 @@ export const getOffer = (id: string): SellOffer | BuyOffer | undefined => {
     offer.funding.vouts = offer.funding.vouts || []
     offer.funding.amounts = offer.funding.amounts || []
   }
-  return parseOffer(offer)
+  return offer
 }
