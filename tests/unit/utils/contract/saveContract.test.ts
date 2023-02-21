@@ -17,7 +17,7 @@ describe('saveContract', () => {
     saveContract(contractData.contract)
     expect(account.contracts[0]).toEqual(contractData.contract)
   })
-  it('update an existing contract on account', async () => {
+  it('updates an existing contract on account', async () => {
     await setAccount({ ...defaultAccount, contracts: [contractData.contract] })
 
     const now = new Date()
