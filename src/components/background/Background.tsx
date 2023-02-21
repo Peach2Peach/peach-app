@@ -20,6 +20,10 @@ export const Background = ({ config = defaultConfig, children }: BackgroundProps
 
   useEffect(() => {
     StatusBar.setBarStyle(config.color === 'primaryGradient' ? 'light-content' : 'dark-content', true)
+    StatusBar.setBackgroundColor(
+      config.color === 'primaryGradient' ? primaryGradient[2].color : String(tw`text-primary-background`.color),
+      true,
+    )
   }, [config.color])
 
   return (
