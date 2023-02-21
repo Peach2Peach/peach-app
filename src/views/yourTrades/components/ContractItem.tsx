@@ -63,7 +63,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
       )}
       {contract.unreadMessages > 0 && !isPastOffer(contract.tradeStatus) && (
         <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
-          <ChatMessages messages={contract.unreadMessages} textStyle={colors[theme.level]} />
+          <ChatMessages messages={contract.unreadMessages} textStyle={[colors[theme.level], tw`pl-2px`]} />
         </View>
       )}
     </View>

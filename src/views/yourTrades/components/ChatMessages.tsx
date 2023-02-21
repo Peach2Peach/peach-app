@@ -20,7 +20,7 @@ export const ChatMessages = ({ messages, iconColor, textStyle, style }: ChatMess
       <Text
         numberOfLines={1}
         ellipsizeMode="clip"
-        style={[tw`absolute font-bold text-center body-s text-14px text-primary-main pb-2px pl-2px`, textStyle]}
+        style={[tw`absolute font-bold text-center body-s text-14px text-primary-main pb-2px`, textStyle]}
       >
         {messages}
       </Text>
