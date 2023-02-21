@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useContext, useMemo } from 'react'
-import { View } from 'react-native'
+import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon, Loading, PeachScrollView, Text } from '../../components'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
@@ -23,7 +23,7 @@ export default () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
-  const { walletStore } = useWalletSetup()
+  const { walletStore, refresh, loading } = useWalletSetup()
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
   const onChange = useCallback(
@@ -35,7 +35,7 @@ export default () => {
 
   const confirmWithdrawal = async () => {
     closeOverlay()
-    let feeRate = account.settings.customFeeRate
+    let feeRate = account.settings.feeRate
     if (
       typeof feeRate !== 'number'
       && account.settings.selectedFeeRate
@@ -74,12 +74,16 @@ export default () => {
   )
 
   return (
-    <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`h-full px-8`}>
+    <PeachScrollView
+      style={tw`h-full`}
+      contentContainerStyle={tw`h-full px-8`}
+      refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
+    >
       <View style={tw`flex flex-col justify-between h-full`}>
         <View style={tw`flex flex-col items-center justify-center flex-shrink h-full`}>
           <Text style={tw`mb-4 button-medium`}>{i18n('wallet.totalBalance')}:</Text>
-          <BigSatsFormat style={!peachWallet.synced ? tw`opacity-60` : {}} sats={walletStore.balance} />
-          {!peachWallet.synced && <Loading style={tw`absolute`} />}
+          <BigSatsFormat style={loading ? tw`opacity-60` : {}} sats={walletStore.balance} />
+          {loading && <Loading style={tw`absolute`} />}
           <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
           <BitcoinAddressInput
             style={tw`mt-4`}

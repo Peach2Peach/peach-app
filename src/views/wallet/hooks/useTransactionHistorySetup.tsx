@@ -4,11 +4,14 @@ import { useCallback, useMemo, useState } from 'react'
 import { useHeaderSetup } from '../../../hooks'
 import { sort } from '../../../utils/array'
 import i18n from '../../../utils/i18n'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
 
 export const useTransactionHistorySetup = () => {
   const walletStore = useWalletState()
+  const [loading, setLoading] = useState(!peachWallet.synced)
+  const [transactions, setTransactions] = useState<TransactionSummary[]>([])
 
   useHeaderSetup(
     useMemo(
@@ -19,7 +22,12 @@ export const useTransactionHistorySetup = () => {
     ),
   )
 
-  const [transactions, setTransactions] = useState<TransactionSummary[]>([])
+  const refresh = async () => {
+    if (loading) return
+    setLoading(true)
+    await peachWallet.syncWallet()
+    setLoading(false)
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -30,5 +38,7 @@ export const useTransactionHistorySetup = () => {
   )
   return {
     transactions,
+    refresh,
+    loading,
   }
 }

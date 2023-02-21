@@ -16,12 +16,9 @@ export const useTransactionDetailsSetup = () => {
   const route = useRoute<'transactionDetails'>()
   const [currency, satsPerUnit] = useBitcoinStore((state) => [state.currency, state.satsPerUnit], shallow)
   const walletStore = useWalletState()
+  const [loading, setLoading] = useState(!peachWallet.synced)
   const [transaction, setTransaction] = useState<TransactionSummary>()
   const [receivingAddress, setReceivingAddress] = useState<string>()
-
-  const openInExplorer = () => {
-    if (transaction) showTransaction(transaction.id as string, NETWORK)
-  }
 
   useHeaderSetup(
     useMemo(
@@ -31,6 +28,17 @@ export const useTransactionDetailsSetup = () => {
       [],
     ),
   )
+
+  const openInExplorer = () => {
+    if (transaction) showTransaction(transaction.id as string, NETWORK)
+  }
+
+  const refresh = async () => {
+    if (loading) return
+    setLoading(true)
+    await peachWallet.syncWallet()
+    setLoading(false)
+  }
 
   useEffect(() => {
     ;(async () => {
@@ -55,5 +63,7 @@ export const useTransactionDetailsSetup = () => {
     transaction,
     receivingAddress,
     openInExplorer,
+    refresh,
+    loading,
   }
 }
