@@ -41,7 +41,13 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
   return (
     <View>
       {isPastOffer(contract.tradeStatus) ? (
-        <SummaryItem {...sharedProps} icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />} />
+        <SummaryItem
+          {...sharedProps}
+          icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />}
+          action={{
+            callback: navigate,
+          }}
+        />
       ) : (
         <SummaryItem
           {...sharedProps}
