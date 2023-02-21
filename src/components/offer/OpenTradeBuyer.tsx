@@ -24,7 +24,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
 
   return (
     <View style={tw`max-h-full`}>
-      <View style={tw`px-7`}>
+      <View style={tw`mx-7`}>
         <MatchCardCounterparty user={contract.seller} />
         <HorizontalLine style={tw`mt-7`} />
       </View>
