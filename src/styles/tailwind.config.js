@@ -73,6 +73,11 @@ module.exports = {
           background: '#D7F2FE',
           'background-light': 'rgba(215, 242, 254, 0.1)',
         },
+        gradient: {
+          yellow:'#FFA24C',
+          orange:'#FF7A50',
+          red: '#FF4D42',
+        }
       },
       fontSize: {
         '6xl': '96px',

@@ -34,6 +34,7 @@ export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => 
     <TouchableOpacity
       style={[tw`flex-row items-center justify-center py-2 rounded-b-xl`, currentOption.backgroundColor]}
       onPress={onPress}
+      disabled={optionName === 'offerMatched'}
     >
       <Text style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</Text>
       <Icon id={currentOption.iconId} color={tw`text-primary-background-light`.color} style={tw`w-6 h-6 ml-[10px]`} />
