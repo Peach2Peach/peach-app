@@ -48,7 +48,7 @@ export default (): ReactElement => {
           renderSectionHeader={SectionHeader}
           renderSectionFooter={() => <View style={tw`bg-transparent h-7`} />}
           renderItem={TradeItem}
-          ItemSeparatorComponent={() => <View style={tw`h-6 bg-transparent`} />}
+          ItemSeparatorComponent={() => <View onStartShouldSetResponder={() => true} style={tw`h-6`} />}
         />
       )}
       {isLoading && (
