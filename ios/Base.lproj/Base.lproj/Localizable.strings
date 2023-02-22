@@ -36,8 +36,10 @@
 "notification.body.contract.tradeCompleted" = "Congratulations! Sats are in your wallet 🎉";
 "notification.title.contract.chat" = "Chat";
 "notification.body.contract.chat" = "You got a chat message";
-"notification.title.contract.disputeRaised" = "Dispute";
-"notification.body.contract.disputeRaised" = "Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.";
+"notification.title.contract.buyer.disputeRaised" = "";
+"notification.body.contract.buyer.disputeRaised" = "The seller has started a dispute for trade %1$@ for %2$@ sats. Please check the app for more information.";
+"notification.title.contract.seller.disputeRaised" = "";
+"notification.body.contract.seller.disputeRaised" = "The buyer has started a dispute for trade %1$@ for %2$@ sats. Please check the app for more information.";
 "notification.title.contract.disputeResolved" = "Dispute";
 "notification.body.contract.disputeResolved" = "The dispute for trade %1$@ has been resolved. Please check the message from your mediator in the trade chat to see what’s next.";
 "notification.title.contract.canceled" = "Trade cancelation";

@@ -38,8 +38,10 @@
     <string name="notification.body.contract.tradeCompleted">Congratulations! Sats are in your wallet&#127881;</string>
     <string name="notification.title.contract.chat">Chat</string>
     <string name="notification.body.contract.chat">You got a chat message</string>
-    <string name="notification.title.contract.disputeRaised">Dispute</string>
-    <string name="notification.body.contract.disputeRaised">Heads up! Your trading partner opened a dispute. Please help us clarifying the situation.</string>
+    <string name="notification.title.contract.buyer.disputeRaised"></string>
+    <string name="notification.body.contract.buyer.disputeRaised">The seller has started a dispute for trade %1$s for %2$s sats. Please check the app for more information.</string>
+    <string name="notification.title.contract.seller.disputeRaised"></string>
+    <string name="notification.body.contract.seller.disputeRaised">The buyer has started a dispute for trade %1$s for %2$s sats. Please check the app for more information.</string>
     <string name="notification.title.contract.disputeResolved">Dispute</string>
     <string name="notification.body.contract.disputeResolved">The dispute for trade %1$s has been resolved. Please check the message from your mediator in the trade chat to see what's next.</string>
     <string name="notification.title.contract.canceled">Trade cancelation</string>
