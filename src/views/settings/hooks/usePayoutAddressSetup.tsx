@@ -9,9 +9,13 @@ import i18n from '../../../utils/i18n'
 
 const addressRules = { bitcoinAddress: true, required: true }
 const labelRules = { required: true }
-
+const title = {
+  refund: 'settings.refundAddress',
+  payout: 'settings.payoutAddress',
+}
 export const usePayoutAddressSetup = () => {
   const route = useRoute<'payoutAddress'>()
+  const { type } = route.params || {}
   const navigation = useNavigation()
   const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.setPayoutAddress, state.payoutAddressLabel, state.setPayoutAddressLabel],
@@ -28,10 +32,10 @@ export const usePayoutAddressSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        title: i18n('settings.payoutAddress'),
+        title: i18n(title[type || 'payout']),
         icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
       }),
-      [showHelp],
+      [showHelp, type],
     ),
   )
 
@@ -41,11 +45,13 @@ export const usePayoutAddressSetup = () => {
       setPayoutAddress(address)
       setPayoutAddressLabel(addressLabel)
 
-      if (route.params?.type === 'payout' && addressChanged) navigation.replace('signMessage')
+      if (type === 'payout' && addressChanged) navigation.replace('signMessage')
+      if (type === 'refund' && addressChanged) navigation.goBack()
     }
   }
 
   return {
+    type,
     address,
     setAddress,
     addressErrors,
