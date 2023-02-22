@@ -47,9 +47,9 @@ export const handlePushNotification = async (
     const {
       data: { offerId },
     } = remoteMessage
-    if (shouldGoToSearch(remoteMessage.messageType, !!(offer?.matches && offer.matches.length > 0))) {
+    if (shouldGoToSearch(remoteMessage.data.type, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })
-    } else if (shouldGoToOfferPublished(remoteMessage.messageType)) {
+    } else if (shouldGoToOfferPublished(remoteMessage.data.type)) {
       navigationRef.navigate('offerPublished', { offerId })
     } else {
       navigationRef.navigate('offer', { offerId })
