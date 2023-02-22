@@ -30,8 +30,8 @@
 "notification.body.contract.buyer.paymentTimerExtended" = "You didn't make the payment on time, but the seller has decided to give you 12 more hours to make the payment.";
 "notification.title.contract.seller.paymentTimerHasRunOut" = "";
 "notification.body.contract.seller.paymentTimerHasRunOut" = "The payment for trade %1$@ wasn't made on time. Please open the app to give the buyer more time or cancel the trade.";
-"notification.title.contract.paymentMade" = "The payment has been made!";
-"notification.body.contract.paymentMade" = "Confirm that you received it";
+"notification.title.contract.paymentMade" = "";
+"notification.body.contract.paymentMade" = "The buyer for trade %1$@ made the payment. Please check if you received it and mark the payment as received as soon as possible.";
 "notification.title.contract.tradeCompleted" = "Trade completed!";
 "notification.body.contract.tradeCompleted" = "Congratulations! Sats are in your wallet 🎉";
 "notification.title.contract.chat" = "Chat";

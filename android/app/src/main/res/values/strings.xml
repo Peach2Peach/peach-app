@@ -32,8 +32,8 @@
     <string name="notification.body.contract.buyer.paymentTimerExtended">You didn\'t make the payment on time, but the seller has decided to give you 12 more hours to make the payment.</string>
     <string name="notification.title.contract.seller.paymentTimerHasRunOut"></string>
     <string name="notification.body.contract.seller.paymentTimerHasRunOut">The payment for trade %1$s wasn\'t made on time. Please open the app to give the buyer more time or cancel the trade.</string>
-    <string name="notification.title.contract.paymentMade">The payment has been made!</string>
-    <string name="notification.body.contract.paymentMade">Confirm that you received it</string>
+    <string name="notification.title.contract.paymentMade"></string>
+    <string name="notification.body.contract.paymentMade">The buyer for trade %1$s made the payment. Please check if you received it and mark the payment as received as soon as possible.</string>
     <string name="notification.title.contract.tradeCompleted">Trade completed!</string>
     <string name="notification.body.contract.tradeCompleted">Congratulations! Sats are in your wallet&#127881;</string>
     <string name="notification.title.contract.chat">Chat</string>
