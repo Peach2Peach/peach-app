@@ -45,24 +45,22 @@ export const TabbedNavigation = ({
   return (
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
-        <>
-          <Pressable style={[tw`px-2`, buttonStyle]} key={item.id} onPress={() => select(item)}>
-            <View style={tw`flex-row items-center`}>
-              <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
-                {item.display}
-              </Text>
-              {!!messages && messages[item.id as TradeTab] > 0 && (
-                <ChatMessages
-                  style={tw`mb-1 -mt-px w-[18px] h-[18px]`}
-                  textStyle={[tw`text-[10px] text-primary-background-light`, isIOS() ? tw`pt-px pl-px` : {}]}
-                  iconColor={tw`text-primary-main`.color}
-                  messages={messages[item.id as TradeTab]}
-                />
-              )}
-            </View>
-            {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
-          </Pressable>
-        </>
+        <Pressable style={[tw`px-2`, buttonStyle]} key={item.id} onPress={() => select(item)}>
+          <View style={tw`flex-row items-center`}>
+            <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
+              {item.display}
+            </Text>
+            {!!messages && messages[item.id as TradeTab] > 0 && (
+              <ChatMessages
+                style={tw`mb-1 -mt-px w-[18px] h-[18px]`}
+                textStyle={[tw`text-[10px] text-primary-background-light`, isIOS() ? tw`pt-px pl-px` : {}]}
+                iconColor={tw`text-primary-main`.color}
+                messages={messages[item.id as TradeTab]}
+              />
+            )}
+          </View>
+          {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
+        </Pressable>
       ))}
     </View>
   )
