@@ -1,4 +1,5 @@
 export { getErrorsInField } from './getErrorsInField'
+export { isNumber } from './isNumber'
 export { isPaypalUsername } from './isPaypalUsername'
 export { isPhoneAllowed } from './isPhoneAllowed'
 export { isDateString } from './isDateString'
