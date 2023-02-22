@@ -57,7 +57,7 @@ declare type RootStackParamList = {
   }
   yourTrades:
     | {
-        tab?: 'buy' | 'sell' | 'history'
+        tab?: TradeTab
       }
     | undefined
   offer: {

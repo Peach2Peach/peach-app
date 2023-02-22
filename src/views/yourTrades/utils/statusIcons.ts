@@ -12,7 +12,7 @@ export const statusIcons: Record<TradeStatus, IconType> = {
   dispute: 'alertOctagon',
   rateUser: 'heart',
   confirmCancelation: 'xCircle',
-  waiting: 'clock',
+  waiting: 'dollarSign',
   offerCanceled: 'crossOutlined',
   tradeCanceled: 'crossOutlined',
   tradeCompleted: 'checkCircle',

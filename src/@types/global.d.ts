@@ -20,6 +20,8 @@ declare type AnyObject = {
   [key: string]: any
 }
 
+declare type TradeTab = 'buy' | 'sell' | 'history'
+
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
