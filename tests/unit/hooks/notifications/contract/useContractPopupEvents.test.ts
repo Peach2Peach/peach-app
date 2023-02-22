@@ -24,6 +24,10 @@ const showCancelTradeRequestRejectedMock = jest.fn()
 jest.mock('../../../../../src/overlays/tradeCancelation/useBuyerRejectedCancelTradeOverlay', () => ({
   useBuyerRejectedCancelTradeOverlay: () => showCancelTradeRequestRejectedMock,
 }))
+const showPaymentTooLateOverlayMock = jest.fn()
+jest.mock('../../../../../src/overlays/usePaymentTooLateOverlay', () => ({
+  usePaymentTooLateOverlay: () => showPaymentTooLateOverlayMock,
+}))
 const showPaymentTimerHasRunOutMock = jest.fn()
 jest.mock('../../../../../src/overlays/paymentTimer/useShowPaymentTimerHasRunOut', () => ({
   useShowPaymentTimerHasRunOut: () => showPaymentTimerHasRunOutMock,
@@ -142,6 +146,15 @@ describe('useContractPopupEvents', () => {
     expect(showPaymentTimerSellerCanceledMock).toHaveBeenCalledWith(contract, true)
   })
 
+  it('should handle "contract.buyer.paymentTimerHasRunOut" event', () => {
+    const { result } = renderHook(() => useContractPopupEvents())
+
+    act(() => {
+      result.current.contractPopupEvents['contract.buyer.paymentTimerHasRunOut']!(contract)
+    })
+
+    expect(showPaymentTooLateOverlayMock).toHaveBeenCalled()
+  })
   it('should handle "contract.seller.paymentTimerHasRunOut" event', () => {
     const { result } = renderHook(() => useContractPopupEvents())
 

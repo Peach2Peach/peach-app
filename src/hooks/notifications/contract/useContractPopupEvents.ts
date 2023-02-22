@@ -9,6 +9,7 @@ import {
   useConfirmTradeCancelationOverlay,
 } from '../../../overlays/tradeCancelation'
 import { useTradeCanceledOverlay } from '../../../overlays/tradeCancelation/useTradeCanceledOverlay'
+import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOverlay'
 import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'
 
@@ -33,6 +34,7 @@ export const useContractPopupEvents = () => {
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
+  const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const showPaymentTimerSellerCanceled = useShowPaymentTimerSellerCanceled()
   const showPaymentTimerExtended = useShowPaymentTimerExtended()
 
@@ -57,6 +59,8 @@ export const useContractPopupEvents = () => {
       'contract.cancelationRequestAccepted': (contract: Contract) => showTradeCanceled(contract, true),
       // PN-S16
       'contract.cancelationRequestRejected': (contract: Contract) => showCancelTradeRequestRejected(contract),
+      // PN-B12
+      'contract.buyer.paymentTimerHasRunOut': () => showPaymentTooLateOverlay(),
       // PN-S12
       'contract.seller.paymentTimerHasRunOut': (contract: Contract) => showPaymentTimerHasRunOut(contract, true),
       // PN-B06
