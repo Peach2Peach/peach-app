@@ -134,6 +134,42 @@ describe('useMessageHandler', () => {
 
     expect(contractPopupEventHandlerMock).toHaveBeenCalledWith(contract)
   })
+  it('should not call popup event when type is found in contractPopupEvents but no contract id is given', async () => {
+    const mockRemoteMessage = {
+      data: {
+        type: 'contractPopupEvent',
+      },
+      notification: {
+        bodyLocArgs: ['arg1', 'arg2'],
+      },
+    } as FirebaseMessagingTypes.RemoteMessage
+    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+    await act(async () => {
+      await onMessageHandler.current(mockRemoteMessage)
+    })
+
+    expect(contractPopupEventHandlerMock).not.toHaveBeenCalled()
+  })
+
+  it('should not call popup event when type is found in contractPopupEvents but contract data is missing', async () => {
+    const mockRemoteMessage = {
+      data: {
+        type: 'contractPopupEvent',
+        contractId: '1-2',
+      },
+      notification: {
+        bodyLocArgs: ['arg1', 'arg2'],
+      },
+    } as FirebaseMessagingTypes.RemoteMessage
+    ;(getContract as jest.Mock).mockReturnValue(undefined)
+    ;(getContractAPI as jest.Mock).mockResolvedValue([null])
+    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+    await act(async () => {
+      await onMessageHandler.current(mockRemoteMessage)
+    })
+
+    expect(contractPopupEventHandlerMock).not.toHaveBeenCalled()
+  })
 
   it('should call state update event when type is found in stateUpdateEvents', async () => {
     const mockRemoteMessage = {
