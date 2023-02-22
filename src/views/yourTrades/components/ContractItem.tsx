@@ -5,6 +5,7 @@ import { SummaryItem } from '../../../components/lists/SummaryItem'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
+import { isIOS } from '../../../utils/system'
 import { useNavigateToContract } from '../hooks/useNavigateToContract'
 import { getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
 import { ChatMessages } from './ChatMessages'
@@ -63,7 +64,10 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
       )}
       {contract.unreadMessages > 0 && !isPastOffer(contract.tradeStatus) && (
         <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
-          <ChatMessages messages={contract.unreadMessages} textStyle={[colors[theme.level], tw`pl-2px`]} />
+          <ChatMessages
+            messages={contract.unreadMessages}
+            textStyle={[colors[theme.level], isIOS() ? tw`pt-1 pl-2px` : tw`pl-2px`]}
+          />
         </View>
       )}
     </View>

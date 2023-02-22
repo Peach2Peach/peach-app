@@ -3,6 +3,7 @@ import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../'
 import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
+import { isIOS } from '../../utils/system'
 
 export const themes = {
   default: {
@@ -52,8 +53,8 @@ export const TabbedNavigation = ({
               </Text>
               {!!messages && messages[item.id as TradeTab] > 0 && (
                 <ChatMessages
-                  style={tw`mb-1 -mt-px w-18px h-18px`}
-                  textStyle={tw`text-[10px] text-primary-background-light`}
+                  style={tw`mb-1 -mt-px w-[18px] h-[18px]`}
+                  textStyle={[tw`text-[10px] text-primary-background-light`, isIOS() ? tw`pt-px pl-px` : {}]}
                   iconColor={tw`text-primary-main`.color}
                   messages={messages[item.id as TradeTab]}
                 />
