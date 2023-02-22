@@ -1,6 +1,9 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useMessageHandler } from '../../../../src/hooks/notifications/useMessageHandler'
+import { getContract } from '../../../../src/utils/contract'
+import { getContract as getContractAPI } from '../../../../src/utils/peachAPI'
+import { contract } from '../../data/contractData'
 
 const updateMessageMock = jest.fn()
 jest.mock('react', () => ({
@@ -9,19 +12,30 @@ jest.mock('react', () => ({
 }))
 const overlayEventHanderMock = jest.fn()
 const overlayEvents = { overlayEvent: overlayEventHanderMock }
-jest.mock('../../../../src/hooks/notifications/global/useOverlayEvents', () => ({
+jest.mock('../../../../src/hooks/notifications/eventHandler/useOverlayEvents', () => ({
   useOverlayEvents: () => overlayEvents,
 }))
 
-const popupEventHandlerMock = jest.fn()
-const popupEvents = { popupEvent: popupEventHandlerMock }
-jest.mock('../../../../src/hooks/notifications/global/usePopupEvents', () => ({
-  usePopupEvents: () => popupEvents,
+const offerPopupEventHandlerMock = jest.fn()
+const offerPopupEvents = { offerPopupEvent: offerPopupEventHandlerMock }
+jest.mock('../../../../src/hooks/notifications/eventHandler/offer/useOfferPopupEvents', () => ({
+  useOfferPopupEvents: () => offerPopupEvents,
+}))
+const contractPopupEventHandlerMock = jest.fn()
+const contractPopupEvents = { contractPopupEvent: contractPopupEventHandlerMock }
+jest.mock('../../../../src/hooks/notifications/eventHandler/contract/useContractPopupEvents', () => ({
+  useContractPopupEvents: () => contractPopupEvents,
+}))
+jest.mock('../../../../src/utils/contract', () => ({
+  getContract: jest.fn(),
+}))
+jest.mock('../../../../src/utils/peachAPI', () => ({
+  getContract: jest.fn(),
 }))
 
 const stateUpdateEventHandlerMock = jest.fn()
 const stateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock }
-jest.mock('../../../../src/hooks/notifications/global/useStateUpdateEvents', () => ({
+jest.mock('../../../../src/hooks/notifications/eventHandler/useStateUpdateEvents', () => ({
   useStateUpdateEvents: () => stateUpdateEvents,
 }))
 
@@ -39,6 +53,10 @@ jest.mock('../../../../src/hooks/notifications/useGetPNActionHandler', () => ({
 describe('useMessageHandler', () => {
   const mockGetCurrentPage = () => 'home' as keyof RootStackParamList
 
+  beforeEach(() => {
+    ;(getContract as jest.Mock).mockReturnValue(contract)
+    ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
+  })
   afterEach(() => {
     jest.resetAllMocks()
   })
@@ -82,10 +100,10 @@ describe('useMessageHandler', () => {
     expect(overlayEventHanderMock).toHaveBeenCalledWith(mockRemoteMessage.data)
   })
 
-  it('should call popup event when type is found in popupEvents', async () => {
+  it('should call popup event when type is found in offerPopupEvents', async () => {
     const mockRemoteMessage = {
       data: {
-        type: 'popupEvent',
+        type: 'offerPopupEvent',
       },
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
@@ -96,7 +114,25 @@ describe('useMessageHandler', () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(popupEventHandlerMock).toHaveBeenCalledWith(mockRemoteMessage.data)
+    expect(offerPopupEventHandlerMock).toHaveBeenCalledWith(mockRemoteMessage.data)
+  })
+
+  it('should call popup event when type is found in contractPopupEvents', async () => {
+    const mockRemoteMessage = {
+      data: {
+        type: 'contractPopupEvent',
+        contractId: '1',
+      },
+      notification: {
+        bodyLocArgs: ['arg1', 'arg2'],
+      },
+    } as FirebaseMessagingTypes.RemoteMessage
+    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+    await act(async () => {
+      await onMessageHandler.current(mockRemoteMessage)
+    })
+
+    expect(contractPopupEventHandlerMock).toHaveBeenCalledWith(contract)
   })
 
   it('should call state update event when type is found in stateUpdateEvents', async () => {
@@ -129,7 +165,8 @@ describe('useMessageHandler', () => {
     })
 
     expect(overlayEventHanderMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
-    expect(popupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
+    expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
+    expect(contractPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(updateMessageMock).not.toHaveBeenCalled()
   })
@@ -147,7 +184,8 @@ describe('useMessageHandler', () => {
     })
 
     expect(overlayEventHanderMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
-    expect(popupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
+    expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
+    expect(contractPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(updateMessageMock).not.toHaveBeenCalled()
   })

@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from '@testing-library/react-hooks'
-import { usePopupEvents } from '../../../../../src/hooks/notifications/eventHandler/usePopupEvents'
-import { getOffer } from '../../../../../src/utils/offer'
+import { useOfferPopupEvents } from '../../../../../../src/hooks/notifications/eventHandler/offer/useOfferPopupEvents'
+import { getOffer } from '../../../../../../src/utils/offer'
 
 const confirmEscrowOverlayMock = jest.fn()
-jest.mock('../../../../../src/overlays/useConfirmEscrowOverlay', () => ({
+jest.mock('../../../../../../src/overlays/useConfirmEscrowOverlay', () => ({
   useConfirmEscrowOverlay: () => confirmEscrowOverlayMock,
 }))
 const wronglyFundedOverlayMock = jest.fn()
-jest.mock('../../../../../src/overlays/useWronglyFundedOverlay', () => ({
+jest.mock('../../../../../../src/overlays/useWronglyFundedOverlay', () => ({
   useWronglyFundedOverlay: () => wronglyFundedOverlayMock,
 }))
-jest.mock('../../../../../src/utils/offer/getOffer', () => ({
+jest.mock('../../../../../../src/utils/offer', () => ({
   getOffer: jest.fn(),
 }))
 
-describe('usePopupEvents', () => {
+describe('useOfferPopupEvents', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
 
   test('should show confirm escrow overlay on offer.fundingAmountDifferent', () => {
-    const { result } = renderHook(() => usePopupEvents())
+    const { result } = renderHook(() => useOfferPopupEvents())
     const sellOffer = { id: '123' }
     ;(getOffer as jest.Mock).mockReturnValue(sellOffer)
     const eventData = { offerId: sellOffer.id } as PNData
@@ -32,7 +32,7 @@ describe('usePopupEvents', () => {
   })
 
   test('should show wrongly funded overlay on offer.wrongFundingAmount', () => {
-    const { result } = renderHook(() => usePopupEvents())
+    const { result } = renderHook(() => useOfferPopupEvents())
 
     const sellOffer = { id: '123' }
     ;(getOffer as jest.Mock).mockReturnValue(sellOffer)
@@ -44,7 +44,7 @@ describe('usePopupEvents', () => {
   })
 
   test('should not call overlay functions when offerId is null', () => {
-    const { result } = renderHook(() => usePopupEvents())
+    const { result } = renderHook(() => useOfferPopupEvents())
 
     const eventData = {} as PNData
     act(() => {
