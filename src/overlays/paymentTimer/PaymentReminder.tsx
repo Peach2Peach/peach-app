@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { Text } from '../../components'
-import { contractIdToHex } from '../../utils/contract'
+import { contractIdToHex, getPaymentExpectedBy } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { round } from '../../utils/math'
-import { getPaymentExpectedBy } from '../../views/contract/helpers/getPaymentExpectedBy'
 
 const ONEHOURINMS = 3600000
 

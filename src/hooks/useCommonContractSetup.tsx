@@ -9,6 +9,7 @@ import {
   getContract,
   getContractViewer,
   getOfferIdFromContract,
+  getPaymentExpectedBy,
   getRequiredAction,
   saveContract,
 } from '../utils/contract'
@@ -17,7 +18,6 @@ import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
-import { getPaymentExpectedBy } from '../views/contract/helpers/getPaymentExpectedBy'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
