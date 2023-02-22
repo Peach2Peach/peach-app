@@ -1,12 +1,9 @@
-import messaging from '@react-native-firebase/messaging'
+import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { error, info } from '../../utils/log'
 import { parseError } from '../../utils/system'
-import { useMessageHandler } from './useMessageHandler'
 
-export const useHandleNotifications = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
-  const messageHandler = useMessageHandler(getCurrentPage)
-
+export const useHandleNotifications = (messageHandler: (message: FirebaseMessagingTypes.RemoteMessage) => any) => {
   useEffect(() => {
     info('Subscribe to push notifications')
     try {

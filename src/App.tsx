@@ -39,7 +39,7 @@ import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import { useUpdateTradingAmounts } from './hooks'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
-import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
+import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
@@ -53,6 +53,7 @@ import { account, getAccount } from './utils/account'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, linkToAppStore } from './utils/system'
+import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 
 enableScreens()
 
@@ -74,7 +75,9 @@ type HandlerProps = {
   getCurrentPage: () => keyof RootStackParamList | undefined
 }
 const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
-  useHandleNotifications(getCurrentPage)
+  const messageHandler = useMessageHandler(getCurrentPage)
+
+  useHandleNotifications(messageHandler)
 
   return <></>
 }
