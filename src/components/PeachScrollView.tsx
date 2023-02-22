@@ -26,26 +26,30 @@ export const PeachScrollView = ({
   onContainerLayout,
   onContentLayout,
   style,
+  showsHorizontalScrollIndicator = false,
+  showsVerticalScrollIndicator = false,
+  persistentScrollbar,
   ...scrollViewProps
 }: PeachScrollViewProps): ReactElement => {
   const onStartShouldSetResponder = () => !disable
   const $scroll = useRef<ScrollView>(null)
 
   useEffect(() => {
-    $scroll.current?.flashScrollIndicators()
-  }, [])
-
-  useEffect(() => {
     if (scrollRef && $scroll.current) scrollRef($scroll.current)
-  }, [$scroll])
+  }, [$scroll, scrollRef])
 
   return !disable ? (
     <ScrollView
       ref={$scroll}
-      {...{ style, ...scrollViewProps }}
+      {...{
+        style,
+        showsHorizontalScrollIndicator,
+        showsVerticalScrollIndicator,
+        persistentScrollbar,
+        indicatorStyle: 'black',
+        ...scrollViewProps,
+      }}
       onLayout={onContainerLayout}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
     >
       <View {...{ onStartShouldSetResponder }} style={tw`bg-transparent`} onLayout={onContentLayout}>
         {children}

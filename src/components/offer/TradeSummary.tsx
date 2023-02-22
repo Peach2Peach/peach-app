@@ -12,7 +12,7 @@ export type TradeSummaryProps = ComponentProps & {
 }
 
 export const TradeSummary = ({ contract, view, style }: TradeSummaryProps): ReactElement => (
-  <Card style={[tw`p-7 pt-8`, style]}>
+  <Card style={[tw`pt-8 pb-7 min-h-[256px]`, style]}>
     {!isTradeComplete(contract) && !isTradeCanceled(contract) ? (
       <OpenTrade {...{ contract, view }} />
     ) : (
