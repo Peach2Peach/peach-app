@@ -68,6 +68,7 @@ export const useConfirmCancelTrade = () => {
       if (result && isPaymentTimeExpired(contract)) {
         saveContract({
           ...contract,
+          cancelConfirmationDismissed: false,
           canceled: true,
         })
       }
