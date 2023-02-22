@@ -239,7 +239,7 @@ const App: React.FC = () => {
   if (!currentPage) return null
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={tw`h-[600px]`}>
       <AvoidKeyboard>
         <QueryClientProvider client={queryClient}>
           <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
